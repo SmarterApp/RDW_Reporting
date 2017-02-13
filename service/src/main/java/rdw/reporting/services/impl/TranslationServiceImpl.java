@@ -1,7 +1,5 @@
 package rdw.reporting.services.impl;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rdw.reporting.models.Translation;
@@ -10,9 +8,11 @@ import rdw.reporting.services.TranslationService;
 
 import javax.validation.constraints.NotNull;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static rdw.reporting.support.ImmutableCollectors.toImmutableMap;
+import static java.util.stream.Collectors.toMap;
 
 @Service
 public class TranslationServiceImpl implements TranslationService {
@@ -25,14 +25,13 @@ public class TranslationServiceImpl implements TranslationService {
 		this.repository = repository;
 	}
 
-	public ImmutableSet<Translation> getTranslations() {
-		return ImmutableSet.copyOf(repository.getTranslations());
+	public Set<Translation> getTranslations() {
+		return repository.getTranslations();
 	}
 
-	public ImmutableMap<String, String> getTranslationsForLocale(@NotNull Locale locale) {
+	public Map<String, String> getTranslationsForLocale(@NotNull Locale locale) {
 		checkNotNull(locale, "Argument \"locale\" must not be null");
 		return repository.getTranslationsForLocale(locale).stream()
-			.collect(toImmutableMap(Translation::getCode, Translation::getMessage));
+			.collect(toMap(Translation::getCode, Translation::getMessage));
 	}
-
 }

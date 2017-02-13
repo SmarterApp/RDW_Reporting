@@ -11,7 +11,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static rdw.reporting.support.ImmutableCollectors.toImmutableSet;
+import static java.util.stream.Collectors.toSet;
 
 @Repository
 public class TranslationRepositoryStub implements TranslationRepository {
@@ -29,7 +29,6 @@ public class TranslationRepositoryStub implements TranslationRepository {
 		checkNotNull(locale, "Argument \"locale\" must not be null");
 		return stubTranslations.stream()
 			.filter(translation -> locale.equals(translation.getLocale()))
-			.collect(toImmutableSet());
+			.collect(toSet());
 	}
-
 }
