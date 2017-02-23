@@ -21,7 +21,7 @@ apply plugin: 'maven'
 apply plugin: 'idea'
 apply plugin: "net.ltgt.apt"
 
-group = 'org.smarterapp'
+group = 'org.opentestsystem.rdw.reporting'
 version = '0.0.1-SNAPSHOT'
 
 description = """Reporting Service"""
