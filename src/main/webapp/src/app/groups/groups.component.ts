@@ -14,7 +14,7 @@ export class GroupsComponent implements OnInit {
   constructor(private service: DataService) {}
 
   ngOnInit() {
-    this.service.getGroups()
+    this.service.getGroupSummaries()
       .subscribe(groups => {
           this.groups = groups;
         },
