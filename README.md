@@ -15,19 +15,26 @@ curl <application_properties_url> > /opt/rdw-reporting-ui/config/application.yam
 curl <saml_jks_url> > /opt/rdw-reporting-ui/config/saml.jks
 ```
 ### Setup IntelliJ
-```
-# If you are opening this for the first time, have IDEA open the build.gradle file as a new project
+If you are opening this for the first time, have IDEA open the build.gradle file as a new project
 
 * Create a new run/debug configuration:  (Menu)[Run->Edit Configurations...]
 * In the Run/Debug Configurations dialog, hit ^N (ctrl-n) and select Gradle
-* For the new configuration, name it as you wish
-* In Gradle Project: Select RDW_Reporting
-* In Tasks: Enter bootRun as the Task
-* In Script Parameters: -PjvmArgs="-Dspring.config.location=/opt/rdw-reporting-ui/config/application.yaml"
-* Leave VM Options blank
+	* For the new configuration, name it as you wish
+	* In Gradle Project: Select RDW_Reporting
+	* In Tasks: Enter bootRun as the Task
+	* In Script Parameters: -PjvmArgs="-Dspring.config.location=/opt/rdw-reporting-ui/config/application.yaml"
+	* Leave VM Options blank
+
+OR
+* In the Run/Debug Configurations dialog, hit ^N (ctrl-n) and select Spring Boot
+	* For the new configuration, name it as you wish
+	* Main class: org.opentestsystem.rdw.reporting.Application
+	* Program arguments: --spring.config.location=/opt/rdw-reporting-ui/config/application.properties
+	* Use classpath of module: rdw-reporting-service_main
+	* all others options are blank
 
 You can now run or debug in IntelliJ IDEA
-```
+
 ### To run in Development Mode
 ```
 gradle bootRun -PjvmArgs="-Dspring.config.location=/opt/rdw-reporting-ui/config/application.yaml"
