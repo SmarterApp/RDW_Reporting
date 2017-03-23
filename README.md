@@ -1,28 +1,31 @@
 ### Prerequisites ###
 ```
-#!bash
+# Install node.js
+Download the most current from https://nodejs.org/en/
+ 
+# Install angular-cli
+npm install @angular/cli
 
 # create a local application data folder
 mkdir -p /opt/rdw-reporting-ui/config
 
 # download the application.properties and saml.jks made for your local environment into this directory
 # URLs will be circulated internally
-curl <application_properties_url> > /opt/rdw-reporting-ui/config/application.properties
+curl <application_properties_url> > /opt/rdw-reporting-ui/config/application.yaml
 curl <saml_jks_url> > /opt/rdw-reporting-ui/config/saml.jks
 ```
-### Build ###
+### To run in Development Mode
 ```
-#!bash
-mvn package
+gradle bootRun -PjvmArgs="-Dspring.config.location=/opt/rdw-reporting-ui/config/application.yaml"
+open http://localhost:8080
 ```
-### Run in Development Mode
+### To just build an executable jar file ###
 ```
-mvn spring-boot:run -Drun.arguments="--spring.config.location=/opt/rdw-reporting-ui/config/application.yaml"
+./gradlew bootRepackage
 ```
-### Run ###
+### To run the executable jar###
 ```
-#!bash
-java -jar target/rdw-reporting-ui*.jar --spring.config.location=/opt/rdw-reporting-ui/config/application.yaml
+java -jar build/libs/rdw-reporting-ui*.jar --spring.config.location=/opt/rdw-reporting-ui/config/application.yaml
 open http://localhost:8080
 ```
 ### Background ###
