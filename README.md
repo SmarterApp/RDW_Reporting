@@ -1,28 +1,45 @@
 ### Prerequisites ###
 ```
-#!bash
+# Install node.js
+Download the most current from https://nodejs.org/en/
+ 
+# Install angular-cli
+npm install @angular/cli
 
 # create a local application data folder
 mkdir -p /opt/rdw-reporting-ui/config
 
 # download the application.properties and saml.jks made for your local environment into this directory
 # URLs will be circulated internally
-curl <application_properties_url> > /opt/rdw-reporting-ui/config/application.properties
+curl <application_properties_url> > /opt/rdw-reporting-ui/config/application.yaml
 curl <saml_jks_url> > /opt/rdw-reporting-ui/config/saml.jks
 ```
-### Build ###
+### Setup IntelliJ
 ```
-#!bash
-mvn package
+# If you are opening this for the first time, have IDEA open the build.gradle file as a new project
+Create a new run/debug configuration
+[Run->Edit Configurations...]
+In the Run/Debug Configurations dialog, hit ^N (ctrl-n) and select Gradle
+For the new configuration, name it as you wish
+In Gradle Project: Select RDW_Reporting
+In Tasks: Enter bootRun as the Task
+In Script Parameters: -PjvmArgs="-Dspring.config.location=/opt/rdw-reporting-ui/config/application.properties"
+Leave VM Options blank
+
+You can now run or debug in IntelliJ IDEA
 ```
-### Run in Development Mode
+### To run in Development Mode
 ```
-mvn spring-boot:run -Drun.arguments="--spring.config.location=/opt/rdw-reporting-ui/config/application.yaml"
+gradle bootRun -PjvmArgs="-Dspring.config.location=/opt/rdw-reporting-ui/config/application.yaml"
+open http://localhost:8080
 ```
-### Run ###
+### To just build an executable jar file
 ```
-#!bash
-java -jar target/rdw-reporting-ui*.jar --spring.config.location=/opt/rdw-reporting-ui/config/application.yaml
+./gradlew bootRepackage
+```
+### To run the executable jar
+```
+java -jar build/libs/rdw-reporting-ui*.jar --spring.config.location=/opt/rdw-reporting-ui/config/application.yaml
 open http://localhost:8080
 ```
 ### Background ###
