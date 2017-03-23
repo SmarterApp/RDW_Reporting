@@ -23,7 +23,7 @@ open http://localhost:8080
 ```
 ./gradlew bootRepackage
 ```
-### To run the executable jar###
+### To run the executable jar
 ```
 java -jar build/libs/rdw-reporting-ui*.jar --spring.config.location=/opt/rdw-reporting-ui/config/application.yaml
 open http://localhost:8080
