@@ -19,7 +19,7 @@ curl <saml_jks_url> > /opt/rdw-reporting-ui/config/saml.jks
 gradle bootRun -PjvmArgs="-Dspring.config.location=/opt/rdw-reporting-ui/config/application.yaml"
 open http://localhost:8080
 ```
-### To just build an executable jar file ###
+### To just build an executable jar file
 ```
 ./gradlew bootRepackage
 ```
