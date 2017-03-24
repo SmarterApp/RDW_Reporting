@@ -56,11 +56,6 @@ dependencies {
     compile 'com.google.guava:guava:20.0' 
     compile 'mysql:mysql-connector-java' 
     compile 'org.immutables:value:2.4.3' 
-    compile 'com.itextpdf:itextpdf:5.5.10' 
-    compile 'com.itextpdf:itext-pdfa:5.5.10' 
-    compile 'com.itextpdf:itext-xtra:5.5.10' 
-    compile 'com.itextpdf.tool:xmlworker:5.5.10' 
-    compile 'org.immutables:value:2.4.0'
     runtime 'org.springframework.boot:spring-boot-devtools'
     testCompile('org.springframework.boot:spring-boot-starter-test') {
         exclude(module: 'commons-logging')
@@ -104,7 +99,7 @@ task buildFe(type: NpmTask) {
     args = ['run', 'build']
 }
 
-//The jar task build the jar file, and that file needs to contain the front end resources, so we need to
-//run the buildFe task before we make the jar
-jar.dependsOn buildFe
-bootRun.dependsOn buildFe
+// The processResources task takes care of gathering all of the resources in the project to the target directory. 
+// In order to get the front end resources in to the final jar, the front end needs to be built
+// before all of the other resources are processed in order to get the static resouces in the right place
+processResources.dependsOn buildFe
