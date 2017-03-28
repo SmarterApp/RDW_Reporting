@@ -23,6 +23,7 @@ apply plugin: 'propdeps-idea'
 
 apply plugin: 'java'
 apply plugin: 'maven'
+apply plugin: 'jacoco'
 apply plugin: 'net.ltgt.apt'
 
 apply plugin: 'io.spring.dependency-management'
@@ -45,27 +46,35 @@ repositories {
 }
 
 dependencies {
-    compile 'org.springframework.boot:spring-boot-starter-aop'
-    compile 'org.springframework.boot:spring-boot-starter-actuator'
-    compile 'org.springframework.boot:spring-boot-starter-jdbc'
-    compile 'org.springframework.boot:spring-boot-starter-security'
-    compile 'org.springframework.boot:spring-boot-starter-web'
-
     // handy for creating metadata with @ConfigurationProperties
     optional 'org.springframework.boot:spring-boot-configuration-processor'
 
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile 'org.springframework.boot:spring-boot-starter-aop'
+    compile 'org.springframework.boot:spring-boot-starter-jdbc'
+    compile 'org.springframework.boot:spring-boot-starter-hateoas'
+    compile 'org.springframework.boot:spring-boot-starter-security'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.cloud:spring-cloud-starter-config:1.2.3.RELEASE'
+    compile 'org.springframework.retry:spring-retry'
     compile 'org.springframework.security.extensions:spring-security-saml2-core:1.0.2.RELEASE'
 
-    compile 'com.google.guava:guava:20.0'
+    compile 'com.google.guava:guava:21.0'
     compile 'mysql:mysql-connector-java'
 
     compile 'org.opentestsystem.rdw.common:rdw-common-utils:0.0.1-SNAPSHOT'
 
+    // fixes java 8 time marshaling
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.7'
+
     runtime 'org.springframework.boot:spring-boot-devtools'
+
+    testCompile 'junit:junit'
+    testCompile 'org.assertj:assertj-core:3.6+'
     testCompile('org.springframework.boot:spring-boot-starter-test') {
         exclude(module: 'commons-logging')
     }
-    testCompile "junit:junit:4.11"
+    testCompile 'org.springframework.security:spring-security-test'
 }
 
 node {
@@ -83,9 +92,9 @@ bootRun {
         jvmArgs project.jvmArgs.split('\\s+')
     }
 }
-bootRepackage {
-    mainClass = 'org.opentestsystem.rdw.reporting.Application'
-}
+
+// generate coverage report automatically (./build/reports/jacoco/test/html/index.html)
+test.finalizedBy(jacocoTestReport)
 
 //This is the build task for the Front End (Fe) and only compiles when the inputs change
 task buildFe(type: NpmTask) {

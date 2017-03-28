@@ -1,8 +1,0 @@
-# SAML
-saml:
-  key-store-file: file:</path/to/my-saml-keystore.jks>
-  key-store-password: <my_keystore_password>
-  private-key-entry-alias: <my_private_key_alias>
-  private-key-entry-password: <my_private_key_password>
-  idp-metadata-url: https://<idp_host>:<idp_port>/auth/saml2/jsp/exportmetadata.jsp?realm=/<my_realm>
-  sp-entity-id: <my_service_provider_entity_id>
