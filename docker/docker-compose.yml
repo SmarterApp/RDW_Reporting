@@ -13,8 +13,8 @@
 # GIT_PASSWORD - password for GIT_USER
 #
 # This configuration maps the config folder as outlined in CONTRIBUTING.md and the application.yml file from the config
-# server local-docker profile points to that folder so developers should be able to reuse the rdw-reporting-ui.jks file
-# (NOTE: developers may have to explicitly share the folder in Docker, Preferences, File Sharing)
+# server local-docker profile points to that folder so developers should be able to reuse the saml.jks file
+# (NOTE: developers may have to explicitly share the /opt folder in Docker, Preferences, File Sharing)
 
 version: '2'
 services:
@@ -34,7 +34,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - /opt/rdw-reporting-ui/config:/opt/rdw-reporting-ui/config
+      - /opt/rdw-reporting/config:/opt/rdw-reporting/config
     depends_on:
       - config-server
     links:

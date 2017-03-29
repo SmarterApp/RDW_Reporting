@@ -55,7 +55,7 @@ open http://localhost:8080
 The artifact is a Spring Boot executable jar so you can just run it. Just as when running from the IDE the default
 is to run without a configuration server so the configuration must be specified on the command line:
 ```bash
-java -jar build/libs/rdw-reporting-ui*.jar --spring.config.location=/opt/rdw-reporting/config/application.yml
+java -jar build/libs/rdw-reporting*.jar --spring.config.location=/opt/rdw-reporting/config/application.yml
 open http://localhost:8080
 ```
 

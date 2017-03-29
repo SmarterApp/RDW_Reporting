@@ -16,7 +16,7 @@ store file, and the credentials to read it must be provided in a spring configur
 will contain entries similar to (passwords redacted):
 ```text
 saml:
-  key-store-file: file:/opt/rdw-reporting-ui/config/rdw-reporting-ui.jks
+  key-store-file: file:/opt/rdw-reporting/config/saml.jks
   key-store-password: [redacted]
   private-key-entry-alias: rdw-reporting-ui-sp
   private-key-entry-password: [redacted]
@@ -26,11 +26,11 @@ saml:
 For developers with access to internal resources there is a keystore and yml file available to download:
 ```bash
 # create a local application data folder
-mkdir -p /opt/rdw-reporting-ui/config
+mkdir -p /opt/rdw-reporting-/config
 
 # download the application.yml and saml.jks made for your local environment into this directory
-curl <application_properties_url> > /opt/rdw-reporting-ui/config/application.yml
-curl <saml_jks_url> > /opt/rdw-reporting-ui/config/rdw-reporting-ui.jks
+curl <application_properties_url> > /opt/rdw-reporting-/config/application.yml
+curl <saml_jks_url> > /opt/rdw-reporting/config/saml.jks
 ```
 _There is nothing magical about the location and names of the files, but being consistent will make things easier._ 
 
@@ -127,8 +127,8 @@ development SAML key store file in the config folder (as described above; note t
 not needed), then invoke docker-compose, e.g.:
 ```bash
 # copy development SAML key store file
-mkdir -p /opt/rdw-reporting-ui/config
-curl <saml_jks_url> > /opt/rdw-reporting-ui/config/rdw-reporting-ui.jks
+mkdir -p /opt/rdw-reporting/config
+curl <saml_jks_url> > /opt/rdw-reporting/config/saml.jks
 # use docker-compose to launch service
 cd docker
 docker-compose up -d

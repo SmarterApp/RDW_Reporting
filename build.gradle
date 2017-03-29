@@ -146,7 +146,7 @@ task createDockerfile(type: Dockerfile) {
     destFile = project.file('build/docker/Dockerfile')
     from('java:8-jre-alpine')
     volume('/tmp')
-    volume('/opt/rdw-reporting-ui/config')
+    volume('/opt/rdw-reporting/config')
     label([maintainer: 'Fairway Technologies'])
     copyFile("${jar.archivePath.name}", "${jar.archivePath.name}")
     exposePort(8080)

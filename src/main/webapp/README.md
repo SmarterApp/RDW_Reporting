@@ -11,7 +11,7 @@ ng test
 ### Run ###
 ```
 #!bash
-ng serve --proxy-config /opt/rdw-reporting-ui/config/proxy.conf.json
+ng serve --proxy-config /opt/rdw-reporting/config/proxy.conf.json
 ```
 To run in standalone mode with static data, add the below arguments:
 ```
