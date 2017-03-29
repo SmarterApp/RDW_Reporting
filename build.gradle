@@ -5,10 +5,15 @@ buildscript {
         maven { url 'http://repo.spring.io/plugins-release' }
     }
     dependencies {
+        classpath("com.bmuschko:gradle-docker-plugin:3.0.5")
         classpath('org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE')
         classpath('org.springframework.build.gradle:propdeps-plugin:0.0.7')
     }
 }
+
+
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 
 plugins {
     id "com.moowork.node" version "1.1.1"
@@ -25,6 +30,7 @@ apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'jacoco'
 apply plugin: 'net.ltgt.apt'
+apply plugin: 'com.bmuschko.docker-remote-api'
 
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.springframework.boot'
@@ -117,3 +123,45 @@ task buildFe(type: NpmTask) {
 // In order to get the front end resources in to the final jar, the front end needs to be built
 // before all of the other resources are processed in order to get the static resouces in the right place
 processResources.dependsOn buildFe
+
+// task to generate build-info.properties with build.version, build.timestamp
+// using this approach instead of resource filtering to avoid modifying source
+task createBuildInfoFile(dependsOn: processResources) {
+    doLast {
+        def buildInfoFile = new File("${buildDir}/resources/main/build-info.properties")
+        buildInfoFile.parentFile.mkdirs()
+        Properties props = new Properties()
+        props.setProperty('build.version', project.version.toString())
+        props.store(buildInfoFile.newWriter(), null)
+    }
+}
+
+// trigger creation of build-info.properties
+classes.dependsOn(createBuildInfoFile)
+
+
+// task to create Dockerfile
+// (http://bmuschko.github.io/gradle-docker-plugin/docs/groovydoc/com/bmuschko/gradle/docker/tasks/image/Dockerfile.html)
+task createDockerfile(type: Dockerfile) {
+    destFile = project.file('build/docker/Dockerfile')
+    from('java:8-jre-alpine')
+    volume('/tmp')
+    volume('/opt/rdw-reporting-ui/config')
+    label([maintainer: 'Fairway Technologies'])
+    copyFile("${jar.archivePath.name}", "${jar.archivePath.name}")
+    exposePort(8080)
+    entryPoint("java", "-jar", "${jar.archivePath.name}")
+}
+
+// task to build the docker image
+task buildImage(type:DockerBuildImage, dependsOn:[build, createDockerfile]) {
+    dockerFile = createDockerfile.destFile
+    inputDir = project.file('build/docker/')
+    tag = "fwsbac/${project.name}"
+    doFirst {
+        copy {
+            from jar
+            into inputDir
+        }
+    }
+}

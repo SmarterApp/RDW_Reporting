@@ -35,7 +35,7 @@ configuration, either:
 * In the Run/Debug Configurations dialog, hit ^N (ctrl-n) and select Spring Boot
 	* For the new configuration, name it as you wish
 	* Main class: org.opentestsystem.rdw.reporting.Application
-	* Program arguments: --spring.config.location=/opt/rdw-reporting/application.yml
+	* Program arguments: --spring.config.location=/opt/rdw-reporting/config/application.yml
 	* Use classpath of module: rdw-reporting-service_main
 	
 OR
@@ -44,18 +44,18 @@ OR
 	* For the new configuration, name it as you wish
 	* In Gradle Project: Select RDW_Reporting
 	* In Tasks: Enter bootRun as the Task
-	* In Script Parameters: -PjvmArgs="-Dspring.config.location=/opt/rdw-reporting/application.yml"
+	* In Script Parameters: -PjvmArgs="-Dspring.config.location=/opt/rdw-reporting/config/application.yml"
 
 #### Running Using Gradle
-```
-gradle bootRun -PjvmArgs="-Dspring.config.location=/opt/rdw-reporting/application.yml"
+```bash
+gradle bootRun -PjvmArgs="-Dspring.config.location=/opt/rdw-reporting/config/application.yml"
 open http://localhost:8080
 ```
 #### Running Standalone
 The artifact is a Spring Boot executable jar so you can just run it. Just as when running from the IDE the default
 is to run without a configuration server so the configuration must be specified on the command line:
-```
-java -jar build/libs/rdw-reporting-ui*.jar --spring.config.location=/opt/rdw-reporting/application.yml
+```bash
+java -jar build/libs/rdw-reporting-ui*.jar --spring.config.location=/opt/rdw-reporting/config/application.yml
 open http://localhost:8080
 ```
 
