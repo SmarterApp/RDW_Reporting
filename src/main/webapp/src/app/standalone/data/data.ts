@@ -13,48 +13,78 @@ import {AssessmentSubjectType} from "../../shared/assessment-subject-type.enum";
       results (reverse)
  */
 
+let commonVendorId = '2B3C34BF-064C-462A-93EA-41E9E3EB8333';
+
 export const iab_items = [
   {
     claim: 'Concepts and Procedures',
     target: 'Target F',
     score: 0,
-    maximumScore: 1
+    maximumScore: 1,
+    irisInfo: {
+      vendorId: commonVendorId,
+      token: '{"passage":{"autoLoad":"false"},"items":[{"response":"<p>test</p>","id":"I-187-2703"}],"layout":"WAI"}'
+    }
   },
   {
     claim: 'Problem Solving',
     target: 'Target A',
     score: 2,
-    maximumScore: 2
+    maximumScore: 2,
+    irisInfo: {
+      vendorId: commonVendorId,
+      token: '{"passage":{"autoLoad":"false"},"items":[{"response":"<p>test123</p>","id":"I-200-22581"}]}'
+    }
   },
   {
     claim: 'Concepts and Procedures',
     target: 'Target F',
     score: 1,
-    maximumScore: 1
+    maximumScore: 1,
+    irisInfo: {
+      vendorId: commonVendorId,
+      token: '{"passage":{"autoLoad":"false"},"items":[{"response":"<p>test123</p>","bankKey":"187", "itemKey":"2708"}],"layout":"23"}'
+    }
   },
   {
     claim: 'Concepts and Procedures',
     target: 'Target E',
     score: 2,
-    maximumScore: 2
+    maximumScore: 2,
+    irisInfo: {
+      vendorId: commonVendorId,
+      token: '{"passage":{"autoLoad":"false"},"items":[{"response":"<p>test</p>","id":"I-187-1839"}],"layout":"WAI"}'
+    }
   },
   {
     claim: 'Concepts and Procedures',
     target: 'Target G',
     score: 1,
-    maximumScore: 1
+    maximumScore: 1,
+    irisInfo: {
+      vendorId: commonVendorId,
+      token: '{"passage":{"autoLoad":"false"},"items":[{"response":"<p>alla</p>","id":"I-187-2700"}]}'
+    }
   },
   {
     claim: 'Concepts and Procedures',
     target: 'Target G',
     score: 0,
-    maximumScore: 1
+    maximumScore: 1,
+    irisInfo: {
+      vendorId: commonVendorId,
+      token: '{"passage":{"autoLoad":"false"},"items":[{"response":"<p>test</p>","id":"I-187-2704"}],"layout":"WAI"}'
+    }
   },
   {
     claim: 'Concepts and Procedures',
     target: 'Target H',
     score: 2,
-    maximumScore: 2
+    maximumScore: 2,
+    irisInfo: {
+      vendorId: commonVendorId,
+      token: '{"passage":{"autoLoad":"false"},"items":[{"response":"<p>test</p>","id":"I-187-2705"}],"layout":"WAI"}'
+    }
   }
 ].map((item: any, index) => {
   item.id = randomId();

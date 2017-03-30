@@ -21,6 +21,9 @@
         "styles.less"
       ],
       "scripts": [
+        "vendor/iris/jquery.js",
+        "vendor/iris/util_xdm.js",
+        "vendor/iris/client.js"
       ],
       "environments": {
         "source": "environments/environment.ts",

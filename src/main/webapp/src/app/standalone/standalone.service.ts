@@ -19,6 +19,7 @@ export function createStandaloneHttp(mockBackend: MockBackend, options: BaseRequ
 
     let body: any = null;
     let requestSignature: string = `${RequestMethod[connection.request.method].toUpperCase()} ${connection.request.url}`;
+
     if (new RegExp(`GET /api/translations/\\w+`, 'g').test(requestSignature)) {
       connection.request.url = connection.request.url.replace('/api/translations', '/assets/i18n') + '.json';
     } else if (requestSignature == `GET /api/groups`) {
@@ -70,8 +71,8 @@ export function createStandaloneHttp(mockBackend: MockBackend, options: BaseRequ
       };
     } else if (new RegExp(`GET /api/groups/\\d+/students`, 'g').test(requestSignature)) {
       body = {
-        group: mock_group,
-        students: students
+        students: students,
+        group: mock_group
       };
     } else if (new RegExp(`GET /api/groups/\\d+/exams/\\d+/items/\\d+/score/\\d+`, 'g').test(requestSignature)) {
       body = {
@@ -87,6 +88,19 @@ export function createStandaloneHttp(mockBackend: MockBackend, options: BaseRequ
       body = {
         group: mock_group,
         assessment_results: exams_of_group
+      };
+    }
+    else if (requestSignature.startsWith(`GET /api/students/search?ssid=`)) {
+      let query  = requestSignature.replace(`GET /api/students/search?ssid=`, '').toLowerCase();
+      let studentsResult = students.filter(x =>
+          x.ssid.toString().startsWith(query)
+          || x.firstName.toLowerCase().startsWith(query)
+          || x.lastName.toLowerCase().startsWith(query)
+      );
+
+      body = {
+        group: mock_group,
+        students: studentsResult
       };
     }
 

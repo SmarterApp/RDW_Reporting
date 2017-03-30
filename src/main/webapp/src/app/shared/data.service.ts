@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
+import {Http, RequestOptionsArgs, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs/Rx";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
@@ -9,9 +9,9 @@ export class DataService {
 
   constructor(private http: Http) {}
 
-  private get(url): Observable<any> {
+  private get(url, options?: RequestOptionsArgs): Observable<any> {
     return this.http
-      .get(`/api${url}`)
+      .get(`/api${url}`, options)
       .map(response => response.json());
   }
 
@@ -45,6 +45,13 @@ export class DataService {
 
   getStudentExamReport(groupId: number, studentId: number, examId: number): Observable<any> {
     return this.get(`/groups/${groupId}/students/${studentId}/exams/${examId}/report`);
+  }
+
+  getStudents(searchFilter: any) {
+    var params = new URLSearchParams(); // <--------
+    params.set('ssid', searchFilter.ssid );
+
+    return this.get('/students/search', { search: params });
   }
 
 }

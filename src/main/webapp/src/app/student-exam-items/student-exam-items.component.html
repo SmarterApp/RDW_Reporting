@@ -1,28 +1,25 @@
 <breadcrumbs [values]="breadcrumbs"></breadcrumbs>
 
-<div *ngIf="exam" class="student-exam-items-view">
+<div *ngIf="model" class="student-exam-items-view">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
 
         <div class="page-heading">
 
-          <h2>{{'labels.assessment.grade' | translate}} {{exam.assessment.grade}} {{exam.assessment.name}}</h2>
+          <h2>{{'labels.assessment.grade' | translate}} {{model.exam.assessment.grade}} {{model.exam.assessment.name}}</h2>
 
-          <a class="btn btn-default" routerLink="/groups/{{group.id}}/students/{{student.id}}/exams/{{exam.id}}/report">Report</a>
+          <a class="btn btn-default" routerLink="/groups/{{model.group.id}}/students/{{model.student.id}}/exams/{{model.exam.id}}/report">Report</a>
 
           <span class="attributes">
-            <span class="attribute"><span>Subject:</span> <span class="attribute-value">{{'assessment.subjects.' + exam.assessment.subject + '.shortName' | translate}}</span></span>
-            <span class="attribute"><span>Academic Year:</span> <span class="attribute-value">{{exam.assessment.academicYear}}</span></span>
-            <span class="attribute"><span>Date:</span> <span class="attribute-value">{{exam.date | date:'MM/dd/yyyy'}}</span></span>
+            <span class="attribute"><span>Subject:</span> <span class="attribute-value">{{'assessment.subjects.' + model.exam.assessment.subject + '.shortName' | translate}}</span></span>
+            <span class="attribute"><span>Academic Year:</span> <span class="attribute-value">{{model.exam.assessment.academicYear}}</span></span>
+            <span class="attribute"><span>Date:</span> <span class="attribute-value">{{model.exam.date | date:'MM/dd/yyyy'}}</span></span>
           </span>
 
         </div>
 
-        <div class="card student-exam-items-card" [ngClass]="{sm: size == 0, md: size == 1, lg: size == 2}">
-          <!--<a class="expand-control">-->
-            <!--<i class="glyphicon glyphicon-resize-full" (click)="toggleWindowSize()"></i>-->
-          <!--</a>-->
+        <div class="card student-exam-items-card" [ngClass]="{sm: size == 0, '': size == 1, lg: size == 2}">
           <span class="window-controls">
             <a class="window-control window-size-control window-size-control-sm" [ngClass]="{disabled:size == 0}">
               <i class="glyphicon glyphicon-collapse-up" (click)="size = 0"></i>
@@ -38,6 +35,7 @@
             <table class="table table-striped">
               <thead>
                 <tr>
+                  <th class="text-center width-sm"></th>
                   <th class="text-center">Item #</th>
                   <th>Claim/Target</th>
                   <th class="text-center">Student Score</th>
@@ -45,7 +43,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of items">
+                <tr *ngFor="let item of model.items" [ngClass]="{'selected-row':item.selected, 'selectable-row': !item.selected }" (click)="selectRow(item)">
+                  <td class="text-right width-sm"><i *ngIf="item.selected" class="glyphicon glyphicon-ok color-checkmark"></i></td>
                   <td class="text-center">{{item.number}}</td>
                   <td>{{item.claim}}/{{item.target}}</td>
                   <td class="text-center">{{item.score}}</td>
@@ -61,7 +60,9 @@
           <tabset>
             <tab heading="Item Viewer">
               <div style="overflow-x:hidden;overflow-y:scroll">
-                <img src="../../assets/image/IRIS2.png" style="width:50%;margin:-64px -90px">
+                <div *ngIf="irisIsLoading" class="text-align-center">Initializing Item Viewer...  Please wait.</div>
+
+                <iframe #irisframe [src]="safeIrisUrl" width="1000" height="500" frameborder="0"></iframe>
               </div>
             </tab>
             <tab heading="Rubric and Exemplar">

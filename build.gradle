@@ -1,25 +1,39 @@
 buildscript {
-    ext {
-        springBootVersion = '1.5.1.RELEASE'
-    }
     repositories {
-        mavenCentral()
+        mavenLocal()
+        jcenter()
+        maven { url 'http://repo.spring.io/plugins-release' }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+        classpath("com.bmuschko:gradle-docker-plugin:3.0.5")
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE')
+        classpath('org.springframework.build.gradle:propdeps-plugin:0.0.7')
     }
 }
+
+
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 
 plugins {
     id "com.moowork.node" version "1.1.1"
-    id 'org.springframework.boot' version '1.5.1.RELEASE'
     id "net.ltgt.apt" version "0.9"
+    id "com.dorongold.task-tree" version "1.3"
 }
+
+apply plugin: 'idea'
+apply plugin: 'propdeps'
+apply plugin: 'propdeps-maven'
+apply plugin: 'propdeps-idea'
 
 apply plugin: 'java'
 apply plugin: 'maven'
-apply plugin: 'idea'
-apply plugin: "net.ltgt.apt"
+apply plugin: 'jacoco'
+apply plugin: 'net.ltgt.apt'
+apply plugin: 'com.bmuschko.docker-remote-api'
+
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
 
 group = 'org.opentestsystem.rdw.reporting'
 version = '0.0.1-SNAPSHOT'
@@ -33,33 +47,40 @@ tasks.withType(JavaCompile) {
 }
 
 repositories {
-        
-     maven { url "http://repo.maven.apache.org/maven2" }
-     maven { url "https://repository.apache.org/content/repositories/snapshots/" }
+    mavenLocal()
+    mavenCentral()
 }
+
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-aop')
-    compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('org.springframework.boot:spring-boot-starter-jdbc')
-    compile('org.springframework.boot:spring-boot-starter-security')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.security.extensions:spring-security-saml2-core:1.0.2.RELEASE')
-    compile('org.projectlombok:lombok:1.16.12')
-    compile('com.google.guava:guava:20.0')
-    compile('org.postgresql:postgresql:9.4.1212')
-    compile('mysql:mysql-connector-java:+')
-    compile("org.immutables:value:2.4.3")
-    compile("com.itextpdf:itextpdf:5.5.10")
-    compile("com.itextpdf:itext-pdfa:5.5.10")
-    compile("com.itextpdf:itext-xtra:5.5.10")
-    compile("com.itextpdf.tool:xmlworker:5.5.10")
-    compile ("org.immutables:value:2.4.0")
-    compile ('org.yaml:snakeyaml:+')
-    runtime ('org.springframework.boot:spring-boot-devtools')
+    // handy for creating metadata with @ConfigurationProperties
+    optional 'org.springframework.boot:spring-boot-configuration-processor'
+
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile 'org.springframework.boot:spring-boot-starter-aop'
+    compile 'org.springframework.boot:spring-boot-starter-jdbc'
+    compile 'org.springframework.boot:spring-boot-starter-hateoas'
+    compile 'org.springframework.boot:spring-boot-starter-security'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.cloud:spring-cloud-starter-config:1.2.3.RELEASE'
+    compile 'org.springframework.retry:spring-retry'
+    compile 'org.springframework.security.extensions:spring-security-saml2-core:1.0.2.RELEASE'
+
+    compile 'com.google.guava:guava:21.0'
+    compile 'mysql:mysql-connector-java'
+
+    compile 'org.opentestsystem.rdw.common:rdw-common-utils:0.0.1-SNAPSHOT'
+
+    // fixes java 8 time marshaling
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.7'
+
+    runtime 'org.springframework.boot:spring-boot-devtools'
+
+    testCompile 'junit:junit'
+    testCompile 'org.assertj:assertj-core:3.6+'
     testCompile('org.springframework.boot:spring-boot-starter-test') {
         exclude(module: 'commons-logging')
     }
-    testCompile "junit:junit:4.11"
+    testCompile 'org.springframework.security:spring-security-test'
 }
 
 node {
@@ -73,8 +94,13 @@ node {
 //Hopefully this allows us to hot add resources
 bootRun {
     addResources = true
+    if (project.hasProperty('jvmArgs')) {
+        jvmArgs project.jvmArgs.split('\\s+')
+    }
 }
 
+// generate coverage report automatically (./build/reports/jacoco/test/html/index.html)
+test.finalizedBy(jacocoTestReport)
 
 //This is the build task for the Front End (Fe) and only compiles when the inputs change
 task buildFe(type: NpmTask) {
@@ -93,6 +119,49 @@ task buildFe(type: NpmTask) {
     args = ['run', 'build']
 }
 
-//The jar task build the jar file, and that file needs to contain the front end resources, so we need to
-//run the buildFe task before we make the jar
-jar.dependsOn buildFe
+// The processResources task takes care of gathering all of the resources in the project to the target directory. 
+// In order to get the front end resources in to the final jar, the front end needs to be built
+// before all of the other resources are processed in order to get the static resouces in the right place
+processResources.dependsOn buildFe
+
+// task to generate build-info.properties with build.version, build.timestamp
+// using this approach instead of resource filtering to avoid modifying source
+task createBuildInfoFile(dependsOn: processResources) {
+    doLast {
+        def buildInfoFile = new File("${buildDir}/resources/main/build-info.properties")
+        buildInfoFile.parentFile.mkdirs()
+        Properties props = new Properties()
+        props.setProperty('build.version', project.version.toString())
+        props.store(buildInfoFile.newWriter(), null)
+    }
+}
+
+// trigger creation of build-info.properties
+classes.dependsOn(createBuildInfoFile)
+
+
+// task to create Dockerfile
+// (http://bmuschko.github.io/gradle-docker-plugin/docs/groovydoc/com/bmuschko/gradle/docker/tasks/image/Dockerfile.html)
+task createDockerfile(type: Dockerfile) {
+    destFile = project.file('build/docker/Dockerfile')
+    from('java:8-jre-alpine')
+    volume('/tmp')
+    volume('/opt/rdw-reporting/config')
+    label([maintainer: 'Fairway Technologies'])
+    copyFile("${jar.archivePath.name}", "${jar.archivePath.name}")
+    exposePort(8080)
+    entryPoint("java", "-jar", "${jar.archivePath.name}")
+}
+
+// task to build the docker image
+task buildImage(type:DockerBuildImage, dependsOn:[build, createDockerfile]) {
+    dockerFile = createDockerfile.destFile
+    inputDir = project.file('build/docker/')
+    tag = "fwsbac/${project.name}"
+    doFirst {
+        copy {
+            from jar
+            into inputDir
+        }
+    }
+}

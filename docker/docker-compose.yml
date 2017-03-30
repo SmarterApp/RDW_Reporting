@@ -1,0 +1,47 @@
+# docker-compose specs for rdw reporting service with the configuration server
+# running in a container and MySQL running natively (outside the containers).
+#
+# The following environment variables MUST be set before running this spec:
+#
+# DATAWAREHOUSE_HOST - host running mysql with rdw reporting schema initialized
+# For mac developers running mysql natively, something like:
+#   $ export DATAWAREHOUSE_HOST=$(ipconfig getifaddr en0)
+# This value may have to be reset when you change networks.
+#
+# CONFIG_SERVICE_REPO - git repo url, e.g. https://gitlab.com/fairwaytech/sbac-config-repo.git
+# GIT_USER - user with rights to access CONFIG_SERVICE_REPO
+# GIT_PASSWORD - password for GIT_USER
+#
+# This configuration maps the config folder as outlined in CONTRIBUTING.md and the application.yml file from the config
+# server local-docker profile points to that folder so developers should be able to reuse the saml.jks file
+# (NOTE: developers may have to explicitly share the /opt folder in Docker, Preferences, File Sharing)
+
+version: '2'
+services:
+  config-server:
+    image: fwsbac/configuration-service:latest
+    container_name: config-server
+    ports:
+      - 8888:8888
+    environment:
+      - CONFIG_SERVICE_REPO
+      - ENCRYPT_KEY
+      - GIT_USER
+      - GIT_PASSWORD
+
+  reporting-service:
+    image: fwsbac/rdw-reporting-service
+    ports:
+      - 8080:8080
+    volumes:
+      - /opt/rdw-reporting/config:/opt/rdw-reporting/config
+    depends_on:
+      - config-server
+    links:
+      - config-server
+    environment:
+      - spring.profiles.active=local-docker
+      - CONFIG_SERVICE_ENABLED=true
+      - CONFIG_SERVICE_URL=http://config-server:8888
+    extra_hosts:
+      - "dwhost:$DATAWAREHOUSE_HOST"

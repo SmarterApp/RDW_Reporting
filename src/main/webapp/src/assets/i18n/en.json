@@ -105,12 +105,19 @@
       "pointFormat": "of students"
     },
     "groups": "My Groups",
+    "home" : "Home",
     "group": {
       "name": "Group",
       "size": "Students"
     },
     "district": {
       "name": "District"
+    },
+    "search" : {
+      "title":"Student Search",
+      "results": "Results",
+      "placeholder": "Search by student ssid or name",
+      "search_button": "Go"
     },
     "school": {
       "name": "School"

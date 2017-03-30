@@ -1,0 +1,15 @@
+sql:
+  group:
+    findAll: >-
+        select sg.id, sg.name, s.name as school_name
+          from user_student_group usg
+            join student_group sg on sg.id = usg.student_group_id
+            join school s on s.id = sg.school_id
+            where user_login=:user_login
+
+    student:
+      findAll: >-
+          select s.id, s.ssid, s.first_name, s.last_or_surname, s.middle_name
+            from student_group_membership sgm
+              join student s on sgm.student_id = s.id
+              where student_group_id=:student_group_id

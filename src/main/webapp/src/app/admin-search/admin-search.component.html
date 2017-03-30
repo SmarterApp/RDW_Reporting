@@ -1,0 +1,57 @@
+<breadcrumbs [values]="breadcrumbs" [featureRoot]="'search'"></breadcrumbs>
+
+<div *ngIf="content" class="students-view">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="page-heading">
+          <h2>{{content.title}}</h2>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <div class="col-md-6">
+              <input
+                [(ngModel)]="searchTerm"
+                (keyup.enter) = "goToSearchPage(searchTerm)"
+                class="form-control col-md-6"
+                id="search"
+                type="text"
+                placeholder="{{content.placeholder}}"
+                autocomplete="off" />
+            </div>
+            <button [disabled]="!searchTerm" class="btn btn-primary inline" (click)="goToSearchPage(searchTerm)">{{content.search_button}}</button>
+          </div>
+        </div>
+        <br/>
+
+        <div *ngIf="students" class="card students-card">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>{{'labels.student.ssid' | translate}}</th>
+              <th>{{'labels.student.name' | translate}}</th>
+              <th style="width:66%"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let student of students">
+              <td>{{student.ssid}}</td>
+              <td>
+                <a routerLink="/groups/{{group.id}}/students/{{student.id}}/exams">
+                  {{student.lastName}}, {{student.firstName}}
+                </a>
+              </td>
+              <td></td>
+            </tr>
+
+            </tbody>
+          </table>
+          <div class="text-align-center" *ngIf="students.length == 0">
+            <em>No students found</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
