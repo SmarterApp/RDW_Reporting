@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {DataService} from "../shared/data.service";
 import {ActivatedRoute} from "@angular/router";
 
@@ -10,41 +10,39 @@ export class StudentExamReportComponent implements OnInit {
 
   private report;
 
-  constructor(private service: DataService, private route: ActivatedRoute) { }
+  constructor(private service: DataService, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.route.params
-      .subscribe((params:any) => {
+      .subscribe((params: any) => {
         this.service.getStudentExamReport(params.groupId, params.studentId, params.examId)
-          .subscribe(report => {
-            this.report = report;
-
-            // compute on backend / standalone service layer
-            //   let end = assessment['metadata'].score.maximum;
-            //   let start = assessment['metadata'].score.minimum;
-            //   let score = assessment['student'].performance.score.value;
-            //   let length = end - start;
-            //   let model = {
-            //     confidence: {
-            //       start: start,
-            //       end: end,
-            //       length: length,
-            //       score: score,
-            //       scorePosition: ((score - start) / length) * 100,
-            //       minimumScorePosition: Math.floor(((assessment['student'].performance.score.range_min - start) / length) * 100),
-            //       maximumScorePosition: Math.ceil(((assessment['student'].performance.score.range_max - start) / length) * 100),
-            //       segments: assessment['metadata'].score.cutPoints.map((point, index, points) => {
-            //         let offset = index == 0 ? 0 : ((points[index - 1] - start) / length);
-            //         return {
-            //           point: point,
-            //           width: (((point - start) / length) - offset) * 100
-            //         };
-            //       })
-            //     }
-            //   };
-            //   assessment['confidence'] = model.confidence;
-            //   this.assessment = assessment;
-            })
+          .subscribe((report: any) => {
+            let end = report.exam.assessment.maximumScore;
+            let start = report.exam.assessment.minimumScore;
+            let score = report.exam.score;
+            let length = end - start;
+            this.report = Object.assign({}, report, {
+              confidence: {
+                start: start,
+                end: end,
+                length: length,
+                score: score,
+                scorePosition: ((score - start) / length) * 100,
+                minimumScorePosition: Math.floor(((report.exam.minimumScore - start) / length) * 100),
+                maximumScorePosition: Math.ceil(((report.exam.maximumScore - start) / length) * 100),
+                categories: report.exam.assessment.cutPoints
+                  .concat([report.exam.assessment.maximumScore])
+                  .map((point, index, points) => {
+                    let offset = index == 0 ? 0 : ((points[index - 1] - start) / length);
+                    return {
+                      point: point,
+                      width: (((point - start) / length) - offset) * 100
+                    };
+                  })
+              }
+            });
+          })
       })
   }
 
