@@ -9,31 +9,6 @@
 npm install @angular/cli
 ```
 
-#### SAML
-A SAML IDP is required for running this application. Currently, we rely on a staging OpenAM server.
-You must provide credentials for the SAML client to be able to communicate to the server. The location of the key 
-store file, and the credentials to read it must be provided in a spring configuration file, `application.yml`. It 
-will contain entries similar to (passwords redacted):
-```text
-saml:
-  key-store-file: file:/opt/rdw-reporting/config/saml.jks
-  key-store-password: [redacted]
-  private-key-entry-alias: rdw-reporting-ui-sp
-  private-key-entry-password: [redacted]
-  idp-metadata-url: https://sso-deployment.sbtds.org/auth/saml2/jsp/exportmetadata.jsp?realm=/sbac
-  sp-entity-id: rdw-reporting-ui-local
-```
-For developers with access to internal resources there is a keystore and yml file available to download:
-```bash
-# create a local application data folder
-mkdir -p /opt/rdw-reporting-/config
-
-# download the application.yml and saml.jks made for your local environment into this directory
-curl <application_properties_url> > /opt/rdw-reporting-/config/application.yml
-curl <saml_jks_url> > /opt/rdw-reporting/config/saml.jks
-```
-_There is nothing magical about the location and names of the files, but being consistent will make things easier._ 
-
 #### MySQL
 MySQL is required for building (integration tests) and running this application. To better match production, MySQL
 should be run as a native app outside the container framework . There are various ways to install it; please be sure 
@@ -122,16 +97,16 @@ fwsbac/rdw-reporting-service        latest              da5207b421c0        30 s
 ### Running
 The apps are wrapped in docker containers and should be built and run that way. There is a docker-compose spec
 to make it easier: it runs the configuration server and the reporting service with the correct profile. Please 
-read the comments in the docker-compose script for setting required environment variables. You must place the 
-development SAML key store file in the config folder (as described above; note the localapplication.yml file is 
-not needed), then invoke docker-compose, e.g.:
+read the comments in the docker-compose script for setting required environment variables. Use docker-compose
+to run the services:
 ```bash
-# copy development SAML key store file
-mkdir -p /opt/rdw-reporting/config
-curl <saml_jks_url> > /opt/rdw-reporting/config/saml.jks
-# use docker-compose to launch service
 cd docker
 docker-compose up -d
 docker logs -f docker_reporting-service_1
 ```
-You may now navigate to `http://localhost:8080` in a browser. You'll need ART credentials.
+You may now navigate to `http://localhost:8080` in a browser. You'll need ART credentials to login.
+
+To shut down:
+```bash
+docker-compose down
+```

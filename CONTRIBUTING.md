@@ -28,6 +28,30 @@ branch to `develop` to solicit code reviews and feedback. Once approved use `squ
 
 ### Running
 
+#### SAML
+The application uses a SAML IDP so, when running the application locally, you must configure it to connect to the 
+staging OpenAM server. The location of the keystore file and the credentials to read it must be provided in the 
+spring configuration file, `application.yml`. It will contain entries similar to:
+```text
+saml:
+  key-store-file: file:/opt/rdw-reporting/config/saml.jks
+  key-store-password: [redacted]
+  private-key-entry-alias: rdw-reporting-ui-sp
+  private-key-entry-password: [redacted]
+  idp-metadata-url: https://sso-deployment.sbtds.org/auth/saml2/jsp/exportmetadata.jsp?realm=/sbac
+  sp-entity-id: rdw-reporting-ui-local
+```
+For developers with access to internal resources there is a keystore and yml file available to download:
+```bash
+# create a local application data folder
+mkdir -p /opt/rdw-reporting/config
+
+# download the application.yml and saml.jks made for your local environment into this directory
+curl <application_properties_url> > /opt/rdw-reporting/config/application.yml
+curl <saml_jks_url> > /opt/rdw-reporting/config/saml.jks
+```
+_There is nothing magical about the location and names of the files, but being consistent will make things easier._ 
+
 #### Running From IntelliJ
 The README outlines how to run the applications using docker. As a developer you will want to run an application 
 locally from the IDE. To start, have IDEA open the root `build.gradle` file. You'll probably want to create a run/debug
@@ -53,10 +77,11 @@ open http://localhost:8080
 ```
 #### Running Standalone
 The artifact is a Spring Boot executable jar so you can just run it. Just as when running from the IDE the default
-is to run without a configuration server so the configuration must be specified on the command line:
+is to run without a configuration server so the configuration must be specified on the command line. You can also
+change the port if desired, e.g.:
 ```bash
-java -jar build/libs/rdw-reporting*.jar --spring.config.location=/opt/rdw-reporting/config/application.yml
-open http://localhost:8080
+java -jar build/libs/rdw-reporting*.jar --spring.config.location=/opt/rdw-reporting/config/application.yml --server.port=8081
+open http://localhost:8081
 ```
 
 ### Posterity
