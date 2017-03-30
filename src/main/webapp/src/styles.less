@@ -10,6 +10,10 @@
 @gray7: #f8f8f8;
 @gray8: #f3f3f3;
 @blue1: #008AB1;
+@light-green: #43B02A;
+@green: #1f6735;
+@color-selected: #d3eacc;
+@color-hovered: #ededed;
 
 .font-sm {
   font-size: @font-sm;
@@ -383,60 +387,60 @@ html, body {
   color rules need to account for 1,2,3[4?] segment cases
  */
 .horizontal-bar-chart {
-   table {
-     width: 100%;
-     border-collapse: separate;
-     border-spacing: 6px 0;
-   }
-   margin-top: 18px;
-   .segment,
-   .segment-label {
-     margin: 0 3px;
-     float: left;
-   }
-   .segment {
-     color: #fff;
-     height: 60px;
-     .segment-text {
-       margin-top: 12px;
-       font-size: 125%;
-       text-shadow: 1px 1px 3px #000;
-     }
-   }
-   .segment-labels {
-     margin-top: 12px;
-   }
-   .segment-label {
-     font-size: 125%;
-   }
-   .segment.segment-0 {
-     background-color: @color-below;
-     :after {
-       margin-top: -12px;
-       content: "";
-       display: block;
-       float: left;
-       border-top: 30px solid #fff;
-       border-bottom: 30px solid #fff;
-       border-right: 20px solid @color-below;
-     }
-   }
-   .segment.segment-1 {
-     background-color: @color-near;
-   }
-   .segment.segment-2 {
-     background-color: @color-above;
-     :after {
-       margin-top: -12px;
-       content: "";
-       display: block;
-       float: right;
-       border-top: 30px solid #fff;
-       border-bottom: 30px solid #fff;
-       border-left: 20px solid @color-above;
-     }
-   }
- }
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 6px 0;
+  }
+  margin-top: 18px;
+  .segment,
+  .segment-label {
+    margin: 0 3px;
+    float: left;
+  }
+  .segment {
+    color: #fff;
+    height: 60px;
+    .segment-text {
+      margin-top: 12px;
+      font-size: 125%;
+      text-shadow: 1px 1px 3px #000;
+    }
+  }
+  .segment-labels {
+    margin-top: 12px;
+  }
+  .segment-label {
+    font-size: 125%;
+  }
+  .segment.segment-0 {
+    background-color: @color-below;
+    :after {
+      margin-top: -12px;
+      content: "";
+      display: block;
+      float: left;
+      border-top: 30px solid #fff;
+      border-bottom: 30px solid #fff;
+      border-right: 20px solid @color-below;
+    }
+  }
+  .segment.segment-1 {
+    background-color: @color-near;
+  }
+  .segment.segment-2 {
+    background-color: @color-above;
+    :after {
+      margin-top: -12px;
+      content: "";
+      display: block;
+      float: right;
+      border-top: 30px solid #fff;
+      border-bottom: 30px solid #fff;
+      border-left: 20px solid @color-above;
+    }
+  }
+}
 
 
 .stacked-horizontal-bar-chart {
@@ -520,463 +524,34 @@ html, body {
 .card.md {height: 320px; overflow: auto}
 .card.lg {height: 600px; overflow: auto}
 
-/* iab report */
-.ica-report {
-  border: 1px solid #b1b1b1;
-  border-radius: 5px;
-  overflow: hidden;
-  background: #f8f8f8;
-}
-
-/*
-    Fix for height 100%
-
-.ica-report > .report-row{
-  display: table;
-}
-
-.ica-report > .report-row > div {
-  display: table-cell;
-  float: none;
-  vertical-align: top;
-}
-
-.ica-report > .report-row > div:first-child {
-  background: #f8f8f8;
-}
- */
-
-.ica-report.performance-level-0 .performance-score {
-  color: #fff;
-  background-color: #bb231c;
-}
-
-.ica-report.performance-level-0 .performance-level,
-.ica-report.performance-level-0 .score {
-  color: #bb231c;
-}
-
-.ica-report.performance-level-1 .performance-score {
-  color: #000;
-  background-color: #e4c904;
-}
-
-.ica-report.performance-level-1 .performance-level,
-.ica-report.performance-level-1 .score {
-  color: #e4c904;
-}
-
-.ica-report.performance-level-2 .performance-score {
-  color: #fff;
-  background-color: #6aa506;
-}
-
-.ica-report.performance-level-2 .performance-level,
-.ica-report.performance-level-2 .score {
-  color: #6aa506;
-}
-
-.ica-report.performance-level-3 .performance-score {
-  color: #fff;
-  background-color: #237ccb;
-}
-
-.ica-report.performance-level-3 .performance-level,
-.ica-report.performance-level-3 .score {
-  color: #237ccb;
-}
-
-.ica-report .assessment {
-  padding: 16px;
-}
-
-.ica-report .assessment-heading {
-  color: #04496d;
-  font-size: 180%;
-  font-weight: bold;
-}
-
-.ica-report .assessment-type,
-.ica-report .assessment-period {
-  color: #4b4b4b;
-  font-weight: bold;
-}
-
-.ica-report .performance {
-  padding: 24px;
-  background: #fff;
-}
-
-.ica-report .performance-heading {
-  color: #4b4b4b;
-  font-size: 115%;
-  display: block;
-}
-
-.ica-report .performance-score {
-  font-size: 125%;
-}
-
-.ica-report .performance-score.badge {
-  border-radius: 5px;
-  padding: 8px 12px;
-}
-
-.ica-report .performance-level {
-  font-size: 160%;
-  padding: 8px 12px;
-  position: relative;
-  top: 5px;
-}
-
-.ica-report .performance-level-info {
-  color: #838383;
-  border-left: 1px dashed #b1b1b1;
-  padding-left: 20px;
-}
-
-.confidence-bar {
-  margin: 48px 0;
-  position: relative;
-}
-
-.confidence-bar-segment {
-  position: relative;
-  height: 32px;
-  float: left;
-  background-repeat: repeat-x;
-}
-
-.confidence-bar-segment.performance-level-0 {
-  background-color: #bb231c;
-  background-image: -moz-linear-gradient(center top, #e14A45, #c32c25);
-  background-image: -webkit-linear-gradient(top, #e14A45, #c32c25);
-  background-image: -ms-linear-gradient(top, #e14A45, #c32c25);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#e14A45, endColorstr=#c32c25, GradientType=0);
-}
-
-.confidence-bar-segment.performance-level-1 {
-  background-color: #e4c904;
-  background-image: -moz-linear-gradient(center top, #eed909, #e3c703);
-  background-image: -webkit-linear-gradient(top, #eed909, #e3c703);
-  background-image: -ms-linear-gradient(top, #eed909, #e3c703);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#eed909, endColorstr=#e3c703, GradientType=0);
-}
-
-.confidence-bar-segment.performance-level-2 {
-  background-color: #6aa506;
-  background-image: -moz-linear-gradient(center top, #99be23, #6aa506);
-  background-image: -webkit-linear-gradient(top, #99be23, #6aa506);
-  background-image: -ms-linear-gradient(top, #99be23, #6aa506);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99be23, endColorstr=#6aa506, GradientType=0);
-}
-
-.confidence-bar-segment.performance-level-3 {
-  background-color: #237ccb;
-  background-image: -moz-linear-gradient(center top, #3a98d1, #2078ca);
-  background-image: -webkit-linear-gradient(top, #3a98d1, #2078ca);
-  background-image: -ms-linear-gradient(top, #3a98d1, #2078ca);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#3a98d1, endColorstr=#2078ca, GradientType=0);
-}
-
-.cut-point {
-  position: absolute;
-  top: 32px;
-  color: #a0a0a0;
-  width: 100%;
-}
-
-.cut-point:not(.cut-point-start) {
-  text-align: right;
-}
-
-.cut-point-line {
-  border-right: 1px solid #a0a0a0;
-  height: 8px;
-}
-
-.cut-point-start .cut-point-line {
-  border-left: 1px solid #a0a0a0;
-}
-
-.score {
-  position: absolute;
-  top: -33px;
-}
-
-.score-label {
-  font-size: 130%;
-  font-weight: bold;
-  margin-left: -50%;
-}
-
-.score-pointer {
-
-}
-
-.score-pointer-head {
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  width: 1px;
-  height: 0;
-  border: 6px solid transparent;
-  border-bottom: 0 solid transparent;
-  border-top: 8px solid #000;
-  -o-text-overflow: clip;
-  text-overflow: clip;
-  margin-left: -6px;
-}
-
-.score-pointer-body {
-  height: 32px;
-  width: 1px;
-  background: #000;
-}
-
-.error-band {
-  width: 100%;
-  position: relative;
-  top: -8px;
-}
-
-.error-band-left,
-.error-band-right {
-  position: absolute;
-  width: 100%;
-}
-
-.error-band-mask,
-.error-band-bracket {
-  height: 48px;
-}
-
-.error-band-left .error-band-mask,
-.error-band-left .error-band-bracket {
-  float: left;
-}
-
-.error-band-right .error-band-mask,
-.error-band-right .error-band-bracket {
-  float: right;
-}
-
-.error-band-mask {
-  background: #fff;
-  opacity: 0.66;
-  position:relative;
-}
-
-.error-band-bracket {
-  width: 5px;
-  border-top: 2px solid #838383;
-  border-bottom: 2px solid #838383;
-}
-
-.error-band-left .error-band-bracket {
-  border-left: 2px solid #838383;
-}
-
-.error-band-right .error-band-bracket {
-  border-right: 2px solid #838383;
-}
-
-.error-band-label {
-  position: absolute;
-  top: -15px;
-}
-
-.error-band-label-text {
-  color: #a0a0a0;
-  font-size: 75%;
-}
-
-.error-band-label-pointer {
-  height: 5px;
-  width: 64px;
-  border-bottom: 1px solid #a0a0a0;
-}
-
-.error-band-right .error-band-label-text {
-  margin-left: 40px;
-}
-
-.error-band-right .error-band-label-pointer {
-  border-right: 1px solid #a0a0a0;
-}
-
-.error-band-left .error-band-label {
-  right: 0;
-}
-
-.error-band-left .error-band-label-text {
-  margin-left: -24px;
-}
-
-.error-band-left .error-band-label-pointer {
-  border-left: 1px solid #a0a0a0;
-}
-
-.ica-report .claim {
-  border: solid 1px #e2e2e2;
-  border-radius: 5px;
-  background: #f8f8f8;
-  padding: 16px 8px;
-  margin-bottom: 20px;
-}
-
-.ica-report .claim-heading {
-  height: 60px;
-  display: table;
-}
-
-.ica-report .claim-heading-icon-container,
-.ica-report .claim-heading-text-container {
-  display: table-cell;
-  float: none;
-}
-
-.ica-report .claim-body {
-
-}
-
-.ica-report .claim-footer {
-  color: #a0a0a0;
-  border-top: dashed 1px #b1b1b1;
-  font-size: 85%;
-  margin-top: 12px;
-  padding-top: 12px;
-  height: 160px;
-}
-
-.ica-report .claim-heading h5 {
-  color: #4b4b4b;
-  padding-left: 8px;
-  font-weight: bold;
-  margin: 0;
-}
-
-.ica-report .claim-heading .icon {
-  background: url(/assets/images/claim_icons.png) no-repeat;
-  width: 34px;
-  height: 36px;
-  display: inline-block;
-  vertical-align: top;
-}
-
-.ica-report .claim-type-0 .claim-heading .icon {
-  background-position: 0 0;
-}
-
-.ica-report .claim-type-1 .claim-heading .icon {
-  background-position: -34px 0;
-}
-
-.ica-report .claim-type-2 .claim-heading .icon {
-  background-position: -68px 0;
-}
-
-.ica-report .claim-type-3 .claim-heading .icon {
-  background-position: -0px -36px;
-}
-
-.ica-report .claim-type-4 .claim-heading .icon {
-  background-position: -34px -36px;
-}
-
-.ica-report .claim-type-5 .claim-heading .icon {
-  background-position: -68px -36px;
-}
-
-.ica-report .claim-type-6 .claim-heading .icon {
-  background-position: 0 -72px;
-}
-
-.ica-report .claim-body {
-  color: #838383;
-  font-weight: bold;
-  text-align: center;
-}
-
-.ica-report .claim-body > .icon {
-  background: url(/assets/images/claim_performance_level_icons.png) no-repeat;
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-  vertical-align: bottom;
-  margin-right: 2px;
-}
-
-.ica-report .claim-performance-level-0 .claim-body > .icon {
-  background-position: 0 0;
-}
-
-.ica-report .claim-performance-level-1 .claim-body > .icon {
-  background-position: -20px 0;
-}
-
-.ica-report .claim-performance-level-2 .claim-body > .icon {
-  background-position: -40px 0;
-}
-
-.ica-report .alert .icon {
-  background: url(/assets/images/assessment_alerts.png) no-repeat;
-  width: 26px;
-  height: 26px;
-  display: inline-block;
-}
-
-.ica-report .alert {
-  display: table;
-  color: #000;
-  background-color: #eaeae7;
-  border-color: #eaeae7;
-  font-size: 90%;
-}
-
-.ica-report .alert-icon-container,
-.ica-report .alert-text-container {
-  display: table-cell;
-  float: none;
-  vertical-align: middle;
-}
-
-.ica-report .alert-text-container {
-  padding-left: 16px;
-}
-
-.ica-report .standardized-alert .icon {
-  background-position: 0 0;
-}
+.margin-right-20 { margin-right: 20px; }
 
-.ica-report .invalid-alert .icon {
-  background-position: 0 -30px;
+.color-checkmark {color: @green; }
+.color-light-green {color: @light-green }
+.overflow-hidden { overflow:hidden !important; }
+.text-align-center { text-align: center; }
+.card-watermark {
+  font-size: 216px;
+  color: @gray1;
 }
 
-.ica-report .partial-alert .icon {
-  background-position: 0 -60px;
+.selectable-row{
+  cursor: pointer;
 }
 
-.ica-report .accommodations {
-  border: solid 1px #e2e2e2;
-  border-radius: 5px;
-  padding: 16px;
+.selectable-row:hover {
+  background-color: @color-hovered !important;
 }
 
-.ica-report .accommodations-heading {
-  color: #4b4b4b;
-  margin-bottom: 12px;
+.selected-row {
+  cursor: pointer;
+  background-color: @color-selected !important;
 }
 
-.ica-report .accommodations-label {
-  color: #a0a0a0;
-  font-size: 85%;
+.cursor-pointer {
+  cursor: pointer;
 }
 
-.ica-report .accommodation {
-  background-color: #808080;
-  font-size: 85%;
-  border-radius: 3px;
-  margin: 0 6px 8px 0;
-  padding: 4px 12px;
+.width-sm {
+  width:20px;
 }
