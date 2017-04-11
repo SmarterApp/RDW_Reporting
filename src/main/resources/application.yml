@@ -23,7 +23,7 @@ cloud:
       static: us-west-2
 
 artifacts:
-  root: file:./
+  root: "classpath:"
   exam-item:
-    directory: src/test/data/irp/Item-{0}/
+    directory: data/irp/Item-{0}/
     file-name: item-{0}.xml

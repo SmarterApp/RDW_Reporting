@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<metadata>
+  <smarterAppMetadata xmlns="http://www.smarterapp.org/ns/1/assessment_item_metadata">
+    <Identifier>2638</Identifier>
+    <Version>5</Version>
+    <Subject>ELA</Subject>
+    <AssociatedStimulus>3750</AssociatedStimulus>
+    <ItemAuthorIdentifier>Sridhar_Ravva</ItemAuthorIdentifier>
+    <ItemSpecFormat>SmarterApp</ItemSpecFormat>
+    <LastModifiedBy>Sridhar_Ravva</LastModifiedBy>
+    <SecurityStatus>Non-secure</SecurityStatus>
+    <SmarterAppItemDescriptor>Napping - SBAC_Field</SmarterAppItemDescriptor>
+    <Status>Ready for Field Test</Status>
+    <StimulusFormat>Standard</StimulusFormat>
+    <IntendedGrade>7</IntendedGrade>
+    <DepthOfKnowledge>4</DepthOfKnowledge>
+    <TargetAssessmentType>Practice Test Refresh</TargetAssessmentType>
+    <InteractionType>WER</InteractionType>
+    <EducationalDifficulty>Hard</EducationalDifficulty>
+    <MaximumNumberOfPoints>10</MaximumNumberOfPoints>
+    <EvidenceStatement>The students will apply a variety of strategies when writing one or more paragraphs of informational/explanatory text: organizing ideas by stating and maintaining a focus (thesis)/tone, providing appropriate transitional strategies for coherence, developing a topic including relevant supporting evidence/vocabulary and elaboration, or providing a conclusion that is appropriate to purpose and audience and follows from and supports the information or explanation presented.</EvidenceStatement>
+    <SufficientEvidenceOfClaim>The students will apply a variety of strategies when writing one or more paragraphs of informational/explanatory text: organizing ideas by stating and maintaining a focus (thesis)/tone, providing appropriate transitional strategies for coherence, developing a topic including relevant supporting evidence/vocabulary and elaboration, or providing a conclusion that is appropriate to purpose and audience and follows from and supports the information or explanation presented.</SufficientEvidenceOfClaim>
+    <BrailleType>BRF</BrailleType>
+    <Notes>Item 4</Notes>
+    <MinimumGrade>7</MinimumGrade>
+    <MaximumGrade>7</MaximumGrade>
+    <PtWritingType>Explanatory</PtWritingType>
+    <ScorePoints>"0,1,2,3,4,5,6,7,8,9,10"</ScorePoints>
+    <StimulusName>Napping</StimulusName>
+    <StimulusType>Text</StimulusType>
+    <StandardPublication>
+      <Publication>SBAC-ELA-v1</Publication>
+      <PrimaryStandard>SBAC-ELA-v1:2-W|5-7|7.W.2a</PrimaryStandard>
+    </StandardPublication>
+    <StandardPublication>
+      <Publication>SBAC-ELA-v3</Publication>
+      <PrimaryStandard>SBAC-ELA-v3:ELA-Undesignated</PrimaryStandard>
+    </StandardPublication>
+    <AssociatedTutorial>1078</AssociatedTutorial>
+    <Language>eng</Language>
+  </smarterAppMetadata>
+</metadata>

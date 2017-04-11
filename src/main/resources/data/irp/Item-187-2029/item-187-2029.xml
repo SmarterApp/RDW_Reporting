@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<itemrelease version="2.0">
+  <item format="gi" id="2029" version="17" bankkey="187">
+    <attriblist>
+      <attrib attid="itm_item_id">
+        <name>Item: ITS ID</name>
+        <val>2029</val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_item_subject">
+        <name>Item: Subject</name>
+        <val>MATH</val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_item_desc">
+        <name>Item: Item Description</name>
+        <val>HS Practice Test 2014</val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_FTUse">
+        <name>Fieldtest Use</name>
+        <val>PracTest::MG11::S2::SP14 (4); PracTest::MG11::S2::SP14::ESN (4);</val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_OPUse">
+        <name>Operational Use</name>
+        <val></val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_att_Answer Key">
+        <name>Item: Answer Key</name>
+        <val>GI</val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_att_Grade">
+        <name>Item: Grade</name>
+        <val>11</val>
+        <desc>11</desc>
+      </attrib>
+      <attrib attid="itm_att_Item Format">
+        <name>Item: Item Format</name>
+        <val>GI</val>
+        <desc>GI [2]</desc>
+      </attrib>
+      <attrib attid="itm_att_Page Layout">
+        <name>Item: Page Layout</name>
+        <val>22</val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_att_Response Type">
+        <name>Item: Response Type</name>
+        <val>Grid</val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_att_Item Point">
+        <name>Item: Item Point</name>
+        <val>1 pt.</val>
+        <desc>1 Point</desc>
+      </attrib>
+    </attriblist>
+    <tutorial id="1075" bankkey="187" />
+    <resourceslist>
+      <resource type="wordList" id="2376" index="1" bankkey="187" />
+    </resourceslist>
+    <statistic />
+    <MachineRubric filename="Item_2029_v17.qrx" />
+    <RendererSpec filename="Item_2029_v17.gax" />
+    <content language="ENU" version="2.0" approvedVersion="17">
+      <rationaleoptlist />
+      <stem><![CDATA[<p style="">The radius of sphere <span id="item_2029_TAG_3_BEGIN"><span style="font-style:italic; ">Y</span></span> is twice the radius of sphere <span id="item_2029_TAG_8_BEGIN"><span style="font-style:italic; ">X</span>.</span> A student <span id="item_2029_TAG_10" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="1"></span>claims<span class="its-tag" data-tag-ref="item_2029_TAG_10" data-tag-boundary="end"></span> that the volume of sphere <span id="item_2029_TAG_4_BEGIN"><span style="font-style:italic; ">Y</span></span> must be <span id="item_2029_TAG_11" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="2"></span>exactly<span class="its-tag" data-tag-ref="item_2029_TAG_11" data-tag-boundary="end"></span> <span id="item_2029_TAG_12" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="3"></span>twice<span class="its-tag" data-tag-ref="item_2029_TAG_12" data-tag-boundary="end"></span> the volume of sphere <span id="item_2029_TAG_9_BEGIN"><span style="font-style:italic; ">X</span>.</span></p><p style="">&#xA0;</p><p style=""><span style="font-style:italic; font-weight:bold; ">Part </span><span id="item_2029_TAG_5_BEGIN"><span style="font-style:italic; font-weight:bold; ">A:</span></span> <span id="item_2029_TAG_13" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="4"></span>Drag<span class="its-tag" data-tag-ref="item_2029_TAG_13" data-tag-boundary="end"></span> numbers into the boxes to <span id="item_2029_TAG_21" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="11"></span>create<span class="its-tag" data-tag-ref="item_2029_TAG_21" data-tag-boundary="end"></span> one example to evaluate the student's <span id="item_2029_TAG_14" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="5"></span>claim<span class="its-tag" data-tag-ref="item_2029_TAG_14" data-tag-boundary="end"></span>.</p><p style="font-style:italic; font-weight:bold; ">&#xA0;</p><p style=""><span style="font-style:italic; font-weight:bold; ">Part </span><span id="item_2029_TAG_6_BEGIN"><span style="font-style:italic; font-weight:bold; ">B:</span></span><span style="font-style:italic; font-weight:bold; "> </span><span id="item_2029_TAG_15" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="6"></span>Decide<span class="its-tag" data-tag-ref="item_2029_TAG_15" data-tag-boundary="end"></span> <span id="item_2029_TAG_16" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="7"></span>whether<span class="its-tag" data-tag-ref="item_2029_TAG_16" data-tag-boundary="end"></span> the student's <span id="item_2029_TAG_17" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="5"></span>claim<span class="its-tag" data-tag-ref="item_2029_TAG_17" data-tag-boundary="end"></span> is <span id="item_2029_TAG_18" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="8"></span>true<span class="its-tag" data-tag-ref="item_2029_TAG_18" data-tag-boundary="end"></span>, <span id="item_2029_TAG_19" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="9"></span>false<span class="its-tag" data-tag-ref="item_2029_TAG_19" data-tag-boundary="end"></span>, or cannot be determined. <span id="item_2029_TAG_20" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="10"></span>Select<span class="its-tag" data-tag-ref="item_2029_TAG_20" data-tag-boundary="end"></span> the correct <span id="item_2029_TAG_7_BEGIN"><span id="item_2029_TAG_7" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="12"></span>option.<span class="its-tag" data-tag-ref="item_2029_TAG_7" data-tag-boundary="end"></span></span></p><p style="">&#xA0;</p>]]></stem>
+      <rubriclist>
+        <rubric scorepoint="">
+          <name>
+        Rubric </name>
+          <val><![CDATA[<p style="">Exemplar:</p><p style="">&#xA0;</p><ul style="padding-left:1.5000em; "><li><p style="font-style:italic; font-weight:bold; ">Part A: </p><ul style="padding-left:1.5000em; "><li><p style="">Radius = 2 in&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;Radius = 4 in</p><p style="">Volume = <img id="item_2029_Object1" style="vertical-align:middle;" src="item_2029_v17_Object1_png16malpha.png" width="27" height="40" />8 in<span style="vertical-align:super; font-size: 58%;">3</span>&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;Volume = <img id="item_2029_Object2" style="vertical-align:middle;" src="item_2029_v17_Object2_png16malpha.png" width="27" height="40" />64 in<span style="vertical-align:super; font-size: 58%;">3</span></p><p style="">&#xA0;</p></li></ul></li><ul style="padding-left:1.5000em; "><li><p style="">Radius = 2 in&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;Radius = 4 in</p><p style="">Volume = <img id="item_2029_Object1" style="vertical-align:middle;" src="item_2029_v17_Object1_png16malpha.png" width="27" height="40" />8 in<span style="vertical-align:super; font-size: 58%;">3</span>&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;Volume = <img id="item_2029_Object2" style="vertical-align:middle;" src="item_2029_v17_Object2_png16malpha.png" width="27" height="40" />64 in<span style="vertical-align:super; font-size: 58%;">3</span></p><p style="">&#xA0;</p></li></ul><li><p style="margin-left:0in; margin-right:0in; text-indent:0in; "><span style="font-style:italic; font-weight:bold; ">Part B:</span> False</p></li></ul><p style="margin-left:0in; margin-right:0in; text-indent:0in; ">&#xA0;</p><p style="margin-left:0in; margin-right:0in; text-indent:0in; ">(1 point) The student supplies an example of two radii and missing numbers for the volumes that makes the conjecture false (e.g. Radii are 1 and 2, missing numbers for volume are 1 and 8; radii are 2 and 4, missing numbers for volume are 8 and 64; etc.) and responds with “False” in Part B.</p><p style="">&#xA0;</p>]]></val>
+        </rubric>
+        <samplelist maxval="" minval="" />
+      </rubriclist>
+      <attachmentlist>
+        <attachment pass="true" id="aslfile1" type="ASL" subtype="STEM" file="item_2029_ASL_STEM.MP4" />
+      </attachmentlist>
+      <apipAccessibility>
+        <accessibilityInfo>
+          <accessElement identifier="ae1">
+            <contentLinkInfo itsLinkIdentifierRef="item_2029_TAG_3_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>why</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>Y</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString>Y</brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae2">
+            <contentLinkInfo itsLinkIdentifierRef="item_2029_TAG_8_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>X, .</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>X.</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString>X.</brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae4">
+            <contentLinkInfo itsLinkIdentifierRef="item_2029_TAG_4_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>why</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>Y</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString>Y</brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae7">
+            <contentLinkInfo itsLinkIdentifierRef="item_2029_TAG_9_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>X, .</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>X.</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString>X.</brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae8">
+            <contentLinkInfo itsLinkIdentifierRef="item_2029_TAG_5_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>A, .</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>A:</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString>A:</brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae12">
+            <contentLinkInfo itsLinkIdentifierRef="item_2029_TAG_6_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>Bee.</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>B:</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString>B:</brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae19">
+            <contentLinkInfo itsLinkIdentifierRef="item_2029_TAG_7_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>option. This is an interactive image. The blue button above the image reeds, delete. From top to bottom the rectangle along the left side of the image reeds, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. The main answer space is divided into 3 sections. From top to bottom the top left section reeds, part A, . X, . Radius equals, box, inches. Volume equals 4 over 3 pie, box, cubic inches. From top to bottom the top right section reeds, Why. Radius equals, box, inches. Volume equals 4 over 3 pie, box, cubic inches. The bottom section reeds, from left to right, Part bee, True, False, Cannot be determined.</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>option.</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString>option.</brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae20">
+            <contentLinkInfo itsLinkIdentifierRef="item_2029_Object1" type="Equation">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <audioShortDesc>the fraction 4 over 3,  pi</audioShortDesc>
+              </readAloud>
+              <brailleText>
+                <brailleTextString>the fraction 4 over 3,  pi</brailleTextString>
+                <brailleCode type="Nemeth">?4/3#.p
+</brailleCode>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae21">
+            <contentLinkInfo itsLinkIdentifierRef="item_2029_Object2" type="Equation">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <audioShortDesc>the fraction 4 over 3,  pi</audioShortDesc>
+              </readAloud>
+              <brailleText>
+                <brailleTextString>the fraction 4 over 3,  pi</brailleTextString>
+                <brailleCode type="Nemeth">?4/3#.p
+</brailleCode>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+        </accessibilityInfo>
+      </apipAccessibility>
+    </content>
+    <content language="ESN" version="2.0" approvedVersion="17">
+      <stem><![CDATA[<p style="">El radio de la esfera <span style="font-style:italic; ">Y</span> es el doble del radio de la esfera <span style="font-style:italic; ">X</span>. Un estudiante afirma que el volumen de la esfera <span style="font-style:italic; ">Y</span> debe ser exactamente el doble del volumen de la esfera <span style="font-style:italic; ">X</span>.</p><p style="">&#xA0;</p><p style=""><span style="font-style:italic; font-weight:bold; ">Parte A:</span> Arrastra números a las casillas para crear un ejemplo para evaluar la afirmación del estudiante.</p><p style="font-style:italic; font-weight:bold; ">&#xA0;</p><p style=""><span style="font-style:italic; font-weight:bold; ">Parte B: </span>Decide si la afirmación del estudiante es verdadera, falsa o si no puede determinarse. Selecciona la opción correcta.</p><p class="languagedivider">&#xA0;</p><p style="">The radius of sphere <span id="item_2029_TAG_3_BEGIN"><span style="font-style:italic; ">Y</span></span> is twice the radius of sphere <span id="item_2029_TAG_8_BEGIN"><span style="font-style:italic; ">X</span>.</span> A student <span id="item_2029_TAG_10" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="1"></span>claims<span class="its-tag" data-tag-ref="item_2029_TAG_10" data-tag-boundary="end"></span> that the volume of sphere <span id="item_2029_TAG_4_BEGIN"><span style="font-style:italic; ">Y</span></span> must be <span id="item_2029_TAG_11" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="2"></span>exactly<span class="its-tag" data-tag-ref="item_2029_TAG_11" data-tag-boundary="end"></span> <span id="item_2029_TAG_12" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="3"></span>twice<span class="its-tag" data-tag-ref="item_2029_TAG_12" data-tag-boundary="end"></span> the volume of sphere <span id="item_2029_TAG_9_BEGIN"><span style="font-style:italic; ">X</span>.</span></p><p style="">&#xA0;</p><p style=""><span style="font-style:italic; font-weight:bold; ">Part </span><span id="item_2029_TAG_5_BEGIN"><span style="font-style:italic; font-weight:bold; ">A:</span></span> <span id="item_2029_TAG_13" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="4"></span>Drag<span class="its-tag" data-tag-ref="item_2029_TAG_13" data-tag-boundary="end"></span> numbers into the boxes to <span id="item_2029_TAG_21" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="11"></span>create<span class="its-tag" data-tag-ref="item_2029_TAG_21" data-tag-boundary="end"></span> one example to evaluate the student's <span id="item_2029_TAG_14" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="5"></span>claim<span class="its-tag" data-tag-ref="item_2029_TAG_14" data-tag-boundary="end"></span>.</p><p style="font-style:italic; font-weight:bold; ">&#xA0;</p><p style=""><span style="font-style:italic; font-weight:bold; ">Part </span><span id="item_2029_TAG_6_BEGIN"><span style="font-style:italic; font-weight:bold; ">B:</span></span><span style="font-style:italic; font-weight:bold; "> </span><span id="item_2029_TAG_15" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="6"></span>Decide<span class="its-tag" data-tag-ref="item_2029_TAG_15" data-tag-boundary="end"></span> <span id="item_2029_TAG_16" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="7"></span>whether<span class="its-tag" data-tag-ref="item_2029_TAG_16" data-tag-boundary="end"></span> the student's <span id="item_2029_TAG_17" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="5"></span>claim<span class="its-tag" data-tag-ref="item_2029_TAG_17" data-tag-boundary="end"></span> is <span id="item_2029_TAG_18" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="8"></span>true<span class="its-tag" data-tag-ref="item_2029_TAG_18" data-tag-boundary="end"></span>, <span id="item_2029_TAG_19" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="9"></span>false<span class="its-tag" data-tag-ref="item_2029_TAG_19" data-tag-boundary="end"></span>, or cannot be determined. <span id="item_2029_TAG_20" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="10"></span>Select<span class="its-tag" data-tag-ref="item_2029_TAG_20" data-tag-boundary="end"></span> the correct <span id="item_2029_TAG_7_BEGIN"><span id="item_2029_TAG_7" class="its-tag" data-tag="word" data-tag-boundary="start" data-word-index="12"></span>option.<span class="its-tag" data-tag-ref="item_2029_TAG_7" data-tag-boundary="end"></span></span></p><p style="">&#xA0;</p>]]></stem>
+      <rubriclist>
+        <rubric scorepoint="_Spanish">
+          <name>
+        Rubric _Spanish</name>
+          <val><![CDATA[<p style="">&#xA0;</p>]]></val>
+        </rubric>
+        <samplelist maxval="_Spanish" minval="_Spanish" />
+      </rubriclist>
+      <attachmentlist />
+      <apipAccessibility>
+        <accessibilityInfo>
+          <accessElement identifier="ae1">
+            <contentLinkInfo itsLinkIdentifierRef="item_2029_TAG_3_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>why</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>Y</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString>Y</brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae2">
+            <contentLinkInfo itsLinkIdentifierRef="item_2029_TAG_8_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>X, .</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>X.</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString>X.</brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae4">
+            <contentLinkInfo itsLinkIdentifierRef="item_2029_TAG_4_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>why</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>Y</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString>Y</brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae7">
+            <contentLinkInfo itsLinkIdentifierRef="item_2029_TAG_9_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>X, .</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>X.</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString>X.</brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae8">
+            <contentLinkInfo itsLinkIdentifierRef="item_2029_TAG_5_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>A, .</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>A:</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString>A:</brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae12">
+            <contentLinkInfo itsLinkIdentifierRef="item_2029_TAG_6_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>Bee.</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>B:</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString>B:</brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae19">
+            <contentLinkInfo itsLinkIdentifierRef="item_2029_TAG_7_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>option. This is an interactive image. The blue button above the image reeds, delete. From top to bottom the rectangle along the left side of the image reeds, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. The main answer space is divided into 3 sections. From top to bottom the top left section reeds, part A, . X, . Radius equals, box, inches. Volume equals 4 over 3 pie, box, cubic inches. From top to bottom the top right section reeds, Why. Radius equals, box, inches. Volume equals 4 over 3 pie, box, cubic inches. The bottom section reeds, from left to right, Part bee, True, False, Cannot be determined.</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>option.</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString>option.</brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+        </accessibilityInfo>
+      </apipAccessibility>
+    </content>
+  </item>
+</itemrelease>
