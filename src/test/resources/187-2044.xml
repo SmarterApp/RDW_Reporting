@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<itemrelease version="2.0">
+  <item format="gi" id="2029" version="17" bankkey="187">
+    <content language="ENU" version="2.0" approvedVersion="17">
+      <rubriclist>
+        <rubric scorepoint="">
+          <name>Rubric</name>
+          <val><![CDATA[<p style="">Exemplar:</p><p style="">&#xA0;</p><ul style="padding-left:1.5000em; "><li><p style="font-style:italic; font-weight:bold; ">Part A: </p><ul style="padding-left:1.5000em; "><li><p style="">Radius = 2 in&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;Radius = 4 in</p><p style="">Volume = 8 in<span style="vertical-align:super; font-size: 58%;">3</span>&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;Volume = 64 in<span style="vertical-align:super; font-size: 58%;">3</span></p><p style="">&#xA0;</p></li></ul></li><ul style="padding-left:1.5000em; "><li><p style="">Radius = 2 in&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;Radius = 4 in</p><p style="">Volume = 8 in<span style="vertical-align:super; font-size: 58%;">3</span>&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;Volume = 64 in<span style="vertical-align:super; font-size: 58%;">3</span></p><p style="">&#xA0;</p></li></ul><li><p style="margin-left:0in; margin-right:0in; text-indent:0in; "><span style="font-style:italic; font-weight:bold; ">Part B:</span> False</p></li></ul><p style="margin-left:0in; margin-right:0in; text-indent:0in; ">&#xA0;</p><p style="margin-left:0in; margin-right:0in; text-indent:0in; ">(1 point) The student supplies an example of two radii and missing numbers for the volumes that makes the conjecture false (e.g. Radii are 1 and 2, missing numbers for volume are 1 and 8; radii are 2 and 4, missing numbers for volume are 8 and 64; etc.) and responds with “False” in Part B.</p><p style="">&#xA0;</p>]]></val>
+        </rubric>
+      </rubriclist>
+    </content>
+  </item>
+</itemrelease>
