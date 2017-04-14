@@ -13,3 +13,11 @@ sql:
             from student_group_membership sgm
               join student s on sgm.student_id = s.id
               where student_group_id=:student_group_id
+  school:
+    findAll: >-
+        SELECT id
+        FROM school
+        WHERE
+          (id IN (:schoolIds))
+          OR district_id IN (:districtIds)
+          OR 1 = :stateWide;
