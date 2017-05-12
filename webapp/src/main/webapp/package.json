@@ -1,4 +1,5 @@
 {
+
   "name": "client",
   "version": "0.0.0",
   "license": "MIT",
@@ -8,6 +9,7 @@
     "start": "ng serve",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
+    "test-ci": "ng test -sr --reporters teamcity",
     "pree2e": "webdriver-manager update",
     "e2e": "protractor"
   },
@@ -47,6 +49,7 @@
     "karma-jasmine": "^1.0.2",
     "karma-phantomjs2-launcher": "^0.5.0",
     "karma-remap-istanbul": "^0.2.1",
+    "karma-teamcity-reporter": "^1.0.0",
     "phantomjs-prebuilt": "^2.1.14",
     "protractor": "4.0.9",
     "ts-node": "1.2.1",
@@ -55,3 +58,4 @@
     "webdriver-manager": "10.2.5"
   }
 }
+

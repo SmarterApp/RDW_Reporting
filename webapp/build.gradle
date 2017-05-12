@@ -58,19 +58,17 @@ test.finalizedBy(jacocoTestReport)
 
 //This is the build task for the Front End (Fe) and only compiles when the inputs change
 task buildFe(type: NpmTask) {
-    inputs.files(fileTree('src/main/webapp/node_modules'))
-    inputs.files(fileTree('src/main/webapp/src'))
-    inputs.files(fileTree('src/main/webapp/e2e'))
-    inputs.file('src/main/webapp/package.json')
-    inputs.file('src/main/webapp/karma.conf.js')
-    inputs.file('src/main/webapp/.angular-cli.json')
-    inputs.file('src/main/webapp/tslint.json')
-    inputs.file('src/main/webapp/protractor.conf.js')
-
+    workingDir = file ("src/main/webapp")
     outputs.dir('build/resources/static')
-
     dependsOn npm_install
     args = ['run', 'build']
+}
+
+task testFe(type: NpmTask) {
+    workingDir = file ("src/main/webapp")
+    outputs.dir('build/resources/static')
+    dependsOn npm_install
+    args = ['run', 'test-ci']
 }
 
 // The processResources task takes care of gathering all of the resources in the project to the target directory.
