@@ -19,9 +19,9 @@ sql:
         select
             distinct iab_exam.session_id,
             iab_exam.completed_at,
-            iab_exam.asmt_id,
-            asmt.name as asmt_name,
-            asmt.grade_id as asmt_grade
+            iab_exam.asmt_id as assessment_id,
+            asmt.name as assessment_name,
+            asmt.grade_id as assessment_grade_id
           from iab_exam
             join asmt on iab_exam.asmt_id=asmt.id
           where asmt_id=(
