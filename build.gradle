@@ -140,12 +140,12 @@ task migrateReportingTest(type: GradleBuild) {
     group = "Schema"
     description = "Cleans the schemas that integration tests depend on"
     dir = "RDW_Schema"
-    tasks = ["migrateReporting-test"]
+    tasks = ["migrateReporting_test"]
 }
 
 task cleanReportingTest(type: GradleBuild) {
     group = "Schema"
     description = "Migrates the schemas that integration tests depend on"
     dir = "RDW_Schema"
-    tasks = ["cleanReporting-test"]
+    tasks = ["cleanReporting_test"]
 }
