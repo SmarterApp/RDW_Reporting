@@ -9,9 +9,11 @@
 @gray6: #e6e6e6;
 @gray7: #f8f8f8;
 @gray8: #f3f3f3;
+@gray9: #a9a9a9;
 @blue1: #008AB1;
 @light-green: #43B02A;
 @green: #1f6735;
+@dark-green: #7dab42;
 @color-selected: #d3eacc;
 @color-hovered: #ededed;
 
@@ -222,7 +224,12 @@ html, body {
   }
 }
 
+.dark-bg {
+  background-color: @gray7;
+}
+
 .home-view,
+.pad-top-20,
 .students-view,
 .student-exams-view,
 .student-exam-items-view,
@@ -548,10 +555,15 @@ iframe.lg {height: 600px;}
 
 
 .margin-right-20 { margin-right: 20px; }
+.margin-bottom-0 { margin-bottom: 0px; }
 
 .color-checkmark {color: @green; }
 .color-green { color: @green; }
-.color-light-green {color: @light-green }
+.color-light-green { color: @light-green }
+.color-dark-green { color: @dark-green }
+.bg-color-dark-green { background-color: @dark-green }
+.color-gray { color: @gray9 }
+
 .overflow-hidden { overflow:hidden !important; }
 .text-align-center { text-align: center; }
 .card-watermark {
@@ -575,6 +587,17 @@ iframe.lg {height: 600px;}
 .width-md {  width:75px; }
 
 .pad-bottom-10 { padding-bottom: 10px }
+
+.spacer-h-md { margin-right: 2rem; }
+.spacer-h-sm { margin-right: 1rem; }
+.spacer-v-sm { margin-bottom: 1rem; }
+
+.pad-bottom-md { padding-bottom: 2rem; }
+
+.padding-vertical-xxs { padding-left: 1px; padding-right: 1px; }
+.icon-size-md { vertical-align: bottom; font-size: 1.75rem !important; }
+
+.btn-round { border-radius: 1rem; }
 
 a.active {
   cursor: default;

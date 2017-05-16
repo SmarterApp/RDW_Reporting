@@ -114,8 +114,12 @@ Util.XDM = (function ($) {
     // console.log('MESSAGE RECIEVED', evt);
 
     try {
+      if(!evt.data.data)
+        return;
+
       var data = XDM.deserialize(evt.data);
     } catch (ex) {
+
       console.log('XDM: error parsing json data');
       return;
     }

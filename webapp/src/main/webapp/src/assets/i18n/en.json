@@ -106,7 +106,17 @@
     },
     "groups": {
       "name": "My Groups",
-      "filter": "Search Groups"
+      "filter": "Search Groups",
+      "results" : {
+        "select-group": "Group",
+        "select-year": "School Year",
+        "adv-filters-label": "Advanced Filters",
+        "adv-filters-button": "Show",
+        "selected-assessments-title": "Selected Assessments",
+        "selected-assessments-instruct": "Click an item to remove it from the list",
+        "filter-type-recent": "Most Recent",
+        "filter-type-custom": "Custom"
+      }
     },
     "home" : {
       "name": "Home",

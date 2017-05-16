@@ -24,7 +24,7 @@
         <p-dataTable [value]="filteredGroups">
           <p-column field="name" header="{{'labels.group.name' | translate}}" [sortable]="true">
             <ng-template let-group="rowData" pTemplate="body">
-              <a routerLink="/groups/{{group.id}}/students">{{group.name}}</a>
+              <a routerLink="/groups/{{group.id}}">{{group.name}}</a>
             </ng-template>
           </p-column>
           <p-column field="schoolName" header="{{'labels.school.name' | translate}}" [sortable]="true"></p-column>

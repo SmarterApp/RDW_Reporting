@@ -31,6 +31,8 @@ import { GroupExamItemResolve } from "./group-exam-item/group-exam-item.resolve"
 import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
 import { DataTableModule, SharedModule } from 'primeng/primeng';
 import { SubjectPipe } from "./shared/subject.pipe";
+import { GroupResultsComponent } from './groups/results/group-results.component';
+import { BsDropdownModule } from "ngx-bootstrap";
 
 export function createTranslateLoader(http: Http) {
   return new TranslateHttpLoader(http, '/api/translations/', '');
@@ -53,13 +55,15 @@ export function createTranslateLoader(http: Http) {
     HomeComponent,
     StudentExamReportComponent,
     IabReportComponent,
-    AdminSearchComponent
+    AdminSearchComponent,
+    GroupResultsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     DataTableModule,
+    BsDropdownModule,
     SharedModule,
     RouterModule.forRoot(routes),
     TranslateModule.forRoot({

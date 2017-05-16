@@ -1,0 +1,67 @@
+<div class="pad-top-20 container">
+  <h2><i class="fa fa-group color-green"></i> {{'labels.groups.name' | translate}}</h2>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="col-md-4">
+        <label for="select-group">{{'labels.groups.results.select-group' | translate}}</label>
+
+        <!--type ahead? -->
+        <select id="select-group" class="dropdown form-control">
+          <option *ngFor="let group of groups">{{group.name}}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="school-year">{{'labels.groups.results.select-year' | translate}}</label>
+
+        <!-- static or data driven? -->
+        <select id="school-year" class="dropdown form-control">
+          <option>2017-2018</option>
+          <option>2016-2017</option>
+          <option>2015-2016</option>
+          <option>2014-2015</option>
+        </select>
+      </div>
+      <div class="col-md-5">
+        <div class="pull-right">
+          <label for="advanced">{{'labels.groups.results.adv-filters-label' | translate}}</label>
+          <button id="advanced" class="form-control">{{'labels.groups.results.adv-filters-button' | translate}} <i
+            class="fa fa-chevron-down" aria-hidden="true"></i></button>
+        </div>
+
+      </div>
+    </div>
+    <div class="panel-footer overflow-hidden pad-bottom-md">
+
+      <div class="col-md-12">
+        <h4 class="margin-bottom-0">
+          <i class="fa fa-list-alt"></i> {{'labels.groups.results.selected-assessments-title' | translate}}
+          <div class="pull-right">
+            <div class="btn-group" role="group">
+              <button type="radio" class="btn btn-default active">{{'labels.groups.results.filter-type-recent' |
+                translate}}
+              </button>
+              <button type="radio" class="btn btn-default">{{'labels.groups.results.filter-type-custom' | translate}}
+              </button>
+            </div>
+          </div>
+        </h4>
+        <div class="spacer-v-sm">
+          <small>{{'labels.groups.results.selected-assessments-instruct' | translate }}</small>
+        </div>
+
+        <!-- data driven *ngFor -->
+        <button class="btn btn-default btn-xs padding-vertical-xxs spacer-h-sm">
+          <label class="label bg-color-dark-green">G4</label>
+          <span class="color-dark-green spacer-h-md"> Measurement & Data</span>
+          <i class="fa fa-minus-square color-gray icon-size-md"></i>
+        </button>
+        <button class="btn btn-default btn-xs btn-round">
+          <i class="fa fa-plus color-gray"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
