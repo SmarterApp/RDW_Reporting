@@ -14,6 +14,28 @@ sql:
             join student_group sg on sg.id = usg.student_group_id
           where user_login=:user_login
 
+    exam:
+      findLatestForGroupAndSubject:
+        select
+            distinct iab_exam.session_id,
+            iab_exam.completed_at,
+            iab_exam.asmt_id as assessment_id,
+            asmt.name as assessment_name,
+            asmt.grade_id as assessment_grade_id
+          from iab_exam
+            join asmt on iab_exam.asmt_id=asmt.id
+          where asmt_id=(
+            select asmt_id
+              from iab_exam
+                join student_group_membership on iab_exam.student_id=student_group_membership.student_id
+                join asmt on iab_exam.asmt_id=asmt.id
+              where student_group_membership.student_group_id=:group_id
+              and asmt.subject_id=:subject_id
+              order by completed_at desc
+              limit 1
+          )
+          and session_id is not null
+
   district:
     findAllIds: >-
       select natural_id, id
