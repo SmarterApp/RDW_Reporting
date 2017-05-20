@@ -117,15 +117,15 @@ subprojects {
     //This task for for manually running the integration tests against schemas being developed simultaneously with this
     // project, versus the schemas that are "fixed" under the RDW_Schema submodule in this project
     task manualIT(type: Test) {
-        include '**/*IT.*'
         outputs.upToDateWhen { false }
-        doLast {
+        doFirst {
             println "Running Manual Integration Tests..."
         }
     }
 
     //The omission of the ':' in manualIT is on purpose - we need the relative path to manualIT
-    task IT(type: Test, dependsOn:[":cleanReportingTest", ":migrateReportingTest", "manualIT"]) {
+    task IT(type: Test, dependsOn:[":cleanReportingTest", ":migrateReportingTest"]) {
+        outputs.upToDateWhen { false }
         doLast {
             println "Running Integration Tests..."
         }

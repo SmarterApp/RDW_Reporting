@@ -58,6 +58,8 @@ test.finalizedBy(jacocoTestReport)
 
 //This is the build task for the Front End (Fe) and only compiles when the inputs change
 task buildFe(type: NpmTask) {
+    inputs.files(fileTree("src/main/webapp/src"))
+    inputs.file("src/main/webapp/package.json")
     workingDir = file ("src/main/webapp")
     outputs.dir('build/resources/static')
     dependsOn npm_install
@@ -65,6 +67,8 @@ task buildFe(type: NpmTask) {
 }
 
 task testFe(type: NpmTask) {
+    inputs.files(fileTree("src/main/webapp/src"))
+    inputs.file("src/main/webapp/package.json")
     workingDir = file ("src/main/webapp")
     outputs.dir('build/resources/static')
     dependsOn npm_install
