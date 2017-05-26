@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 import {TranslateService} from '@ngx-translate/core';
+import { UserService } from "./user/user.service";
 
 @Component({
   selector: 'app-component',
@@ -7,9 +8,13 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class AppComponent {
 
-  private user;
+  private _user;
 
-  constructor(private translate: TranslateService) {
+  get user() {
+    return this._user;
+  }
+
+  constructor(private translate: TranslateService, private _userService : UserService) {
 
     let languages = ['en', 'ja'];
     let defaultLanguage = languages[0];
@@ -20,9 +25,11 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.user = {
-      firstName: 'Terry',
-      lastName: 'McManus'
-    };
+    this._userService.getCurrentUser().subscribe(user => {
+      this._user = {
+        firstName: user.firstName,
+        lastName: user.lastName
+      };
+    });
   }
 }

@@ -8,6 +8,8 @@ import { AppModule } from "../../app.module";
 import { ActivatedRoute } from "@angular/router";
 import { APP_BASE_HREF } from "@angular/common";
 import { CachingDataService } from "../../shared/cachingData.service";
+import { GroupsModule } from "../groups.module";
+import { CommonModule } from "../../shared/common.module";
 
 describe('GroupResultsComponent', () => {
   let component: GroupResultsComponent;
@@ -17,7 +19,7 @@ describe('GroupResultsComponent', () => {
   beforeEach(async(() => {
     mockRouteSnapshot = getRouteSnapshot();
     TestBed.configureTestingModule({
-      imports: [ TranslateModule.forRoot(), HttpModule, FormsModule, TranslateModule.forRoot(), AppModule ],
+      imports: [ HttpModule, FormsModule, AppModule ],
       providers: [ { provide: APP_BASE_HREF, useValue: '/' }, {
         provide: ActivatedRoute,
         useValue: { snapshot: mockRouteSnapshot }

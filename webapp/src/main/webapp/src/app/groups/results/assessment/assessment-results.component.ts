@@ -1,5 +1,10 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { trigger, transition, style, animate } from "@angular/animations";
+import { AssessmentExam } from "./model/assessment-exam.model";
+import { Exam } from "./model/exam.model";
+import { ExamResultLevel } from "../../../shared/enum/exam-result-level.enum";
+import { AssessmentType } from "../../../shared/enum/assessment-type.enum";
+import { ExamStatisticsCalculator } from "./exam-statistics-calculator";
 
 @Component({
   selector: 'assessment-results',
@@ -24,47 +29,95 @@ import { trigger, transition, style, animate } from "@angular/animations";
     )
   ],
 })
+export class AssessmentResultsComponent {
 
-export class AssessmentResultsComponent implements OnInit {
-  private _assessment;
-  private _examSessions = [];
+  private _assessmentExam: AssessmentExam;
+  private _exams = [];
+  private _sessions = [];
+  private _statistics: any = { percents: {} };
+  private _showValuesAsPercent: boolean;
+
+  constructor(private _calculator : ExamStatisticsCalculator){
+
+  }
 
   @Input()
-  set assessment(assessment) {
-    this._assessment = assessment;
+  set assessmentExam(assessment: AssessmentExam) {
+    this._assessmentExam = assessment;
+    this._sessions = this.getDistinctExamSessions(assessment.exams);
 
-    if (this._assessment.sessions && this._assessment.sessions.length > 0) {
-      // Select the first session by default.
-      this._assessment.sessions[ 0 ].filter = true;
-      this.updateExamSessions(this._assessment.sessions[ 0 ]);
-    }
+    if (this._sessions.length > 0)
+      this.toggleSession(this._sessions[ 0 ]);
   }
 
-  get assessment() {
-    return this._assessment;
+  @Input()
+  set showValuesAsPercent(value: boolean) {
+    this._showValuesAsPercent = value;
   }
 
-  get examSessions() {
-    return this._examSessions;
+  get assessmentExam() {
+    return this._assessmentExam;
   }
 
-  ngOnInit() {
+  get exams() {
+    return this._exams;
+  }
+
+  get sessions() {
+    return this._sessions;
+  }
+
+  get statistics() {
+    return this._statistics;
+  }
+
+  get performance() {
+    if (this._showValuesAsPercent)
+      return this._statistics.percents;
+    else
+      return this._statistics;
+  }
+
+  get isIab() : boolean {
+    return this._assessmentExam.assessment.type == AssessmentType.IAB;
+  }
+
+  get examLevelEnum() {
+    return this.isIab
+      ? "enum.iab-category."
+      : "enum.achievement-level.";
   }
 
   toggleSession(session) {
     session.filter = !session.filter;
-    this.updateExamSessions(session);
+    this.updateExamSessions();
   }
 
-  private updateExamSessions(session) {
-    // create copy
-    let examSessions = this._examSessions.filter(x => true);
+  private getDistinctExamSessions(exams: Exam[]) {
+    let sessions = [];
 
-    if (session.filter)
-      session.exams.forEach(x => examSessions.push({ session: session, exam: x }));
-    else
-      session.exams.forEach(x => examSessions.splice(examSessions.findIndex(y => y.exam == x), 1))
+    exams.forEach(exam => {
+      if (!sessions.some(x => x.id == exam.session)) {
+        sessions.push({ id: exam.session, date: exam.date, filter: false });
+      }
+    });
 
-    this._examSessions = examSessions;
+    return sessions;
+  }
+
+  private updateExamSessions() {
+    this._exams = this._assessmentExam.exams.filter(x => this.sessions.some(y => y.filter && y.id == x.session));
+    this._statistics = this.calculateStats();
+  }
+
+  private calculateStats() {
+    let stats: any = {
+      total: this._exams.length,
+      average: this._calculator.calculateAverage(this._exams),
+      levels: this._calculator.groupLevels(this._exams, this.isIab ? 3 : 4)
+    };
+
+    stats.percents = { levels: this._calculator.calculateLevelPercents(stats.levels, stats.total) };
+    return stats;
   }
 }

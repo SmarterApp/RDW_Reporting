@@ -1,19 +1,20 @@
-import { HomeComponent } from "../home/home.component";
-import { GroupStudentsComponent } from "../group-students/group-students.component";
-import { StudentExamsComponent } from "../student-exams/student-exams.component";
-import { GroupExamsComponent } from "../group-exams/group-exams.component";
-import { StudentExamItemsComponent } from "../student-exam-items/student-exam-items.component";
-import { GroupExamItemComponent } from "../group-exam-item/group-exam-item.component";
-import { StudentExamReportComponent } from "../student-exam-report/student-exam-report.component";
-import { AdminSearchComponent } from "../admin-search/admin-search.component";
+import { HomeComponent } from "./home/home.component";
+import { GroupStudentsComponent } from "./group-students/group-students.component";
+import { StudentExamsComponent } from "./student-exams/student-exams.component";
+import { GroupExamsComponent } from "./group-exams/group-exams.component";
+import { StudentExamItemsComponent } from "./student-exam-items/student-exam-items.component";
+import { GroupExamItemComponent } from "./group-exam-item/group-exam-item.component";
+import { StudentExamReportComponent } from "./student-exam-report/student-exam-report.component";
+import { AdminSearchComponent } from "./admin-search/admin-search.component";
 import { Routes } from "@angular/router";
-import { GroupResolve } from "../groups/group.resolve";
-import { StudentExamsResolve } from "../student-exams/student-exam.resolve";
-import { StudentExamItemsResolve } from "../student-exam-items/student-exam-items.resolve";
-import { GroupExamItemResolve } from "../group-exam-item/group-exam-item.resolve";
-import { GroupResultsComponent } from "../groups/results/group-results.component";
-import { GroupsResolve } from "../groups/groups.resolve";
-import { AssessmentsResolve } from "../groups/results/assessments.resolve";
+import { GroupResolve } from "./groups/group.resolve";
+import { StudentExamsResolve } from "./student-exams/student-exam.resolve";
+import { StudentExamItemsResolve } from "./student-exam-items/student-exam-items.resolve";
+import { GroupExamItemResolve } from "./group-exam-item/group-exam-item.resolve";
+import { GroupResultsComponent } from "./groups/results/group-results.component";
+import { GroupsResolve } from "./groups/groups.resolve";
+import { AssessmentsResolve } from "./groups/results/assessments.resolve";
+import { AuthorizeCanActivate } from "./user/authorize.can-activate";
 
 export const routes: Routes = [
   {
@@ -24,9 +25,10 @@ export const routes: Routes = [
       {
         path: 'groups/:groupId',
         pathMatch: 'full',
-        resolve: { assessments: AssessmentsResolve },
-        data: { breadcrumb: { translate: 'labels.groups.name'} },
-        component: GroupResultsComponent
+        resolve: { assessment: AssessmentsResolve },
+        data: { breadcrumb: { translate: 'labels.groups.name'}, permissions: ['GROUP_PII_READ','INDIVIDUAL_PII_READ'] },
+        component: GroupResultsComponent,
+        canActivate: [ AuthorizeCanActivate ]
       }
     ]
   },

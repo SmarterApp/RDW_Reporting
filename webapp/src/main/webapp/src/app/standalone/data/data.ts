@@ -1,7 +1,7 @@
 import {sortAscOn} from "../../shared/comparators";
 import {randomId, randomSsid} from "./support/generator";
-import {AssessmentType} from "../../shared/assessment-type.enum";
-import {AssessmentSubjectType} from "../../shared/assessment-subject-type.enum";
+import {AssessmentType} from "../../shared/enum/assessment-type.enum";
+import {AssessmentSubjectType} from "../../shared/enum/assessment-subject-type.enum";
 
 /*
   item_result
@@ -14,6 +14,12 @@ import {AssessmentSubjectType} from "../../shared/assessment-subject-type.enum";
  */
 
 let commonVendorId = '2B3C34BF-064C-462A-93EA-41E9E3EB8333';
+
+export const user = {
+  firstName: "Terry",
+  lastName: "McManus",
+  permissions: [ "INDIVIDUAL_PII_READ", "GROUP_READ" ]
+};
 
 export const iab_items = [
   {
@@ -92,156 +98,205 @@ export const iab_items = [
   return item;
 });
 
+export const students = [
+  { firstName: "David", lastName: "Hayden" },
+  { firstName: "Clementine", lastName: "Roach" },
+  { firstName: "Hasad", lastName: "Valenzuela" },
+  { firstName: "Joe", lastName: "Smith" },
+  { firstName: "Joseph", lastName: "Cleveland" },
+  { firstName: "Sara", lastName: "Blankenship" },
+  { firstName: "Linus", lastName: "Todd" },
+  { firstName: "Hope", lastName: "Cardinas" }
+].map((student: any, index: number) => {
+  student.id = index;
+  student.ssid = randomSsid();
+  student.exams = exams_of_student;
+  student.fullName = `${student.lastName}, ${student.firstName}`;
+  return student;
+});
+
 export const exams_of_student = [
   {
-    date: new Date(2017, 1, 2),
-    performance: 0,
-    score: 2321,
+    dateTime: new Date(2017, 1, 7),
+    sessionId: "ma-01",
+    scaleScore: { value: 2321, level: 1 },
+    completenessId: 2,
+    administrativeConditionId: 2,
     grade: 4,
-    studentName: { first: "David", last: "Hayden" }
+    student: students[0]
   },
   {
-    date: new Date(2017, 1, 4),
-    performance: 0,
-    score: 2339,
+    dateTime: new Date(2017, 1, 7),
+    sessionId: "ma-01",
+    scaleScore: { value: 2339, level: 1 },
+    completenessId: 2,
+    administrativeConditionId: 2,
     grade: 4,
-    studentName: { first: "Clementine", last: "Roach" }
+    student: students[1]
   },
   {
-    date: new Date(2017, 1, 7),
-    performance: 0,
-    score: 2344,
+    dateTime: new Date(2017, 1, 7),
+    sessionId: "ma-02",
+    scaleScore: { value: 2344, level: 1 },
+    completenessId: 2,
+    administrativeConditionId: 3,
     grade: 4,
-    studentName: { first: "Hasad", last: "Valenzuela" }
+    student: students[2]
   },
   {
-    date: new Date(2017, 1, 15),
-    performance: 0,
-    score: 2378,
+    dateTime: new Date(2017, 1, 15),
+    sessionId: "ma-02",
+    scaleScore: { value: 2378, level: 2 },
+    completenessId: 2,
+    administrativeConditionId: 3,
     grade: 4,
-    studentName: { first: "Joe", last: "Smith" }
+    student: students[3]
   },
   {
-    date: new Date(2017, 1, 15),
-    performance: 1,
-    score: 2447,
+    dateTime: new Date(2017, 1, 15),
+    sessionId: "ma-02",
+    scaleScore: { value: 2447, level: 3 },
+    completenessId: 2,
+    administrativeConditionId: 3,
     grade: 4,
-    studentName: { first: "Joseph", last: "Cleveland" }
+    student: students[4]
   },
   {
-    date: new Date(2017, 1, 15),
-    performance: 2,
-    score: 2595,
+    dateTime: new Date(2017, 1, 15),
+    sessionId: null,
+    scaleScore: { value: 2595, level: 3 },
+    completenessId: 1,
+    administrativeConditionId: 2,
     grade: 4,
-    studentName: { first: "Sara", last: "Blankenship" }
+    student: students[5]
   },
   {
-    date: new Date(2017, 1, 20),
-    performance: 2,
-    score: 2520,
+    dateTime: new Date(2017, 1, 20),
+    sessionId: null,
+    scaleScore: { value: 2520, level: 3 },
+    completenessId: 2,
+    administrativeConditionId: 2,
     grade: 4,
-    studentName: { first: "Linus", last: "Todd" }
+    student: students[6]
   },
   {
-    date: new Date(2017, 1, 20),
-    performance: 2,
-    score: 2520,
+    dateTime: new Date(2017, 1, 20),
+    sessionId: "ma-01",
+    scaleScore: { value: 2520, level: 3 },
+    completenessId: 2,
+    administrativeConditionId: 2,
     grade: 4,
-    studentName: { first: "Hope", last: "Cardinas" }
+    student: students[7]
   }
 ].map((exam: any, index: number) => {
   exam.id = randomId();
   exam.items = iab_items;
-  exam.name = exam.studentName.last + ", " + exam.studentName.first;
+  exam.studentContext = { gradeId: exam.grade };
+  return exam;
+});
+
+export const exams_sum_of_students = [
+  {
+    dateTime: new Date(2017, 1, 7),
+    sessionId: "ma-01",
+    scaleScore: { value: 2321, level: 1 },
+    completenessId: 1,
+    administrativeConditionId: 1,
+    grade: 4,
+    student: students[0]
+  }, {
+    dateTime: new Date(2017, 1, 7),
+    sessionId: "ma-01",
+    scaleScore: { value: 2339, level: 2 },
+    completenessId: 2,
+    administrativeConditionId: 1,
+    grade: 4,
+    student: students[1]
+  }, {
+    dateTime: new Date(2017, 1, 7),
+    sessionId: "ma-01",
+    scaleScore: { value: 2344, level: 4 },
+    completenessId: 2,
+    administrativeConditionId: 1,
+    grade: 4,
+    student: students[2]
+  }, {
+    dateTime: new Date(2017, 1, 15),
+    sessionId: "ma-01",
+    scaleScore: { value: 2378, level: 4 },
+    completenessId: 2,
+    administrativeConditionId: 4,
+    grade: 4,
+    student: students[3]
+  }, {
+    dateTime: new Date(2017, 1, 15),
+    sessionId: "ma-02",
+    scaleScore: { value: 2378, level: 4 },
+    completenessId: 2,
+    administrativeConditionId: 4,
+    grade: 4,
+    student: students[4]
+  },
+].map((exam: any, index: number) => {
+  exam.id = randomId();
+  exam.items = iab_items;
+  exam.studentContext = { gradeId: exam.grade };
   return exam;
 });
 
 export const assessments = [
   {
     id: 1,
-    type: AssessmentType.IAB,
+    typeId: AssessmentType.IAB,
     name: 'Number and Operations - Fractions',
     gradeId: 3,
     academicYear: 2016,
-    subject: AssessmentSubjectType.MATH,
-    sessions: [ {
-      id: "nof-01",
-      dateTime: "2017-05-12T21:47:45Z",
-      exams: exams_of_student.filter(x => x.id % 2 == 0)
-    }, {
-      id: "nof-02",
-      dateTime: "2017-05-13T21:47:45Z",
-      exams: exams_of_student.filter(x => x.id % 2 == 1)
-    } ]
+    subjectId: AssessmentSubjectType.MATH,
   },
   {
     id: 2,
-    type: AssessmentType.IAB,
+    typeId: AssessmentType.SUMMATIVE,
     name: 'Measurement and Data',
     gradeId: 4,
     academicYear: 2013,
-    subject: AssessmentSubjectType.MATH,
-    sessions: [{
-      id:"md-01",
-      dateTime:"2017-05-12T21:47:45Z",
-      exams: exams_of_student.filter(x => x.id % 3 == 0)
-    },{
-      id:"md-02",
-      dateTime:"2017-05-11T21:47:45Z",
-      exams: exams_of_student.filter(x => x.id % 3 == 1)
-    },{
-      id:"md-03",
-      dateTime:"2017-05-10T21:47:45Z",
-      exams: exams_of_student.filter(x => x.id % 3 == 3)
-    }]
+    subjectId: AssessmentSubjectType.MATH,
   },
   {
     id: 3,
-    type: AssessmentType.IAB,
+    typeId: AssessmentType.IAB,
     name: 'Geometry',
     gradeId: 7,
     academicYear: 2017,
-    subject: AssessmentSubjectType.MATH,
-    sessions: [{
-      id:"g-01",
-      dateTime:"2017-06-12T21:47:45Z",
-      exams: exams_of_student.filter(x => x.id % 2 == 0)
-    },{
-      id:"g-02",
-      dateTime:"2017-06-11T21:47:45Z",
-      exams: exams_of_student.filter(x => x.id % 2 == 1)
-    }]
+    subjectId: AssessmentSubjectType.MATH,
   },
   {
     id: 4,
-    type: AssessmentType.IAB,
+    typeId: AssessmentType.IAB,
     name: 'Mathematics Performance Task',
     gradeId: 5,
     academicYear: 2015,
-    subject: AssessmentSubjectType.MATH,
-    sessions: [{
-      id:"mpt-01",
-      dateTime:"2017-05-12T21:47:45Z",
-      exams: exams_of_student.filter(x => x.id % 2 == 1)
-    }]
+    subjectId: AssessmentSubjectType.MATH,
   },
   {
     id: 5,
-    type: AssessmentType.IAB,
+    typeId: AssessmentType.SUMMATIVE,
     name: 'Operations and Algebraic Thinking',
     gradeId: 8,
     academicYear: 2014,
-    subject: AssessmentSubjectType.MATH,
-    sessions: [{
-      id:"oat-01",
-      dateTime:"2017-05-12T21:47:45Z",
-      exams: exams_of_student.filter(x => x.id % 2 == 0)
-    }]
+    subjectId: AssessmentSubjectType.MATH,
   }
 ].map((assessment : any) => {
   assessment.fullName = `Grade ${assessment.grade} ${assessment.name}`;
   return assessment;
 });
+
+export const groupAssessments= [
+  { assessment: assessments[0], exams: exams_of_student.filter(x => x.id % 2 == 0) },
+  { assessment: assessments[1], exams: exams_sum_of_students.filter(x => x.id % 2 == 0) },
+  { assessment: assessments[2], exams: exams_of_student },
+  { assessment: assessments[3], exams: exams_of_student.filter(x => x.id % 3 == 2) },
+  { assessment: assessments[4], exams: exams_sum_of_students },
+];
 
 // Just to keep the old UI working for now...
 export const DEPRECATED_exams_of_student = [
@@ -317,22 +372,7 @@ export const DEPRECATED_exams_of_student = [
 });
 
 
-export const students = [
-  {firstName: "David", lastName: "Hayden"},
-  {firstName: "Clementine", lastName: "Roach"},
-  {firstName: "Hasad", lastName: "Valenzuela"},
-  {firstName: "Joe", lastName: "Smith"},
-  {firstName: "Joseph", lastName: "Cleveland"},
-  {firstName: "Sara", lastName: "Blankenship"},
-  {firstName: "Linus", lastName: "Todd"},
-  {firstName: "Hope", lastName: "Cardinas"}
-].map((student: any, index: number) => {
-  student.id = index;
-  student.ssid = randomSsid();
-  student.exams = exams_of_student;
-  student.fullName = `${student.lastName}, ${student.firstName}`;
-  return student;
-});
+
 
 sortAscOn(students, student => student.lastName, student => student.firstName);
 

@@ -8,6 +8,11 @@ import { Component } from "@angular/core";
 import { SharedModule } from "primeng/components/common/shared";
 import { DataTableModule } from "primeng/components/datatable/datatable";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AssessmentExam } from "./model/assessment-exam.model";
+import { Exam } from "./model/exam.model";
+import { CommonModule } from "../../../shared/common.module";
+import { RemoveCommaPipe } from "../../../shared/remove-comma.pipe";
+import { ExamStatisticsCalculator } from "./exam-statistics-calculator";
 
 describe('AssessmentResultsComponent', () => {
   let component: AssessmentResultsComponent;
@@ -16,8 +21,8 @@ describe('AssessmentResultsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ TranslateModule.forRoot(), HttpModule, FormsModule, DataTableModule, SharedModule, BrowserAnimationsModule ],
-      declarations: [ TestComponentWrapper, AssessmentResultsComponent ],
-      providers: [ { provide: APP_BASE_HREF, useValue: '/' } ]
+      declarations: [ TestComponentWrapper, AssessmentResultsComponent, RemoveCommaPipe ],
+      providers: [ { provide: APP_BASE_HREF, useValue: '/' } , ExamStatisticsCalculator ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(TestComponentWrapper);
@@ -32,17 +37,13 @@ describe('AssessmentResultsComponent', () => {
   });
 
   it('should default to the first session', () => {
-    let assessment = {
-      sessions: [ { id: "ma-02", filter: undefined, exams: [] }, {
-        id: "ma-04",
-        filter: undefined,
-        exams: []
-      } ]
-    };
+    let assessmentExam = new AssessmentExam();
+    assessmentExam.exams.push(buildExam("Benoit, Jordan", "ma-02"));
+    assessmentExam.exams.push(buildExam("Wood, Michael", "ma-01"));
 
-    component.assessment = assessment;
-    expect(assessment.sessions[ 0 ].filter).toBeTruthy();
-    expect(assessment.sessions[ 1 ].filter).toBeFalsy();
+    component.assessmentExam = assessmentExam;
+    expect(component.sessions[ 0 ].filter).toBeTruthy();
+    expect(component.sessions[ 1 ].filter).toBeFalsy();
   });
 
   it('should toggle sessions filtered to true and false', () => {
@@ -56,20 +57,34 @@ describe('AssessmentResultsComponent', () => {
   });
 
   it('should add/remove filtered sessions', () => {
-    let session = { id: "ma-02", filter: undefined, exams: [ { name: "John Henderson" } ] };
+    let assessmentExam = new AssessmentExam();
+    assessmentExam.exams.push(buildExam("Benoit, Jordan", "ma-02"));
+    assessmentExam.exams.push(buildExam("Wood, Michael", "ma-01"));
 
-    component.toggleSession(session);
-    expect(component.examSessions[ 0 ].exam.name).toBe(session.exams[ 0 ].name)
+    component.assessmentExam = assessmentExam;
+    component.toggleSession(component.sessions[1]);
+    expect(component.exams.length).toBe(2);
 
-    component.toggleSession(session);
-    expect(component.examSessions.length).toBe(0);
+    component.toggleSession(component.sessions[1]);
+    expect(component.exams.length).toBe(1);
+
+    component.toggleSession(component.sessions[0]);
+    expect(component.exams.length).toBe(0);
   });
+
+  function buildExam(studentName:string, session:string) {
+    let exam = new Exam();
+    exam.studentName = studentName;
+    exam.session = session;
+
+    return exam;
+  }
 });
 
 @Component({
   selector: 'test-component-wrapper',
-  template: '<assessment-results [assessment]="assessment"></assessment-results>'
+  template: '<assessment-results [assessmentExam]="assessment"></assessment-results>'
 })
 class TestComponentWrapper {
-  assessment = { sessions: [] }
+  assessment = new AssessmentExam();
 }

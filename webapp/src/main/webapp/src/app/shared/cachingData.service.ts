@@ -12,16 +12,21 @@ export class CachingDataService {
   constructor(private http: Http) {
   }
 
-  private get(url: string, options?: RequestOptionsArgs): Observable<any> {
+  public get(url: string, options?: RequestOptionsArgs): Observable<any> {
     if(this.cache[url]){
-      return this.cache[url]
+      return Observable.of(this.cache[url]);
     }
 
     let observable = this.http
       .get(`/api${url}`, options)
+      .share()
       .map(response => response.json());
 
-    this.cache[url] = observable;
+    observable
+      .subscribe(x => {
+        this.cache[url] = x;
+      });
+
     return observable;
   }
 

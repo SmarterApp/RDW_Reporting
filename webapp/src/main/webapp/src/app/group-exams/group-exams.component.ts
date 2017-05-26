@@ -42,10 +42,10 @@ export class GroupExamsComponent implements OnInit {
         this.group = group;
 
         this.academicYearFilterOptions = Array.from(assessment_results.reduce(
-          (values, exam) => values.add(exam.assessment.academicYear), new Set())).sort();
+          (values, exam) => values.add(exam.assessmentExam.academicYear), new Set())).sort();
 
         this.assessmentTypeFilterOptions = Array.from(assessment_results.reduce(
-          (values, exam) => values.add(exam.assessment.type), new Set())).sort();
+          (values, exam) => values.add(exam.assessmentExam.type), new Set())).sort();
 
         // data prep
         this.group.exams = exams_of_group;
@@ -69,7 +69,7 @@ export class GroupExamsComponent implements OnInit {
     exam.checked = checked;
     if (checked) {
       if (this.selectedExams.size == 0) {
-        this.selectedAssessment = exam.assessment;
+        this.selectedAssessment = exam.assessmentExam;
 
       }
       this.selectedExams.add(exam);
@@ -80,7 +80,7 @@ export class GroupExamsComponent implements OnInit {
       }
       this.selectedExams.delete(exam);
     }
-    this.group.exams.forEach(exam => exam.disabled = this.selectedAssessment != null && exam.assessment.id !== this.selectedAssessment.id);
+    this.group.exams.forEach(exam => exam.disabled = this.selectedAssessment != null && exam.assessmentExam.id !== this.selectedAssessment.id);
     this.aggregate();
   }
 
@@ -96,8 +96,8 @@ export class GroupExamsComponent implements OnInit {
 
   filter() {
     this.filteredExams = this.group.exams.filter(exam => {
-      return (this.selectedAcademicYear != null ? this.selectedAcademicYear == exam.assessment.academicYear : true)
-        && (this.selectedAssessmentType != null ? this.selectedAssessmentType == exam.assessment.type : true);
+      return (this.selectedAcademicYear != null ? this.selectedAcademicYear == exam.assessmentExam.academicYear : true)
+        && (this.selectedAssessmentType != null ? this.selectedAssessmentType == exam.assessmentExam.type : true);
     });
     this.aggregate();
   }
@@ -134,7 +134,7 @@ export class GroupExamsComponent implements OnInit {
       // date range
       let examsSortedByDate = sortDescOn(exams.slice(), exam => exam.date);
 
-      this.translate.get('assessment.subjects.' + this.selectedAssessment.subject +'.shortName').subscribe(subjectName => {
+      this.translate.get('assessmentExam.subjects.' + this.selectedAssessment.subject +'.shortName').subscribe(subjectName => {
         this.selectionSummary = {
           total: exams.reduce((total:any, exam:any) => total + exam.students.total, 0),
           start: new DatePipe(this.translate.currentLang).transform(examsSortedByDate[0].date, 'dd-MMM-yy'),

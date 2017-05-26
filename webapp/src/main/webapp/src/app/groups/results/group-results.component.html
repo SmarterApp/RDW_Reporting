@@ -44,9 +44,9 @@
           <small>{{'labels.groups.results.selected-assessments-instruct' | translate }}</small>
         </div>
 
-        <button *ngFor="let assessment of selectedAssessments" class="btn btn-default btn-xs pad-h-xxs spacer-h-sm spacer-v-sm">
-          <span class="label bg-color-grade-{{assessment.gradeId}}">G{{assessment.gradeId}}</span>
-          <span class="color-grade-{{assessment.gradeId}} spacer-h-md"> {{assessment.name}}</span>
+        <button *ngFor="let assessmentExam of selectedAssessments" class="btn btn-default btn-xs pad-h-xxs spacer-h-sm spacer-v-sm">
+          <span class="label bg-color-grade-{{assessmentExam.assessment.grade}}">{{'labels.groups.results.grade-prefix' | translate}}{{assessmentExam.assessment.grade}}</span>
+          <span class="color-grade-{{assessmentExam.assessment.grade}} spacer-h-md"> {{assessmentExam.assessment.name}}</span>
           <i class="fa fa-minus-square color-gray icon-size-md"></i>
         </button>
         <button class="btn btn-default btn-xs btn-round spacer-v-sm">
@@ -62,13 +62,18 @@
     <div class="pull-right">
       <label for="value-format">{{'labels.groups.results.value-as' | translate }} </label>
       <div id="value-format" class="btn-group" role="group">
-        <button type="radio" class="btn btn-default btn-sm active">{{'labels.groups.results.value-as-percent' | translate}}</button>
-        <button type="radio" class="btn btn-default btn-sm">{{'labels.groups.results.value-as-number' | translate}}</button>
+        <button type="radio" (click)="showValuesAsPercent = true" [ngClass]="{'active':showValuesAsPercent}" class="btn btn-default btn-sm"  >{{'labels.groups.results.value-as-percent' | translate}}</button>
+        <button type="radio" (click)="showValuesAsPercent = false" [ngClass]="{'active':!showValuesAsPercent}" class="btn btn-default btn-sm">{{'labels.groups.results.value-as-number' | translate}}</button>
       </div>
     </div>
   </div>
   <div *ngFor="let assessment of selectedAssessments">
-    <assessment-results [assessment]="assessment"></assessment-results>
+    <assessment-results [assessmentExam]="assessment" [showValuesAsPercent]="showValuesAsPercent"></assessment-results>
+  </div>
+  <div *ngIf="selectedAssessments.length == 0">
+    <p>
+      {{'messages.no-results-found' | translate}}
+    </p>
   </div>
 
 </div>

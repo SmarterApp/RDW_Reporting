@@ -4,11 +4,11 @@
       <p>{{ 'labels.home.welcome' | translate }} <a href="">{{ 'labels.home.tutorial-link-text' | translate }}</a></p>
     </div>
     <div class="row row-eq-height">
-      <div class="col-md-8 card overflow-hidden margin-right-20">
+      <div *sbAuthorize="['GROUP_PII_READ','INDIVIDUAL_PII_READ']" class="col-md-8 card overflow-hidden margin-right-20">
         <!--TODO:  Implement authorize of PII or PII Group role. -->
         <groups></groups>
       </div>
-      <div class="col-md-3 card">
+      <div class="card">
         <h3>Search</h3>
         <hr>
         <div>

@@ -2,64 +2,150 @@ sql:
   group:
     findAllForUsername: >-
       select sg.id, sg.name, school.name as school_name, subject_id
-        from user_student_group usg
-          join student_group sg on sg.id = usg.student_group_id
-          join school on school.id = sg.school_id
-        where user_login=:user_login
+      from user_student_group usg
+        join student_group sg on sg.id = usg.student_group_id
+        join school on school.id = sg.school_id
+      where user_login=:user_login
 
     membership:
       findAllForUsername: >-
         select sg.id, sg.subject_id, sg.school_id
-          from user_student_group usg
-            join student_group sg on sg.id = usg.student_group_id
-          where user_login=:user_login
+        from user_student_group usg
+          join student_group sg on sg.id = usg.student_group_id
+        where user_login=:user_login
 
     assessment:
-      findAll: >-
-        select
-            distinct a.id,
-            a.name,
+      icaSummative:
+        findAll: >-
+          select a.id,
+            a.label,
             a.grade_id,
             a.type_id,
             a.subject_id,
-            a.school_year
+            a.school_year,
+            aa.min_score,
+            aa.max_score,
+            aa.cut_point_1,
+            aa.cut_point_2,
+            aa.cut_point_3
+          from asmt a
+            left join asmt_score aa on a.id=aa.asmt_id
+          where exists (
+              select e.asmt_id
+              from exam e
+                join student_group_membership sgm on e.student_id=sgm.student_id
+                join school s on e.school_id=s.id
+              where
+                e.school_year=:school_year
+                and sgm.student_group_id=:group_id
+                and (0=:group_subject_id or a.subject_id=:group_subject_id)
+                and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
+                and a.id = e.asmt_id
+          )
+
+      iab:
+        findAll: >-
+           select a.id,
+             a.label,
+             a.grade_id,
+             a.type_id,
+             a.subject_id,
+             a.school_year
+           from asmt a
+           where exists (
+               select e.asmt_id
+               from iab_exam e
+                 join student_group_membership sgm on e.student_id=sgm.student_id
+                 join school s on e.school_id=s.id
+               where
+                 e.school_year=:school_year
+                 and sgm.student_group_id=:group_id
+                 and (0=:group_subject_id or a.subject_id=:group_subject_id)
+                 and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
+                 and a.id = e.asmt_id
+           )
+
+    exam:
+      icaSummative:
+        findLatest: >-
+          select e.completed_at,
+            a.id,
+            a.label,
+            a.grade_id,
+            a.type_id,
+            a.subject_id,
+            a.school_year,
+            aa.min_score,
+            aa.max_score,
+            aa.cut_point_1,
+            aa.cut_point_2,
+            aa.cut_point_3
           from exam e
             join student_group_membership sgm on e.student_id=sgm.student_id
             join asmt a on e.asmt_id=a.id
             join school s on e.school_id=s.id
+            left join asmt_score aa on e.asmt_id=aa.asmt_id
           where e.school_year=:school_year
+          and sgm.student_group_id=:group_id
+          and (0=:group_subject_id or a.subject_id=:group_subject_id)
+          and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
+          order by e.completed_at desc
+          limit 1
+
+        findAllForAssessment: >-
+          select e.id,
+            e.grade_id,
+            e.iep,
+            e.lep,
+            e.section504,
+            e.economic_disadvantage,
+            e.migrant_status,
+            e.school_year,
+            e.opportunity,
+            e.completeness_id,
+            e.administration_condition_id,
+            e.session_id,
+            e.completed_at,
+            e.scale_score,
+            e.scale_score_std_err,
+            e.achievement_level,
+            e.claim1_scale_score,
+            e.claim1_scale_score_std_err,
+            e.claim1_category,
+            e.claim2_scale_score,
+            e.claim2_scale_score_std_err,
+            e.claim2_category,
+            e.claim3_scale_score,
+            e.claim3_scale_score_std_err,
+            e.claim3_category,
+            e.claim4_scale_score,
+            e.claim4_scale_score_std_err,
+            e.claim4_category,
+            st.id as student_id,
+            st.last_or_surname as student_last_name,
+            st.first_name as student_first_name,
+            st.gender_id as student_gender_id
+          from exam e
+            join student_group_membership sgm on e.student_id=sgm.student_id
+            join student st on e.student_id=st.id
+            join asmt a on e.asmt_id=a.id
+            join school s on e.school_id=s.id
+          where e.asmt_id=:assessment_id
+          and e.school_year=:school_year
           and sgm.student_group_id=:group_id
           and (0=:group_subject_id or a.subject_id=:group_subject_id)
           and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
 
       iab:
-        findAll: >-
-          select
-              distinct a.id,
-              a.name,
-              a.grade_id,
-              a.type_id,
-              a.subject_id,
-              a.school_year
-            from iab_exam e
-              join student_group_membership sgm on e.student_id=sgm.student_id
-              join asmt a on e.asmt_id=a.id
-              join school s on e.school_id=s.id
-            where e.school_year=:school_year
-            and sgm.student_group_id=:group_id
-            and (0=:group_subject_id or a.subject_id=:group_subject_id)
-            and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
-
-    exam:
-      findLatest: >-
-        select
-            e.completed_at,
-            a.id as assessment_id,
-            a.name as assessment_name,
-            a.grade_id as assessment_grade_id,
-            a.type_id as assessment_type_id,
-            a.subject_id as assessment_subject_id
-          from exam e
+        findLatest: >-
+          select e.completed_at,
+            a.id,
+            a.label,
+            a.grade_id,
+            a.type_id,
+            a.subject_id,
+            a.school_year
+          from iab_exam e
             join student_group_membership sgm on e.student_id=sgm.student_id
             join asmt a on e.asmt_id=a.id
             join school s on e.school_id=s.id
@@ -70,34 +156,62 @@ sql:
           order by e.completed_at desc
           limit 1
 
-      iab:
-        findLatest: >-
-          select
-              e.completed_at,
-          	  a.id as assessment_id,
-              a.name as assessment_name,
-              a.grade_id as assessment_grade_id,
-              a.type_id as assessment_type_id,
-              a.subject_id as assessment_subject_id
-            from iab_exam e
-              join student_group_membership sgm on e.student_id=sgm.student_id
-              join asmt a on e.asmt_id=a.id
-              join school s on e.school_id=s.id
-            where e.school_year=:school_year
-            and sgm.student_group_id=:group_id
-            and (0=:group_subject_id or a.subject_id=:group_subject_id)
-            and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
-            order by e.completed_at desc
-            limit 1
+        findAllForAssessment: >-
+          select e.id,
+            e.grade_id,
+            e.iep,
+            e.lep,
+            e.section504,
+            e.economic_disadvantage,
+            e.migrant_status,
+            e.school_year,
+            e.opportunity,
+            e.completeness_id,
+            e.administration_condition_id,
+            e.session_id,
+            e.completed_at,
+            e.scale_score,
+            e.scale_score_std_err,
+            e.category,
+            st.id as student_id,
+            st.last_or_surname as student_last_name,
+            st.first_name as student_first_name,
+            st.gender_id as student_gender_id
+          from iab_exam e
+            join student_group_membership sgm on e.student_id=sgm.student_id
+            join student st on e.student_id=st.id
+            join asmt a on e.asmt_id=a.id
+            join school s on e.school_id=s.id
+          where e.asmt_id=:assessment_id
+          and e.school_year=:school_year
+          and sgm.student_group_id=:group_id
+          and (0=:group_subject_id or a.subject_id=:group_subject_id)
+          and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
+
+  assessment:
+    findTypeIdForId: >-
+      select type_id
+      from asmt a
+      where a.id=:id
 
   district:
     findAllIds: >-
       select natural_id, id
-        from district
-        where natural_id in (:naturalIds)
+      from district
+      where natural_id in (:naturalIds)
 
   school:
     findAllIds: >-
       select natural_id, id
-        from school
-        where natural_id in (:naturalIds)
+      from school
+      where natural_id in (:naturalIds)
+
+  ethnicity:
+    findAll: >-
+      select id, name
+      from ethnicity
+
+    findEthnicityIdsForStudentIds: >-
+      select ethnicity_id, student_id
+      from student_ethnicity
+      where student_id in (:student_ids)
