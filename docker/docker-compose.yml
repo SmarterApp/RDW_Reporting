@@ -18,23 +18,25 @@
 
 version: '2'
 services:
-  config-server:
-    image: fwsbac/configuration-service:latest
-    container_name: config-server
-    ports:
-      - 8888:8888
-    environment:
-      - CONFIG_SERVICE_REPO
-      - ENCRYPT_KEY
-      - GIT_USER
-      - GIT_PASSWORD
-
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
     ports:
       - 5672:5672
       - 15672:15672
+
+  config-server:
+    image: fwsbac/configuration-service:latest
+    container_name: config-server
+    ports:
+      - 8888:8888
+    depends_on:
+      - rabbitmq
+    environment:
+      - CONFIG_SERVICE_REPO
+      - ENCRYPT_KEY
+      - GIT_USER
+      - GIT_PASSWORD
 
   webapp:
     image: fwsbac/rdw-reporting-webapp
