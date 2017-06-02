@@ -10,6 +10,7 @@ apply plugin: 'com.bmuschko.docker-remote-api'
 
 dependencies {
     compile project(':rdw-reporting-common')
+    compile 'org.opentestsystem.rdw.common:rdw-common-model'
     compile 'org.opentestsystem.rdw.common:rdw-common-security'
     compile 'org.opentestsystem.rdw.common:rdw-common-utils'
     optional 'org.springframework.boot:spring-boot-configuration-processor'
