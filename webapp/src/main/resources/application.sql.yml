@@ -179,3 +179,7 @@ sql:
       from student_ethnicity
       where student_id in (:student_ids)
 
+  status:
+    readTest: >-
+      SELECT code FROM asmt_type
+

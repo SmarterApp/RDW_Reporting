@@ -6,10 +6,10 @@ apply plugin: 'org.springframework.boot'
 dependencies {
     compile project(':rdw-reporting-common')
     compile 'org.opentestsystem.rdw.common:rdw-common-security'
+    compile 'org.opentestsystem.rdw.common:rdw-common-status'
     compile 'org.opentestsystem.rdw.common:rdw-common-utils'
     optional 'org.springframework.boot:spring-boot-configuration-processor'
     runtime 'org.springframework.boot:spring-boot-devtools'
-    compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile 'org.springframework.boot:spring-boot-starter-cache'
     compile 'org.springframework.boot:spring-boot-starter-aop'
     compile 'org.springframework.boot:spring-boot-starter-security'

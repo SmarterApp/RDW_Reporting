@@ -123,8 +123,8 @@ The artifact is a Spring Boot executable jar so you can just run it. Just as whe
 is to run without a configuration server so the configuration must be specified on the command line. You can also
 change the port if desired, e.g.:
 ```bash
-java -jar build/libs/rdw-reporting*.jar --spring.config.location=/opt/rdw-reporting/config/application.yml --server.port=8081
-open http://localhost:8081
+java -jar build/libs/rdw-reporting*.jar --spring.config.location=/opt/rdw-reporting/config/application.yml --server.port=8088
+open http://localhost:8088
 ```
 
 ### Posterity

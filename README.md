@@ -105,6 +105,7 @@ docker-compose up -d
 docker logs -f docker_reporting-service_1
 ```
 You may now navigate to `http://localhost:8080` in a browser. You'll need ART credentials to login.
+The status end-point should be available without credentials at `http://localhost:8081/status?level=5`
 
 To shut down:
 ```bash

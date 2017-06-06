@@ -30,23 +30,24 @@ services:
     container_name: config-server
     ports:
       - 8888:8888
-    depends_on:
+    links:
       - rabbitmq
     environment:
       - CONFIG_SERVICE_REPO
       - ENCRYPT_KEY
       - GIT_USER
       - GIT_PASSWORD
+      - SPRING_RABBITMQ_ADDRESSES=rabbitmq:5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
 
   webapp:
     image: fwsbac/rdw-reporting-webapp
     ports:
       - 8080:8080
+      - 8081:8008
     volumes:
       - /opt/rdw-reporting/config:/opt/rdw-reporting/config
-    depends_on:
-      - config-server
-      - rabbitmq
     links:
       - config-server
       - rabbitmq
@@ -58,20 +59,17 @@ services:
       - "dwhost:$DATAWAREHOUSE_HOST"
 
   pdf-report-processor:
-      image: fwsbac/rdw-reporting-pdf-report-processor
-      ports:
-        - 8081:8080
-      volumes:
-        - /tmp:/tmp
-      depends_on:
-        - config-server
-        - rabbitmq
-      links:
-        - config-server
-        - rabbitmq
-      environment:
-        - spring.profiles.active=local-docker
-        - CONFIG_SERVICE_ENABLED=true
-        - CONFIG_SERVICE_URL=http://config-server:8888
-      extra_hosts:
-        - "dwhost:$DATAWAREHOUSE_HOST"
+    image: fwsbac/rdw-reporting-pdf-report-processor
+    ports:
+      - 8082:8008
+    volumes:
+      - /tmp:/tmp
+    links:
+      - config-server
+      - rabbitmq
+    environment:
+      - spring.profiles.active=local-docker
+      - CONFIG_SERVICE_ENABLED=true
+      - CONFIG_SERVICE_URL=http://config-server:8888
+    extra_hosts:
+      - "dwhost:$DATAWAREHOUSE_HOST"

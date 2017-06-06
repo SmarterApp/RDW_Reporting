@@ -59,6 +59,7 @@ subprojects {
             dependency 'org.opentestsystem.rdw.common:rdw-common-model:0.0.1-SNAPSHOT'
             dependency 'org.opentestsystem.rdw.common:rdw-common-utils:0.0.1-SNAPSHOT'
             dependency 'org.opentestsystem.rdw.common:rdw-common-security:0.0.1-SNAPSHOT'
+            dependency 'org.opentestsystem.rdw.common:rdw-common-status:0.0.1-SNAPSHOT'
             dependency 'org.opentestsystem.rdw.common:rdw-common-archive:0.0.1-SNAPSHOT'
 
             dependency 'com.google.guava:guava:21.0'
@@ -108,7 +109,7 @@ subprojects {
         volume('/tmp')
         label([maintainer: 'Fairway Technologies'])
         copyFile("${jar.archivePath.name}", "${jar.archivePath.name}")
-        exposePort(8080)
+        exposePort(8008, 8080)
         entryPoint("java", "-jar", "${jar.archivePath.name}")
     }
 
