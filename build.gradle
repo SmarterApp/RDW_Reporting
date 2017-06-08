@@ -17,12 +17,49 @@ buildscript {
     }
 }
 
+plugins {
+    id 'com.jfrog.artifactory' version '4.4.18'
+}
+
 // fixes spring boot 1.5 auto configuration from thymeleaf 2 to 3
 ext['thymeleaf.version'] = '3.0.6.RELEASE'
 ext['thymeleaf-layout-dialect.version'] = '2.0.0'
 
 
 apply plugin: 'io.spring.dependency-management'
+
+// JFrog artifactory setup
+
+artifactory {
+    contextUrl = "https://airdev.jfrog.io/airdev"
+    resolve {
+        repository {
+            repoKey = 'libs-releases'
+            maven = true
+        }
+    }
+}
+
+//Initializing some properties for use in extracting schema dependency and finding schema tasks
+project.ext.schemaBaseDir =  "$buildDir/schema/"
+
+// Set version dependencies. This allows the cli to force version, e.g. `-Pcommon=SNAPSHOT`
+
+String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "21"
+String rdwSchemaVersion = project.hasProperty("schema") ? project.property("schema") : "69"
+
+//Creating a schema configuration for facilitating unzipping and copying sql scripts
+configurations {
+    rdwSchema
+    repositories {
+        mavenLocal()
+    }
+}
+
+//Declaring root project dependency on schema
+dependencies {
+    rdwSchema("org.opentestsystem.rdw.schema:rdw-schema:0.0.1-${rdwSchemaVersion}@zip")
+}
 
 allprojects {
     group = 'org.opentestsystem.rdw.reporting'
@@ -32,9 +69,10 @@ allprojects {
     apply plugin: 'propdeps'
     apply plugin: 'propdeps-maven'
     apply plugin: 'propdeps-idea'
+    apply plugin: "com.jfrog.artifactory"
 
     if (project.hasProperty("buildNumber")) {
-        project.setVersion(project.version.split("-")[0] + "." + buildNumber)
+        project.setVersion(project.version.toString().replaceAll("SNAPSHOT", "${buildNumber}"))
     }
 }
 
@@ -55,12 +93,12 @@ subprojects {
     dependencyManagement {
 
         dependencies {
-            dependency 'org.opentestsystem.rdw.common:rdw-common-messaging:0.0.1-SNAPSHOT'
-            dependency 'org.opentestsystem.rdw.common:rdw-common-model:0.0.1-SNAPSHOT'
-            dependency 'org.opentestsystem.rdw.common:rdw-common-utils:0.0.1-SNAPSHOT'
-            dependency 'org.opentestsystem.rdw.common:rdw-common-security:0.0.1-SNAPSHOT'
-            dependency 'org.opentestsystem.rdw.common:rdw-common-status:0.0.1-SNAPSHOT'
-            dependency 'org.opentestsystem.rdw.common:rdw-common-archive:0.0.1-SNAPSHOT'
+            dependency "org.opentestsystem.rdw.common:rdw-common-messaging:0.0.1-${rdwCommonVersion}"
+            dependency "org.opentestsystem.rdw.common:rdw-common-model:0.0.1-${rdwCommonVersion}"
+            dependency "org.opentestsystem.rdw.common:rdw-common-utils:0.0.1-${rdwCommonVersion}"
+            dependency "org.opentestsystem.rdw.common:rdw-common-security:0.0.1-${rdwCommonVersion}"
+            dependency "org.opentestsystem.rdw.common:rdw-common-status:0.0.1-${rdwCommonVersion}"
+            dependency "org.opentestsystem.rdw.common:rdw-common-archive:0.0.1-${rdwCommonVersion}"
 
             dependency 'com.google.guava:guava:21.0'
             dependency 'org.apache.commons:commons-io:1.3.2'
@@ -137,16 +175,34 @@ subprojects {
     }
 }
 
-task migrateReportingTest(type: GradleBuild) {
-    group = "Schema"
-    description = "Cleans the schemas that integration tests depend on"
-    dir = "RDW_Schema"
-    tasks = ["migrateReporting_test"]
+// Helper function to get the unzipped schema directory path at runtime.
+def schemaDir() {
+    schemaBaseDir + configurations.rdwSchema.singleFile.name.take(configurations.rdwSchema.singleFile.name.lastIndexOf('.'))
 }
 
-task cleanReportingTest(type: GradleBuild) {
-    group = "Schema"
-    description = "Migrates the schemas that integration tests depend on"
-    dir = "RDW_Schema"
-    tasks = ["cleanReporting_test"]
+//Schema extraction task
+task extractSchema(type: Sync) {
+    dependsOn configurations.rdwSchema
+
+    from { // use of closure defers evaluation until execution time
+        zipTree(configurations.rdwSchema.singleFile)
+    }
+    into schemaBaseDir
+}
+
+//These are the tasks available in the Schema dependency that we would want to use in this project
+def taskMap = ["migrateReporting": "Migrates the schemas that are required for running locally",
+               "cleanReporting": "Cleans the schemas that are required for running locally",
+               "migrateReporting_test": "Migrates the schemas that integration tests depend on",
+               "cleanReporting_test": "Cleans the schemas that integration tests depend on"]
+
+taskMap.keySet().each { key ->
+    task(key.contains("_test")?"${key.take(key.lastIndexOf('_test'))}Test":"${key}Prod", type: GradleBuild, dependsOn: extractSchema) {
+        group = "Schema"
+        description = taskMap[key]
+        doFirst {
+            dir { schemaDir() }
+        }
+        tasks = [key]
+    }
 }

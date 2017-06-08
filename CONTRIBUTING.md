@@ -26,48 +26,20 @@ Use feature branches off of `develop` for all new features. Use a prefix of `fea
 For example, the new shoesize feature work would be in `feature/shoesize`. Create pull requests from the feature
 branch to `develop` to solicit code reviews and feedback. Once approved use `squash and merge` into `develop`.
 
-#### Developing with Dependent Submodules
-This section covers the development scenario of working on RDW_Schema and RDW_Reporting together.
+##### Developing with RDW_Schema
+If you are making changes within a standalone clone of RDW_Schema and want to test RDW_Ingest with the local changes to
+the schema, then all you have to do is install the changes to RDW_Schema that you have made, and tell ingest to use the 
+SNAPSHOT version of the RDW_Schema:
+```bash
+//under the RDW_Schema directory...
+./gradlew install
+```
+and then run the integration tests as usual, but using the local SNAPSHOT version of RDW_Schema:
+```bash
+//under the RDW_Ingest directory...
+ ./gradlew build it -Pschema=SNAPSHOT
+```
 
-This project utilizes git submodules (independent git repo, but checked out at a desired commit)for the RDW_Schema that 
-it depends on. This means the project's RDW_Schema submodule is "pointing" to a commit in the RDW_Schema git repo that 
-is the correct version of that project that is known to be working correctly with Reporting. During development, you may 
-want to develop in RDW_Schema and make changes, test with Reporting, etc. Since RDW_Schema is in a "detached head" status, 
-you will need to do the following to get RDW_Schema in a good state:
-```bash
-cd RDW_Schema
-git pull
-git checkout develop
-git checkout -b feature/<your feature>
-```
-While you are making changes to the schema, you can be making corresponding changes in Reporting and running integration 
-tests against your new RDW_Schema changes. When you are done with changes in RDW_Schema, you can commit and push the 
-RDW_Schema repo as you would normally do, but from the RDW_Schema subdirectory.
-```bash
-git add -u
-git commit -m "<message>"
-git push -u origin <your branch name>
-```
-  
-When you are done, the Reporting project's "version" of RDW_Schema will be at the commit hash of your new code changes, 
-and will be under "Changes not staged for commit" section of 
-```bash
-//under the RDW_Reporting parent directory...
-git status 
-```
-At this point, your current RDW_Schema submodule is out of sync with what your RDW_Reporting project is expecting. And, 
-your RDW_Schema submodule is also on a branch, which will need to be merged in to the develop branch via normal procedures. 
-RDW_Schema should be merged to develop and then resynced with the RDW_Reporting project before your commit and push your
-changes because you don't want to be moving the submodule pointer to a feature branch. To move the submodule pointer to 
-the new develop branch tip, do the following:
-```bash
-git reset HEAD RDW_Schema
-git submodule update --remote
-```
-This pulls the latest from the RDW_Schema develop branch in to your submodule. If you run "git status", you will also now
-see RDW_Schema under the "Changes not staged for commit" section. You can now add any other remaining changes, commit
-your changes, and push them to the server. The RDW_Schema submodule pointer is now pointing at the version that matches
-your Reporting changes.
 
 ### Running
 

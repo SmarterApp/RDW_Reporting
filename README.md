@@ -48,22 +48,28 @@ cd reporting
 ```
 
 ### Building
-RDW_Reporting makes use of RDW_Common modules. Because there is no common artifact repository, you must do something
-to make the artifacts available. You could make an uber project in your IDE. Or you could build common locally:
+RDW_Reporting makes use of RDW_Common modules. If you are developing RDW_Common and would like to test changes in this 
+project, you can build RDW_Common locally and install your changes to the local repository:
 ```bash
 git clone https://github.com/SmarterApp/RDW_Common
 cd RDW_Common
 git checkout develop
-./gradlew build install
+//make code changes
+./gradlew install
+```
+Then to use those new changes, you can specify the SNAPSHOT version of RDW_Common
+```bash
+//In RDW_Reporting
+./gradlew build it -Pcommon=SNAPSHOT
 ```
 
-Now you should be able to build and test the ingest apps:
+Now you should be able to build and test the Reporting app from where you cloned this project:
 ```bash
-git clone https://github.com/SmarterApp/RDW_Reporting
 cd RDW_Reporting
 git checkout develop
-gradle build
-```
+./gradlew build
+or to also run Integration Tests
+./gradlew build it 
 
 Code coverage reports can be found under `./build/reports/jacoco/test/html/index.html` 
 
@@ -95,6 +101,16 @@ fwsbac/rdw-reporting-service        latest              da5207b421c0        30 s
 ```
 
 ### Running
+Running the application locally depends on the local database being configured properly.
+```bash
+To completely clean out any existing data you might have and start fresh:
+./gradlew cleanallprod migrateallprod
+or, if you want to use a different version of the schema, say version 68 of RDW_Schema
+./gradlew -Pschema=68 cleannallprod migrateallprod
+or, SNAPSHOT version of RDW_Schema if you are doing simultaneous development with RDW_Schema
+./gradlew -Pschema=SNAPSHOT cleanallprod migriateallprod
+```
+
 The apps are wrapped in docker containers and should be built and run that way. There is a docker-compose spec
 to make it easier: it runs the configuration server and the reporting service with the correct profile. Please 
 read the comments in the docker-compose script for setting required environment variables. Use docker-compose

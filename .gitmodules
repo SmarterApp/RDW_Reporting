@@ -1,4 +1,0 @@
-[submodule "RDW_Schema"]
-	path = RDW_Schema
-	url = https://github.com/SmarterApp/RDW_Schema
-	branch = develop
