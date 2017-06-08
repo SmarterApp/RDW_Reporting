@@ -34,17 +34,16 @@ sql:
               from exam e
                 join student_group_membership sgm on e.student_id=sgm.student_id
                 join school s on e.school_id=s.id
-              where
-                e.school_year=:school_year
-                and sgm.student_group_id=:group_id
-                and (0=:group_subject_id or a.subject_id=:group_subject_id)
-                and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
-                and a.id = e.asmt_id
+              where e.school_year=:school_year
+              and sgm.student_group_id=:group_id
+              and (0=:group_subject_id or a.subject_id=:group_subject_id)
+              and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
+              and a.id = e.asmt_id
           )
 
     exam:
       findLatest: >-
-          select e.completed_at,
+          select
             a.id,
             a.label,
             a.grade_id,
@@ -131,6 +130,102 @@ sql:
           and (0=:group_subject_id or a.subject_id=:group_subject_id)
           and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
 
+  schoolgrade:
+    assessment:
+      findAll: >-
+        select a.id,
+          a.label,
+          a.grade_id,
+          a.type_id,
+          a.subject_id,
+          a.school_year,
+          aa.min_score,
+          aa.max_score,
+          aa.cut_point_1,
+          aa.cut_point_2,
+          aa.cut_point_3
+        from asmt a
+          left join asmt_score aa on a.id=aa.asmt_id
+        where exists (
+            select e.asmt_id
+            from exam e
+              join school s on e.school_id=s.id
+            where e.school_year=:school_year
+            and e.school_id=:school_id
+            and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
+            and a.id = e.asmt_id
+        )
+        and a.grade_id=:grade_id
+
+    exam:
+      findLatest: >-
+        select
+          a.id,
+          a.label,
+          a.grade_id,
+          a.type_id,
+          a.subject_id,
+          a.school_year,
+          aa.min_score,
+          aa.max_score,
+          aa.cut_point_1,
+          aa.cut_point_2,
+          aa.cut_point_3
+        from exam e
+          join asmt a on e.asmt_id=a.id
+          join school s on e.school_id=s.id
+          left join asmt_score aa on e.asmt_id=aa.asmt_id
+        where e.school_year=:school_year
+        and e.school_id=:school_id
+        and a.grade_id=:grade_id
+        and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
+        order by e.completed_at desc
+        limit 1
+
+      findAllForAssessment: >-
+        select e.id,
+          e.type_id,
+          e.grade_id,
+          e.iep,
+          e.lep,
+          e.section504,
+          e.economic_disadvantage,
+          e.migrant_status,
+          e.school_year,
+          e.opportunity,
+          e.completeness_id,
+          e.administration_condition_id,
+          e.session_id,
+          e.completed_at,
+          e.scale_score,
+          e.scale_score_std_err,
+          e.performance_level,
+          e.claim1_scale_score,
+          e.claim1_scale_score_std_err,
+          e.claim1_category,
+          e.claim2_scale_score,
+          e.claim2_scale_score_std_err,
+          e.claim2_category,
+          e.claim3_scale_score,
+          e.claim3_scale_score_std_err,
+          e.claim3_category,
+          e.claim4_scale_score,
+          e.claim4_scale_score_std_err,
+          e.claim4_category,
+          st.id as student_id,
+          st.last_or_surname as student_last_name,
+          st.first_name as student_first_name,
+          st.gender_id as student_gender_id
+        from exam e
+          join student st on e.student_id=st.id
+          join asmt a on e.asmt_id=a.id
+          join school s on e.school_id=s.id
+        where e.asmt_id=:assessment_id
+        and e.school_id=:school_id
+        and a.grade_id=:grade_id
+        and e.school_year=:school_year
+        and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
+
   assessment:
     item:
       findDifficultyCutsForId: >-
@@ -164,7 +259,7 @@ sql:
       from district
       where 1=:statewide
       or id in (:district_ids)
-      or id=(
+      or id in (
         select district_id
         from school s
         where s.id in (:school_ids)
@@ -187,10 +282,16 @@ sql:
       );
 
   grade:
-    # TODO: make this return only grades for which there are exam results for a given school_id
     findAllForSchool: >-
       select id, code
-      from grade
+      from grade g where exists (
+          select grade_id
+          from exam e
+            join school s on e.school_id=s.id
+          where e.school_id=:school_id
+          and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
+          and g.id=e.grade_id
+      )
 
   ethnicity:
     findAll: >-
