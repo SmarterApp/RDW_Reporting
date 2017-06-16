@@ -93,8 +93,8 @@ export class GroupResultsComponent implements OnInit {
    * @param allCollapsed True if all assessment exams should be collapsed
    */
   set allCollapsed(allCollapsed: boolean) {
-    for (let i = 0; i < this.assessmentExams.length; i++) {
-      this.assessmentExams[i].collapsed = allCollapsed;
+    for (let assessmentExam of this.assessmentExams) {
+      assessmentExam.collapsed = allCollapsed;
     }
   }
 
@@ -102,7 +102,7 @@ export class GroupResultsComponent implements OnInit {
    * @returns {boolean} True only if ALL assessment exams are collapsed
    */
   get allCollapsed(): boolean {
-    return this.assessmentExams.findIndex((assessmentExam) => !assessmentExam.collapsed) < 0;
+    return !this.assessmentExams.some((assessmentExam) => !assessmentExam.collapsed);
   }
 
   private _showAdvancedFilters: boolean = false;
