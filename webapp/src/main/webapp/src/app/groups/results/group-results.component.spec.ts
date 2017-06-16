@@ -130,6 +130,19 @@ describe('GroupResultsComponent', () => {
     expect(actual.length).toBe(0);
     expect(component.assessmentExams.length).toBe(0);
   });
+
+  it("should detect if all results are collapsed", () => {
+    let assessmentExamA = new AssessmentExam();
+    let assessmentExamB = new AssessmentExam();
+    component.assessmentExams = [ assessmentExamA, assessmentExamB ];
+    expect(component.allCollapsed).toBe(false);
+
+    assessmentExamA.collapsed = true;
+    expect(component.allCollapsed).toBe(false);
+
+    assessmentExamB.collapsed = true;
+    expect(component.allCollapsed).toBe(true);
+  });
 });
 
 

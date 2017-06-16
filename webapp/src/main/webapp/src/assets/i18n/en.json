@@ -54,7 +54,8 @@
     "notApplicable": "-"
   },
   "prompt": {
-    "search": "Search"
+    "search": "Search",
+    "collapse": "Collapse"
   },
   "labels": {
     "aggregate": {
@@ -118,6 +119,8 @@
         "title": "Results",
         "select-group": "Group",
         "select-year": "School Year",
+        "collapse-all": "Collapse Results",
+        "expand-all": "Expand Results",
         "adv-filters" : {
           "label": "Advanced Filters",
           "subhead": "Click an items to remove it from the list",

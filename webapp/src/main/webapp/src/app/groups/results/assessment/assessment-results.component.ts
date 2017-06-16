@@ -1,9 +1,7 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { trigger, transition, style, animate } from "@angular/animations";
 import { AssessmentExam } from "../model/assessment-exam.model";
 import { Exam } from "../model/exam.model";
-import { ExamResultLevel } from "../../../shared/enum/exam-result-level.enum";
-import { AssessmentType } from "../../../shared/enum/assessment-type.enum";
 import { ExamStatisticsCalculator } from "./exam-statistics-calculator";
 import { FilterBy } from "../model/filter-by.model";
 import { Subscription } from "rxjs";
@@ -43,12 +41,9 @@ export class AssessmentResultsComponent {
     this._assessmentExam = assessment;
     this.sessions = this.getDistinctExamSessions(assessment.exams);
 
-    if (this.sessions.length > 0)
+    if (this.sessions.length > 0) {
       this.toggleSession(this.sessions[ 0 ]);
-  }
-
-  get assessmentExam() {
-    return this._assessmentExam;
+    }
   }
 
   @Input()
@@ -60,26 +55,32 @@ export class AssessmentResultsComponent {
   set filterBy(value: FilterBy) {
     this._filterBy = value;
 
-    if (this._filterBySubscription)
+    if (this._filterBySubscription) {
       this._filterBySubscription.unsubscribe();
+    }
 
     if (this._filterBy) {
       this.updateExamSessions();
 
-      this._filterBySubscription = this._filterBy.onChanges.subscribe(x => {
+      this._filterBySubscription = this._filterBy.onChanges.subscribe(() => {
         this.updateExamSessions();
       });
     }
   }
 
-  private _filterBy: FilterBy;
-  private _assessmentExam: AssessmentExam;
-  private _showValuesAsPercent: boolean;
-  private _filterBySubscription: Subscription;
+  @Output()
+  onCollapsed: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(public gradeService : GradeService,
-              private examCalculator: ExamStatisticsCalculator,
-              private examFilterService: ExamFilterService) {
+  get assessmentExam() {
+    return this._assessmentExam;
+  }
+
+  set collapsed(collapsed: boolean) {
+    this.assessmentExam.collapsed = collapsed;
+  }
+
+  get collapsed() {
+    return this.assessmentExam.collapsed;
   }
 
   get performance() {
@@ -102,6 +103,25 @@ export class AssessmentResultsComponent {
   get performanceLevelHeader() {
     return "labels.groups.results.exam-cols." +
       (this.isIab ? "iab" : "ica") + ".performance";
+  }
+
+  private _filterBy: FilterBy;
+  private _assessmentExam: AssessmentExam;
+  private _showValuesAsPercent: boolean;
+  private _filterBySubscription: Subscription;
+
+  constructor(public gradeService : GradeService,
+              private examCalculator: ExamStatisticsCalculator,
+              private examFilterService: ExamFilterService) {
+  }
+
+  /**
+   * Toggle the collapsed state of this result.
+   * Emit an onCollapsed event with the new collapsed state.
+   */
+  toggleCollapsed() {
+    this.collapsed = !this.collapsed;
+    this.onCollapsed.emit(this.collapsed);
   }
 
   toggleSession(session) {

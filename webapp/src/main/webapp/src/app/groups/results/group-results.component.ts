@@ -15,7 +15,6 @@ import { GradeService } from "../../shared/grade.service";
 })
 export class GroupResultsComponent implements OnInit {
   groups;
-
   showValuesAsPercent: boolean = true;
   expandFilterOptions: boolean = false;
   clientFilterBy: FilterBy;
@@ -88,6 +87,24 @@ export class GroupResultsComponent implements OnInit {
     return [];
   }
 
+  /**
+   * When set, toggle the collapsed state of all assessment exams.
+   *
+   * @param allCollapsed True if all assessment exams should be collapsed
+   */
+  set allCollapsed(allCollapsed: boolean) {
+    for (let i = 0; i < this.assessmentExams.length; i++) {
+      this.assessmentExams[i].collapsed = allCollapsed;
+    }
+  }
+
+  /**
+   * @returns {boolean} True only if ALL assessment exams are collapsed
+   */
+  get allCollapsed(): boolean {
+    return this.assessmentExams.findIndex((assessmentExam) => !assessmentExam.collapsed) < 0;
+  }
+
   private _showAdvancedFilters: boolean = false;
   private _expandAssessments: boolean = false;
   private _showOnlyMostRecent: boolean = true;
@@ -141,8 +158,9 @@ export class GroupResultsComponent implements OnInit {
 
   updateAssessment(latestAssessment) {
     this.assessmentExams = [];
-    if (latestAssessment)
+    if (latestAssessment) {
       this.assessmentExams.push(latestAssessment);
+    }
   }
 
   updateRoute() {

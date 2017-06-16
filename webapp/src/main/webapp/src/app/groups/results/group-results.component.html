@@ -131,14 +131,16 @@
               class="btn btn-default">{{'labels.groups.results.value-as-number' | translate}}
       </button>
     </div>
-    <a class="btn btn-default btn-xs pull-right">
-      Collapse Results <i class="fa fa-chevron-up"></i>
-    </a>
+    <button class="btn btn-default btn-xs pull-right" (click)="allCollapsed = !allCollapsed">
+      <span *ngIf="!allCollapsed">{{'labels.groups.results.collapse-all' | translate}} <i class="fa fa-angle-up"></i></span>
+      <span *ngIf="allCollapsed">{{'labels.groups.results.expand-all' | translate}} <i class="fa fa-angle-down"></i></span>
+    </button>
   </div>
 </h2>
 <!-- Results Container -->
-<div *ngFor="let assessment of assessmentExams" class="groups-results-wrapper">
-  <assessment-results [assessmentExam]="assessment" [showValuesAsPercent]="showValuesAsPercent"
+<div *ngFor="let assessment of assessmentExams; let i = index" class="groups-results-wrapper">
+  <assessment-results [assessmentExam]="assessment"
+                      [showValuesAsPercent]="showValuesAsPercent"
                       [filterBy]="clientFilterBy"></assessment-results>
 </div>
 <!-- No Results Error -->
