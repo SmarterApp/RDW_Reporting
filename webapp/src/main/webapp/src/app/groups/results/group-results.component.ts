@@ -102,7 +102,7 @@ export class GroupResultsComponent implements OnInit {
    * @returns {boolean} True only if ALL assessment exams are collapsed
    */
   get allCollapsed(): boolean {
-    return !this.assessmentExams.some((assessmentExam) => !assessmentExam.collapsed);
+    return this.assessmentExams.every((assessmentExam) => assessmentExam.collapsed);
   }
 
   private _showAdvancedFilters: boolean = false;
