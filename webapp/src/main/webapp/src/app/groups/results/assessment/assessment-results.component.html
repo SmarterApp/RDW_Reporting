@@ -4,7 +4,7 @@
         <!-- Top Right Buttons -->
         <div class="pull-right text-right">
             <a class="btn btn-default btn-xs"><i class="fa fa-list-alt"></i> {{'labels.assessment.instruct' | translate }}</a>
-            <button class="btn btn-default btn-sm icon-only" (click)="toggleCollapsed()">
+            <button class="btn btn-default btn-sm icon-only" (click)="collapsed = !collapsed;">
                 <i class="fa font-bold" [ngClass]="{'fa-angle-down':collapsed, 'fa-angle-up':!collapsed}"></i> <span class="sr-only">{{'prompt.collapse' | translate}}</span>
             </button>
         </div>

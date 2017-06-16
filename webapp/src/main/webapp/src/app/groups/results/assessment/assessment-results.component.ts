@@ -68,9 +68,6 @@ export class AssessmentResultsComponent {
     }
   }
 
-  @Output()
-  onCollapsed: EventEmitter<boolean> = new EventEmitter();
-
   get assessmentExam() {
     return this._assessmentExam;
   }
@@ -113,15 +110,6 @@ export class AssessmentResultsComponent {
   constructor(public gradeService : GradeService,
               private examCalculator: ExamStatisticsCalculator,
               private examFilterService: ExamFilterService) {
-  }
-
-  /**
-   * Toggle the collapsed state of this result.
-   * Emit an onCollapsed event with the new collapsed state.
-   */
-  toggleCollapsed() {
-    this.collapsed = !this.collapsed;
-    this.onCollapsed.emit(this.collapsed);
   }
 
   toggleSession(session) {
