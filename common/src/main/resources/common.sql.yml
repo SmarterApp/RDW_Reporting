@@ -1,7 +1,7 @@
 sql:
   translation:
     findAllForLocaleAndNamespace:
-      select code, value
+      select label_code, label
       from translation
       where namespace=:namespace
-      and locale=:locale
+      and language_code=:language_code
