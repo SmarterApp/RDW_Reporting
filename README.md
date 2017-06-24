@@ -38,15 +38,38 @@ mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
 mysql> exit
 ```
 
-The service depends on the database being configured properly. This is done using RDW_Schema which is a dependency in this project and has gradle tasks. 
-```bash
-./gradlew migrateReportingProd
+Additionally, you need to configure MySQL settings in `my.cnf` file. Locate the file (for a brew install it will be
+`/usr/local/Cellar/mysql@5.6/5.6.34/my.cnf` but if you can't find it try `sudo find -name my.cnf -print`) 
+and add the following lines:
+```
+[mysqld]
+explicit_defaults_for_timestamp=1
+default-time-zone='UTC'
 ```
 
-Usually a migrate is all that is needed but you may also clean to wipe all data:
+Restart MySQL:
 ```bash
-./gradlew cleanReportingProd migrateReportingProd
+brew services restart mysql@5.6
 ```
+
+To verify the settings, run a mysql client:
+```bash
+mysql> SELECT @@explicit_defaults_for_timestamp;
++-----------------------------------+
+| @@explicit_defaults_for_timestamp |
++-----------------------------------+
+|                                 1 |
++-----------------------------------+
+
+mysql> SELECT @@system_time_zone, @@global.time_zone, @@session.time_zone;
++--------------------+--------------------+---------------------+
+| @@system_time_zone | @@global.time_zone | @@session.time_zone |
++--------------------+--------------------+---------------------+
+| PDT                | UTC                | UTC                 |
++--------------------+--------------------+---------------------+
+```
+
+The service depends on the database being configured properly. See instructions below under [Running](#running) 
 
 ### Building
 RDW_Reporting makes use of RDW_Common modules. If you are developing RDW_Common and would like to test changes in this 
@@ -64,7 +87,7 @@ Then to use those new changes, you can specify the SNAPSHOT version of RDW_Commo
 ./gradlew build it -Pcommon=0.0.1-SNAPSHOT
 ```
 
-Now you should be able to build and test the Reporting app from where you cloned this project:
+Now you should be able to build and test the reporting app from where you cloned this project:
 ```bash
 cd RDW_Reporting
 git checkout develop
