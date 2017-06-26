@@ -26,7 +26,7 @@
                 <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
                 <li role="separator" class="divider dropdown-divider"></li>
                 <li role="menuitem">
-                  <a class="dropdown-item" href="javascript:void(0)" onclick="window.document.logoutForm.submit()">Logout</a>
+                  <a class="dropdown-item" href="javascript:void(0)" onclick="window.document.logoutForm.submit()">{{'messages.logout' | translate}}</a>
                   <form name="logoutForm" method="post" action="/saml/logout" class="hidden"></form>
                 </li>
               </ul>
