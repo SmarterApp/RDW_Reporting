@@ -16,17 +16,19 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
-            <div class="btn-group">
-              <button type="button" class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="btn-group" dropdown>
+              <button type="button" dropdownToggle class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-user-circle"></i> <span *ngIf="user">{{'welcome' | translate:user }}</span> <span class="caret"></span>
               </button>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <a href="javascript:void(0)" onclick="window.document.logoutForm.submit()">Logout</a>
-                <form name="logoutForm" method="post" action="/saml/logout" class="hidden"></form>
+              <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+                <li role="separator" class="divider dropdown-divider"></li>
+                <li role="menuitem">
+                  <a class="dropdown-item" href="javascript:void(0)" onclick="window.document.logoutForm.submit()">Logout</a>
+                  <form name="logoutForm" method="post" action="/saml/logout" class="hidden"></form>
+                </li>
               </ul>
             </div>
           </li>

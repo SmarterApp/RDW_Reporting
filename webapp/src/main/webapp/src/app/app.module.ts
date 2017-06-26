@@ -28,7 +28,7 @@ import { RouterModule } from "@angular/router";
     UserModule,
     FormsModule,
     HttpModule,
-    BsDropdownModule,
+    BsDropdownModule.forRoot(),
     TabsModule.forRoot()
   ],
   providers: [
