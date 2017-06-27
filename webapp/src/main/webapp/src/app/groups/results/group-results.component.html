@@ -91,13 +91,13 @@
         </button>
       </div>
     </h2>
-    <p class="gray-darker">{{'labels.groups.results.selected-assessments-instruct' | translate }}</p>
+    <p class="gray-darker" [hidden]="showOnlyMostRecent">{{'labels.groups.results.selected-assessments-instruct' | translate }}</p>
     <div class="flex-children">
       <a *ngFor="let assessment of selectedAssessments" (click)="removeAssessment(assessment)"
          class="tag tag-xs {{ gradeService.getColor(assessment.grade)}}">
         <span class="label">{{'labels.groups.results.grade-prefix' | translate}}{{assessment.grade}}</span>
         {{assessment.name}}
-        <span class="icon"><i class="fa fa-close"></i></span>
+        <span class="icon" [hidden]="showOnlyMostRecent"><i class="fa fa-close"></i></span>
       </a>
       <div>
         <a *ngIf ="!expandAssessments" class="btn btn-default btn-sm img-circle icon-only" (click)="expandAssessments=true">
