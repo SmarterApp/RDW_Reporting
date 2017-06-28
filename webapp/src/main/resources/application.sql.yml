@@ -41,15 +41,11 @@ sql:
         stu.first_name,
         stu.last_or_surname
       from student stu
+        join exam e on e.student_id = stu.id
+        join school sch on e.school_id = sch.id
       where stu.ssid=:student_ssid
-        and exists
-          (select e.id
-            from exam e
-              join school sch on e.school_id=sch.id
-            where
-              e.student_id = stu.id
-              and (1=:statewide or sch.district_id in (:district_ids) or e.school_id in (:school_ids))
-            limit 1)
+        and (1=:statewide or sch.district_id in (:district_ids) or e.school_id in (:school_ids))
+      limit 1
 
   group:
     findAllForUsername: >-
