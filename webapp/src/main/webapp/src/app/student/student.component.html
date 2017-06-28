@@ -3,10 +3,15 @@
     <div class="flex-children">
       <div class="flex-child grow">
         <label for="student-id-input">{{'labels.student.title' | translate}}</label>
-        <input formControlName="ssid" type="text" class="form-control" id="student-id-input" placeholder="{{'labels.student.prompt' | translate}}">
+        <input formControlName="ssid"
+               type="text"
+               class="form-control"
+               id="student-id-input"
+               required
+               placeholder="{{'labels.student.prompt' | translate}}">
       </div>
       <div class="flex-child">
-        <button type="submit" class="btn btn-primary">{{'buttons.search' | translate}}</button>
+        <button type="submit" class="btn btn-primary" [disabled]="searchForm.invalid">{{'buttons.search' | translate}}</button>
       </div>
     </div>
     <div *ngIf="studentNotFound" class="flex-children">
