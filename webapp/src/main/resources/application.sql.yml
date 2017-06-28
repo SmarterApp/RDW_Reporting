@@ -33,7 +33,7 @@ sql:
         join asmt a on e.asmt_id=a.id
         join school s on e.school_id=s.id
       where e.student_id=:student_id
-        and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids)))
+        and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
 
     existsForStudentId: >-
       select stu.id,
