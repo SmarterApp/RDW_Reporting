@@ -16,10 +16,6 @@
   "labels": {
     "homepage": {
       "title": "Access Assessment Results",
-      "search-student-id": {
-        "label": "Search by Student",
-        "placeholder": "Enter the Statewide Student Identifier (SSID)"
-      },
       "search-school-grade": {
         "school-label": "Search by School Name",
         "school-placeholder": "Start typing the school name",
@@ -241,6 +237,13 @@
           "x-points": "{{id}} Points"
         },
         "target": "Target {{target}}"
+      }
+    },
+    "student": {
+      "title": "Search by Student",
+      "prompt": "Enter the Statewide Student Identifier (SSID)",
+      "messages": {
+        "no-results": "Student does not exist or has no available exam results."
       }
     }
   },

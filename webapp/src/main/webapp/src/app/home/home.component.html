@@ -5,23 +5,11 @@
     <!-- Left Column Content Area -->
     <div class="col-md-9">
       <h1 class="sr-only">{{'labels.homepage.title' | translate}}</h1>
+      <h1 class="blue-dark h1 mb-md">{{'labels.homepage.title' | translate}}</h1>
 
       <!-- Student ID Search -->
-      <h1 class="blue-dark h1 mb-md">{{'labels.homepage.title' | translate}}</h1>
-      <div class="student-id-search-container well">
-        <form>
-          <div class="form-group">
-            <div class="flex-children">
-              <div class="flex-child grow">
-                <label for="student-id-input">{{'labels.homepage.search-student-id.label' | translate}}</label>
-                <input type="text" class="form-control" id="student-id-input" placeholder="{{'labels.homepage.search-student-id.placeholder' | translate}}">
-              </div>
-              <div class="flex-child">
-                <button type="submit" class="btn btn-primary">{{'buttons.search' | translate}}</button>
-              </div>
-            </div>
-          </div>
-        </form>
+      <div *sbAuthorize="['GROUP_PII_READ','INDIVIDUAL_PII_READ']" class="student-id-search-container well">
+        <student-search></student-search>
       </div>
 
       <!-- School & Grade Search -->
