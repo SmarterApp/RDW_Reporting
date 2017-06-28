@@ -162,7 +162,11 @@
           <p-column field="fullCredit" [sortable]="true">
             <ng-template pTemplate="header">
               {{'labels.groups.results.assessment.items.cols.full-credit' | translate}}
-              <span class="icon"><i class="fa fa-info-circle"></i></span>
+              <span class="icon"
+                    popover="{{'labels.groups.results.assessment.items.cols.full-credit-info' | translate}}"
+                    popoverTitle="{{'labels.groups.results.assessment.items.cols.full-credit' | translate}}"
+                    triggers="click:mouseleave"
+              ><i class="fa fa-info-circle"></i></span>
             </ng-template>
             <ng-template let-item="rowData" pTemplate="body">
                 <span [hidden]="showValuesAsPercent">{{ item.fullCredit }}</span>

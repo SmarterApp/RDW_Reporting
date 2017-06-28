@@ -207,7 +207,8 @@
               "difficulty": "Item Difficulty",
               "standard": "Standard",
               "full-credit": "Full Credit",
-              "x-points": "{{id}} Points"
+              "full-credit-info": "The full credit column represents ... need real data here",
+              "x-points": "{{id}}"
             },
             "target": "Target {{target}}"
           }
