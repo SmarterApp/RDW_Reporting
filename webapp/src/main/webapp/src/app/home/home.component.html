@@ -8,7 +8,7 @@
       <h1 class="blue-dark h1 mb-md">{{'labels.homepage.title' | translate}}</h1>
 
       <!-- Student ID Search -->
-      <div *sbAuthorize="['GROUP_PII_READ','INDIVIDUAL_PII_READ']" class="student-id-search-container well">
+      <div *sbAuthorize="['INDIVIDUAL_PII_READ']" class="student-id-search-container well">
         <student-search></student-search>
       </div>
 
