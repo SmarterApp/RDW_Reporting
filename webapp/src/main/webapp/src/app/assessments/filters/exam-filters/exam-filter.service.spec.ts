@@ -1,11 +1,11 @@
 import { ExamFilterService } from "./exam-filter.service";
-import { FilterBy } from "../model/filter-by.model";
-import { AssessmentExam } from "../model/assessment-exam.model";
-import { Assessment } from "../model/assessment.model";
-import { Exam } from "../model/exam.model";
 import { AssessmentType } from "../../../shared/enum/assessment-type.enum";
 import { AdministrativeCondition } from "../../../shared/enum/administrative-condition.enum";
 import { Completeness } from "../../../shared/enum/completeness.enum";
+import { AssessmentExam } from "../../model/assessment-exam.model";
+import { FilterBy } from "../../model/filter-by.model";
+import { Assessment } from "../../model/assessment.model";
+import { Exam } from "../../model/exam.model";
 
 describe('ExamFilterService', () => {
   let assessmentExam: AssessmentExam;

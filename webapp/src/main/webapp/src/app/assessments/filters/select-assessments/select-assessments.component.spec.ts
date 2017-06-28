@@ -4,7 +4,7 @@ import { SelectAssessmentsComponent } from './select-assessments.component';
 import { HttpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "../../../shared/common.module";
-import { Assessment } from "../model/assessment.model";
+import { Assessment } from "../../model/assessment.model";
 
 describe('SelectAssessmentsComponent', () => {
   let component: SelectAssessmentsComponent;

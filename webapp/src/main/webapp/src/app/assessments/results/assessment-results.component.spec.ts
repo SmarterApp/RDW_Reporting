@@ -10,10 +10,10 @@ import { DataTableModule } from "primeng/components/datatable/datatable";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AssessmentExam } from "../model/assessment-exam.model";
 import { Exam } from "../model/exam.model";
-import { RemoveCommaPipe } from "../../../shared/remove-comma.pipe";
+import { RemoveCommaPipe } from "../../shared/remove-comma.pipe";
 import { ExamStatisticsCalculator } from "./exam-statistics-calculator";
-import { ExamFilterService } from "../exam-filters/exam-filter.service";
-import { GradeService } from "../../../shared/grade.service";
+import { ExamFilterService } from "../filters/exam-filters/exam-filter.service";
+import { GradeService } from "../../shared/grade.service";
 import { PopoverModule } from "ngx-bootstrap/popover";
 
 describe('AssessmentResultsComponent', () => {

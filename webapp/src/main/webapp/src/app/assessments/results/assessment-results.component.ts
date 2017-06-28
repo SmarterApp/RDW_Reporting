@@ -5,8 +5,8 @@ import { Exam } from "../model/exam.model";
 import { ExamStatisticsCalculator } from "./exam-statistics-calculator";
 import { FilterBy } from "../model/filter-by.model";
 import { Subscription, Observable } from "rxjs";
-import { ExamFilterService } from "../exam-filters/exam-filter.service";
-import { GradeService } from "../../../shared/grade.service";
+import { ExamFilterService } from "../filters/exam-filters/exam-filter.service";
+import { GradeService } from "../../shared/grade.service";
 import { AssessmentItem } from "../model/assessment-item.model";
 
 @Component({

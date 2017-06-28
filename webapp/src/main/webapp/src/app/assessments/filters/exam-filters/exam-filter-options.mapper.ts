@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ExamFilterOptions } from "../model/exam-filter-options.model";
+import { ExamFilterOptions } from "../../model/exam-filter-options.model";
 
 @Injectable()
 export class ExamFilterOptionsMapper {

@@ -6,12 +6,12 @@ import { FormsModule } from "@angular/forms";
 import { AppModule } from "../../app.module";
 import { ActivatedRoute } from "@angular/router";
 import { APP_BASE_HREF } from "@angular/common";
-import { ExamFilterOptionsService } from "./exam-filters/exam-filter-options.service";
-import { ExamFilterOptions } from "./model/exam-filter-options.model";
-import { Exam } from "./model/exam.model";
+import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
+import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
+import { Exam } from "../../assessments/model/exam.model";
 import { AssessmentService } from "./assessment/assessment.service";
-import { Assessment } from "./model/assessment.model";
-import { AssessmentExam } from "./model/assessment-exam.model";
+import { Assessment } from "../../assessments/model/assessment.model";
+import { AssessmentExam } from "../../assessments/model/assessment-exam.model";
 import { exam } from "../../standalone/data/exam";
 
 let examObserver: Observer<Exam[]>;

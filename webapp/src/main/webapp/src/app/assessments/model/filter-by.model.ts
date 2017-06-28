@@ -1,4 +1,4 @@
-import { ObservableObject } from "../../../shared/observable-object.model";
+import { ObservableObject } from "../../shared/observable-object.model";
 
 export class FilterBy extends ObservableObject {
   // Test

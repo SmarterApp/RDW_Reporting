@@ -1,50 +1,33 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "../shared/common.module";
 import { GroupsComponent } from "./groups.component";
-import { AssessmentService } from "./results/assessment/assessment.service";
-import { AssessmentsResolve } from "./results/assessments.resolve";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule } from "@angular/forms";
 import { DataTableModule, SharedModule } from "primeng/primeng";
 import { GroupResultsComponent } from "./results/group-results.component";
-import { AssessmentResultsComponent } from "./results/assessment/assessment-results.component";
-import { AssessmentExamMapper } from "./results/assessment/assessment-exam.mapper";
-import { ExamStatisticsCalculator } from "./results/assessment/exam-statistics-calculator";
-import { AdvFiltersComponent } from "./results/adv-filters/adv-filters.component";
-import { ExamFilterService } from "./results/exam-filters/exam-filter.service";
-import { ExamFilterOptionsService } from "./results/exam-filters/exam-filter-options.service";
-import { ExamFilterOptionsMapper } from "./results/exam-filters/exam-filter-options.mapper";
-import { SelectAssessmentsComponent } from "./results/select-assessments/select-assessments.component";
 import { PopoverModule } from "ngx-bootstrap/popover";
+import { AssessmentsModule } from "../assessments/assessments.module";
+import { AssessmentsResolve } from "./results/assessments.resolve";
+import { AssessmentService } from "./results/assessment/assessment.service";
 
 @NgModule({
   declarations: [
     GroupsComponent,
-    GroupResultsComponent,
-    AssessmentResultsComponent,
-    AdvFiltersComponent,
-    SelectAssessmentsComponent
+    GroupResultsComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
+    AssessmentsModule,
     FormsModule,
     DataTableModule,
     SharedModule,
     PopoverModule
   ],
   exports: [ GroupsComponent ],
-  providers: [
-    AssessmentsResolve,
-    AssessmentService,
-    AssessmentExamMapper,
-    ExamStatisticsCalculator,
-    ExamFilterService,
-    ExamFilterOptionsService,
-    ExamFilterOptionsMapper
-  ]
+  providers: [ AssessmentsResolve, AssessmentService ]
 })
 export class GroupsModule {
 }

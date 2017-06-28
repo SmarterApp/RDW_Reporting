@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { Assessment } from "../model/assessment.model";
+import { Assessment } from "../../model/assessment.model";
 import { GradeService } from "../../../shared/grade.service";
 import { Grade } from "../../../shared/model/grade.model";
 

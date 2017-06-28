@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FilterBy } from "../model/filter-by.model";
-import { ExamFilterOptions } from "../model/exam-filter-options.model";
+import { FilterBy } from "../../model/filter-by.model";
+import { ExamFilterOptions } from "../../model/exam-filter-options.model";
 
 /*
   This component contains all of the selectable advanced filters

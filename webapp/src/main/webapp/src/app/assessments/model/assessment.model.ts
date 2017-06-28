@@ -1,4 +1,4 @@
-import { AssessmentType } from "../../../shared/enum/assessment-type.enum";
+import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 
 export class Assessment {
   id: number;

@@ -205,6 +205,7 @@
               "number": "Item #",
               "claim": "Claim/Target",
               "difficulty": "Item Difficulty",
+              "difficulty-info": "The item difficulty is defined as ... need real content here",
               "standard": "Standard",
               "full-credit": "Full Credit",
               "full-credit-info": "The full credit column represents ... need real data here",

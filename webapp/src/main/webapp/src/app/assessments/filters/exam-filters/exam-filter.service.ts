@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { ExamFilter } from "../model/exam-filter.model";
-import { Exam } from "../model/exam.model";
-import { FilterBy } from "../model/filter-by.model";
-import { AssessmentExam } from "../model/assessment-exam.model";
 import { Utils } from "../../../shared/Utils";
+import { ExamFilter } from "../../model/exam-filter.model";
+import { AssessmentExam } from "../../model/assessment-exam.model";
+import { FilterBy } from "../../model/filter-by.model";
+import { Exam } from "../../model/exam.model";
 
 @Injectable()
 export class ExamFilterService {

@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { URLSearchParams } from "@angular/http";
 import { DataService } from "../../../shared/data/data.service";
-import { AssessmentExamMapper } from "./assessment-exam.mapper";
-import { ExamFilterOptionsService } from "../exam-filters/exam-filter-options.service";
+import { AssessmentExamMapper } from "../../../assessments/assessment-exam.mapper";
+import { ExamFilterOptionsService } from "../../../assessments/filters/exam-filters/exam-filter-options.service";
 
 @Injectable()
 export class AssessmentService {

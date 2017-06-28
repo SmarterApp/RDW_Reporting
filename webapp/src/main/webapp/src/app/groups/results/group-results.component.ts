@@ -1,16 +1,16 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { AssessmentExam } from "./model/assessment-exam.model";
-import { FilterBy } from "./model/filter-by.model";
-import { ExamFilterService } from "./exam-filters/exam-filter.service";
-import { ExamFilterOptionsService } from "./exam-filters/exam-filter-options.service";
-import { ExamFilterOptions } from "./model/exam-filter-options.model";
-import { Assessment } from "./model/assessment.model";
+import { AssessmentExam } from "../../assessments/model/assessment-exam.model";
+import { FilterBy } from "../../assessments/model/filter-by.model";
+import { ExamFilterService } from "../../assessments/filters/exam-filters/exam-filter.service";
+import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
+import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
+import { Assessment } from "../../assessments/model/assessment.model";
 import { AssessmentService } from "./assessment/assessment.service";
 import { GradeService } from "../../shared/grade.service";
-import { AssessmentItem } from "./model/assessment-item.model";
+import { AssessmentItem } from "../../assessments/model/assessment-item.model";
 import { Observable } from "rxjs";
-import { byGradeThenByName } from "./assessment.comparator";
+import { byGradeThenByName } from "../../assessments/assessment.comparator";
 import { ordering } from "@kourge/ordering";
 
 @Component({
