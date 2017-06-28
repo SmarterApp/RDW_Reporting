@@ -33,15 +33,23 @@ sql:
         join asmt a on e.asmt_id=a.id
         join school s on e.school_id=s.id
       where e.student_id=:student_id
-        and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
+        and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids)))
 
     existsForStudentId: >-
-      select e.id
-      from exam e
-        join school s on e.school_id=s.id
-      where e.student_id=:student_id
-        and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
-      limit 1
+      select stu.id,
+        stu.ssid,
+        stu.first_name,
+        stu.last_or_surname
+      from student stu
+      where stu.ssid=:student_ssid
+        and exists
+          (select e.id
+            from exam e
+              join school sch on e.school_id=sch.id
+            where
+              e.student_id = stu.id
+              and (1=:statewide or sch.district_id in (:district_ids) or e.school_id in (:school_ids))
+            limit 1)
 
   group:
     findAllForUsername: >-

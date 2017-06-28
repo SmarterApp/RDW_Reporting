@@ -18,7 +18,8 @@ insert into gender (id, code) values
   (-1, 'g1');
 
 insert into student (id, ssid, last_or_surname, first_name, gender_id, gender_code, birthday, import_id) values
-  (-1, 'student1_ssid', 'student1_lastName', 'student1_firstName', -1, 'g1', '2017-01-01 00:00:00.000000', -1);
+  (-1, 'student1_ssid', 'student1_lastName', 'student1_firstName', -1, 'g1', '2017-01-01 00:00:00.000000', -1),
+  (-2, 'student2_ssid', 'student2_lastName', 'student2_firstName', -1, 'g1', '2017-01-01 00:00:00.000000', -1);
 
 insert into asmt (id, type_id, natural_id, grade_id, subject_id, school_year, name, label, version,
   claim1_score_code, claim2_score_code, claim3_score_code, claim4_score_code,
