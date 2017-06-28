@@ -4,7 +4,7 @@ import { DataService } from "../shared/data/data.service";
 import { MockDataService } from "../../test/mock.data.service";
 import { Observable } from "rxjs";
 
-describe('TestServiceService', () => {
+describe('StudentExamHistoryService', () => {
   let dataService: MockDataService;
 
   beforeEach(() => {
