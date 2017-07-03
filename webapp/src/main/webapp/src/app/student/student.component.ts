@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { StudentExamHistoryService } from "./student-exam-history.service";
 import { FormGroup, AbstractControl, FormControl, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'student-search',
@@ -11,7 +12,9 @@ export class StudentComponent implements OnInit {
   searchForm: FormGroup;
   studentNotFound: boolean;
 
-  constructor(private studentExamHistoryService: StudentExamHistoryService) { }
+  constructor(
+    private studentExamHistoryService: StudentExamHistoryService,
+    private router: Router) { }
 
   ngOnInit() {
     this.searchForm = new FormGroup({
@@ -31,12 +34,12 @@ export class StudentComponent implements OnInit {
     let ssid: string = this.ssidControl.value;
     this.studentNotFound = false;
 
-    this.studentExamHistoryService.existsById(ssid)
-      .subscribe((studentExists) => {
-        if (studentExists) {
-          console.log("Navigate to student exam history")
+    this.studentExamHistoryService.existsBySsid(ssid)
+      .subscribe((student) => {
+        if (student) {
+          this.router.navigateByUrl(`/students/${student.id}`);
         }
-        this.studentNotFound = !studentExists;
+        this.studentNotFound = !student;
       });
   }
 

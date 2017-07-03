@@ -19,36 +19,15 @@
     </div>
   </div>
 
-  <!-- Selected Filters -->
+  <!-- Selected Advanced Filters -->
   <div id="results-adv-filters" [hidden]="!showAdvancedFilters" class="well gray-lightest">
-    <h2 class="h3 gray-darkest">
-      <i class="fa fa-check-square"></i> {{'labels.groups.results.adv-filters.label' | translate }}
-      <button id="adv-filters-expand-collapse" class="btn btn-default btn-sm pull-right"
-              (click)="expandFilterOptions = !expandFilterOptions">
-        {{'buttons.collapsible.' + (expandFilterOptions ? 'collapse' : 'expand') | translate }}
-        <i class="fa" [ngClass]="{'fa-chevron-up': expandFilterOptions, 'fa-chevron-down': !expandFilterOptions}"
-           aria-hidden="true"></i>
-      </button>
-    </h2>
-    <p class="gray-darker">{{'labels.groups.results.adv-filters.subhead' | translate }}</p>
-    <!-- Selected Filters -->
-    <div id="adv-filters-selected" class="flex-children">
-      <div *ngFor="let property of clientFilterBy.all">
-        <a class="tag tag-xs aqua reverse" (click)="removeFilter(property)">
-            <span *ngIf="property.indexOf('ethnicities') == -1">
-              <strong>{{ filters[property].enumValue + '.' + clientFilterBy[property] | translate}}</strong> {{ filters[property].label | translate }}
-            </span>
-          <span *ngIf="property.indexOf('ethnicities') != -1">
-              <strong>{{ filters['ethnicities'].enumValue + property.substring(property.indexOf('.')) | translate}}</strong> {{ filters['ethnicities'].label | translate }}
-            </span>
-          <span class="icon"><i class="fa fa-close"></i></span>
-        </a>
-      </div>
-    </div>
+    <adv-filters-toggle [displayOptions]="filterDisplayOptions"
+                        [filterBy]="clientFilterBy"
+                        (removed)="removeFilter($event)"></adv-filters-toggle>
   </div>
 
   <!-- Advanced Filters -->
-  <div id="group-results-adv-filter-options" [hidden]="!expandFilterOptions" class="well gray-lighter">
+  <div id="group-results-adv-filter-options" [hidden]="!showAdvancedFilters || !filterDisplayOptions.expanded" class="well gray-lighter">
     <adv-filters [filterBy]="clientFilterBy" [filterOptions]="filterOptions"></adv-filters>
   </div>
 

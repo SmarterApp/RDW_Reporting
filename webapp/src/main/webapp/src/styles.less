@@ -99,6 +99,14 @@
   width: auto;
 }
 
+// Alignment
+.ml-auto {
+  margin-left: auto;
+}
+.mr-auto {
+  margin-right: auto;
+}
+
 // ------------------------------
 // RDW Custom Styles to Match Comps
 // ------------------------------
@@ -107,8 +115,8 @@
   border-radius: 5px 5px 0 0;
 }
 .home-view .my-groups-list-container .table > thead > tr > th {
-  &:first-child { border-top-left-radius: 0px; }
-  &:last-child { border-top-right-radius: 0px; }
+  &:first-child { border-top-left-radius: 0; }
+  &:last-child { border-top-right-radius: 0; }
 }
 
 .ui-dropdown{
@@ -137,7 +145,7 @@
   border-left: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   border-right: 1px solid #ccc;
-  border-radius: 0 0 5px 5px;
+  border-radius: 5px;
   > .table {
   border-collapse: separate;
   border-radius: @border-radius-base;
@@ -153,6 +161,7 @@
     }
   }
   > thead > tr > th {
+    white-space: normal !important;
     &:first-child {
       border-top-left-radius: @border-radius-base;
     }
@@ -227,4 +236,9 @@ body .ui-datatable .ui-datatable-data > tr > td {
 
 .table {
   table-layout: auto !important;
+}
+
+// Custom borders for the group container table:
+.my-groups-list-container .ui-datatable-tablewrapper {
+  border-radius: 0 0 5px 5px;
 }

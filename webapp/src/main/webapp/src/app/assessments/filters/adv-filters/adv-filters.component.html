@@ -43,7 +43,7 @@
   </div>
 
   <!-- Student Filters -->
-  <div id="filter-by-student" class="flex-child grow">
+  <div *ngIf="showStudentFilter" id="filter-by-student" class="flex-child grow">
     <p class="gray-darker border-bottom">{{ translateRoot + 'student.label' | translate }}</p>
     <div class="flex-children">
       <!-- Column 1 -->

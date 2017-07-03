@@ -6,7 +6,6 @@ import { FilterBy } from "./model/filter-by.model";
 import { AssessmentExam } from "./model/assessment-exam.model";
 import { ExamFilterOptions } from "./model/exam-filter-options.model";
 import { Assessment } from "./model/assessment.model";
-import { ExamFilterService } from "./filters/exam-filters/exam-filter.service";
 import { ExamFilterOptionsService } from "./filters/exam-filters/exam-filter-options.service";
 import { GradeService } from "../shared/grade.service";
 import { AssessmentItem } from "./model/assessment-item.model";
@@ -42,12 +41,12 @@ export class AssessmentsComponent implements OnInit {
   assessmentProvider: AssessmentProvider;
 
   showValuesAsPercent: boolean = true;
-  expandFilterOptions: boolean = false;
+  filterDisplayOptions: any = {
+    expanded: true
+  };
   clientFilterBy: FilterBy;
 
-  filters: any[] = [];
   filterOptions: ExamFilterOptions = new ExamFilterOptions();
-  currentFilters = [];
   availableAssessments: Assessment[] = [];
   assessmentsLoading: any[] = [];
   boundLoadAssessmentItems: Function;
@@ -62,7 +61,7 @@ export class AssessmentsComponent implements OnInit {
 
   set showAdvancedFilters(value: boolean) {
     this._showAdvancedFilters = value;
-    this.expandFilterOptions = value; // Automatically expand / collapse filter options.
+    this.filterDisplayOptions.expanded = value; // Automatically expand / collapse filter options.
   }
 
   get expandAssessments(): boolean {
@@ -125,16 +124,11 @@ export class AssessmentsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private filterOptionService: ExamFilterOptionsService,
-              private examFilterService: ExamFilterService,
               private gradeService: GradeService) {
     this.clientFilterBy = new FilterBy()
   }
 
   ngOnInit() {
-    this.examFilterService.getFilterDefinitions().forEach(filter => {
-      this.filters[ filter.name ] = filter;
-    });
-
     this.filterOptionService.getExamFilterOptions().subscribe(filterOptions => {
       this.filterOptions = filterOptions;
     });

@@ -1,0 +1,89 @@
+<div class="mb-md">
+  <div class="tag tag-lg blue ">
+    <span class="label">{{'labels.student.name' | translate:examHistory.student}}</span>
+    <span>{{examHistory.student.ssid}}</span>
+  </div>
+</div>
+
+<!-- Results Filter -->
+<student-results-filter [filterState]="filterState"
+                        (filterChange)="onFilterChange()"></student-results-filter>
+
+<h3 class="blue mb-md">{{'labels.student.results.title' | translate}}</h3>
+
+<!-- Assessments Grouped by Type and Subject -->
+<div *ngFor="let assessmentType of assessmentTypes">
+  <div *ngFor="let subject of getSubjectsForType(assessmentType)" class="well">
+    <span class="tag tag-md {{ assessmentType | assessmentType:'color' }}">
+      <span class="label">{{assessmentType | assessmentType}}</span>
+      <span>{{subject}}</span>
+    </span>
+    <button class="btn btn-default btn-sm icon-only pull-right"
+            (click)="toggleCollapsed(assessmentType, subject)">
+      <span class="sr-only">{{ 'buttons.collapsible.collapse' | translate }}</span>
+      <i class="fa fa-bold {{ isCollapsed(assessmentType, subject) ? 'fa-angle-down' : 'fa-angle-up' }}"></i>
+    </button>
+
+    <div class="mt-md" [hidden]="isCollapsed(assessmentType, subject)">
+      <student-history-iab-table *ngIf="(assessmentType | assessmentType) === 'IAB'"
+                                 [exams]="examsByTypeAndSubject.get(assessmentType).get(subject)"></student-history-iab-table>
+      <student-history-ica-summitive-table *ngIf="(assessmentType | assessmentType) !== 'IAB'"
+                                           [exams]="examsByTypeAndSubject.get(assessmentType).get(subject)"></student-history-ica-summitive-table>
+    </div>
+  </div>
+</div>
+
+
+<div class="well">
+  <span class="tag tag-md red">
+    <span class="label">IAB</span>
+    <span>Math</span>
+  </span>
+  <button class="btn btn-default btn-sm icon-only pull-right">
+    <span class="sr-only">{{ 'buttons.collapsible.collapse' | translate }}</span>
+    <i class="fa fa-bold fa-angle-up"></i>
+  </button>
+
+  <div class="mb-md"></div>
+
+  <!-- Results Table -->
+  <p-dataTable [value]="examHistory.exams"
+               emptyMessage="No assessments found"
+               sortField="studentName"
+               tableStyleClass="table table-striped table-hover">
+    <p-column field="exam.schoolYear" header="School Year" sortable="true">
+      <ng-template let-exam="rowData.exam" pTemplate="body">
+        {{ exam.schoolYear | schoolYear }}
+      </ng-template>
+    </p-column>
+    <p-column field="school.name" header="School" sortable="true"></p-column>
+    <p-column field="assessment.name" header="Assessment" sortable="true"></p-column>
+    <p-column field="exam.date" header="Date" sortable="true">
+      <ng-template let-exam="rowData.exam" pTemplate="body">
+        {{ exam.date | date }}
+      </ng-template>
+    </p-column>
+    <p-column field="exam.enrolledGrade" header="Enrolled Grade" sortable="true">
+      <ng-template let-exam="rowData.exam" pTemplate="body">
+        <!-- TODO once grade codes are returned, pipe through translation -->
+        {{ exam.enrolledGrade }}
+      </ng-template>
+    </p-column>
+    <p-column field="exam.administrativeCondition" header="Status" sortable="true">
+      <ng-template let-exam="rowData.exam" pTemplate="body">
+        <span class="label border-only maroon">{{ 'enum.administrative-condition.' + exam.administrativeCondition | translate }}</span>
+        <span *ngIf="exam.completeness == 'Partial'" class="label border-only maroon">{{ 'enum.completeness.Partial' | translate }}</span>
+      </ng-template>
+    </p-column>
+    <p-column field="exam.level" header="Reporting Category" sortable="true">
+      <ng-template let-exam="rowData.exam" pTemplate="body">
+        {{ 'enum.iab-category.' + exam.level.toString() | translate }}
+      </ng-template>
+    </p-column>
+    <p-column field="exam.score" header="Scale Score" sortable="true">
+      <ng-template let-exam="rowData.exam" pTemplate="body">
+        {{ exam | scaleScore }}
+      </ng-template>
+    </p-column>
+  </p-dataTable>
+</div>

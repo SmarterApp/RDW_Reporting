@@ -6,6 +6,8 @@ export class Assessment {
   grade: number;
   type: AssessmentType;
   selected: boolean;
+  subject: string;
+  claimCodes: string[];
 
   get isIab() {
     return this.type == AssessmentType.IAB;

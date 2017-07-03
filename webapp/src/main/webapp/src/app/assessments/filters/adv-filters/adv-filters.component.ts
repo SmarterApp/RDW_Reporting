@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input } from "@angular/core";
 import { FilterBy } from "../../model/filter-by.model";
 import { ExamFilterOptions } from "../../model/exam-filter-options.model";
 
@@ -24,6 +24,9 @@ export class AdvFiltersComponent implements OnInit {
 
   @Input()
   filterOptions: ExamFilterOptions;
+
+  @Input()
+  showStudentFilter: boolean = true;
 
   constructor() {
   }

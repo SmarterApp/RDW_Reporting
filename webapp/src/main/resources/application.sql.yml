@@ -360,13 +360,13 @@ sql:
         where i.asmt_id=:assessment_id
 
   student:
-    findOneBySsid: >-
+    findOneById: >-
       select id,
         ssid,
         first_name,
         last_or_surname
       from student s
-      where s.ssid=:ssid
+      where s.id=:studentId
        and exists (select 1 from exam e where e.student_id = s.id)
 
   district:

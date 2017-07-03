@@ -1,0 +1,60 @@
+<div class="well-group">
+  <div class="well">
+    <div class="form-group">
+      <div class="flex-children">
+
+        <!-- School Grade -->
+        <div class="flex-child">
+          <label for="select-year">{{'labels.select-year' | translate}}</label>
+          <select id="select-year"
+                  name="select-year"
+                  [(ngModel)]="filterState.schoolYear"
+                  (change)="onFilterChange()"
+                  class="form-control">
+            <option selected value="0">{{ 'buttons.all' | translate }}</option>
+            <option *ngFor="let year of filterState.years" [ngValue]="year">{{year | schoolYear}}</option>
+          </select>
+        </div>
+
+        <!-- Subject -->
+        <div class="flex-child">
+          <label for="select-subject">{{'labels.student.results.labels.select-subject' | translate}}</label>
+          <select id="select-subject"
+                  name="select-subject"
+                  [(ngModel)]="filterState.subject"
+                  (change)="onFilterChange()"
+                  class="form-control">
+            <option selected value="">{{ 'buttons.all' | translate }}</option>
+            <option *ngFor="let subject of filterState.subjects" [ngValue]="subject">{{subject}}</option>
+          </select>
+        </div>
+
+        <!-- Advanced Filters -->
+        <div class="flex-child ml-auto">
+          <label for="show-advanced-filters">{{'labels.groups.results.adv-filters.label' | translate}}</label>
+          <button id="show-advanced-filters"
+                  class="form-control btn btn-default ml-auto"
+                  (click)="showAdvancedFilters = !showAdvancedFilters">
+            {{'buttons.visibility.' + (showAdvancedFilters ? 'hide' : 'show') | translate}}
+            <i class="fa"
+               [ngClass]="{'fa-chevron-up': showAdvancedFilters, 'fa-chevron-down': !showAdvancedFilters}"
+               aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Selected Filters -->
+  <div id="results-adv-filters" [hidden]="!showAdvancedFilters" class="well gray-lightest">
+    <adv-filters-toggle [displayOptions]="filterDisplayOptions"
+                        [filterBy]="filterState.filterBy"
+                        (removed)="removeFilter($event)"></adv-filters-toggle>
+  </div>
+
+  <!-- Advanced Filters -->
+  <div id="group-results-adv-filter-options" [hidden]="!showAdvancedFilters || !filterDisplayOptions.expanded" class="well gray-lighter">
+    <adv-filters [filterBy]="filterState.filterBy"
+                 [showStudentFilter]="false"></adv-filters>
+  </div>
+</div>

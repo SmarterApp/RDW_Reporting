@@ -1,0 +1,24 @@
+<h2 class="h3 gray-darkest">
+  <i class="fa fa-check-square"></i> {{'labels.groups.results.adv-filters.label' | translate }}
+  <button id="adv-filters-expand-collapse" class="btn btn-default btn-sm pull-right"
+          (click)="displayOptions.expanded = !displayOptions.expanded">
+    {{'buttons.collapsible.' + (displayOptions.expanded ? 'collapse' : 'expand') | translate }}
+    <i class="fa" [ngClass]="{'fa-chevron-up': displayOptions.expanded, 'fa-chevron-down': !displayOptions.expanded}"
+       aria-hidden="true"></i>
+  </button>
+</h2>
+<p class="gray-darker">{{'labels.groups.results.adv-filters.subhead' | translate }}</p>
+<!-- Selected Filters -->
+<div id="adv-filters-selected" class="flex-children">
+  <div *ngFor="let property of filterBy.all">
+    <a class="tag tag-xs aqua reverse" (click)="removed.emit(property)">
+            <span *ngIf="property.indexOf('ethnicities') == -1">
+              <strong>{{ filters[property].enumValue + '.' + filterBy[property] | translate}}</strong> {{ filters[property].label | translate }}
+            </span>
+      <span *ngIf="property.indexOf('ethnicities') != -1">
+              <strong>{{ filters['ethnicities'].enumValue + property.substring(property.indexOf('.')) | translate}}</strong> {{ filters['ethnicities'].label | translate }}
+            </span>
+      <span class="icon"><i class="fa fa-close"></i></span>
+    </a>
+  </div>
+</div>

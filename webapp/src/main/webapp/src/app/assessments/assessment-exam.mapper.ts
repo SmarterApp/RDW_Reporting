@@ -8,6 +8,7 @@ import { ExamItemScore } from "./model/exam-item-score.model";
 import { byGradeThenByName } from "./assessment.comparator";
 import { ordering } from "@kourge/ordering";
 import { byNumber } from "@kourge/ordering/comparator";
+import { ClaimScore } from "./model/claim-score.model";
 
 @Injectable()
 export class AssessmentExamMapper {
@@ -52,6 +53,58 @@ export class AssessmentExamMapper {
     return uiModels;
   }
 
+  mapAssessmentFromApi(apiModel: any): Assessment {
+    let uiModel = new Assessment();
+
+    uiModel.id = apiModel.id;
+    uiModel.name = apiModel.name;
+    uiModel.grade = apiModel.gradeId;
+    uiModel.type = AssessmentType[ apiModel.type as string ];
+    uiModel.subject = apiModel.subject;
+    uiModel.claimCodes = apiModel.claimCodes || [];
+
+    return uiModel;
+  }
+
+  mapExamFromApi(apiModel): Exam {
+    let uiModel: Exam = new Exam();
+
+    uiModel.id = apiModel.id;
+    uiModel.date = apiModel.dateTime;
+    uiModel.session = apiModel.sessionId;
+    uiModel.administrativeCondition = apiModel.administrativeConditionCode;
+    uiModel.completeness = apiModel.completenessCode;
+    uiModel.schoolYear = apiModel.schoolYear;
+    uiModel.ethnicities = [];
+    uiModel.claimScores = this.mapClaimScaleScoresFromApi(apiModel.claimScaleScores);
+
+    if (apiModel.studentContext) {
+      uiModel.enrolledGrade = apiModel.studentContext.gradeId;
+      uiModel.migrantStatus = apiModel.studentContext.migrantStatus;
+      uiModel.plan504 = apiModel.studentContext.section504;
+      uiModel.iep = apiModel.studentContext.iep;
+      uiModel.economicDisadvantage = apiModel.studentContext.economicDisadvantage;
+      uiModel.limitedEnglishProficiency = apiModel.studentContext.lep;
+    }
+
+    if (apiModel.student) {
+      uiModel.studentName = `${apiModel.student.lastName}, ${apiModel.student.firstName}`;
+      uiModel.gender = apiModel.student.genderCode;
+
+      if (apiModel.student.ethnicityCodes) {
+        apiModel.student.ethnicityCodes.forEach(code => uiModel.ethnicities.push(code));
+      }
+    }
+
+    if (apiModel.scaleScore) {
+      uiModel.score = apiModel.scaleScore.value;
+      uiModel.level = apiModel.scaleScore.level;
+      uiModel.standardError = apiModel.scaleScore.standardError;
+    }
+
+    return uiModel;
+  }
+
   private mapExamItemFromApi(apiModel) {
     let uiModel: ExamItemScore = new ExamItemScore();
 
@@ -75,44 +128,18 @@ export class AssessmentExamMapper {
     return uiModel;
   }
 
-  private mapAssessmentFromApi(apiModel): Assessment {
-    let uiModel = new Assessment();
+  private mapClaimScaleScoresFromApi(apiScaleScores: any[]): ClaimScore[] {
+    if (!Array.isArray(apiScaleScores)) return [];
 
-    uiModel.id = apiModel.id;
-    uiModel.name = apiModel.name;
-    uiModel.grade = apiModel.gradeId;
-    uiModel.type = AssessmentType[ apiModel.type as string ];
-
-    return uiModel;
+    return apiScaleScores
+      .map((apiScore) => this.mapClaimScaleScoreFromApi(apiScore));
   }
 
-  private mapExamFromApi(apiModel): Exam {
-    let uiModel: Exam = new Exam();
-
-    uiModel.id = apiModel.id;
-    uiModel.date = apiModel.dateTime;
-    uiModel.session = apiModel.sessionId;
-    uiModel.enrolledGrade = apiModel.studentContext.gradeId;
-    uiModel.studentName = `${apiModel.student.lastName}, ${apiModel.student.firstName}`;
-
-    uiModel.score = apiModel.scaleScore.value;
-    uiModel.level = apiModel.scaleScore.level;
-    uiModel.standardError = apiModel.scaleScore.standardError;
-
-    uiModel.administrativeCondition = apiModel.administrativeConditionCode;
-    uiModel.completeness = apiModel.completenessCode;
-
-    uiModel.gender = apiModel.student.genderCode;
-    uiModel.migrantStatus = apiModel.studentContext.migrantStatus;
-    uiModel.plan504 = apiModel.studentContext.section504;
-    uiModel.iep = apiModel.studentContext.iep;
-    uiModel.economicDisadvantage = apiModel.studentContext.economicDisadvantage;
-    uiModel.limitedEnglishProficiency = apiModel.studentContext.lep;
-
-    uiModel.ethnicities = [];
-
-    if (apiModel.student.ethnicityCodes)
-      apiModel.student.ethnicityCodes.forEach(code => uiModel.ethnicities.push(code));
+  private mapClaimScaleScoreFromApi(apiScaleScore: any): ClaimScore {
+    let uiModel: ClaimScore = new ClaimScore();
+    uiModel.level = apiScaleScore.level;
+    uiModel.score = apiScaleScore.value;
+    uiModel.standardError = apiScaleScore.standardError;
 
     return uiModel;
   }

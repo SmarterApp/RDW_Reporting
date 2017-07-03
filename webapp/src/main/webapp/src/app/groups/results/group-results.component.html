@@ -14,7 +14,7 @@
   </div>
   <!-- School Year -->
   <div class="col-md-3">
-    <label for="school-year">{{'labels.groups.results.select-year' | translate}}</label>
+    <label for="school-year">{{'labels.select-year' | translate}}</label>
     <select id="school-year" [(ngModel)]="currentSchoolYear" (change)="updateRoute()"
             class="form-control">
       <option *ngFor="let year of filterOptions.schoolYears" [ngValue]="year">{{year | schoolYear}}</option>

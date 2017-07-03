@@ -1,5 +1,5 @@
 export enum AssessmentType {
-  ICA = 1,
-  IAB = 2,
+  IAB = 1,
+  ICA = 2,
   SUMMATIVE = 3
 }

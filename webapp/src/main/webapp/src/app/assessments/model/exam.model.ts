@@ -1,3 +1,5 @@
+import { ClaimScore } from "./claim-score.model";
+
 export class Exam {
   id: number;
   studentName: string;
@@ -16,4 +18,6 @@ export class Exam {
   economicDisadvantage: boolean;
   limitedEnglishProficiency: boolean;
   ethnicities: string[];
+  schoolYear: number;
+  claimScores: ClaimScore[];
 }

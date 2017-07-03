@@ -8,14 +8,18 @@ import { SharedModule } from "primeng/components/common/shared";
 import { StudentExamHistoryService } from "./student-exam-history.service";
 import { Observable } from "rxjs";
 import Spy = jasmine.Spy;
+import { Router } from "@angular/router";
+import { MockRouter } from "../../test/mock.router";
 
 describe('StudentComponent', () => {
   let component: StudentComponent;
   let fixture: ComponentFixture<StudentComponent>;
   let service: MockStudentExamHistoryService;
+  let router: MockRouter;
 
   beforeEach(async(() => {
     service = new MockStudentExamHistoryService();
+    router = new MockRouter();
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
@@ -29,6 +33,9 @@ describe('StudentComponent', () => {
         StudentExamHistoryService, {
           provide: StudentExamHistoryService,
           useValue: service
+        }, {
+          provide: Router,
+          useValue: router
         }
       ]
     })
@@ -49,10 +56,11 @@ describe('StudentComponent', () => {
     let textInput: AbstractControl = component.searchForm.controls['ssid'];
     textInput.setValue("test-ssid");
 
-    service.existsById.and.returnValue(Observable.of(true));
+    service.existsBySsid.and.returnValue(Observable.of({id: 123}));
     component.performSearch();
 
-    expect(service.existsById.calls.first().args[0]).toBe("test-ssid");
+    expect(service.existsBySsid.calls.first().args[0]).toBe("test-ssid");
+    expect(router.navigateByUrl.calls.first().args[0]).toBe("/students/123");
     expect(component.studentNotFound).toBe(false);
   });
 
@@ -60,7 +68,7 @@ describe('StudentComponent', () => {
     let textInput: AbstractControl = component.searchForm.controls['ssid'];
     textInput.setValue("test-ssid");
 
-    service.existsById.and.returnValue(Observable.of(false));
+    service.existsBySsid.and.returnValue(Observable.of(false));
     component.performSearch();
 
     expect(component.studentNotFound).toBe(true);
@@ -68,7 +76,7 @@ describe('StudentComponent', () => {
 });
 
 class MockStudentExamHistoryService {
-  public existsById: Spy = jasmine.createSpy("existsById");
+  public existsBySsid: Spy = jasmine.createSpy("existsBySsid");
 
   constructor() { }
 }

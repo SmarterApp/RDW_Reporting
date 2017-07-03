@@ -14,14 +14,14 @@ export class BreadcrumbsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
+    this.router.events.filter(event => event instanceof NavigationEnd).subscribe(() => {
       let root: ActivatedRoute = this.activatedRoute.root;
       this.breadcrumbs = this.getBreadcrumbs(root);
     });
   }
 
   private getBreadcrumbs(route: ActivatedRoute, url: string="", breadcrumbs: any[] = []): any[] {
-  let BreadcrumbsKeyword = "breadcrumb";
+    let BreadcrumbsKeyword = "breadcrumb";
 
     let children: ActivatedRoute[] = route.children;
     if (children.length === 0 ) {
@@ -37,21 +37,27 @@ export class BreadcrumbsComponent implements OnInit{
         return this.getBreadcrumbs(child, url, breadcrumbs);
       }
 
-      let crumbData = child.snapshot.data[BreadcrumbsKeyword]
+      let crumbData = child.snapshot.data[BreadcrumbsKeyword];
       let routeURL: string = child.snapshot.url.map(segment => segment.path).join("/");
       url += `/${routeURL}`;
 
       let requiresTranslate = true;
       let label = crumbData.translate;
+      let translateParams = {};
 
       if(crumbData.resolve){
         label = Utils.getPropertyValue(crumbData.resolve, child.snapshot.data);
         requiresTranslate = false;
       }
 
+      if(crumbData.translateResolve){
+        translateParams = Utils.getPropertyValue(crumbData.translateResolve, child.snapshot.data);
+      }
+
       let breadcrumb: any  = {
         requiresTranslate: requiresTranslate,
         label: label,
+        translateParams: translateParams,
         params: child.snapshot.params,
         url: url.replace(/\/$/, "")
       };

@@ -14,13 +14,15 @@ import { ExamFilterOptionsMapper } from "./filters/exam-filters/exam-filter-opti
 import { SelectAssessmentsComponent } from "./filters/select-assessments/select-assessments.component";
 import { PopoverModule } from "ngx-bootstrap/popover";
 import { AssessmentsComponent } from "./assessments.component";
+import { AdvFiltersToggleComponent } from "./filters/adv-filters/adv-filters-toggle.component";
 
 @NgModule({
   declarations: [
     AssessmentResultsComponent,
     AdvFiltersComponent,
     SelectAssessmentsComponent,
-    AssessmentsComponent
+    AssessmentsComponent,
+    AdvFiltersToggleComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,9 @@ import { AssessmentsComponent } from "./assessments.component";
     PopoverModule
   ],
   exports: [
-    AssessmentsComponent
+    AssessmentsComponent,
+    AdvFiltersComponent,
+    AdvFiltersToggleComponent
   ],
   providers: [
     AssessmentExamMapper,
