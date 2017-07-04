@@ -71,7 +71,7 @@
   <!-- Claim Score columns -->
   <p-column *ngFor="let claim of getClaims(); let idx = index"
             header="{{'enum.claim-code.' + claim | translate}}"
-            field="{{'exam.claimScores[' + idx + '].level'}}"
+            field="{{'exam.claimScores.' + idx + '.level'}}"
             sortable="true"
             [hidden]="displayState.table !== 'claim'">
     <ng-template let-exam="rowData.exam" pTemplate="body">
