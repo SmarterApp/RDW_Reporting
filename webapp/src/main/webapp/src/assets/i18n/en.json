@@ -255,9 +255,7 @@
           "reporting-category": "Reporting Category",
           "scale-score": "Scale Score",
           "achievement-level": "Achievement Level"
-        },
-        "display-overall": "Overall Scores",
-        "display-claim": "Claim Scores"
+        }
       }
     },
     "select-year": "School Year"
@@ -276,7 +274,9 @@
       "expand": "Expand",
       "collapse": "Collapse"
     },
-    "search": "Search"
+    "search": "Search",
+    "display-overall": "Overall Scores",
+    "display-claim": "Claim Scores"
   },
   "enum": {
     "administrative-condition": {

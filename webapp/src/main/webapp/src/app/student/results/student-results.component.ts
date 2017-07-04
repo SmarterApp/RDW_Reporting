@@ -96,11 +96,16 @@ export class StudentResultsComponent implements OnInit {
   private filterExam(wrapper: StudentHistoryExamWrapper): boolean {
     // School Year filter
     if (this.filterState.schoolYear > 0) {
-      if (wrapper.exam.schoolYear !== this.filterState.schoolYear) return false;
+      if (wrapper.exam.schoolYear !== this.filterState.schoolYear) {
+        return false;
+      }
     }
     // Subject filter
     if (this.filterState.subject) {
-      if (wrapper.assessment.subject !== this.filterState.subject) return false;
+
+      if (wrapper.assessment.subject !== this.filterState.subject) {
+        return false;
+      }
     }
     // Interim Administration Type filter
     if (this.filterState.filterBy.administration != -1) {
@@ -118,11 +123,15 @@ export class StudentResultsComponent implements OnInit {
     }
     // Completion state
     if (this.filterState.filterBy.completion != -1) {
-      if (wrapper.exam.completeness !== this.filterState.filterBy.completion) return false;
+      if (wrapper.exam.completeness !== this.filterState.filterBy.completion) {
+        return false;
+      }
     }
     // Off-Grade Assessment filter
-    if (!this.filterState.filterBy.offGradeAssessment) {
-      if (wrapper.exam.enrolledGrade !== wrapper.assessment.grade) return false;
+    if (this.filterState.filterBy.offGradeAssessment) {
+      if (wrapper.exam.enrolledGrade !== wrapper.assessment.grade) {
+        return false;
+      }
     }
 
     return true;
@@ -172,7 +181,7 @@ export class StudentResultsComponent implements OnInit {
       .filter((year: number, idx: number, array: number[]) => idx == 0 || year != array[ idx - 1 ]);
 
     if (params[ "schoolYear" ]) {
-      this.filterState.schoolYear = parseInt(params[ "schoolYear" ]);
+      this.filterState.schoolYear = parseInt(params[ 'schoolYear' ]);
     }
 
     //Reduce subjects to ordered unique list
@@ -181,7 +190,7 @@ export class StudentResultsComponent implements OnInit {
       .filter((subject: string, idx: number, array: string[]) => idx == 0 || subject != array[ idx - 1 ]);
 
     if (params[ "subject" ]) {
-      this.filterState.subject = params[ "subject" ];
+      this.filterState.subject = params[ 'subject' ];
     }
   }
 }

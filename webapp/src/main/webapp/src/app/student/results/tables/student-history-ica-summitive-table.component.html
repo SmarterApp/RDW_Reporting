@@ -4,13 +4,13 @@
           (click)="displayState.table = 'overall'"
           class="btn btn-default"
           [ngClass]="{'active': displayState.table === 'overall'}">
-    {{'labels.student.results.display-overall' | translate}}
+    {{'buttons.display-overall' | translate}}
   </button>
   <button type="radio"
           (click)="displayState.table = 'claim'"
           class="btn btn-default"
           [ngClass]="{'active': displayState.table === 'claim'}">
-    {{'labels.student.results.display-claim' | translate}}
+    {{'buttons.display-claim' | translate}}
   </button>
 </div>
 
