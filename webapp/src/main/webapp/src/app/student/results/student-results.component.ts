@@ -6,6 +6,7 @@ import { URLSearchParams } from "@angular/http";
 import { StudentResultsFilterState } from "./model/student-results-filter-state.model";
 import { StudentHistoryExamWrapper } from "../model/student-history-exam-wrapper.model";
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
+import { ExamFilterService } from "../../assessments/filters/exam-filters/exam-filter.service";
 
 @Component({
   selector: 'student-results',
@@ -18,13 +19,20 @@ export class StudentResultsComponent implements OnInit {
   examsByTypeAndSubject: Map<AssessmentType, Map<string, StudentHistoryExamWrapper[]>> = new Map();
   displayState: any = {};
 
+  private typeDisplayOrder: AssessmentType[] = [AssessmentType.IAB, AssessmentType.ICA, AssessmentType.SUMMATIVE];
+
   get assessmentTypes(): AssessmentType[] {
     return Array.from(this.examsByTypeAndSubject.keys())
-      .sort((a, b) => a - b);
+      .sort((a, b) => {
+        let aIdx = this.typeDisplayOrder.indexOf(a);
+        let bIdx = this.typeDisplayOrder.indexOf(b);
+        return aIdx - bIdx;
+      });
   }
 
   constructor(private route: ActivatedRoute,
-              private location: Location) {
+              private location: Location,
+              private examFilterService: ExamFilterService) {
   }
 
   ngOnInit(): void {
@@ -71,7 +79,14 @@ export class StudentResultsComponent implements OnInit {
    */
   private applyFilter(): void {
     let filteredExams: StudentHistoryExamWrapper[] = this.examHistory.exams
-      .filter((wrapper) => this.filterExam(wrapper));
+      .filter((wrapper) => this.isExamVisible(wrapper));
+
+    filteredExams = this.examFilterService.filterItems(
+      (wrapper) => wrapper.assessment,
+      (wrapper) => wrapper.exam,
+      filteredExams,
+      this.filterState.filterBy
+    );
 
     let examsByTypeAndSubject: Map<AssessmentType, Map<string, StudentHistoryExamWrapper[]>> = new Map();
     filteredExams.forEach((wrapper) => {
@@ -93,7 +108,7 @@ export class StudentResultsComponent implements OnInit {
    * @param wrapper The exam wrapper to filter
    * @returns {boolean} True if the exam should be visible
    */
-  private filterExam(wrapper: StudentHistoryExamWrapper): boolean {
+  private isExamVisible(wrapper: StudentHistoryExamWrapper): boolean {
     // School Year filter
     if (this.filterState.schoolYear > 0) {
       if (wrapper.exam.schoolYear !== this.filterState.schoolYear) {
@@ -102,34 +117,7 @@ export class StudentResultsComponent implements OnInit {
     }
     // Subject filter
     if (this.filterState.subject) {
-
       if (wrapper.assessment.subject !== this.filterState.subject) {
-        return false;
-      }
-    }
-    // Interim Administration Type filter
-    if (this.filterState.filterBy.administration != -1) {
-      if (wrapper.assessment.type !== AssessmentType.SUMMATIVE
-        && wrapper.exam.administrativeCondition !== this.filterState.filterBy.administration) {
-        return false;
-      }
-    }
-    // Summitive Validation State filter
-    if (this.filterState.filterBy.summativeStatus != -1) {
-      if (wrapper.assessment.type === AssessmentType.SUMMATIVE
-        && wrapper.exam.administrativeCondition !== this.filterState.filterBy.summativeStatus) {
-        return false;
-      }
-    }
-    // Completion state
-    if (this.filterState.filterBy.completion != -1) {
-      if (wrapper.exam.completeness !== this.filterState.filterBy.completion) {
-        return false;
-      }
-    }
-    // Off-Grade Assessment filter
-    if (this.filterState.filterBy.offGradeAssessment) {
-      if (wrapper.exam.enrolledGrade !== wrapper.assessment.grade) {
         return false;
       }
     }

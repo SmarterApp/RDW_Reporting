@@ -111,59 +111,6 @@ describe('StudentResultsComponent', () => {
     expect(component.getSubjectsForType(assessmentTypes[1])).toEqual(['MATH']);
   }));
 
-  it('should filter by assessment status', () => {
-    component.filterState.filterBy.administration = 'NS';
-    component.onFilterChange();
-    expect(component.assessmentTypes).toContain(AssessmentType.IAB);
-
-    component.filterState.filterBy.administration = 'SD';
-    component.onFilterChange();
-    expect(component.assessmentTypes).not.toContain(AssessmentType.IAB);
-  });
-
-  it('should filter by summitive status', () => {
-    component.filterState.filterBy.summativeStatus = 'Valid';
-    component.onFilterChange();
-    expect(component.assessmentTypes).toContain(AssessmentType.SUMMATIVE);
-
-    component.filterState.filterBy.summativeStatus = 'IN';
-    component.onFilterChange();
-    expect(component.assessmentTypes).not.toContain(AssessmentType.SUMMATIVE);
-  });
-
-  it('should filter by completion status', () => {
-    component.filterState.filterBy.completion = 'Partial';
-    component.onFilterChange();
-    let filteredExams: StudentHistoryExamWrapper[] = getFilteredExams(component.examsByTypeAndSubject);
-    expect(filteredExams.length).toBeGreaterThan(0);
-    expect(filteredExams
-      .filter(exam => exam.exam.completeness !== 'Partial')
-      .length)
-      .toBe(0);
-
-    component.filterState.filterBy.completion = 'Complete';
-    component.onFilterChange();
-    filteredExams = getFilteredExams(component.examsByTypeAndSubject);
-    expect(filteredExams.length).toBeGreaterThan(0);
-    expect(filteredExams
-      .filter(exam => exam.exam.completeness !== 'Complete')
-      .length)
-      .toBe(0);
-  });
-
-  it('should filter by off-grade assessments', () => {
-    let originalLength: number = getFilteredExams(component.examsByTypeAndSubject).length;
-
-    component.filterState.filterBy.offGradeAssessment = true;
-    component.onFilterChange();
-    let filteredExams: StudentHistoryExamWrapper[] = getFilteredExams(component.examsByTypeAndSubject);
-    expect(filteredExams.length).toBeGreaterThan(0);
-    expect(filteredExams.length).toBeLessThan(originalLength);
-    expect(filteredExams
-      .filter(wrapper => wrapper.exam.enrolledGrade !== wrapper.assessment.grade)
-      .length)
-      .toBe(0);
-  });
 });
 
 function getFilteredExams(examMap: Map<AssessmentType, Map<string, StudentHistoryExamWrapper[]>>): StudentHistoryExamWrapper[] {
