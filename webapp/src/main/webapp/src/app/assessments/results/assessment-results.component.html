@@ -75,9 +75,19 @@
       <div *ngIf="!showItemsByPoints">
         <h3 class="gray-darkest mb-md">
           {{'labels.groups.results.assessment.exams.title' | translate}}
-          <a *ngIf="assessmentExam.assessment.isInterim" class="btn btn-info btn-xs pull-right" (click)="viewItemsByPoints(true)">
+
+          <a *ngIf="assessmentExam.assessment.isInterim" class="btn btn-default btn-xs pull-right" (click)="viewItemsByPoints(true)">
             {{'labels.groups.results.assessment.button-items' | translate}} <i class="fa fa-chevron-right"></i>
           </a>
+
+          <div *ngIf="isIca" class="btn-group btn-group-xs toggle-group pull-right mr-md" data-toggle="buttons">
+            <label class="btn btn-primary" [ngClass]="{'active': !isClaimScoreSelected}">
+              <input type="radio" name="scores-display-toggle" autocomplete="off" (click)="setOverallScoreSelected()"> {{'buttons.display-overall' | translate}}
+            </label>
+            <label class="btn btn-primary" [ngClass]="{'active': isClaimScoreSelected}">
+              <input type="radio" name="scores-display-toggle" autocomplete="off" (click)="setClaimScoreSelected()"> {{'buttons.display-claim' | translate}}
+            </label>
+          </div>
         </h3>
 
         <p-dataTable [value]="exams" emptyMessage="{{'labels.groups.results.assessment.exams.empty-message' | translate}}" sortField="studentName" tableStyleClass="table table-striped table-hover">
@@ -88,13 +98,13 @@
             </ng-template>
           </p-column>
           <p-column field="session" header="{{'labels.groups.results.assessment.exams.cols.session' | translate}}" [sortable]="true"></p-column>
-          <p-column field="enrolledGrade" header="{{'labels.groups.results.assessment.exams.cols.grade' | translate}}" [sortable]="true">
+          <p-column field="enrolledGrade" header="{{'labels.groups.results.assessment.exams.cols.grade' | translate}}" [sortable]="true" [hidden]="isClaimScoreSelected">
             <ng-template let-exam="rowData" pTemplate="body">
               <!-- TODO once grade codes are returned, pipe through translation -->
               {{ exam.enrolledGrade }}
             </ng-template>
           </p-column>
-          <p-column field="administrativeCondition" [sortable]="true" >
+          <p-column field="administrativeCondition" [sortable]="true" [hidden]="isClaimScoreSelected">
             <ng-template pTemplate="header">
               {{'labels.groups.results.assessment.exams.cols.status' | translate}}
               <span class="icon"
@@ -108,7 +118,7 @@
               <span *ngIf="exam.completeness == 'Partial'" class="label border-only maroon">{{ 'enum.completeness.' + exam.completeness | translate }}</span>
             </ng-template>
           </p-column>
-          <p-column field="level" [sortable]="true">
+          <p-column field="level" [sortable]="true" [hidden]="isClaimScoreSelected">
             <ng-template pTemplate="header">
               {{performanceLevelHeader | translate}}
               <span class="icon"
@@ -121,7 +131,7 @@
               {{ examLevelEnum + exam.level | translate }}
             </ng-template>
           </p-column>
-          <p-column field="score" [sortable]="true">
+          <p-column field="score" [sortable]="true" [hidden]="isClaimScoreSelected">
             <ng-template pTemplate="header">
               {{'labels.groups.results.assessment.exams.cols.score' | translate}}
               <span class="icon"
@@ -132,6 +142,17 @@
             </ng-template>
             <ng-template let-exam="rowData" pTemplate="body">
               {{ exam | scaleScore }}
+            </ng-template>
+          </p-column>
+
+          <!-- Claim Score columns -->
+          <p-column *ngFor="let claim of claimCodes; let idx = index"
+                    header="{{'enum.claim-code.' + claim | translate}}"
+                    field="{{'exam.claimLevels[' + idx + ']'}}"
+                    sortable="true"
+                    [hidden]="!isClaimScoreSelected">
+            <ng-template let-exam="rowData" pTemplate="body">
+              {{ 'enum.iab-category.' + exam.claimLevels[idx].toString() | translate }}
             </ng-template>
           </p-column>
         </p-dataTable>

@@ -13,6 +13,10 @@ export class Assessment {
     return this.type == AssessmentType.IAB;
   }
 
+  get isIca() {
+    return this.type == AssessmentType.ICA;
+  }
+
   get isInterim() {
     return this.type != AssessmentType.SUMMATIVE;
   }

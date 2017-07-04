@@ -14,35 +14,57 @@ import { isNullOrUndefined } from "util";
   selector: 'app-group-results',
   templateUrl: './school-results.component.html',
 })
+/**
+ * The component which displays the assessment results when
+ * searching by school and grade.
+ */
 export class SchoolResultsComponent implements OnInit {
-  schools;
+  schools: School[];
   assessmentExams: AssessmentExam[] = [];
   availableAssessments: Assessment[] = [];
+  availableSchools: any[];
 
   availableGrades: Grade[];
-  assessmentsLoading: any[] = [];
   filterOptions: ExamFilterOptions = new ExamFilterOptions();
+  gradesAreUnavailable: boolean;
+
   private _currentSchool: School;
   private _currentGrade: Grade;
+  private _currentSchoolYear: number;
 
+  /**
+   * The currently selected school
+|  */
   get currentSchool() {
     return this._currentSchool;
   }
 
   set currentSchool(value) {
     this._currentSchool = value;
-    this.assessmentProvider.schoolId = value.id;
+
+    if(!isNullOrUndefined(value))
+      this.assessmentProvider.schoolId = value.id;
   }
 
+  /**
+   * The currently selected grade.
+   * @returns {Grade}
+   */
   get currentGrade() {
     return this._currentGrade;
   }
 
   set currentGrade(value: Grade) {
     this._currentGrade = value;
-    this.assessmentProvider.gradeId = value.id;
+
+    if(!isNullOrUndefined(value))
+      this.assessmentProvider.gradeId = value.id;
   }
 
+  /**
+   * The currently selected school year.
+   * @returns {number}
+   */
   get currentSchoolYear() {
     return this._currentSchoolYear;
   }
@@ -51,12 +73,6 @@ export class SchoolResultsComponent implements OnInit {
     this._currentSchoolYear = value;
     this.assessmentProvider.schoolYear = value;
   }
-
-  get selectedAssessments() {
-    return this.availableAssessments.filter(x => x.selected);
-  }
-
-  private _currentSchoolYear;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -67,6 +83,13 @@ export class SchoolResultsComponent implements OnInit {
 
   ngOnInit() {
     this.schools = this.route.snapshot.data[ "user" ].schools;
+    this.availableSchools = this.schools.map(school => {
+      return {
+        label: school.name,
+        value: school
+      };
+    });
+
     let schoolId = this.route.snapshot.params[ "schoolId" ];
 
     this.currentSchool = this.schools.find(x => x.id == schoolId);
@@ -82,6 +105,8 @@ export class SchoolResultsComponent implements OnInit {
       .findGradesWithAssessmentsForSchool(this.currentSchool)
       .subscribe(grades => {
         this.availableGrades = grades;
+        this.gradesAreUnavailable = this.availableGrades.length == 0;
+
         this.currentGrade = this.availableGrades.find(grade => grade.id == this.route.snapshot.params[ "gradeId" ]);
       });
 
@@ -101,36 +126,38 @@ export class SchoolResultsComponent implements OnInit {
       .findGradesWithAssessmentsForSchool(this.currentSchool)
       .subscribe(grades => {
         this.availableGrades = grades;
+        this.gradesAreUnavailable = this.availableGrades.length == 0;
 
         if(grades.length > 0){
-          let grade = this.availableGrades.find(grade => grade.id == this.currentGrade.id);
+          let grade = isNullOrUndefined(this.currentGrade)
+            ? undefined
+            : this.availableGrades.find(grade => grade.id == this.currentGrade.id);
 
+          // Try and keep the same grade selected, if it's available.
           this.currentGrade = isNullOrUndefined(grade)
             ? grades[0]
             : grade;
         }
+        else
+          this.currentGrade = undefined;
 
         this.updateRoute();
       });
   }
 
   updateRoute() {
+    let params: any = {};
+    params.schoolYear = this.currentSchoolYear;
 
-    this.router.navigate([
-      'schools',
-      this.currentSchool.id, {
-        gradeId: this.currentGrade.id,
-        schoolYear: this.currentSchoolYear,
-      } ]).then(() => {
+    if(!isNullOrUndefined(this.currentGrade))
+      params.gradeId = this.currentGrade.id;
+
+    this.router.navigate(['schools', this.currentSchool.id, params ]).then(() => {
       this.updateAssessment(this.route.snapshot.data[ "assessment" ]);
     });
   }
 
   mapParamsToSchoolYear(params) {
     return Number.parseInt(params[ "schoolYear" ]) || this.filterOptions.schoolYears[ 0 ];
-  }
-
-  private loadAvailableGrades(school: School) {
-
   }
 }

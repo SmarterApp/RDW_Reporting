@@ -9,7 +9,8 @@
                     formControlName="school"
                     [filter]="true"
                     filterBy="label"
-                    placeholder="{{'prompt.select' | translate}}">
+                    placeholder="{{'prompt.select' | translate}}"
+                    filterPlaceholder="{{'labels.school-grade.school-name.prompt' | translate}}">
         </p-dropdown>
       </div>
     </div>
@@ -24,7 +25,7 @@
       <button type="submit" [disabled]="searchForm.invalid || gradesAreUnavailable" class="btn btn-primary mt-md">{{'prompt.search' | translate}}</button>
     </div>
   </div>
-  <div *ngIf="gradesAreUnavailable">
-    <i class="glyphicon glyphicon-remove"></i> {{'labels.school-grade.messages.no-grades-available' | translate}}
-  </div>
 </form>
+<div *ngIf="gradesAreUnavailable" class="alert alert-danger">
+  <i class="glyphicon glyphicon-remove"></i> {{'labels.school-grade.messages.no-grades-available' | translate}}
+</div>

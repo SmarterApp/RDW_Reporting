@@ -72,6 +72,7 @@ export class AssessmentExamMapper {
     uiModel.id = apiModel.id;
     uiModel.date = apiModel.dateTime;
     uiModel.session = apiModel.sessionId;
+    uiModel.enrolledGrade = apiModel.gradeId;
     uiModel.administrativeCondition = apiModel.administrativeConditionCode;
     uiModel.completeness = apiModel.completenessCode;
     uiModel.schoolYear = apiModel.schoolYear;
