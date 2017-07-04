@@ -63,14 +63,10 @@ export class StudentResultsComponent implements OnInit {
   }
 
   isCollapsed(assessmentType: AssessmentType, subject: string): boolean {
-    return this.displayState[assessmentType]
-      && this.displayState[assessmentType][subject]
-      && this.displayState[assessmentType][subject].collapsed;
+    return this.displayState[assessmentType][subject].collapsed;
   }
 
   toggleCollapsed(assessmentType: AssessmentType, subject: string): void {
-    this.displayState[assessmentType] = this.displayState[assessmentType] || {};
-    this.displayState[assessmentType][subject] = this.displayState[assessmentType][subject] || {};
     this.displayState[assessmentType][subject].collapsed = !this.displayState[assessmentType][subject].collapsed;
   }
 
@@ -97,6 +93,11 @@ export class StudentResultsComponent implements OnInit {
       bySubject.push(wrapper);
       byType.set(subject, bySubject);
       examsByTypeAndSubject.set(type, byType);
+
+      //Initialize collapse state if it doesn't exist
+      this.displayState[type] = this.displayState[type] || {};
+      this.displayState[type][subject] = this.displayState[type][subject] || {};
+      this.displayState[type][subject].collapsed = this.displayState[type][subject].collapsed || false;
     });
 
     this.examsByTypeAndSubject = examsByTypeAndSubject;
