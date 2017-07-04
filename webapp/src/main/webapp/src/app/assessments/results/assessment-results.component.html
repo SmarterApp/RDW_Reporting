@@ -148,11 +148,11 @@
           <!-- Claim Score columns -->
           <p-column *ngFor="let claim of claimCodes; let idx = index"
                     header="{{'enum.claim-code.' + claim | translate}}"
-                    field="{{'exam.claimLevels[' + idx + ']'}}"
+                    field="{{'exam.claimScores[' + idx + '].level'}}"
                     sortable="true"
                     [hidden]="!isClaimScoreSelected">
             <ng-template let-exam="rowData" pTemplate="body">
-              {{ 'enum.iab-category.' + exam.claimLevels[idx].toString() | translate }}
+              {{ 'enum.iab-category.' + exam.claimScores[idx].level.toString() | translate }}
             </ng-template>
           </p-column>
         </p-dataTable>

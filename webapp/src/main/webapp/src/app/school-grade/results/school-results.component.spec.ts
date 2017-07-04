@@ -42,7 +42,6 @@ describe('SchoolResultsComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         AssessmentsModule,
-        RouterModule.forRoot([]),
         DropdownModule,
         SharedModule
       ],
