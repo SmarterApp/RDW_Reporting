@@ -28,9 +28,11 @@ export class StudentExamHistoryService {
       .map((apiExamHistory) => {
         if (!apiExamHistory) return null;
 
-        let student: Student = this.mapStudent(apiExamHistory.student);
-        let examWrappers: StudentHistoryExamWrapper[] = this.mapExamWrappers(apiExamHistory.exams);
-        return new StudentExamHistory(student, examWrappers);
+        let uiModel: StudentExamHistory = new StudentExamHistory();
+        uiModel.student = this.mapStudent(apiExamHistory.student);
+        uiModel.exams = this.mapExamWrappers(apiExamHistory.exams);
+
+        return uiModel;
       });
   }
 
@@ -56,11 +58,13 @@ export class StudentExamHistoryService {
   }
 
   private mapStudent(apiStudent: any): Student {
-    return new Student(
-      apiStudent.id,
-      apiStudent.ssid,
-      apiStudent.firstName,
-      apiStudent.lastName);
+    let uiModel: Student = new Student();
+    uiModel.id = apiStudent.id;
+    uiModel.ssid = apiStudent.ssid;
+    uiModel.firstName = apiStudent.firstName;
+    uiModel.lastName = apiStudent.lastName;
+
+    return uiModel;
   }
 
   private mapExamWrappers(apiExamWrappers: any): StudentHistoryExamWrapper[] {
@@ -70,14 +74,16 @@ export class StudentExamHistoryService {
   }
 
   private mapExamWrapper(apiExamWrapper: any): StudentHistoryExamWrapper {
-    let assessment: Assessment = this.assessmentMapper.mapAssessmentFromApi(apiExamWrapper.assessment);
-    let exam: Exam = this.assessmentMapper.mapExamFromApi(apiExamWrapper.exam);
+    let uiModel: StudentHistoryExamWrapper = new StudentHistoryExamWrapper();
+    uiModel.assessment = this.assessmentMapper.mapAssessmentFromApi(apiExamWrapper.assessment);
+    uiModel.exam = this.assessmentMapper.mapExamFromApi(apiExamWrapper.exam);
 
     let apiSchool: any = apiExamWrapper.school;
     let school: School = new School();
     school.id = apiSchool.id;
     school.name = apiSchool.name;
+    uiModel.school = school;
 
-    return new StudentHistoryExamWrapper(assessment, exam, school);
+    return uiModel;
   }
 }

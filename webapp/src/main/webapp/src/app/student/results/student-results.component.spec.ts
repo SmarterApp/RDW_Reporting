@@ -183,24 +183,35 @@ class MockBuilder {
     MockBuilder.examIdx = 0;
     MockBuilder.oddExam = false;
 
-    let student: Student = new Student(123, "ssid", "first", "last");
+    let student: Student = new Student();
+    student.id = 123;
+    student.ssid = "ssid";
+    student.firstName = "first";
+    student.lastName = "last";
+
     let exams: StudentHistoryExamWrapper[] = [];
     exams.push(MockBuilder.examWrapper(AssessmentType.ICA, "MATH"));
     exams.push(MockBuilder.examWrapper(AssessmentType.ICA, "ELA"));
     exams.push(MockBuilder.examWrapper(AssessmentType.IAB, "MATH"));
     exams.push(MockBuilder.examWrapper(AssessmentType.SUMMATIVE, "ELA"));
 
-    return new StudentExamHistory(student, exams);
+    let history: StudentExamHistory = new StudentExamHistory();
+    history.student = student;
+    history.exams = exams;
+    return history;
   }
 
   private static examWrapper(assessmentType: AssessmentType, subject: string): StudentHistoryExamWrapper {
-    let exam: Exam = MockBuilder.exam(assessmentType);
-    let assessment: Assessment = MockBuilder.assessment(assessmentType, subject);
+    let wrapper: StudentHistoryExamWrapper = new StudentHistoryExamWrapper();
+    wrapper.exam = MockBuilder.exam(assessmentType);
+    wrapper.assessment = MockBuilder.assessment(assessmentType, subject);
+
     let school: School = new School();
     school.id = 1;
     school.name = "A School";
+    wrapper.school = school;
 
-    return new StudentHistoryExamWrapper(assessment, exam, school);
+    return wrapper;
   }
 
   private static exam(type: AssessmentType): Exam {

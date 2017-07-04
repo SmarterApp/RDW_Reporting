@@ -9,21 +9,8 @@ import { Exam } from "../../assessments/model/exam.model";
  */
 export class StudentHistoryExamWrapper {
 
-  public get assessment(): Assessment {
-    return this._assessment;
-  }
+  public assessment: Assessment;
+  public exam: Exam;
+  public school: School;
 
-  public get exam(): Exam {
-    return this._exam;
-  }
-
-  public get school(): School {
-    return this._school;
-  }
-
-  constructor(
-    private _assessment: Assessment,
-    private _exam: Exam,
-    private _school: School
-  ) {}
 }
