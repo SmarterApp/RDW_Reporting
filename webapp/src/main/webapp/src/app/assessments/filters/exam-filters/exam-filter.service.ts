@@ -40,11 +40,28 @@ export class ExamFilterService {
    * @returns {Exam[]} The filtered exams
    */
   filterExams(assessmentExam: AssessmentExam, filterBy: FilterBy): Exam[] {
-    return this.filterItems(
-      () => assessmentExam.assessment,
-      (exam) => exam,
-      assessmentExam.exams,
-      filterBy);
+    let exams = assessmentExam.exams;
+
+    if (filterBy == null)
+      return exams;
+
+    let filters = this.getFilters(filterBy);
+    for (let filter of filters) {
+      let filterDefinition = this.getFilterDefinitionFor(filter);
+
+      if (filterDefinition.precondition(assessmentExam.assessment)) {
+        let filterValue = filterBy[filter];
+
+        if(filter == 'offGradeAssessment')
+          filterValue = assessmentExam.assessment.grade;
+        else if(filter == 'ethnicities')
+          filterValue = filterBy.filteredEthnicities;
+
+        exams = exams.filter(exam => filterDefinition.apply(exam, filterValue));
+      }
+    }
+
+    return exams;
   }
 
   /**
