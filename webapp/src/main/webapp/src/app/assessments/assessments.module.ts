@@ -16,6 +16,7 @@ import { PopoverModule } from "ngx-bootstrap/popover";
 import { AssessmentsComponent } from "./assessments.component";
 import { AdvFiltersToggleComponent } from "./filters/adv-filters/adv-filters-toggle.component";
 import { ScaleScoreComponent } from "./results/scale-score.component";
+import { InformationLabelComponent } from "./results/information-label.component";
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ScaleScoreComponent } from "./results/scale-score.component";
     AdvFiltersToggleComponent,
     AssessmentsComponent,
     AssessmentResultsComponent,
+    InformationLabelComponent,
     ScaleScoreComponent,
     SelectAssessmentsComponent
   ],
@@ -39,6 +41,7 @@ import { ScaleScoreComponent } from "./results/scale-score.component";
     AdvFiltersComponent,
     AdvFiltersToggleComponent,
     AssessmentsComponent,
+    InformationLabelComponent,
     ScaleScoreComponent
   ],
   providers: [

@@ -11,6 +11,7 @@ import { Assessment } from "../../../assessments/model/assessment.model";
 import { School } from "../../../user/model/school.model";
 import { PopoverModule } from "ngx-bootstrap";
 import { ScaleScoreComponent } from "../../../assessments/results/scale-score.component";
+import { InformationLabelComponent } from "../../../assessments/results/information-label.component";
 
 describe('StudentHistoryICASummitiveTableComponent', () => {
   let component: StudentHistoryICASummitiveTableComponent;
@@ -26,6 +27,7 @@ describe('StudentHistoryICASummitiveTableComponent', () => {
         TranslateModule.forRoot()
       ],
       declarations: [
+        InformationLabelComponent,
         StudentHistoryICASummitiveTableComponent,
         SchoolYearPipe,
         ScaleScoreComponent

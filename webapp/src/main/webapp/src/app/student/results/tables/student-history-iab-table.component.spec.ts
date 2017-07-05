@@ -7,6 +7,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { DataTableModule } from "primeng/components/datatable/datatable";
 import { PopoverModule } from "ngx-bootstrap";
 import { ScaleScoreComponent } from "../../../assessments/results/scale-score.component";
+import { InformationLabelComponent } from "../../../assessments/results/information-label.component";
 
 describe('StudentHistoryIABTableComponent', () => {
   let component: StudentHistoryIABTableComponent;
@@ -22,6 +23,7 @@ describe('StudentHistoryIABTableComponent', () => {
         TranslateModule.forRoot()
       ],
       declarations: [
+        InformationLabelComponent,
         StudentHistoryIABTableComponent,
         SchoolYearPipe,
         ScaleScoreComponent
