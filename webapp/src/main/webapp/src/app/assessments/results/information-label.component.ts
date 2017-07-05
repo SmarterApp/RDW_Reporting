@@ -6,8 +6,8 @@ import { Component, Input } from "@angular/core";
  * an information popover icon.
  */
 @Component({
-  selector: 'info-label',
-  templateUrl: './information-label.component.html',
+  selector: 'info-label,[info-label]',
+  templateUrl: './information-label.component.html'
 })
 export class InformationLabelComponent {
 

@@ -44,8 +44,8 @@
             sortable="true"
             [hidden]="displayState.table !== 'overall'">
     <ng-template pTemplate="header">
-      <info-label title="{{'labels.groups.results.assessment.exams.cols.status' | translate}}"
-                  content="{{'labels.groups.results.assessment.exams.cols.status-info' | translate}}"></info-label>
+      <span info-label title="{{'labels.groups.results.assessment.exams.cols.status' | translate}}"
+                  content="{{'labels.groups.results.assessment.exams.cols.status-info' | translate}}"></span>
     </ng-template>
     <ng-template let-exam="rowData.exam" pTemplate="body">
       <span *ngIf="exam.administrativeCondition !== 'Valid'" class="label border-only maroon">{{ 'enum.administrative-condition.' + exam.administrativeCondition | translate }}</span>
@@ -56,8 +56,8 @@
             sortable="true"
             [hidden]="displayState.table !== 'overall'">
     <ng-template pTemplate="header">
-      <info-label title="{{'labels.groups.results.assessment.exams.cols.ica.performance' | translate}}"
-                  content="{{'labels.groups.results.assessment.exams.cols.ica.performance-info' | translate}}"></info-label>
+      <span info-label title="{{'labels.groups.results.assessment.exams.cols.ica.performance' | translate}}"
+                  content="{{'labels.groups.results.assessment.exams.cols.ica.performance-info' | translate}}"></span>
     </ng-template>
     <ng-template let-exam="rowData.exam" pTemplate="body">
       {{ 'enum.achievement-level.' + exam.level.toString() | translate }}
@@ -67,8 +67,8 @@
             sortable="true"
             [hidden]="displayState.table !== 'overall'">
     <ng-template pTemplate="header">
-      <info-label title="{{'labels.groups.results.assessment.exams.cols.score' | translate}}"
-                  content="{{'labels.groups.results.assessment.exams.cols.score-info' | translate}}"></info-label>
+      <span info-label title="{{'labels.groups.results.assessment.exams.cols.score' | translate}}"
+                  content="{{'labels.groups.results.assessment.exams.cols.score-info' | translate}}"></span>
     </ng-template>
     <ng-template let-exam="rowData.exam" pTemplate="body">
       <scale-score [score]="exam.score" [standardError]="exam.standardError"></scale-score>

@@ -23,8 +23,8 @@
   </p-column>
   <p-column field="exam.administrativeCondition" sortable="true">
     <ng-template pTemplate="header">
-      <info-label title="{{'labels.groups.results.assessment.exams.cols.status' | translate}}"
-                  content="{{'labels.groups.results.assessment.exams.cols.status-info' | translate}}"></info-label>
+      <span info-label title="{{'labels.groups.results.assessment.exams.cols.status' | translate}}"
+                  content="{{'labels.groups.results.assessment.exams.cols.status-info' | translate}}"></span>
     </ng-template>
     <ng-template let-exam="rowData.exam" pTemplate="body">
       <span class="label border-only maroon">{{ 'enum.administrative-condition.' + exam.administrativeCondition | translate }}</span>
@@ -33,8 +33,8 @@
   </p-column>
   <p-column field="exam.level" sortable="true">
     <ng-template pTemplate="header">
-      <info-label title="{{'labels.groups.results.assessment.exams.cols.iab.performance' | translate}}"
-                  content="{{'labels.groups.results.assessment.exams.cols.iab.performance-info' | translate}}"></info-label>
+      <span info-label title="{{'labels.groups.results.assessment.exams.cols.iab.performance' | translate}}"
+                  content="{{'labels.groups.results.assessment.exams.cols.iab.performance-info' | translate}}"></span>
     </ng-template>
     <ng-template let-exam="rowData.exam" pTemplate="body">
       {{ 'enum.iab-category.' + exam.level.toString() | translate }}
@@ -42,8 +42,8 @@
   </p-column>
   <p-column field="exam.score" sortable="true">
     <ng-template pTemplate="header">
-      <info-label title="{{'labels.groups.results.assessment.exams.cols.score' | translate}}"
-                  content="{{'labels.groups.results.assessment.exams.cols.score-info' | translate}}"></info-label>
+      <span info-label title="{{'labels.groups.results.assessment.exams.cols.score' | translate}}"
+                  content="{{'labels.groups.results.assessment.exams.cols.score-info' | translate}}"></span>
     </ng-template>
     <ng-template let-exam="rowData.exam" pTemplate="body">
       <scale-score [score]="exam.score" [standardError]="exam.standardError"></scale-score>

@@ -106,8 +106,8 @@
           </p-column>
           <p-column field="administrativeCondition" [sortable]="true" [hidden]="isClaimScoreSelected">
             <ng-template pTemplate="header">
-              <info-label title="{{'labels.groups.results.assessment.exams.cols.status' | translate}}"
-                          content="{{'labels.groups.results.assessment.exams.cols.status-info' | translate}}"></info-label>
+              <span info-label title="{{'labels.groups.results.assessment.exams.cols.status' | translate}}"
+                          content="{{'labels.groups.results.assessment.exams.cols.status-info' | translate}}"></span>
             </ng-template>
             <ng-template let-exam="rowData" pTemplate="body">
               <span *ngIf="exam.administrativeCondition !== 'Valid'" class="label border-only maroon">{{ 'enum.administrative-condition.' + exam.administrativeCondition | translate }}</span>
@@ -116,8 +116,8 @@
           </p-column>
           <p-column field="level" [sortable]="true" [hidden]="isClaimScoreSelected">
             <ng-template pTemplate="header">
-              <info-label title="{{performanceLevelHeader | translate}}"
-                          content="{{performanceLevelHeaderInfo | translate}}"></info-label>
+              <span info-label title="{{performanceLevelHeader | translate}}"
+                          content="{{performanceLevelHeaderInfo | translate}}"></span>
             </ng-template>
             <ng-template let-exam="rowData" pTemplate="body">
               {{ examLevelEnum + exam.level | translate }}
@@ -125,8 +125,8 @@
           </p-column>
           <p-column field="score" [sortable]="true" [hidden]="isClaimScoreSelected">
             <ng-template pTemplate="header">
-              <info-label title="{{'labels.groups.results.assessment.exams.cols.score' | translate}}"
-                          content="{{'labels.groups.results.assessment.exams.cols.score-info' | translate}}"></info-label>
+              <span info-label title="{{'labels.groups.results.assessment.exams.cols.score' | translate}}"
+                          content="{{'labels.groups.results.assessment.exams.cols.score-info' | translate}}"></span>
             </ng-template>
             <ng-template let-exam="rowData" pTemplate="body">
               <scale-score [score]="exam.score" [standardError]="exam.standardError"></scale-score>
@@ -162,8 +162,8 @@
           </p-column>
           <p-column field="difficulty" [sortable]="true">
             <ng-template pTemplate="header">
-              <info-label title="{{'labels.groups.results.assessment.items.cols.difficulty' | translate}}"
-                          content="{{'labels.groups.results.assessment.items.cols.difficulty-info' | translate}}"></info-label>
+              <span info-label title="{{'labels.groups.results.assessment.items.cols.difficulty' | translate}}"
+                          content="{{'labels.groups.results.assessment.items.cols.difficulty-info' | translate}}"></span>
             </ng-template>
             <ng-template let-item="rowData" pTemplate="body">
               {{ 'enum.difficulty.' + item.difficulty | translate }}
@@ -171,8 +171,8 @@
           </p-column>
           <p-column field="fullCredit" [sortable]="true">
             <ng-template pTemplate="header">
-              <info-label title="{{'labels.groups.results.assessment.items.cols.full-credit' | translate}}"
-                          content="{{'labels.groups.results.assessment.items.cols.full-credit-info' | translate}}"></info-label>
+              <span info-label title="{{'labels.groups.results.assessment.items.cols.full-credit' | translate}}"
+                          content="{{'labels.groups.results.assessment.items.cols.full-credit-info' | translate}}"></span>
             </ng-template>
             <ng-template let-item="rowData" pTemplate="body">
               <span [hidden]="showValuesAsPercent">{{ item.fullCredit }}</span>
