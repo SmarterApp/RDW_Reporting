@@ -7,7 +7,6 @@ import { HttpModule, Http } from "@angular/http";
 import { DataService } from "./data/data.service";
 import { CachingDataService } from "./cachingData.service";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
-import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { RouterModule } from "@angular/router";
 import { RemoveCommaPipe } from "./remove-comma.pipe";
 import { SBRadioButtonComponent } from "./sb-radio-button-list.component";
@@ -16,12 +15,11 @@ import { BrowserModule } from "@angular/platform-browser";
 import { SBCheckboxList } from "./sb-checkbox-list.component";
 import { GradeService } from "./grade.service";
 import { GradeDisplayPipe } from "./grade-display.pipe";
+import { RdwTranslateLoader } from "./rdw-translate-loader";
 import { AssessmentTypePipe } from "./assessment-type.pipe";
 
 export function createTranslateLoader(http: Http) {
-  // return new TranslateHttpLoader(http, '/api/translations/', '');
-  // until api implementation is complete, use local .json
-  return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
+  return new RdwTranslateLoader(http);
 }
 
 @NgModule({
