@@ -40,33 +40,13 @@
       <div class="welcome-container well">
         <p class="lead">{{'labels.homepage.welcome.title' | translate}}</p>
         <p>{{'labels.homepage.welcome.sub-title' | translate}}</p>
-        <p><a href="#" class="btn btn-primary">{{'labels.user-guide' | translate}}</a></p>
+        <p><a href="#" class="btn btn-primary">{{'labels.navigation.user-guide' | translate}}</a></p>
         <p>{{'labels.homepage.welcome.interpret-instructions' | translate}}</p>
-        <p><a href="#" class="btn btn-success">{{'labels.interpretive-guide' | translate}}</a></p>
+        <p><a href="#" class="btn btn-success">{{'labels.navigation.interpretive-guide' | translate}}</a></p>
       </div>
 
-      <!-- Summary Reports Content -->
-      <h2 class="blue-dark h3 mb-md">Summary Reports</h2>
-      <div class="summary-reports-container mb-md">
-        <p><a href="#" class="h5 blue">Achievement Level Report</a><br />
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque et delectus cumque at illo minima accusamus.</p>
-        <p><a href="#" class="h5 blue">Achievement Standard Report</a><br />
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque et delectus cumque at illo minima accusamus.</p>
-        <p><a href="#" class="h5 blue">Longitudinal Data Report</a><br />
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque et delectus cumque at illo minima accusamus.</p>
-      </div>
-
-      <!-- Member Reporting Resources -->
-      <h2 class="blue-dark h3 mb-md">Member Reporting Resources</h2>
-      <div class="member-reporting-resources-container">
-        <p><a href="#" class="h5 blue">Member-provided Resources</a><br />
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-        <p><a href="#" class="h5 blue">How to Establish PII Permissions</a><br />
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-        <p><a href="#" class="h5 blue">How to Create Student Groups</a><br />
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-      </div>
-
+      <!-- Summary News Dynamic Content -->
+      <div [innerHTML]="systemNewsHtml"></div>
     </div>
   </div>
 </div>

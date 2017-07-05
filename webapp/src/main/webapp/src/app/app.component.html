@@ -15,7 +15,9 @@
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
+          <li class="navbar-link"><a href="#">{{'labels.navigation.user-guide' | translate}}</a></li>
+          <li class="navbar-link"><a href="#">{{'labels.navigation.interpretive-guide' | translate}}</a></li>
+          <li class="navbar-link mt-sm">
             <div class="btn-group" dropdown>
               <button type="button" dropdownToggle class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-user-circle"></i> <span *ngIf="user">{{'welcome' | translate:user }}</span> <span class="caret"></span>

@@ -14,6 +14,10 @@
   "collapse": "Collapse",
   "select": "Select",
   "labels": {
+    "navigation": {
+      "user-guide": "User Guide",
+      "interpretive-guide": "Interpretive Guide"
+    },
     "homepage": {
       "title": "Access Assessment Results",
       "search-school-grade": {
@@ -213,8 +217,6 @@
       }
     },
     "more-info": "More Information",
-    "user-guide": "User Guide",
-    "interpretive-guide": "Interpretive Guide",
     "school-grade": {
       "title": "Search by School & Grade",
       "school-name": {
@@ -346,5 +348,8 @@
       "M": "Moderate",
       "D": "Difficult"
     }
+  },
+  "html": {
+    "system-news":"<h2 class=\"blue-dark h3 mb-md\">Summary Reports</h2><div class=\"summary-reports-container mb-md\"><p><a href=\"#\" class=\"h5 blue\">Achievement Level Report</a><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque et delectus cumque at illo minima accusamus.</p><p><a href=\"#\" class=\"h5 blue\">Achievement Standard Report</a><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque et delectus cumque at illo minima accusamus.</p><p><a href=\"#\" class=\"h5 blue\">Longitudinal Data Report</a><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque et delectus cumque at illo minima accusamus.</p></div><!-- Member Reporting Resources --><h2 class=\"blue-dark h3 mb-md\">Member Reporting Resources</h2><div class=\"member-reporting-resources-container\"><p><a href=\"#\" class=\"h5 blue\">Member-provided Resources</a><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p><p><a href=\"#\" class=\"h5 blue\">How to Establish PII Permissions</a><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p><p><a href=\"#\" class=\"h5 blue\">How to Create Student Groups</a><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p></div>"
   }
 }
