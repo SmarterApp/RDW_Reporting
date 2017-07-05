@@ -1,6 +1,8 @@
 {{title}}
-<button class="btn btn-xs btn-link icon-only"
+<button class="btn btn-icon btn-xs icon-only"
       popover="{{content}}"
       popoverTitle="{{title}}"
-      triggers="focus"
-><i class="fa fa-info-circle"></i></button>
+      triggers="focus">
+  <span class="sr-only">{{'labels.more-info' | translate}}</span>
+  <i class="fa fa-info-circle"></i>
+</button>
