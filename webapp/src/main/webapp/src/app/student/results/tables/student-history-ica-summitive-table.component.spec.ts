@@ -4,12 +4,13 @@ import { SharedModule } from "primeng/components/common/shared";
 import { SchoolYearPipe } from "../../../shared/schoolYear.pipe";
 import { TranslateModule } from "@ngx-translate/core";
 import { DataTableModule } from "primeng/components/datatable/datatable";
-import { ScaleScorePipe } from "../../../shared/scale-score.pipe";
 import { StudentHistoryICASummitiveTableComponent } from "./student-history-ica-summitive-table.component";
 import { StudentHistoryExamWrapper } from "../../model/student-history-exam-wrapper.model";
 import { Exam } from "../../../assessments/model/exam.model";
 import { Assessment } from "../../../assessments/model/assessment.model";
 import { School } from "../../../user/model/school.model";
+import { PopoverModule } from "ngx-bootstrap";
+import { ScaleScoreComponent } from "../../../assessments/results/scale-score.component";
 
 describe('StudentHistoryICASummitiveTableComponent', () => {
   let component: StudentHistoryICASummitiveTableComponent;
@@ -20,13 +21,14 @@ describe('StudentHistoryICASummitiveTableComponent', () => {
       imports: [
         BrowserModule,
         DataTableModule,
+        PopoverModule.forRoot(),
         SharedModule,
         TranslateModule.forRoot()
       ],
       declarations: [
         StudentHistoryICASummitiveTableComponent,
         SchoolYearPipe,
-        ScaleScorePipe
+        ScaleScoreComponent
       ],
       providers: []
     })

@@ -15,14 +15,16 @@ import { SelectAssessmentsComponent } from "./filters/select-assessments/select-
 import { PopoverModule } from "ngx-bootstrap/popover";
 import { AssessmentsComponent } from "./assessments.component";
 import { AdvFiltersToggleComponent } from "./filters/adv-filters/adv-filters-toggle.component";
+import { ScaleScoreComponent } from "./results/scale-score.component";
 
 @NgModule({
   declarations: [
-    AssessmentResultsComponent,
     AdvFiltersComponent,
-    SelectAssessmentsComponent,
+    AdvFiltersToggleComponent,
     AssessmentsComponent,
-    AdvFiltersToggleComponent
+    AssessmentResultsComponent,
+    ScaleScoreComponent,
+    SelectAssessmentsComponent
   ],
   imports: [
     CommonModule,
@@ -34,9 +36,10 @@ import { AdvFiltersToggleComponent } from "./filters/adv-filters/adv-filters-tog
     PopoverModule
   ],
   exports: [
-    AssessmentsComponent,
     AdvFiltersComponent,
-    AdvFiltersToggleComponent
+    AdvFiltersToggleComponent,
+    AssessmentsComponent,
+    ScaleScoreComponent
   ],
   providers: [
     AssessmentExamMapper,

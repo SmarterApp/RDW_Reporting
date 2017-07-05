@@ -141,7 +141,7 @@
               ><i class="fa fa-info-circle"></i></span>
             </ng-template>
             <ng-template let-exam="rowData" pTemplate="body">
-              {{ exam | scaleScore }}
+              <scale-score [score]="exam.score" [standardError]="exam.standardError"></scale-score>
             </ng-template>
           </p-column>
 

@@ -15,7 +15,7 @@ import { ExamStatisticsCalculator } from "./exam-statistics-calculator";
 import { ExamFilterService } from "../filters/exam-filters/exam-filter.service";
 import { GradeService } from "../../shared/grade.service";
 import { PopoverModule } from "ngx-bootstrap/popover";
-import { ScaleScorePipe } from "../../shared/scale-score.pipe";
+import { ScaleScoreComponent } from "./scale-score.component";
 
 describe('AssessmentResultsComponent', () => {
   let component: AssessmentResultsComponent;
@@ -24,7 +24,7 @@ describe('AssessmentResultsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ TranslateModule.forRoot(), HttpModule, FormsModule, DataTableModule, SharedModule, BrowserAnimationsModule, PopoverModule.forRoot()],
-      declarations: [ TestComponentWrapper, AssessmentResultsComponent, RemoveCommaPipe, ScaleScorePipe ],
+      declarations: [ TestComponentWrapper, AssessmentResultsComponent, RemoveCommaPipe, ScaleScoreComponent ],
       providers: [ { provide: APP_BASE_HREF, useValue: '/' } , ExamStatisticsCalculator, ExamFilterService, GradeService ]
     }).compileComponents();
 

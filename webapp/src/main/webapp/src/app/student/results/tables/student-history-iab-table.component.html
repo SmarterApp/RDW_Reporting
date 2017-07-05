@@ -21,20 +21,44 @@
       {{ exam.enrolledGrade }}
     </ng-template>
   </p-column>
-  <p-column field="exam.administrativeCondition" header="{{'labels.student.results.cols.status' | translate}}" sortable="true">
+  <p-column field="exam.administrativeCondition" sortable="true">
+    <ng-template pTemplate="header">
+      {{'labels.groups.results.assessment.exams.cols.status' | translate}}
+      <span class="icon"
+            popover="{{'labels.groups.results.assessment.exams.cols.status-info' | translate}}"
+            popoverTitle="{{'labels.groups.results.assessment.exams.cols.status' | translate}}"
+            triggers="click:mouseleave"
+      ><i class="fa fa-info-circle"></i></span>
+    </ng-template>
     <ng-template let-exam="rowData.exam" pTemplate="body">
       <span class="label border-only maroon">{{ 'enum.administrative-condition.' + exam.administrativeCondition | translate }}</span>
       <span *ngIf="exam.completeness == 'Partial'" class="label border-only maroon">{{ 'enum.completeness.Partial' | translate }}</span>
     </ng-template>
   </p-column>
-  <p-column field="exam.level" header="{{'labels.student.results.cols.reporting-category' | translate}}" sortable="true">
+  <p-column field="exam.level" sortable="true">
+    <ng-template pTemplate="header">
+      {{'labels.groups.results.assessment.exams.cols.iab.performance' | translate}}
+      <span class="icon"
+            popover="{{'labels.groups.results.assessment.exams.cols.iab.performance-info' | translate}}"
+            popoverTitle="{{'labels.groups.results.assessment.exams.cols.iab.performance' | translate}}"
+            triggers="click:mouseleave"
+      ><i class="fa fa-info-circle"></i></span>
+    </ng-template>
     <ng-template let-exam="rowData.exam" pTemplate="body">
       {{ 'enum.iab-category.' + exam.level.toString() | translate }}
     </ng-template>
   </p-column>
-  <p-column field="exam.score" header="{{'labels.student.results.cols.scale-score' | translate}}" sortable="true">
+  <p-column field="exam.score" sortable="true">
+    <ng-template pTemplate="header">
+      {{'labels.groups.results.assessment.exams.cols.score' | translate}}
+      <span class="icon"
+            popover="{{'labels.groups.results.assessment.exams.cols.score-info' | translate}}"
+            popoverTitle="{{'labels.groups.results.assessment.exams.cols.score' | translate}}"
+            triggers="click:mouseleave"
+      ><i class="fa fa-info-circle"></i></span>
+    </ng-template>
     <ng-template let-exam="rowData.exam" pTemplate="body">
-      {{ exam | scaleScore }}
+      <scale-score [score]="exam.score" [standardError]="exam.standardError"></scale-score>
     </ng-template>
   </p-column>
 </p-dataTable>

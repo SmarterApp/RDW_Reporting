@@ -5,7 +5,8 @@ import { SharedModule } from "primeng/components/common/shared";
 import { SchoolYearPipe } from "../../../shared/schoolYear.pipe";
 import { TranslateModule } from "@ngx-translate/core";
 import { DataTableModule } from "primeng/components/datatable/datatable";
-import { ScaleScorePipe } from "../../../shared/scale-score.pipe";
+import { PopoverModule } from "ngx-bootstrap";
+import { ScaleScoreComponent } from "../../../assessments/results/scale-score.component";
 
 describe('StudentHistoryIABTableComponent', () => {
   let component: StudentHistoryIABTableComponent;
@@ -16,13 +17,14 @@ describe('StudentHistoryIABTableComponent', () => {
       imports: [
         BrowserModule,
         DataTableModule,
+        PopoverModule.forRoot(),
         SharedModule,
         TranslateModule.forRoot()
       ],
       declarations: [
         StudentHistoryIABTableComponent,
         SchoolYearPipe,
-        ScaleScorePipe
+        ScaleScoreComponent
       ],
       providers: []
     })

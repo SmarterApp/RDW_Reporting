@@ -250,11 +250,7 @@
           "school": "School",
           "assessment": "Assessment",
           "date": "Date",
-          "enrolled-grade": "Enrolled Grade",
-          "status": "Status",
-          "reporting-category": "Reporting Category",
-          "scale-score": "Scale Score",
-          "achievement-level": "Achievement Level"
+          "enrolled-grade": "Enrolled Grade"
         }
       }
     },

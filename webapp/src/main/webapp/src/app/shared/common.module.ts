@@ -16,7 +16,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { SBCheckboxList } from "./sb-checkbox-list.component";
 import { GradeService } from "./grade.service";
 import { GradeDisplayPipe } from "./grade-display.pipe";
-import { ScaleScorePipe } from "./scale-score.pipe";
 import { AssessmentTypePipe } from "./assessment-type.pipe";
 
 export function createTranslateLoader(http: Http) {
@@ -32,7 +31,6 @@ export function createTranslateLoader(http: Http) {
     PadStartPipe,
     SBRadioButtonComponent,
     SBCheckboxList,
-    ScaleScorePipe,
     SchoolYearPipe,
     SearchPipe,
     SubjectPipe,
@@ -58,7 +56,6 @@ export function createTranslateLoader(http: Http) {
     RouterModule,
     SBCheckboxList,
     SBRadioButtonComponent,
-    ScaleScorePipe,
     SchoolYearPipe,
     SearchPipe,
     SubjectPipe,
