@@ -141,7 +141,7 @@ export class StudentResultsComponent implements OnInit {
 
     //Update the current route without navigating
     this.location.replaceState(
-      `/students/${this.examHistory.student.ssid}`,
+      `/students/${this.examHistory.student.id}`,
       searchParams.toString()
     );
   }
