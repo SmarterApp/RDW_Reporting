@@ -66,6 +66,19 @@ sql:
         and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
       limit 1
 
+    item:
+      findAllForExam: >-
+        select
+          ei.exam_id,
+          ei.item_id,
+          ei.score,
+          ei.position
+        from exam_item ei
+          join exam e on ei.exam_id=e.id
+          join school s on e.school_id=s.id
+        where e.id=:exam_id
+          and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
+
   group:
     findAllForUsername: >-
       select sg.id, sg.name, school.name as school_name, subject_id
@@ -374,21 +387,6 @@ sql:
       from student s
       where s.id=:studentId
        and exists (select 1 from exam e where e.student_id = s.id)
-
-    exam:
-      item:
-        findAllForExamAndStudent: >-
-          select
-            ei.exam_id,
-            ei.item_id,
-            ei.score,
-            ei.position
-          from exam_item ei
-            join exam e on ei.exam_id=e.id
-            join school s on e.school_id=s.id
-          where e.id=:exam_id
-            and e.student_id=:student_id
-            and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
 
   district:
     findAllIds: >-
