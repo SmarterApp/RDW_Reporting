@@ -165,8 +165,6 @@ export class AssessmentResultsComponent implements OnInit {
   private _assessmentExam: AssessmentExam;
   private _assessmentItems: AssessmentItem[];
   private _filterBySubscription: Subscription;
-  private resourcesLabel: string;
-  private reportLabel: string;
 
   constructor(public gradeService: GradeService,
               private examCalculator: ExamStatisticsCalculator,
@@ -175,8 +173,6 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.resourcesLabel = this.translateService.instant('labels.menus.resources');
-    this.reportLabel = this.translateService.instant('labels.menus.print-report');
     this.actions = this.createActions();
   }
 
@@ -273,15 +269,17 @@ export class AssessmentResultsComponent implements OnInit {
       actions.push(responsesAction);
     }
 
+    let resourcesLabel: string = this.translateService.instant('labels.menus.resources');
     let resourcesAction: PopupMenuAction = new PopupMenuAction();
-    resourcesAction.displayName = (() => this.resourcesLabel).bind(this);
+    resourcesAction.displayName = (() => resourcesLabel);
     resourcesAction.perform = ((exam: Exam) => {
       console.log(`Show Resources: ${exam.student.lastName}`)
     }).bind(this);
     actions.push(resourcesAction);
 
+    let reportLabel: string = this.translateService.instant('labels.menus.print-report');
     let reportAction: PopupMenuAction = new PopupMenuAction();
-    reportAction.displayName = (() => this.reportLabel).bind(this);
+    reportAction.displayName = (() => reportLabel);
     reportAction.perform = ((exam: Exam) => {
       console.log(`Print Report: ${exam.student.lastName}`)
     }).bind(this);

@@ -23,17 +23,10 @@ export class StudentHistoryICASummitiveTableComponent {
 
   actions: PopupMenuAction[];
 
-  private responsesLabel: string;
-  private resourcesLabel: string;
-  private reportLabel: string;
-
   constructor(private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
-    this.responsesLabel = this.translateService.instant('labels.menus.responses', this.student);
-    this.resourcesLabel = this.translateService.instant('labels.menus.resources');
-    this.reportLabel = this.translateService.instant('labels.menus.print-report');
     this.actions = this.createActions();
   }
 
@@ -59,23 +52,26 @@ export class StudentHistoryICASummitiveTableComponent {
     let actions: PopupMenuAction[] = [];
 
     if (this.exams.length > 0 && !this.exams[0].assessment.isSummative) {
+      let responsesLabel: string = this.translateService.instant('labels.menus.responses', this.student);
       let responsesAction: PopupMenuAction = new PopupMenuAction();
-      responsesAction.displayName = (() => this.responsesLabel).bind(this);
+      responsesAction.displayName = (() => responsesLabel);
       responsesAction.perform = ((wrapper) => {
         console.log(`Show Responses: ${wrapper.assessment.name}`);
       }).bind(this);
       actions.push(responsesAction);
     }
 
+    let resourcesLabel: string = this.translateService.instant('labels.menus.resources');
     let resourcesAction: PopupMenuAction = new PopupMenuAction();
-    resourcesAction.displayName = (() => this.resourcesLabel).bind(this);
+    resourcesAction.displayName = (() => resourcesLabel);
     resourcesAction.perform = ((wrapper) => {
       console.log(`Show Resources: ${wrapper.assessment.name}`)
     }).bind(this);
     actions.push(resourcesAction);
 
+    let reportLabel: string = this.translateService.instant('labels.menus.print-report');
     let reportAction: PopupMenuAction = new PopupMenuAction();
-    reportAction.displayName = (() => this.reportLabel).bind(this);
+    reportAction.displayName = (() => reportLabel);
     reportAction.perform = ((wrapper) => {
       console.log(`Print Report: ${wrapper.assessment.name}`)
     }).bind(this);
