@@ -354,6 +354,17 @@ sql:
         from item i
         where i.asmt_id=:assessment_id
 
+      findAllForExam: >-
+        select i.id,
+          i.natural_id,
+          i.difficulty_code,
+          i.max_points,
+          i.claim_code,
+          i.target_code
+        from item i
+          join exam e on e.asmt_id = i.asmt_id
+        where e.id=:exam_id
+
   student:
     findOneById: >-
       select id,
@@ -363,6 +374,21 @@ sql:
       from student s
       where s.id=:studentId
        and exists (select 1 from exam e where e.student_id = s.id)
+
+    exam:
+      item:
+        findAllForExamAndStudent: >-
+          select
+            ei.exam_id,
+            ei.item_id,
+            ei.score,
+            ei.position
+          from exam_item ei
+            join exam e on ei.exam_id=e.id
+            join school s on e.school_id=s.id
+          where e.id=:exam_id
+            and e.student_id=:student_id
+            and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
 
   district:
     findAllIds: >-
