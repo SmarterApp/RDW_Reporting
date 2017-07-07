@@ -1,0 +1,16 @@
+<div class="btn-group"
+     [ngClass]="{'open': open}">
+  <button type="button"
+          (click)="open = !open"
+          class="btn btn-icon icon-only btn-xs dropdown-toggle"
+          aria-haspopup="true"
+          aria-expanded="false">
+    <span class="sr-only">{{'labels.menu' | translate}}</span>
+    <i class="fa fa-ellipsis-v"></i>
+  </button>
+  <ul *ngIf="open" class="dropdown-menu dropdown-menu-right" role="menu">
+    <li *ngFor="let action of actions; let idx = index" role="menuitem">
+      <a class="dropdown-item" (click)="onMenuClick($event, action)" href="#">{{action.displayName(item)}}</a>
+    </li>
+  </ul>
+</div>

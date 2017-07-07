@@ -20,6 +20,7 @@ import { InformationLabelComponent } from "./results/information-label.component
 import { ItemViewerComponent } from './items/item-viewer/item-viewer.component';
 import { ItemTabComponent } from './items/item-tab.component';
 import { TabsModule } from "ngx-bootstrap/tabs";
+import { PopupMenuComponent } from "./menu/popup-menu.component";
 
 @NgModule({
   declarations: [
@@ -28,26 +29,28 @@ import { TabsModule } from "ngx-bootstrap/tabs";
     AssessmentsComponent,
     AssessmentResultsComponent,
     InformationLabelComponent,
-    ScaleScoreComponent,
-    SelectAssessmentsComponent,
+    ItemTabComponent,
     ItemViewerComponent,
-    ItemTabComponent
+    PopupMenuComponent,
+    ScaleScoreComponent,
+    SelectAssessmentsComponent
   ],
   imports: [
-    CommonModule,
-    TabsModule,
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule,
+    CommonModule,
     DataTableModule,
+    FormsModule,
+    PopoverModule,
     SharedModule,
-    PopoverModule
+    TabsModule
   ],
   exports: [
     AdvFiltersComponent,
     AdvFiltersToggleComponent,
     AssessmentsComponent,
     InformationLabelComponent,
+    PopupMenuComponent,
     ScaleScoreComponent
   ],
   providers: [

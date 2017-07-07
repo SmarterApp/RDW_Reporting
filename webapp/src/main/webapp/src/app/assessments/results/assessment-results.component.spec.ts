@@ -20,6 +20,8 @@ import { InformationLabelComponent } from "./information-label.component";
 import { ItemViewerComponent } from "../items/item-viewer/item-viewer.component";
 import { ItemTabComponent } from "../items/item-tab.component";
 import { TabsModule } from "ngx-bootstrap";
+import { Student } from "../../student/model/student.model";
+import { PopupMenuComponent } from "../menu/popup-menu.component";
 
 describe('AssessmentResultsComponent', () => {
   let component: AssessmentResultsComponent;
@@ -27,8 +29,26 @@ describe('AssessmentResultsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ TranslateModule.forRoot(), TabsModule, HttpModule, FormsModule, DataTableModule, SharedModule, BrowserAnimationsModule, PopoverModule.forRoot()],
-      declarations: [ TestComponentWrapper, AssessmentResultsComponent, InformationLabelComponent, RemoveCommaPipe, ScaleScoreComponent, ItemTabComponent, ItemViewerComponent ],
+      imports: [
+        BrowserAnimationsModule,
+        DataTableModule,
+        FormsModule,
+        HttpModule,
+        PopoverModule.forRoot(),
+        SharedModule,
+        TabsModule,
+        TranslateModule.forRoot()
+      ],
+      declarations: [
+        AssessmentResultsComponent,
+        InformationLabelComponent,
+        ItemTabComponent,
+        ItemViewerComponent,
+        PopupMenuComponent,
+        RemoveCommaPipe,
+        ScaleScoreComponent,
+        TestComponentWrapper
+      ],
       providers: [ { provide: APP_BASE_HREF, useValue: '/' } , ExamStatisticsCalculator, ExamFilterService, GradeService ]
     }).compileComponents();
 
@@ -44,8 +64,8 @@ describe('AssessmentResultsComponent', () => {
 
   it('should default to the first session', () => {
     let assessmentExam = new AssessmentExam();
-    assessmentExam.exams.push(buildExam("Benoit, Jordan", "ma-02", "2017-03-01T17:05:26Z"));
-    assessmentExam.exams.push(buildExam("Wood, Michael", "ma-01", "2017-03-01T17:05:26Z"));
+    assessmentExam.exams.push(buildExam("Benoit", "ma-02", "2017-03-01T17:05:26Z"));
+    assessmentExam.exams.push(buildExam("Wood", "ma-01", "2017-03-01T17:05:26Z"));
 
     component.assessmentExam = assessmentExam;
     expect(component.sessions[ 0 ].filter).toBeTruthy();
@@ -54,8 +74,8 @@ describe('AssessmentResultsComponent', () => {
 
   it('should order by most recent', () => {
     let assessmentExam = new AssessmentExam();
-    assessmentExam.exams.push(buildExam("Benoit, Jordan", "ma-02", "2017-01-01T17:05:26Z"));
-    assessmentExam.exams.push(buildExam("Wood, Michael", "ma-01", "2017-03-01T17:05:26Z"));
+    assessmentExam.exams.push(buildExam("Benoit", "ma-02", "2017-01-01T17:05:26Z"));
+    assessmentExam.exams.push(buildExam("Wood", "ma-01", "2017-03-01T17:05:26Z"));
 
     component.assessmentExam = assessmentExam;
     expect(component.sessions[ 0 ].id).toBe("ma-01");
@@ -74,8 +94,8 @@ describe('AssessmentResultsComponent', () => {
 
   it('should add/remove filtered sessions', () => {
     let assessmentExam = new AssessmentExam();
-    assessmentExam.exams.push(buildExam("Benoit, Jordan", "ma-02", "2017-03-01T17:05:26Z"));
-    assessmentExam.exams.push(buildExam("Wood, Michael", "ma-01", "2017-03-01T17:05:26Z"));
+    assessmentExam.exams.push(buildExam("Benoit", "ma-02", "2017-03-01T17:05:26Z"));
+    assessmentExam.exams.push(buildExam("Wood", "ma-01", "2017-03-01T17:05:26Z"));
 
     component.assessmentExam = assessmentExam;
     component.toggleSession(component.sessions[1]);
@@ -90,7 +110,8 @@ describe('AssessmentResultsComponent', () => {
 
   function buildExam(studentName:string, session:string, date:any) {
     let exam = new Exam();
-    exam.studentName = studentName;
+    exam.student = new Student();
+    exam.student.lastName = studentName;
     exam.session = session;
     exam.date = date;
 

@@ -135,7 +135,7 @@ export class ExamFilterService {
   }
 
   private filterByGender(exam: Exam, filterValue: any) {
-    return exam.gender === filterValue;
+    return exam.student && exam.student.genderCode === filterValue;
   }
 
   private filterByMigrantStatus(exam: Exam, filterValue: any) {
@@ -159,6 +159,6 @@ export class ExamFilterService {
   }
 
   private filterByEthnicity(exam: Exam, filterValue: any) {
-    return exam.ethnicities.some(ethnicity => filterValue.some(code => code == ethnicity));
+    return exam.student && exam.student.ethnicityCodes.some(ethnicity => filterValue.some(code => code == ethnicity));
   }
 }

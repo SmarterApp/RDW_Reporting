@@ -165,7 +165,6 @@ class MockBuilder {
     let exam: Exam = new Exam();
     exam.date = new Date();
     exam.economicDisadvantage = false;
-    exam.ethnicities = [];
     exam.id = MockBuilder.examIdx++;
     exam.iep = false;
     exam.level = 3;

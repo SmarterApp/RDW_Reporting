@@ -1,8 +1,9 @@
 import { ClaimScore } from "./claim-score.model";
+import { Student } from "../../student/model/student.model";
 
 export class Exam {
   id: number;
-  studentName: string;
+  student: Student;
   date: Date;
   session: string;
   enrolledGrade: number;
@@ -11,13 +12,11 @@ export class Exam {
   administrativeCondition: string;
   completeness: string;
   standardError: number;
-  gender: string;
   migrantStatus: boolean;
   plan504: boolean;
   iep: boolean;
   economicDisadvantage: boolean;
   limitedEnglishProficiency: boolean;
-  ethnicities: string[];
   schoolYear: number;
   claimScores: ClaimScore[];
 }

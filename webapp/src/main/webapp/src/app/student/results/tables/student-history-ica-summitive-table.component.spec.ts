@@ -12,6 +12,7 @@ import { School } from "../../../user/model/school.model";
 import { PopoverModule } from "ngx-bootstrap";
 import { ScaleScoreComponent } from "../../../assessments/results/scale-score.component";
 import { InformationLabelComponent } from "../../../assessments/results/information-label.component";
+import { PopupMenuComponent } from "../../../assessments/menu/popup-menu.component";
 
 describe('StudentHistoryICASummitiveTableComponent', () => {
   let component: StudentHistoryICASummitiveTableComponent;
@@ -30,7 +31,8 @@ describe('StudentHistoryICASummitiveTableComponent', () => {
         InformationLabelComponent,
         StudentHistoryICASummitiveTableComponent,
         SchoolYearPipe,
-        ScaleScoreComponent
+        ScaleScoreComponent,
+        PopupMenuComponent
       ],
       providers: []
     })

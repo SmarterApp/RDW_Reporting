@@ -9,19 +9,19 @@ export class Assessment {
   subject: string;
   claimCodes: string[];
 
-  get isIab() {
+  get isIab(): boolean {
     return this.type == AssessmentType.IAB;
   }
 
-  get isIca() {
+  get isIca(): boolean {
     return this.type == AssessmentType.ICA;
   }
 
-  get isInterim() {
+  get isInterim(): boolean {
     return this.type != AssessmentType.SUMMATIVE;
   }
 
-  get isSummative() {
+  get isSummative(): boolean {
     return this.type == AssessmentType.SUMMATIVE;
   }
 }

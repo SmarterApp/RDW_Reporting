@@ -13,7 +13,8 @@ import { StudentResultsFilterComponent } from "./results/student-results-filter.
 import { DataTableModule } from "primeng/components/datatable/datatable";
 import { StudentHistoryIABTableComponent } from "./results/tables/student-history-iab-table.component";
 import { StudentHistoryICASummitiveTableComponent } from "./results/tables/student-history-ica-summitive-table.component";
-import { PopoverModule } from "ngx-bootstrap";
+import { PopoverModule, BsDropdownModule } from "ngx-bootstrap";
+import { MenuModule } from "primeng/components/menu/menu";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { PopoverModule } from "ngx-bootstrap";
     CommonModule,
     BrowserAnimationsModule,
     BrowserModule,
+    BsDropdownModule,
     DataTableModule,
     FormsModule,
     PopoverModule,

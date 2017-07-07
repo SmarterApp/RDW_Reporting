@@ -221,7 +221,14 @@
         }
       }
     },
+    "menu": "Menu",
+    "menus": {
+      "responses": "{{firstName}}'s Responses",
+      "resources": "Instructional Resources",
+      "print-report": "Print Report"
+    },
     "more-info": "More Information",
+    "personName": "{{lastName}}, {{firstName}}",
     "school-grade": {
       "title": "Search by School & Grade",
       "school-name": {

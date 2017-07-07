@@ -4,5 +4,7 @@ export class Student {
   public ssid: string;
   public firstName: string;
   public lastName: string;
+  public genderCode: string;
+  public ethnicityCodes: string[];
 
 }

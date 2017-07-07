@@ -8,6 +8,7 @@ import { DataTableModule } from "primeng/components/datatable/datatable";
 import { PopoverModule } from "ngx-bootstrap";
 import { ScaleScoreComponent } from "../../../assessments/results/scale-score.component";
 import { InformationLabelComponent } from "../../../assessments/results/information-label.component";
+import { PopupMenuComponent } from "../../../assessments/menu/popup-menu.component";
 
 describe('StudentHistoryIABTableComponent', () => {
   let component: StudentHistoryIABTableComponent;
@@ -26,7 +27,8 @@ describe('StudentHistoryIABTableComponent', () => {
         InformationLabelComponent,
         StudentHistoryIABTableComponent,
         SchoolYearPipe,
-        ScaleScoreComponent
+        ScaleScoreComponent,
+        PopupMenuComponent
       ],
       providers: []
     })

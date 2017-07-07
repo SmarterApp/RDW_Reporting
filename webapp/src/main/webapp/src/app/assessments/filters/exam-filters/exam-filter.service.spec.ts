@@ -6,6 +6,7 @@ import { AssessmentExam } from "../../model/assessment-exam.model";
 import { FilterBy } from "../../model/filter-by.model";
 import { Assessment } from "../../model/assessment.model";
 import { Exam } from "../../model/exam.model";
+import { Student } from "../../../student/model/student.model";
 
 describe('ExamFilterService', () => {
   let assessmentExam: AssessmentExam;
@@ -18,10 +19,10 @@ describe('ExamFilterService', () => {
     assessmentExam = new AssessmentExam();
     assessmentExam.assessment = new Assessment();
     assessmentExam.exams = [
-      new Exam(),
-      new Exam(),
-      new Exam(),
-      new Exam()
+      buildExam(),
+      buildExam(),
+      buildExam(),
+      buildExam()
     ];
 
     fixture = new ExamFilterService();
@@ -167,15 +168,15 @@ describe('ExamFilterService', () => {
   it('should filter exams by gender', () => {
     filterBy.gender = 'Male';
 
-    assessmentExam.exams[ 0 ].gender = 'Female';
-    assessmentExam.exams[ 1 ].gender = 'Male';
-    assessmentExam.exams[ 2 ].gender = 'Female';
-    assessmentExam.exams[ 3 ].gender = 'Male';
+    assessmentExam.exams[ 0 ].student.genderCode = 'Female';
+    assessmentExam.exams[ 1 ].student.genderCode = 'Male';
+    assessmentExam.exams[ 2 ].student.genderCode = 'Female';
+    assessmentExam.exams[ 3 ].student.genderCode = 'Male';
 
     let actual = fixture.filterExams(assessmentExam, filterBy);
 
     expect(actual.length).toBe(2);
-    expect(actual.some(x => x.gender == 'Female')).toBeFalsy();
+    expect(actual.some(x => x.student.genderCode == 'Female')).toBeFalsy();
   });
 
   it('should filter exams by migrant status as Yes', () => {
@@ -275,10 +276,10 @@ describe('ExamFilterService', () => {
     filterBy.ethnicities["Asian"] = true;
     filterBy.ethnicities["BlackOrAfricanAmerican"] = true;
 
-    assessmentExam.exams[ 0 ].ethnicities = [ "Filipino", "White"];
-    assessmentExam.exams[ 1 ].ethnicities = [ "White"] ;
-    assessmentExam.exams[ 2 ].ethnicities = [ "Asian" ];
-    assessmentExam.exams[ 3 ].ethnicities = [ "DemographicRaceTwoOrMoreRaces", "NativeHawaiianOrOtherPacificIslander" ];
+    assessmentExam.exams[ 0 ].student.ethnicityCodes = [ "Filipino", "White"];
+    assessmentExam.exams[ 1 ].student.ethnicityCodes = [ "White"] ;
+    assessmentExam.exams[ 2 ].student.ethnicityCodes = [ "Asian" ];
+    assessmentExam.exams[ 3 ].student.ethnicityCodes = [ "DemographicRaceTwoOrMoreRaces", "NativeHawaiianOrOtherPacificIslander" ];
 
     assessmentExam.exams = assessmentExam.exams.map((value, index) => {
       let exam = value;
@@ -292,4 +293,10 @@ describe('ExamFilterService', () => {
     expect(actual[0].session).toBe("0");
     expect(actual[1].session).toBe("2");
   });
+
+  function buildExam(): Exam {
+    let exam: Exam = new Exam();
+    exam.student = new Student();
+    return exam;
+  }
 });

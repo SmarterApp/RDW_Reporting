@@ -4,9 +4,7 @@ import { URLSearchParams } from "@angular/http";
 import { DataService } from "../shared/data/data.service";
 import { StudentExamHistory } from "./model/student-exam-history.model";
 import { Student } from "./model/student.model";
-import { Assessment } from "../assessments/model/assessment.model";
 import { AssessmentExamMapper } from "../assessments/assessment-exam.mapper";
-import { Exam } from "../assessments/model/exam.model";
 import { StudentHistoryExamWrapper } from "./model/student-history-exam-wrapper.model";
 import { School } from "../user/model/school.model";
 
@@ -29,7 +27,7 @@ export class StudentExamHistoryService {
         if (!apiExamHistory) return null;
 
         let uiModel: StudentExamHistory = new StudentExamHistory();
-        uiModel.student = this.mapStudent(apiExamHistory.student);
+        uiModel.student = this.assessmentMapper.mapStudentFromApi(apiExamHistory.student);
         uiModel.exams = this.mapExamWrappers(apiExamHistory.exams);
 
         return uiModel;
@@ -53,18 +51,8 @@ export class StudentExamHistoryService {
       .map((apiStudent) => {
         if (!apiStudent) return null;
 
-        return this.mapStudent(apiStudent);
+        return this.assessmentMapper.mapStudentFromApi(apiStudent);
       });
-  }
-
-  private mapStudent(apiStudent: any): Student {
-    let uiModel: Student = new Student();
-    uiModel.id = apiStudent.id;
-    uiModel.ssid = apiStudent.ssid;
-    uiModel.firstName = apiStudent.firstName;
-    uiModel.lastName = apiStudent.lastName;
-
-    return uiModel;
   }
 
   private mapExamWrappers(apiExamWrappers: any): StudentHistoryExamWrapper[] {

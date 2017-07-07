@@ -9,6 +9,7 @@ import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
 import { Assessment } from "../assessments/model/assessment.model";
 import { Exam } from "../assessments/model/exam.model";
+import { Student } from "./model/student.model";
 
 describe('StudentExamHistoryService', () => {
   let dataService: MockDataService;
@@ -51,17 +52,11 @@ describe('StudentExamHistoryService', () => {
     inject([StudentExamHistoryService], (service: StudentExamHistoryService) => {
 
       dataService.get.and.returnValue(Observable.of({
-        id: 123,
-        firstName: "first",
-        lastName: "last",
-        ssid: "ssid"
+        id: 123
       }));
 
       service.existsBySsid("ssid").subscribe((exists) => {
         expect(exists.id).toEqual(123);
-        expect(exists.firstName).toEqual("first");
-        expect(exists.lastName).toEqual("last");
-        expect(exists.ssid).toEqual("ssid");
       });
   }));
 
@@ -110,6 +105,7 @@ describe('StudentExamHistoryService', () => {
 class MockAssessmentExamMapper {
   mapAssessmentFromApi: Spy = createSpy("mapAssessmentFromApi");
   mapExamFromApi: Spy = createSpy("mapExamFromApi");
+  mapStudentFromApi: Spy = createSpy("mapStudentFromApi");
 
   constructor() {
     this.mapAssessmentFromApi.and.callFake((apiAssessment) => {
@@ -122,6 +118,12 @@ class MockAssessmentExamMapper {
       let exam: Exam = new Exam();
       exam.id = apiExam.id;
       return exam;
+    });
+
+    this.mapStudentFromApi.and.callFake((apiStudent) => {
+      let student: Student = new Student();
+      student.id = apiStudent.id;
+      return student;
     });
   }
 }

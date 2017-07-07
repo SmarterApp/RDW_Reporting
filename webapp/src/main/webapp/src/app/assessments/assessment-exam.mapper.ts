@@ -9,6 +9,7 @@ import { byGradeThenByName } from "./assessment.comparator";
 import { ordering } from "@kourge/ordering";
 import { byNumber } from "@kourge/ordering/comparator";
 import { ClaimScore } from "./model/claim-score.model";
+import { Student } from "../student/model/student.model";
 
 @Injectable()
 export class AssessmentExamMapper {
@@ -76,7 +77,6 @@ export class AssessmentExamMapper {
     uiModel.administrativeCondition = apiModel.administrativeConditionCode;
     uiModel.completeness = apiModel.completenessCode;
     uiModel.schoolYear = apiModel.schoolYear;
-    uiModel.ethnicities = [];
     uiModel.claimScores = this.mapClaimScaleScoresFromApi(apiModel.claimScaleScores);
 
     if (apiModel.studentContext) {
@@ -88,18 +88,28 @@ export class AssessmentExamMapper {
     }
 
     if (apiModel.student) {
-      uiModel.studentName = `${apiModel.student.lastName}, ${apiModel.student.firstName}`;
-      uiModel.gender = apiModel.student.genderCode;
-
-      if (apiModel.student.ethnicityCodes) {
-        apiModel.student.ethnicityCodes.forEach(code => uiModel.ethnicities.push(code));
-      }
+      uiModel.student = this.mapStudentFromApi(apiModel.student);
     }
 
     if (apiModel.scaleScore) {
       uiModel.score = apiModel.scaleScore.value;
       uiModel.level = apiModel.scaleScore.level;
       uiModel.standardError = apiModel.scaleScore.standardError;
+    }
+
+    return uiModel;
+  }
+
+  mapStudentFromApi(apiModel) {
+    let uiModel: Student = new Student();
+    uiModel.id = apiModel.id;
+    uiModel.ssid = apiModel.ssid;
+    uiModel.firstName = apiModel.firstName;
+    uiModel.lastName = apiModel.lastName;
+    uiModel.genderCode = apiModel.genderCode;
+    uiModel.ethnicityCodes = [];
+    if (apiModel.ethnicityCodes) {
+      apiModel.ethnicityCodes.forEach(code => uiModel.ethnicityCodes.push(code));
     }
 
     return uiModel;

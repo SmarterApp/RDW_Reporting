@@ -145,7 +145,7 @@
   border-left: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   border-right: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: @border-radius-base;
   > .table {
   border-collapse: separate;
   border-radius: @border-radius-base;
@@ -240,7 +240,7 @@ body .ui-datatable .ui-datatable-data > tr > td {
 
 // Custom borders for the group container table:
 .my-groups-list-container .ui-datatable-tablewrapper {
-  border-radius: 0 0 5px 5px;
+  border-radius: 0 0 @border-radius-base @border-radius-base;
 }
 
 // Icon-only button styling
@@ -252,4 +252,13 @@ body .ui-datatable .ui-datatable-data > tr > td {
 .center {
   display:block;
   margin: 0 auto;
+}
+
+// Allow drop-down menus to display within a table cell
+.ui-datatable .ui-datatable-thead>tr>th,
+.ui-datatable .ui-datatable-tfoot>tr>td,
+.ui-datatable .ui-datatable-data>tr>td {
+  &.cell-dropdown {
+    overflow: visible;
+  }
 }
