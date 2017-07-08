@@ -4,6 +4,15 @@ management:
   security:
     enabled: false
 
+saml:
+  # SAML keystore path: file:/some/path/saml.jks
+  key-store-file: ${reporting.keystore}
+  key-store-password: ${reporting.keystore.password}
+  private-key-entry-alias: ${reporting.keystore.alias}
+  private-key-entry-password: ${reporting.keystore.entry.password}
+  idp-metadata-url: ${reporting.idp}
+  sp-entity-id: ${reporting.entityId}
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/reporting?useSSL=false&useLegacyDatetimeCode=false
@@ -32,25 +41,33 @@ spring:
 
 cloud:
   aws:
+    credentials:
+      #AWS credentials are necessary if reading assessment files from S3
+      accessKey: ${rdw.aws.access.key}
+      secretKey: ${rdw.aws.secret.key}
+      instance-profile: false
     region:
       auto: false
       static: us-west-2
     # disable CloudFormation stuff
     stack:
       auto: false
-    credentials:
-      instance-profile: false
 
 artifacts:
-  root: "classpath:"
+  #Root location of assessment files [s3://some-bucket/ | classpath: | etc]
+  root: ${rdw.resource.root:"classpath:"}
   exam-item:
-    directory: data/irp/Item-{0}/
+    directory: item-content/local/items/Item-{0}/
     file-name: item-{0}.xml
+
+application:
+  state: CA
 
 permissionservice:
   component: Reporting
+  endpoint: ${permission.service}
 
 app:
   iris:
-    vendorId: 2B3C34BF-064C-462A-93EA-41E9E3EB8333
-    url: https://tds-stage.smarterbalanced.org/iris/
+    vendorId: ${iris.vendorId}
+    url: ${iris.url}
