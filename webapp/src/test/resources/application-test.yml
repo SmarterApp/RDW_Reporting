@@ -2,6 +2,8 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/reporting_test?useSSL=false&useLegacyDatetimeCode=false
 
+artifacts:
+  root: "classpath:"
 
 permissionservice:
   endpoint:
