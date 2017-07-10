@@ -10,3 +10,8 @@ permissionservice:
 
 application:
   state: CA
+
+app:
+  iris:
+    vendorId: vendorId
+    url: http://my-iris.somewhere.org/iris/

@@ -43,8 +43,8 @@ cloud:
   aws:
     credentials:
       #AWS credentials are necessary if reading assessment files from S3
-      accessKey: ${rdw.aws.access.key}
-      secretKey: ${rdw.aws.secret.key}
+      accessKey: ${rdw.aws.access.key:""}
+      secretKey: ${rdw.aws.secret.key:""}
       instance-profile: false
     region:
       auto: false
