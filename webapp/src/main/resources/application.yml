@@ -6,12 +6,12 @@ management:
 
 saml:
   # SAML keystore path: file:/some/path/saml.jks
-  key-store-file: ${reporting.keystore}
-  key-store-password: ${reporting.keystore.password}
-  private-key-entry-alias: ${reporting.keystore.alias}
-  private-key-entry-password: ${reporting.keystore.entry.password}
-  idp-metadata-url: ${reporting.idp}
-  sp-entity-id: ${reporting.entityId}
+  key-store-file: ${rdw.reporting.keystore.path}
+  key-store-password: ${rdw.reporting.keystore.password}
+  private-key-entry-alias: ${rdw.reporting.keystore.alias}
+  private-key-entry-password: ${rdw.reporting.keystore.entry.password}
+  idp-metadata-url: ${rdw.reporting.idp}
+  sp-entity-id: ${rdw.reporting.entityId}
 
 spring:
   datasource:
@@ -65,9 +65,9 @@ application:
 
 permissionservice:
   component: Reporting
-  endpoint: ${permission.service}
+  endpoint: ${rdw.permission.service}
 
 app:
   iris:
-    vendorId: ${iris.vendorId}
-    url: ${iris.url}
+    vendorId: ${rdw.reporting.iris.vendorId}
+    url: ${rdw.reporting.iris.url}
