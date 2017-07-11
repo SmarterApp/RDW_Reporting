@@ -254,6 +254,10 @@
       "messages": {
         "no-results": "Student does not exist or has no available exam results."
       },
+      "responses": {
+        "title": "Student Test History Report",
+        "crumb": "Student Responses"
+      },
       "results": {
         "title": "Student Test History Report",
         "crumb": "Student Id: {{ssid}}",

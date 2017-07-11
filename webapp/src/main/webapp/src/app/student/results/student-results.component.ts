@@ -1,8 +1,6 @@
 import { OnInit, Component } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { StudentExamHistory } from "../model/student-exam-history.model";
-import { Location } from "@angular/common";
-import { URLSearchParams } from "@angular/http";
 import { StudentResultsFilterState } from "./model/student-results-filter-state.model";
 import { StudentHistoryExamWrapper } from "../model/student-history-exam-wrapper.model";
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
@@ -31,7 +29,7 @@ export class StudentResultsComponent implements OnInit {
   }
 
   constructor(private route: ActivatedRoute,
-              private location: Location,
+              private router: Router,
               private examFilterService: ExamFilterService) {
   }
 
@@ -39,7 +37,7 @@ export class StudentResultsComponent implements OnInit {
     this.examHistory = this.route.snapshot.data[ "examHistory" ];
     this.initializeFilter(
       this.examHistory.exams,
-      this.route.snapshot.queryParams);
+      this.route.snapshot.params);
     this.applyFilter();
   }
 
@@ -128,29 +126,26 @@ export class StudentResultsComponent implements OnInit {
 
   /**
    * Update the current route based upon the current filter state.
-   * Do not re-load the page or re-fetch data.
+   * TODO Do not re-load the page or re-fetch data.
    */
   private updateRoute(): void {
-    let searchParams: URLSearchParams = new URLSearchParams();
+    let params: any = {};
     if (this.filterState.schoolYear > 0) {
-      searchParams.set("schoolYear", this.filterState.schoolYear.toString());
+      params.schoolYear = this.filterState.schoolYear.toString();
     }
     if (this.filterState.subject) {
-      searchParams.set("subject", this.filterState.subject);
+      params.subject = this.filterState.subject;
     }
 
-    //Update the current route without navigating
-    this.location.replaceState(
-      `/students/${this.examHistory.student.id}`,
-      searchParams.toString()
-    );
+    //Update the current route
+    this.router.navigate(['students', this.examHistory.student.id, params]);
   }
 
   /**
    * Initialize the current filter state from the initial request.
    *
    * @param exams       The available exams
-   * @param params      The route query params
+   * @param params      The route params
    */
   private initializeFilter(exams: StudentHistoryExamWrapper[], params: Params): void {
 

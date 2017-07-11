@@ -1,7 +1,8 @@
 import {Component, OnInit} from "@angular/core";
-import {Router, ActivatedRoute, NavigationEnd, PRIMARY_OUTLET} from "@angular/router";
+import { Router, ActivatedRoute, NavigationEnd, PRIMARY_OUTLET, UrlSegment } from "@angular/router";
 import "rxjs/add/operator/filter";
 import {Utils} from "../shared/Utils";
+import * as _ from "lodash";
 
 @Component({
   selector: 'breadcrumbs',
@@ -20,7 +21,7 @@ export class BreadcrumbsComponent implements OnInit{
     });
   }
 
-  private getBreadcrumbs(route: ActivatedRoute, url: string="", breadcrumbs: any[] = []): any[] {
+  private getBreadcrumbs(route: ActivatedRoute, commands: any[]=[], breadcrumbs: any[] = []): any[] {
     let BreadcrumbsKeyword = "breadcrumb";
 
     let children: ActivatedRoute[] = route.children;
@@ -34,12 +35,18 @@ export class BreadcrumbsComponent implements OnInit{
       }
 
       if (!child.snapshot.data.hasOwnProperty(BreadcrumbsKeyword)) {
-        return this.getBreadcrumbs(child, url, breadcrumbs);
+        return this.getBreadcrumbs(child, commands, breadcrumbs);
       }
 
+      // Parse the route commands for this route
       let crumbData = child.snapshot.data[BreadcrumbsKeyword];
-      let routeURL: string = child.snapshot.url.map(segment => segment.path).join("/");
-      url += `/${routeURL}`;
+      let route = child.snapshot;
+      let urlSegments: UrlSegment[] = route.url;
+      urlSegments.forEach(segment => {
+        commands.push(segment.path);
+        commands.push(segment.parameters);
+      });
+      let routeCommands = _.clone(commands);
 
       let requiresTranslate = true;
       let label = crumbData.translate;
@@ -54,23 +61,25 @@ export class BreadcrumbsComponent implements OnInit{
         translateParams = Utils.getPropertyValue(crumbData.translateResolve, child.snapshot.data);
       }
 
-      let breadcrumb: any  = {
+      let breadcrumb: any = {
         requiresTranslate: requiresTranslate,
         label: label,
         translateParams: translateParams,
-        params: child.snapshot.params,
-        url: url.replace(/\/$/, "")
+        commands: routeCommands
       };
 
-      let existing = breadcrumbs.find(x => x.url == breadcrumb.url);
+      let existing = breadcrumbs.find(x => _.isEqual(x.commands, breadcrumb.commands));
 
-      if(existing)
+      if(existing) {
         existing.label = breadcrumb.label;
-      else
+        existing.translateParams = breadcrumb.translateParams;
+      }
+      else {
         breadcrumbs.push(breadcrumb);
+      }
 
       //recursive
-      return this.getBreadcrumbs(child, url, breadcrumbs);
+      return this.getBreadcrumbs(child, commands, breadcrumbs);
     }
   }
 }
