@@ -48,8 +48,7 @@ export const routes: Routes = [
         children: [ {
           path: '',
           pathMatch: 'full',
-          component: StudentResultsComponent,
-          canActivate: [ AuthorizeCanActivate ]
+          component: StudentResultsComponent
         }, {
           path: 'exams/:examId',
           pathMatch: 'full',
@@ -60,8 +59,7 @@ export const routes: Routes = [
             },
             permissions: ['INDIVIDUAL_PII_READ']
           },
-          component: StudentResponsesComponent,
-          canActivate: [ AuthorizeCanActivate ]
+          component: StudentResponsesComponent
         } ]
       }
     ]
