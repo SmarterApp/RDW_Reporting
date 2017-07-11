@@ -3,6 +3,7 @@ import { StudentHistoryExamWrapper } from "../../model/student-history-exam-wrap
 import { Student } from "../../model/student.model";
 import { TranslateService } from "@ngx-translate/core";
 import { PopupMenuAction } from "../../../assessments/menu/popup-menu-action.model";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'student-history-ica-summitive-table',
@@ -23,7 +24,9 @@ export class StudentHistoryICASummitiveTableComponent {
 
   actions: PopupMenuAction[];
 
-  constructor(private translateService: TranslateService) {
+  constructor(private translateService: TranslateService,
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -56,8 +59,9 @@ export class StudentHistoryICASummitiveTableComponent {
       let responsesAction: PopupMenuAction = new PopupMenuAction();
       responsesAction.displayName = (() => responsesLabel);
       responsesAction.perform = ((wrapper) => {
-        console.log(`Show Responses: ${wrapper.assessment.name}`);
-      }).bind(this);
+        let examId: number = wrapper.exam.id;
+        this.router.navigate(['exams', examId], { relativeTo: this.route });
+      });
       actions.push(responsesAction);
     }
 

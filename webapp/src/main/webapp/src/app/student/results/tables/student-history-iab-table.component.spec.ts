@@ -9,12 +9,19 @@ import { PopoverModule } from "ngx-bootstrap";
 import { ScaleScoreComponent } from "../../../assessments/results/scale-score.component";
 import { InformationLabelComponent } from "../../../assessments/results/information-label.component";
 import { PopupMenuComponent } from "../../../assessments/menu/popup-menu.component";
+import { MockRouter } from "../../../../test/mock.router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 describe('StudentHistoryIABTableComponent', () => {
   let component: StudentHistoryIABTableComponent;
   let fixture: ComponentFixture<StudentHistoryIABTableComponent>;
+  let router: MockRouter;
+  let activatedRoute: ActivatedRoute;
 
   beforeEach(async(() => {
+    router = new MockRouter();
+    activatedRoute = new ActivatedRoute();
+
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
@@ -30,7 +37,13 @@ describe('StudentHistoryIABTableComponent', () => {
         ScaleScoreComponent,
         PopupMenuComponent
       ],
-      providers: []
+      providers: [{
+        provide: Router,
+        useValue: router
+      }, {
+        provide: ActivatedRoute,
+        useValue: activatedRoute
+      }]
     })
       .compileComponents();
   }));

@@ -5,9 +5,8 @@ import { BrowserModule } from "@angular/platform-browser";
 import { CommonModule } from "../../shared/common.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "primeng/components/common/shared";
-import { Location } from "@angular/common";
 import { TranslateModule } from "@ngx-translate/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { StudentExamHistory } from "../model/student-exam-history.model";
 import { Student } from "../model/student.model";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
@@ -17,6 +16,7 @@ import { Assessment } from "../../assessments/model/assessment.model";
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { ClaimScore } from "../../assessments/model/claim-score.model";
 import { School } from "../../user/model/school.model";
+import { MockRouter } from "../../../test/mock.router";
 import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
 import createSpyObj = jasmine.createSpyObj;
@@ -25,7 +25,7 @@ describe('StudentResultsComponent', () => {
   let component: StudentResultsComponent;
   let fixture: ComponentFixture<StudentResultsComponent>;
   let route: MockActivatedRoute;
-  let location: MockLocation;
+  let router: MockRouter;
 
   beforeEach(() => {
     route = new MockActivatedRoute();
@@ -33,10 +33,10 @@ describe('StudentResultsComponent', () => {
     let mockRouteSnapshot: any = {};
     mockRouteSnapshot.data = {};
     mockRouteSnapshot.data.examHistory = MockBuilder.history();
-    mockRouteSnapshot.queryParams = {};
+    mockRouteSnapshot.params = {};
     route.snapshotResult.and.returnValue(mockRouteSnapshot);
 
-    location = new MockLocation();
+    router = new MockRouter();
 
     TestBed.configureTestingModule({
       imports: [
@@ -55,8 +55,8 @@ describe('StudentResultsComponent', () => {
         provide: ActivatedRoute,
         useValue: route
       }, {
-        provide: Location,
-        useValue: location
+        provide: Router,
+        useValue: router
       }],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -88,7 +88,7 @@ describe('StudentResultsComponent', () => {
   it('should filter by year on initialization', inject([ActivatedRoute], (route: MockActivatedRoute) => {
     // Filter to the single 2017 exam
     let snapshot = route.snapshot;
-    snapshot.queryParams['schoolYear'] = '2017';
+    snapshot.params['schoolYear'] = '2017';
 
     component.ngOnInit();
 
@@ -101,7 +101,7 @@ describe('StudentResultsComponent', () => {
 
   it('should filter by subject on initialization', inject([ActivatedRoute], (route: MockActivatedRoute) => {
     let snapshot = route.snapshot;
-    snapshot.queryParams['subject'] = 'MATH';
+    snapshot.params['subject'] = 'MATH';
 
     component.ngOnInit();
 
@@ -230,8 +230,4 @@ class MockActivatedRoute {
   get snapshot(): any {
     return this.snapshotResult();
   }
-}
-
-class MockLocation {
-  replaceState: Spy = createSpy("replaceState");
 }

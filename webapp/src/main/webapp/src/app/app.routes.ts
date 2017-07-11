@@ -9,6 +9,8 @@ import { SchoolResultsComponent } from "./school-grade/results/school-results.co
 import { CurrentSchoolResolve } from "./school-grade/results/current-school.resolve";
 import { StudentResultsComponent } from "./student/results/student-results.component";
 import { StudentExamHistoryResolve } from "./student/results/student-exam-history.resolve";
+import { StudentResponsesResolve } from "./student/responses/student-responses.resolve";
+import { StudentResponsesComponent } from "./student/responses/student-responses.component";
 
 export const routes: Routes = [
   {
@@ -34,7 +36,6 @@ export const routes: Routes = [
       },
       {
         path: 'students/:studentId',
-        pathMatch: 'full',
         resolve: { examHistory: StudentExamHistoryResolve },
         data: {
           breadcrumb: {
@@ -43,8 +44,23 @@ export const routes: Routes = [
           },
           permissions: ['INDIVIDUAL_PII_READ']
         },
-        component: StudentResultsComponent,
-        canActivate: [ AuthorizeCanActivate ]
+        canActivate: [ AuthorizeCanActivate ],
+        children: [ {
+          path: '',
+          pathMatch: 'full',
+          component: StudentResultsComponent
+        }, {
+          path: 'exams/:examId',
+          pathMatch: 'full',
+          resolve: { assessmentItems: StudentResponsesResolve },
+          data: {
+            breadcrumb: {
+              translate: 'labels.student.responses.crumb'
+            },
+            permissions: ['INDIVIDUAL_PII_READ']
+          },
+          component: StudentResponsesComponent
+        } ]
       }
     ]
   }

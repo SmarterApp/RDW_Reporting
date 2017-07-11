@@ -14,10 +14,14 @@ import { DataTableModule } from "primeng/components/datatable/datatable";
 import { StudentHistoryIABTableComponent } from "./results/tables/student-history-iab-table.component";
 import { StudentHistoryICASummitiveTableComponent } from "./results/tables/student-history-ica-summitive-table.component";
 import { PopoverModule } from "ngx-bootstrap";
+import { StudentResponsesComponent } from "./responses/student-responses.component";
+import { StudentResponsesService } from "./responses/student-responses.service";
+import { StudentResponsesResolve } from "./responses/student-responses.resolve";
 
 @NgModule({
   declarations: [
     StudentComponent,
+    StudentResponsesComponent,
     StudentResultsComponent,
     StudentResultsFilterComponent,
     StudentHistoryIABTableComponent,
@@ -34,10 +38,15 @@ import { PopoverModule } from "ngx-bootstrap";
     ReactiveFormsModule,
     SharedModule
   ],
-  exports: [ StudentComponent ],
+  exports: [
+    StudentComponent,
+    StudentResponsesComponent
+  ],
   providers: [
     StudentExamHistoryResolve,
-    StudentExamHistoryService
+    StudentExamHistoryService,
+    StudentResponsesResolve,
+    StudentResponsesService
   ]
 })
 export class StudentModule {

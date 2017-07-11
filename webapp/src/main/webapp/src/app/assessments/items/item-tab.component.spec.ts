@@ -7,6 +7,7 @@ import { TabsetConfig } from "ngx-bootstrap";
 import { DataService } from "../../shared/data/data.service";
 import { MockDataService } from "../../../test/mock.data.service";
 import { CachingDataService } from "../../shared/cachingData.service";
+import { ItemExemplarComponent } from "./item-exemplar/item-exemplar.component";
 
 describe('ItemTabComponent', () => {
   let component: ItemTabComponent;
@@ -15,7 +16,7 @@ describe('ItemTabComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ TabsModule, CommonModule ],
-      declarations: [ ItemTabComponent, ItemViewerComponent ],
+      declarations: [ ItemTabComponent, ItemViewerComponent, ItemExemplarComponent ],
       providers: [TabsetConfig, { provide: CachingDataService, useClass: MockDataService }]
     }).compileComponents();
   }));

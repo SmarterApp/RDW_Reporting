@@ -20,8 +20,15 @@ export class ItemTabComponent implements OnInit {
   @Input()
   showItemDetails: boolean;
 
-  @ViewChild('staticTabs')
-  staticTabs: TabsetComponent;
+  /**
+   * If set to true, item-viewer (and iris) will be loaded and added to the dom.
+   */
+  loadItemViewer: boolean = false;
+
+  /**
+   * If set to true, item-exemplar will be loaded and added to the dom.
+   */
+  loadExemplar: boolean = false;
 
   get translateRoot(){
     return 'labels.assessments.items.tabs.';

@@ -43,8 +43,8 @@ cloud:
   aws:
     credentials:
       #AWS credentials are necessary if reading assessment files from S3
-      accessKey: ${rdw.aws.access.key:""}
-      secretKey: ${rdw.aws.secret.key:""}
+      accessKey: ${rdw.aws.access.key:}
+      secretKey: ${rdw.aws.secret.key:}
       instance-profile: false
     region:
       auto: false
@@ -57,7 +57,7 @@ artifacts:
   #Root location of assessment files [s3://some-bucket/ | classpath: | etc]
   root: ${rdw.resource.root:"classpath:"}
   exam-item:
-    directory: local/items/Item-{0}/
+    directory: ${rdw.reporting.artifacts.exam.item.directory:local/items/Item-{0}/}
     file-name: item-{0}.xml
 
 application:

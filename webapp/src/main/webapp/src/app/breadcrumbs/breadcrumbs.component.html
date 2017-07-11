@@ -9,10 +9,10 @@
         </a>
       </li>
       <li *ngFor="let crumb of breadcrumbs; let last = last;" [ngClass]="{'active': last }">
-        <a *ngIf="!last" [routerLink]="[crumb.url, crumb.params]">
+        <a *ngIf="!last" [routerLink]="crumb.commands">
           {{ crumb.requiresTranslate? (crumb.label | translate:crumb.translateParams) : crumb.label }}
         </a>
-        <span *ngIf="last" [routerLink]="[crumb.url, crumb.params]">
+        <span *ngIf="last" [routerLink]="crumb.commands">
           {{ crumb.requiresTranslate? (crumb.label | translate:crumb.translateParams) : crumb.label }}
         </span>
       </li>

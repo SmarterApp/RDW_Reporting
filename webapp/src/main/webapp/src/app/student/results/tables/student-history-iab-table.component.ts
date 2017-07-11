@@ -3,6 +3,8 @@ import { StudentHistoryExamWrapper } from "../../model/student-history-exam-wrap
 import { TranslateService } from "@ngx-translate/core";
 import { Student } from "../../model/student.model";
 import { PopupMenuAction } from "../../../assessments/menu/popup-menu-action.model";
+import { Router, ActivatedRoute } from "@angular/router";
+import { exam } from "../../../standalone/data/exam";
 
 @Component({
   selector: 'student-history-iab-table',
@@ -18,7 +20,9 @@ export class StudentHistoryIABTableComponent implements OnInit {
 
   actions: PopupMenuAction[];
 
-  constructor(private translateService: TranslateService) {
+  constructor(private translateService: TranslateService,
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -37,8 +41,9 @@ export class StudentHistoryIABTableComponent implements OnInit {
     let responsesAction: PopupMenuAction = new PopupMenuAction();
     responsesAction.displayName = (() => responsesLabel);
     responsesAction.perform = ((wrapper) => {
-      console.log(`Show Responses: ${wrapper.assessment.name}`);
-    }).bind(this);
+      let examId: number = wrapper.exam.id;
+      this.router.navigate(['exams', examId], { relativeTo: this.route });
+    });
     actions.push(responsesAction);
 
     let resourcesLabel: string = this.translateService.instant('labels.menus.resources');

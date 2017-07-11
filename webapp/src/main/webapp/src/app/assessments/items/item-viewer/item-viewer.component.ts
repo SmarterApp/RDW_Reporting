@@ -1,9 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild, Input } from "@angular/core";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { UserService } from "../../../user/user.service";
-import { Configuration } from "../../../user/model/configuration.model";
-import { isNull } from "util";
-import { isNullOrUndefined } from "util";
 
 /**
  * IRiS is the vendor client which allows us to integrate with the
@@ -45,7 +42,10 @@ export class ItemViewerComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(user => {
-      this.safeIrisUrl = this.sanitizer.bypassSecurityTrustResourceUrl(user.configuration.irisUrl);
+      let irisUrl = user.configuration.irisUrl;
+      // let irisUrl = "http://ec2-52-33-16-206.us-west-2.compute.amazonaws.com/";
+
+      this.safeIrisUrl = this.sanitizer.bypassSecurityTrustResourceUrl(irisUrl);
       this.vendorId = user.configuration.irisVendorId;
       this._irisFrame.addEventListener('load', this.irisframeOnLoad.bind(this));
     })
@@ -61,6 +61,8 @@ export class ItemViewerComponent implements OnInit {
 
   private getToken(bankItemKey){
     return `{"passage":{"autoLoad":"false"},"items":[{"id":"I-${bankItemKey}"}],"layout":"WAI"}`;
+
     // return `{"items":[{"id":"I-${bankItemKey}"}], "accommodations": []}`;
+    // return `{"items":[{"response":"","id":"I-187-1437"}],"accommodations":[]}`
   }
 }
