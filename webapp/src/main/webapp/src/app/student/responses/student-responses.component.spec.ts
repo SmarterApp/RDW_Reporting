@@ -21,7 +21,6 @@ describe('StudentResponsesComponent', () => {
     mockRouteSnapshot.params = {};
     route.snapshotResult.and.returnValue(mockRouteSnapshot);
 
-
     TestBed.configureTestingModule({
       imports: [
         AssessmentsModule,
