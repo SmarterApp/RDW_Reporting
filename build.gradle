@@ -186,6 +186,14 @@ subprojects {
         }
     }
 
+    //Specific integration test task that will automatically migrate the test database schemas
+    task moIT(type: Test, dependsOn:[":migrateAllTest"]) {
+        outputs.upToDateWhen { false }
+        doFirst {
+            println "Running Integration Tests without cleaning database (flyway migrate only)..."
+        }
+    }
+
     tasks.withType(Test) {
         reports.html.destination = file("${reporting.baseDir}/${name}")
     }
