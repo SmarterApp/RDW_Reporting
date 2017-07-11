@@ -3,7 +3,6 @@ sql:
     findAllByStudentId: >-
       select e.id,
         e.type_id,
-        e.grade_id,
         e.grade_code,
         e.school_year,
         e.completeness_code,
@@ -32,7 +31,6 @@ sql:
         a.claim4_score_code,
         a.id as asmt_id,
         a.label as asmt_label,
-        a.grade_id as asmt_grade_id,
         a.grade_code as asmt_grade_code,
         a.type_id as asmt_type_id,
         a.subject_id as asmt_subject_id,
@@ -99,7 +97,6 @@ sql:
           select distinct
             a.id,
             a.label,
-            a.grade_id,
             a.grade_code,
             a.type_id,
             a.subject_id,
@@ -128,7 +125,6 @@ sql:
           select
             a.id,
             a.label,
-            a.grade_id,
             a.grade_code,
             a.type_id,
             a.subject_id,
@@ -156,7 +152,6 @@ sql:
       findAllForAssessment: >-
           select e.id,
             e.type_id,
-            e.grade_id,
             e.grade_code,
             e.iep,
             e.lep,
@@ -224,7 +219,6 @@ sql:
       findAll: >-
         select a.id,
           a.label,
-          a.grade_id,
           a.grade_code,
           a.type_id,
           a.subject_id,
@@ -255,7 +249,6 @@ sql:
         select
           a.id,
           a.label,
-          a.grade_id,
           a.grade_code,
           a.type_id,
           a.subject_id,
@@ -282,7 +275,6 @@ sql:
       findAllForAssessment: >-
         select e.id,
           e.type_id,
-          e.grade_id,
           e.grade_code,
           e.iep,
           e.lep,
