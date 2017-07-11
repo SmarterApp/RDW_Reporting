@@ -3,7 +3,7 @@ import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 export class Assessment {
   id: number;
   name: string;
-  grade: number;
+  grade: string;
   type: AssessmentType;
   selected: boolean;
   subject: string;

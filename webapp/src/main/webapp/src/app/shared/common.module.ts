@@ -13,10 +13,10 @@ import { SBRadioButtonComponent } from "./sb-radio-button-list.component";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { SBCheckboxList } from "./sb-checkbox-list.component";
-import { GradeService } from "./grade.service";
 import { GradeDisplayPipe } from "./grade-display.pipe";
 import { RdwTranslateLoader } from "./rdw-translate-loader";
 import { AssessmentTypePipe } from "./assessment-type.pipe";
+import { ColorService } from "./color.service";
 
 export function createTranslateLoader(http: Http) {
   return new RdwTranslateLoader(http);
@@ -62,7 +62,7 @@ export function createTranslateLoader(http: Http) {
   providers: [
     DataService,
     CachingDataService,
-    GradeService
+    ColorService
   ]
 })
 export class CommonModule {

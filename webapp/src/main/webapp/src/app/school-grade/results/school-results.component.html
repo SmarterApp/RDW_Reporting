@@ -1,7 +1,7 @@
 <h2 class="blue-dark h3 mb-md">
    {{currentSchool.name}}
   <span *ngIf="currentGrade">
-    - {{'labels.grade' | translate }} {{currentGrade.code | gradeDisplay}}
+    - {{currentGrade.code | gradeDisplay:'long-name'}}
   </span>
 </h2>
 
@@ -26,7 +26,7 @@
       title="{{ (gradesAreUnavailable ? 'labels.school-grade.messages.no-grades-available': '') | translate}}"
       [disabled]="!availableGrades || availableGrades.length == 0" id="current-grade" [(ngModel)]="currentGrade" (change)="updateRoute()"
             class="form-control">
-      <option *ngFor="let grade of availableGrades" [ngValue]="grade">{{grade.code | gradeDisplay }}</option>
+      <option *ngFor="let grade of availableGrades" [ngValue]="grade">{{grade.code | gradeDisplay:'long-name' }}</option>
     </select>
   </div>
   <!-- School Year -->

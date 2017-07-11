@@ -3,16 +3,15 @@
     {{ 'labels.groups.results.select-assessments.instruct' | translate }}
   </p>
   <div class="panel-grid">
-    <div *ngFor="let byGrade of assessmentsByGrade" class="panel {{byGrade.grade.color}}">
+    <div *ngFor="let byGrade of assessmentsByGrade" class="panel {{colorService.getColor(getGradeIdx(byGrade.grade))}}">
       <div class="panel-heading">
-        <span *ngIf="byGrade.grade.id != 9" class="panel-title">{{'labels.groups.results.grade' | translate:byGrade.grade}}</span>
-        <span *ngIf="byGrade.grade.id == 9" class="panel-title">{{'labels.groups.results.high-school' | translate}}</span>
+        <span class="panel-title">{{byGrade.grade | gradeDisplay:'long-name'}}</span>
       </div>
       <div class="panel-body">
         <div class="tag-menu">
           <a *ngFor="let assessment of byGrade.assessments"
              (click)="toggleSelectedAssessment(assessment)"
-             class="tag tag-xs {{byGrade.grade.color}}"
+             class="tag tag-xs {{colorService.getColor(getGradeIdx(byGrade.grade))}}"
              [ngClass]="{'active': assessment.selected }">{{assessment.name}}</a>
         </div>
       </div>

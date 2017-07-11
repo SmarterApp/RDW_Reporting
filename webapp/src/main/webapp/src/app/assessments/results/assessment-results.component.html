@@ -10,8 +10,8 @@
             </button>
         </div>
         <!-- Assessment Title -->
-        <span class="tag tag-lg {{gradeService.getColor(assessmentExam.assessment.grade)}}">
-            <span class="label">{{'labels.groups.results.grade-prefix' | translate}}{{assessmentExam.assessment.grade}}</span>
+        <span class="tag tag-lg {{colorService.getColor(getGradeIdx(assessmentExam.assessment.grade))}}">
+            <span class="label">{{assessmentExam.assessment.grade | gradeDisplay}}</span>
             {{assessmentExam.assessment.name}}
         </span>
     </div>
@@ -104,8 +104,7 @@
           <p-column field="session" header="{{'labels.groups.results.assessment.exams.cols.session' | translate}}" [sortable]="true"></p-column>
           <p-column field="enrolledGrade" header="{{'labels.groups.results.assessment.exams.cols.grade' | translate}}" [sortable]="true" [hidden]="isClaimScoreSelected">
             <ng-template let-exam="rowData" pTemplate="body">
-              <!-- TODO once grade codes are returned, pipe through translation -->
-              {{ exam.enrolledGrade }}
+              {{ exam.enrolledGrade | gradeDisplay }}
             </ng-template>
           </p-column>
           <p-column field="administrativeCondition" [sortable]="true" [hidden]="isClaimScoreSelected">

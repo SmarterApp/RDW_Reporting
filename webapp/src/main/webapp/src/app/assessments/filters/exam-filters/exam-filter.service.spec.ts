@@ -105,33 +105,33 @@ describe('ExamFilterService', () => {
   it('should hide off-grade when offGradeAssessment is true', () => {
     filterBy.offGradeAssessment = true;
 
-    assessmentExam.assessment.grade = 2;
+    assessmentExam.assessment.grade = '02';
 
-    assessmentExam.exams[ 0 ].enrolledGrade = 2;
-    assessmentExam.exams[ 1 ].enrolledGrade = 3;
-    assessmentExam.exams[ 2 ].enrolledGrade = 2;
-    assessmentExam.exams[ 3 ].enrolledGrade = 3;
+    assessmentExam.exams[ 0 ].enrolledGrade = '02';
+    assessmentExam.exams[ 1 ].enrolledGrade = '03';
+    assessmentExam.exams[ 2 ].enrolledGrade = '02';
+    assessmentExam.exams[ 3 ].enrolledGrade = '03';
 
     let actual = fixture.filterExams(assessmentExam, filterBy);
 
     expect(actual.length).toBe(2);
-    expect(actual.some(x => x.enrolledGrade == 3)).toBeFalsy();
+    expect(actual.some(x => x.enrolledGrade == '03')).toBeFalsy();
   });
 
   it('should show off-grade when offGradeAssessment is false', () => {
     filterBy.offGradeAssessment = false;
 
-    assessmentExam.assessment.grade = 2;
+    assessmentExam.assessment.grade = '02';
 
-    assessmentExam.exams[ 0 ].enrolledGrade = 2;
-    assessmentExam.exams[ 1 ].enrolledGrade = 3;
-    assessmentExam.exams[ 2 ].enrolledGrade = 2;
-    assessmentExam.exams[ 3 ].enrolledGrade = 3;
+    assessmentExam.exams[ 0 ].enrolledGrade = '02';
+    assessmentExam.exams[ 1 ].enrolledGrade = '03';
+    assessmentExam.exams[ 2 ].enrolledGrade = '02';
+    assessmentExam.exams[ 3 ].enrolledGrade = '03';
 
     let actual = fixture.filterExams(assessmentExam, filterBy);
 
     expect(actual.length).toBe(4);
-    expect(actual.some(x => x.enrolledGrade == 3)).toBeTruthy();
+    expect(actual.some(x => x.enrolledGrade == '03')).toBeTruthy();
   });
 
   it('should filter by completeness, off-grade, and summative status', () => {
@@ -139,20 +139,20 @@ describe('ExamFilterService', () => {
     filterBy.summativeStatus = AdministrativeCondition.Standard;
     filterBy.completion = Completeness.Partial;
 
-    assessmentExam.assessment.grade = 3;
+    assessmentExam.assessment.grade = '03';
 
     // only completeness matches criteria.
-    assessmentExam.exams[ 0 ].enrolledGrade = 2;
+    assessmentExam.exams[ 0 ].enrolledGrade = '02';
     assessmentExam.exams[ 0 ].administrativeCondition = AdministrativeCondition.Valid;
     assessmentExam.exams[ 0 ].completeness = Completeness.Partial;
 
     // all fields match parameters, should return.
-    assessmentExam.exams[ 1 ].enrolledGrade = 3;
+    assessmentExam.exams[ 1 ].enrolledGrade = '03';
     assessmentExam.exams[ 1 ].administrativeCondition = AdministrativeCondition.Standard;
     assessmentExam.exams[ 1 ].completeness = Completeness.Partial;
 
     // all fields but completeness match criteria, should not return.
-    assessmentExam.exams[ 2 ].enrolledGrade = 3;
+    assessmentExam.exams[ 2 ].enrolledGrade = '03';
     assessmentExam.exams[ 2 ].administrativeCondition = AdministrativeCondition.Standard;
     assessmentExam.exams[ 2 ].completeness = Completeness.Complete;
 
@@ -160,7 +160,7 @@ describe('ExamFilterService', () => {
 
     expect(actual.length).toBe(1);
 
-    expect(actual.some(x => x.enrolledGrade == 2)).toBeFalsy();
+    expect(actual.some(x => x.enrolledGrade == '02')).toBeFalsy();
     expect(actual.some(x => x.administrativeCondition == AdministrativeCondition.Valid)).toBeFalsy();
     expect(actual.some(x => x.completeness == Completeness.Complete)).toBeFalsy();
   });

@@ -113,13 +113,6 @@ describe('StudentResultsComponent', () => {
 
 });
 
-function getFilteredExams(examMap: Map<AssessmentType, Map<string, StudentHistoryExamWrapper[]>>): StudentHistoryExamWrapper[] {
-  return Array.from(examMap.values())
-    .map((bySubject) => Array.from(bySubject.values()))
-    .reduce((a, b) => a.concat(b))
-    .reduce((a, b) => a.concat(b));
-}
-
 class MockBuilder {
   private static assessmentIdx: number = 0;
   private static examIdx: number = 0;
@@ -179,7 +172,7 @@ class MockBuilder {
     exam.schoolYear = 2017 - exam.id;
 
     //toggle whether we're off-grade on each exam
-    exam.enrolledGrade = MockBuilder.oddExam ? 4 : 5;
+    exam.enrolledGrade = MockBuilder.oddExam ? '04' : '05';
 
     //toggle completeness on each exam
     exam.completeness = MockBuilder.oddExam ? 'Partial' : 'Complete';
@@ -199,7 +192,7 @@ class MockBuilder {
 
   private static assessment(type: AssessmentType, subject: string): Assessment {
     let assessment: Assessment = new Assessment();
-    assessment.grade = 5;
+    assessment.grade = '05';
     assessment.id = MockBuilder.assessmentIdx++;
     assessment.name = "Grade 5 ELA";
     assessment.subject = subject;

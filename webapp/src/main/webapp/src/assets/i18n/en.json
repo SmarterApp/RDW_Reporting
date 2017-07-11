@@ -33,56 +33,56 @@
         "short-name": "KG"
       },
       "01": {
-        "long-name": "First grade",
-        "short-name": "1"
+        "long-name": "Grade 1",
+        "short-name": "G1"
       },
       "02": {
-        "long-name": "Second grade",
-        "short-name": "2"
+        "long-name": "Grade 2",
+        "short-name": "G2"
       },
       "03": {
-        "long-name": "Third grade",
-        "short-name": "3"
+        "long-name": "Grade 3",
+        "short-name": "G3"
       },
       "04": {
-        "long-name": "Fourth grade",
-        "short-name": "4"
+        "long-name": "Grade 4",
+        "short-name": "G4"
       },
       "05": {
-        "long-name": "Fifth grade",
-        "short-name": "5"
+        "long-name": "Grade 5",
+        "short-name": "G5"
       },
       "06": {
-        "long-name": "Sixth grade",
-        "short-name": "6"
+        "long-name": "Grade 6",
+        "short-name": "G6"
       },
       "07": {
-        "long-name": "Seventh grade",
-        "short-name": "7"
+        "long-name": "Grade 7",
+        "short-name": "G7"
       },
       "08": {
-        "long-name": "Eigth grade",
-        "short-name": "8"
+        "long-name": "Grade 8",
+        "short-name": "G8"
       },
       "09": {
-        "long-name": "Ninth grade",
-        "short-name": "9"
+        "long-name": "Grade 9",
+        "short-name": "G9"
       },
       "10": {
-        "long-name": "Tenth grade",
-        "short-name": "10"
+        "long-name": "Grade 10",
+        "short-name": "G10"
       },
       "11": {
-        "long-name": "Eleventh grade",
-        "short-name": "11"
+        "long-name": "Grade 11",
+        "short-name": "G11"
       },
       "12": {
-        "long-name": "Twelfth grade",
-        "short-name": "12"
+        "long-name": "Grade 12",
+        "short-name": "G12"
       },
       "13": {
         "long-name": "Grade 13",
-        "short-name": "13"
+        "short-name": "G13"
       },
       "PS": {
         "long-name": "Postsecondary",
@@ -93,7 +93,7 @@
         "short-name": "UG"
       },
       "IT": {
-        "long-name": "Infant/toddler",
+        "long-name": "Infant/Toddler",
         "short-name": "IT"
       },
       "PR": {

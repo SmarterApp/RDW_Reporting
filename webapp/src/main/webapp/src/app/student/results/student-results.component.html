@@ -14,7 +14,7 @@
 <!-- Assessments Grouped by Type and Subject -->
 <div *ngFor="let assessmentType of assessmentTypes">
   <div *ngFor="let subject of getSubjectsForType(assessmentType)" class="well">
-    <span class="tag tag-md {{ assessmentType | assessmentType:'color' }}">
+    <span class="tag tag-md {{ colorService.getColor(assessmentType) }}">
       <span class="label">{{assessmentType | assessmentType}}</span>
       <span>{{subject}}</span>
     </span>

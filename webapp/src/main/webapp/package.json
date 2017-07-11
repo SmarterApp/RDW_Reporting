@@ -33,7 +33,7 @@
     "lodash": "^4.17.4",
     "ngx-bootstrap": "^1.6.6",
     "primeng": "^4.0.0",
-    "rxjs": "^5.0.1",
+    "rxjs": "^5.4.2",
     "sbac-ui-kit": "git+https://github.com/SmarterApp/SBAC-Global-UI-Kit.git#v0.0.6",
     "ts-helpers": "^1.1.1",
     "zone.js": "^0.8.4"
@@ -42,7 +42,7 @@
     "@angular/cli": "1.0.2",
     "@angular/compiler-cli": "4.1.1",
     "@types/jasmine": "2.5.38",
-    "@types/node": "^6.0.79",
+    "@types/node": "^6.0.80",
     "codelyzer": "3.0.0-beta.0",
     "jasmine-core": "2.5.2",
     "jasmine-spec-reporter": "2.5.0",
@@ -58,7 +58,7 @@
     "protractor": "4.0.9",
     "ts-node": "1.2.1",
     "tslint": "^4.0.0",
-    "typescript": "2.3.4",
+    "typescript": "2.4.1",
     "webdriver-manager": "10.2.5"
   }
 }

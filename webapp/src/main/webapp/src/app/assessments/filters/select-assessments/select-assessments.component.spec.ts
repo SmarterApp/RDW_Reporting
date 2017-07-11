@@ -30,11 +30,11 @@ describe('SelectAssessmentsComponent', () => {
 
   it('should group assessments by grade', ()=> {
     let assessments = [
-      { grade: 3, name: "asmt1" },
-      { grade: 3, name: "asmt2" },
-      { grade: 4, name: "asmt3" },
-      { grade: 5, name: "asmt4" },
-      { grade: 5, name: "asmt5" },
+      { grade: '03', name: "asmt1" },
+      { grade: '03', name: "asmt2" },
+      { grade: '04', name: "asmt3" },
+      { grade: '05', name: "asmt4" },
+      { grade: '05', name: "asmt5" },
     ].map(x =>{
       let asmt = new Assessment();
       asmt.grade = x.grade;
@@ -46,13 +46,13 @@ describe('SelectAssessmentsComponent', () => {
 
     let actual = component.assessmentsByGrade;
 
-    expect(actual[0].grade.id).toBe(3);
+    expect(actual[0].grade).toBe('03');
     expect(actual[0].assessments.length).toBe(2);
 
-    expect(actual[1].grade.id).toBe(4);
+    expect(actual[1].grade).toBe('04');
     expect(actual[1].assessments.length).toBe(1);
 
-    expect(actual[2].grade.id).toBe(5);
+    expect(actual[2].grade).toBe('05');
     expect(actual[2].assessments.length).toBe(2);
   })
 });

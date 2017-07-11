@@ -5,6 +5,7 @@ import { StudentResultsFilterState } from "./model/student-results-filter-state.
 import { StudentHistoryExamWrapper } from "../model/student-history-exam-wrapper.model";
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { ExamFilterService } from "../../assessments/filters/exam-filters/exam-filter.service";
+import { ColorService } from "../../shared/color.service";
 
 @Component({
   selector: 'student-results',
@@ -28,7 +29,8 @@ export class StudentResultsComponent implements OnInit {
       });
   }
 
-  constructor(private route: ActivatedRoute,
+  constructor(public colorService: ColorService,
+              private route: ActivatedRoute,
               private router: Router,
               private examFilterService: ExamFilterService) {
   }

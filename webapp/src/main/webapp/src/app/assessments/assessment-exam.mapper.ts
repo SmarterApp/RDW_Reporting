@@ -59,7 +59,7 @@ export class AssessmentExamMapper {
 
     uiModel.id = apiModel.id;
     uiModel.name = apiModel.name;
-    uiModel.grade = apiModel.gradeId;
+    uiModel.grade = apiModel.gradeCode;
     uiModel.type = AssessmentType[ apiModel.type as string ];
     uiModel.subject = apiModel.subject;
     uiModel.claimCodes = apiModel.claimCodes || [];
@@ -73,7 +73,7 @@ export class AssessmentExamMapper {
     uiModel.id = apiModel.id;
     uiModel.date = apiModel.dateTime;
     uiModel.session = apiModel.sessionId;
-    uiModel.enrolledGrade = apiModel.gradeId;
+    uiModel.enrolledGrade = apiModel.gradeCode;
     uiModel.administrativeCondition = apiModel.administrativeConditionCode;
     uiModel.completeness = apiModel.completenessCode;
     uiModel.schoolYear = apiModel.schoolYear;

@@ -6,7 +6,7 @@ export class Exam {
   student: Student;
   date: Date;
   session: string;
-  enrolledGrade: number;
+  enrolledGrade: string;
   score: number;
   level: number;
   administrativeCondition: string;

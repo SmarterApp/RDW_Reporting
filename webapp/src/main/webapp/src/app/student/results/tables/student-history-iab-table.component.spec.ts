@@ -11,6 +11,7 @@ import { InformationLabelComponent } from "../../../assessments/results/informat
 import { PopupMenuComponent } from "../../../assessments/menu/popup-menu.component";
 import { MockRouter } from "../../../../test/mock.router";
 import { Router, ActivatedRoute } from "@angular/router";
+import { GradeDisplayPipe } from "../../../shared/grade-display.pipe";
 
 describe('StudentHistoryIABTableComponent', () => {
   let component: StudentHistoryIABTableComponent;
@@ -31,6 +32,7 @@ describe('StudentHistoryIABTableComponent', () => {
         TranslateModule.forRoot()
       ],
       declarations: [
+        GradeDisplayPipe,
         InformationLabelComponent,
         StudentHistoryIABTableComponent,
         SchoolYearPipe,

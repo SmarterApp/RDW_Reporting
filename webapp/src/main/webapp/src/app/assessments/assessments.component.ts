@@ -7,10 +7,11 @@ import { AssessmentExam } from "./model/assessment-exam.model";
 import { ExamFilterOptions } from "./model/exam-filter-options.model";
 import { Assessment } from "./model/assessment.model";
 import { ExamFilterOptionsService } from "./filters/exam-filters/exam-filter-options.service";
-import { GradeService } from "../shared/grade.service";
 import { AssessmentItem } from "./model/assessment-item.model";
 import { byGradeThenByName } from "./assessment.comparator";
 import { AssessmentProvider } from "./assessment-provider.interface";
+import { GradeCode } from "../shared/enum/grade-code.enum";
+import { ColorService } from "../shared/color.service";
 
 /**
  * This component encompasses all the functionality for displaying and filtering
@@ -122,9 +123,9 @@ export class AssessmentsComponent implements OnInit {
   private _showOnlyMostRecent: boolean = true;
   private _assessmentExams: AssessmentExam[];
 
-  constructor(private route: ActivatedRoute,
-              private filterOptionService: ExamFilterOptionsService,
-              private gradeService: GradeService) {
+  constructor(public colorService: ColorService,
+              private route: ActivatedRoute,
+              private filterOptionService: ExamFilterOptionsService) {
     this.clientFilterBy = new FilterBy()
   }
 
@@ -134,6 +135,10 @@ export class AssessmentsComponent implements OnInit {
     });
 
     this.boundLoadAssessmentItems = this.loadAssessmentItems.bind(this);
+  }
+
+  getGradeIdx(gradeCode: string): number {
+    return GradeCode.getIndex(gradeCode);
   }
 
   removeEthnicity(ethnicity) {

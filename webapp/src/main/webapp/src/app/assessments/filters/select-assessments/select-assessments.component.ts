@@ -1,15 +1,15 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { Assessment } from "../../model/assessment.model";
-import { GradeService } from "../../../shared/grade.service";
-import { Grade } from "../../../shared/model/grade.model";
+import * as _ from "lodash";
+import { ColorService } from "../../../shared/color.service";
+import { GradeCode } from "../../../shared/enum/grade-code.enum";
 
 @Component({
   selector: 'select-assessments',
   templateUrl: './select-assessments.component.html'
 })
-export class SelectAssessmentsComponent implements OnInit {
+export class SelectAssessmentsComponent {
 
-  grades: Grade[] = [];
   assessmentsByGrade: any[] = [];
 
   @Input()
@@ -27,11 +27,11 @@ export class SelectAssessmentsComponent implements OnInit {
 
   private _assessments: Assessment[];
 
-  constructor(private gradeService: GradeService) {
+  constructor(public colorService: ColorService) {
   }
 
-  ngOnInit() {
-    this.grades = this.gradeService.getGrades();
+  getGradeIdx(gradeCode: string): number {
+    return GradeCode.getIndex(gradeCode);
   }
 
   toggleSelectedAssessment(assessment: Assessment){
@@ -42,10 +42,11 @@ export class SelectAssessmentsComponent implements OnInit {
   private groupAssessmentsByGrade() {
     let assessmentsByGrade = [];
 
-    for (let grade of this.grades) {
-      let assessments = grade.id == 9
-        ? this._assessments.filter(x => x.grade >= grade.id)
-        : this._assessments.filter(x => x.grade == grade.id);
+    let grades: string[] = _.uniq(this._assessments.map(assessment => assessment.grade))
+      .sort((a, b) => a.localeCompare(b));
+
+    for (let grade of grades) {
+      let assessments = this._assessments.filter(x => x.grade == grade);
 
       if (assessments.length > 0) {
         assessmentsByGrade.push({ grade: grade, assessments: assessments });

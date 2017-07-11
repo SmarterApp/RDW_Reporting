@@ -34,8 +34,7 @@
   </p-column>
   <p-column field="exam.enrolledGrade" header="{{'labels.student.results.cols.enrolled-grade' | translate}}" sortable="true">
     <ng-template let-exam="rowData.exam" pTemplate="body">
-      <!-- TODO once grade codes are returned, pipe through translation -->
-      {{ exam.enrolledGrade }}
+      {{ exam.enrolledGrade | gradeDisplay }}
     </ng-template>
   </p-column>
 

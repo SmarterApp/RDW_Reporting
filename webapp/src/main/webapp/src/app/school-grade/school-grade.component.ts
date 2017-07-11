@@ -28,8 +28,6 @@ export class SchoolGradeComponent implements OnInit {
         value: school
       };
     });
-
-
   }
 
   get availableSchools() {
