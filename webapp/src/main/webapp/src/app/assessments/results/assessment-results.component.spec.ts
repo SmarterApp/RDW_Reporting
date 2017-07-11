@@ -23,6 +23,7 @@ import { Student } from "../../student/model/student.model";
 import { PopupMenuComponent } from "../menu/popup-menu.component";
 import { GradeDisplayPipe } from "../../shared/grade-display.pipe";
 import { ColorService } from "../../shared/color.service";
+import { ItemExemplarComponent } from "../items/item-exemplar/item-exemplar.component";
 
 describe('AssessmentResultsComponent', () => {
   let component: AssessmentResultsComponent;
@@ -46,6 +47,7 @@ describe('AssessmentResultsComponent', () => {
         InformationLabelComponent,
         ItemTabComponent,
         ItemViewerComponent,
+        ItemExemplarComponent,
         PopupMenuComponent,
         RemoveCommaPipe,
         ScaleScoreComponent,

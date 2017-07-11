@@ -57,7 +57,7 @@ artifacts:
   #Root location of assessment files [s3://some-bucket/ | classpath: | etc]
   root: ${rdw.resource.root:"classpath:"}
   exam-item:
-    directory: local/items/Item-{0}/
+    directory: ${rdw.reporting.artifacts.exam.item.directory:local/items/Item-{0}/}
     file-name: item-{0}.xml
 
 application:

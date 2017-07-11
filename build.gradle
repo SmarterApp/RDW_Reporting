@@ -33,7 +33,7 @@ apply plugin: 'io.spring.dependency-management'
 // Set version dependencies. This allows the cli to force version, e.g. `-Pcommon=0.0.1-SNAPSHOT`
 
 String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "0.0.1-21"
-String rdwSchemaVersion = project.hasProperty("schema") ? project.property("schema") : "0.0.1-89"
+String rdwSchemaVersion = project.hasProperty("schema") ? project.property("schema") : "0.0.1-95"
 
 allprojects {
     group = 'org.opentestsystem.rdw.reporting'
@@ -183,6 +183,14 @@ subprojects {
         outputs.upToDateWhen { false }
         doLast {
             println "Running Integration Tests..."
+        }
+    }
+
+    //Specific integration test task that will automatically migrate the test database schemas
+    task moIT(type: Test, dependsOn:[":migrateReportingTest"]) {
+        outputs.upToDateWhen { false }
+        doFirst {
+            println "Running Integration Tests without cleaning database (flyway migrate only)..."
         }
     }
 

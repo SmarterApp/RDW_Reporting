@@ -3,6 +3,7 @@ import { ItemViewerComponent } from "./item-viewer.component";
 import { UserService } from "../../../user/user.service";
 import { User } from "../../../user/model/user.model";
 import { Observable } from "rxjs";
+import { CommonModule } from "../../../shared/common.module";
 
 describe('ItemViewerComponent', () => {
   let component: ItemViewerComponent;
@@ -10,6 +11,7 @@ describe('ItemViewerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ CommonModule ],
       declarations: [ ItemViewerComponent ],
       providers: [ { provide: UserService, useClass: MockUserService } ]
     })

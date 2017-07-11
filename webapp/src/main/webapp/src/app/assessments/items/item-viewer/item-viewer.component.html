@@ -1,7 +1,7 @@
 <div>
   <div *ngIf="irisIsLoading" class="loader">
     <div class="inner">
-      <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">Loading</span>
+      <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">{{ 'messages.loading' | translate }}</span>
     </div>
   </div>
   <iframe class="center" #irisframe [src]="safeIrisUrl" width="950" height="500" frameborder="0" ></iframe>
