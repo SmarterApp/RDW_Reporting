@@ -27,7 +27,9 @@
   <p-dataTable [value]="assessmentItems"
                emptyMessage="{{'messages.noExamsMatchingCriteria' | translate}}"
                sortField="assessmentItem.scores.0.position"
-               tableStyleClass="table table-striped table-hover">
+               tableStyleClass="table table-striped table-hover"
+               expandableRows="true">
+    <p-column expander="true" styleClass="col-icon"></p-column>
     <p-column field="assessmentItem.scores.0.position" header="{{'labels.groups.results.assessment.items.cols.number' | translate}}" sortable="true"></p-column>
     <p-column field="assessmentItem.claimTarget" header="{{'labels.groups.results.assessment.items.cols.claim' | translate}}" [sortable]="true">
       <ng-template let-item="rowData.assessmentItem" pTemplate="body">
@@ -55,6 +57,9 @@
         {{ correctness | number:'1.2-2' }}
       </ng-template>
     </p-column>
+    <ng-template let-item pTemplate="rowexpansion">
+      <item-tab [item]="item.assessmentItem" [showItemDetails]="assessment.isInterim"></item-tab>
+    </ng-template>
   </p-dataTable>
 </div>
 
