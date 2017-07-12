@@ -10,6 +10,7 @@ import { PopoverModule } from "ngx-bootstrap/popover";
 import { AssessmentsModule } from "../assessments/assessments.module";
 import { GroupAssessmentService } from "./results/group-assessment.service";
 import { GroupAssessmentsResolve } from "./results/group-assessments.resolve";
+import { Angulartics2Module } from 'angulartics2';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { GroupAssessmentsResolve } from "./results/group-assessments.resolve";
     FormsModule,
     DataTableModule,
     SharedModule,
-    PopoverModule
+    PopoverModule,
+    Angulartics2Module.forChild()
   ],
   exports: [ GroupsComponent ],
   providers: [ GroupAssessmentsResolve, GroupAssessmentService ]

@@ -1,15 +1,19 @@
 import { StudentResultsFilterComponent } from "./student-results-filter.component";
-import { ComponentFixture, async, TestBed } from "@angular/core/testing";
+import {ComponentFixture, async, TestBed, inject} from "@angular/core/testing";
 import { BrowserModule } from "@angular/platform-browser";
 import { SharedModule } from "primeng/components/common/shared";
 import { TranslateModule } from "@ngx-translate/core";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { AssessmentsModule } from "../../assessments/assessments.module";
 import { CommonModule } from "../../shared/common.module";
+import { Angulartics2Module, Angulartics2 } from 'angulartics2';
 
 describe('StudentResultsFilterComponent', () => {
   let component: StudentResultsFilterComponent;
   let fixture: ComponentFixture<StudentResultsFilterComponent>;
+
+  let mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', ['eventTrack']);
+  mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', ['next']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -20,12 +24,15 @@ describe('StudentResultsFilterComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         SharedModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
+        Angulartics2Module
       ],
       declarations: [
         StudentResultsFilterComponent
       ],
-      providers: []
+      providers: [
+        { provide: Angulartics2, useValue: mockAngulartics2 }
+      ]
     })
       .compileComponents();
   }));

@@ -2,12 +2,15 @@ import { RdwTranslateLoader } from "./rdw-translate-loader";
 import { Http, RequestOptionsArgs, RequestOptions, Response, ResponseOptions } from "@angular/http";
 import { Observable } from "rxjs";
 
-let apiMockData;
-let uiMockData;
+let apiObserver;
+let uiObserver;
+
+let uiResponse;
+let apiResponse;
 
 beforeEach(() =>{
-  apiMockData = { 'welcome.title': 'Hello from api', 'welcome.message': 'The api welcomes you!' };
-  uiMockData = {
+  let apiMockData = { 'welcome.title': 'Hello from api', 'welcome.message': 'The api welcomes you!' };
+  let uiMockData = {
     'welcome': {
       'title': 'Hello from UI',
       'message': 'The UI welcomes you!',
@@ -17,6 +20,15 @@ beforeEach(() =>{
       'combo-box': 'Select'
     }
   };
+
+  apiResponse = new Response(new ResponseOptions({
+    body: JSON.stringify(apiMockData)
+  }));
+
+  uiResponse = new Response(new ResponseOptions({
+    body: JSON.stringify(uiMockData)
+  }));
+
 });
 
 describe('RdwTranslateLoader', () => {
@@ -29,13 +41,21 @@ describe('RdwTranslateLoader', () => {
       expect(actual['welcome']['prompt']).toBe('You have been prompted from the UI!');
       expect(actual['labels']['combo-box']).toBe('Select');
     });
+
+    uiObserver.next(uiResponse);
+    uiObserver.complete();
+
+    apiObserver.next(apiResponse);
+    apiObserver.complete();
   })
 });
 
 describe('RdwTranslateLoader', () => {
   it('should fall back to ui translations when no api translations are available', () => {
     let fixture = new RdwTranslateLoader(new MockHttp());
-    apiMockData = {};
+    let response = new Response(new ResponseOptions({
+      body: JSON.stringify({})
+    }));
 
     fixture.getTranslation('en').subscribe(actual => {
 
@@ -44,6 +64,12 @@ describe('RdwTranslateLoader', () => {
       expect(actual['welcome']['prompt']).toBe('You have been prompted from the UI!');
       expect(actual['labels']['combo-box']).toBe('Select');
     });
+
+    apiObserver.next(response);
+    apiObserver.complete();
+
+    uiObserver.next(uiResponse);
+    uiObserver.complete();
   })
 });
 
@@ -53,19 +79,12 @@ class MockHttp extends Http {
   }
 
   get(url: string, options?: RequestOptionsArgs): Observable<any> {
-    let data;
+    let observable;
 
-    if (url.indexOf('.json') === -1) {
-      data = apiMockData;
-    }
-    else {
-      data = uiMockData;
-    }
+    observable = url.indexOf('.json') === -1
+      ? new Observable(observer => apiObserver = observer)
+      : new Observable(observer => uiObserver = observer);
 
-    let response = new Response(new ResponseOptions({
-      body: JSON.stringify(data)
-    }));
-
-    return Observable.of(response);
+    return observable;
   }
 }

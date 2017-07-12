@@ -71,3 +71,6 @@ app:
   iris:
     vendorId: ${rdw.reporting.iris.vendorId}
     url: ${rdw.reporting.iris.url}
+  # google analytics configuration
+  analytics:
+    trackingId: ${rdw.reporting.analytics.trackingId:}

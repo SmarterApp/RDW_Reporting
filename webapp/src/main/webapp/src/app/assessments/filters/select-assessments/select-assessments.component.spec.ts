@@ -5,6 +5,7 @@ import { HttpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "../../../shared/common.module";
 import { Assessment } from "../../model/assessment.model";
+import { Angulartics2Module } from 'angulartics2';
 
 describe('SelectAssessmentsComponent', () => {
   let component: SelectAssessmentsComponent;
@@ -13,7 +14,7 @@ describe('SelectAssessmentsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SelectAssessmentsComponent ],
-      imports: [ HttpModule, FormsModule, CommonModule ]
+      imports: [ HttpModule, FormsModule, CommonModule, Angulartics2Module ]
     })
     .compileComponents();
   }));

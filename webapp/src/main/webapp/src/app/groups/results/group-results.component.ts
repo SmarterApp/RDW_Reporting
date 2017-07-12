@@ -5,6 +5,7 @@ import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.m
 import { Assessment } from "../../assessments/model/assessment.model";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { GroupAssessmentService } from "./group-assessment.service";
+import { Angulartics2 } from 'angulartics2';
 
 @Component({
   selector: 'app-group-results',
@@ -45,6 +46,7 @@ export class GroupResultsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private filterOptionService: ExamFilterOptionsService,
+              private angulartics2: Angulartics2,
               public assessmentProvider: GroupAssessmentService) {
   }
 
@@ -68,9 +70,18 @@ export class GroupResultsComponent implements OnInit {
     }
   }
 
-  updateRoute() {
+  updateRoute(changeSource: string) {
     this.router.navigate([ 'groups', this._currentGroup.id, { schoolYear: this._currentSchoolYear, } ]).then(() => {
       this.updateAssessment(this.route.snapshot.data[ "assessment" ]);
+    });
+
+    // track change event since wiring select boxes on change as HTML attribute is not possible
+    this.angulartics2.eventTrack.next({
+      action: 'Change' + changeSource,
+      properties: {
+        category: 'AssessmentResults',
+        label: changeSource === 'Group' ? this._currentGroup.id : this._currentSchoolYear
+      }
     });
   }
 

@@ -19,7 +19,8 @@
       <span>{{subject}}</span>
     </span>
     <button class="btn btn-default btn-sm icon-only pull-right"
-            (click)="toggleCollapsed(assessmentType, subject)">
+            (click)="toggleCollapsed(assessmentType, subject)"
+            angulartics2On="click" angularticsEvent="ToggleCollapseResults" angularticsCategory="StudentHistory">
       <span class="sr-only">{{ 'buttons.collapsible.collapse' | translate }}</span>
       <i class="fa fa-bold {{ isCollapsed(assessmentType, subject) ? 'fa-angle-down' : 'fa-angle-up' }}"></i>
     </button>

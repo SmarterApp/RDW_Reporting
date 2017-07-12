@@ -10,6 +10,7 @@ import { SchoolAssessmentResolve } from "./results/school-assessments.resolve";
 import { AssessmentsModule } from "../assessments/assessments.module";
 import { SchoolAssessmentService } from "./results/school-assessment.service";
 import { CurrentSchoolResolve } from "./results/current-school.resolve";
+import { Angulartics2Module } from 'angulartics2';
 
 /**
  * This module contains a search component for finding assessments
@@ -27,7 +28,8 @@ import { CurrentSchoolResolve } from "./results/current-school.resolve";
     ReactiveFormsModule,
     AssessmentsModule,
     DropdownModule,
-    SharedModule
+    SharedModule,
+    Angulartics2Module.forChild()
   ],
   exports: [ SchoolGradeComponent, SchoolResultsComponent ],
   providers: [

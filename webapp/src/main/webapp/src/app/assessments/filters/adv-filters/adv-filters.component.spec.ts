@@ -7,16 +7,23 @@ import { Component } from "@angular/core";
 import { FilterBy } from "../../model/filter-by.model";
 import { CommonModule } from "../../../shared/common.module";
 import { ExamFilterOptions } from "../../model/exam-filter-options.model";
+import { Angulartics2Module, Angulartics2 } from 'angulartics2';
 
 describe('AdvFiltersComponent', () => {
   let component: AdvFiltersComponent;
   let fixture: ComponentFixture<TestComponentWrapper>;
 
+  let mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', ['eventTrack']);
+  mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', ['next']);
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TestComponentWrapper, AdvFiltersComponent ],
-      imports: [ HttpModule, FormsModule, CommonModule ],
-      providers: [ { provide: APP_BASE_HREF, useValue: '/' } ]
+      imports: [ HttpModule, FormsModule, CommonModule, Angulartics2Module ],
+      providers: [
+        { provide: APP_BASE_HREF, useValue: '/' },
+        { provide: Angulartics2, useValue: mockAngulartics2 }
+      ]
     })
       .compileComponents();
   }));

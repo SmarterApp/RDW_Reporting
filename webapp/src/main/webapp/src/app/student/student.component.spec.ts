@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ReactiveFormsModule, AbstractControl } from "@angular/forms";
 import { SharedModule } from "primeng/components/common/shared";
 import { StudentExamHistoryService } from "./student-exam-history.service";
+import { Angulartics2Module } from 'angulartics2';
 import { Observable } from "rxjs";
 import Spy = jasmine.Spy;
 import { Router } from "@angular/router";
@@ -26,7 +27,8 @@ describe('StudentComponent', () => {
         CommonModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
-        SharedModule
+        SharedModule,
+        Angulartics2Module
       ],
       declarations: [ StudentComponent ],
       providers: [

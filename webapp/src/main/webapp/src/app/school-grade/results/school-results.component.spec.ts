@@ -17,6 +17,8 @@ import { User } from "../../user/model/user.model";
 import { School } from "../../user/model/school.model";
 import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
+import { Angulartics2Module, Angulartics2 } from 'angulartics2';
+import { MockAngulartics2 } from "../../../test/mock.angulartics2";
 
 let availableGrades = [];
 
@@ -33,6 +35,9 @@ describe('SchoolResultsComponent', () => {
     let mockRouteParams = {};
     mockRouteParams["schoolId"] = 2;
 
+    let mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', ['eventTrack']);
+    mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', ['next']);
+
     availableGrades = [];
 
     TestBed.configureTestingModule({
@@ -43,7 +48,8 @@ describe('SchoolResultsComponent', () => {
         ReactiveFormsModule,
         AssessmentsModule,
         DropdownModule,
-        SharedModule
+        SharedModule,
+        Angulartics2Module
       ],
       declarations: [ SchoolResultsComponent ],
       providers: [
@@ -55,7 +61,8 @@ describe('SchoolResultsComponent', () => {
         { provide: SchoolService, useClass: MockSchoolService },
         { provide: ActivatedRoute, useValue: {
           snapshot: { data: mockRouteData, params: mockRouteParams }
-        }}
+        }},
+        { provide: Angulartics2, useValue: mockAngulartics2 }
       ]
     })
       .compileComponents();

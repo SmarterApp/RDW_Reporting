@@ -9,7 +9,8 @@
         <!-- Advanced Filters Toggle -->
           <label for="advanced" class="pull-right">{{'labels.groups.results.adv-filters.label' | translate}}</label>
           <button id="advanced" class="form-control btn btn-default pull-right"
-                  (click)="showAdvancedFilters = !showAdvancedFilters">
+                  (click)="showAdvancedFilters = !showAdvancedFilters"
+                  angulartics2On="click" angularticsEvent="ToggleAdvancedFilters" angularticsCategory="AssessmentResults">
             {{'buttons.visibility.' + (showAdvancedFilters ? 'hide' : 'show') | translate}}
             <i class="fa" [ngClass]="{'fa-chevron-up': showAdvancedFilters, 'fa-chevron-down': !showAdvancedFilters}"
                aria-hidden="true"></i>
@@ -37,24 +38,29 @@
       <i class="fa fa-list-alt"></i> {{'labels.groups.results.selected-assessments-title' | translate}}
       <div class="btn-group btn-group-xs pull-right" role="group">
         <button type="radio" (click)="showOnlyMostRecent = true" class="btn btn-default"
-                [ngClass]="{'active': showOnlyMostRecent}">{{'labels.groups.results.filter-type-recent' |
-          translate}}
+                [ngClass]="{'active': showOnlyMostRecent}"
+                angulartics2On="click" angularticsEvent="ShowOnlyMostRecent" angularticsCategory="AssessmentResults"
+        >{{'labels.groups.results.filter-type-recent' | translate}}
         </button>
         <button type="radio" (click)="showOnlyMostRecent = false" class="btn btn-default"
-                [ngClass]="{'active': !showOnlyMostRecent}">{{'labels.groups.results.filter-type-custom' | translate}}
+                [ngClass]="{'active': !showOnlyMostRecent}"
+                angulartics2On="click" angularticsEvent="ShowCustomAssessmentSelection" angularticsCategory="AssessmentResults"
+        >{{'labels.groups.results.filter-type-custom' | translate}}
         </button>
       </div>
     </h2>
     <p class="gray-darker" [hidden]="showOnlyMostRecent">{{'labels.groups.results.selected-assessments-instruct' | translate }}</p>
     <div class="flex-children">
       <a *ngFor="let assessment of selectedAssessments" (click)="removeAssessment(assessment)"
+         angulartics2On="click" angularticsEvent="RemoveAssessment" angularticsCategory="AssessmentResults" [angularticsProperties]="{label: assessment.name}"
          class="tag tag-xs {{ colorService.getColor(getGradeIdx(assessment.grade)) }}">
         <span class="label">{{assessment.grade | gradeDisplay}}</span>
         {{assessment.name}}
         <span class="icon" [hidden]="showOnlyMostRecent"><i class="fa fa-close"></i></span>
       </a>
       <div>
-        <a *ngIf ="!expandAssessments" class="btn btn-default btn-sm img-circle icon-only" (click)="expandAssessments=true">
+        <a *ngIf ="!expandAssessments" class="btn btn-default btn-sm img-circle icon-only" (click)="expandAssessments=true"
+           angulartics2On="click" angularticsEvent="ClickAssessmentPlus" angularticsCategory="AssessmentResults">
           <i class="fa fa-plus"></i>
         </a>
       </div>
@@ -63,7 +69,8 @@
   </div>
   <div id="group-results-edit-assessments" [hidden]="!expandAssessments" class="well gray-lighter">
     <div id="adv-filters-edit-assessments-collapse" class="pull-right">
-      <button class="form-control btn btn-sm" (click)="expandAssessments = false">
+      <button class="form-control btn btn-sm" (click)="expandAssessments = false"
+              angulartics2On="click" angularticsEvent="HideCustomSelectionView" angularticsCategory="AssessmentResults">
         <i class="fa fa-close" aria-hidden="true"></i>
       </button>
     </div>
@@ -79,9 +86,11 @@
     <label for="value-format">{{'labels.groups.results.value-as' | translate }} </label>
     <div id="value-format" class="btn-group btn-group-primary btn-group-xs mr-md" role="group">
       <button type="radio" (click)="showValuesAsPercent = true" [ngClass]="{'active':showValuesAsPercent}"
+              angulartics2On="click" angularticsEvent="ShowAsPercent" angularticsCategory="AssessmentResults"
               class="btn btn-default">{{'labels.groups.results.value-as-percent' | translate}}
       </button>
       <button type="radio" (click)="showValuesAsPercent = false" [ngClass]="{'active':!showValuesAsPercent}"
+              angulartics2On="click" angularticsEvent="ShowAsNumber" angularticsCategory="AssessmentResults"
               class="btn btn-default">{{'labels.groups.results.value-as-number' | translate}}
       </button>
     </div>

@@ -11,11 +11,12 @@ import { StudentResultsComponent } from "./student/results/student-results.compo
 import { StudentExamHistoryResolve } from "./student/results/student-exam-history.resolve";
 import { StudentResponsesResolve } from "./student/responses/student-responses.resolve";
 import { StudentResponsesComponent } from "./student/responses/student-responses.component";
+import { TranslateResolve } from "./home/translate.resolve";
 
 export const routes: Routes = [
   {
     path: '',
-    resolve: { user: UserResolve },
+    resolve: { user: UserResolve, translateComplete: TranslateResolve },
     children: [
       { path: '', pathMatch: 'full', component: HomeComponent },
       {

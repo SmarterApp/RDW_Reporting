@@ -14,6 +14,7 @@ import { ExamFilterOptions } from "./model/exam-filter-options.model";
 import { Component } from "@angular/core";
 import { CommonModule } from "../shared/common.module";
 import { AssessmentsModule } from "./assessments.module";
+import { Angulartics2Module, Angulartics2 } from 'angulartics2';
 
 let examObserver: Observer<Exam[]>;
 describe('AssessmentsComponent', () => {
@@ -21,11 +22,14 @@ describe('AssessmentsComponent', () => {
   let fixture;
   let mockRouteSnapshot;
 
+  let mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', ['eventTrack']);
+  mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', ['next']);
+
   beforeEach(async(() => {
 
     mockRouteSnapshot = getRouteSnapshot();
     TestBed.configureTestingModule({
-      imports: [ HttpModule, FormsModule, CommonModule, AssessmentsModule ],
+      imports: [ HttpModule, FormsModule, CommonModule, AssessmentsModule, Angulartics2Module ],
       declarations: [TestComponentWrapper],
       providers: [ { provide: APP_BASE_HREF, useValue: '/' }, {
         provide: ActivatedRoute,
@@ -36,7 +40,10 @@ describe('AssessmentsComponent', () => {
       }, {
         provide: GroupAssessmentService,
         useClass: MockAssessmentService
-      } ]
+      }, {
+        provide: Angulartics2,
+        useValue: mockAngulartics2
+      }]
     }).compileComponents();
 
   }));

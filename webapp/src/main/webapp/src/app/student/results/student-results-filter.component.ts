@@ -1,5 +1,6 @@
 import { OnInit, Component, Input, EventEmitter, Output } from "@angular/core";
 import { StudentResultsFilterState } from "./model/student-results-filter-state.model";
+import { Angulartics2 } from 'angulartics2';
 
 @Component({
   selector: 'student-results-filter',
@@ -28,18 +29,27 @@ export class StudentResultsFilterComponent implements OnInit {
 
   private _showAdvancedFilters: boolean;
 
-  constructor() {
+  constructor(private angulartics2: Angulartics2) {
   }
 
   ngOnInit(): void {
-    this.filterState.filterBy.onChanges.subscribe(() => this.onFilterChange());
+    this.filterState.filterBy.onChanges.subscribe(() => this.onFilterChange(''));
   }
 
   /**
    * When a filter value is changed, emit a notification event.
    */
-  public onFilterChange(): void {
+  public onFilterChange(changeSource: string): void {
     this.filterChange.emit();
+
+    // track change event since wiring select boxes on change as HTML attribute is not possible
+    this.angulartics2.eventTrack.next({
+      action: 'Change' + changeSource,
+      properties: {
+        category: 'StudentHistoryAdvancedFilters',
+        label: changeSource === 'Subject' ? this.filterState.subject : this.filterState.schoolYear
+      }
+    });
   }
 
   public removeFilter(property: string) {

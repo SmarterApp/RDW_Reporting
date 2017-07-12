@@ -9,7 +9,7 @@
           <select id="select-year"
                   name="select-year"
                   [(ngModel)]="filterState.schoolYear"
-                  (change)="onFilterChange()"
+                  (change)="onFilterChange('Year')"
                   class="form-control">
             <option selected value="0">{{ 'buttons.all' | translate }}</option>
             <option *ngFor="let year of filterState.years" [ngValue]="year">{{year | schoolYear}}</option>
@@ -22,7 +22,7 @@
           <select id="select-subject"
                   name="select-subject"
                   [(ngModel)]="filterState.subject"
-                  (change)="onFilterChange()"
+                  (change)="onFilterChange('Subject')"
                   class="form-control">
             <option selected value="">{{ 'buttons.all' | translate }}</option>
             <option *ngFor="let subject of filterState.subjects" [ngValue]="subject">{{subject}}</option>
@@ -34,7 +34,8 @@
           <label for="show-advanced-filters">{{'labels.groups.results.adv-filters.label' | translate}}</label>
           <button id="show-advanced-filters"
                   class="form-control btn btn-default ml-auto"
-                  (click)="showAdvancedFilters = !showAdvancedFilters">
+                  (click)="showAdvancedFilters = !showAdvancedFilters"
+                  angulartics2On="click" angularticsEvent="ToggleAdvancedFilters" angularticsCategory="StudentHistoryAdvancedFilters">
             {{'buttons.visibility.' + (showAdvancedFilters ? 'hide' : 'show') | translate}}
             <i class="fa"
                [ngClass]="{'fa-chevron-up': showAdvancedFilters, 'fa-chevron-down': !showAdvancedFilters}"

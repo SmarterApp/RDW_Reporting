@@ -14,11 +14,15 @@ import { Utils } from "./Utils";
   template: `
     <div class="nested-btn-group btn-group-sm toggle-group vertical" data-toggle="buttons">
       <label class="btn btn-primary" [ngClass]="{'active': modelValue[0] }">
-        <input type="checkbox" [(ngModel)]="modelValue[0]" (ngModelChange)="allChange($event)" autocomplete="off" checked=""> {{ 'buttons.all' | translate }}
+        <input type="checkbox" [(ngModel)]="modelValue[0]" (ngModelChange)="allChange($event)" autocomplete="off" checked=""
+              angulartics2On="click" [angularticsEvent]="analyticsEvent" 
+              [angularticsCategory]="analyticsCategory" [angularticsProperties]="{label: label + ': All'}"> {{ 'buttons.all' | translate }}
       </label>
       <div class="btn-group">
         <label *ngFor="let value of values;" class="btn btn-primary" [ngClass]="{'active': modelValue[value] }">
-          <input type="checkbox" [(ngModel)]="modelValue[value]" (ngModelChange)="valueChange($event)"  autocomplete="off"> {{ enum + '.' + value | translate }}
+          <input type="checkbox" [(ngModel)]="modelValue[value]" (ngModelChange)="valueChange($event)"  autocomplete="off"
+                angulartics2On="click" [angularticsEvent]="analyticsEvent" 
+                [angularticsCategory]="analyticsCategory" [angularticsProperties]="{label: label + ': ' + enum + '.' + value}"> {{ enum + '.' + value | translate }}
         </label>
       </div>
     </div>
@@ -40,6 +44,18 @@ export class SBCheckboxList implements OnInit {
   // The model to bind to which contains the property.  (Allows us to pass by reference)
   @Input()
   public model: any;
+
+  // The analytics event to send when clicked
+  @Input()
+  public analyticsEvent: string;
+
+  // The analytics category to use
+  @Input()
+  public analyticsCategory: string;
+
+  // The label for this button list
+  @Input()
+  public label: string;
 
   private _name: string;
 

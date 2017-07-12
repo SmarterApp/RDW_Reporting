@@ -1,3 +1,4 @@
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 import { Component } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { UserService } from "./user/user.service";
@@ -14,7 +15,11 @@ export class AppComponent {
     return this._user;
   }
 
-  constructor(public translate: TranslateService, private _userService: UserService) {
+  /*
+  Even though the angulartics2GoogleAnalytics variable is not explicitly used, without it analytics data is not sent to the service
+   */
+  constructor(public translate: TranslateService, private _userService: UserService,
+              private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
 
     let languages = [ 'en', 'ja' ];
     let defaultLanguage = languages[ 0 ];
@@ -25,11 +30,16 @@ export class AppComponent {
   }
 
   ngOnInit() {
+
     this._userService.getCurrentUser().subscribe(user => {
       this._user = {
         firstName: user.firstName,
         lastName: user.lastName
       };
+
+      if (window['ga'] && user.configuration && user.configuration.analyticsTrackingId) {
+        window['ga']('create', user.configuration.analyticsTrackingId, 'auto');
+      }
     });
   }
 }

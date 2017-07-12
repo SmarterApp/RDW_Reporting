@@ -128,7 +128,11 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   get isIca(): boolean {
-    return this._assessmentExam.assessment.isIca
+    return this._assessmentExam.assessment.isIca;
+  }
+
+  get showClaimToggle(): boolean {
+    return this._assessmentExam.assessment.isIca || this._assessmentExam.assessment.isSummative;
   }
 
   get claimCodes(): string[] {
@@ -196,6 +200,8 @@ export class AssessmentResultsComponent implements OnInit {
 
         this.examCalculator.aggregateItemsByPoints(this.filteredAssessmentItems);
         this.showItemsByPoints = true;
+
+
       });
     }
     else{

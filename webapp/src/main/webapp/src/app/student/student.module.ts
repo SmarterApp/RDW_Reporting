@@ -14,6 +14,7 @@ import { DataTableModule } from "primeng/components/datatable/datatable";
 import { StudentHistoryIABTableComponent } from "./results/tables/student-history-iab-table.component";
 import { StudentHistoryICASummitiveTableComponent } from "./results/tables/student-history-ica-summitive-table.component";
 import { PopoverModule } from "ngx-bootstrap";
+import { Angulartics2Module } from 'angulartics2';
 import { StudentResponsesComponent } from "./responses/student-responses.component";
 import { StudentResponsesService } from "./responses/student-responses.service";
 import { StudentResponsesResolve } from "./responses/student-responses.resolve";
@@ -36,7 +37,8 @@ import { StudentResponsesResolve } from "./responses/student-responses.resolve";
     FormsModule,
     PopoverModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    Angulartics2Module.forChild()
   ],
   exports: [
     StudentComponent,

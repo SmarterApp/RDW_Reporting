@@ -1,7 +1,8 @@
 <h2 class="h3 gray-darkest">
   <i class="fa fa-check-square"></i> {{'labels.groups.results.adv-filters.label' | translate }}
   <button id="adv-filters-expand-collapse" class="btn btn-default btn-sm pull-right"
-          (click)="displayOptions.expanded = !displayOptions.expanded">
+          (click)="displayOptions.expanded = !displayOptions.expanded"
+          angulartics2On="click" angularticsEvent="ToggleExpandCollapse" angularticsCategory="AdvancedFilters">
     {{'buttons.collapsible.' + (displayOptions.expanded ? 'collapse' : 'expand') | translate }}
     <i class="fa" [ngClass]="{'fa-chevron-up': displayOptions.expanded, 'fa-chevron-down': !displayOptions.expanded}"
        aria-hidden="true"></i>
@@ -11,7 +12,8 @@
 <!-- Selected Filters -->
 <div id="adv-filters-selected" class="flex-children">
   <div *ngFor="let property of filterBy.all">
-    <a class="tag tag-xs aqua reverse" (click)="removed.emit(property)">
+    <a class="tag tag-xs aqua reverse" (click)="removed.emit(property)"
+       angulartics2On="click" angularticsEvent="RemoveFilter" angularticsCategory="AdvancedFilters">
             <span *ngIf="property.indexOf('ethnicities') == -1">
               <strong>{{ filters[property].enumValue + '.' + filterBy[property] | translate}}</strong> {{ filters[property].label | translate }}
             </span>

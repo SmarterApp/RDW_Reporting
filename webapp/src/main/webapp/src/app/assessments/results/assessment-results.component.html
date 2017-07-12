@@ -4,8 +4,11 @@
     <div class="mb-lg">
         <!-- Top Right Buttons -->
         <div class="pull-right text-right">
-            <a class="btn btn-default btn-xs"><i class="fa fa-list-alt"></i> {{'labels.groups.results.assessment.instruct' | translate }}</a>
-            <button class="btn btn-default btn-sm icon-only" (click)="collapsed = !collapsed">
+            <a class="btn btn-default btn-xs"
+               angulartics2On="click" angularticsEvent="InstructionalResource" angularticsCategory="AssessmentResults" [angularticsProperties]="{label: assessmentExam.assessment.name}">
+              <i class="fa fa-list-alt"></i> {{'labels.groups.results.assessment.instruct' | translate }}</a>
+            <button class="btn btn-default btn-sm icon-only" (click)="collapsed = !collapsed"
+                    angulartics2On="click" angularticsEvent="ToggleCollapseResults" angularticsCategory="AssessmentResults">
                 <i class="fa font-bold" [ngClass]="{'fa-angle-down':collapsed, 'fa-angle-up':!collapsed}"></i> <span class="sr-only">{{'prompt.collapse' | translate}}</span>
             </button>
         </div>
@@ -22,7 +25,8 @@
             <p><strong>{{'labels.groups.results.assessment.sessions-title' | translate}}</strong><br />
             {{'labels.groups.results.assessment.sessions-instruct' | translate}}</p>
             <div class="flex-children">
-                <a *ngFor="let session of sessions" class="tag aqua reverse multi-line" [ngClass]="{'gray-dark':!session.filter}" (click)="toggleSession(session)">
+                <a *ngFor="let session of sessions" class="tag aqua reverse multi-line" [ngClass]="{'gray-dark':!session.filter}" (click)="toggleSession(session)"
+                   angulartics2On="click" angularticsEvent="ToggleSession" angularticsCategory="AssessmentResults">
                     <span class="block-children text-left">
                         <strong>{{session.date | date }}</strong>
                         <small>{{session.id || 'labels.groups.results.session-unknown' | translate }}</small>
@@ -76,17 +80,24 @@
         <h3 class="gray-darkest mb-md">
           {{'labels.groups.results.assessment.exams.title' | translate}}
 
-          <a *ngIf="assessmentExam.assessment.isInterim" class="btn btn-default btn-xs pull-right" (click)="viewItemsByPoints(true)">
+          <a *ngIf="assessmentExam.assessment.isInterim" class="btn btn-default btn-xs pull-right" (click)="viewItemsByPoints(true)"
+             angulartics2On="click" angularticsEvent="ViewItemsByPointsEarned" angularticsCategory="AssessmentResults">
             {{'labels.groups.results.assessment.button-items' | translate}} <i class="fa fa-chevron-right"></i>
           </a>
 
-          <div *ngIf="isIca" class="btn-group btn-group-xs toggle-group pull-right mr-md" data-toggle="buttons">
-            <label class="btn btn-primary" [ngClass]="{'active': !isClaimScoreSelected}">
-              <input type="radio" name="scores-display-toggle" autocomplete="off" (click)="setOverallScoreSelected()"> {{'buttons.display-overall' | translate}}
-            </label>
-            <label class="btn btn-primary" [ngClass]="{'active': isClaimScoreSelected}">
-              <input type="radio" name="scores-display-toggle" autocomplete="off" (click)="setClaimScoreSelected()"> {{'buttons.display-claim' | translate}}
-            </label>
+          <div *ngIf="showClaimToggle" class="btn-group btn-group-xs pull-right mr-md" role="group">
+            <button (click)="setOverallScoreSelected()"
+                    class="btn btn-default"
+                    angulartics2On="click" angularticsEvent="ViewOverallScores" angularticsCategory="AssessmentResults"
+                    [ngClass]="{'active': !isClaimScoreSelected}">
+              {{'buttons.display-overall' | translate}}
+            </button>
+            <button (click)="setClaimScoreSelected()"
+                    class="btn btn-default"
+                    angulartics2On="click" angularticsEvent="ViewClaimScores" angularticsCategory="AssessmentResults"
+                    [ngClass]="{'active': isClaimScoreSelected}">
+              {{'buttons.display-claim' | translate}}
+            </button>
           </div>
         </h3>
 

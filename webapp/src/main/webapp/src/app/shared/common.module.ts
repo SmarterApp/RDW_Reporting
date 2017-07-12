@@ -17,10 +17,7 @@ import { GradeDisplayPipe } from "./grade-display.pipe";
 import { RdwTranslateLoader } from "./rdw-translate-loader";
 import { AssessmentTypePipe } from "./assessment-type.pipe";
 import { ColorService } from "./color.service";
-
-export function createTranslateLoader(http: Http) {
-  return new RdwTranslateLoader(http);
-}
+import { Angulartics2Module } from 'angulartics2';
 
 @NgModule({
   declarations: [
@@ -41,10 +38,10 @@ export function createTranslateLoader(http: Http) {
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [ Http ]
+        useClass: RdwTranslateLoader
       }
-    })
+    }),
+    Angulartics2Module.forChild()
   ],
   exports: [
     AssessmentTypePipe,
@@ -62,7 +59,8 @@ export function createTranslateLoader(http: Http) {
   providers: [
     DataService,
     CachingDataService,
-    ColorService
+    ColorService,
+    RdwTranslateLoader
   ]
 })
 export class CommonModule {

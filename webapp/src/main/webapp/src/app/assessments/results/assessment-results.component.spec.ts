@@ -23,11 +23,15 @@ import { Student } from "../../student/model/student.model";
 import { PopupMenuComponent } from "../menu/popup-menu.component";
 import { GradeDisplayPipe } from "../../shared/grade-display.pipe";
 import { ColorService } from "../../shared/color.service";
+import { Angulartics2Module, Angulartics2 } from 'angulartics2';
 import { ItemExemplarComponent } from "../items/item-exemplar/item-exemplar.component";
 
 describe('AssessmentResultsComponent', () => {
   let component: AssessmentResultsComponent;
   let fixture: ComponentFixture<TestComponentWrapper>;
+
+  let mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', ['eventTrack']);
+  mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', ['next']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -39,7 +43,8 @@ describe('AssessmentResultsComponent', () => {
         PopoverModule.forRoot(),
         SharedModule,
         TabsModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
+        Angulartics2Module
       ],
       declarations: [
         AssessmentResultsComponent,
@@ -54,6 +59,7 @@ describe('AssessmentResultsComponent', () => {
         TestComponentWrapper
       ],
       providers: [ { provide: APP_BASE_HREF, useValue: '/' } ,
+        { provide: Angulartics2, useValue: mockAngulartics2 },
         ExamStatisticsCalculator,
         ExamFilterService,
         ColorService

@@ -2,11 +2,13 @@
 <div class="btn-group btn-group-xs pull-right" role="group">
   <button (click)="displayState.table = 'overall'"
           class="btn btn-default"
+          angulartics2On="click" angularticsEvent="ViewOverallScores" angularticsCategory="StudentHistory"
           [ngClass]="{'active': displayState.table === 'overall'}">
     {{'buttons.display-overall' | translate}}
   </button>
   <button (click)="displayState.table = 'claim'"
           class="btn btn-default"
+          angulartics2On="click" angularticsEvent="ViewClaimScores" angularticsCategory="StudentHistory"
           [ngClass]="{'active': displayState.table === 'claim'}">
     {{'buttons.display-claim' | translate}}
   </button>

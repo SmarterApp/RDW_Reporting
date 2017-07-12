@@ -8,14 +8,14 @@
   <div class="col-md-3">
     <label for="select-group">{{'labels.groups.results.select-group' | translate}}</label>
     <!--TODO: type ahead? -->
-    <select id="select-group" [(ngModel)]="currentGroup" (change)="updateRoute()" class="form-control">
+    <select id="select-group" [(ngModel)]="currentGroup" (change)="updateRoute('Group')" class="form-control">
       <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
     </select>
   </div>
   <!-- School Year -->
   <div class="col-md-3">
     <label for="school-year">{{'labels.select-year' | translate}}</label>
-    <select id="school-year" [(ngModel)]="currentSchoolYear" (change)="updateRoute()"
+    <select id="school-year" [(ngModel)]="currentSchoolYear" (change)="updateRoute('Year')"
             class="form-control">
       <option *ngFor="let year of filterOptions.schoolYears" [ngValue]="year">{{year | schoolYear}}</option>
     </select>

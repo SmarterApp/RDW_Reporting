@@ -12,6 +12,7 @@
           <a *ngFor="let assessment of byGrade.assessments"
              (click)="toggleSelectedAssessment(assessment)"
              class="tag tag-xs {{colorService.getColor(getGradeIdx(byGrade.grade))}}"
+             angulartics2On="click" angularticsEvent="AddAssessment" angularticsCategory="AssessmentResults" [angularticsProperties]="{label: assessment.name}"
              [ngClass]="{'active': assessment.selected }">{{assessment.name}}</a>
         </div>
       </div>
