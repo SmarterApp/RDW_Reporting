@@ -62,7 +62,7 @@ insert into depth_of_knowledge (id, level, subject_id, description, reference) v
 insert into item (id, natural_id, claim_id, claim_code, target_id, target_code, asmt_id, math_practice, dok_id, difficulty_code, max_points, common_core_standard_ids) values
   (-1, '200-3391', -1, 'c1', -1, 't1', -1, -1, -1, 'E', 3, 'S-ID.1'),
   (-2, '200-3392', -1, 'c1', -2, 't2', -1, -1, -1, 'D', 4, 'S-ID.3'),
-  (-3, '200-3393', -1, 'c1', -3, 't3', -1, -1, -1, 'M', 5, 'S-ID.4');
+  (-3, '200-3393', -1, 'c1', -3, 't3', -1, -1, -1, 'M', 5, 'S-ID.4|S-ID.7');
 
 insert into exam_item (id, exam_id, item_id, score, position) values
   (-1, -1, -1, 0, 1),

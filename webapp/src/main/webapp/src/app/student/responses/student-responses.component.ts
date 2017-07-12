@@ -33,8 +33,12 @@ export class StudentResponsesComponent implements OnInit {
     this.assessment = this.route.snapshot.data[ "assessment" ];
   }
 
-  getGradeIdx(grade: string): number {
+  getGradeIndex(grade: string): number {
     return GradeCode.getIndex(grade);
+  }
+
+  standardsSort(event): void {
+    console.log(event);
   }
 
   private mapAssessmentItem(item: AssessmentItem): StudentResponsesAssessmentItem {
