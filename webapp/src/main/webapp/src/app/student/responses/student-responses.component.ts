@@ -37,10 +37,6 @@ export class StudentResponsesComponent implements OnInit {
     return GradeCode.getIndex(grade);
   }
 
-  standardsSort(event): void {
-    console.log(event);
-  }
-
   private mapAssessmentItem(item: AssessmentItem): StudentResponsesAssessmentItem {
     let responseItem = new StudentResponsesAssessmentItem();
     responseItem.assessmentItem = item;
