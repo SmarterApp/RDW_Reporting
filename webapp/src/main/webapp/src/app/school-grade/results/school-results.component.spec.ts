@@ -5,7 +5,7 @@ import { SharedModule } from "primeng/components/common/shared";
 import { BrowserModule } from "@angular/platform-browser";
 import { Observable } from "rxjs";
 import { RequestOptionsArgs } from "@angular/http";
-import { RouterModule, ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { APP_BASE_HREF } from "@angular/common";
 import { SchoolResultsComponent } from "./school-results.component";
 import { AssessmentsModule } from "../../assessments/assessments.module";
@@ -17,8 +17,7 @@ import { User } from "../../user/model/user.model";
 import { School } from "../../user/model/school.model";
 import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
-import { Angulartics2Module, Angulartics2 } from 'angulartics2';
-import { MockAngulartics2 } from "../../../test/mock.angulartics2";
+import { Angulartics2Module, Angulartics2 } from "angulartics2";
 
 let availableGrades = [];
 
