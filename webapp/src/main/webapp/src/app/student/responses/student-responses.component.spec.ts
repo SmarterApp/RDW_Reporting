@@ -1,11 +1,7 @@
-
 import { StudentResponsesComponent } from "./student-responses.component";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { AssessmentsModule } from "../../assessments/assessments.module";
 import { ActivatedRoute } from "@angular/router";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
-import createSpy = jasmine.createSpy;
-import Spy = jasmine.Spy;
 import { TranslateModule } from "@ngx-translate/core";
 import { AssessmentTypePipe } from "../../shared/assessment-type.pipe";
 import { GradeDisplayPipe } from "../../shared/grade-display.pipe";
@@ -14,8 +10,10 @@ import { AssessmentItem } from "../../assessments/model/assessment-item.model";
 import { Exam } from "../../assessments/model/exam.model";
 import { Assessment } from "../../assessments/model/assessment.model";
 import { ExamItemScore } from "../../assessments/model/exam-item-score.model";
+import createSpy = jasmine.createSpy;
+import Spy = jasmine.Spy;
 
-fdescribe('StudentResponsesComponent', () => {
+describe('StudentResponsesComponent', () => {
   let component: StudentResponsesComponent;
   let fixture: ComponentFixture<StudentResponsesComponent>;
   let route: MockActivatedRoute;
