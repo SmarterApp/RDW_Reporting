@@ -17,80 +17,82 @@
 <div class="mb-sm clearfix"></div>
 
 <!-- Data Table -->
-<p-dataTable [value]="exams"
-             emptyMessage="{{'messages.noExamsMatchingCriteria' | translate}}"
-             sortField="exam.schoolYear"
-             sortOrder="-1"
-             tableStyleClass="table table-striped table-hover">
-  <p-column field="exam.schoolYear" header="{{'labels.student.results.cols.school-year' | translate}}" sortable="true">
-    <ng-template let-exam="rowData.exam" pTemplate="body">
-      {{ exam.schoolYear | schoolYear }}
-    </ng-template>
-  </p-column>
-  <p-column field="school.name" header="{{'labels.student.results.cols.school' | translate }}" sortable="true"></p-column>
-  <p-column field="assessment.name" header="{{'labels.student.results.cols.assessment' | translate}}" sortable="true"></p-column>
-  <p-column field="exam.date" header="{{'labels.student.results.cols.date' | translate}}" sortable="true">
-    <ng-template let-exam="rowData.exam" pTemplate="body">
-      {{ exam.date | date }}
-    </ng-template>
-  </p-column>
-  <p-column field="exam.enrolledGrade" header="{{'labels.student.results.cols.enrolled-grade' | translate}}" sortable="true">
-    <ng-template let-exam="rowData.exam" pTemplate="body">
-      {{ exam.enrolledGrade | gradeDisplay }}
-    </ng-template>
-  </p-column>
+<div class="table-responsive">
+  <p-dataTable [value]="exams"
+               emptyMessage="{{'messages.noExamsMatchingCriteria' | translate}}"
+               sortField="exam.schoolYear"
+               sortOrder="-1"
+               tableStyleClass="table table-striped table-hover">
+    <p-column field="exam.schoolYear" header="{{'labels.student.results.cols.school-year' | translate}}" sortable="true">
+      <ng-template let-exam="rowData.exam" pTemplate="body">
+        {{ exam.schoolYear | schoolYear }}
+      </ng-template>
+    </p-column>
+    <p-column field="school.name" header="{{'labels.student.results.cols.school' | translate }}" sortable="true"></p-column>
+    <p-column field="assessment.name" header="{{'labels.student.results.cols.assessment' | translate}}" sortable="true"></p-column>
+    <p-column field="exam.date" header="{{'labels.student.results.cols.date' | translate}}" sortable="true">
+      <ng-template let-exam="rowData.exam" pTemplate="body">
+        {{ exam.date | date }}
+      </ng-template>
+    </p-column>
+    <p-column field="exam.enrolledGrade" header="{{'labels.student.results.cols.enrolled-grade' | translate}}" sortable="true">
+      <ng-template let-exam="rowData.exam" pTemplate="body">
+        {{ exam.enrolledGrade | gradeDisplay }}
+      </ng-template>
+    </p-column>
 
-  <!-- Overall Score columns -->
-  <p-column field="exam.administrativeCondition"
-            sortable="true"
-            [hidden]="displayState.table !== 'overall'">
-    <ng-template pTemplate="header">
-      <span info-label title="{{'labels.groups.results.assessment.exams.cols.status' | translate}}"
-                  content="{{'labels.groups.results.assessment.exams.cols.status-info' | translate}}"></span>
-    </ng-template>
-    <ng-template let-exam="rowData.exam" pTemplate="body">
-      <span *ngIf="exam.administrativeCondition !== 'Valid'" class="label border-only maroon">{{ 'enum.administrative-condition.' + exam.administrativeCondition | translate }}</span>
-      <span *ngIf="exam.completeness == 'Partial'" class="label border-only maroon">{{ 'enum.completeness.Partial' | translate }}</span>
-    </ng-template>
-  </p-column>
-  <p-column field="exam.level"
-            sortable="true"
-            [hidden]="displayState.table !== 'overall'">
-    <ng-template pTemplate="header">
-      <span info-label title="{{'labels.groups.results.assessment.exams.cols.ica.performance' | translate}}"
-                  content="{{'labels.groups.results.assessment.exams.cols.ica.performance-info' | translate}}"></span>
-    </ng-template>
-    <ng-template let-exam="rowData.exam" pTemplate="body">
-      {{ 'enum.achievement-level.' + exam.level.toString() | translate }}
-    </ng-template>
-  </p-column>
-  <p-column field="exam.score"
-            sortable="true"
-            [hidden]="displayState.table !== 'overall'">
-    <ng-template pTemplate="header">
-      <span info-label title="{{'labels.groups.results.assessment.exams.cols.score' | translate}}"
-                  content="{{'labels.groups.results.assessment.exams.cols.score-info' | translate}}"></span>
-    </ng-template>
-    <ng-template let-exam="rowData.exam" pTemplate="body">
-      <scale-score [score]="exam.score" [standardError]="exam.standardError"></scale-score>
-    </ng-template>
-  </p-column>
+    <!-- Overall Score columns -->
+    <p-column field="exam.administrativeCondition"
+              sortable="true"
+              [hidden]="displayState.table !== 'overall'">
+      <ng-template pTemplate="header">
+        <span info-label title="{{'labels.groups.results.assessment.exams.cols.status' | translate}}"
+                    content="{{'labels.groups.results.assessment.exams.cols.status-info' | translate}}"></span>
+      </ng-template>
+      <ng-template let-exam="rowData.exam" pTemplate="body">
+        <span *ngIf="exam.administrativeCondition !== 'Valid'" class="label border-only maroon">{{ 'enum.administrative-condition.' + exam.administrativeCondition | translate }}</span>
+        <span *ngIf="exam.completeness == 'Partial'" class="label border-only maroon">{{ 'enum.completeness.Partial' | translate }}</span>
+      </ng-template>
+    </p-column>
+    <p-column field="exam.level"
+              sortable="true"
+              [hidden]="displayState.table !== 'overall'">
+      <ng-template pTemplate="header">
+        <span info-label title="{{'labels.groups.results.assessment.exams.cols.ica.performance' | translate}}"
+                    content="{{'labels.groups.results.assessment.exams.cols.ica.performance-info' | translate}}"></span>
+      </ng-template>
+      <ng-template let-exam="rowData.exam" pTemplate="body">
+        {{ 'enum.achievement-level.' + exam.level.toString() | translate }}
+      </ng-template>
+    </p-column>
+    <p-column field="exam.score"
+              sortable="true"
+              [hidden]="displayState.table !== 'overall'">
+      <ng-template pTemplate="header">
+        <span info-label title="{{'labels.groups.results.assessment.exams.cols.score' | translate}}"
+                    content="{{'labels.groups.results.assessment.exams.cols.score-info' | translate}}"></span>
+      </ng-template>
+      <ng-template let-exam="rowData.exam" pTemplate="body">
+        <scale-score [score]="exam.score" [standardError]="exam.standardError"></scale-score>
+      </ng-template>
+    </p-column>
 
-  <!-- Claim Score columns -->
-  <p-column *ngFor="let claim of getClaims(); let idx = index"
-            header="{{'enum.claim-code.' + claim | translate}}"
-            field="{{'exam.claimScores.' + idx + '.level'}}"
-            sortable="true"
-            [hidden]="displayState.table !== 'claim'">
-    <ng-template let-exam="rowData.exam" pTemplate="body">
-      {{ 'enum.iab-category.' + exam.claimScores[idx].level.toString() | translate }}
-    </ng-template>
-  </p-column>
+    <!-- Claim Score columns -->
+    <p-column *ngFor="let claim of getClaims(); let idx = index"
+              header="{{'enum.claim-code.' + claim | translate}}"
+              field="{{'exam.claimScores.' + idx + '.level'}}"
+              sortable="true"
+              [hidden]="displayState.table !== 'claim'">
+      <ng-template let-exam="rowData.exam" pTemplate="body">
+        {{ 'enum.iab-category.' + exam.claimScores[idx].level.toString() | translate }}
+      </ng-template>
+    </p-column>
 
-  <!-- Menu column -->
-  <p-column styleClass="cell-dropdown">
-    <ng-template let-data="rowData" pTemplate="body">
-      <popup-menu [item]="data" [actions]="actions"></popup-menu>
-    </ng-template>
-  </p-column>
-</p-dataTable>
+    <!-- Menu column -->
+    <p-column styleClass="cell-dropdown">
+      <ng-template let-data="rowData" pTemplate="body">
+        <popup-menu [item]="data" [actions]="actions"></popup-menu>
+      </ng-template>
+    </p-column>
+  </p-dataTable>
+</div>
