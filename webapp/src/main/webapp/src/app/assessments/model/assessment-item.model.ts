@@ -7,6 +7,7 @@ export class AssessmentItem {
   claim: string;
   target: string;
   difficulty: string;
+  commonCoreStandardIds: string;
   maxPoints: number;
   scores: ExamItemScore[] = [];
 

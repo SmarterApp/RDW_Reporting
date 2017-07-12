@@ -18,6 +18,8 @@ import { Angulartics2Module } from 'angulartics2';
 import { StudentResponsesComponent } from "./responses/student-responses.component";
 import { StudentResponsesService } from "./responses/student-responses.service";
 import { StudentResponsesResolve } from "./responses/student-responses.resolve";
+import { StudentHistoryResponsesExamResolve } from "./responses/student-history-responses-exam.resolve";
+import { StudentHistoryResponsesAssessmentResolve } from "./responses/student-history-responses-assessment.resolve";
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { StudentResponsesResolve } from "./responses/student-responses.resolve";
   providers: [
     StudentExamHistoryResolve,
     StudentExamHistoryService,
+    StudentHistoryResponsesAssessmentResolve,
+    StudentHistoryResponsesExamResolve,
     StudentResponsesResolve,
     StudentResponsesService
   ]

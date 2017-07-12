@@ -1,2 +1,55 @@
 <h3 class="blue mb-md">{{'labels.student.responses.title' | translate}}</h3>
 
+<div class="well">
+  <div class="mb-md">
+    <span class="tag tag-md {{ colorService.getColor(assessment.type) }}">
+      <span class="label">{{assessment.type | assessmentType}}</span>
+      <span>{{assessment.subject}}</span>
+    </span>
+  </div>
+  <div class="flex-children">
+    <div class="flex-child">
+      <span class="tag tag-md {{colorService.getColor(getGradeIdx(assessment.grade))}}">
+        <span class="label">{{assessment.grade | gradeDisplay}}</span>
+        <span>{{assessment.name}}</span>
+      </span>
+    </div>
+    <div class="flex-child ml-auto">
+      <span class="gray-darker">
+        <i class="fa fa-calendar"></i>
+        {{exam.date | date}}
+      </span>
+    </div>
+  </div>
+  <div class="mb-md"></div>
+
+  <p-dataTable [value]="assessmentItems"
+               emptyMessage="{{'messages.noExamsMatchingCriteria' | translate}}"
+               sortField="assessmentItem.scores.0.position"
+               tableStyleClass="table table-striped table-hover">
+    <p-column field="assessmentItem.scores.0.position" header="{{'labels.groups.results.assessment.items.cols.number' | translate}}" sortable="true"></p-column>
+    <p-column field="assessmentItem.claimTarget" header="{{'labels.groups.results.assessment.items.cols.claim' | translate}}" [sortable]="true">
+      <ng-template let-item="rowData.assessmentItem" pTemplate="body">
+        {{ 'enum.claim.' + item.claim | translate }} / {{ 'labels.groups.results.assessment.items.target' | translate:item }}
+      </ng-template>
+    </p-column>
+    <p-column field="assessmentItem.difficulty" [sortable]="true">
+      <ng-template pTemplate="header">
+              <span info-label title="{{'labels.groups.results.assessment.items.cols.difficulty' | translate}}"
+                    content="{{'labels.groups.results.assessment.items.cols.difficulty-info' | translate}}"></span>
+      </ng-template>
+      <ng-template let-item="rowData.assessmentItem" pTemplate="body">
+        {{ 'enum.difficulty.' + item.difficulty | translate }}
+      </ng-template>
+    </p-column>
+    <p-column field="assessmentItem.commonCoreStandardIds" header="{{'labels.student.responses.cols.standard' | translate}}" sortable="true"></p-column>
+    <p-column field="assessmentItem.scores.0.points" header="{{'labels.student.responses.cols.student-score' | translate}}" sortable="true"></p-column>
+    <p-column field="assessmentItem.maxPoints" header="{{'labels.student.responses.cols.max-score' | translate}}" sortable="true"></p-column>
+    <p-column field="correctness" header="{{'labels.student.responses.cols.correctness' | translate}}" sortable="true">
+      <ng-template let-correctness="rowData.correctness" pTemplate="body">
+        {{ correctness | number:'1.2-2' }}
+      </ng-template>
+    </p-column>
+  </p-dataTable>
+</div>
+

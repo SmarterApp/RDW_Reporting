@@ -270,7 +270,13 @@
       },
       "responses": {
         "title": "Student Test History Report",
-        "crumb": "Student Responses"
+        "crumb": "Student Responses",
+        "cols": {
+          "standard": "Standard",
+          "student-score": "Student Score",
+          "max-score": "Max Score",
+          "correctness": "Correctness"
+        }
       },
       "results": {
         "title": "Student Test History Report",
