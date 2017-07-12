@@ -135,6 +135,7 @@ export class AssessmentExamMapper {
     uiModel.target = apiModel.target;
     uiModel.difficulty = apiModel.difficultyCode;
     uiModel.maxPoints = apiModel.maximumPoints;
+    uiModel.commonCoreStandardIds = apiModel.commonCoreStandardIds;
 
     return uiModel;
   }

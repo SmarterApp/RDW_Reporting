@@ -22,7 +22,7 @@ export class GradeDisplayPipe implements PipeTransform {
    * @param format
    * @returns transformed grade
    */
-  transform(gradeCode: number, format: string): Observable<string> {
+  transform(gradeCode: string, format: string): Observable<string> {
     if (isNullOrUndefined(format)) {
       format = "short-name";
     }

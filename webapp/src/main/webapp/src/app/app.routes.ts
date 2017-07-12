@@ -12,6 +12,8 @@ import { StudentExamHistoryResolve } from "./student/results/student-exam-histor
 import { StudentResponsesResolve } from "./student/responses/student-responses.resolve";
 import { StudentResponsesComponent } from "./student/responses/student-responses.component";
 import { TranslateResolve } from "./home/translate.resolve";
+import { StudentHistoryResponsesExamResolve } from "./student/responses/student-history-responses-exam.resolve";
+import { StudentHistoryResponsesAssessmentResolve } from "./student/responses/student-history-responses-assessment.resolve";
 
 export const routes: Routes = [
   {
@@ -53,7 +55,11 @@ export const routes: Routes = [
         }, {
           path: 'exams/:examId',
           pathMatch: 'full',
-          resolve: { assessmentItems: StudentResponsesResolve },
+          resolve: {
+            assessment: StudentHistoryResponsesAssessmentResolve,
+            assessmentItems: StudentResponsesResolve,
+            exam: StudentHistoryResponsesExamResolve
+          },
           data: {
             breadcrumb: {
               translate: 'labels.student.responses.crumb'
