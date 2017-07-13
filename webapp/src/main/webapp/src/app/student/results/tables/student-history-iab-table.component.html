@@ -3,6 +3,11 @@
              sortField="exam.schoolYear"
              sortOrder="-1"
              tableStyleClass="table table-striped table-hover">
+  <p-column styleClass="cell-dropdown">
+    <ng-template let-data="rowData" pTemplate="body">
+      <popup-menu [item]="data" [actions]="actions"></popup-menu>
+    </ng-template>
+  </p-column>
   <p-column field="exam.schoolYear" header="{{'labels.student.results.cols.school-year' | translate}}" sortable="true">
     <ng-template let-exam="rowData.exam" pTemplate="body">
       {{ exam.schoolYear | schoolYear }}
@@ -46,11 +51,6 @@
     </ng-template>
     <ng-template let-exam="rowData.exam" pTemplate="body">
       <scale-score [score]="exam.score" [standardError]="exam.standardError"></scale-score>
-    </ng-template>
-  </p-column>
-  <p-column styleClass="cell-dropdown">
-    <ng-template let-data="rowData" pTemplate="body">
-      <popup-menu [item]="data" [actions]="actions"></popup-menu>
     </ng-template>
   </p-column>
 </p-dataTable>
