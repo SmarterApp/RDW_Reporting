@@ -7,6 +7,7 @@ import { Assessment } from "../../assessments/model/assessment.model";
 import { GradeCode } from "../../shared/enum/grade-code.enum";
 import { ColorService } from "../../shared/color.service";
 import { StudentResponsesAssessmentItem } from "./student-responses-item.model";
+import { Student } from "../model/student.model";
 
 /**
  * This component is responsible for displaying a student's responses to a
@@ -21,6 +22,7 @@ export class StudentResponsesComponent implements OnInit {
   assessment: Assessment;
   assessmentItems: StudentResponsesAssessmentItem[];
   exam: Exam;
+  student: Student;
 
   constructor(public colorService: ColorService,
               private route: ActivatedRoute) {
@@ -31,6 +33,7 @@ export class StudentResponsesComponent implements OnInit {
     this.assessmentItems = routeItems.map(item => this.mapAssessmentItem(item));
     this.exam = this.route.snapshot.data[ "exam" ];
     this.assessment = this.route.snapshot.data[ "assessment" ];
+    this.student = this.route.snapshot.data[ "student" ];
   }
 
   getGradeIndex(grade: string): number {

@@ -281,7 +281,7 @@
       },
       "results": {
         "title": "Student Test History Report",
-        "crumb": "Student Id: {{ssid}}",
+        "crumb": "Student: {{lastName}}, {{firstName}}",
         "labels": {
           "select-subject": "Subject"
         },

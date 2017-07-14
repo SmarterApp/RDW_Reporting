@@ -14,6 +14,7 @@ import { StudentResponsesComponent } from "./student/responses/student-responses
 import { TranslateResolve } from "./home/translate.resolve";
 import { StudentHistoryResponsesExamResolve } from "./student/responses/student-history-responses-exam.resolve";
 import { StudentHistoryResponsesAssessmentResolve } from "./student/responses/student-history-responses-assessment.resolve";
+import { StudentHistoryResponsesStudentResolve } from "./student/responses/student-history-responses-student.resolve";
 
 
 const studentTestHistoryChildRoute = {
@@ -25,7 +26,6 @@ const studentTestHistoryChildRoute = {
       translateResolve: 'examHistory.student'
     },
   },
-  canActivate: [ AuthorizeCanActivate ],
   children: [ {
     path: '',
     pathMatch: 'full',
@@ -36,7 +36,8 @@ const studentTestHistoryChildRoute = {
     resolve: {
       assessment: StudentHistoryResponsesAssessmentResolve,
       assessmentItems: StudentResponsesResolve,
-      exam: StudentHistoryResponsesExamResolve
+      exam: StudentHistoryResponsesExamResolve,
+      student: StudentHistoryResponsesStudentResolve
     },
     data: {
       breadcrumb: {
@@ -101,7 +102,8 @@ export const routes: Routes = [
           resolve: {
             assessment: StudentHistoryResponsesAssessmentResolve,
             assessmentItems: StudentResponsesResolve,
-            exam: StudentHistoryResponsesExamResolve
+            exam: StudentHistoryResponsesExamResolve,
+            student: StudentHistoryResponsesStudentResolve
           },
           data: {
             breadcrumb: {

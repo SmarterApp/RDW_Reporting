@@ -12,6 +12,7 @@ import { Assessment } from "../../assessments/model/assessment.model";
 import { ExamItemScore } from "../../assessments/model/exam-item-score.model";
 import createSpy = jasmine.createSpy;
 import Spy = jasmine.Spy;
+import { Student } from "../model/student.model";
 
 describe('StudentResponsesComponent', () => {
   let component: StudentResponsesComponent;
@@ -25,7 +26,8 @@ describe('StudentResponsesComponent', () => {
     mockRouteSnapshot.data = {
       assessmentItems: [],
       exam: new Exam(),
-      assessment: new Assessment()
+      assessment: new Assessment(),
+      student: new Student()
     };
     mockRouteSnapshot.params = {};
     route.snapshotResult.and.returnValue(mockRouteSnapshot);

@@ -20,6 +20,7 @@ import { StudentResponsesService } from "./responses/student-responses.service";
 import { StudentResponsesResolve } from "./responses/student-responses.resolve";
 import { StudentHistoryResponsesExamResolve } from "./responses/student-history-responses-exam.resolve";
 import { StudentHistoryResponsesAssessmentResolve } from "./responses/student-history-responses-assessment.resolve";
+import { StudentHistoryResponsesStudentResolve } from "./responses/student-history-responses-student.resolve";
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { StudentHistoryResponsesAssessmentResolve } from "./responses/student-hi
     StudentExamHistoryService,
     StudentHistoryResponsesAssessmentResolve,
     StudentHistoryResponsesExamResolve,
+    StudentHistoryResponsesStudentResolve,
     StudentResponsesResolve,
     StudentResponsesService
   ]
