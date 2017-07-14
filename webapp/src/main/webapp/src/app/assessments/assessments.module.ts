@@ -56,6 +56,7 @@ import { ItemScoringGuideMapper } from "./items/item-exemplar/item-scoring-guide
     AdvFiltersToggleComponent,
     AssessmentsComponent,
     InformationLabelComponent,
+    ItemTabComponent,
     PopupMenuComponent,
     ScaleScoreComponent
   ],

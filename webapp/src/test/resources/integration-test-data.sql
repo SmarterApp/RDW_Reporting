@@ -64,9 +64,9 @@ insert into item (id, natural_id, claim_id, claim_code, target_id, target_code, 
   (-2, '200-3392', -1, 'c1', -2, 't2', -1, -1, -1, 'D', 4, 'S-ID.3'),
   (-3, '200-3393', -1, 'c1', -3, 't3', -1, -1, -1, 'M', 5, 'S-ID.4|S-ID.7');
 
-insert into exam_item (id, exam_id, item_id, score, position) values
-  (-1, -1, -1, 0, 1),
-  (-2, -1, -2, 1, 2);
+insert into exam_item (id, exam_id, item_id, score, position, response) values
+  (-1, -1, -1, 0, 1, 'A'),
+  (-2, -1, -2, 1, 2, 'D');
 
 -- groups
 
