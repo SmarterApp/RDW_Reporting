@@ -22,6 +22,7 @@
     <div class="row">
         <!-- Sessions -->
         <div class="col-md-7">
+          <div *ngIf="useSessions">
             <p><strong>{{'labels.groups.results.assessment.sessions-title' | translate}}</strong><br />
             {{'labels.groups.results.assessment.sessions-instruct' | translate}}</p>
             <div class="flex-children">
@@ -34,6 +35,7 @@
                     <span class="icon"><i class="fa" [ngClass]="{'fa-minus':session.filter, 'fa-plus': !session.filter }"></i></span>
                 </a>
             </div>
+          </div>
         </div>
 
         <!-- TODO: Add labels to translations -->

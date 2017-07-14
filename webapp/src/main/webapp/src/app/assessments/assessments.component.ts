@@ -41,6 +41,13 @@ export class AssessmentsComponent implements OnInit {
   @Input()
   assessmentProvider: AssessmentProvider;
 
+  /**
+   * If true, the session toggles will be display with the most recent selected
+   * by default.  Otherwise, they won't be displayed and all results will be shown.
+   */
+  @Input()
+  useSessions: boolean = true;
+
   showValuesAsPercent: boolean = true;
   filterDisplayOptions: any = {
     expanded: true
