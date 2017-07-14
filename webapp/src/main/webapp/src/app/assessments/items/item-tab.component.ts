@@ -1,11 +1,13 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ViewChild } from "@angular/core";
 import { AssessmentItem } from "../model/assessment-item.model";
+import { TabsetComponent, TabDirective } from "ngx-bootstrap";
 
 @Component({
   selector: 'item-tab',
   templateUrl: './item-tab.component.html'
 })
-export class ItemTabComponent {
+export class ItemTabComponent implements OnInit {
+
   /**
    * The assessment item to show in this tab.
    */
@@ -23,6 +25,9 @@ export class ItemTabComponent {
   response: any;
 
   @Input()
+  showStudentScores: boolean = true;
+
+  @Input()
   set position(value: number) {
     this._position = value;
   }
@@ -31,6 +36,9 @@ export class ItemTabComponent {
     if (this._position > 0) return this._position;
     return (this.item.position > 0) ? this.item.position : -1;
   }
+
+  @ViewChild('itemTabs')
+  itemTabs: TabsetComponent;
 
   /**
    * If set to true, item-viewer (and iris) will be loaded and added to the dom.
@@ -49,5 +57,16 @@ export class ItemTabComponent {
   private _position: number = -1;
 
   constructor() { }
+
+  ngOnInit(): void {
+
+    //Unfortunate hack to "select" the initial tab
+    //The timeout is required to give the TabComponent time to process
+    //its template-defined TabDirectives.
+    setTimeout((function() {
+      let tab: TabDirective = this.itemTabs.tabs[0];
+      tab.select.emit(tab);
+    }).bind(this), 0);
+  }
 
 }

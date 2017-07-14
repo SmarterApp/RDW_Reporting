@@ -1,6 +1,6 @@
-<tabset>
+<tabset #itemTabs>
   <!-- TODO: This tab should be toggleable depending on the context -->
-  <tab heading="{{translateRoot + 'student-scores' | translate }}">
+  <tab *ngIf="showStudentScores" heading="{{translateRoot + 'student-scores' | translate }}">
     <div class="tab-content well">
       <!--TODO -->
     </div>
