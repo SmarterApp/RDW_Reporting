@@ -24,6 +24,9 @@ export class ItemViewerComponent implements OnInit {
   @Input()
   public bankItemKey: string;
 
+  @Input()
+  public response: string = '';
+
   public irisIsLoading: boolean = true;
   public safeIrisUrl: SafeResourceUrl;
   private vendorId;

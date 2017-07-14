@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { AssessmentItem } from "../model/assessment-item.model";
-import { TabsetComponent } from "ngx-bootstrap";
 
 @Component({
   selector: 'item-tab',
@@ -20,6 +19,9 @@ export class ItemTabComponent implements OnInit {
   @Input()
   showItemDetails: boolean;
 
+  @Input()
+  response: any = "";
+
   /**
    * If set to true, item-viewer (and iris) will be loaded and added to the dom.
    */
@@ -37,6 +39,7 @@ export class ItemTabComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.response);
   }
 
 }

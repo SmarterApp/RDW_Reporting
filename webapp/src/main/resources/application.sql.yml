@@ -70,7 +70,8 @@ sql:
           ei.exam_id,
           ei.item_id,
           ei.score,
-          ei.position
+          ei.position,
+          ei.response
         from exam_item ei
           join exam e on ei.exam_id=e.id
           join school s on e.school_id=s.id

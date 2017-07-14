@@ -7,7 +7,7 @@
   </tab>
   <tab *ngIf="showItemDetails" (select)="loadItemViewer=true" heading="{{translateRoot + 'item-viewer' | translate }}">
     <div class="tab-content well">
-      <item-viewer *ngIf="loadItemViewer" [bankItemKey]="item.bankItemKey"></item-viewer>
+      <item-viewer *ngIf="loadItemViewer" [bankItemKey]="item.bankItemKey" [response]="response"></item-viewer>
     </div>
   </tab>
   <tab *ngIf="showItemDetails" (select)="loadExemplar=true" heading="{{translateRoot + 'exemplar.title' | translate }}">

@@ -121,6 +121,7 @@ export class AssessmentExamMapper {
     uiModel.examId = apiModel.examId;
     uiModel.points = apiModel.points;
     uiModel.position = apiModel.position;
+    uiModel.response = apiModel.response;
 
     return uiModel;
   }
