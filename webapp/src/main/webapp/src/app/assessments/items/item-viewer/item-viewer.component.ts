@@ -25,7 +25,10 @@ export class ItemViewerComponent implements OnInit {
   public bankItemKey: string;
 
   @Input()
-  public response: string = '';
+  public response: string;
+
+  @Input()
+  public position: number;
 
   public irisIsLoading: boolean = true;
   public safeIrisUrl: SafeResourceUrl;
@@ -63,9 +66,15 @@ export class ItemViewerComponent implements OnInit {
     setTimeout(this.loadToken.bind(this), 0);
   }
 
+  /**
+   * Send a request to load the specified assessment item.
+   */
   loadToken() {
     let token = this.getToken(this.bankItemKey);
     IRiS.loadToken(this.vendorId, token)
+      .done((function() {
+        this.loadResponse();
+      }).bind(this))
       .fail((function(err) {
         if (this._currentAttempt-- > 0) {
           console.log("Failed to load token, attempting again", err);
@@ -76,7 +85,35 @@ export class ItemViewerComponent implements OnInit {
       }).bind(this));
   }
 
-  private getToken(bankItemKey){
-    return `{"items":[{"response":"","id":"I-${bankItemKey}"}], "accommodations": []}`;
+  /**
+   * Send a request to populate the student's response.
+   */
+  loadResponse() {
+    let response = this.getResponsePayload(this.response, this.position);
+    IRiS.setResponses(response);
+  }
+
+  private getToken(bankItemKey: string): string {
+    return JSON.stringify({
+      items: [{
+        id: `I-${bankItemKey}`
+      }]
+    });
+  }
+
+  private getResponsePayload(response: string, position: number): any {
+    let payload: any = {
+      position: 1
+    };
+
+    if (response && response.length > 0) {
+      payload.response = response;
+    }
+
+    if (position && position > 0) {
+      payload.label = position.toString();
+    }
+
+    return [payload];
   }
 }
