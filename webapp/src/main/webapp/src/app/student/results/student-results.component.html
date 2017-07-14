@@ -7,6 +7,7 @@
 
 <!-- Results Filter -->
 <student-results-filter [filterState]="filterState"
+                        [filterOptions]="filterOptions"
                         (filterChange)="onFilterChange()"></student-results-filter>
 
 <h3 class="blue mb-md">{{'labels.student.results.title' | translate}}</h3>

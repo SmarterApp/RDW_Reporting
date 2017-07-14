@@ -6,6 +6,7 @@ import { StudentHistoryExamWrapper } from "../model/student-history-exam-wrapper
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { ExamFilterService } from "../../assessments/filters/exam-filters/exam-filter.service";
 import { ColorService } from "../../shared/color.service";
+import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
 
 @Component({
   selector: 'student-results',
@@ -15,6 +16,7 @@ export class StudentResultsComponent implements OnInit {
 
   examHistory: StudentExamHistory;
   filterState: StudentResultsFilterState = new StudentResultsFilterState();
+  filterOptions: ExamFilterOptions = new ExamFilterOptions();
   examsByTypeAndSubject: Map<AssessmentType, Map<string, StudentHistoryExamWrapper[]>> = new Map();
   displayState: any = {};
 
@@ -98,6 +100,15 @@ export class StudentResultsComponent implements OnInit {
       this.displayState[type] = this.displayState[type] || {};
       this.displayState[type][subject] = this.displayState[type][subject] || {};
       this.displayState[type][subject].collapsed = this.displayState[type][subject].collapsed || false;
+
+      // check for at least one interim or summative while already going thru the exams
+      if (wrapper.assessment.isSummative) {
+        this.filterOptions.hasSummative = true;
+      }
+      if (wrapper.assessment.isInterim) {
+        this.filterOptions.hasInterim = true;
+      }
+
     });
 
     this.examsByTypeAndSubject = examsByTypeAndSubject;

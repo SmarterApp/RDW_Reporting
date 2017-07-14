@@ -10,14 +10,14 @@ import { Utils } from "./Utils";
   selector: 'sb-radio-button-list',
   template: `
     <div class="nested-btn-group btn-group-sm toggle-group" data-toggle="buttons">
-      <label class="btn btn-primary" [ngClass]="{'active': model[property] == -1 }">
-        <input [value]="-1" [(ngModel)]="model[property]" type="radio" [name]="name" 
+      <label class="btn btn-primary" [ngClass]="{'active': model[property] == -1, 'disabled': disabled }">
+        <input [value]="-1" [(ngModel)]="model[property]" type="radio" [name]="name" [attr.disabled]="disabled?'disabled':null"
                 angulartics2On="click" [angularticsEvent]="analyticsEvent" 
                 [angularticsCategory]="analyticsCategory" [angularticsProperties]="{label: label + ': All'}">{{ 'buttons.all' | translate }}
       </label>
       <div class="btn-group">
-        <label *ngFor="let value of values" class="btn btn-primary" [ngClass]="{'active': model[property] == value }">
-          <input [value]="value" [(ngModel)]="model[property]" type="radio" [name]="name"
+        <label *ngFor="let value of values" class="btn btn-primary" [ngClass]="{'active': model[property] == value, 'disabled': disabled }">
+          <input [value]="value" [(ngModel)]="model[property]" type="radio" [name]="name" [attr.disabled]="disabled?'disabled':null"
                 angulartics2On="click" [angularticsEvent]="analyticsEvent" 
                 [angularticsCategory]="analyticsCategory" [angularticsProperties]="{label: label + ': ' + enum + '.' + value}">{{ enum + '.' + value | translate }}
         </label>
@@ -40,6 +40,10 @@ export class SBRadioButtonComponent {
   // The model to bind to which contains the property.  (Allows us to pass by reference)
   @Input()
   public model: any;
+
+  // When true, disables the buttons so they can not be changed
+  @Input()
+  public disabled: boolean = false;
 
   // The analytics event to send when clicked
   @Input()

@@ -1,6 +1,7 @@
 import { OnInit, Component, Input, EventEmitter, Output } from "@angular/core";
 import { StudentResultsFilterState } from "./model/student-results-filter-state.model";
 import { Angulartics2 } from 'angulartics2';
+import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
 
 @Component({
   selector: 'student-results-filter',
@@ -10,6 +11,9 @@ export class StudentResultsFilterComponent implements OnInit {
 
   @Input()
   filterState: StudentResultsFilterState = new StudentResultsFilterState();
+
+  @Input()
+  filterOptions: ExamFilterOptions = new ExamFilterOptions();
 
   @Output()
   filterChange: EventEmitter<any> = new EventEmitter();

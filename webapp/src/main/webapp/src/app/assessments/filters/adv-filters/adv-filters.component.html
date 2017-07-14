@@ -30,14 +30,14 @@
       <div class="block-children">
         <label>{{ translateRoot + 'status.administration' | translate }}</label>
         <sb-radio-button-list [model]="filterBy" [values]="['SD','NS']" property="administration" enum="enum.administrative-condition"
-                              label="{{ translateRoot + 'status.label' | translate }}"
+                              label="{{ translateRoot + 'status.label' | translate }}" [disabled]="!filterOptions.hasInterim"
                               analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
       </div>
       <!-- Summative Status -->
       <div class="block-children">
         <label>{{ translateRoot + 'status.summative' | translate }}</label>
         <sb-radio-button-list [model]="filterBy" [values]="['Valid','IN']" property="summativeStatus" enum="enum.administrative-condition"
-                              label="{{ translateRoot + 'status.summative' | translate }}"
+                              label="{{ translateRoot + 'status.summative' | translate }}"  [disabled]="!filterOptions.hasSummative"
                               analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
       </div>
       <!-- Completion -->
