@@ -73,14 +73,6 @@ export class StudentHistoryICASummitiveTableComponent {
     }).bind(this);
     actions.push(resourcesAction);
 
-    let reportLabel: string = this.translateService.instant('labels.menus.print-report');
-    let reportAction: PopupMenuAction = new PopupMenuAction();
-    reportAction.displayName = (() => reportLabel);
-    reportAction.perform = ((wrapper) => {
-      console.log(`Print Report: ${wrapper.assessment.name}`)
-    }).bind(this);
-    actions.push(reportAction);
-
     return actions;
   }
 

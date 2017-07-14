@@ -15,6 +15,38 @@ import { TranslateResolve } from "./home/translate.resolve";
 import { StudentHistoryResponsesExamResolve } from "./student/responses/student-history-responses-exam.resolve";
 import { StudentHistoryResponsesAssessmentResolve } from "./student/responses/student-history-responses-assessment.resolve";
 
+
+const studentTestHistoryChildRoute = {
+  path: 'students/:studentId',
+  resolve: { examHistory: StudentExamHistoryResolve },
+  data: {
+    breadcrumb: {
+      translate: 'labels.student.results.crumb',
+      translateResolve: 'examHistory.student'
+    },
+  },
+  canActivate: [ AuthorizeCanActivate ],
+  children: [ {
+    path: '',
+    pathMatch: 'full',
+    component: StudentResultsComponent
+  }, {
+    path: 'exams/:examId',
+    pathMatch: 'full',
+    resolve: {
+      assessment: StudentHistoryResponsesAssessmentResolve,
+      assessmentItems: StudentResponsesResolve,
+      exam: StudentHistoryResponsesExamResolve
+    },
+    data: {
+      breadcrumb: {
+        translate: 'labels.student.responses.crumb'
+      }
+    },
+    component: StudentResponsesComponent
+  } ]
+};
+
 export const routes: Routes = [
   {
     path: '',
@@ -23,19 +55,30 @@ export const routes: Routes = [
       { path: '', pathMatch: 'full', component: HomeComponent },
       {
         path: 'groups/:groupId',
-        pathMatch: 'full',
-        resolve: { assessment: GroupAssessmentsResolve },
         data: { breadcrumb: { translate: 'labels.groups.name'}, permissions: ['GROUP_PII_READ'] },
-        component: GroupResultsComponent,
-        canActivate: [ AuthorizeCanActivate ]
+        canActivate: [ AuthorizeCanActivate ],
+        children: [ {
+          path: '',
+          pathMatch: 'full',
+          resolve: { assessment: GroupAssessmentsResolve },
+          component: GroupResultsComponent
+        },
+        studentTestHistoryChildRoute
+        ]
       },
       {
         path: 'schools/:schoolId',
-        pathMatch: 'full',
-        resolve: { assessment: SchoolAssessmentResolve, school: CurrentSchoolResolve },
         data: { breadcrumb: { resolve: 'school.name'}, permissions: ['INDIVIDUAL_PII_READ'] },
-        component: SchoolResultsComponent,
-        canActivate: [ AuthorizeCanActivate ]
+        resolve: { school: CurrentSchoolResolve },
+        canActivate: [ AuthorizeCanActivate ],
+        children: [ {
+          path: '',
+          pathMatch: 'full',
+          resolve: { assessment: SchoolAssessmentResolve, school: CurrentSchoolResolve },
+          component: SchoolResultsComponent
+        },
+        studentTestHistoryChildRoute
+        ]
       },
       {
         path: 'students/:studentId',
@@ -63,8 +106,7 @@ export const routes: Routes = [
           data: {
             breadcrumb: {
               translate: 'labels.student.responses.crumb'
-            },
-            permissions: ['INDIVIDUAL_PII_READ']
+            }
           },
           component: StudentResponsesComponent
         } ]

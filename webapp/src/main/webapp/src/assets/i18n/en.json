@@ -238,6 +238,7 @@
     "menu": "Menu",
     "menus": {
       "responses": "{{firstName}}'s Responses",
+      "test-history": "{{firstName}}'s Test History",
       "resources": "Instructional Resources",
       "print-report": "Print Report"
     },

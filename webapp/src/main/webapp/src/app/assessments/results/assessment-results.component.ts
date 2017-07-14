@@ -13,6 +13,7 @@ import { PopupMenuAction } from "../menu/popup-menu-action.model";
 import { TranslateService } from "@ngx-translate/core";
 import { GradeCode } from "../../shared/enum/grade-code.enum";
 import { ColorService } from "../../shared/color.service";
+import { Router, ActivatedRoute } from "@angular/router";
 
 enum ScoreViewState {
   OVERALL = 1,
@@ -185,7 +186,9 @@ export class AssessmentResultsComponent implements OnInit {
   constructor(public colorService: ColorService,
               private examCalculator: ExamStatisticsCalculator,
               private examFilterService: ExamFilterService,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -297,21 +300,15 @@ export class AssessmentResultsComponent implements OnInit {
       actions.push(responsesAction);
     }
 
-    let resourcesLabel: string = this.translateService.instant('labels.menus.resources');
-    let resourcesAction: PopupMenuAction = new PopupMenuAction();
-    resourcesAction.displayName = (() => resourcesLabel);
-    resourcesAction.perform = ((exam: Exam) => {
-      console.log(`Show Resources: ${exam.student.lastName}`)
+    let responsesAction: PopupMenuAction = new PopupMenuAction();
+    responsesAction.displayName = ((exam) => {
+      return this.translateService.instant('labels.menus.test-history', exam.student);
     }).bind(this);
-    actions.push(resourcesAction);
+    responsesAction.perform = ((exam: Exam) => {
+      this.router.navigate(['students', exam.student.id], { relativeTo: this.route });
+    }).bind(this);
+    actions.push(responsesAction);
 
-    let reportLabel: string = this.translateService.instant('labels.menus.print-report');
-    let reportAction: PopupMenuAction = new PopupMenuAction();
-    reportAction.displayName = (() => reportLabel);
-    reportAction.perform = ((exam: Exam) => {
-      console.log(`Print Report: ${exam.student.lastName}`)
-    }).bind(this);
-    actions.push(reportAction);
 
     return actions;
   }
