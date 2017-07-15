@@ -14,7 +14,7 @@ export class NotificationComponent implements OnInit {
   public notifications: Notification[] = [];
 
   constructor(private notificationService: NotificationService) {
-    notificationService.notification.subscribe(this.onNotification.bind(this));
+    notificationService.onNotification.subscribe(this.onNotification.bind(this));
   }
 
   ngOnInit(): void {
@@ -22,9 +22,6 @@ export class NotificationComponent implements OnInit {
     this.notificationService.unQueueNotifications().forEach(notification => {
       this.onNotification(notification);
     });
-
-    // let note: Notification = new Notification("Test Notification");
-    // this.notificationService.queueNotification(note);
   }
 
   /**

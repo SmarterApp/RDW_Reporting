@@ -11,10 +11,9 @@ export class NotificationService {
   private cookieName: string = "queuedNotifications";
   private expirationMinutes: number = 30;
 
-  public notification: EventEmitter<Notification> = new EventEmitter();
+  public onNotification: EventEmitter<Notification> = new EventEmitter();
 
   constructor(private cookieService: CookieService) {
-
   }
 
   /**
@@ -23,7 +22,7 @@ export class NotificationService {
    * @param notification A notification message
    */
   public showNotification(notification: Notification): void {
-    this.notification.emit(notification);
+    this.onNotification.emit(notification);
   }
 
   /**
