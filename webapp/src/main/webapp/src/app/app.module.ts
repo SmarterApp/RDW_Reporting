@@ -7,7 +7,7 @@ import { environment } from "../environments/environment";
 import { standaloneProviders } from "./standalone/standalone.service";
 import { HomeComponent } from "./home/home.component";
 import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
-import { BsDropdownModule, TabsModule } from "ngx-bootstrap";
+import { BsDropdownModule, TabsModule, AlertModule } from "ngx-bootstrap";
 import { CommonModule } from "./shared/common.module";
 import { GroupsModule } from "./groups/groups.module";
 import { StudentModule } from "./student/student.module";
@@ -18,6 +18,8 @@ import { SchoolGradeModule } from "./school-grade/school-grade.module";
 import { PopoverModule } from "ngx-bootstrap/popover";
 import { TranslateResolve } from "./home/translate.resolve";
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
+import { NotificationModule } from "./notification/notification.module";
+import { CookieModule } from "ngx-cookie";
 
 @NgModule({
   declarations: [
@@ -26,9 +28,12 @@ import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
     HomeComponent
   ],
   imports: [
+    AlertModule.forRoot(),
     BrowserModule,
     CommonModule,
+    CookieModule.forRoot(),
     GroupsModule,
+    NotificationModule,
     StudentModule,
     SchoolGradeModule,
     RouterModule.forRoot(routes),
