@@ -6,7 +6,7 @@
   "messages": {
     "noExams": "There are no exams associated with your account.",
     "noExamsMatchingCriteria": "There are no exams matching this criteria.",
-    "no-results-found": "No results found.",
+    "no-results-found": "No test results are available for the current selection.",
     "noExamsSelected": "Please select from the assessments above",
     "notApplicable": "-",
     "logout": "Logout",
@@ -175,7 +175,7 @@
           "button-exams": "Student Results",
           "exams": {
             "title": "Student Results",
-            "empty-message": "No results found by selected sessions and advanced filters.",
+            "empty-message": "No test results are available for the sessions and advanced filters selected.",
             "cols": {
               "name": "Student",
               "date": "Date",
