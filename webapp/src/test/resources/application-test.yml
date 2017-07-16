@@ -1,6 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/reporting_test?useSSL=false&useLegacyDatetimeCode=false
+    url: ${database_url}reporting_test?useSSL=false&useLegacyDatetimeCode=false
+    password: ${database_password}
+    username: ${database_user}
 
 artifacts:
   root: "classpath:"
