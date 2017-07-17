@@ -239,7 +239,7 @@
               "description": "Description"
             },
             "errors": {
-              "not-found": "Rubric and exemplar is not available.",
+              "not-found": "The rubric and exemplar are not available.",
               "unknown": "Error trying to load rubrics and exemplars"
             }
           },

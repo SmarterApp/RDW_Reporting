@@ -15,8 +15,8 @@
         <button type="submit" class="btn btn-primary" [disabled]="searchForm.invalid">{{'buttons.search' | translate}}</button>
       </div>
     </div>
-    <div *ngIf="studentNotFound" class="flex-children">
-      <span>{{'labels.student.messages.no-results' | translate}}</span>
-    </div>
   </div>
 </form>
+<div *ngIf="studentNotFound" class="alert alert-danger">
+  {{'labels.student.messages.no-results' | translate}}
+</div>
