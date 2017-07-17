@@ -51,8 +51,8 @@ describe('NotificationService', () => {
     service.queueNotification(noteB);
     expect(cookieService.putObject).toHaveBeenCalledWith("queuedNotifications", [noteA, noteB], any(Object));
 
-    expect(service.unQueueNotifications()).toContain(noteA, noteB);
-    expect(service.unQueueNotifications().length).toBe(0);
+    expect(service.dequeueNotifications()).toContain(noteA, noteB);
+    expect(service.dequeueNotifications().length).toBe(0);
   });
 });
 

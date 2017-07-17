@@ -39,7 +39,7 @@ describe('NotificationComponent', () => {
 
   it('should display queued notifications', () => {
     let note: Notification = new Notification("A Notification");
-    service.unQueueNotifications.and.returnValue([note]);
+    service.dequeueNotifications.and.returnValue([note]);
 
     fixture = TestBed.createComponent(NotificationComponent);
     component = fixture.componentInstance;
@@ -64,9 +64,9 @@ describe('NotificationComponent', () => {
 
 class MockNotificationService {
   onNotification: EventEmitter<Notification> = new EventEmitter();
-  unQueueNotifications: Spy = createSpy("unQueueNotifications");
+  dequeueNotifications: Spy = createSpy("dequeueNotifications");
 
   constructor() {
-    this.unQueueNotifications.and.returnValue([]);
+    this.dequeueNotifications.and.returnValue([]);
   }
 }

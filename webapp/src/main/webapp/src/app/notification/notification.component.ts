@@ -19,7 +19,7 @@ export class NotificationComponent implements OnInit {
 
   ngOnInit(): void {
     //Display qeued notifications
-    this.notificationService.unQueueNotifications().forEach(notification => {
+    this.notificationService.dequeueNotifications().forEach(notification => {
       this.onNotification(notification);
     });
   }

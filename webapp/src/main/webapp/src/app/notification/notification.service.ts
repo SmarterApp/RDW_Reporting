@@ -31,7 +31,7 @@ export class NotificationService {
    * @param notification A notification message
    */
   public queueNotification(notification: Notification): void {
-    let existing: Notification[] = this.unQueueNotifications();
+    let existing: Notification[] = this.dequeueNotifications();
     existing.push(notification);
 
     let expiration: Date = new Date();
@@ -45,7 +45,7 @@ export class NotificationService {
    *
    * @returns {Array} The queued notifications
    */
-  public unQueueNotifications(): Notification[] {
+  public dequeueNotifications(): Notification[] {
     let notifications: Notification[] = this.cookieService.getObject(this.cookieName) as Notification[] || [];
     this.cookieService.remove(this.cookieName);
     return notifications;
