@@ -42,7 +42,12 @@
         <!-- Aggregate Scale Score -->
         <div class="col-md-5">
             <div *ngIf="exams.length > 0" class="bar-scale rounded blend-middle">
-                <p class="scale-title">Average Scale Score</p>
+                <p class="scale-title">
+
+                  <span info-label
+                        title="{{ 'labels.assessments.average-scale-score' | translate }}"
+                        content="{{ 'labels.assessments.average-scale-score-info' | translate }}"></span>
+                </p>
                 <p class="scale-description">{{statistics.total}} Students</p>
                 <div class="bar-container">
                     <span class="score" data-left="10" data-width="15">{{ statistics.average | number:'1.0-0' | removeComma }}</span>
@@ -179,7 +184,11 @@
         <p-dataTable [value]="filteredAssessmentItems" tableStyleClass="table table-striped table-hover" [tableStyle]="{'table-layout':'auto'}" expandableRows="true" rowExpandMode="single">
           <p-column expander="true" styleClass="col-icon"></p-column>
           <p-column field="position" header="{{'labels.groups.results.assessment.items.cols.number' | translate}}" [sortable]="true"></p-column>
-          <p-column field="claimTarget" header="{{'labels.groups.results.assessment.items.cols.claim' | translate}}" [sortable]="true">
+          <p-column field="claimTarget" [sortable]="true">
+            <ng-template pTemplate="header">
+              <span info-label title="{{'labels.groups.results.assessment.items.cols.claim' | translate}}"
+                    content="{{'labels.groups.results.assessment.items.cols.claim-info' | translate}}"></span>
+            </ng-template>
             <ng-template let-item="rowData" pTemplate="body">
               {{ 'enum.claim.' + item.claim | translate }} / {{ 'labels.groups.results.assessment.items.target' | translate:item }}
             </ng-template>

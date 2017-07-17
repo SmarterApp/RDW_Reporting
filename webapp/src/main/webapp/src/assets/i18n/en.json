@@ -133,23 +133,34 @@
           "instruct": "Click an item to add or remove it from your list of selections above.",
           "test": {
             "label": "Test",
-            "off-grade-assessment": "Off-Grade Assessments"
+            "off-grade-assessment": "Off-Grade Assessments",
+            "off-grade-assessment-info": "Schools may administer interim assessments for any grade.  This filter indicates that a student took an assessment for a grade other than their assigned grade."
           },
           "status": {
             "label": "Status",
             "administration": "Manner of Administration (Interim Only)",
+            "administration-info": "For interim assessments, a Standardized administration follows the same protocols and security procedures as a summative test administration. For a Non Standardized administration, the teacher may use the assessment during instruction and interact with students as they complete the assessment.",
             "summative": "Valid/Invalid (Summative)",
-            "completion": "Complete/Partial"
+            "summative-info": "For summative assessments, a test is noted as invalid if an appeal is submitted  to invalidate the test due to a test irregularity or breach.  ",
+            "completion": "Complete/Partial",
+            "completion-info": "Indicates whether the test was completed or was partially complete."
           },
           "student": {
             "label": "Student",
             "gender": "Gender",
+            "gender-info": "Student's reported gender",
             "migrant-status": "Migrant Status",
+            "migrant-status-info": "A child is considered \"migratory\" if the parent or guardian is a migratory worker in the agricultural, dairy, lumber, or fishing industries and the child's family has moved during the past three years. A young adult may also qualify if he or she has moved on his or her own for the same reasons.",
             "504-plan": "504 Plan",
+            "504-plan-info": "Indicates that a student has an approved 504 plan.  These plans are for students with disabilities who may need accommodations but do not require specialized instruction.",
             "iep": "IEP",
+            "iep-info": "Indicates that a student has an approved Individual Education Plan (IEP).  These plans are for students with disabilities who require specialized instruction.",
             "economic-disadvantage": "Economic Disadvantage",
+            "economic-disadvantage-info": "Indicates that a student qualifies for free or reduced lunch or meets other state criteria for economic disadvantage.",
             "limited-english-proficiency": "Limited English Proficiency",
-            "ethnicity": "Race/Ethnicity"
+            "limited-english-proficiency-info": "Students who use a language other than English as their primary language and who have been assessed as not possessing the English language skills necessary to succeed in the regular instructional program.",
+            "ethnicity": "Race/Ethnicity",
+            "ethnicity-info": "Student race and ethnicity"
           }
         },
         "selected-assessments-title": "Selected Assessments",
@@ -200,6 +211,7 @@
             "cols": {
               "number": "Item #",
               "claim": "Claim/Target",
+              "claim-info": "Claims and targets are a way of classifying test content.  The claim is the major topic area.  For example, in English language arts, reading is a claim.  Within each claim, there are targets that describe the particular knowledge and skills that the test measures.  Each target may encompass one or more standards from the Common Core State Standards.  Within the Reading claim, for example, one of the targets is concerned with finding the central idea in a text.  For more information, see the Smarter Balanced Content Specifications (link to http://www.smarterbalanced.org/assessments/development/).",
               "difficulty": "Item Difficulty",
               "difficulty-info": "Item difficulty (easy, moderate, difficult) is based on the difficulty of the item for students in a reference population.  See the Interpretive Guide for a description of the reference population and how the difficulty categories are derived.",
               "standard": "Standard",
@@ -233,7 +245,9 @@
           },
           "item-info": "Item Information"
         }
-      }
+      },
+      "average-scale-score": "Average Scale Score",
+      "average-scale-score-info": "Average scale score for the selected group of students and an error band based on the Standard Error of Measurement (SEM) associated with that score. Test scores are estimates of student achievement and come with a certain amount of measurement error. See the Interpretive Guide for additional information about scale scores and measurement error."
     },
     "menu": "Menu",
     "menus": {
@@ -276,7 +290,8 @@
           "standard": "Standard",
           "student-score": "Student Score",
           "max-score": "Max Score",
-          "correctness": "Correctness"
+          "correctness": "Correctness",
+          "correctness-info": "A value for the degree of correctness in a student's response to a test question. The correctness value is calculated by dividing the student's score on a particular question by the maximum score for that question."
         }
       },
       "results": {

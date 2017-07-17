@@ -15,6 +15,7 @@ import { Component } from "@angular/core";
 import { CommonModule } from "../shared/common.module";
 import { AssessmentsModule } from "./assessments.module";
 import { Angulartics2Module, Angulartics2 } from 'angulartics2';
+import { PopoverModule } from "ngx-bootstrap";
 
 let examObserver: Observer<Exam[]>;
 describe('AssessmentsComponent', () => {
@@ -29,7 +30,14 @@ describe('AssessmentsComponent', () => {
 
     mockRouteSnapshot = getRouteSnapshot();
     TestBed.configureTestingModule({
-      imports: [ HttpModule, FormsModule, CommonModule, AssessmentsModule, Angulartics2Module ],
+      imports: [
+        HttpModule,
+        FormsModule,
+        CommonModule,
+        AssessmentsModule,
+        Angulartics2Module,
+        PopoverModule.forRoot()
+      ],
       declarations: [TestComponentWrapper],
       providers: [ { provide: APP_BASE_HREF, useValue: '/' }, {
         provide: ActivatedRoute,

@@ -5,6 +5,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { CommonModule } from "../../shared/common.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "primeng/components/common/shared";
+import { PopoverModule } from "ngx-bootstrap/popover";
 import { TranslateModule } from "@ngx-translate/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { StudentExamHistory } from "../model/student-exam-history.model";
@@ -46,7 +47,8 @@ describe('StudentResultsComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         SharedModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
+        PopoverModule.forRoot()
       ],
       declarations: [
         StudentResultsComponent

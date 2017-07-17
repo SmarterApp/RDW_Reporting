@@ -18,6 +18,7 @@ import { School } from "../../user/model/school.model";
 import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { Angulartics2Module, Angulartics2 } from "angulartics2";
+import { PopoverModule } from "ngx-bootstrap";
 
 let availableGrades = [];
 
@@ -48,7 +49,8 @@ describe('SchoolResultsComponent', () => {
         AssessmentsModule,
         DropdownModule,
         SharedModule,
-        Angulartics2Module
+        Angulartics2Module,
+        PopoverModule.forRoot()
       ],
       declarations: [ SchoolResultsComponent ],
       providers: [

@@ -8,7 +8,11 @@
   <div id="filter-by-test" class="flex-child">
     <p class="gray-darker border-bottom">{{ translateRoot + 'test.label' | translate }}</p>
     <div class="block-children">
-      <label for="btn-group-off-grade-assessment">{{ translateRoot + 'test.off-grade-assessment' | translate }}</label>
+      <label>
+          <span info-label
+                title="{{ translateRoot + 'test.off-grade-assessment' | translate }}"
+                content="{{ translateRoot + 'test.off-grade-assessment-info' | translate }}"></span>
+      </label>
       <div id="btn-group-off-grade-assessment" class="btn-group btn-group-sm toggle-group" data-toggle="buttons">
         <label class="btn btn-primary" [ngClass]="{'active': !filterBy.offGradeAssessment}">
           <input [value]="false" [(ngModel)]="filterBy.offGradeAssessment" type="radio" name="boolean-toggle"
@@ -28,21 +32,33 @@
     <div class="block-children">
       <!-- Manner of Administration -->
       <div class="block-children">
-        <label>{{ translateRoot + 'status.administration' | translate }}</label>
+        <label>
+          <span info-label
+                title="{{ translateRoot + 'status.administration' | translate }}"
+                content="{{ translateRoot + 'status.administration-info' | translate }}"></span>
+        </label>
         <sb-radio-button-list [model]="filterBy" [values]="['SD','NS']" property="administration" enum="enum.administrative-condition"
                               label="{{ translateRoot + 'status.label' | translate }}" [disabled]="!filterOptions.hasInterim"
                               analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
       </div>
       <!-- Summative Status -->
       <div class="block-children">
-        <label>{{ translateRoot + 'status.summative' | translate }}</label>
+        <label>
+          <span info-label
+                title="{{ translateRoot + 'status.summative' | translate }}"
+                content="{{ translateRoot + 'status.summative-info' | translate }}"></span>
+        </label>
         <sb-radio-button-list [model]="filterBy" [values]="['Valid','IN']" property="summativeStatus" enum="enum.administrative-condition"
                               label="{{ translateRoot + 'status.summative' | translate }}"  [disabled]="!filterOptions.hasSummative"
                               analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
       </div>
       <!-- Completion -->
       <div class="block-children">
-        <label>{{ translateRoot + 'status.completion' | translate }}</label>
+        <label>
+          <span info-label
+                title="{{ translateRoot + 'status.completion' | translate }}"
+                content="{{ translateRoot + 'status.completion-info' | translate }}"></span>
+        </label>
         <sb-radio-button-list [model]="filterBy" [values]="['Complete','Partial']" property="completion" enum="enum.completeness"
                               label="{{ translateRoot + 'status.completion' | translate }}"
                               analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
@@ -58,21 +74,33 @@
       <div class="flex-child col1">
         <!-- Gender -->
         <div class="block-children">
-          <label>{{ translateRoot + 'student.gender' | translate }}</label>
+          <label>
+            <span info-label
+                  title="{{ translateRoot + 'student.gender' | translate }}"
+                  content="{{ translateRoot + 'student.gender-info' | translate }}"></span>
+          </label>
           <sb-radio-button-list [model]="filterBy" [values]="['Male','Female']" property="gender" enum="enum.gender"
                                 label="{{ translateRoot + 'student.gender' | translate }}"
                                 analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
         </div>
         <!-- Migrant Status -->
         <div class="block-children">
-          <label>{{ translateRoot + 'student.migrant-status' | translate }}</label>
+          <label>
+            <span info-label
+                  title="{{ translateRoot + 'student.migrant-status' | translate }}"
+                  content="{{ translateRoot + 'student.migrant-status-info' | translate }}"></span>
+          </label>
           <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="migrantStatus" enum="enum.polar"
                                 label="{{ translateRoot + 'student.migrant-status' | translate }}"
                                 analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
         </div>
         <!-- 504 Plan -->
         <div class="block-children">
-          <label>{{ translateRoot + 'student.504-plan' | translate }}</label>
+          <label>
+            <span info-label
+                  title="{{ translateRoot + 'student.504-plan' | translate }}"
+                  content="{{ translateRoot + 'student.504-plan-info' | translate }}"></span>
+          </label>
           <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="plan504" enum="enum.polar"
                                 label="{{ translateRoot + 'student.504-plan' | translate }}"
                                 analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
@@ -82,21 +110,33 @@
       <div class="flex-child col2">
         <!-- IEP -->
         <div class="block-children">
-          <label>{{ translateRoot + 'student.iep' | translate }}</label>
+          <label>
+            <span info-label
+                  title="{{ translateRoot + 'student.iep' | translate }}"
+                  content="{{ translateRoot + 'student.iep-info' | translate }}"></span>
+          </label>
           <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="iep" enum="enum.polar"
                                 label="{{ translateRoot + 'student.iep' | translate }}"
                                 analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
         </div>
         <!-- Economic Disadvantage -->
         <div class="block-children">
-          <label>{{ translateRoot + 'student.economic-disadvantage' | translate }}</label>
+          <label>
+            <span info-label
+                  title="{{ translateRoot + 'student.economic-disadvantage' | translate }}"
+                  content="{{ translateRoot + 'student.economic-disadvantage-info' | translate }}"></span>
+          </label>
           <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="economicDisadvantage" enum="enum.polar"
                                 label="{{ translateRoot + 'student.economic-disadvantage' | translate }}"
                                 analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
         </div>
         <!-- Limited English Proficiency -->
         <div class="block-children">
-          <label>{{ translateRoot + 'student.limited-english-proficiency' | translate }}</label>
+          <label>
+            <span info-label
+                  title="{{ translateRoot + 'student.limited-english-proficiency' | translate }}"
+                  content="{{ translateRoot + 'student.limited-english-proficiency-info' | translate }}"></span>
+          </label>
           <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="limitedEnglishProficiency" enum="enum.polar"
                                 label="{{ translateRoot + 'student.limited-english-proficiency' | translate }}"
                                 analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
@@ -106,7 +146,11 @@
       <div class="flex-child col3">
         <!-- Race / Ethnicity -->
         <div class="block-children">
-          <label>{{ translateRoot + 'student.ethnicity' | translate }}</label>
+          <label>
+            <span info-label
+                  title="{{ translateRoot + 'student.ethnicity' | translate }}"
+                  content="{{ translateRoot + 'student.ethnicity-info' | translate }}"></span>
+          </label>
           <sb-checkbox-list [model]="filterBy" [values]="filterOptions.ethnicities" property="ethnicities" enum="enum.ethnicity"
                             label="{{ translateRoot + 'student.ethnicity' | translate }}"
                             analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-checkbox-list>

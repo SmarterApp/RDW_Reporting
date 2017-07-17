@@ -27,7 +27,14 @@ export class StudentComponent implements OnInit {
   }
 
   /**
-   * Search for the entered sudent SSID.  If a student exists with exams,
+   * Handles when the SSID changes values by removing the error message if it is displayed.
+   */
+  onSsidChange(): void {
+    this.studentNotFound = false;
+  }
+
+  /**
+   * Search for the entered student SSID.  If a student exists with exams,
    * navigate to the results page.  Otherwise, display a not found message.
    */
   performSearch(): void {
