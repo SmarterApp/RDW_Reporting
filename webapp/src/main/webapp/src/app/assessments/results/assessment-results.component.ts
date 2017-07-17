@@ -59,7 +59,7 @@ export class AssessmentResultsComponent implements OnInit {
     this._assessmentExam = assessment;
 
     // if we aren't going to display the sessions, don't waste resources computing them
-    if (this.useSessions) {
+    if (this.allowFilterBySessions) {
       this.sessions = this.getDistinctExamSessions(assessment.exams);
 
       if (this.sessions.length > 0) {
@@ -80,7 +80,7 @@ export class AssessmentResultsComponent implements OnInit {
    * by default.  Otherwise, they won't be displayed and all results will be shown.
    */
   @Input()
-  useSessions: boolean = true;
+  allowFilterBySessions: boolean = true;
 
   @Input()
   displayState: any = {
@@ -256,7 +256,7 @@ export class AssessmentResultsComponent implements OnInit {
       .filterExams(this._assessmentExam, this._filterBy);
 
     // only filter by sessions if this is my groups, otherwise return all regardless of session
-    if (this.useSessions) {
+    if (this.allowFilterBySessions) {
       return exams.filter(x => this.sessions.some(y => y.filter && y.id == x.session));
     }
 

@@ -47,7 +47,7 @@ export class AssessmentsComponent implements OnInit {
    * by default.  Otherwise, they won't be displayed and all results will be shown.
    */
   @Input()
-  useSessions: boolean = true;
+  allowFilterBySessions: boolean = true;
 
   showValuesAsPercent: boolean = true;
   filterDisplayOptions: any = {
