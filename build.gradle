@@ -48,6 +48,12 @@ allprojects {
     if (project.hasProperty("buildNumber")) {
         project.setVersion(project.version.toString().replaceAll("SNAPSHOT", "${buildNumber}"))
     }
+
+    processTestResources {
+        filesMatching("**/application-test.yml") {
+            expand(project.properties)
+        }
+    }
 }
 
 subprojects {
