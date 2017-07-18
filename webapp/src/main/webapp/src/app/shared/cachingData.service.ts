@@ -1,15 +1,16 @@
 import { Injectable } from "@angular/core";
-import { Http, RequestOptionsArgs } from "@angular/http";
+import { RequestOptionsArgs } from "@angular/http";
 import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
+import { DataService } from "./data/data.service";
 
 @Injectable()
 export class CachingDataService {
 
   private cache: { [key: string]: any } = {};
 
-  constructor(private http: Http) {
+  constructor(private dataService: DataService) {
   }
 
   public get(url: string, options?: RequestOptionsArgs): Observable<any> {
@@ -17,10 +18,9 @@ export class CachingDataService {
       return Observable.of(this.cache[url]);
     }
 
-    let observable = this.http
-      .get(`/api${url}`, options)
-      .share()
-      .map(response => response.json());
+    let observable = this.dataService
+      .get(url, options)
+      .share();
 
     observable
       .subscribe(x => {

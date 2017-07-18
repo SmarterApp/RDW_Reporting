@@ -5,6 +5,7 @@ import { NO_ERRORS_SCHEMA, EventEmitter } from "@angular/core";
 import { Notification } from "./notification.model";
 import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
+import { TranslateModule } from "@ngx-translate/core";
 
 describe('NotificationComponent', () => {
   let component: NotificationComponent;
@@ -15,7 +16,7 @@ describe('NotificationComponent', () => {
     service = new MockNotificationService();
     TestBed.configureTestingModule({
       imports: [
-
+        TranslateModule.forRoot()
       ],
       declarations: [ NotificationComponent ],
       providers: [
@@ -37,17 +38,6 @@ describe('NotificationComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display queued notifications', () => {
-    let note: Notification = new Notification("A Notification");
-    service.dequeueNotifications.and.returnValue([note]);
-
-    fixture = TestBed.createComponent(NotificationComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-
-    expect(component.notifications).toContain(note);
-  });
-
   it('should remove dismissed notifications', () => {
     let note: Notification = new Notification("A Notification");
 
@@ -64,9 +54,4 @@ describe('NotificationComponent', () => {
 
 class MockNotificationService {
   onNotification: EventEmitter<Notification> = new EventEmitter();
-  dequeueNotifications: Spy = createSpy("dequeueNotifications");
-
-  constructor() {
-    this.dequeueNotifications.and.returnValue([]);
-  }
 }

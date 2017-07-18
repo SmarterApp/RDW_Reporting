@@ -17,9 +17,7 @@ import { RouterModule } from "@angular/router";
 import { SchoolGradeModule } from "./school-grade/school-grade.module";
 import { PopoverModule } from "ngx-bootstrap/popover";
 import { TranslateResolve } from "./home/translate.resolve";
-import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
-import { NotificationModule } from "./notification/notification.module";
-import { CookieModule } from "ngx-cookie";
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from "angulartics2";
 
 @NgModule({
   declarations: [
@@ -31,9 +29,7 @@ import { CookieModule } from "ngx-cookie";
     AlertModule.forRoot(),
     BrowserModule,
     CommonModule,
-    CookieModule.forRoot(),
     GroupsModule,
-    NotificationModule,
     StudentModule,
     SchoolGradeModule,
     RouterModule.forRoot(routes),

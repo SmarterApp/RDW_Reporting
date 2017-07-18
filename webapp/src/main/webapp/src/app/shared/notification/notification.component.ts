@@ -7,21 +7,14 @@ import { Notification } from "./notification.model";
  */
 @Component({
   selector: 'app-notifications',
-  templateUrl: './notification.component.html'
+  templateUrl: 'notification.component.html'
 })
-export class NotificationComponent implements OnInit {
+export class NotificationComponent {
 
   public notifications: Notification[] = [];
 
   constructor(private notificationService: NotificationService) {
     notificationService.onNotification.subscribe(this.onNotification.bind(this));
-  }
-
-  ngOnInit(): void {
-    //Display qeued notifications
-    this.notificationService.dequeueNotifications().forEach(notification => {
-      this.onNotification(notification);
-    });
   }
 
   /**

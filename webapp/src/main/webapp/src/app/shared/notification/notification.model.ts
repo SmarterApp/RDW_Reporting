@@ -8,13 +8,20 @@ export class Notification {
 
   // Default configuration
   public configuration: any = {
-    type: "info",
+    type: "info",               //['success'|'info'|'warning'|'danger']
     dismissOnTimeout: 10000,
     dismissible: true
   };
 
-  constructor(public translationKey: string,
+  // Notification title translation key
+  public titleKey: string;
+
+  // Notification message translation key
+  public messageKey: string;
+
+  constructor(private _translationKey: string,
               private _configuration?: any) {
+    this.messageKey = _translationKey;
     if (!isNullOrUndefined(_configuration)) {
       this.configuration = _.merge(this.configuration, _configuration);
     }

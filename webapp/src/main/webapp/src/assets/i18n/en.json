@@ -9,8 +9,13 @@
     "no-results-found": "No test results are available for the current selection.",
     "noExamsSelected": "Please select from the assessments above",
     "notApplicable": "-",
+    "ok": "Ok",
     "logout": "Logout",
-    "loading": "Loading"
+    "loading": "Loading",
+    "session-expired": {
+      "title": "Authentication Expired",
+      "message": "Click Ok to re-authenticate."
+    }
   },
   "collapse": "Collapse",
   "select": "Select",

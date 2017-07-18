@@ -5,7 +5,8 @@
            [dismissible]="notification.configuration.dismissible"
            [dismissOnTimeout]="notification.configuration.dismissOnTimeout"
            (onClose)="onDismissed(notification)">
-      <span>{{notification.translationKey || translate}}</span>
+      <h4 *ngIf="notification.titleKey" class="alert-title">{{notification.titleKey | translate}}</h4>
+      <span>{{notification.messageKey | translate}}</span>
     </alert>
   </div>
 </div>

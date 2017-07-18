@@ -15,6 +15,7 @@ import { TranslateResolve } from "./home/translate.resolve";
 import { StudentHistoryResponsesExamResolve } from "./student/responses/student-history-responses-exam.resolve";
 import { StudentHistoryResponsesAssessmentResolve } from "./student/responses/student-history-responses-assessment.resolve";
 import { StudentHistoryResponsesStudentResolve } from "./student/responses/student-history-responses-student.resolve";
+import { SessionExpiredComponent } from "./shared/authentication/session-expired.component";
 
 
 const studentTestHistoryChildRoute = {
@@ -112,6 +113,11 @@ export const routes: Routes = [
           },
           component: StudentResponsesComponent
         } ]
+      },
+      {
+        path: 'session-expired',
+        pathMatch: 'full',
+        component: SessionExpiredComponent
       }
     ]
   }
