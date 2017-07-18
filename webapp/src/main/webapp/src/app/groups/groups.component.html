@@ -12,7 +12,7 @@
 
   <!-- My Groups Search Results List -->
   <div class="my-groups-list-container">
-    <p-dataTable [value]="filteredGroups" emptyMessage="{{'labels.groups.empty-message' | translate}}" sortField="name" tableStyleClass="table table-striped table-hover">
+    <p-dataTable [value]="filteredGroups" emptyMessage="{{ emptyMessageTranslateKey | translate}}" sortField="name" tableStyleClass="table table-striped table-hover">
       <p-column field="name" header="{{'labels.groups.cols.group' | translate}}" [sortable]="true">
         <ng-template let-group="rowData" pTemplate="body">
           <a routerLink="/groups/{{group.id}}">{{group.name}}</a>

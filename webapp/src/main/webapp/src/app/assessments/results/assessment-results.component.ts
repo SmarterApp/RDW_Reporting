@@ -14,6 +14,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { GradeCode } from "../../shared/enum/grade-code.enum";
 import { ColorService } from "../../shared/color.service";
 import { Router, ActivatedRoute } from "@angular/router";
+import { MenuActionBuilder } from "../menu/menu-action.builder";
 
 enum ScoreViewState {
   OVERALL = 1,
@@ -23,6 +24,7 @@ enum ScoreViewState {
 @Component({
   selector: 'assessment-results',
   templateUrl: './assessment-results.component.html',
+  providers: [ MenuActionBuilder ],
   animations: [
     trigger(
       'fadeAnimation',
@@ -184,11 +186,11 @@ export class AssessmentResultsComponent implements OnInit {
   private _filterBySubscription: Subscription;
 
   constructor(public colorService: ColorService,
+              private route: ActivatedRoute,
               private examCalculator: ExamStatisticsCalculator,
               private examFilterService: ExamFilterService,
-              private translateService: TranslateService,
-              private router: Router,
-              private route: ActivatedRoute) {
+              private actionBuilder: MenuActionBuilder) {
+
   }
 
   ngOnInit(): void {
@@ -197,6 +199,10 @@ export class AssessmentResultsComponent implements OnInit {
 
   getGradeIdx(gradeCode: string): number {
     return GradeCode.getIndex(gradeCode);
+  }
+
+  getPointRowStyleClass(index: number){
+    return index == 0 ? 'level-down' : '';
   }
 
   toggleSession(session) {
@@ -287,29 +293,12 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   private createActions(): PopupMenuAction[] {
-    let actions: PopupMenuAction[] = [];
+    let builder = this.actionBuilder.newActions();
 
     if (!this._assessmentExam.assessment.isSummative) {
-      let responsesAction: PopupMenuAction = new PopupMenuAction();
-      responsesAction.displayName = ((exam) => {
-        return this.translateService.instant('labels.menus.responses', exam.student);
-      }).bind(this);
-      responsesAction.perform = ((exam: Exam) => {
-        console.log(`Show Responses: ${exam.student.lastName}`);
-      }).bind(this);
-      actions.push(responsesAction);
+      builder.withResponses(exam => exam.id, exam => exam.student);
     }
 
-    let responsesAction: PopupMenuAction = new PopupMenuAction();
-    responsesAction.displayName = ((exam) => {
-      return this.translateService.instant('labels.menus.test-history', exam.student);
-    }).bind(this);
-    responsesAction.perform = ((exam: Exam) => {
-      this.router.navigate(['students', exam.student.id], { relativeTo: this.route });
-    }).bind(this);
-    actions.push(responsesAction);
-
-
-    return actions;
+    return builder.withStudentHistory(exam => exam.student).build();
   }
 }

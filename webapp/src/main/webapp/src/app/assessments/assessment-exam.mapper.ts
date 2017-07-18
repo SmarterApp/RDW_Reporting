@@ -10,6 +10,7 @@ import { ordering } from "@kourge/ordering";
 import { byNumber } from "@kourge/ordering/comparator";
 import { ClaimScore } from "./model/claim-score.model";
 import { Student } from "../student/model/student.model";
+import { isNullOrUndefined } from "util";
 
 @Injectable()
 export class AssessmentExamMapper {
@@ -77,7 +78,10 @@ export class AssessmentExamMapper {
     uiModel.administrativeCondition = apiModel.administrativeConditionCode;
     uiModel.completeness = apiModel.completenessCode;
     uiModel.schoolYear = apiModel.schoolYear;
-    uiModel.claimScores = this.mapClaimScaleScoresFromApi(apiModel.claimScaleScores);
+
+    if(apiModel.claimScaleScores) {
+      uiModel.claimScores = this.mapClaimScaleScoresFromApi(apiModel.claimScaleScores);
+    }
 
     if (apiModel.studentContext) {
       uiModel.migrantStatus = apiModel.studentContext.migrantStatus;
@@ -131,7 +135,7 @@ export class AssessmentExamMapper {
 
     uiModel.id = apiModel.id;
     uiModel.bankItemKey = apiModel.bankItemKey;
-    uiModel.position = apiModel.id; // TODO: Update item position from API
+    uiModel.position = apiModel.position; 
     uiModel.claim = apiModel.claim;
     uiModel.target = apiModel.target;
     uiModel.difficulty = apiModel.difficultyCode;
@@ -145,14 +149,17 @@ export class AssessmentExamMapper {
     if (!Array.isArray(apiScaleScores)) return [];
 
     return apiScaleScores
-      .map((apiScore) => this.mapClaimScaleScoreFromApi(apiScore));
+      .map(apiScore => this.mapClaimScaleScoreFromApi(apiScore));
   }
 
   private mapClaimScaleScoreFromApi(apiScaleScore: any): ClaimScore {
     let uiModel: ClaimScore = new ClaimScore();
-    uiModel.level = apiScaleScore.level;
-    uiModel.score = apiScaleScore.value;
-    uiModel.standardError = apiScaleScore.standardError;
+
+    if(apiScaleScore) {
+      uiModel.level = apiScaleScore.level;
+      uiModel.score = apiScaleScore.value;
+      uiModel.standardError = apiScaleScore.standardError;
+    }
 
     return uiModel;
   }

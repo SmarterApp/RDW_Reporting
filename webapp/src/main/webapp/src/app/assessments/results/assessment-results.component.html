@@ -168,7 +168,8 @@
                     sortable="true"
                     [hidden]="!isClaimScoreSelected">
             <ng-template let-exam="rowData" pTemplate="body">
-              {{ 'enum.iab-category.' + exam.claimScores[idx].level.toString() | translate }}
+              <span *ngIf="exam.claimScores[idx].level">{{ 'enum.iab-category.' + exam.claimScores[idx].level.toString() | translate }}</span>
+              <span *ngIf="!exam.claimScores[idx].level">-</span>
             </ng-template>
           </p-column>
         </p-dataTable>
@@ -202,7 +203,12 @@
               {{ 'enum.difficulty.' + item.difficulty | translate }}
             </ng-template>
           </p-column>
-          <p-column field="fullCredit" [sortable]="true">
+          <p-column field="commonCoreStandardIds" header="{{'labels.groups.results.assessment.items.cols.standard' | translate}}" sortable="true">
+            <ng-template let-standards="rowData.commonCoreStandardIds" pTemplate="body">
+              <span *ngFor="let standard of standards" class="label border-only blue">{{standard}}</span>
+            </ng-template>
+          </p-column>
+          <p-column field="fullCredit" [sortable]="true" styleClass="level-up">
             <ng-template pTemplate="header">
               <span info-label title="{{'labels.groups.results.assessment.items.cols.full-credit' | translate}}"
                           content="{{'labels.groups.results.assessment.items.cols.full-credit-info' | translate}}"></span>
@@ -212,14 +218,17 @@
               <span [hidden]="!showValuesAsPercent">{{ item.fullCreditAsPercent | number:'1.0-0' }}%</span>
             </ng-template>
           </p-column>
-          <p-column *ngFor="let column of pointColumns" [field]="column.numberField" header="{{'labels.groups.results.assessment.items.cols.x-points' | translate:{id: column.points} }}" [sortable]="true">
+          <p-column *ngFor="let column of pointColumns; let i = index" [field]="column.numberField" header="{{'labels.groups.results.assessment.items.cols.x-points' | translate:{id: column.points} }}" [sortable]="true" [styleClass]="getPointRowStyleClass(i)">
             <ng-template let-item="rowData" pTemplate="body">
               <span [hidden]="showValuesAsPercent">{{ item[column.numberField] }}</span>
               <span [hidden]="!showValuesAsPercent || item[column.percentField] == null">{{ item[column.percentField] | number:'1.0-0' }}%</span>
             </ng-template>
           </p-column>
           <ng-template let-item pTemplate="rowexpansion">
-            <item-tab [item]="item" [showItemDetails]="assessmentExam.assessment.isInterim"></item-tab>
+            <item-tab [item]="item"
+                      [exams]="assessmentExam.exams"
+                      [showItemDetails]="assessmentExam.assessment.isInterim"
+            ></item-tab>
           </ng-template>
         </p-dataTable>
       </div>

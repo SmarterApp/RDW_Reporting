@@ -2,7 +2,7 @@
   <!-- TODO: This tab should be toggleable depending on the context -->
   <tab *ngIf="showStudentScores" heading="{{translateRoot + 'student-scores' | translate }}">
     <div class="tab-content well">
-      <!--TODO -->
+      <item-scores [item]="item" [exams]="exams"></item-scores>
     </div>
   </tab>
   <tab *ngIf="showItemDetails" (select)="loadItemViewer=true" heading="{{translateRoot + 'item-viewer' | translate }}">

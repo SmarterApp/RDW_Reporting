@@ -25,6 +25,9 @@ import { Angulartics2Module } from 'angulartics2';
 import { ItemExemplarComponent } from './items/item-exemplar/item-exemplar.component';
 import { ItemScoringService } from "./items/item-exemplar/item-scoring.service";
 import { ItemScoringGuideMapper } from "./items/item-exemplar/item-scoring-guide.mapper";
+import { ItemScoresComponent } from './items/item-scores/item-scores.component';
+import { StudentScoreService } from "./items/item-scores/student-score.service";
+import { MenuActionBuilder } from "./menu/menu-action.builder";
 
 @NgModule({
   declarations: [
@@ -38,7 +41,8 @@ import { ItemScoringGuideMapper } from "./items/item-exemplar/item-scoring-guide
     PopupMenuComponent,
     ScaleScoreComponent,
     SelectAssessmentsComponent,
-    ItemExemplarComponent
+    ItemExemplarComponent,
+    ItemScoresComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,8 @@ import { ItemScoringGuideMapper } from "./items/item-exemplar/item-scoring-guide
     ExamFilterOptionsService,
     ExamFilterOptionsMapper,
     ItemScoringService,
-    ItemScoringGuideMapper
+    ItemScoringGuideMapper,
+    StudentScoreService
   ]
 })
 export class AssessmentsModule {

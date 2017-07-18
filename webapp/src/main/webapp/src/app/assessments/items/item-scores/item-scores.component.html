@@ -1,0 +1,30 @@
+<p-dataTable [value]="scores" tableStyleClass="table table-striped table-hover" [tableStyle]="{'table-layout':'auto'}" sortField="student.lastName">
+  <p-column styleClass="cell-dropdown">
+    <ng-template let-data="rowData" pTemplate="body">
+      <popup-menu [item]="data" [actions]="actions"></popup-menu>
+    </ng-template>
+  </p-column>
+  <p-column sortField="student.lastName" header="{{'labels.groups.results.assessment.exams.cols.name' | translate}}" [sortable]="true">
+    <ng-template let-score="rowData" pTemplate="body">
+      {{ 'labels.personName' | translate:score.student }}
+    </ng-template>
+  </p-column>
+  <p-column field="date" header="{{'labels.groups.results.assessment.exams.cols.date' | translate}}" [sortable]="true">
+    <ng-template let-score="rowData" pTemplate="body">
+      {{ score.date | date }}
+    </ng-template>
+  </p-column>
+  <p-column field="session" header="{{'labels.groups.results.assessment.exams.cols.session' | translate}}" [sortable]="true"></p-column>
+  <p-column class="text-center" field="enrolledGrade" header="{{'labels.groups.results.assessment.exams.cols.grade' | translate}}" [sortable]="true">
+    <ng-template let-score="rowData" pTemplate="body">
+      {{ score.enrolledGrade | gradeDisplay }}
+    </ng-template>
+  </p-column>
+  <p-column field="score" header="{{'labels.assessments.items.tabs.scores.score' | translate}}" [sortable]="true"></p-column>
+  <p-column field="maxScore" header="{{'labels.assessments.items.tabs.scores.max' | translate}}" [sortable]="true"></p-column>
+  <p-column field="correctness" header="{{'labels.assessments.items.tabs.scores.correctness' | translate}}" [sortable]="true">
+    <ng-template let-correctness="rowData.correctness" pTemplate="body">
+      {{ correctness | number:'1.2-2' }}
+    </ng-template>
+  </p-column>
+</p-dataTable>

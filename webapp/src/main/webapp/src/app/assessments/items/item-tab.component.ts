@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from "@angular/core";
 import { AssessmentItem } from "../model/assessment-item.model";
 import { TabsetComponent, TabDirective } from "ngx-bootstrap";
+import { Exam } from "../model/exam.model";
 
 @Component({
   selector: 'item-tab',
@@ -13,6 +14,12 @@ export class ItemTabComponent implements OnInit {
    */
   @Input()
   item: AssessmentItem;
+
+  /**
+   * The exam results for this item.
+   */
+  @Input()
+  exams: Exam[];
 
   /**
    * Should show item details such as the Item Viewer, Exemplar, and Item Info.

@@ -20,17 +20,14 @@ export class StudentComponent implements OnInit {
     this.searchForm = new FormGroup({
       ssid: new FormControl(null, Validators.required)
     });
+
+    this.ssidControl.valueChanges.subscribe(value => {
+      this.studentNotFound = false;
+    });
   }
 
   private get ssidControl(): AbstractControl {
     return this.searchForm.controls["ssid"];
-  }
-
-  /**
-   * Handles when the SSID changes values by removing the error message if it is displayed.
-   */
-  onSsidChange(): void {
-    this.studentNotFound = false;
   }
 
   /**

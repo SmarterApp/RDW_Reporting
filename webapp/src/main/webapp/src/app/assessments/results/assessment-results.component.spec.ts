@@ -23,32 +23,24 @@ import { Student } from "../../student/model/student.model";
 import { PopupMenuComponent } from "../menu/popup-menu.component";
 import { GradeDisplayPipe } from "../../shared/grade-display.pipe";
 import { ColorService } from "../../shared/color.service";
-import { Angulartics2Module, Angulartics2 } from 'angulartics2';
+import { Angulartics2Module, Angulartics2 } from "angulartics2";
 import { ItemExemplarComponent } from "../items/item-exemplar/item-exemplar.component";
+import { ItemScoresComponent } from "../items/item-scores/item-scores.component";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MockRouter } from "../../../test/mock.router";
+import { MockActivatedRoute } from "../../../test/mock.activated-route";
 import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
+import { TestModule } from "../../../test/test.module";
 
 describe('AssessmentResultsComponent', () => {
   let component: AssessmentResultsComponent;
   let fixture: ComponentFixture<TestComponentWrapper>;
-  let route: MockActivatedRoute;
-  let router: MockRouter;
 
   let mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', ['eventTrack']);
   mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', ['next']);
 
   beforeEach(async(() => {
-    route = new MockActivatedRoute();
-
-    let mockRouteSnapshot: any = {};
-    mockRouteSnapshot.data = {};
-    mockRouteSnapshot.params = {};
-    route.snapshotResult.and.returnValue(mockRouteSnapshot);
-
-    router = new MockRouter();
-
     TestBed.configureTestingModule({
       imports: [
         BrowserAnimationsModule,
@@ -59,7 +51,8 @@ describe('AssessmentResultsComponent', () => {
         SharedModule,
         TabsModule,
         TranslateModule.forRoot(),
-        Angulartics2Module
+        Angulartics2Module,
+        TestModule
       ],
       declarations: [
         AssessmentResultsComponent,
@@ -68,6 +61,7 @@ describe('AssessmentResultsComponent', () => {
         ItemTabComponent,
         ItemViewerComponent,
         ItemExemplarComponent,
+        ItemScoresComponent,
         PopupMenuComponent,
         RemoveCommaPipe,
         ScaleScoreComponent,
@@ -77,14 +71,7 @@ describe('AssessmentResultsComponent', () => {
         { provide: Angulartics2, useValue: mockAngulartics2 },
         ExamStatisticsCalculator,
         ExamFilterService,
-        ColorService,
-        {
-          provide: ActivatedRoute,
-          useValue: route
-        }, {
-          provide: Router,
-          useValue: router
-        }
+        ColorService
       ]
     }).compileComponents();
 
@@ -161,12 +148,4 @@ describe('AssessmentResultsComponent', () => {
 })
 class TestComponentWrapper {
   assessment = new AssessmentExam();
-}
-
-class MockActivatedRoute {
-  snapshotResult: Spy = createSpy("snapshot");
-
-  get snapshot(): any {
-    return this.snapshotResult();
-  }
 }

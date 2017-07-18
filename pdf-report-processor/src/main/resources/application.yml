@@ -3,19 +3,11 @@
 management:
   security:
     enabled: false
+
 server:
   port: 8008
 
 spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/reporting?useSSL=false&useLegacyDatetimeCode=false
-    username: root
-    password:
-    driverClassName: com.mysql.jdbc.Driver
-    testWhileIdle: true
-    validationQuery: SELECT 1
-    initialize: false
-
   jackson:
     default-property-inclusion: non_null
     serialization:
@@ -43,5 +35,26 @@ cloud:
     credentials:
       instance-profile: false
 
-application:
-  state: CA
+app:
+  state:
+    code: CA
+
+  datamart:
+    datasource:
+      url: jdbc:mysql://localhost:3306/reporting?useSSL=false&useLegacyDatetimeCode=false
+      username: root
+      password:
+      testWhileIdle: true
+      validationQuery: SELECT 1
+      driverClassName: com.mysql.jdbc.Driver
+      initialize: false
+
+  batch:
+    datasource:
+      url: jdbc:mysql://localhost:3306/spring_batch_reporting?useSSL=false&useLegacyDatetimeCode=false
+      username: root
+      password:
+      testWhileIdle: true
+      validationQuery: SELECT 1
+      driverClassName: com.mysql.jdbc.Driver
+      initialize: false

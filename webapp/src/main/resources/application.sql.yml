@@ -353,6 +353,7 @@ sql:
       findAllForAssessment: >-
         select i.id,
           i.natural_id,
+          i.position,
           i.difficulty_code,
           i.max_points,
           i.claim_code,
@@ -364,6 +365,7 @@ sql:
       findAllForExam: >-
         select i.id,
           i.natural_id,
+          i.position,
           i.difficulty_code,
           i.max_points,
           i.claim_code,

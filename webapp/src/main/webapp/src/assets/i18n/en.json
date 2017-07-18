@@ -118,7 +118,8 @@
     "groups": {
       "name": "My Groups",
       "filter": "Search by Group Name",
-      "empty-message": "Contact your building administrator for access to group-level test results",
+      "no-groups-message": "Contact your building administrator for access to group-level test results.",
+      "empty-message": "There are no groups that match your search.  Please try again.",
       "manage-group": "Manage Student Groups",
       "search-label": "Search by My Groups",
       "cols": {
@@ -143,7 +144,7 @@
           },
           "status": {
             "label": "Status",
-            "administration": "Manner of Administration (Interim Only)",
+            "administration": "Manner of Administration (Interim)",
             "administration-info": "For interim assessments, a Standardized administration follows the same protocols and security procedures as a summative test administration. For a Non Standardized administration, the teacher may use the assessment during instruction and interact with students as they complete the assessment.",
             "summative": "Valid/Invalid (Summative)",
             "summative-info": "For summative assessments, a test is noted as invalid if an appeal is submitted  to invalidate the test due to a test irregularity or breach.  ",
@@ -232,6 +233,11 @@
     "assessments": {
       "items": {
         "tabs": {
+          "scores":{
+            "score": "Student Score",
+            "max": "Max Score",
+            "correctness": "Correctness"
+          },
           "student-scores": "Student Scores",
           "item-viewer": "Item Viewer",
           "exemplar": {
@@ -244,7 +250,7 @@
               "description": "Description"
             },
             "errors": {
-              "not-found": "Rubric and exemplar is not available.",
+              "not-found": "The rubric and exemplar are not available.",
               "unknown": "Error trying to load rubrics and exemplars"
             }
           },
@@ -289,7 +295,7 @@
         "no-results": "Student does not exist or has no available test results."
       },
       "responses": {
-        "title": "Student Test History Report",
+        "title": "Student's Responses",
         "crumb": "Student Responses",
         "cols": {
           "standard": "Standard",

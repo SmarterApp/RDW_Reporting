@@ -19,7 +19,7 @@
 <!-- Data Table -->
 <p-dataTable [value]="exams"
              emptyMessage="{{'messages.noExamsMatchingCriteria' | translate}}"
-             sortField="exam.schoolYear"
+             sortField="exam.date"
              sortOrder="-1"
              tableStyleClass="table table-striped table-hover">
   <!-- Menu column -->
@@ -29,18 +29,18 @@
     </ng-template>
   </p-column>
 
+  <p-column field="exam.date" header="{{'labels.student.results.cols.date' | translate}}" sortable="true">
+    <ng-template let-exam="rowData.exam" pTemplate="body">
+      {{ exam.date | date }}
+    </ng-template>
+  </p-column>
+  <p-column field="assessment.name" header="{{'labels.student.results.cols.assessment' | translate}}" sortable="true"></p-column>
   <p-column field="exam.schoolYear" header="{{'labels.student.results.cols.school-year' | translate}}" sortable="true">
     <ng-template let-exam="rowData.exam" pTemplate="body">
       {{ exam.schoolYear | schoolYear }}
     </ng-template>
   </p-column>
   <p-column field="school.name" header="{{'labels.student.results.cols.school' | translate }}" sortable="true"></p-column>
-  <p-column field="assessment.name" header="{{'labels.student.results.cols.assessment' | translate}}" sortable="true"></p-column>
-  <p-column field="exam.date" header="{{'labels.student.results.cols.date' | translate}}" sortable="true">
-    <ng-template let-exam="rowData.exam" pTemplate="body">
-      {{ exam.date | date }}
-    </ng-template>
-  </p-column>
   <p-column field="exam.enrolledGrade" header="{{'labels.student.results.cols.enrolled-grade' | translate}}" sortable="true">
     <ng-template let-exam="rowData.exam" pTemplate="body">
       {{ exam.enrolledGrade | gradeDisplay }}
@@ -90,7 +90,8 @@
             sortable="true"
             [hidden]="displayState.table !== 'claim'">
     <ng-template let-exam="rowData.exam" pTemplate="body">
-      {{ 'enum.iab-category.' + exam.claimScores[idx].level.toString() | translate }}
+      <span *ngIf="exam.claimScores[idx].level">{{ 'enum.iab-category.' + exam.claimScores[idx].level.toString() | translate }}</span>
+      <span *ngIf="!exam.claimScores[idx].level">-</span>
     </ng-template>
   </p-column>
 

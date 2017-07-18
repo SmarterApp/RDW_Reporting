@@ -1,12 +1,12 @@
 import { Component, Input } from "@angular/core";
 import { StudentHistoryExamWrapper } from "../../model/student-history-exam-wrapper.model";
 import { Student } from "../../model/student.model";
-import { TranslateService } from "@ngx-translate/core";
 import { PopupMenuAction } from "../../../assessments/menu/popup-menu-action.model";
-import { ActivatedRoute, Router } from "@angular/router";
+import { MenuActionBuilder } from "../../../assessments/menu/menu-action.builder";
 
 @Component({
   selector: 'student-history-ica-summitive-table',
+  providers: [ MenuActionBuilder ],
   templateUrl: 'student-history-ica-summitive-table.component.html'
 })
 export class StudentHistoryICASummitiveTableComponent {
@@ -24,9 +24,7 @@ export class StudentHistoryICASummitiveTableComponent {
 
   actions: PopupMenuAction[];
 
-  constructor(private translateService: TranslateService,
-              private router: Router,
-              private route: ActivatedRoute) {
+  constructor(private actionBuilder: MenuActionBuilder) {
   }
 
   ngOnInit(): void {
@@ -52,28 +50,10 @@ export class StudentHistoryICASummitiveTableComponent {
    * @returns {PopupMenuAction[]} The table row menu actions
    */
   private createActions(): PopupMenuAction[] {
-    let actions: PopupMenuAction[] = [];
-
-    if (this.exams.length > 0 && !this.exams[0].assessment.isSummative) {
-      let responsesLabel: string = this.translateService.instant('labels.menus.responses', this.student);
-      let responsesAction: PopupMenuAction = new PopupMenuAction();
-      responsesAction.displayName = (() => responsesLabel);
-      responsesAction.perform = ((wrapper) => {
-        let examId: number = wrapper.exam.id;
-        this.router.navigate(['exams', examId], { relativeTo: this.route });
-      });
-      actions.push(responsesAction);
-    }
-
-    let resourcesLabel: string = this.translateService.instant('labels.menus.resources');
-    let resourcesAction: PopupMenuAction = new PopupMenuAction();
-    resourcesAction.displayName = (() => resourcesLabel);
-    resourcesAction.perform = ((wrapper) => {
-      console.log(`Show Resources: ${wrapper.assessment.name}`)
-    }).bind(this);
-    actions.push(resourcesAction);
-
-    return actions;
+    return this.actionBuilder
+      .newActions()
+      .withResponses(x => x.exam.id, ()=> this.student)
+      .withShowResources(x => x.assessment.name)
+      .build();
   }
-
 }
