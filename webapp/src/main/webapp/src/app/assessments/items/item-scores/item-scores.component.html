@@ -1,9 +1,4 @@
 <p-dataTable [value]="scores" tableStyleClass="table table-striped table-hover" [tableStyle]="{'table-layout':'auto'}" sortField="student.lastName">
-  <p-column styleClass="cell-dropdown">
-    <ng-template let-data="rowData" pTemplate="body">
-      <popup-menu [item]="data" [actions]="actions"></popup-menu>
-    </ng-template>
-  </p-column>
   <p-column sortField="student.lastName" header="{{'labels.groups.results.assessment.exams.cols.name' | translate}}" [sortable]="true">
     <ng-template let-score="rowData" pTemplate="body">
       {{ 'labels.personName' | translate:score.student }}
