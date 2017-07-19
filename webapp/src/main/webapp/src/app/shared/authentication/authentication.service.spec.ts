@@ -6,7 +6,7 @@ import { StorageService, SBStorage, StorageType } from "../storage.service";
 import { TestModule } from "../../../test/test.module";
 import { Router } from "@angular/router";
 
-fdescribe('AuthenticationService', () => {
+describe('AuthenticationService', () => {
   let storageService: MockStorageService;
 
   beforeEach(() => {
