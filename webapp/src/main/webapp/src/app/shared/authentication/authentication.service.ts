@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { StorageService, StorageType } from "./storage.service";
+import { StorageService, StorageType } from "../storage.service";
 
 /**
  * This service is responsible for handling authentication errors.

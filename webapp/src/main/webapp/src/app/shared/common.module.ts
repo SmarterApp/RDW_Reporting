@@ -18,7 +18,7 @@ import { RdwTranslateLoader } from "./rdw-translate-loader";
 import { AssessmentTypePipe } from "./assessment-type.pipe";
 import { ColorService } from "./color.service";
 import { Angulartics2Module } from "angulartics2";
-import { AuthenticationService } from "./authentication.service";
+import { AuthenticationService } from "./authentication/authentication.service";
 import { NotificationComponent } from "./notification/notification.component";
 import { NotificationService } from "./notification/notification.service";
 import { AlertModule } from "ngx-bootstrap";
