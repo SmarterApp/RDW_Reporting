@@ -1,6 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ItemInfoComponent } from './item-info.component';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { ItemInfoComponent } from "./item-info.component";
 import { CommonModule } from "../../../shared/common.module";
 import { AssessmentItem } from "../../model/assessment-item.model";
 import { Component } from "@angular/core";

@@ -27,9 +27,9 @@ import { Angulartics2Module, Angulartics2 } from "angulartics2";
 import { ItemExemplarComponent } from "../items/item-exemplar/item-exemplar.component";
 import { ItemScoresComponent } from "../items/item-scores/item-scores.component";
 import { TestModule } from "../../../test/test.module";
+import { ItemInfoComponent } from "../items/item-info/item-info.component";
 import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
-import { ItemInfoComponent } from "../items/item-info/item-info.component";
 
 describe('AssessmentResultsComponent', () => {
   let component: AssessmentResultsComponent;
