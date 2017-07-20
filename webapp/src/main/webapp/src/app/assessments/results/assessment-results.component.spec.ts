@@ -26,12 +26,10 @@ import { ColorService } from "../../shared/color.service";
 import { Angulartics2Module, Angulartics2 } from "angulartics2";
 import { ItemExemplarComponent } from "../items/item-exemplar/item-exemplar.component";
 import { ItemScoresComponent } from "../items/item-scores/item-scores.component";
-import { Router, ActivatedRoute } from "@angular/router";
-import { MockRouter } from "../../../test/mock.router";
-import { MockActivatedRoute } from "../../../test/mock.activated-route";
+import { TestModule } from "../../../test/test.module";
 import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
-import { TestModule } from "../../../test/test.module";
+import { ItemInfoComponent } from "../items/item-info/item-info.component";
 
 describe('AssessmentResultsComponent', () => {
   let component: AssessmentResultsComponent;
@@ -60,6 +58,7 @@ describe('AssessmentResultsComponent', () => {
         InformationLabelComponent,
         ItemTabComponent,
         ItemViewerComponent,
+        ItemInfoComponent,
         ItemExemplarComponent,
         ItemScoresComponent,
         PopupMenuComponent,

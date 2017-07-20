@@ -30,6 +30,9 @@ spring:
           destination: exam_report_pdf
           group: default
 
+  thymeleaf:
+    mode: HTML
+
 cloud:
   aws:
     credentials:

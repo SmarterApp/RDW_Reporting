@@ -32,7 +32,7 @@
     <!-- Right Column Content Area -->
     <div class="col-md-3 pt-md">
       <!-- Student Groups Admin Link -->
-      <p class="text-right">
+      <p class="text-right" *sbAuthorize="['GROUP_WRITE']">
         <a href="#" class="btn btn-xs btn-info"><i class="fa fa-gear"></i> {{'labels.groups.manage-group' | translate}}</a>
       </p>
 

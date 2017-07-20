@@ -40,7 +40,7 @@
                     content="{{'labels.groups.results.assessment.items.cols.claim-info' | translate}}"></span>
       </ng-template>
       <ng-template let-item="rowData.assessmentItem" pTemplate="body">
-        {{ 'enum.claim.' + item.claim | translate }} / {{ 'labels.groups.results.assessment.items.target' | translate:item }}
+        {{ 'definition.claim.' + item.claim + '.name' | translate }} / {{ 'labels.groups.results.assessment.items.target' | translate:item }}
       </ng-template>
     </p-column>
     <p-column field="assessmentItem.difficulty" [sortable]="true">

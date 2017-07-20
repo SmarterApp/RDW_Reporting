@@ -1,0 +1,67 @@
+<div *ngIf="options" class="report-download-container">
+  <button class="btn btn-sm btn-info" (click)="modal.show()"><i class="fa fa-download"></i> Download Report</button>
+  <div class="modal fade" bsModal #modal="bs-modal" tabindex="-1" role="dialog"
+       aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Download Report</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modal.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #form="ngForm" (ngSubmit)="submit()">
+            <div class="form-group">
+              <div class="flex-children">
+
+                <div class="flex-child">
+                  <label>Assessment Type
+                    <select class="form-control" name="assessment-type" [(ngModel)]="options.assessmentType">
+                      <option *ngFor="let type of assessmentTypes" [ngValue]="type">{{'labels.assessmentTypes.' + type + '.short-name' | translate}}
+                      </option>
+                    </select>
+                  </label>
+                </div>
+
+                <div class="flex-child">
+                  <label>Subject
+                    <select class="form-control" name="subject" [(ngModel)]="options.subject">
+                      <option *ngFor="let subject of subjectTypes" [ngValue]="subject">{{'labels.subjects.' + subject + '.short-name' | translate}}
+                      </option>
+                    </select>
+                  </label>
+                </div>
+
+                <div class="flex-child">
+                  <label>School Year
+                    <select class="form-control" name="school-year" [(ngModel)]="options.schoolYear">
+                      <option *ngFor="let year of schoolYears" [ngValue]="year">{{year | schoolYear}}</option>
+                    </select>
+                  </label>
+                </div>
+
+                <div class="flex-child">
+                  <label>Language
+                    <select class="form-control" name="language" [(ngModel)]="options.language">
+                      <option *ngFor="let language of languages" [ngValue]="language">{{'labels.languages.' + language | translate}}
+                      </option>
+                    </select>
+                  </label>
+                </div>
+
+              </div>
+            </div>
+          </form>
+          <div class="alert alert-danger" *ngIf="errorMessage">
+            <p>{{errorMessage}}</p>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" (click)="form.ngSubmit.emit()"><i class="fa fa-download"></i> Download</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

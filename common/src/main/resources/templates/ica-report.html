@@ -29,7 +29,7 @@
         <div th:each="claimCode : ${report.assessment.claimCodes}">
             <h4 th:text="#{'report.claim.' + ${claimCode} + '.name'}"></h4>
             <span th:text="#{'report.claim.level.' + ${report.exam.claimScaleScores[claimCodeStat.index].level} + '.label'}"></span>
-            <p th:text="#{'report.claim.' + ${claimCode} + '.grade.' + ${report.assessment.gradeCode} + '.level.' + ${report.exam.claimScaleScores[claimCodeStat.index].level}}"></p>
+            <p th:text="#{('report.claim.' + ${claimCode} + '.grade.' + ${report.assessment.gradeCode} + '.level.' + ${report.exam.claimScaleScores[claimCodeStat.index].level})(${report.student.firstName})}"></p>
         </div>
 
         <div class="well">

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild } from "@angular/core";
 import { AssessmentItem } from "../model/assessment-item.model";
 import { TabsetComponent, TabDirective } from "ngx-bootstrap";
 import { Exam } from "../model/exam.model";
+import { Angulartics2 } from 'angulartics2';
 
 @Component({
   selector: 'item-tab',
@@ -63,7 +64,7 @@ export class ItemTabComponent implements OnInit {
 
   private _position: number = -1;
 
-  constructor() { }
+  constructor(private angulartics2: Angulartics2) { }
 
   ngOnInit(): void {
 
@@ -76,4 +77,24 @@ export class ItemTabComponent implements OnInit {
     }).bind(this), 0);
   }
 
+  selectTab(tabName: string) {
+    if (tabName == 'Rubric Exemplar') {
+      this.loadExemplar = true;
+    }
+    else if (tabName == 'Item Viewer') {
+      this.loadItemViewer = true;
+    }
+
+    this.trackAnalyticsEvent('ItemTabSelection', tabName);
+  }
+
+  private trackAnalyticsEvent(action: string, details: string) {
+    this.angulartics2.eventTrack.next({
+      action: action,
+      properties: {
+        category: 'AssessmentResults',
+        label: details
+      }
+    });
+  }
 }

@@ -1,6 +1,6 @@
 export enum AssessmentSubjectType {
 
-  MATH = 0,
-  ELA = 1
+  MATH = 1,
+  ELA = 2
 
 }

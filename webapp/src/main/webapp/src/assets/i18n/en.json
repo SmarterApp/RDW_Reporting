@@ -32,6 +32,35 @@
         "interpret-instructions": "Learn how to interpret the scores in this reporting tool:"
       }
     },
+    "languages": {
+      "eng": "English",
+      "spa": "Español",
+      "vie": "Tiếng Việt"
+    },
+    "assessmentTypes": {
+      "1": {
+        "name": "Interim Comprehensive Assessment",
+        "short-name": "ICA"
+      },
+      "2": {
+        "name": "Interim Assessment Blocks",
+        "short-name": "IAB"
+      },
+      "3": {
+        "name": "Summative",
+        "short-name": "SUMMATIVE"
+      }
+    },
+    "subjects": {
+      "1": {
+        "name": "Mathematics",
+        "short-name": "MATH"
+      },
+      "2": {
+        "name": "ELA/Literacy",
+        "short-name": "ELA"
+      }
+    },
     "grade": "Grade",
     "grades": {
       "KG": {
@@ -254,7 +283,18 @@
               "unknown": "Error trying to load rubrics and exemplars"
             }
           },
-          "item-info": "Item Information"
+          "item-info": {
+            "title": "Item Information",
+            "claim": "Claim: ",
+            "target": "Target: ",
+            "dok": "Depth of Knowledge: ",
+            "view-ref": "View reference",
+            "difficulty": "Item Difficulty: ",
+            "ccs": "Common Core Standard: ",
+            "math": "Mathematical Practice Standard: ",
+            "calculator": "Calculator: ",
+            "docs": "Supporting Documentation: "
+          }
         }
       },
       "average-scale-score": "Average Scale Score",
@@ -373,7 +413,7 @@
       "3": "Met Standard",
       "4": "Exceeded Standard"
     },
-    "claim-code": {
+    "subject-claim-code": {
       "1": "Concepts & Procedures",
       "2-W": "Writing",
       "3": "Communicating Reasoning",
@@ -404,23 +444,102 @@
       "DemographicRaceTwoOrMoreRaces": "Demographic Race of Two or More",
       "Filipino": "Filipino"
     },
-    "claim": {
-      "1-IT": "Read Analytically: Informational Text",
-      "1-LT": "Read Analytically: Literary Text",
-      "2-W": "Write Effectively",
-      "3-L": "Listen Purposefully",
-      "3-S": "Speak Purposefully",
-      "4-CR": "Conduct Research",
-      "NA": "NA",
-      "1": "Concepts and Procedures",
-      "2": "Problem Solving",
-      "3": "Communicating Reasoning",
-      "4": "Modeling and Data Analysis"
-    },
     "difficulty": {
       "E": "Easy",
       "M": "Moderate",
       "D": "Difficult"
+    }
+  },
+  "definition": {
+    "claim": {
+      "1-IT": {
+        "name":"Read Analytically: Informational Text",
+        "description": "Read Analytically: Informational Text - Students can read closely and analytically to comprehend a range of increasingly complex literary and informational texts."
+      },
+      "1-LT": {
+        "name": "Read Analytically: Literary Text",
+        "description": "Read Analytically: Literary Text - Students can read closely and analytically to comprehend a range of increasingly complex literary and informational texts."
+      },
+      "2-W": {
+        "name": "Write Effectively",
+        "description": "Write Effectively - Students can produce effective and well-grounded writing for a range of purposes and audiences."
+      },
+      "3-L": {
+        "name": "Listen Purposefully",
+        "description": "Speak and Listen purposefully - Students can employ effective speaking and listening skills for a range of purposes and audiences."
+      },
+      "3-S": {
+        "name": "Speak Purposefully",
+        "description": "Speak and Listen purposefully - Students can employ effective speaking and listening skills for a range of purposes and audiences."
+      },
+      "4-CR": {
+        "name": "Conduct Research",
+        "description": "Conduct Research - Students can engage in research/ inquiry to investigate topics and to analyze, integrate, and present information."
+      },
+      "NA": {
+        "name": "NA",
+        "description": "NA"
+      },
+      "1": {
+        "name": "Concepts and Procedures",
+        "description": "Concepts and Procedures - Students can explain and apply mathematical concepts and interpret and carry out mathematical procedures with precision and fluency."
+      },
+      "2": {
+        "name": "Problem Solving",
+        "description": "Problem Solving - Students can solve a range of complex well-posed problems in pure and applied mathematics, making productive use of knowledge and problem solving strategies."
+      },
+      "3": {
+        "name": "Communicating Reasoning",
+        "description": "Communicating Reasoning - Students can clearly and precisely construct viable arguments to support their own reasoning and to critique the reasoning of others."
+      },
+      "4": {
+        "name": "Modeling and Data Analysis",
+        "description": "Modeling and Data Analysis - Students can analyze complex, real-world scenarios and can construct and use mathematical models to interpret and solve problems."
+      }
+    },
+    "dok": {
+      "1": {
+        "description": "Recall and Reproduction",
+        "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
+      },
+      "2": {
+        "description": "Basic Skills and Concepts",
+        "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
+      },
+      "3": {
+        "description": "Strategic Thinking and Reasoning",
+        "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
+      },
+      "4": {
+        "description": "Extended Thinking",
+        "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
+      },
+      "5": {
+        "description": "Recall and Reproduction",
+        "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
+      },
+      "6": {
+        "description": "Basic Skills and Concepts",
+        "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
+      },
+      "7": {
+        "description": "Strategic Thinking and Reasoning",
+        "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
+      },
+      "8": {
+        "description": "Extended Thinking",
+        "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
+      }
+    },
+    "math-practice": {
+      "1": { "description": "Make sense of problems and persevere in solving them" },
+      "2": { "description": "Reason abstractly and quantitatively" },
+      "3": { "description": "Construct viable arguments and critique the reasoning of others" },
+      "4": { "description": "Model with mathematics" },
+      "5": { "description": "Use appropriate tools strategically" },
+      "6": { "description": "Attend to precision" },
+      "7": { "description": "Look for and make use of structure" },
+      "8": { "description": "Look for and express regularity in repeated reasoning" }
     }
   },
   "html": {

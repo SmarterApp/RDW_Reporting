@@ -9,6 +9,7 @@ import { School } from "../../user/model/school.model";
 import { SchoolService } from "../school.service";
 import { Grade } from "../grade.model";
 import { isNullOrUndefined } from "util";
+import { Angulartics2 } from 'angulartics2';
 
 @Component({
   selector: 'app-group-results',
@@ -78,7 +79,8 @@ export class SchoolResultsComponent implements OnInit {
               private router: Router,
               private filterOptionService: ExamFilterOptionsService,
               private schoolService: SchoolService,
-              public assessmentProvider: SchoolAssessmentService) {
+              public assessmentProvider: SchoolAssessmentService,
+              private angulartics2: Angulartics2) {
   }
 
   ngOnInit() {
@@ -141,11 +143,11 @@ export class SchoolResultsComponent implements OnInit {
         else
           this.currentGrade = undefined;
 
-        this.updateRoute();
+        this.updateRoute('School');
       });
   }
 
-  updateRoute() {
+  updateRoute(changedFilter: string) {
     let params: any = {};
     params.schoolYear = this.currentSchoolYear;
 
@@ -155,9 +157,35 @@ export class SchoolResultsComponent implements OnInit {
     this.router.navigate(['schools', this.currentSchool.id, params ]).then(() => {
       this.updateAssessment(this.route.snapshot.data[ "assessment" ]);
     });
+
+    this.trackAnalyticsEvent(changedFilter);
   }
 
   mapParamsToSchoolYear(params) {
     return Number.parseInt(params[ "schoolYear" ]) || this.filterOptions.schoolYears[ 0 ];
+  }
+
+  private trackAnalyticsEvent(changedFilter: string) {
+    let details: any;
+
+    switch (changedFilter) {
+      case 'Year':
+        details = this.currentSchoolYear;
+        break;
+      case 'Grade':
+        details = this.currentGrade.code;
+        break;
+      case 'School':
+        details = this.currentSchool.name;
+        break;
+    }
+
+    this.angulartics2.eventTrack.next({
+      action: 'Change' + changedFilter,
+      properties: {
+        category: 'AssessmentResults',
+        label: details
+      }
+    });
   }
 }

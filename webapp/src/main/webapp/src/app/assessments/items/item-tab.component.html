@@ -1,11 +1,10 @@
 <tabset #itemTabs>
-  <!-- TODO: This tab should be toggleable depending on the context -->
-  <tab *ngIf="showStudentScores" heading="{{translateRoot + 'student-scores' | translate }}">
+  <tab *ngIf="showStudentScores" (select)="selectTab('Student Scores')" heading="{{translateRoot + 'student-scores' | translate }}">
     <div class="tab-content well">
       <item-scores [item]="item" [exams]="exams"></item-scores>
     </div>
   </tab>
-  <tab *ngIf="showItemDetails" (select)="loadItemViewer=true" heading="{{translateRoot + 'item-viewer' | translate }}">
+  <tab *ngIf="showItemDetails" (select)="selectTab('Item Viewer')" heading="{{translateRoot + 'item-viewer' | translate }}">
     <div class="tab-content well">
       <item-viewer *ngIf="loadItemViewer"
                    [bankItemKey]="item.bankItemKey"
@@ -13,14 +12,14 @@
                    [position]="position"></item-viewer>
     </div>
   </tab>
-  <tab *ngIf="showItemDetails" (select)="loadExemplar=true" heading="{{translateRoot + 'exemplar.title' | translate }}">
+  <tab *ngIf="showItemDetails" (select)="selectTab('Rubric Exemplar')" heading="{{translateRoot + 'exemplar.title' | translate }}">
     <div class="tab-content well">
       <item-exemplar *ngIf="loadExemplar" [bankItemKey]="item.bankItemKey"></item-exemplar>
     </div>
   </tab>
-  <tab *ngIf="showItemDetails" heading="{{translateRoot + 'item-info' | translate }}">
+  <tab *ngIf="showItemDetails" (select)="selectTab('Item Information')" heading="{{translateRoot + 'item-info.title' | translate }}">
     <div class="tab-content well">
-    <!--TODO -->
+    <item-info [item]="item"></item-info>
     </div>
   </tab>
 </tabset>

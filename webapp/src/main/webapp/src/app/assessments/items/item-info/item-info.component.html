@@ -1,0 +1,39 @@
+<div>
+  <p>
+    <b>{{ 'labels.assessments.items.tabs.item-info.claim' | translate}}</b>
+    {{ 'definition.claim.' + item.claim + '.description' | translate }}
+  </p>
+  <p class="green">
+    // TODO:
+    <b>{{ 'labels.assessments.items.tabs.item-info.target' | translate}}</b>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec placerat velit.
+  </p>
+  <p>
+    <b>{{ 'labels.assessments.items.tabs.item-info.dok' | translate}}</b>
+    {{ 'definition.dok.' + item.depthOfKnowledge + '.description' | translate }}
+    <a href="{{ 'definition.dok.' + item.depthOfKnowledge + '.reference' | translate }}" target="_blank">{{ 'labels.assessments.items.tabs.item-info.view-ref' | translate}}</a>
+  </p>
+  <p>
+    <b>{{ 'labels.assessments.items.tabs.item-info.difficulty' | translate}}</b>
+    {{ 'enum.difficulty.' + item.difficulty | translate }}
+  </p>
+  <p class="green">
+    // TODO:
+    <b>{{ 'labels.assessments.items.tabs.item-info.ccs' | translate}}</b>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec placerat velit.
+  </p>
+  <p *ngIf="item.mathPractice">
+    <b>{{ 'labels.assessments.items.tabs.item-info.math' | translate}}</b>
+    {{ 'definition.math-practice.' + item.mathPractice + '.description' | translate }}
+  </p>
+  <p class="green">
+    // TODO:
+    <b>{{ 'labels.assessments.items.tabs.item-info.calculator' | translate}}</b>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec placerat velit.
+  </p>
+  <p class="green">
+    // TODO:
+    <b>{{ 'labels.assessments.items.tabs.item-info.docs' | translate}}</b>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec placerat velit.
+  </p>
+</div>
