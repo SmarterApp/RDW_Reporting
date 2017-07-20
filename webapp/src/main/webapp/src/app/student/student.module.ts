@@ -14,13 +14,14 @@ import { DataTableModule } from "primeng/components/datatable/datatable";
 import { StudentHistoryIABTableComponent } from "./results/tables/student-history-iab-table.component";
 import { StudentHistoryICASummitiveTableComponent } from "./results/tables/student-history-ica-summitive-table.component";
 import { PopoverModule } from "ngx-bootstrap";
-import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2Module } from "angulartics2";
 import { StudentResponsesComponent } from "./responses/student-responses.component";
 import { StudentResponsesService } from "./responses/student-responses.service";
 import { StudentResponsesResolve } from "./responses/student-responses.resolve";
 import { StudentHistoryResponsesExamResolve } from "./responses/student-history-responses-exam.resolve";
 import { StudentHistoryResponsesAssessmentResolve } from "./responses/student-history-responses-assessment.resolve";
 import { StudentHistoryResponsesStudentResolve } from "./responses/student-history-responses-student.resolve";
+import { CsvModule } from "../csv-export/csv-export.module";
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { StudentHistoryResponsesStudentResolve } from "./responses/student-histo
   imports: [
     AssessmentsModule,
     CommonModule,
+    CsvModule,
     BrowserAnimationsModule,
     BrowserModule,
     DataTableModule,

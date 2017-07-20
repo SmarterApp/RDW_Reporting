@@ -22,6 +22,7 @@ import { AuthenticationService } from "./authentication/authentication.service";
 import { AlertModule } from "ngx-bootstrap";
 import { SessionExpiredComponent } from "./authentication/session-expired.component";
 import { StorageService } from "./storage.service";
+import { DatePipe } from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { StorageService } from "./storage.service";
   providers: [
     AuthenticationService,
     DataService,
+    DatePipe,
     CachingDataService,
     ColorService,
     RdwTranslateLoader,

@@ -1,8 +1,13 @@
 <div class="mb-md">
-  <div class="tag tag-lg blue ">
+  <span class="tag tag-lg blue">
     <span class="label">{{'labels.student.name' | translate:examHistory.student}}</span>
     <span>{{examHistory.student.ssid}}</span>
-  </div>
+  </span>
+  <button class="btn btn-default btn-sm pull-right"
+          (click)="exportCsv()">
+    <i class="fa fa-bold fa-table"></i>
+    <span>{{'labels.export.csv' | translate}}</span>
+  </button>
 </div>
 
 <!-- Results Filter -->
