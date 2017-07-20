@@ -287,12 +287,13 @@
             "title": "Item Information",
             "claim": "Claim: ",
             "target": "Target: ",
-            "dok": "Depth of Knowledge",
-            "difficulty": "Item Difficulty",
-            "ccs": "Common Core Standard",
-            "math": "Mathematical Practice Standard",
-            "calculator": "Calculator",
-            "docs": "Supporting Documentation"
+            "dok": "Depth of Knowledge: ",
+            "view-ref": "View reference",
+            "difficulty": "Item Difficulty: ",
+            "ccs": "Common Core Standard: ",
+            "math": "Mathematical Practice Standard: ",
+            "calculator": "Calculator: ",
+            "docs": "Supporting Documentation: "
           }
         }
       },
@@ -484,6 +485,50 @@
         "name": "Modeling and Data Analysis",
         "description": "Modeling and Data Analysis - Students can analyze complex, real-world scenarios and can construct and use mathematical models to interpret and solve problems."
       }
+    },
+    "dok": {
+      "1": {
+        "description": "Recall and Reproduction",
+        "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
+      },
+      "2": {
+        "description": "Basic Skills and Concepts",
+        "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
+      },
+      "3": {
+        "description": "Strategic Thinking and Reasoning",
+        "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
+      },
+      "4": {
+        "description": "Extended Thinking",
+        "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
+      },
+      "5": {
+        "description": "Recall and Reproduction",
+        "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
+      },
+      "6": {
+        "description": "Basic Skills and Concepts",
+        "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
+      },
+      "7": {
+        "description": "Strategic Thinking and Reasoning",
+        "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
+      },
+      "8": {
+        "description": "Extended Thinking",
+        "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
+      }
+    },
+    "math-practice": {
+      "1": { "description": "Make sense of problems and persevere in solving them" },
+      "2": { "description": "Reason abstractly and quantitatively" },
+      "3": { "description": "Construct viable arguments and critique the reasoning of others" },
+      "4": { "description": "Model with mathematics" },
+      "5": { "description": "Use appropriate tools strategically" },
+      "6": { "description": "Attend to precision" },
+      "7": { "description": "Look for and make use of structure" },
+      "8": { "description": "Look for and express regularity in repeated reasoning" }
     }
   },
   "html": {

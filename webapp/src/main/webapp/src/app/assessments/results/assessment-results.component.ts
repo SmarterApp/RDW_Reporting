@@ -10,7 +10,7 @@ import { AssessmentItem } from "../model/assessment-item.model";
 import { ordering } from "@kourge/ordering";
 import { byString } from "@kourge/ordering/comparator";
 import { PopupMenuAction } from "../menu/popup-menu-action.model";
-import { TranslateService } from "@ngx-translate/core";
+import { Angulartics2 } from 'angulartics2';
 import { GradeCode } from "../../shared/enum/grade-code.enum";
 import { ColorService } from "../../shared/color.service";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -189,7 +189,8 @@ export class AssessmentResultsComponent implements OnInit {
               private route: ActivatedRoute,
               private examCalculator: ExamStatisticsCalculator,
               private examFilterService: ExamFilterService,
-              private actionBuilder: MenuActionBuilder) {
+              private actionBuilder: MenuActionBuilder,
+              private angulartics2: Angulartics2) {
 
   }
 
@@ -229,6 +230,13 @@ export class AssessmentResultsComponent implements OnInit {
       this.filteredAssessmentItems = undefined;
       this.showItemsByPoints = false;
     }
+
+    this.angulartics2.eventTrack.next({
+      action: (viewItemsByPoints ? 'View' : 'Hide') + 'ItemsByPointsEarned',
+      properties: {
+        category: 'AssessmentResults'
+      }
+    });
   }
 
   private getDistinctExamSessions(exams: Exam[]) {

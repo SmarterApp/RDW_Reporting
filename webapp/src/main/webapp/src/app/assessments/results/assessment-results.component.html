@@ -77,18 +77,13 @@
 
     <!-- Student Results -->
     <div *ngIf="!collapsed" @fadeAnimation>
-        <!-- TODO: Make 'emptyMessage' content instead of attribute value so it can be wrapped like the below example
-        <div class="alert alert-danger">
-            {{'labels.groups.results.empty-message' | translate}}
-        </div>-->
 
-        <!-- Student Results Table -->
+      <!-- Student Results Table -->
       <div *ngIf="!showItemsByPoints">
         <h3 class="gray-darkest mb-md">
           {{'labels.groups.results.assessment.exams.title' | translate}}
 
-          <a *ngIf="assessmentExam.assessment.isInterim" class="btn btn-default btn-xs pull-right" (click)="viewItemsByPoints(true)"
-             angulartics2On="click" angularticsEvent="ViewItemsByPointsEarned" angularticsCategory="AssessmentResults">
+          <a *ngIf="assessmentExam.assessment.isInterim" class="btn btn-default btn-xs pull-right" (click)="viewItemsByPoints(true)">
             {{'labels.groups.results.assessment.button-items' | translate}} <i class="fa fa-chevron-right"></i>
           </a>
 

@@ -9,25 +9,23 @@ export class ItemScoringGuideMapper {
   mapFromApi(apiModel: any): ItemScoringGuide {
     let uiModel = new ItemScoringGuide();
 
-    if(!isNullOrUndefined(apiModel.answerKey) && !isNullOrUndefined(apiModel.answerKey.value))
+    if (!isNullOrUndefined(apiModel.answerKey) && !isNullOrUndefined(apiModel.answerKey.value))
       uiModel.answerKeyValue = apiModel.answerKey.value;
 
-    if(!isNullOrUndefined(apiModel.exemplars))
+    if (!isNullOrUndefined(apiModel.exemplars))
       uiModel.exemplars = apiModel.exemplars.map(exemplar => this.mapScoringCriterionFomApi(exemplar));
 
-    if(!isNullOrUndefined(apiModel.rubrics))
+    if (!isNullOrUndefined(apiModel.rubrics))
       uiModel.rubrics = apiModel.rubrics.map(rubric => this.mapScoringCriterionFomApi(rubric));
 
     return uiModel;
   }
 
-  private mapScoringCriterionFomApi(apiModel: any) {
+  private mapScoringCriterionFomApi(apiModel: any): ScoringCriterion {
     let uiModel = new ScoringCriterion();
-
-    uiModel.name = apiModel.name;
     uiModel.scorepoint = apiModel.scorepoint;
     uiModel.templateHtml = apiModel.template;
-
     return uiModel;
   }
+
 }

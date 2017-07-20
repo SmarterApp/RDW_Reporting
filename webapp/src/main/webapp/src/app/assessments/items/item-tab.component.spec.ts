@@ -15,16 +15,25 @@ import { AssessmentItem } from "../model/assessment-item.model";
 import { PopupMenuComponent } from "../menu/popup-menu.component";
 import { TestModule } from "../../../test/test.module";
 import { ItemInfoComponent } from "./item-info/item-info.component";
+import { Angulartics2Module, Angulartics2 } from "angulartics2";
 
 describe('ItemTabComponent', () => {
   let component: ItemTabComponent;
   let fixture: ComponentFixture<TestComponentWrapper>;
 
   beforeEach(async(() => {
+    let mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', ['eventTrack']);
+    mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', ['next']);
+
     TestBed.configureTestingModule({
-      imports: [ TabsModule, CommonModule, DataTableModule, TestModule ],
+      imports: [ TabsModule, CommonModule, DataTableModule, TestModule, Angulartics2Module ],
       declarations: [ TestComponentWrapper, ItemTabComponent, ItemViewerComponent, ItemInfoComponent, ItemExemplarComponent, ItemScoresComponent, PopupMenuComponent ],
-      providers: [TabsetConfig, { provide: CachingDataService, useClass: MockDataService }, StudentScoreService]
+      providers: [
+        TabsetConfig,
+        { provide: CachingDataService, useClass: MockDataService },
+        StudentScoreService,
+        { provide: Angulartics2, useValue: mockAngulartics2 }
+      ]
     }).compileComponents();
   }));
 

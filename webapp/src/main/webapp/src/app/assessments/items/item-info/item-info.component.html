@@ -8,10 +8,10 @@
     <b>{{ 'labels.assessments.items.tabs.item-info.target' | translate}}</b>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec placerat velit.
   </p>
-  <p class="green">
-    // TODO:
+  <p>
     <b>{{ 'labels.assessments.items.tabs.item-info.dok' | translate}}</b>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec placerat velit.
+    {{ 'definition.dok.' + item.depthOfKnowledge + '.description' | translate }}
+    <a href="{{ 'definition.dok.' + item.depthOfKnowledge + '.reference' | translate }}" target="_blank">{{ 'labels.assessments.items.tabs.item-info.view-ref' | translate}}</a>
   </p>
   <p>
     <b>{{ 'labels.assessments.items.tabs.item-info.difficulty' | translate}}</b>
@@ -22,10 +22,9 @@
     <b>{{ 'labels.assessments.items.tabs.item-info.ccs' | translate}}</b>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec placerat velit.
   </p>
-  <p class="green">
-    // TODO:
+  <p *ngIf="item.mathPractice">
     <b>{{ 'labels.assessments.items.tabs.item-info.math' | translate}}</b>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec placerat velit.
+    {{ 'definition.math-practice.' + item.mathPractice + '.description' | translate }}
   </p>
   <p class="green">
     // TODO:

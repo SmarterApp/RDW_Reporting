@@ -24,7 +24,7 @@
     <label for="current-grade">{{'labels.school-grade.results.basic-filters.current-grade' | translate}}</label>
     <select
       title="{{ (gradesAreUnavailable ? 'labels.school-grade.messages.no-grades-available': '') | translate}}"
-      [disabled]="!availableGrades || availableGrades.length == 0" id="current-grade" [(ngModel)]="currentGrade" (change)="updateRoute()"
+      [disabled]="!availableGrades || availableGrades.length == 0" id="current-grade" [(ngModel)]="currentGrade" (change)="updateRoute('Grade')"
             class="form-control">
       <option *ngFor="let grade of availableGrades" [ngValue]="grade">{{grade.code | gradeDisplay:'long-name' }}</option>
     </select>
@@ -32,7 +32,7 @@
   <!-- School Year -->
   <div class="col-md-2">
     <label for="school-year">{{'labels.school-grade.results.basic-filters.school-year' | translate}}</label>
-    <select id="school-year" [(ngModel)]="currentSchoolYear" (change)="updateRoute()" class="form-control">
+    <select id="school-year" [(ngModel)]="currentSchoolYear" (change)="updateRoute('Year')" class="form-control">
       <option *ngFor="let year of filterOptions.schoolYears" [ngValue]="year">{{year | schoolYear}}</option>
     </select>
   </div>

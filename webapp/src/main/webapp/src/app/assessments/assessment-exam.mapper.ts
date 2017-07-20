@@ -104,7 +104,7 @@ export class AssessmentExamMapper {
     return uiModel;
   }
 
-  mapStudentFromApi(apiModel) {
+  mapStudentFromApi(apiModel): Student {
     let uiModel: Student = new Student();
     uiModel.id = apiModel.id;
     uiModel.ssid = apiModel.ssid;
@@ -119,7 +119,7 @@ export class AssessmentExamMapper {
     return uiModel;
   }
 
-  private mapExamItemFromApi(apiModel) {
+  private mapExamItemFromApi(apiModel): ExamItemScore {
     let uiModel: ExamItemScore = new ExamItemScore();
 
     uiModel.examId = apiModel.examId;
@@ -130,14 +130,16 @@ export class AssessmentExamMapper {
     return uiModel;
   }
 
-  private mapAssessmentItemFromApi(apiModel) {
+  private mapAssessmentItemFromApi(apiModel): AssessmentItem {
     let uiModel: AssessmentItem = new AssessmentItem();
 
     uiModel.id = apiModel.id;
     uiModel.bankItemKey = apiModel.bankItemKey;
-    uiModel.position = apiModel.position; 
+    uiModel.position = apiModel.position;
     uiModel.claim = apiModel.claim;
     uiModel.target = apiModel.target;
+    uiModel.depthOfKnowledge = apiModel.depthOfKnowledge;
+    uiModel.mathPractice = apiModel.mathPractice;
     uiModel.difficulty = apiModel.difficultyCode;
     uiModel.maxPoints = apiModel.maximumPoints;
     uiModel.commonCoreStandardIds = apiModel.commonCoreStandardIds || [];

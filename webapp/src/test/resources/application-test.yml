@@ -1,5 +1,7 @@
 artifacts:
   root: "classpath:"
+  exam-item:
+    directory: items/Item-{0}/
 
 permissionservice:
   endpoint:
