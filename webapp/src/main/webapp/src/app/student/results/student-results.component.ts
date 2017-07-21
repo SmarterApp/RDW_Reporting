@@ -8,8 +8,8 @@ import { ExamFilterService } from "../../assessments/filters/exam-filters/exam-f
 import { ColorService } from "../../shared/color.service";
 import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
 import { CsvBuilder } from "../../csv-export/csv-builder.service";
-import { Angular2Csv } from "angular2-csv";
 import { Student } from "../model/student.model";
+import { Angular2Csv } from "angular2-csv/Angular2-csv";
 
 @Component({
   selector: 'student-results',

@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
 import { URLSearchParams } from "@angular/http";
 import { DataService } from "../../shared/data/data.service";
 import { AssessmentExamMapper } from "../../assessments/assessment-exam.mapper";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { AssessmentProvider } from "../../assessments/assessment-provider.interface";
+import { ResponseUtils } from "../../shared/response-utils";
 
 @Injectable()
 export class GroupAssessmentService implements AssessmentProvider {
@@ -27,13 +27,7 @@ export class GroupAssessmentService implements AssessmentProvider {
 
   getAvailableAssessments() {
     return this.dataService.get(`/groups/${this.groupId}/assessments`, { search: this.getSchoolYearParams(this.schoolYear) })
-      .catch(response => {
-        if (response.status == 404) {
-          return Observable.empty();
-        } else {
-          return Observable.throw(response);
-        }
-      })
+      .catch(ResponseUtils.notFoundToEmptyArray)
       .map(x => {
         return this.mapper.mapAssessmentsFromApi(x);
       });
@@ -41,13 +35,7 @@ export class GroupAssessmentService implements AssessmentProvider {
 
   getExams(assessmentId: number) {
     return this.dataService.get(`/groups/${this.groupId}/assessments/${assessmentId}/exams`, { search: this.getSchoolYearParams(this.schoolYear) })
-      .catch(response => {
-        if (response.status == 404) {
-          return Observable.empty();
-        } else {
-          return Observable.throw(response);
-        }
-      })
+      .catch(ResponseUtils.notFoundToEmptyArray)
       .map(x => {
         return this.mapper.mapExamsFromApi(x);
       });
@@ -55,13 +43,7 @@ export class GroupAssessmentService implements AssessmentProvider {
 
   getAssessmentItems(assessmentId: number) {
     return this.dataService.get(`/groups/${this.groupId}/assessments/${assessmentId}/examitems`, { search: this.getSchoolYearParams(this.schoolYear) })
-      .catch(response => {
-        if (response.status == 404) {
-          return Observable.empty();
-        } else {
-          return Observable.throw(response);
-        }
-      })
+      .catch(ResponseUtils.notFoundToEmptyArray)
       .map(x => {
         return this.mapper.mapAssessmentItemsFromApi(x);
       });
@@ -69,14 +51,10 @@ export class GroupAssessmentService implements AssessmentProvider {
 
   private getRecentAssessmentBySchoolYear(groupId: number, schoolYear: number) {
     return this.dataService.get(`/groups/${groupId}/latestassessment`, { search: this.getSchoolYearParams(schoolYear) })
-      .catch(response => {
-        if (response.status == 404) {
-          return Observable.empty();
-        } else {
-          return Observable.throw(response);
-        }
-      })
+      .catch(ResponseUtils.notFoundToNull)
       .map(x => {
+        if (x == null) return null;
+
         return this.mapper.mapFromApi(x);
       });
   }

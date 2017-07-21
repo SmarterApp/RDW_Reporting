@@ -19,7 +19,7 @@ export class StorageService {
       case StorageType.Local:
         return localStorage;
       default:
-        console.log(`Unknown StorageType: ${type}`);
+        throw new Error(`Unknown StorageType: ${type}`);
     }
   }
 }

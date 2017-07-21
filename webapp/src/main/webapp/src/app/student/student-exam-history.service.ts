@@ -7,6 +7,7 @@ import { Student } from "./model/student.model";
 import { AssessmentExamMapper } from "../assessments/assessment-exam.mapper";
 import { StudentHistoryExamWrapper } from "./model/student-history-exam-wrapper.model";
 import { School } from "../user/model/school.model";
+import { ResponseUtils } from "../shared/response-utils";
 
 @Injectable()
 export class StudentExamHistoryService {
@@ -23,8 +24,9 @@ export class StudentExamHistoryService {
    */
   findOneById(id: number): Observable<StudentExamHistory> {
     return this.dataService.get(`/students/${id}/exams`)
+      .catch(ResponseUtils.notFoundToNull)
       .map((apiExamHistory) => {
-        if (!apiExamHistory) return null;
+        if (apiExamHistory == null) return null;
 
         let uiModel: StudentExamHistory = new StudentExamHistory();
         uiModel.student = this.assessmentMapper.mapStudentFromApi(apiExamHistory.student);
@@ -45,15 +47,9 @@ export class StudentExamHistoryService {
     params.set('hasExams', 'true');
 
     return this.dataService.get(`/students/${ssid}`, {params: params})
-      .catch((response) => {
-        if (response.status == 404) {
-          return Observable.of(false);
-        } else {
-          return Observable.throw(response);
-        }
-      })
+      .catch(ResponseUtils.notFoundToNull)
       .map((apiStudent) => {
-        if (!apiStudent) return null;
+        if (apiStudent == null) return null;
 
         return this.assessmentMapper.mapStudentFromApi(apiStudent);
       });

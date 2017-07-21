@@ -39,7 +39,6 @@ export class MenuActionBuilder {
       return this.translateService.instant('labels.menus.test-history', getStudent(actionable));
     }).bind(this);
     action.perform = ((actionable: any) => {
-      console.log(this.route);
       this.router.navigate(['students', getStudent(actionable).id], { relativeTo: this.route });
     }).bind(this);
 

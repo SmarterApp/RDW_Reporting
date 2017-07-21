@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { DataService } from "../shared/data/data.service";
-import { URLSearchParams } from "@angular/http";
 import { Observable } from "rxjs";
 import { School } from "../user/model/school.model";
 import { isNullOrUndefined } from "util";
 import { Grade } from "./grade.model";
+import { ResponseUtils } from "../shared/response-utils";
 
 /**
  * This service is responsible for retrieving schools.
@@ -24,10 +24,10 @@ export class SchoolService {
   findGradesWithAssessmentsForSchool(school: School): Observable<Grade[]> {
     return this.dataService
       .get(`/schools/${school.id}/assessmentGrades`)
+      .catch(ResponseUtils.notFoundToEmptyArray)
       .map((apiGrades) => this.mapGradesFromApi(apiGrades));
   }
   private mapGradesFromApi(apiGrades: any[]): Grade[] {
-    if (isNullOrUndefined(apiGrades)) return [];
     return apiGrades
       .filter(apiGrade => !isNullOrUndefined(apiGrade) && !isNullOrUndefined(apiGrade.code))
       .map(apiGrade => this.mapGradeFromApi(apiGrade));

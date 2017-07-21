@@ -14,7 +14,9 @@ import {
   DEPRECATED_exams_of_student,
   user,
   groupAssessments,
-  exam_filter_options, grades, exam_items
+  exam_filter_options,
+  grades,
+  exam_items
 } from "./data/data";
 
 export function createStandaloneHttp(mockBackend: MockBackend, options: BaseRequestOptions, realBackend: XHRBackend) {
@@ -101,7 +103,6 @@ export function createStandaloneHttp(mockBackend: MockBackend, options: BaseRequ
       let endIndex = requestSignature.indexOf("/exams");
       let assessmentId = requestSignature.substring(startIndex + 12, endIndex);
 
-      console.log(assessmentId);
       body = groupAssessments.find(x=> x.assessment.id == assessmentId).exams;
 
     } else if(new RegExp(`GET /api/groups/\\d+/assessments`, 'g').test(requestSignature)
