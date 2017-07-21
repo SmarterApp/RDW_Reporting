@@ -26,7 +26,7 @@ export class DataService {
   public get(url: string, options?: RequestOptionsArgs): Observable<any> {
     return this.http
       .get(`/api${url}`, options)
-      .catch(this.handleException)
+      .catch(this.handleException.bind(this))
       .map(this.getMapper(options));
   }
 
@@ -40,7 +40,7 @@ export class DataService {
   public post(url: string, options?: RequestOptionsArgs): Observable<any> {
     return this.http
       .post(`/api${url}`, options)
-      .catch(this.handleException)
+      .catch(this.handleException.bind(this))
       .map(this.getMapper(options));
   }
 

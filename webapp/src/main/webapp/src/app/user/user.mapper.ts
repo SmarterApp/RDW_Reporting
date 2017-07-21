@@ -12,6 +12,7 @@ export class UserMapper {
 
   mapFromApi(apiModel: any): User {
     let uiModel = new User();
+    if (!apiModel) return uiModel;
 
     uiModel.firstName = apiModel.firstName;
     uiModel.lastName = apiModel.lastName;

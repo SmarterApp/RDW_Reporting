@@ -23,6 +23,10 @@ export class UserService {
       this.currentUserObservable = this._dataService
         .get("/user")
         .share()
+        .catch((err) => {
+          console.warn(err);
+          return Observable.empty();
+        })
         .map(x => this._mapper.mapFromApi(x));
 
       this.currentUserObservable.subscribe(user => this.currentUser = user);

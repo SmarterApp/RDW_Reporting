@@ -23,6 +23,10 @@ export class StudentResponsesService {
    */
   findItemsByStudentAndExam(studentId: number, examId: number): Observable<AssessmentItem[]> {
     return this.dataService.get(`/students/${studentId}/exams/${examId}/examitems`)
+      .catch((err) => {
+        console.warn(err);
+        return Observable.empty();
+      })
       .map((apiExamItems) => {
         if (!apiExamItems) return null;
 
