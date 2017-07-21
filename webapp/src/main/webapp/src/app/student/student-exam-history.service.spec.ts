@@ -5,11 +5,11 @@ import { MockDataService } from "../../test/mock.data.service";
 import { Observable } from "rxjs";
 import { AssessmentExamMapper } from "../assessments/assessment-exam.mapper";
 import { StudentExamHistory } from "./model/student-exam-history.model";
-import Spy = jasmine.Spy;
-import createSpy = jasmine.createSpy;
 import { Assessment } from "../assessments/model/assessment.model";
 import { Exam } from "../assessments/model/exam.model";
 import { Student } from "./model/student.model";
+import Spy = jasmine.Spy;
+import createSpy = jasmine.createSpy;
 
 describe('StudentExamHistoryService', () => {
   let dataService: MockDataService;
@@ -41,7 +41,7 @@ describe('StudentExamHistoryService', () => {
   it('should return null for a 404 response when finding student by ssid',
     inject([StudentExamHistoryService], (service: StudentExamHistoryService) => {
 
-      dataService.get.and.returnValue(Observable.throw("4xx/5xx response"));
+      dataService.get.and.returnValue(Observable.throw({status: 404}));
 
       service.existsBySsid("ssid").subscribe((exists) => {
         expect(exists).toBeNull();
