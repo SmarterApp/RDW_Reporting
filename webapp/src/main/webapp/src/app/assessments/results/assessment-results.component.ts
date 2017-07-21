@@ -10,10 +10,10 @@ import { AssessmentItem } from "../model/assessment-item.model";
 import { ordering } from "@kourge/ordering";
 import { byString } from "@kourge/ordering/comparator";
 import { PopupMenuAction } from "../menu/popup-menu-action.model";
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2 } from "angulartics2";
 import { GradeCode } from "../../shared/enum/grade-code.enum";
 import { ColorService } from "../../shared/color.service";
-import { Router, ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { MenuActionBuilder } from "../menu/menu-action.builder";
 
 enum ScoreViewState {

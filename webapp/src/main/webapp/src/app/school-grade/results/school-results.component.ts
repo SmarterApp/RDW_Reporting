@@ -9,7 +9,7 @@ import { School } from "../../user/model/school.model";
 import { SchoolService } from "../school.service";
 import { Grade } from "../grade.model";
 import { isNullOrUndefined } from "util";
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2 } from "angulartics2";
 
 @Component({
   selector: 'app-group-results',

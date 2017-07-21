@@ -360,7 +360,18 @@
         }
       }
     },
-    "select-year": "School Year"
+    "select-year": "School Year",
+    "export": {
+      "csv": "Export CSV",
+      "cols": {
+        "student-id": "Student ID",
+        "student-name": "Student Name",
+        "assessment-type": "Assessment Type",
+        "subject": "Subject",
+        "error-band-min": "Error Band Min",
+        "error-band-max": "Error Band Max"
+      }
+    }
   },
   "prompt": {
     "search": "Search",
@@ -407,7 +418,7 @@
       "2-W": "Writing",
       "3": "Communicating Reasoning",
       "4-CR": "Research & Inquiry",
-      "SOCK_2": "Problem Solving and Modeling & Data Analysis",
+      "SOCK_2": "Problem Solving",
       "SOCK_LS": "Listening",
       "SOCK_R": "Reading"
     },

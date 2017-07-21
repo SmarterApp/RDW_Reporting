@@ -17,18 +17,17 @@ import { AssessmentsComponent } from "./assessments.component";
 import { AdvFiltersToggleComponent } from "./filters/adv-filters/adv-filters-toggle.component";
 import { ScaleScoreComponent } from "./results/scale-score.component";
 import { InformationLabelComponent } from "./results/information-label.component";
-import { ItemViewerComponent } from './items/item-viewer/item-viewer.component';
-import { ItemTabComponent } from './items/item-tab.component';
+import { ItemViewerComponent } from "./items/item-viewer/item-viewer.component";
+import { ItemTabComponent } from "./items/item-tab.component";
 import { TabsModule } from "ngx-bootstrap/tabs";
 import { PopupMenuComponent } from "./menu/popup-menu.component";
-import { Angulartics2Module } from 'angulartics2';
-import { ItemExemplarComponent } from './items/item-exemplar/item-exemplar.component';
+import { Angulartics2Module } from "angulartics2";
+import { ItemExemplarComponent } from "./items/item-exemplar/item-exemplar.component";
 import { ItemScoringService } from "./items/item-exemplar/item-scoring.service";
 import { ItemScoringGuideMapper } from "./items/item-exemplar/item-scoring-guide.mapper";
-import { ItemScoresComponent } from './items/item-scores/item-scores.component';
+import { ItemScoresComponent } from "./items/item-scores/item-scores.component";
 import { StudentScoreService } from "./items/item-scores/student-score.service";
-import { MenuActionBuilder } from "./menu/menu-action.builder";
-import { ItemInfoComponent } from './items/item-info/item-info.component';
+import { ItemInfoComponent } from "./items/item-info/item-info.component";
 
 @NgModule({
   declarations: [
