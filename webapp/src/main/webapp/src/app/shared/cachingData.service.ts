@@ -25,7 +25,7 @@ export class CachingDataService {
     observable
       .subscribe(x => {
         this.cache[url] = x;
-      });
+      }, (err) => Observable.throw(err));
 
     return observable;
   }

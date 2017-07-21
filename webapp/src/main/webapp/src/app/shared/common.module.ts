@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, ErrorHandler } from "@angular/core";
 import { PadStartPipe } from "./pad-start.pipe";
 import { SubjectPipe } from "./subject.pipe";
 import { SchoolYearPipe } from "./schoolYear.pipe";
@@ -22,6 +22,7 @@ import { AuthenticationService } from "./authentication/authentication.service";
 import { AlertModule } from "ngx-bootstrap";
 import { SessionExpiredComponent } from "./authentication/session-expired.component";
 import { StorageService } from "./storage.service";
+import { SBErrorHandler } from "./sb-error-handler.service";
 
 @NgModule({
   declarations: [
@@ -69,7 +70,10 @@ import { StorageService } from "./storage.service";
     CachingDataService,
     ColorService,
     RdwTranslateLoader,
-    StorageService
+    StorageService, {
+      provide: ErrorHandler,
+      useClass: SBErrorHandler
+    }
   ]
 })
 export class CommonModule {

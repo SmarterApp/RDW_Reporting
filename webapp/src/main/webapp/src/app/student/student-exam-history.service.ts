@@ -45,8 +45,12 @@ export class StudentExamHistoryService {
     params.set('hasExams', 'true');
 
     return this.dataService.get(`/students/${ssid}`, {params: params})
-      .catch(() => {
-        return Observable.of(false);
+      .catch((response) => {
+        if (response.status == 404) {
+          return Observable.of(false);
+        } else {
+          return Observable.throw(response);
+        }
       })
       .map((apiStudent) => {
         if (!apiStudent) return null;

@@ -3,7 +3,6 @@ import { Http, RequestOptionsArgs, Response, ResponseContentType } from "@angula
 import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
-import { AuthenticationService } from "../authentication/authentication.service";
 import { Download } from "./download.model";
 
 /**
@@ -12,8 +11,7 @@ import { Download } from "./download.model";
 @Injectable()
 export class DataService {
 
-  constructor(private http: Http,
-              private authenticationService: AuthenticationService) {
+  constructor(private http: Http) {
   }
 
   /**
@@ -26,7 +24,6 @@ export class DataService {
   public get(url: string, options?: RequestOptionsArgs): Observable<any> {
     return this.http
       .get(`/api${url}`, options)
-      .catch(this.handleException)
       .map(this.getMapper(options));
   }
 
@@ -40,21 +37,7 @@ export class DataService {
   public post(url: string, options?: RequestOptionsArgs): Observable<any> {
     return this.http
       .post(`/api${url}`, options)
-      .catch(this.handleException)
       .map(this.getMapper(options));
-  }
-
-  /**
-   * Handles HTTP responses in an exception state
-   *
-   * @param response the API server response
-   * @returns {Observable<Response>}
-   */
-  private handleException(response: Response): Observable<Response> {
-    if (response.status === 401) {
-      this.authenticationService.handleAuthenticationFailure();
-    }
-    return Observable.throw(response);
   }
 
   /**

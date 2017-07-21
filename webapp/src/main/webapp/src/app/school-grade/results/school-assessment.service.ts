@@ -30,8 +30,11 @@ export class SchoolAssessmentService implements AssessmentProvider {
   getAvailableAssessments() {
     return this.dataService.get(`/schools/${this.schoolId}/assessmentGrades/${this.gradeId}/assessments`, { search: this.getSchoolYearParams(this.schoolYear) })
       .catch(response => {
-        console.warn(response);
-        return Observable.empty();
+        if (response.status == 404) {
+          return Observable.empty();
+        } else {
+          return Observable.throw(response);
+        }
       })
       .map(x => {
         return this.mapper.mapAssessmentsFromApi(x);
@@ -41,8 +44,11 @@ export class SchoolAssessmentService implements AssessmentProvider {
   getExams(assessmentId: number) {
     return this.dataService.get(`/schools/${this.schoolId}/assessmentGrades/${this.gradeId}/assessments/${assessmentId}/exams`, { search: this.getSchoolYearParams(this.schoolYear) })
       .catch(response => {
-        console.warn(response);
-        return Observable.empty();
+        if (response.status == 404) {
+          return Observable.empty();
+        } else {
+          return Observable.throw(response);
+        }
       })
       .map(x => {
         return this.mapper.mapExamsFromApi(x);
@@ -52,8 +58,11 @@ export class SchoolAssessmentService implements AssessmentProvider {
   getAssessmentItems(assessmentId: number) {
     return this.dataService.get(`/schools/${this.schoolId}/assessmentGrades/${this.gradeId}/assessments/${assessmentId}/examitems`, { search: this.getSchoolYearParams(this.schoolYear) })
       .catch(response => {
-        console.warn(response);
-        return Observable.empty();
+        if (response.status == 404) {
+          return Observable.empty();
+        } else {
+          return Observable.throw(response);
+        }
       })
       .map(x => {
         return this.mapper.mapAssessmentItemsFromApi(x);
@@ -63,8 +72,11 @@ export class SchoolAssessmentService implements AssessmentProvider {
   private getRecentAssessmentBySchoolYear(schoolId: number, gradeId: number, schoolYear: number) {
     return this.dataService.get(`/schools/${schoolId}/assessmentGrades/${gradeId}/latestassessment`, { search: this.getSchoolYearParams(schoolYear) })
       .catch(response => {
-        console.warn(response);
-        return Observable.empty();
+        if (response.status == 404) {
+          return Observable.empty();
+        } else {
+          return Observable.throw(response);
+        }
       })
       .map(x => {
         return this.mapper.mapFromApi(x);

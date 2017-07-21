@@ -28,8 +28,11 @@ export class GroupAssessmentService implements AssessmentProvider {
   getAvailableAssessments() {
     return this.dataService.get(`/groups/${this.groupId}/assessments`, { search: this.getSchoolYearParams(this.schoolYear) })
       .catch(response => {
-        console.warn(response);
-        return Observable.empty();
+        if (response.status == 404) {
+          return Observable.empty();
+        } else {
+          return Observable.throw(response);
+        }
       })
       .map(x => {
         return this.mapper.mapAssessmentsFromApi(x);
@@ -39,8 +42,11 @@ export class GroupAssessmentService implements AssessmentProvider {
   getExams(assessmentId: number) {
     return this.dataService.get(`/groups/${this.groupId}/assessments/${assessmentId}/exams`, { search: this.getSchoolYearParams(this.schoolYear) })
       .catch(response => {
-        console.warn(response);
-        return Observable.empty();
+        if (response.status == 404) {
+          return Observable.empty();
+        } else {
+          return Observable.throw(response);
+        }
       })
       .map(x => {
         return this.mapper.mapExamsFromApi(x);
@@ -50,8 +56,11 @@ export class GroupAssessmentService implements AssessmentProvider {
   getAssessmentItems(assessmentId: number) {
     return this.dataService.get(`/groups/${this.groupId}/assessments/${assessmentId}/examitems`, { search: this.getSchoolYearParams(this.schoolYear) })
       .catch(response => {
-        console.warn(response);
-        return Observable.empty();
+        if (response.status == 404) {
+          return Observable.empty();
+        } else {
+          return Observable.throw(response);
+        }
       })
       .map(x => {
         return this.mapper.mapAssessmentItemsFromApi(x);
@@ -61,8 +70,11 @@ export class GroupAssessmentService implements AssessmentProvider {
   private getRecentAssessmentBySchoolYear(groupId: number, schoolYear: number) {
     return this.dataService.get(`/groups/${groupId}/latestassessment`, { search: this.getSchoolYearParams(schoolYear) })
       .catch(response => {
-        console.warn(response);
-        return Observable.empty();
+        if (response.status == 404) {
+          return Observable.empty();
+        } else {
+          return Observable.throw(response);
+        }
       })
       .map(x => {
         return this.mapper.mapFromApi(x);
