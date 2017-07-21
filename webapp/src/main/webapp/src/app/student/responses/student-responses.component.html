@@ -27,13 +27,13 @@
 
   <p-dataTable [value]="assessmentItems"
                emptyMessage="{{'messages.noExamsMatchingCriteria' | translate}}"
-               sortField="assessmentItem.scores.0.position"
+               sortField="assessmentItem.position"
                tableStyleClass="table table-striped table-hover"
                rowExpandMode="single"
                expandableRows="true">
     <p-column expander="true" ></p-column>
 
-    <p-column field="assessmentItem.scores.0.position" header="{{'labels.groups.results.assessment.items.cols.number' | translate}}" sortable="true"></p-column>
+    <p-column field="assessmentItem.position" header="{{'labels.groups.results.assessment.items.cols.number' | translate}}" sortable="true"></p-column>
     <p-column field="assessmentItem.claimTarget" [sortable]="true">
       <ng-template pTemplate="header">
               <span info-label title="{{'labels.groups.results.assessment.items.cols.claim' | translate}}"
