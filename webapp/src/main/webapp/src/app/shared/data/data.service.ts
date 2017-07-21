@@ -24,11 +24,6 @@ export class DataService {
    * @returns {Observable<R>}
    */
   public get(url: string, options?: RequestOptionsArgs): Observable<any> {
-    // if (url.match(/examFilterOptions/)) {
-    //   let options: ResponseOptions = new ResponseOptions();
-    //   options.status = 401;
-    //   return this.handleException(new Response(options));
-    // }
     return this.http
       .get(`/api${url}`, options)
       .catch(this.handleException.bind(this))
