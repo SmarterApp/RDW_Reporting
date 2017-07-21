@@ -1,44 +1,51 @@
 <!-- Header -->
 <header>
   <div class="container">
-    <!-- Navbar -->
-    <nav class="navbar navbar-default">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-        <a class="navbar-brand hidden-xs" href="/" title="Reporting System Dashboard"><img src="assets/image/SmarterBalanced-Logo.png" alt="Smarter Balanced Assessment Consortium"></a>
-        <span class="application-title">{{'application.title' | translate}}</span>
+    <div class="well">
+      <div class="well-body">
+        <!-- Navbar -->
+        <nav class="navbar navbar-default">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+            <a class="navbar-brand hidden-xs" href="/" title="Reporting System Dashboard"><img src="assets/image/SmarterBalanced-Logo.png" alt="Smarter Balanced Assessment Consortium"></a>
+            <span class="application-title">{{'application.title' | translate}}</span>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="navbar-link"><a href="#">{{'labels.navigation.user-guide' | translate}}</a></li>
+              <li class="navbar-link"><a href="#">{{'labels.navigation.interpretive-guide' | translate}}</a></li>
+              <li class="navbar-link mt-sm">
+                <div class="btn-group" dropdown>
+                  <button type="button" dropdownToggle class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-user-circle"></i> <span *ngIf="user">{{'welcome' | translate:user }}</span> <span class="caret"></span>
+                  </button>
+                  <ul *dropdownMenu class="dropdown-menu" role="menu">
+                    <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+                    <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+                    <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li role="separator" class="divider dropdown-divider"></li>
+                    <li role="menuitem">
+                      <a class="dropdown-item" href="javascript:void(0)" onclick="window.document.logoutForm.submit()">{{'messages.logout' | translate}}</a>
+                      <form name="logoutForm" method="post" action="/saml/logout" class="hidden"></form>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
       </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          <li class="navbar-link"><a href="#">{{'labels.navigation.user-guide' | translate}}</a></li>
-          <li class="navbar-link"><a href="#">{{'labels.navigation.interpretive-guide' | translate}}</a></li>
-          <li class="navbar-link mt-sm">
-            <div class="btn-group" dropdown>
-              <button type="button" dropdownToggle class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-user-circle"></i> <span *ngIf="user">{{'welcome' | translate:user }}</span> <span class="caret"></span>
-              </button>
-              <ul *dropdownMenu class="dropdown-menu" role="menu">
-                <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-                <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-                <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
-                <li role="separator" class="divider dropdown-divider"></li>
-                <li role="menuitem">
-                  <a class="dropdown-item" href="javascript:void(0)" onclick="window.document.logoutForm.submit()">{{'messages.logout' | translate}}</a>
-                  <form name="logoutForm" method="post" action="/saml/logout" class="hidden"></form>
-                </li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    </div>
   </div>
 </header>
+
+<!-- Breadcrumbs -->
+<breadcrumbs></breadcrumbs>
 
 <div class="hidden">
   <h1>{{ 'HELLO' | translate }}</h1>
@@ -50,8 +57,6 @@
   </select>
 </div>
 
-<!-- Breadcrumbs -->
-<breadcrumbs></breadcrumbs>
 
 <!-- Page View -->
 <div class="page-view pt-md">
@@ -61,9 +66,8 @@
 </div>
 
 <!-- Footer -->
-<footer class="mt-lg">
+<footer class="mt-md mb-md">
   <div class="container">
     <p class="text-right gray-darker">&copy; The Regents of the University of California &ndash; Smarter Balanced Assessment Consortium</p>
   </div>
 </footer>
-

@@ -3,108 +3,30 @@
 // Extending SBAC UI Kit
 // ----------------------------------------
 
-// IMPORTANT NOTE
-// The below color references are being hard-coded so I can continue working for now
-// This app needs to pull the UI Kit's LESS so it can be extended rather than the CSS
-// -AS
 
-// START Hardcoded Styles
+//
+// Libraries
+// ----------------------------------------
+@library-path: "../node_modules";
 
-// ------------------------------
-// Colors
-// ------------------------------
+// Prime NG Styles
+@import "@{library-path}/primeng/resources/primeng.min.css";
+@import "@{library-path}/primeng/resources/themes/bootstrap/theme.css";
 
-// Blues
-@blue:                  #014F9A;
-@blue-dark:             #104564;
-@teal:                  #0090B7;
-@aqua:                  #3696E6;
+// Twitter Bootstrap
+@import "@{library-path}/bootstrap/less/bootstrap.less";
 
-// Greens
-@green:                 #6FAE29;
-@green-dark:            #406934;
+// Font Awesome
+@import "@{library-path}/font-awesome/less/font-awesome.less";
 
-// Hot Colors
-@orange:                #D66E1E;
-@red:                   #D5124A;
-@red-dark:              #931432;
-@maroon:                #5B1931;
+// SBAC UI Kit
+@import "@{library-path}/sbac-ui-kit/src/less/sbac-ui-kit.less";
+@import "primeng-overrides.less";
 
-// Neutrals
-@black:                 #000000;
-@gray-darkest:          #2a2b2d;
-@gray-darker:           #64666A;
-@gray-dark:             #A7A7A7;
-@gray:                  #B8B8B8;
-@gray-light:            #D5D5D5;
-@gray-lighter:          #E6E6E6;
-@gray-lightest:         #F8F8F8;
-@white:                 #FFFFFF;
-
-// Bootstrap Color Vars
-@brand-primary:         @aqua;
-@brand-success:         @green;
-@brand-info:            @blue-dark;
-@brand-warning:         @orange;
-@brand-danger:          @red;
-
-// END Hardcoded Styles
-
-// Grade Level Color Variable Reference
-@color-grade-3:    @orange;
-@color-grade-4:    @green;
-@color-grade-5:    @teal;
-@color-grade-6:    @blue-dark;
-@color-grade-7:    @maroon;
-@color-grade-8:    @green-dark;
-@color-grade-hs:   @blue-dark;
-
-// ------------------------------
-// Element Styles
-// ------------------------------
-
-// Sortable Tables
-// NOTE: These styles need to be extended from the kit once it has been integrated
-.ui-sortable-column {
-  &:hover {
-    background-color: lighten(@gray-lighter, 5%);
-    cursor: pointer;
+@media (max-width: @screen-md-max) {
+  .container {
+    width: 100%;
   }
-  .ui-sortable-column-icon {
-    margin-left: -2px;
-    color: @gray-darker;
-    &:hover {
-      cursor: pointer;
-    }
-  }
-  &.ui-state-active {
-    .ui-sortable-column-icon {
-      color: @gray;
-    }
-  }
-}
-
-// Flex Aligned Forms
-.form-group .flex-children {
-  align-items: stretch;
-  .flex-child {
-    align-self: flex-end;
-    &.grow {
-      flex-grow: 1;
-    }
-  }
-}
-.form-control.btn {
-  display: block;
-  width: auto;
-}
-
-// Alignment
-.ml-auto {
-  margin-left: auto;
-}
-.mr-auto {
-  margin-right: auto;
 }
 
 // ------------------------------
@@ -127,132 +49,35 @@
   width: 100% !important;
 }
 
-// ------------------------------
-// Primeng Data Table Overrides
-// ------------------------------
-// TODO: Bring this back into the sbac-ui-kit.
-@border-radius-base:        5px;
-@border-radius-large:       9px;
-@border-radius-small:       3px;
-
-//** Border color for table and cell borders.
-@table-border-color:            @gray-light;
-
-// These have been brought as is from sbac-ui-kit,
-// but including parent of .ui-datatable-tablewrapper
-
-.ui-datatable-tablewrapper {
-  border-left: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  border-radius: @border-radius-base;
-  > .table {
-  border-collapse: separate;
-  border-radius: @border-radius-base;
-  margin-bottom: 0;
-  > thead,
-  > tfoot {
-    > tr {
-      > th {
-        background-color: @gray-lighter;
-        border-left-style:none;
-        border-right-style:none;
-      }
-    }
-  }
-  > thead > tr > th {
-    white-space: normal !important;
-    &:first-child {
-      border-top-left-radius: @border-radius-base;
-    }
-    &:last-child {
-      border-top-right-radius: @border-radius-base;
-    }
-  }
-  > tbody > tr {
-    background-color: darken(@gray-lightest, 2%);
-    border-style: none;
-  }
-  // Normally this would be the TFOOT rounding class
-  // See note above
-  tr:last-child > td {
-    &:first-child {
-      border-bottom-left-radius: @border-radius-base;
-    }
-    &:last-child {
-      border-bottom-right-radius: @border-radius-base;
-    }
+// containing the header and footer
+// may pull this back to UI Kit if approved
+// -AS
+header {
+  background-color: transparent;
+  .box-shadow(none);
+  .well {
+    .border-top-radius(0px);
   }
 }
-// adding an outside border to .table
-.ui-datatable-tablewrapper > tr {
-  th {
-    border-top: 1px solid @table-border-color !important;
-    text-align: left;
-  }
-  th,
-  td {
-    &:first-child { border-left: 1px solid @table-border-color; }
-    &:last-child { border-right: 1px solid @table-border-color; }
-    text-align: left;
-  }
-  // Normally this would be the TFOOT rounding class
-  // See note above
-  &:last-child td {
-    border-bottom: 1px solid @table-border-color;
-  }
-}
-}
-
-// Remove left and right borders.
-.ui-datatable .ui-datatable-thead>tr>th, .ui-datatable .ui-datatable-tfoot>tr>td, .ui-datatable .ui-datatable-data>tr>td {
-  border-left-style: none;
-  border-right-style: none;
-  border-top: 1px solid @table-border-color;
-  border-bottom: none;
-}
-
-// Remove coloring from a selected column.
-body .ui-datatable thead th.ui-state-active {
+.breadcrumb {
+  .small;
+  border-width: 1px 0px;
+  border-style: solid;
+  border-color: @gray-light;
+  padding-right: 0px;
+  padding-left: @grid-gutter-width / 2;
+  margin-bottom: 0px;
   background-color: @gray-lighter;
-  border: @table-border-color;
-  color: #373a3c;
-  padding: .25em .5em;
-}
-
-.ui-datatable thead th, .ui-datatable tfoot td {
-    text-align: left;
-}
-body .ui-datatable .ui-datatable-thead > tr > th, body .ui-datatable .ui-datatable-tfoot > tr > td {
-    padding: .5em .5em .5em .75em;
-    white-space: nowrap;
-    font-size: 14px;
-}
-body .ui-datatable .ui-datatable-data > tr > td {
-  padding: .5em .5em .5em .75em;
-  white-space: nowrap;
-  font-size: 14px;
-}
-
-.table {
-  table-layout: auto !important;
-}
-
-// Custom borders for the group container table:
-.my-groups-list-container .ui-datatable-tablewrapper {
-  border-radius: 0 0 @border-radius-base @border-radius-base;
-}
-
-.center {
-  display:block;
-  margin: 0 auto;
-}
-
-// Allow drop-down menus to display within a table cell
-.ui-datatable .ui-datatable-thead>tr>th,
-.ui-datatable .ui-datatable-tfoot>tr>td,
-.ui-datatable .ui-datatable-data>tr>td {
-  &.cell-dropdown {
-    overflow: visible;
+  border-radius: @border-radius-base;
+  .box-shadow(0 6px 6px -6px rgba(0,0,0,.16) inset, 0 1px 1px 1px rgba(255,255,255,.95););
+  > .active {
+    color: @gray-darker;
   }
+}
+footer {
+  background-color: transparent;
+  padding: 0px;
+  border-top: none;
+  color: @gray-dark;
+  .box-shadow(none);
 }

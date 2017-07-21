@@ -103,7 +103,7 @@
           </div>
         </h3>
 
-        <p-dataTable [value]="exams" emptyMessage="{{'labels.groups.results.assessment.exams.empty-message' | translate}}" sortField="student.lastName" tableStyleClass="table table-striped table-hover" expandableRows="true">
+        <p-dataTable [value]="exams" emptyMessage="{{'labels.groups.results.assessment.exams.empty-message' | translate}}" sortField="student.lastName" tableStyleClass="table table-striped table-hover overflow" expandableRows="true">
           <!-- Row Menu -->
           <p-column styleClass="cell-dropdown">
             <ng-template let-data="rowData" pTemplate="body">
