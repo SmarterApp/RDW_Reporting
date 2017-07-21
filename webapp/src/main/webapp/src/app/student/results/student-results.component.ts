@@ -39,6 +39,8 @@ export class StudentResultsComponent implements OnInit {
 
   ngOnInit(): void {
     this.examHistory = this.route.snapshot.data[ "examHistory" ];
+    if (!this.examHistory) return;
+
     this.initializeFilter(
       this.examHistory.exams,
       this.route.snapshot.params);

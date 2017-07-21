@@ -8,6 +8,7 @@ export class ItemScoringGuideMapper {
 
   mapFromApi(apiModel: any): ItemScoringGuide {
     let uiModel = new ItemScoringGuide();
+    if (!apiModel) return uiModel;
 
     if (!isNullOrUndefined(apiModel.answerKey) && !isNullOrUndefined(apiModel.answerKey.value))
       uiModel.answerKeyValue = apiModel.answerKey.value;

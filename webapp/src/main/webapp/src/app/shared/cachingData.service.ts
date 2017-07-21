@@ -23,9 +23,11 @@ export class CachingDataService {
       .share();
 
     observable
-      .subscribe(x => {
-        this.cache[url] = x;
-      });
+      .subscribe((value) => {
+          this.cache[url] = value;
+        }, () => {
+          //ignore Errors
+        });
 
     return observable;
   }

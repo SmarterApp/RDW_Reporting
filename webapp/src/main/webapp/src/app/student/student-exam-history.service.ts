@@ -23,10 +23,14 @@ export class StudentExamHistoryService {
    */
   findOneById(id: number): Observable<StudentExamHistory> {
     return this.dataService.get(`/students/${id}/exams`)
+      .catch((err) => {
+        console.warn(err);
+        return Observable.empty();
+      })
       .map((apiExamHistory) => {
-        if (!apiExamHistory) return null;
-
         let uiModel: StudentExamHistory = new StudentExamHistory();
+        if (!apiExamHistory) return uiModel;
+
         uiModel.student = this.assessmentMapper.mapStudentFromApi(apiExamHistory.student);
         uiModel.exams = this.mapExamWrappers(apiExamHistory.exams);
 

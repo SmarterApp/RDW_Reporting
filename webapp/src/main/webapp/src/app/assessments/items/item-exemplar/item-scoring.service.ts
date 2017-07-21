@@ -12,6 +12,10 @@ export class ItemScoringService {
   getGuide(bankItemKey: string): Observable<ItemScoringGuide>{
     return this.dataService
       .get(`/examitems/${bankItemKey}/scoring`)
+      .catch((err) => {
+        console.warn(err);
+        return Observable.empty();
+      })
       .map(guide => this.mapper.mapFromApi(guide));
   }
 }

@@ -10,13 +10,13 @@ import { ordering } from "@kourge/ordering";
 import { byNumber } from "@kourge/ordering/comparator";
 import { ClaimScore } from "./model/claim-score.model";
 import { Student } from "../student/model/student.model";
-import { isNullOrUndefined } from "util";
 
 @Injectable()
 export class AssessmentExamMapper {
 
   mapFromApi(apiModel): AssessmentExam {
     let uiModel = new AssessmentExam();
+    if (!apiModel) return uiModel;
 
     uiModel.assessment = this.mapAssessmentFromApi(apiModel.assessment);
     uiModel.exams = [];
@@ -29,17 +29,22 @@ export class AssessmentExamMapper {
   }
 
   mapAssessmentsFromApi(apiModels): Assessment[] {
+    if (!apiModels) return [];
+
     let uiModels = apiModels.map(x => this.mapAssessmentFromApi(x));
     uiModels.sort(byGradeThenByName);
     return uiModels;
   }
 
   mapExamsFromApi(apiModels): Exam[] {
+    if (!apiModels) return [];
+
     return apiModels.map(x => this.mapExamFromApi(x));
   }
 
   mapAssessmentItemsFromApi(apiModel) {
     let uiModels: AssessmentItem[] = [];
+    if (!apiModel) return uiModels;
 
     for (let apiAssessment of apiModel.assessmentItems) {
       let assessmentItem = this.mapAssessmentItemFromApi(apiAssessment);
