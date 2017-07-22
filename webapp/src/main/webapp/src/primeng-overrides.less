@@ -172,3 +172,22 @@ body .ui-widget.ui-datatable {
     width: 100% !important;
   }
 }
+
+// Table Dropdown Arrows
+td.col-icon a {
+  .btn;
+  .btn-default;
+  .btn-xs;
+  .square(@line-height-computed);
+  .ui-row-toggler {
+    width: auto;
+    height: auto;
+    .small;
+    .chevron-circle-right:before {
+      content: "\f054";
+    }
+    .chevron-circle-down:before {
+      content: "\f078";
+    }
+  }
+}
