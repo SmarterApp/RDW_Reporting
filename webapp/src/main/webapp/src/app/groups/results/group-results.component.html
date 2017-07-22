@@ -1,7 +1,14 @@
 <!-- My Groups -->
-<h2 class="blue-dark h3 mb-md">
-  {{'labels.groups.name' | translate}}
-</h2>
+<h3 class="blue-dark h3 mb-md">
+  <span>{{'labels.groups.name' | translate}}</span>
+
+  <button class="btn btn-default btn-sm pull-right"
+          (click)="exportCsv()">
+    <i class="fa fa-bold fa-table"></i>
+    <span>{{'labels.export.csv' | translate}}</span>
+  </button>
+</h3>
+
 
 <assessments [assessmentExams]="assessmentExams" [assessmentProvider]="assessmentProvider" [allowFilterBySessions]="true">
   <!-- Group Select -->

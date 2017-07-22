@@ -369,7 +369,14 @@
         "assessment-type": "Assessment Type",
         "subject": "Subject",
         "error-band-min": "Error Band Min",
-        "error-band-max": "Error Band Max"
+        "error-band-max": "Error Band Max",
+        "gender": "Gender",
+        "migrant-status": "Migrant Status",
+        "504-plan": "504 Plan",
+        "iep": "IEP",
+        "economic-disadvantage": "Economic Disadvantage",
+        "limited-english": "Limited English Proficiency",
+        "ethnicity": "Race/Ethnicity"
       }
     }
   },

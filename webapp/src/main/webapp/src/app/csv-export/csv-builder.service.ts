@@ -150,7 +150,7 @@ export class CsvBuilder {
       this.translateService.instant('labels.groups.results.assessment.exams.cols.ica.performance'),
       (item) => {
         let exam: Exam = getExam(item);
-        if (!exam) return null;
+        if (!exam) return "";
 
         return this.translateService.instant(`enum.achievement-level.${exam.level}`);
       }
@@ -162,7 +162,7 @@ export class CsvBuilder {
       this.translateService.instant('labels.groups.results.assessment.exams.cols.iab.performance'),
       (item) => {
         let exam: Exam = getExam(item);
-        if (!exam) return null;
+        if (!exam) return "";
 
         return this.translateService.instant(`enum.iab-category.${exam.level}`);
       }
@@ -207,10 +207,10 @@ export class CsvBuilder {
   withClaimScores(claims: string[], getExam: (item: any) => Exam) {
     claims.forEach((claim, idx) => {
       this.withColumn(
-        this.translateService.instant(`enum.claim-code.${claim}`),
+        this.translateService.instant(`enum.subject-claim-code.${claim}`),
         (item) => {
           let exam: Exam = getExam(item);
-          if (!exam) return null;
+          if (!exam) return "";
 
           return this.translateService.instant(`enum.iab-category.${exam.claimScores[idx].level}`);
         }
@@ -218,6 +218,74 @@ export class CsvBuilder {
     });
 
     return this;
+  }
+
+  withGender(getStudent: (item: any) => Student) {
+    return this.withColumn(
+      this.translateService.instant('labels.export.cols.gender'),
+      (item) => this.translateService.instant(`enum.gender.${getStudent(item).genderCode}`)
+    )
+  }
+
+  withMigrantStatus(getExam: (item: any) => Exam) {
+    return this.withColumn(
+      this.translateService.instant('labels.export.cols.migrant-status'),
+      (item) => {
+        let polarEnum = getExam(item).migrantStatus ? 1 : 2;
+        return this.translateService.instant(`enum.polar.${polarEnum}`);
+      }
+    )
+  }
+
+  with504Plan(getExam: (item: any) => Exam) {
+    return this.withColumn(
+      this.translateService.instant('labels.export.cols.504-plan'),
+      (item) => {
+        let polarEnum = getExam(item).plan504 ? 1 : 2;
+        return this.translateService.instant(`enum.polar.${polarEnum}`);
+      }
+    )
+  }
+
+  withIep(getExam: (item: any) => Exam) {
+    return this.withColumn(
+      this.translateService.instant('labels.export.cols.iep'),
+      (item) => {
+        let polarEnum = getExam(item).iep ? 1 : 2;
+        return this.translateService.instant(`enum.polar.${polarEnum}`);
+      }
+    )
+  }
+
+  withEconomicDisadvantage(getExam: (item: any) => Exam) {
+    return this.withColumn(
+      this.translateService.instant('labels.export.cols.economic-disadvantage'),
+      (item) => {
+        let polarEnum = getExam(item).economicDisadvantage ? 1 : 2;
+        return this.translateService.instant(`enum.polar.${polarEnum}`);
+      }
+    )
+  }
+
+  withLimitedEnglish(getExam: (item: any) => Exam) {
+    return this.withColumn(
+      this.translateService.instant('labels.export.cols.limited-english'),
+      (item) => {
+        let polarEnum = getExam(item).limitedEnglishProficiency ? 1 : 2;
+        return this.translateService.instant(`enum.polar.${polarEnum}`);
+      }
+    )
+  }
+
+  withEthnicity(getExam: (item: any) => Exam) {
+    return this.withColumn(
+      this.translateService.instant('labels.export.cols.ethnicity'),
+      (item) => {
+        let ethnicities: string[] = getExam(item).student.ethnicityCodes
+          .map((code) => this.translateService.instant(`enum.ethnicity.${code}`));
+        return ethnicities.join(', ');
+      }
+    )
   }
 
   //Combination methods for commonly-associated columns
@@ -251,6 +319,16 @@ export class CsvBuilder {
   withExamDateAndSession(getExam: (item: any) => Exam) {
     this.withExamDate(getExam);
     this.withExamSession(getExam);
+    return this;
+  }
+
+  withStudentContext(getExam: (item: any) => Exam) {
+    this.withMigrantStatus(getExam);
+    this.with504Plan(getExam);
+    this.withIep(getExam);
+    this.withEconomicDisadvantage(getExam);
+    this.withLimitedEnglish(getExam);
+    this.withEthnicity(getExam);
     return this;
   }
 }

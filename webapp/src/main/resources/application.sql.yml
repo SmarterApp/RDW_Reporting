@@ -183,6 +183,7 @@ sql:
             e.claim4_scale_score,
             e.claim4_scale_score_std_err,
             st.id as student_id,
+            st.ssid as student_ssid,
             st.last_or_surname as student_last_name,
             st.first_name as student_first_name,
             st.gender_code as student_gender_code
@@ -306,6 +307,7 @@ sql:
           e.claim4_scale_score,
           e.claim4_scale_score_std_err,
           st.id as student_id,
+          st.ssid as student_ssid,
           st.last_or_surname as student_last_name,
           st.first_name as student_first_name,
           st.gender_code as student_gender_code
