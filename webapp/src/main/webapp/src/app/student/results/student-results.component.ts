@@ -7,8 +7,8 @@ import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { ExamFilterService } from "../../assessments/filters/exam-filters/exam-filter.service";
 import { ColorService } from "../../shared/color.service";
 import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
-import { CsvBuilder } from "../../csv-export/csv-builder.service";
 import { Student } from "../model/student.model";
+import { CsvExportService } from "../../csv-export/csv-export.service";
 
 @Component({
   selector: 'student-results',
@@ -34,7 +34,7 @@ export class StudentResultsComponent implements OnInit {
   }
 
   constructor(public colorService: ColorService,
-              private csvBuilder: CsvBuilder,
+              private csvExportService: CsvExportService,
               private route: ActivatedRoute,
               private router: Router,
               private examFilterService: ExamFilterService) {
@@ -76,6 +76,12 @@ export class StudentResultsComponent implements OnInit {
   }
 
   exportCsv(): void {
+    let student: Student = this.examHistory.student;
+    let filename: string = student.lastName +
+      "-" + student.firstName +
+      "-" + student.ssid +
+      "-" + new Date().toDateString();
+
     let sourceData: StudentHistoryExamWrapper[] = [];
     Array.from(this.examsByTypeAndSubject.values()).forEach(bySubject => {
       Array.from(bySubject.values()).forEach(wrappers => {
@@ -83,33 +89,7 @@ export class StudentResultsComponent implements OnInit {
       });
     });
 
-    let getStudent = () => this.examHistory.student;
-    let getExam = (wrapper: StudentHistoryExamWrapper) => wrapper.exam;
-    let getAssessment = (wrapper: StudentHistoryExamWrapper) => wrapper.assessment;
-    let getIABExam = (wrapper: StudentHistoryExamWrapper) => wrapper.assessment.isIab ? wrapper.exam : null;
-    let getNonIABExam = (wrapper: StudentHistoryExamWrapper) => wrapper.assessment.isIab ? null: wrapper.exam;
-    let getNonIABMathExam = (wrapper: StudentHistoryExamWrapper) => !wrapper.assessment.isIab && wrapper.assessment.subject === 'MATH' ? wrapper.exam : null;
-    let getNonIABElaExam = (wrapper: StudentHistoryExamWrapper) => !wrapper.assessment.isIab && wrapper.assessment.subject === 'ELA' ? wrapper.exam : null;
-
-    let student: Student = this.examHistory.student;
-    let fileName: string = student.lastName +
-      "-" + student.firstName +
-      "-" + student.ssid +
-      "-" + new Date().toDateString();
-
-    this.csvBuilder
-      .newBuilder()
-      .withFilename(fileName)
-      .withStudent(getStudent)
-      .withExamDateAndSession(getExam)
-      .withAssessmentTypeNameAndSubject(getAssessment)
-      .withExamGradeAndStatus(getExam)
-      .withAchievementLevel(getNonIABExam)
-      .withReportingCategory(getIABExam)
-      .withScoreAndErrorBand(getExam)
-      .withMathClaimScores(getNonIABMathExam)
-      .withELAClaimScores(getNonIABElaExam)
-      .build(sourceData);
+    this.csvExportService.exportStudentHistory(sourceData, () => this.examHistory.student, filename);
   }
 
   /**

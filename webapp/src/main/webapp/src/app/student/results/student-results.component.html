@@ -1,12 +1,11 @@
-<div class="student-report-download-container pull-right">
-  <student-report-download [studentId]="examHistory.student.id" [schoolYears]="filterState.years"></student-report-download>
-</div>
-
 <div class="mb-md">
   <span class="tag tag-lg blue">
     <span class="label">{{'labels.student.name' | translate:examHistory.student}}</span>
     <span>{{examHistory.student.ssid}}</span>
   </span>
+  <div class="pull-right ml-xs">
+    <student-report-download [studentId]="examHistory.student.id" [schoolYears]="filterState.years"></student-report-download>
+  </div>
   <button class="btn btn-default btn-sm pull-right"
           (click)="exportCsv()">
     <i class="fa fa-bold fa-table"></i>

@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "../shared/common.module";
 import { CsvBuilder } from "./csv-builder.service";
+import { CsvExportService } from "./csv-export.service";
 
 @NgModule({
   declarations: [ ],
@@ -8,7 +9,10 @@ import { CsvBuilder } from "./csv-builder.service";
     CommonModule
   ],
   exports: [ ],
-  providers: [ CsvBuilder ]
+  providers: [
+    CsvBuilder,
+    CsvExportService
+  ]
 })
 export class CsvModule {
 }
