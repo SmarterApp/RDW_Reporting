@@ -43,7 +43,7 @@
                   content="{{'labels.groups.results.assessment.exams.cols.iab.performance-info' | translate}}"></span>
     </ng-template>
     <ng-template let-exam="rowData.exam" pTemplate="body">
-      {{ 'enum.iab-category.' + exam.level.toString() | translate }}
+      {{ 'enum.iab-category.full.' + exam.level.toString() | translate }}
     </ng-template>
   </p-column>
   <p-column field="exam.score" sortable="true">

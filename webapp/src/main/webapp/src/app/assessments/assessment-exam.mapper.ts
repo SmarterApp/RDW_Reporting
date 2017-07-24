@@ -63,6 +63,7 @@ export class AssessmentExamMapper {
     uiModel.type = AssessmentType[ apiModel.type as string ];
     uiModel.subject = apiModel.subject;
     uiModel.claimCodes = apiModel.claimCodes || [];
+    uiModel.cutPoints = apiModel.cutPoints || [];
 
     return uiModel;
   }

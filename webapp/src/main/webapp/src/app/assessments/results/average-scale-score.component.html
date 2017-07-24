@@ -1,0 +1,71 @@
+<!-- IAB display -->
+<div *ngIf="showIab" class="row">
+  <div class="col-md-6">
+    <div class="average-scale-score-display">
+      <span info-label class="scale-title"
+            title="{{ 'labels.assessments.average-scale-score' | translate }}"
+            content="{{ 'labels.assessments.average-scale-score-info' | translate }}"></span>
+      <span class="scale-score"><span class="score label {{ scaleScoreColor }}">{{ statistics.average | number:'1.0-0' | removeComma }}</span> <span class="error-band">± {{ statistics.standardError | number:'1.0-0' }}</span></span>
+      <span class="label-group gray-light">
+        <span class="label">{{ statistics.total }}</span><span class="label">{{ 'labels.assessments.students' | translate }}</span>
+      </span>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="scale-score-graph rounded blend-middle">
+      <span class="scale-title">{{ 'labels.assessments.student-score-distribution' | translate }}</span>
+      <div class="bar-container">
+        <div class="bar blue-dark" [attr.data-width]="getLevelPercent(0)">
+          <span class="percentage">{{ performanceLevels[0].value | number:'1.0-0' }}{{ performanceLevels[0].suffix }}</span>
+          <span class="bar-label">{{ examLevelEnum + performanceLevels[0].id.toString() | translate }}</span>
+        </div>
+        <div class="bar blue-dark aqua" [attr.data-width]="getLevelPercent(1)">
+          <span class="percentage">{{ performanceLevels[1].value | number:'1.0-0' }}{{ performanceLevels[1].suffix }}</span>
+          <span class="bar-label">{{ examLevelEnum + performanceLevels[1].id.toString() | translate }}</span>
+        </div>
+        <div class="bar aqua" [attr.data-width]="getLevelPercent(2)">
+          <span class="percentage">{{ performanceLevels[2].value | number:'1.0-0' }}{{ performanceLevels[2].suffix }}</span>
+          <span class="bar-label">{{ examLevelEnum + performanceLevels[2].id.toString() | translate }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ICA display -->
+<div *ngIf="showIcaSummative" class="row">
+  <div class="col-md-6">
+    <div class="average-scale-score-display">
+      <span info-label class="scale-title"
+            title="{{ 'labels.assessments.average-scale-score' | translate }}"
+            content="{{ 'labels.assessments.average-scale-score-info' | translate }}"></span>
+      <span class="scale-score"><span class="score label {{ scaleScoreColor }}">{{ statistics.average | number:'1.0-0' | removeComma }}</span> <span class="error-band">± {{ statistics.standardError | number:'1.0-0' }}</span></span>
+      <span class="label-group gray-light">
+        <span class="label">{{ statistics.total }}</span><span class="label">{{ 'labels.assessments.students' | translate }}</span>
+      </span>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="scale-score-graph">
+      <span class="scale-title">{{ 'labels.assessments.student-score-distribution' | translate }}</span>
+      <div class="bar-container">
+        <div class="bar maroon" [attr.data-width]="getLevelPercent(0)">
+          <span class="percentage">{{ performanceLevels[0].value | number:'1.0-0' }}{{ performanceLevels[0].suffix }}</span>
+          <span class="bar-label">{{ examLevelEnum + performanceLevels[0].id.toString() | translate }}</span>
+        </div>
+        <div class="bar gray-darkest" [attr.data-width]="getLevelPercent(1)">
+          <span class="percentage">{{ performanceLevels[1].value | number:'1.0-0' }}{{ performanceLevels[1].suffix }}</span>
+          <span class="bar-label">{{ examLevelEnum + performanceLevels[1].id.toString() | translate }}</span>
+        </div>
+        <div class="bar green-dark" [attr.data-width]="getLevelPercent(2)">
+          <span class="percentage">{{ performanceLevels[2].value | number:'1.0-0' }}{{ performanceLevels[2].suffix }}</span>
+          <span class="bar-label">{{ examLevelEnum + performanceLevels[2].id.toString() | translate }}</span>
+        </div>
+        <div class="bar blue-dark" [attr.data-width]="getLevelPercent(3)">
+          <span class="percentage">{{ performanceLevels[3].value | number:'1.0-0' }}{{ performanceLevels[3].suffix }}</span>
+          <span class="bar-label">{{ examLevelEnum + performanceLevels[3].id.toString() | translate }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

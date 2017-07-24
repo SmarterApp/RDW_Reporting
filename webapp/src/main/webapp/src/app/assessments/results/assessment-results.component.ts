@@ -15,6 +15,7 @@ import { GradeCode } from "../../shared/enum/grade-code.enum";
 import { ColorService } from "../../shared/color.service";
 import { ActivatedRoute } from "@angular/router";
 import { MenuActionBuilder } from "../menu/menu-action.builder";
+import { ExamStatistics } from "../model/exam-statistics.model";
 
 enum ScoreViewState {
   OVERALL = 1,
@@ -46,9 +47,9 @@ enum ScoreViewState {
   ],
 })
 export class AssessmentResultsComponent implements OnInit {
-  exams = [];
+  exams: Exam[] = [];
   sessions = [];
-  statistics: any = { percents: {} };
+  statistics: ExamStatistics;
   filteredAssessmentItems: AssessmentItem[];
   pointColumns: number[];
   showItemsByPoints: boolean = false;
@@ -130,11 +131,10 @@ export class AssessmentResultsComponent implements OnInit {
     return this.assessmentExam.collapsed;
   }
 
-  get performance() {
-    if (this.showValuesAsPercent)
-      return this.statistics.percents;
-    else
-      return this.statistics;
+  get examLevelEnum() {
+    return this.assessmentExam.assessment.isIab
+      ? "enum.iab-category.full."
+      : "enum.achievement-level.full.";
   }
 
   get isIab(): boolean {
@@ -163,12 +163,6 @@ export class AssessmentResultsComponent implements OnInit {
 
   public setOverallScoreSelected() {
     this.displayState.table = ScoreViewState.OVERALL;
-  }
-
-  get examLevelEnum() {
-    return this.isIab
-      ? "enum.iab-category."
-      : "enum.achievement-level.";
   }
 
   get performanceLevelHeader() {
@@ -289,14 +283,20 @@ export class AssessmentResultsComponent implements OnInit {
     return filtered;
   }
 
-  private calculateStats() {
-    let stats: any = {
-      total: this.exams.length,
-      average: this.examCalculator.calculateAverage(this.exams),
-      levels: this.examCalculator.groupLevels(this.exams, this.isIab ? 3 : 4)
-    };
+  private calculateStats(): ExamStatistics {
+    let stats = new ExamStatistics();
+    stats.total = this.exams.length;
+    stats.average = this.examCalculator.calculateAverage(this.exams);
+    stats.standardError = this.examCalculator.calculateAverageStandardError(this.exams);
+    stats.levels = this.examCalculator.groupLevels(this.exams, this.isIab ? 3 : 4);
+    stats.percents = stats.levels.map(x => {
+      return {
+        id: x.id,
+        value: x.value / stats.total * 100,
+        suffix: '%'
+      }
+    });
 
-    stats.percents = { levels: this.examCalculator.calculateLevelPercents(stats.levels, stats.total) };
     return stats;
   }
 

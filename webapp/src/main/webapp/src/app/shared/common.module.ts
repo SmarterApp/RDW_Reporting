@@ -24,6 +24,7 @@ import { SessionExpiredComponent } from "./authentication/session-expired.compon
 import { StorageService } from "./storage.service";
 import { DatePipe } from "@angular/common";
 import { SBErrorHandler } from "./sb-error-handler.service";
+import { ScaleScoreService } from "./scale-score.service";
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { SBErrorHandler } from "./sb-error-handler.service";
     DatePipe,
     CachingDataService,
     ColorService,
+    ScaleScoreService,
     RdwTranslateLoader,
     StorageService, {
       provide: ErrorHandler,

@@ -298,7 +298,9 @@
         }
       },
       "average-scale-score": "Average Scale Score",
-      "average-scale-score-info": "Average scale score for the selected group of students and an error band based on the Standard Error of Measurement (SEM) associated with that score. Test scores are estimates of student achievement and come with a certain amount of measurement error. See the Interpretive Guide for additional information about scale scores and measurement error."
+      "average-scale-score-info": "Average scale score for the selected group of students and an error band based on the Standard Error of Measurement (SEM) associated with that score. Test scores are estimates of student achievement and come with a certain amount of measurement error. See the Interpretive Guide for additional information about scale scores and measurement error.",
+      "students": "Students",
+      "student-score-distribution": "Student Score Distribution"
     },
     "menu": "Menu",
     "menus": {
@@ -410,15 +412,30 @@
       "Complete": "Complete"
     },
     "iab-category": {
-      "1": "Below Standard",
-      "2": "Near Standard",
-      "3": "Above Standard"
+      "short": {
+        "1": "Below",
+        "2": "Near",
+        "3": "Above"
+      },
+      "full": {
+        "1": "Below Standard",
+        "2": "Near Standard",
+        "3": "Above Standard"
+      }
     },
     "achievement-level": {
-      "1": "Did Not Meet Standard",
-      "2": "Nearly Met Standard",
-      "3": "Met Standard",
-      "4": "Exceeded Standard"
+      "short": {
+        "1": "Did Not Meet",
+        "2": "Nearly Met",
+        "3": "Met",
+        "4": "Exceeded"
+      },
+      "full": {
+        "1": "Did Not Meet Standard",
+        "2": "Nearly Met Standard",
+        "3": "Met Standard",
+        "4": "Exceeded Standard"
+      }
     },
     "subject-claim-code": {
       "1": "Concepts & Procedures",

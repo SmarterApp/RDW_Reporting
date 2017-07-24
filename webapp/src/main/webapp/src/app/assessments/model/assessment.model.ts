@@ -8,6 +8,7 @@ export class Assessment {
   selected: boolean;
   subject: string;
   claimCodes: string[];
+  cutPoints: number[];
 
   get isIab(): boolean {
     return this.type == AssessmentType.IAB;

@@ -16,6 +16,7 @@ import { PopoverModule } from "ngx-bootstrap/popover";
 import { AssessmentsComponent } from "./assessments.component";
 import { AdvFiltersToggleComponent } from "./filters/adv-filters/adv-filters-toggle.component";
 import { ScaleScoreComponent } from "./results/scale-score.component";
+import { AverageScaleScoreComponent } from "./results/average-scale-score.component";
 import { InformationLabelComponent } from "./results/information-label.component";
 import { ItemViewerComponent } from "./items/item-viewer/item-viewer.component";
 import { ItemTabComponent } from "./items/item-tab.component";
@@ -40,6 +41,7 @@ import { ItemInfoComponent } from "./items/item-info/item-info.component";
     ItemViewerComponent,
     PopupMenuComponent,
     ScaleScoreComponent,
+    AverageScaleScoreComponent,
     SelectAssessmentsComponent,
     ItemExemplarComponent,
     ItemScoresComponent,

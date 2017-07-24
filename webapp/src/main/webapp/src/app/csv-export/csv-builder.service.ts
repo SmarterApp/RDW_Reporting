@@ -152,7 +152,7 @@ export class CsvBuilder {
         let exam: Exam = getExam(item);
         if (!exam) return "";
 
-        return this.translateService.instant(`enum.achievement-level.${exam.level}`);
+        return this.translateService.instant(`enum.achievement-level.full.${exam.level}`);
       }
     )
   }
@@ -164,7 +164,7 @@ export class CsvBuilder {
         let exam: Exam = getExam(item);
         if (!exam) return "";
 
-        return this.translateService.instant(`enum.iab-category.${exam.level}`);
+        return this.translateService.instant(`enum.iab-category.full.${exam.level}`);
       }
     )
   }
@@ -212,7 +212,7 @@ export class CsvBuilder {
           let exam: Exam = getExam(item);
           if (!exam) return "";
 
-          return this.translateService.instant(`enum.iab-category.${exam.claimScores[idx].level}`);
+          return this.translateService.instant(`enum.iab-category.full.${exam.claimScores[idx].level}`);
         }
       )
     });

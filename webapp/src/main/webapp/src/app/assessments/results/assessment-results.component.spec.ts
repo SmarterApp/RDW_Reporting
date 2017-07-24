@@ -15,6 +15,7 @@ import { ExamStatisticsCalculator } from "./exam-statistics-calculator";
 import { ExamFilterService } from "../filters/exam-filters/exam-filter.service";
 import { PopoverModule } from "ngx-bootstrap/popover";
 import { ScaleScoreComponent } from "./scale-score.component";
+import { AverageScaleScoreComponent } from "./average-scale-score.component";
 import { InformationLabelComponent } from "./information-label.component";
 import { ItemViewerComponent } from "../items/item-viewer/item-viewer.component";
 import { ItemTabComponent } from "../items/item-tab.component";
@@ -28,6 +29,7 @@ import { ItemExemplarComponent } from "../items/item-exemplar/item-exemplar.comp
 import { ItemScoresComponent } from "../items/item-scores/item-scores.component";
 import { TestModule } from "../../../test/test.module";
 import { ItemInfoComponent } from "../items/item-info/item-info.component";
+import { ScaleScoreService } from "../../shared/scale-score.service";
 import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
 
@@ -64,13 +66,15 @@ describe('AssessmentResultsComponent', () => {
         PopupMenuComponent,
         RemoveCommaPipe,
         ScaleScoreComponent,
+        AverageScaleScoreComponent,
         TestComponentWrapper
       ],
       providers: [ { provide: APP_BASE_HREF, useValue: '/' } ,
         { provide: Angulartics2, useValue: mockAngulartics2 },
         ExamStatisticsCalculator,
         ExamFilterService,
-        ColorService
+        ColorService,
+        ScaleScoreService
       ]
     }).compileComponents();
 
