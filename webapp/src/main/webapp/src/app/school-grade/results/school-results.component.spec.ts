@@ -19,12 +19,14 @@ import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.m
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { Angulartics2Module, Angulartics2 } from "angulartics2";
 import { PopoverModule } from "ngx-bootstrap";
+import { CsvBuilder } from "../../csv-export/csv-builder.service";
 
 let availableGrades = [];
 
 describe('SchoolResultsComponent', () => {
   let component: SchoolResultsComponent;
   let fixture: ComponentFixture<SchoolResultsComponent>;
+  let csvBuilder: any;
 
   beforeEach(async(() => {
     let mockRouteData = {};
@@ -39,6 +41,8 @@ describe('SchoolResultsComponent', () => {
     mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', ['next']);
 
     availableGrades = [];
+
+    csvBuilder = {};
 
     TestBed.configureTestingModule({
       imports: [
@@ -63,7 +67,8 @@ describe('SchoolResultsComponent', () => {
         { provide: ActivatedRoute, useValue: {
           snapshot: { data: mockRouteData, params: mockRouteParams }
         }},
-        { provide: Angulartics2, useValue: mockAngulartics2 }
+        { provide: Angulartics2, useValue: mockAngulartics2 },
+        { provide: CsvBuilder, useValue: csvBuilder }
       ]
     })
       .compileComponents();
