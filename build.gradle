@@ -140,7 +140,7 @@ subprojects {
         // (http://bmuschko.github.io/gradle-docker-plugin/docs/groovydoc/com/bmuschko/gradle/docker/tasks/image/Dockerfile.html)
         task createDockerfile(type: Dockerfile) {
             destFile = project.file('build/docker/Dockerfile')
-            from('java:8-jre-alpine')
+            from('openjdk:8-jre-alpine')
             volume('/tmp')
             label([maintainer: 'Fairway Technologies'])
             copyFile("${jar.archivePath.name}", "${jar.archivePath.name}")
