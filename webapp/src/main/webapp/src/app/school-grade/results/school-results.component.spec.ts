@@ -19,14 +19,14 @@ import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.m
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { Angulartics2Module, Angulartics2 } from "angulartics2";
 import { PopoverModule } from "ngx-bootstrap";
-import { CsvBuilder } from "../../csv-export/csv-builder.service";
+import { CsvExportService } from "../../csv-export/csv-export.service";
 
 let availableGrades = [];
 
 describe('SchoolResultsComponent', () => {
   let component: SchoolResultsComponent;
   let fixture: ComponentFixture<SchoolResultsComponent>;
-  let csvBuilder: any;
+  let exportService: any;
 
   beforeEach(async(() => {
     let mockRouteData = {};
@@ -42,7 +42,7 @@ describe('SchoolResultsComponent', () => {
 
     availableGrades = [];
 
-    csvBuilder = {};
+    exportService = {};
 
     TestBed.configureTestingModule({
       imports: [
@@ -68,7 +68,7 @@ describe('SchoolResultsComponent', () => {
           snapshot: { data: mockRouteData, params: mockRouteParams }
         }},
         { provide: Angulartics2, useValue: mockAngulartics2 },
-        { provide: CsvBuilder, useValue: csvBuilder }
+        { provide: CsvExportService, useValue: exportService }
       ]
     })
       .compileComponents();

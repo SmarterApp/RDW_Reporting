@@ -2,13 +2,18 @@ import { TestModule } from "../../test/test.module";
 import { CsvBuilder } from "./csv-builder.service";
 import { inject, TestBed } from "@angular/core/testing";
 import { DatePipe } from "@angular/common";
+import { Angular2CsvProvider } from "./angular-csv.provider";
 import Spy = jasmine.Spy;
 
-describe('CsvBuilder', () => {
+fdescribe('CsvBuilder', () => {
   let datePipe: MockDatePipe;
+  let angular2Csv: any;
 
   beforeEach(() => {
     datePipe = new MockDatePipe();
+    angular2Csv = {
+      export: jasmine.createSpy("export")
+    };
 
     TestBed.configureTestingModule({
       imports: [
@@ -18,6 +23,9 @@ describe('CsvBuilder', () => {
         CsvBuilder, {
           provide: DatePipe,
           useValue: datePipe
+        }, {
+          provide: Angular2CsvProvider,
+          useValue: angular2Csv
         }
       ]
     });
@@ -40,11 +48,13 @@ describe('CsvBuilder', () => {
         valueB: "value B2"
       }];
 
-      let tabularData: string[][] = builder
+      builder
         .newBuilder()
         .withColumn('Column A', (item) => item.valueA)
         .withColumn('Column B', (item) => item.valueB)
         .build(sourceData);
+
+      let tabularData: string[][] = angular2Csv.export.calls.mostRecent().args[0];
 
       expect(tabularData.length).toBe(3);
       expect(tabularData[0]).toEqual(["Column A", "Column B"]);

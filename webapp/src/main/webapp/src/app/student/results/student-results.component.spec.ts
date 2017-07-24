@@ -18,7 +18,7 @@ import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { ClaimScore } from "../../assessments/model/claim-score.model";
 import { School } from "../../user/model/school.model";
 import { MockRouter } from "../../../test/mock.router";
-import { CsvBuilder } from "../../csv-export/csv-builder.service";
+import { CsvExportService } from "../../csv-export/csv-export.service";
 import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
 import createSpyObj = jasmine.createSpyObj;
@@ -28,11 +28,11 @@ describe('StudentResultsComponent', () => {
   let fixture: ComponentFixture<StudentResultsComponent>;
   let route: MockActivatedRoute;
   let router: MockRouter;
-  let csvBuilder: any;
+  let exportService: any;
 
   beforeEach(() => {
     route = new MockActivatedRoute();
-    csvBuilder = {};
+    exportService = {};
 
     let mockRouteSnapshot: any = {};
     mockRouteSnapshot.data = {};
@@ -63,8 +63,8 @@ describe('StudentResultsComponent', () => {
         provide: Router,
         useValue: router
       }, {
-        provide: CsvBuilder,
-        useValue: csvBuilder
+        provide: CsvExportService,
+        useValue: exportService
       }],
       schemas: [NO_ERRORS_SCHEMA]
     })

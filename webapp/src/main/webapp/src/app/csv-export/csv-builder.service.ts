@@ -6,14 +6,15 @@ import { Exam } from "../assessments/model/exam.model";
 import { DatePipe } from "@angular/common";
 import { Assessment } from "../assessments/model/assessment.model";
 import { AssessmentType } from "../shared/enum/assessment-type.enum";
-import { Angular2Csv } from "angular2-csv";
+import { Angular2CsvProvider } from "./angular-csv.provider";
 
 @Injectable()
 export class CsvBuilder {
   private columns: CsvColumn[];
   private filename: string;
 
-  constructor(private translateService: TranslateService,
+  constructor(private angular2csv: Angular2CsvProvider,
+              private translateService: TranslateService,
               private datePipe: DatePipe) {
     this.columns = [];
     this.filename = "export";
@@ -25,7 +26,7 @@ export class CsvBuilder {
    * @returns {CsvBuilder}  A new builder instance
    */
   newBuilder(): CsvBuilder {
-    return new CsvBuilder(this.translateService, this.datePipe);
+    return new CsvBuilder(this.angular2csv, this.translateService, this.datePipe);
   }
 
   /**
@@ -54,7 +55,7 @@ export class CsvBuilder {
       csvData.push(rowData);
     }
 
-    new Angular2Csv(csvData, this.filename);
+    this.angular2csv.export(csvData, this.filename);
   }
 
   /**
