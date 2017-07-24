@@ -3,6 +3,12 @@
   <span *ngIf="currentGrade">
     - {{currentGrade.code | gradeDisplay:'long-name'}}
   </span>
+
+  <button class="btn btn-default btn-sm pull-right"
+          (click)="exportCsv()">
+    <i class="fa fa-bold fa-table"></i>
+    <span>{{'labels.export.csv' | translate}}</span>
+  </button>
 </h2>
 
 <assessments [assessmentExams]="assessmentExams" [assessmentProvider]="assessmentProvider" [allowFilterBySessions]="false">

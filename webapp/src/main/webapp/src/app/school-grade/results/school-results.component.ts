@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AssessmentExam } from "../../assessments/model/assessment-exam.model";
 import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
@@ -10,6 +10,12 @@ import { SchoolService } from "../school.service";
 import { Grade } from "../grade.model";
 import { isNullOrUndefined } from "util";
 import { Angulartics2 } from "angulartics2";
+import { AssessmentsComponent } from "../../assessments/assessments.component";
+import { Exam } from "../../assessments/model/exam.model";
+import { ExamFilterService } from "../../assessments/filters/exam-filters/exam-filter.service";
+import { CsvBuilder } from "../../csv-export/csv-builder.service";
+import { Angular2Csv } from "angular2-csv";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-group-results',
@@ -20,6 +26,10 @@ import { Angulartics2 } from "angulartics2";
  * searching by school and grade.
  */
 export class SchoolResultsComponent implements OnInit {
+
+  @ViewChild(AssessmentsComponent)
+  assessmentsComponent: AssessmentsComponent;
+
   schools: School[];
   assessmentExams: AssessmentExam[] = [];
   availableAssessments: Assessment[] = [];
@@ -79,8 +89,11 @@ export class SchoolResultsComponent implements OnInit {
               private router: Router,
               private filterOptionService: ExamFilterOptionsService,
               private schoolService: SchoolService,
-              public assessmentProvider: SchoolAssessmentService,
-              private angulartics2: Angulartics2) {
+              private angulartics2: Angulartics2,
+              private examFilterService: ExamFilterService,
+              private csvBuilder: CsvBuilder,
+              private translateService: TranslateService,
+              public assessmentProvider: SchoolAssessmentService) {
   }
 
   ngOnInit() {
@@ -163,6 +176,48 @@ export class SchoolResultsComponent implements OnInit {
 
   mapParamsToSchoolYear(params) {
     return Number.parseInt(params[ "schoolYear" ]) || this.filterOptions.schoolYears[ 0 ];
+  }
+
+  exportCsv(): void {
+    let assessmentExams: AssessmentExam[] = this.assessmentsComponent.assessmentExams;
+    let sourceData: any[] = [];
+    assessmentExams.forEach((assessmentExam: AssessmentExam) => {
+      let filteredExams: Exam[] = this.examFilterService.filterExams(assessmentExam, this.assessmentsComponent.clientFilterBy);
+      filteredExams.forEach((exam) => {
+        sourceData.push({
+          assessment: assessmentExam.assessment,
+          exam: exam
+        });
+      });
+    });
+
+    let getStudent = (item) => item.exam.student;
+    let getExam = (item) => item.exam;
+    let getAssessment = (item) => item.assessment;
+    let getIABExam = (item) => item.assessment.isIab ? item.exam : null;
+    let getNonIABExam = (item) => item.assessment.isIab ? null: item.exam;
+    let getNonIABMathExam = (item) => !item.assessment.isIab && item.assessment.subject === 'MATH' ? item.exam : null;
+    let getNonIABElaExam = (item) => !item.assessment.isIab && item.assessment.subject === 'ELA' ? item.exam : null;
+
+    let data: string[][] = this.csvBuilder
+      .newBuilder()
+      .withStudentIdAndName(getStudent)
+      .withExamDateAndSession(getExam)
+      .withAssessmentTypeNameAndSubject(getAssessment)
+      .withExamGradeAndStatus(getExam)
+      .withAchievementLevel(getNonIABExam)
+      .withReportingCategory(getIABExam)
+      .withScoreAndErrorBand(getExam)
+      .withMathClaimScores(getNonIABMathExam)
+      .withELAClaimScores(getNonIABElaExam)
+      .withGender(getStudent)
+      .withStudentContext(getExam)
+      .build(sourceData);
+
+    let fileName: string = this._currentSchool.name +
+      "-" + this.translateService.instant(`labels.grades.${this._currentGrade.code}.short-name`) +
+      "-" + new Date().toDateString();
+    new Angular2Csv(data, fileName);
   }
 
   private trackAnalyticsEvent(changedFilter: string) {
