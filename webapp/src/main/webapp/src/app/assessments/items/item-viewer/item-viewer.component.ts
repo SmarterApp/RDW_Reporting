@@ -62,8 +62,7 @@ export class ItemViewerComponent implements OnInit {
     IRiS.setFrame(this._irisFrame);
     this.irisIsLoading = false;
 
-    // This will fire after iris finishes running it's setup js.
-    setTimeout(this.loadToken.bind(this), 0);
+    this.loadToken();
   }
 
   /**

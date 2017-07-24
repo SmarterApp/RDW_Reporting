@@ -61,3 +61,9 @@ app:
       validationQuery: SELECT 1
       driverClassName: com.mysql.jdbc.Driver
       initialize: false
+
+  wkhtmltopdf:
+    url: http://wkhtmltopdf/
+    options:
+      dpi: 276
+      page-size: Letter

@@ -79,3 +79,9 @@ app:
   # google analytics configuration
   analytics:
     trackingId: ${rdw.reporting.analytics.trackingId:}
+
+  wkhtmltopdf:
+    url: http://wkhtmltopdf/
+    options:
+      dpi: 276
+      page-size: Letter

@@ -51,6 +51,7 @@ services:
     links:
       - config-server
       - rabbitmq
+      - wkhtmltopdf
     environment:
       - spring.profiles.active=local-docker
       - CONFIG_SERVICE_ENABLED=true
@@ -73,3 +74,8 @@ services:
 #      - CONFIG_SERVICE_URL=http://config-server:8888
 #    extra_hosts:
 #      - "dwhost:$DATAWAREHOUSE_HOST"
+
+  wkhtmltopdf:
+    image: openlabs/docker-wkhtmltopdf-aas
+    ports:
+      - 8082:80

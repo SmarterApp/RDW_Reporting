@@ -41,15 +41,6 @@
                   </label>
                 </div>
 
-                <div class="flex-child">
-                  <label>Language
-                    <select class="form-control" name="language" [(ngModel)]="options.language">
-                      <option *ngFor="let language of languages" [ngValue]="language">{{'labels.languages.' + language | translate}}
-                      </option>
-                    </select>
-                  </label>
-                </div>
-
               </div>
             </div>
           </form>
