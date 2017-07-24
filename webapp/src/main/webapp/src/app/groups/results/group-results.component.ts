@@ -10,7 +10,6 @@ import { AssessmentsComponent } from "../../assessments/assessments.component";
 import { Exam } from "../../assessments/model/exam.model";
 import { ExamFilterService } from "../../assessments/filters/exam-filters/exam-filter.service";
 import { CsvBuilder } from "../../csv-export/csv-builder.service";
-import { Angular2Csv } from "angular2-csv";
 
 @Component({
   selector: 'app-group-results',
@@ -121,9 +120,13 @@ export class GroupResultsComponent implements OnInit {
     let getNonIABMathExam = (item) => !item.assessment.isIab && item.assessment.subject === 'MATH' ? item.exam : null;
     let getNonIABElaExam = (item) => !item.assessment.isIab && item.assessment.subject === 'ELA' ? item.exam : null;
 
-    let data: string[][] = this.csvBuilder
+    let fileName: string = this.currentGroup.name +
+      "-" + new Date().toDateString();
+
+    this.csvBuilder
       .newBuilder()
-      .withStudentIdAndName(getStudent)
+      .withFilename(fileName)
+      .withStudent(getStudent)
       .withExamDateAndSession(getExam)
       .withAssessmentTypeNameAndSubject(getAssessment)
       .withExamGradeAndStatus(getExam)
@@ -135,9 +138,5 @@ export class GroupResultsComponent implements OnInit {
       .withGender(getStudent)
       .withStudentContext(getExam)
       .build(sourceData);
-
-    let fileName: string = this.currentGroup.name +
-      "-" + new Date().toDateString();
-    new Angular2Csv(data, fileName);
   }
 }

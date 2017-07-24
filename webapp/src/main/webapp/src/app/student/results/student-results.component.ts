@@ -9,7 +9,6 @@ import { ColorService } from "../../shared/color.service";
 import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
 import { CsvBuilder } from "../../csv-export/csv-builder.service";
 import { Student } from "../model/student.model";
-import { Angular2Csv } from "angular2-csv/Angular2-csv";
 
 @Component({
   selector: 'student-results',
@@ -92,9 +91,16 @@ export class StudentResultsComponent implements OnInit {
     let getNonIABMathExam = (wrapper: StudentHistoryExamWrapper) => !wrapper.assessment.isIab && wrapper.assessment.subject === 'MATH' ? wrapper.exam : null;
     let getNonIABElaExam = (wrapper: StudentHistoryExamWrapper) => !wrapper.assessment.isIab && wrapper.assessment.subject === 'ELA' ? wrapper.exam : null;
 
-    let data: string[][] = this.csvBuilder
+    let student: Student = this.examHistory.student;
+    let fileName: string = student.lastName +
+      "-" + student.firstName +
+      "-" + student.ssid +
+      "-" + new Date().toDateString();
+
+    this.csvBuilder
       .newBuilder()
-      .withStudentIdAndName(getStudent)
+      .withFilename(fileName)
+      .withStudent(getStudent)
       .withExamDateAndSession(getExam)
       .withAssessmentTypeNameAndSubject(getAssessment)
       .withExamGradeAndStatus(getExam)
@@ -104,13 +110,6 @@ export class StudentResultsComponent implements OnInit {
       .withMathClaimScores(getNonIABMathExam)
       .withELAClaimScores(getNonIABElaExam)
       .build(sourceData);
-
-    let student: Student = this.examHistory.student;
-    let fileName: string = student.lastName +
-        "-" + student.firstName +
-        "-" + student.ssid +
-        "-" + new Date().toDateString();
-    new Angular2Csv(data, fileName);
   }
 
   /**

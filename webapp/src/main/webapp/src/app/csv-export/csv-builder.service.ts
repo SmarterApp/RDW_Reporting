@@ -6,14 +6,17 @@ import { Exam } from "../assessments/model/exam.model";
 import { DatePipe } from "@angular/common";
 import { Assessment } from "../assessments/model/assessment.model";
 import { AssessmentType } from "../shared/enum/assessment-type.enum";
+import { Angular2Csv } from "angular2-csv";
 
 @Injectable()
 export class CsvBuilder {
   private columns: CsvColumn[];
+  private filename: string;
 
   constructor(private translateService: TranslateService,
               private datePipe: DatePipe) {
     this.columns = [];
+    this.filename = "export";
   }
 
   /**
@@ -28,11 +31,11 @@ export class CsvBuilder {
   /**
    * Build a tabular 2-dimensional array of columns and values from the
    * current column definitions and an array of source data.
+   * Export the tabular data as a CSV download.
    *
    * @param srcData An array of source items
-   * @returns {string[][]}  Tabular data suitable for CSV export
    */
-  build(srcData: any[]): string[][] {
+  build(srcData: any[]): void {
     let csvData: string[][] = [];
 
     //Add column headers
@@ -51,7 +54,7 @@ export class CsvBuilder {
       csvData.push(rowData);
     }
 
-    return csvData;
+    new Angular2Csv(csvData, this.filename);
   }
 
   /**
@@ -66,6 +69,17 @@ export class CsvBuilder {
     column.label = labelKey;
     column.dataProvider = dataProvider;
     this.columns.push(column);
+    return this;
+  }
+
+  /**
+   * The export CSV filename.
+   *
+   * @param filename        The export filename
+   * @returns {CsvBuilder}  This builder
+   */
+  withFilename(filename: string) {
+    this.filename = filename;
     return this;
   }
 
@@ -290,7 +304,7 @@ export class CsvBuilder {
 
   //Combination methods for commonly-associated columns
 
-  withStudentIdAndName(getStudent: (item: any) => Student) {
+  withStudent(getStudent: (item: any) => Student) {
     this.withStudentId(getStudent);
     this.withStudentName(getStudent);
     return this;
