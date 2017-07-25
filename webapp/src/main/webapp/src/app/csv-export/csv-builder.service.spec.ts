@@ -1,7 +1,7 @@
 import { TestModule } from "../../test/test.module";
 import { CsvBuilder } from "./csv-builder.service";
 import { inject, TestBed } from "@angular/core/testing";
-import { DatePipe } from "@angular/common";
+import { DatePipe, DecimalPipe } from "@angular/common";
 import { Angular2CsvProvider } from "./angular-csv.provider";
 import Spy = jasmine.Spy;
 
@@ -26,6 +26,9 @@ describe('CsvBuilder', () => {
         }, {
           provide: Angular2CsvProvider,
           useValue: angular2Csv
+        }, {
+          provide: DecimalPipe,
+          useValue: MockDecimalPipe
         }
       ]
     });
@@ -64,5 +67,9 @@ describe('CsvBuilder', () => {
 });
 
 export class MockDatePipe {
+  transform: Spy = jasmine.createSpy("transform");
+}
+
+export class MockDecimalPipe {
   transform: Spy = jasmine.createSpy("transform");
 }
