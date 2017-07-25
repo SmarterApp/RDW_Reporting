@@ -6,7 +6,7 @@ import { ExamFilterService } from "../assessments/filters/exam-filters/exam-filt
 import { CsvBuilder } from "./csv-builder.service";
 import { StudentHistoryExamWrapper } from "../student/model/student-history-exam-wrapper.model";
 import { Student } from "../student/model/student.model";
-import { ItemByPointsEarnedExport } from "../assessments/model/item-by-points-earned-export.model";
+import { ItemByPointsEarnedExportRequest } from "../assessments/model/item-by-points-earned-export-request.model";
 
 @Injectable()
 export class CsvExportService {
@@ -94,7 +94,7 @@ export class CsvExportService {
       .build(wrappers);
   }
 
-  exportItemsByPointsEarned(exportRequest: ItemByPointsEarnedExport,
+  exportItemsByPointsEarned(exportRequest: ItemByPointsEarnedExportRequest,
                             filename: string) {
 
     let getAssessment = () => exportRequest.assessmentExam.assessment;

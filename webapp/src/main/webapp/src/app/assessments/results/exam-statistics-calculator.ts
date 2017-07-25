@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { AssessmentItem } from "../model/assessment-item.model";
 import { ExamStatisticsLevel } from "../model/exam-statistics.model";
 import { Exam } from "../model/exam.model";
-import { ItemByPointsEarnedColumn } from "../model/Item-by-points-earned-column.model";
+import { ItemPointField } from "../model/item-point-field.model";
 
 @Injectable()
 export class ExamStatisticsCalculator {
@@ -55,12 +55,12 @@ export class ExamStatisticsCalculator {
     }
   }
 
-  getPointFields(assessmentItems: AssessmentItem[]): ItemByPointsEarnedColumn[] {
+  getPointFields(assessmentItems: AssessmentItem[]): ItemPointField[] {
     let max = assessmentItems.reduce((x, y) => x.maxPoints > y.maxPoints ? x : y).maxPoints;
-    let pointFields: ItemByPointsEarnedColumn[] = [];
+    let pointFields: ItemPointField[] = [];
 
     for (let i = 0; i <= max; i++) {
-      let column: ItemByPointsEarnedColumn = new ItemByPointsEarnedColumn();
+      let column: ItemPointField = new ItemPointField();
       column.numberField = this.NumberFieldPrefix + i;
       column.percentField = this.PercentFieldPrefix + i;
       column.points = i;

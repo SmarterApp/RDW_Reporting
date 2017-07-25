@@ -8,8 +8,8 @@ import { Assessment } from "../assessments/model/assessment.model";
 import { AssessmentType } from "../shared/enum/assessment-type.enum";
 import { Angular2CsvProvider } from "./angular-csv.provider";
 import { AssessmentItem } from "../assessments/model/assessment-item.model";
-import { ItemByPointsEarnedColumn } from "../assessments/model/Item-by-points-earned-column.model";
 import { isNullOrUndefined } from "util";
+import { ItemPointField } from "../assessments/model/item-point-field.model";
 
 @Injectable()
 export class CsvBuilder {
@@ -355,7 +355,7 @@ export class CsvBuilder {
   }
 
   withPoints(getAssessmentItem: (item: any) => AssessmentItem,
-             pointColumns: ItemByPointsEarnedColumn[],
+             pointColumns: ItemPointField[],
              showAsPercent: boolean) {
     pointColumns.forEach(column => {
       this.withColumn(

@@ -15,8 +15,8 @@ import { GradeCode } from "../../shared/enum/grade-code.enum";
 import { ColorService } from "../../shared/color.service";
 import { MenuActionBuilder } from "../menu/menu-action.builder";
 import { ExamStatistics } from "../model/exam-statistics.model";
-import { ItemByPointsEarnedColumn } from "../model/Item-by-points-earned-column.model";
-import { ItemByPointsEarnedExport } from "../model/item-by-points-earned-export.model";
+import { ItemByPointsEarnedExportRequest } from "../model/item-by-points-earned-export-request.model";
+import { ItemPointField } from "../model/item-point-field.model";
 
 enum ScoreViewState {
   OVERALL = 1,
@@ -52,7 +52,7 @@ export class AssessmentResultsComponent implements OnInit {
   sessions = [];
   statistics: ExamStatistics;
   filteredAssessmentItems: AssessmentItem[];
-  pointColumns: ItemByPointsEarnedColumn[];
+  pointColumns: ItemPointField[];
   showItemsByPoints: boolean = false;
 
   /**
@@ -112,7 +112,7 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   @Output()
-  onExportItemsByPointsEarned: EventEmitter<ItemByPointsEarnedExport> = new EventEmitter();
+  onExportItemsByPointsEarned: EventEmitter<ItemByPointsEarnedExportRequest> = new EventEmitter();
 
   get assessmentExam() {
     return this._assessmentExam;
@@ -237,7 +237,7 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   exportItemsByPointsEarned(): void {
-    let exportRequest = new ItemByPointsEarnedExport();
+    let exportRequest = new ItemByPointsEarnedExportRequest();
     exportRequest.assessmentExam = this.assessmentExam;
     exportRequest.assessmentItems = this.filteredAssessmentItems;
     exportRequest.pointColumns = this.pointColumns;

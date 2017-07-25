@@ -12,7 +12,7 @@ import { byGradeThenByName } from "./assessment.comparator";
 import { AssessmentProvider } from "./assessment-provider.interface";
 import { GradeCode } from "../shared/enum/grade-code.enum";
 import { ColorService } from "../shared/color.service";
-import { ItemByPointsEarnedExport } from "./model/item-by-points-earned-export.model";
+import { ItemByPointsEarnedExportRequest } from "./model/item-by-points-earned-export-request.model";
 
 /**
  * This component encompasses all the functionality for displaying and filtering
@@ -51,7 +51,7 @@ export class AssessmentsComponent implements OnInit {
   allowFilterBySessions: boolean = true;
 
   @Output()
-  onExportItemsByPointsEarned: EventEmitter<ItemByPointsEarnedExport> = new EventEmitter();
+  onExportItemsByPointsEarned: EventEmitter<ItemByPointsEarnedExportRequest> = new EventEmitter();
 
   showValuesAsPercent: boolean = true;
   filterDisplayOptions: any = {
@@ -206,7 +206,7 @@ export class AssessmentsComponent implements OnInit {
     this.updateFilterOptions();
   }
 
-  exportItemsByPointsEarned(exportRequest: ItemByPointsEarnedExport): void {
+  exportItemsByPointsEarned(exportRequest: ItemByPointsEarnedExportRequest): void {
     this.onExportItemsByPointsEarned.emit(exportRequest);
   }
 

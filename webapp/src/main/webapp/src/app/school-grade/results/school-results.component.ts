@@ -13,7 +13,7 @@ import { Angulartics2 } from "angulartics2";
 import { AssessmentsComponent } from "../../assessments/assessments.component";
 import { TranslateService } from "@ngx-translate/core";
 import { CsvExportService } from "../../csv-export/csv-export.service";
-import { ItemByPointsEarnedExport } from "../../assessments/model/item-by-points-earned-export.model";
+import { ItemByPointsEarnedExportRequest } from "../../assessments/model/item-by-points-earned-export-request.model";
 
 @Component({
   selector: 'app-group-results',
@@ -183,7 +183,7 @@ export class SchoolResultsComponent implements OnInit {
     this.csvExportService.exportAssessmentExams(this.assessmentsComponent.assessmentExams, this.assessmentsComponent.clientFilterBy, filename);
   }
 
-  exportItemsByPointsEarned(exportRequest: ItemByPointsEarnedExport): void {
+  exportItemsByPointsEarned(exportRequest: ItemByPointsEarnedExportRequest): void {
     let assessment: Assessment =exportRequest.assessmentExam.assessment;
     let filename: string = this._currentSchool.name +
       "-" + this.translateService.instant(`labels.grades.${this._currentGrade.code}.short-name`) +
