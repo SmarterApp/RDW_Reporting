@@ -242,6 +242,14 @@ export class AssessmentResultsComponent implements OnInit {
     exportRequest.assessmentItems = this.filteredAssessmentItems;
     exportRequest.pointColumns = this.pointColumns;
     exportRequest.showAsPercent = this.showValuesAsPercent;
+
+    this.angulartics2.eventTrack.next({
+      action: 'Export ItemsByPointsEarned',
+      properties: {
+        category: 'Export'
+      }
+    });
+
     this.onExportItemsByPointsEarned.emit(exportRequest);
   }
 

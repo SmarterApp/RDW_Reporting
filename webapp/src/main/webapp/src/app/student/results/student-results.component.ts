@@ -9,6 +9,7 @@ import { ColorService } from "../../shared/color.service";
 import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
 import { Student } from "../model/student.model";
 import { CsvExportService } from "../../csv-export/csv-export.service";
+import { Angulartics2 } from "angulartics2";
 
 @Component({
   selector: 'student-results',
@@ -37,6 +38,7 @@ export class StudentResultsComponent implements OnInit {
               private csvExportService: CsvExportService,
               private route: ActivatedRoute,
               private router: Router,
+              private angulartics2: Angulartics2,
               private examFilterService: ExamFilterService) {
   }
 
@@ -87,6 +89,13 @@ export class StudentResultsComponent implements OnInit {
       Array.from(bySubject.values()).forEach(wrappers => {
         sourceData = sourceData.concat(wrappers);
       });
+    });
+
+    this.angulartics2.eventTrack.next({
+      action: 'Export Student Exam History',
+      properties: {
+        category: 'Export'
+      }
     });
 
     this.csvExportService.exportStudentHistory(sourceData, () => this.examHistory.student, filename);

@@ -180,6 +180,13 @@ export class SchoolResultsComponent implements OnInit {
       "-" + this.translateService.instant(`labels.grades.${this._currentGrade.code}.short-name`) +
       "-" + new Date().toDateString();
 
+    this.angulartics2.eventTrack.next({
+      action: 'Export School/Grade Results',
+      properties: {
+        category: 'Export'
+      }
+    });
+
     this.csvExportService.exportAssessmentExams(this.assessmentsComponent.assessmentExams, this.assessmentsComponent.clientFilterBy, filename);
   }
 

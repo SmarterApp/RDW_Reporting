@@ -111,6 +111,13 @@ export class GroupResultsComponent implements OnInit {
       "-ItemsByPoints" +
       "-" + new Date().toDateString();
 
+    this.angulartics2.eventTrack.next({
+      action: 'Export Group Results',
+      properties: {
+        category: 'Export'
+      }
+    });
+
     this.csvExportService.exportItemsByPointsEarned(exportRequest, filename);
   }
 }

@@ -19,6 +19,7 @@ import { ClaimScore } from "../../assessments/model/claim-score.model";
 import { School } from "../../user/model/school.model";
 import { MockRouter } from "../../../test/mock.router";
 import { CsvExportService } from "../../csv-export/csv-export.service";
+import { Angulartics2 } from "angulartics2";
 import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
 import createSpyObj = jasmine.createSpyObj;
@@ -39,6 +40,9 @@ describe('StudentResultsComponent', () => {
     mockRouteSnapshot.data.examHistory = MockBuilder.history();
     mockRouteSnapshot.params = {};
     route.snapshotResult.and.returnValue(mockRouteSnapshot);
+
+    let mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', ['eventTrack']);
+    mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', ['next']);
 
     router = new MockRouter();
 
@@ -65,6 +69,9 @@ describe('StudentResultsComponent', () => {
       }, {
         provide: CsvExportService,
         useValue: exportService
+      }, {
+        provide: Angulartics2,
+        useValue: mockAngulartics2
       }],
       schemas: [NO_ERRORS_SCHEMA]
     })
