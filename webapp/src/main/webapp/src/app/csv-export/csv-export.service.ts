@@ -6,6 +6,7 @@ import { ExamFilterService } from "../assessments/filters/exam-filters/exam-filt
 import { CsvBuilder } from "./csv-builder.service";
 import { StudentHistoryExamWrapper } from "../student/model/student-history-exam-wrapper.model";
 import { Student } from "../student/model/student.model";
+import { ItemByPointsEarnedExport } from "../assessments/model/item-by-points-earned-export.model";
 
 @Injectable()
 export class CsvExportService {
@@ -91,5 +92,25 @@ export class CsvExportService {
       .withMathClaimScores(getNonIABMathExam)
       .withELAClaimScores(getNonIABElaExam)
       .build(wrappers);
+  }
+
+  exportItemsByPointsEarned(exportRequest: ItemByPointsEarnedExport,
+                            filename: string) {
+
+    let getAssessment = () => exportRequest.assessmentExam.assessment;
+    let getAssessmentItem = (item) => item;
+
+    this.csvBuilder
+      .newBuilder()
+      .withFilename(filename)
+      .withAssessmentTypeNameAndSubject(getAssessment)
+      .withItemNumber(getAssessmentItem)
+      .withClaim(getAssessmentItem)
+      .withTarget(getAssessmentItem)
+      .withItemDifficulty(getAssessmentItem)
+      .withStandards(getAssessmentItem)
+      .withFullCredit(getAssessmentItem, exportRequest.showAsPercent)
+      .withPoints(getAssessmentItem, exportRequest.pointColumns, exportRequest.showAsPercent)
+      .build(exportRequest.assessmentItems);
   }
 }

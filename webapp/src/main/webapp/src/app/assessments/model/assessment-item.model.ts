@@ -17,11 +17,11 @@ export class AssessmentItem {
     return this.claim + ' / ' + this.target;
   }
 
-  get fullCredit() {
+  get fullCredit(): number {
     return this.scores.filter(x => x.points == this.maxPoints).length;
   }
 
-  get fullCreditAsPercent(){
+  get fullCreditAsPercent(): number{
     return this.scores.length > 0
       ? this.fullCredit / this.scores.length * 100
       : 0;

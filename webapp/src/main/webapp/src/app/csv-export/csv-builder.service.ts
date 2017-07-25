@@ -3,10 +3,13 @@ import { TranslateService } from "@ngx-translate/core";
 import { CsvColumn } from "./csv-column.model";
 import { Student } from "../student/model/student.model";
 import { Exam } from "../assessments/model/exam.model";
-import { DatePipe } from "@angular/common";
+import { DatePipe, DecimalPipe } from "@angular/common";
 import { Assessment } from "../assessments/model/assessment.model";
 import { AssessmentType } from "../shared/enum/assessment-type.enum";
 import { Angular2CsvProvider } from "./angular-csv.provider";
+import { AssessmentItem } from "../assessments/model/assessment-item.model";
+import { ItemByPointsEarnedColumn } from "../assessments/model/Item-by-points-earned-column.model";
+import { isNullOrUndefined } from "util";
 
 @Injectable()
 export class CsvBuilder {
@@ -15,7 +18,8 @@ export class CsvBuilder {
 
   constructor(private angular2csv: Angular2CsvProvider,
               private translateService: TranslateService,
-              private datePipe: DatePipe) {
+              private datePipe: DatePipe,
+              private numberPipe: DecimalPipe) {
     this.columns = [];
     this.filename = "export";
   }
@@ -26,7 +30,7 @@ export class CsvBuilder {
    * @returns {CsvBuilder}  A new builder instance
    */
   newBuilder(): CsvBuilder {
-    return new CsvBuilder(this.angular2csv, this.translateService, this.datePipe);
+    return new CsvBuilder(this.angular2csv, this.translateService, this.datePipe, this.numberPipe);
   }
 
   /**
@@ -303,6 +307,72 @@ export class CsvBuilder {
     )
   }
 
+  withItemNumber(getAssessmentItem: (item: any) => AssessmentItem) {
+    return this.withColumn(
+      this.translateService.instant('labels.groups.results.assessment.items.cols.number'),
+      (item) => getAssessmentItem(item).position
+    );
+  }
+
+  withClaim(getAssessmentItem: (item: any) => AssessmentItem) {
+    return this.withColumn(
+      this.translateService.instant('labels.export.cols.claim'),
+      (item) => this.translateService.instant(`definition.claim.${getAssessmentItem(item).claim}.name`)
+    );
+  }
+
+  withTarget(getAssessmentItem: (item: any) => AssessmentItem) {
+    return this.withColumn(
+      this.translateService.instant('labels.export.cols.target'),
+      (item) => this.translateService.instant('labels.groups.results.assessment.items.target', getAssessmentItem(item))
+    );
+  }
+
+  withItemDifficulty(getAssessmentItem: (item: any) => AssessmentItem) {
+    return this.withColumn(
+      this.translateService.instant('labels.groups.results.assessment.items.cols.difficulty'),
+      (item) => this.translateService.instant(`enum.difficulty.${getAssessmentItem(item).difficulty}`)
+    );
+  }
+
+  withStandards(getAssessmentItem: (item: any) => AssessmentItem) {
+    return this.withColumn(
+      this.translateService.instant('labels.groups.results.assessment.items.cols.standard'),
+      (item) => getAssessmentItem(item).commonCoreStandardIds.join(", ")
+    );
+  }
+
+  withFullCredit(getAssessmentItem: (item: any) => AssessmentItem,
+                 showAsPercent: boolean) {
+    return this.withColumn(
+      this.translateService.instant('labels.groups.results.assessment.items.cols.full-credit'),
+      (item) => {
+        let assessmentItem: AssessmentItem = getAssessmentItem(item);
+        let fullCredit: number = showAsPercent ? assessmentItem.fullCreditAsPercent : assessmentItem.fullCredit;
+        console.log("full credit", fullCredit);
+        return this.numberAsString(fullCredit, showAsPercent);
+      }
+    );
+  }
+
+  withPoints(getAssessmentItem: (item: any) => AssessmentItem,
+             pointColumns: ItemByPointsEarnedColumn[],
+             showAsPercent: boolean) {
+    pointColumns.forEach(column => {
+      this.withColumn(
+        column.points.toString(),
+        (item) => {
+          let field = showAsPercent ? column.percentField : column.numberField;
+          let value: number = getAssessmentItem(item)[field];
+          if (isNullOrUndefined(value)) return "";
+
+          return this.numberAsString(value, showAsPercent);
+        }
+      )
+    });
+    return this;
+  }
+
   //Combination methods for commonly-associated columns
 
   withStudent(getStudent: (item: any) => Student) {
@@ -345,5 +415,10 @@ export class CsvBuilder {
     this.withLimitedEnglish(getExam);
     this.withEthnicity(getExam);
     return this;
+  }
+
+  private numberAsString(value: Number, showAsPercent: boolean) {
+    return this.numberPipe.transform(value, '1.0-0') +
+      (showAsPercent ? "%" : "");
   }
 }

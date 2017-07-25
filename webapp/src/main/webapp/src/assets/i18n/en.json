@@ -365,6 +365,7 @@
     "select-year": "School Year",
     "export": {
       "csv": "Export CSV",
+      "items-by-points-earned": "Export Items by Points Earned",
       "cols": {
         "student-id": "Student ID",
         "student-name": "Student Name",
@@ -378,7 +379,9 @@
         "iep": "IEP",
         "economic-disadvantage": "Economic Disadvantage",
         "limited-english": "Limited English Proficiency",
-        "ethnicity": "Race/Ethnicity"
+        "ethnicity": "Race/Ethnicity",
+        "claim": "Claim",
+        "target": "Target"
       }
     }
   },

@@ -11,7 +11,10 @@
   </button>
 </h2>
 
-<assessments [assessmentExams]="assessmentExams" [assessmentProvider]="assessmentProvider" [allowFilterBySessions]="false">
+<assessments [assessmentExams]="assessmentExams"
+             [assessmentProvider]="assessmentProvider"
+             [allowFilterBySessions]="false"
+             (onExportItemsByPointsEarned)="exportItemsByPointsEarned($event)">
   <!-- School Select -->
   <div class="col-md-4">
     <label>{{'labels.school-grade.results.basic-filters.school' | translate}}</label>

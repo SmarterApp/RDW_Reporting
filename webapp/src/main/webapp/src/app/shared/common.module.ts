@@ -22,7 +22,7 @@ import { AuthenticationService } from "./authentication/authentication.service";
 import { AlertModule } from "ngx-bootstrap";
 import { SessionExpiredComponent } from "./authentication/session-expired.component";
 import { StorageService } from "./storage.service";
-import { DatePipe } from "@angular/common";
+import { DatePipe, DecimalPipe } from "@angular/common";
 import { SBErrorHandler } from "./sb-error-handler.service";
 import { ScaleScoreService } from "./scale-score.service";
 
@@ -72,6 +72,7 @@ import { ScaleScoreService } from "./scale-score.service";
     DatePipe,
     CachingDataService,
     ColorService,
+    DecimalPipe,
     ScaleScoreService,
     RdwTranslateLoader,
     StorageService, {

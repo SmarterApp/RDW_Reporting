@@ -117,7 +117,8 @@
                       [showValuesAsPercent]="showValuesAsPercent"
                       [filterBy]="clientFilterBy"
                       [allowFilterBySessions]="allowFilterBySessions"
-                      [loadAssessmentItems]="boundLoadAssessmentItems"></assessment-results>
+                      [loadAssessmentItems]="boundLoadAssessmentItems"
+                      (onExportItemsByPointsEarned)="exportItemsByPointsEarned($event)"></assessment-results>
 </div>
 <!-- No Results Error -->
 <div class="alert alert-danger" *ngIf="assessmentExams.length == 0">

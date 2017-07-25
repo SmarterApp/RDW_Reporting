@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, EventEmitter, Output } from "@angular/core";
 import { trigger, transition, style, animate } from "@angular/animations";
 import { AssessmentExam } from "../model/assessment-exam.model";
 import { Exam } from "../model/exam.model";
@@ -13,9 +13,10 @@ import { PopupMenuAction } from "../menu/popup-menu-action.model";
 import { Angulartics2 } from "angulartics2";
 import { GradeCode } from "../../shared/enum/grade-code.enum";
 import { ColorService } from "../../shared/color.service";
-import { ActivatedRoute } from "@angular/router";
 import { MenuActionBuilder } from "../menu/menu-action.builder";
 import { ExamStatistics } from "../model/exam-statistics.model";
+import { ItemByPointsEarnedColumn } from "../model/Item-by-points-earned-column.model";
+import { ItemByPointsEarnedExport } from "../model/item-by-points-earned-export.model";
 
 enum ScoreViewState {
   OVERALL = 1,
@@ -51,7 +52,7 @@ export class AssessmentResultsComponent implements OnInit {
   sessions = [];
   statistics: ExamStatistics;
   filteredAssessmentItems: AssessmentItem[];
-  pointColumns: number[];
+  pointColumns: ItemByPointsEarnedColumn[];
   showItemsByPoints: boolean = false;
 
   /**
@@ -109,6 +110,9 @@ export class AssessmentResultsComponent implements OnInit {
       });
     }
   }
+
+  @Output()
+  onExportItemsByPointsEarned: EventEmitter<ItemByPointsEarnedExport> = new EventEmitter();
 
   get assessmentExam() {
     return this._assessmentExam;
@@ -180,7 +184,6 @@ export class AssessmentResultsComponent implements OnInit {
   private _filterBySubscription: Subscription;
 
   constructor(public colorService: ColorService,
-              private route: ActivatedRoute,
               private examCalculator: ExamStatisticsCalculator,
               private examFilterService: ExamFilterService,
               private actionBuilder: MenuActionBuilder,
@@ -231,6 +234,15 @@ export class AssessmentResultsComponent implements OnInit {
         category: 'AssessmentResults'
       }
     });
+  }
+
+  exportItemsByPointsEarned(): void {
+    let exportRequest = new ItemByPointsEarnedExport();
+    exportRequest.assessmentExam = this.assessmentExam;
+    exportRequest.assessmentItems = this.filteredAssessmentItems;
+    exportRequest.pointColumns = this.pointColumns;
+    exportRequest.showAsPercent = this.showValuesAsPercent;
+    this.onExportItemsByPointsEarned.emit(exportRequest);
   }
 
   private getDistinctExamSessions(exams: Exam[]) {

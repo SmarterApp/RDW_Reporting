@@ -10,7 +10,10 @@
 </h3>
 
 
-<assessments [assessmentExams]="assessmentExams" [assessmentProvider]="assessmentProvider" [allowFilterBySessions]="true">
+<assessments [assessmentExams]="assessmentExams"
+             [assessmentProvider]="assessmentProvider"
+             [allowFilterBySessions]="true"
+             (onExportItemsByPointsEarned)="exportItemsByPointsEarned($event)">
   <!-- Group Select -->
   <div class="col-md-3">
     <label for="select-group">{{'labels.groups.results.select-group' | translate}}</label>
