@@ -1,8 +1,8 @@
-import { Angulartics2GoogleAnalytics } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from "angulartics2";
 import { Component } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { UserService } from "./user/user.service";
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd } from "@angular/router";
 import { Location, PopStateEvent } from "@angular/common";
 
 @Component({
