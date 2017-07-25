@@ -22,7 +22,7 @@ export class AssessmentItem {
     return this.scores.filter(x => x.points == this.maxPoints).length;
   }
 
-  get fullCreditAsPercent(): number{
+  get fullCreditAsPercent(): number {
     return this.scores.length > 0
       ? this.fullCredit / this.scores.length * 100
       : 0;

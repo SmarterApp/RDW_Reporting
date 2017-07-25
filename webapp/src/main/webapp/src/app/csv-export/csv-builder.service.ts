@@ -349,7 +349,6 @@ export class CsvBuilder {
       (item) => {
         let assessmentItem: AssessmentItem = getAssessmentItem(item);
         let fullCredit: number = showAsPercent ? assessmentItem.fullCreditAsPercent : assessmentItem.fullCredit;
-        console.log("full credit", fullCredit);
         return this.numberAsString(fullCredit, showAsPercent);
       }
     );
