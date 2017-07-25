@@ -10,6 +10,7 @@ import { ordering } from "@kourge/ordering";
 import { byNumber } from "@kourge/ordering/comparator";
 import { ClaimScore } from "./model/claim-score.model";
 import { Student } from "../student/model/student.model";
+import { Utils } from "../shared/Utils";
 
 @Injectable()
 export class AssessmentExamMapper {
@@ -136,10 +137,11 @@ export class AssessmentExamMapper {
     uiModel.id = apiModel.id;
     uiModel.bankItemKey = apiModel.bankItemKey;
     uiModel.position = apiModel.position;
-    uiModel.claim = apiModel.claim;
-    uiModel.target = apiModel.target;
-    uiModel.depthOfKnowledge = apiModel.depthOfKnowledge;
-    uiModel.mathPractice = apiModel.mathPractice;
+    uiModel.claim = apiModel.claimCode
+    uiModel.target = apiModel.targetCode;
+    uiModel.depthOfKnowledge = apiModel.depthOfKnowledgeCode;
+    uiModel.mathPractice = apiModel.mathPracticeCode;
+    uiModel.allowCalculator = Utils.booleanToPolarEnum(apiModel.allowCalculator);
     uiModel.difficulty = apiModel.difficultyCode;
     uiModel.maxPoints = apiModel.maximumPoints;
     uiModel.commonCoreStandardIds = apiModel.commonCoreStandardIds || [];

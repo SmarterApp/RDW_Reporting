@@ -3,6 +3,8 @@ import { ItemInfoComponent } from "./item-info.component";
 import { CommonModule } from "../../../shared/common.module";
 import { AssessmentItem } from "../../model/assessment-item.model";
 import { Component } from "@angular/core";
+import { MockUserService } from "../../../../test/mock.user.service";
+import { UserService } from "../../../user/user.service";
 
 describe('ItemInfoComponent', () => {
   let component: ItemInfoComponent;
@@ -11,7 +13,8 @@ describe('ItemInfoComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ CommonModule ],
-      declarations: [ ItemInfoComponent, TestComponentWrapper ]
+      declarations: [ ItemInfoComponent, TestComponentWrapper ],
+      providers: [ { provide: UserService, useClass: MockUserService } ]
     })
     .compileComponents();
   }));

@@ -32,11 +32,11 @@ export class StudentHistoryICASummitiveTableComponent {
   }
 
   /**
-   * Sample the "first" assessment for the available claim codes,
+   * Sample the "first" assessment for the available claimCode codes,
    * with an understanding that all assessments within a subject
    * contain the same claims in the same order.
    *
-   * @returns {string[]} The claim codes for this table.
+   * @returns {string[]} The claimCode codes for this table.
    */
   public getClaims(): string[] {
     if (this.exams.length === 0) return [];

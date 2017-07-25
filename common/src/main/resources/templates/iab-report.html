@@ -6,33 +6,34 @@
     </head>
     <body>
         <div th:replace="fragments::header(prefix='report.iab')"></div>
-        <div th:replace="fragments::student-header"></div>
+        <div class="container">
+            <div th:replace="fragments::student-header"></div>
 
-        <div th:replace="fragments::title(prefix='report.iab')"></div>
+            <div th:replace="fragments::title(prefix='report.iab')"></div>
 
-        <div th:replace="fragments::error-band-label"></div>
+            <div th:replace="fragments::error-band-label"></div>
 
-        <span th:text="#{report.iab.result-category.current}"></span>
-        <span th:text="#{report.iab.result-category.previous}"></span>
+            <span th:text="#{report.iab.result-category.current}"></span>
+            <span th:text="#{report.iab.result-category.previous}"></span>
 
-        <div th:each="entry : ${report.examsByAssessment}">
-            <div th:with="assessment=${entry.key},exam=${entry.value[0]}">
-                <span th:text="#{'report.grade.' + ${assessment.gradeCode} + '.label'}"></span>
-                <span th:text="${assessment.name}"></span>
-                <span th:text="${#dates.format(exam.dateTime, 'MM-dd-yyyy')}"></span>
-                <span th:text="${exam.scaleScore.value}"></span>
-                <span th:text="#{'report.iab.level.' + ${exam.scaleScore.level} + '.label'}"></span>
-            </div>
-            <div th:with="assessment=${entry.key}" th:each="exam : ${entry.value}">
-                <div th:if="${examStat.index} > 0">
+            <div th:each="entry : ${report.examsByAssessment}">
+                <div th:with="assessment=${entry.key},exam=${entry.value[0]}">
+                    <span th:text="#{'report.grade.' + ${assessment.gradeCode} + '.label'}"></span>
+                    <span th:text="${assessment.name}"></span>
                     <span th:text="${#dates.format(exam.dateTime, 'MM-dd-yyyy')}"></span>
                     <span th:text="${exam.scaleScore.value}"></span>
                     <span th:text="#{'report.iab.level.' + ${exam.scaleScore.level} + '.label'}"></span>
                 </div>
+                <div th:with="assessment=${entry.key}" th:each="exam : ${entry.value}">
+                    <div th:if="${examStat.index} > 0">
+                        <span th:text="${#dates.format(exam.dateTime, 'MM-dd-yyyy')}"></span>
+                        <span th:text="${exam.scaleScore.value}"></span>
+                        <span th:text="#{'report.iab.level.' + ${exam.scaleScore.level} + '.label'}"></span>
+                    </div>
+                </div>
             </div>
+            <div th:replace="fragments::bottom"></div>
         </div>
-
-        <div th:replace="fragments::bottom"></div>
         <div th:replace="fragments::footer"></div>
     </body>
 </html>

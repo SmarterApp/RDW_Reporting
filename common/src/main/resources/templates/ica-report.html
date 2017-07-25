@@ -6,40 +6,42 @@
     </head>
     <body>
         <div th:replace="fragments::header(prefix='report.ica')"></div>
-        <div th:replace="fragments::student-header"></div>
+        <div class="container">
+            <div th:replace="fragments::student-header"></div>
 
-        <div th:replace="fragments::title(prefix='report.ica')"></div>
-        <div th:inline="text"><label th:text="#{report.ica.date.label}"></label> [[${#dates.format(report.exam.dateTime, 'MM/dd/yyyy')}]]</div>
+            <div th:replace="fragments::title(prefix='report.ica')"></div>
+            <div th:inline="text"><label th:text="#{report.ica.date.label}"></label> [[${#dates.format(report.exam.dateTime, 'MM/dd/yyyy')}]]</div>
 
-        <div class="well">
-            <div class="well-body">
-                <p th:text="#{('report.overall-achievement.grade.' + ${report.assessment.gradeCode} + '.subject.' + ${report.assessment.subject} + '.level.' + ${report.exam.scaleScore.level})(${report.student.firstName})}"></p>
+            <div class="well">
+                <div class="well-body">
+                    <p th:text="#{('report.overall-achievement.grade.' + ${report.assessment.gradeCode} + '.subject.' + ${report.assessment.subject} + '.level.' + ${report.exam.scaleScore.level})(${report.student.firstName})}"></p>
+                </div>
             </div>
-        </div>
 
-        <h3 th:text="#{report.ica.section.scale-score.header}"></h3>
-        <span th:text="${report.exam.scaleScore.value}"></span>
-        <span th:text="#{('report.ica.level.' + ${report.exam.scaleScore.level} + '.name')(${#numbers.formatDecimal(report.exam.scaleScore.value - report.exam.scaleScore.standardError, 0, 'NONE', 0, 'NONE')}, ${#numbers.formatDecimal(report.exam.scaleScore.value + report.exam.scaleScore.standardError, 0, 'NONE', 0, 'NONE')})}"></span>
-        <!-- ICA scale score visual -->
-        <span th:text="#{report.scale-score.performance-standard}"></span>
-        <div th:replace="fragments::error-band-label"></div>
-        <h3 th:text="#{report.ica.section.claim.header}"></h3>
-        <p th:text="#{('report.student-achievement-by-claim.grade.' + ${report.assessment.gradeCode} + '.subject.' + ${report.assessment.subject})(${report.student.firstName})}"></p>
+            <h3 th:text="#{report.ica.section.scale-score.header}"></h3>
+            <span th:text="${report.exam.scaleScore.value}"></span>
+            <span th:text="#{('report.ica.level.' + ${report.exam.scaleScore.level} + '.name')(${#numbers.formatDecimal(report.exam.scaleScore.value - report.exam.scaleScore.standardError, 0, 'NONE', 0, 'NONE')}, ${#numbers.formatDecimal(report.exam.scaleScore.value + report.exam.scaleScore.standardError, 0, 'NONE', 0, 'NONE')})}"></span>
+            <!-- ICA scale score visual -->
+            <span th:text="#{report.scale-score.performance-standard}"></span>
+            <div th:replace="fragments::error-band-label"></div>
+            <h3 th:text="#{report.ica.section.claim.header}"></h3>
+            <p th:text="#{('report.student-achievement-by-claim.grade.' + ${report.assessment.gradeCode} + '.subject.' + ${report.assessment.subject})(${report.student.firstName})}"></p>
 
-        <div th:each="claimCode : ${report.assessment.claimCodes}">
-            <h4 th:text="#{'report.claim.' + ${claimCode} + '.name'}"></h4>
-            <span th:text="#{'report.claim.level.' + ${report.exam.claimScaleScores[claimCodeStat.index].level} + '.label'}"></span>
-            <p th:text="#{('report.claim.' + ${claimCode} + '.grade.' + ${report.assessment.gradeCode} + '.level.' + ${report.exam.claimScaleScores[claimCodeStat.index].level})(${report.student.firstName})}"></p>
-        </div>
-
-        <div class="well">
-            <div class="well-body">
-                <div th:text="#{report.accommodations.label}"></div>
-                <!-- <li th:each="accommodation : ${report.exam.accommodationCodes}>" -->
+            <div th:each="claimCode : ${report.assessment.claimCodes}">
+                <h4 th:text="#{'report.claim.' + ${claimCode} + '.name'}"></h4>
+                <span th:text="#{'report.claim.level.' + ${report.exam.claimScaleScores[claimCodeStat.index].level} + '.label'}"></span>
+                <p th:text="#{('report.claim.' + ${claimCode} + '.grade.' + ${report.assessment.gradeCode} + '.level.' + ${report.exam.claimScaleScores[claimCodeStat.index].level})(${report.student.firstName})}"></p>
             </div>
-        </div>
 
-        <div th:replace="fragments::bottom"></div>
+            <div class="well">
+                <div class="well-body">
+                    <div th:text="#{report.accommodations.label}"></div>
+                    <!-- <li th:each="accommodation : ${report.exam.accommodationCodes}>" -->
+                </div>
+            </div>
+
+            <div th:replace="fragments::bottom"></div>
+        </div>
         <div th:replace="fragments::footer"></div>
     </body>
 </html>

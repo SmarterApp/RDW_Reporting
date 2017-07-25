@@ -293,7 +293,8 @@
             "ccs": "Common Core Standard: ",
             "math": "Mathematical Practice Standard: ",
             "calculator": "Calculator: ",
-            "docs": "Supporting Documentation: "
+            "docs": "Supporting Documentation: ",
+            "guide": "Interpretive Guide and Best Practices Guidance"
           }
         }
       },
@@ -525,35 +526,35 @@
       }
     },
     "dok": {
-      "1": {
+      "1_1": {
         "description": "Recall and Reproduction",
         "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
       },
-      "2": {
+      "2_1": {
         "description": "Basic Skills and Concepts",
         "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
       },
-      "3": {
+      "3_1": {
         "description": "Strategic Thinking and Reasoning",
         "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
       },
-      "4": {
+      "4_1": {
         "description": "Extended Thinking",
         "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
       },
-      "5": {
+      "1_2": {
         "description": "Recall and Reproduction",
         "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
       },
-      "6": {
+      "2_2": {
         "description": "Basic Skills and Concepts",
         "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
       },
-      "7": {
+      "3_2": {
         "description": "Strategic Thinking and Reasoning",
         "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
       },
-      "8": {
+      "4_2": {
         "description": "Extended Thinking",
         "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
       }

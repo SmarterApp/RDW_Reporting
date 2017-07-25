@@ -61,20 +61,20 @@ describe('StudentHistoryICASummitiveTableComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should parse claim labels from exams', () => {
+  it('should parse claimCode labels from exams', () => {
     expect(component.getClaims().length).toBe(0);
 
     let wrapper: StudentHistoryExamWrapper = new StudentHistoryExamWrapper();
     wrapper.exam = new Exam();
     wrapper.assessment = new Assessment;
-    wrapper.assessment.claimCodes = ["claim 1", "claim 2"];
+    wrapper.assessment.claimCodes = ["claimCode 1", "claimCode 2"];
     wrapper.school = new School();
 
     component.exams.push(wrapper);
 
     expect(component.getClaims().length).toBe(2);
-    expect(component.getClaims()).toContain("claim 1");
-    expect(component.getClaims()).toContain("claim 2");
+    expect(component.getClaims()).toContain("claimCode 1");
+    expect(component.getClaims()).toContain("claimCode 2");
   });
 
 });

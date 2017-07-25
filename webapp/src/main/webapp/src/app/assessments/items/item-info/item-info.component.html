@@ -26,14 +26,12 @@
     <b>{{ 'labels.assessments.items.tabs.item-info.math' | translate}}</b>
     {{ 'definition.math-practice.' + item.mathPractice + '.description' | translate }}
   </p>
-  <p class="green">
-    // TODO:
+  <p *ngIf="item.allowCalculator">
     <b>{{ 'labels.assessments.items.tabs.item-info.calculator' | translate}}</b>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec placerat velit.
+    {{ 'enum.polar.' + item.allowCalculator | translate }}
   </p>
-  <p class="green">
-    // TODO:
+  <p>
     <b>{{ 'labels.assessments.items.tabs.item-info.docs' | translate}}</b>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec placerat velit.
+    <a href="{{interpretiveGuide}}" target="_blank">{{ 'labels.assessments.items.tabs.item-info.guide' | translate}}</a>
   </p>
 </div>

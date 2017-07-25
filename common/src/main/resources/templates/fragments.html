@@ -1,65 +1,103 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-    </head>
-    <body>
+<head>
+</head>
+<body>
 
-        <div th:fragment="styles">
-            <!-- TODO: add path to stylesheet that wkhtmltopdf can reach -->
-            <!--<link rel="stylesheet" href="sbac-ui-kit/dist/css/sbac-ui-kit.min.css">-->
-        </div>
+<div th:fragment="styles">
+    <link rel="stylesheet"
+          href="https://raw.githack.com/SmarterApp/SBAC-Global-UI-Kit/develop/dist/css/sbac-ui-kit-wkhtmltopdf.min.css">
+</div>
 
-        <div th:fragment="header">
-            <h1 th:text="#{${prefix} + '.title'}"></h1>
-        </div>
-
-        <div th:fragment="student-header">
-            <h2 th:text="#{report.student.name(${report.student.firstName}, ${report.student.lastName})}"></h2>
-            <span th:inline="text"><label th:text="#{report.student.grade.label}"></label> [[#{'report.grade.' + ${report.studentEnrollment.gradeCode}}]]</span>
-            <span th:inline="text"><label th:text="#{report.student.school.label}"></label> [[${report.studentEnrollment.schoolName}]]</span>
-            <span th:inline="text"><label th:text="#{report.student.district.label}"></label> [[${report.studentEnrollment.districtName}]]</span>
-            <span th:inline="text"><label th:text="#{report.student.state.label}"></label> [[${report.studentEnrollment.stateCode}]]</span>
-        </div>
-
-        <div th:fragment="title">
-            <div>
-                <span th:text="#{${prefix} + '.short-name'}"></span><span th:text="#{'report.subject.' + ${request.subject} + '.name'}"></span>
-            </div>
-            <div th:with="schoolYear=${#strings.toString(request.schoolYear)},nextSchoolYear=${#strings.toString(request.schoolYear + 1)},nextSchoolYearLength=${#strings.length(schoolYear)}">
-                <span th:text="#{(${prefix} + '.title.grade.' + ${report.studentEnrollment.gradeCode})(${schoolYear}, ${#strings.substring(nextSchoolYear, nextSchoolYearLength - 2, nextSchoolYearLength)})}"></span>
-            </div>
-        </div>
-
-
-        <div th:fragment="error-band-label">
-            <div th:text="#{report.scale-score.error-band}"></div>
-            <p th:text="#{report.scale-score.description}"></p>
-        </div>
-
-        <div th:fragment="bottom">
-            <h3 th:text="#{report.faq.header}"></h3>
-            <p th:utext="#{report.faq.p1.html}"></p>
-            <div th:text="#{report.faq.p2.header}"></div>
-            <p th:utext="#{report.faq.p2.html}"></p>
-            <p th:utext="#{report.faq.p3.html}"></p>
-            <h4 th:text="#{report.important-information.header}"></h4>
-            <ul>
-                <li th:text="#{report.important-information.item1}"></li>
-                <li th:text="#{report.important-information.item2}"></li>
-            </ul>
-        </div>
-
-        <div th:fragment="footer">
-            <footer>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="copyright text-right" th:utext="#{report.copyright}"></div>
-                        </div>
-                    </div>
+<div th:fragment="header">
+    <header>
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <div class="navbar-brand"></div>
+                    <span class="application-title ml-auto" th:text="#{${prefix} + '.title'}"></span>
                 </div>
-            </footer>
+            </nav>
         </div>
+    </header>
+</div>
 
-    </body>
+<div th:fragment="student-header">
+    <div class="row">
+        <div class="col-xs-3">
+            <span class="student-name h3"
+                  th:text="#{report.student.name(${report.student.firstName}, ${report.student.lastName})}"></span></span>
+        </div>
+        <div class="col-xs-9 text-right">
+                <span class="student-enrollment pull-right">
+                    <span class="student-enrollment-item"><label
+                            th:text="#{report.student.grade.label}">Grade:</label> <span th:text="#{'report.grade.' + ${report.studentEnrollment.gradeCode}}" th:remove="tag"></span></span>
+                    <span class="student-enrollment-item ml-md"><label
+                            th:text="#{report.student.school.label}">School:</label> <span th:text="${report.studentEnrollment.schoolName}" th:remove="tag"></span></span>
+                    <span class="student-enrollment-item ml-md"><label
+                            th:text="#{report.student.district.label}">District:</label> <span th:text="${report.studentEnrollment.districtName}" th:remove="tag"></span></span>
+                    <span class="student-enrollment-item ml-md"><label
+                            th:text="#{report.student.state.label}">State:</label> <span th:text="${report.studentEnrollment.stateCode}" th:remove="tag"></span></span>
+                </span>
+        </div>
+    </div>
+
+    <hr class="mt-sm mb-sm"/>
+</div>
+
+<div th:fragment="title">
+    <div>
+        <span th:text="#{${prefix} + '.short-name'}"></span><span
+            th:text="#{'report.subject.' + ${request.subject} + '.name'}"></span>
+    </div>
+    <div th:with="schoolYear=${#strings.toString(request.schoolYear)},nextSchoolYear=${#strings.toString(request.schoolYear + 1)},nextSchoolYearLength=${#strings.length(schoolYear)}">
+        <span th:text="#{(${prefix} + '.title.grade.' + ${report.studentEnrollment.gradeCode})(${schoolYear}, ${#strings.substring(nextSchoolYear, nextSchoolYearLength - 2, nextSchoolYearLength)})}"></span>
+    </div>
+</div>
+
+
+<div th:fragment="error-band-label">
+    <div th:text="#{report.scale-score.error-band}"></div>
+    <p th:text="#{report.scale-score.description}"></p>
+</div>
+
+<div th:fragment="bottom">
+    <div class="row">
+        <div class="col-xs-8">
+            <h4 class="h2 gray-darker" th:text="#{report.faq.header}"></h4>
+            <p th:utext="#{report.faq.p1.html}"></p>
+            <p>
+                <strong th:text="#{report.faq.p2.header}"></strong>
+                <br/>
+                <span th:utext="#{report.faq.p2.html}" th:remove="tag"></span>
+            </p>
+            <hr/>
+            <p th:utext="#{report.faq.p3.html}"></p>
+        </div>
+        <div class="col-xs-4">
+            <div class="well">
+                <div class="well-body">
+                    <p><strong th:text="#{report.important-information.header}"></strong></p>
+                    <p th:text="#{report.important-information.item1}"></p>
+                    <p th:text="#{report.important-information.item2}"></p>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="footer">
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="copyright text-right" th:utext="#{report.copyright}"></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+</body>
 </html>

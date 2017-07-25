@@ -4,6 +4,7 @@ import { UserService } from "../../../user/user.service";
 import { User } from "../../../user/model/user.model";
 import { Observable } from "rxjs";
 import { CommonModule } from "../../../shared/common.module";
+import { MockUserService } from "../../../../test/mock.user.service";
 
 describe('ItemViewerComponent', () => {
   let component: ItemViewerComponent;
@@ -29,8 +30,3 @@ describe('ItemViewerComponent', () => {
   });
 });
 
-class MockUserService {
-  getCurrentUser() {
-    return Observable.of(new User());
-  }
-}

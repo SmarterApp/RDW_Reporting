@@ -81,7 +81,10 @@ app:
     trackingId: ${rdw.reporting.analytics.trackingId:}
 
   wkhtmltopdf:
-    url: http://wkhtmltopdf/
+    url: http://localhost:8082
     options:
       dpi: 276
       page-size: Letter
+
+  external-links:
+    interpretive-guide: http://www.smarterbalanced.org/educators/

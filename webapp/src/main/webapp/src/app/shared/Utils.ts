@@ -22,4 +22,16 @@ export class Utils {
   static polarEnumToBoolean(value): boolean {
     return value === 1;
   }
+
+  static booleanToPolarEnum(value): string {
+    if(value === true) {
+      return '1';
+    }
+
+    if(value === false) {
+      return '2';
+    }
+
+    return undefined;
+  }
 }

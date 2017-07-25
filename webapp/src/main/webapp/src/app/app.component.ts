@@ -11,6 +11,8 @@ import { Location, PopStateEvent } from "@angular/common";
 })
 export class AppComponent {
 
+  interpretiveGuide: string;
+
   private _lastPoppedUrl: string;
   private _user;
 
@@ -40,6 +42,8 @@ export class AppComponent {
         firstName: user.firstName,
         lastName: user.lastName
       };
+
+      this.interpretiveGuide = user.configuration.interpretiveGuide;
 
       if (window['ga'] && user.configuration && user.configuration.analyticsTrackingId) {
         window['ga']('create', user.configuration.analyticsTrackingId, 'auto');

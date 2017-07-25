@@ -1,7 +1,7 @@
 <!-- TODO: Move groups labels to an assessment label -->
 <!-- Individual Assessment Result Container -->
 <div class="assessment-result well">
-    <div class="mb-lg">
+    <div class="mb-md">
         <!-- Top Right Buttons -->
         <div class="pull-right text-right">
             <a class="btn btn-default btn-xs"
@@ -52,7 +52,7 @@
 
       <!-- Student Results Table -->
       <div *ngIf="!showItemsByPoints">
-        <h3 class="gray-darkest mb-md">
+        <h3 class="gray-darkest mb-sm">
           {{'labels.groups.results.assessment.exams.title' | translate}}
 
           <a *ngIf="assessmentExam.assessment.isInterim" class="btn btn-default btn-xs pull-right" (click)="viewItemsByPoints(true)">
@@ -143,7 +143,7 @@
       </div>
       <!-- Items By Points Earned -->
       <div *ngIf="showItemsByPoints">
-        <h3 class="gray-darkest mb-md">
+        <h3 class="gray-darkest mb-sm">
           <span>{{'labels.groups.results.assessment.items.title' | translate}}</span>
           <button class="btn btn-info btn-xs pull-right ml-xs"
                   (click)="viewItemsByPoints(false)">

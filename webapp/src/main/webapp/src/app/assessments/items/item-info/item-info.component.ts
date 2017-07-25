@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { AssessmentItem } from "../../model/assessment-item.model";
+import { UserService } from "../../../user/user.service";
 
 @Component({
   selector: 'item-info',
@@ -9,9 +10,14 @@ export class ItemInfoComponent implements OnInit {
   @Input()
   item: AssessmentItem;
 
-  constructor() { }
+  interpretiveGuide: string;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.getCurrentUser().subscribe(user => {
+      this.interpretiveGuide = user.configuration.interpretiveGuide
+    })
   }
 
 }
