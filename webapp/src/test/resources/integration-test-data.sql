@@ -18,7 +18,7 @@ insert into gender (id, code) values
   (-1, 'g1');
 
 insert into student (id, ssid, last_or_surname, first_name, gender_id, gender_code, birthday, import_id) values
-  (-1, 'student1_ssid', 'student1_lastName', 'student1_firstName', -1, 'g1', '2017-01-01 00:00:00.000000', -1),
+  (-1, 'student1_4ssid', 'student1_lastName', 'student1_firstName', -1, 'g1', '2017-01-01 00:00:00.000000', -1),
   (-2, 'student2_ssid', 'student2_lastName', 'student2_firstName', -1, 'g1', '2017-01-01 00:00:00.000000', -1);
 
 insert into asmt (id, type_id, natural_id, grade_id, grade_code, subject_id, school_year, name, label, version,
@@ -67,6 +67,20 @@ insert into item (id, natural_id, claim_id, claim_code, target_id, target_code, 
 insert into exam_item (id, exam_id, item_id, score, position, response) values
   (-1, -1, -1, 0, 1, 'A'),
   (-2, -1, -2, 1, 2, 'D');
+
+insert into common_core_standard (id, natural_id, subject_id, description) values
+  (-1, 'ABC.223.1', 1, 'test-description1'),
+  (-2, 'DEF.224.1', 1, 'test-description2'),
+  (-3, 'GHI.225.1', 1, 'test-description3'),
+  (-4, 'JKL.226.1', 1, 'test-description4');
+
+insert into item_common_core_standard (item_id, common_core_standard_id) values
+  (-1, -1),
+  (-1, -2),
+  (-1, -3),
+  (-2, -1),
+  (-3, -4);
+
 
 -- groups
 
