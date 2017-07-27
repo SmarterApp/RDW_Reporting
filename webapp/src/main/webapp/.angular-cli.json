@@ -12,7 +12,7 @@
         "favicon.ico",
         {
           "glob": "**/*",
-          "input": "../node_modules/sbac-ui-kit/dist/images",
+          "input": "../node_modules/@sbac/sbac-ui-kit/dist/images",
           "output": "assets/image"
         }
       ],
@@ -26,7 +26,7 @@
         "../node_modules/font-awesome/css/font-awesome.css",
         "../node_modules/primeng/resources/primeng.min.css",
         "../node_modules/primeng/resources/themes/bootstrap/theme.css",
-        "../node_modules/sbac-ui-kit/dist/css/sbac-ui-kit.min.css",
+        "../node_modules/@sbac/sbac-ui-kit/dist/css/sbac-ui-kit.min.css",
         "styles.less"
       ],
       "scripts": [
