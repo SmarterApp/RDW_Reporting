@@ -8,4 +8,5 @@ export class StudentResponsesAssessmentItem {
   assessmentItem: AssessmentItem;
   score: number;
   correctness: number;
+  response: string;
 }

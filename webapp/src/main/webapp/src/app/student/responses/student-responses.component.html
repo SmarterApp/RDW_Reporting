@@ -70,7 +70,7 @@
     </p-column>
     <ng-template let-item pTemplate="rowexpansion">
       <item-tab [item]="item.assessmentItem"
-                [response]="item.assessmentItem.scores[0].response"
+                [response]="item.response"
                 [position]="item.assessmentItem.position"
                 [showItemDetails]="assessment.isInterim"
                 [showStudentScores]="false"></item-tab>
