@@ -53,7 +53,7 @@
     </p-column>
     <p-column field="score" header="{{'labels.student.responses.cols.student-score' | translate}}" sortable="true">
       <ng-template let-score="rowData.score" pTemplate="body">
-        <span *ngIf="score !== null">score</span>
+        <span *ngIf="score !== null">{{score}}</span>
         <span *ngIf="score === null">&mdash;</span>
       </ng-template>
     </p-column>

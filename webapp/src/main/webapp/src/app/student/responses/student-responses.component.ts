@@ -45,7 +45,7 @@ export class StudentResponsesComponent implements OnInit {
     responseItem.assessmentItem = item;
 
     let score: ExamItemScore = item.scores.length === 1 ?  item.scores[0] : null;
-    responseItem.score = score && item.scores[0].points >= 0 ? item.scores[0].points : null;
+    responseItem.score = score && item.scores[0].points >= 0 ? item.scores[0].points || null : null;
     let maxScore = item.maxPoints;
     responseItem.correctness = responseItem.score !== null ? responseItem.score / maxScore : null;
     responseItem.response = score ? score.response : null;
