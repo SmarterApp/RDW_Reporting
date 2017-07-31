@@ -1,4 +1,3 @@
-
 import { OnInit, Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { AssessmentItem } from "../../assessments/model/assessment-item.model";
@@ -44,9 +43,9 @@ export class StudentResponsesComponent implements OnInit {
     let responseItem = new StudentResponsesAssessmentItem();
     responseItem.assessmentItem = item;
 
-    let studentScore = item.scores[0].points;
+    responseItem.score = item.scores.length === 1 && item.scores[0].points >= 0 ? item.scores[0].points : null;
     let maxScore = item.maxPoints;
-    responseItem.correctness = studentScore / maxScore;
+    responseItem.correctness = responseItem.score !== null ? responseItem.score / maxScore : null;
 
     return responseItem;
   }
