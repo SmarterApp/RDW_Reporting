@@ -2,28 +2,28 @@ apply plugin: 'org.springframework.boot'
 
 dependencies {
     compile project(':rdw-reporting-common')
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    compile 'com.google.guava:guava'
+    compile 'mysql:mysql-connector-java'
+    compile 'org.apache.commons:commons-io'
     compile 'org.opentestsystem.rdw.common:rdw-common-security'
     compile 'org.opentestsystem.rdw.common:rdw-common-status'
     compile 'org.opentestsystem.rdw.common:rdw-common-utils'
     optional 'org.springframework.boot:spring-boot-configuration-processor'
-    compile 'org.springframework.boot:spring-boot-starter-cache'
     compile 'org.springframework.boot:spring-boot-starter-aop'
+    compile 'org.springframework.boot:spring-boot-starter-batch'
+    compile 'org.springframework.boot:spring-boot-starter-cache'
     compile 'org.springframework.boot:spring-boot-starter-jdbc'
-    compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.cloud:spring-cloud-stream'
-    compile 'org.springframework.cloud:spring-cloud-starter-config'
     compile 'org.springframework.cloud:spring-cloud-starter-aws'
+    compile 'org.springframework.cloud:spring-cloud-starter-config'
     compile 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
+    compile 'org.springframework.cloud:spring-cloud-stream'
     compile 'org.springframework.retry:spring-retry'
-    compile 'org.apache.commons:commons-io'
-    compile 'com.google.guava:guava'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-    compile 'mysql:mysql-connector-java'
 
+    testCompile 'org.assertj:assertj-core'
     testCompile('org.springframework.boot:spring-boot-starter-test') {
         exclude(module: 'commons-logging')
     }
-    testCompile 'org.springframework.security:spring-security-test'
     testCompile 'org.springframework.cloud:spring-cloud-stream-test-support'
 }
