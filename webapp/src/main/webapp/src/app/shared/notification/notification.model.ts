@@ -19,6 +19,8 @@ export class Notification {
   // Notification message translation key
   public messageKey: string;
 
+  public messageObject: any = {};
+
   constructor(private _translationKey: string,
               private _configuration?: any) {
     this.messageKey = _translationKey;

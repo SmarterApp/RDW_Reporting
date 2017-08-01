@@ -20,7 +20,8 @@
       "message": "Click Ok to re-authenticate."
     },
     "toggle-navigation": "Toggle navigation",
-    "no-item-level-data": "Item level data is not available for tests administered prior to 2016-17 school year."
+    "no-item-level-data": "Item level data is not available for tests administered prior to 2016-17 school year.",
+    "coming-soon": "{{featureName}} is coming soon."
   },
   "collapse": "Collapse",
   "select": "Select",
@@ -435,12 +436,14 @@
       "short": {
         "1": "Below",
         "2": "Near",
-        "3": "Above"
+        "3": "Above",
+        "missing": "-"
       },
       "full": {
         "1": "Below Standard",
         "2": "Near Standard",
-        "3": "Above Standard"
+        "3": "Above Standard",
+        "missing": "-"
       }
     },
     "achievement-level": {
@@ -448,13 +451,15 @@
         "1": "Did Not Meet",
         "2": "Nearly Met",
         "3": "Met",
-        "4": "Exceeded"
+        "4": "Exceeded",
+        "missing": "-"
       },
       "full": {
         "1": "Did Not Meet Standard",
         "2": "Nearly Met Standard",
         "3": "Met Standard",
-        "4": "Exceeded Standard"
+        "4": "Exceeded Standard",
+        "missing": "-"
       }
     },
     "subject-claim-code": {
@@ -587,6 +592,6 @@
     }
   },
   "html": {
-    "system-news":"<h2 class=\"blue-dark h3 mb-md\">Summary Reports</h2><div class=\"summary-reports-container mb-md\"><p><a href=\"#\" class=\"h5 blue\">Achievement Level Report</a><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque et delectus cumque at illo minima accusamus.</p><p><a href=\"#\" class=\"h5 blue\">Achievement Standard Report</a><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque et delectus cumque at illo minima accusamus.</p><p><a href=\"#\" class=\"h5 blue\">Longitudinal Data Report</a><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque et delectus cumque at illo minima accusamus.</p></div><!-- Member Reporting Resources --><h2 class=\"blue-dark h3 mb-md\">Member Reporting Resources</h2><div class=\"member-reporting-resources-container\"><p><a href=\"#\" class=\"h5 blue\">Member-provided Resources</a><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p><p><a href=\"#\" class=\"h5 blue\">How to Establish PII Permissions</a><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p><p><a href=\"#\" class=\"h5 blue\">How to Create Student Groups</a><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p></div>"
+    "system-news":"<h2 class=\"blue-dark h3 mb-md\">Summary Reports</h2><div class=\"summary-reports-container mb-md\"><p>(Coming Soon)</div><!-- Member Reporting Resources --><h2 class=\"blue-dark h3 mb-md\">Member Reporting Resources</h2><div class=\"member-reporting-resources-container\"><p>(Coming Soon)</p></div>"
   }
 }

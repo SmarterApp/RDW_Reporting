@@ -4,6 +4,8 @@ import { TranslateService } from "@ngx-translate/core";
 import { UserService } from "./user/user.service";
 import { Router, NavigationEnd } from "@angular/router";
 import { Location, PopStateEvent } from "@angular/common";
+import { NotificationService } from "./shared/notification/notification.service";
+import { Notification } from "./shared/notification/notification.model";
 
 @Component({
   selector: 'app-component',
@@ -25,6 +27,7 @@ export class AppComponent {
    */
   constructor(public translate: TranslateService, private _userService: UserService,
               private router: Router, private location: Location,
+              private notifService: NotificationService,
               private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
 
     let languages = [ 'en', 'ja' ];
@@ -69,5 +72,12 @@ export class AppComponent {
         window.scrollTo(0, 0);
       }
     });
+  }
+
+  showComingSoon(featureName: string) {
+    let notif = new Notification('messages.coming-soon',  {dismissOnTimeout: 5000 });
+    notif.messageObject = { featureName: featureName };
+
+    this.notifService.showNotification(notif);
   }
 }

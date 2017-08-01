@@ -4,18 +4,20 @@
     <div class="mb-md">
         <!-- Top Right Buttons -->
         <div class="pull-right text-right">
-            <button
-              class="btn btn-default btn-xs"
-              angulartics2On="click"
-              angularticsEvent="InstructionalResource"
-              angularticsCategory="AssessmentResults"
-              [angularticsProperties]="{label: assessmentExam.assessment.name}"
-              [disabled]="!assessmentExam.assessment.hasResourceUrl"
-              (click)="openInstructionalResource()"
-              title="{{ assessmentExam.assessment.hasResourceUrl ? '' : 'labels.menus.resources-disabled-message' | translate }}"
-            >
+          <span popover="{{ 'labels.menus.resources-disabled-message' | translate }}" triggers="{{assessmentExam.assessment.hasResourceUrl ? '': 'mouseenter:mouseleave'}}">
+                        <button
+                          class="btn btn-default btn-xs"
+                          angulartics2On="click"
+                          angularticsEvent="InstructionalResource"
+                          angularticsCategory="AssessmentResults"
+                          [angularticsProperties]="{label: assessmentExam.assessment.name}"
+                          [disabled]="!assessmentExam.assessment.hasResourceUrl"
+                          (click)="openInstructionalResource()"
+                        >
               <i class="fa fa-list-alt"></i> {{'labels.groups.results.assessment.instruct' | translate }}
             </button>
+          </span>
+
             <button class="btn btn-default btn-sm icon-only" (click)="collapsed = !collapsed"
                     angulartics2On="click" angularticsEvent="ToggleCollapseResults" angularticsCategory="AssessmentResults">
                 <i class="fa font-bold" [ngClass]="{'fa-angle-down':collapsed, 'fa-angle-up':!collapsed}"></i> <span class="sr-only">{{'prompt.collapse' | translate}}</span>
@@ -59,17 +61,18 @@
     <!-- Student Results -->
     <div *ngIf="!collapsed" @fadeAnimation>
 
-      <!-- Student Results Table -->
+
       <div *ngIf="!showItemsByPoints">
         <h3 class="gray-darkest mb-sm">
           {{'labels.groups.results.assessment.exams.title' | translate}}
 
-          <button *ngIf="assessmentExam.assessment.isInterim"
-                  [disabled]="!hasItemLevelData"
-                  title="{{ hasItemLevelData ? '' : 'messages.no-item-level-data' | translate }}"
-                  class="btn btn-default btn-xs pull-right" (click)="viewItemsByPoints(true)">
-            {{'labels.groups.results.assessment.button-items' | translate}} <i class="fa fa-chevron-right"></i>
-          </button>
+          <span class="pull-right" popover="{{ 'messages.no-item-level-data' | translate }}" triggers="{{ hasItemLevelData ? '': 'mouseenter:mouseleave'}}">
+            <button *ngIf="assessmentExam.assessment.isInterim"
+                                [disabled]="!hasItemLevelData"
+                                class="btn btn-default btn-xs " (click)="viewItemsByPoints(true)">
+              {{'labels.groups.results.assessment.button-items' | translate}} <i class="fa fa-chevron-right"></i>
+            </button>
+          </span>
 
           <div *ngIf="showClaimToggle" class="btn-group btn-group-xs pull-right mr-md" role="group">
             <button (click)="setOverallScoreSelected()"
@@ -87,6 +90,7 @@
           </div>
         </h3>
 
+        <!-- Student Results Table -->
         <p-dataTable [value]="exams" emptyMessage="{{'labels.groups.results.assessment.exams.empty-message' | translate}}" sortField="student.lastName" tableStyleClass="table table-striped table-hover overflow" expandableRows="true">
           <!-- Row Menu -->
           <p-column styleClass="cell-dropdown">
@@ -168,7 +172,7 @@
             <span>{{'labels.export.items-by-points-earned' | translate}}</span>
           </button>
         </h3>
-        <p-dataTable [value]="filteredAssessmentItems" tableStyleClass="table table-striped table-hover" [tableStyle]="{'table-layout':'auto'}" expandableRows="true" rowExpandMode="single">
+        <p-dataTable [value]="filteredAssessmentItems" sortField="position" tableStyleClass="table table-striped table-hover" [tableStyle]="{'table-layout':'auto'}" expandableRows="true" rowExpandMode="single">
           <p-column expander="true" styleClass="col-icon"></p-column>
           <p-column field="position" header="{{'labels.groups.results.assessment.items.cols.number' | translate}}" [sortable]="true"></p-column>
           <p-column field="claimTarget" [sortable]="true">

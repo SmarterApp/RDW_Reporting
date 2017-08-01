@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <div th:replace="fragments::meta"></div>
     <title th:text="#{report.iab.title}"></title>
     <div th:replace="fragments::styles"></div>
 </head>
-<body>
+<body class="pdf">
 <div th:replace="fragments::header(prefix='report.iab')"></div>
 <section class="mt-lg mb-lg">
     <div class="container">
@@ -13,9 +14,9 @@
         <div class="row">
             <div class="col-xs-6">
                 <div>
-                        <span class="h3 label-group green">
-                            <span class="label" th:text="#{report.iab.short-name}"></span><span class="label" th:text="#{'report.subject.' + ${request.subject} + '.name'}"></span>
-                        </span>
+                    <span class="h3 label-group green">
+                        <span class="label" th:text="#{report.iab.short-name}"></span><span class="label" th:text="#{'report.subject.' + ${request.subject} + '.name'}"></span>
+                    </span>
                 </div>
                 <div class="h4" th:text="#{('report.iab.title.grade.' + ${report.studentEnrollment.gradeCode})(${#strings.toString(request.schoolYear)}, ${support.getLastTwoDigits(request.schoolYear + 1)})}"></div>
             </div>

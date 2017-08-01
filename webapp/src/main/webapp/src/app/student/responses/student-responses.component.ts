@@ -1,4 +1,3 @@
-
 import { OnInit, Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { AssessmentItem } from "../../assessments/model/assessment-item.model";
@@ -8,6 +7,7 @@ import { GradeCode } from "../../shared/enum/grade-code.enum";
 import { ColorService } from "../../shared/color.service";
 import { StudentResponsesAssessmentItem } from "./student-responses-item.model";
 import { Student } from "../model/student.model";
+import { ExamItemScore } from "../../assessments/model/exam-item-score.model";
 
 /**
  * This component is responsible for displaying a student's responses to a
@@ -44,9 +44,11 @@ export class StudentResponsesComponent implements OnInit {
     let responseItem = new StudentResponsesAssessmentItem();
     responseItem.assessmentItem = item;
 
-    let studentScore = item.scores[0].points;
+    let score: ExamItemScore = item.scores.length === 1 ?  item.scores[0] : null;
+    responseItem.score = score && item.scores[0].points >= 0 ? item.scores[0].points : null;
     let maxScore = item.maxPoints;
-    responseItem.correctness = studentScore / maxScore;
+    responseItem.correctness = responseItem.score !== null ? responseItem.score / maxScore : null;
+    responseItem.response = score ? score.response : null;
 
     return responseItem;
   }

@@ -51,7 +51,12 @@
         <span *ngFor="let standard of standards" class="label border-only blue mr-xs">{{standard}}</span>
       </ng-template>
     </p-column>
-    <p-column field="assessmentItem.scores.0.points" header="{{'labels.student.responses.cols.student-score' | translate}}" sortable="true"></p-column>
+    <p-column field="score" header="{{'labels.student.responses.cols.student-score' | translate}}" sortable="true">
+      <ng-template let-score="rowData.score" pTemplate="body">
+        <span *ngIf="score !== null">{{score}}</span>
+        <span *ngIf="score === null">&mdash;</span>
+      </ng-template>
+    </p-column>
     <p-column field="assessmentItem.maxPoints" header="{{'labels.student.responses.cols.max-score' | translate}}" sortable="true"></p-column>
     <p-column field="correctness" sortable="true">
       <ng-template pTemplate="header">
@@ -59,12 +64,13 @@
                     content="{{'labels.student.responses.cols.correctness-info' | translate}}"></span>
       </ng-template>
       <ng-template let-correctness="rowData.correctness" pTemplate="body">
-        {{ correctness | number:'1.2-2' }}
+        <span *ngIf="correctness !== null">{{ correctness | number:'1.2-2' }}</span>
+        <span *ngIf="correctness === null">&mdash;</span>
       </ng-template>
     </p-column>
     <ng-template let-item pTemplate="rowexpansion">
       <item-tab [item]="item.assessmentItem"
-                [response]="item.assessmentItem.scores[0].response"
+                [response]="item.response"
                 [position]="item.assessmentItem.position"
                 [showItemDetails]="assessment.isInterim"
                 [showStudentScores]="false"></item-tab>

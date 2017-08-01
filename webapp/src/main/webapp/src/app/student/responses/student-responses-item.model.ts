@@ -6,5 +6,7 @@ import { AssessmentItem } from "../../assessments/model/assessment-item.model";
  */
 export class StudentResponsesAssessmentItem {
   assessmentItem: AssessmentItem;
+  score: number;
   correctness: number;
+  response: string;
 }

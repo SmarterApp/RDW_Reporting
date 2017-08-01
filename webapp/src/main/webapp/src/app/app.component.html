@@ -20,8 +20,8 @@
           </div>
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-              <li class="navbar-link"><a href="#">{{'labels.navigation.user-guide' | translate}}</a></li>
-              <li class="navbar-link"><a href="{{interpretiveGuide}}" target="_blank">{{'labels.navigation.interpretive-guide' | translate}}</a></li>
+              <li class="navbar-link"><a href="javascript:void(0)" (click)="showComingSoon('User Guide')">{{'labels.navigation.user-guide' | translate}}</a></li>
+              <li class="navbar-link"><a href="javascript:void(0)" (click)="showComingSoon('Interpretive Guide')" target="_blank">{{'labels.navigation.interpretive-guide' | translate}}</a></li>
               <li class="navbar-link mt-sm">
                 <div class="btn-group" dropdown>
                   <button type="button" dropdownToggle class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
