@@ -4,8 +4,8 @@ import { saveAs } from "file-saver";
 import { Subscription } from "rxjs";
 import { ReportDownloadComponent } from "./report-download.component";
 import { Download } from "../shared/data/download.model";
-import {NotificationService} from "../shared/notification/notification.service";
-import {Notification} from "../shared/notification/notification.model";
+import { NotificationService } from "../shared/notification/notification.service";
+import { Notification } from "../shared/notification/notification.model";
 
 /**
  * Component used for single-student exam report download
