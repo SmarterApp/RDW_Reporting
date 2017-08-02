@@ -1,6 +1,6 @@
 build/
 !.mvn/wrapper/maven-wrapper.jar
-src/main/resources/static/*.bundle.*
+src/main/resources/static/
 
 ### STS ###
 .apt_generated

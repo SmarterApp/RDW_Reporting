@@ -1,0 +1,19 @@
+<h3 class="blue mb-md">{{'labels.reports.heading' | translate}}</h3>
+<div class="well">
+  <p-dataTable [value]="reports"
+               emptyMessage="{{'labels.reports.no-reports' | translate}}"
+               sortField="created"
+               sortOrder="-1"
+               tableStyleClass="table table-striped table-hover">
+
+    <p-column field="created" header="{{'labels.reports.table-column-header.created' | translate}}" sortable="true">
+      <ng-template let-report="rowData" pTemplate="body">{{ report.created | date }}</ng-template>
+    </p-column>
+    <p-column field="label" header="{{'labels.reports.table-column-header.label' | translate}}" sortable="true"></p-column>
+    <p-column field="status" header="{{'labels.reports.table-column-header.status' | translate}}" sortable="true"></p-column>
+  </p-dataTable>
+
+</div>
+
+
+

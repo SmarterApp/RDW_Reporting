@@ -7,11 +7,36 @@ import { AssessmentType } from "../shared/enum/assessment-type.enum";
 import { AssessmentSubjectType } from "../shared/enum/assessment-subject-type.enum";
 import { DataService } from "../shared/data/data.service";
 import { Download } from "../shared/data/download.model";
+import { Report } from "./report.model";
 
 @Injectable()
-export class ReportDownloadService {
+export class ReportService {
 
   constructor(private dataService: DataService) {
+  }
+
+  /**
+   * TODO: hook up to API
+   *
+   * Gets a list of all reports for the logged in user
+   *
+   * @returns {Observable<Report[]>}
+   */
+  public getReports(): Observable<Report[]> {
+
+    let report1 = new Report();
+    report1.id = 1;
+    report1.label = 'Report 1';
+    report1.created = new Date(2017, 1, 1);
+    report1.status = 'COMPLETED';
+
+    let report2 = new Report();
+    report2.id = 1;
+    report2.label = 'Report 2';
+    report2.created = new Date(2017, 1, 2);
+    report2.status = 'FAILED';
+
+    return Observable.of([report1, report2]);
   }
 
   /**

@@ -325,7 +325,7 @@ export class AssessmentResultsComponent implements OnInit {
     let stats = new ExamStatistics();
     stats.total = this.exams.length;
     stats.average = this.examCalculator.calculateAverage(this.exams);
-    stats.standardError = this.examCalculator.calculateAverageStandardError(this.exams);
+    stats.standardError = this.examCalculator.calculateStandardErrorOfTheMean(this.exams);
     stats.levels = this.examCalculator.groupLevels(this.exams, this.isIab ? 3 : 4);
     stats.percents = this.examCalculator.mapGroupLevelsToPercents(stats.levels);
 

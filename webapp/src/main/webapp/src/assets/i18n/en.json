@@ -370,6 +370,13 @@
       }
     },
     "reports": {
+      "heading": "Reports",
+      "no-reports": "Click the create report button to create a report.",
+      "table-column-header": {
+        "created": "Created On",
+        "label": "Name",
+        "status": "Status"
+      },
       "download-report": "Student Report",
       "download": "Download",
       "assessment-type": "Assessment Type",
