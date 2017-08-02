@@ -1,0 +1,46 @@
+sql:
+  report:
+
+    insert: >-
+      insert into report_generation
+        (user_login, job_execution_id, status, report_resource_uri, label, report_request, created)
+        values
+        (:user_login, :job_execution_id, :status, :report_resource_uri, :label, :report_request, :created)
+
+    update: >-
+      update report_generation
+      set
+        user_login = :user_login,
+        job_execution_id = :job_execution_id,
+        status = :status,
+        report_resource_uri = :report_resource_uri,
+        label = :label,
+        report_request = :report_request,
+        created = :created
+      where
+        id = :id
+
+    reportSelectClause: >-
+      select
+        r.id,
+        r.user_login,
+        r.job_execution_id,
+        r.status,
+        r.report_resource_uri,
+        r.label,
+        r.report_request,
+        r.created
+      from report_generation r
+      where
+
+    findByUserWhereClause: >-
+      r.user_login = :user
+
+    findByIdsWhereClause: >-
+      r.id in (:report_ids)
+
+    findByIdWhereClause: >-
+      r.id = :report_id
+
+    orderByCreatedDescClause: >-
+      order by r.created desc

@@ -21,6 +21,7 @@ dependencies {
     compile 'org.springframework.cloud:spring-cloud-stream'
     compile 'org.springframework.retry:spring-retry'
 
+    testCompile project(path: ':rdw-reporting-common', configuration: 'tests')
     testCompile 'org.assertj:assertj-core'
     testCompile('org.springframework.boot:spring-boot-starter-test') {
         exclude(module: 'commons-logging')
