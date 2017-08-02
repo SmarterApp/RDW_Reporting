@@ -2,13 +2,13 @@ sql:
   report:
 
     insert: >-
-      insert into report_generation
+      insert into user_report
         (user_login, job_execution_id, status, report_resource_uri, label, report_request, created)
         values
         (:user_login, :job_execution_id, :status, :report_resource_uri, :label, :report_request, :created)
 
     update: >-
-      update report_generation
+      update user_report
       set
         user_login = :user_login,
         job_execution_id = :job_execution_id,
@@ -20,7 +20,7 @@ sql:
       where
         id = :id
 
-    reportSelectClause: >-
+    findAllByUser: >-
       select
         r.id,
         r.user_login,
@@ -30,17 +30,34 @@ sql:
         r.label,
         r.report_request,
         r.created
-      from report_generation r
-      where
+      from user_report r
+      where r.user_login = :user
+      order by r.id desc
 
-    findByUserWhereClause: >-
-      r.user_login = :user
+    findAllByUserAndId: >-
+      select
+        r.id,
+        r.user_login,
+        r.job_execution_id,
+        r.status,
+        r.report_resource_uri,
+        r.label,
+        r.report_request,
+        r.created
+      from user_report r
+      where r.user_login = :user
+        and r.id in (:report_ids)
+      order by r.id desc
 
-    findByIdsWhereClause: >-
-      r.id in (:report_ids)
-
-    findByIdWhereClause: >-
-      r.id = :report_id
-
-    orderByCreatedDescClause: >-
-      order by r.created desc
+    findById: >-
+      select
+        r.id,
+        r.user_login,
+        r.job_execution_id,
+        r.status,
+        r.report_resource_uri,
+        r.label,
+        r.report_request,
+        r.created
+      from user_report r
+      where r.id = :report_id
