@@ -16,6 +16,8 @@ import { StudentHistoryResponsesExamResolve } from "./student/responses/student-
 import { StudentHistoryResponsesAssessmentResolve } from "./student/responses/student-history-responses-assessment.resolve";
 import { StudentHistoryResponsesStudentResolve } from "./student/responses/student-history-responses-student.resolve";
 import { SessionExpiredComponent } from "./shared/authentication/session-expired.component";
+import { ReportsResolve } from "./report/reports.resolve";
+import { ReportsComponent } from "./report/reports.component";
 
 
 const studentTestHistoryChildRoute = {
@@ -27,26 +29,29 @@ const studentTestHistoryChildRoute = {
       translateResolve: 'examHistory.student'
     },
   },
-  children: [ {
-    path: '',
-    pathMatch: 'full',
-    component: StudentResultsComponent
-  }, {
-    path: 'exams/:examId',
-    pathMatch: 'full',
-    resolve: {
-      assessment: StudentHistoryResponsesAssessmentResolve,
-      assessmentItems: StudentResponsesResolve,
-      exam: StudentHistoryResponsesExamResolve,
-      student: StudentHistoryResponsesStudentResolve
+  children: [
+    {
+      path: '',
+      pathMatch: 'full',
+      component: StudentResultsComponent
     },
-    data: {
-      breadcrumb: {
-        translate: 'labels.student.responses.crumb'
-      }
-    },
-    component: StudentResponsesComponent
-  } ]
+    {
+      path: 'exams/:examId',
+      pathMatch: 'full',
+      resolve: {
+        assessment: StudentHistoryResponsesAssessmentResolve,
+        assessmentItems: StudentResponsesResolve,
+        exam: StudentHistoryResponsesExamResolve,
+        student: StudentHistoryResponsesStudentResolve
+      },
+      data: {
+        breadcrumb: {
+          translate: 'labels.student.responses.crumb'
+        }
+      },
+      component: StudentResponsesComponent
+    }
+  ]
 };
 
 export const routes: Routes = [
@@ -57,29 +62,31 @@ export const routes: Routes = [
       { path: '', pathMatch: 'full', component: HomeComponent },
       {
         path: 'groups/:groupId',
-        data: { breadcrumb: { translate: 'labels.groups.name'}, permissions: ['GROUP_PII_READ'] },
+        data: { breadcrumb: { translate: 'labels.groups.name' }, permissions: [ 'GROUP_PII_READ' ] },
         canActivate: [ AuthorizeCanActivate ],
-        children: [ {
-          path: '',
-          pathMatch: 'full',
-          resolve: { assessment: GroupAssessmentsResolve },
-          component: GroupResultsComponent
-        },
-        studentTestHistoryChildRoute
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            resolve: { assessment: GroupAssessmentsResolve },
+            component: GroupResultsComponent
+          },
+          studentTestHistoryChildRoute
         ]
       },
       {
         path: 'schools/:schoolId',
-        data: { breadcrumb: { resolve: 'school.name'}, permissions: ['INDIVIDUAL_PII_READ'] },
+        data: { breadcrumb: { resolve: 'school.name' }, permissions: [ 'INDIVIDUAL_PII_READ' ] },
         resolve: { school: CurrentSchoolResolve },
         canActivate: [ AuthorizeCanActivate ],
-        children: [ {
-          path: '',
-          pathMatch: 'full',
-          resolve: { assessment: SchoolAssessmentResolve, school: CurrentSchoolResolve },
-          component: SchoolResultsComponent
-        },
-        studentTestHistoryChildRoute
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            resolve: { assessment: SchoolAssessmentResolve, school: CurrentSchoolResolve },
+            component: SchoolResultsComponent
+          },
+          studentTestHistoryChildRoute
         ]
       },
       {
@@ -90,29 +97,36 @@ export const routes: Routes = [
             translate: 'labels.student.results.crumb',
             translateResolve: 'examHistory.student'
           },
-          permissions: ['GROUP_PII_READ']
+          permissions: [ 'GROUP_PII_READ' ]
         },
         canActivate: [ AuthorizeCanActivate ],
-        children: [ {
-          path: '',
-          pathMatch: 'full',
-          component: StudentResultsComponent
-        }, {
-          path: 'exams/:examId',
-          pathMatch: 'full',
-          resolve: {
-            assessment: StudentHistoryResponsesAssessmentResolve,
-            assessmentItems: StudentResponsesResolve,
-            exam: StudentHistoryResponsesExamResolve,
-            student: StudentHistoryResponsesStudentResolve
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            component: StudentResultsComponent
           },
-          data: {
-            breadcrumb: {
-              translate: 'labels.student.responses.crumb'
-            }
-          },
-          component: StudentResponsesComponent
-        } ]
+          {
+            path: 'exams/:examId',
+            pathMatch: 'full',
+            resolve: {
+              assessment: StudentHistoryResponsesAssessmentResolve,
+              assessmentItems: StudentResponsesResolve,
+              exam: StudentHistoryResponsesExamResolve,
+              student: StudentHistoryResponsesStudentResolve
+            },
+            data: { breadcrumb: { translate: 'labels.student.responses.crumb' } },
+            component: StudentResponsesComponent
+          }
+        ]
+      },
+      {
+        path: 'reports',
+        pathMatch: 'full',
+        data: { breadcrumb: { translate: 'labels.reports.heading' }, permissions: [ 'GROUP_PII_READ' ]},
+        canActivate: [ AuthorizeCanActivate ],
+        resolve: { reports: ReportsResolve },
+        component: ReportsComponent
       },
       {
         path: 'session-expired',

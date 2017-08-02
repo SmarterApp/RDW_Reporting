@@ -22,7 +22,7 @@ import { StudentHistoryResponsesExamResolve } from "./responses/student-history-
 import { StudentHistoryResponsesAssessmentResolve } from "./responses/student-history-responses-assessment.resolve";
 import { StudentHistoryResponsesStudentResolve } from "./responses/student-history-responses-student.resolve";
 import { CsvModule } from "../csv-export/csv-export.module";
-import { ReportDownloadModule } from "../report/report-download.module";
+import { ReportModule } from "../report/report.module";
 
 @NgModule({
   declarations: [
@@ -45,7 +45,7 @@ import { ReportDownloadModule } from "../report/report-download.module";
     ReactiveFormsModule,
     SharedModule,
     Angulartics2Module.forChild(),
-    ReportDownloadModule
+    ReportModule
   ],
   exports: [
     StudentComponent,

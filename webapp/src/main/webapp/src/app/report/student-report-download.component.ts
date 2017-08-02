@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { ReportDownloadService } from "./report-download.service";
+import { ReportService } from "./report.service";
 import { saveAs } from "file-saver";
 import { Subscription } from "rxjs";
 import { ReportDownloadComponent } from "./report-download.component";
@@ -21,7 +21,7 @@ export class StudentReportDownloadComponent extends ReportDownloadComponent {
 
   private subscription: Subscription;
 
-  constructor(private service: ReportDownloadService, private notificationService: NotificationService) {
+  constructor(private service: ReportService, private notificationService: NotificationService) {
     super();
   }
 

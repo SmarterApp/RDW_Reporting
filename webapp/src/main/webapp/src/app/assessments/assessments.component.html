@@ -5,10 +5,10 @@
     <div class="well-body">
       <div class="form-group row">
         <ng-content></ng-content>
-        <div class="col-md-2 pull-right">
+        <div class="col-md-2 col-md-offset-4">
         <!-- Advanced Filters Toggle -->
-          <label for="advanced" class="pull-right">{{'labels.groups.results.adv-filters.label' | translate}}</label>
-          <button id="advanced" class="form-control btn btn-default pull-right"
+          <label for="advanced" class="">{{'labels.groups.results.adv-filters.label' | translate}}</label>
+          <button id="advanced" class="form-control btn btn-default"
                   (click)="showAdvancedFilters = !showAdvancedFilters"
                   angulartics2On="click" angularticsEvent="ToggleAdvancedFilters" angularticsCategory="AssessmentResults">
             {{'buttons.visibility.' + (showAdvancedFilters ? 'hide' : 'show') | translate}}
@@ -36,12 +36,14 @@
   <div *ngIf="hasInitialAssessment" id="group-results-selected-assessments" class="well gray-lightest">
 
     <div class="row">
-      <div class="col-md-12">
-        <h2 class="h3 gray-darkest pull-left">
+      <div class="col-md-6">
+        <h2 class="h3 gray-darkest">
           <i class="fa fa-list-alt"></i> {{'labels.groups.results.selected-assessments-title' | translate}}
         </h2>
-        <p class="pull-left" [hidden]="showOnlyMostRecent">{{'labels.groups.results.selected-assessments-instruct' | translate }}</p>
-        <div class="btn-group btn-group-xs pull-right" role="group">
+        <p [hidden]="showOnlyMostRecent">{{'labels.groups.results.selected-assessments-instruct' | translate }}</p>
+      </div>
+      <div class="col-md-6">
+        <div class="btn-group btn-group-xs pull-right mb-sm" role="group">
           <button type="radio" (click)="showOnlyMostRecent = true" class="btn btn-default"
                   [ngClass]="{'active': showOnlyMostRecent}"
                   angulartics2On="click" angularticsEvent="ShowOnlyMostRecent" angularticsCategory="AssessmentResults"
@@ -94,7 +96,7 @@
 <!-- Results -->
 <h2 class="blue-dark h3 mt-lg mb-md">
   {{'labels.groups.results.title' | translate}}
-  <div class="pull-right">
+  <div class="pull-right float-none-xs">
     <label for="value-format">{{'labels.groups.results.value-as' | translate }} </label>
     <div id="value-format" class="btn-group btn-group-primary btn-group-xs mr-md" role="group">
       <button type="radio" (click)="showValuesAsPercent = true" [ngClass]="{'active':showValuesAsPercent}"

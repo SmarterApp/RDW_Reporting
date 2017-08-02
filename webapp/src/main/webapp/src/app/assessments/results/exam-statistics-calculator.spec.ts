@@ -69,8 +69,20 @@ describe('Exam Calculator', () => {
     let exams: Exam[] = [];
 
     let fixture = new ExamStatisticsCalculator();
-    let actual = fixture.calculateAverageStandardError(exams);
-    expect(actual).toBeNaN();
+    let actual = fixture.calculateStandardErrorOfTheMean(exams);
+    expect(actual).toBe(0);
+  });
+
+  it('should calculate the average standard error of the mean correctly', () => {
+    let exams = [ 2, 4, 6 ].map(x => {
+      let exam = new Exam();
+      exam.score = x;
+      return exam;
+    });
+
+    let fixture = new ExamStatisticsCalculator();
+    let actual = fixture.calculateStandardErrorOfTheMean(exams);
+    expect(actual).toBe(2/Math.sqrt(exams.length));
   });
 
   it('should add one level for the number of specified levels', () => {

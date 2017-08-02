@@ -3,6 +3,7 @@ import { AssessmentItem } from "../model/assessment-item.model";
 import { ExamStatisticsLevel } from "../model/exam-statistics.model";
 import { Exam } from "../model/exam.model";
 import { ItemPointField } from "../model/item-point-field.model";
+import * as math from "mathjs";
 
 @Injectable()
 export class ExamStatisticsCalculator {
@@ -15,13 +16,22 @@ export class ExamStatisticsCalculator {
       / scoredExams.length;
   }
 
-  calculateAverageStandardError(exams: Exam[]) {
+  /**
+   * Calculates the standard error of the mean
+   *  = Standard Deviation / sqrt(N)  where N is the number of scores
+   *
+   * @param exams
+   * @returns {number}
+   */
+  calculateStandardErrorOfTheMean(exams: Exam[]) {
     let scoredExams = this.getOnlyScoredExams(exams);
+    let scores = scoredExams.map(x => x.score);
 
-    return Math.sqrt(
-      scoredExams.reduce((x, y) => x + (y.standardError * y.standardError), 0)
-      / scoredExams.length
-    );
+    if (scores.length == 0) {
+      return 0;
+    }
+
+    return math.std(scores) / math.sqrt(scores.length);
   }
 
   getOnlyScoredExams(exams: Exam[]): Exam[] {

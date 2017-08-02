@@ -5,13 +5,17 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { SharedModule } from "primeng/components/common/shared";
 import { PopoverModule } from "ngx-bootstrap";
 import { Angulartics2Module } from "angulartics2";
-import { ReportDownloadService } from "./report-download.service";
+import { ReportService } from "./report.service";
 import { CommonModule } from "../shared/common.module";
 import { StudentReportDownloadComponent } from "./student-report-download.component";
+import { ReportsResolve } from "./reports.resolve";
+import { ReportsComponent } from "./reports.component";
+import { DataTableModule } from "primeng/components/datatable/datatable";
 
 @NgModule({
   declarations: [
-    StudentReportDownloadComponent
+    StudentReportDownloadComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -21,14 +25,17 @@ import { StudentReportDownloadComponent } from "./student-report-download.compon
     ReactiveFormsModule,
     CommonModule,
     SharedModule,
+    DataTableModule,
     Angulartics2Module.forChild()
   ],
   exports: [
-    StudentReportDownloadComponent
+    StudentReportDownloadComponent,
+    ReportsComponent
   ],
   providers: [
-    ReportDownloadService
+    ReportService,
+    ReportsResolve
   ]
 })
-export class ReportDownloadModule {
+export class ReportModule {
 }

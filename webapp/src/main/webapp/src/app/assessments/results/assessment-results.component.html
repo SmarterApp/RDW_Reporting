@@ -2,33 +2,41 @@
 <!-- Individual Assessment Result Container -->
 <div class="assessment-result well">
     <div class="mb-md">
-        <!-- Top Right Buttons -->
-        <div class="pull-right text-right">
-          <span popover="{{ 'labels.menus.resources-disabled-message' | translate }}" triggers="{{assessmentExam.assessment.hasResourceUrl ? '': 'mouseenter:mouseleave'}}">
-                        <button
-                          class="btn btn-default btn-xs"
-                          angulartics2On="click"
-                          angularticsEvent="InstructionalResource"
-                          angularticsCategory="AssessmentResults"
-                          [angularticsProperties]="{label: assessmentExam.assessment.name}"
-                          [disabled]="!assessmentExam.assessment.hasResourceUrl"
-                          (click)="openInstructionalResource()"
-                        >
-              <i class="fa fa-list-alt"></i> {{'labels.groups.results.assessment.instruct' | translate }}
-            </button>
-          </span>
-
-            <button class="btn btn-default btn-sm icon-only" (click)="collapsed = !collapsed"
-                    angulartics2On="click" angularticsEvent="ToggleCollapseResults" angularticsCategory="AssessmentResults">
-                <i class="fa font-bold" [ngClass]="{'fa-angle-down':collapsed, 'fa-angle-up':!collapsed}"></i> <span class="sr-only">{{'prompt.collapse' | translate}}</span>
-            </button>
+      <!-- Top Right Buttons -->
+      <div class="row">
+        <div class="col-xs-10 col-sm-11">
+          <div class="row">
+            <div class="col-md-8 mb-sm">
+              <!-- Assessment Title -->
+              <span class="tag tag-lg {{colorService.getColor(getGradeIdx(assessmentExam.assessment.grade))}}">
+                  <span class="label">{{assessmentExam.assessment.grade | gradeDisplay}}</span>
+                  {{assessmentExam.assessment.name}}
+              </span>
+            </div>
+            <div class="col-md-4">
+              <span popover="{{ 'labels.menus.resources-disabled-message' | translate }}" triggers="{{assessmentExam.assessment.hasResourceUrl ? '': 'mouseenter:mouseleave'}}">
+                <button
+                  class="btn btn-default btn-sm pull-right float-none-xs"
+                  angulartics2On="click"
+                  angularticsEvent="InstructionalResource"
+                  angularticsCategory="AssessmentResults"
+                  [angularticsProperties]="{label: assessmentExam.assessment.name}"
+                  [disabled]="!assessmentExam.assessment.hasResourceUrl"
+                  (click)="openInstructionalResource()"
+                >
+                  <i class="fa fa-list-alt"></i> {{'labels.groups.results.assessment.instruct' | translate }}
+                </button>
+              </span>
+            </div>
+          </div>
         </div>
-        <!-- Assessment Title -->
-        <span class="tag tag-lg {{colorService.getColor(getGradeIdx(assessmentExam.assessment.grade))}}">
-            <span class="label">{{assessmentExam.assessment.grade | gradeDisplay}}</span>
-            {{assessmentExam.assessment.name}}
-        </span>
-    </div>
+        <div class="col-xs-2 col-sm-1">
+          <button class="btn btn-default btn-sm icon-only pull-right" (click)="collapsed = !collapsed"
+                  angulartics2On="click" angularticsEvent="ToggleCollapseResults" angularticsCategory="AssessmentResults">
+              <i class="fa font-bold" [ngClass]="{'fa-angle-down':collapsed, 'fa-angle-up':!collapsed}"></i> <span class="sr-only">{{'prompt.collapse' | translate}}</span>
+          </button>
+        </div>
+      </div>
 
     <div class="row mb-lg">
         <!-- Sessions -->
