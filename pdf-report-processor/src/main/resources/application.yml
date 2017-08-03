@@ -5,13 +5,13 @@ management:
     enabled: false
 
 server:
-  port: 8008
+  port: 8009
 
 spring:
-  jackson:
-    default-property-inclusion: non_null
-    serialization:
-      WRITE_DATES_AS_TIMESTAMPS: false
+
+  batch:
+      job:
+        enabled: false
 
   cache:
     type: SIMPLE
@@ -23,6 +23,11 @@ spring:
         input:
           destination: exam_report_pdf
           group: default
+
+  jackson:
+      default-property-inclusion: non_null
+      serialization:
+        WRITE_DATES_AS_TIMESTAMPS: false
 
   thymeleaf:
     mode: HTML
@@ -45,16 +50,6 @@ app:
   datamart:
     datasource:
       url: jdbc:mysql://localhost:3306/reporting?useSSL=false&useLegacyDatetimeCode=false&characterEncoding=utf8
-      username: root
-      password:
-      testWhileIdle: true
-      validationQuery: SELECT 1
-      driverClassName: com.mysql.jdbc.Driver
-      initialize: false
-
-  batch:
-    datasource:
-      url: jdbc:mysql://localhost:3306/spring_batch_reporting?useSSL=false&useLegacyDatetimeCode=false&characterEncoding=utf8
       username: root
       password:
       testWhileIdle: true

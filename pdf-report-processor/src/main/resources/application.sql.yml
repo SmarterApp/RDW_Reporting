@@ -61,3 +61,18 @@ sql:
         r.created
       from user_report r
       where r.id = :report_id
+
+  studentId:
+    findByExamFilter:
+      select
+        distinct st.id
+      from student st
+        join exam e on e.student_id = st.id
+        join asmt a on e.asmt_id=a.id
+        join school s on e.school_id = s.id
+      where ((-1)=:school_year or e.school_year=:school_year)
+        and ((-1)=:school_id or s.id=:school_id)
+        and ((-1)=:subject_id or a.subject_id=:subject_id)
+        and ((-1)=:grade_id or e.grade_id=:grade_id)
+        and ((-1)=:assessment_type or a.type_id=:assessment_type)
+        and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
