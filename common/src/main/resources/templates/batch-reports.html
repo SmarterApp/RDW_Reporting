@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments::meta"></div>
+    <title th:text="#{report.batch.title}"></title>
+    <div th:replace="fragments::styles"></div>
+</head>
+<body class="pdf">
+<div th:each="studentCompositeReport : ${studentCompositeReports}">
+    <div th:if="${studentCompositeReport.iabMath != null}"
+         th:with="report=${studentCompositeReport.iabMath}">
+        <div th:replace="iab-body::body"></div>
+    </div>
+    <div th:if="${studentCompositeReport.iabEla != null}"
+         th:with="report=${studentCompositeReport.iabEla}">
+        <div th:replace="iab-body::body"></div>
+    </div>
+    <div th:if="${studentCompositeReport.icaMath != null}"
+         th:with="report=${studentCompositeReport.icaMath}">
+        <div th:replace="ica-body::body"></div>
+    </div>
+    <div th:if="${studentCompositeReport.icaEla != null}"
+         th:with="report=${studentCompositeReport.icaEla}">
+        <div th:replace="ica-body::body"></div>
+    </div>
+</div>
+</body>
+</html>
