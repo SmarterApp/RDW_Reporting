@@ -14,9 +14,13 @@
               </span>
             </div>
             <div class="col-md-4">
-              <span popover="{{ 'labels.menus.resources-disabled-message' | translate }}" triggers="{{assessmentExam.assessment.hasResourceUrl ? '': 'mouseenter:mouseleave'}}">
+              <span class="pull-right"
+                    popover="{{ 'labels.menus.resources-disabled-message' | translate }}"
+                    triggers="{{assessmentExam.assessment.hasResourceUrl ? '': 'mouseenter:mouseleave'}}"
+                    container="body"
+              >
                 <button
-                  class="btn btn-default btn-sm pull-right float-none-xs"
+                  class="btn btn-default btn-sm float-none-xs"
                   angulartics2On="click"
                   angularticsEvent="InstructionalResource"
                   angularticsCategory="AssessmentResults"
