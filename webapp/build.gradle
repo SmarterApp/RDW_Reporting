@@ -18,8 +18,6 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.cloud:spring-cloud-starter-config'
-    compile 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
-    compile 'org.springframework.cloud:spring-cloud-stream'
     compile 'org.springframework.retry:spring-retry'
     compile 'org.springframework.security.extensions:spring-security-saml2-core'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
@@ -32,7 +30,6 @@ dependencies {
         exclude(module: 'commons-logging')
     }
     testCompile 'org.springframework.security:spring-security-test'
-    testCompile 'org.springframework.cloud:spring-cloud-stream-test-support'
 }
 
 node {

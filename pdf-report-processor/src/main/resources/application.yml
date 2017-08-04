@@ -17,13 +17,6 @@ spring:
     type: SIMPLE
     cache-names: internalTranslationsByCode
 
-  cloud:
-    stream:
-      bindings:
-        input:
-          destination: exam_report_pdf
-          group: default
-
   jackson:
       default-property-inclusion: non_null
       serialization:

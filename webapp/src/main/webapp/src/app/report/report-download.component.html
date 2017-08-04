@@ -4,8 +4,8 @@
           (click)="showComingSoon()"><i class="fa fa-cloud-download" aria-hidden="true"></i> {{buttonLabel | translate}}</button>
 
   <button *ngIf="!production" class="btn btn-sm btn-default"
-          [containerClass]="'report-download-popover'"
-          [placement]="'bottom'"
+          containerClass="report-download-popover"
+          placement="bottom"
           [popover]="popoverTemplate"><i class="fa fa-cloud-download" aria-hidden="true"></i> {{buttonLabel | translate}}</button>
 
   <template #popoverTemplate>
@@ -35,7 +35,7 @@
         </select>
       </div>
       <div class="form-group mt-sm">
-          <button class="btn btn-info btn-sm btn-block" [disabled]="subscription != null" (click)="form.ngSubmit.emit()">{{'labels.reports.form.submit' | translate}}</button>
+          <button class="btn btn-info btn-sm btn-block" [disabled]="subscription != null">{{'labels.reports.form.submit' | translate}}</button>
       </div>
     </form>
   </template>

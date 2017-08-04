@@ -32,13 +32,6 @@ spring:
     type: SIMPLE
     cache-names: permissionsByRole, internalTranslationsByCode
 
-  cloud:
-    stream:
-      bindings:
-        output:
-          destination: exam_report_pdf
-          group: default
-
   thymeleaf:
     mode: HTML
 
