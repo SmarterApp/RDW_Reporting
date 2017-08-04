@@ -70,9 +70,9 @@ sql:
         join exam e on e.student_id = st.id
         join asmt a on e.asmt_id=a.id
         join school s on e.school_id = s.id
-      where ((-1)=:school_year or e.school_year=:school_year)
-        and ((-1)=:school_id or s.id=:school_id)
-        and ((-1)=:subject_id or a.subject_id=:subject_id)
-        and ((-1)=:grade_id or e.grade_id=:grade_id)
-        and ((-1)=:assessment_type or a.type_id=:assessment_type)
+      where (:school_year is null or e.school_year=:school_year)
+        and (:school_id is null or s.id=:school_id)
+        and (:subject_id is null or a.subject_id=:subject_id)
+        and (:grade_id is null or e.grade_id=:grade_id)
+        and (:assessment_type is null or a.type_id=:assessment_type)
         and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))

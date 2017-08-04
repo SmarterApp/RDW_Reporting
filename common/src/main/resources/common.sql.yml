@@ -93,10 +93,10 @@ sql:
         join school s on e.school_id=s.id
         join district d on s.district_id=d.id
       where e.student_id in (:student_ids)
-        and ((-1)=:school_year or e.school_year=:school_year)
-        and ((-1)=:school_id or s.id=:school_id)
-        and ((-1)=:subject_id or a.subject_id=:subject_id)
-        and ((-1)=:grade_id or e.grade_id=:grade_id)
+        and (:school_year is null or e.school_year=:school_year)
+        and (:school_id is null or s.id=:school_id)
+        and (:subject_id is null or a.subject_id=:subject_id)
+        and (:grade_id is null or e.grade_id=:grade_id)
         and a.type_id=2
         and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
       order by e.completed_at desc
@@ -230,10 +230,10 @@ sql:
         join school s on e.school_id=s.id
         join district d on s.district_id=d.id
       where e.student_id in (:student_ids)
-        and ((-1)=:school_year or e.school_year=:school_year)
-        and ((-1)=:school_id or s.id=:school_id)
-        and ((-1)=:subject_id or a.subject_id=:subject_id)
-        and ((-1)=:grade_id or e.grade_id=:grade_id)
+        and (:school_year is null or e.school_year=:school_year)
+        and (:school_id is null or s.id=:school_id)
+        and (:subject_id is null or a.subject_id=:subject_id)
+        and (:grade_id is null or e.grade_id=:grade_id)
         and a.type_id=1
         and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
       order by e.completed_at asc
