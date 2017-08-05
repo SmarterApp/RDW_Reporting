@@ -63,7 +63,7 @@ sql:
       where r.id = :report_id
 
   studentId:
-    findByExamFilter:
+    findByExamQueryParams: >-
       select
         distinct st.id
       from student st
@@ -71,6 +71,24 @@ sql:
         join asmt a on e.asmt_id=a.id
         join school s on e.school_id = s.id
       where (:school_year is null or e.school_year=:school_year)
+        and (:school_id is null or s.id=:school_id)
+        and (:subject_id is null or a.subject_id=:subject_id)
+        and (:grade_id is null or e.grade_id=:grade_id)
+        and (:assessment_type is null or a.type_id=:assessment_type)
+        and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
+
+    findByExamQueryParamsWithGroup: >-
+      select
+        distinct st.id
+      from student st
+        join exam e on e.student_id = st.id
+        join asmt a on e.asmt_id=a.id
+        join school s on e.school_id = s.id
+        join student_group_membership sgm on st.id = sgm.student_id
+        join student_group sg on sgm.student_group_id = sg.id
+          and (sg.subject_id is null or a.subject_id = sg.subject_id)
+      where sg.id=:group_id
+        and (:school_year is null or e.school_year=:school_year)
         and (:school_id is null or s.id=:school_id)
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or e.grade_id=:grade_id)

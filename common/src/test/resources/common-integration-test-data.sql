@@ -15,6 +15,15 @@ insert into student (id, ssid, last_or_surname, first_name, gender_id, gender_co
   (-1, 'student1_ssid', 'student1_lastName', 'student1_firstName', -1, 'g1', '2017-01-01 00:00:00.000000', -1, '2017-07-18 20:14:34.000000', -1),
   (-2, 'student2_ssid', 'student2_lastName', 'student2_firstName', -1, 'g1', '2017-01-01 00:00:00.000000', -1, '2017-07-18 20:14:34.000000', -1);
 
+insert into student_group (id, `name`, school_id, school_year, subject_id, creator, created, import_id, updated, migrate_id) values
+  (-1, 'group1', -10, 2017, null, null, '2017-07-18 20:14:34.000000', -1, '2017-07-18 20:14:34.000000', -1),
+  (-2, 'group2', -10, 2017, null, null, '2017-07-18 20:14:34.000000', -1, '2017-07-18 20:14:34.000000', -1);
+
+insert into student_group_membership (student_group_id, student_id) values
+  (-1, -1),
+  (-1, -2),
+  (-2, -1);
+
 insert into asmt (id, type_id, natural_id, grade_id, grade_code, subject_id, school_year, name, label, version,
   claim1_score_code, claim2_score_code, claim3_score_code, claim4_score_code,
   min_score, cut_point_1, cut_point_2, cut_point_3, max_score, import_id, updated, migrate_id) values
