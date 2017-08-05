@@ -1,12 +1,12 @@
 # this app is expected to run inside the security perimeter so disable security for actuator end-points and,
 # since those are the only end-points, switch to a less standard port using the main server.port config
 management:
-  port: 8009
+  port: 8008
   security:
     enabled: false
 
 server:
-  port: 8083
+  port: 8080
 
 spring:
 
