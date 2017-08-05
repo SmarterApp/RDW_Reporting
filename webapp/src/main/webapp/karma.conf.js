@@ -40,6 +40,10 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['PhantomJS2'],
-    singleRun: false
+    singleRun: false,
+    //Quick fix for PhantomJS OOM issues
+    browserNoActivityTimeout: 60000,
+    browserDisconnectTimeout: 30000,
+    captureTimeout: 60000
   });
 };
