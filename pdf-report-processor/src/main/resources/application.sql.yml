@@ -62,10 +62,14 @@ sql:
       from user_report r
       where r.id = :report_id
 
-  studentId:
+  student:
     findByExamQueryParams: >-
       select
-        distinct st.id
+        st.id,
+        st.ssid,
+        st.first_name,
+        st.last_or_surname as last_name,
+        st.gender_code
       from student st
         join exam e on e.student_id = st.id
         join asmt a on e.asmt_id=a.id
@@ -76,10 +80,15 @@ sql:
         and (:grade_id is null or e.grade_id=:grade_id)
         and (:assessment_type is null or a.type_id=:assessment_type)
         and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
+      group by st.id
 
     findByExamQueryParamsWithGroup: >-
       select
-        distinct st.id
+        st.id,
+        st.ssid,
+        st.first_name,
+        st.last_or_surname as last_name,
+        st.gender_code
       from student st
         join exam e on e.student_id = st.id
         join asmt a on e.asmt_id=a.id
@@ -94,3 +103,4 @@ sql:
         and (:grade_id is null or e.grade_id=:grade_id)
         and (:assessment_type is null or a.type_id=:assessment_type)
         and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
+      group by st.id
