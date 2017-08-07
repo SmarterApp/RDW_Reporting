@@ -4,9 +4,10 @@ dependencies {
     compile project(':rdw-reporting-common')
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     compile 'com.google.guava:guava'
-    compile 'com.itextpdf:itextpdf'
+//    compile 'com.itextpdf:itextpdf'
     compile 'mysql:mysql-connector-java'
     compile 'org.apache.commons:commons-io'
+    compile 'org.apache.pdfbox:pdfbox'
     compile 'org.opentestsystem.rdw.common:rdw-common-archive'
     compile 'org.opentestsystem.rdw.common:rdw-common-security'
     compile 'org.opentestsystem.rdw.common:rdw-common-status'

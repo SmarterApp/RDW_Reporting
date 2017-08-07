@@ -84,7 +84,7 @@ subprojects {
             dependency 'org.springframework.security.extensions:spring-security-saml2-core:1.0.2.RELEASE'
 
             // pdf tooling
-            dependency 'com.itextpdf:itextpdf:5.5.11'
+            dependency 'org.apache.pdfbox:pdfbox:2.0.7'
 
             // commonly used test libraries
             dependency 'org.assertj:assertj-core:3.6.2'
