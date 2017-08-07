@@ -1,10 +1,13 @@
 apply plugin: 'org.springframework.boot'
 
+createDockerfile {
+    ext.java_opts = ["-Xmx300m"]
+}
+
 dependencies {
     compile project(':rdw-reporting-common')
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     compile 'com.google.guava:guava'
-//    compile 'com.itextpdf:itextpdf'
     compile 'mysql:mysql-connector-java'
     compile 'org.apache.commons:commons-io'
     compile 'org.apache.pdfbox:pdfbox'
