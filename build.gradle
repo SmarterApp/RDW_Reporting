@@ -148,7 +148,7 @@ subprojects {
             label([maintainer: 'Fairway Technologies'])
             copyFile("${jar.archivePath.name}", "${jar.archivePath.name}")
             exposePort(8008, 8080)
-            entryPoint("java", "-jar", "${jar.archivePath.name}")
+            defaultCommand("sh", "-c", "java \$JAVA_OPTS -jar ${jar.archivePath.name}")
         }
 
         // task to build the docker image
