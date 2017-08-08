@@ -4,6 +4,8 @@ import { CachingDataService } from "../shared/cachingData.service";
 import { Observable } from "rxjs";
 import { User } from "./model/user.model";
 import { isNullOrUndefined } from "util";
+import { ResponseUtils } from "../shared/response-utils";
+import { ErrorObservable } from "rxjs/observable/ErrorObservable";
 
 @Injectable()
 export class UserService {
@@ -22,8 +24,17 @@ export class UserService {
     if(isNullOrUndefined(this.currentUserObservable)) {
       this.currentUserObservable = this._dataService
         .get("/user")
+        .catch(res => {
+          return Observable.of(null);
+        })
         .share()
-        .map(x => this._mapper.mapFromApi(x));
+        .map(user => {
+          if(isNullOrUndefined(user)) {
+            return null;
+          }
+
+          return this._mapper.mapFromApi(user)
+        });
 
       this.currentUserObservable.subscribe(user => this.currentUser = user);
     }
@@ -35,7 +46,9 @@ export class UserService {
   doesCurrentUserHaveAtLeastOnePermission(permissions: string[]): Observable<boolean> {
     return new Observable(observer => {
       this.getCurrentUser().subscribe(user => {
-        observer.next(this.doesAtLeastOneExist(permissions, user.permissions));
+        observer.next(!isNullOrUndefined(user)
+          ? this.doesAtLeastOneExist(permissions, user.permissions)
+          : false);
         observer.complete();
       });
     });

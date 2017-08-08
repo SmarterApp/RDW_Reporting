@@ -6,6 +6,7 @@ import { Router, NavigationEnd } from "@angular/router";
 import { Location, PopStateEvent } from "@angular/common";
 import { NotificationService } from "./shared/notification/notification.service";
 import { environment } from "../environments/environment";
+import { isNullOrUndefined } from "util";
 
 @Component({
   selector: 'app-component',
@@ -41,15 +42,19 @@ export class AppComponent {
   ngOnInit() {
 
     this._userService.getCurrentUser().subscribe(user => {
-      this._user = {
-        firstName: user.firstName,
-        lastName: user.lastName
-      };
+      if(!isNullOrUndefined(user)) {
+        this._user = {
+          firstName: user.firstName,
+          lastName: user.lastName
+        };
 
-      this.interpretiveGuide = user.configuration.interpretiveGuide;
+        this.interpretiveGuide = user.configuration.interpretiveGuide;
 
-      if (window[ 'ga' ] && user.configuration && user.configuration.analyticsTrackingId) {
-        window[ 'ga' ]('create', user.configuration.analyticsTrackingId, 'auto');
+        if (window[ 'ga' ] && user.configuration && user.configuration.analyticsTrackingId) {
+          window[ 'ga' ]('create', user.configuration.analyticsTrackingId, 'auto');
+        }
+      } else {
+        this.router.navigate(["error"]);
       }
     });
 

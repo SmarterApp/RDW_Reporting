@@ -2,7 +2,7 @@
   <span class="h3 blue-dark">{{'labels.groups.name' | translate}}</span>
   <span class="pull-right text-right">
     <button class="btn btn-default btn-sm" (click)="exportCsv()"><i class="fa fa-bold fa-table"></i> {{'labels.export.csv' | translate}}</button>
-    <span group-report-download class="ml-xs" [groupId]="currentGroup.id" [schoolYears]="filterOptions.schoolYears"></span>
+    <span group-report-download class="ml-xs" [group]="currentGroup" [schoolYears]="filterOptions.schoolYears"></span>
   </span>
 </div>
 <div *ngIf="!currentGroup" class="alert alert-danger">

@@ -21,7 +21,8 @@
     },
     "toggle-navigation": "Toggle navigation",
     "no-item-level-data": "Item level data is not available for tests administered prior to 2016-17 school year.",
-    "coming-soon": "{{featureName}} is coming soon."
+    "coming-soon": "{{featureName}} is coming soon.",
+    "unknown-error": "An unknown error as occurred. You can try the same action again or click the button below to go to the home page.  If this problem persists, please contact your building administrator."
   },
   "collapse": "Collapse",
   "select": "Select",
@@ -39,9 +40,18 @@
       }
     },
     "languages": {
-      "eng": "English",
-      "spa": "Español",
-      "vie": "Tiếng Việt"
+      "eng": {
+        "native": "English",
+        "default" : "English"
+      },
+      "spa": {
+        "native": "Español",
+        "default": "Spanish"
+      },
+      "vie": {
+        "native": "Tiếng Việt",
+        "default": "Vietnamese"
+      }
     },
     "assessmentTypes": {
       "1": {
@@ -465,7 +475,8 @@
     },
     "search": "Search",
     "display-overall": "Overall Scores",
-    "display-claim": "Claim Scores"
+    "display-claim": "Claim Scores",
+    "go-home": "Go Home"
   },
   "enum": {
     "administrative-condition": {

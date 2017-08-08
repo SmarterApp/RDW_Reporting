@@ -6,7 +6,7 @@ import { User } from "./model/user.model";
 
 @Injectable()
 export class UserResolve implements Resolve<User> {
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User>|Promise<User>|User {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User>|Promise<User>|User|any {
     return this.service.getCurrentUser();
   }
 

@@ -121,7 +121,8 @@ export class ReportService {
       subject: AssessmentSubjectType[ options.subject ],
       schoolYear: options.schoolYear,
       language: options.language,
-      grayscale: options.grayscale
+      grayscale: options.grayscale,
+      name: options.name
     };
   }
 
@@ -135,7 +136,8 @@ export class ReportService {
     return {
       schoolYear: options.schoolYear,
       language: options.language,
-      order: ReportOrder[ options.order ]
+      order: ReportOrder[ options.order ],
+      name: options.name
     };
   }
 

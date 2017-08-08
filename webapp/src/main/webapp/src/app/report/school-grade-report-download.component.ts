@@ -4,6 +4,9 @@ import { saveAs } from "file-saver";
 import { ReportDownloadComponent } from "./report-download.component";
 import { NotificationService } from "../shared/notification/notification.service";
 import { Report } from "./report.model";
+import { School } from "../user/model/school.model";
+import { Grade } from "../school-grade/grade.model";
+import { TranslateService } from "@ngx-translate/core";
 
 /**
  * Component used for single-student exam report download
@@ -15,12 +18,12 @@ import { Report } from "./report.model";
 export class SchoolGradeDownloadComponent extends ReportDownloadComponent {
 
   @Input()
-  public schoolId: number;
+  public school: School;
 
   @Input()
-  public gradeId: number;
+  public grade: Grade;
 
-  constructor(private service: ReportService, notificationService: NotificationService) {
+  constructor(private service: ReportService, notificationService: NotificationService, private translate: TranslateService) {
     super('labels.reports.button-label.school-grade', notificationService);
     this.batch = true;
   }
@@ -29,7 +32,9 @@ export class SchoolGradeDownloadComponent extends ReportDownloadComponent {
 
     this.popover.hide();
 
-    this.service.createSchoolGradeExamReport(this.schoolId, this.gradeId, this.options)
+    this.options.name = this.getName();
+
+    this.service.createSchoolGradeExamReport(this.school.id, this.grade.id, this.options)
       .subscribe(
         (report: Report) => {
           this.notificationService.info({ id: 'labels.reports.messages.submitted.html', html: true });
@@ -38,6 +43,16 @@ export class SchoolGradeDownloadComponent extends ReportDownloadComponent {
           this.notificationService.error({ id: 'labels.reports.messages.submission-failed.html', html: true });
         }
       );
+  }
+
+  private getName(): string {
+    return [
+      this.school.name,
+      this.translate.instant(`labels.grades.${this.grade.code}.short-name`),
+      this.options.schoolYear.toString(),
+      this.options.language === this.languages[ 0 ]
+        ? '' : this.translate.instant(`labels.languages.${this.options.language}.default`)
+    ].join(' ').trim();
   }
 
 }

@@ -52,11 +52,22 @@ export class DataService {
   private getMapper(options?: RequestOptionsArgs): (response: Response) => any {
     if (options != null && options.responseType == ResponseContentType.Blob) {
       return (response: Response) => new Download(
-        this.getFileNameFromResponse(response),
+        this.safelyFormatFileName(this.getFileNameFromResponse(response)),
         new Blob([ response.blob() ], { type: this.getContentType(response) })
       );
     }
     return response => response.json();
+  }
+
+  /**
+   * Replaces whitespace in the given name with underscores.
+   * This implementation is null-safe and will return null if provided null.
+   *
+   * @param name the name to format
+   * @returns {string} thre formatted name
+   */
+  private safelyFormatFileName(name: string) {
+    return name == null ? null : name.replace(/\s+/g, '_');
   }
 
   /**

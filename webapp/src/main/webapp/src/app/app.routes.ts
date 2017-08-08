@@ -18,6 +18,7 @@ import { StudentHistoryResponsesStudentResolve } from "./student/responses/stude
 import { SessionExpiredComponent } from "./shared/authentication/session-expired.component";
 import { ReportsResolve } from "./report/reports.resolve";
 import { ReportsComponent } from "./report/reports.component";
+import { ErrorComponent } from "./error/error.component";
 
 
 const studentTestHistoryChildRoute = {
@@ -132,6 +133,11 @@ export const routes: Routes = [
         path: 'session-expired',
         pathMatch: 'full',
         component: SessionExpiredComponent
+      },
+      {
+        path: 'error',
+        pathMatch: 'full',
+        component: ErrorComponent
       }
     ]
   }

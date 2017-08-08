@@ -32,7 +32,6 @@ export class ReportsComponent implements OnInit {
           saveAs(download.content, download.name);
         },
         (error: any) => {
-          console.log("errorYO", error);
           this.notificationService.error({id: 'labels.reports.messages.download-failed'});
         }
       );

@@ -23,7 +23,7 @@ export class RdwTranslateLoader {
 
   getTranslation(lang: string) {
     let uiObservable = this.uiLoader.getTranslation(lang);
-    let apiObservable = this.apiLoader.getTranslation(lang);
+    let apiObservable = this.apiLoader.getTranslation(lang).catch(res => Observable.of({}));
 
     let translateObserver: Observer<any>;
     this._observable = new Observable<any>(observer => translateObserver = observer).share();
