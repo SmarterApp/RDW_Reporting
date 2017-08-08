@@ -1,7 +1,7 @@
 apply plugin: 'org.springframework.boot'
 
 createDockerfile {
-    ext.java_opts = ["-Xmx300m"]
+    ext.java_opts = ["-Xmx512m"]
 }
 
 dependencies {
