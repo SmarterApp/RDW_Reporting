@@ -5,6 +5,7 @@
     <span group-report-download #downloader class="ml-xs"
           [group]="currentGroup"
           [schoolYears]="filterOptions.schoolYears"
+          [disabled]="assessmentExams.length == 0"
           (onShown)="initializeDownloader(downloader)"></span>
   </span>
 </div>
