@@ -2,7 +2,7 @@
 
 <div class="well" *ngIf="resolution.isOk()">
 
-  <p *ngIf="!reports.length" [innerHtml]="'labels.reports.no-reports-html' | translate"></p>
+  <p *ngIf="!reports.length" [innerHtml]="'labels.reports.messages.get-all.no-results-html' | translate"></p>
 
   <p-dataTable *ngIf="reports.length"
       [value]="reports"
@@ -33,7 +33,7 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <div class="alert alert-danger">
-        <p>{{'labels.reports.messages.get-reports-error' | translate}}</p>
+        <p>{{'labels.reports.messages.get-all.error' | translate}}</p>
       </div>
     </div>
   </div>

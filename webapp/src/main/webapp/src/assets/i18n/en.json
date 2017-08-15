@@ -386,7 +386,6 @@
     "reports": {
       "link": "My Reports",
       "heading": "My Reports",
-      "no-reports-html": "<p>To create a report, first select a group or school from the <a href=\"/\">Home page</a>. Next click the \"Student Reports\" button to get started.",
       "reload": "Reload",
       "column": {
         "created": {
@@ -418,17 +417,20 @@
         "1": "Student SSID"
       },
       "messages" : {
-        "get-reports-error": "There was an unexpected error while getting your reports. Please click the button below to reload the page and try again.",
-        "404": "This student does not have any test results for your selection. Please update your selection and try again.",
-        "500": "There was an unexpected error while generating this report.  Please try again.",
-        "submitted-single": "Creating report. Your download will begin in a moment.",
-        "submitted": {
-          "html": "Creating report. See <a href=\"/reports\">status</a>."
+        "get": {
+          "error": "There was an unexpected error while getting this report. Please try again."
         },
-        "submission-failed": {
-          "html": "Error creating report. See <a href=\"/reports\">status</a>."
+        "get-all": {
+          "error": "There was an unexpected error while getting your reports. Please click the button below to reload the page and try again.",
+          "no-results-html": "<p>To create a report, first select a group or school from the <a href=\"/\">Home page</a>. Next click the \"Student Reports\" button to get started."
         },
-        "download-failed": "There was an unexpected error while getting this report. Please try again.",
+        "create": {
+          "success-html": "Creating report. See <a href=\"/reports\">status</a>.",
+          "error": "There was an unexpected error while generating this report.  Please try again..",
+          "student-no-content": "This student does not have any test results for your selection. Please update your selection and try again.",
+          "school-grade-no-content": "This school and assessment grade does not have any test results for your selection. Please update your selection and try again.",
+          "group-no-content": "This group does not have any test results for your selection. Please update your selection and try again."
+        },
         "coming-soon": {
           "report-regeneration": "Report regeneration is coming soon."
         }
