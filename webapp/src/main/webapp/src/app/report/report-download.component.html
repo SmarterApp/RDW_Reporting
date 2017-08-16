@@ -1,6 +1,7 @@
 <span *ngIf="options" class="report-download-container">
 
   <button class="btn btn-sm btn-default"
+          [disabled]="disabled"
           (onShown)="onShownInternal($event)"
           #downloadPopover="bs-popover"
           containerClass="report-download-popover"

@@ -4,10 +4,13 @@
     <span>{{examHistory.student.ssid}}</span>
   </span>
   <span class="pull-right text-right">
-    <button class="btn btn-default btn-sm" (click)="exportCsv()"><i class="fa fa-bold fa-table"></i> {{'labels.export.csv' | translate}}</button>
+    <button class="btn btn-default btn-sm"
+            (click)="exportCsv()"
+            [disabled]="examHistory.exams.length == 0"><i class="fa fa-bold fa-table"></i> {{'labels.export.csv' | translate}}</button>
     <span student-report-download #downloader class="ml-xs"
           [studentId]="examHistory.student.id"
           [schoolYears]="filterState.years"
+          [disabled]="examHistory.exams.length == 0"
           (onShown)="initializeDownloader(downloader)"></span>
   </span>
 </div>

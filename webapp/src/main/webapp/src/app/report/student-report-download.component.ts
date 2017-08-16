@@ -25,8 +25,6 @@ export class StudentReportDownloadComponent extends ReportDownloadComponent {
 
     this.popover.hide();
 
-    this.notificationService.info({ id: 'labels.reports.messages.submitted-single' });
-
     this.service.getStudentExamReport(this.studentId, this.options)
       .subscribe(
         (download: Download) => {
@@ -35,8 +33,8 @@ export class StudentReportDownloadComponent extends ReportDownloadComponent {
         (error: any) => {
           this.notificationService.error({
             id: error.name === 'NotFoundError'
-              ? 'labels.reports.messages.404'
-              : 'labels.reports.messages.500'
+              ? 'labels.reports.messages.create.student-no-content'
+              : 'labels.reports.messages.get.error'
           });
         }
       )

@@ -33,10 +33,14 @@ export class GroupReportDownloadComponent extends ReportDownloadComponent {
     this.service.createGroupExamReport(this.group.id, this.options)
       .subscribe(
         (report: Report) => {
-          this.notificationService.info({ id: 'labels.reports.messages.submitted.html', html: true });
+          this.notificationService.info({ id: 'labels.reports.messages.create.success-html', html: true });
         },
         (error: any) => {
-          this.notificationService.error({ id: 'labels.reports.messages.submission-failed.html', html: true });
+          this.notificationService.error({
+            id: error.name === 'NotFoundError'
+              ? 'labels.reports.messages.create.group-no-content'
+              : 'labels.reports.messages.create.error'
+          });
         }
       );
   }

@@ -37,10 +37,14 @@ export class SchoolGradeDownloadComponent extends ReportDownloadComponent {
     this.service.createSchoolGradeExamReport(this.school.id, this.grade.id, this.options)
       .subscribe(
         (report: Report) => {
-          this.notificationService.info({ id: 'labels.reports.messages.submitted.html', html: true });
+          this.notificationService.info({ id: 'labels.reports.messages.create.success-html', html: true });
         },
         (error: any) => {
-          this.notificationService.error({ id: 'labels.reports.messages.submission-failed.html', html: true });
+          this.notificationService.error({
+            id: error.name === 'NotFoundError'
+              ? 'labels.reports.messages.create.school-grade-no-content'
+              : 'labels.reports.messages.create.error'
+          });
         }
       );
   }

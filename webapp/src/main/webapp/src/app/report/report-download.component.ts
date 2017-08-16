@@ -20,6 +20,9 @@ export abstract class ReportDownloadComponent implements OnInit {
   @Input()
   public batch: boolean = false;
 
+  @Input()
+  public disabled: boolean = false;
+
   @Output()
   public onShown: EventEmitter<any> = new EventEmitter<any>();
 
