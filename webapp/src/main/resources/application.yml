@@ -21,6 +21,11 @@ saml:
     port: 8080
     include-server-port: false
 
+server:
+  # straw-man values for restricting resource utilization
+  tomcat:
+    max-connections: 100
+    max-threads: 20
 
 spring:
   session:

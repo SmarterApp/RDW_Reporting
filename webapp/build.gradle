@@ -4,6 +4,10 @@ plugins {
 
 apply plugin: 'org.springframework.boot'
 
+createDockerfile {
+    ext.java_opts = ["-Xmx768m"]
+}
+
 dependencies {
     compile project(':rdw-reporting-common')
     compile 'org.opentestsystem.rdw.common:rdw-common-model'
