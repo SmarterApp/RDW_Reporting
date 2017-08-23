@@ -4,6 +4,7 @@ import { saveAs } from "file-saver";
 import { ReportDownloadComponent } from "./report-download.component";
 import { Download } from "../shared/data/download.model";
 import { NotificationService } from "../shared/notification/notification.service";
+import { Student } from "../student/model/student.model";
 
 /**
  * Component used for single-student exam report download
@@ -15,7 +16,7 @@ import { NotificationService } from "../shared/notification/notification.service
 export class StudentReportDownloadComponent extends ReportDownloadComponent {
 
   @Input()
-  public studentId: number;
+  public student: Student;
 
   constructor(private service: ReportService, notificationService: NotificationService) {
     super('labels.reports.button-label.student', notificationService);
@@ -27,7 +28,7 @@ export class StudentReportDownloadComponent extends ReportDownloadComponent {
 
     this.notificationService.info({ id: 'labels.reports.messages.submitted-single' });
 
-    this.service.getStudentExamReport(this.studentId, this.options)
+    this.service.getStudentExamReport(this.student.id, this.options)
       .subscribe(
         (download: Download) => {
           saveAs(download.content, download.name);

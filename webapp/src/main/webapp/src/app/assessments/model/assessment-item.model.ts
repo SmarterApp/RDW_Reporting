@@ -19,6 +19,19 @@ export class AssessmentItem {
     return this.commonCoreStandardIds && this.commonCoreStandardIds.length > 0
   }
 
+  get difficultySortOrder() {
+    switch (this.difficulty) {
+      case 'E':
+        return 1;
+      case 'M':
+        return 2;
+      case 'D':
+        return 3;
+    }
+
+    return 0;
+  }
+
   get claimTarget() {
     return this.claim + ' / ' + this.target;
   }

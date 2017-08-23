@@ -8,7 +8,7 @@
   "messages": {
     "noExams": "There are no exams associated with your account.",
     "noExamsMatchingCriteria": "There are no exams matching this criteria.",
-    "no-results-found": "No test results are available for the current selection.",
+    "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above.",
     "noExamsSelected": "Please select from the assessments above",
     "notApplicable": "-",
     "ok": "Ok",
@@ -233,11 +233,11 @@
           "instruct": "Instructional Resources",
           "sessions-title": "Sessions",
           "sessions-instruct": "Toggle a session to include or exclude it from the results.",
-          "exam-results": "Student Results",
-          "button-items": "Item by Points Earned",
-          "button-exams": "Student Results",
+          "exam-results": "Results By Student",
+          "button-items": "Results By Item",
+          "button-exams": "Results By Student",
           "exams": {
-            "title": "Student Results",
+            "title": "Results By Student",
             "empty-message": "No test results are available for the sessions and advanced filters selected.",
             "cols": {
               "name": "Student",
@@ -246,7 +246,7 @@
               "grade": "Enrolled Grade",
               "status": "Status",
               "status-info": "Refers to whether an assessment has been flagged as standardized/nonstandardized, complete/partial, and valid/invalid.",
-              "score": "Scale Score",
+              "score": "Scale Score / Error Band",
               "score-info": "A student's test score and an error band based on the Standard Error of Measurement (SEM) associated with that score.  Smarter Balanced test scores are on a vertical scale, meaning that scores for all grades are reported on a single continuous scale to reflect the increased expectations as students advance through the grades.  The error band is included because test scores are estimates of student achievement and come with a certain amount of measurement error. See the Interpretive Guide for additional information about scale scores and measurement error.",
               "iab": {
                 "performance": "Reporting Category",
@@ -259,7 +259,7 @@
             }
           },
           "items": {
-            "title": "Items By Points Earned",
+            "title": "Results By Item",
             "cols": {
               "number": "Item #",
               "claim": "Claim/Target",
@@ -267,6 +267,10 @@
               "difficulty": "Item Difficulty",
               "difficulty-info": "Item difficulty (easy, moderate, difficult) is based on the difficulty of the item for students in a reference population.  See the Interpretive Guide for a description of the reference population and how the difficulty categories are derived.",
               "standard": "Standard",
+              "standard-info-html": {
+                "ELA": "This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  For example, a question that asks students to evaluate research sources may assess both reading and research skills.  For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf\" target=\"_blank\">English Language Arts Content Specifications</a>.",
+                "MATH": "This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  Items that assess mathematical practices (problem solving, modeling and data analysis, and communicating reasoning) are also aligned to standards that describe the mathematical content with which students engage. For example, an item may ask students to communicate their reasoning when solving a problem about geometry or fractions. For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf\" target=\"_blank\">Mathematics Content Specifications</a>."
+              },
               "full-credit": "Full Credit",
               "full-credit-info": "Percentage of students in the group who earned the maximum number of points available for a particular test item.",
               "x-points": "{{id}}"
@@ -284,9 +288,10 @@
             "max": "Max Score",
             "correctness": "Correctness"
           },
-          "student-scores": "Student Scores",
+          "student-scores": "Student Scores and Responses",
           "student-scores-intro-text": "Expand each student row to view their response to this item.",
           "item-viewer": "Item Viewer",
+          "item-viewer-intro-text": "This is the view of the item as seen while taking the assessment.  This does not include student responses.",
           "exemplar": {
             "title": "Rubric and Exemplar",
             "rubric": "Rubric",
@@ -315,7 +320,7 @@
           }
         }
       },
-      "average-scale-score": "Average Scale Score",
+      "average-scale-score": "Average Scale Score / Error Band",
       "average-scale-score-info": "Average scale score for the selected group of students and an error band based on the Standard Error of the Mean (SEM) associated with that score. Test scores are estimates of student achievement and come with a certain amount of measurement error. See the Interpretive Guide for additional information about scale scores and measurement error.",
       "students": "Students",
       "student-score-distribution": "Student Score Distribution"
@@ -450,10 +455,11 @@
     "select-year": "School Year",
     "export": {
       "csv": "Export CSV",
-      "items-by-points-earned": "Export Items by Points Earned",
+      "items-by-points-earned": "Export Results By Item",
       "cols": {
         "student-id": "Student ID",
-        "student-name": "Student Name",
+        "student-first-name": "Student First Name",
+        "student-last-name": "Student Last Name",
         "assessment-type": "Assessment Type",
         "subject": "Subject",
         "error-band-min": "Error Band Min",

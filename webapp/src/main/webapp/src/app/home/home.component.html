@@ -32,9 +32,11 @@
     <!-- Right Column Content Area -->
     <div class="col-md-3 pt-lg">
       <!-- Student Groups Admin Link -->
-      <p class="text-right" *sbAuthorize="['GROUP_WRITE']">
-        <a href="#" class="btn btn-xs btn-info"><i class="fa fa-gear"></i> {{'labels.groups.manage-group' | translate}}</a>
-      </p>
+      <span *ngIf="user.configuration.adminWebappUrl.length != 0">
+        <p class="text-right" *sbAuthorize="['GROUP_WRITE']">
+          <a href="{{user.configuration.adminWebappUrl}}" class="btn btn-xs btn-info"><i class="fa fa-gear"></i> {{'labels.groups.manage-group' | translate}}</a>
+        </p>
+      </span>
 
       <!-- Welcome Content -->
       <div class="welcome-container well">

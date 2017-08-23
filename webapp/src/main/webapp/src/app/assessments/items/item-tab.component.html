@@ -6,6 +6,7 @@
   </tab>
   <tab *ngIf="showItemDetails" (select)="selectTab('Item Viewer')" heading="{{translateRoot + 'item-viewer' | translate }}">
     <div class="tab-content well">
+      <p>{{ 'labels.assessments.items.tabs.item-viewer-intro-text' | translate }}</p>
       <item-viewer *ngIf="loadItemViewer"
                    [bankItemKey]="item.bankItemKey"
                    [response]="response"

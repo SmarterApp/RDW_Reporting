@@ -125,6 +125,6 @@
                       (onExportItemsByPointsEarned)="exportItemsByPointsEarned($event)"></assessment-results>
 </div>
 <!-- No Results Error -->
-<div class="alert alert-danger" *ngIf="assessmentExams.length == 0">
+<div class="alert alert-info" *ngIf="assessmentExams.length == 0">
   {{'messages.no-results-found' | translate}}
 </div>

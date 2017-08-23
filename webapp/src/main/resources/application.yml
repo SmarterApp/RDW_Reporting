@@ -102,6 +102,8 @@ app:
   reportservice:
     url: http://localhost:8083
 
+  admin-webapp-url:
+
   external-links:
     interpretive-guide: http://www.smarterbalanced.org/educators/
 

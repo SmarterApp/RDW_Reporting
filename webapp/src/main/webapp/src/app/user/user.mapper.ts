@@ -11,19 +11,15 @@ import { Configuration } from "./model/configuration.model";
 export class UserMapper {
 
   mapFromApi(apiModel: any): User {
-    let uiModel = new User();
-
+    let uiModel: User = new User();
     uiModel.firstName = apiModel.firstName;
     uiModel.lastName = apiModel.lastName;
-
     apiModel.permissions.forEach(permission => {
       uiModel.permissions.push(permission);
     });
-
     uiModel.schools = this.mapSchoolsFromApi(apiModel.schools);
     uiModel.groups = this.mapGroupsFromApi(apiModel.groups);
     uiModel.configuration = this.mapConfigurationFromApi(apiModel.settings);
-
     return uiModel;
   }
 
@@ -43,11 +39,9 @@ export class UserMapper {
   }
 
   private mapSchoolFromApi(apiModel: any): School {
-    let uiModel = new School();
-
+    let uiModel: School = new School();
     uiModel.id = apiModel.id;
     uiModel.name = apiModel.name;
-
     return uiModel;
   }
 
@@ -67,28 +61,26 @@ export class UserMapper {
   }
 
   private mapGroupFromApi(apiModel: any): Group {
-    let uiModel = new Group();
-
+    let uiModel: Group = new Group();
     uiModel.id = apiModel.id;
     uiModel.name = apiModel.name;
     uiModel.schoolName = apiModel.schoolName;
     uiModel.subjectId = apiModel.subjectId;
-
     return uiModel;
   }
 
   private mapConfigurationFromApi(apiModel: any): Configuration {
-    let uiModel = new Configuration();
-
-    if(isNullOrUndefined(apiModel))
+    let uiModel: Configuration = new Configuration();
+    if (isNullOrUndefined(apiModel)) {
       return uiModel;
-
+    }
     uiModel.irisUrl = apiModel.irisUrl;
     uiModel.irisVendorId = apiModel.irisVendorId;
     uiModel.analyticsTrackingId = apiModel.analyticsTrackingId;
     uiModel.interpretiveGuide = apiModel.interpretiveGuideUrl;
     uiModel.minItemDataYear = apiModel.minItemDataYear;
-
+    uiModel.adminWebappUrl = apiModel.adminWebappUrl;
     return uiModel;
   }
+
 }

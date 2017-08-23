@@ -99,8 +99,11 @@ export class CsvBuilder {
 
   withStudentName(getStudent: (item: any) => Student) {
     return this.withColumn(
-      this.translateService.instant('labels.export.cols.student-name'),
-      (item) => this.translateService.instant('labels.personName', getStudent(item))
+      this.translateService.instant('labels.export.cols.student-first-name'),
+      (item) => getStudent(item).firstName
+    ).withColumn(
+      this.translateService.instant('labels.export.cols.student-last-name'),
+      (item) => getStudent(item).lastName
     );
   }
 

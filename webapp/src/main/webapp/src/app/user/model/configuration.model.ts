@@ -4,4 +4,5 @@ export class Configuration {
   analyticsTrackingId: string;
   interpretiveGuide: string;
   minItemDataYear: number;
+  adminWebappUrl: string;
 }

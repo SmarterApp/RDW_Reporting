@@ -202,7 +202,7 @@
               {{ 'definition.claim.' + item.claim + '.name' | translate }} / {{ 'labels.groups.results.assessment.items.target' | translate:item }}
             </ng-template>
           </p-column>
-          <p-column field="difficulty" [sortable]="true">
+          <p-column field="difficulty" [sortable]="true" sortField="difficultySortOrder">
             <ng-template pTemplate="header">
               <span info-label title="{{'labels.groups.results.assessment.items.cols.difficulty' | translate}}"
                           content="{{'labels.groups.results.assessment.items.cols.difficulty-info' | translate}}"></span>
@@ -211,7 +211,11 @@
               {{ 'enum.difficulty.' + item.difficulty | translate }}
             </ng-template>
           </p-column>
-          <p-column field="commonCoreStandardIds" header="{{'labels.groups.results.assessment.items.cols.standard' | translate}}" sortable="true">
+          <p-column field="commonCoreStandardIds" sortable="true">
+            <ng-template pTemplate="header">
+              <span info-label title="{{'labels.groups.results.assessment.items.cols.standard' | translate}}"
+                    content="{{'labels.groups.results.assessment.items.cols.standard-info-html.' + assessmentExam.assessment.subject | translate}}"></span>
+            </ng-template>
             <ng-template let-standards="rowData.commonCoreStandardIds" pTemplate="body">
               <span *ngFor="let standard of standards" class="label border-only blue mr-xs">{{standard}}</span>
             </ng-template>

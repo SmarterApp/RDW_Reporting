@@ -78,7 +78,24 @@ export class DataService {
    */
   private getFileNameFromResponse(response: Response): string {
     let header: string = response.headers.get('Content-Disposition');
-    return header == null ? null : header.split(';')[ 1 ].trim().split('=')[ 1 ].replace(/"/g, '');
+    return header == null ? null : this.decodeHeaderFieldValue(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/g.exec(header)[ 1 ]);
+  }
+
+  /**
+   * Decodes a possibly encoded header field value such as the Content-Disposition filename
+   *
+   * @param value the header value
+   * @returns {any} the decoded header value
+   */
+  private decodeHeaderFieldValue(value: string): string {
+    if (value == null) {
+      return null;
+    }
+    let utf8Prefix: string = "UTF-8''";
+    if (value.toUpperCase().startsWith(utf8Prefix)) {
+      return decodeURIComponent(value.substring(utf8Prefix.length));
+    }
+    return value;
   }
 
   /**
