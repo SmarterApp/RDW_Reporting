@@ -1,6 +1,6 @@
 include ':common'
 include ':webapp'
-include ':pdf-report-processor'
+include ':report-processor'
 
 rootProject.name = "rdw-reporting"
 
