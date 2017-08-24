@@ -60,7 +60,7 @@ services:
       - "dwhost:$DATAWAREHOUSE_HOST"
 
   report-processor-service:
-    image: fwsbac/rdw-reporting-pdf-report-processor
+    image: fwsbac/rdw-reporting-report-processor
     ports:
       - 8085:8080
       - 8086:8008
