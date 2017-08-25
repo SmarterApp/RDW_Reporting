@@ -34,6 +34,7 @@ apply plugin: 'io.spring.dependency-management'
 
 String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "0.0.1-36"
 String rdwSchemaVersion = project.hasProperty("schema") ? project.property("schema") : "0.0.1-128"
+String dockerPrefix = "smarterbalanced"
 
 allprojects {
     group = 'org.opentestsystem.rdw.reporting'
@@ -162,7 +163,7 @@ subprojects {
         task buildImage(type: DockerBuildImage, dependsOn: [build, createDockerfile]) {
             dockerFile = createDockerfile.destFile
             inputDir = project.file('build/docker/')
-            tag = "fwsbac/${project.name}"
+            tag = "${dockerPrefix}/${project.name}"
             doFirst {
                 copy {
                     from jar
@@ -173,7 +174,7 @@ subprojects {
 
         // to use this, you must use valid docker credentials, which can be set in the gradle.properties file
         task dockerPushImage(type: DockerPushImage, dependsOn: buildImage) {
-            imageName = "fwsbac/${project.name}"
+            imageName = "${dockerPrefix}/${project.name}"
         }
     }
 
