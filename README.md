@@ -115,8 +115,8 @@ You must explicitly build the docker images:
 $ gradle buildImage
 $ docker images
 REPOSITORY                              TAG                 IMAGE ID            CREATED             SIZE
-fwsbac/rdw-reporting-service            latest              da5207b421c0        30 seconds ago      150 MB
-fwsbac/configuration-service            latest              1b41406534c7        2 weeks ago         221 MB
+smarterbalanced/rdw-reporting-service            latest              da5207b421c0        30 seconds ago      150 MB
+smarterbalanced/configuration-service            latest              1b41406534c7        2 weeks ago         221 MB
 java                                    8-jre-alpine        d85b17c6762e        6 weeks ago         108 MB
 ```
 
@@ -124,7 +124,7 @@ After cycling through some builds you will end up with a number of dangling imag
 ```bash
 $ docker images
 REPOSITORY                          TAG                 IMAGE ID            CREATED             SIZE
-fwsbac/rdw-reporting-service        latest              da5207b421c0        30 seconds ago      150 MB
+smarterbalanced/rdw-reporting-service        latest              da5207b421c0        30 seconds ago      150 MB
 <none>                              <none>              13b96a973d59        About an hour ago   140 MB
 <none>                              <none>              cb5063cbcc56        2 hours ago         140 MB
 <none>                              <none>              2236259b73f0        3 hours ago         140 MB
@@ -134,7 +134,7 @@ These can be quickly cleaned up:
 $ docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 $ docker images
 REPOSITORY                          TAG                 IMAGE ID            CREATED             SIZE
-fwsbac/rdw-reporting-service        latest              da5207b421c0        30 seconds ago      150 MB
+smarterbalanced/rdw-reporting-service        latest              da5207b421c0        30 seconds ago      150 MB
 ```
 
 ### Running
