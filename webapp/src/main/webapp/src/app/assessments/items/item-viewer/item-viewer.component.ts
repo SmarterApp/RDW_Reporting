@@ -1,6 +1,9 @@
-import { Component, OnInit, ElementRef, ViewChild, Input } from "@angular/core";
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { UserService } from "../../../user/user.service";
+import { ItemScoringGuide } from "../item-exemplar/model/item-scoring-guide.model";
+import { ItemScoringService } from "../item-exemplar/item-scoring.service";
+import { isNullOrUndefined } from "util";
 
 /**
  * IRiS is the vendor client which allows us to integrate with the
@@ -32,8 +35,9 @@ export class ItemViewerComponent implements OnInit {
 
   public irisIsLoading: boolean = true;
   public safeIrisUrl: SafeResourceUrl;
-  private vendorId;
+  public rubricModel: ItemScoringGuide;
 
+  private vendorId;
   private _irisFrame;
   private _currentAttempt = 3;
 
@@ -44,7 +48,9 @@ export class ItemViewerComponent implements OnInit {
     }
   }
 
-  constructor(private sanitizer: DomSanitizer, private userService: UserService) {
+  constructor(private sanitizer: DomSanitizer,
+              private userService: UserService,
+              private itemScoringService: ItemScoringService) {
   }
 
   ngOnInit() {
@@ -56,6 +62,21 @@ export class ItemViewerComponent implements OnInit {
 
       this._irisFrame.addEventListener('load', this.irisframeOnLoad.bind(this));
     });
+
+    //Fetch the rubric for displaying a simple answer key or letting the user know
+    //that more scoring information can be found in the exemplar tab.
+    //NOTE: if the rubric is empty, don't tell the user more info can be found in the exemplar tab
+    this.itemScoringService
+      .getGuide(this.bankItemKey)
+      .subscribe(guide => {
+        if (guide.rubrics.length > 0 ||
+          guide.exemplars.length > 0 ||
+          !isNullOrUndefined(guide.answerKeyValue)) {
+          this.rubricModel = guide;
+        }
+      }, (response) => {
+        console.warn(response);
+      });
   }
 
   irisframeOnLoad() {
