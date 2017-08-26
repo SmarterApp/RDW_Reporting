@@ -6,7 +6,7 @@
   </div>
   <div *ngIf="rubricModel" style="white-space: normal">
     <div *ngIf="rubricModel.answerKeyValue" class="mb-md">
-      <b>{{ 'labels.assessments.items.tabs.exemplar.answer-key' | translate }}</b> {{rubricModel.answerKeyValue}}
+      <strong>{{ 'labels.assessments.items.tabs.exemplar.answer-key' | translate }}</strong> {{rubricModel.answerKeyValue}}
     </div>
     <div *ngIf="!rubricModel.answerKeyValue" class="mb-md">
       {{ 'labels.assessments.items.tabs.item-viewer-see-rubric' | translate }}

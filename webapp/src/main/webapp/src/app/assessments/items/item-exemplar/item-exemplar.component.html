@@ -7,7 +7,7 @@
      TODO: updates the white-space:nowrap style implementation-->
 <div *ngIf="model" style="white-space: normal">
   <div *ngIf="model.answerKeyValue" class="pad-bottom-10">
-    <b>{{ translateRoot + 'answer-key' | translate }}</b> {{model.answerKeyValue}}
+    <strong>{{ translateRoot + 'answer-key' | translate }}</strong> {{model.answerKeyValue}}
   </div>
 
   <div *ngIf="model.rubrics.length > 0">
