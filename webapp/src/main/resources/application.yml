@@ -29,7 +29,6 @@ server:
   tomcat:
     max-connections: 100
     max-threads: 20
-  use-forward-headers: true
 
 spring:
   session:
