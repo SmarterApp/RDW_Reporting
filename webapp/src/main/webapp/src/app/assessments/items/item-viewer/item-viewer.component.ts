@@ -1,5 +1,4 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
-import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { UserService } from "../../../user/user.service";
 import { ItemScoringGuide } from "../item-exemplar/model/item-scoring-guide.model";
 import { ItemScoringService } from "../item-exemplar/item-scoring.service";
@@ -34,7 +33,6 @@ export class ItemViewerComponent implements OnInit {
   public position: number;
 
   public irisIsLoading: boolean = true;
-  public safeIrisUrl: SafeResourceUrl;
   public rubricModel: ItemScoringGuide;
 
   private vendorId;
@@ -48,16 +46,12 @@ export class ItemViewerComponent implements OnInit {
     }
   }
 
-  constructor(private sanitizer: DomSanitizer,
-              private userService: UserService,
+  constructor(private userService: UserService,
               private itemScoringService: ItemScoringService) {
   }
 
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(user => {
-      let irisUrl = user.configuration.irisUrl;
-
-      this.safeIrisUrl = this.sanitizer.bypassSecurityTrustResourceUrl(irisUrl);
       this.vendorId = user.configuration.irisVendorId;
 
       this._irisFrame.addEventListener('load', this.irisframeOnLoad.bind(this));

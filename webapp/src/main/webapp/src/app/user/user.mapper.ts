@@ -80,7 +80,6 @@ export class UserMapper {
     if (isNullOrUndefined(apiModel)) {
       return uiModel;
     }
-    uiModel.irisUrl = apiModel.irisUrl;
     uiModel.irisVendorId = apiModel.irisVendorId;
     uiModel.analyticsTrackingId = apiModel.analyticsTrackingId;
     uiModel.interpretiveGuide = apiModel.interpretiveGuideUrl;
