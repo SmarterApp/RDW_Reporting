@@ -30,15 +30,15 @@ ext['thymeleaf-layout-dialect.version'] = '2.1.1'
 
 apply plugin: 'io.spring.dependency-management'
 
-// Set version dependencies. This allows the cli to force version, e.g. `-Pcommon=0.0.1-SNAPSHOT`
+// Set version dependencies. This allows the cli to force version, e.g. `-Pcommon=1.0.0-SNAPSHOT`
 
-String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "0.0.1-36"
-String rdwSchemaVersion = project.hasProperty("schema") ? project.property("schema") : "0.0.1-186"
+String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "1.0.0-40"
+String rdwSchemaVersion = project.hasProperty("schema") ? project.property("schema") : "1.0.0-189"
 String dockerPrefix = "smarterbalanced"
 
 allprojects {
     group = 'org.opentestsystem.rdw.reporting'
-    version = '0.0.1-SNAPSHOT'
+    version = '1.0.0-SNAPSHOT'
 
     apply plugin: 'idea'
     apply plugin: 'propdeps'

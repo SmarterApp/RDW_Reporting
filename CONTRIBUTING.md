@@ -37,7 +37,7 @@ SNAPSHOT version of the RDW_Schema:
 and then run the integration tests as usual, but using the local SNAPSHOT version of RDW_Schema:
 ```bash
 //under the RDW_Ingest directory...
- ./gradlew build it -Pschema=0.0.1-SNAPSHOT
+ ./gradlew build it -Pschema=1.0.0-SNAPSHOT
 ```
 
 

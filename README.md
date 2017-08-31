@@ -97,7 +97,7 @@ git checkout develop
 Then to use those new changes, you can specify the SNAPSHOT version of RDW_Common
 ```bash
 //In RDW_Reporting
-./gradlew build it -Pcommon=0.0.1-SNAPSHOT
+./gradlew build it -Pcommon=1.0.0-SNAPSHOT
 ```
 
 Now you should be able to build and test the reporting app from where you cloned this project:
@@ -142,8 +142,8 @@ Running the application locally depends on the local database being configured p
 ```bash
 To completely clean out any existing data you might have and start fresh:
 ./gradlew cleanallprod migrateallprod
-or, if you want to use a different version of the schema, say version 0.0.1-68 of RDW_Schema
-./gradlew -Pschema=0.0.1-68 cleannallprod migrateallprod
+or, if you want to use a different version of the schema, say version 1.0.0-68 of RDW_Schema
+./gradlew -Pschema=1.0.0-68 cleannallprod migrateallprod
 or, SNAPSHOT version of RDW_Schema if you are doing simultaneous development with RDW_Schema
 ./gradlew -Pschema=SNAPSHOT cleanallprod migriateallprod
 ```
