@@ -163,7 +163,7 @@ subprojects {
         task buildImage(type: DockerBuildImage, dependsOn: [build, createDockerfile]) {
             dockerFile = createDockerfile.destFile
             inputDir = project.file('build/docker/')
-            tag = "${dockerPrefix}/${project.name}"
+            tag = "${dockerPrefix}/${project.name}" + (project.hasProperty("release") ? ":${project.version}" : "")
             doFirst {
                 copy {
                     from jar
