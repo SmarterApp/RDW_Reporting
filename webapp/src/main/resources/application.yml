@@ -86,7 +86,13 @@ app:
 
   datamart:
     datasource:
-      url: jdbc:mysql://localhost:3306/reporting?useSSL=false&useLegacyDatetimeCode=false&characterEncoding=utf8&useCompression=true
+      url: "\
+        jdbc:mysql://${app.datamart.datasource.url-server:localhost:3306}/${app.datamart.datasource.url-schema:reporting}\
+        ?useSSL=${app.datamart.datasource.use-ssl:false}\
+        &useLegacyDatetimeCode=${app.datamart.datasource.use-legacy-datetime-code:false}\
+        &characterEncoding=${app.datamart.datasource.character-encoding:utf8}\
+        &useCompression=${app.datamart.datasource.use-compression:true}\
+        "
       username: root
       password:
       testWhileIdle: true

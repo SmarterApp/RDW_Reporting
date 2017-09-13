@@ -12,7 +12,7 @@ app:
 
   datamart:
     datasource:
-      url: jdbc:mysql://localhost:3306/reporting_test?useSSL=false&useLegacyDatetimeCode=false&characterEncoding=utf8
+      url-schema: reporting_test
       initialSize: 4
       maxActive: 10
       maxIdle: 10
