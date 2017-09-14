@@ -19,6 +19,10 @@
       "title": "Authentication Expired",
       "message": "Click Ok to re-authenticate."
     },
+    "access-denied": {
+      "title": "Access Denied",
+      "message": "Your user account is not permitted to access this reporting system. If you believe you have reached this page in error, please contact your building administrator."
+    },
     "toggle-navigation": "Toggle navigation",
     "no-item-level-data": "Item level data is not available for tests administered prior to 2017-18 school year.",
     "coming-soon": "{{featureName}} is coming soon.",

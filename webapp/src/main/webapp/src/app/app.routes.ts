@@ -19,6 +19,8 @@ import { SessionExpiredComponent } from "./shared/authentication/session-expired
 import { ReportsResolve } from "./report/reports.resolve";
 import { ReportsComponent } from "./report/reports.component";
 import { ErrorComponent } from "./error/error.component";
+import { AccessDeniedComponent } from "./error/access-denied/access-denied.component";
+import { AuthorizeAtleastOneCanActivate } from "./user/authorize-at-least-one.can-activate";
 
 
 const studentTestHistoryChildRoute = {
@@ -64,6 +66,7 @@ export const routes: Routes = [
   },
   {
     path: '',
+    canActivate: [ AuthorizeAtleastOneCanActivate ],
     resolve: { user: UserResolve, translateComplete: TranslateResolve },
     children: [
       { path: '', pathMatch: 'full', component: HomeComponent },
@@ -149,5 +152,10 @@ export const routes: Routes = [
         component: ErrorComponent
       }
     ]
+  },
+  {
+    path: 'access-denied',
+    pathMatch: 'full',
+    component: AccessDeniedComponent
   }
 ];

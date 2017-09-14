@@ -20,13 +20,15 @@ import { Angulartics2Module, Angulartics2GoogleAnalytics } from "angulartics2";
 import { RdwRouteReuseStrategy } from "./shared/rdw-route-reuse.strategy";
 import { ErrorComponent } from './error/error.component';
 import { AuthenticatedHttpService } from "./shared/authentication/authenticated-http.service";
+import { AccessDeniedComponent } from './error/access-denied/access-denied.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BreadcrumbsComponent,
     HomeComponent,
-    ErrorComponent
+    ErrorComponent,
+    AccessDeniedComponent
   ],
   imports: [
     AlertModule.forRoot(),

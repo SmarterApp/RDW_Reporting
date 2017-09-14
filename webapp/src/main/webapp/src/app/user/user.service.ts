@@ -43,6 +43,17 @@ export class UserService {
     return this.currentUserObservable;
   }
 
+  doesCurrentUserHaveAnyPermissions(): Observable<boolean> {
+    return new Observable(observer => {
+      this.getCurrentUser().subscribe(user => {
+        observer.next(!isNullOrUndefined(user)
+          ? user.permissions.length !== 0
+          : false);
+        observer.complete();
+      });
+    });
+  }
+
   doesCurrentUserHaveAtLeastOnePermission(permissions: string[]): Observable<boolean> {
     return new Observable(observer => {
       this.getCurrentUser().subscribe(user => {
