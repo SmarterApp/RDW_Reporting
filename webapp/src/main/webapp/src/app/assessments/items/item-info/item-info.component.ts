@@ -11,7 +11,7 @@ export class ItemInfoComponent implements OnInit {
   @Input()
   item: AssessmentItem;
 
-  interpretiveGuide: string;
+  interpretiveGuideUrl: string;
   targetDescription: string;
   commonCoreStandards: any[];
 
@@ -20,7 +20,7 @@ export class ItemInfoComponent implements OnInit {
   ngOnInit() {
     this.service
       .getInterpretiveGuide()
-      .subscribe(guide => this.interpretiveGuide = guide);
+      .subscribe(guide => this.interpretiveGuideUrl = guide);
 
     if(!isNullOrUndefined(this.item.targetId)) {
       this.service

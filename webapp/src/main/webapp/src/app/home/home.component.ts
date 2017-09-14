@@ -14,8 +14,7 @@ export class HomeComponent implements OnInit {
   systemNewsHtml: string;
 
   constructor(private route: ActivatedRoute,
-              private translate: TranslateService,
-              private notificationService: NotificationService) {
+              private translate: TranslateService) {
   }
 
   ngOnInit() {
@@ -24,9 +23,4 @@ export class HomeComponent implements OnInit {
       this.systemNewsHtml = result;
     });
   }
-
-  showInterpretiveGuideComingSoon() {
-    this.notificationService.info({ id: 'messages.interpretive-guide-coming-soon', args: {}, dismissOnTimeout: 5000 });
-  }
-
 }

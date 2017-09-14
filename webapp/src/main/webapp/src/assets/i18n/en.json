@@ -26,7 +26,6 @@
     "toggle-navigation": "Toggle navigation",
     "no-item-level-data": "Item level data is not available for tests administered prior to 2017-18 school year.",
     "coming-soon": "{{featureName}} is coming soon.",
-    "interpretive-guide-coming-soon": "The Interpretive Guide will be available on September 15th.",
     "unknown-error": "An unknown error has occurred. You can try the same action again or click the button below to go to the home page.  If this problem persists, please contact your building administrator."
   },
   "collapse": "Collapse",
@@ -41,7 +40,7 @@
       "welcome": {
         "title": "Welcome!",
         "user-guide-html": "<a href=\"{{userGuideUrl}}\" target=\"_blank\">The User Guide</a> describes features of the Smarter Balanced Reporting System and instructions for using each feature.",
-        "interpretive-guide-html": "<a target=\"_blank\" class=\"cursor-pointer\">The Interim Assessments Interpretive Guide</a> is designed to help educators, parents, and other stakeholders interpret interim assessments reports for the Smarter Balanced Reporting System.",
+        "interpretive-guide-html": "<a href=\"{{interpretiveGuideUrl}}\" target=\"_blank\">The Interim Assessments Interpretive Guide</a> is designed to help educators, parents, and other stakeholders interpret interim assessments reports for the Smarter Balanced Reporting System.",
         "interpretive-guide-subtitle": "Interim Assessments"
       }
     },
@@ -345,7 +344,7 @@
             "math": "Mathematical Practice Standard: ",
             "calculator": "Calculator: ",
             "docs": "Supporting Documentation: ",
-            "guide": "Interpretive Guide and Best Practices Guidance"
+            "guide": "Interim Assessments Interpretive Guide"
           }
         }
       },

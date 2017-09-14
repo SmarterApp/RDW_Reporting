@@ -120,7 +120,7 @@ app:
   admin-webapp-url:
 
   external-links:
-    interpretive-guide: http://www.smarterbalanced.org/educators/
+    interpretive-guide: https://portal.smarterbalanced.org/library/en/reporting-system-interpretive-guide.pdf
     user-guide: https://portal.smarterbalanced.org/library/en/reporting-system-user-guide.pdf
 
   min-item-data-year: 2016

@@ -47,7 +47,7 @@
         </div>
         <div>
           <p [innerHTML]="'labels.homepage.welcome.interpretive-guide-html' | translate:user.configuration"></p>
-          <a class="btn btn-success cursor-pointer" (click)="showInterpretiveGuideComingSoon()">
+          <a href="{{user.configuration.interpretiveGuideUrl}}" target="_blank" class="btn btn-success">
             <small>{{'labels.homepage.welcome.interpretive-guide-subtitle' | translate}}</small><br>{{'labels.navigation.interpretive-guide' | translate}}
           </a>
         </div>

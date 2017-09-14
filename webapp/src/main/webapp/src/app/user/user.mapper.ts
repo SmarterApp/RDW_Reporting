@@ -82,7 +82,7 @@ export class UserMapper {
     }
     uiModel.irisVendorId = apiModel.irisVendorId;
     uiModel.analyticsTrackingId = apiModel.analyticsTrackingId;
-    uiModel.interpretiveGuide = apiModel.interpretiveGuideUrl;
+    uiModel.interpretiveGuideUrl = apiModel.interpretiveGuideUrl;
     uiModel.userGuideUrl = apiModel.userGuideUrl;
     uiModel.minItemDataYear = apiModel.minItemDataYear;
     uiModel.adminWebappUrl = apiModel.adminWebappUrl;

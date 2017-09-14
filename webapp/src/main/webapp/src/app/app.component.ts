@@ -28,7 +28,6 @@ export class AppComponent {
               private userService: UserService,
               private router: Router,
               private location: Location,
-              private notifService: NotificationService,
               private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
 
     let languages = [ 'en', 'ja' ];
@@ -72,9 +71,4 @@ export class AppComponent {
       }
     });
   }
-
-  showInterpretiveGuideComingSoon() {
-    this.notifService.info({ id: 'messages.interpretive-guide-coming-soon', args: {}, dismissOnTimeout: 5000 });
-  }
-
 }

@@ -16,7 +16,7 @@ export class ItemInfoService {
   getInterpretiveGuide(): Observable<string> {
     return this.userService
       .getCurrentUser()
-      .map(user => user.configuration.interpretiveGuide);
+      .map(user => user.configuration.interpretiveGuideUrl);
   }
 
   getTargetDescription(targetId): Observable<string> {

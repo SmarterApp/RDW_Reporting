@@ -1,7 +1,7 @@
 export class Configuration {
   irisVendorId: string;
   analyticsTrackingId: string;
-  interpretiveGuide: string;
+  interpretiveGuideUrl: string;
   userGuideUrl: string;
   minItemDataYear: number;
   adminWebappUrl: string;
