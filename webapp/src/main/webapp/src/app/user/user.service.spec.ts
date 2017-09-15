@@ -95,4 +95,23 @@ describe('UserService', () => {
         expect(actual).toBe(false);
       })
     }));
+
+  it('should false if user has no permissions at all',
+    inject([ UserService ], (userService) => {
+      userStub = { permissions: [] };
+
+      userService.doesCurrentUserHaveAnyPermissions().subscribe(actual => {
+        expect(actual).toBe(false);
+      })
+    }));
+
+  it('should false if user has no permissions at all',
+    inject([ UserService ], (userService) => {
+      userStub = { permissions: [ "GROUP_PII_READ" ] };
+
+      userService.doesCurrentUserHaveAnyPermissions().subscribe(actual => {
+        expect(actual).toBe(true);
+      })
+    }));
+
 });
