@@ -9,19 +9,18 @@ import { UserService } from "./user.service";
 @Injectable()
 export class AuthorizeAtleastOneCanActivate implements CanActivate {
 
-  constructor(private _service : UserService, private router: Router) {
+  constructor(private _service: UserService, private router: Router) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|Promise<boolean>|boolean {
     let observable = this._service.doesCurrentUserHaveAnyPermissions().share();
 
     observable.subscribe(hasPermissions => {
-      if(hasPermissions) {
-        return true;
-      } else {
-        this.router.navigate(['access-denied']);
-        return false;
+      if (!hasPermissions) {
+        this.router.navigate([ 'access-denied' ]);
       }
+
+      return hasPermissions;
     });
 
     return observable;
