@@ -3,19 +3,19 @@ sql:
 
     insert: >-
       insert into user_report
-        (user_login, job_execution_id, status, report_resource_uri, label, report_request, created)
+        (user_login, total_chunk_count, status, report_resource_uri, label, report_request, created)
         values
-        (:user_login, :job_execution_id, :status, :report_resource_uri, :label, :report_request, :created)
+        (:user_login, :total_chunk_count, :status, :report_resource_uri, :label, :report_request, :created)
 
     update: >-
       update user_report
       set
         user_login = :user_login,
-        job_execution_id = :job_execution_id,
         status = :status,
         report_resource_uri = :report_resource_uri,
         label = :label,
         report_request = :report_request,
+        total_chunk_count = :total_chunk_count,
         created = :created
       where
         id = :id
@@ -24,11 +24,12 @@ sql:
       select
         r.id,
         r.user_login,
-        r.job_execution_id,
         r.status,
         r.report_resource_uri,
         r.label,
         r.report_request,
+        r.total_chunk_count,
+        r.complete_chunk_count,
         r.created
       from user_report r
       where r.user_login = :user
@@ -38,11 +39,12 @@ sql:
       select
         r.id,
         r.user_login,
-        r.job_execution_id,
         r.status,
         r.report_resource_uri,
         r.label,
         r.report_request,
+        r.total_chunk_count,
+        r.complete_chunk_count,
         r.created
       from user_report r
       where r.user_login = :user
@@ -53,14 +55,45 @@ sql:
       select
         r.id,
         r.user_login,
-        r.job_execution_id,
         r.status,
         r.report_resource_uri,
         r.label,
         r.report_request,
+        r.total_chunk_count,
+        r.complete_chunk_count,
         r.created
       from user_report r
       where r.id = :report_id
+
+    completeChunk: >-
+      update user_report
+        set complete_chunk_count = LAST_INSERT_ID(complete_chunk_count + 1)
+      where
+        id = :report_id;
+
+  report-chunk:
+    insert: >-
+      insert into user_report_chunk
+        (report_id, chunk_index, complete)
+        values
+        (:report_id, :chunk_index, :complete)
+
+    update: >-
+      update user_report_chunk
+      set
+        complete = :complete
+      where report_id = :report_id
+        and chunk_index = :chunk_index
+
+    find-by-params: >-
+      select
+        report_id,
+        chunk_index,
+        complete
+      from user_report_chunk
+      where report_id = :report_id
+        and (:complete is null or complete = :complete)
+      order by chunk_index asc
 
   student:
     findByExamQueryParams: >-

@@ -18,10 +18,33 @@ spring:
     type: SIMPLE
     cache-names: internalTranslationsByCode
 
+  cloud:
+    stream:
+      bindings:
+        REPORT_FETCH_STUDENTS:
+          group: default
+          producer:
+            requiredGroups: default
+
+        REPORT_GENERATE_FOR_STUDENTS:
+          group: default
+          consumer:
+            concurrency: 2
+          producer:
+            requiredGroups: default
+
+        REPORT_COLLATE:
+          group: default
+          producer:
+            requiredGroups: default
+
   jackson:
       default-property-inclusion: non_null
       serialization:
         WRITE_DATES_AS_TIMESTAMPS: false
+
+  rabbitmq:
+    host: localhost
 
   thymeleaf:
     mode: HTML
