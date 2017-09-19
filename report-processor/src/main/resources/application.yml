@@ -21,19 +21,19 @@ spring:
   cloud:
     stream:
       bindings:
-        REPORT_FETCH_STUDENTS:
+        ReportFetchStudents:
           group: default
           producer:
             requiredGroups: default
 
-        REPORT_GENERATE_FOR_STUDENTS:
+        ReportGenerateForStudents:
           group: default
           consumer:
             concurrency: 2
           producer:
             requiredGroups: default
 
-        REPORT_COLLATE:
+        ReportCollate:
           group: default
           producer:
             requiredGroups: default
@@ -42,9 +42,6 @@ spring:
       default-property-inclusion: non_null
       serialization:
         WRITE_DATES_AS_TIMESTAMPS: false
-
-  rabbitmq:
-    host: localhost
 
   thymeleaf:
     mode: HTML

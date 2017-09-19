@@ -1,7 +1,7 @@
 sql:
   report:
 
-    insert: >-
+    create: >-
       insert into user_report
         (user_login, total_chunk_count, status, report_resource_uri, label, report_request, created)
         values
@@ -70,30 +70,6 @@ sql:
         set complete_chunk_count = LAST_INSERT_ID(complete_chunk_count + 1)
       where
         id = :report_id;
-
-  report-chunk:
-    insert: >-
-      insert into user_report_chunk
-        (report_id, chunk_index, complete)
-        values
-        (:report_id, :chunk_index, :complete)
-
-    update: >-
-      update user_report_chunk
-      set
-        complete = :complete
-      where report_id = :report_id
-        and chunk_index = :chunk_index
-
-    find-by-params: >-
-      select
-        report_id,
-        chunk_index,
-        complete
-      from user_report_chunk
-      where report_id = :report_id
-        and (:complete is null or complete = :complete)
-      order by chunk_index asc
 
   student:
     findByExamQueryParams: >-
