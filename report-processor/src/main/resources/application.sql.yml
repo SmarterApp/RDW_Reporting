@@ -90,7 +90,11 @@ sql:
         and (:grade_id is null or e.grade_id=:grade_id)
         and (:assessment_type is null or a.type_id=:assessment_type)
         and ( # This query can run from the context of both GROUP_PII_READ and INDIVIDUAL_PII_READ, so need to evaluate both.
-              (1 = :individual_statewide OR s.district_id IN (:individual_district_ids) OR e.school_id IN (:individual_school_ids))
+              (1 = :individual_statewide
+                or s.district_group_id in (:individual_district_group_ids)
+                or s.district_id in (:individual_district_ids)
+                or s.school_group_id in (:individual_school_group_ids)
+                or e.school_id in (:individual_school_ids))
               or (
                 exists(
                     select 1
@@ -100,7 +104,11 @@ sql:
                           and sgm.student_id=st.id
                           and (:subject_id is null or sg.subject_id is null or sg.subject_id = :subject_id)
                 )
-                and (1 = :group_statewide or s.district_id in (:group_district_ids) or e.school_id in (:group_school_ids))
+                and (1 = :group_statewide
+                  or s.district_group_id in (:group_district_group_ids)
+                  or s.district_id in (:group_district_ids)
+                  or s.school_group_id in (:group_school_group_ids)
+                  or e.school_id in (:group_school_ids))
               )
             )
       group by st.id
@@ -122,7 +130,7 @@ sql:
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or e.grade_id=:grade_id)
         and (:assessment_type is null or a.type_id=:assessment_type)
-        and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
+        and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
       group by st.id
 
     findByExamQueryParamsGroupPermissions: >-
@@ -146,5 +154,5 @@ sql:
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or e.grade_id=:grade_id)
         and (:assessment_type is null or a.type_id=:assessment_type)
-        and (1=:statewide or s.district_id in (:district_ids) or e.school_id in (:school_ids))
+        and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
       group by st.id

@@ -1,8 +1,14 @@
+insert into district_group (id, natural_id, name) values
+  (-9, 'districtgroup1', 'districtgroup1');
+
 insert into district (id, natural_id, name) values
   (-10, 'district1', 'district1');
 
-insert into school (id, district_id, natural_id, name, import_id, updated, migrate_id) VALUES
-  (-10, -10, 'school1', 'school1', -1, '1997-07-18 20:14:34.000000', -1);
+insert into school_group (id, natural_id, name) values
+  (-11, 'schoolgroup1', 'schoolgroup1');
+
+insert into school (id, district_group_id, district_id, school_group_id, natural_id, name, import_id, updated, migrate_id) VALUES
+  (-10, -9, -10, -11, 'school1', 'school1', -1, '1997-07-18 20:14:34.000000', -1);
 
 insert into grade (id, code, name) values
   (-1, 'g1', 'grade1'),
