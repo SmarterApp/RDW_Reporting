@@ -1,7 +1,4 @@
 app:
-  state:
-    code: CA
-
   datamart:
     datasource:
       url-schema: reporting_test
