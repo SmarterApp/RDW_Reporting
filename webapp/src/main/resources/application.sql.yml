@@ -462,18 +462,7 @@ sql:
       where s.id=:studentId
        and exists (select 1 from exam e where e.student_id = s.id)
 
-  district:
-    findAllIds: >-
-      select natural_id, id
-      from district
-      where natural_id in (:naturalIds)
-
   school:
-    findAllIds: >-
-      select natural_id, id
-      from school
-      where natural_id in (:naturalIds)
-
     findAll: >-
       select s.name, s.id, d.id as district_id, d.name as district_name
       from school s
