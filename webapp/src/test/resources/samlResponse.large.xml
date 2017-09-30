@@ -1,0 +1,2090 @@
+<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="s2a3bfa310a485ba20b0210dfd4d050a4895ca246f"
+                InResponseTo="a3j5abdbhjhiiii45507cajddibcjch" Version="2.0" IssueInstant="2017-09-28T17:55:29Z"
+                Destination="https://awsqa-reporting.sbacdw.org/saml/SSO">
+  <saml:Issuer xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">https://sso-deployment.sbtds.org:443/auth
+  </saml:Issuer>
+  <samlp:Status xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
+    <samlp:StatusCode xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+                      Value="urn:oasis:names:tc:SAML:2.0:status:Success"></samlp:StatusCode>
+  </samlp:Status>
+  <saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="s2751efbf270b6556b0d132ea28c5389ee8679df4a"
+                  IssueInstant="2017-09-28T17:55:29Z" Version="2.0">
+    <saml:Issuer>https://sso-deployment.sbtds.org:443/auth</saml:Issuer>
+    <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+      <ds:SignedInfo>
+        <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+        <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+        <ds:Reference URI="#s2751efbf270b6556b0d132ea28c5389ee8679df4a">
+          <ds:Transforms>
+            <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+            <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+          </ds:Transforms>
+          <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+          <ds:DigestValue>1DlA03YEmlhMGz4qPT7mPrq2RGM=</ds:DigestValue>
+        </ds:Reference>
+      </ds:SignedInfo>
+      <ds:SignatureValue>
+        B3Ny/nIhU/xWiJTEYJj+R2ukSxX9SCpNj3qyiPWcM8sGsWyl8A8qFPsWaj0Zq1AUvW7rrdcxj+ZSwJACiPPoXmMyoyrH4gGp3eYoH1+Tro7ILtmYG5Btz2ezWXS3uB5MCgi4BQaTKp2xe2lZqGCuaAGXUvd6YLg3YB8CLBDIz2z3YuuT7VkIAws4+LArFRQMxKPlAkFRFYwKRi8x0sXjIvzKVHWYWh5B8hlly8TBnx/VffSU4Uhqf3jpycoTu5Opop9YnsvMbHX/gM/1ER6qBj5mowCNMbQduL5YGh4LdLEHjfzYk9+HZXvdHB9Ag1H/abBHW/rggQapGXmXkmfLQA==
+      </ds:SignatureValue>
+      <ds:KeyInfo>
+        <ds:X509Data>
+          <ds:X509Certificate>
+            MIIDhzCCAm8CBFOF9ZEwDQYJKoZIhvcNAQEEBQAwgYcxCzAJBgNVBAYTAlVTMRAwDgYDVQQIDAdGbG9yaWRhMRYwFAYDVQQHDA1XZXNsZXkgQ2hhcGVsMR4wHAYDVQQKDBVJZGVudGl0eSBGdXNpb24sIEluYy4xETAPBgNVBAsMCFNlY3VyaXR5MRswGQYDVQQDDBJhbXBsaWZ5U2lnbmluZ0NlcnQwHhcNMTQwNTI4MTQ0MTIxWhcNMjQwNTI1MTQ0MTIxWjCBhzELMAkGA1UEBhMCVVMxEDAOBgNVBAgMB0Zsb3JpZGExFjAUBgNVBAcMDVdlc2xleSBDaGFwZWwxHjAcBgNVBAoMFUlkZW50aXR5IEZ1c2lvbiwgSW5jLjERMA8GA1UECwwIU2VjdXJpdHkxGzAZBgNVBAMMEmFtcGxpZnlTaWduaW5nQ2VydDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAIgR4jDIyzchA0uEei53u1tV/BAGcnrP5Avyf/HcgDYxqBSZEnvv9siGc5W48pzBgVwIH+2uOThCimM3tynYTkAUbeX0y8UXbGP5qfb0hPc3S+BuwwyAeJIKcp3KomoWwg1Op1LtGYRLmSVfD0LPk+QHaLJMD5FShzig8wjrmAK+sccsJV+XNg1j7sbeXc/zVzeFQ/OEpMVgcPPooAL++qswLyTlhoTVf3cQRpg395DiUZqwzJvt+AwGuWCm8ikAlCk+3/aVHuUDdJ85finhcSahAckgSzMJVQzUP3G0KR71L+AxnrZTCQAljEYQpOcdZF5ZKOmRAjrPYYOlal4bxvECAwEAATANBgkqhkiG9w0BAQQFAAOCAQEAVRx3VKpSxUOLEkjKytXSXUHtZMRAN1K59L15ff9HwRqrhqLUp9xyX6zqh9Q1T/DhyZnQ9v5Sem6WJzwP/ug3lYScVSoNglJdfhBSV0NN3pZ6V96Rb/M7PmUwDAE76twWL0NkHx8O8Jyq+1ibl5sDWG+11M7obqaHzVvodEFobECQ1DEQLUF8NEff04uJiBndn6ALAr/8snTNZzXDz1OxRf1Lw9t6EAdVIw8/De8Y/K8G6K3dsHlyESvRXjw52PDhRhaVo7aLeuubQMsQw2C/eI66CPQ9XZL0tGG2YAh8KmI4gkCGqeh3l1TLrEQoacBheIFoQg2wDiMFbp49DlNw1Q==
+          </ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </ds:Signature>
+    <saml:Subject>
+      <saml:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+                   NameQualifier="https://sso-deployment.sbtds.org:443/auth">permTest@example.com
+      </saml:NameID>
+      <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+        <saml:SubjectConfirmationData InResponseTo="a3j5abdbhjhiiii45507cajddibcjch" NotOnOrAfter="2017-09-28T18:05:29Z"
+                                      Recipient="https://awsqa-reporting.sbacdw.org/saml/SSO"/>
+      </saml:SubjectConfirmation>
+    </saml:Subject>
+    <saml:Conditions NotBefore="2017-09-28T17:45:29Z" NotOnOrAfter="2017-09-28T18:05:29Z">
+      <saml:AudienceRestriction>
+        <saml:Audience>rdw-reporting-awsqa</saml:Audience>
+      </saml:AudienceRestriction>
+    </saml:Conditions>
+    <saml:AuthnStatement AuthnInstant="2017-09-28T17:55:29Z" SessionIndex="s2811b2eb558130645541fb802953cd078c1cf8a01">
+      <saml:AuthnContext>
+        <saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport
+        </saml:AuthnContextClassRef>
+      </saml:AuthnContext>
+    </saml:AuthnStatement>
+    <saml:AttributeStatement>
+      <saml:Attribute Name="mail">
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          permTest@example.com
+        </saml:AttributeValue>
+      </saml:Attribute>
+      <saml:Attribute Name="sbacUUID">
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          59cd32d5e4b0a9a96b986ee9
+        </saml:AttributeValue>
+      </saml:Attribute>
+      <saml:Attribute Name="sn">
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">CustomerTest
+        </saml:AttributeValue>
+      </saml:Attribute>
+      <saml:Attribute Name="cn">
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">Permission
+          CustomerTest
+        </saml:AttributeValue>
+      </saml:Attribute>
+      <saml:Attribute Name="sbacTenancyChain">
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool42|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool42|Permission Test School 42|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool73|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool73|Permission Test School 73|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool252|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool252|Permission Test School 252|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool205|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool205|Permission Test School 205|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool12|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool12|Permission Test School 12|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool127|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool127|Permission Test School 127|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool390|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool390|Permission Test School 390|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool163|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool163|Permission Test School 163|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool107|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool107|Permission Test School 107|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool312|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool312|Permission Test School 312|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool183|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool183|Permission Test School 183|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool345|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool345|Permission Test School 345|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool146|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool146|Permission Test School 146|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool300|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool300|Permission Test School 300|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool346|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool346|Permission Test School 346|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool123|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool123|Permission Test School 123|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool30|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool30|Permission Test School 30|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool150|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool150|Permission Test School 150|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool58|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool58|Permission Test School 58|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool25|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool25|Permission Test School 25|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool69|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool69|Permission Test School 69|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool270|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool270|Permission Test School 270|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool15|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool15|Permission Test School 15|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool194|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool194|Permission Test School 194|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool294|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool294|Permission Test School 294|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool233|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool233|Permission Test School 233|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool240|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool240|Permission Test School 240|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool342|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool342|Permission Test School 342|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool83|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool83|Permission Test School 83|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool55|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool55|Permission Test School 55|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool299|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool299|Permission Test School 299|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool94|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool94|Permission Test School 94|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool19|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool19|Permission Test School 19|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool369|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool369|Permission Test School 369|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool111|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool111|Permission Test School 111|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool239|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool239|Permission Test School 239|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool159|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool159|Permission Test School 159|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool321|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool321|Permission Test School 321|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool2|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool2|Permission Test School 2|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool112|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool112|Permission Test School 112|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool376|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool376|Permission Test School 376|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool367|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool367|Permission Test School 367|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool176|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool176|Permission Test School 176|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool186|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool186|Permission Test School 186|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool352|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool352|Permission Test School 352|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool138|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool138|Permission Test School 138|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool355|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool355|Permission Test School 355|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool322|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool322|Permission Test School 322|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool290|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool290|Permission Test School 290|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool335|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool335|Permission Test School 335|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool350|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool350|Permission Test School 350|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool100|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool100|Permission Test School 100|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool359|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool359|Permission Test School 359|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool378|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool378|Permission Test School 378|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool31|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool31|Permission Test School 31|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool383|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool383|Permission Test School 383|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool18|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool18|Permission Test School 18|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool98|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool98|Permission Test School 98|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool87|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool87|Permission Test School 87|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool391|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool391|Permission Test School 391|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool245|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool245|Permission Test School 245|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool133|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool133|Permission Test School 133|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool268|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool268|Permission Test School 268|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool315|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool315|Permission Test School 315|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool283|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool283|Permission Test School 283|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool264|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool264|Permission Test School 264|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool396|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool396|Permission Test School 396|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool116|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool116|Permission Test School 116|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool289|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool289|Permission Test School 289|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool4|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool4|Permission Test School 4|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool203|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool203|Permission Test School 203|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool360|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool360|Permission Test School 360|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool169|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool169|Permission Test School 169|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool61|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool61|Permission Test School 61|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool81|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool81|Permission Test School 81|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool44|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool44|Permission Test School 44|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool388|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool388|Permission Test School 388|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool400|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool400|Permission Test School 400|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool32|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool32|Permission Test School 32|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool47|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool47|Permission Test School 47|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool287|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool287|Permission Test School 287|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool177|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool177|Permission Test School 177|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool394|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool394|Permission Test School 394|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool227|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool227|Permission Test School 227|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool256|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool256|Permission Test School 256|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool238|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool238|Permission Test School 238|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool384|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool384|Permission Test School 384|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool181|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool181|Permission Test School 181|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool136|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool136|Permission Test School 136|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool39|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool39|Permission Test School 39|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool158|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool158|Permission Test School 158|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool298|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool298|Permission Test School 298|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool358|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool358|Permission Test School 358|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool126|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool126|Permission Test School 126|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool90|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool90|Permission Test School 90|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool9|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool9|Permission Test School 9|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool76|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool76|Permission Test School 76|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool101|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool101|Permission Test School 101|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool28|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool28|Permission Test School 28|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool232|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool232|Permission Test School 232|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool7|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool7|Permission Test School 7|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool302|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool302|Permission Test School 302|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool218|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool218|Permission Test School 218|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool129|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool129|Permission Test School 129|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool273|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool273|Permission Test School 273|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool85|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool85|Permission Test School 85|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool333|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool333|Permission Test School 333|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool231|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool231|Permission Test School 231|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool308|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool308|Permission Test School 308|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool216|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool216|Permission Test School 216|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool113|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool113|Permission Test School 113|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool68|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool68|Permission Test School 68|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool334|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool334|Permission Test School 334|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool10|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool10|Permission Test School 10|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool372|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool372|Permission Test School 372|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool356|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool356|Permission Test School 356|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool220|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool220|Permission Test School 220|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool201|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool201|Permission Test School 201|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool197|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool197|Permission Test School 197|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool128|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool128|Permission Test School 128|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool313|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool313|Permission Test School 313|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool171|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool171|Permission Test School 171|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool340|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool340|Permission Test School 340|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool121|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool121|Permission Test School 121|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool385|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool385|Permission Test School 385|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool108|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool108|Permission Test School 108|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool118|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool118|Permission Test School 118|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool172|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool172|Permission Test School 172|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool281|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool281|Permission Test School 281|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool379|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool379|Permission Test School 379|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool366|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool366|Permission Test School 366|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool96|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool96|Permission Test School 96|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool97|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool97|Permission Test School 97|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool365|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool365|Permission Test School 365|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool182|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool182|Permission Test School 182|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool362|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool362|Permission Test School 362|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool124|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool124|Permission Test School 124|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool106|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool106|Permission Test School 106|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool282|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool282|Permission Test School 282|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool184|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool184|Permission Test School 184|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool179|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool179|Permission Test School 179|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool259|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool259|Permission Test School 259|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool33|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool33|Permission Test School 33|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool109|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool109|Permission Test School 109|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool36|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool36|Permission Test School 36|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool244|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool244|Permission Test School 244|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool153|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool153|Permission Test School 153|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool63|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool63|Permission Test School 63|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool377|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool377|Permission Test School 377|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool296|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool296|Permission Test School 296|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool338|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool338|Permission Test School 338|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool276|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool276|Permission Test School 276|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool317|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool317|Permission Test School 317|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool230|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool230|Permission Test School 230|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool178|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool178|Permission Test School 178|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool277|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool277|Permission Test School 277|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool77|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool77|Permission Test School 77|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool88|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool88|Permission Test School 88|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool339|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool339|Permission Test School 339|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool37|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool37|Permission Test School 37|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool323|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool323|Permission Test School 323|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool93|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool93|Permission Test School 93|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool260|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool260|Permission Test School 260|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool43|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool43|Permission Test School 43|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool57|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool57|Permission Test School 57|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool212|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool212|Permission Test School 212|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool341|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool341|Permission Test School 341|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool80|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool80|Permission Test School 80|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool40|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool40|Permission Test School 40|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool348|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool348|Permission Test School 348|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool297|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool297|Permission Test School 297|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool226|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool226|Permission Test School 226|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool82|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool82|Permission Test School 82|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool134|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool134|Permission Test School 134|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool105|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool105|Permission Test School 105|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool327|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool327|Permission Test School 327|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool320|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool320|Permission Test School 320|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool291|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool291|Permission Test School 291|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool175|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool175|Permission Test School 175|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool3|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool3|Permission Test School 3|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool399|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool399|Permission Test School 399|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool251|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool251|Permission Test School 251|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool70|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool70|Permission Test School 70|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool26|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool26|Permission Test School 26|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool332|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool332|Permission Test School 332|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool210|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool210|Permission Test School 210|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool234|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool234|Permission Test School 234|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool280|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool280|Permission Test School 280|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool144|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool144|Permission Test School 144|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool363|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool363|Permission Test School 363|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool225|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool225|Permission Test School 225|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool165|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool165|Permission Test School 165|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool330|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool330|Permission Test School 330|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool274|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool274|Permission Test School 274|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool151|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool151|Permission Test School 151|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool62|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool62|Permission Test School 62|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool5|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool5|Permission Test School 5|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool389|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool389|Permission Test School 389|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool349|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool349|Permission Test School 349|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool311|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool311|Permission Test School 311|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool217|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool217|Permission Test School 217|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool395|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool395|Permission Test School 395|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool104|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool104|Permission Test School 104|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool50|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool50|Permission Test School 50|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool353|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool353|Permission Test School 353|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool380|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool380|Permission Test School 380|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool132|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool132|Permission Test School 132|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool219|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool219|Permission Test School 219|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool74|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool74|Permission Test School 74|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool54|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool54|Permission Test School 54|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool204|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool204|Permission Test School 204|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool371|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool371|Permission Test School 371|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool99|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool99|Permission Test School 99|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool173|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool173|Permission Test School 173|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool190|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool190|Permission Test School 190|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool310|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool310|Permission Test School 310|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool29|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool29|Permission Test School 29|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool329|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool329|Permission Test School 329|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool397|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool397|Permission Test School 397|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool145|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool145|Permission Test School 145|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool370|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool370|Permission Test School 370|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool328|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool328|Permission Test School 328|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool143|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool143|Permission Test School 143|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool292|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool292|Permission Test School 292|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool214|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool214|Permission Test School 214|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool198|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool198|Permission Test School 198|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool167|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool167|Permission Test School 167|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool336|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool336|Permission Test School 336|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool266|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool266|Permission Test School 266|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool381|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool381|Permission Test School 381|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool17|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool17|Permission Test School 17|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool373|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool373|Permission Test School 373|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool166|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool166|Permission Test School 166|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool255|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool255|Permission Test School 255|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool157|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool157|Permission Test School 157|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool200|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool200|Permission Test School 200|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool187|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool187|Permission Test School 187|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool79|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool79|Permission Test School 79|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool142|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool142|Permission Test School 142|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool202|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool202|Permission Test School 202|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool224|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool224|Permission Test School 224|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool140|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool140|Permission Test School 140|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool213|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool213|Permission Test School 213|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool331|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool331|Permission Test School 331|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool41|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool41|Permission Test School 41|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool249|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool249|Permission Test School 249|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool288|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool288|Permission Test School 288|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool258|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool258|Permission Test School 258|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool337|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool337|Permission Test School 337|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool67|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool67|Permission Test School 67|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool236|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool236|Permission Test School 236|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool16|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool16|Permission Test School 16|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool139|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool139|Permission Test School 139|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool242|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool242|Permission Test School 242|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool23|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool23|Permission Test School 23|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool284|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool284|Permission Test School 284|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool24|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool24|Permission Test School 24|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool114|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool114|Permission Test School 114|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool386|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool386|Permission Test School 386|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool141|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool141|Permission Test School 141|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool164|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool164|Permission Test School 164|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool46|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool46|Permission Test School 46|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool60|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool60|Permission Test School 60|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool215|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool215|Permission Test School 215|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool110|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool110|Permission Test School 110|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool162|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool162|Permission Test School 162|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool319|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool319|Permission Test School 319|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool374|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool374|Permission Test School 374|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool243|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool243|Permission Test School 243|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool222|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool222|Permission Test School 222|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool257|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool257|Permission Test School 257|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool91|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool91|Permission Test School 91|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool393|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool393|Permission Test School 393|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool65|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool65|Permission Test School 65|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool14|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool14|Permission Test School 14|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool309|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool309|Permission Test School 309|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool253|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool253|Permission Test School 253|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool196|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool196|Permission Test School 196|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool152|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool152|Permission Test School 152|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool199|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool199|Permission Test School 199|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool38|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool38|Permission Test School 38|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool135|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool135|Permission Test School 135|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool117|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool117|Permission Test School 117|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool324|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool324|Permission Test School 324|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool306|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool306|Permission Test School 306|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool27|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool27|Permission Test School 27|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool86|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool86|Permission Test School 86|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool185|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool185|Permission Test School 185|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool1|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool1|Permission Test School 1|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool84|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool84|Permission Test School 84|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool261|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool261|Permission Test School 261|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool170|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool170|Permission Test School 170|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool56|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool56|Permission Test School 56|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool51|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool51|Permission Test School 51|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool229|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool229|Permission Test School 229|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool11|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool11|Permission Test School 11|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool211|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool211|Permission Test School 211|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool20|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool20|Permission Test School 20|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool325|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool325|Permission Test School 325|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool387|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool387|Permission Test School 387|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool155|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool155|Permission Test School 155|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool52|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool52|Permission Test School 52|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool53|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool53|Permission Test School 53|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool71|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool71|Permission Test School 71|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool307|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool307|Permission Test School 307|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool147|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool147|Permission Test School 147|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool195|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool195|Permission Test School 195|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool125|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool125|Permission Test School 125|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool130|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool130|Permission Test School 130|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool174|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool174|Permission Test School 174|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool160|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool160|Permission Test School 160|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool35|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool35|Permission Test School 35|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool271|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool271|Permission Test School 271|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool22|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool22|Permission Test School 22|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool286|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool286|Permission Test School 286|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool237|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool237|Permission Test School 237|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool272|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool272|Permission Test School 272|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool191|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool191|Permission Test School 191|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool263|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool263|Permission Test School 263|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool301|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool301|Permission Test School 301|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool228|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool228|Permission Test School 228|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool304|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool304|Permission Test School 304|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool246|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool246|Permission Test School 246|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool305|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool305|Permission Test School 305|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool347|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool347|Permission Test School 347|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool21|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool21|Permission Test School 21|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool275|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool275|Permission Test School 275|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool154|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool154|Permission Test School 154|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool148|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool148|Permission Test School 148|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool193|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool193|Permission Test School 193|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool368|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool368|Permission Test School 368|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool78|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool78|Permission Test School 78|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool115|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool115|Permission Test School 115|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool59|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool59|Permission Test School 59|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool265|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool265|Permission Test School 265|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool180|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool180|Permission Test School 180|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool102|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool102|Permission Test School 102|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool189|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool189|Permission Test School 189|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool344|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool344|Permission Test School 344|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool318|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool318|Permission Test School 318|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool75|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool75|Permission Test School 75|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool343|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool343|Permission Test School 343|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool48|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool48|Permission Test School 48|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool279|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool279|Permission Test School 279|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool207|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool207|Permission Test School 207|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool34|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool34|Permission Test School 34|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool92|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool92|Permission Test School 92|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool267|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool267|Permission Test School 267|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool262|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool262|Permission Test School 262|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool223|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool223|Permission Test School 223|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool241|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool241|Permission Test School 241|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool45|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool45|Permission Test School 45|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool375|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool375|Permission Test School 375|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool361|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool361|Permission Test School 361|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool95|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool95|Permission Test School 95|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool89|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool89|Permission Test School 89|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool314|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool314|Permission Test School 314|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool254|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool254|Permission Test School 254|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool303|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool303|Permission Test School 303|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool293|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool293|Permission Test School 293|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool316|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool316|Permission Test School 316|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool137|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool137|Permission Test School 137|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool392|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool392|Permission Test School 392|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool192|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool192|Permission Test School 192|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool49|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool49|Permission Test School 49|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool269|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool269|Permission Test School 269|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool209|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool209|Permission Test School 209|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool188|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool188|Permission Test School 188|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool149|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool149|Permission Test School 149|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool119|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool119|Permission Test School 119|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool66|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool66|Permission Test School 66|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool247|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool247|Permission Test School 247|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool120|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool120|Permission Test School 120|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool248|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool248|Permission Test School 248|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool221|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool221|Permission Test School 221|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool382|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool382|Permission Test School 382|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool168|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool168|Permission Test School 168|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool13|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool13|Permission Test School 13|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool326|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool326|Permission Test School 326|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool72|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool72|Permission Test School 72|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool64|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool64|Permission Test School 64|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool206|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool206|Permission Test School 206|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool103|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool103|Permission Test School 103|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool156|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool156|Permission Test School 156|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool278|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool278|Permission Test School 278|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool131|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool131|Permission Test School 131|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool8|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool8|Permission Test School 8|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool364|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool364|Permission Test School 364|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool122|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool122|Permission Test School 122|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool351|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool351|Permission Test School 351|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool354|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool354|Permission Test School 354|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool208|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool208|Permission Test School 208|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool295|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool295|Permission Test School 295|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool6|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool6|Permission Test School 6|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool357|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool357|Permission Test School 357|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool161|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool161|Permission Test School 161|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool285|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool285|Permission Test School 285|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool250|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool250|Permission Test School 250|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool235|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool235|Permission Test School 235|
+        </saml:AttributeValue>
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">
+          |PermissionSchool398|PII|INSTITUTION|98765|Fairway|||CA|CALIFORNIA|||unicodeDistrict2|Chinese School
+          District|||PermissionSchool398|Permission Test School 398|
+        </saml:AttributeValue>
+      </saml:Attribute>
+      <saml:Attribute Name="givenName">
+        <saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">Permission
+        </saml:AttributeValue>
+      </saml:Attribute>
+    </saml:AttributeStatement>
+  </saml:Assertion>
+</samlp:Response>
