@@ -37,7 +37,7 @@ String dockerPrefix = "smarterbalanced"
 
 allprojects {
     group = 'org.opentestsystem.rdw.reporting'
-    version = '1.0.2-SNAPSHOT'
+    version = '1.0.3-SNAPSHOT'
 
     apply plugin: 'idea'
     apply plugin: 'propdeps'
