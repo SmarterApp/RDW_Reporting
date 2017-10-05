@@ -492,7 +492,7 @@
       "subheader-empty": "No institutions selected",
       "subheader-not-empty": "Click an institution to remove it from the list"
     },
-    "custom-export": {
+    "organization-export": {
       "link": "Custom Exports",
       "heading": "Customized Export",
       "form": {
@@ -507,6 +507,14 @@
             "District": "Districts",
             "DistrictGroup": "District Groups"
           }
+        },
+        "school-year": {
+          "label": "School Year"
+        },
+        "submit": {
+          "label": "Export Results",
+          "success-html": "Creating export. See <a href=\"/reports\">status</a>.",
+          "failure": "Error creating report. Please try again."
         }
       }
     },

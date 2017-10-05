@@ -22,16 +22,10 @@
              sortField="exam.date"
              sortOrder="-1"
              tableStyleClass="table table-striped table-hover">
-  <!-- Menu column -->
-  <p-column styleClass="cell-dropdown">
-    <ng-template let-data="rowData" pTemplate="body">
-      <popup-menu [item]="data" [actions]="actions"></popup-menu>
-    </ng-template>
-  </p-column>
 
   <p-column field="exam.date" header="{{'labels.student.results.cols.date' | translate}}" sortable="true">
-    <ng-template let-exam="rowData.exam" pTemplate="body">
-      {{ exam.date | date }}
+    <ng-template let-data="rowData" let-exam="rowData.exam" pTemplate="body">
+      <popup-menu [item]="data" [actions]="actions" [text]="exam.date | date"></popup-menu>
     </ng-template>
   </p-column>
   <p-column field="assessment.name" header="{{'labels.student.results.cols.assessment' | translate}}" sortable="true"></p-column>

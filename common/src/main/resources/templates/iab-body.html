@@ -17,7 +17,7 @@
                             <span class="label" th:text="#{report.iab.short-name}"></span><span class="label" th:text="#{'report.subject.' + ${assessment.subject} + '.name'}"></span>
                         </span>
                     </div>
-                    <div class="h4" th:text="#{('report.iab.title.grade.' + ${report.studentEnrollment.gradeCode})(${#strings.toString(exam.schoolYear)}, ${support.getLastTwoDigits(exam.schoolYear + 1)})}"></div>
+                    <div class="h4" th:text="#{('report.iab.title.grade.' + ${report.studentEnrollment.gradeCode})(${#strings.toString(exam.schoolYear - 1)}, ${support.getLastTwoDigits(exam.schoolYear)})}"></div>
                 </div>
                 <div class="col-xs-3 pr-0 text-right">
                     <div class="scale-score-legend"></div>

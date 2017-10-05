@@ -24,12 +24,15 @@ saml:
     port: 8080
     include-server-port: false
 
-# tomcat settings for reasonable performance: adjust for tiny/huge configurations
 server:
+  # tomcat settings for reasonable performance: adjust for tiny/huge configurations
   tomcat:
     max-connections: 0
     max-threads: 4
     accept-count: 10
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,text/css,text/javascript,application/javascript
 
 spring:
   resources:

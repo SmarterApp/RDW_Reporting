@@ -4,16 +4,17 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "primeng/components/common/shared";
 import { Angulartics2Module } from "angulartics2";
 import { CommonModule } from "../shared/common.module";
-import { CustomExportComponent } from "./custom-export.component";
+import { OrganizationExportComponent } from "./organization-export.component";
 import { UserModule } from "../user/user.module";
 import { OrganizationService } from "./organization/organization.service";
 import { OrganizationMapper } from "./organization/organization.mapper";
 import { OrganizationTreeComponent } from "./organization/organization-tree.component";
 import { UserOrganizationsResolve } from "./organization/user-organizations.resolve";
+import { OrganizationExportService } from "./organization-export.service";
 
 @NgModule({
   declarations: [
-    CustomExportComponent,
+    OrganizationExportComponent,
     OrganizationTreeComponent
   ],
   imports: [
@@ -26,14 +27,15 @@ import { UserOrganizationsResolve } from "./organization/user-organizations.reso
     Angulartics2Module.forChild(),
   ],
   exports: [
-    CustomExportComponent,
+    OrganizationExportComponent,
     OrganizationTreeComponent
   ],
   providers: [
+    OrganizationExportService,
     OrganizationService,
     OrganizationMapper,
     UserOrganizationsResolve
   ]
 })
-export class CustomExportModule {
+export class OrganizationExportModule {
 }

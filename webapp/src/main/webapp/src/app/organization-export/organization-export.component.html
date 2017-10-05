@@ -1,0 +1,55 @@
+<h3 class="blue mb-md">{{'labels.organization-export.heading' | translate}}</h3>
+
+<div class="well-group">
+
+  <div class="well">
+    <form ngForm="form" (submit)="submit()">
+      <div class="row">
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'labels.organization-export.form.organization.label' | translate}}</label>
+            <span search-select-with-button
+                  [options]="organizationOptions"
+                  (select)="add($event)"
+                  dropdownThreshold="10"
+                  placeholder="{{'prompt.select' | translate}}"
+                  searchPlaceholder="{{'labels.organization-export.form.organization.placeholder' | translate}}"
+                  buttonLabel="{{'labels.organization-export.form.organization.add' | translate}}">
+            </span>
+            <div class="ml-xs mt-xs">
+              <a *ngIf="selectAllEnabled"
+                 class="aqua"
+                 href="javascript:void(0)"
+                 [style.text-decoration]="'none'"
+                 (click)="toggleSelectAll()"><i class="fa" [ngClass]="{'fa-check-square': selectedAll, 'fa-square-o': !selectedAll}"></i>
+                {{'labels.organization-export.form.organization.select-all' | translate}}
+              </a>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label for="select-year">{{'labels.select-year' | translate}}</label>
+            <select id="select-year" name="select-year" class="form-control" [(ngModel)]="selectedSchoolYear">
+              <option *ngFor="let year of schoolYearOptions" [ngValue]="year">{{year | schoolYear}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4 text-right">
+          <button type="submit" class="btn btn-info aqua" [disabled]="selectedSchools.length == 0"><i class="fa fa-cloud-download"></i> {{'labels.organization-export.form.submit.label' | translate}}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="well gray-lightest">
+    <h3 class="gray-darkest mb-0"><i class="fa fa-list-alt"></i> {{'labels.organization-tree.header' | translate}}</h3>
+    <p class="small gray-dark" [hidden]="selectedSchools.length != 0">{{'labels.organization-tree.subheader-empty' | translate}}</p>
+    <p class="small gray-dark" [hidden]="selectedSchools.length == 0">{{'labels.organization-tree.subheader-not-empty' | translate}}</p>
+    <organization-tree [model]="organizationTree" (select)="remove($event)"></organization-tree>
+  </div>
+
+</div>
+

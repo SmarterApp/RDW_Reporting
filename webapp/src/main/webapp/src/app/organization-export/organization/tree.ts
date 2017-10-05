@@ -74,7 +74,7 @@ export class Tree<T> {
    * @param {(x: T) => boolean} matcher the method used to find the desired child node
    * @returns {Tree<T>} the child node if found or undefined if not.
    */
-  find(matcher: (x:T) => boolean): Tree<T> {
+  find(matcher: (child:T) => boolean): Tree<T> {
     return this._children.find((child) => matcher(child.value))
   }
 
