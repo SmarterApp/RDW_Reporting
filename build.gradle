@@ -105,9 +105,6 @@ subprojects {
         testCompile 'org.mockito:mockito-all'
     }
 
-    // generate coverage report automatically (./build/reports/jacoco/test/html/index.html)
-    test.finalizedBy(jacocoTestReport)
-
     // task to generate build-info.properties with build.version, build.timestamp
     // using this approach instead of resource filtering to avoid modifying source
     task createBuildInfoFile(dependsOn: processResources) {
@@ -204,8 +201,20 @@ subprojects {
         }
     }
 
-    tasks.withType(Test) {
-        reports.html.destination = file("${reporting.baseDir}/${name}")
+    task coverage(type: Task, dependsOn: [test, IT]) {
+        doFirst {
+            jacocoTestReport.executionData(test, IT)
+        }
+        finalizedBy(jacocoTestReport)
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.enabled = false
+            csv.enabled = false
+            html.enabled = true
+            html.destination = file("${reporting.baseDir}/${name}")
+        }
     }
 }
 
