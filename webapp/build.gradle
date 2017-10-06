@@ -28,6 +28,7 @@ dependencies {
     compile 'org.springframework.retry:spring-retry'
     compile 'org.springframework.security.extensions:spring-security-saml2-core'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-guava'
     compile 'com.google.guava:guava'
     compile 'mysql:mysql-connector-java'
     compile 'org.apache.commons:commons-io'
