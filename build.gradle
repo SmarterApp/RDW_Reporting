@@ -204,17 +204,9 @@ subprojects {
     task coverage(type: Task, dependsOn: [test, IT]) {
         doFirst {
             jacocoTestReport.executionData(test, IT)
+            jacocoTestReport.reports.html.destination = file("${reporting.baseDir}/${name}")
         }
         finalizedBy(jacocoTestReport)
-    }
-
-    jacocoTestReport {
-        reports {
-            xml.enabled = false
-            csv.enabled = false
-            html.enabled = true
-            html.destination = file("${reporting.baseDir}/${name}")
-        }
     }
 }
 
