@@ -1,4 +1,4 @@
-import { TestBed, inject } from "@angular/core/testing";
+import { inject, TestBed } from "@angular/core/testing";
 import { StudentExamHistoryService } from "./student-exam-history.service";
 import { DataService } from "../shared/data/data.service";
 import { MockDataService } from "../../test/mock.data.service";
@@ -59,6 +59,20 @@ describe('StudentExamHistoryService', () => {
         expect(exists.id).toEqual(123);
       });
   }));
+
+  it('should trim the ssid value before checking if student exists',
+    inject([StudentExamHistoryService], (service: StudentExamHistoryService) => {
+
+      dataService.get.and.returnValue(Observable.of({
+        id: 123
+      }));
+
+      service.existsBySsid(" ssid ").subscribe((exists) => {
+        expect(exists.id).toEqual(123);
+      });
+
+      expect(dataService.get.calls.first().args[0]).toMatch("/ssid$");
+    }));
 
   it('should throw for a 404 response when retrieving history for a student',
     inject([StudentExamHistoryService], (service: StudentExamHistoryService) => {

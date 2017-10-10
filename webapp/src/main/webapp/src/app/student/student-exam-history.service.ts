@@ -45,8 +45,9 @@ export class StudentExamHistoryService {
   existsBySsid(ssid: string): Observable<Student> {
     let params: URLSearchParams = new URLSearchParams();
     params.set('hasExams', 'true');
+    let trimmedSsid = ssid.trim();
 
-    return this.dataService.get(`/students/${ssid}`, {params: params})
+    return this.dataService.get(`/students/${trimmedSsid}`, {params: params})
       .catch(ResponseUtils.badResponseToNull)
       .map((apiStudent) => {
         if (apiStudent == null) return null;
