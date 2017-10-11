@@ -48,6 +48,7 @@ export abstract class ReportDownloadComponent implements OnInit {
 
   onShowInternal(event: any) {
     this.onShow.emit(event);
+    this.options.name = this.generateName();
   }
 
   AssessmentType: any = AssessmentType;
@@ -69,7 +70,6 @@ export abstract class ReportDownloadComponent implements OnInit {
     defaultOptions.accommodationsVisible = false;
     defaultOptions.order = this.orders[ 0 ];
     defaultOptions.grayscale = false;
-    defaultOptions.name = this.generateName();
     this.options = defaultOptions;
   }
 
