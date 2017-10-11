@@ -1,0 +1,15 @@
+{
+  "@class": "org.opentestsystem.rdw.reporting.common.report.GroupExamReportRequest",
+  "assessmentType": "IAB",
+  "subject": "ELA",
+  "schoolYear": 2017,
+  "language": "eng",
+  "name": "ELA-G11-2900 2017",
+  "accommodationsVisible": false,
+  "order": "STUDENT_NAME",
+  "groupGrant": {
+    "@class": "org.opentestsystem.rdw.reporting.common.security.GroupGrant",
+    "id": 28,
+    "subjectId": 0
+  }
+}
