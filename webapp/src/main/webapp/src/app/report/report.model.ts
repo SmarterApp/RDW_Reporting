@@ -3,11 +3,17 @@
  * This model serves as a handle on a persisted report that can be downloaded,
  * or report request that can be reissued to regenerate a historic report for download again
  */
+import { AssessmentType } from "../shared/enum/assessment-type.enum";
+
 export class Report {
 
   public id: number;
   public label: string;
   public status: string;
+  public reportType: string;
+  public assessmentType: AssessmentType;
+  public subjectId: number;
+  public schoolYear: number;
   public created: Date;
 
   public get completed(): boolean {

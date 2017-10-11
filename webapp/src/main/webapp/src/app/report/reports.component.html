@@ -17,6 +17,27 @@
         <button *ngIf="report.regenerable" class="btn btn-default btn-xs" (click)="regenerate(report)"><i class="fa fa-refresh mr-xs" aria-hidden="true"></i> {{report.label}}</button>
       </ng-template>
     </p-column>
+    <p-column field="reportType" header="{{'labels.reports.column.report-type.header' | translate}}" sortable="true">
+      <ng-template let-report="rowData" pTemplate="body">
+        {{ 'labels.reports.reportType.' + report.reportType | translate }}
+      </ng-template>
+    </p-column>
+    <p-column field="assessmentType" header="{{'labels.reports.column.assessment-type.header' | translate}}" sortable="true">
+      <ng-template let-report="rowData" pTemplate="body">
+        <span *ngIf="!report.assessmentType">{{'labels.reports.all' | translate}}</span>
+        <span *ngIf="report.assessmentType">{{report.assessmentType | assessmentType}}</span>
+      </ng-template>
+    </p-column>
+    <p-column field="subjectId" header="{{'labels.reports.column.subject.header' | translate}}" sortable="true">
+      <ng-template let-report="rowData" pTemplate="body">
+        {{ report.subjectId | subject }}
+      </ng-template>
+    </p-column>
+    <p-column field="schoolYear" header="{{'labels.reports.column.school-year.header' | translate}}" sortable="true">
+      <ng-template let-report="rowData" pTemplate="body">
+        {{ report.schoolYear | schoolYear }}
+      </ng-template>
+    </p-column>
     <p-column field="status" sortable="true" header="{{'labels.reports.column.status.header' | translate}}">
       <ng-template let-report="rowData" pTemplate="body">
         <span class="label border-only {{report.statusColor}}">{{ 'labels.reports.status.' + report.status | translate }}</span>

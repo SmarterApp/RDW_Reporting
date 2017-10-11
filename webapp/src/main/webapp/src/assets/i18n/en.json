@@ -422,20 +422,33 @@
       }
     },
     "reports": {
+      "all": "All",
       "link": "My Reports",
       "heading": "My Reports",
       "no-reports-html": "<p>To create a report, first select a group or school from the <a href=\"/\">Home page</a>. Next click the \"Student Reports\" button to get started.",
       "reload": "Reload",
       "column": {
+        "assessment-type": {
+          "header": "Assessment Type"
+        },
         "created": {
           "header": "Date"
         },
         "label": {
           "header": "Name"
         },
+        "report-type": {
+          "header": "Report Type"
+        },
+        "school-year": {
+          "header": "School Year"
+        },
         "status": {
           "header": "Status",
           "title": "A status indicator will be displayed if the report generation was not successful or the report has expired."
+        },
+        "subject": {
+          "header": "Subject"
         }
       },
       "button-label": {
@@ -478,6 +491,12 @@
         "coming-soon": {
           "report-regeneration": "Report regeneration is coming soon."
         }
+      },
+      "reportType": {
+        "Student": "Student",
+        "SchoolGrade": "School/Grade",
+        "Group": "Group",
+        "ExamExport": "Exam Export"
       },
       "status": {
         "PENDING": "Pending",

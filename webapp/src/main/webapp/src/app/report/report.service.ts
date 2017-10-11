@@ -138,6 +138,10 @@ export class ReportService {
     local.label = remote.label;
     local.status = remote.status;
     local.created = remote.created;
+    local.reportType = remote.reportType;
+    local.assessmentType = AssessmentType[ remote.assessmentType as string ];
+    local.subjectId = AssessmentSubjectType[ remote.subject as string ] || 0;
+    local.schoolYear = remote.schoolYear;
     return local;
   }
 
