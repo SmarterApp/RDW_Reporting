@@ -449,6 +449,7 @@
           "single-prepopulated": "Print {{name}}'s {{schoolYear}} {{subject}} {{assessmentType}} Report",
           "multiple": "Print {{name}} Student Reports"
         },
+        "report-name": "Report Name",
         "regenerate": "Regenerate",
         "assessment-type": "Assessment Type",
         "subject": "Subject",

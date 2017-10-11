@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "primeng/components/common/shared";
 import { ModalModule } from "ngx-bootstrap";
 import { Angulartics2Module } from "angulartics2";
@@ -13,7 +13,6 @@ import { ReportsComponent } from "./reports.component";
 import { DataTableModule } from "primeng/components/datatable/datatable";
 import { GroupReportDownloadComponent } from "./group-report-download.component";
 import { SchoolGradeDownloadComponent } from "./school-grade-report-download.component";
-import { ReportNamingService } from "./report-naming.service";
 
 @NgModule({
   declarations: [
@@ -41,7 +40,6 @@ import { ReportNamingService } from "./report-naming.service";
   ],
   providers: [
     ReportService,
-    ReportNamingService,
     ReportsResolve
   ]
 })

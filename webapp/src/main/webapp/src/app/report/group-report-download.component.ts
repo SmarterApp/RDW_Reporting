@@ -1,11 +1,9 @@
 import { Component, Input } from "@angular/core";
 import { ReportService } from "./report.service";
-import { saveAs } from "file-saver";
 import { ReportDownloadComponent } from "./report-download.component";
 import { NotificationService } from "../shared/notification/notification.service";
 import { Report } from "./report.model";
 import { Group } from "../user/model/group.model";
-import { TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs";
 
 /**
@@ -27,6 +25,10 @@ export class GroupReportDownloadComponent extends ReportDownloadComponent {
 
   createReport(): Observable<Report> {
     return this.service.createGroupExamReport(this.group, this.options);
+  }
+
+  generateName(): string {
+    return this.group.name;
   }
 
 }

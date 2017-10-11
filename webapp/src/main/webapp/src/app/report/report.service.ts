@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ResponseContentType, Headers } from "@angular/http";
+import { Headers, ResponseContentType } from "@angular/http";
 import { ReportOptions } from "./report-options.model";
 import { Observable } from "rxjs";
 import { AssessmentType } from "../shared/enum/assessment-type.enum";
@@ -13,13 +13,11 @@ import { Student } from "../student/model/student.model";
 import { Group } from "../user/model/group.model";
 import { School } from "../user/model/school.model";
 import { Grade } from "../school-grade/grade.model";
-import { ReportNamingService } from "./report-naming.service";
 
 @Injectable()
 export class ReportService {
 
-  constructor(private dataService: DataService,
-    private namingService: ReportNamingService) {
+  constructor(private dataService: DataService) {
   }
 
   /**
@@ -52,7 +50,6 @@ export class ReportService {
    * @returns {Observable<Report>} the handle used the get status on the download
    */
   public createStudentExamReport(student: Student, options: ReportOptions): Observable<Report> {
-    options.name = this.namingService.nameStudentExamReport(student, options);
     return this.createExamReport(`/students/${student.id}/report`, options);
   }
 
@@ -64,7 +61,6 @@ export class ReportService {
    * @returns {Observable<Report>} the handle used the get status on the download
    */
   public createGroupExamReport(group: Group, options: ReportOptions): Observable<Report> {
-    options.name = this.namingService.nameGroupExamReport(group, options);
     return this.createExamReport(`/groups/${group.id}/reports`, options);
   }
 
@@ -77,7 +73,6 @@ export class ReportService {
    * @returns {Observable<Report>} the handle used the get status on the download
    */
   public createSchoolGradeExamReport(school: School, grade: Grade, options: ReportOptions): Observable<Report> {
-    options.name = this.namingService.nameSchoolGradeExamReport(school, grade, options);
     return this.createExamReport(`/schools/${school.id}/assessmentGrades/${grade.id}/reports`, options);
   }
 

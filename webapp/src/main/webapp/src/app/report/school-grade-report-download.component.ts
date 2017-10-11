@@ -1,6 +1,5 @@
 import { Component, Input } from "@angular/core";
 import { ReportService } from "./report.service";
-import { saveAs } from "file-saver";
 import { ReportDownloadComponent } from "./report-download.component";
 import { NotificationService } from "../shared/notification/notification.service";
 import { Report } from "./report.model";
@@ -25,12 +24,18 @@ export class SchoolGradeDownloadComponent extends ReportDownloadComponent {
   grade: Grade;
 
   constructor(notificationService: NotificationService,
-              private service: ReportService) {
+              private service: ReportService,
+              private translate: TranslateService) {
     super(notificationService);
   }
 
   createReport(): Observable<Report> {
     return this.service.createSchoolGradeExamReport(this.school, this.grade, this.options);
+  }
+
+  generateName(): string {
+    let gradeLabel: string = this.translate.instant(`labels.grades.${this.grade.code}.enrolled-name`);
+    return `${this.school.name} ${gradeLabel}`;
   }
 
 }

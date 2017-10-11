@@ -69,6 +69,7 @@ export abstract class ReportDownloadComponent implements OnInit {
     defaultOptions.accommodationsVisible = false;
     defaultOptions.order = this.orders[ 0 ];
     defaultOptions.grayscale = false;
+    defaultOptions.name = this.generateName();
     this.options = defaultOptions;
   }
 
@@ -88,6 +89,13 @@ export abstract class ReportDownloadComponent implements OnInit {
    * Implement this to give behavior to the exam report download form when it is submitted
    */
   abstract createReport(): Observable<Report>;
+
+  /**
+   * Generate a default report name to suggest to the user.
+   *
+   * @returns {string} The default report name
+   */
+  abstract generateName(): string;
 
   /**
    * Converts the given string to an AssessmentSubjectType
