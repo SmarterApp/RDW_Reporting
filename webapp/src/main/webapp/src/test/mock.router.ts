@@ -7,5 +7,8 @@ export class MockRouter {
   public navigate: Spy = jasmine.createSpy("navigate");
   public events = Observable.empty();
 
-  constructor() {}
+  constructor() {
+    this.navigate.and.callFake(() => Observable.of(true).toPromise());
+    this.navigateByUrl.and.callFake(() => Observable.of(true).toPromise());
+  }
 }

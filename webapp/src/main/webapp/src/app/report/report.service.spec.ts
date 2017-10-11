@@ -46,7 +46,7 @@ describe('ReportService', () => {
       expect(reports[0].reportType).toBe("Student");
       expect(reports[0].status).toBe("PENDING");
       expect(reports[0].schoolYear).toBe(1234);
-      expect(reports[0].created.getTime()).toBeLessThan(new Date().getTime());
+      expect(reports[0].created.getTime()).toBeLessThanOrEqual(new Date().getTime());
       expect(reports[0].assessmentType).toBeUndefined();
       expect(reports[0].subjectId).toBe(0);
 
