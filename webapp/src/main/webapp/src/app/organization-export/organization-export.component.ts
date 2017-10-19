@@ -201,21 +201,10 @@ export class OrganizationExportComponent implements OnInit {
       .subscribe(
         () => {
           this.notificationService.info({ id: 'labels.organization-export.form.submit.success-html', html: true });
-          this.goBackOrHome();
+          this.router.navigate([ '/reports' ]);
         },
         () => this.notificationService.error({ id: 'labels.organization-export.form.submit.failure' })
       );
-  }
-
-  /**
-   * Navigates user to the previous page or the home page if the current page is their first page.
-   */
-  private goBackOrHome(): void {
-    if (window.history.length == 1) {
-      this.router.navigate(['/']);
-    } else {
-      window.history.back();
-    }
   }
 
 }

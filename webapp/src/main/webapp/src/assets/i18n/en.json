@@ -533,7 +533,7 @@
         },
         "submit": {
           "label": "Export Results",
-          "success-html": "Creating export. See <a href=\"/reports\">status</a>.",
+          "success-html": "Creating export.",
           "failure": "Error creating export. Please try again."
         }
       }
