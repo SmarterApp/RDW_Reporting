@@ -1,0 +1,39 @@
+<div>
+  <div class="mb-md">
+    <span class="h3 blue-dark">{{'labels.groups.import.title' | translate}}</span>
+    <button [routerLink]="['fileformat']" class="btn btn-default pull-right"><i class="fa fa-file-text mr-xs"></i> {{'labels.groups.import.file-format.header' | translate}}</button>
+  </div>
+  <div class="well">
+    <p>{{ 'labels.groups.import.replacement-instruct' | translate }}</p>
+    <div class="alert alert-warning" [innerHTML]="'labels.groups.import.warning-html' | translate"></div>
+    <div ng2FileDrop
+         *ngIf="!uploader.isUploading"
+         class="my-drop-zone point"
+         [class.nv-file-over]="hasDropZoneOver"
+         [uploader]="uploader"
+         (fileOver)="hasDropZoneOver = $event">
+      <div class="text-center pt-lg pb-lg">
+        <span class="gray-dark">
+          <i class="fa fa-cloud-upload"></i>
+          {{ 'labels.groups.import.drag-instruct' | translate }} <a href="javascript:void(0)" (click)="openFileDialog()">{{'labels.groups.import.browse-instruct' | translate }}</a>
+        </span>
+      </div>
+    </div>
+    <div *ngIf="uploader.isUploading">
+      <div class="loader">
+        <div class="text-center pt-lg pb-lg inner">
+          <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+          <span class="text">
+            {{ 'labels.groups.import.sending' | translate }} {{ uploader.queue.length - uploader.getNotUploadedItems().length }} / {{ uploader.queue.length }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div hidden>
+      <input #fileDialog type="file" ng2FileSelect [uploader]="uploader" multiple />
+    </div>
+  </div>
+  <div class="well">
+    <import-table [imports]="importResults"></import-table>
+  </div>
+</div>

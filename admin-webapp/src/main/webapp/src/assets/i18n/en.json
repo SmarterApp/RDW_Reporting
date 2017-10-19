@@ -1,0 +1,126 @@
+{
+  "welcome": "Welcome {{firstName}} {{lastName}}",
+  "application": {
+    "title": "Manage Student Groups"
+  },
+  "messages": {
+    "no-results-found": "No results found.",
+    "noExamsSelected": "Please select from the assessments above",
+    "notApplicable": "-",
+    "logout": "Logout",
+    "loading": "Loading",
+    "upload-in-progress": "Files are still uploading, are you sure you want to leave?",
+    "access-denied": {
+      "title": "Access Denied",
+      "message": "Your user account does not have access to use this application. If you believe you have reached this page in error, please contact your administrator."
+    }
+  },
+  "collapse": "Collapse",
+  "select": "Select",
+  "labels": {
+    "navigation": {
+      "user-guide": "User Guide"
+    },
+    "groups": {
+      "title": "Manage Student Groups",
+      "select-school": "School",
+      "select-school-year": "School Year",
+      "select-subject": "Subject",
+      "search-school": "Start typing a school name...",
+      "no-results": "No groups found matching the given filter criteria.",
+      "no-schools": "Your user account does not have access to view the groups of any schools.",
+      "filter": "Search groups by name",
+      "cols": {
+        "name": "Name",
+        "school": "School",
+        "school-year": "School Year",
+        "subjects": "Subjects",
+        "student-count": "Num. of Students",
+        "delete": "Delete"
+      },
+      "delete": {
+        "title": "Delete {{name}}?",
+        "error": "Unable to delete this group.",
+        "content-html": "<p>When a group is deleted, it is no longer available to any users.  This action cannot be undone.</p><p>Are you sure you would like to continue?</p>",
+        "button-cancel": "No, keep this group.",
+        "button-save": "Yes, delete this group"
+      },
+      "import": {
+        "link": "Upload Groups",
+        "title": "Upload New or Revised Groups",
+        "results": "Upload Results",
+        "empty": "Upload results will be shown here.",
+        "replacement-instruct": "To make changes to an existing group, please upload a replacement file.",
+        "drag-instruct": "Drag and drop to upload or ",
+        "browse-instruct": "browse for files",
+        "sending": "Uploading...",
+        "view-errors": "View Errors",
+        "hide-errors": "Hide Errors",
+        "message": "Message",
+        "cols": {
+          "status": "Upload Status",
+          "id": "Upload ID",
+          "file-name": "File Name",
+          "created": "Date Created"
+        },
+        "warning-html": "<p><strong class=\"mr-xs\">WARNING:</strong> Groups in the uploaded file will replace existing groups if they have the same school ID, school year and group name.</p><p>All other groups will not be deleted or changed.</p>",
+        "file-format": {
+          "header": "CSV File Format",
+          "template": {
+            "button": "Template",
+            "file": "groups.csv"
+          },
+          "rules": {
+            "header": "How to write the CSV",
+            "body-html": "<ol> <li class=\"mt-md\"> The CSV file must include the headers found in the template file provided below. </li><li class=\"mt-md\"> Every row must include a valid <code>school_natural_id</code>, <code>school_year</code>, and <code>group_name</code>. </li><li class=\"mt-md\"> Groups for a particular school must be listed together and must not be separated by lists of groups for other schools. </li><li class=\"mt-md\"> Groups must be listed together and not separated by rows of other groups. </li><li class=\"mt-md\"> A group's subject must be listed as <code>Math</code>, <code>ELA</code> or <code>All</code>. </li><li class=\"mt-md\"> There is a limit of <code>200</code> students that may be assigned to a single group. </li><li class=\"mt-md\"> A user must have the <code>GROUP_ADMIN</code> role for a school in order to upload groups. </li></ol>"
+          }
+        }
+      },
+      "history": {
+        "title": "Upload History"
+      }
+    },
+    "menu": "Menu",
+    "more-info": "More Information",
+    "personName": "{{lastName}}, {{firstName}}",
+    "select-year": "School Year"
+  },
+  "prompt": {
+    "search": "Search",
+    "select": "Select",
+    "close": "Close"
+  },
+  "buttons": {
+    "all": "All",
+    "visibility": {
+      "show": "Show",
+      "hide": "Hide"
+    },
+    "collapsible": {
+      "expand": "Expand",
+      "collapse": "Collapse"
+    },
+    "search": "Search"
+  },
+  "enum": {
+    "polar": {
+      "1": "Yes",
+      "2": "No"
+    },
+    "subject": {
+      "MATH": "Math",
+      "ELA": "ELA",
+      "ALL": "All"
+    },
+    "status": {
+      "UNKNOWN_SCHOOL": "Unknown School",
+      "UNKNOWN_ASMT": "Unknown Assessment",
+      "UNAUTHORIZED": "Unauthorized",
+      "BAD_DATA": "Bad Data",
+      "BAD_FORMAT": "Bad Format",
+      "INVALID": "Invalid",
+      "ACCEPTED": "Accepted",
+      "PROCESSED": "Processed"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+<div>
+  <div class="mb-md">
+    <span class="h3 blue-dark">{{'labels.groups.import.file-format.header' | translate}}</span>
+  </div>
+  <div class="well">
+    <h3>{{'labels.groups.import.file-format.rules.header' | translate}}</h3>
+    <div [innerHTML]="'labels.groups.import.file-format.rules.body-html' | translate"></div>
+    <div class="text-center pt-md pb-md">
+      <button class="btn btn-default btn-lg mr-sm" (click)="downloadTemplateFile()"><i class="fa fa-file-text-o mr-xs"></i> {{'labels.groups.import.file-format.template.button' | translate}}</button>
+      <a class="btn btn-default btn-lg" href="javascript:void(0)"><i class="fa fa-file-o mr-xs"></i> {{'labels.navigation.user-guide' | translate}}</a>
+    </div>
+  </div>
+</div>

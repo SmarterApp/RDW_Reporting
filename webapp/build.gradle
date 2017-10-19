@@ -69,7 +69,6 @@ task buildFe(type: NpmTask) {
     args = ['run', 'build']
 }
 
-
 task testFe(type: NpmTask) {
     inputs.files(fileTree("src/main/webapp/src"))
     inputs.file("src/main/webapp/package.json")
