@@ -1,7 +1,7 @@
 build/
 out/
 !.mvn/wrapper/maven-wrapper.jar
-src/main/resources/static/
+src/main/resources/static/*.bundle.*
 
 ### STS ###
 .apt_generated
@@ -25,3 +25,7 @@ nbdist/
 .nb-gradle/
 .gradle/
 classes/
+
+# Generated assets
+/webapp/src/main/resources/static/
+/admin-webapp/src/main/resources/static/

@@ -1,0 +1,151 @@
+//
+// RDW Style Overrides
+// Extending SBAC UI Kit
+// ----------------------------------------
+
+//
+// Libraries
+// ----------------------------------------
+@library-path: "../node_modules";
+
+// Prime NG Styles
+@import "@{library-path}/primeng/resources/primeng.min.css";
+@import "@{library-path}/primeng/resources/themes/bootstrap/theme.css";
+
+// Twitter Bootstrap
+@import "@{library-path}/bootstrap/less/bootstrap.less";
+
+// Font Awesome
+@import "@{library-path}/font-awesome/less/font-awesome.less";
+
+// SBAC UI Kit
+@import "@{library-path}/@sbac/sbac-ui-kit/src/less/sbac-ui-kit.less";
+@import "primeng-overrides.less";
+
+@media (max-width: @screen-md-max) {
+  .container {
+    width: 100%;
+  }
+}
+
+// ------------------------------
+// RDW Custom Styles to Match Comps
+// ------------------------------
+.my-groups-search-form-container {
+  border: 1px solid @gray-lighter;
+  border-radius: 5px 5px 0 0;
+}
+
+.navbar-nav > li > div {
+  padding-top: 16.5px;
+  padding-bottom: 16.5px;
+}
+
+.navbar-nav > li > div {
+  line-height: 23px;
+}
+
+.nav > li > div {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+}
+
+.my-groups-list-container .table > thead > tr > th {
+  &:first-child {
+    border-top-left-radius: 0;
+  }
+  &:last-child {
+    border-top-right-radius: 0;
+  }
+}
+
+.ui-dropdown {
+  width: 100% !important;
+}
+
+.ui-dropdown-filter-container {
+  width: 100% !important;
+}
+
+// containing the header and footer
+// may pull this back to UI Kit if approved
+// -AS
+header {
+  background-color: transparent;
+  .box-shadow(none);
+  .well {
+    .border-top-radius(0px);
+  }
+}
+
+.breadcrumb {
+  .small;
+  border-width: 1px 0px;
+  border-style: solid;
+  border-color: @gray-light;
+  padding-right: 0px;
+  padding-left: @grid-gutter-width / 2;
+  background-color: @gray-lighter;
+  border-radius: @border-radius-base;
+  .box-shadow(0 6px 6px -6px rgba(0, 0, 0, .16) inset, 0 1px 1px 1px rgba(255, 255, 255, .95););
+  > .active {
+    color: @gray-darker;
+  }
+}
+
+footer {
+  background-color: transparent;
+  padding: 0px;
+  border-top: none;
+  color: @gray-dark;
+  .box-shadow(none);
+}
+
+.white-space-normal {
+  white-space: normal;
+}
+
+.white-space-preline {
+  white-space: pre-line;
+}
+
+.report-download-popover {
+  display: block;
+  max-width: 440px;
+  width: auto;
+  select {
+    font-weight: normal;
+  }
+}
+
+.notifications {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1030;
+}
+
+@media (max-width: @screen-xs-max) {
+  // undoing the .pull-right classes
+  .float-none-xs { float: none !important; }
+  #group-results-basic-filters .form-group .col-md-2.pull-right,
+  #group-results-selected-assessments .col-md-6 .pull-right {
+    .float-none-xs;
+  }
+}
+
+// TODO: Should these be moved to sbac-ui-kit ?
+.my-drop-zone {
+  border: dotted 3px lightgray;
+  border-radius: 5px;
+  height: 118px; /* Required for drag & drop to work in IE11 */
+}
+
+.nv-file-over {
+  border-color: #104564;
+}
+
+.font-weight-light {
+  font-weight: lighter;
+}

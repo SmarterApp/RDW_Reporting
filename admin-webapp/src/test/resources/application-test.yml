@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url-schema: warehouse_test
+
+artifacts:
+  root: "classpath:"
+
+permissionservice:
+  endpoint:
+

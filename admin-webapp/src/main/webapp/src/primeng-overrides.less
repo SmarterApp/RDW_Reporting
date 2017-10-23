@@ -1,0 +1,195 @@
+//
+// Prime NG Style Overrides
+// Base file includes Prime NG styles and Bootstrap theme
+// These overrides bring styled elements back in line with the SBAC UI Kit
+// ----------------------------------------
+
+// Global
+body {
+  .ui-widget,
+  input,
+  select,
+  textarea,
+  button {
+    font-size: @font-size-base;
+  }
+}
+
+
+// Tables
+body .ui-widget.ui-datatable {
+  font-family: @font-family-serif;
+  font-size: @font-size-small;
+  table {
+    border-collapse: separate;
+    width: auto;
+    max-width: none;
+    min-width: 100%;
+    // head, foot, and data
+    .ui-datatable-thead,
+    .ui-datatable-tfoot,
+    .ui-datatable-data {
+      > tr {
+        > th,
+        > td {
+          border: none;
+          padding: @table-cell-padding;
+          background-color: @table-bg;
+          white-space: nowrap;
+          &:first-child {
+            border-left: 1px solid @table-border-color;
+          }
+          &:last-child {
+            border-right: 1px solid @table-border-color;
+          }
+        }
+        > th {padding: (@table-cell-padding / 2) @table-cell-padding}
+        &:last-child td {
+          border-bottom: 1px solid @table-border-color;
+        }
+        .btn{
+          &.icon-only {
+            width: inherit;
+            height: inherit;
+            margin-top: -2px;
+          }
+        }
+      }
+    }
+    // head, and foot
+    .ui-datatable-thead,
+    .ui-datatable-tfoot {
+      > tr {
+        > th,
+        > td {
+          color: @gray-darkest;
+          background-color: @gray-light;
+          text-align: left;
+          &.ui-state-active {
+            color: @black;
+            border: 1px solid @gray-light;
+            background-color: lighten(@gray-light, 10%);
+          }
+        }
+      }
+    }
+    // head
+    .ui-datatable-thead {
+      > tr {
+        > th {
+          &.ui-sortable-column {
+            position: relative;
+            padding-right: 22px; // make sure we have room for the sort icon
+            .ui-column-title {
+              display: inline-block;
+              padding-right: 0px;
+            }
+            .ui-sortable-column-icon {
+              position: absolute;
+              bottom: @table-cell-padding;
+            }
+          }
+        }
+      }
+    }
+    // body
+    .ui-datatable-data {
+      > tr {
+        > td {
+          border-bottom: 1px solid @table-border-color;
+        }
+        &.ui-datatable-even:hover {
+          background-color: @table-bg-hover;
+        }
+      }
+    }
+  }
+  // fixing the scrollable table
+  &.ui-datatable-scrollable {
+    margin: 0px;
+    width: 100;
+    max-width: 100%;
+    .ui-datatable-scrollable-wrapper {
+      .ui-datatable-scrollable-view {
+        .ui-datatable-scrollable-header {
+          .ui-datatable-scrollable-header-box {
+            table {
+              width: auto;
+              max-width: none;
+            }
+          }
+        }
+        .ui-datatable-scrollable-body {
+          > div {
+            table {
+              width: auto;
+              max-width: none;
+            }
+          }
+        }
+      }
+    }
+  }
+  .ui-sortable-column {
+    &:hover {
+      background-color: lighten(@gray-lighter, 5%);
+      cursor: pointer;
+    }
+    .ui-sortable-column-icon {
+      top: @table-cell-padding;
+      right: 0px;
+      color: @gray-darker;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    &.ui-state-active {
+      .ui-sortable-column-icon {
+        color: @gray;
+      }
+    }
+  }
+  // overflow styles
+  // table.overflow {
+  table:not(".my-groups-list-container table") {
+    .well;
+    padding-top: (@line-height-computed / 2);
+    padding-right: (@grid-gutter-width / 2);
+    padding-bottom: (@line-height-computed / 2);
+    padding-left: (@grid-gutter-width / 2);
+    table-layout: auto;
+    @media (max-width: @screen-xs-max) {
+      padding: 0px 0px 0px 0px;
+      border: none;
+      .box-shadow(none);
+    }
+  }
+}
+
+// Dropdowns
+.school-and-grade-search-container {
+  .ui-dropdown,
+  .ui-dropdown-filter-container {
+    // had to !important this because of PrimeNG's default widths being applied inline to the element at runtime
+    width: 100% !important;
+  }
+}
+
+// Table Dropdown Arrows
+td.col-icon a {
+  .btn;
+  .btn-default;
+  .btn-xs;
+  .square(@line-height-computed);
+  .ui-row-toggler {
+    width: auto;
+    height: auto;
+    .small;
+    .chevron-circle-right:before {
+      content: "\f054";
+    }
+    .chevron-circle-down:before {
+      content: "\f078";
+    }
+  }
+}
