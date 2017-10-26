@@ -21,8 +21,12 @@ export class BreadcrumbsComponent implements OnInit{
       let root: ActivatedRoute = this.activatedRoute.root;
       let translatedBreadCrumbs = "";
       this.breadcrumbs = this.getBreadcrumbs(root);
-      for (let breadcrumb of this.breadcrumbs) {
-        translatedBreadCrumbs = translatedBreadCrumbs.concat(this.translateService.instant(breadcrumb.label, breadcrumb.translateParams), " > ");
+      for (let i = this.breadcrumbs.length - 1; i >= 0; i--) {
+        if (this.breadcrumbs[i].requiresTranslate) {
+          translatedBreadCrumbs = translatedBreadCrumbs.concat(this.translateService.instant(this.breadcrumbs[i].label, this.breadcrumbs[i].translateParams), " < ");
+        } else {
+          translatedBreadCrumbs = translatedBreadCrumbs.concat(this.breadcrumbs[i].label, " < ");
+        }
       }
       this.title.setTitle(translatedBreadCrumbs + "Smarter Balanced | Reporting System");
     });
