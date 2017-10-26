@@ -9,9 +9,12 @@
 * Use assessment grade when filtering results for printed student reports (DWR-1101).
 * Fix display of grade and school year in printed student reports.
 
-#### 1.0.3 - 2017-10-04
+#### 1.0.3 / 1.0.1 - 2017-10-04
+The main Reporting webapp and the Admin webapp were versioned separately for this release.
+Reporting was v1.0.3 while Admin was v1.0.1. 
 
 * Fix to handle large SAML response payloads (DWR-1052).
+* Enable redis for session caching in Admin webapp (DWR-1025).
 
 #### 1.0.2 - 2017-09-15
 
