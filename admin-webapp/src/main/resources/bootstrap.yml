@@ -3,7 +3,7 @@
 # (https://github.com/spring-cloud/spring-cloud-commons/blob/master/docs/src/main/asciidoc/spring-cloud-commons.adoc#the-bootstrap-application-context)
 spring:
   application:
-    name: rdw-admin-webapp
+    name: rdw-reporting-admin-webapp
 
   cloud:
     config:

@@ -122,7 +122,7 @@ subprojects {
      *  which doesn't have a docker image
      ***************************************************************/
 
-    if (it.name != "rdw-reporting-common") {
+    if (!it.hasProperty('skipDocker')) {
         apply plugin: 'com.bmuschko.docker-remote-api'
 
         // trigger creation of build-info.properties
