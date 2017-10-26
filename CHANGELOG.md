@@ -1,5 +1,9 @@
 ## Change Log
 
+#### 1.1.x
+
+* Rename rdw-admin-webapp to rdw-reporting-admin-webapp (affects configuration files).
+
 #### 1.0.4 - 2017-10-17
 
 * Use assessment grade when filtering results for printed student reports (DWR-1101).
