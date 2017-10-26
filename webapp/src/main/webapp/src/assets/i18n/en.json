@@ -271,6 +271,7 @@
               "date": "Date",
               "session": "Session",
               "grade": "Enrolled Grade",
+              "school": "School",
               "status": "Status",
               "status-info": "Refers to whether an assessment has been flagged as standardized/nonstandardized, complete/partial, and valid/invalid.",
               "score": "Scale Score / Error Band",

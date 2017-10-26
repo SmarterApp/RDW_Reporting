@@ -16,6 +16,7 @@
       {{ score.enrolledGrade | gradeDisplay:'enrolled-name' }}
     </ng-template>
   </p-column>
+  <p-column field="school.name" header="{{'labels.groups.results.assessment.exams.cols.school' | translate }}" sortable="true"></p-column>
   <p-column *ngIf="includeResponse" field="response" header="{{'labels.assessments.items.tabs.scores.response' | translate}}" [sortable]="true"></p-column>
   <p-column field="score" header="{{'labels.assessments.items.tabs.scores.score' | translate}}" [sortable]="true"></p-column>
   <p-column field="maxScore" header="{{'labels.assessments.items.tabs.scores.max' | translate}}" [sortable]="true"></p-column>
