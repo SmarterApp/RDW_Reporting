@@ -1,5 +1,5 @@
 import { StudentResultsComponent } from "./student-results.component";
-import { ComponentFixture, TestBed, inject } from "@angular/core/testing";
+import { ComponentFixture, inject, TestBed } from "@angular/core/testing";
 import { AssessmentsModule } from "../../assessments/assessments.module";
 import { BrowserModule } from "@angular/platform-browser";
 import { CommonModule } from "../../shared/common.module";
@@ -15,7 +15,6 @@ import { Exam } from "../../assessments/model/exam.model";
 import { Assessment } from "../../assessments/model/assessment.model";
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { ClaimScore } from "../../assessments/model/claim-score.model";
-import { School } from "../../user/model/school.model";
 import { MockRouter } from "../../../test/mock.router";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { Angulartics2 } from "angulartics2";
@@ -170,11 +169,6 @@ class MockBuilder {
     let wrapper: StudentHistoryExamWrapper = new StudentHistoryExamWrapper();
     wrapper.exam = MockBuilder.exam(assessmentType);
     wrapper.assessment = MockBuilder.assessment(assessmentType, subject);
-
-    let school: School = new School();
-    school.id = 1;
-    school.name = "A School";
-    wrapper.school = school;
 
     return wrapper;
   }

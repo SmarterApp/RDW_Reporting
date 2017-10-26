@@ -11,6 +11,7 @@ import { byNumber, byString } from "@kourge/ordering/comparator";
 import { ClaimScore } from "./model/claim-score.model";
 import { Student } from "../student/model/student.model";
 import { Utils } from "../shared/Utils";
+import { School } from "../user/model/school.model";
 
 @Injectable()
 export class AssessmentExamMapper {
@@ -112,6 +113,11 @@ export class AssessmentExamMapper {
     uiModel.administrativeCondition = apiModel.administrativeConditionCode;
     uiModel.completeness = apiModel.completenessCode;
     uiModel.schoolYear = apiModel.schoolYear;
+
+    let school: School = new School();
+    school.name = apiModel.school.name;
+    school.id = apiModel.school.id;
+    uiModel.school = school;
 
     if (apiModel.claimScaleScores) {
       uiModel.claimScores = this.mapClaimScaleScoresFromApi(apiModel.claimScaleScores);
