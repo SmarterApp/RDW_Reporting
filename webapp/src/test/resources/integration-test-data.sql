@@ -130,3 +130,9 @@ insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, oppo
 insert into exam_item (id, exam_id, item_id, score, position, response) values
   (-100, -100, -1, 0, 1, 'A'),
   (-101, -101, -1, 1, 1, 'D');
+
+insert into student_group (id, name, school_id, school_year, subject_id, update_import_id, updated, migrate_id) values
+  (-100, 'transfer group', -40, 1998, 1, -1, '1997-07-18 20:14:34.000000', -1);
+
+insert into student_group_membership (student_group_id, student_id) values
+  (-100, -100);

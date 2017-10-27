@@ -185,17 +185,29 @@ sql:
             a.cut_point_3,
             ir.resource
           from asmt a
-          left join instructional_resource ir on ir.name = a.name
-          join exam e on e.asmt_id = a.id
-          join student_group_membership sgm on e.student_id=sgm.student_id
-          join school s on e.school_id=s.id
+            left join instructional_resource ir on ir.name = a.name
+            join exam e on e.asmt_id = a.id
+            join student_group_membership sgm on e.student_id = sgm.student_id
+            join school s on e.school_id = s.id
+            join student st on e.student_id = st.id
+            join school isch on st.inferred_school_id = isch.id
           where e.school_year=:school_year
-          and sgm.student_group_id=:group_id
-          and (0=:group_subject_id or a.subject_id=:group_subject_id)
-          and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-          and a.id = e.asmt_id
+            and a.id = e.asmt_id
+            and sgm.student_group_id=:group_id
+            and (0=:group_subject_id or a.subject_id=:group_subject_id)
+            and (
+              (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+              or
+              (
+                1 = :allow_transfer_access
+                and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
+              )
+            )
+
 
     exam:
+      # NOTE that findLatest does not sample the students' inferred schools
+      # because a student's inferred school is determined by their latest exam.
       findLatest: >-
           select
             a.id,
@@ -220,9 +232,9 @@ sql:
             left join instructional_resource ir on ir.name = a.name
             join school s on e.school_id=s.id
           where e.school_year=:school_year
-          and sgm.student_group_id=:group_id
-          and (0=:group_subject_id or a.subject_id=:group_subject_id)
-          and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+            and sgm.student_group_id=:group_id
+            and (0=:group_subject_id or a.subject_id=:group_subject_id)
+            and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
           order by e.completed_at desc
           limit 1
 
@@ -268,15 +280,23 @@ sql:
             s.id as school_id,
             s.name as school_name
           from exam e
-            join student_group_membership sgm on e.student_id=sgm.student_id
-            join student st on e.student_id=st.id
-            join asmt a on e.asmt_id=a.id
-            join school s on e.school_id=s.id
+            join student_group_membership sgm on e.student_id = sgm.student_id
+            join student st on e.student_id = st.id
+            join asmt a on e.asmt_id = a.id
+            join school s on e.school_id = s.id
+            join school isch on st.inferred_school_id = isch.id
           where e.asmt_id=:assessment_id
-          and e.school_year=:school_year
-          and sgm.student_group_id=:group_id
-          and (0=:group_subject_id or a.subject_id=:group_subject_id)
-          and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+            and e.school_year=:school_year
+            and sgm.student_group_id=:group_id
+            and (0=:group_subject_id or a.subject_id=:group_subject_id)
+            and (
+              (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+              or
+              (
+                1 = :allow_transfer_access
+                and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
+              )
+            )
 
       item:
         findAllExamItemScoresForAssessment:
@@ -291,11 +311,20 @@ sql:
             join student_group_membership sgm on e.student_id=sgm.student_id
             join asmt a on e.asmt_id=a.id
             join school s on e.school_id=s.id
+            join student st on e.student_id = st.id
+            join school isch on st.inferred_school_id = isch.id
           where e.asmt_id=:assessment_id
-          and e.school_year=:school_year
-          and sgm.student_group_id=:group_id
-          and (0=:group_subject_id or a.subject_id=:group_subject_id)
-          and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+            and e.school_year=:school_year
+            and sgm.student_group_id=:group_id
+            and (0=:group_subject_id or a.subject_id=:group_subject_id)
+            and (
+              (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+              or
+              (
+                1 = :allow_transfer_access
+                and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
+              )
+            )
 
   schoolgrade:
     assessment:
@@ -333,7 +362,7 @@ sql:
               )
               or
               (
-                :allow_transfer_access is true
+                1 = :allow_transfer_access
                 and isch.id = :school_id
                 and (1=:statewide or isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
               )
@@ -429,7 +458,7 @@ sql:
           )
           or
           (
-            :allow_transfer_access is true
+            1 = :allow_transfer_access
             and isch.id = :school_id
             and (1=:statewide or isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
           )
@@ -459,7 +488,7 @@ sql:
             )
             or
             (
-              :allow_transfer_access is true
+              1 = :allow_transfer_access
               and isch.id = :school_id
               and (1=:statewide or isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
             )
