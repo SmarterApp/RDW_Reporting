@@ -264,7 +264,9 @@ sql:
             st.ssid as student_ssid,
             st.last_or_surname as student_last_name,
             st.first_name as student_first_name,
-            st.gender_code as student_gender_code
+            st.gender_code as student_gender_code,
+            s.id as school_id,
+            s.name as school_name
           from exam e
             join student_group_membership sgm on e.student_id=sgm.student_id
             join student st on e.student_id=st.id
@@ -395,7 +397,9 @@ sql:
           st.ssid as student_ssid,
           st.last_or_surname as student_last_name,
           st.first_name as student_first_name,
-          st.gender_code as student_gender_code
+          st.gender_code as student_gender_code,
+          s.id as school_id,
+          s.name as school_name
         from exam e
           join student st on e.student_id=st.id
           join asmt a on e.asmt_id=a.id

@@ -1,9 +1,9 @@
 /**
- * This model represents a "Points" column in the Items by Points Earned
+ * This model represents a dynamic column in the Items by Points Earned or DistractorAnalysis
  * display table and export.
  */
-export class ItemPointField {
+export class DynamicItemField {
   numberField: string;
   percentField: string;
-  points: number;
+  label: string;
 }

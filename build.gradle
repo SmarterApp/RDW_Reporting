@@ -32,7 +32,7 @@ apply plugin: 'io.spring.dependency-management'
 
 // Set version dependencies. This allows the cli to force version, e.g. `-Pcommon=1.1.0-SNAPSHOT`
 String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "1.1.0-47"
-String rdwSchemaVersion = project.hasProperty("schema") ? project.property("schema") : "1.1.0-210"
+String rdwSchemaVersion = project.hasProperty("schema") ? project.property("schema") : "1.1.0-243"
 String dockerPrefix = "smarterbalanced"
 
 allprojects {
@@ -122,7 +122,7 @@ subprojects {
      *  which doesn't have a docker image
      ***************************************************************/
 
-    if (it.name != "rdw-reporting-common") {
+    if (!it.hasProperty('skipDocker')) {
         apply plugin: 'com.bmuschko.docker-remote-api'
 
         // trigger creation of build-info.properties

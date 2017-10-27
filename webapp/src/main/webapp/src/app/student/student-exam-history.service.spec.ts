@@ -99,9 +99,6 @@ describe('StudentExamHistoryService', () => {
           },
           assessment: {
             id: 2
-          },
-          school: {
-            id: 3
           }
         }]
       }));
@@ -111,7 +108,6 @@ describe('StudentExamHistoryService', () => {
         expect(history.exams.length).toBe(1);
         expect(history.exams[0].exam.id).toBe(1);
         expect(history.exams[0].assessment.id).toBe(2);
-        expect(history.exams[0].school.id).toBe(3);
       });
     }));
 });

@@ -9,7 +9,7 @@ import { AssessmentType } from "../shared/enum/assessment-type.enum";
 import { Angular2CsvProvider } from "./angular-csv.provider";
 import { AssessmentItem } from "../assessments/model/assessment-item.model";
 import { isNullOrUndefined } from "util";
-import { ItemPointField } from "../assessments/model/item-point-field.model";
+import { DynamicItemField } from "../assessments/model/item-point-field.model";
 import { ExamFilterService } from "../assessments/filters/exam-filters/exam-filter.service";
 import { ExamFilterOptionsService } from "../assessments/filters/exam-filters/exam-filter-options.service";
 
@@ -379,11 +379,11 @@ export class CsvBuilder {
   }
 
   withPoints(getAssessmentItem: (item: any) => AssessmentItem,
-             pointColumns: ItemPointField[],
+             pointColumns: DynamicItemField[],
              showAsPercent: boolean) {
     pointColumns.forEach(column => {
       this.withColumn(
-        column.points.toString(),
+        column.label,
         (item) => {
           let field = showAsPercent ? column.percentField : column.numberField;
           let value: number = getAssessmentItem(item)[ field ];

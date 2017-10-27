@@ -1,10 +1,12 @@
 import { Student } from "../../../student/model/student.model";
+import { School } from "../../../user/model/school.model";
 
 export class StudentScore {
   student: Student;
   date: Date;
   session: string;
   enrolledGrade: string;
+  school: School;
   score: number;
   maxScore: number;
   correctness: number;

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AssessmentItem } from "../../../model/assessment-item.model";
 import { ItemByPointsEarnedExportRequest } from "../../../model/item-by-points-earned-export-request.model";
 import { Angulartics2 } from "angulartics2";
-import { ItemPointField } from "../../../model/item-point-field.model";
+import { DynamicItemField } from "../../../model/item-point-field.model";
 import { Observable } from "rxjs/Observable";
 import { AssessmentProvider } from "../../../assessment-provider.interface";
 import { ExamStatisticsCalculator } from "../../exam-statistics-calculator";
@@ -25,13 +25,6 @@ export class ResultsByItemComponent implements OnInit {
    */
   @Input()
   assessmentProvider: AssessmentProvider;
-
-  /**
-   * Provider function which loads the assessment items when viewing
-   * items by points earned.
-   */
-  @Input()
-  loadAssessmentItems: (number) => Observable<AssessmentItem[]>;
 
   /**
    * The assessment
@@ -57,7 +50,7 @@ export class ResultsByItemComponent implements OnInit {
   }
 
   loading: boolean = false;
-  pointColumns: ItemPointField[];
+  pointColumns: DynamicItemField[];
 
   private _assessmentItems: AssessmentItem[];
   private filteredAssessmentItems: AssessmentItem[];

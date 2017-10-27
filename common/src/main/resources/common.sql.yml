@@ -47,6 +47,7 @@ sql:
         st.first_name as student_first_name,
         st.last_or_surname as student_last_name,
         st.gender_code as student_gender_code,
+        s.id as school_id,
         s.name as school_name,
         d.name as district_name
       from exam e
@@ -116,6 +117,7 @@ sql:
         st.first_name as student_first_name,
         st.last_or_surname as student_last_name,
         st.gender_code as student_gender_code,
+        s.id as school_id,
         s.name as school_name,
         d.name as district_name
       from exam e
@@ -187,6 +189,7 @@ sql:
         st.first_name as student_first_name,
         st.last_or_surname as student_last_name,
         st.gender_code as student_gender_code,
+        s.id as school_id,
         s.name as school_name,
         d.name as district_name
       from exam e
@@ -236,6 +239,7 @@ sql:
         st.first_name as student_first_name,
         st.last_or_surname as student_last_name,
         st.gender_code as student_gender_code,
+        s.id as school_id,
         s.name as school_name,
         d.name as district_name
       from exam e
@@ -309,6 +313,7 @@ sql:
         st.first_name as student_first_name,
         st.last_or_surname as student_last_name,
         st.gender_code as student_gender_code,
+        s.id as school_id,
         s.name as school_name,
         d.name as district_name
       from exam e
@@ -399,6 +404,7 @@ sql:
         st.first_name as student_first_name,
         st.last_or_surname as student_last_name,
         st.gender_code as student_gender_code,
+        s.id as school_id,
         s.name as school_name,
         d.name as district_name
       from exam e
@@ -490,6 +496,7 @@ sql:
         st.first_name as student_first_name,
         st.last_or_surname as student_last_name,
         st.gender_code as student_gender_code,
+        s.id as school_id,
         s.name as school_name,
         d.name as district_name
       from exam e
@@ -559,6 +566,7 @@ sql:
         st.first_name as student_first_name,
         st.last_or_surname as student_last_name,
         st.gender_code as student_gender_code,
+        s.id as school_id,
         s.name as school_name,
         d.name as district_name
       from exam e

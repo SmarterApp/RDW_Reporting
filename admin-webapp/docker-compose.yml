@@ -41,7 +41,7 @@ services:
       - SPRING_RABBITMQ_PASSWORD=guest
 
   webapp:
-    image: smarterbalanced/rdw-admin-webapp
+    image: smarterbalanced/rdw-reporting-admin-webapp
     ports:
       - 8080:8080
       - 8081:8008

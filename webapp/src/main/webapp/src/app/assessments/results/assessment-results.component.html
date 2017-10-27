@@ -101,7 +101,12 @@
         </results-by-item>
       </div>
       <div *ngIf="showDistractorAnalysis">
-        <distractor-analysis></distractor-analysis>
+        <distractor-analysis
+          [showValuesAsPercent]="showValuesAsPercent"
+          [assessmentProvider]="assessmentProvider"
+          [assessment]="assessmentExam.assessment"
+          [exams]="exams">
+        </distractor-analysis>
       </div>
     </div>
   </div>

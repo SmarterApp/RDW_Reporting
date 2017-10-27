@@ -14,22 +14,13 @@ dependencies {
     compile 'com.google.guava:guava'
     compile 'com.fasterxml.jackson.core:jackson-annotations'
     compile 'com.fasterxml.jackson.core:jackson-databind'
-    compile 'org.springframework.boot:spring-boot-starter-actuator'
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'org.springframework.boot:spring-boot-starter-jdbc'
     compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    compile 'org.springframework.boot:spring-boot-starter-data-redis'
-    compile 'org.springframework.security.extensions:spring-security-saml2-core'
-    compile 'org.springframework.session:spring-session'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-guava'
     optional 'org.springframework.boot:spring-boot-configuration-processor'
 
     testCompile('org.springframework.boot:spring-boot-starter-test') {
         exclude(module: 'commons-logging')
     }
-    testCompile 'org.springframework.security:spring-security-test'
 
     // IT test complained about not having this
     testCompile 'org.hibernate:hibernate-validator:5.4.1.Final'

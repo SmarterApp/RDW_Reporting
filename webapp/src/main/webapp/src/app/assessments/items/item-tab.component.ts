@@ -41,6 +41,12 @@ export class ItemTabComponent implements OnInit {
   @Input()
   showStudentScores: boolean = true;
 
+  /**
+   * If true, adds a column to the student scores which is the student's response.
+   */
+  @Input()
+  includeResponseInStudentScores: boolean = false;
+
   @Input()
   set position(value: number) {
     this._position = value;

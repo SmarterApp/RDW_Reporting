@@ -1,13 +1,11 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { Observable } from "rxjs";
 import { ordering } from "@kourge/ordering";
 import { FilterBy } from "./model/filter-by.model";
 import { AssessmentExam } from "./model/assessment-exam.model";
 import { ExamFilterOptions } from "./model/exam-filter-options.model";
 import { Assessment } from "./model/assessment.model";
 import { ExamFilterOptionsService } from "./filters/exam-filters/exam-filter-options.service";
-import { AssessmentItem } from "./model/assessment-item.model";
 import { byGradeThenByName } from "./assessment.comparator";
 import { AssessmentProvider } from "./assessment-provider.interface";
 import { GradeCode } from "../shared/enum/grade-code.enum";
@@ -59,7 +57,6 @@ export class AssessmentsComponent implements OnInit {
   filterOptions: ExamFilterOptions = new ExamFilterOptions();
   availableAssessments: Assessment[] = [];
   assessmentsLoading: any[] = [];
-  boundLoadAssessmentItems: Function;
   minimumItemDataYear: number;
 
   get assessmentExams(): AssessmentExam[] {
@@ -163,7 +160,6 @@ export class AssessmentsComponent implements OnInit {
       this.minimumItemDataYear = user.configuration.minItemDataYear;
     });
 
-    this.boundLoadAssessmentItems = this.loadAssessmentItems.bind(this);
   }
 
   getGradeIdx(gradeCode: string): number {
@@ -229,10 +225,6 @@ export class AssessmentsComponent implements OnInit {
   private updateFilterOptions() {
     this.filterOptions.hasInterim = this.selectedAssessments.some(a => a.isInterim);
     this.filterOptions.hasSummative = this.selectedAssessments.some(a => a.isSummative);
-  }
-
-  private loadAssessmentItems(assessmentId: number): Observable<AssessmentItem[]> {
-    return this.assessmentProvider.getAssessmentItems(assessmentId);
   }
 
   private loadAssessmentExam(assessment: Assessment) {

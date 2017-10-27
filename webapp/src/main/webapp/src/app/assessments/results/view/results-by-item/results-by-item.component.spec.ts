@@ -25,6 +25,7 @@ import { Observable } from "rxjs/Observable";
 import { Exam } from "../../../model/exam.model";
 import { AssessmentItem } from "../../../model/assessment-item.model";
 import { ItemByPointsEarnedExportRequest } from "../../../model/item-by-points-earned-export-request.model";
+import { MockAssessmentProvider } from "../../../../../test/mock.assessment.provider";
 
 describe('ResultsByItemComponent', () => {
   let component: ResultsByItemComponent;
@@ -75,7 +76,6 @@ describe('ResultsByItemComponent', () => {
 
 });
 
-
 @Component({
   selector: 'test-component-wrapper',
   template: '<results-by-item [assessmentProvider]="assessmentProvider" [assessment]="assessment" [exams]="[]"></results-by-item>'
@@ -83,21 +83,4 @@ describe('ResultsByItemComponent', () => {
 class TestComponentWrapper {
   assessmentProvider = new MockAssessmentProvider();
   assessment = new Assessment();
-}
-
-class MockAssessmentProvider implements AssessmentProvider {
-  getAvailableAssessments(): Observable<Assessment[]> {
-    return Observable.of([]);
-  }
-
-  getExams(assessmentId: number): Observable<Exam[]> {
-    return Observable.of([]);
-  }
-
-  getAssessmentItems(assessmentId: number): Observable<AssessmentItem[]> {
-    return Observable.of([]);
-  }
-
-  exportItemsToCsv(exportRequest: ItemByPointsEarnedExportRequest) {
-  }
 }

@@ -62,7 +62,7 @@
     </ng-template>
   </p-column>
   <p-column *ngFor="let column of pointColumns; let i = index" [field]="column.numberField"
-            header="{{'labels.groups.results.assessment.items.cols.x-points' | translate:{id: column.points} }}"
+            header="{{'labels.groups.results.assessment.items.cols.x-points' | translate:{id: column.label} }}"
             [sortable]="true" [styleClass]="getPointRowStyleClass(i)">
     <ng-template let-item="rowData" pTemplate="body">
       <span [hidden]="showValuesAsPercent">{{ item[column.numberField] }}</span>

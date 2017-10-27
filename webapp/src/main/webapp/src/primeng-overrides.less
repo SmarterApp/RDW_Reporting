@@ -17,6 +17,15 @@ body {
 
 
 // Tables
+
+// sbac-ui-kit does not currently support colors on tds, so this
+// is a work around.  !important is required to override the existing
+// background-color.
+td.green{
+  background-color: @green !important;
+  color: @white;
+}
+
 body .ui-widget.ui-datatable {
   font-family: @font-family-serif;
   font-size: @font-size-small;

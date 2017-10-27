@@ -1,4 +1,4 @@
-import { ComponentFixture, async, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { BrowserModule } from "@angular/platform-browser";
 import { SharedModule } from "primeng/components/common/shared";
 import { SchoolYearPipe } from "../../../shared/schoolYear.pipe";
@@ -8,7 +8,6 @@ import { StudentHistoryICASummitiveTableComponent } from "./student-history-ica-
 import { StudentHistoryExamWrapper } from "../../model/student-history-exam-wrapper.model";
 import { Exam } from "../../../assessments/model/exam.model";
 import { Assessment } from "../../../assessments/model/assessment.model";
-import { School } from "../../../user/model/school.model";
 import { ScaleScoreComponent } from "../../../assessments/results/scale-score.component";
 import { InformationLabelComponent } from "../../../shared/information-label.component";
 import { PopupMenuComponent } from "../../../assessments/menu/popup-menu.component";
@@ -68,7 +67,6 @@ describe('StudentHistoryICASummitiveTableComponent', () => {
     wrapper.exam = new Exam();
     wrapper.assessment = new Assessment;
     wrapper.assessment.claimCodes = ["claimCode 1", "claimCode 2"];
-    wrapper.school = new School();
 
     component.exams.push(wrapper);
 

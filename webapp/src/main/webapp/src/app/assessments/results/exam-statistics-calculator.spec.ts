@@ -216,6 +216,52 @@ describe('Exam Calculator', () => {
     expect(actual["percent-point_3"]).toBeUndefined();
   });
 
+  it('should aggregate items by response', () =>{
+    let assessmentItems = [{
+      numberOfChoices: 2,
+      responses: [ 'B', 'A', 'A', 'A']
+    }, {
+      numberOfChoices: 4,
+      responses: ['D', 'D', 'A', 'A', 'A']
+    }].map(ai => {
+     let item = new AssessmentItem();
+     item.numberOfChoices = ai.numberOfChoices;
+     item.scores = ai.responses.map(result => {
+       let score = new ExamItemScore();
+       score.response = result;
+       return score;
+     });
+
+     return item;
+    });
+
+    let fixture = new ExamStatisticsCalculator();
+    fixture.aggregateItemsByResponse(assessmentItems);
+    let actual = assessmentItems[0];
+
+    expect(actual["number-point_A"]).toBe(3);
+    expect(actual["number-point_B"]).toBe(1);
+    expect(actual["number-point_C"]).toBeUndefined()
+    expect(actual["number-point_D"]).toBeUndefined();
+
+    expect(actual["percent-point_A"]).toBe(75);
+    expect(actual["percent-point_B"]).toBe(25);
+    expect(actual["percent-point_C"]).toBeUndefined();
+    expect(actual["percent-point_D"]).toBeUndefined();
+
+    actual = assessmentItems[1];
+
+    expect(actual["number-point_A"]).toBe(3);
+    expect(actual["number-point_B"]).toBe(0);
+    expect(actual["number-point_C"]).toBe(0)
+    expect(actual["number-point_D"]).toBe(2)
+
+    expect(actual["percent-point_A"]).toBe(60);
+    expect(actual["percent-point_B"]).toBe(0);
+    expect(actual["percent-point_C"]).toBe(0);
+    expect(actual["percent-point_D"]).toBe(40);
+  });
+
   it('should return fields based on the max of max points', () => {
     let assessmentItems = [ 3, 1, 2, 4 ,2, 1, 2, 3 ].map(x =>{
       let item = new AssessmentItem();
@@ -230,9 +276,31 @@ describe('Exam Calculator', () => {
     expect(actual.length).toBe(onePlusMaxOfMaxPoints);
 
     for(let i =0; i < actual.length; i++) {
-      expect(actual[i].points).toBe(i);
+      expect(actual[i].label).toBe(i.toString());
       expect(actual[i].numberField).toBe("number-point_" + i);
       expect(actual[i].percentField).toBe("percent-point_" + i);
+    }
+  });
+
+  it('should return fields based on the max of number of choices', () => {
+    let assessmentItems = [ 3, 1, 2, 4 ,2, 1, 2, 3 ].map(x =>{
+      let item = new AssessmentItem();
+      item.numberOfChoices = x;
+      return item;
+    });
+
+    let fixture = new ExamStatisticsCalculator();
+    let actual = fixture.getChoiceFields(assessmentItems);
+
+    let expectedLength = 4;
+    expect(actual.length).toBe(expectedLength);
+
+    let potentialResponses = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    for(let i =0; i < actual.length; i++) {
+      expect(actual[i].label).toBe(potentialResponses[i]);
+      expect(actual[i].numberField).toBe("number-point_" + potentialResponses[i]);
+      expect(actual[i].percentField).toBe("percent-point_" + potentialResponses[i]);
     }
   });
 });

@@ -22,6 +22,12 @@ export class ItemScoresComponent implements OnInit {
   @Input()
   exams: Exam[];
 
+  /**
+   * If true, adds a column to show the student's response to the item.
+   */
+  @Input()
+  includeResponse: boolean;
+
   scores: StudentScore[];
 
   constructor(private service: StudentScoreService) { }

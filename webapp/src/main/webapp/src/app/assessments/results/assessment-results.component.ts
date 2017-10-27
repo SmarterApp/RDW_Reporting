@@ -4,16 +4,15 @@ import { AssessmentExam } from "../model/assessment-exam.model";
 import { Exam } from "../model/exam.model";
 import { ExamStatisticsCalculator } from "./exam-statistics-calculator";
 import { FilterBy } from "../model/filter-by.model";
-import { Observable, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { ExamFilterService } from "../filters/exam-filters/exam-filter.service";
-import { AssessmentItem } from "../model/assessment-item.model";
 import { ordering } from "@kourge/ordering";
 import { byString } from "@kourge/ordering/comparator";
 import { GradeCode } from "../../shared/enum/grade-code.enum";
 import { ColorService } from "../../shared/color.service";
 import { MenuActionBuilder } from "../menu/menu-action.builder";
 import { ExamStatistics } from "../model/exam-statistics.model";
-import { ItemPointField } from "../model/item-point-field.model";
+import { DynamicItemField } from "../model/item-point-field.model";
 import { StudentReportDownloadComponent } from "../../report/student-report-download.component";
 import { AssessmentProvider } from "../assessment-provider.interface";
 
@@ -112,13 +111,6 @@ export class AssessmentResultsComponent implements OnInit {
     }
   }
 
-  /**
-   * Provider function which loads the assessment items when viewing
-   * items by points earned.
-   */
-  @Input()
-  loadAssessmentItems: (number) => Observable<AssessmentItem[]>;
-
   set collapsed(collapsed: boolean) {
     this.assessmentExam.collapsed = collapsed;
   }
@@ -153,7 +145,7 @@ export class AssessmentResultsComponent implements OnInit {
   exams: Exam[] = [];
   sessions = [];
   statistics: ExamStatistics;
-  pointColumns: ItemPointField[];
+  pointColumns: DynamicItemField[];
   currentResultsViewState: ResultsViewState = ResultsViewState.ByStudent;
   viewStateOptions = [];
 
@@ -175,7 +167,7 @@ export class AssessmentResultsComponent implements OnInit {
 
     states.push(this.getResultViewState(ResultsViewState.ByStudent, true));
     states.push(this.getResultViewState(ResultsViewState.ByItem, this.hasItemLevelData));
-    states.push(this.getResultViewState(ResultsViewState.DistractorAnalysis, false));
+    states.push(this.getResultViewState(ResultsViewState.DistractorAnalysis, this.hasItemLevelData));
 
     return states;
   }

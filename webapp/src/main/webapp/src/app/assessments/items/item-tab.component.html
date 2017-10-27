@@ -1,7 +1,10 @@
 <tabset #itemTabs>
   <tab *ngIf="showStudentScores" (select)="selectTab('Student Scores')" heading="{{translateRoot + 'student-scores' | translate }}">
     <div class="tab-content well">
-      <item-scores [item]="item" [exams]="exams"></item-scores>
+      <item-scores [item]="item"
+                   [exams]="exams"
+                   [includeResponse]="includeResponseInStudentScores">
+      </item-scores>
     </div>
   </tab>
   <tab *ngIf="showItemDetails" (select)="selectTab('Item Viewer')" heading="{{translateRoot + 'item-viewer' | translate }}">

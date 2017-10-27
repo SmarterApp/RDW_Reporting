@@ -6,7 +6,6 @@ import { StudentExamHistory } from "./model/student-exam-history.model";
 import { Student } from "./model/student.model";
 import { AssessmentExamMapper } from "../assessments/assessment-exam.mapper";
 import { StudentHistoryExamWrapper } from "./model/student-history-exam-wrapper.model";
-import { School } from "../user/model/school.model";
 import { ResponseUtils } from "../shared/response-utils";
 
 @Injectable()
@@ -66,12 +65,6 @@ export class StudentExamHistoryService {
     let uiModel: StudentHistoryExamWrapper = new StudentHistoryExamWrapper();
     uiModel.assessment = this.assessmentMapper.mapAssessmentFromApi(apiExamWrapper.assessment);
     uiModel.exam = this.assessmentMapper.mapExamFromApi(apiExamWrapper.exam);
-
-    let apiSchool: any = apiExamWrapper.school;
-    let school: School = new School();
-    school.id = apiSchool.id;
-    school.name = apiSchool.name;
-    uiModel.school = school;
 
     return uiModel;
   }
