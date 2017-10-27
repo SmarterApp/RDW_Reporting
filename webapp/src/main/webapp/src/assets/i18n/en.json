@@ -551,7 +551,7 @@
         "student-first-name": "FirstName",
         "student-last-name": "LastOrSurname",
         "submit-date-time": "SubmitDateTime",
-        "school": "School",
+        "school": "SchoolName",
         "assessment-session-id": "TestSessionId",
         "assessment-type": "AssessmentType",
         "assessment-subtype": "AssessmentSubType",
