@@ -1,7 +1,10 @@
 <div *ngFor="let districtTree of model.children" class="district-tree">
 
   <a *ngIf="districtTree.value.name && !disabled" class="link-button" (click)="onClick(districtTree.value)" href="javascript:void(0)">
-    <h3>{{districtTree.value.name}}<a class="tag tag-xs"><span class="pr-xs"></span> Remove District <span class="icon"><i class="fa fa-close"></i></span></a></h3>
+    <h3>{{districtTree.value.name}}</h3>
+  </a>
+  <a *ngIf="districtTree.value.name && !disabled" class="tag tag-xs" (click)="onClick(districtTree.value)" href="javascript:void(0)">
+    <span class="pr-xs"></span> Remove District <span class="icon"><i class="fa fa-close"></i></span>
   </a>
   <h3 *ngIf="districtTree.value.name && disabled">{{districtTree.value.name}}</h3>
 

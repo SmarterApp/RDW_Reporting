@@ -510,7 +510,7 @@
     "organization-tree": {
       "header": "Selected Institutions",
       "subheader-empty": "No institutions selected",
-      "subheader-not-empty": "Click an institution to remove it from the list"
+      "subheader-not-empty": "Click an item to remove it from the list"
     },
     "organization-export": {
       "link": "Custom Exports",
