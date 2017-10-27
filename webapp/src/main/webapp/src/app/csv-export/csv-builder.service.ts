@@ -10,8 +10,6 @@ import { Angular2CsvProvider } from "./angular-csv.provider";
 import { AssessmentItem } from "../assessments/model/assessment-item.model";
 import { isNullOrUndefined } from "util";
 import { DynamicItemField } from "../assessments/model/item-point-field.model";
-import { ExamFilterService } from "../assessments/filters/exam-filters/exam-filter.service";
-import { ExamFilterOptionsService } from "../assessments/filters/exam-filters/exam-filter-options.service";
 
 @Injectable()
 export class CsvBuilder {
@@ -120,6 +118,13 @@ export class CsvBuilder {
     return this.withColumn(
       this.translateHeader('assessment-session-id'),
       (item) => getExam(item).session
+    )
+  }
+
+  withSchool(getExam: (item: any) => Exam) {
+    return this.withColumn(
+      this.translateHeader('school'),
+      (item) => getExam(item).school.name
     )
   }
 
