@@ -4,7 +4,7 @@
     <h3>{{districtTree.value.name}}</h3>
   </a>
   <a *ngIf="districtTree.value.name && !disabled" class="tag tag-xs" (click)="onClick(districtTree.value)" href="javascript:void(0)">
-    <span class="pr-xs"></span> Remove District <span class="icon"><i class="fa fa-close"></i></span>
+    <span class="pr-xs"></span> {{'labels.organization-tree.remove-district' | translate}}<span class="icon"><i class="fa fa-close"></i></span>
   </a>
   <h3 *ngIf="districtTree.value.name && disabled">{{districtTree.value.name}}</h3>
 
