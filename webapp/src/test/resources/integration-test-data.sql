@@ -25,12 +25,13 @@ insert into gender (id, code) values
 
 insert into school_year (year) values
   (1996),
-  (1997);
+  (1997),
+  (1998);
 
-insert into student (id, ssid, last_or_surname, first_name, gender_id, gender_code, birthday, update_import_id, updated, migrate_id) values
-  (-1, 'student1_ssid', 'student1_lastName', 'student1_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -1, '1997-07-18 20:14:34.000000', -1),
-  (-2, 'student2_ssid', 'student2_lastName', 'student2_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -1, '1997-07-18 20:14:34.000000', -1),
-  (-3, 'student3_ssid', 'student3_lastName', 'student3_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -1, '1997-07-18 20:14:34.000000', -1);
+insert into student (id, ssid, last_or_surname, first_name, gender_id, gender_code, birthday, inferred_school_id, update_import_id, updated, migrate_id) values
+  (-1, 'student1_ssid', 'student1_lastName', 'student1_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -30, -1, '1997-07-18 20:14:34.000000', -1),
+  (-2, 'student2_ssid', 'student2_lastName', 'student2_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -30, -1, '1997-07-18 20:14:34.000000', -1),
+  (-3, 'student3_ssid', 'student3_lastName', 'student3_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -30, -1, '1997-07-18 20:14:34.000000', -1);
 
 insert into asmt (id, type_id, natural_id, grade_id, grade_code, subject_id, school_year, name, label, version,
   claim1_score_code, claim2_score_code, claim3_score_code, claim4_score_code,
@@ -109,3 +110,23 @@ insert into student_group_membership (student_group_id, student_id) values
   (-10, -1),
   (-20, -1),
   (-20, -2);
+
+-- transfer student test data
+insert into student (id, ssid, last_or_surname, first_name, gender_id, gender_code,
+                     birthday, inferred_school_id, update_import_id, updated, migrate_id) values
+  (-100, 'transfer_1', 'from_school3', 'to_school4', -1, 'g1', '1997-01-01 00:00:00.000000', -40, -1, '1997-07-18 20:14:34.000000', -1);
+
+insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, opportunity, iep, lep, section504, economic_disadvantage,
+                  school_year, asmt_id, asmt_version, completeness_id, completeness_code, administration_condition_id, administration_condition_code, session_id,
+                  scale_score, scale_score_std_err, performance_level, completed_at,
+                  claim1_category, claim1_scale_score, claim1_scale_score_std_err,
+                  claim2_category, claim2_scale_score, claim2_scale_score_std_err,
+                  claim3_category, claim3_scale_score, claim3_scale_score_std_err,
+                  claim4_category, claim4_scale_score, claim4_scale_score_std_err,
+                  update_import_id, updated, migrate_id) values
+  (-100, 1, -1, 'g1', -100, -30, 0, 0, 0, 0, 0, 1998, -1, 'v1', 2, 'Complete', 1, 'Valid', 'session1', 2000, 20, 1, '1998-10-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, -1, '1997-07-18 20:14:34.000000', -1),
+  (-101, 2, -1, 'g2', -100, -40, 1, 0, 0, 0, 0, 1998, -2, 'v1', 2, 'Complete', 1, 'Valid', 'session1', 2100, 21, 2, '1999-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1);
+
+insert into exam_item (id, exam_id, item_id, score, position, response) values
+  (-100, -100, -1, 0, 1, 'A'),
+  (-101, -101, -1, 1, 1, 'D');

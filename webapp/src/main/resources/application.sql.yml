@@ -321,11 +321,23 @@ sql:
         where exists (
             select e.asmt_id
             from exam e
-              join school s on e.school_id=s.id
+              join school s on e.school_id = s.id
+              join student st on e.student_id = st.id
+              join school isch on st.inferred_school_id = isch.id
             where e.school_year=:school_year
-            and e.school_id=:school_id
-            and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
             and a.id = e.asmt_id
+            and (
+              (
+                e.school_id=:school_id
+                and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+              )
+              or
+              (
+                :allow_transfer_access is true
+                and isch.id = :school_id
+                and (1=:statewide or isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
+              )
+            )
         )
         and a.grade_id=:grade_id
 
@@ -404,11 +416,22 @@ sql:
           join student st on e.student_id=st.id
           join asmt a on e.asmt_id=a.id
           join school s on e.school_id=s.id
+          join school isch on st.inferred_school_id = isch.id
         where e.asmt_id=:assessment_id
-        and e.school_id=:school_id
         and a.grade_id=:grade_id
         and e.school_year=:school_year
-        and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+        and (
+          (
+            e.school_id=:school_id
+            and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+          )
+          or
+          (
+            :allow_transfer_access is true
+            and isch.id = :school_id
+            and (1=:statewide or isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
+          )
+        )
 
       item:
         findAllExamItemScoresForAssessment:
@@ -422,11 +445,23 @@ sql:
             join exam e on ei.exam_id=e.id
             join asmt a on e.asmt_id=a.id
             join school s on e.school_id=s.id
+            join student st on st.id=e.student_id
+            join school isch on st.inferred_school_id = isch.id
           where e.asmt_id=:assessment_id
           and e.school_year=:school_year
-          and e.school_id=:school_id
           and a.grade_id=:grade_id
-          and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+          and (
+            (
+              e.school_id=:school_id
+              and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+            )
+            or
+            (
+              :allow_transfer_access is true
+              and isch.id = :school_id
+              and (1=:statewide or isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
+            )
+          )
 
   assessment:
     grade:
