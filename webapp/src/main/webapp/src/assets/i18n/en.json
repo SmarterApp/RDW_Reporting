@@ -304,9 +304,6 @@
               "full-credit-info": "Percentage of students in the group who earned the maximum number of points available for a particular test item.",
               "x-points": "{{id}}"
             },
-            "item-viewer": {
-              "title": "Item Viewer"
-            },
             "target": "Target {{target}}"
           }
         }
