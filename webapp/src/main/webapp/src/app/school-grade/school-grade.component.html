@@ -1,12 +1,13 @@
 <form [formGroup]="searchForm" (ngSubmit)="performSearch()" class="form-group">
   <div class="flex-children">
     <div class="flex-child grow">
-      <label>
+      <label for="search-school-name">
         {{'labels.school-grade.school-name.label' | translate}}
       </label>
-      <sb-typeahead [options]="schoolOptions"
-                     (select)="schoolChanged($event)"
-                     placeholder="{{'prompt.select' | translate}}"></sb-typeahead>
+      <sb-typeahead forid="search-school-name"
+                    [options]="schoolOptions"
+                    (select)="schoolChanged($event)"
+                    placeholder="{{'prompt.select' | translate}}"></sb-typeahead>
     </div>
     <div class="flex-child">
       <label for="grade-select">{{'labels.grade' | translate}}</label>

@@ -263,6 +263,7 @@
           "exam-results": "Results By Student",
           "button-items": "Results By Item",
           "button-exams": "Results By Student",
+          "select-view": "Select View",
           "exams": {
             "title": "Results By Student",
             "empty-message": "No test results are available for the sessions and advanced filters selected.",

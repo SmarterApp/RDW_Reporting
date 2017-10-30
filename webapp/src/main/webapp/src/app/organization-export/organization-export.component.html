@@ -7,8 +7,9 @@
       <div class="row">
         <div class="col-md-6" *ngIf="!editingDisabled">
           <div class="form-group">
-            <label>{{'labels.organization-export.form.organization.label' | translate}}</label>
+            <label for="search">{{'labels.organization-export.form.organization.label' | translate}}</label>
             <span sb-button-typeahead
+                  forid="search"
                   [options]="organizationOptions"
                   (buttonClick)="add($event)"
                   placeholder="{{'prompt.select' | translate}}"

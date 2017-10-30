@@ -13,6 +13,7 @@ import { isUndefined } from "util";
   template: `
     <span class="input-group">
       <input class="form-control"
+             [id]="forid"
              [disabled]="disabledInternal"
              [typeahead]="options"
              [typeaheadMinLength]="0"

@@ -79,6 +79,7 @@
     <!-- Student Results -->
     <div *ngIf="!collapsed" @fadeAnimation>
       <div class="col-md-4 z-index-over-data-table pl-0 mb-sm">
+        <label for="select-view">{{ 'labels.groups.results.assessment.select-view' | translate }}</label>
         <select id="select-view" [(ngModel)]="currentResultsViewState" class="form-control">
           <option *ngFor="let state of viewStateOptions" [ngValue]="state.value" popover="hello" [disabled]="!state.enabled">
             {{ 'enum.results-view-state.' + state.name | translate }}

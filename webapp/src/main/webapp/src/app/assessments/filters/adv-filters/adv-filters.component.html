@@ -15,11 +15,11 @@
       </label>
       <div id="btn-group-off-grade-assessment" class="btn-group btn-group-sm toggle-group" data-toggle="buttons">
         <label class="btn btn-primary" [ngClass]="{'active': !filterBy.offGradeAssessment}">
-          <input [value]="false" [(ngModel)]="filterBy.offGradeAssessment" type="radio" name="boolean-toggle"
+          <input [value]="false" [(ngModel)]="filterBy.offGradeAssessment" type="radio"
                  angulartics2On="click" angularticsEvent="FilterClick" angularticsCategory="AdvancedFilters" [angularticsProperties]="{label: 'Off-Grade: Show'}">{{ 'buttons.visibility.show' | translate }}
         </label>
         <label class="btn btn-primary" [ngClass]="{'active': filterBy.offGradeAssessment}">
-          <input [value]="true" [(ngModel)]="filterBy.offGradeAssessment" type="radio" name="boolean-toggle"
+          <input [value]="true" [(ngModel)]="filterBy.offGradeAssessment" type="radio"
                  angulartics2On="click" angularticsEvent="FilterClick" angularticsCategory="AdvancedFilters" [angularticsProperties]="{label: 'Off-Grade: Hide'}">{{ 'buttons.visibility.hide' | translate }}
         </label>
       </div>
