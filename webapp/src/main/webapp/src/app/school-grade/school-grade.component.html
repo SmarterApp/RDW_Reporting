@@ -4,7 +4,7 @@
       <label for="search-school-name">
         {{'labels.school-grade.school-name.label' | translate}}
       </label>
-      <sb-typeahead forid="search-school-name"
+      <sb-typeahead inputId="search-school-name"
                     [options]="schoolOptions"
                     (select)="schoolChanged($event)"
                     placeholder="{{'prompt.select' | translate}}"></sb-typeahead>

@@ -11,7 +11,7 @@ import { byString, join } from "@kourge/ordering/comparator";
   selector: 'sb-typeahead,[sb-typeahead]',
   template: `
     <input class="form-control"
-           [id]="forid"
+           [id]="inputId"
            [disabled]="disabledInternal"
            [typeahead]="options"
            [typeaheadMinLength]="0"
@@ -49,7 +49,7 @@ export class SBTypeahead implements OnInit {
   search: string;
 
   @Input()
-  forid: string;
+  inputId: string;
 
   private _options: Option[] = [];
 

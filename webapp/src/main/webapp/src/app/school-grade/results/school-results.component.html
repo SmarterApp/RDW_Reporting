@@ -25,7 +25,7 @@
     <!-- School Select -->
     <div class="col-md-4">
       <label for="school-search-name">{{'labels.school-grade.results.basic-filters.school' | translate}}</label>
-      <sb-typeahead  forid="school-search-name"
+      <sb-typeahead  inputId="school-search-name"
                      [options]="schoolOptions"
                      [value]="currentSchool"
                      (select)="schoolSelectChanged($event)"

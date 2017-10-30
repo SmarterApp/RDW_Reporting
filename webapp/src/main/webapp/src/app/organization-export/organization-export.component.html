@@ -9,7 +9,7 @@
           <div class="form-group">
             <label for="search">{{'labels.organization-export.form.organization.label' | translate}}</label>
             <span sb-button-typeahead
-                  forid="search"
+                  inputId="search"
                   [options]="organizationOptions"
                   (buttonClick)="add($event)"
                   placeholder="{{'prompt.select' | translate}}"
