@@ -1,4 +1,417 @@
 sql:
+  exam:
+    findAllIabsByStudentIdsAndQueryParamsUnknownPermissions: >-
+      select
+        e.id,
+        e.session_id,
+        e.type_id,
+        e.school_year,
+        e.grade_code,
+        e.completeness_code,
+        e.administration_condition_code,
+        e.school_year,
+        e.completed_at,
+        e.scale_score,
+        e.scale_score_std_err,
+        e.performance_level,
+        e.available_accommodation_codes,
+        a.id as asmt_id,
+        a.type_id as asmt_type_id,
+        a.label as asmt_label,
+        a.subject_id as asmt_subject_id,
+        a.school_year as asmt_school_year,
+        a.grade_code as asmt_grade_code,
+        a.min_score as asmt_min_score,
+        a.cut_point_1 as asmt_cut_point_1,
+        a.cut_point_2 as asmt_cut_point_2,
+        a.cut_point_3 as asmt_cut_point_3,
+        a.max_score as asmt_max_score,
+        ir.resource as asmt_resource,
+        st.id as student_id,
+        st.ssid as student_ssid,
+        st.first_name as student_first_name,
+        st.last_or_surname as student_last_name,
+        st.gender_code as student_gender_code,
+        s.id as school_id,
+        s.name as school_name,
+        d.name as district_name
+      from exam e
+        join asmt a on e.asmt_id=a.id
+        left join instructional_resource ir on ir.name = a.name
+        join student st on e.student_id=st.id
+        join school s on e.school_id=s.id
+        join district d on s.district_id=d.id
+      where e.student_id in (:student_ids)
+        and (:school_year is null or e.school_year=:school_year)
+        and (:school_id is null or s.id=:school_id)
+        and (:subject_id is null or a.subject_id=:subject_id)
+        and (:grade_id is null or a.grade_id=:grade_id)
+        and a.type_id=2
+      and
+      ( # This query can run from the context of both GROUP_PII_READ and INDIVIDUAL_PII_READ, so need to evaluate both.
+        (1 = :individual_statewide
+          or s.district_group_id in (:individual_district_group_ids)
+          or s.district_id in (:individual_district_ids)
+          or s.school_group_id in (:individual_school_group_ids)
+          or e.school_id in (:individual_school_ids))
+        or (
+          exists(
+              select 1
+              from student_group_membership sgm
+                join student_group sg on sgm.student_group_id = sg.id
+              where sgm.student_group_id in (:group_ids)
+                    and sgm.student_id in (:student_ids)
+                    and (:subject_id is null or sg.subject_id is null or sg.subject_id = :subject_id)
+          )
+          and (1 = :group_statewide
+            or s.district_group_id in (:group_district_group_ids)
+            or s.district_id in (:group_district_ids)
+            or s.school_group_id in (:group_school_group_ids)
+            or e.school_id in (:group_school_ids))
+        )
+      )
+      order by e.completed_at desc
+
+    findAllIabsByStudentIdsAndQueryParamsIndividualPermissions: >-
+      select
+        e.id,
+        e.session_id,
+        e.type_id,
+        e.school_year,
+        e.grade_code,
+        e.completeness_code,
+        e.administration_condition_code,
+        e.school_year,
+        e.completed_at,
+        e.scale_score,
+        e.scale_score_std_err,
+        e.performance_level,
+        e.available_accommodation_codes,
+        a.id as asmt_id,
+        a.type_id as asmt_type_id,
+        a.label as asmt_label,
+        a.subject_id as asmt_subject_id,
+        a.school_year as asmt_school_year,
+        a.grade_code as asmt_grade_code,
+        a.min_score as asmt_min_score,
+        a.cut_point_1 as asmt_cut_point_1,
+        a.cut_point_2 as asmt_cut_point_2,
+        a.cut_point_3 as asmt_cut_point_3,
+        a.max_score as asmt_max_score,
+        ir.resource as asmt_resource,
+        st.id as student_id,
+        st.ssid as student_ssid,
+        st.first_name as student_first_name,
+        st.last_or_surname as student_last_name,
+        st.gender_code as student_gender_code,
+        s.id as school_id,
+        s.name as school_name,
+        d.name as district_name
+      from exam e
+        join asmt a on e.asmt_id=a.id
+        left join instructional_resource ir on ir.name = a.name
+        join student st on e.student_id=st.id
+        join school s on e.school_id=s.id
+        join district d on s.district_id=d.id
+      where e.student_id in (:student_ids)
+        and (:school_year is null or e.school_year=:school_year)
+        and (:school_id is null or s.id=:school_id)
+        and (:subject_id is null or a.subject_id=:subject_id)
+        and (:grade_id is null or a.grade_id=:grade_id)
+        and a.type_id=2
+        and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+      order by e.completed_at desc
+
+    findAllIabsByStudentIdsAndQueryParamsGroupPermissions: >-
+      select
+        e.id,
+        e.session_id,
+        e.type_id,
+        e.school_year,
+        e.grade_code,
+        e.completeness_code,
+        e.administration_condition_code,
+        e.school_year,
+        e.completed_at,
+        e.scale_score,
+        e.scale_score_std_err,
+        e.performance_level,
+        e.available_accommodation_codes,
+        a.id as asmt_id,
+        a.type_id as asmt_type_id,
+        a.label as asmt_label,
+        a.subject_id as asmt_subject_id,
+        a.school_year as asmt_school_year,
+        a.grade_code as asmt_grade_code,
+        a.min_score as asmt_min_score,
+        a.cut_point_1 as asmt_cut_point_1,
+        a.cut_point_2 as asmt_cut_point_2,
+        a.cut_point_3 as asmt_cut_point_3,
+        a.max_score as asmt_max_score,
+        ir.resource as asmt_resource,
+        st.id as student_id,
+        st.ssid as student_ssid,
+        st.first_name as student_first_name,
+        st.last_or_surname as student_last_name,
+        st.gender_code as student_gender_code,
+        s.id as school_id,
+        s.name as school_name,
+        d.name as district_name
+      from exam e
+        join asmt a on e.asmt_id=a.id
+        left join instructional_resource ir on ir.name = a.name
+        join student st on e.student_id=st.id
+        join school s on e.school_id=s.id
+        join district d on s.district_id=d.id
+        join student_group_membership sgm on st.id = sgm.student_id
+        join student_group sg on sgm.student_group_id = sg.id
+          and (sg.subject_id is null or a.subject_id = sg.subject_id)
+      where e.student_id in (:student_ids)
+        and sg.id=:group_id
+        and (:school_year is null or e.school_year=:school_year)
+        and (:school_id is null or s.id=:school_id)
+        and (:subject_id is null or a.subject_id=:subject_id)
+        and (:grade_id is null or a.grade_id=:grade_id)
+        and a.type_id=2
+        and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+      order by e.completed_at desc
+
+    findAllIcasByStudentIdsAndQueryParamsUnknownPermissions: >-
+      select
+        e.id,
+        e.session_id,
+        e.type_id,
+        e.school_year,
+        e.grade_code,
+        e.completeness_code,
+        e.administration_condition_code,
+        e.school_year,
+        e.completed_at,
+        e.scale_score,
+        e.scale_score_std_err,
+        e.performance_level,
+        e.available_accommodation_codes,
+        a.claim1_score_code,
+        e.claim1_category,
+        e.claim1_scale_score,
+        e.claim1_scale_score_std_err,
+        a.claim2_score_code,
+        e.claim2_category,
+        e.claim2_scale_score,
+        e.claim2_scale_score_std_err,
+        a.claim3_score_code,
+        e.claim3_category,
+        e.claim3_scale_score,
+        e.claim3_scale_score_std_err,
+        a.claim4_score_code,
+        e.claim4_category,
+        e.claim4_scale_score,
+        e.claim4_scale_score_std_err,
+        a.id as asmt_id,
+        a.type_id as asmt_type_id,
+        a.label as asmt_label,
+        a.subject_id as asmt_subject_id,
+        a.school_year as asmt_school_year,
+        a.grade_code as asmt_grade_code,
+        a.claim1_score_code as asmt_claim1_score_code,
+        a.claim2_score_code as asmt_claim2_score_code,
+        a.claim3_score_code as asmt_claim3_score_code,
+        a.claim4_score_code as asmt_claim4_score_code,
+        a.min_score as asmt_min_score,
+        a.cut_point_1 as asmt_cut_point_1,
+        a.cut_point_2 as asmt_cut_point_2,
+        a.cut_point_3 as asmt_cut_point_3,
+        a.max_score as asmt_max_score,
+        ir.resource as asmt_resource,
+        st.id as student_id,
+        st.ssid as student_ssid,
+        st.first_name as student_first_name,
+        st.last_or_surname as student_last_name,
+        st.gender_code as student_gender_code,
+        s.id as school_id,
+        s.name as school_name,
+        d.name as district_name
+      from exam e
+        join asmt a on e.asmt_id=a.id
+        left join instructional_resource ir on ir.name = a.name
+        join student st on e.student_id=st.id
+        join school s on e.school_id=s.id
+        join district d on s.district_id=d.id
+      where e.student_id in (:student_ids)
+        and (:school_year is null or e.school_year=:school_year)
+        and (:school_id is null or s.id=:school_id)
+        and (:subject_id is null or a.subject_id=:subject_id)
+        and (:grade_id is null or a.grade_id=:grade_id)
+        and a.type_id=1
+      and
+      ( # This query can run from the context of both GROUP_PII_READ and INDIVIDUAL_PII_READ, so need to evaluate both.
+        (1 = :individual_statewide
+          or s.district_group_id in (:individual_district_group_ids)
+          or s.district_id in (:individual_district_ids)
+          or s.school_group_id in (:individual_school_group_ids)
+          or e.school_id in (:individual_school_ids))
+        or (
+          exists(
+              select 1
+              from student_group_membership sgm
+                join student_group sg on sgm.student_group_id = sg.id
+              where sgm.student_group_id in (:group_ids)
+                    and sgm.student_id in (:student_ids)
+                    and (:subject_id is null or sg.subject_id is null or sg.subject_id = :subject_id)
+          )
+          and (1 = :group_statewide
+            or s.district_group_id in (:group_district_group_ids)
+            or s.district_id in (:group_district_ids)
+            or s.school_group_id in (:group_school_group_ids)
+            or e.school_id in (:group_school_ids))
+        )
+      )
+      order by e.completed_at asc
+
+    findAllIcasByStudentIdsAndQueryParamsIndividualPermissions: >-
+      select
+        e.id,
+        e.session_id,
+        e.type_id,
+        e.school_year,
+        e.grade_code,
+        e.completeness_code,
+        e.administration_condition_code,
+        e.school_year,
+        e.completed_at,
+        e.scale_score,
+        e.scale_score_std_err,
+        e.performance_level,
+        a.claim1_score_code,
+        e.claim1_category,
+        e.claim1_scale_score,
+        e.claim1_scale_score_std_err,
+        a.claim2_score_code,
+        e.claim2_category,
+        e.claim2_scale_score,
+        e.claim2_scale_score_std_err,
+        a.claim3_score_code,
+        e.claim3_category,
+        e.claim3_scale_score,
+        e.claim3_scale_score_std_err,
+        a.claim4_score_code,
+        e.claim4_category,
+        e.claim4_scale_score,
+        e.claim4_scale_score_std_err,
+        e.available_accommodation_codes,
+        a.id as asmt_id,
+        a.type_id as asmt_type_id,
+        a.label as asmt_label,
+        a.subject_id as asmt_subject_id,
+        a.school_year as asmt_school_year,
+        a.grade_code as asmt_grade_code,
+        a.claim1_score_code as asmt_claim1_score_code,
+        a.claim2_score_code as asmt_claim2_score_code,
+        a.claim3_score_code as asmt_claim3_score_code,
+        a.claim4_score_code as asmt_claim4_score_code,
+        a.min_score as asmt_min_score,
+        a.cut_point_1 as asmt_cut_point_1,
+        a.cut_point_2 as asmt_cut_point_2,
+        a.cut_point_3 as asmt_cut_point_3,
+        a.max_score as asmt_max_score,
+        ir.resource as asmt_resource,
+        st.id as student_id,
+        st.ssid as student_ssid,
+        st.first_name as student_first_name,
+        st.last_or_surname as student_last_name,
+        st.gender_code as student_gender_code,
+        s.id as school_id,
+        s.name as school_name,
+        d.name as district_name
+      from exam e
+        join asmt a on e.asmt_id=a.id
+        left join instructional_resource ir on ir.name = a.name
+        join student st on e.student_id=st.id
+        join school s on e.school_id=s.id
+        join district d on s.district_id=d.id
+      where e.student_id in (:student_ids)
+        and (:school_year is null or e.school_year=:school_year)
+        and (:school_id is null or s.id=:school_id)
+        and (:subject_id is null or a.subject_id=:subject_id)
+        and (:grade_id is null or a.grade_id=:grade_id)
+        and a.type_id=1
+        and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+      order by e.completed_at asc
+
+    findAllIcasByStudentIdsAndQueryParamsGroupPermissions: >-
+      select
+        e.id,
+        e.session_id,
+        e.type_id,
+        e.school_year,
+        e.grade_code,
+        e.completeness_code,
+        e.administration_condition_code,
+        e.school_year,
+        e.completed_at,
+        e.scale_score,
+        e.scale_score_std_err,
+        e.performance_level,
+        a.claim1_score_code,
+        e.claim1_category,
+        e.claim1_scale_score,
+        e.claim1_scale_score_std_err,
+        a.claim2_score_code,
+        e.claim2_category,
+        e.claim2_scale_score,
+        e.claim2_scale_score_std_err,
+        a.claim3_score_code,
+        e.claim3_category,
+        e.claim3_scale_score,
+        e.claim3_scale_score_std_err,
+        a.claim4_score_code,
+        e.claim4_category,
+        e.claim4_scale_score,
+        e.claim4_scale_score_std_err,
+        e.available_accommodation_codes,
+        a.id as asmt_id,
+        a.type_id as asmt_type_id,
+        a.label as asmt_label,
+        a.subject_id as asmt_subject_id,
+        a.school_year as asmt_school_year,
+        a.grade_code as asmt_grade_code,
+        a.claim1_score_code as asmt_claim1_score_code,
+        a.claim2_score_code as asmt_claim2_score_code,
+        a.claim3_score_code as asmt_claim3_score_code,
+        a.claim4_score_code as asmt_claim4_score_code,
+        a.min_score as asmt_min_score,
+        a.cut_point_1 as asmt_cut_point_1,
+        a.cut_point_2 as asmt_cut_point_2,
+        a.cut_point_3 as asmt_cut_point_3,
+        a.max_score as asmt_max_score,
+        ir.resource as asmt_resource,
+        st.id as student_id,
+        st.ssid as student_ssid,
+        st.first_name as student_first_name,
+        st.last_or_surname as student_last_name,
+        st.gender_code as student_gender_code,
+        s.id as school_id,
+        s.name as school_name,
+        d.name as district_name
+      from exam e
+        join asmt a on e.asmt_id=a.id
+        left join instructional_resource ir on ir.name = a.name
+        join student st on e.student_id=st.id
+        join school s on e.school_id=s.id
+        join district d on s.district_id=d.id
+        join student_group_membership sgm on st.id = sgm.student_id
+        join student_group sg on sgm.student_group_id = sg.id
+          and (sg.subject_id is null or a.subject_id = sg.subject_id)
+      where e.student_id in (:student_ids)
+        and sg.id=:group_id
+        and (:school_year is null or e.school_year=:school_year)
+        and (:school_id is null or s.id=:school_id)
+        and (:subject_id is null or a.subject_id=:subject_id)
+        and (:grade_id is null or a.grade_id=:grade_id)
+        and a.type_id=1
+        and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+      order by e.completed_at asc
+
   export:
     exam: >-
       select
@@ -117,13 +530,9 @@ sql:
         join school s on e.school_id = s.id
         join district d on d.id = s.district_id
       where e.school_year = :school_year and
+          (1 = :individual_statewide or s.district_group_id in (:individual_district_group_ids) or s.district_id in (:individual_district_ids) or s.school_group_id in (:individual_school_group_ids) or e.school_id in (:individual_school_ids))
+          and
           (
-            1 = :individual_statewide
-            or s.district_group_id in (:individual_district_group_ids)
-            or s.district_id in (:individual_district_ids)
-            or s.school_group_id in (:individual_school_group_ids)
-            or e.school_id in (:individual_school_ids)
-          ) and (
             s.district_group_id in (:query_district_group_ids)
             or s.district_id in (:query_district_ids)
             or s.school_group_id in (:query_school_group_ids)
