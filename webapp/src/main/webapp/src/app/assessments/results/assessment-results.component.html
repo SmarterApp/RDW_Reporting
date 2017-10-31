@@ -54,7 +54,7 @@
             {{'labels.groups.results.assessment.sessions-instruct' | translate}}</p>
           <div class="flex-children">
             <a *ngFor="let session of sessions" class="tag aqua reverse multi-line"
-               [ngClass]="{'gray-dark':!session.filter}" (click)="toggleSession(session)"
+               [ngClass]="{'gray-mid':!session.filter}" (click)="toggleSession(session)"
                angulartics2On="click" angularticsEvent="ToggleSession" angularticsCategory="AssessmentResults">
                     <span class="block-children text-left">
                         <strong>{{session.date | date }}</strong>

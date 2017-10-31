@@ -26,7 +26,7 @@
             <div class="form-group">
               <label for="assessment-type-select">{{'labels.reports.form.assessment-type' | translate}}</label>
               <div *ngIf="lockAssessmentType && options.assessmentType">
-                <span class="gray-darker">{{'labels.assessmentTypes.' + options.assessmentType + '.short-name' | translate}}</span>
+                <span class="black">{{'labels.assessmentTypes.' + options.assessmentType + '.short-name' | translate}}</span>
               </div>
               <select *ngIf="!lockAssessmentType" id="assessment-type-select" class="form-control input-sm" name="assessment-type" [(ngModel)]="options.assessmentType">
                 <option *ngFor="let type of assessmentTypes" [ngValue]="type">{{(type != null ? 'labels.assessmentTypes.' + type + '.short-name' : 'buttons.all') | translate}}</option>
@@ -47,7 +47,7 @@
             <div class="form-group">
               <label for="school-year-select">{{'labels.reports.form.school-year' | translate}}</label>
               <div *ngIf="lockSchoolYear && options.schoolYear">
-                <span class="gray-darker">{{options.schoolYear | schoolYear}}</span>
+                <span class="black">{{options.schoolYear | schoolYear}}</span>
               </div>
               <select *ngIf="!lockSchoolYear" id="school-year-select" class="form-control input-sm" name="school-year" [(ngModel)]="options.schoolYear">
                 <option *ngFor="let year of schoolYears" [ngValue]="year">{{year | schoolYear}}</option>
@@ -57,7 +57,7 @@
             <div class="form-group">
               <label for="subject-select">{{'labels.reports.form.subject' | translate}}</label>
               <div *ngIf="lockSubject && options.subject">
-                <span class="gray-darker">{{'labels.subjects.' + options.subject + '.short-name' | translate}}</span>
+                <span class="black">{{'labels.subjects.' + options.subject + '.short-name' | translate}}</span>
               </div>
               <select *ngIf="!lockSubject" id="subject-select" class="form-control input-sm" name="subject" [(ngModel)]="options.subject">
                 <option *ngFor="let subject of subjectTypes" [ngValue]="subject">{{(subject != null ? 'labels.subjects.' + subject + '.short-name' : 'buttons.all') | translate}}</option>

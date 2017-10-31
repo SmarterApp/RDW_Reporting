@@ -79,7 +79,7 @@
             <div th:if="${scored}" class="row" th:with="columnClass=${report.assessment.claimCodes.size() == 4} ? 'col-xs-3' : 'col-xs-4'">
                 <div th:class="${columnClass}" th:each="claimCode : ${report.assessment.claimCodes}">
                     <h3 class="text-center" th:text="#{'report.claim.' + ${claimCode} + '.name'}"></h3>
-                    <span class="h4 gray-dark"><i class="fa fa-5x text-center" th:classappend="#{'report.claim.' + ${claimCode} + '.icon'}"></i></span>
+                    <span class="h4 gray-darkest"><i class="fa fa-5x text-center" th:classappend="#{'report.claim.' + ${claimCode} + '.icon'}"></i></span>
                     <br/>
                     <div th:if="${report.exam.claimScaleScores[claimCodeStat.index] != null}">
                         <div class="text-center gray-lightest pt-sm pb-sm mb-sm">

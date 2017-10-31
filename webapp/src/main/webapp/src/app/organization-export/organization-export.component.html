@@ -42,8 +42,8 @@
 
   <div class="well gray-lightest">
     <h3 class="gray-darkest mb-0"><i class="fa fa-list-alt"></i> {{'labels.organization-tree.header' | translate}}</h3>
-    <p class="small gray-dark" [hidden]="selectedSchools.length != 0" [ngClass]="{invisible: editingDisabled}">{{'labels.organization-tree.subheader-empty' | translate}}</p>
-    <p class="small gray-dark" [hidden]="selectedSchools.length == 0" [ngClass]="{invisible: editingDisabled}">{{'labels.organization-tree.subheader-not-empty' | translate}}</p>
+    <p class="small gray-darkest" [hidden]="selectedSchools.length != 0" [ngClass]="{invisible: editingDisabled}">{{'labels.organization-tree.subheader-empty' | translate}}</p>
+    <p class="small gray-darkest" [hidden]="selectedSchools.length == 0" [ngClass]="{invisible: editingDisabled}">{{'labels.organization-tree.subheader-not-empty' | translate}}</p>
     <organization-tree [model]="organizationTree" (select)="remove($event)" [disabled]="editingDisabled"></organization-tree>
   </div>
 

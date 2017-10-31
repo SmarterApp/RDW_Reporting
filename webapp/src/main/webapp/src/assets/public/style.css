@@ -358,7 +358,7 @@ body {
   font-family: helvetica, arial, sans-serif;
   margin: 0 auto;
   width: 980px;
-  color: #838383;
+  color: black;
   background-color: #fafafa
 }
 
@@ -708,13 +708,13 @@ body.login #about ul > li .asset {
 
 body.login #about ul > li h2 {
   text-align: center;
-  color: #838383
+  color: black;
 }
 
 body.login #about ul > li p {
   font-size: 15px;
   margin: 0px 25px;
-  color: #838383
+  color: black;
 }
 
 body.login #about .annotatedReports {
