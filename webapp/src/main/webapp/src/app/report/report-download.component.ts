@@ -7,6 +7,7 @@ import { ReportOrder } from "./report-order.enum";
 import { ModalDirective } from "ngx-bootstrap";
 import { Observable } from "rxjs";
 import { Report } from "./report.model";
+import { TranslateService } from "@ngx-translate/core";
 
 /**
  * Abstract class used to carry the common logic between all exam report download components
@@ -54,11 +55,11 @@ export abstract class ReportDownloadComponent implements OnInit {
   AssessmentType: any = AssessmentType;
   assessmentTypes: AssessmentType[] = [ null, AssessmentType.IAB, AssessmentType.ICA ];
   subjectTypes: AssessmentSubjectType[] = [ null, AssessmentSubjectType.MATH, AssessmentSubjectType.ELA ];
-  languages: string[] = [ 'eng', 'spa', 'vie' ];
   orders: ReportOrder[] = [ ReportOrder.STUDENT_NAME, ReportOrder.STUDENT_SSID ];
   options: ReportOptions;
 
-  constructor(protected notificationService: NotificationService) {
+  constructor(protected notificationService: NotificationService,
+              protected translateService: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -66,7 +67,7 @@ export abstract class ReportDownloadComponent implements OnInit {
     defaultOptions.assessmentType = this.assessmentType != null ? this.assessmentType : this.assessmentTypes[ 0 ];
     defaultOptions.subject = this.subject != null ? this.getSubjectFromString(this.subject) : this.subjectTypes[ 0 ];
     defaultOptions.schoolYear = this.schoolYear != null ? this.schoolYear : this.schoolYears[ 0 ];
-    defaultOptions.language = this.languages[ 0 ];
+    defaultOptions.language = this.translateService.currentLang;
     defaultOptions.accommodationsVisible = false;
     defaultOptions.order = this.orders[ 0 ];
     defaultOptions.grayscale = false;
