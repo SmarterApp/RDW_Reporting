@@ -1,8 +1,10 @@
 import {Component, OnInit} from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { Router, ActivatedRoute, NavigationEnd, PRIMARY_OUTLET, UrlSegment } from "@angular/router";
 import "rxjs/add/operator/filter";
 import {Utils} from "../shared/Utils";
 import * as _ from "lodash";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'breadcrumbs',
@@ -11,13 +13,23 @@ import * as _ from "lodash";
 export class BreadcrumbsComponent implements OnInit{
   breadcrumbs : Array<any> = [];
 
-  constructor(private router: Router, private activatedRoute : ActivatedRoute ) {
+  constructor(private router: Router, private activatedRoute : ActivatedRoute, private title: Title, private translateService: TranslateService  ) {
   }
 
   ngOnInit(): void {
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(() => {
       let root: ActivatedRoute = this.activatedRoute.root;
       this.breadcrumbs = this.getBreadcrumbs(root);
+      let translatedBreadCrumbs = "";
+      this.breadcrumbs = this.getBreadcrumbs(root);
+      for (let i = this.breadcrumbs.length - 1; i >= 0; i--) {
+        if (this.breadcrumbs[i].requiresTranslate) {
+          translatedBreadCrumbs = translatedBreadCrumbs.concat(this.translateService.instant(this.breadcrumbs[i].label, this.breadcrumbs[i].translateParams), " < ");
+        } else {
+          translatedBreadCrumbs = translatedBreadCrumbs.concat(this.breadcrumbs[i].label, " < ");
+        }
+      }
+      this.title.setTitle(translatedBreadCrumbs + "Smarter Balanced | Admin");
     });
   }
 
