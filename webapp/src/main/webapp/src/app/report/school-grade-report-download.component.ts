@@ -24,9 +24,9 @@ export class SchoolGradeDownloadComponent extends ReportDownloadComponent {
   grade: Grade;
 
   constructor(notificationService: NotificationService,
-              private service: ReportService,
-              private translate: TranslateService) {
-    super(notificationService);
+              translate: TranslateService,
+              private service: ReportService) {
+    super(notificationService, translate);
   }
 
   createReport(): Observable<Report> {
@@ -34,7 +34,7 @@ export class SchoolGradeDownloadComponent extends ReportDownloadComponent {
   }
 
   generateName(): string {
-    let gradeLabel: string = this.translate.instant(`labels.grades.${this.grade.code}.short-name`);
+    let gradeLabel: string = this.translateService.instant(`labels.grades.${this.grade.code}.short-name`);
     return `${this.school.name} ${gradeLabel}`;
   }
 

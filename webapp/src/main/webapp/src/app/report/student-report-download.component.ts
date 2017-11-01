@@ -20,9 +20,9 @@ export class StudentReportDownloadComponent extends ReportDownloadComponent {
   student: Student;
 
   constructor(notificationService: NotificationService,
-              private service: ReportService,
-              private translate: TranslateService) {
-    super(notificationService);
+              translate: TranslateService,
+              private service: ReportService) {
+    super(notificationService, translate);
     this.displayOrder = false;
   }
 
@@ -31,7 +31,7 @@ export class StudentReportDownloadComponent extends ReportDownloadComponent {
   }
 
   generateName(): string {
-    return this.translate.instant('labels.personName', this.student);
+    return this.translateService.instant('labels.personName', this.student);
   }
 
 }

@@ -5,6 +5,7 @@ import { NotificationService } from "../shared/notification/notification.service
 import { Report } from "./report.model";
 import { Group } from "../user/model/group.model";
 import { Observable } from "rxjs";
+import { TranslateService } from "@ngx-translate/core";
 
 /**
  * Component used for single-student exam report download
@@ -19,8 +20,9 @@ export class GroupReportDownloadComponent extends ReportDownloadComponent {
   group: Group;
 
   constructor(notificationService: NotificationService,
+              translateService: TranslateService,
               private service: ReportService) {
-    super(notificationService);
+    super(notificationService, translateService);
   }
 
   createReport(): Observable<Report> {
