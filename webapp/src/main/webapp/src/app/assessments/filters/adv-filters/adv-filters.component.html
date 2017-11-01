@@ -6,7 +6,7 @@
 
   <!-- Test Filters -->
   <div id="filter-by-test" class="flex-child">
-    <p class="black border-bottom">{{ translateRoot + 'test.label' | translate }}</p>
+    <p class="border-bottom">{{ translateRoot + 'test.label' | translate }}</p>
     <div class="block-children">
       <label>
           <span info-label
@@ -15,11 +15,11 @@
       </label>
       <div id="btn-group-off-grade-assessment" class="btn-group btn-group-sm toggle-group" data-toggle="buttons">
         <label class="btn btn-primary" [ngClass]="{'active': !filterBy.offGradeAssessment}">
-          <input [value]="false" [(ngModel)]="filterBy.offGradeAssessment" type="radio"
+          <input [value]="false" [(ngModel)]="filterBy.offGradeAssessment" type="radio" name="boolean-toggle"
                  angulartics2On="click" angularticsEvent="FilterClick" angularticsCategory="AdvancedFilters" [angularticsProperties]="{label: 'Off-Grade: Show'}">{{ 'buttons.visibility.show' | translate }}
         </label>
         <label class="btn btn-primary" [ngClass]="{'active': filterBy.offGradeAssessment}">
-          <input [value]="true" [(ngModel)]="filterBy.offGradeAssessment" type="radio"
+          <input [value]="true" [(ngModel)]="filterBy.offGradeAssessment" type="radio" name="boolean-toggle"
                  angulartics2On="click" angularticsEvent="FilterClick" angularticsCategory="AdvancedFilters" [angularticsProperties]="{label: 'Off-Grade: Hide'}">{{ 'buttons.visibility.hide' | translate }}
         </label>
       </div>
@@ -28,7 +28,7 @@
 
   <!-- Status Filters -->
   <div id="filter-by-status" class="flex-child">
-    <p class="black border-bottom">{{ translateRoot + 'status.label' | translate }}</p>
+    <p class="border-bottom">{{ translateRoot + 'status.label' | translate }}</p>
     <div class="block-children">
       <!-- Manner of Administration -->
       <div class="block-children">
@@ -68,7 +68,7 @@
 
   <!-- Student Filters -->
   <div *ngIf="showStudentFilter" id="filter-by-student" class="flex-child grow">
-    <p class="black border-bottom">{{ translateRoot + 'student.label' | translate }}</p>
+    <p class="border-bottom">{{ translateRoot + 'student.label' | translate }}</p>
     <div class="flex-children">
       <!-- Column 1 -->
       <div class="flex-child col1 no-margin">
