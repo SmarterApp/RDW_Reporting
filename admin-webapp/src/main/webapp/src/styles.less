@@ -28,6 +28,52 @@
   }
 }
 
+/**
+  Colors
+ */
+// new general gray
+@gray-mid: #73777D;
+
+// new orange
+@orange: #82440e;
+
+// new dark green
+@green-dark: #267738;
+// new green
+@green: #267738;
+
+// new aqua
+@aqua: #0f6bad;
+
+/**
+  Required to meet WCAG 2 AA contrast ratio
+ */
+.navbar-default {
+  .navbar-nav > li > a {
+    color: @gray-mid;
+  }
+  .btn-link {
+    color: @gray-mid;
+  }
+}
+
+.btn-default {
+  color: @gray-mid;
+}
+
+.form-control {
+  color: @gray-mid;
+}
+
+.btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
+  color: @black;
+  &:hover,
+  &:active,
+  &.active{
+    color: @black;
+  }
+}
+
 // ------------------------------
 // RDW Custom Styles to Match Comps
 // ------------------------------
@@ -90,7 +136,7 @@ header {
   border-radius: @border-radius-base;
   .box-shadow(0 6px 6px -6px rgba(0, 0, 0, .16) inset, 0 1px 1px 1px rgba(255, 255, 255, .95););
   > .active {
-    color: @gray-darker;
+    color: @gray-darkest;
   }
 }
 
