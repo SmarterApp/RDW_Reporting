@@ -10,6 +10,7 @@ import { Assessment } from "../../assessments/model/assessment.model";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { Angulartics2 } from "angulartics2";
 import { RequestType } from "../../shared/enum/request-type.enum";
+import { TranslateService } from "@ngx-translate/core";
 
 @Injectable()
 export class GroupAssessmentService implements AssessmentProvider {
@@ -22,7 +23,8 @@ export class GroupAssessmentService implements AssessmentProvider {
               private filterOptionService: ExamFilterOptionsService,
               private mapper: AssessmentExamMapper,
               private csvExportService: CsvExportService,
-              private angulartics2: Angulartics2) {
+              private angulartics2: Angulartics2,
+              private translate: TranslateService) {
   }
 
   getMostRecentAssessment(groupId:number, schoolYear?: number) {
@@ -63,26 +65,19 @@ export class GroupAssessmentService implements AssessmentProvider {
     let filename: string = this.getFilename(exportRequest);
 
     this.angulartics2.eventTrack.next({
-      action: 'Export Group Items By Points Earned',
+      action: 'Export Group Results by Items',
       properties: {
         category: 'Export'
       }
     });
 
-    this.csvExportService.exportItemsByPointsEarned(exportRequest, filename);
+    this.csvExportService.exportResultItems(exportRequest, filename);
   }
 
   private getFilename(exportRequest: ExportRequest) {
     let assessment: Assessment = exportRequest.assessment;
     let filename: string = this.groupName +
-      "-" + assessment.name;
-    if (exportRequest.type) {
-      filename = filename + "-" + exportRequest.type.toString() + "-" + new Date().toDateString();
-    } else {
-      filename = filename +
-        "-ItemsByPoints" +
-        "-" + new Date().toDateString();
-    }
+      "-" + assessment.name + "-" + this.translate.instant(exportRequest.type.toString()) + "-" + new Date().toDateString();
     return filename;
   }
 

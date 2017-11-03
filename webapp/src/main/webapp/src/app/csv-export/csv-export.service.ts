@@ -103,8 +103,8 @@ export class CsvExportService {
       .build(wrappers);
   }
 
-  exportItemsByPointsEarned(exportRequest: ExportRequest,
-                            filename: string) {
+  exportResultItems(exportRequest: ExportRequest,
+                    filename: string) {
 
     let getAssessment = () => exportRequest.assessment;
     let getAssessmentItem = (item) => item;

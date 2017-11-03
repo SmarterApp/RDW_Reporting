@@ -630,6 +630,10 @@
         "4": "Exceeded",
         "missing": "-"
       },
+      "request-type": {
+        "results-by-item": "ResultsByItems",
+        "distractor-analysis": "DistractorAnalysis"
+      },
       "full": {
         "1": "Did Not Meet Standard",
         "2": "Nearly Met Standard",

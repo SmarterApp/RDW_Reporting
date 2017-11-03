@@ -79,16 +79,16 @@ export class ResultsByItemComponent implements OnInit {
     });
   }
 
-  exportItemsByPointsEarned(): void {
+  exportResultItems(): void {
     let exportRequest = new ExportRequest();
     exportRequest.assessment = this.assessment;
     exportRequest.assessmentItems = this.filteredAssessmentItems;
     exportRequest.pointColumns = this.pointColumns;
     exportRequest.showAsPercent = this.showValuesAsPercent;
-    exportRequest.type = RequestType.ItemsByPoints;
+    exportRequest.type = RequestType.ResultsByItems;
 
     this.angulartics2.eventTrack.next({
-      action: 'Export ItemsByPointsEarned',
+      action: 'Export ResultByItems',
       properties: {
         category: 'Export'
       }

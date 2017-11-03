@@ -68,27 +68,21 @@ export class SchoolAssessmentService implements AssessmentProvider {
     let filename: string = this.getFilename(exportRequest);
 
     this.angulartics2.eventTrack.next({
-      action: 'Export School/Grade Items By Points Earned',
+      action: 'Export School/Grade Results by Items',
       properties: {
         category: 'Export'
       }
     });
 
-    this.csvExportService.exportItemsByPointsEarned(exportRequest, filename);
+    this.csvExportService.exportResultItems(exportRequest, filename);
   }
 
   private getFilename(exportRequest: ExportRequest) {
     let assessment: Assessment = exportRequest.assessment;
     let filename: string = this.schoolName +
       "-" + this.translate.instant(`labels.grades.${this.grade.code}.short-name`) +
-      "-" + assessment.name;
-    if (exportRequest.type) {
-      filename = filename + "-" + exportRequest.type.toString() + "-" + new Date().toDateString();
-    } else {
-      filename = filename +
-        "-ItemsByPoints" +
-        "-" + new Date().toDateString();
-    }
+      "-" + assessment.name + "-" + this.translate.instant(exportRequest.type.toString()) + "-" + new Date().toDateString();
+
     return filename;
   }
 
