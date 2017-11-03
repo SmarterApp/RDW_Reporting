@@ -92,7 +92,8 @@ export class ResultsByStudentComponent implements OnInit {
     return !this.isIab;
   }
 
-  constructor(private actionBuilder: MenuActionBuilder,  private translate: TranslateService) {
+  constructor(private actionBuilder: MenuActionBuilder,
+              private translate: TranslateService) {
   }
 
   ngOnInit() {

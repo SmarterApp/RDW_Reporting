@@ -7,6 +7,7 @@ import { School } from "../user/model/school.model";
 import { Grade } from "../school-grade/grade.model";
 import { TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs";
+import { UserService } from "../user/user.service";
 
 /**
  * Component used for single-student exam report download
@@ -24,9 +25,10 @@ export class SchoolGradeDownloadComponent extends ReportDownloadComponent {
   grade: Grade;
 
   constructor(notificationService: NotificationService,
+              userService: UserService,
               private service: ReportService,
               private translate: TranslateService) {
-    super(notificationService);
+    super(notificationService, userService);
   }
 
   createReport(): Observable<Report> {

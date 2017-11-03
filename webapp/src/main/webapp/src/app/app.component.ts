@@ -1,10 +1,8 @@
-import { Angulartics2GoogleAnalytics } from "angulartics2";
 import { Component } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { UserService } from "./user/user.service";
-import { Router, NavigationEnd } from "@angular/router";
+import { NavigationEnd, Router } from "@angular/router";
 import { Location, PopStateEvent } from "@angular/common";
-import { NotificationService } from "./shared/notification/notification.service";
 import { isNullOrUndefined } from "util";
 import { User } from "./user/model/user.model";
 
@@ -27,14 +25,13 @@ export class AppComponent {
   constructor(public translate: TranslateService,
               private userService: UserService,
               private router: Router,
-              private location: Location,
-              private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
+              private location: Location) {
 
-    let languages = [ 'en', 'ja' ];
+    let languages = [ 'en' ];
     let defaultLanguage = languages[ 0 ];
     translate.addLangs(languages);
     translate.setDefaultLang(defaultLanguage);
-    translate.use(languages.indexOf(translate.getBrowserLang()) != -1 ? translate.getBrowserLang() : defaultLanguage);
+    translate.use(defaultLanguage);
   }
 
   ngOnInit() {
@@ -42,6 +39,12 @@ export class AppComponent {
     this.userService.getCurrentUser().subscribe(user => {
       if (!isNullOrUndefined(user)) {
         this._user = user;
+
+        let languages = user.configuration.uiLanguages;
+        this.translate.addLangs(languages);
+        if (languages.indexOf(this.translate.getBrowserLang()) != -1) {
+          this.translate.use(this.translate.getBrowserLang());
+        }
 
         if (window[ 'ga' ] && user.configuration && user.configuration.analyticsTrackingId) {
           window[ 'ga' ]('create', user.configuration.analyticsTrackingId, 'auto');

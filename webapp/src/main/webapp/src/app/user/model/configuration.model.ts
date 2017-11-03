@@ -5,4 +5,6 @@ export class Configuration {
   userGuideUrl: string;
   minItemDataYear: number;
   adminWebappUrl: string;
+  reportLanguages: string[];
+  uiLanguages: string[];
 }

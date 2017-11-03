@@ -41,6 +41,13 @@
               </select>
             </div>
 
+            <div class="form-group" *ngIf="reportLanguages.length > 1">
+              <label for="language-select">{{'labels.reports.form.language' | translate}}</label>
+              <select id="language-select" class="form-control input-sm" name="language" [(ngModel)]="options.language">
+                <option *ngFor="let language of reportLanguages" [ngValue]="language">{{'labels.locale.' + language | translate}}</option>
+              </select>
+            </div>
+
           </div>
           <div class="col-md-6">
 
