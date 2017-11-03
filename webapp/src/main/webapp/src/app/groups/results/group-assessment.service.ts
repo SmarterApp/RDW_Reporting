@@ -5,10 +5,11 @@ import { AssessmentExamMapper } from "../../assessments/assessment-exam.mapper";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { AssessmentProvider } from "../../assessments/assessment-provider.interface";
 import { ResponseUtils } from "../../shared/response-utils";
-import { ItemByPointsEarnedExportRequest } from "../../assessments/model/item-by-points-earned-export-request.model";
+import { ExportRequest} from "../../assessments/model/export-request.model";
 import { Assessment } from "../../assessments/model/assessment.model";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { Angulartics2 } from "angulartics2";
+import { RequestType } from "../../shared/enum/request-type.enum";
 
 @Injectable()
 export class GroupAssessmentService implements AssessmentProvider {
@@ -58,12 +59,8 @@ export class GroupAssessmentService implements AssessmentProvider {
         return this.mapper.mapAssessmentItemsFromApi(x);
       });
   }
-  exportItemsToCsv(exportRequest: ItemByPointsEarnedExportRequest) {
-    let assessment: Assessment = exportRequest.assessment;
-    let filename: string = this.groupName +
-      "-" + assessment.name +
-      "-ItemsByPoints" +
-      "-" + new Date().toDateString();
+  exportItemsToCsv(exportRequest: ExportRequest) {
+    let filename: string = this.getFilename(exportRequest);
 
     this.angulartics2.eventTrack.next({
       action: 'Export Group Items By Points Earned',
@@ -73,6 +70,20 @@ export class GroupAssessmentService implements AssessmentProvider {
     });
 
     this.csvExportService.exportItemsByPointsEarned(exportRequest, filename);
+  }
+
+  private getFilename(exportRequest: ExportRequest) {
+    let assessment: Assessment = exportRequest.assessment;
+    let filename: string = this.groupName +
+      "-" + assessment.name;
+    if (exportRequest.type) {
+      filename = filename + "-" + exportRequest.type.toString() + "-" + new Date().toDateString();
+    } else {
+      filename = filename +
+        "-ItemsByPoints" +
+        "-" + new Date().toDateString();
+    }
+    return filename;
   }
 
   private getRecentAssessmentBySchoolYear(groupId: number, schoolYear: number) {

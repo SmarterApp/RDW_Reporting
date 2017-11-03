@@ -302,7 +302,8 @@
               },
               "full-credit": "Full Credit",
               "full-credit-info": "Percentage of students in the group who earned the maximum number of points available for a particular test item.",
-              "x-points": "{{id}}"
+              "x-points": "{{id}}",
+              "answer-key": "Answer Key"
             },
             "target": "Target {{target}}"
           }

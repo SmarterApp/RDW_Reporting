@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AssessmentItem } from "../../../model/assessment-item.model";
-import { ItemByPointsEarnedExportRequest } from "../../../model/item-by-points-earned-export-request.model";
+import { ExportRequest} from "../../../model/export-request.model";
 import { Angulartics2 } from "angulartics2";
 import { DynamicItemField } from "../../../model/item-point-field.model";
 import { Observable } from "rxjs/Observable";
@@ -8,6 +8,7 @@ import { AssessmentProvider } from "../../../assessment-provider.interface";
 import { ExamStatisticsCalculator } from "../../exam-statistics-calculator";
 import { Exam } from "../../../model/exam.model";
 import { Assessment } from "../../../model/assessment.model";
+import { RequestType } from "../../../../shared/enum/request-type.enum";
 
 @Component({
   selector: 'results-by-item',
@@ -79,11 +80,12 @@ export class ResultsByItemComponent implements OnInit {
   }
 
   exportItemsByPointsEarned(): void {
-    let exportRequest = new ItemByPointsEarnedExportRequest();
+    let exportRequest = new ExportRequest();
     exportRequest.assessment = this.assessment;
     exportRequest.assessmentItems = this.filteredAssessmentItems;
     exportRequest.pointColumns = this.pointColumns;
     exportRequest.showAsPercent = this.showValuesAsPercent;
+    exportRequest.type = RequestType.ItemsByPoints;
 
     this.angulartics2.eventTrack.next({
       action: 'Export ItemsByPointsEarned',

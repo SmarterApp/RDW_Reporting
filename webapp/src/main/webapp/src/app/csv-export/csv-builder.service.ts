@@ -364,6 +364,13 @@ export class CsvBuilder {
     );
   }
 
+  withItemAnswerKey(getAssessmentItem: (item: any) => AssessmentItem) {
+    return this.withColumn(
+      this.translateService.instant('labels.groups.results.assessment.items.cols.answer-key'),
+      (item) => getAssessmentItem(item).answerKey
+    );
+  }
+
   withStandards(getAssessmentItem: (item: any) => AssessmentItem) {
     return this.withColumn(
       this.translateService.instant('labels.groups.results.assessment.items.cols.standard'),

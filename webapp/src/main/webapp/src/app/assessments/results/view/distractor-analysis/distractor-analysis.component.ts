@@ -4,7 +4,10 @@ import { Exam } from "../../../model/exam.model";
 import { DynamicItemField } from "../../../model/item-point-field.model";
 import { ExamStatisticsCalculator } from "../../exam-statistics-calculator";
 import { AssessmentProvider } from "../../../assessment-provider.interface";
+import { ExportRequest} from "../../../model/export-request.model";
 import { Assessment } from "../../../model/assessment.model";
+import { Angulartics2 } from "angulartics2";
+import { RequestType } from "../../../../shared/enum/request-type.enum";
 
 @Component({
   selector: 'distractor-analysis',
@@ -53,7 +56,7 @@ export class DistractorAnalysisComponent implements OnInit {
   private filteredMultipleChoiceItems: AssessmentItem[];
   private _exams: Exam[];
 
-  constructor(private examCalculator: ExamStatisticsCalculator, private renderer: Renderer2) {
+  constructor(private examCalculator: ExamStatisticsCalculator, private renderer: Renderer2, private angulartics2: Angulartics2) {
   }
 
   ngOnInit() {
@@ -76,7 +79,22 @@ export class DistractorAnalysisComponent implements OnInit {
   }
 
   exportDistractorAnalysis(): void {
-    // TODO: DWR-1070
+    let exportRequest = new ExportRequest();
+    exportRequest.assessment = this.assessment;
+    exportRequest.showAsPercent = this.showValuesAsPercent;
+    exportRequest.assessmentItems = this.filteredMultipleChoiceItems;
+    exportRequest.pointColumns = this.choiceColumns;
+    exportRequest.type = RequestType.DistractorAnalysis;
+
+
+    this.angulartics2.eventTrack.next({
+      action: 'Export DistractorAnalysis',
+      properties: {
+        category: 'Export'
+      }
+    });
+
+    this.assessmentProvider.exportItemsToCsv(exportRequest);
   }
 
   getChoiceRowStyleClass(index: number) {
