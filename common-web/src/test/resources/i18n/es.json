@@ -1,0 +1,6 @@
+{
+  "parent": {
+    "childA": "childAJsonValue",
+    "childB": "childBJsonValue"
+  }
+}

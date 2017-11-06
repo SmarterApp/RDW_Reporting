@@ -7,6 +7,9 @@ import { Injectable } from "@angular/core";
 
 @Injectable()
 export class RdwTranslateLoader {
+
+  private embeddedLanguages: string[] = ["en"];
+
   constructor(private http: Http) {
   }
 
@@ -14,7 +17,9 @@ export class RdwTranslateLoader {
   private uiLoader = new TranslateHttpLoader(this.http, '/assets/i18n/', '.json');
 
   getTranslation(lang: string) {
-    let uiObservable = this.uiLoader.getTranslation(lang);
+    let uiObservable = this.embeddedLanguages.indexOf(lang) >= 0 ?
+        this.uiLoader.getTranslation(lang) : Observable.of({});
+
     let apiObservable = this.apiLoader.getTranslation(lang).catch(res => Observable.of({}));
 
     let translateObserver: Observer<any>;
