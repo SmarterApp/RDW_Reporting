@@ -541,9 +541,32 @@ sql:
           i.dok_level_subject_id,
           i.math_practice_code,
           i.allow_calc,
-          i.common_core_standard_ids
+          i.common_core_standard_ids,
+          i.answer_key,
+          i.options_count,
+          i.type
         from item i
         where i.asmt_id=:assessment_id
+
+      findAllForAssessmentAndTypes: >-
+        select i.id,
+          i.natural_id,
+          i.position,
+          i.difficulty_code,
+          i.max_points,
+          i.claim_code,
+          i.target_code,
+          i.target_id,
+          i.dok_level_subject_id,
+          i.math_practice_code,
+          i.allow_calc,
+          i.common_core_standard_ids,
+          i.answer_key,
+          i.options_count,
+          i.type
+        from item i
+        where i.asmt_id=:assessment_id
+        and i.type in (:types)
 
       findAllForExam: >-
         select i.id,
