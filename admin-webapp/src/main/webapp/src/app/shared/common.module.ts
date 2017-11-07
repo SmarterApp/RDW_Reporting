@@ -1,23 +1,13 @@
 import { NgModule } from "@angular/core";
-import { PadStartPipe } from "./pad-start.pipe";
 import { SubjectPipe } from "./subject.pipe";
-import { SearchPipe } from "../search.pipe";
-import { HttpModule, Http } from "@angular/http";
-import { DataService } from "./data/data.service";
-import { CachingDataService } from "./cachingData.service";
+import { Http, HttpModule } from "@angular/http";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { RouterModule } from "@angular/router";
-import { RemoveCommaPipe } from "./remove-comma.pipe";
-import { SBRadioButtonComponent } from "./sb-radio-button-list.component";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
-import { SBCheckboxList } from "./sb-checkbox-list.component";
-import { GradeDisplayPipe } from "./grade-display.pipe";
-import { ColorService } from "./color.service";
 import { Angulartics2Module } from 'angulartics2';
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import { DataTableRowExpanderComponent } from "./datatable/datatable-row-expander.component";
-import { RdwFormatModule } from "@sbac/rdw-reporting-common-ngx";
+import { RdwDataModule, RdwDataTableModule, RdwFormatModule } from "@sbac/rdw-reporting-common-ngx";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: Http) {
@@ -26,45 +16,30 @@ export function HttpLoaderFactory(http: Http) {
 
 @NgModule({
   declarations: [
-    DataTableRowExpanderComponent,
-    GradeDisplayPipe,
-    PadStartPipe,
-    SBRadioButtonComponent,
-    SBCheckboxList,
-    SearchPipe,
-    SubjectPipe,
-    RemoveCommaPipe
+    SubjectPipe
   ],
   imports: [
-    HttpModule,
-    FormsModule,
+    Angulartics2Module.forChild(),
     BrowserModule,
+    FormsModule,
+    HttpModule,
+    RdwDataModule.forRoot(),
+    RdwDataTableModule,
+    RdwFormatModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [Http]
+        deps: [ Http ]
       }
-    }),
-    Angulartics2Module.forChild()
+    })
   ],
   exports: [
-    DataTableRowExpanderComponent,
-    GradeDisplayPipe,
-    PadStartPipe,
-    RemoveCommaPipe,
-    RouterModule,
-    SBCheckboxList,
-    SBRadioButtonComponent,
-    SearchPipe,
     SubjectPipe,
     TranslateModule,
-    RdwFormatModule
-  ],
-  providers: [
-    DataService,
-    CachingDataService,
-    ColorService,
+    RdwDataTableModule,
+    RdwFormatModule,
+    RouterModule
   ]
 })
 export class CommonModule {

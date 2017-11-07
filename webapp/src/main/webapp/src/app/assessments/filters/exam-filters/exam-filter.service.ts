@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Utils } from "../../../shared/Utils";
+import { Utils } from "@sbac/rdw-reporting-common-ngx";
 import { ExamFilter } from "../../model/exam-filter.model";
 import { AssessmentExam } from "../../model/assessment-exam.model";
 import { FilterBy } from "../../model/filter-by.model";

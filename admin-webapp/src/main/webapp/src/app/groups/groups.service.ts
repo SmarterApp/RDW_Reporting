@@ -1,4 +1,4 @@
-import { DataService } from "../shared/data/data.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { GroupFilterOptions } from "./model/group-filter-options.model";
 import { Observable } from "rxjs";
 import { School } from "./model/school.model";

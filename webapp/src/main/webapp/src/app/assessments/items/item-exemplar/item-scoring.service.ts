@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
-import { DataService } from "../../../shared/data/data.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { ItemScoringGuideMapper } from "./item-scoring-guide.mapper";
 import { ItemScoringGuide } from "./model/item-scoring-guide.model";
 import { Observable } from "rxjs";
-import { ResponseUtils } from "../../../shared/response-utils";
 
 @Injectable()
 export class ItemScoringService {

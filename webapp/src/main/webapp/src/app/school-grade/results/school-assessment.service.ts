@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { URLSearchParams } from "@angular/http";
-import { DataService } from "../../shared/data/data.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { AssessmentExamMapper } from "../../assessments/assessment-exam.mapper";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { AssessmentProvider } from "../../assessments/assessment-provider.interface";

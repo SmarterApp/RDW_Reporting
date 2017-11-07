@@ -1,8 +1,8 @@
-import {Component, OnInit} from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Title } from "@angular/platform-browser";
-import { Router, ActivatedRoute, NavigationEnd, PRIMARY_OUTLET, UrlSegment } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, PRIMARY_OUTLET, Router, UrlSegment } from "@angular/router";
 import "rxjs/add/operator/filter";
-import {Utils} from "../shared/Utils";
+import { Utils } from "@sbac/rdw-reporting-common-ngx";
 import * as _ from "lodash";
 import { TranslateService } from "@ngx-translate/core";
 
@@ -10,10 +10,10 @@ import { TranslateService } from "@ngx-translate/core";
   selector: 'breadcrumbs',
   templateUrl: './breadcrumbs.component.html'
 })
-export class BreadcrumbsComponent implements OnInit{
-  breadcrumbs : Array<any> = [];
+export class BreadcrumbsComponent implements OnInit {
+  breadcrumbs: Array<any> = [];
 
-  constructor(private router: Router, private activatedRoute : ActivatedRoute, private title: Title, private translateService: TranslateService ) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private title: Title, private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -22,26 +22,26 @@ export class BreadcrumbsComponent implements OnInit{
       let translatedBreadCrumbs = "";
       this.breadcrumbs = this.getBreadcrumbs(root);
       for (let i = this.breadcrumbs.length - 1; i >= 0; i--) {
-        if (this.breadcrumbs[i].requiresTranslate) {
-          translatedBreadCrumbs = translatedBreadCrumbs.concat(this.translateService.instant(this.breadcrumbs[i].label, this.breadcrumbs[i].translateParams), " < ");
+        if (this.breadcrumbs[ i ].requiresTranslate) {
+          translatedBreadCrumbs = translatedBreadCrumbs.concat(this.translateService.instant(this.breadcrumbs[ i ].label, this.breadcrumbs[ i ].translateParams), " < ");
         } else {
-          translatedBreadCrumbs = translatedBreadCrumbs.concat(this.breadcrumbs[i].label, " < ");
+          translatedBreadCrumbs = translatedBreadCrumbs.concat(this.breadcrumbs[ i ].label, " < ");
         }
       }
       this.title.setTitle(translatedBreadCrumbs + "Smarter Balanced | Reporting System");
     });
   }
 
-  private getBreadcrumbs(route: ActivatedRoute, commands: any[]=[], breadcrumbs: any[] = []): any[] {
+  private getBreadcrumbs(route: ActivatedRoute, commands: any[] = [], breadcrumbs: any[] = []): any[] {
     let BreadcrumbsKeyword = "breadcrumb";
 
     let children: ActivatedRoute[] = route.children;
-    if (children.length === 0 ) {
+    if (children.length === 0) {
       return breadcrumbs;
     }
 
     for (let child of children) {
-      if (child.outlet != PRIMARY_OUTLET ) {
+      if (child.outlet != PRIMARY_OUTLET) {
         continue; // skip
       }
 
@@ -50,7 +50,7 @@ export class BreadcrumbsComponent implements OnInit{
       }
 
       // Parse the route commands for this route
-      let crumbData = child.snapshot.data[BreadcrumbsKeyword];
+      let crumbData = child.snapshot.data[ BreadcrumbsKeyword ];
       let route = child.snapshot;
       let urlSegments: UrlSegment[] = route.url;
       urlSegments.forEach(segment => {
@@ -63,22 +63,22 @@ export class BreadcrumbsComponent implements OnInit{
       let label = crumbData.translate;
       let translateParams = {};
 
-      if(crumbData.resolve){
-        try{
+      if (crumbData.resolve) {
+        try {
           label = Utils.getPropertyValue(crumbData.resolve, child.snapshot.data);
         }
-        catch(ex) {
+        catch (ex) {
           console.error("Unable to get property value for breadcrumb.", ex);
           label = this.getDefaultLabel(commands);
         }
 
         requiresTranslate = false;
       }
-      if(crumbData.translateResolve){
+      if (crumbData.translateResolve) {
         try {
           translateParams = Utils.getPropertyValue(crumbData.translateResolve, child.snapshot.data);
         }
-        catch(ex) {
+        catch (ex) {
           console.error("Unable to get property value for breadcrumb.", ex);
           label = this.getDefaultLabel(commands);
         }
@@ -93,7 +93,7 @@ export class BreadcrumbsComponent implements OnInit{
 
       let existing = breadcrumbs.find(x => _.isEqual(x.commands, breadcrumb.commands));
 
-      if(existing) {
+      if (existing) {
         existing.label = breadcrumb.label;
         existing.translateParams = breadcrumb.translateParams;
       }
@@ -107,6 +107,6 @@ export class BreadcrumbsComponent implements OnInit{
   }
 
   getDefaultLabel(commands) {
-    return _.findLast(commands, x => typeof(x) == 'string' );
+    return _.findLast(commands, x => typeof(x) == 'string');
   }
 }

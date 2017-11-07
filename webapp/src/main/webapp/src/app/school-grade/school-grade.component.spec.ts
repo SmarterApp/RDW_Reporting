@@ -6,14 +6,14 @@ import { SchoolService } from "./school.service";
 import { DropdownModule } from "primeng/components/dropdown/dropdown";
 import { SharedModule } from "primeng/components/common/shared";
 import { BrowserModule } from "@angular/platform-browser";
-import { DataService } from "../shared/data/data.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { AssessmentsModule } from "../assessments/assessments.module";
 import { RouterModule } from "@angular/router";
 import { APP_BASE_HREF } from "@angular/common";
 import { TypeaheadModule } from "ngx-bootstrap";
 import { OrganizationService } from "./organization.service";
 import { UserModule } from "../user/user.module";
-import { CachingDataService } from "../shared/cachingData.service";
+import { CachingDataService } from "@sbac/rdw-reporting-common-ngx";
 import { MockDataService } from "../../test/mock.data.service";
 
 describe('SchoolGradeComponent', () => {

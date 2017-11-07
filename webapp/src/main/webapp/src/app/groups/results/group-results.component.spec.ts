@@ -9,7 +9,7 @@ import { ActivatedRoute } from "@angular/router";
 import { APP_BASE_HREF } from "@angular/common";
 import { AssessmentsModule } from "../../assessments/assessments.module";
 import { CommonModule } from "../../shared/common.module";
-import { DataService } from "../../shared/data/data.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { User } from "../../user/model/user.model";
 import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { isNullOrUndefined } from "util";
 import { ImportResult } from "./import-result.model";
-import { DataService } from "../../shared/data/data.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx";
 
 /**
  * This service is responsible for retrieving student group batches

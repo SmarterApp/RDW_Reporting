@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { UserMapper } from "./user.mapper";
-import { CachingDataService } from "../shared/cachingData.service";
+import { CachingDataService } from "@sbac/rdw-reporting-common-ngx";
 import { Observable } from "rxjs";
 import { User } from "./model/user.model";
 import { isNullOrUndefined } from "util";

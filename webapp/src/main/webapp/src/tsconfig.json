@@ -16,9 +16,8 @@
       "../node_modules/@types"
     ],
     "paths": {
-      "@angular/*": [
-        "../node_modules/@angular/*"
-      ]
+      "@angular/*": [ "../node_modules/@angular/*" ],
+      "rxjs/*": [ "../node_modules/rxjs/*" ]
     }
   }
 }

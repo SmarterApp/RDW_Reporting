@@ -1,7 +1,6 @@
 import { async } from '@angular/core/testing';
 import { SubjectPipe } from './subject.pipe';
 import { TranslateService } from "@ngx-translate/core";
-import Spy = jasmine.Spy;
 
 describe('SubjectPipe', () => {
   let translate = jasmine.createSpyObj("TranslateService", [ "instant" ]);

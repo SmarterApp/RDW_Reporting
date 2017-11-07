@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { DataService } from "../shared/data/data.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { Observable } from "rxjs";
 import { isNullOrUndefined } from "util";
 import { Grade } from "./grade.model";

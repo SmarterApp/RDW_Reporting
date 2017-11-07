@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { StorageService, StorageType } from "../storage.service";
-import { WindowRefService } from "../window-ref.service";
+import { StorageService, StorageType, WindowRefService } from "@sbac/rdw-reporting-common-ngx";
 
 /**
  * This service is responsible for handling authentication errors.

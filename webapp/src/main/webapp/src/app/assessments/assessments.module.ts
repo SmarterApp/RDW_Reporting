@@ -34,6 +34,7 @@ import { ReportModule } from "../report/report.module";
 import { ResultsByStudentComponent } from './results/view/results-by-student/results-by-student.component';
 import { DistractorAnalysisComponent } from './results/view/distractor-analysis/distractor-analysis.component';
 import { ResultsByItemComponent } from "./results/view/results-by-item/results-by-item.component";
+import { ScaleScoreService } from "./results/scale-score.service";
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { ResultsByItemComponent } from "./results/view/results-by-item/results-b
     ItemScoringService,
     ItemScoringGuideMapper,
     ItemInfoService,
-    StudentScoreService
+    StudentScoreService,
+    ScaleScoreService
   ]
 })
 export class AssessmentsModule {

@@ -3,8 +3,6 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpModule, Http } from "@angular/http";
 import { AppComponent } from "./app.component";
-import { environment } from "../environments/environment";
-import { standaloneProviders } from "./standalone/standalone.service";
 import { HomeComponent } from "./home/home.component";
 import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
 import { BsDropdownModule, TabsModule, AlertModule, PopoverModule } from "ngx-bootstrap";
@@ -51,9 +49,7 @@ import { OrganizationExportModule } from "./organization-export/organization-exp
   providers: [
     TranslateResolve,
     { provide: Http, useClass: AuthenticatedHttpService },
-    { provide: RouteReuseStrategy, useClass: RdwRouteReuseStrategy },
-    ...(environment.standalone ? standaloneProviders : [])
-
+    { provide: RouteReuseStrategy, useClass: RdwRouteReuseStrategy }
   ],
   bootstrap: [ AppComponent ]
 })

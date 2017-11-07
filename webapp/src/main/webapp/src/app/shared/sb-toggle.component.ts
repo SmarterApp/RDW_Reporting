@@ -1,5 +1,5 @@
 import { Component, forwardRef, OnInit, Input } from "@angular/core";
-import { Utils } from "./Utils";
+import { Utils } from "@sbac/rdw-reporting-common-ngx";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 
 const NOOP: () => void = () => {};

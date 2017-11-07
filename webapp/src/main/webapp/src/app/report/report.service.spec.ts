@@ -1,6 +1,6 @@
 import { MockDataService } from "../../test/mock.data.service";
 import { inject, TestBed } from "@angular/core/testing";
-import { DataService } from "../shared/data/data.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { ReportService } from "./report.service";
 import { Student } from "../student/model/student.model";
 import { Report } from "./report.model";

@@ -5,9 +5,9 @@ import { ItemScoringGuideMapper } from "./item-scoring-guide.mapper";
 import { CommonModule } from "../../../shared/common.module";
 import { Observable } from "rxjs";
 import { ItemScoringGuide } from "./model/item-scoring-guide.model";
-import { CachingDataService } from "../../../shared/cachingData.service";
+import { CachingDataService } from "@sbac/rdw-reporting-common-ngx";
 import { MockDataService } from "../../../../test/mock.data.service";
-import { DataService } from "../../../shared/data/data.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx";
 
 describe('ItemExemplarComponent', () => {
   let component: ItemExemplarComponent;

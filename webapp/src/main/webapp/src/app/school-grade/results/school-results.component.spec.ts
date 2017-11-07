@@ -10,7 +10,7 @@ import { SchoolResultsComponent } from "./school-results.component";
 import { AssessmentsModule } from "../../assessments/assessments.module";
 import { CommonModule } from "../../shared/common.module";
 import { SchoolService } from "../school.service";
-import { DataService } from "../../shared/data/data.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { SchoolAssessmentService } from "./school-assessment.service";
 import { User } from "../../user/model/user.model";
 import { School } from "../../user/model/school.model";

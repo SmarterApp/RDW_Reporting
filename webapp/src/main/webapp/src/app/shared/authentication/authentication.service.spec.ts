@@ -2,10 +2,9 @@ import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
 import { TestBed, inject } from "@angular/core/testing";
 import { AuthenticationService } from "./authentication.service";
-import { StorageService, SBStorage, StorageType } from "../storage.service";
+import { StorageService, SBStorage, StorageType, WindowRefService } from "@sbac/rdw-reporting-common-ngx";
 import { TestModule } from "../../../test/test.module";
 import { Router } from "@angular/router";
-import { WindowRefService } from "../window-ref.service";
 
 let mockWindow = {
   location: {

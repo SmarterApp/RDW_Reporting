@@ -1,10 +1,6 @@
 import { NgModule } from "@angular/core";
-import { PadStartPipe } from "./pad-start.pipe";
 import { SubjectPipe } from "./subject.pipe";
-import { SearchPipe } from "../search.pipe";
 import { HttpModule } from "@angular/http";
-import { DataService } from "./data/data.service";
-import { CachingDataService } from "./cachingData.service";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { RouterModule } from "@angular/router";
 import { RemoveCommaPipe } from "./remove-comma.pipe";
@@ -22,34 +18,32 @@ import { NotificationComponent } from "./notification/notification.component";
 import { NotificationService } from "./notification/notification.service";
 import { AlertModule, PopoverModule } from "ngx-bootstrap";
 import { SessionExpiredComponent } from "./authentication/session-expired.component";
-import { StorageService } from "./storage.service";
 import { DatePipe, DecimalPipe } from "@angular/common";
-import { ScaleScoreService } from "./scale-score.service";
 import { LoaderComponent } from "./loader/loader.component";
-import { WindowRefService } from "./window-ref.service";
 import { AuthenticatedHttpService } from "./authentication/authenticated-http.service";
-import { DataTableRowExpanderComponent } from "./datatable/datatable-row-expander.component";
 import { SBToggleComponent } from "./sb-toggle.component";
 import { InformationLabelComponent } from "./information-label.component";
-import { RdwFormModule } from "@sbac/rdw-reporting-common-ngx";
-import { RdwFormatModule } from "@sbac/rdw-reporting-common-ngx";
+import {
+  RdwCoreModule,
+  RdwDataModule,
+  RdwDataTableModule,
+  RdwFormatModule,
+  RdwFormModule
+} from "@sbac/rdw-reporting-common-ngx";
 
 @NgModule({
   declarations: [
     AssessmentTypePipe,
     GradeDisplayPipe,
-    NotificationComponent,
-    PadStartPipe,
-    RemoveCommaPipe,
-    SearchPipe,
-    SessionExpiredComponent,
-    SubjectPipe,
-    LoaderComponent,
-    DataTableRowExpanderComponent,
     InformationLabelComponent,
-    SBRadioButtonComponent,
+    LoaderComponent,
+    NotificationComponent,
+    RemoveCommaPipe,
+    SessionExpiredComponent,
     SBCheckboxList,
-    SBToggleComponent
+    SBRadioButtonComponent,
+    SBToggleComponent,
+    SubjectPipe
   ],
   imports: [
     AlertModule,
@@ -57,49 +51,45 @@ import { RdwFormatModule } from "@sbac/rdw-reporting-common-ngx";
     BrowserModule,
     FormsModule,
     HttpModule,
+    PopoverModule.forRoot(),
+    RdwCoreModule,
+    RdwDataModule.forRoot(),
+    RdwDataTableModule,
+    RdwFormModule,
+    RdwFormatModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useClass: RdwTranslateLoader
       }
-    }),
-    PopoverModule.forRoot(),
-    RdwFormModule,
-    RdwFormatModule
+    })
   ],
   exports: [
     AssessmentTypePipe,
     GradeDisplayPipe,
+    InformationLabelComponent,
+    LoaderComponent,
     NotificationComponent,
-    PadStartPipe,
     RemoveCommaPipe,
     RouterModule,
-    SearchPipe,
     SessionExpiredComponent,
     SubjectPipe,
-    TranslateModule,
-    LoaderComponent,
-    DataTableRowExpanderComponent,
-    InformationLabelComponent,
-    SBRadioButtonComponent,
-    SBCheckboxList,
-    SBToggleComponent,
+    RdwDataTableModule,
     RdwFormModule,
-    RdwFormatModule
+    RdwFormatModule,
+    SBCheckboxList,
+    SBRadioButtonComponent,
+    SBToggleComponent,
+    TranslateModule
   ],
   providers: [
     AuthenticatedHttpService,
     AuthenticationService,
-    DataService,
-    DatePipe,
-    CachingDataService,
     ColorService,
+    DatePipe,
     DecimalPipe,
-    ScaleScoreService,
     NotificationService,
-    RdwTranslateLoader,
-    StorageService,
-    WindowRefService
+    RdwTranslateLoader
   ]
 })
 export class CommonModule {

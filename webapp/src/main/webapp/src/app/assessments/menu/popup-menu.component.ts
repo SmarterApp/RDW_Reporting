@@ -1,7 +1,7 @@
 import { Component, Input, ElementRef, Renderer2 } from "@angular/core";
 import { isNullOrUndefined } from "util";
 import { PopupMenuAction } from "./popup-menu-action.model";
-import { Utils } from "../../shared/Utils";
+import { Utils } from "@sbac/rdw-reporting-common-ngx";
 /**
  * This component is responsible for displaying a table-row menu button
  * with configurable actions.

@@ -1,5 +1,12 @@
 ## RDW_Reporting
 
+Additional documentation:
+1. RDW_Reporting is part of the RDW suite of projects and applications. For all things RDW please refer to 
+[RDW repo](https://github.com/SmarterApp/RDW)
+1. [Change log](CHANGELOG.md)
+1. [Contributing developer notes](CONTRIBUTING.md)
+1. [License](LICENSE)
+
 ### Prerequisites
 ```bash
 # Install node.js
