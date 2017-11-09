@@ -1,4 +1,11 @@
 {
+  "common-ngx": {
+    "session-expired": {
+      "title": "Authentication Expired",
+      "message": "Click Ok to re-authenticate.",
+      "ok": "Ok"
+    }
+  },
   "welcome": "Welcome {{firstName}} {{lastName}}",
   "application": {
     "title": "Manage Student Groups"

@@ -37,5 +37,9 @@ export class Utils {
     return value === null || value.length === 0;
   }
 
+  static isUndefined(value: any): boolean {
+    return typeof value === 'undefined';
+  }
+
 }
 

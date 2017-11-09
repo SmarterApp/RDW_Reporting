@@ -5,6 +5,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { Location } from "@angular/common";
 import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
+import { NO_ERRORS_SCHEMA } from "@angular/core";
 
 describe('SessionExpiredComponent', () => {
   let component: SessionExpiredComponent;
@@ -16,13 +17,11 @@ describe('SessionExpiredComponent', () => {
         TranslateModule.forRoot()
       ],
       declarations: [ SessionExpiredComponent ],
-      providers: [{
-        provide: AuthenticationService,
-        useClass: MockAuthenticationService
-      }, {
-        provide: Location,
-        useClass: MockLocation
-      }]
+      schemas: [ NO_ERRORS_SCHEMA ],
+      providers: [
+        { provide: AuthenticationService, useClass: MockAuthenticationService },
+        { provide: Location, useClass: MockLocation }
+      ]
     }).compileComponents();
   }));
 
@@ -35,10 +34,11 @@ describe('SessionExpiredComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });
 
 class MockAuthenticationService {
-  getReauthenticationLocation: Spy = createSpy("getReauthenticationLocation");
+  authenticate: Spy = createSpy("authenticate");
 }
 
 class MockLocation {

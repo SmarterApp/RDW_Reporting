@@ -14,6 +14,7 @@ dependencies {
     compile 'com.google.guava:guava'
     compile 'com.fasterxml.jackson.core:jackson-annotations'
     compile 'com.fasterxml.jackson.core:jackson-databind'
+    compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-properties'
     compile 'org.springframework.boot:spring-boot-starter-jdbc'
     compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
     optional 'org.springframework.boot:spring-boot-configuration-processor'

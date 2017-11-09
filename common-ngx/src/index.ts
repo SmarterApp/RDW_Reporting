@@ -3,4 +3,5 @@ export * from './data';
 export * from './datatable';
 export * from './form';
 export * from './format';
+export * from './security';
 export * from './support';
