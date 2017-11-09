@@ -561,7 +561,10 @@ sql:
           i.dok_level_subject_id,
           i.math_practice_code,
           i.allow_calc,
-          i.common_core_standard_ids
+          i.common_core_standard_ids,
+          i.answer_key,
+          i.options_count,
+          i.type
         from item i
           join exam e on e.asmt_id = i.asmt_id
         where e.id=:exam_id

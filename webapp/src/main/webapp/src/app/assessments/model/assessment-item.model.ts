@@ -15,8 +15,7 @@ export class AssessmentItem {
   maxPoints: number;
   numberOfChoices: number;
   scores: ExamItemScore[] = [];
-  isMultipleChoice: boolean;
-  isMultipleSelect: boolean;
+  type: string;
   answerKey: string;
 
   get hasCommonCoreStandards(): boolean {

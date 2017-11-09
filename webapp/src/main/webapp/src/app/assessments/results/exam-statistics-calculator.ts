@@ -101,7 +101,7 @@ export class ExamStatisticsCalculator {
         let response = this.potentialResponses[ i ];
 
         if (item.scores.length > 0) {
-          let compareFunction = item.isMultipleSelect
+          let compareFunction = item.type == 'MS'
             ? (x => x.response != null && x.response.indexOf(response) !== -1)
             : (x => x.response == response);
 

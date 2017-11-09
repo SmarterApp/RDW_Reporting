@@ -5,11 +5,10 @@ import { AssessmentExamMapper } from "../../assessments/assessment-exam.mapper";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { AssessmentProvider } from "../../assessments/assessment-provider.interface";
 import { ResponseUtils } from "../../shared/response-utils";
-import { ExportRequest} from "../../assessments/model/export-request.model";
+import { ExportRequest } from "../../assessments/model/export-request.model";
 import { Assessment } from "../../assessments/model/assessment.model";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { Angulartics2 } from "angulartics2";
-import { RequestType } from "../../shared/enum/request-type.enum";
 import { TranslateService } from "@ngx-translate/core";
 
 @Injectable()
@@ -27,7 +26,7 @@ export class GroupAssessmentService implements AssessmentProvider {
               private translate: TranslateService) {
   }
 
-  getMostRecentAssessment(groupId:number, schoolYear?: number) {
+  getMostRecentAssessment(groupId: number, schoolYear?: number) {
     if (schoolYear == undefined) {
       return this.filterOptionService.getExamFilterOptions().mergeMap(options => {
         return this.getRecentAssessmentBySchoolYear(groupId, options.schoolYears[ 0 ]);
@@ -54,13 +53,27 @@ export class GroupAssessmentService implements AssessmentProvider {
       });
   }
 
-  getAssessmentItems(assessmentId: number) {
-    return this.dataService.get(`/groups/${this.groupId}/assessments/${assessmentId}/examitems`, { search: this.getSchoolYearParams(this.schoolYear) })
-      .catch(ResponseUtils.badResponseToNull)
-      .map(x => {
-        return this.mapper.mapAssessmentItemsFromApi(x);
-      });
+  getAssessmentItems(assessmentId: number, multipleChoiceMultipleSelectItems?: boolean) {
+    if (multipleChoiceMultipleSelectItems) {
+      return this.dataService.get(`/groups/${this.groupId}/assessments/${assessmentId}/examitems`, {
+        params: {
+          types: [ 'MC', 'MS' ],
+          schoolYear: this.schoolYear.toString()
+        }
+      })
+        .catch(ResponseUtils.badResponseToNull)
+        .map(x => {
+          return this.mapper.mapAssessmentItemsFromApi(x);
+        });
+    } else {
+      return this.dataService.get(`/groups/${this.groupId}/assessments/${assessmentId}/examitems`, { search: this.getSchoolYearParams(this.schoolYear) })
+        .catch(ResponseUtils.badResponseToNull)
+        .map(x => {
+          return this.mapper.mapAssessmentItemsFromApi(x);
+        });
+    }
   }
+
   exportItemsToCsv(exportRequest: ExportRequest) {
     let filename: string = this.getFilename(exportRequest);
 
