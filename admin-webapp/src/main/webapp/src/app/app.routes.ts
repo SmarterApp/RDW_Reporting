@@ -9,6 +9,7 @@ import { ImportHistoryResolve } from "./groups/import/history/import-history.res
 import { GroupImportDeactivateGuard } from "./groups/import/group-import.deactivate";
 import { FileFormatComponent } from "./groups/import/fileformat/file-format.component";
 import { AccessDeniedComponent } from "./access-denied/access-denied.component";
+import { SessionExpiredComponent } from "@sbac/rdw-reporting-common-ngx";
 
 export const routes: Routes = [
   {
@@ -69,6 +70,11 @@ export const routes: Routes = [
                 data: { breadcrumb: { translate: 'labels.groups.history.title' } }
               }
             ]
+          },
+          {
+            path: 'session-expired',
+            pathMatch: 'full',
+            component: SessionExpiredComponent
           }
         ]
       }

@@ -14,12 +14,13 @@ export class AuthenticatedHttpService extends Http {
 
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
     return super.request(url, options)
-      .catch((error: Response) => {
+      .catch(error => {
         if (error.status === 401) {
-          this.service.handleAuthenticationFailure();
+          this.service.navigateToAuthenticationExpiredRoute();
           return Observable.of();
         }
         return Observable.throw(error);
       });
   }
+
 }

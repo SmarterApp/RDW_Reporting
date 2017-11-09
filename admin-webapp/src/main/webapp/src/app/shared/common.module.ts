@@ -8,11 +8,13 @@ import { BrowserModule } from "@angular/platform-browser";
 import { Angulartics2Module } from 'angulartics2';
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import {
+  AuthenticationServiceAuthenticationExpiredRoute,
   RdwDataModule,
   RdwDataTableModule,
   RdwFormatModule,
   RdwI18nModule,
-  RdwTranslateLoader
+  RdwTranslateLoader,
+  RdwSecurityModule
 } from "@sbac/rdw-reporting-common-ngx";
 
 // AoT requires an exported function for factories
@@ -33,6 +35,7 @@ export function HttpLoaderFactory(http: Http) {
     RdwDataTableModule,
     RdwFormatModule,
     RdwI18nModule,
+    RdwSecurityModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -45,7 +48,11 @@ export function HttpLoaderFactory(http: Http) {
     TranslateModule,
     RdwDataTableModule,
     RdwFormatModule,
+    RdwSecurityModule,
     RouterModule
+  ],
+  providers: [
+    { provide: AuthenticationServiceAuthenticationExpiredRoute, useValue: 'session-expired' }
   ]
 })
 export class CommonModule {

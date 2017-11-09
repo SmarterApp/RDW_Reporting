@@ -12,23 +12,23 @@ import { GradeDisplayPipe } from "./grade-display.pipe";
 import { AssessmentTypePipe } from "./assessment-type.pipe";
 import { ColorService } from "./color.service";
 import { Angulartics2Module } from "angulartics2";
-import { AuthenticationService } from "./authentication/authentication.service";
 import { NotificationComponent } from "./notification/notification.component";
 import { NotificationService } from "./notification/notification.service";
 import { AlertModule, PopoverModule } from "ngx-bootstrap";
-import { SessionExpiredComponent } from "./authentication/session-expired.component";
 import { DatePipe, DecimalPipe } from "@angular/common";
 import { LoaderComponent } from "./loader/loader.component";
-import { AuthenticatedHttpService } from "./authentication/authenticated-http.service";
 import { SBToggleComponent } from "./sb-toggle.component";
 import { InformationLabelComponent } from "./information-label.component";
 import {
+  AuthenticationServiceAuthenticationExpiredRoute,
+  AuthenticationServiceDefaultAuthenticationRoute,
   RdwCoreModule,
   RdwDataModule,
   RdwDataTableModule,
   RdwFormatModule,
   RdwFormModule,
   RdwI18nModule,
+  RdwSecurityModule,
   RdwTranslateLoader,
 } from "@sbac/rdw-reporting-common-ngx";
 
@@ -40,7 +40,6 @@ import {
     LoaderComponent,
     NotificationComponent,
     RemoveCommaPipe,
-    SessionExpiredComponent,
     SBCheckboxList,
     SBRadioButtonComponent,
     SBToggleComponent,
@@ -59,6 +58,7 @@ import {
     RdwFormModule,
     RdwFormatModule,
     RdwI18nModule,
+    RdwSecurityModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -74,19 +74,19 @@ import {
     NotificationComponent,
     RemoveCommaPipe,
     RouterModule,
-    SessionExpiredComponent,
     SubjectPipe,
     RdwDataTableModule,
     RdwFormModule,
     RdwFormatModule,
+    RdwSecurityModule,
     SBCheckboxList,
     SBRadioButtonComponent,
     SBToggleComponent,
     TranslateModule
   ],
   providers: [
-    AuthenticatedHttpService,
-    AuthenticationService,
+    { provide: AuthenticationServiceAuthenticationExpiredRoute, useValue: 'session-expired' },
+    { provide: AuthenticationServiceDefaultAuthenticationRoute, useValue: 'home' },
     ColorService,
     DatePipe,
     DecimalPipe,

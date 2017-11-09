@@ -1,7 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { HttpModule, Http } from "@angular/http";
+import { HttpModule } from "@angular/http";
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
 import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
@@ -17,7 +17,6 @@ import { TranslateResolve } from "./home/translate.resolve";
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from "angulartics2";
 import { RdwRouteReuseStrategy } from "./shared/rdw-route-reuse.strategy";
 import { ErrorComponent } from './error/error.component';
-import { AuthenticatedHttpService } from "./shared/authentication/authenticated-http.service";
 import { AccessDeniedComponent } from './error/access-denied/access-denied.component';
 import { OrganizationExportModule } from "./organization-export/organization-export.module";
 
@@ -48,7 +47,6 @@ import { OrganizationExportModule } from "./organization-export/organization-exp
   ],
   providers: [
     TranslateResolve,
-    { provide: Http, useClass: AuthenticatedHttpService },
     { provide: RouteReuseStrategy, useClass: RdwRouteReuseStrategy }
   ],
   bootstrap: [ AppComponent ]
