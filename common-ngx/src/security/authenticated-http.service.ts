@@ -1,4 +1,4 @@
-import { XHRBackend, RequestOptions, Request, RequestOptionsArgs, Http, Response } from "@angular/http";
+import { Http, Request, RequestOptions, RequestOptionsArgs, Response, XHRBackend } from "@angular/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { AuthenticationService } from "./authentication.service";

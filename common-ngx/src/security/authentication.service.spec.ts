@@ -10,7 +10,7 @@ import { SBStorage, StorageService, StorageType, WindowRefService } from "../cor
 import { ActivatedRoute, Router } from "@angular/router";
 import { MockActivatedRoute } from "../test/mock.activated-route";
 import { MockRouter } from "../test/mock.router";
-import { Location, LocationStrategy } from "@angular/common";
+import { Location } from "@angular/common";
 
 let mockWindow = {
   location: {

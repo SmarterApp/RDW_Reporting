@@ -13,8 +13,8 @@ import {
   RdwDataTableModule,
   RdwFormatModule,
   RdwI18nModule,
-  RdwTranslateLoader,
-  RdwSecurityModule
+  RdwSecurityModule,
+  RdwTranslateLoader
 } from "@sbac/rdw-reporting-common-ngx";
 
 // AoT requires an exported function for factories
