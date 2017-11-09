@@ -6,6 +6,7 @@ import { Injectable } from "@angular/core";
 import { TranslateLoader } from "@ngx-translate/core";
 import { Observable } from "rxjs/Observable";
 import { Observer } from "rxjs/Observer";
+import { forkJoin } from "rxjs/observable/forkJoin";
 
 @Injectable()
 export class RdwTranslateLoader implements TranslateLoader {
@@ -27,8 +28,7 @@ export class RdwTranslateLoader implements TranslateLoader {
     let translateObserver: Observer<any>;
     let observable = new Observable<any>(observer => translateObserver = observer);
 
-    Observable
-      .forkJoin([ uiObservable, apiObservable ])
+    forkJoin([ uiObservable, apiObservable ])
       .share()
       .subscribe(responses => {
         let merged = _.merge(responses[ 0 ], JsonUnFlat.unflat(responses[ 1 ]));
