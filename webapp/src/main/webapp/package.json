@@ -48,7 +48,7 @@
   "devDependencies": {
     "@angular/cli": "^1.2.7",
     "@angular/compiler-cli": "4.1.1",
-    "@sbac/rdw-reporting-common-ngx": "file:../../../../common-ngx",
+    "@sbac/rdw-reporting-common-ngx": "file:../../../../common-ngx/sbac-rdw-reporting-common-ngx-0.0.0.tgz",
     "@types/jasmine": "2.5.38",
     "@types/node": "^6.0.82",
     "codelyzer": "3.0.0-beta.0",

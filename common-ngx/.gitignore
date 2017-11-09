@@ -23,3 +23,5 @@ coverage/
 dist
 docs
 tmp
+/sbac-rdw-reporting-common-ngx-*.*.*.tgz
+/lib/
