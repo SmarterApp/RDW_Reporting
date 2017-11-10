@@ -14,6 +14,16 @@ export class AuthenticatedHttpService extends Http {
     super(backend, defaultOptions);
   }
 
+  /**
+   * Override the parent method to trap 401s and navigate to an authentication expired page.
+   * NOTE: Since this method overrides a 3rd-party method it *must* match the overridden
+   * method's signature exactly.  The parent class returns an instance of "rxjs/Observable"
+   * which does not include the static methods "of" or "throw" requiring separate imports above.
+   *
+   * @param {string | Request} url        The request URL
+   * @param {RequestOptionsArgs} options  The request options
+   * @returns {Observable<Response>}  The response
+   */
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
     return super.request(url, options)
       .catch(error => {
