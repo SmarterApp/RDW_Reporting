@@ -1,6 +1,8 @@
 import { Http, Request, RequestOptions, RequestOptionsArgs, Response, XHRBackend } from "@angular/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
+import { of } from "rxjs/observable/of";
+import { _throw } from "rxjs/observable/throw";
 import { AuthenticationService } from "./authentication.service";
 
 @Injectable()
@@ -17,9 +19,9 @@ export class AuthenticatedHttpService extends Http {
       .catch(error => {
         if (error.status === 401) {
           this.service.navigateToAuthenticationExpiredRoute();
-          return Observable.of();
+          return of();
         }
-        return Observable.throw(error);
+        return _throw(error);
       });
   }
 
