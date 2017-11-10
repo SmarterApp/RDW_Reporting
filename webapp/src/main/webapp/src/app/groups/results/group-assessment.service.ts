@@ -65,13 +65,13 @@ export class GroupAssessmentService implements AssessmentProvider {
         .map(x => {
           return this.mapper.mapAssessmentItemsFromApi(x);
         });
-    } else {
-      return this.dataService.get(`/groups/${this.groupId}/assessments/${assessmentId}/examitems`, { search: this.getSchoolYearParams(this.schoolYear) })
-        .catch(ResponseUtils.badResponseToNull)
-        .map(x => {
-          return this.mapper.mapAssessmentItemsFromApi(x);
-        });
     }
+    return this.dataService.get(`/groups/${this.groupId}/assessments/${assessmentId}/examitems`, { search: this.getSchoolYearParams(this.schoolYear) })
+      .catch(ResponseUtils.badResponseToNull)
+      .map(x => {
+        return this.mapper.mapAssessmentItemsFromApi(x);
+      });
+
   }
 
   exportItemsToCsv(exportRequest: ExportRequest) {

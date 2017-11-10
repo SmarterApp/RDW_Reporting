@@ -68,13 +68,12 @@ export class SchoolAssessmentService implements AssessmentProvider {
         .map(x => {
           return this.mapper.mapAssessmentItemsFromApi(x);
         });
-    } else {
-      return this.dataService.get(`/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments/${assessmentId}/examitems`, { search: this.getSchoolYearParams(this.schoolYear) })
-        .catch(ResponseUtils.badResponseToNull)
-        .map(x => {
-          return this.mapper.mapAssessmentItemsFromApi(x);
-        });
     }
+    return this.dataService.get(`/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments/${assessmentId}/examitems`, { search: this.getSchoolYearParams(this.schoolYear) })
+      .catch(ResponseUtils.badResponseToNull)
+      .map(x => {
+        return this.mapper.mapAssessmentItemsFromApi(x);
+      });
   }
 
   exportItemsToCsv(exportRequest: ExportRequest) {
