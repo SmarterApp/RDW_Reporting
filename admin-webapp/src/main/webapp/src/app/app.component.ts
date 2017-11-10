@@ -6,7 +6,6 @@ import { User } from "./user/model/user.model";
 import { Router } from "@angular/router";
 
 const AdminPermissions = [ "GROUP_WRITE" ];
-const SupportedLanguages = [ 'en', 'ja' ];
 
 @Component({
   selector: 'app-component',
@@ -27,10 +26,11 @@ export class AppComponent {
               private router: Router,
               private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
 
-    let defaultLanguage = SupportedLanguages[ 0 ];
-    translate.addLangs(SupportedLanguages);
+    let languages = [ 'en' ];
+    let defaultLanguage = languages[ 0 ];
+    translate.addLangs(languages);
     translate.setDefaultLang(defaultLanguage);
-    translate.use(SupportedLanguages.indexOf(translate.getBrowserLang()) != -1 ? translate.getBrowserLang() : defaultLanguage);
+    translate.use(defaultLanguage);
 
   }
 
@@ -42,6 +42,12 @@ export class AppComponent {
 
       if (!userHasAccess) {
         this.router.navigate([ 'access-denied' ]);
+      }
+
+      let languages = user.configuration.uiLanguages;
+      this.translate.addLangs(languages);
+      if (languages.indexOf(this.translate.getBrowserLang()) != -1) {
+        this.translate.use(this.translate.getBrowserLang());
       }
 
       if (window[ 'ga' ] && user.configuration && user.configuration.analyticsTrackingId) {

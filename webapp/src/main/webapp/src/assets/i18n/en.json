@@ -1,4 +1,11 @@
 {
+  "common-ngx": {
+    "session-expired": {
+      "title": "Authentication Expired",
+      "message": "Click Ok to re-authenticate.",
+      "ok": "Ok"
+    }
+  },
   "welcome": "Welcome {{firstName}} {{lastName}}",
   "application": {
     "title": "Reporting System",
@@ -11,14 +18,9 @@
     "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above.",
     "noExamsSelected": "Please select from the assessments above",
     "notApplicable": "-",
-    "ok": "Ok",
     "organization": "Smarter Balanced Assessment Consortium",
     "logout": "Logout",
     "loading": "Loading",
-    "session-expired": {
-      "title": "Authentication Expired",
-      "message": "Click Ok to re-authenticate."
-    },
     "access-denied": {
       "title": "Access Denied",
       "message": "Your user account is not permitted to access this reporting system. If you believe you have reached this page in error, please contact your building administrator."
@@ -186,6 +188,11 @@
       }
     },
     "groups": {
+      "subjects": {
+        "ALL": "MATH, ELA",
+        "Math": "MATH",
+        "ELA": "ELA"
+      },
       "name": "My Groups",
       "filter": "Search by Group Name",
       "no-groups-message": "Contact your building administrator for access to group-level test results.",
@@ -427,6 +434,11 @@
       }
     },
     "reports": {
+      "subjects": {
+        "0": "MATH, ELA",
+        "1": "MATH",
+        "2": "ELA"
+      },
       "all": "All",
       "link": "My Reports",
       "heading": "My Reports",

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { SBTypeahead } from "./sb-typeahead.component";
-import { isUndefined } from "util";
+import { Utils } from "../support";
 
 /**
  * This component adds a button on the right hand side of the sb-typeahead.
@@ -43,11 +43,11 @@ export class SBButtonTypeahead extends SBTypeahead {
   buttonLabel: string = '';
 
   get buttonDisabledInternal(): boolean {
-    return this.disabledInternal || isUndefined(this.value);
+    return this.disabledInternal || Utils.isUndefined(this.value);
   }
 
   onButtonClickInternal(): void {
-    if (!isUndefined(this.value)) {
+    if (!Utils.isUndefined(this.value)) {
       this.buttonClick.emit(this.value);
       this.search = '';
     }

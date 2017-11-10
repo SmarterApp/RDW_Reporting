@@ -75,7 +75,7 @@ describe("Groups Service", () => {
         name: "Group1",
         schoolName: "Springfield",
         schoolYear: "2017",
-        subject: null,
+        subject: undefined,
         deleted: 0
       } ];
 

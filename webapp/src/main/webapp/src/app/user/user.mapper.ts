@@ -67,7 +67,7 @@ export class UserMapper {
     uiModel.id = apiModel.id;
     uiModel.name = apiModel.name;
     uiModel.schoolName = apiModel.schoolName;
-    uiModel.subjectId = apiModel.subjectId;
+    uiModel.subjectCode = apiModel.subjectCode;
     return uiModel;
   }
 

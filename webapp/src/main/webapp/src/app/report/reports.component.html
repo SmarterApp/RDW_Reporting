@@ -30,7 +30,7 @@
     </p-column>
     <p-column field="subjectId" header="{{'labels.reports.column.subject.header' | translate}}" sortable="true">
       <ng-template let-report="rowData" pTemplate="body">
-        {{ report.subjectId | subject }}
+        {{ 'labels.reports.subjects.' + report.subjectId | translate }}
       </ng-template>
     </p-column>
     <p-column field="schoolYear" header="{{'labels.reports.column.school-year.header' | translate}}" sortable="true">

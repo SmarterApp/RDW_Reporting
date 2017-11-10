@@ -15,7 +15,7 @@ import { TranslateResolve } from "./home/translate.resolve";
 import { StudentHistoryResponsesExamResolve } from "./student/responses/student-history-responses-exam.resolve";
 import { StudentHistoryResponsesAssessmentResolve } from "./student/responses/student-history-responses-assessment.resolve";
 import { StudentHistoryResponsesStudentResolve } from "./student/responses/student-history-responses-student.resolve";
-import { SessionExpiredComponent } from "./shared/authentication/session-expired.component";
+import { SessionExpiredComponent } from "@sbac/rdw-reporting-common-ngx";
 import { ReportsResolve } from "./report/reports.resolve";
 import { ReportsComponent } from "./report/reports.component";
 import { ErrorComponent } from "./error/error.component";
