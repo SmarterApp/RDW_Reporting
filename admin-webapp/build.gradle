@@ -69,6 +69,11 @@ bootRun {
 // generate coverage report automatically (./build/reports/jacoco/test/html/index.html)
 test.finalizedBy(jacocoTestReport)
 
+task deleteProjectDependencies(type: Delete) {
+    delete "src/main/webapp/node_modules/@sbac/rdw-reporting-common-ngx"
+    dependsOn project(':rdw-reporting-common-ngx').tasks.build
+}
+
 //This is the build task for the Front End (Fe) and only compiles when the inputs change
 task buildFe(type: NpmTask) {
     inputs.files(fileTree("src/main/webapp/src"))
@@ -78,6 +83,8 @@ task buildFe(type: NpmTask) {
     dependsOn npm_install
     args = ['run', 'build']
 }
+
+npm_install.dependsOn(deleteProjectDependencies)
 
 task testFe(type: NpmTask) {
     inputs.files(fileTree("src/main/webapp/src"))
