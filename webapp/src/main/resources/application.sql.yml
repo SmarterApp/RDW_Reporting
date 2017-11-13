@@ -52,7 +52,10 @@ sql:
         a.cut_point_3 as asmt_cut_point_3,
         ir.resource as asmt_resource,
         s.id as school_id,
-        s.name as school_name
+        s.name as school_name,
+        s.district_id as school_district_id,
+        s.district_group_id as school_district_group_id,
+        s.school_group_id
       from exam e
         join student st on st.id = e.student_id
         join asmt a on e.asmt_id=a.id
@@ -178,10 +181,15 @@ sql:
 
   group:
     findAllForUsername: >-
-      select sg.id, sg.name, school.name as school_name, subject_id
+      select
+        sg.id,
+        sg.name,
+        sc.name as school_name,
+        s.code as subject_code
       from user_student_group usg
         join student_group sg on sg.id = usg.student_group_id
-        join school on school.id = sg.school_id
+        join school sc on sc.id = sg.school_id
+        left join subject s on s.id = sg.subject_id
       where user_login=:user_login
       and sg.id in (:group_ids)
 
@@ -259,64 +267,67 @@ sql:
           limit 1
 
       findAllForAssessment: >-
-          select e.id,
-            e.type_id,
-            e.grade_code,
-            e.iep,
-            e.lep,
-            e.section504,
-            e.economic_disadvantage,
-            e.migrant_status,
-            e.completeness_code,
-            e.administration_condition_code,
-            e.school_year,
-            e.session_id,
-            e.completed_at,
-            e.scale_score,
-            e.scale_score_std_err,
-            e.performance_level,
-            a.claim1_score_code,
-            e.claim1_category,
-            e.claim1_scale_score,
-            e.claim1_scale_score_std_err,
-            a.claim2_score_code,
-            e.claim2_category,
-            e.claim2_scale_score,
-            e.claim2_scale_score_std_err,
-            a.claim3_score_code,
-            e.claim3_category,
-            e.claim3_scale_score,
-            e.claim3_scale_score_std_err,
-            a.claim4_score_code,
-            e.claim4_category,
-            e.claim4_scale_score,
-            e.claim4_scale_score_std_err,
-            e.available_accommodation_codes,
-            st.id as student_id,
-            st.ssid as student_ssid,
-            st.last_or_surname as student_last_name,
-            st.first_name as student_first_name,
-            st.gender_code as student_gender_code,
-            s.id as school_id,
-            s.name as school_name
-          from exam e
-            join student_group_membership sgm on e.student_id = sgm.student_id
-            join student st on e.student_id = st.id
-            join asmt a on e.asmt_id = a.id
-            join school s on e.school_id = s.id
-            join school isch on st.inferred_school_id = isch.id
-          where e.asmt_id=:assessment_id
-            and e.school_year=:school_year
-            and sgm.student_group_id=:group_id
-            and (0=:group_subject_id or a.subject_id=:group_subject_id)
-            and (
-              (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-              or
-              (
-                1 = :allow_transfer_access
-                and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-              )
+        select e.id,
+          e.type_id,
+          e.grade_code,
+          e.iep,
+          e.lep,
+          e.section504,
+          e.economic_disadvantage,
+          e.migrant_status,
+          e.completeness_code,
+          e.administration_condition_code,
+          e.school_year,
+          e.session_id,
+          e.completed_at,
+          e.scale_score,
+          e.scale_score_std_err,
+          e.performance_level,
+          a.claim1_score_code,
+          e.claim1_category,
+          e.claim1_scale_score,
+          e.claim1_scale_score_std_err,
+          a.claim2_score_code,
+          e.claim2_category,
+          e.claim2_scale_score,
+          e.claim2_scale_score_std_err,
+          a.claim3_score_code,
+          e.claim3_category,
+          e.claim3_scale_score,
+          e.claim3_scale_score_std_err,
+          a.claim4_score_code,
+          e.claim4_category,
+          e.claim4_scale_score,
+          e.claim4_scale_score_std_err,
+          e.available_accommodation_codes,
+          st.id as student_id,
+          st.ssid as student_ssid,
+          st.last_or_surname as student_last_name,
+          st.first_name as student_first_name,
+          st.gender_code as student_gender_code,
+          s.id as school_id,
+          s.name as school_name,
+          s.district_id as school_district_id,
+          s.district_group_id as school_district_group_id,
+          s.school_group_id
+        from exam e
+          join student_group_membership sgm on e.student_id = sgm.student_id
+          join student st on e.student_id = st.id
+          join asmt a on e.asmt_id = a.id
+          join school s on e.school_id = s.id
+          join school isch on st.inferred_school_id = isch.id
+        where e.asmt_id=:assessment_id
+          and e.school_year=:school_year
+          and sgm.student_group_id=:group_id
+          and (0=:group_subject_id or a.subject_id=:group_subject_id)
+          and (
+            (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+            or
+            (
+              1 = :allow_transfer_access
+              and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
             )
+          )
 
       item:
         findAllExamItemScoresForAssessment:
@@ -462,7 +473,10 @@ sql:
           st.first_name as student_first_name,
           st.gender_code as student_gender_code,
           s.id as school_id,
-          s.name as school_name
+          s.name as school_name,
+          s.district_id as school_district_id,
+          s.district_group_id as school_district_group_id,
+          s.school_group_id
         from exam e
           join student st on e.student_id=st.id
           join asmt a on e.asmt_id=a.id

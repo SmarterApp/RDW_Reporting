@@ -5,7 +5,7 @@
   "angular-cli": {},
   "scripts": {
     "build": "ng build --prod",
-    "start": "ng serve --proxy-config proxy.conf.json --aot",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
     "test-ci": "ng test -sr --reporters teamcity",
@@ -26,7 +26,7 @@
     "@kourge/ordering": "^1.0.1",
     "@ngx-translate/core": "^6.0.1",
     "@ngx-translate/http-loader": "0.0.3",
-    "@sbac/sbac-ui-kit": "0.0.21",
+    "@sbac/sbac-ui-kit": "0.0.23",
     "@types/file-saver": "0.0.1",
     "@types/lodash": "^4.14.69",
     "angular2-csv": "^0.2.3",
@@ -48,7 +48,7 @@
   "devDependencies": {
     "@angular/cli": "^1.2.7",
     "@angular/compiler-cli": "4.1.1",
-    "@sbac/rdw-reporting-common-ngx": "file:../../../../common-ngx",
+    "@sbac/rdw-reporting-common-ngx": "file:../../../../common-ngx/dist/sbac-rdw-reporting-common-ngx-0.0.0.tgz",
     "@types/jasmine": "2.5.38",
     "@types/node": "^6.0.82",
     "codelyzer": "3.0.0-beta.0",

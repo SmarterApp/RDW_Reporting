@@ -28,7 +28,7 @@ import { ItemScoresComponent } from "./items/item-scores/item-scores.component";
 import { StudentScoreService } from "./items/item-scores/student-score.service";
 import { ItemInfoComponent } from "./items/item-info/item-info.component";
 import { ItemInfoService } from "./items/item-info/item-info.service";
-import { PopoverModule } from "ngx-bootstrap";
+import { BsDropdownModule, PopoverModule } from "ngx-bootstrap";
 import { ClaimTargetComponent } from "./results/claim-target.component";
 import { ReportModule } from "../report/report.module";
 import { ResultsByStudentComponent } from './results/view/results-by-student/results-by-student.component';
@@ -59,6 +59,7 @@ import { ScaleScoreService } from "./results/scale-score.service";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    BsDropdownModule.forRoot(),
     CommonModule,
     DataTableModule,
     FormsModule,

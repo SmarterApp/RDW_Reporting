@@ -8,12 +8,13 @@ import { ExportRequest } from "../../../model/export-request.model";
 import { Assessment } from "../../../model/assessment.model";
 import { Angulartics2 } from "angulartics2";
 import { RequestType } from "../../../../shared/enum/request-type.enum";
+import { ExportResults } from "../../assessment-results.component";
 
 @Component({
   selector: 'distractor-analysis',
   templateUrl: './distractor-analysis.component.html'
 })
-export class DistractorAnalysisComponent implements OnInit {
+export class DistractorAnalysisComponent implements OnInit, ExportResults {
   /**
    * If true, values will be shown as percentages
    */
@@ -77,7 +78,11 @@ export class DistractorAnalysisComponent implements OnInit {
     });
   }
 
-  exportDistractorAnalysis(): void {
+  hasDataToExport(): boolean {
+    return this.filteredMultipleChoiceItems && this.filteredMultipleChoiceItems.length > 0;
+  }
+
+  exportToCsv(): void {
     let exportRequest = new ExportRequest();
     exportRequest.assessment = this.assessment;
     exportRequest.showAsPercent = this.showValuesAsPercent;

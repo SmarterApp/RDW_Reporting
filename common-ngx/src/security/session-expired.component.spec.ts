@@ -1,11 +1,11 @@
 import { SessionExpiredComponent } from "./session-expired.component";
-import { ComponentFixture, async, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { AuthenticationService } from "./authentication.service";
 import { TranslateModule } from "@ngx-translate/core";
 import { Location } from "@angular/common";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
 import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
-import { NO_ERRORS_SCHEMA } from "@angular/core";
 
 describe('SessionExpiredComponent', () => {
   let component: SessionExpiredComponent;

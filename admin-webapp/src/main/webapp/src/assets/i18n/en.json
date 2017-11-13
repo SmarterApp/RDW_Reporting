@@ -29,6 +29,11 @@
       "user-guide": "User Guide"
     },
     "groups": {
+      "subjects": {
+        "ALL": "MATH, ELA",
+        "Math": "MATH",
+        "ELA": "ELA"
+      },
       "title": "Manage Student Groups",
       "select-school": "School",
       "select-school-year": "School Year",

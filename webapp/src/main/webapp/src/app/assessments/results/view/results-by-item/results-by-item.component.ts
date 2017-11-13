@@ -1,20 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AssessmentItem } from "../../../model/assessment-item.model";
-import { ExportRequest} from "../../../model/export-request.model";
+import { ExportRequest } from "../../../model/export-request.model";
 import { Angulartics2 } from "angulartics2";
 import { DynamicItemField } from "../../../model/item-point-field.model";
-import { Observable } from "rxjs/Observable";
 import { AssessmentProvider } from "../../../assessment-provider.interface";
 import { ExamStatisticsCalculator } from "../../exam-statistics-calculator";
 import { Exam } from "../../../model/exam.model";
 import { Assessment } from "../../../model/assessment.model";
 import { RequestType } from "../../../../shared/enum/request-type.enum";
+import { ExportResults } from "../../assessment-results.component";
 
 @Component({
   selector: 'results-by-item',
   templateUrl: './results-by-item.component.html'
 })
-export class ResultsByItemComponent implements OnInit {
+export class ResultsByItemComponent implements OnInit, ExportResults {
   /**
    * If true, values will be shown as percentages
    */
@@ -79,7 +79,11 @@ export class ResultsByItemComponent implements OnInit {
     });
   }
 
-  exportResultItems(): void {
+  hasDataToExport(): boolean {
+    return this.filteredAssessmentItems && this.filteredAssessmentItems.length > 0;
+  }
+
+  exportToCsv(): void {
     let exportRequest = new ExportRequest();
     exportRequest.assessment = this.assessment;
     exportRequest.assessmentItems = this.filteredAssessmentItems;

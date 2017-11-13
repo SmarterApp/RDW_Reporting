@@ -50,7 +50,7 @@ spring:
 
   cache:
     type: SIMPLE
-    cache-names: permissionsByRole, internalTranslationsByCode
+    cache-names: permissionsByRole, internalTranslationsByCode, mergeTranslations
 
   thymeleaf:
     mode: HTML
@@ -110,12 +110,6 @@ app:
   # google analytics configuration
   analytics:
     trackingId: ${rdw.reporting.analytics.trackingId:}
-
-  wkhtmltopdf:
-    url: http://localhost:8082
-    options:
-      page-size: Letter
-      zoom: 0.75
 
   reportservice:
     url: http://localhost:8085

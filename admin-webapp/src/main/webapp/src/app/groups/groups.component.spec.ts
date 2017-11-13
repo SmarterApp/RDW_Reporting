@@ -33,7 +33,7 @@ describe('GroupsComponent', () => {
 
     filterOptions.schoolYears = [ 2017 ];
     filterOptions.schools = [ new School() ];
-    filterOptions.subjects = [ "ALL" , "MATH"];
+    filterOptions.subjects = [ "ALL", "MATH" ];
 
     mockRouteSnapshot = {
       params: {},
@@ -42,19 +42,14 @@ describe('GroupsComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [ CommonModule, GroupsModule, DropdownModule, BrowserAnimationsModule ],
-      providers: [ {
+      providers: [
+        {
           provide: ActivatedRoute,
           useValue: { snapshot: mockRouteSnapshot, params: mockParams }
-        }, {
-          provide: GroupService,
-          useValue: mockGroupService
-        }, {
-          provide: Router,
-          useValue: MockRouter
-        }, {
-          provide: UserService,
-          useClass: MockUserService
-        }
+        },
+        { provide: GroupService, useValue: mockGroupService },
+        { provide: Router, useValue: MockRouter },
+        { provide: UserService, useClass: MockUserService }
       ]
     })
       .compileComponents();
@@ -93,9 +88,9 @@ describe('GroupsComponent', () => {
     paramsObserver.next({});
 
     fixture.detectChanges();
-    expect(component.query.school).toBe(filterOptions.schools[0]);
-    expect(component.query.subject).toBe(filterOptions.subjects[0]);
-    expect(component.query.schoolYear).toBe(filterOptions.schoolYears[0]);
+    expect(component.query.school).toBe(filterOptions.schools[ 0 ]);
+    expect(component.query.subject).toBe(filterOptions.subjects[ 0 ]);
+    expect(component.query.schoolYear).toBe(filterOptions.schoolYears[ 0 ]);
   });
 
   it('should default to first when params are not found', () => {
@@ -106,13 +101,13 @@ describe('GroupsComponent', () => {
     });
 
     fixture.detectChanges();
-    expect(component.query.school).toBe(filterOptions.schools[0]);
-    expect(component.query.subject).toBe(filterOptions.subjects[0]);
-    expect(component.query.schoolYear).toBe(filterOptions.schoolYears[0]);
+    expect(component.query.school).toBe(filterOptions.schools[ 0 ]);
+    expect(component.query.subject).toBe(filterOptions.subjects[ 0 ]);
+    expect(component.query.schoolYear).toBe(filterOptions.schoolYears[ 0 ]);
   });
 
   it('should filter groups on name', () => {
-    component.groups = ["Test2", "test3", "TEST1", "NotInResult1", "NotInResult2"].map( x=> {
+    component.groups = [ "Test2", "test3", "TEST1", "NotInResult1", "NotInResult2" ].map(x => {
       let group = new Group();
       group.name = x;
       return group;

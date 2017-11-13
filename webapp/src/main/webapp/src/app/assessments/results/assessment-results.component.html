@@ -79,12 +79,35 @@
     <!-- Student Results -->
     <div *ngIf="!collapsed" @fadeAnimation>
       <div class="col-md-4 z-index-over-data-table pl-0 mb-sm">
-        <label for="select-view">{{ 'labels.groups.results.assessment.select-view' | translate }}</label>
-        <select id="select-view" [(ngModel)]="currentResultsViewState" class="form-control">
-          <option *ngFor="let state of viewStateOptions" [ngValue]="state.value" popover="hello" [disabled]="!state.enabled">
-            {{ 'enum.results-view-state.' + state.name | translate }}
-          </option>
-        </select>
+        <div class="select-menu-group">
+          <label class="sr-only">{{ 'labels.groups.results.assessment.select-view' | translate }}</label>
+          <div class="btn-group" dropdown>
+            <button dropdownToggle type="button" class="btn btn-default btn-borderless dropdown-toggle">
+             {{ currentResultsView.label | translate }} <i class="fa fa-angle-down"></i>
+            </button>
+            <ul *dropdownMenu class="dropdown-menu" role="menu">
+              <li *ngFor="let state of viewStateOptions" role="menuitem">
+                <a class="dropdown-item"
+                   popover="{{ 'messages.no-item-level-data' | translate }}"
+                   triggers="{{ !state.disabled ? '': 'mouseenter:mouseleave'}}"
+                   placement="right"
+                   [ngClass]="{'selected': currentResultsView == state }">
+                  <button [disabled]="state.disabled"
+                          class="btn btn-default btn-borderless"
+                          (click)="setCurrentView(state)">
+                    {{ state.label | translate }}
+                  </button>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <button *ngIf="currentResultsView.canExport"
+             class="btn btn-sm btn-default"
+             [disabled]="!currentExportResults || !currentExportResults.hasDataToExport()"
+             (click)="currentExportResults.exportToCsv()">
+            <i class="fa fa-cloud-download"></i> {{ 'labels.export.title' | translate }}
+          </button>
+        </div>
       </div>
       <div *ngIf="showStudentResults">
         <results-by-student
@@ -94,7 +117,7 @@
         </results-by-student>
       </div>
       <div *ngIf="showItemsByPointsEarned">
-        <results-by-item
+        <results-by-item #resultsByItem
           [showValuesAsPercent]="showValuesAsPercent"
           [assessmentProvider]="assessmentProvider"
           [assessment]="assessmentExam.assessment"
@@ -102,7 +125,7 @@
         </results-by-item>
       </div>
       <div *ngIf="showDistractorAnalysis">
-        <distractor-analysis
+        <distractor-analysis #distractorAnalysis
           [showValuesAsPercent]="showValuesAsPercent"
           [assessmentProvider]="assessmentProvider"
           [assessment]="assessmentExam.assessment"

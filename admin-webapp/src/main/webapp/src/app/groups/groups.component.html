@@ -66,7 +66,7 @@
         </p-column>
         <p-column field="subject" header="{{'labels.groups.cols.subjects' | translate}}" [sortable]="true">
           <ng-template let-group="rowData" pTemplate="body">
-            {{ group.subject | subject }}
+            {{ 'labels.groups.subjects.' + (group.subject || 'ALL') | translate }}
           </ng-template>
         </p-column>
         <p-column field="studentCount" header="{{'labels.groups.cols.student-count' | translate}}" [sortable]="true"></p-column>

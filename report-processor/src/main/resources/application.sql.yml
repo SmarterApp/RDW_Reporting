@@ -34,6 +34,9 @@ sql:
         st.gender_code as student_gender_code,
         s.id as school_id,
         s.name as school_name,
+        s.district_id as school_district_id,
+        s.district_group_id as school_district_group_id,
+        s.school_group_id,
         d.name as district_name
       from exam e
         join asmt a on e.asmt_id=a.id
@@ -54,7 +57,11 @@ sql:
           (
             s.id=:school_id
             or
-            (1 = :allow_transfer_access and isch.id = :school_id)
+            (
+              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
+              and
+              isch.id = :school_id
+            )
           )
         )
       and
@@ -64,7 +71,7 @@ sql:
           (1 = :individual_statewide or s.district_group_id in (:individual_district_group_ids) or s.district_id in (:individual_district_ids) or s.school_group_id in (:individual_school_group_ids) or e.school_id in (:individual_school_ids))
           or
           (
-            1 = :allow_transfer_access
+            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
             and (isch.district_group_id in (:individual_district_group_ids) or isch.district_id in (:individual_district_ids) or isch.school_group_id in (:individual_school_group_ids) or isch.id in (:individual_school_ids))
           )
         )
@@ -84,7 +91,7 @@ sql:
             (1 = :group_statewide or s.district_group_id in (:group_district_group_ids) or s.district_id in (:group_district_ids) or s.school_group_id in (:group_school_group_ids) or e.school_id in (:group_school_ids))
             or
             (
-              1 = :allow_transfer_access
+              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
               and (isch.district_group_id in (:group_district_group_ids) or isch.district_id in (:group_district_ids) or isch.school_group_id in (:group_school_group_ids) or isch.id in (:group_school_ids))
             )
           )
@@ -126,6 +133,9 @@ sql:
         st.gender_code as student_gender_code,
         s.id as school_id,
         s.name as school_name,
+        s.district_id as school_district_id,
+        s.district_group_id as school_district_group_id,
+        s.school_group_id,
         d.name as district_name
       from exam e
         join asmt a on e.asmt_id=a.id
@@ -146,7 +156,11 @@ sql:
             (
               s.id=:school_id
               or
-              (1 = :allow_transfer_access and isch.id = :school_id)
+              (
+                (1 = :allow_transfer_access and 0 = :disable_transfer_access)
+                and
+                isch.id = :school_id
+              )
             )
           )
         and
@@ -154,7 +168,7 @@ sql:
           (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
           or
           (
-            1 = :allow_transfer_access
+            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
             and
             (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
           )
@@ -195,6 +209,9 @@ sql:
         st.gender_code as student_gender_code,
         s.id as school_id,
         s.name as school_name,
+        s.district_id as school_district_id,
+        s.district_group_id as school_district_group_id,
+        s.school_group_id,
         d.name as district_name
       from exam e
         join asmt a on e.asmt_id=a.id
@@ -219,7 +236,11 @@ sql:
           (
             s.id=:school_id
             or
-            (1 = :allow_transfer_access and isch.id = :school_id)
+            (
+              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
+              and
+              isch.id = :school_id
+            )
           )
         )
         and
@@ -227,7 +248,7 @@ sql:
           (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
           or
           (
-            1 = :allow_transfer_access
+            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
             and
             (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
           )
@@ -288,6 +309,9 @@ sql:
         st.gender_code as student_gender_code,
         s.id as school_id,
         s.name as school_name,
+        s.district_id as school_district_id,
+        s.district_group_id as school_district_group_id,
+        s.school_group_id,
         d.name as district_name
       from exam e
         join asmt a on e.asmt_id=a.id
@@ -308,7 +332,11 @@ sql:
           (
             s.id=:school_id
             or
-            (1 = :allow_transfer_access and isch.id = :school_id)
+            (
+              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
+              and
+              isch.id = :school_id
+            )
           )
         )
         and
@@ -318,7 +346,7 @@ sql:
             (1 = :individual_statewide or s.district_group_id in (:individual_district_group_ids) or s.district_id in (:individual_district_ids) or s.school_group_id in (:individual_school_group_ids) or e.school_id in (:individual_school_ids))
             or
             (
-              1 = :allow_transfer_access
+              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
               and (isch.district_group_id in (:individual_district_group_ids) or isch.district_id in (:individual_district_ids) or isch.school_group_id in (:individual_school_group_ids) or isch.id in (:individual_school_ids))
             )
           )
@@ -338,7 +366,7 @@ sql:
               (1 = :group_statewide or s.district_group_id in (:group_district_group_ids) or s.district_id in (:group_district_ids) or s.school_group_id in (:group_school_group_ids) or e.school_id in (:group_school_ids))
               or
               (
-                1 = :allow_transfer_access
+                (1 = :allow_transfer_access and 0 = :disable_transfer_access)
                 and (isch.district_group_id in (:group_district_group_ids) or isch.district_id in (:group_district_ids) or isch.school_group_id in (:group_school_group_ids) or isch.id in (:group_school_ids))
               )
             )
@@ -400,6 +428,9 @@ sql:
         st.gender_code as student_gender_code,
         s.id as school_id,
         s.name as school_name,
+        s.district_id as school_district_id,
+        s.district_group_id as school_district_group_id,
+        s.school_group_id,
         d.name as district_name
       from exam e
         join asmt a on e.asmt_id=a.id
@@ -420,7 +451,11 @@ sql:
           (
             s.id=:school_id
             or
-            (1 = :allow_transfer_access and isch.id = :school_id)
+            (
+              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
+              and
+              isch.id = :school_id
+            )
           )
         )
         and
@@ -428,7 +463,7 @@ sql:
           (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
           or
           (
-            1 = :allow_transfer_access
+            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
             and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
           )
         )
@@ -488,6 +523,9 @@ sql:
         st.gender_code as student_gender_code,
         s.id as school_id,
         s.name as school_name,
+        s.district_id as school_district_id,
+        s.district_group_id as school_district_group_id,
+        s.school_group_id,
         d.name as district_name
       from exam e
         join asmt a on e.asmt_id=a.id
@@ -512,7 +550,11 @@ sql:
           (
             s.id=:school_id
             or
-            (1 = :allow_transfer_access and isch.id = :school_id)
+            (
+              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
+              and
+              isch.id = :school_id
+            )
           )
         )
         and
@@ -520,7 +562,7 @@ sql:
           (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
           or
           (
-            1 = :allow_transfer_access
+            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
             and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
           )
         )
@@ -654,7 +696,7 @@ sql:
         )
         or
         (
-          1 = :individual_allow_transfer_access
+          (1 = :individual_allow_transfer_access and 0 = :disable_transfer_access)
           and
           (1 = :individual_statewide or isch.district_group_id in (:individual_district_group_ids) or isch.district_id in (:individual_district_ids) or isch.school_group_id in (:individual_school_group_ids) or isch.id in (:individual_school_ids))
           and
@@ -758,7 +800,11 @@ sql:
           (
             s.id=:school_id
             or
-            (1 = :allow_transfer_access and isch.id = :school_id)
+            (
+              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
+              and
+              isch.id = :school_id
+            )
           )
         )
         and
@@ -788,7 +834,7 @@ sql:
               (1 = :group_statewide or s.district_group_id in (:group_district_group_ids) or s.district_id in (:group_district_ids) or s.school_group_id in (:group_school_group_ids) or e.school_id in (:group_school_ids))
               or
               (
-                1 = :allow_transfer_access
+                (1 = :allow_transfer_access and 0 = :disable_transfer_access)
                 and (isch.district_group_id in (:group_district_group_ids) or isch.district_id in (:group_district_ids) or isch.school_group_id in (:group_school_group_ids) or isch.id in (:group_school_ids))
               )
             )
@@ -820,7 +866,11 @@ sql:
           (
             s.id=:school_id
             or
-            (1 = :allow_transfer_access and isch.id = :school_id)
+            (
+              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
+              and
+              isch.id = :school_id
+            )
           )
         )
         and
@@ -828,7 +878,7 @@ sql:
           (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
           or
           (
-            1 = :allow_transfer_access
+            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
             and
             (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
           )
@@ -863,7 +913,11 @@ sql:
             (
               s.id=:school_id
               or
-              (1 = :allow_transfer_access and isch.id = :school_id)
+              (
+                (1 = :allow_transfer_access and 0 = :disable_transfer_access)
+                and
+                isch.id = :school_id
+              )
             )
           )
         and
@@ -871,7 +925,7 @@ sql:
           (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
           or
           (
-            1 = :allow_transfer_access
+            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
             and
             (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
           )

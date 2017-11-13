@@ -7,7 +7,9 @@ import { Utils } from "../support";
  */
 @Component({
   selector: 'datatable-row-expander',
-  templateUrl: 'datatable-row-expander.component.html'
+  template: `
+    <button class="btn btn-info btn-xs btn-block text-left" (click)="toggle()"><i class="fa" [ngClass]="{'fa-chevron-right': !expanded, 'fa-chevron-down': expanded, 'mr-xs': hasText}"></i> {{text}}</button>
+  `
 })
 export class DataTableRowExpander {
 

@@ -188,6 +188,11 @@
       }
     },
     "groups": {
+      "subjects": {
+        "ALL": "MATH, ELA",
+        "Math": "MATH",
+        "ELA": "ELA"
+      },
       "name": "My Groups",
       "filter": "Search by Group Name",
       "no-groups-message": "Contact your building administrator for access to group-level test results.",
@@ -429,6 +434,11 @@
       }
     },
     "reports": {
+      "subjects": {
+        "0": "MATH, ELA",
+        "1": "MATH",
+        "2": "ELA"
+      },
       "all": "All",
       "link": "My Reports",
       "heading": "My Reports",
@@ -549,6 +559,7 @@
     "select-year": "School Year",
     "export": {
       "csv": "Export CSV",
+      "title": "Export",
       "items-by-points-earned": "Export Results By Item",
       "distractor-analysis": "Export Distractor Analysis",
       "cols": {
