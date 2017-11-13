@@ -39,11 +39,15 @@ export class SBToggleComponent implements ControlValueAccessor, OnInit {
   @Input()
   name: string;
 
-  // The analytics event to send when clicked
+  /**
+   *  The analytics event to send when clicked
+   */
   @Input()
   public analyticsEvent: string;
 
-  // The analytics category to use
+  /**
+   * The analytics category to use
+   */
   @Input()
   public analyticsCategory: string;
 
