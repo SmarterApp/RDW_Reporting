@@ -2,13 +2,13 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AssessmentExam } from "../../assessments/model/assessment-exam.model";
 import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
-import { Assessment } from "../../assessments/model/assessment.model";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { GroupAssessmentService } from "./group-assessment.service";
 import { Angulartics2 } from "angulartics2";
 import { AssessmentsComponent } from "../../assessments/assessments.component";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { GroupReportDownloadComponent } from "../../report/group-report-download.component";
+import { Group } from "../../user/model/group.model";
 
 @Component({
   selector: 'app-group-results',
@@ -19,17 +19,15 @@ export class GroupResultsComponent implements OnInit {
   @ViewChild(AssessmentsComponent)
   assessmentsComponent: AssessmentsComponent;
 
-  groups;
+  groups: Group[];
   assessmentExams: AssessmentExam[] = [];
-  availableAssessments: Assessment[] = [];
-  assessmentsLoading: any[] = [];
   filterOptions: ExamFilterOptions = new ExamFilterOptions();
 
-  get currentGroup() {
+  get currentGroup(): Group {
     return this._currentGroup;
   }
 
-  set currentGroup(value) {
+  set currentGroup(value: Group) {
     this._currentGroup = value;
     if(this._currentGroup) {
       this.assessmentProvider.groupId = this._currentGroup.id;
@@ -44,10 +42,6 @@ export class GroupResultsComponent implements OnInit {
   set currentSchoolYear(value) {
     this._currentSchoolYear = value;
     this.assessmentProvider.schoolYear = value;
-  }
-
-  get selectedAssessments() {
-    return this.availableAssessments.filter(x => x.selected);
   }
 
   private _currentGroup;

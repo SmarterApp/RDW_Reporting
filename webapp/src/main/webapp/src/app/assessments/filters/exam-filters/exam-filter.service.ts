@@ -12,6 +12,7 @@ export class ExamFilterService {
 
   private filterDefinitions = [
     new ExamFilter('offGradeAssessment', this.root + 'test.off-grade-assessment', 'enum.off-grade', this.filterByEnrolledGradeOff),
+    new ExamFilter('transferAssessment', this.root + 'test.transfer-assessment', 'enum.transfer', this.filterByTransferAssessment),
     new ExamFilter('administration', this.root + 'status.administration', 'enum.administrative-condition', this.filterByAdministrativeCondition, x => x.isInterim),
     new ExamFilter('summativeStatus', this.root + 'status.summative', 'enum.administrative-condition', this.filterByAdministrativeCondition, x => x.isSummative),
     new ExamFilter('completion', this.root + 'status.completion', 'enum.completeness', this.filterByCompleteness),
@@ -160,5 +161,9 @@ export class ExamFilterService {
 
   private filterByEthnicity(exam: Exam, filterValue: any) {
     return exam.student && exam.student.ethnicityCodes.some(ethnicity => filterValue.some(code => code == ethnicity));
+  }
+
+  private filterByTransferAssessment(exam: Exam, filterValue: any) {
+    return !filterValue || !exam.transfer;
   }
 }

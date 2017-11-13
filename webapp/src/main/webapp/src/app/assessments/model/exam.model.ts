@@ -22,4 +22,5 @@ export class Exam {
   claimScores: ClaimScore[];
   accommodationCodes: string[];
   school: School;
+  transfer: boolean;
 }

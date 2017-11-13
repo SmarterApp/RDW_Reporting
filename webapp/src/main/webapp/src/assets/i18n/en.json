@@ -219,7 +219,9 @@
           "test": {
             "label": "Test",
             "off-grade-assessment": "Off-Grade Assessments",
-            "off-grade-assessment-info": "Schools may administer interim assessments for any grade.  This filter indicates that a student took an assessment for a grade other than their assigned grade."
+            "off-grade-assessment-info": "Schools may administer interim assessments for any grade.  This filter indicates that a student took an assessment for a grade other than their assigned grade.",
+            "transfer-assessment": "Transfer Assessments",
+            "transfer-assessment-info": "Indicates whether to show or hide assessments administered outside of the User's standard institutions."
           },
           "status": {
             "label": "Status",
@@ -674,6 +676,10 @@
       "2": "No"
     },
     "off-grade": {
+      "true": "Hide",
+      "false": "Show"
+    },
+    "transfer": {
       "true": "Hide",
       "false": "Show"
     },

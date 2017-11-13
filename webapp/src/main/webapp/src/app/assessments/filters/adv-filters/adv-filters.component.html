@@ -8,20 +8,54 @@
   <div id="filter-by-test" class="flex-child">
     <p class="border-bottom">{{ translateRoot + 'test.label' | translate }}</p>
     <div class="block-children">
-      <label>
-          <span info-label
-                title="{{ translateRoot + 'test.off-grade-assessment' | translate }}"
-                content="{{ translateRoot + 'test.off-grade-assessment-info' | translate }}"></span>
-      </label>
-      <div id="btn-group-off-grade-assessment" class="btn-group btn-group-sm toggle-group" data-toggle="buttons">
-        <label class="btn btn-primary" [ngClass]="{'active': !filterBy.offGradeAssessment}">
-          <input [value]="false" [(ngModel)]="filterBy.offGradeAssessment" type="radio"
-                 angulartics2On="click" angularticsEvent="FilterClick" angularticsCategory="AdvancedFilters" [angularticsProperties]="{label: 'Off-Grade: Show'}">{{ 'buttons.visibility.show' | translate }}
+      <!-- Off-Grade Assessments -->
+      <div class="block-children">
+        <label for="off-grade-assessment-toggle">
+            <span info-label
+                  title="{{ translateRoot + 'test.off-grade-assessment' | translate }}"
+                  content="{{ translateRoot + 'test.off-grade-assessment-info' | translate }}"></span>
         </label>
-        <label class="btn btn-primary" [ngClass]="{'active': filterBy.offGradeAssessment}">
-          <input [value]="true" [(ngModel)]="filterBy.offGradeAssessment" type="radio"
-                 angulartics2On="click" angularticsEvent="FilterClick" angularticsCategory="AdvancedFilters" [angularticsProperties]="{label: 'Off-Grade: Hide'}">{{ 'buttons.visibility.hide' | translate }}
+        <sb-toggle name="off-grade-assessment-toggle"
+                   [(ngModel)]="filterBy.offGradeAssessment"
+                   [options]="[
+                           {value: false, text: 'buttons.visibility.show' | translate, angularticsProperties: {label: 'Off-Grade: Show'}},
+                           {value: true, text: 'buttons.visibility.hide' | translate, angularticsProperties: {label: 'Off-Grade: Hide'}}
+                         ]"></sb-toggle>
+        <!--<div id="btn-group-off-grade-assessment" class="btn-group btn-group-sm toggle-group" data-toggle="buttons">-->
+          <!--<label class="btn btn-primary" [ngClass]="{'active': !filterBy.offGradeAssessment}">-->
+            <!--<input [value]="false" [(ngModel)]="filterBy.offGradeAssessment" type="radio"-->
+                   <!--angulartics2On="click" angularticsEvent="FilterClick" angularticsCategory="AdvancedFilters" [angularticsProperties]="{label: 'Off-Grade: Show'}">{{ 'buttons.visibility.show' | translate }}-->
+          <!--</label>-->
+          <!--<label class="btn btn-primary" [ngClass]="{'active': filterBy.offGradeAssessment}">-->
+            <!--<input [value]="true" [(ngModel)]="filterBy.offGradeAssessment" type="radio"-->
+                   <!--angulartics2On="click" angularticsEvent="FilterClick" angularticsCategory="AdvancedFilters" [angularticsProperties]="{label: 'Off-Grade: Hide'}">{{ 'buttons.visibility.hide' | translate }}-->
+          <!--</label>-->
+        <!--</div>-->
+        <!--<div class="clearfix"></div>-->
+      </div>
+      <!-- Transfer Assessments -->
+      <div class="block-children" *ngIf="showStudentFilter && showTransferAccess">
+        <label for="transfer-assessment-toggle">
+            <span info-label
+                  title="{{ translateRoot + 'test.transfer-assessment' | translate }}"
+                  content="{{ translateRoot + 'test.transfer-assessment-info' | translate }}"></span>
         </label>
+        <sb-toggle name="transfer-assessment-toggle"
+                   [(ngModel)]="filterBy.transferAssessment"
+                   [options]="[
+                           {value: false, text: 'buttons.visibility.show' | translate, angularticsProperties: {label: 'Transfer-Assessment: Show'}},
+                           {value: true, text: 'buttons.visibility.hide' | translate, angularticsProperties: {label: 'Transfer-Assessment: Hide'}}
+                         ]"></sb-toggle>
+        <!--<div id="btn-group-transfer-assessment" class="btn-group btn-group-sm toggle-group" data-toggle="buttons">-->
+          <!--<label class="btn btn-primary" [ngClass]="{'active': !filterBy.transferAssessment}">-->
+            <!--<input [value]="false" [(ngModel)]="filterBy.transferAssessment" type="radio"-->
+                   <!--angulartics2On="click" angularticsEvent="FilterClick" angularticsCategory="AdvancedFilters" [angularticsProperties]="{label: 'Transfer-Assessment: Show'}">{{ 'buttons.visibility.show' | translate }}-->
+          <!--</label>-->
+          <!--<label class="btn btn-primary" [ngClass]="{'active': filterBy.transferAssessment}">-->
+            <!--<input [value]="true" [(ngModel)]="filterBy.transferAssessment" type="radio"-->
+                   <!--angulartics2On="click" angularticsEvent="FilterClick" angularticsCategory="AdvancedFilters" [angularticsProperties]="{label: 'Transfer-Assessment: Hide'}">{{ 'buttons.visibility.hide' | translate }}-->
+          <!--</label>-->
+        <!--</div>-->
       </div>
     </div>
   </div>

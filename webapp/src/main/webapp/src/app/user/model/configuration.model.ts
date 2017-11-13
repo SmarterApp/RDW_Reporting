@@ -7,4 +7,5 @@ export class Configuration {
   adminWebappUrl: string;
   reportLanguages: string[];
   uiLanguages: string[];
+  transferAccess: boolean;
 }

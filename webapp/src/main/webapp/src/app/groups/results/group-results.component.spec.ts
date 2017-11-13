@@ -1,29 +1,20 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { ReactiveFormsModule, FormsModule } from "@angular/forms";
-import { DropdownModule } from "primeng/components/dropdown/dropdown";
-import { SharedModule } from "primeng/components/common/shared";
-import { BrowserModule } from "@angular/platform-browser";
 import { Observable } from "rxjs";
-import { RequestOptionsArgs } from "@angular/http";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { APP_BASE_HREF } from "@angular/common";
-import { AssessmentsModule } from "../../assessments/assessments.module";
 import { CommonModule } from "../../shared/common.module";
-import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { User } from "../../user/model/user.model";
 import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
-import { Angulartics2Module, Angulartics2 } from "angulartics2";
+import { Angulartics2 } from "angulartics2";
 import { CsvExportService } from "../../csv-export/csv-export.service";
-import { UserService } from "../../user/user.service";
-import { MockUserService } from "../../../test/mock.user.service";
-import { ReportModule } from "../../report/report.module";
 import { MockActivatedRoute } from "../../../test/mock.activated-route";
 import { GroupResultsComponent } from "./group-results.component";
 import { GroupAssessmentService } from "./group-assessment.service";
-import { PopoverModule } from "ngx-bootstrap";
 import { UserModule } from "../../user/user.module";
-import { RouterTestingModule } from "@angular/router/testing";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { MockRouter } from "../../../test/mock.router";
+import { MockAuthorizeDirective } from "../../../test/mock.authorize.directive";
 
 let availableGrades = [];
 
@@ -50,32 +41,29 @@ describe('GroupResultsComponent', () => {
     availableGrades = [];
     exportService = {};
 
+    let mockGroupAssessmentService = {};
+
+    let mockRouter = new MockRouter();
+
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        UserModule,
-        BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
-        RouterTestingModule,
-        AssessmentsModule,
-        DropdownModule,
-        SharedModule,
-        Angulartics2Module,
-        PopoverModule.forRoot(),
-        ReportModule
+        UserModule
       ],
-      declarations: [ GroupResultsComponent ],
+      declarations: [
+        GroupResultsComponent,
+        MockAuthorizeDirective
+      ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
-        GroupAssessmentService,
-        { provide: DataService, useClass: MockDataService },
+        { provide: GroupAssessmentService, useValue: mockGroupAssessmentService },
         { provide: ExamFilterOptionsService, useClass: MockExamFilterOptionService },
         { provide: ActivatedRoute, useValue: route },
         { provide: Angulartics2, useValue: mockAngulartics2 },
         { provide: CsvExportService, useValue: exportService },
-        { provide: UserService, useClass: MockUserService }
-      ]
+        { provide: Router, useValue: mockRouter }
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
   }));
 
@@ -99,12 +87,6 @@ describe('GroupResultsComponent', () => {
   });
 
 });
-
-class MockDataService {
-  get(url, options?: RequestOptionsArgs): Observable<any> {
-    return Observable.of({});
-  }
-}
 
 class MockExamFilterOptionService {
   getExamFilterOptions() {

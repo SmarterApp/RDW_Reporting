@@ -1,7 +1,5 @@
 import { async, TestBed } from "@angular/core/testing";
 import { Observable, Observer } from "rxjs";
-import { HttpModule } from "@angular/http";
-import { FormsModule } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { APP_BASE_HREF } from "@angular/common";
 import { AssessmentsComponent } from "./assessments.component";
@@ -11,11 +9,9 @@ import { GroupAssessmentService } from "../groups/results/group-assessment.servi
 import { Assessment } from "./model/assessment.model";
 import { AssessmentExam } from "./model/assessment-exam.model";
 import { ExamFilterOptions } from "./model/exam-filter-options.model";
-import { Component } from "@angular/core";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { CommonModule } from "../shared/common.module";
-import { AssessmentsModule } from "./assessments.module";
-import { Angulartics2Module, Angulartics2 } from 'angulartics2';
-import { PopoverModule } from "ngx-bootstrap";
+import { Angulartics2 } from 'angulartics2';
 import { UserService } from "../user/user.service";
 import { MockUserService } from "../../test/mock.user.service";
 
@@ -33,38 +29,34 @@ describe('AssessmentsComponent', () => {
     mockRouteSnapshot = getRouteSnapshot();
     TestBed.configureTestingModule({
       imports: [
-        HttpModule,
-        FormsModule,
-        CommonModule,
-        AssessmentsModule,
-        Angulartics2Module,
-        PopoverModule.forRoot()
+        CommonModule
       ],
-      declarations: [TestComponentWrapper],
-      providers: [ { provide: APP_BASE_HREF, useValue: '/' }, {
-        provide: ActivatedRoute,
-        useValue: { snapshot: mockRouteSnapshot }
-      }, {
-        provide: ExamFilterOptionsService,
-        useClass: MockExamFilterOptionsService
-      }, {
-        provide: GroupAssessmentService,
-        useClass: MockAssessmentService
-      }, {
-        provide: Angulartics2,
-        useValue: mockAngulartics2
-      }, {
-        provide: UserService,
-        useClass: MockUserService
-      }]
+      declarations: [
+        AssessmentsComponent
+      ],
+      providers: [
+        { provide: APP_BASE_HREF, useValue: '/' },
+        { provide: ActivatedRoute, useValue: { snapshot: mockRouteSnapshot } },
+        { provide: ExamFilterOptionsService, useClass: MockExamFilterOptionsService },
+        { provide: GroupAssessmentService, useClass: MockAssessmentService },
+        { provide: Angulartics2, useValue: mockAngulartics2 },
+        { provide: UserService, useClass: MockUserService }
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
 
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TestComponentWrapper);
-    component = fixture.debugElement.children[ 0 ].componentInstance;
+  beforeEach((done) => {
+    fixture = TestBed.createComponent(AssessmentsComponent);
+    component = fixture.componentInstance;
+    component.assessmentExams = [ new AssessmentExam(), new AssessmentExam() ];
+    component.assessmentProvider = new MockAssessmentService() as any;
+
     fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      done();
+    });
   });
 
   it('should create component', () => {
@@ -181,14 +173,3 @@ class MockAssessmentService {
     return observable;
   }
 }
-
-@Component({
-  selector: 'test-component-wrapper',
-  template: '<assessments [assessmentExams]="assessments" [assessmentProvider]="assessmentProvider"></assessments>'
-})
-class TestComponentWrapper {
-  assessments = [ new AssessmentExam(), new AssessmentExam() ];
-  assessmentProvider = new MockAssessmentService();
-}
-
-

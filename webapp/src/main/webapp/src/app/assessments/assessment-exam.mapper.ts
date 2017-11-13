@@ -81,6 +81,7 @@ export class AssessmentExamMapper {
     uiModel.administrativeCondition = apiModel.administrativeConditionCode;
     uiModel.completeness = apiModel.completenessCode;
     uiModel.schoolYear = apiModel.schoolYear;
+    uiModel.transfer = apiModel.transfer;
 
     let school: School = new School();
     school.name = apiModel.school.name;

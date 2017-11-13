@@ -48,6 +48,17 @@
               </select>
             </div>
 
+            <div class="form-group" *ngIf="transferAccess">
+              <label for="transfer-assessment-toggle">{{'labels.groups.results.adv-filters.test.transfer-assessment' | translate}}</label>
+              <sb-toggle name="transfer-assessment-toggle"
+                         class="clearfix"
+                         [(ngModel)]="options.disableTransferAccess"
+                         [options]="[
+                           {value: false, text: 'buttons.visibility.show' | translate},
+                           {value: true, text: 'buttons.visibility.hide' | translate}
+                         ]"></sb-toggle>
+            </div>
+
           </div>
           <div class="col-md-6">
 

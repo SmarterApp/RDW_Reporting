@@ -4,8 +4,7 @@ import { ReportOptions } from "./report-options.model";
 import { Observable } from "rxjs";
 import { AssessmentType } from "../shared/enum/assessment-type.enum";
 import { AssessmentSubjectType } from "../shared/enum/assessment-subject-type.enum";
-import { DataService } from "@sbac/rdw-reporting-common-ngx";
-import { Download } from "@sbac/rdw-reporting-common-ngx";
+import { DataService, Download } from "@sbac/rdw-reporting-common-ngx";
 import { Report } from "./report.model";
 import { ReportOrder } from "./report-order.enum";
 import { ResponseUtils } from "../shared/response-utils";
@@ -122,7 +121,8 @@ export class ReportService {
       language: options.language,
       grayscale: options.grayscale,
       accommodationsVisible: options.accommodationsVisible,
-      order: ReportOrder[ options.order ]
+      order: ReportOrder[ options.order ],
+      disableTransferAccess: options.disableTransferAccess
     };
   }
 
