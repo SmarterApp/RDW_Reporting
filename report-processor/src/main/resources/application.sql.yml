@@ -769,6 +769,23 @@ sql:
       from user_report r
       where r.id = :report_id
 
+    findAllOlderThanAmountOfDays: >-
+      select
+        r.id,
+        r.user_login,
+        r.status,
+        r.report_resource_uri,
+        r.label,
+        r.report_request,
+        r.total_chunk_count,
+        r.complete_chunk_count,
+        r.created
+      from user_report r
+      where r.created < date_sub(now(), interval :number_of_days day);
+
+    deleteByIds: >-
+      delete from `user_report` WHERE `id` in (:ids);
+
     completeChunk: >-
       update user_report
         set complete_chunk_count = LAST_INSERT_ID(complete_chunk_count + 1)
