@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { Observable } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { APP_BASE_HREF } from "@angular/common";
 import { CommonModule } from "../../shared/common.module";
@@ -15,6 +14,8 @@ import { UserModule } from "../../user/user.module";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { MockRouter } from "../../../test/mock.router";
 import { MockAuthorizeDirective } from "../../../test/mock.authorize.directive";
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/observable/of";
 
 let availableGrades = [];
 

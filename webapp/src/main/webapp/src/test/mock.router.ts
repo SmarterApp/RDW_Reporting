@@ -1,10 +1,12 @@
 import Spy = jasmine.Spy;
-import { Observable } from "rxjs";
 import { UrlTree } from "@angular/router";
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/observable/of";
+import "rxjs/add/observable/empty";
 
 export class MockRouter {
 
-  public navigateByUrl: Spy = jasmine.createSpy("navigateByUrl");
+  public navigateByUrl: Spy =  jasmine.createSpy("navigateByUrl");
   public navigate: Spy = jasmine.createSpy("navigate");
   public createUrlTree: Spy = jasmine.createSpy("createUrlTree");
   public serializeUrl: Spy = jasmine.createSpy("serializeUrl");

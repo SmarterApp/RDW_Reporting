@@ -1,12 +1,13 @@
 import Spy = jasmine.Spy;
 import { Observable } from "rxjs/Observable";
-import { empty } from "rxjs/observable/empty";
+import "rxjs/add/observable/of";
+import "rxjs/add/observable/empty";
 
 export class MockRouter {
 
   public navigateByUrl: Spy = jasmine.createSpy("navigateByUrl");
   public navigate: Spy = jasmine.createSpy("navigate");
-  public events = empty();
+  public events = Observable.empty();
 
   constructor() {
     this.navigate.and.callFake(() => Observable.of(true).toPromise());
