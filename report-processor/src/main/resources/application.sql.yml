@@ -769,7 +769,7 @@ sql:
       from user_report r
       where r.id = :report_id
 
-    findAllOlderThanAmountOfDays: >-
+    findAllOlderThanNumberOfDays: >-
       select
         r.id,
         r.user_login,
