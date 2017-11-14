@@ -68,6 +68,14 @@ app:
 
   archive:
     root: file:///tmp/
+#   root: s3:///bucket
+#   cloud:
+#     aws:
+#       credentials:
+#         access-key: AccessKey
+#         secret-key: SecretKey
+#       region:
+#         static: us-west-2
 
   datamart:
     datasource:
@@ -93,25 +101,8 @@ app:
 task:
 # by default, all tasks are disabled for local dev environment; uncomment and set secrets/hosts to test.
 #  remove-stale-reports:
-##### at minutes: (0), hour: (0), every day of month (*), every month (*), every day of week (*). This runs at midnight
-#    cron: 0 0 * * *
-#    number-of-days: 30
-#    max-random-minutes: 20
-#    query: ???
-#    senders:
-#      - type: ftp
-#        server:
-#        username:
-#        password:
-#      - type: log
-#      - type: archive
-#        root: file:///tmp/
-#      - type: archive
-#        root: s3:///bucket
-#        cloud:
-#          aws:
-#            credentials:
-#              access-key: AccessKey
-#              secret-key: SecretKey
-#            region:
-#              static: us-west-2
+##### at seconds: (0), minutes: (0), hour: (8), every day of month (*), every month (*), every day of week (*).
+##### This runs at 8am
+#    cron: 0 0 8 * * *
+#    max-report-lifetime-days: 30
+#    max-random-minutes: 1
