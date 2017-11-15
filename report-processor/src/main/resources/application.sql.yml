@@ -831,7 +831,7 @@ sql:
             (1 = :individual_statewide or s.district_group_id in (:individual_district_group_ids) or s.district_id in (:individual_district_ids) or s.school_group_id in (:individual_school_group_ids) or e.school_id in (:individual_school_ids))
             or
             (
-              1 = :allow_transfer_access
+              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
               and (isch.district_group_id in (:individual_district_group_ids) or isch.district_id in (:individual_district_ids) or isch.school_group_id in (:individual_school_group_ids) or isch.id in (:individual_school_ids))
             )
           )
