@@ -68,14 +68,6 @@ app:
 
   archive:
     root: file:///tmp/
-#   root: s3:///bucket
-#   cloud:
-#     aws:
-#       credentials:
-#         access-key: AccessKey
-#         secret-key: SecretKey
-#       region:
-#         static: us-west-2
 
   datamart:
     datasource:
@@ -102,7 +94,7 @@ task:
 # by default, all tasks are disabled for local dev environment; uncomment and set secrets/hosts to test.
 #  remove-stale-reports:
 ##### at seconds: (0), minutes: (0), hour: (8), every day of month (*), every month (*), every day of week (*).
-##### This runs at 8am
+##### This runs at 8am GMT, regardless of the server's timezone setting
 #    cron: 0 0 8 * * *
 #    max-report-lifetime-days: 30
-#    max-random-minutes: 1
+#    max-random-minutes: 20
