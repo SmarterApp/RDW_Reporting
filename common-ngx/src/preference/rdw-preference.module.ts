@@ -8,9 +8,13 @@ import { CookieService } from "angular2-cookie/services/cookies.service";
     RdwCoreModule
   ],
   providers: [
-    CookieService,
-    UserPreferenceService
+    UserPreferenceService,
+    { provide: CookieService, useFactory: cookieServiceFactory }
   ]
 })
 export class RdwPreferenceModule {
+}
+
+export function cookieServiceFactory() {
+  return new CookieService();
 }
