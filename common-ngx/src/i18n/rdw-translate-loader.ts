@@ -7,11 +7,10 @@ import { TranslateLoader } from "@ngx-translate/core";
 import { Observable } from "rxjs/Observable";
 import { Observer } from "rxjs/Observer";
 import { forkJoin } from "rxjs/observable/forkJoin";
+import { EmbeddedLanguages } from "./language-settings";
 
 @Injectable()
 export class RdwTranslateLoader implements TranslateLoader {
-
-  private embeddedLanguages: string[] = ["en"];
 
   constructor(private http: Http) {
   }
@@ -20,7 +19,7 @@ export class RdwTranslateLoader implements TranslateLoader {
   private uiLoader = new TranslateHttpLoader(this.http, '/assets/i18n/', '.json');
 
   getTranslation(lang: string): Observable<any> {
-    let uiObservable = this.embeddedLanguages.indexOf(lang) >= 0 ?
+    let uiObservable = EmbeddedLanguages.indexOf(lang) >= 0 ?
         this.uiLoader.getTranslation(lang) : Observable.of({});
 
     let apiObservable = this.apiLoader.getTranslation(lang).catch(() => Observable.of({}));

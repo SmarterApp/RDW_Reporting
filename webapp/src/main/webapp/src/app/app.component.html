@@ -26,7 +26,9 @@
                   <small>{{'labels.homepage.welcome.interpretive-guide-subtitle' | translate}}</small><br>{{'labels.navigation.interpretive-guide' | translate}}
                 </a>
               </li>
-              <li class="navbar-link" *sbAuthorize="['GROUP_PII_READ']"><a routerLink="/reports">{{'labels.reports.link' | translate}}</a></li>
+              <li class="navbar-link" *sbAuthorize="['GROUP_PII_READ']">
+                <a routerLink="/reports">{{'labels.reports.link' | translate}}</a>
+              </li>
               <li class="navbar-link">
                 <div class="btn-group" dropdown>
                   <button type="button" dropdownToggle class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -38,6 +40,11 @@
                       <form name="logoutForm" method="post" action="/saml/logout" class="hidden"></form>
                     </li>
                   </ul>
+                </div>
+              </li>
+              <li *ngIf="languageStore.availableLanguages.length > 1">
+                <div>
+                  <language-select></language-select>
                 </div>
               </li>
             </ul>

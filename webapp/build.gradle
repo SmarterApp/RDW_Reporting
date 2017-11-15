@@ -63,6 +63,7 @@ test.finalizedBy(jacocoTestReport)
 
 task deleteProjectDependencies(type: Delete) {
     delete "src/main/webapp/node_modules/@sbac/rdw-reporting-common-ngx"
+    dependsOn project(':rdw-reporting-common-ngx').tasks.buildFe
 }
 
 //This is the build task for the Front End (Fe) and only compiles when the inputs change

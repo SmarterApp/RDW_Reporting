@@ -179,6 +179,9 @@ export class AssessmentsComponent implements OnInit {
     if (property == 'offGradeAssessment') {
       this.clientFilterBy[ property ] = false;
     }
+    else if (property == 'transferAssessment') {
+      this.clientFilterBy[ property ] = false;
+    }
     else if (property.indexOf('ethnicities') > -1) {
       this.removeEthnicity(property.substring(property.indexOf('.') + 1));
     }

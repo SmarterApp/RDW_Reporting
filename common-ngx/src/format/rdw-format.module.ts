@@ -13,6 +13,9 @@ import { SchoolYearPipe } from "./school-year.pipe";
   ],
   exports: [
     SchoolYearPipe
+  ],
+  providers: [
+    SchoolYearPipe
   ]
 })
 export class RdwFormatModule {

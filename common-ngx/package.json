@@ -94,5 +94,8 @@
     "webpack-angular-externals": "^1.0.2",
     "webpack-rxjs-externals": "^1.0.0",
     "zone.js": "^0.8.10"
+  },
+  "dependencies": {
+    "angular2-cookie": "^1.2.6"
   }
 }

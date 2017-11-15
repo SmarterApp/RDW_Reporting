@@ -561,7 +561,7 @@ sql:
           i.type
         from item i
         where i.asmt_id=:assessment_id
-        and (:types is null or i.type in (:types))
+        and (1=:includeAllItemTypes or i.type in (:types))
 
       findAllForExam: >-
         select i.id,

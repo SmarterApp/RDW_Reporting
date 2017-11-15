@@ -3,6 +3,7 @@ import { ObservableObject } from "../../shared/observable-object.model";
 export class FilterBy extends ObservableObject {
   // Test
   private _offGradeAssessment: boolean = false;
+  private _transferAssessment: boolean = false;
 
   // Status
   private _administration: any = -1;
@@ -18,7 +19,7 @@ export class FilterBy extends ObservableObject {
   private _limitedEnglishProficiency: number = -1;
   private _ethnicities: boolean[] = [ true ];
 
-  private _filters = ['offGradeAssessment', 'administration', 'summativeStatus', 'completion', 'gender', 'migrantStatus',
+  private _filters = ['offGradeAssessment', 'transferAssessment', 'administration', 'summativeStatus', 'completion', 'gender', 'migrantStatus',
                       'plan504', 'iep', 'economicDisadvantage', 'limitedEnglishProficiency', 'ethnicities'];
 
   get filteredEthnicities() {
@@ -67,6 +68,15 @@ export class FilterBy extends ObservableObject {
   set offGradeAssessment(value: boolean) {
     this._offGradeAssessment = value;
     this.notifyChange('offGradeAssessment');
+  }
+
+  get transferAssessment(): boolean {
+    return this._transferAssessment;
+  }
+
+  set transferAssessment(value: boolean) {
+    this._transferAssessment = value;
+    this.notifyChange('transferAssessment');
   }
 
   get administration(): any {
@@ -152,6 +162,8 @@ export class FilterBy extends ObservableObject {
 
   private isFilterEnabled(property) {
     if(property == "offGradeAssessment" && this[ property ] === false)
+      return false;
+    else if (property == "transferAssessment" && this[ property ] === false)
       return false;
     else
       return this[property] != -1;

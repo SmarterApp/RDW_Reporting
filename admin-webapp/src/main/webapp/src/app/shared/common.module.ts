@@ -37,6 +37,7 @@ import {
     TranslateModule,
     RdwDataTableModule,
     RdwFormatModule,
+    RdwI18nModule,
     RdwSecurityModule,
     RouterModule
   ],

@@ -84,6 +84,7 @@ export class UserMapper {
     uiModel.adminWebappUrl = apiModel.adminWebappUrl;
     uiModel.reportLanguages = apiModel.reportLanguages;
     uiModel.uiLanguages = apiModel.uiLanguages;
+    uiModel.transferAccess = apiModel.transferAccess;
     return uiModel;
   }
 

@@ -1,12 +1,7 @@
 import { StudentResultsComponent } from "./student-results.component";
 import { ComponentFixture, inject, TestBed } from "@angular/core/testing";
-import { AssessmentsModule } from "../../assessments/assessments.module";
-import { BrowserModule } from "@angular/platform-browser";
 import { CommonModule } from "../../shared/common.module";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { SharedModule } from "primeng/components/common/shared";
-import { TranslateModule } from "@ngx-translate/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { StudentExamHistory } from "../model/student-exam-history.model";
 import { Student } from "../model/student.model";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
@@ -20,11 +15,9 @@ import { CsvExportService } from "../../csv-export/csv-export.service";
 import { Angulartics2 } from "angulartics2";
 import { UserService } from "../../user/user.service";
 import { MockUserService } from "../../../test/mock.user.service";
-import { ReportModule } from "../../report/report.module";
 import { MockActivatedRoute } from "../../../test/mock.activated-route";
-import { PopoverModule } from "ngx-bootstrap";
-import { UserModule } from "../../user/user.module";
-import { RouterTestingModule } from "@angular/router/testing";
+import { MockAuthorizeDirective } from "../../../test/mock.authorize.directive";
+import { ExamFilterService } from "../../assessments/filters/exam-filters/exam-filter.service";
 
 describe('StudentResultsComponent', () => {
   let component: StudentResultsComponent;
@@ -48,29 +41,23 @@ describe('StudentResultsComponent', () => {
 
     router = new MockRouter();
 
+    let mockUserService: MockUserService = new MockUserService();
+
     TestBed.configureTestingModule({
       imports: [
-        AssessmentsModule,
-        BrowserModule,
-        CommonModule,
-        UserModule,
-        FormsModule,
-        ReactiveFormsModule,
-        RouterTestingModule,
-        SharedModule,
-        ReportModule,
-        TranslateModule.forRoot(),
-        PopoverModule.forRoot(),
-        ReportModule
+        CommonModule
       ],
       declarations: [
-        StudentResultsComponent
+        StudentResultsComponent,
+        MockAuthorizeDirective
       ],
       providers: [
         { provide: ActivatedRoute, useValue: route },
         { provide: CsvExportService, useValue: exportService },
         { provide: Angulartics2, useValue: mockAngulartics2 },
-        { provide: UserService, useClass: MockUserService }
+        { provide: UserService, useValue: mockUserService },
+        { provide: Router, useValue: router },
+        ExamFilterService
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();

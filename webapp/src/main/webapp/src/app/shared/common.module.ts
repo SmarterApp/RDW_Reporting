@@ -27,6 +27,7 @@ import {
   RdwFormatModule,
   RdwFormModule,
   RdwI18nModule,
+  RdwPreferenceModule,
   RdwSecurityModule,
   RdwTranslateLoader,
 } from "@sbac/rdw-reporting-common-ngx";
@@ -56,6 +57,7 @@ import {
     RdwFormModule,
     RdwFormatModule,
     RdwI18nModule,
+    RdwPreferenceModule,
     RdwSecurityModule,
     TranslateModule.forRoot({
       loader: {
@@ -75,6 +77,8 @@ import {
     RdwDataTableModule,
     RdwFormModule,
     RdwFormatModule,
+    RdwI18nModule,
+    RdwPreferenceModule,
     RdwSecurityModule,
     SBCheckboxList,
     SBRadioButtonComponent,

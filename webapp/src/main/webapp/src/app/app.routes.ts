@@ -146,7 +146,7 @@ export const routes: Routes = [
       {
         path: 'custom-export',
         pathMatch: 'full',
-        data: { breadcrumb: { translate: 'labels.organization-export.heading' }, permissions: [ 'INDIVIDUAL_PII_READ' ]},
+        data: { breadcrumb: { translate: 'labels.organization-export.title' }, permissions: [ 'INDIVIDUAL_PII_READ' ]},
         canActivate: [ AuthorizeCanActivate ],
         resolve: { organizations: UserOrganizationsResolve },
         component: OrganizationExportComponent

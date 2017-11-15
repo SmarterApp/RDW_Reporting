@@ -19,10 +19,10 @@ describe('ExamFilterService', () => {
     assessmentExam = new AssessmentExam();
     assessmentExam.assessment = new Assessment();
     assessmentExam.exams = [
-      buildExam(),
-      buildExam(),
-      buildExam(),
-      buildExam()
+      buildExam(0),
+      buildExam(1),
+      buildExam(2),
+      buildExam(3)
     ];
 
     fixture = new ExamFilterService();
@@ -294,8 +294,35 @@ describe('ExamFilterService', () => {
     expect(actual[1].session).toBe("2");
   });
 
-  function buildExam(): Exam {
+  it('should hide transfer exams when transferAssessment is true', () => {
+    filterBy.transferAssessment = true;
+
+    assessmentExam.exams[ 0 ].transfer = false;
+    assessmentExam.exams[ 1 ].transfer = true;
+    assessmentExam.exams[ 2 ].transfer = true;
+    assessmentExam.exams[ 3 ].transfer = false;
+
+    let actual = fixture.filterExams(assessmentExam, filterBy);
+
+    expect(actual.map(exam => exam.id)).toEqual([0, 3]);
+  });
+
+  it('should show transfer exams when transferAssessment is false', () => {
+    filterBy.transferAssessment = false;
+
+    assessmentExam.exams[ 0 ].transfer = false;
+    assessmentExam.exams[ 1 ].transfer = true;
+    assessmentExam.exams[ 2 ].transfer = true;
+    assessmentExam.exams[ 3 ].transfer = false;
+
+    let actual = fixture.filterExams(assessmentExam, filterBy);
+
+    expect(actual.map(exam => exam.id)).toEqual([0, 1, 2, 3]);
+  });
+
+  function buildExam(id: number): Exam {
     let exam: Exam = new Exam();
+    exam.id = id;
     exam.student = new Student();
     return exam;
   }

@@ -4,6 +4,11 @@
       "title": "Authentication Expired",
       "message": "Click Ok to re-authenticate.",
       "ok": "Ok"
+    },
+    "languages": {
+      "en": "English",
+      "es": "Español",
+      "vi": "Tiếng Việt"
     }
   },
   "welcome": "Welcome {{firstName}} {{lastName}}",

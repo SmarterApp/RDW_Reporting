@@ -1,13 +1,8 @@
 import { StudentResultsFilterComponent } from "./student-results-filter.component";
-import {ComponentFixture, async, TestBed, inject} from "@angular/core/testing";
-import { BrowserModule } from "@angular/platform-browser";
-import { SharedModule } from "primeng/components/common/shared";
-import { TranslateModule } from "@ngx-translate/core";
-import { ReactiveFormsModule, FormsModule } from "@angular/forms";
-import { AssessmentsModule } from "../../assessments/assessments.module";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { CommonModule } from "../../shared/common.module";
-import { Angulartics2Module, Angulartics2 } from 'angulartics2';
-import { PopoverModule } from "ngx-bootstrap";
+import { Angulartics2 } from 'angulartics2';
+import { NO_ERRORS_SCHEMA } from "@angular/core";
 
 describe('StudentResultsFilterComponent', () => {
   let component: StudentResultsFilterComponent;
@@ -19,22 +14,15 @@ describe('StudentResultsFilterComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AssessmentsModule,
-        BrowserModule,
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        SharedModule,
-        TranslateModule.forRoot(),
-        Angulartics2Module,
-        PopoverModule.forRoot()
+        CommonModule
       ],
       declarations: [
         StudentResultsFilterComponent
       ],
       providers: [
         { provide: Angulartics2, useValue: mockAngulartics2 }
-      ]
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     })
       .compileComponents();
   }));

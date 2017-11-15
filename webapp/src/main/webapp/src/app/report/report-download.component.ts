@@ -59,6 +59,7 @@ export abstract class ReportDownloadComponent implements OnInit {
   orders: ReportOrder[] = [ ReportOrder.STUDENT_NAME, ReportOrder.STUDENT_SSID ];
   options: ReportOptions;
   reportLanguages: string[] = ['en'];
+  transferAccess: boolean;
 
   constructor(protected notificationService: NotificationService,
               protected userService: UserService) {
@@ -73,11 +74,13 @@ export abstract class ReportDownloadComponent implements OnInit {
     defaultOptions.accommodationsVisible = false;
     defaultOptions.order = this.orders[ 0 ];
     defaultOptions.grayscale = false;
+    defaultOptions.disableTransferAccess = false;
     this.options = defaultOptions;
 
     this.userService.getCurrentUser().subscribe(user => {
       if (!isNullOrUndefined(user)) {
         this.reportLanguages = this.reportLanguages.concat(user.configuration.reportLanguages);
+        this.transferAccess = user.configuration.transferAccess;
       }
     });
   }

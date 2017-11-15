@@ -10,6 +10,7 @@ import { Angular2CsvProvider } from "./angular-csv.provider";
 import { AssessmentItem } from "../assessments/model/assessment-item.model";
 import { isNullOrUndefined } from "util";
 import { DynamicItemField } from "../assessments/model/item-point-field.model";
+import { SchoolYearPipe } from "@sbac/rdw-reporting-common-ngx";
 
 @Injectable()
 export class CsvBuilder {
@@ -19,6 +20,7 @@ export class CsvBuilder {
   constructor(private angular2csv: Angular2CsvProvider,
               private translateService: TranslateService,
               private datePipe: DatePipe,
+              private schoolYearPipe: SchoolYearPipe,
               private numberPipe: DecimalPipe) {
     this.columns = [];
     this.filename = "export";
@@ -30,7 +32,7 @@ export class CsvBuilder {
    * @returns {CsvBuilder}  A new builder instance
    */
   newBuilder(): CsvBuilder {
-    return new CsvBuilder(this.angular2csv, this.translateService, this.datePipe, this.numberPipe);
+    return new CsvBuilder(this.angular2csv, this.translateService, this.datePipe, this.schoolYearPipe, this.numberPipe);
   }
 
   /**
@@ -125,6 +127,13 @@ export class CsvBuilder {
     return this.withColumn(
       this.translateHeader('school'),
       (item) => getExam(item).school.name
+    )
+  }
+
+  withSchoolYear(getExam: (item: any) => Exam) {
+    return this.withColumn(
+      this.translateHeader('schoolYear'),
+      (item) => this.schoolYearPipe.transform(getExam(item).schoolYear)
     )
   }
 
