@@ -1,5 +1,6 @@
 include ':common'
 include ':common-web'
+include ':common-ngx'
 include ':webapp'
 include ':report-processor'
 include ':admin-webapp'

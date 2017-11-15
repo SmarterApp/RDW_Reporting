@@ -61,7 +61,7 @@ spring:
 
   cache:
     type: SIMPLE
-    cache-names: permissionsByRole
+    cache-names: permissionsByRole, mergeTranslations
 
     # Force the (rabbit) queues to be created when posting messages so, even if
     # there are no consumers running, the messages will not get lost. Routing is

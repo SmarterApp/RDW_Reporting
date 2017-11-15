@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
 import { URLSearchParams } from "@angular/http";
-import { DataService } from "../../shared/data/data.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { AssessmentExamMapper } from "../../assessments/assessment-exam.mapper";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { AssessmentProvider } from "../../assessments/assessment-provider.interface";
 import { isNullOrUndefined } from "util";
 import { ResponseUtils } from "../../shared/response-utils";
-import { ItemByPointsEarnedExportRequest } from "../../assessments/model/item-by-points-earned-export-request.model";
+import { ExportRequest } from "../../assessments/model/export-request.model";
 import { Assessment } from "../../assessments/model/assessment.model";
 import { Grade } from "../grade.model";
 import { TranslateService } from "@ngx-translate/core";
@@ -56,7 +56,19 @@ export class SchoolAssessmentService implements AssessmentProvider {
       });
   }
 
-  getAssessmentItems(assessmentId: number) {
+  getAssessmentItems(assessmentId: number, multipleChoiceMultipleSelectItems?: boolean) {
+    if (multipleChoiceMultipleSelectItems) {
+      return this.dataService.get(`/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments/${assessmentId}/examitems`, {
+        params: {
+          types: [ 'MC', 'MS' ],
+          schoolYear: this.schoolYear.toString()
+        }
+      })
+        .catch(ResponseUtils.badResponseToNull)
+        .map(x => {
+          return this.mapper.mapAssessmentItemsFromApi(x);
+        });
+    }
     return this.dataService.get(`/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments/${assessmentId}/examitems`, { search: this.getSchoolYearParams(this.schoolYear) })
       .catch(ResponseUtils.badResponseToNull)
       .map(x => {
@@ -64,22 +76,26 @@ export class SchoolAssessmentService implements AssessmentProvider {
       });
   }
 
-  exportItemsToCsv(exportRequest: ItemByPointsEarnedExportRequest) {
-    let assessment: Assessment = exportRequest.assessment;
-    let filename: string = this.schoolName +
-      "-" + this.translate.instant(`labels.grades.${this.grade.code}.short-name`) +
-      "-" + assessment.name +
-      "-ItemsByPoints" +
-      "-" + new Date().toDateString();
+  exportItemsToCsv(exportRequest: ExportRequest) {
+    let filename: string = this.getFilename(exportRequest);
 
     this.angulartics2.eventTrack.next({
-      action: 'Export School/Grade Items By Points Earned',
+      action: 'Export School/Grade Results by Items',
       properties: {
         category: 'Export'
       }
     });
 
-    this.csvExportService.exportItemsByPointsEarned(exportRequest, filename);
+    this.csvExportService.exportResultItems(exportRequest, filename);
+  }
+
+  private getFilename(exportRequest: ExportRequest) {
+    let assessment: Assessment = exportRequest.assessment;
+    let filename: string = this.schoolName +
+      "-" + this.translate.instant(`labels.grades.${this.grade.code}.short-name`) +
+      "-" + assessment.name + "-" + this.translate.instant(exportRequest.type.toString()) + "-" + new Date().toDateString();
+
+    return filename;
   }
 
   private getRecentAssessmentBySchoolYear(schoolId: number, gradeId: number, schoolYear: number) {

@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FileFormatService } from "./file-format.service";
-import { Download } from "../../../shared/data/download.model";
+import { Download } from "@sbac/rdw-reporting-common-ngx";
 import { saveAs } from "file-saver";
 
 @Component({

@@ -5,7 +5,7 @@ import { ItemViewerComponent } from "./item-viewer/item-viewer.component";
 import { CommonModule } from "../../shared/common.module";
 import { TabsetConfig, PopoverModule } from "ngx-bootstrap";
 import { MockDataService } from "../../../test/mock.data.service";
-import { CachingDataService } from "../../shared/cachingData.service";
+import { CachingDataService } from "@sbac/rdw-reporting-common-ngx";
 import { ItemExemplarComponent } from "./item-exemplar/item-exemplar.component";
 import { ItemScoresComponent } from "./item-scores/item-scores.component";
 import { DataTableModule } from "primeng/components/datatable/datatable";

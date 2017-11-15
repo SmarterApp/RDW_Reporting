@@ -15,5 +15,6 @@ export class ReportOptions {
   public order: ReportOrder;
   public accommodationsVisible: boolean = false;
   public name: string;
+  public disableTransferAccess: boolean = false;
 
 }

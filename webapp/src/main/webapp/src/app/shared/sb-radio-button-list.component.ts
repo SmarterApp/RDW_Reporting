@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { Utils } from "./Utils";
+import { Utils } from "@sbac/rdw-reporting-common-ngx";
 
 /*
   A generic component which builds and binds a radio button list.

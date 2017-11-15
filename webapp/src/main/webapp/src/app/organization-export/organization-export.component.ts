@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Option } from "../shared/form/sb-typeahead.component";
+import { Option } from "@sbac/rdw-reporting-common-ngx";
 import { OrganizationType } from "./organization/organization-type.enum";
 import { TranslateService } from "@ngx-translate/core";
 import { Tree } from "./organization/tree";

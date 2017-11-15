@@ -1,4 +1,16 @@
 {
+  "common-ngx": {
+    "session-expired": {
+      "title": "Authentication Expired",
+      "message": "Click Ok to re-authenticate.",
+      "ok": "Ok"
+    },
+    "languages": {
+      "en": "English",
+      "es": "Español",
+      "vi": "Tiếng Việt"
+    }
+  },
   "welcome": "Welcome {{firstName}} {{lastName}}",
   "application": {
     "title": "Manage Student Groups"
@@ -22,6 +34,11 @@
       "user-guide": "User Guide"
     },
     "groups": {
+      "subjects": {
+        "ALL": "MATH, ELA",
+        "Math": "MATH",
+        "ELA": "ELA"
+      },
       "title": "Manage Student Groups",
       "select-school": "School",
       "select-school-year": "School Year",

@@ -6,7 +6,8 @@ import { ExamFilterService } from "../assessments/filters/exam-filters/exam-filt
 import { CsvBuilder } from "./csv-builder.service";
 import { StudentHistoryExamWrapper } from "../student/model/student-history-exam-wrapper.model";
 import { Student } from "../student/model/student.model";
-import { ItemByPointsEarnedExportRequest } from "../assessments/model/item-by-points-earned-export-request.model";
+import { ExportRequest} from "../assessments/model/export-request.model";
+import { RequestType } from "../shared/enum/request-type.enum";
 
 @Injectable()
 export class CsvExportService {
@@ -54,6 +55,7 @@ export class CsvExportService {
       .withStudent(getStudent)
       .withExamDateAndSession(getExam)
       .withSchool(getExam)
+      .withSchoolYear(getExam)
       .withAssessmentTypeNameAndSubject(getAssessment)
       .withExamGradeAndStatus(getExam)
       .withAchievementLevel(getNonIABExam)
@@ -91,6 +93,7 @@ export class CsvExportService {
       .withStudent(getStudent)
       .withExamDateAndSession(getExam)
       .withSchool(getExam)
+      .withSchoolYear(getExam)
       .withAssessmentTypeNameAndSubject(getAssessment)
       .withExamGradeAndStatus(getExam)
       .withAchievementLevel(getNonIABExam)
@@ -102,13 +105,13 @@ export class CsvExportService {
       .build(wrappers);
   }
 
-  exportItemsByPointsEarned(exportRequest: ItemByPointsEarnedExportRequest,
-                            filename: string) {
+  exportResultItems(exportRequest: ExportRequest,
+                    filename: string) {
 
     let getAssessment = () => exportRequest.assessment;
     let getAssessmentItem = (item) => item;
 
-    this.csvBuilder
+    let builder = this.csvBuilder
       .newBuilder()
       .withFilename(filename)
       .withAssessmentTypeNameAndSubject(getAssessment)
@@ -117,8 +120,13 @@ export class CsvExportService {
       .withTarget(getAssessmentItem)
       .withItemDifficulty(getAssessmentItem)
       .withStandards(getAssessmentItem)
-      .withFullCredit(getAssessmentItem, exportRequest.showAsPercent)
-      .withPoints(getAssessmentItem, exportRequest.pointColumns, exportRequest.showAsPercent)
+      .withFullCredit(getAssessmentItem, exportRequest.showAsPercent);
+
+      if (exportRequest.type == RequestType.DistractorAnalysis) {
+        builder = builder.withItemAnswerKey(getAssessmentItem)
+      }
+
+      builder.withPoints(getAssessmentItem, exportRequest.pointColumns, exportRequest.showAsPercent)
       .build(exportRequest.assessmentItems);
   }
 }

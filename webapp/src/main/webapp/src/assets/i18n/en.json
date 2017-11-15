@@ -1,4 +1,16 @@
 {
+  "common-ngx": {
+    "session-expired": {
+      "title": "Authentication Expired",
+      "message": "Click Ok to re-authenticate.",
+      "ok": "Ok"
+    },
+    "languages": {
+      "en": "English",
+      "es": "Español",
+      "vi": "Tiếng Việt"
+    }
+  },
   "welcome": "Welcome {{firstName}} {{lastName}}",
   "application": {
     "title": "Reporting System",
@@ -11,14 +23,9 @@
     "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above.",
     "noExamsSelected": "Please select from the assessments above",
     "notApplicable": "-",
-    "ok": "Ok",
     "organization": "Smarter Balanced Assessment Consortium",
     "logout": "Logout",
     "loading": "Loading",
-    "session-expired": {
-      "title": "Authentication Expired",
-      "message": "Click Ok to re-authenticate."
-    },
     "access-denied": {
       "title": "Access Denied",
       "message": "Your user account is not permitted to access this reporting system. If you believe you have reached this page in error, please contact your building administrator."
@@ -42,20 +49,6 @@
         "user-guide-html": "<a href=\"{{userGuideUrl}}\" target=\"_blank\">The User Guide</a> describes features of the Smarter Balanced Reporting System and instructions for using each feature.",
         "interpretive-guide-html": "<a href=\"{{interpretiveGuideUrl}}\" target=\"_blank\">The Interim Assessments Interpretive Guide</a> is designed to help educators, parents, and other stakeholders interpret interim assessments reports for the Smarter Balanced Reporting System.",
         "interpretive-guide-subtitle": "Interim Assessments"
-      }
-    },
-    "languages": {
-      "eng": {
-        "native": "English",
-        "default" : "English"
-      },
-      "spa": {
-        "native": "Español",
-        "default": "Spanish"
-      },
-      "vie": {
-        "native": "Tiếng Việt",
-        "default": "Vietnamese"
       }
     },
     "assessmentTypes": {
@@ -186,6 +179,11 @@
       }
     },
     "groups": {
+      "subjects": {
+        "ALL": "MATH, ELA",
+        "Math": "MATH",
+        "ELA": "ELA"
+      },
       "name": "My Groups",
       "filter": "Search by Group Name",
       "no-groups-message": "Contact your building administrator for access to group-level test results.",
@@ -212,7 +210,9 @@
           "test": {
             "label": "Test",
             "off-grade-assessment": "Off-Grade Assessments",
-            "off-grade-assessment-info": "Schools may administer interim assessments for any grade.  This filter indicates that a student took an assessment for a grade other than their assigned grade."
+            "off-grade-assessment-info": "Schools may administer interim assessments for any grade.  This filter indicates that a student took an assessment for a grade other than their assigned grade.",
+            "transfer-assessment": "Transfer Assessments",
+            "transfer-assessment-info": "Indicates whether to show or hide assessments administered outside of the User's standard institutions."
           },
           "status": {
             "label": "Status",
@@ -302,10 +302,8 @@
               },
               "full-credit": "Full Credit",
               "full-credit-info": "Percentage of students in the group who earned the maximum number of points available for a particular test item.",
-              "x-points": "{{id}}"
-            },
-            "item-viewer": {
-              "title": "Item Viewer"
+              "x-points": "{{id}}",
+              "answer-key": "Answer Key"
             },
             "target": "Target {{target}}"
           }
@@ -429,6 +427,11 @@
       }
     },
     "reports": {
+      "subjects": {
+        "0": "MATH, ELA",
+        "1": "MATH",
+        "2": "ELA"
+      },
       "all": "All",
       "link": "My Reports",
       "heading": "My Reports",
@@ -471,6 +474,14 @@
         },
         "report-name": "Report Name",
         "assessment-type": "Assessment Type",
+        "language": {
+          "header": "Report Language",
+          "options": {
+            "en": "English",
+            "es": "Spanish",
+            "vi": "Vietnamese"
+          }
+        },
         "subject": "Subject",
         "school-year": "School Year",
         "accommodations": {
@@ -499,10 +510,10 @@
         }
       },
       "reportType": {
-        "Student": "Student",
-        "SchoolGrade": "School/Grade",
-        "Group": "Group",
-        "ExamExport": "Exam Export"
+        "Student": "Student Report",
+        "SchoolGrade": "School/Grade Report",
+        "Group": "Group Report",
+        "ExamExport": "Custom Export"
       },
       "status": {
         "PENDING": "Pending",
@@ -514,18 +525,17 @@
       }
     },
     "organization-tree": {
-      "header": "Selected Institutions",
-      "subheader-empty": "No institutions selected",
+      "header": "Selected Organizations",
+      "subheader-empty": "No organizations selected",
       "subheader-not-empty": "Click an item to remove it from the list",
       "remove-district": "Remove District"
     },
     "organization-export": {
-      "link": "Custom Exports",
-      "heading": "Customized Export",
+      "title": "Custom Exports",
       "form": {
         "organization": {
-          "label": "Search for a District, School or Institution",
-          "placeholder": "Start typing an institution name",
+          "label": "Search for an Organization",
+          "placeholder": "Start typing an organization name",
           "add": "Add",
           "select-all": "Select All",
           "type": {
@@ -548,6 +558,7 @@
     "select-year": "School Year",
     "export": {
       "csv": "Export CSV",
+      "title": "Export",
       "items-by-points-earned": "Export Results By Item",
       "distractor-analysis": "Export Distractor Analysis",
       "cols": {
@@ -556,6 +567,7 @@
         "student-last-name": "LastOrSurname",
         "submit-date-time": "SubmitDateTime",
         "school": "SchoolName",
+        "schoolYear":"SchoolYear",
         "assessment-session-id": "TestSessionId",
         "assessment-type": "AssessmentType",
         "assessment-subtype": "AssessmentSubType",
@@ -632,6 +644,10 @@
         "4": "Exceeded",
         "missing": "-"
       },
+      "request-type": {
+        "results-by-item": "ResultsByItems",
+        "distractor-analysis": "DistractorAnalysis"
+      },
       "full": {
         "1": "Did Not Meet Standard",
         "2": "Nearly Met Standard",
@@ -658,6 +674,10 @@
       "2": "No"
     },
     "off-grade": {
+      "true": "Hide",
+      "false": "Show"
+    },
+    "transfer": {
       "true": "Hide",
       "false": "Show"
     },

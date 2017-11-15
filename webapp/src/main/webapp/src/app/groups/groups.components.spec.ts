@@ -4,7 +4,6 @@ import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { TranslateModule } from "@ngx-translate/core";
 import { DataTableModule, SharedModule } from "primeng/primeng";
-import { SubjectPipe } from "../shared/subject.pipe";
 import { HttpModule } from "@angular/http";
 import { APP_BASE_HREF } from "@angular/common";
 import { By } from "@angular/platform-browser";
@@ -24,7 +23,7 @@ describe('GroupComponents', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ FormsModule, TranslateModule.forRoot(), DataTableModule, SharedModule, RouterModule.forRoot([]), HttpModule ],
-      declarations: [ GroupsComponent, SubjectPipe, TestComponentWrapper ],
+      declarations: [ GroupsComponent, TestComponentWrapper ],
       providers: [ { provide: APP_BASE_HREF, useValue: '/' } ]
     });
 

@@ -1,4 +1,4 @@
-import { DataService } from "../shared/data/data.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { GroupFilterOptions } from "./model/group-filter-options.model";
 import { Observable } from "rxjs";
 import { School } from "./model/school.model";
@@ -9,7 +9,7 @@ import { GroupQuery } from "./model/group-query.model";
 import { URLSearchParams } from "@angular/http";
 import { Group } from "./model/group.model";
 
-const ALL = "ALL";
+const ALL = 'ALL';
 
 @Injectable()
 export class GroupService {
@@ -19,15 +19,13 @@ export class GroupService {
 
   getFilterOptions(): Observable<GroupFilterOptions> {
     return this.dataService
-      .get("/groups/filters")
+      .get('/groups/filters')
       .map(this.mapFilterOptionsFromApi.bind(this))
   }
 
   getGroups(query: GroupQuery): Observable<Group[]> {
-    let params: URLSearchParams = this.mapQueryToParams(query);
-
     return this.dataService
-      .get("/groups", { search: params })
+      .get('/groups', { search: this.mapQueryToParams(query) })
       .map(groups => groups.map(this.mapGroupFromApi));
   }
 
@@ -42,27 +40,23 @@ export class GroupService {
       ? query.availableSubjects
       : [ query.subject ];
 
-    for(let subject of subjects.filter(x => x != ALL)){
-      params.append("subject", subject);
+    for (let subject of subjects.filter(x => x != ALL)) {
+      params.append('subject', subject);
     }
-
-    params.set("schoolId", query.school.id.toString());
-    params.set("schoolYear", query.schoolYear.toString());
-
+    params.set('schoolId', query.school.id.toString());
+    params.set('schoolYear', query.schoolYear.toString());
     return params;
   }
 
   private mapGroupFromApi(apiModel): Group {
     let uiModel = new Group();
-
     uiModel.id = apiModel.id;
     uiModel.schoolYear = apiModel.schoolYear;
     uiModel.name = apiModel.name;
     uiModel.schoolName = apiModel.schoolName;
-    uiModel.subject = apiModel.subject;
+    uiModel.subject = apiModel.subjectCode;
     uiModel.studentCount = apiModel.studentCount;
     uiModel.isDeleted = apiModel.deleted;
-
     return uiModel;
   }
 
@@ -71,11 +65,9 @@ export class GroupService {
 
     uiModel.schools = (apiModel.schools && apiModel.schools.map(apiSchool => {
       let uiSchool = new School();
-
       uiSchool.id = apiSchool.id;
       uiSchool.name = apiSchool.name;
       uiSchool.naturalId = apiSchool.naturalId;
-
       return uiSchool;
     })) || [];
 
@@ -89,11 +81,9 @@ export class GroupService {
     if (filterOptions.schoolYears.length == 0) {
       filterOptions.schoolYears = [ new Date().getFullYear() ];
     }
-
     filterOptions.schools.sort(ordering(byString).on<School>(x => x.name).compare);
     filterOptions.schoolYears.sort(ordering(byNumber).reverse().compare);
     filterOptions.subjects.splice(0, 0, ALL);
-
     return filterOptions;
   }
 }

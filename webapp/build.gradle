@@ -11,6 +11,7 @@ createDockerfile {
 dependencies {
     compile project(':rdw-reporting-common')
     compile project(':rdw-reporting-common-web')
+    compile project(':rdw-reporting-common-ngx')
     compile 'org.opentestsystem.rdw.common:rdw-common-model'
     compile 'org.opentestsystem.rdw.common:rdw-common-security'
     compile 'org.opentestsystem.rdw.common:rdw-common-status'
@@ -60,6 +61,11 @@ bootRun {
 // generate coverage report automatically (./build/reports/jacoco/test/html/index.html)
 test.finalizedBy(jacocoTestReport)
 
+task deleteProjectDependencies(type: Delete) {
+    delete "src/main/webapp/node_modules/@sbac/rdw-reporting-common-ngx"
+    dependsOn project(':rdw-reporting-common-ngx').tasks.buildFe
+}
+
 //This is the build task for the Front End (Fe) and only compiles when the inputs change
 task buildFe(type: NpmTask) {
     inputs.files(fileTree("src/main/webapp/src"))
@@ -70,6 +76,7 @@ task buildFe(type: NpmTask) {
     args = ['run', 'build']
 }
 
+npm_install.dependsOn(deleteProjectDependencies)
 
 task testFe(type: NpmTask) {
     inputs.files(fileTree("src/main/webapp/src"))

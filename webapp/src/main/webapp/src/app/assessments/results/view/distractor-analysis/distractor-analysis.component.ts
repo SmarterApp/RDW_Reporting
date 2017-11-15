@@ -4,13 +4,17 @@ import { Exam } from "../../../model/exam.model";
 import { DynamicItemField } from "../../../model/item-point-field.model";
 import { ExamStatisticsCalculator } from "../../exam-statistics-calculator";
 import { AssessmentProvider } from "../../../assessment-provider.interface";
+import { ExportRequest } from "../../../model/export-request.model";
 import { Assessment } from "../../../model/assessment.model";
+import { Angulartics2 } from "angulartics2";
+import { RequestType } from "../../../../shared/enum/request-type.enum";
+import { ExportResults } from "../../assessment-results.component";
 
 @Component({
   selector: 'distractor-analysis',
   templateUrl: './distractor-analysis.component.html'
 })
-export class DistractorAnalysisComponent implements OnInit {
+export class DistractorAnalysisComponent implements OnInit, ExportResults {
   /**
    * If true, values will be shown as percentages
    */
@@ -53,21 +57,20 @@ export class DistractorAnalysisComponent implements OnInit {
   private filteredMultipleChoiceItems: AssessmentItem[];
   private _exams: Exam[];
 
-  constructor(private examCalculator: ExamStatisticsCalculator, private renderer: Renderer2) {
+  constructor(private examCalculator: ExamStatisticsCalculator, private renderer: Renderer2, private angulartics2: Angulartics2) {
   }
 
   ngOnInit() {
     this.loading = true;
-    this.assessmentProvider.getAssessmentItems(this.assessment.id).subscribe(assessmentItems => {
-      // TODO: DWR-1068: Allow this filter to be applied as a query param to the api.
-      let multipleChoiceItems = assessmentItems.filter(x => x.isMultipleChoice || x.isMultipleSelect);
-      let numOfScores = multipleChoiceItems.reduce((x, y) => x + y.scores.length, 0);
+    this.assessmentProvider.getAssessmentItems(this.assessment.id, true).subscribe(assessmentItems => {
+
+      let numOfScores = assessmentItems.reduce((x, y) => x + y.scores.length, 0);
 
       if (numOfScores != 0) {
-        this._multipleChoiceItems = multipleChoiceItems;
-        this.choiceColumns = this.examCalculator.getChoiceFields(multipleChoiceItems);
+        this._multipleChoiceItems = assessmentItems;
+        this.choiceColumns = this.examCalculator.getChoiceFields(assessmentItems);
 
-        this.filteredMultipleChoiceItems = this.filterMultipleChoiceItems(multipleChoiceItems);
+        this.filteredMultipleChoiceItems = this.filterMultipleChoiceItems(assessmentItems);
         this.examCalculator.aggregateItemsByResponse(this.filteredMultipleChoiceItems);
       }
 
@@ -75,8 +78,27 @@ export class DistractorAnalysisComponent implements OnInit {
     });
   }
 
-  exportDistractorAnalysis(): void {
-    // TODO: DWR-1070
+  hasDataToExport(): boolean {
+    return this.filteredMultipleChoiceItems && this.filteredMultipleChoiceItems.length > 0;
+  }
+
+  exportToCsv(): void {
+    let exportRequest = new ExportRequest();
+    exportRequest.assessment = this.assessment;
+    exportRequest.showAsPercent = this.showValuesAsPercent;
+    exportRequest.assessmentItems = this.filteredMultipleChoiceItems;
+    exportRequest.pointColumns = this.choiceColumns;
+    exportRequest.type = RequestType.DistractorAnalysis;
+
+
+    this.angulartics2.eventTrack.next({
+      action: 'Export DistractorAnalysis',
+      properties: {
+        category: 'Export'
+      }
+    });
+
+    this.assessmentProvider.exportItemsToCsv(exportRequest);
   }
 
   getChoiceRowStyleClass(index: number) {
@@ -89,7 +111,7 @@ export class DistractorAnalysisComponent implements OnInit {
   // since primeng datatable does not currently support a setCellStyle function.
   // https://github.com/primefaces/primeng/issues/2157
   setTdClass(cell, item: AssessmentItem, column: DynamicItemField) {
-    if(item.answerKey && item.answerKey.indexOf(column.label)!==-1) {
+    if (item.answerKey && item.answerKey.indexOf(column.label) !== -1) {
       let td = cell.parentNode.parentNode;
       this.renderer.addClass(td, "green");
     }

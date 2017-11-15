@@ -14,7 +14,7 @@ import { AssessmentsComponent } from "../../assessments/assessments.component";
 import { TranslateService } from "@ngx-translate/core";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { SchoolGradeDownloadComponent } from "../../report/school-grade-report-download.component";
-import { Option } from "../../shared/form/sb-typeahead.component";
+import { Option } from "@sbac/rdw-reporting-common-ngx";
 import { OrganizationService } from "../organization.service";
 
 @Component({

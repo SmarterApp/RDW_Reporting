@@ -2,7 +2,7 @@ import { StudentHistoryIABTableComponent } from "./student-history-iab-table.com
 import { ComponentFixture, async, TestBed } from "@angular/core/testing";
 import { BrowserModule } from "@angular/platform-browser";
 import { SharedModule } from "primeng/components/common/shared";
-import { SchoolYearPipe } from "../../../shared/schoolYear.pipe";
+import { SchoolYearPipe } from "@sbac/rdw-reporting-common-ngx";
 import { TranslateModule } from "@ngx-translate/core";
 import { DataTableModule } from "primeng/components/datatable/datatable";
 import { ScaleScoreComponent } from "../../../assessments/results/scale-score.component";

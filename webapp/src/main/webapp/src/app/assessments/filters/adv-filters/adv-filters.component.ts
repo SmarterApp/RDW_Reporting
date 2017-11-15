@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { FilterBy } from "../../model/filter-by.model";
 import { ExamFilterOptions } from "../../model/exam-filter-options.model";
+import { UserService } from "../../../user/user.service";
 
 /*
   This component contains all of the selectable advanced filters
@@ -28,10 +29,17 @@ export class AdvFiltersComponent implements OnInit {
   @Input()
   showStudentFilter: boolean = true;
 
-  constructor() {
+  showTransferAccess: boolean = false;
+
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
+    this.userService.getCurrentUser()
+      .toPromise()
+      .then((user) => {
+        this.showTransferAccess = user.configuration.transferAccess;
+      });
   }
 
   get translateRoot() {

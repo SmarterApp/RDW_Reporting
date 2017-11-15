@@ -6,9 +6,11 @@ import { Angular2CsvProvider } from "./angular-csv.provider";
 import Spy = jasmine.Spy;
 import {Exam} from "../assessments/model/exam.model";
 import { Student } from "../student/model/student.model";
+import { SchoolYearPipe } from "@sbac/rdw-reporting-common-ngx";
 
 describe('CsvBuilder', () => {
   let datePipe: MockDatePipe;
+  let schoolYearPipe: MockSchoolYearPipe;
   let angular2Csv: any;
 
   beforeEach(() => {
@@ -31,6 +33,9 @@ describe('CsvBuilder', () => {
         }, {
           provide: DecimalPipe,
           useValue: MockDecimalPipe
+        }, {
+          provide: SchoolYearPipe,
+          useValue: schoolYearPipe
         }
       ]
     });
@@ -139,6 +144,10 @@ describe('CsvBuilder', () => {
 });
 
 export class MockDatePipe {
+  transform: Spy = jasmine.createSpy("transform");
+}
+
+export class MockSchoolYearPipe{
   transform: Spy = jasmine.createSpy("transform");
 }
 

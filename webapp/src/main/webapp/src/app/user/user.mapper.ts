@@ -67,7 +67,7 @@ export class UserMapper {
     uiModel.id = apiModel.id;
     uiModel.name = apiModel.name;
     uiModel.schoolName = apiModel.schoolName;
-    uiModel.subjectId = apiModel.subjectId;
+    uiModel.subjectCode = apiModel.subjectCode;
     return uiModel;
   }
 
@@ -82,6 +82,9 @@ export class UserMapper {
     uiModel.userGuideUrl = apiModel.userGuideUrl;
     uiModel.minItemDataYear = apiModel.minItemDataYear;
     uiModel.adminWebappUrl = apiModel.adminWebappUrl;
+    uiModel.reportLanguages = apiModel.reportLanguages;
+    uiModel.uiLanguages = apiModel.uiLanguages;
+    uiModel.transferAccess = apiModel.transferAccess;
     return uiModel;
   }
 

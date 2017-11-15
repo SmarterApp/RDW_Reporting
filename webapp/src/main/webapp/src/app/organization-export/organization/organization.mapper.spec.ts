@@ -1,5 +1,5 @@
 import { OrganizationMapper } from "./organization.mapper";
-import { Option } from "../../shared/form/sb-typeahead.component";
+import { Option } from "@sbac/rdw-reporting-common-ngx";
 import { Organization } from "./organization";
 import { Tree } from "./tree";
 

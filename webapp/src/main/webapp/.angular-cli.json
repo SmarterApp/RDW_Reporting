@@ -9,11 +9,15 @@
       "outDir": "../resources/static",
       "assets": [
         "assets",
-        "favicon.ico",
         {
-          "glob": "**/*",
+          "glob": "*",
           "input": "../node_modules/@sbac/sbac-ui-kit/dist/images",
           "output": "assets/image"
+        },
+        {
+          "glob": "*",
+          "input": "../node_modules/@sbac/sbac-ui-kit/dist/images/icon",
+          "output": "."
         }
       ],
       "index": "index.html",

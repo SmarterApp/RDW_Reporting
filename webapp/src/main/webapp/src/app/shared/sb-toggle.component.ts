@@ -1,6 +1,5 @@
-import { Component, forwardRef, OnInit, Input } from "@angular/core";
-import { Utils } from "./Utils";
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
+import { Component, forwardRef, Input, OnInit } from "@angular/core";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
 const NOOP: () => void = () => {};
 
@@ -19,10 +18,14 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   template: `
     <div class="btn-group btn-group-sm toggle-group" data-toggle="buttons">
       <label class="btn btn-primary" [ngClass]="{active: options[0].value === value, disabled: disabled}">
-        <input type="radio" [name]="name" [disabled]="disabled" [value]="options[0].value" [(ngModel)]="value">{{options[0].text}}
+        <input type="radio" [id]="name" [name]="name" [disabled]="disabled" [value]="options[0].value" [(ngModel)]="value"
+               angulartics2On="click" [angularticsEvent]="analyticsEvent"
+               [angularticsCategory]="analyticsCategory" [angularticsProperties]="options[0].angularticsProperties || {label: options[0].text}">{{options[0].text}}
       </label>
       <label class="btn btn-primary" [ngClass]="{'active': options[1].value === value, disabled: disabled}">
-        <input type="radio" [name]="name" [disabled]="disabled" [value]="options[1].value" [(ngModel)]="value">{{options[1].text}}
+        <input type="radio" [id]="name" [name]="name" [disabled]="disabled" [value]="options[1].value" [(ngModel)]="value"
+               angulartics2On="click" [angularticsEvent]="analyticsEvent"
+               [angularticsCategory]="analyticsCategory" [angularticsProperties]="options[1].angularticsProperties || {label: options[1].text}">{{options[1].text}}
       </label>
     </div>
   `,
@@ -33,9 +36,23 @@ export class SBToggleComponent implements ControlValueAccessor, OnInit {
   @Input()
   disabled: boolean = false;
 
+  @Input()
+  name: string;
+
+  /**
+   *  The analytics event to send when clicked
+   */
+  @Input()
+  public analyticsEvent: string;
+
+  /**
+   * The analytics category to use
+   */
+  @Input()
+  public analyticsCategory: string;
+
   private _options: Option[];
   private _value: any;
-  private _name: string = Utils.newGuid();
   private _onTouchedCallback: () => void = NOOP;
   private _onChangeCallback: (_: any) => void = NOOP;
 
@@ -66,10 +83,6 @@ export class SBToggleComponent implements ControlValueAccessor, OnInit {
       this._value = value;
       this._onChangeCallback(value);
     }
-  }
-
-  get name(): string {
-    return this._name;
   }
 
   ngOnInit() {
@@ -114,4 +127,5 @@ export class SBToggleComponent implements ControlValueAccessor, OnInit {
 export interface Option {
   value: any;
   text?: string;
+  angularticsProperties?: any;
 }

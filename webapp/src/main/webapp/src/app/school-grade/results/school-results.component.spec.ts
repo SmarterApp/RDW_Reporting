@@ -1,32 +1,28 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { DropdownModule } from "primeng/components/dropdown/dropdown";
-import { SharedModule } from "primeng/components/common/shared";
-import { BrowserModule } from "@angular/platform-browser";
 import { Observable } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { APP_BASE_HREF } from "@angular/common";
 import { SchoolResultsComponent } from "./school-results.component";
-import { AssessmentsModule } from "../../assessments/assessments.module";
 import { CommonModule } from "../../shared/common.module";
 import { SchoolService } from "../school.service";
-import { DataService } from "../../shared/data/data.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { SchoolAssessmentService } from "./school-assessment.service";
 import { User } from "../../user/model/user.model";
 import { School } from "../../user/model/school.model";
 import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
-import { Angulartics2, Angulartics2Module } from "angulartics2";
-import { PopoverModule, TypeaheadModule } from "ngx-bootstrap";
+import { Angulartics2 } from "angulartics2";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { UserService } from "../../user/user.service";
 import { MockUserService } from "../../../test/mock.user.service";
-import { ReportModule } from "../../report/report.module";
 import { MockActivatedRoute } from "../../../test/mock.activated-route";
-import { UserModule } from "../../user/user.module";
 import { OrganizationService } from "../organization.service";
 import { MockDataService } from "../../../test/mock.data.service";
 import { MockRouter } from "../../../test/mock.router";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { MockAuthorizeDirective } from "../../../test/mock.authorize.directive";
+import { MockTranslateService } from "../../../test/mock.translate.service";
+import { TranslateService } from "@ngx-translate/core";
 
 let availableGrades = [];
 
@@ -56,29 +52,27 @@ describe('SchoolResultsComponent', () => {
     let mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', [ 'eventTrack' ]);
     mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', [ 'next' ]);
 
+    let mockTranslate = new MockTranslateService();
+
+    let mockAssessmentService = jasmine.createSpyObj('SchoolAssessmentService', ['findGradesWithAssessmentsForSchool']);
+
+    let mockOrganizationService = jasmine.createSpyObj('OrganizationService', ['getSchoolsWithDistricts']);
+
     availableGrades = [];
     exportService = {};
 
     TestBed.configureTestingModule({
       imports: [
-        CommonModule,
-        UserModule,
-        BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
-        AssessmentsModule,
-        TypeaheadModule,
-        DropdownModule,
-        SharedModule,
-        Angulartics2Module,
-        PopoverModule.forRoot(),
-        ReportModule
+        CommonModule
       ],
-      declarations: [ SchoolResultsComponent ],
+      declarations: [
+        SchoolResultsComponent,
+        MockAuthorizeDirective
+      ],
       providers: [
-        OrganizationService,
+        { provide: OrganizationService, useValue: mockOrganizationService },
         { provide: APP_BASE_HREF, useValue: '/' },
-        SchoolAssessmentService,
+        { provide: SchoolAssessmentService, useValue: mockAssessmentService },
         { provide: DataService, useClass: MockDataService },
         { provide: ExamFilterOptionsService, useClass: MockExamFilterOptionService },
         { provide: SchoolService, useClass: MockSchoolService },
@@ -87,8 +81,10 @@ describe('SchoolResultsComponent', () => {
         { provide: Angulartics2, useValue: mockAngulartics2 },
         { provide: CsvExportService, useValue: exportService },
         { provide: UserService, useClass: MockUserService },
-        { provide: Router, useValue: mockRouter}
-      ]
+        { provide: Router, useValue: mockRouter},
+        { provide: TranslateService, useValue: mockTranslate }
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
   }));
 

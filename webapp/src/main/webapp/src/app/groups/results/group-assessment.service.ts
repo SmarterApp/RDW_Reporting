@@ -1,14 +1,15 @@
 import { Injectable } from "@angular/core";
 import { URLSearchParams } from "@angular/http";
-import { DataService } from "../../shared/data/data.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { AssessmentExamMapper } from "../../assessments/assessment-exam.mapper";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { AssessmentProvider } from "../../assessments/assessment-provider.interface";
 import { ResponseUtils } from "../../shared/response-utils";
-import { ItemByPointsEarnedExportRequest } from "../../assessments/model/item-by-points-earned-export-request.model";
+import { ExportRequest } from "../../assessments/model/export-request.model";
 import { Assessment } from "../../assessments/model/assessment.model";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { Angulartics2 } from "angulartics2";
+import { TranslateService } from "@ngx-translate/core";
 
 @Injectable()
 export class GroupAssessmentService implements AssessmentProvider {
@@ -21,10 +22,11 @@ export class GroupAssessmentService implements AssessmentProvider {
               private filterOptionService: ExamFilterOptionsService,
               private mapper: AssessmentExamMapper,
               private csvExportService: CsvExportService,
-              private angulartics2: Angulartics2) {
+              private angulartics2: Angulartics2,
+              private translate: TranslateService) {
   }
 
-  getMostRecentAssessment(groupId:number, schoolYear?: number) {
+  getMostRecentAssessment(groupId: number, schoolYear?: number) {
     if (schoolYear == undefined) {
       return this.filterOptionService.getExamFilterOptions().mergeMap(options => {
         return this.getRecentAssessmentBySchoolYear(groupId, options.schoolYears[ 0 ]);
@@ -51,28 +53,45 @@ export class GroupAssessmentService implements AssessmentProvider {
       });
   }
 
-  getAssessmentItems(assessmentId: number) {
+  getAssessmentItems(assessmentId: number, multipleChoiceMultipleSelectItems?: boolean) {
+    if (multipleChoiceMultipleSelectItems) {
+      return this.dataService.get(`/groups/${this.groupId}/assessments/${assessmentId}/examitems`, {
+        params: {
+          types: [ 'MC', 'MS' ],
+          schoolYear: this.schoolYear.toString()
+        }
+      })
+        .catch(ResponseUtils.badResponseToNull)
+        .map(x => {
+          return this.mapper.mapAssessmentItemsFromApi(x);
+        });
+    }
     return this.dataService.get(`/groups/${this.groupId}/assessments/${assessmentId}/examitems`, { search: this.getSchoolYearParams(this.schoolYear) })
       .catch(ResponseUtils.badResponseToNull)
       .map(x => {
         return this.mapper.mapAssessmentItemsFromApi(x);
       });
+
   }
-  exportItemsToCsv(exportRequest: ItemByPointsEarnedExportRequest) {
-    let assessment: Assessment = exportRequest.assessment;
-    let filename: string = this.groupName +
-      "-" + assessment.name +
-      "-ItemsByPoints" +
-      "-" + new Date().toDateString();
+
+  exportItemsToCsv(exportRequest: ExportRequest) {
+    let filename: string = this.getFilename(exportRequest);
 
     this.angulartics2.eventTrack.next({
-      action: 'Export Group Items By Points Earned',
+      action: 'Export Group Results by Items',
       properties: {
         category: 'Export'
       }
     });
 
-    this.csvExportService.exportItemsByPointsEarned(exportRequest, filename);
+    this.csvExportService.exportResultItems(exportRequest, filename);
+  }
+
+  private getFilename(exportRequest: ExportRequest) {
+    let assessment: Assessment = exportRequest.assessment;
+    let filename: string = this.groupName +
+      "-" + assessment.name + "-" + this.translate.instant(exportRequest.type.toString()) + "-" + new Date().toDateString();
+    return filename;
   }
 
   private getRecentAssessmentBySchoolYear(groupId: number, schoolYear: number) {

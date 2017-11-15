@@ -1,5 +1,5 @@
 import { Observable } from "rxjs/Observable";
-import { DataService } from "../shared/data/data.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { Injectable } from "@angular/core";
 import { Organization } from "./organization/organization";
 import { UserOrganizations } from "./organization/user-organizations";

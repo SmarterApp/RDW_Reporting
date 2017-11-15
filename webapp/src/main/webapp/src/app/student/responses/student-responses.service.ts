@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AssessmentExamMapper } from "../../assessments/assessment-exam.mapper";
-import { DataService } from "../../shared/data/data.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { Observable } from "rxjs";
 import { AssessmentItem } from "../../assessments/model/assessment-item.model";
 import { ResponseUtils } from "../../shared/response-utils";

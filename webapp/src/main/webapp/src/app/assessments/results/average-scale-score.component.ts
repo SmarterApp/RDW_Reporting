@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { AssessmentExam } from "../model/assessment-exam.model";
 import { ExamStatistics, ExamStatisticsLevel } from "../model/exam-statistics.model";
-import { ScaleScoreService } from "../../shared/scale-score.service";
+import { ScaleScoreService } from "./scale-score.service";
 
 /**
  * This component is responsible for displaying the average scale score visualization

@@ -1,5 +1,5 @@
 import { UserService } from "./user.service";
-import { CachingDataService } from "../shared/cachingData.service";
+import { CachingDataService } from "@sbac/rdw-reporting-common-ngx";
 import { TestBed, inject } from "@angular/core/testing";
 import { UserMapper } from "./user.mapper";
 import { RequestOptionsArgs } from "@angular/http";

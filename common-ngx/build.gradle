@@ -1,0 +1,38 @@
+plugins {
+  id "com.moowork.node" version "1.1.1"
+}
+
+node {
+  version = '7.10.0'
+  npmVersion = '4.5.0'
+  download = true
+  workDir = file("${project.projectDir}")
+  nodeModulesDir = file("${project.projectDir}")
+}
+
+//This is the build task for the Front End (Fe) and only compiles when the inputs change
+task buildFe(type: NpmTask) {
+  inputs.files(fileTree("src"))
+  inputs.file('package.json')
+  inputs.file('tsconfig-ngc.json')
+  dependsOn npm_install
+  outputs.dir('dist')
+  args = ['run', 'build']
+}
+
+task testFe(type: NpmTask) {
+  inputs.files(fileTree("src"))
+  inputs.file('package.json')
+  inputs.file('tsconfig.json')
+  inputs.file('karma.conf.ts')
+  inputs.file('karma-test-entry.ts')
+  inputs.file('webpack-test.config.ts')
+  dependsOn npm_install
+  outputs.dir('dist')
+  args = ['run', 'test']
+}
+
+// The processResources task takes care of gathering all of the resources in the project to the target directory.
+// In order to get the front end resources in to the final jar, the front end needs to be built
+// before all of the other resources are processed in order to get the static resources in the right place
+processResources.dependsOn buildFe

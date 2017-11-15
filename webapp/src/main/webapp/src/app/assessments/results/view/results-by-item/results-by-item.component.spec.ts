@@ -24,7 +24,7 @@ import { AssessmentProvider } from "../../../assessment-provider.interface";
 import { Observable } from "rxjs/Observable";
 import { Exam } from "../../../model/exam.model";
 import { AssessmentItem } from "../../../model/assessment-item.model";
-import { ItemByPointsEarnedExportRequest } from "../../../model/item-by-points-earned-export-request.model";
+import { ExportRequest } from "../../../model/export-request.model";
 import { MockAssessmentProvider } from "../../../../../test/mock.assessment.provider";
 
 describe('ResultsByItemComponent', () => {

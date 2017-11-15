@@ -15,11 +15,12 @@ sql:
       select sg.id,
         sg.name as group_name,
         sc.name as school_name,
-        sg.subject_id,
         sg.school_year,
-        (select count(*) from student_group_membership sgm where sgm.student_group_id = sg.id) as student_count
+        (select count(*) from student_group_membership sgm where sgm.student_group_id = sg.id) as student_count,
+        s.code as subject_code
       from student_group sg
         join school sc on sc.id = sg.school_id
+        left join subject s on s.id = sg.subject_id
       where sg.school_id = :school_id
         and sg.deleted = 0
         and (sg.subject_id is null or sg.subject_id in (:subject_ids))
@@ -39,6 +40,10 @@ sql:
       select name, id, natural_id
       from school
       where (1=:statewide or district_group_id in (:district_group_ids) or district_id in (:district_ids) or school_group_id in (:school_group_ids) or id in (:school_ids))
+
+  schoolYear:
+    findAll: >-
+      SELECT year FROM school_year ORDER BY year
 
   status:
     readTest: >-

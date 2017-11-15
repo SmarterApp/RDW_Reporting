@@ -1,7 +1,7 @@
 import { District, Organization, School, SchoolGroup } from "./organization";
 import { Injectable } from "@angular/core";
 import { Tree } from "./tree";
-import { Option } from "../../shared/form/sb-typeahead.component";
+import { Option } from "@sbac/rdw-reporting-common-ngx";
 import { UserOrganizations } from "./user-organizations";
 import { isUndefined } from "util";
 import { OrganizationType } from "./organization-type.enum";
