@@ -31,7 +31,10 @@
       "message": "Your user account is not permitted to access this reporting system. If you believe you have reached this page in error, please contact your building administrator."
     },
     "toggle-navigation": "Toggle navigation",
-    "no-item-level-data": "Item level data is not available for tests administered prior to 2017-18 school year.",
+    "no-results-by-item": "Results by item is not available for tests administered prior to 2017-18 school year.",
+    "no-results-by-item-for-summative-exams": "Results by item is not available for summative tests.",
+    "no-distractor-analysis": "Distractor analysis is not available for tests administered prior to 2017-18 school year.",
+    "no-distractor-analysis-for-summative-exams": "Distractor analysis is not available for summative tests.",
     "coming-soon": "{{featureName}} is coming soon.",
     "unknown-error": "An unknown error has occurred. You can try the same action again or click the button below to go to the home page.  If this problem persists, please contact your building administrator."
   },

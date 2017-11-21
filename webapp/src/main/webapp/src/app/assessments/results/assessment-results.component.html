@@ -87,8 +87,30 @@
             </button>
             <ul *dropdownMenu class="dropdown-menu" role="menu">
               <li *ngFor="let state of viewStateOptions" role="menuitem">
-                <a class="dropdown-item"
-                   popover="{{ 'messages.no-item-level-data' | translate }}"
+                <a *ngIf="state.isResultsByStudent()" class="dropdown-item"
+                   popover="{{'messages.no-results-by-item' | translate }}"
+                   triggers="{{ !state.disabled ? '': 'mouseenter:mouseleave'}}"
+                   placement="right"
+                   [ngClass]="{'selected': currentResultsView == state }">
+                  <button [disabled]="state.disabled"
+                          class="btn btn-default btn-borderless"
+                          (click)="setCurrentView(state)">
+                    {{ state.label | translate }}
+                  </button>
+                </a>
+                <a *ngIf="state.isResultsByItem()" class="dropdown-item"
+                   popover="{{ assessmentExam.assessment.isSummative ? 'messages.no-results-by-item-for-summative-exams' : 'messages.no-results-by-item' | translate }}"
+                   triggers="{{ !state.disabled ? '': 'mouseenter:mouseleave'}}"
+                   placement="right"
+                   [ngClass]="{'selected': currentResultsView == state }">
+                  <button [disabled]="state.disabled"
+                          class="btn btn-default btn-borderless"
+                          (click)="setCurrentView(state)">
+                    {{ state.label | translate }}
+                  </button>
+                </a>
+                <a *ngIf="state.isDistractorAnalysis()" class="dropdown-item"
+                   popover="{{ assessmentExam.assessment.isSummative ? 'messages.no-distractor-analysis-for-summative-exams' : 'messages.no-distractor-analysis' | translate }}"
                    triggers="{{ !state.disabled ? '': 'mouseenter:mouseleave'}}"
                    placement="right"
                    [ngClass]="{'selected': currentResultsView == state }">
