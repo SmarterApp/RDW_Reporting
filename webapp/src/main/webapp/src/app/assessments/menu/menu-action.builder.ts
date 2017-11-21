@@ -82,7 +82,7 @@ export class MenuActionBuilder {
 
     responsesAction.tooltip = ((actionable) => {
       return responsesAction.isDisabled(actionable)
-        ? this.translateService.instant('messages.no-item-level-data')
+        ? this.translateService.instant('messages.no-results-by-item')
         : '';
     });
 
