@@ -124,7 +124,7 @@ export class AssessmentResultsComponent implements OnInit {
     return this._assessmentExam;
   }
 
-  get hasResultsByItemOrDistractorAnalysisData(): boolean {
+  get displayItemLevelData(): boolean {
     return this._assessmentExam.exams.some(x => x.schoolYear > this.minimumItemDataYear) && !this._assessmentExam.assessment.isSummative;
   }
 
@@ -183,8 +183,8 @@ export class AssessmentResultsComponent implements OnInit {
     let states : ResultsView[] = [];
 
     states.push(this.getResultViewState(ResultsViewState.ByStudent, true, false));
-    states.push(this.getResultViewState(ResultsViewState.ByItem, this.hasResultsByItemOrDistractorAnalysisData, true));
-    states.push(this.getResultViewState(ResultsViewState.DistractorAnalysis, this.hasResultsByItemOrDistractorAnalysisData, true));
+    states.push(this.getResultViewState(ResultsViewState.ByItem, this.displayItemLevelData, true));
+    states.push(this.getResultViewState(ResultsViewState.DistractorAnalysis, this.displayItemLevelData, true));
 
     return states;
   }
