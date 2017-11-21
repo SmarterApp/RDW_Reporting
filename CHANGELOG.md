@@ -3,6 +3,9 @@
 #### 1.1.x
 
 * Rename rdw-admin-webapp to rdw-reporting-admin-webapp (affects configuration files).
+* Refactor report processor.
+    * NOTE: reporting-webapp no longer talks directly to wkhtmltopdf, but does talk to report-processor
+* NOTE: change datasource URL configuration.
 
 #### 1.0.4 - 2017-10-17
 
