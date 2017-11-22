@@ -27,7 +27,7 @@ describe('GroupResultsComponent', () => {
 
   beforeEach(async(() => {
     let user = new User();
-    user.groups = [ { name: "Group 1", id: 2, schoolName: '', subjectCode: 'ELA' } ];
+    user.groups = [ { name: "Group 1", id: 2, schoolName: '', schoolId: 123, subjectCode: 'ELA' } ];
 
     let mockRouteSnapshot: any = {};
     mockRouteSnapshot.data = { user: user };
