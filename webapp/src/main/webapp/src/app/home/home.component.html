@@ -12,7 +12,7 @@
         <a *sbAuthorize="['INDIVIDUAL_PII_READ']" routerLink="/custom-export" class="btn btn-xs btn-default"><i class="fa fa-bold fa-table"></i> {{'labels.organization-export.title' | translate}}</a>
 
         <!-- Student Groups Admin Link -->
-        <a *sbAuthorize="['GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE']"href="{{user.configuration.adminWebappUrl}}" class="btn btn-xs btn-info ml-xs"><i class="fa fa-gear"></i> {{'labels.groups.admin-button' | translate}}</a>
+        <a *sbAuthorize="['GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE']" href="{{user.configuration.adminWebappUrl}}" class="btn btn-xs btn-info ml-xs"><i class="fa fa-gear"></i> {{'labels.groups.admin-button' | translate}}</a>
 
       </div>
     </div>
