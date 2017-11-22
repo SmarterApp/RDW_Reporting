@@ -192,7 +192,7 @@ export class AssessmentResultsComponent implements OnInit {
       label: 'enum.results-view-state.' + ResultsViewState[viewState],
       value: viewState,
       disabled: !enabled,
-      canExport: canExport,
+      canExport: canExport
     }
   }
 
