@@ -188,7 +188,7 @@
       "filter": "Search by Group Name",
       "no-groups-message": "Contact your building administrator for access to group-level test results.",
       "empty-message": "There are no groups that match your search.  Please try again.",
-      "manage-group": "Manage Student Groups",
+      "admin-button": "Application Administration",
       "search-label": "Search by My Groups",
       "cols": {
         "group": "Group Name",
