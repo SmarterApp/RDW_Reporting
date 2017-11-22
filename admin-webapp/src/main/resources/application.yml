@@ -35,19 +35,38 @@ server:
     mime-types: application/json,application/xml,text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,text/csv
 
 spring:
-  datasource:
+  reporting_datasource:
     url: "\
-      jdbc:mysql://${spring.datasource.url-server:localhost:3306}/${spring.datasource.url-schema:warehouse}\
-      ?useSSL=${spring.datasource.use-ssl:false}\
-      &useLegacyDatetimeCode=${spring.datasource.use-legacy-datetime-code:false}\
-      &characterEncoding=${spring.datasource.character-encoding:utf8}\
+      jdbc:mysql://${spring.reporting_datasource.url-server:localhost:3306}/${spring.reporting_datasource.url-schema:reporting}\
+      ?useSSL=${spring.reporting_datasource.use-ssl:false}\
+      &useLegacyDatetimeCode=${spring.reporting_datasource.use-legacy-datetime-code:false}\
+      &characterEncoding=${spring.reporting_datasource.character-encoding:utf8}\
+      &rewriteBatchedStatements=${spring.reporting_datasource.rewrite-batched-statements:true}\
       "
     username: root
     password:
-    driverClassName: com.mysql.jdbc.Driver
     testWhileIdle: true
     validationQuery: SELECT 1
+    driverClassName: com.mysql.jdbc.Driver
     initialize: false
+    maxActive: 10
+    initialSize: 4
+
+  warehouse_datasource:
+    url: "\
+      jdbc:mysql://${spring.warehouse_datasource.url-server:localhost:3306}/${spring.warehouse_datasource.url-schema:warehouse}\
+      ?useSSL=${spring.warehouse_datasource.use-ssl:false}\
+      &useLegacyDatetimeCode=${spring.warehouse_datasource.use-legacy-datetime-code:false}\
+      &characterEncoding=${spring.warehouse_datasource.character-encoding:utf8}\
+      "
+    username: root
+    password:
+    testWhileIdle: true
+    validationQuery: SELECT 1
+    driverClassName: com.mysql.jdbc.Driver
+    initialize: false
+    maxActive: 10
+    initialSize: 4
 
   http:
     multipart:
