@@ -163,7 +163,9 @@ export class AssessmentResultsComponent implements OnInit {
   sessions = [];
   statistics: ExamStatistics;
   currentResultsView: ResultsView;
-  viewStateOptions: ResultsView[] = [];
+  resultsByStudentView: ResultsView;
+  resultsByItemView: ResultsView;
+  distractorAnalysisView: ResultsView;
 
   private _filterBy: FilterBy;
   private _assessmentExam: AssessmentExam;
@@ -175,18 +177,14 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.viewStateOptions = this.getViewStateOptions();
-    this.setCurrentView(this.viewStateOptions[0]);
+    this.setViews();
+    this.setCurrentView(this.resultsByStudentView);
   }
 
-  getViewStateOptions(): ResultsView[] {
-    let states : ResultsView[] = [];
-
-    states.push(this.getResultViewState(ResultsViewState.ByStudent, true, false));
-    states.push(this.getResultViewState(ResultsViewState.ByItem, this.displayItemLevelData, true));
-    states.push(this.getResultViewState(ResultsViewState.DistractorAnalysis, this.displayItemLevelData, true));
-
-    return states;
+  setViews(): void {
+    this.resultsByStudentView = this.getResultViewState(ResultsViewState.ByStudent, true, false);
+    this.resultsByItemView = this.getResultViewState(ResultsViewState.ByItem, this.displayItemLevelData, true)
+    this.distractorAnalysisView = this.getResultViewState(ResultsViewState.DistractorAnalysis, this.displayItemLevelData, true);
   }
 
   getResultViewState(viewState: ResultsViewState, enabled: boolean, canExport: boolean): ResultsView {
@@ -195,15 +193,6 @@ export class AssessmentResultsComponent implements OnInit {
       value: viewState,
       disabled: !enabled,
       canExport: canExport,
-      isResultsByItem(): boolean {
-        return viewState == ResultsViewState.ByItem;
-      },
-      isResultsByStudent(): boolean {
-        return viewState == ResultsViewState.ByStudent;
-      },
-      isDistractorAnalysis(): boolean {
-        return viewState == ResultsViewState.DistractorAnalysis;
-      }
     }
   }
 
@@ -275,9 +264,6 @@ interface ResultsView {
   value: ResultsViewState;
   disabled: boolean;
   canExport: boolean;
-  isDistractorAnalysis(): boolean;
-  isResultsByItem(): boolean;
-  isResultsByStudent(): boolean;
 }
 
 export interface ExportResults {

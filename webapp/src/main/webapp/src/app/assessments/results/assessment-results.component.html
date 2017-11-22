@@ -86,38 +86,42 @@
              {{ currentResultsView.label | translate }} <i class="fa fa-angle-down"></i>
             </button>
             <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li *ngFor="let state of viewStateOptions" role="menuitem">
-                <a *ngIf="state.isResultsByStudent()" class="dropdown-item"
+              <li role="menuitem">
+                <a class="dropdown-item"
                    popover="{{'messages.no-results-by-item' | translate }}"
-                   triggers="{{ !state.disabled ? '': 'mouseenter:mouseleave'}}"
+                   triggers="{{ !resultsByStudentView.disabled ? '': 'mouseenter:mouseleave'}}"
                    placement="right"
-                   [ngClass]="{'selected': currentResultsView == state }">
-                  <button [disabled]="state.disabled"
+                   [ngClass]="{'selected': currentResultsView == resultsByStudentView }">
+                  <button [disabled]="resultsByStudentView.disabled"
                           class="btn btn-default btn-borderless"
-                          (click)="setCurrentView(state)">
-                    {{ state.label | translate }}
+                          (click)="setCurrentView(resultsByStudentView)">
+                    {{ resultsByStudentView.label | translate }}
                   </button>
                 </a>
-                <a *ngIf="state.isResultsByItem()" class="dropdown-item"
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item"
                    popover="{{ assessmentExam.assessment.isSummative ? 'messages.no-results-by-item-for-summative-exams' : 'messages.no-results-by-item' | translate }}"
-                   triggers="{{ !state.disabled ? '': 'mouseenter:mouseleave'}}"
+                   triggers="{{ !resultsByItemView.disabled ? '': 'mouseenter:mouseleave'}}"
                    placement="right"
-                   [ngClass]="{'selected': currentResultsView == state }">
-                  <button [disabled]="state.disabled"
+                   [ngClass]="{'selected': currentResultsView == resultsByItemView }">
+                  <button [disabled]="resultsByItemView.disabled"
                           class="btn btn-default btn-borderless"
-                          (click)="setCurrentView(state)">
-                    {{ state.label | translate }}
+                          (click)="setCurrentView(resultsByItemView)">
+                    {{ resultsByItemView.label | translate }}
                   </button>
                 </a>
-                <a *ngIf="state.isDistractorAnalysis()" class="dropdown-item"
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item"
                    popover="{{ assessmentExam.assessment.isSummative ? 'messages.no-distractor-analysis-for-summative-exams' : 'messages.no-distractor-analysis' | translate }}"
-                   triggers="{{ !state.disabled ? '': 'mouseenter:mouseleave'}}"
+                   triggers="{{ !distractorAnalysisView.disabled ? '': 'mouseenter:mouseleave'}}"
                    placement="right"
-                   [ngClass]="{'selected': currentResultsView == state }">
-                  <button [disabled]="state.disabled"
+                   [ngClass]="{'selected': currentResultsView == distractorAnalysisView }">
+                  <button [disabled]="distractorAnalysisView.disabled"
                           class="btn btn-default btn-borderless"
-                          (click)="setCurrentView(state)">
-                    {{ state.label | translate }}
+                          (click)="setCurrentView(distractorAnalysisView)">
+                    {{ distractorAnalysisView.label | translate }}
                   </button>
                 </a>
               </li>
