@@ -4,7 +4,6 @@ import { TranslateService } from "@ngx-translate/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Student } from "../../student/model/student.model";
 import { isNullOrUndefined } from "util";
-import { AssessmentExam } from "../model/assessment-exam.model";
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 
 /**
@@ -93,6 +92,7 @@ export class MenuActionBuilder {
   /**
    * Adds an action item which shows resources.  If the resource url is null
    * or undefined then the action item will be disabled with a tooltip.
+   * TODO: This should display a 2nd-level/popup menu containing assessment/school resources on click/hover
    *
    * @param getResourceUrl lambda which accesses the assessment resource url.
    * @returns {MenuActionBuilder}
@@ -114,7 +114,6 @@ export class MenuActionBuilder {
     resourcesAction.displayName = (() => resourcesLabel);
     resourcesAction.perform = ((actionable) => {
       window.open(getResourceUrl(actionable));
-      console.log(`Show Resources: ${getResourceUrl(actionable)}`)
     }).bind(this);
 
     this.actions.push(resourcesAction);

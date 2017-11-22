@@ -15,6 +15,7 @@ sql:
       select sg.id,
         sg.name as group_name,
         sc.name as school_name,
+        sc.id as school_id,
         sg.school_year,
         (select count(*) from student_group_membership sgm where sgm.student_group_id = sg.id) as student_count,
         s.code as subject_code

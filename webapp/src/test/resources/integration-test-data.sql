@@ -41,9 +41,6 @@ insert into asmt (id, type_id, natural_id, grade_id, grade_code, subject_id, sch
   (-3, 3, 'sum1', -1, 'g1', 1, 1997, 'sum1', 'sum1', 'v1', 'sum_claim1', 'sum_claim2', 'sum_claim3', null, 1000, 2000, 3000, 4000, 5000, -1, '1997-07-18 20:14:34.000000', -1),
   (-4, 3, 'sum2', -1, 'g1', 2, 1997, 'sum2', 'sum1', 'v1', 'sum_claim1', 'sum_claim2', 'sum_claim3', null, 1000, 2000, 3000, 4000, 5000, -1, '1997-07-18 20:14:34.000000', -1);
 
-insert into instructional_resource(name, resource) values
-  ('iab1', 'http://www.google.com');
-
 insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, opportunity, iep, lep, section504, economic_disadvantage,
   school_year, asmt_id, asmt_version, completeness_id, completeness_code, administration_condition_id, administration_condition_code, session_id,
   scale_score, scale_score_std_err, performance_level, completed_at,
