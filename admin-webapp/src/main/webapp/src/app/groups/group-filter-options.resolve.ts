@@ -6,7 +6,7 @@ import { GroupService } from "./groups.service";
 import { UserService } from "../user/user.service";
 import { User } from "../user/model/user.model";
 
-const AdminPermissions = [ 'GROUP_WRITE' ];
+const GroupFilterOptionPermissions = [ 'GROUP_WRITE' ];
 
 @Injectable()
 export class GroupFilterOptionsResolve implements Resolve<GroupFilterOptions> {
@@ -20,7 +20,7 @@ export class GroupFilterOptionsResolve implements Resolve<GroupFilterOptions> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<GroupFilterOptions> | Promise<GroupFilterOptions> | GroupFilterOptions {
     let userHasAccess: boolean;
     this._userService.getCurrentUser().subscribe(user => {
-      userHasAccess = user.permissions.some(permission => AdminPermissions.indexOf(permission) !== -1);
+      userHasAccess = user.permissions.some(permission => GroupFilterOptionPermissions.indexOf(permission) !== -1);
 
     });
     if (userHasAccess) {
