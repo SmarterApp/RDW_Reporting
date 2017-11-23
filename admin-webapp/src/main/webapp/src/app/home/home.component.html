@@ -6,21 +6,17 @@
       <h1 class="blue-dark h1 mb-md">{{'application.title' | translate}}</h1>
     </div>
   </div>
-  <div class="row">
 
-    <!-- Left Column Content Area -->
-    <div class="col-md-9">
-
-      <!-- Manage Student Groups -->
-      <div *sbAuthorize="['GROUP_WRITE']" class="well">
-        <groups></groups>
-      </div>
-
-      <!-- Instructional Resource -->
-      <div *sbAuthorize="['INSTRUCTIONAL_RESOURCE_WRITE']" class="well">
-        <instructional-resource></instructional-resource>
-      </div>
+  <!-- Row Content Area -->
+  <div>
+    <!-- Manage Student Groups -->
+    <div *sbAuthorize="['GROUP_WRITE']" class="well">
+      <groups></groups>
     </div>
 
+    <!-- Instructional Resource -->
+    <div *sbAuthorize="['INSTRUCTIONAL_RESOURCE_WRITE']" class="well">
+      <instructional-resource></instructional-resource>
+    </div>
   </div>
 </div>
