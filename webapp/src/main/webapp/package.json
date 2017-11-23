@@ -4,13 +4,14 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "build": "ng build --prod",
+    "build": "ng build --prod && npm run move_build_to_static_resources",
     "start": "ng serve --proxy-config proxy.conf.json",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
     "test-ci": "ng test -sr --reporters teamcity",
     "pree2e": "webdriver-manager update",
-    "e2e": "protractor"
+    "e2e": "protractor",
+    "move_build_to_static_resources": "rimraf ../resources/static && copyfiles -u 1 dist/* dist/assets/**/* ../resources/static"
   },
   "private": true,
   "dependencies": {
@@ -46,12 +47,13 @@
     "zone.js": "^0.8.13"
   },
   "devDependencies": {
-    "@angular/cli": "^1.2.7",
+    "@angular/cli": "^1.5.4",
     "@angular/compiler-cli": "4.1.1",
     "@sbac/rdw-reporting-common-ngx": "file:../../../../common-ngx/dist/sbac-rdw-reporting-common-ngx-0.0.0.tgz",
     "@types/jasmine": "2.5.38",
     "@types/node": "^6.0.82",
     "codelyzer": "3.0.0-beta.0",
+    "copyfiles": "^1.2.0",
     "jasmine-core": "2.5.2",
     "jasmine-spec-reporter": "2.5.0",
     "karma": "1.2.0",
@@ -63,6 +65,7 @@
     "karma-teamcity-reporter": "^1.0.0",
     "phantomjs-prebuilt": "^2.1.14",
     "protractor": "4.0.9",
+    "rimraf": "^2.6.2",
     "ts-node": "1.2.1",
     "tslint": "^4.0.0",
     "typescript": "2.4.1",
