@@ -26,6 +26,9 @@ import { DropdownModule } from 'primeng/primeng';
     ModalModule.forRoot(),
     FormsModule
   ],
+  exports: [
+    GroupsComponent
+  ],
   providers: [
     GroupFilterOptionsResolve,
     GroupService

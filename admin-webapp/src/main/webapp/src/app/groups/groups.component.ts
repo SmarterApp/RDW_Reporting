@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { GroupFilterOptions } from "./model/group-filter-options.model";
 import { ActivatedRoute, Router } from "@angular/router";
 import { GroupService } from "./groups.service";
 import { GroupQuery } from "./model/group-query.model";
 import { Group } from "./model/group.model";
 import { DeleteGroupModalComponent } from "./delete-group.modal";
-import { BsModalService, BsModalRef } from "ngx-bootstrap";
+import { BsModalRef, BsModalService } from "ngx-bootstrap";
 import { Subscription } from "rxjs";
 
 @Component({

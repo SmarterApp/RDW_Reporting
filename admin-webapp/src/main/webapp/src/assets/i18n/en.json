@@ -95,6 +95,9 @@
       },
       "history": {
         "title": "Upload History"
+      },
+      "instructional-resource": {
+        "title": "Instructional Resource"
       }
     },
     "menu": "Menu",
