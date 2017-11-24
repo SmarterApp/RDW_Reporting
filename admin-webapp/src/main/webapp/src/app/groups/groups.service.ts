@@ -8,6 +8,8 @@ import { byNumber, byString } from "@kourge/ordering/comparator";
 import { GroupQuery } from "./model/group-query.model";
 import { URLSearchParams } from "@angular/http";
 import { Group } from "./model/group.model";
+import { ResponseUtils } from "../shared/response-utils";
+import { Resolution } from "../shared/resolution.model";
 
 const ALL = 'ALL';
 
@@ -17,10 +19,11 @@ export class GroupService {
   constructor(private dataService: DataService) {
   }
 
-  getFilterOptions(): Observable<GroupFilterOptions> {
+  getFilterOptions(): Observable<Resolution<GroupFilterOptions>> {
     return this.dataService
       .get('/groups/filters')
       .map(this.mapFilterOptionsFromApi.bind(this))
+      .catch(ResponseUtils.throwError);
   }
 
   getGroups(query: GroupQuery): Observable<Group[]> {

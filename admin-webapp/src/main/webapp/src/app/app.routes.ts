@@ -31,7 +31,11 @@ export const routes: Routes = [
         path: '',
         resolve: { filterOptions: GroupFilterOptionsResolve },
         children: [
-          { path: '', pathMatch: 'full', component: HomeComponent },
+          {
+            path: '',
+            pathMatch: 'full',
+            component: HomeComponent
+          },
           {
             path: 'groups',
             pathMatch: 'prefix',
@@ -41,12 +45,19 @@ export const routes: Routes = [
               },
               permissions: [ 'GROUP_WRITE' ]
             },
+            canActivate: [ AuthorizeCanActivate ],
             component: GroupsComponent
           },
           {
             path: 'import',
             pathMatch: 'prefix',
-            data: { breadcrumb: { translate: 'labels.groups.import.title' } },
+            data: {
+              breadcrumb: {
+                translate: 'labels.groups.import.title'
+              },
+              permissions: [ 'GROUP_WRITE' ]
+            },
+            canActivate: [ AuthorizeCanActivate ],
             children: [
               {
                 path: '',
@@ -73,6 +84,10 @@ export const routes: Routes = [
           {
             path: 'history',
             pathMatch: 'prefix',
+            data: {
+              permissions: [ 'GROUP_WRITE' ]
+            },
+            canActivate: [ AuthorizeCanActivate ],
             children: [
               {
                 path: '',
@@ -83,11 +98,6 @@ export const routes: Routes = [
               }
             ]
           },
-          {
-            path: 'session-expired',
-            pathMatch: 'full',
-            component: SessionExpiredComponent
-          }
         ]
       },
       {
@@ -109,5 +119,10 @@ export const routes: Routes = [
         path: 'access-denied',
         pathMatch: 'full',
         component: AccessDeniedComponent
+      },
+      {
+        path: 'session-expired',
+        pathMatch: 'full',
+        component: SessionExpiredComponent
       } ]
   } ];
