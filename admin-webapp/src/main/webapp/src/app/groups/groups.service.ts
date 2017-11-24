@@ -19,7 +19,8 @@ export class GroupService {
 
   getFilterOptions(): Observable<GroupFilterOptions> {
     return this.dataService
-      .get('/groups/filters');
+      .get('/groups/filters')
+      .map(this.mapFilterOptionsFromApi.bind(this));
   }
 
   getGroups(query: GroupQuery): Observable<Group[]> {
