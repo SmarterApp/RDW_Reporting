@@ -38,25 +38,29 @@ export class GroupsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.filterOptions = this.route.snapshot.data[ 'filterOptions' ];
-    this.query = new GroupQuery(this.filterOptions.subjects);
+    this.service.getFilterOptions().subscribe((filterOptions: GroupFilterOptions) => {
 
-    if (this.filterOptions.schools.length == 0) {
-      return;
-    }
+      this.filterOptions = filterOptions;
 
-    this.schoolDropdownOptions = this.filterOptions.schools.map(school => <any>{
-      label: `${school.name} (${school.naturalId})`,
-      value: school,
-      name: school.name,
-      naturalId: school.naturalId
-    });
+      this.query = new GroupQuery(this.filterOptions.subjects);
 
-    this.route.params.subscribe((params: any) => {
-      this.query.school = this.filterOptions.schools.find(school => school.id == params.schoolId) || this.filterOptions.schools[ 0 ];
-      this.query.schoolYear = this.filterOptions.schoolYears.find(year => year === +params.schoolYear) || this.filterOptions.schoolYears[ 0 ];
-      this.query.subject = this.filterOptions.subjects.find(subject => subject === params.subject) || this.filterOptions.subjects[ 0 ];
-      this.updateResults();
+      if (this.filterOptions.schools.length == 0) {
+        return;
+      }
+
+      this.schoolDropdownOptions = this.filterOptions.schools.map(school => <any>{
+        label: `${school.name} (${school.naturalId})`,
+        value: school,
+        name: school.name,
+        naturalId: school.naturalId
+      });
+
+      this.route.params.subscribe((params: any) => {
+        this.query.school = this.filterOptions.schools.find(school => school.id == params.schoolId) || this.filterOptions.schools[ 0 ];
+        this.query.schoolYear = this.filterOptions.schoolYears.find(year => year === +params.schoolYear) || this.filterOptions.schoolYears[ 0 ];
+        this.query.subject = this.filterOptions.subjects.find(subject => subject === params.subject) || this.filterOptions.subjects[ 0 ];
+        this.updateResults();
+      });
     });
   }
 

@@ -5,10 +5,10 @@
     <span class="btn btn-default" [routerLink]="['history']"><i class="fa fa-history"></i> {{'labels.groups.history.title' | translate}}</span>
   </div>
 </div>
-<div *ngIf="filterOptions.schools.length == 0" class="alert alert-danger">
+<div *ngIf="filterOptions && filterOptions.schools.length == 0" class="alert alert-danger">
   {{ 'labels.groups.no-schools' | translate }}
 </div>
-<div *ngIf="filterOptions.schools.length > 0">
+<div *ngIf="filterOptions && filterOptions.schools.length > 0">
   <!-- Filters -->
   <div class="well">
     <div class="row">
@@ -35,7 +35,7 @@
       <!-- School Year Select -->
       <div class="col-md-2">
         <label for="select-schoolyear">{{'labels.groups.select-school-year' | translate}}</label>
-        <select id="select-schoolyear" [(ngModel)]="query.schoolYear" class="form-control" (change)="updateRoute()" >
+        <select id="select-schoolyear" [(ngModel)]="query.schoolYear" class="form-control" (change)="updateRoute()">
           <option *ngFor="let schoolYear of filterOptions.schoolYears" [ngValue]="schoolYear">{{schoolYear | schoolYear
             }}
           </option>

@@ -11,7 +11,6 @@ import { FileFormatComponent } from "./groups/import/fileformat/file-format.comp
 import { GroupImportDeactivateGuard } from "./groups/import/group-import.deactivate";
 import { GroupImportComponent } from "./groups/import/group-import.component";
 import { GroupsComponent } from "./groups/groups.component";
-import { GroupFilterOptionsResolve } from "./groups/group-filter-options.resolve";
 
 export const routes: Routes = [
   {
@@ -29,7 +28,6 @@ export const routes: Routes = [
       },
       {
         path: '',
-        resolve: { filterOptions: GroupFilterOptionsResolve },
         children: [
           {
             path: '',
@@ -52,10 +50,7 @@ export const routes: Routes = [
             path: 'import',
             pathMatch: 'prefix',
             data: {
-              breadcrumb: {
-                translate: 'labels.groups.import.title'
-              },
-              permissions: [ 'GROUP_WRITE' ]
+              breadcrumb: { translate: 'labels.groups.import.title' }, permissions: [ 'GROUP_WRITE' ]
             },
             canActivate: [ AuthorizeCanActivate ],
             children: [

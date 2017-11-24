@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { GroupsComponent } from "./groups.component";
 import { CommonModule } from "../shared/common.module";
-import { GroupFilterOptionsResolve } from "./group-filter-options.resolve";
 import { GroupService } from "./groups.service";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
@@ -30,7 +29,6 @@ import { DropdownModule } from 'primeng/primeng';
     GroupsComponent
   ],
   providers: [
-    GroupFilterOptionsResolve,
     GroupService
   ]
 })
