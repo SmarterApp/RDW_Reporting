@@ -1,8 +1,8 @@
 <div class="mb-md">
   <span class="h3 blue-dark">{{'labels.groups.title' | translate}}</span>
   <div class="pull-right">
-    <span class="btn btn-primary mr-xs" [routerLink]="['import']"><i class="fa fa-cloud-upload"></i> {{'labels.groups.import.link' | translate}}</span>
-    <span class="btn btn-default" [routerLink]="['history']"><i class="fa fa-history"></i> {{'labels.groups.history.title' | translate}}</span>
+    <span class="btn btn-primary mr-xs" [routerLink]="['/import']"><i class="fa fa-cloud-upload"></i> {{'labels.groups.import.link' | translate}}</span>
+    <span class="btn btn-default" [routerLink]="['/history']"><i class="fa fa-history"></i> {{'labels.groups.history.title' | translate}}</span>
   </div>
 </div>
 <div *ngIf="filterOptions && filterOptions.schools.length == 0" class="alert alert-danger">
