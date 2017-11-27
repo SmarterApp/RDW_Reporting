@@ -15,11 +15,11 @@ export class UserService {
 
   getCurrentUser(): Observable<User> {
     // currentUser has already been populated, return that.
-    if(!isNullOrUndefined(this.currentUser))
+    if (!isNullOrUndefined(this.currentUser))
       return Observable.of(this.currentUser);
 
     // currentUser is not populated and a request is not in progress.
-    if(isNullOrUndefined(this.currentUserObservable)) {
+    if (isNullOrUndefined(this.currentUserObservable)) {
       this.currentUserObservable = this._dataService
         .get("/user")
         .share()
