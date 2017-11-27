@@ -21,3 +21,5 @@ app:
   iris:
     vendorId: vendorId
     url: http://my-iris.somewhere.org/iris/
+
+  test-mode: true

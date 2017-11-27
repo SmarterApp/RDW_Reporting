@@ -10,3 +10,5 @@ artifacts:
 permissionservice:
   endpoint:
 
+app:
+  test-mode: true
