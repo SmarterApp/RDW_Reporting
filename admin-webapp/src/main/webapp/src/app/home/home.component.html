@@ -8,15 +8,13 @@
   </div>
 
   <!-- Row Content Area -->
-  <div>
+  <div class="well">
     <!-- Manage Student Groups -->
-    <div *sbAuthorize="['GROUP_WRITE']" class="well">
-      <groups></groups>
-    </div>
+    <a *sbAuthorize="['GROUP_WRITE']" routerLink="groups">{{ 'labels.groups.title' | translate}} <br/></a>
 
     <!-- Instructional Resource -->
-    <div *sbAuthorize="['INSTRUCTIONAL_RESOURCE_WRITE']" class="well">
-      <instructional-resource></instructional-resource>
-    </div>
+    <a *sbAuthorize="['INSTRUCTIONAL_RESOURCE_WRITE']" routerLink="instructional-resource">{{
+      'labels.instructional-resource.title' | translate}} <br/></a>
+
   </div>
 </div>

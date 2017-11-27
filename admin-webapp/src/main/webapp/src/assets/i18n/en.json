@@ -96,10 +96,10 @@
       },
       "history": {
         "title": "View Uploads"
-      },
-      "instructional-resource": {
-        "title": "Instructional Resource"
       }
+    },
+    "instructional-resource": {
+      "title": "Manage Instructional Resources"
     },
     "menu": "Menu",
     "more-info": "More Information",
