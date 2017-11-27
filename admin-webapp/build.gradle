@@ -51,8 +51,8 @@ dependencies {
 }
 
 node {
-    version = '7.10.0'
-    npmVersion = '4.5.0'
+    version = '8.9.1'
+    npmVersion = '5.5.1'
     download = true
     workDir = file("${project.projectDir}/src/main/webapp")
     nodeModulesDir = file("${project.projectDir}/src/main/webapp")
@@ -74,6 +74,8 @@ task deleteProjectDependencies(type: Delete) {
     dependsOn project(':rdw-reporting-common-ngx').tasks.build
 }
 
+npm_install.dependsOn(deleteProjectDependencies)
+
 //This is the build task for the Front End (Fe) and only compiles when the inputs change
 task buildFe(type: NpmTask) {
     inputs.files(fileTree("src/main/webapp/src"))
@@ -82,9 +84,12 @@ task buildFe(type: NpmTask) {
     outputs.dir('build/resources/static')
     dependsOn npm_install
     args = ['run', 'build']
+    // move build from dist to static resources
+    doLast {
+        copy { from "src/main/webapp/dist" into "src/main/resources/static" }
+        delete "src/main/webapp/dist"
+    }
 }
-
-npm_install.dependsOn(deleteProjectDependencies)
 
 task testFe(type: NpmTask) {
     inputs.files(fileTree("src/main/webapp/src"))
