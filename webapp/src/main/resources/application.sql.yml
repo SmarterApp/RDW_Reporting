@@ -683,15 +683,15 @@ sql:
         LEFT JOIN district_group
           ON ir.org_level = 'DistrictGroup'
           AND district_group.id = school.district_group_id
-          AND district_group.natural_id = ir.org_natural_id
+          AND district_group.id = ir.org_id
         LEFT JOIN district
           ON ir.org_level = 'District'
           AND district.id = school.district_id
-          AND district.natural_id = ir.org_natural_id
+          AND district.id = ir.org_id
         LEFT JOIN school_group
           ON ir.org_level = 'SchoolGroup'
           AND school_group.id = school.school_group_id
-          AND school_group.natural_id = ir.org_natural_id
+          AND school_group.id = ir.org_id
       WHERE asmt.id = :asmt_id
         AND school.id = :school_id
         AND
