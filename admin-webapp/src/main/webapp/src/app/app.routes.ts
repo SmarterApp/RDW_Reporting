@@ -40,59 +40,66 @@ export const routes: Routes = [
             data: {
               breadcrumb: {
                 translate: 'labels.groups.title',
-              },
-              permissions: [ 'GROUP_WRITE' ]
+              }
             },
-            canActivate: [ AuthorizeCanActivate ],
-            component: GroupsComponent
-          },
-          {
-            path: 'import',
-            pathMatch: 'prefix',
-            data: {
-              breadcrumb: { translate: 'labels.groups.import.title' }, permissions: [ 'GROUP_WRITE' ]
-            },
-            canActivate: [ AuthorizeCanActivate ],
             children: [
               {
                 path: '',
                 pathMatch: 'prefix',
-                component: GroupImportComponent,
-                canDeactivate: [ GroupImportDeactivateGuard ]
+                data: {
+                  permissions: [ 'GROUP_WRITE' ]
+                },
+                canActivate: [ AuthorizeCanActivate ],
+                component: GroupsComponent
               },
               {
-                path: 'fileformat',
-                pathMatch: 'prefix',
+                path: 'import',
                 data: {
-                  breadcrumb: { translate: 'labels.groups.import.file-format.header' }
+                  breadcrumb: { translate: 'labels.groups.import.title' }, permissions: [ 'GROUP_WRITE' ]
                 },
+                canActivate: [ AuthorizeCanActivate ],
                 children: [
                   {
                     path: '',
                     pathMatch: 'prefix',
-                    component: FileFormatComponent
+                    component: GroupImportComponent,
+                    canDeactivate: [ GroupImportDeactivateGuard ]
+                  },
+                  {
+                    path: 'fileformat',
+                    pathMatch: 'prefix',
+                    data: {
+                      breadcrumb: { translate: 'labels.groups.import.file-format.header' }
+                    },
+                    children: [
+                      {
+                        path: '',
+                        pathMatch: 'prefix',
+                        component: FileFormatComponent
+                      }
+                    ]
                   }
                 ]
-              }
-            ]
-          },
-          {
-            path: 'history',
-            pathMatch: 'prefix',
-            data: {
-              permissions: [ 'GROUP_WRITE' ]
-            },
-            canActivate: [ AuthorizeCanActivate ],
-            children: [
+              },
               {
-                path: '',
+                path: 'history',
                 pathMatch: 'prefix',
-                component: ImportHistoryComponent,
-                resolve: { imports: ImportHistoryResolve },
-                data: { breadcrumb: { translate: 'labels.groups.history.title' } }
-              }
+                data: {
+                  permissions: [ 'GROUP_WRITE' ]
+                },
+                canActivate: [ AuthorizeCanActivate ],
+                children: [
+                  {
+                    path: '',
+                    pathMatch: 'prefix',
+                    component: ImportHistoryComponent,
+                    resolve: { imports: ImportHistoryResolve },
+                    data: { breadcrumb: { translate: 'labels.groups.history.title' } }
+                  }
+                ]
+              },
             ]
-          },
+          }
         ]
       },
       {
@@ -119,5 +126,7 @@ export const routes: Routes = [
         path: 'session-expired',
         pathMatch: 'full',
         component: SessionExpiredComponent
-      } ]
-  } ];
+      }
+    ]
+  }
+];
