@@ -50,7 +50,6 @@ sql:
         a.cut_point_1 as asmt_cut_point_1,
         a.cut_point_2 as asmt_cut_point_2,
         a.cut_point_3 as asmt_cut_point_3,
-        ir.resource as asmt_resource,
         s.id as school_id,
         s.name as school_name,
         s.district_id as school_district_id,
@@ -61,7 +60,6 @@ sql:
         join asmt a on e.asmt_id=a.id
         join school s on e.school_id=s.id
         join school isch on st.inferred_school_id = isch.id
-        left join instructional_resource ir on ir.name = a.name
       where e.student_id=:student_id
         and
         (
@@ -185,6 +183,7 @@ sql:
         sg.id,
         sg.name,
         sc.name as school_name,
+        sc.id as school_id,
         s.code as subject_code
       from user_student_group usg
         join student_group sg on sg.id = usg.student_group_id
@@ -210,10 +209,8 @@ sql:
             a.max_score,
             a.cut_point_1,
             a.cut_point_2,
-            a.cut_point_3,
-            ir.resource
+            a.cut_point_3
           from asmt a
-            left join instructional_resource ir on ir.name = a.name
             join exam e on e.asmt_id = a.id
             join student_group_membership sgm on e.student_id = sgm.student_id
             join school s on e.school_id = s.id
@@ -252,12 +249,10 @@ sql:
             a.max_score,
             a.cut_point_1,
             a.cut_point_2,
-            a.cut_point_3,
-            ir.resource
+            a.cut_point_3
           from exam e
             join student_group_membership sgm on e.student_id=sgm.student_id
             join asmt a on e.asmt_id=a.id
-            left join instructional_resource ir on ir.name = a.name
             join school s on e.school_id=s.id
           where e.school_year=:school_year
             and sgm.student_group_id=:group_id
@@ -374,10 +369,8 @@ sql:
           a.max_score,
           a.cut_point_1,
           a.cut_point_2,
-          a.cut_point_3,
-          ir.resource
+          a.cut_point_3
         from asmt a
-        left join instructional_resource ir on ir.name = a.name
         where exists (
             select e.asmt_id
             from exam e
@@ -420,11 +413,9 @@ sql:
           a.max_score,
           a.cut_point_1,
           a.cut_point_2,
-          a.cut_point_3,
-          ir.resource
+          a.cut_point_3
         from exam e
           join asmt a on e.asmt_id=a.id
-          left join instructional_resource ir on ir.name = a.name
           join school s on e.school_id=s.id
         where e.school_year=:school_year
         and e.school_id=:school_id
@@ -677,3 +668,37 @@ sql:
       from common_core_standard ccs
         join item_common_core_standard iccs on iccs.common_core_standard_id = ccs.id
       where iccs.item_id = :item_id
+
+  instructionalResource:
+    findAllByAssessmentId: >-
+      SELECT
+        ir.performance_level,
+        ir.resource,
+        ir.org_level,
+        coalesce(district_group.name, district.name, school_group.name) AS org_name
+      FROM instructional_resource ir
+        JOIN asmt
+          ON asmt.natural_id = ir.asmt_natural_id
+        JOIN school
+        LEFT JOIN district_group
+          ON ir.org_level = 'DistrictGroup'
+          AND district_group.id = school.district_group_id
+          AND district_group.natural_id = ir.org_natural_id
+        LEFT JOIN district
+          ON ir.org_level = 'District'
+          AND district.id = school.district_id
+          AND district.natural_id = ir.org_natural_id
+        LEFT JOIN school_group
+          ON ir.org_level = 'SchoolGroup'
+          AND school_group.id = school.school_group_id
+          AND school_group.natural_id = ir.org_natural_id
+      WHERE asmt.id = :asmt_id
+        AND school.id = :school_id
+        AND
+        (
+          ir.org_level = 'System'
+          OR ir.org_level = 'State'
+          OR (ir.org_level = 'DistrictGroup' AND district_group.id IS NOT NULL)
+          OR (ir.org_level = 'District' AND district.id IS NOT NULL)
+          OR (ir.org_level = 'SchoolGroup' AND school_group.id IS NOT NULL)
+        )

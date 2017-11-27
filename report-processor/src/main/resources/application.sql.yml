@@ -26,7 +26,6 @@ sql:
         a.cut_point_2 as asmt_cut_point_2,
         a.cut_point_3 as asmt_cut_point_3,
         a.max_score as asmt_max_score,
-        ir.resource as asmt_resource,
         st.id as student_id,
         st.ssid as student_ssid,
         st.first_name as student_first_name,
@@ -40,7 +39,6 @@ sql:
         d.name as district_name
       from exam e
         join asmt a on e.asmt_id=a.id
-        left join instructional_resource ir on ir.name = a.name
         join student st on e.student_id=st.id
         join school s on e.school_id=s.id
         join district d on s.district_id=d.id
@@ -125,7 +123,6 @@ sql:
         a.cut_point_2 as asmt_cut_point_2,
         a.cut_point_3 as asmt_cut_point_3,
         a.max_score as asmt_max_score,
-        ir.resource as asmt_resource,
         st.id as student_id,
         st.ssid as student_ssid,
         st.first_name as student_first_name,
@@ -139,7 +136,6 @@ sql:
         d.name as district_name
       from exam e
         join asmt a on e.asmt_id=a.id
-        left join instructional_resource ir on ir.name = a.name
         join student st on e.student_id=st.id
         join school s on e.school_id=s.id
         join district d on s.district_id=d.id
@@ -201,7 +197,6 @@ sql:
         a.cut_point_2 as asmt_cut_point_2,
         a.cut_point_3 as asmt_cut_point_3,
         a.max_score as asmt_max_score,
-        ir.resource as asmt_resource,
         st.id as student_id,
         st.ssid as student_ssid,
         st.first_name as student_first_name,
@@ -215,7 +210,6 @@ sql:
         d.name as district_name
       from exam e
         join asmt a on e.asmt_id=a.id
-        left join instructional_resource ir on ir.name = a.name
         join student st on e.student_id=st.id
         join school s on e.school_id=s.id
         join school isch on st.inferred_school_id = isch.id
@@ -301,7 +295,6 @@ sql:
         a.cut_point_2 as asmt_cut_point_2,
         a.cut_point_3 as asmt_cut_point_3,
         a.max_score as asmt_max_score,
-        ir.resource as asmt_resource,
         st.id as student_id,
         st.ssid as student_ssid,
         st.first_name as student_first_name,
@@ -315,7 +308,6 @@ sql:
         d.name as district_name
       from exam e
         join asmt a on e.asmt_id=a.id
-        left join instructional_resource ir on ir.name = a.name
         join student st on e.student_id=st.id
         join school s on e.school_id=s.id
         join district d on s.district_id=d.id
@@ -420,7 +412,6 @@ sql:
         a.cut_point_2 as asmt_cut_point_2,
         a.cut_point_3 as asmt_cut_point_3,
         a.max_score as asmt_max_score,
-        ir.resource as asmt_resource,
         st.id as student_id,
         st.ssid as student_ssid,
         st.first_name as student_first_name,
@@ -434,7 +425,6 @@ sql:
         d.name as district_name
       from exam e
         join asmt a on e.asmt_id=a.id
-        left join instructional_resource ir on ir.name = a.name
         join student st on e.student_id=st.id
         join school s on e.school_id=s.id
         join district d on s.district_id=d.id
@@ -515,7 +505,6 @@ sql:
         a.cut_point_2 as asmt_cut_point_2,
         a.cut_point_3 as asmt_cut_point_3,
         a.max_score as asmt_max_score,
-        ir.resource as asmt_resource,
         st.id as student_id,
         st.ssid as student_ssid,
         st.first_name as student_first_name,
@@ -529,7 +518,6 @@ sql:
         d.name as district_name
       from exam e
         join asmt a on e.asmt_id=a.id
-        left join instructional_resource ir on ir.name = a.name
         join student st on e.student_id=st.id
         join school s on e.school_id=s.id
         join district d on s.district_id=d.id

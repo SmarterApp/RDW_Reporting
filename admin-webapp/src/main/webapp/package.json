@@ -43,7 +43,7 @@
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
-    "@angular/cli": "^1.2.7",
+    "@angular/cli": "^1.5.4",
     "@angular/compiler-cli": "4.1.1",
     "@sbac/rdw-reporting-common-ngx": "file:../../../../common-ngx/dist/sbac-rdw-reporting-common-ngx-0.0.0.tgz",
     "@types/jasmine": "2.5.38",

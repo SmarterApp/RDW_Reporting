@@ -13,7 +13,7 @@
   },
   "welcome": "Welcome {{firstName}} {{lastName}}",
   "application": {
-    "title": "Manage Student Groups"
+    "title": "Application Administration"
   },
   "messages": {
     "no-results-found": "No results found.",
