@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Headers, ResponseContentType } from "@angular/http";
 import { ReportOptions } from "./report-options.model";
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
 import { AssessmentType } from "../shared/enum/assessment-type.enum";
 import { AssessmentSubjectType } from "../shared/enum/assessment-subject-type.enum";
 import { DataService, Download } from "@sbac/rdw-reporting-common-ngx";

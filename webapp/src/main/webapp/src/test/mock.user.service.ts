@@ -1,4 +1,4 @@
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
 import { User } from "../app/user/model/user.model";
 
 export class MockUserService {

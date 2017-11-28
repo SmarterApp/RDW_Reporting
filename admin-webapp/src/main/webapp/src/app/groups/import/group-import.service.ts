@@ -1,8 +1,7 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { isNullOrUndefined } from "util";
+import { Observable } from "rxjs/Observable";
 import { ImportResult } from "./import-result.model";
-import { DataService } from "@sbac/rdw-reporting-common-ngx";
+import { DataService, Utils } from "@sbac/rdw-reporting-common-ngx";
 
 /**
  * This service is responsible for retrieving student group batches
@@ -32,9 +31,11 @@ export class GroupImportService {
   }
 
   private mapWarehouseImportsFromApi(apiStudentGroupBatch: any[]): ImportResult[] {
-    if (isNullOrUndefined(apiStudentGroupBatch)) return [];
+    if (Utils.isNullOrUndefined(apiStudentGroupBatch)) {
+      return [];
+    }
     return apiStudentGroupBatch
-      .filter(apiStudentGroupBatch => !isNullOrUndefined(apiStudentGroupBatch))
+      .filter(apiStudentGroupBatch => !Utils.isNullOrUndefined(apiStudentGroupBatch))
       .map(apiStudentGroupBatch => this.mapImportResultFromApi(apiStudentGroupBatch));
   }
 }

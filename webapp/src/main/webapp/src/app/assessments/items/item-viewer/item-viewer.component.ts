@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { UserService } from "../../../user/user.service";
 import { ItemScoringGuide } from "../item-exemplar/model/item-scoring-guide.model";
 import { ItemScoringService } from "../item-exemplar/item-scoring.service";
-import { isNullOrUndefined } from "util";
+import { Utils } from "@sbac/rdw-reporting-common-ngx";
 
 /**
  * IRiS is the vendor client which allows us to integrate with the
@@ -68,7 +68,7 @@ export class ItemViewerComponent implements OnInit {
       .subscribe(guide => {
         if (guide.rubrics.length > 0 ||
           guide.exemplars.length > 0 ||
-          !isNullOrUndefined(guide.answerKeyValue)) {
+          !Utils.isNullOrUndefined(guide.answerKeyValue)) {
           this.rubricModel = guide;
         }
       }, (response) => {
@@ -89,10 +89,10 @@ export class ItemViewerComponent implements OnInit {
   loadToken() {
     let token = this.getToken(this.bankItemKey);
     IRiS.loadToken(this.vendorId, token)
-      .done((function() {
+      .done((function () {
         this.loadResponse();
       }).bind(this))
-      .fail((function(err) {
+      .fail((function (err) {
         if (this._currentAttempt-- > 0) {
           console.log("Failed to load token, attempting again", err);
           setTimeout(this.loadToken.bind(this), 2000);
@@ -112,9 +112,11 @@ export class ItemViewerComponent implements OnInit {
 
   private getToken(bankItemKey: string): string {
     return JSON.stringify({
-      items: [{
-        id: `I-${bankItemKey}`
-      }]
+      items: [
+        {
+          id: `I-${bankItemKey}`
+        }
+      ]
     });
   }
 
@@ -131,6 +133,7 @@ export class ItemViewerComponent implements OnInit {
       payload.label = position.toString();
     }
 
-    return [payload];
+    return [ payload ];
   }
+
 }

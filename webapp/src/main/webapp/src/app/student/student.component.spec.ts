@@ -7,7 +7,7 @@ import { ReactiveFormsModule, AbstractControl } from "@angular/forms";
 import { SharedModule } from "primeng/components/common/shared";
 import { StudentExamHistoryService } from "./student-exam-history.service";
 import { Angulartics2Module } from 'angulartics2';
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
 import Spy = jasmine.Spy;
 import { Router } from "@angular/router";
 import { MockRouter } from "../../test/mock.router";

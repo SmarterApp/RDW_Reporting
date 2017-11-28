@@ -8,13 +8,12 @@ import { SchoolAssessmentService } from "./school-assessment.service";
 import { School } from "../../user/model/school.model";
 import { SchoolService } from "../school.service";
 import { Grade } from "../grade.model";
-import { isNullOrUndefined } from "util";
 import { Angulartics2 } from "angulartics2";
 import { AssessmentsComponent } from "../../assessments/assessments.component";
 import { TranslateService } from "@ngx-translate/core";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { SchoolGradeDownloadComponent } from "../../report/school-grade-report-download.component";
-import { Option } from "@sbac/rdw-reporting-common-ngx";
+import { Option, Utils } from "@sbac/rdw-reporting-common-ngx";
 import { OrganizationService } from "../organization.service";
 
 @Component({
@@ -54,7 +53,7 @@ export class SchoolResultsComponent implements OnInit {
   set currentSchool(value) {
     this._currentSchool = value;
 
-    if (!isNullOrUndefined(value)) {
+    if (!Utils.isNullOrUndefined(value)) {
       this.assessmentProvider.schoolId = value.id;
       this.assessmentProvider.schoolName = value.name;
     }
@@ -70,9 +69,9 @@ export class SchoolResultsComponent implements OnInit {
 
   set currentGrade(value: Grade) {
     this._currentGrade = value;
-
-    if (!isNullOrUndefined(value))
+    if (!Utils.isNullOrUndefined(value)) {
       this.assessmentProvider.grade = value;
+    }
   }
 
   /**
@@ -152,12 +151,12 @@ export class SchoolResultsComponent implements OnInit {
           this.gradesAreUnavailable = this.availableGrades.length == 0;
 
           if (grades.length > 0) {
-            let grade = isNullOrUndefined(this.currentGrade)
+            let grade = Utils.isNullOrUndefined(this.currentGrade)
               ? undefined
               : this.availableGrades.find(grade => grade.id == this.currentGrade.id);
 
             // Try and keep the same grade selected, if it's available.
-            this.currentGrade = isNullOrUndefined(grade)
+            this.currentGrade = Utils.isNullOrUndefined(grade)
               ? grades[ 0 ]
               : grade;
           } else {
@@ -172,8 +171,9 @@ export class SchoolResultsComponent implements OnInit {
     let params: any = {};
     params.schoolYear = this.currentSchoolYear;
 
-    if (!isNullOrUndefined(this.currentGrade))
+    if (!Utils.isNullOrUndefined(this.currentGrade)) {
       params.gradeId = this.currentGrade.id;
+    }
 
     this.router.navigate([ 'schools', this.currentSchool.id, params ]).then(() => {
       this.updateAssessment(this.route.snapshot.data[ "assessment" ]);

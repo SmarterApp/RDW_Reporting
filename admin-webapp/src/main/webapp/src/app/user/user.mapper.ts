@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { User } from "./model/user.model";
-import { isNullOrUndefined } from "util";
 import { Configuration } from "./model/configuration.model";
+import { Utils } from "@sbac/rdw-reporting-common-ngx";
 
 @Injectable()
 export class UserMapper {
@@ -10,18 +10,15 @@ export class UserMapper {
     let local = new User();
     local.firstName = remote.firstName;
     local.lastName = remote.lastName;
-    remote.permissions.forEach(permission => {
-      local.permissions.push(permission);
-    });
-    local.configuration = this.mapConfigurationFromApi(remote.settings);
+    local.permissions = remote.permissions.concat();
+    if (!Utils.isUndefined(remote.settings)) {
+      local.configuration = this.mapConfigurationFromApi(remote.settings);
+    }
     return local;
   }
 
   private mapConfigurationFromApi(remote: any): Configuration {
     let local = new Configuration();
-    if (isNullOrUndefined(remote))
-      return local;
-
     local.analyticsTrackingId = remote.analyticsTrackingId;
     local.homeUrl = remote.homeUrl;
     local.uiLanguages = remote.uiLanguages;

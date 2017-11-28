@@ -1,6 +1,6 @@
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
-import { isNullOrUndefined } from "util";
 import { AssessmentSubjectType } from "../../shared/enum/assessment-subject-type.enum";
+import { Utils } from "@sbac/rdw-reporting-common-ngx";
 
 export class Assessment {
   id: number;
@@ -18,7 +18,7 @@ export class Assessment {
   }
 
   get hasResourceUrl(): boolean {
-    return !isNullOrUndefined(this.resourceUrl);
+    return !Utils.isNullOrUndefined(this.resourceUrl);
   }
 
   get isIab(): boolean {

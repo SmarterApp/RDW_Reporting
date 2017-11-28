@@ -8,22 +8,19 @@ import { Assessment } from "../assessments/model/assessment.model";
 import { AssessmentType } from "../shared/enum/assessment-type.enum";
 import { Angular2CsvProvider } from "./angular-csv.provider";
 import { AssessmentItem } from "../assessments/model/assessment-item.model";
-import { isNullOrUndefined } from "util";
 import { DynamicItemField } from "../assessments/model/item-point-field.model";
-import { SchoolYearPipe } from "@sbac/rdw-reporting-common-ngx";
+import { SchoolYearPipe, Utils } from "@sbac/rdw-reporting-common-ngx";
 
 @Injectable()
 export class CsvBuilder {
-  private columns: CsvColumn[];
-  private filename: string;
+  private columns: CsvColumn[] = [];
+  private filename: string = "export";
 
   constructor(private angular2csv: Angular2CsvProvider,
               private translateService: TranslateService,
               private datePipe: DatePipe,
               private schoolYearPipe: SchoolYearPipe,
               private numberPipe: DecimalPipe) {
-    this.columns = [];
-    this.filename = "export";
   }
 
   /**
@@ -408,8 +405,9 @@ export class CsvBuilder {
         (item) => {
           let field = showAsPercent ? column.percentField : column.numberField;
           let value: number = getAssessmentItem(item)[ field ];
-          if (isNullOrUndefined(value)) return "";
-
+          if (Utils.isNullOrUndefined(value)) {
+            return '';
+          }
           return this.numberAsString(value, showAsPercent);
         }
       )

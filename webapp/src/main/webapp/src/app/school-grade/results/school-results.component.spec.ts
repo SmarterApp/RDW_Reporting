@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
 import { ActivatedRoute, Router } from "@angular/router";
 import { APP_BASE_HREF } from "@angular/common";
 import { SchoolResultsComponent } from "./school-results.component";

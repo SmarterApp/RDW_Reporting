@@ -1,6 +1,6 @@
 import { UserOrganizations } from "./organization/user-organizations";
 import { GroupedOrganizationIds, OrganizationExportOptions } from "./organization-export-options";
-import { isUndefined } from "util";
+import { Utils } from "@sbac/rdw-reporting-common-ngx";
 
 export class OrganizationExportNamingService {
 
@@ -51,7 +51,7 @@ export class OrganizationExportNamingService {
       return selection.firstSchool.name;
     }
     if (selection.schoolCount > 1) {
-      if (!isUndefined(selection.firstSchool.schoolGroupId)
+      if (!Utils.isUndefined(selection.firstSchool.schoolGroupId)
         && selection.schools.every(x => x.schoolGroupId === selection.firstSchool.schoolGroupId)) {
         return selection.firstSchool.schoolGroup.name;
       }

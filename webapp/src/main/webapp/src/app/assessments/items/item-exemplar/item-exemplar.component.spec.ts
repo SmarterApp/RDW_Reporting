@@ -3,7 +3,7 @@ import { ItemExemplarComponent } from "./item-exemplar.component";
 import { ItemScoringService } from "./item-scoring.service";
 import { ItemScoringGuideMapper } from "./item-scoring-guide.mapper";
 import { CommonModule } from "../../../shared/common.module";
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
 import { ItemScoringGuide } from "./model/item-scoring-guide.model";
 import { CachingDataService } from "@sbac/rdw-reporting-common-ngx";
 import { MockDataService } from "../../../../test/mock.data.service";

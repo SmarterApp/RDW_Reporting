@@ -7,7 +7,7 @@ import { StudentResponsesService } from "./student-responses.service";
 import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { AssessmentExamMapper } from "../../assessments/assessment-exam.mapper";
 import { AssessmentItem } from "../../assessments/model/assessment-item.model";
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
 
 describe('StudentResponsesService', () => {
   let dataService: MockDataService;

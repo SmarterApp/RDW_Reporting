@@ -1,4 +1,4 @@
-INSERT INTO instructional_resource (asmt_natural_id, performance_level, org_level, org_id, resource) VALUES
+INSERT INTO instructional_resource (asmt_name, performance_level, org_level, org_id, resource) VALUES
   -- System ica1 resources
   ('ica1', 0, 'System', null, 'http://ica1/system/assessment-wide'),
   ('ica1', 1, 'System', null, 'http://ica1/system/performance/1'),

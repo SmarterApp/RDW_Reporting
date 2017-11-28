@@ -1,25 +1,26 @@
 import { Injectable } from "@angular/core";
 import { UserMapper } from "./user.mapper";
-import { CachingDataService } from "@sbac/rdw-reporting-common-ngx";
-import { Observable } from "rxjs";
+import { CachingDataService, Utils } from "@sbac/rdw-reporting-common-ngx";
+import { Observable } from "rxjs/Observable";
 import { User } from "./model/user.model";
-import { isNullOrUndefined } from "util";
 
 @Injectable()
 export class UserService {
-  constructor(private _mapper: UserMapper, private _dataService: CachingDataService) {
-  }
 
   private currentUser: User;
   private currentUserObservable: Observable<User>;
 
+  constructor(private _mapper: UserMapper,
+              private _dataService: CachingDataService) {
+  }
+
   getCurrentUser(): Observable<User> {
     // currentUser has already been populated, return that.
-    if(!isNullOrUndefined(this.currentUser))
+    if(!Utils.isNullOrUndefined(this.currentUser)) {
       return Observable.of(this.currentUser);
-
+    }
     // currentUser is not populated and a request is not in progress.
-    if(isNullOrUndefined(this.currentUserObservable)) {
+    if(Utils.isNullOrUndefined(this.currentUserObservable)) {
       this.currentUserObservable = this._dataService
         .get("/user")
         .catch(res => {
@@ -27,10 +28,9 @@ export class UserService {
         })
         .share()
         .map(user => {
-          if(isNullOrUndefined(user)) {
+          if(Utils.isNullOrUndefined(user)) {
             return null;
           }
-
           return this._mapper.mapFromApi(user)
         });
 
@@ -44,7 +44,7 @@ export class UserService {
   doesCurrentUserHaveAnyPermissions(): Observable<boolean> {
     return new Observable(observer => {
       this.getCurrentUser().subscribe(user => {
-        observer.next(!isNullOrUndefined(user)
+        observer.next(!Utils.isNullOrUndefined(user)
           ? user.permissions.length !== 0
           : false);
         observer.complete();
@@ -55,7 +55,7 @@ export class UserService {
   doesCurrentUserHaveAtLeastOnePermission(permissions: string[]): Observable<boolean> {
     return new Observable(observer => {
       this.getCurrentUser().subscribe(user => {
-        observer.next(!isNullOrUndefined(user)
+        observer.next(!Utils.isNullOrUndefined(user)
           ? this.doesAtLeastOneExist(permissions, user.permissions)
           : false);
         observer.complete();

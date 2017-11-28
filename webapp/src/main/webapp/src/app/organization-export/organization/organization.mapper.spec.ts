@@ -2,6 +2,7 @@ import { OrganizationMapper } from "./organization.mapper";
 import { Option } from "@sbac/rdw-reporting-common-ngx";
 import { Organization } from "./organization";
 import { Tree } from "./tree";
+import { UserOrganizations } from "./user-organizations";
 
 describe('OrganizationService', () => {
 
@@ -13,7 +14,7 @@ describe('OrganizationService', () => {
       schoolGroups = [],
       districts: Organization[] = [ { id: 2, name: 'District A' } ].map(x => fixture.createDistrict(x));
 
-    let expected = {
+    let expected = <UserOrganizations>{
       organizations: [ ...districts, ...schools ],
       schools: schools,
       schoolsById: new Map([ [ 1, schools[ 0 ] ] ]),
@@ -103,7 +104,7 @@ describe('OrganizationService', () => {
 
     let actual = fixture.createOrganizationTree(organizations);
 
-    let expected = new Tree();
+    let expected = new Tree<Organization>();
     expected
       .create(organizations.districts[ 0 ])
       .create(organizations.schools[ 0 ]);
@@ -118,7 +119,7 @@ describe('OrganizationService', () => {
 
     let actual = fixture.createOrganizationTreeWithPlaceholders([ organizations.schools[ 0 ] ], organizations);
 
-    let expected = new Tree();
+    let expected = new Tree<Organization>();
     expected
       .create(organizations.districts[ 0 ])
       .create(fixture.createSchoolGroup())

@@ -1,5 +1,5 @@
 import Spy = jasmine.Spy;
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
 import { TranslationChangeEvent, LangChangeEvent, DefaultLangChangeEvent } from "@ngx-translate/core";
 import { EventEmitter } from "@angular/core";
 

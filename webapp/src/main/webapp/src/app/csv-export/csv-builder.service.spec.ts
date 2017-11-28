@@ -24,19 +24,11 @@ describe('CsvBuilder', () => {
         TestModule
       ],
       providers: [
-        CsvBuilder, {
-          provide: DatePipe,
-          useValue: datePipe
-        }, {
-          provide: Angular2CsvProvider,
-          useValue: angular2Csv
-        }, {
-          provide: DecimalPipe,
-          useValue: MockDecimalPipe
-        }, {
-          provide: SchoolYearPipe,
-          useValue: schoolYearPipe
-        }
+        CsvBuilder,
+        { provide: DatePipe, useValue: datePipe },
+        { provide: Angular2CsvProvider, useValue: angular2Csv },
+        { provide: DecimalPipe, useValue: MockDecimalPipe },
+        { provide: SchoolYearPipe, useValue: schoolYearPipe }
       ]
     });
   });
@@ -93,7 +85,7 @@ describe('CsvBuilder', () => {
 
       expect(tabularData.length).toBe(3);
       expect(tabularData[0]).toEqual(["labels.export.cols.scale-score", "labels.export.cols.achievement-level", "labels.groups.results.assessment.exams.cols.iab.performance"]);
-      expect(tabularData[1]).toEqual([2580, "enum.achievement-level.full.1", "enum.iab-category.full.1"]);
+      expect(tabularData[1]).toEqual(<any>[2580, "enum.achievement-level.full.1", "enum.iab-category.full.1"]);
       expect(tabularData[2]).toEqual(["", "", ""]);
     }));
 

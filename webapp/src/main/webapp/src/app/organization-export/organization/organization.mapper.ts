@@ -1,9 +1,8 @@
 import { District, Organization, School, SchoolGroup } from "./organization";
 import { Injectable } from "@angular/core";
 import { Tree } from "./tree";
-import { Option } from "@sbac/rdw-reporting-common-ngx";
+import { Option, Utils } from "@sbac/rdw-reporting-common-ngx";
 import { UserOrganizations } from "./user-organizations";
-import { isUndefined } from "util";
 import { OrganizationType } from "./organization-type.enum";
 import { createUuid } from "./organization-support";
 
@@ -117,10 +116,10 @@ export class OrganizationMapper {
     let root = new Tree<Organization>();
     organizations.schools.forEach(school => {
       let node = root;
-      if (!isUndefined(school.districtId)) {
+      if (!Utils.isUndefined(school.districtId)) {
         node = node.getOrCreate(x => x.id === school.districtId, organizations.districtsById.get(school.districtId))
       }
-      if (!isUndefined(school.schoolGroupId)) {
+      if (!Utils.isUndefined(school.schoolGroupId)) {
         node = node.getOrCreate(x => x.id === school.schoolGroupId, organizations.schoolGroupsById.get(school.schoolGroupId))
       }
       node.create(school);
@@ -129,7 +128,7 @@ export class OrganizationMapper {
   }
 
   private or(a: any, b: any) {
-    return isUndefined(a) ? b : a;
+    return Utils.isUndefined(a) ? b : a;
   }
 
 }

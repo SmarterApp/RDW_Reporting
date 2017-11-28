@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { ItemInfoService } from "../items/item-info/item-info.service";
 import { AssessmentItem } from "../model/assessment-item.model";
-import { isNullOrUndefined } from "util";
+import { Utils } from "@sbac/rdw-reporting-common-ngx";
 
 /**
  * This component is responsible for displaying a label with
@@ -22,7 +22,7 @@ export class ClaimTargetComponent {
   }
 
   loadTargetDescription(): void {
-    if (isNullOrUndefined(this.target)) {
+    if (Utils.isNullOrUndefined(this.target)) {
       this.service.getTargetDescription(this.item.targetId)
         .subscribe(target => {
           this.target = target;

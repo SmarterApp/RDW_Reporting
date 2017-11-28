@@ -2,9 +2,9 @@ import { Component } from "@angular/core";
 import { UserService } from "./user/user.service";
 import { NavigationEnd, Router } from "@angular/router";
 import { Location, PopStateEvent } from "@angular/common";
-import { isNullOrUndefined } from "util";
 import { User } from "./user/model/user.model";
 import { LanguageStore } from "@sbac/rdw-reporting-common-ngx/i18n";
+import { Utils } from "@sbac/rdw-reporting-common-ngx";
 
 @Component({
   selector: 'app-component',
@@ -30,7 +30,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(user => {
-      if (!isNullOrUndefined(user)) {
+      if (!Utils.isNullOrUndefined(user)) {
         this._user = user;
         this.languageStore.configuredLanguages = user.configuration.uiLanguages;
         this.initializeAnalytics(user.configuration.analyticsTrackingId);

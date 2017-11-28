@@ -6,7 +6,8 @@ import { GroupQuery } from "./model/group-query.model";
 import { Group } from "./model/group.model";
 import { DeleteGroupModalComponent } from "./delete-group.modal";
 import { BsModalRef, BsModalService } from "ngx-bootstrap";
-import { Subscription } from "rxjs";
+import { Subscription } from "rxjs/Subscription";
+
 
 @Component({
   selector: 'groups',

@@ -2,8 +2,8 @@ import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
 import { GroupImportService } from "./group-import.service";
 import { ImportResult } from "./import-result.model";
 import { FileUploader } from "ng2-file-upload";
-import { isNullOrUndefined } from "util";
 import { TranslateService } from "@ngx-translate/core";
+import { Utils } from "@sbac/rdw-reporting-common-ngx";
 
 const URL = '/api/studentGroups/';
 
@@ -20,7 +20,8 @@ export class GroupImportComponent implements OnInit {
   public uploader: FileUploader;
   public hasDropZoneOver: boolean;
 
-  constructor(private studentGroupService: GroupImportService, private translate: TranslateService) {
+  constructor(private studentGroupService: GroupImportService,
+              private translate: TranslateService) {
   }
 
   ngOnInit() {
@@ -28,7 +29,7 @@ export class GroupImportComponent implements OnInit {
     this.uploader.setOptions({ autoUpload: true });
 
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      if (!isNullOrUndefined(response)) {
+      if (!Utils.isNullOrUndefined(response)) {
         this.importResults.push(this.studentGroupService.mapImportResultFromApi(JSON.parse(response)));
         this.importResults = this.importResults.slice();
       }

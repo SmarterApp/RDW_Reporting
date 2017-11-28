@@ -8,6 +8,7 @@ import { RouterModule } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { BrowserModule } from "@angular/platform-browser";
   imports: [
     BrowserModule,
     HttpModule,
+    HttpClientModule,
     FormsModule,
     RdwPreferenceModule,
     // These can be overridden in the consuming apps

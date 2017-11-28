@@ -1,5 +1,5 @@
 import { NotFoundError } from "./not-found.error";
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
 
 export class Resolution<T> {
 

@@ -1,5 +1,5 @@
 import Spy = jasmine.Spy;
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
 
 export class MockRouter {
 

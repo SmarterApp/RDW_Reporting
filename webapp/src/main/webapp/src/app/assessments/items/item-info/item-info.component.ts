@@ -1,11 +1,12 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { AssessmentItem } from "../../model/assessment-item.model";
 import { ItemInfoService } from "./item-info.service";
-import { isNullOrUndefined } from "util";
+import { Utils } from "@sbac/rdw-reporting-common-ngx";
 
 @Component({
   selector: 'item-info',
-  templateUrl: './item-info.component.html'})
+  templateUrl: './item-info.component.html'
+})
 export class ItemInfoComponent implements OnInit {
 
   @Input()
@@ -15,20 +16,21 @@ export class ItemInfoComponent implements OnInit {
   targetDescription: string;
   commonCoreStandards: any[];
 
-  constructor(private service: ItemInfoService) { }
+  constructor(private service: ItemInfoService) {
+  }
 
   ngOnInit() {
     this.service
       .getInterpretiveGuide()
       .subscribe(guide => this.interpretiveGuideUrl = guide);
 
-    if(!isNullOrUndefined(this.item.targetId)) {
+    if (!Utils.isNullOrUndefined(this.item.targetId)) {
       this.service
         .getTargetDescription(this.item.targetId)
         .subscribe(description => this.targetDescription = description);
     }
 
-    if(this.item.hasCommonCoreStandards) {
+    if (this.item.hasCommonCoreStandards) {
       this.service
         .getCommonCoreStandards(this.item.id)
         .subscribe(standards => this.commonCoreStandards = standards);
