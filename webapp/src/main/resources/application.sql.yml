@@ -678,7 +678,7 @@ sql:
         coalesce(district_group.name, district.name, school_group.name) AS org_name
       FROM instructional_resource ir
         JOIN asmt
-          ON asmt.natural_id = ir.asmt_natural_id
+          ON asmt.name = ir.asmt_name
         JOIN school
         LEFT JOIN district_group
           ON ir.org_level = 'DistrictGroup'
