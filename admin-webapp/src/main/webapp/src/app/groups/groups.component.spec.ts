@@ -13,10 +13,15 @@ import { UserService } from "../user/user.service";
 import { DropdownModule } from "primeng/components/dropdown/dropdown";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
+let mockFilterOptionsProvider = { options: new GroupFilterOptions() };
+
 describe('GroupsComponent', () => {
   let component: GroupsComponent;
   let fixture: ComponentFixture<GroupsComponent>;
   let mockGroupService = {
+    getFilterOptions() {
+      return Observable.of(mockFilterOptionsProvider.options)
+    },
     getGroups: function () {
       return Observable.of([])
     }
@@ -35,9 +40,10 @@ describe('GroupsComponent', () => {
     filterOptions.schools = [ new School() ];
     filterOptions.subjects = [ "ALL", "MATH" ];
 
+    mockFilterOptionsProvider.options = filterOptions;
+
     mockRouteSnapshot = {
-      params: {},
-      data: { filterOptions: filterOptions }
+      params: {}
     };
 
     TestBed.configureTestingModule({
@@ -51,26 +57,29 @@ describe('GroupsComponent', () => {
         { provide: Router, useValue: MockRouter },
         { provide: UserService, useClass: MockUserService }
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
-  beforeEach(() => {
+  function createComponent() {
     fixture = TestBed.createComponent(GroupsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }
 
   it('should be created', () => {
+    createComponent();
     expect(component).toBeTruthy();
   });
 
   it('should set query params', () => {
+
     let school = new School();
     school.id = 1;
     school.name = "Test1";
 
-    filterOptions.schools.push(school);
+    mockFilterOptionsProvider.options.schools = [ school ];
+
+    createComponent();
 
     paramsObserver.next({
       schoolId: 1,
@@ -85,6 +94,7 @@ describe('GroupsComponent', () => {
   });
 
   it('should default to first when no params are set', () => {
+    createComponent();
     paramsObserver.next({});
 
     fixture.detectChanges();
@@ -94,6 +104,7 @@ describe('GroupsComponent', () => {
   });
 
   it('should default to first when params are not found', () => {
+    createComponent();
     paramsObserver.next({
       schoolId: -1,
       subject: "INVALID_SUBJECT",
@@ -107,6 +118,7 @@ describe('GroupsComponent', () => {
   });
 
   it('should filter groups on name', () => {
+    createComponent();
     component.groups = [ "Test2", "test3", "TEST1", "NotInResult1", "NotInResult2" ].map(x => {
       let group = new Group();
       group.name = x;
@@ -120,7 +132,9 @@ describe('GroupsComponent', () => {
 });
 
 class MockUserService {
+
   doesCurrentUserHaveAtLeastOnePermission(permissions: string[]): Observable<boolean> {
     return Observable.of(true);
   }
+
 }
