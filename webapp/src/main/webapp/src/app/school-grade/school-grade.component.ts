@@ -1,11 +1,10 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { School } from "../user/model/school.model";
 import { SchoolService } from "./school.service";
-import { isNullOrUndefined } from "util";
 import { Grade } from "./grade.model";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { Option } from "@sbac/rdw-reporting-common-ngx";
+import { Option, Utils } from "@sbac/rdw-reporting-common-ngx";
 import { OrganizationService } from "./organization.service";
 
 /**
@@ -63,7 +62,7 @@ export class SchoolGradeComponent {
     // update grades when school changes
     this.gradeControl.disable();
     this.grade = undefined;
-    if (!isNullOrUndefined(value)) {
+    if (!Utils.isNullOrUndefined(value)) {
       this.loadGradeOptions(value);
     }
   }

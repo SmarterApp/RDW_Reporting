@@ -4,7 +4,7 @@ import { AssessmentExam } from "../model/assessment-exam.model";
 import { Exam } from "../model/exam.model";
 import { ExamStatisticsCalculator } from "./exam-statistics-calculator";
 import { FilterBy } from "../model/filter-by.model";
-import { Subscription } from "rxjs";
+import { Subscription } from "rxjs/Subscription";
 import { ExamFilterService } from "../filters/exam-filters/exam-filter.service";
 import { ordering } from "@kourge/ordering";
 import { byString } from "@kourge/ordering/comparator";

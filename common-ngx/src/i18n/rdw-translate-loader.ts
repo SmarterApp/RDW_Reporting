@@ -1,40 +1,44 @@
-import { JsonUnFlat } from "json-unflat";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import { Http } from "@angular/http";
 import * as _ from "lodash";
 import { Injectable } from "@angular/core";
 import { TranslateLoader } from "@ngx-translate/core";
 import { Observable } from "rxjs/Observable";
-import { Observer } from "rxjs/Observer";
-import { forkJoin } from "rxjs/observable/forkJoin";
 import { EmbeddedLanguages } from "./language-settings";
+import { HttpClient } from "@angular/common/http";
+import "rxjs/add/observable/forkJoin";
+
+const EmptyObservable = Observable.of({});
 
 @Injectable()
 export class RdwTranslateLoader implements TranslateLoader {
 
-  constructor(private http: Http) {
+  private clientTranslationsLoader;
+  private serverTranslationsLoader;
+
+  constructor(http: HttpClient) {
+    this.clientTranslationsLoader = new TranslateHttpLoader(http, '/assets/i18n/', '.json');
+    this.serverTranslationsLoader = new TranslateHttpLoader(http, '/api/translations/', '');
   }
 
-  private apiLoader = new TranslateHttpLoader(this.http, '/api/translations/', '');
-  private uiLoader = new TranslateHttpLoader(this.http, '/assets/i18n/', '.json');
-
-  getTranslation(lang: string): Observable<any> {
-    let uiObservable = EmbeddedLanguages.indexOf(lang) >= 0 ?
-        this.uiLoader.getTranslation(lang) : Observable.of({});
-
-    let apiObservable = this.apiLoader.getTranslation(lang).catch(() => Observable.of({}));
-
-    let translateObserver: Observer<any>;
-    let observable = new Observable<any>(observer => translateObserver = observer);
-
-    forkJoin([ uiObservable, apiObservable ])
-      .share()
-      .subscribe(responses => {
-        let merged = _.merge(responses[ 0 ], JsonUnFlat.unflat(responses[ 1 ]));
-        translateObserver.next(merged);
-        translateObserver.complete();
-      });
-
-    return observable;
+  getTranslation(languageCode: string): Observable<any> {
+    return Observable.forkJoin(
+      this.getClientTranslations(languageCode),
+      this.getServerTranslations(languageCode)
+    ).map(responses => {
+      let [ clientTranslations, serverTranslations ] = responses;
+      return _.merge(clientTranslations, serverTranslations);
+    });
   };
+
+  private getClientTranslations(languageCode: string): Observable<any> {
+    return EmbeddedLanguages.indexOf(languageCode) != -1
+      ? this.clientTranslationsLoader.getTranslation(languageCode)
+      : EmptyObservable;
+  }
+
+  private getServerTranslations(languageCode: string): Observable<any> {
+    return this.serverTranslationsLoader.getTranslation(languageCode)
+      .catch(() => EmptyObservable);
+  }
+
 }

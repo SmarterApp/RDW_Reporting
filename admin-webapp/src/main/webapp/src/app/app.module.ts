@@ -15,18 +15,22 @@ import { GroupImportModule } from "./groups/import/group-import.module";
 import { GroupsModule } from "./groups/groups.module";
 import { FileFormatModule } from "./groups/import/fileformat/file-format.module";
 import { AccessDeniedComponent } from "./access-denied/access-denied.component";
+import { InstructionalResourceModule } from "./instructional-resource/instructional-resource.module";
+import { HomeComponent } from "./home/home.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     BreadcrumbsComponent,
-    AccessDeniedComponent
+    AccessDeniedComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     CommonModule,
     GroupImportModule,
     GroupsModule,
+    InstructionalResourceModule,
     FileFormatModule,
     RouterModule.forRoot(routes),
     UserModule,
@@ -37,8 +41,7 @@ import { AccessDeniedComponent } from "./access-denied/access-denied.component";
     PopoverModule.forRoot(),
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
   ],
-  providers: [
-  ],
+  providers: [],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {

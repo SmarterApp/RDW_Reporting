@@ -1,4 +1,4 @@
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
 import { UserService } from "../../../user/user.service";
 import { Injectable } from "@angular/core";
 import { CachingDataService } from "@sbac/rdw-reporting-common-ngx";

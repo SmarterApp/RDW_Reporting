@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { isNullOrUndefined } from "util";
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
+import { Utils } from "@sbac/rdw-reporting-common-ngx";
 
 /**
  * This pipe is responsible for transforming a grade codes into a
@@ -23,10 +23,10 @@ export class GradeDisplayPipe implements PipeTransform {
    * @returns transformed grade
    */
   transform(gradeCode: string, format: string): Observable<string> {
-    if (isNullOrUndefined(format)) {
+    if (Utils.isNullOrUndefined(format)) {
       format = "short-name";
     }
-
     return this.translate.instant(`labels.grades.${gradeCode}.${format}`);
   }
+
 }

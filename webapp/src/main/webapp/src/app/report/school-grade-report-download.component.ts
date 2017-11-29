@@ -6,7 +6,7 @@ import { Report } from "./report.model";
 import { School } from "../user/model/school.model";
 import { Grade } from "../school-grade/grade.model";
 import { TranslateService } from "@ngx-translate/core";
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
 import { UserService } from "../user/user.service";
 
 /**

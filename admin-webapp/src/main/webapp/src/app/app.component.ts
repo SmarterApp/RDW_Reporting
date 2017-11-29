@@ -5,7 +5,7 @@ import { User } from "./user/model/user.model";
 import { Router } from "@angular/router";
 import { LanguageStore } from "@sbac/rdw-reporting-common-ngx/i18n";
 
-const AdminPermissions = [ 'GROUP_WRITE' ];
+const AdminPermissions = [ 'GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE' ];
 
 @Component({
   selector: 'app-component',

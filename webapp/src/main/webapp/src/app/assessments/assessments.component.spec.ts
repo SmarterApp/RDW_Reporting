@@ -1,5 +1,6 @@
 import { async, TestBed } from "@angular/core/testing";
-import { Observable, Observer } from "rxjs";
+import { Observable } from "rxjs/Observable";
+import { Observer } from "rxjs/Observer";
 import { ActivatedRoute } from "@angular/router";
 import { APP_BASE_HREF } from "@angular/common";
 import { AssessmentsComponent } from "./assessments.component";

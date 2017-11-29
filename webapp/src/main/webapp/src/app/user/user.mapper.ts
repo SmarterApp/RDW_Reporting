@@ -4,8 +4,8 @@ import { School } from "./model/school.model";
 import { Group } from "./model/group.model";
 import { ordering } from "@kourge/ordering";
 import { byString } from "@kourge/ordering/comparator";
-import { isNullOrUndefined } from "util";
 import { Configuration } from "./model/configuration.model";
+import { Utils } from "@sbac/rdw-reporting-common-ngx";
 
 @Injectable()
 export class UserMapper {
@@ -14,9 +14,7 @@ export class UserMapper {
     let uiModel: User = new User();
     uiModel.firstName = apiModel.firstName;
     uiModel.lastName = apiModel.lastName;
-    apiModel.permissions.forEach(permission => {
-      uiModel.permissions.push(permission);
-    });
+    uiModel.permissions = apiModel.permissions.concat();
     uiModel.schools = this.mapSchoolsFromApi(apiModel.schools);
     uiModel.groups = this.mapGroupsFromApi(apiModel.groups);
     uiModel.configuration = this.mapConfigurationFromApi(apiModel.settings);
@@ -24,18 +22,18 @@ export class UserMapper {
   }
 
   private mapSchoolsFromApi(schools: any[]): School[] {
-    return isNullOrUndefined(schools)
+    return Utils.isNullOrUndefined(schools)
       ? []
       : schools
         .filter(school => this.isSchoolValid(school))
         .map(school => this.mapSchoolFromApi(school))
-        .sort(ordering(byString).on<School>(school => school.name).compare);
+        .sort(ordering(byString).on<School>(school => school.name).compare); // TODO component logic
   }
 
   private isSchoolValid(school: any) {
-    return !isNullOrUndefined(school)
-      && !isNullOrUndefined(school.id)
-      && !isNullOrUndefined(school.name);
+    return !Utils.isNullOrUndefined(school)
+      && !Utils.isNullOrUndefined(school.id)
+      && !Utils.isNullOrUndefined(school.name);
   }
 
   private mapSchoolFromApi(apiModel: any): School {
@@ -43,23 +41,22 @@ export class UserMapper {
     uiModel.id = apiModel.id;
     uiModel.name = apiModel.name;
     uiModel.districtId = apiModel.districtId;
-
     return uiModel;
   }
 
   private mapGroupsFromApi(groups: any[]): Group[] {
-    return isNullOrUndefined(groups)
+    return Utils.isNullOrUndefined(groups)
       ? []
       : groups
         .filter(group => this.isGroupValid(group))
         .map(group => this.mapGroupFromApi(group))
-        .sort(ordering(byString).on<Group>(group => group.name).compare);
+        .sort(ordering(byString).on<Group>(group => group.name).compare); // TODO component logic
   }
 
   private isGroupValid(group: any) {
-    return !isNullOrUndefined(group)
-      && !isNullOrUndefined(group.id)
-      && !isNullOrUndefined(group.name);
+    return !Utils.isNullOrUndefined(group)
+      && !Utils.isNullOrUndefined(group.id)
+      && !Utils.isNullOrUndefined(group.name);
   }
 
   private mapGroupFromApi(apiModel: any): Group {
@@ -74,7 +71,7 @@ export class UserMapper {
 
   private mapConfigurationFromApi(apiModel: any): Configuration {
     let uiModel: Configuration = new Configuration();
-    if (isNullOrUndefined(apiModel)) {
+    if (Utils.isNullOrUndefined(apiModel)) {
       return uiModel;
     }
     uiModel.irisVendorId = apiModel.irisVendorId;

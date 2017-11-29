@@ -1,4 +1,4 @@
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
 import { RouterStateSnapshot, ActivatedRouteSnapshot, Resolve } from "@angular/router";
 import { Injectable } from "@angular/core";
 import { ReportService } from "./report.service";

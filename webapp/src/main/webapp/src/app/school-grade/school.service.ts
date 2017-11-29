@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
-import { DataService } from "@sbac/rdw-reporting-common-ngx";
-import { Observable } from "rxjs";
-import { isNullOrUndefined } from "util";
+import { DataService, Utils } from "@sbac/rdw-reporting-common-ngx";
+import { Observable } from "rxjs/Observable";
 import { Grade } from "./grade.model";
 import { ResponseUtils } from "../shared/response-utils";
 
@@ -29,8 +28,13 @@ export class SchoolService {
 
   private mapGradesFromApi(apiGrades: any[]): Grade[] {
     return apiGrades
-      .filter(apiGrade => !isNullOrUndefined(apiGrade) && !isNullOrUndefined(apiGrade.code))
+      .filter(apiGrade => this.isValidGrade(apiGrade))
       .map(apiGrade => this.mapGradeFromApi(apiGrade));
+  }
+
+  private isValidGrade(apiModel: any): boolean {
+    return !Utils.isNullOrUndefined(apiModel)
+      && !Utils.isNullOrUndefined(apiModel.code);
   }
 
   private mapGradeFromApi(apiModel: any): Grade {

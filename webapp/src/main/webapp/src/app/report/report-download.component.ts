@@ -5,10 +5,10 @@ import { AssessmentSubjectType } from "../shared/enum/assessment-subject-type.en
 import { NotificationService } from "../shared/notification/notification.service";
 import { ReportOrder } from "./report-order.enum";
 import { ModalDirective } from "ngx-bootstrap";
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
 import { Report } from "./report.model";
 import { UserService } from "../user/user.service";
-import { isNullOrUndefined } from "util";
+import { Utils } from "@sbac/rdw-reporting-common-ngx";
 
 /**
  * Abstract class used to carry the common logic between all exam report download components
@@ -78,7 +78,7 @@ export abstract class ReportDownloadComponent implements OnInit {
     this.options = defaultOptions;
 
     this.userService.getCurrentUser().subscribe(user => {
-      if (!isNullOrUndefined(user)) {
+      if (!Utils.isNullOrUndefined(user)) {
         this.reportLanguages = this.reportLanguages.concat(user.configuration.reportLanguages);
         this.transferAccess = user.configuration.transferAccess;
       }

@@ -3,8 +3,8 @@ import { PopupMenuAction } from "./popup-menu-action.model";
 import { TranslateService } from "@ngx-translate/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Student } from "../../student/model/student.model";
-import { isNullOrUndefined } from "util";
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
+import { Utils } from "@sbac/rdw-reporting-common-ngx";
 
 /**
  * This builder will create the menu actions used by the PopupMenuComponent.
@@ -16,12 +16,11 @@ import { AssessmentType } from "../../shared/enum/assessment-type.enum";
  */
 @Injectable()
 export class MenuActionBuilder {
-  private actions: PopupMenuAction[];
+  private actions: PopupMenuAction[] = [];
 
   constructor(private translateService: TranslateService,
               private route: ActivatedRoute,
               private router: Router) {
-    this.actions = [];
   }
 
   newActions(): MenuActionBuilder {
@@ -102,7 +101,7 @@ export class MenuActionBuilder {
     let resourcesAction: PopupMenuAction = new PopupMenuAction();
 
     resourcesAction.isDisabled = ((actionable) => {
-      return isNullOrUndefined(getResourceUrl(actionable));
+      return Utils.isNullOrUndefined(getResourceUrl(actionable));
     });
 
     resourcesAction.tooltip = ((actionable) => {
@@ -138,4 +137,5 @@ export class MenuActionBuilder {
   build(): PopupMenuAction[] {
     return this.actions;
   }
+
 }

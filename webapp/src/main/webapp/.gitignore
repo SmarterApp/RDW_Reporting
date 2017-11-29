@@ -3,6 +3,7 @@
 # compiled output
 /dist
 /tmp
+/out-tsc
 /src/**/*.js
 
 # dependencies
@@ -29,9 +30,9 @@ testem.log
 /typings
 
 # e2e
-/src/main/webapp/e2e/*.js
-/src/main/webapp/e2e/*.map
+/e2e/*.js
+/e2e/*.map
 
-#System Files
+# System Files
 .DS_Store
 Thumbs.db
