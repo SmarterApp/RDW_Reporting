@@ -586,54 +586,6 @@ sql:
       where s.id=:studentId
        and exists (select 1 from exam e where e.student_id = s.id)
 
-  school:
-    findAllForNameContainingText: >-
-      select name, id
-      from school
-      where (1=:statewide or district_group_id in (:district_group_ids) or district_id in (:district_ids) or school_group_id in (:school_group_ids) or id in (:school_ids))
-      and name like :text
-      limit :limit
-
-  organization:
-    school:
-      findAll: >-
-        select s.name,
-          s.id,
-          s.school_group_id,
-          d.id as district_id,
-          s.district_group_id,
-          d.name as district_name
-        from school s
-          join district d on s.district_id = d.id
-        where (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or s.id in (:school_ids))
-
-    schoolGroup:
-      findAll: >-
-        select distinct sg.id,
-          sg.name,
-          s.district_group_id,
-          s.district_id
-        from school_group sg
-          join school s on s.school_group_id = sg.id
-        where (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or s.id in (:school_ids))
-
-    district:
-      findAll: >-
-        select distinct d.id,
-          d.name,
-          s.district_group_id
-        from district d
-          join school s on s.district_id = d.id
-        where (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or s.id in (:school_ids))
-
-    districtGroup:
-      findAll: >-
-        select distinct dg.id,
-          dg.name
-        from district_group dg
-          join school s on s.district_group_id = dg.id
-        where (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or s.id in (:school_ids))
-
   ethnicity:
     findAll: >-
       select id, code
