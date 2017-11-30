@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 
 /**
  * This component is responsible for displaying a label with
- * a popover info icon.
+ * an information popover icon.
  */
 @Component({
   selector: 'info-label,[info-label]',
