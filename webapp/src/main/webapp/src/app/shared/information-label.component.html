@@ -5,6 +5,9 @@
         container="body"
         outsideClick="true">
   <span class="sr-only">{{'labels.more-info' | translate}}</span>
-  <i class="fa fa-info-circle"></i>
+  <i *ngIf="icon" class="fa {{ icon }}"></i>
+  <i *ngIf="!icon" class="fa fa-info-circle"></i>
 </button>
-<ng-template #informationLabelPopover><div [innerHTML]="content"></div></ng-template>
+<ng-template #informationLabelPopover>
+  <div [innerHTML]="content"></div>
+</ng-template>

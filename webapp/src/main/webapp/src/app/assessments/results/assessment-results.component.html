@@ -48,26 +48,24 @@
 
     <div class="row mb-lg">
       <!-- Sessions -->
-      <div class="col-md-5">
+      <div class="col-md-3">
         <div *ngIf="allowFilterBySessions">
-          <p><strong>{{'labels.groups.results.assessment.sessions-title' | translate}}</strong><br/>
-            {{'labels.groups.results.assessment.sessions-instruct' | translate}}</p>
-          <div class="flex-children">
-            <a *ngFor="let session of sessions" class="tag aqua reverse multi-line"
+          <p><strong>{{'labels.groups.results.assessment.sessions-title' | translate}}</strong></p>
+          <div class="btn-group-vertical">
+            <a *ngFor="let session of sessions" class="tag aqua reverse multi-line btn"
                [ngClass]="{'gray-mid':!session.filter}" (click)="toggleSession(session)"
                angulartics2On="click" angularticsEvent="ToggleSession" angularticsCategory="AssessmentResults">
-                    <span class="block-children text-left">
+                    <span class="text-left">
                         <strong>{{session.date | date }}</strong>
-                        <small>{{session.id || 'labels.groups.results.session-unknown' | translate }}</small>
+                        <span class="ml-sm small">{{session.id || 'labels.groups.results.session-unknown' | translate }}</span>
                     </span>
-              <span class="icon"><i class="fa" [ngClass]="{'fa-minus':session.filter, 'fa-plus': !session.filter }"></i></span>
             </a>
           </div>
         </div>
       </div>
 
       <!-- Aggregate Scale Score -->
-      <div class="col-md-7">
+      <div class="col-md-9">
         <average-scale-score
           [assessmentExam]="assessmentExam"
           [statistics]="statistics"

@@ -66,4 +66,8 @@ export class AverageScaleScoreComponent {
   getLevelPercent(num: number): number {
     return this.levelPercents[num];
   }
+
+  floor(num: number): number {
+    return Math.floor(num);
+  }
 }

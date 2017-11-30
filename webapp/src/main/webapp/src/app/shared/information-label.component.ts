@@ -1,4 +1,3 @@
-
 import { Component, Input } from "@angular/core";
 
 /**
@@ -16,5 +15,8 @@ export class InformationLabelComponent {
 
   @Input()
   public content: string;
+
+  @Input()
+  public icon: string;
 
 }
