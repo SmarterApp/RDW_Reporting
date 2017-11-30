@@ -9,7 +9,7 @@ sql:
       from student_group sg
         join school sc on sc.id = sg.school_id
       where sg.deleted = 0
-        and (1=:statewide or sc.district_group_id in (:district_group_ids) or sc.district_id in (:district_ids) or sc.school_group_id in (:school_group_ids) or sg.school_id in (:school_ids))
+        and ${sql.common.basicPermission}
 
     findAllByQuery: >-
       select sg.id,
@@ -26,21 +26,21 @@ sql:
         and sg.deleted = 0
         and (sg.subject_id is null or sg.subject_id in (:subject_ids))
         and sg.school_year = :school_year
-        and (1=:statewide or sc.district_group_id in (:district_group_ids) or sc.district_id in (:district_ids) or sc.school_group_id in (:school_group_ids) or sg.school_id in (:school_ids))
+        and ${sql.common.basicPermission}
 
     delete: >-
       update student_group sg
-        join school s on sg.school_id = s.id
+        join school sc on sg.school_id = sc.id
       set sg.deleted = 1,
         sg.update_import_id = :import_id
       where sg.id = :id
-        and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or sg.school_id in (:school_ids))
+        and ${sql.common.basicPermission}
 
   school:
     findAll: >-
       select name, id, natural_id
-      from school
-      where (1=:statewide or district_group_id in (:district_group_ids) or district_id in (:district_ids) or school_group_id in (:school_group_ids) or id in (:school_ids))
+      from school sc
+      where ${sql.common.basicPermission}
 
   schoolYear:
     findAll: >-

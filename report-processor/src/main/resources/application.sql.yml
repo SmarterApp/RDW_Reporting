@@ -48,53 +48,8 @@ sql:
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or a.grade_id=:grade_id)
         and a.type_id=2
-        and
-        (
-          :school_id is null
-          or
-          (
-            s.id=:school_id
-            or
-            (
-              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and
-              isch.id = :school_id
-            )
-          )
-        )
-      and
-      ( # This query can run from the context of both GROUP_PII_READ and INDIVIDUAL_PII_READ, so need to evaluate both.
-        # Individual permissions test
-        (
-          (1 = :individual_statewide or s.district_group_id in (:individual_district_group_ids) or s.district_id in (:individual_district_ids) or s.school_group_id in (:individual_school_group_ids) or e.school_id in (:individual_school_ids))
-          or
-          (
-            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-            and (isch.district_group_id in (:individual_district_group_ids) or isch.district_id in (:individual_district_ids) or isch.school_group_id in (:individual_school_group_ids) or isch.id in (:individual_school_ids))
-          )
-        )
-        or
-        # Group permissions test
-        (
-          exists(
-              select 1
-              from student_group_membership sgm
-                join student_group sg on sgm.student_group_id = sg.id
-              where sgm.student_group_id in (:group_ids)
-                    and sgm.student_id in (:student_ids)
-                    and (:subject_id is null or sg.subject_id is null or sg.subject_id = :subject_id)
-          )
-          and
-          (
-            (1 = :group_statewide or s.district_group_id in (:group_district_group_ids) or s.district_id in (:group_district_ids) or s.school_group_id in (:group_school_group_ids) or e.school_id in (:group_school_ids))
-            or
-            (
-              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and (isch.district_group_id in (:group_district_group_ids) or isch.district_id in (:group_district_ids) or isch.school_group_id in (:group_school_group_ids) or isch.id in (:group_school_ids))
-            )
-          )
-        )
-      )
+        and ${sql.reportingProcessor.common.schoolScopePermission}
+        and ${sql.reportingProcessor.common.unknownScopePermission}
       order by e.completed_at desc
 
     findAllIabsByStudentIdsAndQueryParamsIndividualPermissions: >-
@@ -145,30 +100,8 @@ sql:
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or a.grade_id=:grade_id)
         and a.type_id=2
-        and
-          (
-            :school_id is null
-            or
-            (
-              s.id=:school_id
-              or
-              (
-                (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-                and
-                isch.id = :school_id
-              )
-            )
-          )
-        and
-        (
-          (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-          or
-          (
-            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-            and
-            (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-          )
-        )
+        and ${sql.reportingProcessor.common.schoolScopePermission}
+        and ${sql.reportingProcessor.common.individualScopePermission}
       order by e.completed_at desc
 
     findAllIabsByStudentIdsAndQueryParamsGroupPermissions: >-
@@ -223,30 +156,8 @@ sql:
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or a.grade_id=:grade_id)
         and a.type_id=2
-        and
-        (
-          :school_id is null
-          or
-          (
-            s.id=:school_id
-            or
-            (
-              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and
-              isch.id = :school_id
-            )
-          )
-        )
-        and
-        (
-          (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-          or
-          (
-            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-            and
-            (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-          )
-        )
+        and ${sql.reportingProcessor.common.schoolScopePermission}
+        and ${sql.reportingProcessor.common.individualScopePermission}
       order by e.completed_at desc
 
     findAllIcasByStudentIdsAndQueryParamsUnknownPermissions: >-
@@ -317,53 +228,9 @@ sql:
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or a.grade_id=:grade_id)
         and a.type_id=1
-        and
-        (
-          :school_id is null
-          or
-          (
-            s.id=:school_id
-            or
-            (
-              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and
-              isch.id = :school_id
-            )
-          )
-        )
-        and
-        ( # This query can run from the context of both GROUP_PII_READ and INDIVIDUAL_PII_READ, so need to evaluate both.
-          # Individual permissions test
-          (
-            (1 = :individual_statewide or s.district_group_id in (:individual_district_group_ids) or s.district_id in (:individual_district_ids) or s.school_group_id in (:individual_school_group_ids) or e.school_id in (:individual_school_ids))
-            or
-            (
-              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and (isch.district_group_id in (:individual_district_group_ids) or isch.district_id in (:individual_district_ids) or isch.school_group_id in (:individual_school_group_ids) or isch.id in (:individual_school_ids))
-            )
-          )
-          or
-          # Group permissions test
-          (
-            exists(
-                select 1
-                from student_group_membership sgm
-                  join student_group sg on sgm.student_group_id = sg.id
-                where sgm.student_group_id in (:group_ids)
-                      and sgm.student_id in (:student_ids)
-                      and (:subject_id is null or sg.subject_id is null or sg.subject_id = :subject_id)
-            )
-            and
-            (
-              (1 = :group_statewide or s.district_group_id in (:group_district_group_ids) or s.district_id in (:group_district_ids) or s.school_group_id in (:group_school_group_ids) or e.school_id in (:group_school_ids))
-              or
-              (
-                (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-                and (isch.district_group_id in (:group_district_group_ids) or isch.district_id in (:group_district_ids) or isch.school_group_id in (:group_school_group_ids) or isch.id in (:group_school_ids))
-              )
-            )
-          )
-        )
+        and ${sql.reportingProcessor.common.schoolScopePermission}
+        and ${sql.reportingProcessor.common.unknownScopePermission}
+
       order by e.completed_at asc
 
     findAllIcasByStudentIdsAndQueryParamsIndividualPermissions: >-
@@ -434,29 +301,8 @@ sql:
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or a.grade_id=:grade_id)
         and a.type_id=1
-        and
-        (
-          :school_id is null
-          or
-          (
-            s.id=:school_id
-            or
-            (
-              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and
-              isch.id = :school_id
-            )
-          )
-        )
-        and
-        (
-          (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-          or
-          (
-            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-            and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-          )
-        )
+        and ${sql.reportingProcessor.common.schoolScopePermission}
+        and ${sql.reportingProcessor.common.individualScopePermission}
       order by e.completed_at asc
 
     findAllIcasByStudentIdsAndQueryParamsGroupPermissions: >-
@@ -531,29 +377,8 @@ sql:
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or a.grade_id=:grade_id)
         and a.type_id=1
-        and
-        (
-          :school_id is null
-          or
-          (
-            s.id=:school_id
-            or
-            (
-              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and
-              isch.id = :school_id
-            )
-          )
-        )
-        and
-        (
-          (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-          or
-          (
-            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-            and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-          )
-        )
+        and ${sql.reportingProcessor.common.schoolScopePermission}
+        and ${sql.reportingProcessor.common.individualScopePermission}
       order by e.completed_at asc
 
   export:
@@ -798,20 +623,7 @@ sql:
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or a.grade_id=:grade_id)
         and (:assessment_type is null or a.type_id=:assessment_type)
-        and
-        (
-          :school_id is null
-          or
-          (
-            s.id=:school_id
-            or
-            (
-              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and
-              isch.id = :school_id
-            )
-          )
-        )
+        and ${sql.reportingProcessor.common.schoolScopePermission}
         and
         ( # This query can run from the context of both GROUP_PII_READ and INDIVIDUAL_PII_READ, so need to evaluate both.
           # Individual permissions test
@@ -864,30 +676,8 @@ sql:
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or a.grade_id=:grade_id)
         and (:assessment_type is null or a.type_id=:assessment_type)
-        and
-        (
-          :school_id is null
-          or
-          (
-            s.id=:school_id
-            or
-            (
-              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and
-              isch.id = :school_id
-            )
-          )
-        )
-        and
-        (
-          (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-          or
-          (
-            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-            and
-            (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-          )
-        )
+        and ${sql.reportingProcessor.common.schoolScopePermission}
+        and ${sql.reportingProcessor.common.individualScopePermission}
       group by st.id
 
     findByExamQueryParamsGroupPermissions: >-
@@ -911,7 +701,58 @@ sql:
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or a.grade_id=:grade_id)
         and (:assessment_type is null or a.type_id=:assessment_type)
-        and
+        and ${sql.reportingProcessor.common.schoolScopePermission}
+        and ${sql.reportingProcessor.common.individualScopePermission}
+      group by st.id
+
+  reportingProcessor:
+    common:
+      unknownScopePermission: >-
+          ( # This query can run from the context of both GROUP_PII_READ and INDIVIDUAL_PII_READ, so need to evaluate both.
+            # Individual permissions test
+            (
+              (1 = :individual_statewide or s.district_group_id in (:individual_district_group_ids) or s.district_id in (:individual_district_ids) or s.school_group_id in (:individual_school_group_ids) or e.school_id in (:individual_school_ids))
+              or
+              (
+                (1 = :allow_transfer_access and 0 = :disable_transfer_access)
+                and (isch.district_group_id in (:individual_district_group_ids) or isch.district_id in (:individual_district_ids) or isch.school_group_id in (:individual_school_group_ids) or isch.id in (:individual_school_ids))
+              )
+            )
+            or
+            # Group permissions test
+            (
+              exists(
+                  select 1
+                  from student_group_membership sgm
+                    join student_group sg on sgm.student_group_id = sg.id
+                  where sgm.student_group_id in (:group_ids)
+                        and sgm.student_id in (:student_ids)
+                        and (:subject_id is null or sg.subject_id is null or sg.subject_id = :subject_id)
+              )
+              and
+              (
+                (1 = :group_statewide or s.district_group_id in (:group_district_group_ids) or s.district_id in (:group_district_ids) or s.school_group_id in (:group_school_group_ids) or e.school_id in (:group_school_ids))
+                or
+                (
+                  (1 = :allow_transfer_access and 0 = :disable_transfer_access)
+                  and (isch.district_group_id in (:group_district_group_ids) or isch.district_id in (:group_district_ids) or isch.school_group_id in (:group_school_group_ids) or isch.id in (:group_school_ids))
+                )
+              )
+            )
+          )
+
+      individualScopePermission: >-
+          (
+            (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+            or
+            (
+              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
+              and
+              (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
+            )
+          )
+
+      schoolScopePermission:  >-
           (
             :school_id is null
             or
@@ -925,14 +766,3 @@ sql:
               )
             )
           )
-        and
-        (
-          (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-          or
-          (
-            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-            and
-            (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-          )
-        )
-      group by st.id

@@ -13,3 +13,7 @@ sql:
         from user_student_group usg
           join student_group sg on sg.id = usg.student_group_id
         where user_login=:user_login
+
+  common:
+    basicPermission: >-
+        (1=:statewide or sc.district_group_id in (:district_group_ids) or sc.district_id in (:district_ids) or sc.school_group_id in (:school_group_ids) or sc.id in (:school_ids))
