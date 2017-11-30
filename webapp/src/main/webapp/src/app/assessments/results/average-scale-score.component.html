@@ -26,13 +26,13 @@
   </div>
   <div class="col-md-7" *ngIf="showIab">
     <div class="scale-score-graph rounded blend-middle">
-      <strong>{{ 'labels.assessments.student-score-distribution' | translate }}</strong>
+      <strong>{{ 'labels.assessments.student-score-distribution.title' | translate }}</strong>
       <table class="table">
         <tr>
           <td class="col-md-5">
             <span class="pull-right">
               {{ examLevelEnum + performanceLevels[0].id.toString() | translate }}
-              <span info-label icon="fa-book"></span>
+              <span book-label title="{{ examLevelEnum + performanceLevels[0].id.toString() | translate }}" content="links"></span>
             </span>
           </td>
           <td class="col-md-1 level-down">
@@ -54,7 +54,7 @@
           <td class="col-md-5">
             <span class="pull-right">
               {{ examLevelEnum + performanceLevels[1].id.toString() | translate }}
-              <span info-label icon="fa-book"></span>
+              <span book-label title="{{ examLevelEnum + performanceLevels[1].id.toString() | translate }}" content="links"></span>
             </span>
           </td>
           <td class="col-md-1 level-down">
@@ -76,7 +76,7 @@
           <td class="col-md-5">
             <span class="pull-right">
               {{ examLevelEnum + performanceLevels[2].id.toString() | translate }}
-              <span info-label icon="fa-book"></span>
+              <span book-label title="{{ examLevelEnum + performanceLevels[2].id.toString() | translate }}" content="links"></span>
             </span>
           </td>
           <td class="col-md-1 level-down">
@@ -100,13 +100,13 @@
   <!-- ICA display -->
   <div class="col-md-7" *ngIf="showIcaSummative">
     <div class="scale-score-graph">
-      <strong>{{ 'labels.assessments.student-score-distribution' | translate }}</strong>
+      <strong>{{ 'labels.assessments.student-score-distribution.title' | translate }}</strong>
       <table class="table">
         <tr>
           <td class="col-md-5">
             <span class="pull-right">
               {{ examLevelEnum + performanceLevels[0].id.toString() | translate }}
-              <span info-label icon="fa-book"></span>
+              <span book-label title="{{ examLevelEnum + performanceLevels[0].id.toString() | translate }}" content="links"></span>
             </span>
           </td>
           <td class="col-md-1 level-down">
@@ -128,7 +128,7 @@
           <td class="col-md-5">
             <span class="pull-right">
               {{ examLevelEnum + performanceLevels[1].id.toString() | translate }}
-              <span info-label icon="fa-book"></span>
+              <span book-label title="{{ examLevelEnum + performanceLevels[1].id.toString() | translate }}" content="links"></span>
             </span>
           </td>
           <td class="col-md-1 level-down">
@@ -150,7 +150,7 @@
           <td class="col-md-5">
             <span class="pull-right">
               {{ examLevelEnum + performanceLevels[2].id.toString() | translate }}
-              <span info-label icon="fa-book"></span>
+              <span book-label title="{{ examLevelEnum + performanceLevels[2].id.toString() | translate }}" content="links"></span>
             </span>
           </td>
           <td class="col-md-1 level-down">
@@ -172,7 +172,7 @@
           <td class="col-md-5">
             <span class="pull-right">
               {{ examLevelEnum + performanceLevels[3].id.toString() | translate }}
-              <span info-label icon="fa-book"></span>
+              <span book-label title="{{ examLevelEnum + performanceLevels[3].id.toString() | translate }}" content="links"></span>
             </span>
           </td>
           <td class="col-md-1 level-down">

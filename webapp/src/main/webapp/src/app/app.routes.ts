@@ -22,7 +22,7 @@ import { ErrorComponent } from "./error/error.component";
 import { AccessDeniedComponent } from "./error/access-denied/access-denied.component";
 import { AuthorizeAtleastOneCanActivate } from "./user/authorize-at-least-one.can-activate";
 import { OrganizationExportComponent } from "./organization-export/organization-export.component";
-import { UserOrganizationsResolve } from "app/organization-export/organization/user-organizations.resolve";
+import { UserOrganizationsResolve } from "./organization-export/organization/user-organizations.resolve";
 
 
 const studentTestHistoryChildRoute = {

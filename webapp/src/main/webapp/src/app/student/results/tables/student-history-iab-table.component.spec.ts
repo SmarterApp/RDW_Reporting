@@ -6,12 +6,13 @@ import { SchoolYearPipe } from "@sbac/rdw-reporting-common-ngx";
 import { TranslateModule } from "@ngx-translate/core";
 import { DataTableModule } from "primeng/components/datatable/datatable";
 import { ScaleScoreComponent } from "../../../assessments/results/scale-score.component";
-import { InformationLabelComponent } from "../../../shared/information-label.component";
+import { InformationLabelComponent } from "../../../shared/label/information-label.component";
 import { PopupMenuComponent } from "../../../assessments/menu/popup-menu.component";
 import { MockRouter } from "../../../../test/mock.router";
 import { Router, ActivatedRoute } from "@angular/router";
 import { GradeDisplayPipe } from "../../../shared/grade-display.pipe";
 import { PopoverModule } from "ngx-bootstrap";
+import { LabelComponent } from "../../../shared/label/label.component";
 
 describe('StudentHistoryIABTableComponent', () => {
   let component: StudentHistoryIABTableComponent;
@@ -34,6 +35,7 @@ describe('StudentHistoryIABTableComponent', () => {
       declarations: [
         GradeDisplayPipe,
         InformationLabelComponent,
+        LabelComponent,
         StudentHistoryIABTableComponent,
         SchoolYearPipe,
         ScaleScoreComponent,
