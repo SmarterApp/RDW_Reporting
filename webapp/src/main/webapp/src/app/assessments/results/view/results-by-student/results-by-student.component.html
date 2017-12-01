@@ -71,6 +71,7 @@
     </ng-template>
     <ng-template let-exam="rowData" pTemplate="body">
       {{ examLevelEnum + (exam.level ? exam.level : 'missing') | translate }}
+      <span book-label title="{{ examLevelEnum + (exam.level ? exam.level : 'missing') | translate }}" content="links"></span>
     </ng-template>
   </p-column>
   <p-column field="score" [sortable]="true" [hidden]="isClaimScoreSelected">

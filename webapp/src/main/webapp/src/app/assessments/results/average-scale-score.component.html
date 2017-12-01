@@ -1,77 +1,86 @@
 <!-- IAB display -->
-<div *ngIf="showIab && hasAverageScore" class="row">
+<div *ngIf="(showIab || showIcaSummative) && hasAverageScore" class="row">
   <div class="col-md-5">
     <div class="average-scale-score-display">
-      <span info-label class="scale-title" style="white-space: nowrap;"
-            title="{{ 'labels.assessments.average-scale-score' | translate }}"
-            content="{{ 'labels.assessments.average-scale-score-info' | translate }}"></span>
-      <span class="scale-score">
-        <span class="score label gray-darker">{{ statistics.average | number:'1.0-0' | removeComma }}</span>
-        <span class="error-band">± {{ statistics.standardError | number:'1.0-0' }}</span>
-      </span>
-      <span class="label-group gray-light">
-        <span class="label">{{ statistics.total }}</span><span class="label">{{ 'labels.assessments.students' | translate }}</span>
-      </span>
+      <strong>{{ 'labels.assessments.average.title' | translate }}</strong>
+      <table class="table overflow">
+        <tr>
+          <td class="col-md-6 gray-light-bg text-center">
+            <span info-label
+                  title="{{ 'labels.assessments.average.scale-score' | translate }}"
+                  content="{{ 'labels.assessments.average.scale-score-info' | translate }}"></span>
+          </td>
+          <td class="level-down">
+            <span class="scale-score">
+              <span class="score label gray-darker">{{ statistics.average | number:'1.0-0' | removeComma }}</span>
+              <span class="error-band">± {{ statistics.standardError | number:'1.0-0' }}</span>
+            </span>
+            <span class="label-group">
+              <span>{{ statistics.total }}</span>
+              <span>{{ 'labels.assessments.students' | translate }}</span>
+            </span>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
-  <div class="col-md-7">
+  <div class="col-md-7" [hidden]="!showIab">
     <div class="scale-score-graph rounded blend-middle">
-      <span class="scale-title">{{ 'labels.assessments.student-score-distribution' | translate }}</span>
-      <div class="bar-container">
-        <div class="bar blue-dark" [attr.data-width]="getLevelPercent(0)">
-          <span class="percentage">{{ performanceLevels[0].value | number:'1.0-0' }}{{ performanceLevels[0].suffix }}</span>
-          <span class="bar-label">{{ examLevelEnum + performanceLevels[0].id.toString() | translate }}</span>
-        </div>
-        <div class="bar blue-dark aqua" [attr.data-width]="getLevelPercent(1)">
-          <span class="percentage">{{ performanceLevels[1].value | number:'1.0-0' }}{{ performanceLevels[1].suffix }}</span>
-          <span class="bar-label">{{ examLevelEnum + performanceLevels[1].id.toString() | translate }}</span>
-        </div>
-        <div class="bar aqua" [attr.data-width]="getLevelPercent(2)">
-          <span class="percentage">{{ performanceLevels[2].value | number:'1.0-0' }}{{ performanceLevels[2].suffix }}</span>
-          <span class="bar-label">{{ examLevelEnum + performanceLevels[2].id.toString() | translate }}</span>
-        </div>
-      </div>
+      <strong>{{ 'labels.assessments.student-score-distribution.title' | translate }}</strong>
+      <table class="table">
+        <tr *ngFor="let performanceLevel of performanceLevels; let i = index">
+          <td class="col-md-5">
+            <span class="pull-right">
+              {{ examLevelEnum + performanceLevel.id.toString() | translate }}
+              <span book-label title="{{ examLevelEnum + performanceLevel.id.toString() | translate }}" content="links"></span>
+            </span>
+          </td>
+          <td class="col-md-1 level-down">
+            <span class="pull-right">
+              {{ performanceLevel.value | number:'1.0-0' }}{{performanceLevel.suffix }}
+            </span>
+          </td>
+          <td class="level-down">
+            <div class="bar-container">
+              <div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="getIabColor(i)"
+                   [attr.data-width]="floor(performanceLevel.value)"></div>
+              <div *ngIf="performanceLevel.value < 100" class="bar gray"
+                   [attr.data-width]="100 - floor(performanceLevel.value)">
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
-</div>
-
-<!-- ICA display -->
-<div *ngIf="showIcaSummative && hasAverageScore" class="row">
-  <div class="col-md-5">
-    <div class="average-scale-score-display">
-      <span info-label class="scale-title" style="white-space: nowrap;"
-            title="{{ 'labels.assessments.average-scale-score' | translate }}"
-            content="{{ 'labels.assessments.average-scale-score-info' | translate }}"></span>
-      <span class="scale-score">
-        <span class="score label gray-darker">{{ statistics.average | number:'1.0-0' | removeComma }}</span>
-        <span class="error-band">± {{ statistics.standardError | number:'1.0-0' }}</span>
-      </span>
-      <span class="label-group gray-light">
-        <span class="label">{{ statistics.total }}</span><span class="label">{{ 'labels.assessments.students' | translate }}</span>
-      </span>
-    </div>
-  </div>
-  <div class="col-md-7">
+  <!-- ICA display -->
+  <div class="col-md-7" [hidden]="!showIcaSummative">
     <div class="scale-score-graph">
-      <span class="scale-title">{{ 'labels.assessments.student-score-distribution' | translate }}</span>
-      <div class="bar-container">
-        <div class="bar maroon" [attr.data-width]="getLevelPercent(0)">
-          <span class="percentage">{{ performanceLevels[0].value | number:'1.0-0' }}{{ performanceLevels[0].suffix }}</span>
-          <span class="bar-label">{{ examLevelEnum + performanceLevels[0].id.toString() | translate }}</span>
-        </div>
-        <div class="bar gray-darkest" [attr.data-width]="getLevelPercent(1)">
-          <span class="percentage">{{ performanceLevels[1].value | number:'1.0-0' }}{{ performanceLevels[1].suffix }}</span>
-          <span class="bar-label">{{ examLevelEnum + performanceLevels[1].id.toString() | translate }}</span>
-        </div>
-        <div class="bar green-dark" [attr.data-width]="getLevelPercent(2)">
-          <span class="percentage">{{ performanceLevels[2].value | number:'1.0-0' }}{{ performanceLevels[2].suffix }}</span>
-          <span class="bar-label">{{ examLevelEnum + performanceLevels[2].id.toString() | translate }}</span>
-        </div>
-        <div class="bar blue-dark" [attr.data-width]="getLevelPercent(3)">
-          <span class="percentage">{{ performanceLevels[3].value | number:'1.0-0' }}{{ performanceLevels[3].suffix }}</span>
-          <span class="bar-label">{{ examLevelEnum + performanceLevels[3].id.toString() | translate }}</span>
-        </div>
-      </div>
+      <strong>{{ 'labels.assessments.student-score-distribution.title' | translate }}</strong>
+      <table class="table">
+        <tr *ngFor="let performanceLevel of performanceLevels; let i = index">
+          <td class="col-md-5">
+            <span class="pull-right">
+              {{ examLevelEnum + performanceLevel.id.toString() | translate }}
+              <span book-label title="{{ examLevelEnum +performanceLevel.id.toString() | translate }}" content="links"></span>
+            </span>
+          </td>
+          <td class="col-md-1 level-down">
+            <span class="pull-right">
+              {{ performanceLevel.value | number:'1.0-0' }}{{performanceLevel.suffix }}
+            </span>
+          </td>
+          <td class="level-down">
+            <div class="bar-container">
+              <div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="getIcaColor(i)"
+                   [attr.data-width]="floor(performanceLevel.value)"></div>
+              <div *ngIf="performanceLevel.value < 100" class="bar gray"
+                   [attr.data-width]="100 - floor(performanceLevel.value)">
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>

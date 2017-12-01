@@ -3,6 +3,8 @@ import { AssessmentExam } from "../model/assessment-exam.model";
 import { ExamStatistics, ExamStatisticsLevel } from "../model/exam-statistics.model";
 import { ScaleScoreService } from "./scale-score.service";
 
+const icaColors =  ['maroon', 'gray-darkest', 'green-dark', 'blue-dark'];
+const iabColors = ['blue-dark', 'blue-dark aqua', 'aqua'];
 /**
  * This component is responsible for displaying the average scale score visualization
  */
@@ -13,6 +15,8 @@ import { ScaleScoreService } from "./scale-score.service";
 export class AverageScaleScoreComponent {
 
   levelPercents: any[];
+
+  count = 0;
   private _statistics: ExamStatistics;
 
   @Input()
@@ -65,5 +69,17 @@ export class AverageScaleScoreComponent {
 
   getLevelPercent(num: number): number {
     return this.levelPercents[num];
+  }
+
+  floor(num: number): number {
+    return Math.floor(num);
+  }
+
+  getIcaColor(index: number) {
+    return icaColors[index];
+  }
+
+  getIabColor(index: number) {
+    return iabColors[index];
   }
 }

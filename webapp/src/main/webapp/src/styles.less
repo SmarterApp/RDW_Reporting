@@ -311,17 +311,43 @@ sb-button-typeahead .input-group-btn > .btn,
   position: relative;
 }
 
-body .select-menu-group {
+body .select-menu-group,
+.average-scale-score-display > table,
+.scale-score-graph > table {
   .selected {
     background-color: #e8e8e8;
   }
   display: flex;
   justify-content: space-between;
-  padding: 0.5em 0.5em 0.5em 0;
   background-color: #f8f8f8;
   border-radius: 5px;
   -webkit-box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.16);
   -moz-box-shadow:    0px 3px 6px 0px rgba(0,0,0,0.16);
   box-shadow:         0px 3px 6px 0px rgba(0,0,0,0.16);
+}
+
+.average-scale-score-display > .table > tbody > tr > .gray-light-bg {
+  box-shadow: 0 0 6px -6px rgba(255,255,255,.95) inset;
+}
+
+.average-scale-score-display > .table .scale-score {
+  font-size: 30px;
+}
+
+body .select-menu-group {
+  padding: 0.5em 0.5em 0.5em 0;
+}
+
+.btn-group-vertical > .btn {
+  margin-bottom: 5px;
+}
+
+
+.gray-light-bg {
+  background-color: @gray-light;
+}
+
+.scale-score-graph table .bar-container {
+  padding-bottom: 10px;
 }
 

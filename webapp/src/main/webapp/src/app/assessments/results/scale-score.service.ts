@@ -11,7 +11,7 @@ export class ScaleScoreService {
    * There is a minimum display width of 10%, therefore if the percent is less than 10, we need to adjust the others proportionally
    * so that the total percents sum to 100 exactly.
    *
-   * @param originalPercents Teh actual percent breakdown across the levels
+   * @param originalPercents The actual percent breakdown across the levels
    * @returns {number[]} the percent level breakdown for the bar visualizations
    */
   public calculateDisplayScoreDistribution(originalPercents: ExamStatisticsLevel[]): number[] {
