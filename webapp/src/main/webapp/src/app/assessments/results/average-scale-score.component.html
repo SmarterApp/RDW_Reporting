@@ -24,7 +24,7 @@
       </table>
     </div>
   </div>
-  <div class="col-md-7" *ngIf="showIab">
+  <div class="col-md-7" [hidden]="!showIab">
     <div class="scale-score-graph rounded blend-middle">
       <strong>{{ 'labels.assessments.student-score-distribution.title' | translate }}</strong>
       <table class="table">
@@ -42,10 +42,10 @@
           </td>
           <td class="level-down">
             <div class="bar-container">
-              <div *ngIf="performanceLevels.value != 0" class="bar" [ngClass]="getIabColor(i)"
-                   [attr.data-width]="floor(performanceLevels.value)"></div>
-              <div *ngIf="performanceLevels.value < 100" class="bar gray"
-                   [attr.data-width]="100 - floor(performanceLevels.value)">
+              <div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="getIabColor(i)"
+                   [attr.data-width]="floor(performanceLevel.value)"></div>
+              <div *ngIf="performanceLevel.value < 100" class="bar gray"
+                   [attr.data-width]="100 - floor(performanceLevel.value)">
               </div>
             </div>
           </td>
@@ -54,7 +54,7 @@
     </div>
   </div>
   <!-- ICA display -->
-  <div class="col-md-7" *ngIf="showIcaSummative">
+  <div class="col-md-7" [hidden]="!showIcaSummative">
     <div class="scale-score-graph">
       <strong>{{ 'labels.assessments.student-score-distribution.title' | translate }}</strong>
       <table class="table">
