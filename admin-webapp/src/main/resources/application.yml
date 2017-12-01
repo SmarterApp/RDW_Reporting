@@ -123,6 +123,7 @@ permissionservice:
 app:
   state:
     code: CA
+    name: California
 
   home-url: /
 
