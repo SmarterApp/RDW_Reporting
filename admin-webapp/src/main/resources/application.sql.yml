@@ -77,7 +77,7 @@ sql:
   instructionalResource:
     findAll: >-
       SELECT DISTINCT
-        a.id as asmt_id,
+        a.label as asmt_label,
         ir.asmt_name,
         ir.performance_level,
         ir.org_level,
@@ -131,7 +131,7 @@ sql:
 
     findOne: >-
       SELECT DISTINCT
-        a.id as asmt_id,
+        a.label as asmt_label,
         ir.asmt_name,
         ir.performance_level,
         ir.org_level,
@@ -155,7 +155,7 @@ sql:
         OR sch.school_group_id = ir.org_id
       WHERE ir.org_level != 'System'
         AND ir.org_level = :org_level
-        AND a.id = :asmt_id
+        AND ir.asmt_name = :asmt_name
         AND ir.performance_level = :performance_level
         AND ir.org_id <=> :org_id
         AND
@@ -189,20 +189,18 @@ sql:
 
     update: >-
       UPDATE instructional_resource ir
-        JOIN asmt a
-          ON a.name = ir.asmt_name
       SET
         ir.resource = :resource
       WHERE ir.org_level != 'System'
         AND ir.org_level = :org_level
-        AND a.id = :asmt_id
+        AND ir.asmt_name = :asmt_name
         AND ir.performance_level = :performance_level
         AND ir.org_id <=> :org_id
 
     create: >-
       INSERT INTO instructional_resource (asmt_name, resource, org_level, performance_level, org_id)
         SELECT
-          a.name,
+          :asmt_name,
           :resource,
           :org_level,
           :performance_level,
@@ -213,15 +211,13 @@ sql:
               AND ir.performance_level = :performance_level
               AND ir.org_level = :org_level
               AND ir.org_id <=> :org_id
-        WHERE a.id = :asmt_id
+        WHERE a.name = :asmt_name
           AND ir.asmt_name IS NULL
 
     delete: >-
-      DELETE ir FROM instructional_resource ir
-        JOIN asmt a
-          ON a.name = ir.asmt_name
-      WHERE ir.org_level != 'System'
-        AND ir.org_level = :org_level
-        AND a.id = :asmt_id
-        AND ir.performance_level = :performance_level
-        AND ir.org_id <=> :org_id
+      DELETE FROM instructional_resource
+      WHERE org_level != 'System'
+        AND org_level = :org_level
+        AND asmt_name = :asmt_name
+        AND performance_level = :performance_level
+        AND org_id <=> :org_id
