@@ -3,7 +3,6 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
 import { AppComponent } from "./app.component";
-import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
 import { BsDropdownModule, TabsModule } from "ngx-bootstrap";
 import { CommonModule } from "./shared/common.module";
 import { UserModule } from "./user/user.module";
@@ -21,7 +20,6 @@ import { HomeComponent } from "./home/home.component";
 @NgModule({
   declarations: [
     AppComponent,
-    BreadcrumbsComponent,
     AccessDeniedComponent,
     HomeComponent
   ],

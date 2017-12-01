@@ -1,5 +1,8 @@
 {
   "common-ngx": {
+    "application": {
+      "window-title": "Smarter Balanced | Admin"
+    },
     "session-expired": {
       "title": "Authentication Expired",
       "message": "Click Ok to re-authenticate.",

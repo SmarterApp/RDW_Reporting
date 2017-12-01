@@ -4,7 +4,6 @@ import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
-import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
 import { AlertModule, BsDropdownModule, PopoverModule, TabsModule } from "ngx-bootstrap";
 import { CommonModule } from "./shared/common.module";
 import { GroupsModule } from "./groups/groups.module";
@@ -23,7 +22,6 @@ import { OrganizationExportModule } from "./organization-export/organization-exp
 @NgModule({
   declarations: [
     AppComponent,
-    BreadcrumbsComponent,
     HomeComponent,
     ErrorComponent,
     AccessDeniedComponent

@@ -31,8 +31,10 @@ import {
   RdwSecurityModule,
   RdwTranslateLoader,
 } from "@sbac/rdw-reporting-common-ngx";
+import { RdwLayoutModule } from "@sbac/rdw-reporting-common-ngx";
 import { LabelComponent } from "./label/label.component";
 import { BookLabelComponent } from "./label/book-label.component";
+
 
 @NgModule({
   declarations: [
@@ -61,6 +63,7 @@ import { BookLabelComponent } from "./label/book-label.component";
     RdwFormModule,
     RdwFormatModule,
     RdwI18nModule,
+    RdwLayoutModule,
     RdwPreferenceModule,
     RdwSecurityModule,
     TranslateModule.forRoot({
@@ -84,6 +87,7 @@ import { BookLabelComponent } from "./label/book-label.component";
     RdwFormModule,
     RdwFormatModule,
     RdwI18nModule,
+    RdwLayoutModule,
     RdwPreferenceModule,
     RdwSecurityModule,
     SBCheckboxList,

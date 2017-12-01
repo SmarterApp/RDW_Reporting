@@ -17,6 +17,8 @@ dependencies {
     compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-properties'
     compile 'org.springframework.boot:spring-boot-starter-jdbc'
     compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    compile 'com.healthmarketscience.sqlbuilder:sqlbuilder:2.1.7'
+
     optional 'org.springframework.boot:spring-boot-configuration-processor'
 
     testCompile('org.springframework.boot:spring-boot-starter-test') {

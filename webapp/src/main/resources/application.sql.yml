@@ -61,39 +61,7 @@ sql:
         join school s on e.school_id=s.id
         join school isch on st.inferred_school_id = isch.id
       where e.student_id=:student_id
-        and
-        (
-          # Individual permissions test
-          (
-            (1 = :individual_statewide or s.district_group_id in (:individual_district_group_ids) or s.district_id in (:individual_district_ids) or s.school_group_id in (:individual_school_group_ids) or e.school_id in (:individual_school_ids))
-            or
-            (
-              1 = :allow_transfer_access
-              and (isch.district_group_id in (:individual_district_group_ids) or isch.district_id in (:individual_district_ids) or isch.school_group_id in (:individual_school_group_ids) or isch.id in (:individual_school_ids))
-            )
-          )
-          or
-          # Group permissions test
-          (
-            exists(
-                select 1
-                from student_group_membership sgm
-                  join student_group sg on sgm.student_group_id = sg.id
-                where sgm.student_group_id in (:group_ids)
-                      and sgm.student_id = st.id
-                      and (sg.subject_id is null or sg.subject_id = a.subject_id)
-            )
-            and
-            (
-              (1 = :group_statewide or s.district_group_id in (:group_district_group_ids) or s.district_id in (:group_district_ids) or s.school_group_id in (:group_school_group_ids) or e.school_id in (:group_school_ids))
-              or
-              (
-                1 = :allow_transfer_access
-                and (isch.district_group_id in (:group_district_group_ids) or isch.district_id in (:group_district_ids) or isch.school_group_id in (:group_school_group_ids) or isch.id in (:group_school_ids))
-              )
-            )
-          )
-        )
+        and ${sql.reporting.snippet.unknownScopePermission}
 
     # NOTE that existsForStudentId does not sample the students' inferred schools
     # because a student's inferred school is determined by their latest exam.
@@ -143,39 +111,7 @@ sql:
           join school s on e.school_id=s.id
           join school isch on st.inferred_school_id = isch.id
         where e.id=:exam_id
-          and
-          (
-            # Individual permissions test
-            (
-              (1 = :individual_statewide or s.district_group_id in (:individual_district_group_ids) or s.district_id in (:individual_district_ids) or s.school_group_id in (:individual_school_group_ids) or e.school_id in (:individual_school_ids))
-              or
-              (
-                1 = :allow_transfer_access
-                and (isch.district_group_id in (:individual_district_group_ids) or isch.district_id in (:individual_district_ids) or isch.school_group_id in (:individual_school_group_ids) or isch.id in (:individual_school_ids))
-              )
-            )
-            or
-            # Group permissions test
-            (
-              exists(
-                  select 1
-                  from student_group_membership sgm
-                    join student_group sg on sgm.student_group_id = sg.id
-                  where sgm.student_group_id in (:group_ids)
-                        and sgm.student_id = st.id
-                        and (sg.subject_id is null or sg.subject_id = a.subject_id)
-              )
-              and
-              (
-                (1 = :group_statewide or s.district_group_id in (:group_district_group_ids) or s.district_id in (:group_district_ids) or s.school_group_id in (:group_school_group_ids) or e.school_id in (:group_school_ids))
-                or
-                (
-                  1 = :allow_transfer_access
-                  and (isch.district_group_id in (:group_district_group_ids) or isch.district_id in (:group_district_ids) or isch.school_group_id in (:group_school_group_ids) or isch.id in (:group_school_ids))
-                )
-              )
-            )
-          )
+          and ${sql.reporting.snippet.unknownScopePermission}
 
   group:
     findAllForUsername: >-
@@ -220,14 +156,7 @@ sql:
             and a.id = e.asmt_id
             and sgm.student_group_id=:group_id
             and (0=:group_subject_id or a.subject_id=:group_subject_id)
-            and (
-              (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-              or
-              (
-                1 = :allow_transfer_access
-                and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-              )
-            )
+            and ${sql.reporting.snippet.individualScopePermission}
 
 
     exam:
@@ -253,11 +182,11 @@ sql:
           from exam e
             join student_group_membership sgm on e.student_id=sgm.student_id
             join asmt a on e.asmt_id=a.id
-            join school s on e.school_id=s.id
+            join school sc on e.school_id=sc.id
           where e.school_year=:school_year
             and sgm.student_group_id=:group_id
             and (0=:group_subject_id or a.subject_id=:group_subject_id)
-            and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+            and ${sql.snippet.basicPermission}
           order by e.completed_at desc
           limit 1
 
@@ -315,14 +244,7 @@ sql:
           and e.school_year=:school_year
           and sgm.student_group_id=:group_id
           and (0=:group_subject_id or a.subject_id=:group_subject_id)
-          and (
-            (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-            or
-            (
-              1 = :allow_transfer_access
-              and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-            )
-          )
+          and ${sql.reporting.snippet.individualScopePermission}
 
       item:
         findAllExamItemScoresForAssessment:
@@ -343,14 +265,7 @@ sql:
             and e.school_year=:school_year
             and sgm.student_group_id=:group_id
             and (0=:group_subject_id or a.subject_id=:group_subject_id)
-            and (
-              (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-              or
-              (
-                1 = :allow_transfer_access
-                and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-              )
-            )
+            and ${sql.reporting.snippet.individualScopePermission}
 
   schoolgrade:
     assessment:
@@ -379,18 +294,7 @@ sql:
               join school isch on st.inferred_school_id = isch.id
             where e.school_year=:school_year
             and a.id = e.asmt_id
-            and (
-              (
-                e.school_id=:school_id
-                and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-              )
-              or
-              (
-                1 = :allow_transfer_access
-                and isch.id = :school_id
-                and (1=:statewide or isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-              )
-            )
+            and ${sql.reporting.snippet.schoolScopePermission}
         )
         and a.grade_id=:grade_id
 
@@ -416,11 +320,11 @@ sql:
           a.cut_point_3
         from exam e
           join asmt a on e.asmt_id=a.id
-          join school s on e.school_id=s.id
+          join school sc on e.school_id=sc.id
         where e.school_year=:school_year
         and e.school_id=:school_id
         and a.grade_id=:grade_id
-        and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or s.id in (:school_ids))
+        and ${sql.snippet.basicPermission}
         order by e.completed_at desc
         limit 1
 
@@ -476,19 +380,7 @@ sql:
         where e.asmt_id=:assessment_id
         and a.grade_id=:grade_id
         and e.school_year=:school_year
-        and (
-          (
-            e.school_id=:school_id
-            and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-          )
-          or
-          (
-            1 = :allow_transfer_access
-            and isch.id = :school_id
-            and (1=:statewide or isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-          )
-        )
-
+        and ${sql.reporting.snippet.schoolScopePermission}
       item:
         findAllExamItemScoresForAssessment:
           select
@@ -506,18 +398,7 @@ sql:
           where e.asmt_id=:assessment_id
           and e.school_year=:school_year
           and a.grade_id=:grade_id
-          and (
-            (
-              e.school_id=:school_id
-              and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-            )
-            or
-            (
-              1 = :allow_transfer_access
-              and isch.id = :school_id
-              and (1=:statewide or isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-            )
-          )
+          and ${sql.reporting.snippet.schoolScopePermission}
 
   assessment:
     grade:
@@ -527,9 +408,9 @@ sql:
             select a.grade_id
             from exam e
               join asmt a on e.asmt_id=a.id
-              join school s on e.school_id=s.id
+              join school sc on e.school_id=sc.id
             where e.school_id=:school_id
-            and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+            and ${sql.snippet.basicPermission}
             and g.id=a.grade_id
         )
 
@@ -585,54 +466,6 @@ sql:
       from student s
       where s.id=:studentId
        and exists (select 1 from exam e where e.student_id = s.id)
-
-  school:
-    findAllForNameContainingText: >-
-      select name, id
-      from school
-      where (1=:statewide or district_group_id in (:district_group_ids) or district_id in (:district_ids) or school_group_id in (:school_group_ids) or id in (:school_ids))
-      and name like :text
-      limit :limit
-
-  organization:
-    school:
-      findAll: >-
-        select s.name,
-          s.id,
-          s.school_group_id,
-          d.id as district_id,
-          s.district_group_id,
-          d.name as district_name
-        from school s
-          join district d on s.district_id = d.id
-        where (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or s.id in (:school_ids))
-
-    schoolGroup:
-      findAll: >-
-        select distinct sg.id,
-          sg.name,
-          s.district_group_id,
-          s.district_id
-        from school_group sg
-          join school s on s.school_group_id = sg.id
-        where (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or s.id in (:school_ids))
-
-    district:
-      findAll: >-
-        select distinct d.id,
-          d.name,
-          s.district_group_id
-        from district d
-          join school s on s.district_id = d.id
-        where (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or s.id in (:school_ids))
-
-    districtGroup:
-      findAll: >-
-        select distinct dg.id,
-          dg.name
-        from district_group dg
-          join school s on s.district_group_id = dg.id
-        where (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or s.id in (:school_ids))
 
   ethnicity:
     findAll: >-
@@ -702,3 +535,64 @@ sql:
           OR (ir.org_level = 'District' AND district.id IS NOT NULL)
           OR (ir.org_level = 'SchoolGroup' AND school_group.id IS NOT NULL)
         )
+
+
+  reporting:
+    snippet:
+      unknownScopePermission: >-
+          (
+             # Individual permissions test
+            (
+              (1 = :individual_statewide or s.district_group_id in (:individual_district_group_ids) or s.district_id in (:individual_district_ids) or s.school_group_id in (:individual_school_group_ids) or e.school_id in (:individual_school_ids))
+              or
+              (
+                1 = :allow_transfer_access
+                and (isch.district_group_id in (:individual_district_group_ids) or isch.district_id in (:individual_district_ids) or isch.school_group_id in (:individual_school_group_ids) or isch.id in (:individual_school_ids))
+              )
+            )
+            or
+            # Group permissions test
+            (
+              exists(
+                  select 1
+                  from student_group_membership sgm
+                    join student_group sg on sgm.student_group_id = sg.id
+                  where sgm.student_group_id in (:group_ids)
+                        and sgm.student_id = st.id
+                        and (sg.subject_id is null or sg.subject_id = a.subject_id)
+              )
+              and
+              (
+                (1 = :group_statewide or s.district_group_id in (:group_district_group_ids) or s.district_id in (:group_district_ids) or s.school_group_id in (:group_school_group_ids) or e.school_id in (:group_school_ids))
+                or
+                (
+                  1 = :allow_transfer_access
+                  and (isch.district_group_id in (:group_district_group_ids) or isch.district_id in (:group_district_ids) or isch.school_group_id in (:group_school_group_ids) or isch.id in (:group_school_ids))
+                )
+              )
+            )
+          )
+
+      individualScopePermission: >-
+          (
+            (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+            or
+            (
+              1 = :allow_transfer_access
+              and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
+            )
+          )
+
+      schoolScopePermission:  >-
+          (
+            (
+              e.school_id=:school_id
+              and (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+            )
+            or
+            (
+              1 = :allow_transfer_access
+              and isch.id = :school_id
+              and (1=:statewide or isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
+            )
+          )
