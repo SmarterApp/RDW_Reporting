@@ -28,68 +28,24 @@
     <div class="scale-score-graph rounded blend-middle">
       <strong>{{ 'labels.assessments.student-score-distribution.title' | translate }}</strong>
       <table class="table">
-        <tr>
+        <tr *ngFor="let performanceLevel of performanceLevels; let i = index">
           <td class="col-md-5">
             <span class="pull-right">
-              {{ examLevelEnum + performanceLevels[0].id.toString() | translate }}
-              <span book-label title="{{ examLevelEnum + performanceLevels[0].id.toString() | translate }}" content="links"></span>
+              {{ examLevelEnum + performanceLevel.id.toString() | translate }}
+              <span book-label title="{{ examLevelEnum + performanceLevel.id.toString() | translate }}" content="links"></span>
             </span>
           </td>
           <td class="col-md-1 level-down">
             <span class="pull-right">
-              {{ performanceLevels[0].value | number:'1.0-0' }}{{performanceLevels[0].suffix }}
+              {{ performanceLevel.value | number:'1.0-0' }}{{performanceLevel.suffix }}
             </span>
           </td>
           <td class="level-down">
             <div class="bar-container">
-              <div *ngIf="performanceLevels[0].value != 0" class="bar blue-dark"
-                   [attr.data-width]="floor(performanceLevels[0].value)"></div>
-              <div *ngIf="performanceLevels[0].value < 100" class="bar gray"
-                   [attr.data-width]="100 - floor(performanceLevels[0].value)">
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="col-md-5">
-            <span class="pull-right">
-              {{ examLevelEnum + performanceLevels[1].id.toString() | translate }}
-              <span book-label title="{{ examLevelEnum + performanceLevels[1].id.toString() | translate }}" content="links"></span>
-            </span>
-          </td>
-          <td class="col-md-1 level-down">
-            <span class="pull-right">
-              {{ performanceLevels[1].value | number:'1.0-0' }}{{performanceLevels[1].suffix }}
-            </span>
-          </td>
-          <td class="level-down">
-            <div class="bar-container">
-              <div *ngIf="performanceLevels[1].value != 0" class="bar blue-dark aqua"
-                   [attr.data-width]="floor(performanceLevels[1].value)"></div>
-              <div *ngIf="performanceLevels[1].value < 100" class="bar gray"
-                   [attr.data-width]="100 - floor(performanceLevels[1].value)">
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="col-md-5">
-            <span class="pull-right">
-              {{ examLevelEnum + performanceLevels[2].id.toString() | translate }}
-              <span book-label title="{{ examLevelEnum + performanceLevels[2].id.toString() | translate }}" content="links"></span>
-            </span>
-          </td>
-          <td class="col-md-1 level-down">
-            <span class="pull-right">
-              {{ performanceLevels[2].value | number:'1.0-0' }}{{performanceLevels[2].suffix }}
-            </span>
-          </td>
-          <td class="level-down">
-            <div class="bar-container">
-              <div *ngIf="performanceLevels[2].value != 0" class="bar aqua"
-                   [attr.data-width]="floor(performanceLevels[2].value)"></div>
-              <div *ngIf="performanceLevels[2].value < 100" class="bar gray"
-                   [attr.data-width]="100 - floor(performanceLevels[2].value)">
+              <div *ngIf="performanceLevels.value != 0" class="bar" [ngClass]="getIabColor(i)"
+                   [attr.data-width]="floor(performanceLevels.value)"></div>
+              <div *ngIf="performanceLevels.value < 100" class="bar gray"
+                   [attr.data-width]="100 - floor(performanceLevels.value)">
               </div>
             </div>
           </td>
@@ -102,90 +58,24 @@
     <div class="scale-score-graph">
       <strong>{{ 'labels.assessments.student-score-distribution.title' | translate }}</strong>
       <table class="table">
-        <tr>
+        <tr *ngFor="let performanceLevel of performanceLevels; let i = index">
           <td class="col-md-5">
             <span class="pull-right">
-              {{ examLevelEnum + performanceLevels[0].id.toString() | translate }}
-              <span book-label title="{{ examLevelEnum + performanceLevels[0].id.toString() | translate }}" content="links"></span>
+              {{ examLevelEnum + performanceLevel.id.toString() | translate }}
+              <span book-label title="{{ examLevelEnum +performanceLevel.id.toString() | translate }}" content="links"></span>
             </span>
           </td>
           <td class="col-md-1 level-down">
             <span class="pull-right">
-              {{ performanceLevels[0].value | number:'1.0-0' }}{{performanceLevels[0].suffix }}
+              {{ performanceLevel.value | number:'1.0-0' }}{{performanceLevel.suffix }}
             </span>
           </td>
           <td class="level-down">
             <div class="bar-container">
-              <div *ngIf="performanceLevels[0].value != 0" class="bar maroon"
-                   [attr.data-width]="floor(performanceLevels[0].value)"></div>
-              <div *ngIf="performanceLevels[0].value < 100" class="bar gray"
-                   [attr.data-width]="100 - floor(performanceLevels[0].value)">
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="col-md-5">
-            <span class="pull-right">
-              {{ examLevelEnum + performanceLevels[1].id.toString() | translate }}
-              <span book-label title="{{ examLevelEnum + performanceLevels[1].id.toString() | translate }}" content="links"></span>
-            </span>
-          </td>
-          <td class="col-md-1 level-down">
-            <span class="pull-right">
-              {{ performanceLevels[1].value | number:'1.0-0' }}{{performanceLevels[1].suffix }}
-            </span>
-          </td>
-          <td class="level-down">
-            <div class="bar-container">
-              <div *ngIf="performanceLevels[1].value != 0" class="bar gray-darkest"
-                   [attr.data-width]="floor(performanceLevels[1].value)"></div>
-              <div *ngIf="performanceLevels[1].value < 100" class="bar gray"
-                   [attr.data-width]="100 - floor(performanceLevels[1].value)">
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="col-md-5">
-            <span class="pull-right">
-              {{ examLevelEnum + performanceLevels[2].id.toString() | translate }}
-              <span book-label title="{{ examLevelEnum + performanceLevels[2].id.toString() | translate }}" content="links"></span>
-            </span>
-          </td>
-          <td class="col-md-1 level-down">
-            <span class="pull-right">
-              {{ performanceLevels[2].value | number:'1.0-0' }}{{performanceLevels[2].suffix }}
-            </span>
-          </td>
-          <td class="level-down">
-            <div class="bar-container">
-              <div *ngIf="performanceLevels[2].value != 0" class="bar green-dark"
-                   [attr.data-width]="floor(performanceLevels[2].value)"></div>
-              <div *ngIf="performanceLevels[2].value < 100" class="bar gray"
-                   [attr.data-width]="100 - floor(performanceLevels[2].value)">
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="col-md-5">
-            <span class="pull-right">
-              {{ examLevelEnum + performanceLevels[3].id.toString() | translate }}
-              <span book-label title="{{ examLevelEnum + performanceLevels[3].id.toString() | translate }}" content="links"></span>
-            </span>
-          </td>
-          <td class="col-md-1 level-down">
-            <span class="pull-right">
-              {{ performanceLevels[3].value | number:'1.0-0' }}{{performanceLevels[3].suffix }}
-            </span>
-          </td>
-          <td class="level-down">
-            <div class="bar-container">
-              <div *ngIf="performanceLevels[3].value != 0" class="bar blue-dark"
-                   [attr.data-width]="floor(performanceLevels[3].value)"></div>
-              <div *ngIf="performanceLevels[3].value < 100" class="bar gray"
-                   [attr.data-width]="100 - floor(performanceLevels[3].value)">
+              <div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="getIcaColor(i)"
+                   [attr.data-width]="floor(performanceLevel.value)"></div>
+              <div *ngIf="performanceLevel.value < 100" class="bar gray"
+                   [attr.data-width]="100 - floor(performanceLevel.value)">
               </div>
             </div>
           </td>
