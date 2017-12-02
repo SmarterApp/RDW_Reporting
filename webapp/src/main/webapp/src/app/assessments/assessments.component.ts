@@ -195,6 +195,7 @@ export class AssessmentsComponent implements OnInit {
     if (latestAssessment) {
       this._assessmentExams.push(latestAssessment);
     }
+    console.log("latest assessment", latestAssessment);
 
     this.updateFilterOptions();
   }

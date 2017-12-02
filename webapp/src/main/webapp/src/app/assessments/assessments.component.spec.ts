@@ -143,7 +143,7 @@ function getRouteSnapshot() {
           }
         ],
         assessments: [ {
-          name: "Measurements & Data"
+          label: "Measurements & Data"
         } ]
       }
     },

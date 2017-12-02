@@ -28,7 +28,7 @@
       <popup-menu [item]="data" [actions]="actions" [text]="exam.date | date"></popup-menu>
     </ng-template>
   </p-column>
-  <p-column field="assessment.name" header="{{'labels.student.results.cols.assessment' | translate}}" sortable="true"></p-column>
+  <p-column field="assessment.label" header="{{'labels.student.results.cols.assessment' | translate}}" sortable="true"></p-column>
   <p-column field="exam.schoolYear" header="{{'labels.student.results.cols.school-year' | translate}}" sortable="true">
     <ng-template let-exam="rowData.exam" pTemplate="body">
       {{ exam.schoolYear | schoolYear }}

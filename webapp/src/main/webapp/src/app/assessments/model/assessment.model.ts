@@ -4,7 +4,7 @@ import { Utils } from "@sbac/rdw-reporting-common-ngx";
 
 export class Assessment {
   id: number;
-  name: string;
+  label: string;
   resourceUrl: string;
   grade: string;
   type: AssessmentType;

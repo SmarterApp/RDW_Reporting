@@ -90,7 +90,7 @@ export class GroupAssessmentService implements AssessmentProvider {
   private getFilename(exportRequest: ExportRequest) {
     let assessment: Assessment = exportRequest.assessment;
     let filename: string = this.groupName +
-      "-" + assessment.name + "-" + this.translate.instant(exportRequest.type.toString()) + "-" + new Date().toDateString();
+      "-" + assessment.label + "-" + this.translate.instant(exportRequest.type.toString()) + "-" + new Date().toDateString();
     return filename;
   }
 

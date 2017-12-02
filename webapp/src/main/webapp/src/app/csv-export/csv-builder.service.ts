@@ -144,7 +144,7 @@ export class CsvBuilder {
   withAssessmentName(getAssessment: (item: any) => Assessment) {
     return this.withColumn(
       this.translateHeader('assessment-name'),
-      (item) => getAssessment(item).name
+      (item) => getAssessment(item).label
     )
   }
 
