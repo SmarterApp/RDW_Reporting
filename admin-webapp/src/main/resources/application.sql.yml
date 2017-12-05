@@ -3,6 +3,31 @@ sql:
     findWarehouseImports: >-
       SELECT i.id, i.digest FROM import i limit 10;
 
+  assessment:
+    reporting:
+      findAll: >-
+        SELECT
+          a.id,
+          a.label,
+          a.name,
+          a.grade_code,
+          a.type_id,
+          a.subject_id,
+          a.school_year,
+          a.claim1_score_code,
+          a.claim2_score_code,
+          a.claim3_score_code,
+          a.claim4_score_code,
+          a.min_score,
+          a.max_score,
+          a.cut_point_1,
+          a.cut_point_2,
+          a.cut_point_3
+        FROM asmt a
+        WHERE
+          (:label_query IS NULL OR a.label LIKE concat('%', :label_query, '%'))
+        LIMIT :limit
+
   group:
     findAllDistinctSchoolYears: >-
       select distinct sg.school_year
