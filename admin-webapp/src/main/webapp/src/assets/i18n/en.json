@@ -28,8 +28,7 @@
   },
   "welcome": "Welcome {{firstName}} {{lastName}}",
   "application": {
-    "title": "Application Administration",
-    "footer": "\u00A9 The Regents of the University of California \u2013 Smarter Balanced Assessment Consortium"
+    "title": "Application Administration"
   },
   "messages": {
     "no-results-found": "No results found.",
