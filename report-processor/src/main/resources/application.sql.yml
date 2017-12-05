@@ -2,220 +2,39 @@ sql:
   exam:
     findAllIabsByStudentIdsAndQueryParamsUnknownPermissions: >-
       select
-        e.id,
-        e.session_id,
-        e.type_id,
-        e.school_year,
-        e.grade_code,
-        e.completeness_code,
-        e.administration_condition_code,
-        e.school_year,
-        e.completed_at,
-        e.scale_score,
-        e.scale_score_std_err,
-        e.performance_level,
-        e.available_accommodation_codes,
-        a.id as asmt_id,
-        a.type_id as asmt_type_id,
-        a.label as asmt_label,
-        a.subject_id as asmt_subject_id,
-        a.school_year as asmt_school_year,
-        a.grade_code as asmt_grade_code,
-        a.min_score as asmt_min_score,
-        a.cut_point_1 as asmt_cut_point_1,
-        a.cut_point_2 as asmt_cut_point_2,
-        a.cut_point_3 as asmt_cut_point_3,
-        a.max_score as asmt_max_score,
-        st.id as student_id,
-        st.ssid as student_ssid,
-        st.first_name as student_first_name,
-        st.last_or_surname as student_last_name,
-        st.gender_code as student_gender_code,
-        s.id as school_id,
-        s.name as school_name,
-        s.district_id as school_district_id,
-        s.district_group_id as school_district_group_id,
-        s.school_group_id,
-        d.name as district_name
-      from exam e
-        join asmt a on e.asmt_id=a.id
-        join student st on e.student_id=st.id
-        join school s on e.school_id=s.id
-        join district d on s.district_id=d.id
-        join school isch on st.inferred_school_id = isch.id
+        d.name as district_name,
+        ${sql.snippet.exam}
+      join district d on s.district_id=d.id
       where e.student_id in (:student_ids)
         and (:school_year is null or e.school_year=:school_year)
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or a.grade_id=:grade_id)
         and a.type_id=2
-        and
-        (
-          :school_id is null
-          or
-          (
-            s.id=:school_id
-            or
-            (
-              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and
-              isch.id = :school_id
-            )
-          )
-        )
-      and
-      ( # This query can run from the context of both GROUP_PII_READ and INDIVIDUAL_PII_READ, so need to evaluate both.
-        # Individual permissions test
-        (
-          (1 = :individual_statewide or s.district_group_id in (:individual_district_group_ids) or s.district_id in (:individual_district_ids) or s.school_group_id in (:individual_school_group_ids) or e.school_id in (:individual_school_ids))
-          or
-          (
-            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-            and (isch.district_group_id in (:individual_district_group_ids) or isch.district_id in (:individual_district_ids) or isch.school_group_id in (:individual_school_group_ids) or isch.id in (:individual_school_ids))
-          )
-        )
-        or
-        # Group permissions test
-        (
-          exists(
-              select 1
-              from student_group_membership sgm
-                join student_group sg on sgm.student_group_id = sg.id
-              where sgm.student_group_id in (:group_ids)
-                    and sgm.student_id in (:student_ids)
-                    and (:subject_id is null or sg.subject_id is null or sg.subject_id = :subject_id)
-          )
-          and
-          (
-            (1 = :group_statewide or s.district_group_id in (:group_district_group_ids) or s.district_id in (:group_district_ids) or s.school_group_id in (:group_school_group_ids) or e.school_id in (:group_school_ids))
-            or
-            (
-              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and (isch.district_group_id in (:group_district_group_ids) or isch.district_id in (:group_district_ids) or isch.school_group_id in (:group_school_group_ids) or isch.id in (:group_school_ids))
-            )
-          )
-        )
-      )
+        and ${sql.reportProcessor.snippet.schoolScopePermission}
+        and ${sql.reportProcessor.snippet.unknownScopePermission}
       order by e.completed_at desc
 
     findAllIabsByStudentIdsAndQueryParamsIndividualPermissions: >-
       select
-        e.id,
-        e.session_id,
-        e.type_id,
-        e.school_year,
-        e.grade_code,
-        e.completeness_code,
-        e.administration_condition_code,
-        e.school_year,
-        e.completed_at,
-        e.scale_score,
-        e.scale_score_std_err,
-        e.performance_level,
-        e.available_accommodation_codes,
-        a.id as asmt_id,
-        a.type_id as asmt_type_id,
-        a.label as asmt_label,
-        a.subject_id as asmt_subject_id,
-        a.school_year as asmt_school_year,
-        a.grade_code as asmt_grade_code,
-        a.min_score as asmt_min_score,
-        a.cut_point_1 as asmt_cut_point_1,
-        a.cut_point_2 as asmt_cut_point_2,
-        a.cut_point_3 as asmt_cut_point_3,
-        a.max_score as asmt_max_score,
-        st.id as student_id,
-        st.ssid as student_ssid,
-        st.first_name as student_first_name,
-        st.last_or_surname as student_last_name,
-        st.gender_code as student_gender_code,
-        s.id as school_id,
-        s.name as school_name,
-        s.district_id as school_district_id,
-        s.district_group_id as school_district_group_id,
-        s.school_group_id,
-        d.name as district_name
-      from exam e
-        join asmt a on e.asmt_id=a.id
-        join student st on e.student_id=st.id
-        join school s on e.school_id=s.id
-        join district d on s.district_id=d.id
-        join school isch on st.inferred_school_id = isch.id
+        d.name as district_name,
+        ${sql.snippet.exam}
+      join district d on s.district_id=d.id
       where e.student_id in (:student_ids)
         and (:school_year is null or e.school_year=:school_year)
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or a.grade_id=:grade_id)
         and a.type_id=2
-        and
-          (
-            :school_id is null
-            or
-            (
-              s.id=:school_id
-              or
-              (
-                (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-                and
-                isch.id = :school_id
-              )
-            )
-          )
-        and
-        (
-          (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-          or
-          (
-            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-            and
-            (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-          )
-        )
+        and ${sql.reportProcessor.snippet.schoolScopePermission}
+        and ${sql.reportProcessor.snippet.individualScopePermission}
       order by e.completed_at desc
 
     findAllIabsByStudentIdsAndQueryParamsGroupPermissions: >-
       select
-        e.id,
-        e.session_id,
-        e.type_id,
-        e.school_year,
-        e.grade_code,
-        e.completeness_code,
-        e.administration_condition_code,
-        e.school_year,
-        e.completed_at,
-        e.scale_score,
-        e.scale_score_std_err,
-        e.performance_level,
-        e.available_accommodation_codes,
-        a.id as asmt_id,
-        a.type_id as asmt_type_id,
-        a.label as asmt_label,
-        a.subject_id as asmt_subject_id,
-        a.school_year as asmt_school_year,
-        a.grade_code as asmt_grade_code,
-        a.min_score as asmt_min_score,
-        a.cut_point_1 as asmt_cut_point_1,
-        a.cut_point_2 as asmt_cut_point_2,
-        a.cut_point_3 as asmt_cut_point_3,
-        a.max_score as asmt_max_score,
-        st.id as student_id,
-        st.ssid as student_ssid,
-        st.first_name as student_first_name,
-        st.last_or_surname as student_last_name,
-        st.gender_code as student_gender_code,
-        s.id as school_id,
-        s.name as school_name,
-        s.district_id as school_district_id,
-        s.district_group_id as school_district_group_id,
-        s.school_group_id,
-        d.name as district_name
-      from exam e
-        join asmt a on e.asmt_id=a.id
-        join student st on e.student_id=st.id
-        join school s on e.school_id=s.id
-        join school isch on st.inferred_school_id = isch.id
-        join district d on s.district_id=d.id
-        join student_group_membership sgm on st.id = sgm.student_id
-        join student_group sg on sgm.student_group_id = sg.id
+        d.name as district_name,
+        ${sql.snippet.exam}
+      join district d on s.district_id=d.id
+      join student_group_membership sgm on st.id = sgm.student_id
+      join student_group sg on sgm.student_group_id = sg.id
           and (sg.subject_id is null or a.subject_id = sg.subject_id)
       where e.student_id in (:student_ids)
         and sg.id=:group_id
@@ -223,307 +42,49 @@ sql:
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or a.grade_id=:grade_id)
         and a.type_id=2
-        and
-        (
-          :school_id is null
-          or
-          (
-            s.id=:school_id
-            or
-            (
-              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and
-              isch.id = :school_id
-            )
-          )
-        )
-        and
-        (
-          (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-          or
-          (
-            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-            and
-            (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-          )
-        )
+        and ${sql.reportProcessor.snippet.schoolScopePermission}
+        and ${sql.reportProcessor.snippet.individualScopePermission}
       order by e.completed_at desc
 
     findAllIcasByStudentIdsAndQueryParamsUnknownPermissions: >-
       select
-        e.id,
-        e.session_id,
-        e.type_id,
-        e.school_year,
-        e.grade_code,
-        e.completeness_code,
-        e.administration_condition_code,
-        e.school_year,
-        e.completed_at,
-        e.scale_score,
-        e.scale_score_std_err,
-        e.performance_level,
-        e.available_accommodation_codes,
-        a.claim1_score_code,
-        e.claim1_category,
-        e.claim1_scale_score,
-        e.claim1_scale_score_std_err,
-        a.claim2_score_code,
-        e.claim2_category,
-        e.claim2_scale_score,
-        e.claim2_scale_score_std_err,
-        a.claim3_score_code,
-        e.claim3_category,
-        e.claim3_scale_score,
-        e.claim3_scale_score_std_err,
-        a.claim4_score_code,
-        e.claim4_category,
-        e.claim4_scale_score,
-        e.claim4_scale_score_std_err,
-        a.id as asmt_id,
-        a.type_id as asmt_type_id,
-        a.label as asmt_label,
-        a.subject_id as asmt_subject_id,
-        a.school_year as asmt_school_year,
-        a.grade_code as asmt_grade_code,
-        a.claim1_score_code as asmt_claim1_score_code,
-        a.claim2_score_code as asmt_claim2_score_code,
-        a.claim3_score_code as asmt_claim3_score_code,
-        a.claim4_score_code as asmt_claim4_score_code,
-        a.min_score as asmt_min_score,
-        a.cut_point_1 as asmt_cut_point_1,
-        a.cut_point_2 as asmt_cut_point_2,
-        a.cut_point_3 as asmt_cut_point_3,
-        a.max_score as asmt_max_score,
-        st.id as student_id,
-        st.ssid as student_ssid,
-        st.first_name as student_first_name,
-        st.last_or_surname as student_last_name,
-        st.gender_code as student_gender_code,
-        s.id as school_id,
-        s.name as school_name,
-        s.district_id as school_district_id,
-        s.district_group_id as school_district_group_id,
-        s.school_group_id,
-        d.name as district_name
-      from exam e
-        join asmt a on e.asmt_id=a.id
-        join student st on e.student_id=st.id
-        join school s on e.school_id=s.id
-        join district d on s.district_id=d.id
-        join school isch on st.inferred_school_id = isch.id
+        d.name as district_name,
+        ${sql.snippet.claimColumns},
+        ${sql.snippet.exam}
+      join district d on s.district_id=d.id
       where e.student_id in (:student_ids)
         and (:school_year is null or e.school_year=:school_year)
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or a.grade_id=:grade_id)
         and a.type_id=1
-        and
-        (
-          :school_id is null
-          or
-          (
-            s.id=:school_id
-            or
-            (
-              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and
-              isch.id = :school_id
-            )
-          )
-        )
-        and
-        ( # This query can run from the context of both GROUP_PII_READ and INDIVIDUAL_PII_READ, so need to evaluate both.
-          # Individual permissions test
-          (
-            (1 = :individual_statewide or s.district_group_id in (:individual_district_group_ids) or s.district_id in (:individual_district_ids) or s.school_group_id in (:individual_school_group_ids) or e.school_id in (:individual_school_ids))
-            or
-            (
-              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and (isch.district_group_id in (:individual_district_group_ids) or isch.district_id in (:individual_district_ids) or isch.school_group_id in (:individual_school_group_ids) or isch.id in (:individual_school_ids))
-            )
-          )
-          or
-          # Group permissions test
-          (
-            exists(
-                select 1
-                from student_group_membership sgm
-                  join student_group sg on sgm.student_group_id = sg.id
-                where sgm.student_group_id in (:group_ids)
-                      and sgm.student_id in (:student_ids)
-                      and (:subject_id is null or sg.subject_id is null or sg.subject_id = :subject_id)
-            )
-            and
-            (
-              (1 = :group_statewide or s.district_group_id in (:group_district_group_ids) or s.district_id in (:group_district_ids) or s.school_group_id in (:group_school_group_ids) or e.school_id in (:group_school_ids))
-              or
-              (
-                (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-                and (isch.district_group_id in (:group_district_group_ids) or isch.district_id in (:group_district_ids) or isch.school_group_id in (:group_school_group_ids) or isch.id in (:group_school_ids))
-              )
-            )
-          )
-        )
+        and ${sql.reportProcessor.snippet.schoolScopePermission}
+        and ${sql.reportProcessor.snippet.unknownScopePermission}
+
       order by e.completed_at asc
 
     findAllIcasByStudentIdsAndQueryParamsIndividualPermissions: >-
       select
-        e.id,
-        e.session_id,
-        e.type_id,
-        e.school_year,
-        e.grade_code,
-        e.completeness_code,
-        e.administration_condition_code,
-        e.school_year,
-        e.completed_at,
-        e.scale_score,
-        e.scale_score_std_err,
-        e.performance_level,
-        a.claim1_score_code,
-        e.claim1_category,
-        e.claim1_scale_score,
-        e.claim1_scale_score_std_err,
-        a.claim2_score_code,
-        e.claim2_category,
-        e.claim2_scale_score,
-        e.claim2_scale_score_std_err,
-        a.claim3_score_code,
-        e.claim3_category,
-        e.claim3_scale_score,
-        e.claim3_scale_score_std_err,
-        a.claim4_score_code,
-        e.claim4_category,
-        e.claim4_scale_score,
-        e.claim4_scale_score_std_err,
-        e.available_accommodation_codes,
-        a.id as asmt_id,
-        a.type_id as asmt_type_id,
-        a.label as asmt_label,
-        a.subject_id as asmt_subject_id,
-        a.school_year as asmt_school_year,
-        a.grade_code as asmt_grade_code,
-        a.claim1_score_code as asmt_claim1_score_code,
-        a.claim2_score_code as asmt_claim2_score_code,
-        a.claim3_score_code as asmt_claim3_score_code,
-        a.claim4_score_code as asmt_claim4_score_code,
-        a.min_score as asmt_min_score,
-        a.cut_point_1 as asmt_cut_point_1,
-        a.cut_point_2 as asmt_cut_point_2,
-        a.cut_point_3 as asmt_cut_point_3,
-        a.max_score as asmt_max_score,
-        st.id as student_id,
-        st.ssid as student_ssid,
-        st.first_name as student_first_name,
-        st.last_or_surname as student_last_name,
-        st.gender_code as student_gender_code,
-        s.id as school_id,
-        s.name as school_name,
-        s.district_id as school_district_id,
-        s.district_group_id as school_district_group_id,
-        s.school_group_id,
-        d.name as district_name
-      from exam e
-        join asmt a on e.asmt_id=a.id
-        join student st on e.student_id=st.id
-        join school s on e.school_id=s.id
-        join district d on s.district_id=d.id
-        join school isch on st.inferred_school_id = isch.id
+        d.name as district_name,
+        ${sql.snippet.claimColumns},
+        ${sql.snippet.exam}
+      join district d on s.district_id=d.id
       where e.student_id in (:student_ids)
         and (:school_year is null or e.school_year=:school_year)
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or a.grade_id=:grade_id)
         and a.type_id=1
-        and
-        (
-          :school_id is null
-          or
-          (
-            s.id=:school_id
-            or
-            (
-              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and
-              isch.id = :school_id
-            )
-          )
-        )
-        and
-        (
-          (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-          or
-          (
-            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-            and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-          )
-        )
+        and ${sql.reportProcessor.snippet.schoolScopePermission}
+        and ${sql.reportProcessor.snippet.individualScopePermission}
       order by e.completed_at asc
 
     findAllIcasByStudentIdsAndQueryParamsGroupPermissions: >-
       select
-        e.id,
-        e.session_id,
-        e.type_id,
-        e.school_year,
-        e.grade_code,
-        e.completeness_code,
-        e.administration_condition_code,
-        e.school_year,
-        e.completed_at,
-        e.scale_score,
-        e.scale_score_std_err,
-        e.performance_level,
-        a.claim1_score_code,
-        e.claim1_category,
-        e.claim1_scale_score,
-        e.claim1_scale_score_std_err,
-        a.claim2_score_code,
-        e.claim2_category,
-        e.claim2_scale_score,
-        e.claim2_scale_score_std_err,
-        a.claim3_score_code,
-        e.claim3_category,
-        e.claim3_scale_score,
-        e.claim3_scale_score_std_err,
-        a.claim4_score_code,
-        e.claim4_category,
-        e.claim4_scale_score,
-        e.claim4_scale_score_std_err,
-        e.available_accommodation_codes,
-        a.id as asmt_id,
-        a.type_id as asmt_type_id,
-        a.label as asmt_label,
-        a.subject_id as asmt_subject_id,
-        a.school_year as asmt_school_year,
-        a.grade_code as asmt_grade_code,
-        a.claim1_score_code as asmt_claim1_score_code,
-        a.claim2_score_code as asmt_claim2_score_code,
-        a.claim3_score_code as asmt_claim3_score_code,
-        a.claim4_score_code as asmt_claim4_score_code,
-        a.min_score as asmt_min_score,
-        a.cut_point_1 as asmt_cut_point_1,
-        a.cut_point_2 as asmt_cut_point_2,
-        a.cut_point_3 as asmt_cut_point_3,
-        a.max_score as asmt_max_score,
-        st.id as student_id,
-        st.ssid as student_ssid,
-        st.first_name as student_first_name,
-        st.last_or_surname as student_last_name,
-        st.gender_code as student_gender_code,
-        s.id as school_id,
-        s.name as school_name,
-        s.district_id as school_district_id,
-        s.district_group_id as school_district_group_id,
-        s.school_group_id,
-        d.name as district_name
-      from exam e
-        join asmt a on e.asmt_id=a.id
-        join student st on e.student_id=st.id
-        join school s on e.school_id=s.id
-        join district d on s.district_id=d.id
-        join school isch on st.inferred_school_id = isch.id
-        join student_group_membership sgm on st.id = sgm.student_id
-        join student_group sg on sgm.student_group_id = sg.id
+        d.name as district_name,
+        ${sql.snippet.claimColumns},
+        ${sql.snippet.exam}
+      join district d on s.district_id=d.id
+      join student_group_membership sgm on st.id = sgm.student_id
+      join student_group sg on sgm.student_group_id = sg.id
           and (sg.subject_id is null or a.subject_id = sg.subject_id)
       where e.student_id in (:student_ids)
         and sg.id=:group_id
@@ -531,29 +92,8 @@ sql:
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or a.grade_id=:grade_id)
         and a.type_id=1
-        and
-        (
-          :school_id is null
-          or
-          (
-            s.id=:school_id
-            or
-            (
-              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and
-              isch.id = :school_id
-            )
-          )
-        )
-        and
-        (
-          (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-          or
-          (
-            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-            and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-          )
-        )
+        and ${sql.reportProcessor.snippet.schoolScopePermission}
+        and ${sql.reportProcessor.snippet.individualScopePermission}
       order by e.completed_at asc
 
   export:
@@ -713,62 +253,22 @@ sql:
         id = :id
 
     findAllByUser: >-
-      select
-        r.id,
-        r.user_login,
-        r.status,
-        r.report_resource_uri,
-        r.label,
-        r.report_request,
-        r.total_chunk_count,
-        r.complete_chunk_count,
-        r.created
-      from user_report r
+      ${sql.reportProcessor.snippet.selectFromUserReport}
       where r.user_login = :user
       order by r.id desc
 
     findAllByUserAndId: >-
-      select
-        r.id,
-        r.user_login,
-        r.status,
-        r.report_resource_uri,
-        r.label,
-        r.report_request,
-        r.total_chunk_count,
-        r.complete_chunk_count,
-        r.created
-      from user_report r
+      ${sql.reportProcessor.snippet.selectFromUserReport}
       where r.user_login = :user
         and r.id in (:report_ids)
       order by r.id desc
 
     findById: >-
-      select
-        r.id,
-        r.user_login,
-        r.status,
-        r.report_resource_uri,
-        r.label,
-        r.report_request,
-        r.total_chunk_count,
-        r.complete_chunk_count,
-        r.created
-      from user_report r
+      ${sql.reportProcessor.snippet.selectFromUserReport}
       where r.id = :report_id
 
     findAllOlderThanNumberOfDays: >-
-      select
-        r.id,
-        r.user_login,
-        r.status,
-        r.report_resource_uri,
-        r.label,
-        r.report_request,
-        r.total_chunk_count,
-        r.complete_chunk_count,
-        r.created
-      from user_report r
+      ${sql.reportProcessor.snippet.selectFromUserReport}
       where r.created < date_sub(now(), interval :number_of_days day);
 
     deleteByIds: >-
@@ -782,36 +282,13 @@ sql:
 
   student:
     findByExamQueryParamsUnknownPermissions: >-
-      select
-        st.id,
-        st.ssid,
-        st.first_name,
-        st.last_or_surname as last_name,
-        st.gender_code
-      from student st
-        join exam e on e.student_id = st.id
-        join asmt a on e.asmt_id=a.id
-        join school s on e.school_id = s.id
-        join school isch on st.inferred_school_id = isch.id
+      ${sql.reportProcessor.snippet.selectFromStudent}
       where (:student_id is null or st.id=:student_id)
         and (:school_year is null or e.school_year=:school_year)
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or a.grade_id=:grade_id)
         and (:assessment_type is null or a.type_id=:assessment_type)
-        and
-        (
-          :school_id is null
-          or
-          (
-            s.id=:school_id
-            or
-            (
-              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and
-              isch.id = :school_id
-            )
-          )
-        )
+        and ${sql.reportProcessor.snippet.schoolScopePermission}
         and
         ( # This query can run from the context of both GROUP_PII_READ and INDIVIDUAL_PII_READ, so need to evaluate both.
           # Individual permissions test
@@ -848,60 +325,18 @@ sql:
       group by st.id
 
     findByExamQueryParamsIndividualPermissions: >-
-      select
-        st.id,
-        st.ssid,
-        st.first_name,
-        st.last_or_surname as last_name,
-        st.gender_code
-      from student st
-        join exam e on e.student_id = st.id
-        join asmt a on e.asmt_id=a.id
-        join school s on e.school_id = s.id
-        join school isch on st.inferred_school_id = isch.id
+      ${sql.reportProcessor.snippet.selectFromStudent}
       where (:student_id is null or st.id=:student_id)
         and (:school_year is null or e.school_year=:school_year)
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or a.grade_id=:grade_id)
         and (:assessment_type is null or a.type_id=:assessment_type)
-        and
-        (
-          :school_id is null
-          or
-          (
-            s.id=:school_id
-            or
-            (
-              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and
-              isch.id = :school_id
-            )
-          )
-        )
-        and
-        (
-          (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-          or
-          (
-            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-            and
-            (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-          )
-        )
+        and ${sql.reportProcessor.snippet.schoolScopePermission}
+        and ${sql.reportProcessor.snippet.individualScopePermission}
       group by st.id
 
     findByExamQueryParamsGroupPermissions: >-
-      select
-        st.id,
-        st.ssid,
-        st.first_name,
-        st.last_or_surname as last_name,
-        st.gender_code
-      from student st
-        join exam e on e.student_id = st.id
-        join asmt a on e.asmt_id=a.id
-        join school s on e.school_id = s.id
-        join school isch on st.inferred_school_id = isch.id
+      ${sql.reportProcessor.snippet.selectFromStudent}
         join student_group_membership sgm on st.id = sgm.student_id
         join student_group sg on sgm.student_group_id = sg.id
           and (sg.subject_id is null or a.subject_id = sg.subject_id)
@@ -911,7 +346,58 @@ sql:
         and (:subject_id is null or a.subject_id=:subject_id)
         and (:grade_id is null or a.grade_id=:grade_id)
         and (:assessment_type is null or a.type_id=:assessment_type)
-        and
+        and ${sql.reportProcessor.snippet.schoolScopePermission}
+        and ${sql.reportProcessor.snippet.individualScopePermission}
+      group by st.id
+
+  reportProcessor:
+    snippet:
+      unknownScopePermission: >-
+          ( # This query can run from the context of both GROUP_PII_READ and INDIVIDUAL_PII_READ, so need to evaluate both.
+            # Individual permissions test
+            (
+              (1 = :individual_statewide or s.district_group_id in (:individual_district_group_ids) or s.district_id in (:individual_district_ids) or s.school_group_id in (:individual_school_group_ids) or e.school_id in (:individual_school_ids))
+              or
+              (
+                (1 = :allow_transfer_access and 0 = :disable_transfer_access)
+                and (isch.district_group_id in (:individual_district_group_ids) or isch.district_id in (:individual_district_ids) or isch.school_group_id in (:individual_school_group_ids) or isch.id in (:individual_school_ids))
+              )
+            )
+            or
+            # Group permissions test
+            (
+              exists(
+                  select 1
+                  from student_group_membership sgm
+                    join student_group sg on sgm.student_group_id = sg.id
+                  where sgm.student_group_id in (:group_ids)
+                        and sgm.student_id in (:student_ids)
+                        and (:subject_id is null or sg.subject_id is null or sg.subject_id = :subject_id)
+              )
+              and
+              (
+                (1 = :group_statewide or s.district_group_id in (:group_district_group_ids) or s.district_id in (:group_district_ids) or s.school_group_id in (:group_school_group_ids) or e.school_id in (:group_school_ids))
+                or
+                  (
+                      (1 = :allow_transfer_access and 0 = :disable_transfer_access)
+                      and (isch.district_group_id in (:group_district_group_ids) or isch.district_id in (:group_district_ids) or isch.school_group_id in (:group_school_group_ids) or isch.id in (:group_school_ids))
+                    )
+                  )
+              )
+            )
+
+      individualScopePermission: >-
+          (
+            (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
+            or
+            (
+              (1 = :allow_transfer_access and 0 = :disable_transfer_access)
+              and
+              (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
+            )
+          )
+
+      schoolScopePermission:  >-
           (
             :school_id is null
             or
@@ -925,14 +411,29 @@ sql:
               )
             )
           )
-        and
-        (
-          (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-          or
-          (
-            (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-            and
-            (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
-          )
-        )
-      group by st.id
+
+      selectFromUserReport: >-
+          select
+              r.id,
+              r.user_login,
+              r.status,
+              r.report_resource_uri,
+              r.label,
+              r.report_request,
+              r.total_chunk_count,
+              r.complete_chunk_count,
+              r.created
+            from user_report r
+
+      selectFromStudent: >-
+          select
+            st.id,
+            st.ssid,
+            st.first_name,
+            st.last_or_surname as last_name,
+            st.gender_code
+          from student st
+            join exam e on e.student_id = st.id
+            join asmt a on e.asmt_id=a.id
+            join school s on e.school_id = s.id
+            join school isch on st.inferred_school_id = isch.id

@@ -31,6 +31,8 @@ import {
   RdwSecurityModule,
   RdwTranslateLoader,
 } from "@sbac/rdw-reporting-common-ngx";
+import { RdwLayoutModule } from "@sbac/rdw-reporting-common-ngx";
+
 
 @NgModule({
   declarations: [
@@ -57,6 +59,7 @@ import {
     RdwFormModule,
     RdwFormatModule,
     RdwI18nModule,
+    RdwLayoutModule,
     RdwPreferenceModule,
     RdwSecurityModule,
     TranslateModule.forRoot({
@@ -78,6 +81,7 @@ import {
     RdwFormModule,
     RdwFormatModule,
     RdwI18nModule,
+    RdwLayoutModule,
     RdwPreferenceModule,
     RdwSecurityModule,
     SBCheckboxList,

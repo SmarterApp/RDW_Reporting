@@ -5,7 +5,7 @@
   </span>
   <span class="pull-right text-right">
     <button class="btn btn-default btn-sm" (click)="exportCsv()"><i class="fa fa-bold fa-table"></i> {{'labels.export.csv' | translate}}</button>
-    <a *sbAuthorize="['INDIVIDUAL_PII_READ']" routerLink="/custom-export" class="btn btn-sm btn-default ml-xs"><i class="fa fa-table"></i> {{'labels.organization-export.title' | translate}}</a>
+    <a *hasPermission="'INDIVIDUAL_PII_READ'" routerLink="/custom-export" class="btn btn-sm btn-default ml-xs"><i class="fa fa-table"></i> {{'labels.organization-export.title' | translate}}</a>
     <button class="btn btn-default btn-sm ml-xs" (click)="reportDownloader.modal.show()"><i class="fa fa-cloud-download" aria-hidden="true"></i> {{'labels.reports.button-label.student' | translate}}</button>
     <span student-report-download #reportDownloader
           [title]="'labels.reports.form.title.single' | translate:examHistory.student"

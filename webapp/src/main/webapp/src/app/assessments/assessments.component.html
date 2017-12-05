@@ -62,10 +62,10 @@
       <div class="col-md-12">
         <div class="flex-children">
           <a *ngFor="let assessment of selectedAssessments" (click)="removeAssessment(assessment)"
-             angulartics2On="click" angularticsEvent="RemoveAssessment" angularticsCategory="AssessmentResults" [angularticsProperties]="{label: assessment.name}"
+             angulartics2On="click" angularticsEvent="RemoveAssessment" angularticsCategory="AssessmentResults" [angularticsProperties]="{label: assessment.label}"
              class="tag tag-xs {{ colorService.getColor(getGradeIdx(assessment.grade)) }}">
             <span class="label">{{assessment.grade | gradeDisplay}}</span>
-            {{assessment.name}}
+            {{assessment.label}}
             <span class="icon" [hidden]="showOnlyMostRecent"><i class="fa fa-close"></i></span>
           </a>
           <div>

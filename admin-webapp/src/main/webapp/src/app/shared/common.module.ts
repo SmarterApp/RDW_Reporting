@@ -14,6 +14,7 @@ import {
   RdwSecurityModule,
   RdwTranslateLoader
 } from "@sbac/rdw-reporting-common-ngx";
+import { RdwLayoutModule } from "@sbac/rdw-reporting-common-ngx/layout";
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import {
     RdwDataTableModule,
     RdwFormatModule,
     RdwI18nModule,
+    RdwLayoutModule,
     RdwSecurityModule,
     TranslateModule.forRoot({
       loader: {
@@ -38,6 +40,7 @@ import {
     RdwDataTableModule,
     RdwFormatModule,
     RdwI18nModule,
+    RdwLayoutModule,
     RdwSecurityModule,
     RouterModule
   ],

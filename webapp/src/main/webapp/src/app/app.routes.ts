@@ -2,7 +2,6 @@ import { HomeComponent } from "./home/home.component";
 import { Routes } from "@angular/router";
 import { GroupResultsComponent } from "./groups/results/group-results.component";
 import { GroupAssessmentsResolve } from "./groups/results/group-assessments.resolve";
-import { AuthorizeCanActivate } from "./user/authorize.can-activate";
 import { UserResolve } from "./user/user.resolve";
 import { SchoolAssessmentResolve } from "./school-grade/results/school-assessments.resolve";
 import { SchoolResultsComponent } from "./school-grade/results/school-results.component";
@@ -20,9 +19,10 @@ import { ReportsResolve } from "./report/reports.resolve";
 import { ReportsComponent } from "./report/reports.component";
 import { ErrorComponent } from "./error/error.component";
 import { AccessDeniedComponent } from "./error/access-denied/access-denied.component";
-import { AuthorizeAtleastOneCanActivate } from "./user/authorize-at-least-one.can-activate";
 import { OrganizationExportComponent } from "./organization-export/organization-export.component";
-import { UserOrganizationsResolve } from "app/organization-export/organization/user-organizations.resolve";
+import { UserOrganizationsResolve } from "./organization-export/organization/user-organizations.resolve";
+import { RoutingAuthorizationCanActivate } from "@sbac/rdw-reporting-common-ngx/security/routing-authorization.can-activate";
+import { AuthorizationCanActivate } from "@sbac/rdw-reporting-common-ngx/security/authorization.can-activate";
 
 
 const studentTestHistoryChildRoute = {
@@ -68,14 +68,14 @@ export const routes: Routes = [
   },
   {
     path: '',
-    canActivate: [ AuthorizeAtleastOneCanActivate ],
+    canActivate: [ RoutingAuthorizationCanActivate ],
     resolve: { user: UserResolve, translateComplete: TranslateResolve },
     children: [
       { path: '', pathMatch: 'full', component: HomeComponent },
       {
         path: 'groups/:groupId',
         data: { breadcrumb: { translate: 'labels.groups.name' }, permissions: [ 'GROUP_PII_READ' ] },
-        canActivate: [ AuthorizeCanActivate ],
+        canActivate: [ AuthorizationCanActivate ],
         children: [
           {
             path: '',
@@ -91,7 +91,7 @@ export const routes: Routes = [
         path: 'schools/:schoolId',
         data: { breadcrumb: { resolve: 'school.name' }, permissions: [ 'INDIVIDUAL_PII_READ' ] },
         resolve: { school: CurrentSchoolResolve },
-        canActivate: [ AuthorizeCanActivate ],
+        canActivate: [ AuthorizationCanActivate ],
         children: [
           {
             path: '',
@@ -113,7 +113,7 @@ export const routes: Routes = [
           },
           permissions: [ 'GROUP_PII_READ' ]
         },
-        canActivate: [ AuthorizeCanActivate ],
+        canActivate: [ AuthorizationCanActivate ],
         children: [
           {
             path: '',
@@ -139,7 +139,7 @@ export const routes: Routes = [
         path: 'reports',
         pathMatch: 'full',
         data: { breadcrumb: { translate: 'labels.reports.heading' }, permissions: [ 'GROUP_PII_READ' ]},
-        canActivate: [ AuthorizeCanActivate ],
+        canActivate: [ AuthorizationCanActivate ],
         resolve: { reports: ReportsResolve },
         component: ReportsComponent
       },
@@ -147,7 +147,7 @@ export const routes: Routes = [
         path: 'custom-export',
         pathMatch: 'full',
         data: { breadcrumb: { translate: 'labels.organization-export.title' }, permissions: [ 'INDIVIDUAL_PII_READ' ]},
-        canActivate: [ AuthorizeCanActivate ],
+        canActivate: [ AuthorizationCanActivate ],
         resolve: { organizations: UserOrganizationsResolve },
         component: OrganizationExportComponent
       },

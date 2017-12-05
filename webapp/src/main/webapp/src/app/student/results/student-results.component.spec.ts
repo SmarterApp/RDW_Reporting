@@ -200,7 +200,7 @@ class MockBuilder {
     let assessment: Assessment = new Assessment();
     assessment.grade = '05';
     assessment.id = MockBuilder.assessmentIdx++;
-    assessment.name = "Grade 5 ELA";
+    assessment.label = "Grade 5 ELA";
     assessment.subject = subject;
     assessment.type = type;
 

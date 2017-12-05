@@ -10,10 +10,10 @@
   <!-- Row Content Area -->
   <div class="well">
     <!-- Manage Student Groups -->
-    <a *sbAuthorize="['GROUP_WRITE']" routerLink="groups">{{ 'labels.groups.title' | translate}} <br/></a>
+    <a *hasPermission="'GROUP_WRITE'" routerLink="groups">{{ 'labels.groups.title' | translate}} <br/></a>
 
     <!-- Instructional Resource -->
-    <a *sbAuthorize="['INSTRUCTIONAL_RESOURCE_WRITE']" routerLink="instructional-resource">{{
+    <a *hasPermission="'INSTRUCTIONAL_RESOURCE_WRITE'" routerLink="instructional-resource">{{
       'labels.instructional-resource.title' | translate}} <br/></a>
 
   </div>

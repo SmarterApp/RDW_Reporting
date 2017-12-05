@@ -60,7 +60,7 @@ export class AssessmentExamMapper {
     let uiModel = new Assessment();
 
     uiModel.id = apiModel.id;
-    uiModel.name = apiModel.name;
+    uiModel.label = apiModel.label;
     uiModel.grade = apiModel.gradeCode;
     uiModel.type = AssessmentType[ apiModel.type as string ];
     uiModel.subject = apiModel.subject;

@@ -15,7 +15,7 @@
             <!-- Assessment Title -->
             <span class="tag tag-lg {{colorService.getColor(getGradeIdx(assessmentExam.assessment.grade))}}">
                   <span class="label">{{assessmentExam.assessment.grade | gradeDisplay}}</span>
-                  {{assessmentExam.assessment.name}}
+                  {{assessmentExam.assessment.label}}
               </span>
           </div>
           <div class="col-md-4">
@@ -28,7 +28,7 @@
                   angulartics2On="click"
                   angularticsEvent="InstructionalResource"
                   angularticsCategory="AssessmentResults"
-                  [angularticsProperties]="{label: assessmentExam.assessment.name}"
+                  [angularticsProperties]="{label: assessmentExam.assessment.label}"
                   [disabled]="!assessmentExam.assessment.hasResourceUrl"
                   (click)="openInstructionalResource()">
                   <i class="fa fa-list-alt"></i> {{'labels.groups.results.assessment.instruct' | translate }}

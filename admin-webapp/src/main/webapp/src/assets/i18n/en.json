@@ -1,5 +1,20 @@
 {
   "common-ngx": {
+    "breadcrumbs": {
+      "home-sr": "Home",
+      "window-title": "Smarter Balanced | Admin"
+    },
+    "navigation-bar": {
+      "logo": {
+        "title": "Application Administration Dashboard",
+        "alt": "Smarter Balanced Assessment Consortium"
+      },
+      "title": "Application Administration",
+      "toggle-sr": "Toggle navigation",
+      "user-dropdown": "Welcome {{firstName}} {{lastName}}",
+      "logout": "Logout"
+    },
+    "footer": "\u00A9 The Regents of the University of California \u2013 Smarter Balanced Assessment Consortium",
     "session-expired": {
       "title": "Authentication Expired",
       "message": "Click Ok to re-authenticate.",
