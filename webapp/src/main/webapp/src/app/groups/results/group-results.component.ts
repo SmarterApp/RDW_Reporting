@@ -31,9 +31,6 @@ export class GroupResultsComponent implements OnInit {
     this._currentGroup = value;
     if(this._currentGroup) {
       this.assessmentProvider.group = this._currentGroup;
-      //this.assessmentProvider.group = this._currentGroup;
-      this.assessmentProvider.groupId = this._currentGroup.id;
-      this.assessmentProvider.groupName = this._currentGroup.name;
     }
   }
 

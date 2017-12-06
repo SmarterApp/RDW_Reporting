@@ -2,6 +2,7 @@ import { Component, Input } from "@angular/core";
 import { AssessmentExam } from "../model/assessment-exam.model";
 import { ExamStatistics, ExamStatisticsLevel } from "../model/exam-statistics.model";
 import { ScaleScoreService } from "./scale-score.service";
+import { AssessmentResultsComponent } from "./assessment-results.component";
 
 const icaColors =  ['maroon', 'gray-darkest', 'green-dark', 'blue-dark'];
 const iabColors = ['blue-dark', 'blue-dark aqua', 'aqua'];
@@ -38,7 +39,7 @@ export class AverageScaleScoreComponent {
     return this._statistics;
   }
 
-  constructor(private scaleScoreService: ScaleScoreService) {
+  constructor(private scaleScoreService: ScaleScoreService, private assessmentResultsComponent: AssessmentResultsComponent) {
 
   }
 

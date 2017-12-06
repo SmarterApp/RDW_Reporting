@@ -94,6 +94,9 @@ export class AssessmentResultsComponent implements OnInit {
   @Input()
   minimumItemDataYear: number;
 
+  @Input()
+  content: string;
+
   /**
    * Exam filters applied, if any.
    */
@@ -218,7 +221,11 @@ export class AssessmentResultsComponent implements OnInit {
 
   loadInstructionalResources(performanceLevel: number) {
     this.instructionalResourcesService.getInstructionalResources(this.assessmentExam.assessment.id, this.assessmentProvider.getSchoolId()).subscribe((instructionalResources: InstructionalResources) => {
-      let instructionalResourcess = instructionalResources;
+      if (instructionalResources === null) {
+        this.content = 'No resources found.';
+      } else {
+        this.content = instructionalResources.getResourcesByPerformance(performanceLevel) === null ? ' got something ' : 'No resources found again';
+      }
     });
   }
 

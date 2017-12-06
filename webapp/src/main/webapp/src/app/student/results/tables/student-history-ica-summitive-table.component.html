@@ -63,7 +63,7 @@
     </ng-template>
     <ng-template let-exam="rowData.exam" pTemplate="body">
       {{ 'enum.achievement-level.full.' + (exam.level ? exam.level.toString() : 'missing') | translate }}
-      <span book-button title="{{ 'enum.achievement-level.full.' + (exam.level ? exam.level.toString() : 'missing') | translate }}" content="links"></span>
+      <!--<span book-button title="{{ 'enum.achievement-level.full.' + (exam.level ? exam.level.toString() : 'missing') | translate }}" [level]="exam.level.toString()" content="links" [assessmentExam]="assessmentExam"></span>-->
     </ng-template>
   </p-column>
   <p-column field="exam.score"

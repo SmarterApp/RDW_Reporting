@@ -16,15 +16,13 @@ export class InstructionalResourcesService {
   getInstructionalResources(assessmentId: number, schoolId: number): Observable<InstructionalResources> {
     let params: URLSearchParams = new URLSearchParams();
 
-    params.append('assessmentId', assessmentId.toString());
-    params.append('schoolId', schoolId.toString());
+    params.set('assessmentId', assessmentId.toString());
+    params.set('schoolId', schoolId.toString());
     return this.dataService.get(`/instructional-resources`, { params: params })
       .catch(ResponseUtils.badResponseToNull)
-      .map(apiExamItems => {
-
-
-        if (!apiExamItems) return null;
-        return this.instructionalResourcesMapper.mapInstructionalResourcesFromApi(apiExamItems);
+      .map(instructionalResources => {
+        if (instructionalResources === null || instructionalResources.length === 0) return null;
+        return this.instructionalResourcesMapper.mapInstructionalResourcesFromApi(instructionalResources);
       });
   }
 }

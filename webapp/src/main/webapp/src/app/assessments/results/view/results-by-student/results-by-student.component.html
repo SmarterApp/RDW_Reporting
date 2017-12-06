@@ -71,7 +71,17 @@
     </ng-template>
     <ng-template let-exam="rowData" pTemplate="body">
       {{ examLevelEnum + (exam.level ? exam.level : 'missing') | translate }}
-      <span book-button title="{{ examLevelEnum + (exam.level ? exam.level : 'missing') | translate }}" content="links"></span>
+      <button
+        class="btn btn-borderless btn-xs icon-only pull-right"
+        angulartics2On="click"
+        angularticsEvent="InstructionalResource"
+        angularticsCategory="AssessmentResults"
+        [disabled]="false"
+        [popover]="buttonPopover"
+        popoverTitle="{{ 'labels.assessments.student-score-distribution.info-button-prefix' | translate }}{{ examLevelEnum + (exam.level ? exam.level : 'missing') | translate }}"
+        container="body"
+        (click)="assessmentResultsComponent.loadInstructionalResources(exam.level)"><i class="fa fa-book"></i></button>
+      <!--<span book-button title="{{ examLevelEnum + (exam.level ? exam.level : 'missing') | translate }}" [level]="exam.level ? exam.level.toString() : 'missing'" [assessment]="assessment"></span>-->
     </ng-template>
   </p-column>
   <p-column field="score" [sortable]="true" [hidden]="isClaimScoreSelected">
@@ -96,3 +106,6 @@
     </ng-template>
   </p-column>
 </p-dataTable>
+<ng-template #buttonPopover>
+  <div [innerHTML]="assessmentResultsComponent.content"></div>
+</ng-template>
