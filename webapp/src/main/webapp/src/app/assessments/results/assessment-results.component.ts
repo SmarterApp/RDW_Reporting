@@ -16,6 +16,8 @@ import { StudentReportDownloadComponent } from "../../report/student-report-down
 import { AssessmentProvider } from "../assessment-provider.interface";
 import { ResultsByItemComponent } from "./view/results-by-item/results-by-item.component";
 import { DistractorAnalysisComponent } from "./view/distractor-analysis/distractor-analysis.component";
+import { InstructionalResourcesService } from "./instructional-resources.service";
+import { InstructionalResources } from "../model/instructional-resources.model";
 
 enum ResultsViewState {
   ByStudent =1,
@@ -173,7 +175,8 @@ export class AssessmentResultsComponent implements OnInit {
 
   constructor(public colorService: ColorService,
               private examCalculator: ExamStatisticsCalculator,
-              private examFilterService: ExamFilterService) {
+              private examFilterService: ExamFilterService,
+              private instructionalResourcesService: InstructionalResourcesService) {
   }
 
   ngOnInit(): void {
@@ -211,6 +214,12 @@ export class AssessmentResultsComponent implements OnInit {
 
   openInstructionalResource() {
     window.open(this.assessmentExam.assessment.resourceUrl);
+  }
+
+  loadInstructionalResources(performanceLevel: number) {
+    this.instructionalResourcesService.getInstructionalResources(this.assessmentExam.assessment.id, this.assessmentProvider.getSchoolId()).subscribe((instructionalResources: InstructionalResources) => {
+      let instructionalResourcess = instructionalResources;
+    });
   }
 
   private getDistinctExamSessions(exams: Exam[]) {

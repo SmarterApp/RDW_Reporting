@@ -1,75 +1,23 @@
-<!-- Notifications -->
-<app-notifications></app-notifications>
+<sb-header [user]="user">
+  <li class="navbar-link">
+    <a href="{{user ? user.configuration.userGuideUrl : '#'}}" target="_blank">{{'labels.navigation.user-guide' | translate}}</a>
+  </li>
+  <li class="navbar-link">
+    <a href="{{user ? user.configuration.interpretiveGuideUrl : '#'}}" target="_blank" style="margin-top:-24px">
+      <small>{{'labels.homepage.welcome.interpretive-guide-subtitle' | translate}}</small><br>{{'labels.navigation.interpretive-guide' | translate}}
+    </a>
+  </li>
+  <li class="navbar-link" *hasPermission="'GROUP_PII_READ'">
+    <a routerLink="/reports">{{'labels.reports.link' | translate}}</a>
+  </li>
+</sb-header>
 
-<!-- Header -->
-<header>
-  <div class="container">
-    <div class="well">
-      <div class="well-body">
-        <!-- Navbar -->
-        <nav class="navbar navbar-default">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                  <span class="sr-only">{{'messages.toggle-navigation' | translate}}</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-            <a class="navbar-brand hidden-xs" href="/" title="{{'application.home' | translate}}"><img src="assets/image/SmarterBalanced-Logo.png" alt="{{'messages.organization' | translate}}"></a>
-            <span class="application-title">{{'application.title' | translate}}</span>
-          </div>
-          <div *ngIf="user" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-              <li class="navbar-link"><a href="{{user.configuration.userGuideUrl}}" target="_blank">{{'labels.navigation.user-guide' | translate}}</a></li>
-              <li class="navbar-link">
-                <a href="{{user.configuration.interpretiveGuideUrl}}" target="_blank" style="margin-top:-24px">
-                  <small>{{'labels.homepage.welcome.interpretive-guide-subtitle' | translate}}</small><br>{{'labels.navigation.interpretive-guide' | translate}}
-                </a>
-              </li>
-              <li class="navbar-link" *sbAuthorize="['GROUP_PII_READ']">
-                <a routerLink="/reports">{{'labels.reports.link' | translate}}</a>
-              </li>
-              <li class="navbar-link">
-                <div class="btn-group" dropdown>
-                  <button type="button" dropdownToggle class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-user-circle"></i> <span *ngIf="user">{{'welcome' | translate:user }}</span> <span class="caret"></span>
-                  </button>
-                  <ul *dropdownMenu class="dropdown-menu mt-md" role="menu">
-                    <li role="menuitem">
-                      <a class="dropdown-item" href="javascript:void(0)" onclick="window.document.logoutForm.submit()">{{'messages.logout' | translate}}</a>
-                      <form name="logoutForm" method="post" action="/saml/logout" class="hidden"></form>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li *ngIf="languageStore.availableLanguages.length > 1">
-                <div>
-                  <language-select></language-select>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-    </div>
-  </div>
-</header>
-
-<!-- Breadcrumbs -->
-<breadcrumbs></breadcrumbs>
-
-<!-- Page View -->
-<div class="page-view">
-  <div class="container">
-    <router-outlet></router-outlet>
-  </div>
+<div class="container">
+  <router-outlet></router-outlet>
 </div>
 
-<!-- Footer -->
-<footer class="mt-md mb-md">
-  <div class="container">
-    <p class="text-right black">{{'application.footer' | translate}}</p>
-  </div>
-</footer>
+<sb-footer></sb-footer>
+
+<app-notifications></app-notifications>
 
 <loader></loader>

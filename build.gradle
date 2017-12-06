@@ -62,6 +62,7 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
+        maven { url 'http://redshift-maven-repository.s3-website-us-east-1.amazonaws.com/release' }
     }
 
     dependencyManagement {

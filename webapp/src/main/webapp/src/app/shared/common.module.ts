@@ -17,7 +17,7 @@ import { AlertModule, PopoverModule } from "ngx-bootstrap";
 import { DatePipe, DecimalPipe } from "@angular/common";
 import { LoaderComponent } from "./loader/loader.component";
 import { SBToggleComponent } from "./sb-toggle.component";
-import { InformationLabelComponent } from "./label/information-label.component";
+import { InformationButtonComponent } from "./button/information-button.component";
 import {
   AuthenticationServiceAuthenticationExpiredRoute,
   AuthenticationServiceDefaultAuthenticationRoute,
@@ -32,17 +32,17 @@ import {
   RdwTranslateLoader,
 } from "@sbac/rdw-reporting-common-ngx";
 import { RdwLayoutModule } from "@sbac/rdw-reporting-common-ngx";
-import { LabelComponent } from "./label/label.component";
-import { BookLabelComponent } from "./label/book-label.component";
+import { ButtonComponent } from "./button/button.component";
+import { BookButtonComponent } from "./button/book-button.component";
 
 
 @NgModule({
   declarations: [
     AssessmentTypePipe,
     GradeDisplayPipe,
-    InformationLabelComponent,
-    BookLabelComponent,
-    LabelComponent,
+    InformationButtonComponent,
+    BookButtonComponent,
+    ButtonComponent,
     LoaderComponent,
     NotificationComponent,
     RemoveCommaPipe,
@@ -76,9 +76,9 @@ import { BookLabelComponent } from "./label/book-label.component";
   exports: [
     AssessmentTypePipe,
     GradeDisplayPipe,
-    InformationLabelComponent,
-    BookLabelComponent,
-    LabelComponent,
+    InformationButtonComponent,
+    BookButtonComponent,
+    ButtonComponent,
     LoaderComponent,
     NotificationComponent,
     RemoveCommaPipe,

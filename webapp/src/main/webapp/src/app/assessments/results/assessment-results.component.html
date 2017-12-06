@@ -15,25 +15,29 @@
             <!-- Assessment Title -->
             <span class="tag tag-lg {{colorService.getColor(getGradeIdx(assessmentExam.assessment.grade))}}">
                   <span class="label">{{assessmentExam.assessment.grade | gradeDisplay}}</span>
-                  {{assessmentExam.assessment.name}}
+                  {{assessmentExam.assessment.label}}
               </span>
           </div>
           <div class="col-md-4">
-              <span class="pull-right"
-                    popover="{{ 'labels.menus.resources-disabled-message' | translate }}"
-                    triggers="{{assessmentExam.assessment.hasResourceUrl ? '': 'mouseenter:mouseleave'}}"
-                    container="body">
+              <!--<span class="pull-right"-->
+                    <!--popover="{{ 'labels.menus.resources-disabled-message' | translate }}"-->
+                    <!--triggers="{{assessmentExam.assessment.hasResourceUrl ? '': 'mouseenter:mouseleave'}}"-->
+                    <!--container="body">-->
                 <button
-                  class="btn btn-success btn-xs float-none-xs"
+                  class="btn btn-success btn-xs float-none-xs pull-right"
                   angulartics2On="click"
                   angularticsEvent="InstructionalResource"
                   angularticsCategory="AssessmentResults"
-                  [angularticsProperties]="{label: assessmentExam.assessment.name}"
-                  [disabled]="!assessmentExam.assessment.hasResourceUrl"
-                  (click)="openInstructionalResource()">
+                  [angularticsProperties]="{label: assessmentExam.assessment.label}"
+                  [disabled]="false"
+                  [popover]="buttonPopover"
+                  popoverTitle="{{ 'labels.assessments.student-score-distribution.info-button-prefix' | translate }}{{ assessmentExam.assessment.label }}"
+                  container="body"
+                  outsideClick="true"
+                  >
                   <i class="fa fa-list-alt"></i> {{'labels.groups.results.assessment.instruct' | translate }}
                 </button>
-              </span>
+              <!--</span>-->
           </div>
         </div>
       </div>
@@ -52,12 +56,12 @@
         <div *ngIf="allowFilterBySessions">
           <p><strong>{{'labels.groups.results.assessment.sessions-title' | translate}}</strong></p>
           <div class="btn-group-vertical">
-            <a *ngFor="let session of sessions" class="tag aqua reverse multi-line btn"
+            <a *ngFor="let session of sessions" class="aqua reverse multi-line btn"
                [ngClass]="{'gray-mid':!session.filter}" (click)="toggleSession(session)"
                angulartics2On="click" angularticsEvent="ToggleSession" angularticsCategory="AssessmentResults">
                     <span class="text-left">
                         <strong>{{session.date | date }}</strong>
-                        <span class="ml-sm small">{{session.id || 'labels.groups.results.session-unknown' | translate }}</span>
+                        <small class="ml-sm">{{session.id || 'labels.groups.results.session-unknown' | translate }}</small>
                     </span>
             </a>
           </div>
@@ -65,7 +69,7 @@
       </div>
 
       <!-- Aggregate Scale Score -->
-      <div class="col-md-9">
+      <div class="col-md-9 right">
         <average-scale-score
           [assessmentExam]="assessmentExam"
           [statistics]="statistics"
@@ -159,3 +163,6 @@
     </div>
   </div>
 </div>
+<ng-template #buttonPopover>
+  <div [innerHTML]="loadInstructionalResources(0)"></div>
+</ng-template>

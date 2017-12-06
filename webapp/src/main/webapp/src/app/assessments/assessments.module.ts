@@ -35,6 +35,9 @@ import { ResultsByStudentComponent } from './results/view/results-by-student/res
 import { DistractorAnalysisComponent } from './results/view/distractor-analysis/distractor-analysis.component';
 import { ResultsByItemComponent } from "./results/view/results-by-item/results-by-item.component";
 import { ScaleScoreService } from "./results/scale-score.service";
+import { InstructionalResourcesService } from "./results/instructional-resources.service";
+import { InstructionalResourcesComponent } from "./results/instructional-resources.component";
+import { InstructionalResourcesMapper } from "./results/instructional-resources.mapper";
 
 @NgModule({
   declarations: [
@@ -54,7 +57,8 @@ import { ScaleScoreService } from "./results/scale-score.service";
     ClaimTargetComponent,
     ResultsByItemComponent,
     ResultsByStudentComponent,
-    DistractorAnalysisComponent
+    DistractorAnalysisComponent,
+    InstructionalResourcesComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +80,8 @@ import { ScaleScoreService } from "./results/scale-score.service";
     ItemTabComponent,
     PopupMenuComponent,
     ScaleScoreComponent,
-    ClaimTargetComponent
+    ClaimTargetComponent,
+    InstructionalResourcesComponent
   ],
   providers: [
     AssessmentExamMapper,
@@ -84,11 +89,13 @@ import { ScaleScoreService } from "./results/scale-score.service";
     ExamFilterService,
     ExamFilterOptionsService,
     ExamFilterOptionsMapper,
+    InstructionalResourcesMapper,
     ItemScoringService,
     ItemScoringGuideMapper,
     ItemInfoService,
     StudentScoreService,
-    ScaleScoreService
+    ScaleScoreService,
+    InstructionalResourcesService
   ]
 })
 export class AssessmentsModule {

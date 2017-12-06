@@ -1,0 +1,45 @@
+# this app is expected to run inside the security perimeter so disable security for actuator end-points and,
+# since those are the only end-points, switch to a less standard port using the main server.port config
+management:
+  port: 8008
+  security:
+    enabled: false
+
+server:
+  # tomcat settings for reasonable performance: adjust for tiny/huge configurations
+  tomcat:
+    max-connections: 0
+    max-threads: 4
+    accept-count: 10
+
+cloud:
+  aws:
+    # there must be a default region when running locally
+    region:
+      auto: false
+      static: us-west-2
+    # disable CloudFormation stuff
+    stack:
+      auto: false
+    credentials:
+      instance-profile: false
+
+app:
+  datamart:
+     olap_datasource:
+        url: "\
+           jdbc:redshift://${spring.olap_datasource.url-server:localhost:5432}/dev\
+           ?ApplicationName=rdw-migrate-olap\
+           &currentSchema=${spring.olap_datasource.url-schema:reporting_olap}
+           "
+        username: root
+        password:
+        testWhileIdle: true
+        validationQuery: SELECT 1
+        driverClassName: com.amazon.redshift.jdbc42.Driver
+
+spring:
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false

@@ -53,6 +53,10 @@ export class SchoolAssessmentService implements AssessmentProvider {
       });
   }
 
+  getSchoolId() {
+    return this.schoolId;
+  }
+
   getAssessmentItems(assessmentId: number, multipleChoiceMultipleSelectItems?: boolean) {
     if (multipleChoiceMultipleSelectItems) {
       return this.dataService.get(`/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments/${assessmentId}/examitems`, {
@@ -90,7 +94,7 @@ export class SchoolAssessmentService implements AssessmentProvider {
     let assessment: Assessment = exportRequest.assessment;
     return this.schoolName +
       "-" + this.translate.instant(`labels.grades.${this.grade.code}.short-name`) +
-      "-" + assessment.name + "-" + this.translate.instant(exportRequest.type.toString()) + "-" + new Date().toDateString();
+      "-" + assessment.label + "-" + this.translate.instant(exportRequest.type.toString()) + "-" + new Date().toDateString();
   }
 
   private getRecentAssessmentBySchoolYear(schoolId: number, gradeId: number, schoolYear: number) {

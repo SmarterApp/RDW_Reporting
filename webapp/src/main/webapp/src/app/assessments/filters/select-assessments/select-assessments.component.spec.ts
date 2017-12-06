@@ -31,15 +31,15 @@ describe('SelectAssessmentsComponent', () => {
 
   it('should group assessments by grade', ()=> {
     let assessments = [
-      { grade: '03', name: "asmt1" },
-      { grade: '03', name: "asmt2" },
-      { grade: '04', name: "asmt3" },
-      { grade: '05', name: "asmt4" },
-      { grade: '05', name: "asmt5" },
+      { grade: '03', label: "asmt1" },
+      { grade: '03', label: "asmt2" },
+      { grade: '04', label: "asmt3" },
+      { grade: '05', label: "asmt4" },
+      { grade: '05', label: "asmt5" },
     ].map(x =>{
       let asmt = new Assessment();
       asmt.grade = x.grade;
-      asmt.name = x.name;
+      asmt.label = x.label;
       return asmt;
     });
 

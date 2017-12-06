@@ -43,14 +43,14 @@ export interface Breadcrumb {
 }
 
 @Component({
-  selector: 'breadcrumbs',
+  selector: 'sb-breadcrumbs',
   template: `
     <div [hidden]="breadcrumbs.length == 0">
       <div class="container">
         <ul class="breadcrumb">
           <li>
             <a routerLink="/">
-              <i class="fa fa-home"></i> <span class="sr-only">{{ 'labels.home.name' | translate }}</span>
+              <i class="fa fa-home"></i> <span class="sr-only">{{ 'common-ngx.breadcrumbs.home-sr' | translate }}</span>
             </a>
           </li>
           <li *ngFor="let crumb of breadcrumbs; let last = last;" [ngClass]="{'active': last }">
@@ -62,7 +62,7 @@ export interface Breadcrumb {
     </div>
   `
 })
-export class Breadcrumbs implements OnInit {
+export class SbBreadcrumbs implements OnInit {
 
   private _breadcrumbs: Breadcrumb[] = [];
 
@@ -154,7 +154,7 @@ export class Breadcrumbs implements OnInit {
       .concat()
       .reverse()
       .map(breadcrumb => breadcrumb.text)
-      .concat(this.translateService.instant('common-ngx.application.window-title'))
+      .concat(this.translateService.instant('common-ngx.breadcrumbs.window-title'))
       .join(BreadCrumbsTitleDelimiter);
   }
 

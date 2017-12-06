@@ -1,11 +1,14 @@
 <button class="btn btn-borderless btn-xs icon-only"
-        [popover]="labelPopover"
+        [popover]="buttonPopover"
         popoverTitle="{{ title }}"
         container="body"
         outsideClick="true">
-  <span class="sr-only">{{'labels.more-info' | translate}}</span>
-  <i class="fa {{ icon }}"></i>
+  <div *ngIf="icon">
+    <span class="sr-only">{{'labels.more-info' | translate}}</span>
+    <i class="fa {{ icon }}"></i>
+  </div>
 </button>
-<ng-template #labelPopover>
+
+<ng-template #buttonPopover>
   <div [innerHTML]="content"></div>
 </ng-template>

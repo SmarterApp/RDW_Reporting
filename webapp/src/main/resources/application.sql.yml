@@ -5,61 +5,14 @@ sql:
 
   exam:
     findAllByStudentId: >-
-      select e.id,
-        e.type_id,
-        e.grade_code,
-        e.school_year,
-        e.completeness_code,
-        e.administration_condition_code,
-        e.school_year,
-        e.session_id,
-        e.completed_at,
-        e.scale_score,
-        e.scale_score_std_err,
-        e.performance_level,
-        e.claim1_category,
-        e.claim1_scale_score,
-        e.claim1_scale_score_std_err,
-        e.claim2_category,
-        e.claim2_scale_score,
-        e.claim2_scale_score_std_err,
-        e.claim3_category,
-        e.claim3_scale_score,
-        e.claim3_scale_score_std_err,
-        e.claim4_category,
-        e.claim4_scale_score,
-        e.claim4_scale_score_std_err,
-        e.asmt_id,
-        e.available_accommodation_codes,
-        a.claim1_score_code,
-        a.claim2_score_code,
-        a.claim3_score_code,
-        a.claim4_score_code,
-        a.id as asmt_id,
-        a.label as asmt_label,
-        a.grade_code as asmt_grade_code,
-        a.type_id as asmt_type_id,
-        a.subject_id as asmt_subject_id,
-        a.school_year as asmt_school_year,
-        a.claim1_score_code as asmt_claim1_score_code,
-        a.claim2_score_code as asmt_claim2_score_code,
-        a.claim3_score_code as asmt_claim3_score_code,
-        a.claim4_score_code as asmt_claim4_score_code,
-        a.min_score as asmt_min_score,
-        a.max_score as asmt_max_score,
-        a.cut_point_1 as asmt_cut_point_1,
-        a.cut_point_2 as asmt_cut_point_2,
-        a.cut_point_3 as asmt_cut_point_3,
-        s.id as school_id,
-        s.name as school_name,
-        s.district_id as school_district_id,
-        s.district_group_id as school_district_group_id,
-        s.school_group_id
-      from exam e
-        join student st on st.id = e.student_id
-        join asmt a on e.asmt_id=a.id
-        join school s on e.school_id=s.id
-        join school isch on st.inferred_school_id = isch.id
+      select
+        e.iep,
+        e.lep,
+        e.section504,
+        e.economic_disadvantage,
+        e.migrant_status,
+        ${sql.snippet.claimColumns},
+        ${sql.snippet.exam}
       where e.student_id=:student_id
         and ${sql.reporting.snippet.unknownScopePermission}
 
@@ -131,21 +84,7 @@ sql:
     assessment:
       findAll: >-
           select distinct
-            a.id,
-            a.label,
-            a.grade_code,
-            a.type_id,
-            a.subject_id,
-            a.school_year,
-            a.claim1_score_code,
-            a.claim2_score_code,
-            a.claim3_score_code,
-            a.claim4_score_code,
-            a.min_score,
-            a.max_score,
-            a.cut_point_1,
-            a.cut_point_2,
-            a.cut_point_3
+           ${sql.reporting.snippet.assessmentColumns}
           from asmt a
             join exam e on e.asmt_id = a.id
             join student_group_membership sgm on e.student_id = sgm.student_id
@@ -164,21 +103,7 @@ sql:
       # because a student's inferred school is determined by their latest exam.
       findLatest: >-
           select
-            a.id,
-            a.label,
-            a.grade_code,
-            a.type_id,
-            a.subject_id,
-            a.school_year,
-            a.claim1_score_code,
-            a.claim2_score_code,
-            a.claim3_score_code,
-            a.claim4_score_code,
-            a.min_score,
-            a.max_score,
-            a.cut_point_1,
-            a.cut_point_2,
-            a.cut_point_3
+           ${sql.reporting.snippet.assessmentColumns}
           from exam e
             join student_group_membership sgm on e.student_id=sgm.student_id
             join asmt a on e.asmt_id=a.id
@@ -191,55 +116,15 @@ sql:
           limit 1
 
       findAllForAssessment: >-
-        select e.id,
-          e.type_id,
-          e.grade_code,
+        select
           e.iep,
           e.lep,
           e.section504,
           e.economic_disadvantage,
           e.migrant_status,
-          e.completeness_code,
-          e.administration_condition_code,
-          e.school_year,
-          e.session_id,
-          e.completed_at,
-          e.scale_score,
-          e.scale_score_std_err,
-          e.performance_level,
-          a.claim1_score_code,
-          e.claim1_category,
-          e.claim1_scale_score,
-          e.claim1_scale_score_std_err,
-          a.claim2_score_code,
-          e.claim2_category,
-          e.claim2_scale_score,
-          e.claim2_scale_score_std_err,
-          a.claim3_score_code,
-          e.claim3_category,
-          e.claim3_scale_score,
-          e.claim3_scale_score_std_err,
-          a.claim4_score_code,
-          e.claim4_category,
-          e.claim4_scale_score,
-          e.claim4_scale_score_std_err,
-          e.available_accommodation_codes,
-          st.id as student_id,
-          st.ssid as student_ssid,
-          st.last_or_surname as student_last_name,
-          st.first_name as student_first_name,
-          st.gender_code as student_gender_code,
-          s.id as school_id,
-          s.name as school_name,
-          s.district_id as school_district_id,
-          s.district_group_id as school_district_group_id,
-          s.school_group_id
-        from exam e
-          join student_group_membership sgm on e.student_id = sgm.student_id
-          join student st on e.student_id = st.id
-          join asmt a on e.asmt_id = a.id
-          join school s on e.school_id = s.id
-          join school isch on st.inferred_school_id = isch.id
+          ${sql.snippet.claimColumns},
+          ${sql.snippet.exam}
+        join student_group_membership sgm on e.student_id = sgm.student_id
         where e.asmt_id=:assessment_id
           and e.school_year=:school_year
           and sgm.student_group_id=:group_id
@@ -248,19 +133,8 @@ sql:
 
       item:
         findAllExamItemScoresForAssessment:
-          select ei.id,
-            ei.exam_id,
-            ei.item_id,
-            ei.score,
-            ei.position,
-            ei.response
-          from exam_item ei
-            join exam e on ei.exam_id=e.id
+          ${sql.reporting.snippet.selectFromExamItem}
             join student_group_membership sgm on e.student_id=sgm.student_id
-            join asmt a on e.asmt_id=a.id
-            join school s on e.school_id=s.id
-            join student st on e.student_id = st.id
-            join school isch on st.inferred_school_id = isch.id
           where e.asmt_id=:assessment_id
             and e.school_year=:school_year
             and sgm.student_group_id=:group_id
@@ -270,21 +144,7 @@ sql:
   schoolgrade:
     assessment:
       findAll: >-
-        select a.id,
-          a.label,
-          a.grade_code,
-          a.type_id,
-          a.subject_id,
-          a.school_year,
-          a.claim1_score_code,
-          a.claim2_score_code,
-          a.claim3_score_code,
-          a.claim4_score_code,
-          a.min_score,
-          a.max_score,
-          a.cut_point_1,
-          a.cut_point_2,
-          a.cut_point_3
+        select ${sql.reporting.snippet.assessmentColumns}
         from asmt a
         where exists (
             select e.asmt_id
@@ -302,22 +162,8 @@ sql:
       # NOTE that findLatest does not sample the students' inferred schools
       # because a student's inferred school is determined by their latest exam.
       findLatest: >-
-        select
-          a.id,
-          a.label,
-          a.grade_code,
-          a.type_id,
-          a.subject_id,
-          a.school_year,
-          a.claim1_score_code,
-          a.claim2_score_code,
-          a.claim3_score_code,
-          a.claim4_score_code,
-          a.min_score,
-          a.max_score,
-          a.cut_point_1,
-          a.cut_point_2,
-          a.cut_point_3
+        select 
+          ${sql.reporting.snippet.assessmentColumns}
         from exam e
           join asmt a on e.asmt_id=a.id
           join school sc on e.school_id=sc.id
@@ -329,72 +175,22 @@ sql:
         limit 1
 
       findAllForAssessment: >-
-        select e.id,
-          e.type_id,
-          e.grade_code,
+        select
           e.iep,
           e.lep,
           e.section504,
           e.economic_disadvantage,
           e.migrant_status,
-          e.completeness_code,
-          e.administration_condition_code,
-          e.school_year,
-          e.session_id,
-          e.completed_at,
-          e.scale_score,
-          e.scale_score_std_err,
-          e.performance_level,
-          a.claim1_score_code,
-          e.claim1_category,
-          e.claim1_scale_score,
-          e.claim1_scale_score_std_err,
-          a.claim2_score_code,
-          e.claim2_category,
-          e.claim2_scale_score,
-          e.claim2_scale_score_std_err,
-          a.claim3_score_code,
-          e.claim3_category,
-          e.claim3_scale_score,
-          e.claim3_scale_score_std_err,
-          a.claim4_score_code,
-          e.claim4_category,
-          e.claim4_scale_score,
-          e.claim4_scale_score_std_err,
-          e.available_accommodation_codes,
-          st.id as student_id,
-          st.ssid as student_ssid,
-          st.last_or_surname as student_last_name,
-          st.first_name as student_first_name,
-          st.gender_code as student_gender_code,
-          s.id as school_id,
-          s.name as school_name,
-          s.district_id as school_district_id,
-          s.district_group_id as school_district_group_id,
-          s.school_group_id
-        from exam e
-          join student st on e.student_id=st.id
-          join asmt a on e.asmt_id=a.id
-          join school s on e.school_id=s.id
-          join school isch on st.inferred_school_id = isch.id
+          ${sql.snippet.claimColumns},
+          ${sql.snippet.exam}
         where e.asmt_id=:assessment_id
         and a.grade_id=:grade_id
         and e.school_year=:school_year
         and ${sql.reporting.snippet.schoolScopePermission}
+
       item:
         findAllExamItemScoresForAssessment:
-          select
-            ei.exam_id,
-            ei.item_id,
-            ei.score,
-            ei.position,
-            ei.response
-          from exam_item ei
-            join exam e on ei.exam_id=e.id
-            join asmt a on e.asmt_id=a.id
-            join school s on e.school_id=s.id
-            join student st on st.id=e.student_id
-            join school isch on st.inferred_school_id = isch.id
+          ${sql.reporting.snippet.selectFromExamItem}
           where e.asmt_id=:assessment_id
           and e.school_year=:school_year
           and a.grade_id=:grade_id
@@ -416,44 +212,14 @@ sql:
 
     item:
       findAllForAssessment: >-
-        select i.id,
-          i.natural_id,
-          i.position,
-          i.difficulty_code,
-          i.max_points,
-          i.claim_code,
-          i.target_code,
-          i.target_id,
-          i.dok_level_subject_id,
-          i.math_practice_code,
-          i.allow_calc,
-          i.common_core_standard_ids,
-          i.answer_key,
-          i.options_count,
-          i.type
-        from item i
+        ${sql.reporting.snippet.selectFromItem}
           join asmt a on i.asmt_id=a.id
         where a.type_id in (:assessmentTypes)
         and i.asmt_id=:assessment_id
         and (1=:includeAllItemTypes or i.type in (:types))
 
       findAllForExam: >-
-        select i.id,
-          i.natural_id,
-          i.position,
-          i.difficulty_code,
-          i.max_points,
-          i.claim_code,
-          i.target_code,
-          i.target_id,
-          i.dok_level_subject_id,
-          i.math_practice_code,
-          i.allow_calc,
-          i.common_core_standard_ids,
-          i.answer_key,
-          i.options_count,
-          i.type
-        from item i
+        ${sql.reporting.snippet.selectFromItem}
           join exam e on e.asmt_id = i.asmt_id
         where e.id=:exam_id
 
@@ -596,3 +362,54 @@ sql:
               and (1=:statewide or isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
             )
           )
+      
+      assessmentColumns: >-
+          a.id,
+          a.label,
+          a.grade_code,
+          a.type_id,
+          a.subject_id,
+          a.school_year,
+          a.claim1_score_code,
+          a.claim2_score_code,
+          a.claim3_score_code,
+          a.claim4_score_code,
+          a.min_score,
+          a.max_score,
+          a.cut_point_1,
+          a.cut_point_2,
+          a.cut_point_3
+
+      selectFromItem: >-
+           select
+              i.id,
+              i.natural_id,
+              i.position,
+              i.difficulty_code,
+              i.max_points,
+              i.claim_code,
+              i.target_code,
+              i.target_id,
+              i.dok_level_subject_id,
+              i.math_practice_code,
+              i.allow_calc,
+              i.common_core_standard_ids,
+              i.answer_key,
+              i.options_count,
+              i.type
+            from item i
+
+      selectFromExamItem: >-
+           select
+              ei.id,
+              ei.exam_id,
+              ei.item_id,
+              ei.score,
+              ei.position,
+              ei.response
+            from exam_item ei
+            join exam e on ei.exam_id=e.id
+            join asmt a on e.asmt_id=a.id
+            join school s on e.school_id=s.id
+            join student st on st.id=e.student_id
+            join school isch on st.inferred_school_id = isch.id

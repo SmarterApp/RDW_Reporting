@@ -73,3 +73,151 @@ sql:
       UPDATE import
       SET status = 1
       WHERE id = :import_id
+
+  instructionalResource:
+    findAll: >-
+      SELECT DISTINCT
+        a.label as asmt_label,
+        ir.asmt_name,
+        ir.performance_level,
+        ir.org_level,
+        ir.resource,
+        ir.org_id,
+        coalesce(district_group.name, district.name, school_group.name) as org_name
+      FROM instructional_resource ir
+        JOIN asmt a
+          ON a.name = ir.asmt_name
+        LEFT JOIN district_group
+          ON ir.org_level = 'DistrictGroup'
+          AND district_group.id = ir.org_id
+        LEFT JOIN district
+          ON ir.org_level = 'District'
+          AND district.id = ir.org_id
+        LEFT JOIN school_group
+          ON ir.org_level = 'SchoolGroup'
+          AND school_group.id = ir.org_id
+      LEFT JOIN school sch
+        ON sch.district_id = ir.org_id
+        OR sch.school_group_id = ir.org_id
+      WHERE ir.org_level != 'System'
+        AND
+        (
+          1=:statewide
+          OR
+          (
+            (ir.org_level = 'DistrictGroup' AND district_group.id in (:district_group_ids))
+            OR
+            (
+              ir.org_level = 'District'
+              AND
+              (
+                district.id in (:district_ids)
+                OR
+                (district.id = sch.district_id AND sch.district_group_id in (:district_group_ids))
+              )
+            )
+            OR
+            (
+              ir.org_level = 'SchoolGroup'
+              AND
+              (
+                school_group.id in (:school_group_ids)
+                OR
+                (school_group.id = sch.school_group_id AND (sch.district_id in (:district_ids) OR sch.district_group_id in (:district_group_ids)))
+              )
+            )
+          )
+        )
+
+    findOne: >-
+      SELECT DISTINCT
+        a.label as asmt_label,
+        ir.asmt_name,
+        ir.performance_level,
+        ir.org_level,
+        ir.resource,
+        ir.org_id,
+        coalesce(district_group.name, district.name, school_group.name) as org_name
+      FROM instructional_resource ir
+        JOIN asmt a
+          ON a.name = ir.asmt_name
+        LEFT JOIN district_group
+          ON ir.org_level = 'DistrictGroup'
+          AND district_group.id = ir.org_id
+        LEFT JOIN district
+          ON ir.org_level = 'District'
+          AND district.id = ir.org_id
+        LEFT JOIN school_group
+          ON ir.org_level = 'SchoolGroup'
+          AND school_group.id = ir.org_id
+      LEFT JOIN school sch
+        ON sch.district_id = ir.org_id
+        OR sch.school_group_id = ir.org_id
+      WHERE ir.org_level != 'System'
+        AND ir.org_level = :org_level
+        AND ir.asmt_name = :asmt_name
+        AND ir.performance_level = :performance_level
+        AND ir.org_id <=> :org_id
+        AND
+        (
+          1=:statewide
+          OR
+          (
+            (ir.org_level = 'DistrictGroup' AND district_group.id in (:district_group_ids))
+            OR
+            (
+              ir.org_level = 'District'
+              AND
+              (
+                district.id in (:district_ids)
+                OR
+                (district.id = sch.district_id AND sch.district_group_id in (:district_group_ids))
+              )
+            )
+            OR
+            (
+              ir.org_level = 'SchoolGroup'
+              AND
+              (
+                school_group.id in (:school_group_ids)
+                OR
+                (school_group.id = sch.school_group_id AND (sch.district_id in (:district_ids) OR sch.district_group_id in (:district_group_ids)))
+              )
+            )
+          )
+        )
+
+    update: >-
+      UPDATE instructional_resource ir
+      SET
+        ir.resource = :resource
+      WHERE ir.org_level != 'System'
+        AND ir.org_level = :org_level
+        AND ir.asmt_name = :asmt_name
+        AND ir.performance_level = :performance_level
+        AND ir.org_id <=> :org_id
+
+    create: >-
+      INSERT INTO instructional_resource (asmt_name, resource, org_level, performance_level, org_id)
+        SELECT
+          :asmt_name,
+          :resource,
+          :org_level,
+          :performance_level,
+          :org_id
+        FROM asmt a
+          LEFT JOIN instructional_resource ir
+            ON ir.asmt_name = a.name
+              AND ir.performance_level = :performance_level
+              AND ir.org_level = :org_level
+              AND ir.org_id <=> :org_id
+        WHERE a.name = :asmt_name
+          AND ir.asmt_name IS NULL
+
+    delete: >-
+      DELETE FROM instructional_resource
+      WHERE org_level != 'System'
+        AND org_level = :org_level
+        AND asmt_name = :asmt_name
+        AND performance_level = :performance_level
+        AND org_id <=> :org_id
