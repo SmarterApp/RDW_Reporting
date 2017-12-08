@@ -37,7 +37,6 @@ import { ScaleScoreService } from "./results/scale-score.service";
 import { RdwMenuModule } from "@sbac/rdw-reporting-common-ngx";
 import { InstructionalResourcesService } from "./results/instructional-resources.service";
 import { InstructionalResourcesMapper } from "./results/instructional-resources.mapper";
-import { ButtonService } from "../shared/button/button.service";
 
 @NgModule({
   declarations: [
@@ -92,7 +91,6 @@ import { ButtonService } from "../shared/button/button.service";
     ItemInfoService,
     StudentScoreService,
     ScaleScoreService,
-    ButtonService,
     InstructionalResourcesService
   ]
 })

@@ -1,5 +1,4 @@
 import { Component, Input } from "@angular/core";
-import { ButtonComponent } from "./button.component";
 
 /**
  * This component is responsible for displaying a label with
@@ -9,7 +8,16 @@ import { ButtonComponent } from "./button.component";
   selector: 'info-button,[info-button]',
   templateUrl: './information-button.component.html'
 })
-export class InformationButtonComponent extends ButtonComponent {
+export class InformationButtonComponent {
+
+  @Input()
+  public title: string;
+
+  @Input()
+  public content: string;
+
+  @Input()
+  public icon: string;
 
 
 }

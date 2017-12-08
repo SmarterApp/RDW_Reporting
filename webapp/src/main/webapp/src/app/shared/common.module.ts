@@ -18,7 +18,6 @@ import { DatePipe, DecimalPipe } from "@angular/common";
 import { LoaderComponent } from "./loader/loader.component";
 import { SBToggleComponent } from "./sb-toggle.component";
 import { InformationButtonComponent } from "./button/information-button.component";
-import { ButtonComponent } from "./button/button.component";
 import {
   AuthenticationServiceAuthenticationExpiredRoute,
   AuthenticationServiceDefaultAuthenticationRoute,
@@ -41,7 +40,6 @@ import {
     AssessmentTypePipe,
     GradeDisplayPipe,
     InformationButtonComponent,
-    ButtonComponent,
     LoaderComponent,
     NotificationComponent,
     RemoveCommaPipe,
@@ -77,7 +75,6 @@ import {
     AssessmentTypePipe,
     GradeDisplayPipe,
     InformationButtonComponent,
-    ButtonComponent,
     LoaderComponent,
     NotificationComponent,
     RemoveCommaPipe,

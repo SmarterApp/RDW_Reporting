@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { BrowserModule } from "@angular/platform-browser";
 import { SharedModule } from "primeng/components/common/shared";
-import { DataService, CachingDataService, PopupMenuComponent, SchoolYearPipe } from "@sbac/rdw-reporting-common-ngx";
+import { CachingDataService, DataService, PopupMenuComponent, SchoolYearPipe } from "@sbac/rdw-reporting-common-ngx";
 import { TranslateModule } from "@ngx-translate/core";
 import { DataTableModule } from "primeng/components/datatable/datatable";
 import { StudentHistoryICASummitiveTableComponent } from "./student-history-ica-summitive-table.component";
@@ -14,7 +14,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { MockRouter } from "../../../../test/mock.router";
 import { GradeDisplayPipe } from "../../../shared/grade-display.pipe";
 import { PopoverModule } from "ngx-bootstrap";
-import { ButtonComponent } from "../../../shared/button/button.component";
 import { InstructionalResourcesService } from "../../../assessments/results/instructional-resources.service";
 import { MockDataService } from "../../../../test/mock.data.service";
 import { InstructionalResourcesMapper } from "../../../assessments/results/instructional-resources.mapper";
@@ -39,7 +38,6 @@ describe('StudentHistoryICASummitiveTableComponent', () => {
       declarations: [
         GradeDisplayPipe,
         InformationButtonComponent,
-        ButtonComponent,
         StudentHistoryICASummitiveTableComponent,
         SchoolYearPipe,
         ScaleScoreComponent,

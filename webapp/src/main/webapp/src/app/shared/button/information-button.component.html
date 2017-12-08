@@ -1,4 +1,13 @@
 {{ title }}
-<sb-button [title]="title"
-          [content]="content"
-          icon="fa-info-circle"></sb-button>
+<button class="btn btn-borderless btn-xs icon-only"
+        [popover]="buttonPopover"
+        popoverTitle="{{ title }}"
+        container="body"
+        outsideClick="true">
+    <span class="sr-only">{{'labels.more-info' | translate}}</span>
+    <i class="fa fa-info-circle"></i>
+</button>
+
+<ng-template #buttonPopover>
+  <div [innerHTML]="content"></div>
+</ng-template>

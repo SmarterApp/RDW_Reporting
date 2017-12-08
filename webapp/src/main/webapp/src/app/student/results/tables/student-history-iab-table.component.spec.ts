@@ -11,7 +11,6 @@ import { MockRouter } from "../../../../test/mock.router";
 import { ActivatedRoute, Router } from "@angular/router";
 import { GradeDisplayPipe } from "../../../shared/grade-display.pipe";
 import { PopoverModule } from "ngx-bootstrap";
-import { ButtonComponent } from "../../../shared/button/button.component";
 import { InstructionalResourcesService } from "../../../assessments/results/instructional-resources.service";
 import { DataService } from "@sbac/rdw-reporting-common-ngx/data/data.service";
 import { MockDataService } from "../../../../test/mock.data.service";
@@ -40,7 +39,6 @@ describe('StudentHistoryIABTableComponent', () => {
       declarations: [
         GradeDisplayPipe,
         InformationButtonComponent,
-        ButtonComponent,
         StudentHistoryIABTableComponent,
         SchoolYearPipe,
         ScaleScoreComponent,
