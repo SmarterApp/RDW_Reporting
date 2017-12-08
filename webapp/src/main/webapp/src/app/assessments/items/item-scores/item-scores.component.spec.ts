@@ -6,7 +6,6 @@ import { StudentScoreService } from "./student-score.service";
 import { Component } from "@angular/core";
 import { AssessmentItem } from "../../model/assessment-item.model";
 import { CommonModule } from "../../../shared/common.module";
-import { PopupMenuComponent } from "../../menu/popup-menu.component";
 import { TestModule } from "../../../../test/test.module";
 import { PopoverModule } from "ngx-bootstrap";
 
@@ -18,7 +17,7 @@ describe('ItemScoresComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [ DataTableModule, CommonModule, TestModule, PopoverModule.forRoot() ],
-      declarations: [ TestComponentWrapper, ItemScoresComponent, PopupMenuComponent, ItemViewerComponent ],
+      declarations: [ TestComponentWrapper, ItemScoresComponent, ItemViewerComponent ],
       providers: [
         StudentScoreService
       ]

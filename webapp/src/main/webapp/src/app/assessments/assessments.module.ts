@@ -19,7 +19,6 @@ import { AverageScaleScoreComponent } from "./results/average-scale-score.compon
 import { ItemViewerComponent } from "./items/item-viewer/item-viewer.component";
 import { ItemTabComponent } from "./items/item-tab.component";
 import { TabsModule } from "ngx-bootstrap/tabs";
-import { PopupMenuComponent } from "./menu/popup-menu.component";
 import { Angulartics2Module } from "angulartics2";
 import { ItemExemplarComponent } from "./items/item-exemplar/item-exemplar.component";
 import { ItemScoringService } from "./items/item-exemplar/item-scoring.service";
@@ -35,6 +34,7 @@ import { ResultsByStudentComponent } from './results/view/results-by-student/res
 import { DistractorAnalysisComponent } from './results/view/distractor-analysis/distractor-analysis.component';
 import { ResultsByItemComponent } from "./results/view/results-by-item/results-by-item.component";
 import { ScaleScoreService } from "./results/scale-score.service";
+import { RdwMenuModule } from "@sbac/rdw-reporting-common-ngx";
 import { InstructionalResourcesService } from "./results/instructional-resources.service";
 import { InstructionalResourcesMapper } from "./results/instructional-resources.mapper";
 import { ButtonService } from "../shared/button/button.service";
@@ -47,7 +47,6 @@ import { ButtonService } from "../shared/button/button.service";
     AssessmentResultsComponent,
     ItemTabComponent,
     ItemViewerComponent,
-    PopupMenuComponent,
     ScaleScoreComponent,
     AverageScaleScoreComponent,
     SelectAssessmentsComponent,
@@ -60,6 +59,7 @@ import { ButtonService } from "../shared/button/button.service";
     DistractorAnalysisComponent
   ],
   imports: [
+    Angulartics2Module.forChild(),
     BrowserModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
@@ -67,17 +67,16 @@ import { ButtonService } from "../shared/button/button.service";
     DataTableModule,
     FormsModule,
     PopoverModule.forRoot(),
-    SharedModule,
-    TabsModule,
-    Angulartics2Module.forChild(),
+    RdwMenuModule,
     ReportModule,
+    SharedModule,
+    TabsModule
   ],
   exports: [
     AdvFiltersComponent,
     AdvFiltersToggleComponent,
     AssessmentsComponent,
     ItemTabComponent,
-    PopupMenuComponent,
     ScaleScoreComponent,
     ClaimTargetComponent
   ],

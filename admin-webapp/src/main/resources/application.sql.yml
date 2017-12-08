@@ -24,8 +24,8 @@ sql:
           a.cut_point_2,
           a.cut_point_3
         FROM asmt a
-        WHERE
-          (:label_query IS NULL OR a.label LIKE concat('%', :label_query, '%'))
+        WHERE (:label_query IS NULL OR a.label LIKE concat('%', :label_query, '%'))
+          AND (:name_query IS NULL OR a.name LIKE concat('%', :name_query, '%'))
         LIMIT :limit
 
   group:
@@ -102,7 +102,8 @@ sql:
   instructionalResource:
     findAll: >-
       SELECT DISTINCT
-        a.label as asmt_label,
+        GROUP_CONCAT(DISTINCT a.label SEPARATOR ', ') as asmt_label,
+        a.type_id as asmt_type_id,
         ir.asmt_name,
         ir.performance_level,
         ir.org_level,
@@ -153,10 +154,12 @@ sql:
             )
           )
         )
+      GROUP BY a.type_id, ir.asmt_name, ir.performance_level, ir.org_level, ir.resource, ir.org_id, district_group.name, district.name, school_group.name
 
     findOne: >-
-      SELECT DISTINCT
-        a.label as asmt_label,
+      SELECT
+        GROUP_CONCAT(DISTINCT a.label SEPARATOR ', ') as asmt_label,
+        a.type_id as asmt_type_id,
         ir.asmt_name,
         ir.performance_level,
         ir.org_level,
@@ -211,6 +214,7 @@ sql:
             )
           )
         )
+      GROUP BY a.type_id, ir.asmt_name, ir.performance_level, ir.org_level, ir.resource, ir.org_id, district_group.name, district.name, school_group.name
 
     update: >-
       UPDATE instructional_resource ir
@@ -224,7 +228,7 @@ sql:
 
     create: >-
       INSERT INTO instructional_resource (asmt_name, resource, org_level, performance_level, org_id)
-        SELECT
+        SELECT DISTINCT
           :asmt_name,
           :resource,
           :org_level,

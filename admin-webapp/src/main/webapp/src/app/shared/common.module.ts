@@ -11,6 +11,7 @@ import {
   RdwDataTableModule,
   RdwFormatModule,
   RdwI18nModule,
+  RdwMenuModule,
   RdwSecurityModule,
   RdwTranslateLoader
 } from "@sbac/rdw-reporting-common-ngx";
@@ -27,6 +28,7 @@ import { RdwLayoutModule } from "@sbac/rdw-reporting-common-ngx/layout";
     RdwFormatModule,
     RdwI18nModule,
     RdwLayoutModule,
+    RdwMenuModule,
     RdwSecurityModule,
     TranslateModule.forRoot({
       loader: {

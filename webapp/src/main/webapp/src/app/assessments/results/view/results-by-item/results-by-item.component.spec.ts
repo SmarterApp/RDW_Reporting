@@ -3,13 +3,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ResultsByItemComponent } from './results-by-item.component';
 import { DataTableModule, SharedModule } from "primeng/primeng";
 import { FormsModule } from "@angular/forms";
-import { HttpModule } from "@angular/http";
 import { PopoverModule, TabsModule } from "ngx-bootstrap";
 import { CommonModule } from "../../../../shared/common.module";
 import { ReportModule } from "../../../../report/report.module";
 import { TranslateModule } from "@ngx-translate/core";
 import { TestModule } from "../../../../../test/test.module";
-import { PopupMenuComponent } from "../../../menu/popup-menu.component";
 import { Angulartics2 } from "angulartics2";
 import { ExamStatisticsCalculator } from "../../exam-statistics-calculator";
 import { ItemTabComponent } from "../../../items/item-tab.component";
@@ -20,11 +18,6 @@ import { ItemScoresComponent } from "../../../items/item-scores/item-scores.comp
 import { ItemViewerComponent } from "../../../items/item-viewer/item-viewer.component";
 import { Component } from "@angular/core";
 import { Assessment } from "../../../model/assessment.model";
-import { AssessmentProvider } from "../../../assessment-provider.interface";
-import { Observable } from "rxjs/Observable";
-import { Exam } from "../../../model/exam.model";
-import { AssessmentItem } from "../../../model/assessment-item.model";
-import { ExportRequest } from "../../../model/export-request.model";
 import { MockAssessmentProvider } from "../../../../../test/mock.assessment.provider";
 
 describe('ResultsByItemComponent', () => {

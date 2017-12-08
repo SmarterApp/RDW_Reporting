@@ -5,6 +5,7 @@ export * from './i18n';
 export * from './form';
 export * from './format';
 export * from './layout';
+export * from './menu';
 export * from './preference';
 export * from './security';
 export * from './support';

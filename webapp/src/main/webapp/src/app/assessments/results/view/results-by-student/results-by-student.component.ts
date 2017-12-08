@@ -1,12 +1,12 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Exam } from "../../../model/exam.model";
 import { AssessmentType } from "../../../../shared/enum/assessment-type.enum";
-import { PopupMenuAction } from "../../../menu/popup-menu-action.model";
 import { StudentReportDownloadComponent } from "../../../../report/student-report-download.component";
 import { ReportOptions } from "../../../../report/report-options.model";
 import { TranslateService } from "@ngx-translate/core";
 import { MenuActionBuilder } from "../../../menu/menu-action.builder";
 import { Assessment } from "../../../model/assessment.model";
+import { PopupMenuAction } from "@sbac/rdw-reporting-common-ngx";
 import { InstructionalResourcesService } from "../../instructional-resources.service";
 import { InstructionalResources } from "../../../model/instructional-resources.model";
 

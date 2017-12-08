@@ -81,7 +81,7 @@ code {
 // ------------------------------
 // RDW Custom Styles to Match Comps
 // ------------------------------
-.my-groups-search-form-container {
+.table-search-form-container {
   border: 1px solid @gray-lighter;
   border-radius: 5px 5px 0 0;
 }
@@ -101,7 +101,7 @@ code {
   padding: 10px 15px;
 }
 
-.my-groups-list-container .table > thead > tr > th {
+.table-list-container .table > thead > tr > th {
   &:first-child {
     border-top-left-radius: 0;
   }
@@ -204,4 +204,12 @@ footer {
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 330px;
+}
+
+.text-overflow-ellipsis {
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  overflow-y: visible;
+  white-space: nowrap;
+  padding: .2em 0 .3em;
 }

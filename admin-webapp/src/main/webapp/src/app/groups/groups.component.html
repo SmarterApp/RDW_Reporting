@@ -55,12 +55,12 @@
 
   <!-- Results Table -->
   <div class="well">
-    <div class="gray-lightest pt-sm pr-sm pb-sm pl-sm my-groups-search-form-container">
+    <div class="gray-lightest pt-sm pr-sm pb-sm pl-sm table-search-form-container">
       <label for="search" class="sr-only">{{'labels.groups.filter' | translate}}</label>
       <input [(ngModel)]="searchTerm" class="search form-control" id="search" type="text"
              placeholder="{{'labels.groups.filter' | translate}}" autocomplete="off" (ngModelChange)="onSearchChange()">
     </div>
-    <div class="my-groups-list-container">
+    <div class="table-list-container">
       <p-dataTable [value]="filteredGroups" emptyMessage="{{'labels.groups.no-results' | translate}}" sortField="name"
                    tableStyleClass="table table-striped table-hover overflow">
         <p-column field="name" header="{{'labels.groups.cols.name' | translate}}" [sortable]="true"></p-column>

@@ -18,6 +18,7 @@ import { DatePipe, DecimalPipe } from "@angular/common";
 import { LoaderComponent } from "./loader/loader.component";
 import { SBToggleComponent } from "./sb-toggle.component";
 import { InformationButtonComponent } from "./button/information-button.component";
+import { ButtonComponent } from "./button/button.component";
 import {
   AuthenticationServiceAuthenticationExpiredRoute,
   AuthenticationServiceDefaultAuthenticationRoute,
@@ -27,12 +28,12 @@ import {
   RdwFormatModule,
   RdwFormModule,
   RdwI18nModule,
+  RdwLayoutModule,
+  RdwMenuModule,
   RdwPreferenceModule,
   RdwSecurityModule,
   RdwTranslateLoader,
 } from "@sbac/rdw-reporting-common-ngx";
-import { RdwLayoutModule } from "@sbac/rdw-reporting-common-ngx";
-import { ButtonComponent } from "./button/button.component";
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import { ButtonComponent } from "./button/button.component";
     RdwFormatModule,
     RdwI18nModule,
     RdwLayoutModule,
+    RdwMenuModule,
     RdwPreferenceModule,
     RdwSecurityModule,
     TranslateModule.forRoot({
