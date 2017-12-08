@@ -38,6 +38,7 @@ import { ScaleScoreService } from "./results/scale-score.service";
 import { InstructionalResourcesService } from "./results/instructional-resources.service";
 import { InstructionalResourcesComponent } from "./results/instructional-resources.component";
 import { InstructionalResourcesMapper } from "./results/instructional-resources.mapper";
+import { ButtonService } from "../shared/button/button.service";
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { InstructionalResourcesMapper } from "./results/instructional-resources.
     ItemInfoService,
     StudentScoreService,
     ScaleScoreService,
+    ButtonService,
     InstructionalResourcesService
   ]
 })

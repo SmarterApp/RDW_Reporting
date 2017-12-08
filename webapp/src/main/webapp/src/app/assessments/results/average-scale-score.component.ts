@@ -2,10 +2,14 @@ import { Component, Input } from "@angular/core";
 import { AssessmentExam } from "../model/assessment-exam.model";
 import { ExamStatistics, ExamStatisticsLevel } from "../model/exam-statistics.model";
 import { ScaleScoreService } from "./scale-score.service";
-import { AssessmentResultsComponent } from "./assessment-results.component";
+import { InstructionalResources } from "../model/instructional-resources.model";
+import { InstructionalResourcesService } from "./instructional-resources.service";
+import { GroupAssessmentService } from "../../groups/results/group-assessment.service";
+import { TranslateService } from "@ngx-translate/core";
 
-const icaColors =  ['maroon', 'gray-darkest', 'green-dark', 'blue-dark'];
-const iabColors = ['blue-dark', 'blue-dark aqua', 'aqua'];
+const icaColors = [ 'maroon', 'gray-darkest', 'green-dark', 'blue-dark' ];
+const iabColors = [ 'blue-dark', 'blue-dark aqua', 'aqua' ];
+
 /**
  * This component is responsible for displaying the average scale score visualization
  */
@@ -26,6 +30,8 @@ export class AverageScaleScoreComponent {
   @Input()
   public assessmentExam: AssessmentExam;
 
+  content: string;
+
   @Input()
   set statistics(value: ExamStatistics) {
     this._statistics = value;
@@ -39,8 +45,10 @@ export class AverageScaleScoreComponent {
     return this._statistics;
   }
 
-  constructor(private scaleScoreService: ScaleScoreService, private assessmentResultsComponent: AssessmentResultsComponent) {
-
+  constructor(private scaleScoreService: ScaleScoreService,
+              private instructionalResourcesService: InstructionalResourcesService,
+              private assessmentProvider: GroupAssessmentService,
+              private translateService: TranslateService) {
   }
 
   get hasAverageScore(): boolean {
@@ -68,8 +76,21 @@ export class AverageScaleScoreComponent {
       return this.statistics.levels;
   }
 
-  getLevelPercent(num: number): number {
-    return this.levelPercents[num];
+  levelSum(): number {
+    const values = this.statistics.levels.map(l => l.value);
+    return values.reduce((p, c) => p + c);
+  }
+
+  filledLevel(examStatisticsLevel: ExamStatisticsLevel): number {
+    if (this.showValuesAsPercent)
+      return this.floor(examStatisticsLevel.value);
+    return this.floor(examStatisticsLevel.value * this.levelSum());
+  }
+
+  unfilledLevel(examStatisticsLevel: ExamStatisticsLevel): number {
+    if (this.showValuesAsPercent)
+      return 100 - this.floor(examStatisticsLevel.value);
+    return 100 - this.floor(examStatisticsLevel.value * this.levelSum());
   }
 
   floor(num: number): number {
@@ -77,10 +98,26 @@ export class AverageScaleScoreComponent {
   }
 
   getIcaColor(index: number) {
-    return icaColors[index];
+    return icaColors[ index ];
   }
 
   getIabColor(index: number) {
-    return iabColors[index];
+    return iabColors[ index ];
   }
+
+  loadInstructionalResources(performanceLevel: ExamStatisticsLevel) {
+    this.content = '';
+    this.instructionalResourcesService.getInstructionalResources(this.assessmentExam.assessment.id, this.assessmentProvider.getSchoolId()).subscribe((instructionalResources: InstructionalResources) => {
+      let resources = instructionalResources.getResourcesByPerformance(performanceLevel.id);
+      if (resources.length === 0) {
+        this.content = this.translateService.instant('labels.groups.results.assessment.no-instruct-found');
+      }
+
+      resources.forEach(resource => {
+        this.content = this.content.concat('<p>' + resource.url + '</p>');
+      });
+      // this.content = this.content.concat('<p><a [href]="' + this.sanitizer.bypassSecurityTrustUrl(resource.url) + '/>"</p>');
+    });
+  }
+
 }

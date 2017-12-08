@@ -33,7 +33,6 @@ import {
 } from "@sbac/rdw-reporting-common-ngx";
 import { RdwLayoutModule } from "@sbac/rdw-reporting-common-ngx";
 import { ButtonComponent } from "./button/button.component";
-import { BookButtonComponent } from "./button/book-button.component";
 
 
 @NgModule({
@@ -41,7 +40,6 @@ import { BookButtonComponent } from "./button/book-button.component";
     AssessmentTypePipe,
     GradeDisplayPipe,
     InformationButtonComponent,
-    BookButtonComponent,
     ButtonComponent,
     LoaderComponent,
     NotificationComponent,
@@ -77,7 +75,6 @@ import { BookButtonComponent } from "./button/book-button.component";
     AssessmentTypePipe,
     GradeDisplayPipe,
     InformationButtonComponent,
-    BookButtonComponent,
     ButtonComponent,
     LoaderComponent,
     NotificationComponent,

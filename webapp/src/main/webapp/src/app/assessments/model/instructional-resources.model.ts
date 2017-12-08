@@ -1,17 +1,18 @@
 export class InstructionalResources {
   // instructionalResources:
-  performanceLevelToResources: {[key: number]: InstructionalResource[]};
+  performanceLevelToResources: Map<number, InstructionalResource[]>;
 
   getResourcesByPerformance(performanceLevel: number): InstructionalResource[] {
-    return this.performanceLevelToResources[performanceLevel] || [];
+    return this.performanceLevelToResources.get(performanceLevel) || [];
   }
 
-  constructor(instructionalResourcesMap: {[key: number]: InstructionalResource[]}) {
+  constructor(instructionalResourcesMap: Map<number, InstructionalResource[]>) {
     this.performanceLevelToResources = instructionalResourcesMap;
   }
 }
+
 export class InstructionalResource {
   organizationLevel: string;
-  organizationName: string;
+  performanceLevel: string;
   url: string;
 }

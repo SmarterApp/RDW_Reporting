@@ -7,7 +7,8 @@ import { ReportOptions } from "../../../../report/report-options.model";
 import { TranslateService } from "@ngx-translate/core";
 import { MenuActionBuilder } from "../../../menu/menu-action.builder";
 import { Assessment } from "../../../model/assessment.model";
-import { AssessmentResultsComponent } from "../../assessment-results.component";
+import { InstructionalResourcesService } from "../../instructional-resources.service";
+import { InstructionalResources } from "../../../model/instructional-resources.model";
 
 enum ScoreViewState {
   OVERALL = 1,
@@ -42,6 +43,7 @@ export class ResultsByStudentComponent implements OnInit {
   reportDownloader: StudentReportDownloadComponent;
 
   actions: PopupMenuAction[];
+  content: string;
   displayState: any = {
     showClaim: ScoreViewState.OVERALL
   };
@@ -85,7 +87,7 @@ export class ResultsByStudentComponent implements OnInit {
     return this.assessmentType == AssessmentType.IAB;
   }
 
-  get isInterim(){
+  get isInterim() {
     return this.assessmentType != AssessmentType.SUMMATIVE;
   }
 
@@ -95,11 +97,26 @@ export class ResultsByStudentComponent implements OnInit {
 
   constructor(private actionBuilder: MenuActionBuilder,
               private translate: TranslateService,
-              private assessmentResultsComponent: AssessmentResultsComponent) {
+              private instructionalResourcesService: InstructionalResourcesService) {
   }
 
   ngOnInit() {
     this.actions = this.createActions();
+  }
+
+  loadInstructionalResources(exam: Exam) {
+    this.content = '';
+    this.instructionalResourcesService.getInstructionalResources(this.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
+      let resources = instructionalResources.getResourcesByPerformance(exam.level);
+      if (resources.length === 0) {
+        this.content = this.translate.instant('labels.groups.results.assessment.no-instruct-found');
+      }
+
+      resources.forEach(resource => {
+        this.content = this.content.concat('<p>' + resource.url + '</p>');
+      });
+      // this.content = this.content.concat('<p><a [href]="' + this.sanitizer.bypassSecurityTrustUrl(resource.url) + '/>"</p>');
+    });
   }
 
   private createActions(): PopupMenuAction[] {

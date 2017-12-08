@@ -18,9 +18,10 @@ import { ResultsByItemComponent } from "./view/results-by-item/results-by-item.c
 import { DistractorAnalysisComponent } from "./view/distractor-analysis/distractor-analysis.component";
 import { InstructionalResourcesService } from "./instructional-resources.service";
 import { InstructionalResources } from "../model/instructional-resources.model";
+import { TranslateService } from "@ngx-translate/core";
 
 enum ResultsViewState {
-  ByStudent =1,
+  ByStudent = 1,
   ByItem = 2,
   DistractorAnalysis = 3
 }
@@ -146,10 +147,10 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   get currentExportResults(): ExportResults {
-    if(this.showItemsByPointsEarned)
+    if (this.showItemsByPointsEarned)
       return this.resultsByItem;
 
-    if(this.showDistractorAnalysis)
+    if (this.showDistractorAnalysis)
       return this.distractorAnalysis;
 
     return undefined;
@@ -179,7 +180,8 @@ export class AssessmentResultsComponent implements OnInit {
   constructor(public colorService: ColorService,
               private examCalculator: ExamStatisticsCalculator,
               private examFilterService: ExamFilterService,
-              private instructionalResourcesService: InstructionalResourcesService) {
+              private instructionalResourcesService: InstructionalResourcesService,
+              private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -195,14 +197,14 @@ export class AssessmentResultsComponent implements OnInit {
 
   getResultViewState(viewState: ResultsViewState, enabled: boolean, canExport: boolean): ResultsView {
     return {
-      label: 'enum.results-view-state.' + ResultsViewState[viewState],
+      label: 'enum.results-view-state.' + ResultsViewState[ viewState ],
       value: viewState,
       disabled: !enabled,
       canExport: canExport
     }
   }
 
-  setCurrentView(view: ResultsView){
+  setCurrentView(view: ResultsView) {
     this.currentResultsView = view;
   }
 
@@ -220,12 +222,17 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   loadInstructionalResources(performanceLevel: number) {
+    this.content = '';
     this.instructionalResourcesService.getInstructionalResources(this.assessmentExam.assessment.id, this.assessmentProvider.getSchoolId()).subscribe((instructionalResources: InstructionalResources) => {
-      if (instructionalResources === null) {
-        this.content = 'No resources found.';
-      } else {
-        this.content = instructionalResources.getResourcesByPerformance(performanceLevel) === null ? ' got something ' : 'No resources found again';
+      let resources = instructionalResources.getResourcesByPerformance(performanceLevel);
+      if (resources.length === 0) {
+        this.content = this.translateService.instant('labels.groups.results.assessment.no-instruct-found');
       }
+
+      resources.forEach(resource => {
+        this.content = this.content.concat('<p>' + resource.url + '</p>');
+      });
+      // this.content = this.content.concat('<p><a [href]="' + this.sanitizer.bypassSecurityTrustUrl(resource.url) + '/>"</p>');
     });
   }
 
@@ -284,5 +291,6 @@ interface ResultsView {
 
 export interface ExportResults {
   exportToCsv(): void;
+
   hasDataToExport(): boolean;
 }

@@ -1,9 +1,0 @@
-<sb-button
-  title="{{ 'labels.assessments.student-score-distribution.info-button-prefix' | translate }} {{ title }}"
-  icon="fa-book"
-  [assessment]="assessment"
-  [popover]="buttonPopover"
-  (click)="loadInstructionalResources(level)"></sb-button>
-<ng-template #buttonPopover>
-  <div [innerHTML]="content"></div>
-</ng-template>

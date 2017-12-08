@@ -14,6 +14,10 @@ import { Angulartics2 } from "angulartics2";
 import { TestModule } from "../../../test/test.module";
 import { MockDataService } from "../../../test/mock.data.service";
 import { CommonModule } from "../../shared/common.module";
+import { InstructionalResourcesService } from "./instructional-resources.service";
+import { CachingDataService } from "@sbac/rdw-reporting-common-ngx/data/caching-data.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx/data/data.service";
+import { InstructionalResourcesMapper } from "./instructional-resources.mapper";
 
 describe('AssessmentResultsComponent', () => {
   let component: AssessmentResultsComponent;
@@ -42,7 +46,11 @@ describe('AssessmentResultsComponent', () => {
         { provide: Angulartics2, useValue: mockAngulartics2 },
         ExamStatisticsCalculator,
         ExamFilterService,
-        ColorService
+        ColorService,
+        InstructionalResourcesService,
+        InstructionalResourcesMapper,
+        CachingDataService,
+        DataService
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();

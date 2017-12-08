@@ -28,14 +28,17 @@
       <popup-menu [item]="data" [actions]="actions" [text]="exam.date | date"></popup-menu>
     </ng-template>
   </p-column>
-  <p-column field="assessment.label" header="{{'labels.student.results.cols.assessment' | translate}}" sortable="true"></p-column>
+  <p-column field="assessment.label" header="{{'labels.student.results.cols.assessment' | translate}}"
+            sortable="true"></p-column>
   <p-column field="exam.schoolYear" header="{{'labels.student.results.cols.school-year' | translate}}" sortable="true">
     <ng-template let-exam="rowData.exam" pTemplate="body">
       {{ exam.schoolYear | schoolYear }}
     </ng-template>
   </p-column>
-  <p-column field="exam.school.name" header="{{'labels.student.results.cols.school' | translate }}" sortable="true"></p-column>
-  <p-column field="exam.enrolledGrade" header="{{'labels.student.results.cols.enrolled-grade' | translate}}" sortable="true">
+  <p-column field="exam.school.name" header="{{'labels.student.results.cols.school' | translate }}"
+            sortable="true"></p-column>
+  <p-column field="exam.enrolledGrade" header="{{'labels.student.results.cols.enrolled-grade' | translate}}"
+            sortable="true">
     <ng-template let-exam="rowData.exam" pTemplate="body">
       {{ exam.enrolledGrade | gradeDisplay }}
     </ng-template>
@@ -47,7 +50,7 @@
             [hidden]="displayState.table !== 'overall'">
     <ng-template pTemplate="header">
       <span info-button title="{{'labels.groups.results.assessment.exams.cols.status' | translate}}"
-                  content="{{'labels.groups.results.assessment.exams.cols.status-info' | translate}}"></span>
+            content="{{'labels.groups.results.assessment.exams.cols.status-info' | translate}}"></span>
     </ng-template>
     <ng-template let-exam="rowData.exam" pTemplate="body">
       <span *ngIf="exam.administrativeCondition !== 'Valid'" class="label border-only maroon">{{ 'enum.administrative-condition.' + exam.administrativeCondition | translate }}</span>
@@ -59,10 +62,22 @@
             [hidden]="displayState.table !== 'overall'">
     <ng-template pTemplate="header">
       <span info-button title="{{'labels.groups.results.assessment.exams.cols.ica.performance' | translate}}"
-                  content="{{'labels.groups.results.assessment.exams.cols.ica.performance-info' | translate}}"></span>
+            content="{{'labels.groups.results.assessment.exams.cols.ica.performance-info' | translate}}"></span>
     </ng-template>
-    <ng-template let-exam="rowData.exam" pTemplate="body">
+    <ng-template let-exam="rowData.exam" let-i="rowIndex" pTemplate="body">
       {{ 'enum.achievement-level.full.' + (exam.level ? exam.level.toString() : 'missing') | translate }}
+      <button
+        class="btn btn-borderless btn-xs icon-only pull-right"
+        angulartics2On="click"
+        angularticsEvent="InstructionalResource"
+        angularticsCategory="AssessmentResults"
+        [disabled]="false"
+        [popover]="buttonPopover"
+        popoverTitle="{{ 'labels.groups.results.assessment.instruct-button-prefix' | translate }}{{ 'enum.achievement-level.full.' + (exam.level ? exam.level.toString() : 'missing') | translate }}"
+        container="body"
+        (click)="loadInstructionalResources(i)"
+        [outsideClick]="true"><i
+        class="fa fa-book"></i></button>
       <!--<span book-button title="{{ 'enum.achievement-level.full.' + (exam.level ? exam.level.toString() : 'missing') | translate }}" [level]="exam.level.toString()" content="links" [assessmentExam]="assessmentExam"></span>-->
     </ng-template>
   </p-column>
@@ -71,7 +86,7 @@
             [hidden]="displayState.table !== 'overall'">
     <ng-template pTemplate="header">
       <span info-button title="{{'labels.groups.results.assessment.exams.cols.score' | translate}}"
-                  content="{{'labels.groups.results.assessment.exams.cols.score-info' | translate}}"></span>
+            content="{{'labels.groups.results.assessment.exams.cols.score-info' | translate}}"></span>
     </ng-template>
     <ng-template let-exam="rowData.exam" pTemplate="body">
       <scale-score [score]="exam.score" [standardError]="exam.standardError"></scale-score>
@@ -91,3 +106,6 @@
   </p-column>
 
 </p-dataTable>
+<ng-template #buttonPopover>
+  <div [innerHTML]="content"></div>
+</ng-template>

@@ -3,6 +3,9 @@ import { StudentHistoryExamWrapper } from "../../model/student-history-exam-wrap
 import { Student } from "../../model/student.model";
 import { PopupMenuAction } from "../../../assessments/menu/popup-menu-action.model";
 import { MenuActionBuilder } from "../../../assessments/menu/menu-action.builder";
+import { InstructionalResourcesService } from "../../../assessments/results/instructional-resources.service";
+import { InstructionalResources } from "../../../assessments/model/instructional-resources.model";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'student-history-iab-table',
@@ -26,8 +29,11 @@ export class StudentHistoryIABTableComponent implements OnInit {
 
 
   actions: PopupMenuAction[];
+  content: string;
 
-  constructor(private actionBuilder: MenuActionBuilder) {
+  constructor(private actionBuilder: MenuActionBuilder,
+              private instructionalResourcesService: InstructionalResourcesService,
+              private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -42,8 +48,24 @@ export class StudentHistoryIABTableComponent implements OnInit {
   private createActions(): PopupMenuAction[] {
     return this.actionBuilder
       .newActions()
-      .withResponses(x => x.exam.id, ()=> this.student, x => x.exam.schoolYear > this.minimumItemDataYear)
+      .withResponses(x => x.exam.id, () => this.student, x => x.exam.schoolYear > this.minimumItemDataYear)
       .withShowResources(x => x.assessment.resourceUrl)
       .build();
+  }
+
+  loadInstructionalResources(index: number) {
+    let studentHistoryExam = this.exams[ index ];
+    let exam = studentHistoryExam.exam;
+    this.content = '';
+    this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
+      let resources = instructionalResources.getResourcesByPerformance(exam.level);
+      if (resources.length === 0) {
+        this.content = this.translateService.instant('labels.groups.results.assessment.no-instruct-found');
+      }
+
+      resources.forEach(resource => {
+        this.content = this.content.concat('<p>' + resource.url + '</p>');
+      });
+    });
   }
 }

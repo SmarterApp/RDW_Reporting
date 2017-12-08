@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { BrowserModule } from "@angular/platform-browser";
 import { SharedModule } from "primeng/components/common/shared";
-import { SchoolYearPipe } from "@sbac/rdw-reporting-common-ngx";
+import { CachingDataService, SchoolYearPipe } from "@sbac/rdw-reporting-common-ngx";
 import { TranslateModule } from "@ngx-translate/core";
 import { DataTableModule } from "primeng/components/datatable/datatable";
 import { StudentHistoryICASummitiveTableComponent } from "./student-history-ica-summitive-table.component";
@@ -16,14 +16,20 @@ import { MockRouter } from "../../../../test/mock.router";
 import { GradeDisplayPipe } from "../../../shared/grade-display.pipe";
 import { PopoverModule } from "ngx-bootstrap";
 import { ButtonComponent } from "../../../shared/button/button.component";
+import { InstructionalResourcesService } from "../../../assessments/results/instructional-resources.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx/data/data.service";
+import { MockDataService } from "../../../../test/mock.data.service";
+import { InstructionalResourcesMapper } from "../../../assessments/results/instructional-resources.mapper";
 
 describe('StudentHistoryICASummitiveTableComponent', () => {
   let component: StudentHistoryICASummitiveTableComponent;
   let fixture: ComponentFixture<StudentHistoryICASummitiveTableComponent>;
   let router: MockRouter;
   let activatedRoute: ActivatedRoute;
+  let dataService: MockDataService;
 
   beforeEach(async(() => {
+    dataService = new MockDataService();
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
@@ -41,13 +47,19 @@ describe('StudentHistoryICASummitiveTableComponent', () => {
         ScaleScoreComponent,
         PopupMenuComponent
       ],
-      providers: [{
+      providers: [ {
         provide: Router,
         useValue: router
       }, {
         provide: ActivatedRoute,
         useValue: activatedRoute
-      }]
+      }, {
+        provide: DataService,
+        useValue: dataService
+      },
+        InstructionalResourcesService,
+        InstructionalResourcesMapper,
+        CachingDataService ]
     })
       .compileComponents();
   }));
@@ -68,7 +80,7 @@ describe('StudentHistoryICASummitiveTableComponent', () => {
     let wrapper: StudentHistoryExamWrapper = new StudentHistoryExamWrapper();
     wrapper.exam = new Exam();
     wrapper.assessment = new Assessment;
-    wrapper.assessment.claimCodes = ["claimCode 1", "claimCode 2"];
+    wrapper.assessment.claimCodes = [ "claimCode 1", "claimCode 2" ];
 
     component.exams.push(wrapper);
 

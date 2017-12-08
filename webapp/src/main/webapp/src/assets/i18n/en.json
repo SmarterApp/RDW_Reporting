@@ -271,6 +271,8 @@
         "high-school": "High School",
         "assessment": {
           "instruct": "Instructional Resources",
+          "instruct-button-prefix": "Instructional Resources for ",
+          "no-instruct-found": "No resources found.",
           "sessions-title": "Sessions",
           "exam-results": "Results By Student",
           "button-items": "Results By Item",
@@ -372,8 +374,7 @@
       },
       "students": "Students",
       "student-score-distribution": {
-        "title": "Student Score Distribution",
-        "info-button-prefix": "Instructional Resources for "
+        "title": "Student Score Distribution"
       }
     },
     "menu": "Menu",

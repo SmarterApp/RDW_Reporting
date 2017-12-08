@@ -31,10 +31,10 @@
                   [angularticsProperties]="{label: assessmentExam.assessment.label}"
                   [disabled]="false"
                   [popover]="buttonPopover"
-                  popoverTitle="{{ 'labels.assessments.student-score-distribution.info-button-prefix' | translate }}{{ assessmentExam.assessment.label }}"
+                  popoverTitle="{{ 'labels.groups.results.assessment.instruct-button-prefix' | translate }}{{ assessmentExam.assessment.label }}"
                   container="body"
                   (click)="loadInstructionalResources(0)"
-
+                  [outsideClick]="true"
                   >
                   <i class="fa fa-list-alt"></i> {{'labels.groups.results.assessment.instruct' | translate }}
                 </button>

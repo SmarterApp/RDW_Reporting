@@ -32,7 +32,6 @@
           <td class="col-md-5">
             <span class="pull-right">
               {{ examLevelEnum + performanceLevel.id.toString() | translate }}
-              <!--<span book-button title="{{ examLevelEnum + performanceLevel.id.toString() | translate }}" [level]="performanceLevel ? performanceLevel.toString() : 'missing'" [assessment]="assessmentExam.assessment"></span>-->
               <button
                 class="btn btn-borderless btn-xs icon-only pull-right"
                 angulartics2On="click"
@@ -40,9 +39,11 @@
                 angularticsCategory="AssessmentResults"
                 [disabled]="false"
                 [popover]="buttonPopover"
-                popoverTitle="{{ 'labels.assessments.student-score-distribution.info-button-prefix' | translate }}{{ examLevelEnum + performanceLevel.id.toString() | translate }}"
+                popoverTitle="{{ 'labels.groups.results.assessment.instruct-button-prefix' | translate }}{{ examLevelEnum + performanceLevel.id.toString() | translate }}"
                 container="body"
-                (click)="assessmentResultsComponent.loadInstructionalResources(performanceLevel.id)"><i class="fa fa-book"></i></button>
+                (click)="loadInstructionalResources(performanceLevel)"
+                [outsideClick]="true"><i
+                class="fa fa-book"></i></button>
             </span>
           </td>
           <td class="col-md-1 level-down">
@@ -53,9 +54,9 @@
           <td class="level-down">
             <div class="bar-container">
               <div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="getIabColor(i)"
-                   [attr.data-width]="floor(performanceLevel.value)"></div>
+                   [attr.data-width]="filledLevel(performanceLevel)"></div>
               <div *ngIf="performanceLevel.value < 100" class="bar gray"
-                   [attr.data-width]="100 - floor(performanceLevel.value)">
+                   [attr.data-width]="unfilledLevel(performanceLevel)">
               </div>
             </div>
           </td>
@@ -80,9 +81,11 @@
                 angularticsCategory="AssessmentResults"
                 [disabled]="false"
                 [popover]="buttonPopover"
-                popoverTitle="{{ 'labels.assessments.student-score-distribution.info-button-prefix' | translate }}{{ examLevelEnum + performanceLevel.id.toString() | translate }}"
+                popoverTitle="{{ 'labels.groups.results.assessment.instruct-button-prefix' | translate }}{{ examLevelEnum + performanceLevel.id.toString() | translate }}"
                 container="body"
-                (click)="assessmentResultsComponent.loadInstructionalResources(performanceLevel.id)"><i class="fa fa-book"></i></button>
+                (click)="loadInstructionalResources(performanceLevel)"
+                [outsideClick]="true"><i
+                class="fa fa-book"></i></button>
             </span>
           </td>
           <td class="col-md-1 level-down">
@@ -93,9 +96,9 @@
           <td class="level-down">
             <div class="bar-container">
               <div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="getIcaColor(i)"
-                   [attr.data-width]="floor(performanceLevel.value)"></div>
+                   [attr.data-width]="filledLevel(performanceLevel)"></div>
               <div *ngIf="performanceLevel.value < 100" class="bar gray"
-                   [attr.data-width]="100 - floor(performanceLevel.value)">
+                   [attr.data-width]="unfilledLevel(performanceLevel)">
               </div>
             </div>
           </td>
@@ -105,5 +108,5 @@
   </div>
 </div>
 <ng-template #buttonPopover>
-  <div [innerHTML]="assessmentResultsComponent.content"></div>
+  <div [innerHTML]="content"></div>
 </ng-template>

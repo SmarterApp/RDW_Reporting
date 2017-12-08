@@ -78,9 +78,10 @@
         angularticsCategory="AssessmentResults"
         [disabled]="false"
         [popover]="buttonPopover"
-        popoverTitle="{{ 'labels.assessments.student-score-distribution.info-button-prefix' | translate }}{{ examLevelEnum + (exam.level ? exam.level : 'missing') | translate }}"
+        popoverTitle="{{ 'labels.groups.results.assessment.instruct-button-prefix' | translate }}{{ examLevelEnum + (exam.level ? exam.level : 'missing') | translate }}"
         container="body"
-        (click)="assessmentResultsComponent.loadInstructionalResources(exam.level)"><i class="fa fa-book"></i></button>
+        (click)="loadInstructionalResources(exam)"
+        [outsideClick]="true"><i class="fa fa-book"></i></button>
       <!--<span book-button title="{{ examLevelEnum + (exam.level ? exam.level : 'missing') | translate }}" [level]="exam.level ? exam.level.toString() : 'missing'" [assessment]="assessment"></span>-->
     </ng-template>
   </p-column>
@@ -107,5 +108,5 @@
   </p-column>
 </p-dataTable>
 <ng-template #buttonPopover>
-  <div [innerHTML]="assessmentResultsComponent.content"></div>
+  <div [innerHTML]="content"></div>
 </ng-template>
