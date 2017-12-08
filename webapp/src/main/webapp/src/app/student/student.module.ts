@@ -4,7 +4,7 @@ import { StudentExamHistoryService } from "./student-exam-history.service";
 import { CommonModule } from "../shared/common.module";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "primeng/components/common/shared";
 import { StudentResultsComponent } from "./results/student-results.component";
 import { StudentExamHistoryResolve } from "./results/student-exam-history.resolve";
@@ -24,6 +24,7 @@ import { CsvModule } from "../csv-export/csv-export.module";
 import { ReportModule } from "../report/report.module";
 import { PopoverModule } from "ngx-bootstrap";
 import { UserModule } from "../user/user.module";
+import { RdwMenuModule } from "@sbac/rdw-reporting-common-ngx";
 
 @NgModule({
   declarations: [
@@ -35,19 +36,20 @@ import { UserModule } from "../user/user.module";
     StudentHistoryICASummitiveTableComponent
   ],
   imports: [
+    Angulartics2Module.forChild(),
     AssessmentsModule,
-    CommonModule,
-    UserModule,
-    CsvModule,
     BrowserAnimationsModule,
     BrowserModule,
+    CommonModule,
+    CsvModule,
     DataTableModule,
     FormsModule,
     PopoverModule.forRoot(),
     ReactiveFormsModule,
+    RdwMenuModule,
+    ReportModule,
     SharedModule,
-    Angulartics2Module.forChild(),
-    ReportModule
+    UserModule
   ],
   exports: [
     StudentComponent,

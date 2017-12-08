@@ -45,6 +45,8 @@
   "collapse": "Collapse",
   "select": "Select",
   "labels": {
+    "name": "Name",
+    "type": "Type",
     "navigation": {
       "user-guide": "User Guide"
     },
@@ -113,7 +115,67 @@
       }
     },
     "instructional-resource": {
-      "title": "Manage Instructional Resources"
+      "filter": "Search by Assessment/Organization",
+      "no-results": "No instructional resources found matching the given filter criteria.",
+      "title": "Manage Instructional Resources",
+      "assessments": {
+        "no-results": "No assessments found.",
+        "performance-levels": {
+          "all": "All Levels",
+          "IAB": {
+            "1": "Below Standard",
+            "2": "Near Standard",
+            "3": "Above Standard"
+          },
+          "ICA": {
+            "1": "Standard Not Met",
+            "2": "Standard Nearly Met",
+            "3": "Standard Met",
+            "4": "Standard Exceeded"
+          },
+          "SUMMATIVE": {
+            "1": "Standard Not Met",
+            "2": "Standard Nearly Met",
+            "3": "Standard Met",
+            "4": "Standard Exceeded"
+          }
+        }
+      },
+      "cols": {
+        "assessment-name": "Assessment Name",
+        "assessment-label": "Assessment Label(s)",
+        "organization-type": "Organization Type",
+        "organization-name": "Organization",
+        "performance-level": "Performance Level",
+        "resource": "Resource"
+      },
+      "create": {
+        "link": "Create",
+        "title": "Create Instructional Resource",
+        "error": "Unable to create an Instructional Resource."
+      },
+      "delete": {
+        "title": "Delete Instructional Resource",
+        "error": "Unable to delete instructional resource.",
+        "warning": "WARNING: Deleting this resource cannot be undone."
+      },
+      "form": {
+        "assessment-label": "Assessment Label",
+        "organization-name": "Organization Name"
+      },
+      "organizations": {
+        "no-results": "No organizations found.",
+        "type": {
+          "State": "State",
+          "DistrictGroup": "District Group",
+          "District": "District",
+          "SchoolGroup": "School Group"
+        }
+      },
+      "update": {
+        "title": "Update Instructional Resource",
+        "error": "Unable to modify instructional resource."
+      }
     },
     "menu": "Menu",
     "more-info": "More Information",
@@ -121,9 +183,13 @@
     "select-year": "School Year"
   },
   "prompt": {
+    "cancel": "Cancel",
+    "close": "Close",
+    "create": "Create",
+    "delete": "Delete",
     "search": "Search",
     "select": "Select",
-    "close": "Close"
+    "update": "Update"
   },
   "buttons": {
     "all": "All",

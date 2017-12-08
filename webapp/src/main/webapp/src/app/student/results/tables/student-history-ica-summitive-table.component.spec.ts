@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { BrowserModule } from "@angular/platform-browser";
 import { SharedModule } from "primeng/components/common/shared";
-import { SchoolYearPipe } from "@sbac/rdw-reporting-common-ngx";
+import { PopupMenuComponent, SchoolYearPipe } from "@sbac/rdw-reporting-common-ngx";
 import { TranslateModule } from "@ngx-translate/core";
 import { DataTableModule } from "primeng/components/datatable/datatable";
 import { StudentHistoryICASummitiveTableComponent } from "./student-history-ica-summitive-table.component";
@@ -10,7 +10,6 @@ import { Exam } from "../../../assessments/model/exam.model";
 import { Assessment } from "../../../assessments/model/assessment.model";
 import { ScaleScoreComponent } from "../../../assessments/results/scale-score.component";
 import { InformationLabelComponent } from "../../../shared/information-label.component";
-import { PopupMenuComponent } from "../../../assessments/menu/popup-menu.component";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MockRouter } from "../../../../test/mock.router";
 import { GradeDisplayPipe } from "../../../shared/grade-display.pipe";

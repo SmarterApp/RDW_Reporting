@@ -1,8 +1,8 @@
 import { Component, Input } from "@angular/core";
 import { StudentHistoryExamWrapper } from "../../model/student-history-exam-wrapper.model";
 import { Student } from "../../model/student.model";
-import { PopupMenuAction } from "../../../assessments/menu/popup-menu-action.model";
 import { MenuActionBuilder } from "../../../assessments/menu/menu-action.builder";
+import { PopupMenuAction } from "@sbac/rdw-reporting-common-ngx";
 
 @Component({
   selector: 'student-history-ica-summitive-table',

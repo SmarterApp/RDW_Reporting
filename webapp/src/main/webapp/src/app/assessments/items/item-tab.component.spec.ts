@@ -3,7 +3,7 @@ import { ItemTabComponent } from "./item-tab.component";
 import { TabsModule } from "ngx-bootstrap/tabs";
 import { ItemViewerComponent } from "./item-viewer/item-viewer.component";
 import { CommonModule } from "../../shared/common.module";
-import { TabsetConfig, PopoverModule } from "ngx-bootstrap";
+import { PopoverModule, TabsetConfig } from "ngx-bootstrap";
 import { MockDataService } from "../../../test/mock.data.service";
 import { CachingDataService } from "@sbac/rdw-reporting-common-ngx";
 import { ItemExemplarComponent } from "./item-exemplar/item-exemplar.component";
@@ -12,10 +12,9 @@ import { DataTableModule } from "primeng/components/datatable/datatable";
 import { StudentScoreService } from "./item-scores/student-score.service";
 import { Component } from "@angular/core";
 import { AssessmentItem } from "../model/assessment-item.model";
-import { PopupMenuComponent } from "../menu/popup-menu.component";
 import { TestModule } from "../../../test/test.module";
 import { ItemInfoComponent } from "./item-info/item-info.component";
-import { Angulartics2Module, Angulartics2 } from "angulartics2";
+import { Angulartics2, Angulartics2Module } from "angulartics2";
 
 describe('ItemTabComponent', () => {
   let component: ItemTabComponent;
@@ -27,7 +26,7 @@ describe('ItemTabComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [ TabsModule, CommonModule, DataTableModule, TestModule, Angulartics2Module, PopoverModule.forRoot() ],
-      declarations: [ TestComponentWrapper, ItemTabComponent, ItemViewerComponent, ItemInfoComponent, ItemExemplarComponent, ItemScoresComponent, PopupMenuComponent ],
+      declarations: [ TestComponentWrapper, ItemTabComponent, ItemViewerComponent, ItemInfoComponent, ItemExemplarComponent, ItemScoresComponent ],
       providers: [
         TabsetConfig,
         { provide: CachingDataService, useClass: MockDataService },

@@ -45,6 +45,20 @@ export class DataService {
   }
 
   /**
+   * Puts data to the API server
+   *
+   * @param url the API endpoint
+   * @param body the request body
+   * @param options parameters to communicate to the API
+   * @returns {Observable<R>}
+   */
+  put(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
+    return this.http
+      .put(`${this.contextUrl}${url}`, body, options)
+      .map(this.getMapper(options));
+  }
+
+  /**
    * Deletes data on the API server
    *
    * @param url the API endpoint

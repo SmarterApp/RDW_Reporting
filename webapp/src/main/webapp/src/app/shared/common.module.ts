@@ -27,11 +27,12 @@ import {
   RdwFormatModule,
   RdwFormModule,
   RdwI18nModule,
+  RdwLayoutModule,
+  RdwMenuModule,
   RdwPreferenceModule,
   RdwSecurityModule,
   RdwTranslateLoader,
 } from "@sbac/rdw-reporting-common-ngx";
-import { RdwLayoutModule } from "@sbac/rdw-reporting-common-ngx";
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { RdwLayoutModule } from "@sbac/rdw-reporting-common-ngx";
     RdwFormatModule,
     RdwI18nModule,
     RdwLayoutModule,
+    RdwMenuModule,
     RdwPreferenceModule,
     RdwSecurityModule,
     TranslateModule.forRoot({

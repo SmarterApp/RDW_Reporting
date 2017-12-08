@@ -1,0 +1,53 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{ 'labels.instructional-resource.delete.title' | translate }}</h4>
+  <button type="button" class="close pull-right" title="{{'prompt.close' | translate}}" (click)="cancel()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <div *ngIf="unableToDelete" class="alert alert-danger">
+    {{ 'labels.instructional-resource.delete.error' | translate }}
+  </div>
+  <div class="modal-body text-left">
+    <div class="text-overflow-ellipsis">
+      <span class="label label-default">{{'labels.instructional-resource.cols.assessment-label' | translate}}</span>
+      <span title="{{resource.assessmentLabel}}">{{resource.assessmentLabel}}</span>
+    </div>
+    <div class="text-overflow-ellipsis">
+      <span class="label label-default">{{'labels.instructional-resource.cols.assessment-name' | translate}}</span>
+      <span title="{{resource.assessmentName}}">{{resource.assessmentName}}</span>
+    </div>
+    <div class="text-overflow-ellipsis">
+      <span class="label label-default">{{'labels.instructional-resource.cols.organization-name' | translate}}</span>
+      <span title="{{resource.organizationName}}">{{resource.organizationName}}</span>
+    </div>
+    <div class="text-overflow-ellipsis">
+      <span class="label label-default">{{'labels.instructional-resource.cols.organization-type' | translate}}</span>
+      <span>{{ ('labels.instructional-resource.organizations.type.' + resource.organizationType) | translate }}</span>
+    </div>
+    <div class="text-overflow-ellipsis">
+      <span class="label label-default">{{'labels.instructional-resource.cols.performance-level' | translate}}</span>
+      <span *ngIf="resource.performanceLevel == 0">{{ 'labels.instructional-resource.assessments.performance-levels.all' | translate }}</span>
+      <span *ngIf="resource.performanceLevel > 0">{{ ('labels.instructional-resource.assessments.performance-levels.' + resource.assessmentType + '.' + resource.performanceLevel) | translate }}</span>
+    </div>
+    <div class="text-overflow-ellipsis">
+      <span class="label label-default">{{'labels.instructional-resource.cols.resource' | translate}}</span>
+      <span title="{{resource.resource}}">{{resource.resource}}</span>
+    </div>
+
+    <!-- Warning -->
+    <p class="text-warning">{{'labels.instructional-resource.delete.warning' | translate}}</p>
+  </div>
+</div>
+
+<div class="modal-footer">
+    <span>
+      <button type="button" class="btn btn-default" (click)="cancel()">
+        {{ (unableToDelete? 'prompt.close' : 'prompt.cancel') | translate }}
+      </button>
+      <button *ngIf="!unableToDelete" class="btn btn-danger" (click)="delete()">
+        {{ 'prompt.delete' | translate }}
+      </button>
+    </span>
+</div>

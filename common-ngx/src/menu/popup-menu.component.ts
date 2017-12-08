@@ -1,6 +1,6 @@
-import { Component, Input, ElementRef, Renderer2 } from "@angular/core";
+import { Component, ElementRef, Input, Renderer2 } from "@angular/core";
 import { PopupMenuAction } from "./popup-menu-action.model";
-import { Utils } from "@sbac/rdw-reporting-common-ngx";
+import { Utils } from "../support/support";
 
 /**
  * This component is responsible for displaying a table-row menu button
@@ -12,7 +12,33 @@ import { Utils } from "@sbac/rdw-reporting-common-ngx";
  */
 @Component({
   selector: 'popup-menu',
-  templateUrl: './popup-menu.component.html'
+  template: `
+    <div class="btn-group btn-block" [ngClass]="{'open': open}">
+      <button type="button"
+              (click)="open = !open"
+              class="btn btn-info btn-xs btn-block text-left dropdown-toggle"
+              [ngClass]="{'icon-only': !hasText}"
+              aria-haspopup="true"
+              aria-expanded="false">
+        <span class="sr-only">{{'labels.menu' | translate}}</span>
+        <i class="fa fa-ellipsis-v" [ngClass]="{'mr-xs': hasText}"></i> {{text}}
+      </button>
+      <ul *ngIf="open" class="dropdown-menu" role="menu">
+        <li *ngFor="let action of actions; let idx = index" role="menuitem">
+          <a class="dropdown-item"
+             popover="{{action.tooltip(item)}}"
+             triggers="{{ action.tooltip(item) == '' ? '': 'mouseenter:mouseleave'}}"
+             placement="right"
+             container="body">
+            <button
+              [disabled]="action.isDisabled(item)"
+              (click)="onMenuClick($event, action)"
+              class="btn btn-default btn-borderless">{{action.displayName(item)}}</button>
+          </a>
+        </li>
+      </ul>
+    </div>
+  `
 })
 export class PopupMenuComponent {
 
