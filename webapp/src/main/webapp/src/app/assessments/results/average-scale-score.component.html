@@ -1,6 +1,6 @@
 <!-- IAB display -->
-<div *ngIf="hasAverageScore" class="row">
-  <div class="col-md-5">
+<div *ngIf="hasAverageScore">
+  <div class="col-md-4">
     <div class="average-scale-score-display">
       <strong>{{ 'labels.assessments.average.title' | translate }}</strong>
       <table class="table overflow">
@@ -24,8 +24,8 @@
       </table>
     </div>
   </div>
-  <div class="col-md-7" [hidden]="!showIab">
-    <div class="scale-score-graph rounded blend-middle">
+  <div class="col-md-5" [hidden]="!showIab">
+    <div class="scale-score-graph">
       <strong>{{ 'labels.assessments.student-score-distribution.title' | translate }}</strong>
       <table class="table">
         <tr *ngFor="let performanceLevel of performanceLevels; let i = index">
@@ -65,7 +65,7 @@
     </div>
   </div>
   <!-- ICA display -->
-  <div class="col-md-7" [hidden]="!showIcaSummative">
+  <div class="col-md-5" [hidden]="!showIcaSummative">
     <div class="scale-score-graph">
       <strong>{{ 'labels.assessments.student-score-distribution.title' | translate }}</strong>
       <table class="table">
