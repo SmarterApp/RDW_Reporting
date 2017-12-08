@@ -22,8 +22,7 @@ describe("Organization Service", () => {
     query.name = "name";
 
     service.find(query)
-      .toPromise()
-      .then((organizations: Organization[]) => {
+      .subscribe((organizations: Organization[]) => {
         let dataArgs: any[] = dataService.get.calls.first().args;
         expect(dataArgs[0]).toEqual("/organizations");
         expect(dataArgs[1]).toEqual({params: query});

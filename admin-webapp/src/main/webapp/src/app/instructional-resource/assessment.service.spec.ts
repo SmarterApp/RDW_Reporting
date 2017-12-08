@@ -22,8 +22,7 @@ describe("Assessment Service", () => {
     query.name = "name";
 
     service.find(query)
-      .toPromise()
-      .then((assessments: Assessment[]) => {
+      .subscribe((assessments: Assessment[]) => {
         let dataArgs: any[] = dataService.get.calls.first().args;
         expect(dataArgs[0]).toEqual("/assessments");
         expect(dataArgs[1]).toEqual({params: query});

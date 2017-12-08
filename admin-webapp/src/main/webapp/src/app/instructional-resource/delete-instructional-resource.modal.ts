@@ -26,12 +26,15 @@ export class DeleteInstructionalResourceModal {
 
   delete() {
     this.resourceService.delete(this.resource).subscribe(
-      () => {
-        this.modal.hide();
-        this.deleted.emit(this.resource);
-      },
+      () => {},
       () => {
         this.unableToDelete = true;
+      },
+      () => {
+        if (this.unableToDelete) return;
+
+        this.modal.hide();
+        this.deleted.emit(this.resource);
       });
   }
 

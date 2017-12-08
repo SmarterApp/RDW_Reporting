@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { InstructionalResource } from "./model/instructional-resource.model";
 import { BsModalRef, BsModalService } from "ngx-bootstrap";
 import { CreateInstructionalResourceModal } from "./create-instructional-resource.modal";
-import { Subscription } from "rxjs/Subscription";
 import { InstructionalResourceService } from "./instructional-resource.service";
 import { PopupMenuAction } from "@sbac/rdw-reporting-common-ngx";
 import { TranslateService } from "@ngx-translate/core";
@@ -33,8 +32,6 @@ export class InstructionalResourceComponent implements OnInit {
     this.updateFilteredResources();
   }
 
-  private _modalSubscriptions: Subscription[] = [];
-
   constructor(private modalService: BsModalService,
               private service: InstructionalResourceService,
               private translateService: TranslateService) {
@@ -42,8 +39,7 @@ export class InstructionalResourceComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.findAll()
-      .toPromise()
-      .then((resources) => {
+      .subscribe((resources) => {
         this.resources = resources
       });
 
@@ -60,43 +56,29 @@ export class InstructionalResourceComponent implements OnInit {
   openCreateResourceModal(): void {
     let modalReference: BsModalRef = this.modalService.show(CreateInstructionalResourceModal, {backdrop: 'static'});
     let modal: CreateInstructionalResourceModal = modalReference.content;
-    this._modalSubscriptions.push(modal.created.subscribe(resource => {
+    modal.created.subscribe(resource => {
       this.resources.push(resource);
       this.updateFilteredResources();
-    }));
-    this._modalSubscriptions.push(this.modalService.onHidden.subscribe(() => {
-      this.unsubscribe();
-    }));
+    });
   }
 
   private openUpdateResourceModal(resource: InstructionalResource): void {
     let modalReference: BsModalRef = this.modalService.show(UpdateInstructionalResourceModal);
     let modal: UpdateInstructionalResourceModal = modalReference.content;
     modal.resource = resource;
-    this._modalSubscriptions.push(modal.updated.subscribe(updatedResource => {
+    modal.updated.subscribe(updatedResource => {
       resource.resource = updatedResource.resource;
       this.updateFilteredResources();
-    }));
-    this._modalSubscriptions.push(this.modalService.onHidden.subscribe(() => {
-      this.unsubscribe();
-    }));
+    });
   }
 
   private openDeleteResourceModal(resource: InstructionalResource):void {
     let modalReference: BsModalRef = this.modalService.show(DeleteInstructionalResourceModal);
     let modal: DeleteInstructionalResourceModal = modalReference.content;
     modal.resource = resource;
-    this._modalSubscriptions.push(modal.deleted.subscribe(deletedResource => {
+    modal.deleted.subscribe(deletedResource => {
       this.resources = this.resources.filter((x) => x != deletedResource);
-    }));
-    this._modalSubscriptions.push(this.modalService.onHidden.subscribe(() => {
-      this.unsubscribe();
-    }));
-  }
-
-  private unsubscribe(): void {
-    this._modalSubscriptions.forEach(subscription => subscription.unsubscribe());
-    this._modalSubscriptions = [];
+    });
   }
 
   private updateFilteredResources(): void {

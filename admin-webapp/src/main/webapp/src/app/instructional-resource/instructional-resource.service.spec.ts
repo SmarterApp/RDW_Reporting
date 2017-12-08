@@ -17,8 +17,7 @@ describe("Instructional Resource Service", () => {
     dataService.get.and.returnValue(Observable.of([apiResource(1), apiResource(2)]));
 
     service.findAll()
-      .toPromise()
-      .then((resources: InstructionalResource[]) => {
+      .subscribe((resources: InstructionalResource[]) => {
         let dataArgs: any[] = dataService.get.calls.first().args;
         expect(dataArgs[0]).toEqual("/instructional-resources");
 
@@ -44,8 +43,7 @@ describe("Instructional Resource Service", () => {
 
     let newResource: InstructionalResource = modelResource(1);
     service.create(newResource)
-      .toPromise()
-      .then(response => {
+      .subscribe(response => {
         let dataArgs: any[] = dataService.post.calls.first().args;
         expect(dataArgs[0]).toEqual("/instructional-resources");
         expect(dataArgs[1]).toBe(newResource);
@@ -62,8 +60,7 @@ describe("Instructional Resource Service", () => {
 
     let updatedResource: InstructionalResource = modelResource(1);
     service.update(updatedResource)
-      .toPromise()
-      .then(response => {
+      .subscribe(response => {
         let dataArgs: any[] = dataService.put.calls.first().args;
         expect(dataArgs[0]).toEqual("/instructional-resources");
         expect(dataArgs[1]).toBe(updatedResource);
@@ -80,8 +77,9 @@ describe("Instructional Resource Service", () => {
 
     let deletedResource: InstructionalResource = modelResource(1);
     service.delete(deletedResource)
-      .toPromise()
-      .then(() => {
+      .subscribe(() => {
+      }, () => {
+      }, () => {
         let dataArgs: any[] = dataService.delete.calls.first().args;
         expect(dataArgs[0]).toEqual("/instructional-resources");
         expect(dataArgs[1]).toEqual({params: deletedResource});
