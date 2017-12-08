@@ -119,15 +119,15 @@ export const routes: Routes = [
         ]
       },
       {
-        path: 'access-denied',
-        pathMatch: 'full',
-        component: AccessDeniedComponent
-      },
-      {
         path: 'session-expired',
         pathMatch: 'full',
         component: SessionExpiredComponent
       }
     ]
-  }
+  },
+  {
+    path: 'access-denied',
+    pathMatch: 'full',
+    component: AccessDeniedComponent
+  },
 ];

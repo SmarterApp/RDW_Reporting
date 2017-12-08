@@ -7,12 +7,16 @@
     * NOTE: reporting-webapp no longer talks directly to wkhtmltopdf, but does talk to report-processor
 * NOTE: change datasource URL configuration.
 
+#### 1.0.2 (Admin) - 2017-12-05
+
+* Make student group upload processing more tolerant of various line endings.
+
 #### 1.0.4 - 2017-10-17
 
 * Use assessment grade when filtering results for printed student reports (DWR-1101).
 * Fix display of grade and school year in printed student reports.
 
-#### 1.0.3 / 1.0.1 - 2017-10-04
+#### 1.0.3 / 1.0.1 (Admin) - 2017-10-04
 The main Reporting webapp and the Admin webapp were versioned separately for this release.
 Reporting was v1.0.3 while Admin was v1.0.1. 
 
