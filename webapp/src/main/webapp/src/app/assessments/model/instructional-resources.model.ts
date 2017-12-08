@@ -1,5 +1,4 @@
 export class InstructionalResources {
-  // instructionalResources:
   performanceLevelToResources: Map<number, InstructionalResource[]>;
 
   getResourcesByPerformance(performanceLevel: number): InstructionalResource[] {

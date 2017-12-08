@@ -19,10 +19,6 @@
               </span>
           </div>
           <div class="col-md-4">
-              <!--<span class="pull-right"-->
-                    <!--popover="{{ 'labels.menus.resources-disabled-message' | translate }}"-->
-                    <!--triggers="{{assessmentExam.assessment.hasResourceUrl ? '': 'mouseenter:mouseleave'}}"-->
-                    <!--container="body">-->
                 <button
                   class="btn btn-success btn-xs float-none-xs pull-right"
                   angulartics2On="click"
@@ -34,11 +30,9 @@
                   popoverTitle="{{ 'labels.groups.results.assessment.instruct-button-prefix' | translate }}{{ assessmentExam.assessment.label }}"
                   container="body"
                   (click)="loadInstructionalResources(0)"
-                  [outsideClick]="true"
-                  >
+                  [outsideClick]="true">
                   <i class="fa fa-list-alt"></i> {{'labels.groups.results.assessment.instruct' | translate }}
                 </button>
-              <!--</span>-->
           </div>
         </div>
       </div>

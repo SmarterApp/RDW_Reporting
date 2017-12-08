@@ -12,7 +12,6 @@ export class InstructionalResourcesService {
   constructor(private dataService: CachingDataService, private instructionalResourcesMapper: InstructionalResourcesMapper) {
   }
 
-// taken from SchoolAssessmentService
   getInstructionalResources(assessmentId: number, schoolId: number): Observable<InstructionalResources> {
     let params: URLSearchParams = new URLSearchParams();
 

@@ -16,7 +16,6 @@ export class InstructionalResourcesMapper {
   private performanceLevel: number;
   private organizationName: string;
 
-  //taken from AssessmentExamMapper
   mapInstructionalResourcesFromApi(apiModel): InstructionalResources {
     let uiModels = new Map<number, InstructionalResource[]>();
 

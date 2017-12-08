@@ -36,7 +36,6 @@ import { DistractorAnalysisComponent } from './results/view/distractor-analysis/
 import { ResultsByItemComponent } from "./results/view/results-by-item/results-by-item.component";
 import { ScaleScoreService } from "./results/scale-score.service";
 import { InstructionalResourcesService } from "./results/instructional-resources.service";
-import { InstructionalResourcesComponent } from "./results/instructional-resources.component";
 import { InstructionalResourcesMapper } from "./results/instructional-resources.mapper";
 import { ButtonService } from "../shared/button/button.service";
 
@@ -58,8 +57,7 @@ import { ButtonService } from "../shared/button/button.service";
     ClaimTargetComponent,
     ResultsByItemComponent,
     ResultsByStudentComponent,
-    DistractorAnalysisComponent,
-    InstructionalResourcesComponent
+    DistractorAnalysisComponent
   ],
   imports: [
     BrowserModule,
@@ -81,8 +79,7 @@ import { ButtonService } from "../shared/button/button.service";
     ItemTabComponent,
     PopupMenuComponent,
     ScaleScoreComponent,
-    ClaimTargetComponent,
-    InstructionalResourcesComponent
+    ClaimTargetComponent
   ],
   providers: [
     AssessmentExamMapper,
