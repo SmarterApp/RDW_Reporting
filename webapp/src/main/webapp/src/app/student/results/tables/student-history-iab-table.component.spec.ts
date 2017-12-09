@@ -15,6 +15,8 @@ import { InstructionalResourcesService } from "../../../assessments/results/inst
 import { DataService } from "@sbac/rdw-reporting-common-ngx/data/data.service";
 import { MockDataService } from "../../../../test/mock.data.service";
 import { InstructionalResourcesMapper } from "../../../assessments/results/instructional-resources.mapper";
+import { SafeUrlPipe } from "../../../shared/safe-url.pipe";
+import { InstructionalResourcePopoverComponent } from "../../../assessments/popover/instructional-resource-popover.component";
 
 describe('StudentHistoryIABTableComponent', () => {
   let component: StudentHistoryIABTableComponent;
@@ -40,7 +42,9 @@ describe('StudentHistoryIABTableComponent', () => {
         GradeDisplayPipe,
         InformationButtonComponent,
         StudentHistoryIABTableComponent,
+        InstructionalResourcePopoverComponent,
         SchoolYearPipe,
+        SafeUrlPipe,
         ScaleScoreComponent,
         PopupMenuComponent
       ],
@@ -56,7 +60,8 @@ describe('StudentHistoryIABTableComponent', () => {
       },
         InstructionalResourcesService,
         InstructionalResourcesMapper,
-        CachingDataService ]
+        CachingDataService
+      ]
     })
       .compileComponents();
   }));

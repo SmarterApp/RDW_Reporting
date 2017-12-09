@@ -33,12 +33,14 @@ import {
   RdwSecurityModule,
   RdwTranslateLoader,
 } from "@sbac/rdw-reporting-common-ngx";
+import { SafeUrlPipe } from "./safe-url.pipe";
 
 
 @NgModule({
   declarations: [
     AssessmentTypePipe,
     GradeDisplayPipe,
+    SafeUrlPipe,
     InformationButtonComponent,
     LoaderComponent,
     NotificationComponent,
@@ -74,6 +76,7 @@ import {
   exports: [
     AssessmentTypePipe,
     GradeDisplayPipe,
+    SafeUrlPipe,
     InformationButtonComponent,
     LoaderComponent,
     NotificationComponent,

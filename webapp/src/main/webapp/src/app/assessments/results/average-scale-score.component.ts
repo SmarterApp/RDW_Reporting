@@ -2,10 +2,9 @@ import { Component, Input } from "@angular/core";
 import { AssessmentExam } from "../model/assessment-exam.model";
 import { ExamStatistics, ExamStatisticsLevel } from "../model/exam-statistics.model";
 import { ScaleScoreService } from "./scale-score.service";
-import { InstructionalResources } from "../model/instructional-resources.model";
+import { InstructionalResource, InstructionalResources } from "../model/instructional-resources.model";
 import { InstructionalResourcesService } from "./instructional-resources.service";
 import { GroupAssessmentService } from "../../groups/results/group-assessment.service";
-import { TranslateService } from "@ngx-translate/core";
 
 const icaColors = [ 'maroon', 'gray-darkest', 'green-dark', 'blue-dark' ];
 const iabColors = [ 'blue-dark', 'blue-dark aqua', 'aqua' ];
@@ -30,7 +29,7 @@ export class AverageScaleScoreComponent {
   @Input()
   public assessmentExam: AssessmentExam;
 
-  content: string;
+  instructionalResources: InstructionalResource[];
 
   @Input()
   set statistics(value: ExamStatistics) {
@@ -47,8 +46,7 @@ export class AverageScaleScoreComponent {
 
   constructor(private scaleScoreService: ScaleScoreService,
               private instructionalResourcesService: InstructionalResourcesService,
-              private assessmentProvider: GroupAssessmentService,
-              private translateService: TranslateService) {
+              private assessmentProvider: GroupAssessmentService) {
   }
 
   get hasAverageScore(): boolean {
@@ -106,17 +104,8 @@ export class AverageScaleScoreComponent {
   }
 
   loadInstructionalResources(performanceLevel: ExamStatisticsLevel) {
-    this.content = '';
     this.instructionalResourcesService.getInstructionalResources(this.assessmentExam.assessment.id, this.assessmentProvider.getSchoolId()).subscribe((instructionalResources: InstructionalResources) => {
-      let resources = instructionalResources.getResourcesByPerformance(performanceLevel.id);
-      if (resources.length === 0) {
-        this.content = this.translateService.instant('labels.groups.results.assessment.no-instruct-found');
-      }
-
-      resources.forEach(resource => {
-        this.content = this.content.concat('<p>' + resource.url + '</p>');
-      });
-      // this.content = this.content.concat('<p><a [href]="' + this.sanitizer.bypassSecurityTrustUrl(resource.url) + '/>"</p>');
+      this.instructionalResources = instructionalResources.getResourcesByPerformance(performanceLevel.id);
     });
   }
 

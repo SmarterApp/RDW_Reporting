@@ -17,7 +17,7 @@ import { AssessmentProvider } from "../assessment-provider.interface";
 import { ResultsByItemComponent } from "./view/results-by-item/results-by-item.component";
 import { DistractorAnalysisComponent } from "./view/distractor-analysis/distractor-analysis.component";
 import { InstructionalResourcesService } from "./instructional-resources.service";
-import { InstructionalResources } from "../model/instructional-resources.model";
+import { InstructionalResource, InstructionalResources } from "../model/instructional-resources.model";
 import { TranslateService } from "@ngx-translate/core";
 
 enum ResultsViewState {
@@ -95,9 +95,6 @@ export class AssessmentResultsComponent implements OnInit {
   @Input()
   minimumItemDataYear: number;
 
-  @Input()
-  content: string;
-
   /**
    * Exam filters applied, if any.
    */
@@ -172,6 +169,7 @@ export class AssessmentResultsComponent implements OnInit {
   resultsByStudentView: ResultsView;
   resultsByItemView: ResultsView;
   distractorAnalysisView: ResultsView;
+  instructionalResources: InstructionalResource[];
 
   private _filterBy: FilterBy;
   private _assessmentExam: AssessmentExam;
@@ -180,8 +178,7 @@ export class AssessmentResultsComponent implements OnInit {
   constructor(public colorService: ColorService,
               private examCalculator: ExamStatisticsCalculator,
               private examFilterService: ExamFilterService,
-              private instructionalResourcesService: InstructionalResourcesService,
-              private translateService: TranslateService) {
+              private instructionalResourcesService: InstructionalResourcesService) {
   }
 
   ngOnInit(): void {
@@ -222,17 +219,8 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   loadInstructionalResources(performanceLevel: number) {
-    this.content = '';
     this.instructionalResourcesService.getInstructionalResources(this.assessmentExam.assessment.id, this.assessmentProvider.getSchoolId()).subscribe((instructionalResources: InstructionalResources) => {
-      let resources = instructionalResources.getResourcesByPerformance(performanceLevel);
-      if (resources.length === 0) {
-        this.content = this.translateService.instant('labels.groups.results.assessment.no-instruct-found');
-      }
-
-      resources.forEach(resource => {
-        this.content = this.content.concat('<p>' + resource.url + '</p>');
-      });
-      // this.content = this.content.concat('<p><a [href]="' + this.sanitizer.bypassSecurityTrustUrl(resource.url) + '/>"</p>');
+      this.instructionalResources = instructionalResources.getResourcesByPerformance(performanceLevel);
     });
   }
 

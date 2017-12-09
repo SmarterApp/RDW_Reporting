@@ -8,7 +8,7 @@ import { MenuActionBuilder } from "../../../menu/menu-action.builder";
 import { Assessment } from "../../../model/assessment.model";
 import { PopupMenuAction } from "@sbac/rdw-reporting-common-ngx";
 import { InstructionalResourcesService } from "../../instructional-resources.service";
-import { InstructionalResources } from "../../../model/instructional-resources.model";
+import { InstructionalResource, InstructionalResources } from "../../../model/instructional-resources.model";
 
 enum ScoreViewState {
   OVERALL = 1,
@@ -43,7 +43,7 @@ export class ResultsByStudentComponent implements OnInit {
   reportDownloader: StudentReportDownloadComponent;
 
   actions: PopupMenuAction[];
-  content: string;
+  instructionalResources: InstructionalResource[];
   displayState: any = {
     showClaim: ScoreViewState.OVERALL
   };
@@ -105,17 +105,8 @@ export class ResultsByStudentComponent implements OnInit {
   }
 
   loadInstructionalResources(exam: Exam) {
-    this.content = '';
     this.instructionalResourcesService.getInstructionalResources(this.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
-      let resources = instructionalResources.getResourcesByPerformance(exam.level);
-      if (resources.length === 0) {
-        this.content = this.translate.instant('labels.groups.results.assessment.no-instruct-found');
-      }
-
-      resources.forEach(resource => {
-        this.content = this.content.concat('<p>' + resource.url + '</p>');
-      });
-      // this.content = this.content.concat('<p><a [href]="' + this.sanitizer.bypassSecurityTrustUrl(resource.url) + '/>"</p>');
+      this.instructionalResources = instructionalResources.getResourcesByPerformance(exam.level);
     });
   }
 
