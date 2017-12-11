@@ -18,7 +18,6 @@ import { InstructionalResourcesService } from "../../../assessments/results/inst
 import { MockDataService } from "../../../../test/mock.data.service";
 import { InstructionalResourcesMapper } from "../../../assessments/results/instructional-resources.mapper";
 import { InstructionalResourcePopoverComponent } from "../../../assessments/popover/instructional-resource-popover.component";
-import { SafeUrlPipe } from "../../../shared/safe-url.pipe";
 
 describe('StudentHistoryICASummitiveTableComponent', () => {
   let component: StudentHistoryICASummitiveTableComponent;
@@ -43,7 +42,6 @@ describe('StudentHistoryICASummitiveTableComponent', () => {
         InstructionalResourcePopoverComponent,
         StudentHistoryICASummitiveTableComponent,
         SchoolYearPipe,
-        SafeUrlPipe,
         ScaleScoreComponent,
         PopupMenuComponent
       ],
