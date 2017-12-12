@@ -73,17 +73,31 @@ export class AverageScaleScoreComponent {
       return this.statistics.levels;
   }
 
+  /**
+   * Used when not showing values as percents. This returns the sum of the total of examStatisticsLevels. Defaults to a minimum value of 10
+   * @returns {number}
+   */
   levelSum(): number {
-    const values = this.statistics.levels.map(l => l.value);
-    return Math.max(values.reduce((p, c) => p + c), 10);
+    const values = this.statistics.levels.map(level => level.value);
+    return Math.max(values.reduce((x, y) => x + y), 10);
   }
 
+  /**
+   * Calculates the amount of the bar filled by the ExamStatisticsLevel
+   * @param {ExamStatisticsLevel} examStatisticsLevel
+   * @returns {number} the amount filled by the examStatisticsLevel (0-100)
+   */
   filledLevel(examStatisticsLevel: ExamStatisticsLevel): number {
     if (this.showValuesAsPercent)
       return this.floor(examStatisticsLevel.value);
     return this.floor(examStatisticsLevel.value * this.levelSum());
   }
 
+  /**
+   * Calculates the amount of the bar unfilled by the ExamStatisticsLevel
+   * @param {ExamStatisticsLevel} examStatisticsLevel
+   * @returns {number} the amount unfilled by the examStatisticsLevel (0-100)
+   */
   unfilledLevel(examStatisticsLevel: ExamStatisticsLevel): number {
     if (this.showValuesAsPercent)
       return 100 - this.floor(examStatisticsLevel.value);
