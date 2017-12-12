@@ -271,7 +271,7 @@
         "high-school": "High School",
         "assessment": {
           "instruct": "Instructional Resources",
-          "instruct-button-prefix": "Instructional Resources for ",
+          "instruct-button": "Instructional Resources for {{level}}",
           "no-instruct-found": "No resources found.",
           "sessions-title": "Sessions",
           "exam-results": "Results By Student",

@@ -73,7 +73,7 @@
         angularticsCategory="AssessmentResults"
         [disabled]="false"
         [popover]="buttonPopover"
-        popoverTitle="{{ 'labels.groups.results.assessment.instruct-button-prefix' | translate }}{{ 'enum.achievement-level.full.' + (exam.level ? exam.level.toString() : 'missing') | translate }}"
+        popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:(('enum.achievement-level.full.' + (exam.level ? exam.level.toString() : 'missing') ) | translate) } }}"
         container="body"
         (click)="loadInstructionalResources(i)"
         [outsideClick]="true"><i

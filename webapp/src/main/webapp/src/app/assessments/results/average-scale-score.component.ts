@@ -79,26 +79,15 @@ export class AverageScaleScoreComponent {
   }
 
   filledLevel(examStatisticsLevel: ExamStatisticsLevel): number {
-    // console.log('filled ', examStatisticsLevel.value);
-    if (this.showValuesAsPercent) {
-      console.log('filled return value ', this.floor(examStatisticsLevel.value));
+    if (this.showValuesAsPercent)
       return this.floor(examStatisticsLevel.value);
-    } else {
-      console.log('filled return levelSum ', this.floor(examStatisticsLevel.value * this.levelSum()));
-
-      return this.floor(examStatisticsLevel.value * this.levelSum());
-    }
+    return this.floor(examStatisticsLevel.value * this.levelSum());
   }
 
   unfilledLevel(examStatisticsLevel: ExamStatisticsLevel): number {
-    // console.log('unfilled ', examStatisticsLevel.value);
-    if (this.showValuesAsPercent) {
-      console.log('unfilled return ', 100 - this.floor(examStatisticsLevel.value));
+    if (this.showValuesAsPercent)
       return 100 - this.floor(examStatisticsLevel.value);
-    } else {
-      console.log('unfilled return levelSum ', 100 - this.floor(examStatisticsLevel.value * this.levelSum()));
-      return 100 - this.floor(examStatisticsLevel.value * this.levelSum());
-    }
+    return 100 - this.floor(examStatisticsLevel.value * this.levelSum());
   }
 
   floor(num: number): number {

@@ -27,7 +27,7 @@
               [angularticsProperties]="{label: assessmentExam.assessment.label}"
               [disabled]="false"
               [popover]="buttonPopover"
-              popoverTitle="{{ 'labels.groups.results.assessment.instruct-button-prefix' | translate }}{{ assessmentExam.assessment.label }}"
+              popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:(assessmentExam.assessment.label | translate) } }}"
               container="body"
               (click)="loadInstructionalResources(0)"
               [outsideClick]="true">
