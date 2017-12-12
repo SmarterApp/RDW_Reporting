@@ -17,6 +17,20 @@ dependencies {
     compile 'org.opentestsystem.rdw.common:rdw-common-status'
     compile 'org.opentestsystem.rdw.common:rdw-common-utils'
 
+    compile 'org.opentestsystem.rdw.common:rdw-common-model'
+
+    compile project(':rdw-reporting-common')
+
     // fixes java 8 time marshaling
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.7'
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+
+task RST(type: Test) {
+    include '**/*RST.*'
+    outputs.upToDateWhen { false }
+    doFirst {
+        println "Running Redshift System Tests..."
+    }
 }

@@ -46,6 +46,7 @@ services:
     links:
       - config-server
       - rabbitmq
+      - wkhtmltopdf
     environment:
       - spring.profiles.active=local-docker
       - CONFIG_SERVICE_ENABLED=true
@@ -55,3 +56,8 @@ services:
       - task.remove-stale-reports.max-random-minutes=0
     extra_hosts:
       - "dwhost:$DATAWAREHOUSE_HOST"
+
+  wkhtmltopdf:
+    image: smarterbalanced/wkhtmltopdf-image:latest
+    ports:
+      - 8082:80

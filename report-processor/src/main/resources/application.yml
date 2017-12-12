@@ -22,16 +22,19 @@ spring:
     stream:
       bindings:
         ReportExportExams:
+          content-type: application/json
           group: default
           producer:
             requiredGroups: default
 
         ReportFetchStudents:
+          content-type: application/json
           group: default
           producer:
             requiredGroups: default
 
         ReportGenerateForStudents:
+          content-type: application/json
           group: default
           consumer:
             concurrency: 2
@@ -39,6 +42,7 @@ spring:
             requiredGroups: default
 
         ReportCollate:
+          content-type: application/json
           group: default
           producer:
             requiredGroups: default
@@ -50,6 +54,10 @@ spring:
 
   thymeleaf:
     mode: HTML
+
+  ### this will go away when spring-session dep is moved from common-web to reporting
+  session:
+    store-type: none
 
 cloud:
   aws:
@@ -98,3 +106,7 @@ task:
 #    cron: 0 0 8 * * *
 #    max-report-lifetime-days: 30
 #    max-random-minutes: 20
+
+jwt:
+  secret: ${rdw.reporting.jwt.secret}
+

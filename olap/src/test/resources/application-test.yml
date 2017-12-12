@@ -1,0 +1,11 @@
+app:
+  datamart:
+     olap_datasource:
+        url: "\
+              jdbc:redshift://${spring.olap_datasource.url-server:localhost:5432}/dev\
+              ?ApplicationName=rdw-migrate-olap\
+              &currentSchema=${spring.olap_datasource.url-schema:reporting_olap}
+           "
+        username: root
+        password:
+        driverClassName: com.amazon.redshift.jdbc42.Driver

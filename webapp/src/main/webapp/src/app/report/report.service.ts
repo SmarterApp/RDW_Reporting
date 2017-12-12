@@ -13,6 +13,8 @@ import { Group } from "../user/model/group.model";
 import { School } from "../user/model/school.model";
 import { Grade } from "../school-grade/grade.model";
 
+const ServiceRoute = '/report-processor';
+
 @Injectable()
 export class ReportService {
 
@@ -25,7 +27,7 @@ export class ReportService {
    * @returns {Observable<Report[]>}
    */
   public getReports(): Observable<Report[]> {
-    return this.dataService.get('/reports')
+    return this.dataService.get(`${ServiceRoute}/reports`)
       .map(reports => reports.map(this.toReport))
       .catch(ResponseUtils.throwError);
   }
@@ -36,7 +38,7 @@ export class ReportService {
    * @returns {Observable<Report[]>}
    */
   public getReportsById(ids: number[]): Observable<Report[]> {
-    return this.dataService.get(`/reports`, {params: {id: ids}})
+    return this.dataService.get(`${ServiceRoute}/reports`, {params: {id: ids}})
       .map(reports => reports.map(this.toReport))
       .catch(ResponseUtils.throwError);
   }
@@ -49,7 +51,7 @@ export class ReportService {
    * @returns {Observable<Report>} the handle used the get status on the download
    */
   public createStudentExamReport(student: Student, options: ReportOptions): Observable<Report> {
-    return this.createExamReport(`/students/${student.id}/report`, options);
+    return this.createExamReport(`${ServiceRoute}/students/${student.id}/report`, options);
   }
 
   /**
@@ -60,7 +62,7 @@ export class ReportService {
    * @returns {Observable<Report>} the handle used the get status on the download
    */
   public createGroupExamReport(group: Group, options: ReportOptions): Observable<Report> {
-    return this.createExamReport(`/groups/${group.id}/reports`, options);
+    return this.createExamReport(`${ServiceRoute}/groups/${group.id}/reports`, options);
   }
 
   /**
@@ -72,7 +74,7 @@ export class ReportService {
    * @returns {Observable<Report>} the handle used the get status on the download
    */
   public createSchoolGradeExamReport(school: School, grade: Grade, options: ReportOptions): Observable<Report> {
-    return this.createExamReport(`/schools/${school.id}/assessmentGrades/${grade.id}/reports`, options);
+    return this.createExamReport(`${ServiceRoute}/schools/${school.id}/assessmentGrades/${grade.id}/reports`, options);
   }
 
   /**
@@ -82,7 +84,7 @@ export class ReportService {
    * @returns {Observable<Download>}
    */
   public getExamReport(reportId: number): Observable<Download> {
-    return this.dataService.get(`/reports/${reportId}`, {
+    return this.dataService.get(`${ServiceRoute}/reports/${reportId}`, {
       headers: new Headers({
         'Accept': 'application/pdf',
       }),

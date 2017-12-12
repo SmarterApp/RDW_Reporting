@@ -91,6 +91,9 @@ subprojects {
             dependency 'org.assertj:assertj-core:3.6.2'
             dependency 'org.mockito:mockito-all:1.10.19'
             dependency 'junit:junit:4.12'
+
+            // jwt
+            dependency 'io.jsonwebtoken:jjwt:0.9.0'
         }
         imports {
             // spring cloud Camden.SR5 includes spring cloud stream Brooklyn.SR2
@@ -175,7 +178,8 @@ subprojects {
         }
     }
 
-    test.exclude '**/*IT.*'
+    // Skip running integration and system tests automatically, because they take a long time
+    test.exclude '**/*IT.*', '**/*RST.*'
 
     //This task for for manually running the integration tests against schemas being developed simultaneously with this
     // project, versus the schemas that are "fixed" under the RDW_Schema submodule in this project
