@@ -36,7 +36,6 @@ import { ResultsByItemComponent } from "./results/view/results-by-item/results-b
 import { ScaleScoreService } from "./results/scale-score.service";
 import { RdwMenuModule } from "@sbac/rdw-reporting-common-ngx";
 import { InstructionalResourcesService } from "./results/instructional-resources.service";
-import { InstructionalResourcesMapper } from "./results/instructional-resources.mapper";
 import { InstructionalResourcePopoverComponent } from './popover/instructional-resource-popover.component';
 
 @NgModule({
@@ -88,7 +87,6 @@ import { InstructionalResourcePopoverComponent } from './popover/instructional-r
     ExamFilterService,
     ExamFilterOptionsService,
     ExamFilterOptionsMapper,
-    InstructionalResourcesMapper,
     ItemScoringService,
     ItemScoringGuideMapper,
     ItemInfoService,

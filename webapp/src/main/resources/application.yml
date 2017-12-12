@@ -86,6 +86,7 @@ permissionservice:
 app:
   state:
     code: CA
+    name: California
 
   datamart:
     datasource:

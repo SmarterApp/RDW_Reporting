@@ -17,7 +17,6 @@ import { CommonModule } from "../../shared/common.module";
 import { InstructionalResourcesService } from "./instructional-resources.service";
 import { CachingDataService } from "@sbac/rdw-reporting-common-ngx/data/caching-data.service";
 import { DataService } from "@sbac/rdw-reporting-common-ngx/data/data.service";
-import { InstructionalResourcesMapper } from "./instructional-resources.mapper";
 
 describe('AssessmentResultsComponent', () => {
   let component: AssessmentResultsComponent;
@@ -48,7 +47,6 @@ describe('AssessmentResultsComponent', () => {
         ExamFilterService,
         ColorService,
         InstructionalResourcesService,
-        InstructionalResourcesMapper,
         CachingDataService,
         DataService
       ],

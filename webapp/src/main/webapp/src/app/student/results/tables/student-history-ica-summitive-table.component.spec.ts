@@ -16,7 +16,6 @@ import { GradeDisplayPipe } from "../../../shared/grade-display.pipe";
 import { PopoverModule } from "ngx-bootstrap";
 import { InstructionalResourcesService } from "../../../assessments/results/instructional-resources.service";
 import { MockDataService } from "../../../../test/mock.data.service";
-import { InstructionalResourcesMapper } from "../../../assessments/results/instructional-resources.mapper";
 import { InstructionalResourcePopoverComponent } from "../../../assessments/popover/instructional-resource-popover.component";
 
 describe('StudentHistoryICASummitiveTableComponent', () => {
@@ -56,7 +55,6 @@ describe('StudentHistoryICASummitiveTableComponent', () => {
         useValue: dataService
       },
         InstructionalResourcesService,
-        InstructionalResourcesMapper,
         CachingDataService
       ]
     })

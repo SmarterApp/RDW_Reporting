@@ -16,14 +16,4 @@ export class InstructionalResourcePopoverComponent {
   @Input()
   performanceLevel: number;
 
-  linkText(resource: InstructionalResource): string {
-    if (resource.organizationLevel === 'System') {
-      return this.translateService.instant('labels.instructional-resources.link.System');
-    }
-    if (resource.organizationLevel === 'State') {
-      return this.translateService.instant('labels.states.' + resource.stateCode) + this.translateService.instant('labels.instructional-resources.link.State');
-    }
-    return this.translateService.instant('labels.instructional-resources.link.' + resource.organizationName, resource);
-  }
-
 }

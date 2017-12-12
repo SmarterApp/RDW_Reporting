@@ -12,7 +12,6 @@ import { Assessment } from "../../../model/assessment.model";
 import { InstructionalResourcesService } from "../../instructional-resources.service";
 import { CachingDataService } from "@sbac/rdw-reporting-common-ngx/data/caching-data.service";
 import { DataService } from "@sbac/rdw-reporting-common-ngx/data/data.service";
-import { InstructionalResourcesMapper } from "../../instructional-resources.mapper";
 
 describe('ResultsByStudentComponent', () => {
   let component: ResultsByStudentComponent;
@@ -39,7 +38,6 @@ describe('ResultsByStudentComponent', () => {
         { provide: Angulartics2, useValue: mockAngulartics2 },
         { provide: DataService, useValue: dataService },
         MenuActionBuilder,
-        InstructionalResourcesMapper,
         InstructionalResourcesService,
         CachingDataService
       ],

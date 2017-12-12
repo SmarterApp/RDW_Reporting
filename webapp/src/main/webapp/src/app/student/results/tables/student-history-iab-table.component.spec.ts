@@ -14,7 +14,6 @@ import { PopoverModule } from "ngx-bootstrap";
 import { InstructionalResourcesService } from "../../../assessments/results/instructional-resources.service";
 import { DataService } from "@sbac/rdw-reporting-common-ngx/data/data.service";
 import { MockDataService } from "../../../../test/mock.data.service";
-import { InstructionalResourcesMapper } from "../../../assessments/results/instructional-resources.mapper";
 import { InstructionalResourcePopoverComponent } from "../../../assessments/popover/instructional-resource-popover.component";
 
 describe('StudentHistoryIABTableComponent', () => {
@@ -57,7 +56,6 @@ describe('StudentHistoryIABTableComponent', () => {
         useValue: dataService
       },
         InstructionalResourcesService,
-        InstructionalResourcesMapper,
         CachingDataService
       ]
     })

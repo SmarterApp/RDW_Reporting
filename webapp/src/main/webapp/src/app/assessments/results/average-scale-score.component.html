@@ -25,7 +25,7 @@
     </div>
   </div>
   <div class="col-md-5" [hidden]="!showIab">
-    <div class="scale-score-graph">
+    <div class="scale-score-graph rounded blend-middle">
       <strong>{{ 'labels.assessments.student-score-distribution.title' | translate }}</strong>
       <table class="table">
         <tr *ngFor="let performanceLevel of performanceLevels; let i = index">
@@ -51,9 +51,9 @@
               {{ performanceLevel.value | number:'1.0-0' }}{{performanceLevel.suffix }}
             </span>
           </td>
-          <td class="level-down">
+          <td class="col-md-6 level-down">
             <div class="bar-container">
-              <div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="getIabColor(i)"
+              <div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="colorService.getPerformanceLevelColor(assessmentExam.assessment, i)"
                    [attr.data-width]="filledLevel(performanceLevel)"></div>
               <div *ngIf="performanceLevel.value < 100" class="bar gray"
                    [attr.data-width]="unfilledLevel(performanceLevel)">
@@ -66,7 +66,7 @@
   </div>
   <!-- ICA display -->
   <div class="col-md-5" [hidden]="!showIcaSummative">
-    <div class="scale-score-graph">
+    <div class="scale-score-graph rounded blend-middle">
       <strong>{{ 'labels.assessments.student-score-distribution.title' | translate }}</strong>
       <table class="table">
         <tr *ngFor="let performanceLevel of performanceLevels; let i = index">
@@ -92,9 +92,9 @@
               {{ performanceLevel.value | number:'1.0-0' }}{{performanceLevel.suffix }}
             </span>
           </td>
-          <td class="level-down">
+          <td class="col-md-6 level-down">
             <div class="bar-container">
-              <div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="getIcaColor(i)"
+              <div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="colorService.getPerformanceLevelColor(assessmentExam.assessment, i)"
                    [attr.data-width]="filledLevel(performanceLevel)"></div>
               <div *ngIf="performanceLevel.value < 100" class="bar gray"
                    [attr.data-width]="unfilledLevel(performanceLevel)">

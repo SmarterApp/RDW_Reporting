@@ -1,4 +1,6 @@
 import { Injectable } from "@angular/core";
+import { Assessment } from "../assessments/model/assessment.model";
+import { AssessmentType } from "./enum/assessment-type.enum";
 
 /**
  * This service is responsible for transforming an arbitrary number
@@ -17,6 +19,12 @@ export class ColorService {
     'blue-dark'
   ];
 
+  private performanceLevelColors: Map<AssessmentType, string[]> = new Map([
+    [ AssessmentType.IAB, [ 'blue-dark', 'blue-dark aqua', 'aqua' ] ],
+    [ AssessmentType.ICA, [ 'maroon', 'gray-darkest', 'green-dark', 'blue-dark' ] ],
+    [ AssessmentType.SUMMATIVE, [ 'maroon', 'gray-darkest', 'green-dark', 'blue-dark' ] ]
+  ]);
+
   /**
    * Retrieve the color for the given index.
    *
@@ -24,6 +32,16 @@ export class ColorService {
    */
   getColor(valueIndex: number): string {
     let idx: number = valueIndex % this.colors.length;
-    return this.colors[idx];
+    return this.colors[ idx ];
+  }
+
+  /**
+   * Retrieves the color for the performance level
+   * @param {Assessment} assessment
+   * @param {number} performanceLevel
+   * @returns {string} the class of the color
+   */
+  getPerformanceLevelColor(assessment: Assessment, performanceLevel: number): string {
+    return this.performanceLevelColors.get(assessment.type)[performanceLevel];
   }
 }

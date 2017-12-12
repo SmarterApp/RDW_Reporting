@@ -5,9 +5,7 @@ import { ScaleScoreService } from "./scale-score.service";
 import { InstructionalResource, InstructionalResources } from "../model/instructional-resources.model";
 import { InstructionalResourcesService } from "./instructional-resources.service";
 import { GroupAssessmentService } from "../../groups/results/group-assessment.service";
-
-const icaColors = [ 'maroon', 'gray-darkest', 'green-dark', 'blue-dark' ];
-const iabColors = [ 'blue-dark', 'blue-dark aqua', 'aqua' ];
+import { ColorService } from "../../shared/color.service";
 
 /**
  * This component is responsible for displaying the average scale score visualization
@@ -44,7 +42,8 @@ export class AverageScaleScoreComponent {
     return this._statistics;
   }
 
-  constructor(private scaleScoreService: ScaleScoreService,
+  constructor(public colorService: ColorService,
+              private scaleScoreService: ScaleScoreService,
               private instructionalResourcesService: InstructionalResourcesService,
               private assessmentProvider: GroupAssessmentService) {
   }
@@ -76,31 +75,34 @@ export class AverageScaleScoreComponent {
 
   levelSum(): number {
     const values = this.statistics.levels.map(l => l.value);
-    return values.reduce((p, c) => p + c);
+    return Math.max(values.reduce((p, c) => p + c), 10);
   }
 
   filledLevel(examStatisticsLevel: ExamStatisticsLevel): number {
-    if (this.showValuesAsPercent)
+    // console.log('filled ', examStatisticsLevel.value);
+    if (this.showValuesAsPercent) {
+      console.log('filled return value ', this.floor(examStatisticsLevel.value));
       return this.floor(examStatisticsLevel.value);
-    return this.floor(examStatisticsLevel.value * this.levelSum());
+    } else {
+      console.log('filled return levelSum ', this.floor(examStatisticsLevel.value * this.levelSum()));
+
+      return this.floor(examStatisticsLevel.value * this.levelSum());
+    }
   }
 
   unfilledLevel(examStatisticsLevel: ExamStatisticsLevel): number {
-    if (this.showValuesAsPercent)
+    // console.log('unfilled ', examStatisticsLevel.value);
+    if (this.showValuesAsPercent) {
+      console.log('unfilled return ', 100 - this.floor(examStatisticsLevel.value));
       return 100 - this.floor(examStatisticsLevel.value);
-    return 100 - this.floor(examStatisticsLevel.value * this.levelSum());
+    } else {
+      console.log('unfilled return levelSum ', 100 - this.floor(examStatisticsLevel.value * this.levelSum()));
+      return 100 - this.floor(examStatisticsLevel.value * this.levelSum());
+    }
   }
 
   floor(num: number): number {
     return Math.floor(num);
-  }
-
-  getIcaColor(index: number) {
-    return icaColors[ index ];
-  }
-
-  getIabColor(index: number) {
-    return iabColors[ index ];
   }
 
   loadInstructionalResources(performanceLevel: ExamStatisticsLevel) {
