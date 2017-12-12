@@ -100,7 +100,7 @@ export class MenuActionBuilder {
     let resourcesAction: PopupMenuAction = new PopupMenuAction();
 
     resourcesAction.isDisabled = ((actionable) => {
-      return Utils.isNullOrUndefined(getResourceUrl(actionable));
+      return false;
     });
 
     resourcesAction.tooltip = ((actionable) => {

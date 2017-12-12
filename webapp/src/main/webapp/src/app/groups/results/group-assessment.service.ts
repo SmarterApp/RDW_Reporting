@@ -10,13 +10,13 @@ import { Assessment } from "../../assessments/model/assessment.model";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { Angulartics2 } from "angulartics2";
 import { TranslateService } from "@ngx-translate/core";
+import { Group } from "../../user/model/group.model";
 
 @Injectable()
 export class GroupAssessmentService implements AssessmentProvider {
 
-  groupId: number;
+  group: Group;
   schoolYear: number;
-  groupName: string;
 
   constructor(private dataService: DataService,
               private filterOptionService: ExamFilterOptionsService,
@@ -38,7 +38,7 @@ export class GroupAssessmentService implements AssessmentProvider {
   }
 
   getAvailableAssessments() {
-    return this.dataService.get(`/groups/${this.groupId}/assessments`, { search: this.getSchoolYearParams(this.schoolYear) })
+    return this.dataService.get(`/groups/${this.group.id}/assessments`, { search: this.getSchoolYearParams(this.schoolYear) })
       .catch(ResponseUtils.badResponseToNull)
       .map(x => {
         return this.mapper.mapAssessmentsFromApi(x);
@@ -46,7 +46,7 @@ export class GroupAssessmentService implements AssessmentProvider {
   }
 
   getExams(assessmentId: number) {
-    return this.dataService.get(`/groups/${this.groupId}/assessments/${assessmentId}/exams`, { search: this.getSchoolYearParams(this.schoolYear) })
+    return this.dataService.get(`/groups/${this.group.id}/assessments/${assessmentId}/exams`, { search: this.getSchoolYearParams(this.schoolYear) })
       .catch(ResponseUtils.badResponseToNull)
       .map(x => {
         return this.mapper.mapExamsFromApi(x);
@@ -55,7 +55,7 @@ export class GroupAssessmentService implements AssessmentProvider {
 
   getAssessmentItems(assessmentId: number, multipleChoiceMultipleSelectItems?: boolean) {
     if (multipleChoiceMultipleSelectItems) {
-      return this.dataService.get(`/groups/${this.groupId}/assessments/${assessmentId}/examitems`, {
+      return this.dataService.get(`/groups/${this.group.id}/assessments/${assessmentId}/examitems`, {
         params: {
           types: [ 'MC', 'MS' ],
           schoolYear: this.schoolYear.toString()
@@ -66,12 +66,16 @@ export class GroupAssessmentService implements AssessmentProvider {
           return this.mapper.mapAssessmentItemsFromApi(x);
         });
     }
-    return this.dataService.get(`/groups/${this.groupId}/assessments/${assessmentId}/examitems`, { search: this.getSchoolYearParams(this.schoolYear) })
+    return this.dataService.get(`/groups/${this.group.id}/assessments/${assessmentId}/examitems`, { search: this.getSchoolYearParams(this.schoolYear) })
       .catch(ResponseUtils.badResponseToNull)
       .map(x => {
         return this.mapper.mapAssessmentItemsFromApi(x);
       });
 
+  }
+
+  getSchoolId() {
+    return this.group.schoolId;
   }
 
   exportItemsToCsv(exportRequest: ExportRequest) {
@@ -89,7 +93,7 @@ export class GroupAssessmentService implements AssessmentProvider {
 
   private getFilename(exportRequest: ExportRequest) {
     let assessment: Assessment = exportRequest.assessment;
-    let filename: string = this.groupName +
+    let filename: string = this.group.name +
       "-" + assessment.label + "-" + this.translate.instant(exportRequest.type.toString()) + "-" + new Date().toDateString();
     return filename;
   }

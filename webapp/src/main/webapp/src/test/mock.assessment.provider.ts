@@ -20,4 +20,8 @@ export class MockAssessmentProvider implements AssessmentProvider {
 
   exportItemsToCsv(exportRequest: ExportRequest) {
   }
+
+  getSchoolId() {
+    return null;
+  }
 }

@@ -17,7 +17,7 @@ import { AlertModule, PopoverModule } from "ngx-bootstrap";
 import { DatePipe, DecimalPipe } from "@angular/common";
 import { LoaderComponent } from "./loader/loader.component";
 import { SBToggleComponent } from "./sb-toggle.component";
-import { InformationLabelComponent } from "./information-label.component";
+import { InformationButtonComponent } from "./button/information-button.component";
 import {
   AuthenticationServiceAuthenticationExpiredRoute,
   AuthenticationServiceDefaultAuthenticationRoute,
@@ -39,7 +39,7 @@ import {
   declarations: [
     AssessmentTypePipe,
     GradeDisplayPipe,
-    InformationLabelComponent,
+    InformationButtonComponent,
     LoaderComponent,
     NotificationComponent,
     RemoveCommaPipe,
@@ -74,7 +74,7 @@ import {
   exports: [
     AssessmentTypePipe,
     GradeDisplayPipe,
-    InformationLabelComponent,
+    InformationButtonComponent,
     LoaderComponent,
     NotificationComponent,
     RemoveCommaPipe,

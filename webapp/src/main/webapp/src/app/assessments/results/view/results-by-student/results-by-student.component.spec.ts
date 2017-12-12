@@ -9,6 +9,9 @@ import { Angulartics2 } from "angulartics2";
 import { Component, NO_ERRORS_SCHEMA } from "@angular/core";
 import { MockDataService } from "../../../../../test/mock.data.service";
 import { Assessment } from "../../../model/assessment.model";
+import { InstructionalResourcesService } from "../../instructional-resources.service";
+import { CachingDataService } from "@sbac/rdw-reporting-common-ngx/data/caching-data.service";
+import { DataService } from "@sbac/rdw-reporting-common-ngx/data/data.service";
 
 describe('ResultsByStudentComponent', () => {
   let component: ResultsByStudentComponent;
@@ -33,7 +36,10 @@ describe('ResultsByStudentComponent', () => {
       ],
       providers: [
         { provide: Angulartics2, useValue: mockAngulartics2 },
-        MenuActionBuilder
+        { provide: DataService, useValue: dataService },
+        MenuActionBuilder,
+        InstructionalResourcesService,
+        CachingDataService
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     })

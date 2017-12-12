@@ -53,6 +53,10 @@ export class SchoolAssessmentService implements AssessmentProvider {
       });
   }
 
+  getSchoolId() {
+    return this.schoolId;
+  }
+
   getAssessmentItems(assessmentId: number, multipleChoiceMultipleSelectItems?: boolean) {
     if (multipleChoiceMultipleSelectItems) {
       return this.dataService.get(`/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments/${assessmentId}/examitems`, {

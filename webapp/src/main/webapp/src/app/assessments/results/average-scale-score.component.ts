@@ -2,6 +2,10 @@ import { Component, Input } from "@angular/core";
 import { AssessmentExam } from "../model/assessment-exam.model";
 import { ExamStatistics, ExamStatisticsLevel } from "../model/exam-statistics.model";
 import { ScaleScoreService } from "./scale-score.service";
+import { InstructionalResource, InstructionalResources } from "../model/instructional-resources.model";
+import { InstructionalResourcesService } from "./instructional-resources.service";
+import { GroupAssessmentService } from "../../groups/results/group-assessment.service";
+import { ColorService } from "../../shared/color.service";
 
 /**
  * This component is responsible for displaying the average scale score visualization
@@ -13,6 +17,8 @@ import { ScaleScoreService } from "./scale-score.service";
 export class AverageScaleScoreComponent {
 
   levelPercents: any[];
+
+  count = 0;
   private _statistics: ExamStatistics;
 
   @Input()
@@ -20,6 +26,8 @@ export class AverageScaleScoreComponent {
 
   @Input()
   public assessmentExam: AssessmentExam;
+
+  instructionalResources: InstructionalResource[];
 
   @Input()
   set statistics(value: ExamStatistics) {
@@ -34,8 +42,10 @@ export class AverageScaleScoreComponent {
     return this._statistics;
   }
 
-  constructor(private scaleScoreService: ScaleScoreService) {
-
+  constructor(public colorService: ColorService,
+              private scaleScoreService: ScaleScoreService,
+              private instructionalResourcesService: InstructionalResourcesService,
+              private assessmentProvider: GroupAssessmentService) {
   }
 
   get hasAverageScore(): boolean {
@@ -63,7 +73,42 @@ export class AverageScaleScoreComponent {
       return this.statistics.levels;
   }
 
-  getLevelPercent(num: number): number {
-    return this.levelPercents[num];
+  levelSum(): number {
+    const values = this.statistics.levels.map(l => l.value);
+    return Math.max(values.reduce((p, c) => p + c), 10);
   }
+
+  filledLevel(examStatisticsLevel: ExamStatisticsLevel): number {
+    // console.log('filled ', examStatisticsLevel.value);
+    if (this.showValuesAsPercent) {
+      console.log('filled return value ', this.floor(examStatisticsLevel.value));
+      return this.floor(examStatisticsLevel.value);
+    } else {
+      console.log('filled return levelSum ', this.floor(examStatisticsLevel.value * this.levelSum()));
+
+      return this.floor(examStatisticsLevel.value * this.levelSum());
+    }
+  }
+
+  unfilledLevel(examStatisticsLevel: ExamStatisticsLevel): number {
+    // console.log('unfilled ', examStatisticsLevel.value);
+    if (this.showValuesAsPercent) {
+      console.log('unfilled return ', 100 - this.floor(examStatisticsLevel.value));
+      return 100 - this.floor(examStatisticsLevel.value);
+    } else {
+      console.log('unfilled return levelSum ', 100 - this.floor(examStatisticsLevel.value * this.levelSum()));
+      return 100 - this.floor(examStatisticsLevel.value * this.levelSum());
+    }
+  }
+
+  floor(num: number): number {
+    return Math.floor(num);
+  }
+
+  loadInstructionalResources(performanceLevel: ExamStatisticsLevel) {
+    this.instructionalResourcesService.getInstructionalResources(this.assessmentExam.assessment.id, this.assessmentProvider.getSchoolId()).subscribe((instructionalResources: InstructionalResources) => {
+      this.instructionalResources = instructionalResources.getResourcesByPerformance(performanceLevel.id);
+    });
+  }
+
 }

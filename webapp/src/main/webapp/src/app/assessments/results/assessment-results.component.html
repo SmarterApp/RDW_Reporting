@@ -19,21 +19,20 @@
               </span>
           </div>
           <div class="col-md-4">
-              <span class="pull-right"
-                    popover="{{ 'labels.menus.resources-disabled-message' | translate }}"
-                    triggers="{{assessmentExam.assessment.hasResourceUrl ? '': 'mouseenter:mouseleave'}}"
-                    container="body">
-                <button
-                  class="btn btn-success btn-xs float-none-xs"
-                  angulartics2On="click"
-                  angularticsEvent="InstructionalResource"
-                  angularticsCategory="AssessmentResults"
-                  [angularticsProperties]="{label: assessmentExam.assessment.label}"
-                  [disabled]="!assessmentExam.assessment.hasResourceUrl"
-                  (click)="openInstructionalResource()">
-                  <i class="fa fa-list-alt"></i> {{'labels.groups.results.assessment.instruct' | translate }}
-                </button>
-              </span>
+            <button
+              class="btn btn-success btn-xs float-none-xs pull-right"
+              angulartics2On="click"
+              angularticsEvent="InstructionalResource"
+              angularticsCategory="AssessmentResults"
+              [angularticsProperties]="{label: assessmentExam.assessment.label}"
+              [disabled]="false"
+              [popover]="buttonPopover"
+              popoverTitle="{{ 'labels.groups.results.assessment.instruct-button-prefix' | translate }}{{ assessmentExam.assessment.label }}"
+              container="body"
+              (click)="loadInstructionalResources(0)"
+              [outsideClick]="true">
+              <i class="fa fa-list-alt"></i> {{'labels.groups.results.assessment.instruct' | translate }}
+            </button>
           </div>
         </div>
       </div>
@@ -48,32 +47,29 @@
 
     <div class="row mb-lg">
       <!-- Sessions -->
-      <div class="col-md-5">
+      <div class="col-md-3">
         <div *ngIf="allowFilterBySessions">
-          <p><strong>{{'labels.groups.results.assessment.sessions-title' | translate}}</strong><br/>
-            {{'labels.groups.results.assessment.sessions-instruct' | translate}}</p>
-          <div class="flex-children">
-            <a *ngFor="let session of sessions" class="tag aqua reverse multi-line"
+          <p><strong>{{'labels.groups.results.assessment.sessions-title' | translate}}</strong></p>
+          <div class="btn-group-vertical">
+            <a *ngFor="let session of sessions" class="aqua reverse multi-line btn"
                [ngClass]="{'gray-mid':!session.filter}" (click)="toggleSession(session)"
                angulartics2On="click" angularticsEvent="ToggleSession" angularticsCategory="AssessmentResults">
-                    <span class="block-children text-left">
+                    <span class="text-left">
                         <strong>{{session.date | date }}</strong>
-                        <small>{{session.id || 'labels.groups.results.session-unknown' | translate }}</small>
+                        <small
+                          class="ml-sm">{{session.id || 'labels.groups.results.session-unknown' | translate }}</small>
                     </span>
-              <span class="icon"><i class="fa" [ngClass]="{'fa-minus':session.filter, 'fa-plus': !session.filter }"></i></span>
             </a>
           </div>
         </div>
       </div>
 
       <!-- Aggregate Scale Score -->
-      <div class="col-md-7">
-        <average-scale-score
-          [assessmentExam]="assessmentExam"
-          [statistics]="statistics"
-          [showValuesAsPercent]="showValuesAsPercent">
-        </average-scale-score>
-      </div>
+      <average-scale-score
+        [assessmentExam]="assessmentExam"
+        [statistics]="statistics"
+        [showValuesAsPercent]="showValuesAsPercent">
+      </average-scale-score>
     </div>
 
     <!-- Student Results -->
@@ -83,7 +79,7 @@
           <label class="sr-only">{{ 'labels.groups.results.assessment.select-view' | translate }}</label>
           <div class="btn-group" dropdown>
             <button dropdownToggle type="button" class="btn btn-default btn-borderless dropdown-toggle">
-             {{ currentResultsView.label | translate }} <i class="fa fa-angle-down"></i>
+              {{ currentResultsView.label | translate }} <i class="fa fa-angle-down"></i>
             </button>
             <ul *dropdownMenu class="dropdown-menu" role="menu">
               <li role="menuitem">
@@ -128,9 +124,9 @@
             </ul>
           </div>
           <button *ngIf="currentResultsView.canExport"
-             class="btn btn-sm btn-default"
-             [disabled]="!currentExportResults || !currentExportResults.hasDataToExport()"
-             (click)="currentExportResults.exportToCsv()">
+                  class="btn btn-sm btn-default"
+                  [disabled]="!currentExportResults || !currentExportResults.hasDataToExport()"
+                  (click)="currentExportResults.exportToCsv()">
             <i class="fa fa-cloud-download"></i> {{ 'labels.export.title' | translate }}
           </button>
         </div>
@@ -144,20 +140,23 @@
       </div>
       <div *ngIf="showItemsByPointsEarned">
         <results-by-item #resultsByItem
-          [showValuesAsPercent]="showValuesAsPercent"
-          [assessmentProvider]="assessmentProvider"
-          [assessment]="assessmentExam.assessment"
-          [exams]="exams">
+                         [showValuesAsPercent]="showValuesAsPercent"
+                         [assessmentProvider]="assessmentProvider"
+                         [assessment]="assessmentExam.assessment"
+                         [exams]="exams">
         </results-by-item>
       </div>
       <div *ngIf="showDistractorAnalysis">
         <distractor-analysis #distractorAnalysis
-          [showValuesAsPercent]="showValuesAsPercent"
-          [assessmentProvider]="assessmentProvider"
-          [assessment]="assessmentExam.assessment"
-          [exams]="exams">
+                             [showValuesAsPercent]="showValuesAsPercent"
+                             [assessmentProvider]="assessmentProvider"
+                             [assessment]="assessmentExam.assessment"
+                             [exams]="exams">
         </distractor-analysis>
       </div>
     </div>
   </div>
 </div>
+<ng-template #buttonPopover>
+  <instructional-resource-popover [resources]="instructionalResources"></instructional-resource-popover>
+</ng-template>

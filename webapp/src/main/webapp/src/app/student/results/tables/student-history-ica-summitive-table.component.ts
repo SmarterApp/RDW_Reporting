@@ -3,6 +3,11 @@ import { StudentHistoryExamWrapper } from "../../model/student-history-exam-wrap
 import { Student } from "../../model/student.model";
 import { MenuActionBuilder } from "../../../assessments/menu/menu-action.builder";
 import { PopupMenuAction } from "@sbac/rdw-reporting-common-ngx";
+import { InstructionalResourcesService } from "../../../assessments/results/instructional-resources.service";
+import {
+  InstructionalResource,
+  InstructionalResources
+} from "../../../assessments/model/instructional-resources.model";
 
 @Component({
   selector: 'student-history-ica-summitive-table',
@@ -30,8 +35,10 @@ export class StudentHistoryICASummitiveTableComponent {
   };
 
   actions: PopupMenuAction[];
+  instructionalResources: InstructionalResource[];
 
-  constructor(private actionBuilder: MenuActionBuilder) {
+  constructor(private actionBuilder: MenuActionBuilder,
+              private instructionalResourcesService: InstructionalResourcesService) {
   }
 
   ngOnInit(): void {
@@ -48,7 +55,15 @@ export class StudentHistoryICASummitiveTableComponent {
   public getClaims(): string[] {
     if (this.exams.length === 0) return [];
 
-    return this.exams[0].assessment.claimCodes;
+    return this.exams[ 0 ].assessment.claimCodes;
+  }
+
+  loadInstructionalResources(index: number) {
+    let studentHistoryExam = this.exams[ index ];
+    let exam = studentHistoryExam.exam;
+    this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
+      this.instructionalResources = instructionalResources.getResourcesByPerformance(exam.level);
+    });
   }
 
   /**
@@ -59,7 +74,7 @@ export class StudentHistoryICASummitiveTableComponent {
   private createActions(): PopupMenuAction[] {
     return this.actionBuilder
       .newActions()
-      .withResponses(x => x.exam.id, ()=> this.student, x => x.exam.schoolYear > this.minimumItemDataYear)
+      .withResponses(x => x.exam.id, () => this.student, x => x.exam.schoolYear > this.minimumItemDataYear)
       .withShowResources(x => x.assessment.resourceUrl)
       .build();
   }

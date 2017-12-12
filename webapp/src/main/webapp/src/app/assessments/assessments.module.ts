@@ -35,6 +35,8 @@ import { DistractorAnalysisComponent } from './results/view/distractor-analysis/
 import { ResultsByItemComponent } from "./results/view/results-by-item/results-by-item.component";
 import { ScaleScoreService } from "./results/scale-score.service";
 import { RdwMenuModule } from "@sbac/rdw-reporting-common-ngx";
+import { InstructionalResourcesService } from "./results/instructional-resources.service";
+import { InstructionalResourcePopoverComponent } from './popover/instructional-resource-popover.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { RdwMenuModule } from "@sbac/rdw-reporting-common-ngx";
     ClaimTargetComponent,
     ResultsByItemComponent,
     ResultsByStudentComponent,
-    DistractorAnalysisComponent
+    DistractorAnalysisComponent,
+    InstructionalResourcePopoverComponent
   ],
   imports: [
     Angulartics2Module.forChild(),
@@ -75,7 +78,8 @@ import { RdwMenuModule } from "@sbac/rdw-reporting-common-ngx";
     AssessmentsComponent,
     ItemTabComponent,
     ScaleScoreComponent,
-    ClaimTargetComponent
+    ClaimTargetComponent,
+    InstructionalResourcePopoverComponent
   ],
   providers: [
     AssessmentExamMapper,
@@ -87,7 +91,8 @@ import { RdwMenuModule } from "@sbac/rdw-reporting-common-ngx";
     ItemScoringGuideMapper,
     ItemInfoService,
     StudentScoreService,
-    ScaleScoreService
+    ScaleScoreService,
+    InstructionalResourcesService
   ]
 })
 export class AssessmentsModule {

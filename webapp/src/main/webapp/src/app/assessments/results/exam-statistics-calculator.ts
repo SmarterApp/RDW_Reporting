@@ -51,7 +51,7 @@ export class ExamStatisticsCalculator {
     return levels;
   }
 
-  mapGroupLevelsToPercents(levels: ExamStatisticsLevel[]) {
+  mapGroupLevelsToPercents(levels: ExamStatisticsLevel[]): ExamStatisticsLevel[] {
     let total = levels.reduce((x, y) => x + y.value, 0);
     return levels.map(x => {
       return {

@@ -1,4 +1,3 @@
-
 import { Component, Input } from "@angular/core";
 
 /**
@@ -6,15 +5,19 @@ import { Component, Input } from "@angular/core";
  * an information popover icon.
  */
 @Component({
-  selector: 'info-label,[info-label]',
-  templateUrl: 'information-label.component.html'
+  selector: 'info-button,[info-button]',
+  templateUrl: './information-button.component.html'
 })
-export class InformationLabelComponent {
+export class InformationButtonComponent {
 
   @Input()
   public title: string;
 
   @Input()
   public content: string;
+
+  @Input()
+  public icon: string;
+
 
 }

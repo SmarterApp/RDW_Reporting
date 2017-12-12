@@ -1,0 +1,12 @@
+<div *ngIf="resources !== undefined && resources.length > 0; else noResources">
+  <p class="popover-link"
+     *ngFor="let instructionalResource of resources">
+    <a href="{{instructionalResource.url}}" target="_blank">{{ ('labels.instructional-resources.link.' + instructionalResource.organizationLevel) | translate:instructionalResource }}</a>
+  </p>
+</div>
+
+<ng-template #noResources>
+  <div>
+    <p>{{ 'labels.groups.results.assessment.no-instruct-found' | translate }}</p>
+  </div>
+</ng-template>

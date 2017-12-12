@@ -7,6 +7,8 @@ import { TranslateService } from "@ngx-translate/core";
 import { MenuActionBuilder } from "../../../menu/menu-action.builder";
 import { Assessment } from "../../../model/assessment.model";
 import { PopupMenuAction } from "@sbac/rdw-reporting-common-ngx";
+import { InstructionalResourcesService } from "../../instructional-resources.service";
+import { InstructionalResource, InstructionalResources } from "../../../model/instructional-resources.model";
 
 enum ScoreViewState {
   OVERALL = 1,
@@ -41,6 +43,7 @@ export class ResultsByStudentComponent implements OnInit {
   reportDownloader: StudentReportDownloadComponent;
 
   actions: PopupMenuAction[];
+  instructionalResources: InstructionalResource[];
   displayState: any = {
     showClaim: ScoreViewState.OVERALL
   };
@@ -84,7 +87,7 @@ export class ResultsByStudentComponent implements OnInit {
     return this.assessmentType == AssessmentType.IAB;
   }
 
-  get isInterim(){
+  get isInterim() {
     return this.assessmentType != AssessmentType.SUMMATIVE;
   }
 
@@ -93,11 +96,18 @@ export class ResultsByStudentComponent implements OnInit {
   }
 
   constructor(private actionBuilder: MenuActionBuilder,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private instructionalResourcesService: InstructionalResourcesService) {
   }
 
   ngOnInit() {
     this.actions = this.createActions();
+  }
+
+  loadInstructionalResources(exam: Exam) {
+    this.instructionalResourcesService.getInstructionalResources(this.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
+      this.instructionalResources = instructionalResources.getResourcesByPerformance(exam.level);
+    });
   }
 
   private createActions(): PopupMenuAction[] {

@@ -271,8 +271,9 @@
         "high-school": "High School",
         "assessment": {
           "instruct": "Instructional Resources",
+          "instruct-button-prefix": "Instructional Resources for ",
+          "no-instruct-found": "No resources found.",
           "sessions-title": "Sessions",
-          "sessions-instruct": "Toggle a session to include or exclude it from the results.",
           "exam-results": "Results By Student",
           "button-items": "Results By Item",
           "button-exams": "Results By Student",
@@ -366,10 +367,24 @@
           }
         }
       },
-      "average-scale-score": "Average Scale Score / Error Band",
-      "average-scale-score-info": "Average scale score for the selected group of students and an error band based on the Standard Error of the Mean (SEM) associated with that score. Test scores are estimates of student achievement and come with a certain amount of measurement error. See the Interpretive Guide for additional information about scale scores and measurement error.",
+      "average": {
+        "title": "Average",
+        "scale-score": "Scale Score Error Band",
+        "scale-score-info": "Average scale score for the selected group of students and an error band based on the Standard Error of the Mean (SEM) associated with that score. Test scores are estimates of student achievement and come with a certain amount of measurement error. See the Interpretive Guide for additional information about scale scores and measurement error."
+      },
       "students": "Students",
-      "student-score-distribution": "Student Score Distribution"
+      "student-score-distribution": {
+        "title": "Student Score Distribution"
+      }
+    },
+    "instructional-resources": {
+      "link": {
+        "System": "Smarter Balanced Instructional Resource",
+        "State": "{{organizationName}} Instructional Resource",
+        "DistrictGroup": "{{organizationName}} Instructional Resource",
+        "District": "{{organizationName}} Instructional Resource",
+        "SchoolGroup": "{{organizationName}} Instructional Resource"
+      }
     },
     "menu": "Menu",
     "menus": {
