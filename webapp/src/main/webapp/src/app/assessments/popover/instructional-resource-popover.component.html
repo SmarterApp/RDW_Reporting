@@ -1,7 +1,9 @@
 <div *ngIf="resources !== undefined && resources.length > 0; else noResources">
   <p class="popover-link"
      *ngFor="let instructionalResource of resources">
-    <a [attr.href]="instructionalResource.url" target="_blank">{{ instructionalResource.url }}</a>
+    <a *ngIf="instructionalResource.organizationLevel === 'System'" [attr.href]="instructionalResource.url" target="_blank">{{ 'labels.instructional-resources.link.System' | translate }}</a>
+    <a *ngIf="instructionalResource.organizationLevel === 'State'" [attr.href]="instructionalResource.url" target="_blank">{{ ('labels.states.' + instructionalResource.stateCode) | translate }}{{ 'labels.instructional-resources.link.State' | translate }}</a>
+    <a *ngIf="instructionalResource.organizationLevel !== 'System' && instructionalResource.organizationLevel !== 'State'" [attr.href]="instructionalResource.url" target="_blank">{{ ('labels.instructional-resources.link.' + instructionalResource.organizationName) | translate:instructionalResource }}</a>
   </p>
 </div>
 

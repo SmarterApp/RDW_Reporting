@@ -12,9 +12,6 @@ const organizationLevels: string[] = [
 
 @Injectable()
 export class InstructionalResourcesMapper {
-  private organizationLevel: string;
-  private performanceLevel: number;
-  private organizationName: string;
 
   mapInstructionalResourcesFromApi(apiModel): InstructionalResources {
     let uiModels = new Map<number, InstructionalResource[]>();
@@ -34,7 +31,9 @@ export class InstructionalResourcesMapper {
   mapInstructionalResourceFromApi(apiModel): InstructionalResource {
     let instructionalResource = new InstructionalResource();
     instructionalResource.organizationLevel = apiModel.organizationLevel;
+    instructionalResource.organizationName = apiModel.organizationName;
     instructionalResource.performanceLevel = apiModel.performanceLevel;
+    instructionalResource.stateCode = apiModel.stateCode;
     instructionalResource.url = apiModel.resource;
     return instructionalResource;
   }

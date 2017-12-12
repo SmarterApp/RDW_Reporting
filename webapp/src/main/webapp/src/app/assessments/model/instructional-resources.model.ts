@@ -12,6 +12,8 @@ export class InstructionalResources {
 
 export class InstructionalResource {
   organizationLevel: string;
+  organizationName: string;
+  stateCode: string;
   performanceLevel: string;
   url: string;
 }

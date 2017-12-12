@@ -377,6 +377,18 @@
         "title": "Student Score Distribution"
       }
     },
+    "instructional-resources": {
+      "link": {
+        "System": "Smarter Balanced Instructional Resource",
+        "State": " Instructional Resource",
+        "DistrictGroup": "{{organizationName}} Instructional Resource",
+        "District": "{{organizationName}} Instructional Resource",
+        "SchoolGroup": "{{organizationName}} Instructional Resource"
+      }
+    },
+    "states": {
+      "CA": "California"
+    },
     "menu": "Menu",
     "menus": {
       "responses": "{{firstName}}'s Responses",
