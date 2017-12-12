@@ -26,6 +26,7 @@ sql:
         FROM asmt a
         WHERE (:label_query IS NULL OR a.label LIKE concat('%', :label_query, '%'))
           AND (:name_query IS NULL OR a.name LIKE concat('%', :name_query, '%'))
+        ORDER BY a.school_year DESC
         LIMIT :limit
 
   group:
