@@ -8,6 +8,7 @@ import {
   InstructionalResources
 } from "../../../assessments/model/instructional-resources.model";
 import { PopupMenuAction } from "@sbac/rdw-reporting-common-ngx/menu/popup-menu-action.model";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'student-history-iab-table',
@@ -34,7 +35,8 @@ export class StudentHistoryIABTableComponent implements OnInit {
   instructionalResources: InstructionalResource[];
 
   constructor(private actionBuilder: MenuActionBuilder,
-              private instructionalResourcesService: InstructionalResourcesService) {
+              private instructionalResourcesService: InstructionalResourcesService,
+              private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -59,5 +61,16 @@ export class StudentHistoryIABTableComponent implements OnInit {
     this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
       this.instructionalResources = instructionalResources.getResourcesByPerformance(exam.level);
     });
+  }
+
+  loadOverallInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): Array<[ string, string ]> {
+    let array = new Array<[ string, string ]>();
+    let exam = studentHistoryExam.exam;
+    this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
+      for (let instructionalResource of instructionalResources.getResourcesByPerformance(0)) {
+        array.push([ instructionalResource.url, this.translateService.instant('labels.instructional-resources.link.' + instructionalResource.organizationLevel, instructionalResource) ]);
+      }
+    });
+    return array;
   }
 }

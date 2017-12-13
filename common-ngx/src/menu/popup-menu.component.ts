@@ -24,8 +24,8 @@ import { Utils } from "../support/support";
         <i class="fa fa-ellipsis-v" [ngClass]="{'mr-xs': hasText}"></i> {{text}}
       </button>
       <ul *ngIf="open" class="dropdown-menu" role="menu">
-        <li *ngFor="let action of actions; let idx = index" role="menuitem">
-          <a class="dropdown-item"
+        <li *ngFor="let action of actions" role="menuitem">
+          <a *ngIf="!action.isSubmenu()" class="dropdown-item"
              popover="{{action.tooltip(item)}}"
              triggers="{{ action.tooltip(item) == '' ? '': 'mouseenter:mouseleave'}}"
              placement="right"
@@ -33,8 +33,23 @@ import { Utils } from "../support/support";
             <button
               [disabled]="action.isDisabled(item)"
               (click)="onMenuClick($event, action)"
-              class="btn btn-default btn-borderless">{{action.displayName(item)}}</button>
+              class="btn btn-default btn-borderless">{{action.displayName( item )}}
+            </button>
           </a>
+        </li>
+        <li *ngFor="let action of actions" role="menuitem" class="dropdown-submenu">
+          <a *ngIf="action.isSubmenu()" class="dropdown-item"
+             popover="{{action.tooltip(item)}}"
+             triggers="{{ action.tooltip(item) == '' ? '': 'mouseenter:mouseleave'}}"
+             placement="right"
+             container="body">
+            {{action.displayName( item )}}
+          </a>
+          <ul class="dropdown-menu">
+            <li *ngFor="let submenu of submenuItems">
+              <a href="{{ submenu[0] }}" target="_blank">{{ submenu[ 1 ] }}</a>
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
@@ -50,6 +65,9 @@ export class PopupMenuComponent {
 
   @Input()
   public actions: PopupMenuAction[];
+
+  @Input()
+  public submenuItems: Array<[ string, string ]>;
 
   private _open: boolean;
 

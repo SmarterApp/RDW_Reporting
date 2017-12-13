@@ -8,6 +8,7 @@ import {
   InstructionalResource,
   InstructionalResources
 } from "../../../assessments/model/instructional-resources.model";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'student-history-ica-summitive-table',
@@ -38,7 +39,8 @@ export class StudentHistoryICASummitiveTableComponent {
   instructionalResources: InstructionalResource[];
 
   constructor(private actionBuilder: MenuActionBuilder,
-              private instructionalResourcesService: InstructionalResourcesService) {
+              private instructionalResourcesService: InstructionalResourcesService,
+              private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -58,12 +60,23 @@ export class StudentHistoryICASummitiveTableComponent {
     return this.exams[ 0 ].assessment.claimCodes;
   }
 
-  loadInstructionalResources(index: number) {
-    let studentHistoryExam = this.exams[ index ];
+  loadInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper) {
     let exam = studentHistoryExam.exam;
     this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
       this.instructionalResources = instructionalResources.getResourcesByPerformance(exam.level);
     });
+  }
+
+  loadOverallInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): Array<[ string, string ]> {
+    let array = new Array<[ string, string ]>();
+    let exam = studentHistoryExam.exam;
+
+    this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
+      for (let instructionalResource of instructionalResources.getResourcesByPerformance(0)) {
+        array.push([ instructionalResource.url, this.translateService.instant('labels.instructional-resources.link.' + instructionalResource.organizationLevel, instructionalResource) ]);
+      }
+    });
+    return array;
   }
 
   /**

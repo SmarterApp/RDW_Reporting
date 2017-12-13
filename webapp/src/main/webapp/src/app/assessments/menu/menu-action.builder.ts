@@ -90,7 +90,6 @@ export class MenuActionBuilder {
   /**
    * Adds an action item which shows resources.  If the resource url is null
    * or undefined then the action item will be disabled with a tooltip.
-   * TODO: This should display a 2nd-level/popup menu containing assessment/school resources on click/hover
    *
    * @param getResourceUrl lambda which accesses the assessment resource url.
    * @returns {MenuActionBuilder}
@@ -101,6 +100,10 @@ export class MenuActionBuilder {
 
     resourcesAction.isDisabled = ((actionable) => {
       return false;
+    });
+
+    resourcesAction.isSubmenu = ((actionable) => {
+      return true;
     });
 
     resourcesAction.tooltip = ((actionable) => {
