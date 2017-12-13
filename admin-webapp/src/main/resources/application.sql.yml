@@ -1,7 +1,7 @@
 sql:
   admin:
     findWarehouseImports: >-
-      SELECT i.id, i.digest FROM import i limit 10;
+      SELECT i.id, i.digest FROM import i LIMIT 10;
 
   assessment:
     reporting:
@@ -29,26 +29,78 @@ sql:
         ORDER BY a.school_year DESC
         LIMIT :limit
 
+  embargo:
+    # query to find all embargo records given a school year and a list of (user's) districts
+    # this includes counts of summative exams grouped by each org so it has performance implications
+    findAllBySchoolYear: >-
+      SELECT st.*, se.individual, se.aggregate, cnt.subject_id, cnt.count
+      FROM (SELECT 'State' AS org_type, NULL AS org_id, NULL AS org_name, :school_year AS school_year) st
+        LEFT JOIN state_embargo se ON se.school_year = :school_year
+        LEFT JOIN (SELECT a.subject_id, count(e.id) AS count
+                     FROM exam e JOIN asmt a ON a.id = e.asmt_id
+                     WHERE a.type_id = 3 AND e.deleted = 0 AND e.school_year = :school_year
+                     GROUP BY a.subject_id) cnt ON 1=1
+      UNION ALL
+      SELECT 'District' AS org_type, d.id AS org_id, d.name AS org_name, :school_year AS school_year, de.individual, de.aggregate, cnt.subject_id, cnt.count
+      FROM district d
+        LEFT JOIN district_embargo de ON d.id = de.district_id and de.school_year = :school_year
+        LEFT JOIN (SELECT s.district_id, a.subject_id, count(e.id) AS count
+                   FROM school s
+                     JOIN exam e ON e.school_id = s.id
+                     JOIN asmt a ON a.id = e.asmt_id
+                   WHERE s.district_id IN (:district_ids) AND e.deleted = 0 AND a.type_id = 3 AND e.school_year = :school_year
+                   GROUP BY s.district_id, a.subject_id) cnt ON d.id = cnt.district_id
+      WHERE d.id IN (:district_ids)
+
+    findOneBySchoolYearAndState: >-
+      SELECT 'State' AS org_type, NULL AS org_id, NULL AS org_name, :school_year AS school_year, se.individual, se.aggregate
+      FROM state_embargo se
+      WHERE se.school_year = :school_year
+
+    findOneBySchoolYearAndDistrict: >-
+      SELECT 'District' AS org_type, d.id AS org_id, d.name AS org_name, :school_year AS school_year, de.individual, de.aggregate
+      FROM district d
+        JOIN district_embargo de ON d.id = de.district_id
+      WHERE de.school_year = :school_year AND d.id = :district_id
+
+    createState: >-
+      INSERT INTO state_embargo (school_year, individual, aggregate, updated_by)
+      VALUES (:school_year, :individual, :aggregate, :updated_by)
+
+    createDistrict: >-
+      INSERT INTO district_embargo (district_id, school_year, individual, aggregate, updated_by)
+      VALUES (:district_id, :school_year, :individual, :aggregate, :updated_by)
+
+    updateState: >-
+      UPDATE state_embargo
+      SET individual = :individual, aggregate = :aggregate, updated_by = :updated_by
+      WHERE school_year = :school_year
+
+    updateDistrict: >-
+      UPDATE district_embargo
+      SET individual = :individual, aggregate = :aggregate, updated_by = :updated_by
+      WHERE district_id = :district_id AND school_year = :school_year
+
   group:
     findAllDistinctSchoolYears: >-
-      select distinct sg.school_year
-      from student_group sg
-        join school sc on sc.id = sg.school_id
-      where sg.deleted = 0
+      SELECT distinct sg.school_year
+      FROM student_group sg
+        JOIN school sc ON sc.id = sg.school_id
+      WHERE sg.deleted = 0
         and ${sql.snippet.basicPermission}
 
     findAllByQuery: >-
-      select sg.id,
-        sg.name as group_name,
-        sc.name as school_name,
-        sc.id as school_id,
+      SELECT sg.id,
+        sg.name AS group_name,
+        sc.name AS school_name,
+        sc.id AS school_id,
         sg.school_year,
-        (select count(*) from student_group_membership sgm where sgm.student_group_id = sg.id) as student_count,
-        s.code as subject_code
-      from student_group sg
-        join school sc on sc.id = sg.school_id
-        left join subject s on s.id = sg.subject_id
-      where sg.school_id = :school_id
+        (SELECT count(*) FROM student_group_membership sgm WHERE sgm.student_group_id = sg.id) AS student_count,
+        s.code AS subject_code
+      FROM student_group sg
+        JOIN school sc ON sc.id = sg.school_id
+        left JOIN subject s ON s.id = sg.subject_id
+      WHERE sg.school_id = :school_id
         and sg.deleted = 0
         and (sg.subject_id is null or sg.subject_id in (:subject_ids))
         and sg.school_year = :school_year
@@ -56,17 +108,17 @@ sql:
 
     delete: >-
       update student_group sg
-        join school sc on sg.school_id = sc.id
+        JOIN school sc ON sg.school_id = sc.id
       set sg.deleted = 1,
         sg.update_import_id = :import_id
-      where sg.id = :id
+      WHERE sg.id = :id
         and ${sql.snippet.basicPermission}
 
   school:
     findAll: >-
-      select name, id, natural_id
-      from school sc
-      where ${sql.snippet.basicPermission}
+      SELECT name, id, natural_id
+      FROM school sc
+      WHERE ${sql.snippet.basicPermission}
 
   schoolYear:
     findAll: >-
@@ -93,24 +145,29 @@ sql:
   import:
     createQuery: >-
       INSERT INTO import (status, content, contentType, digest, batch) VALUES
-        (0, 5, 'admin group modification', :digest, :batch)
+        (0, :content, :contentType, :digest, :batch)
 
     triggerQuery: >-
       UPDATE import
       SET status = 1
-      WHERE id = :import_id
+      WHERE id = :id
+
+    statusQuery: >-
+      UPDATE import
+      SET status = :status, message = :message
+      WHERE id = :id
 
   instructionalResource:
     findAll: >-
       SELECT DISTINCT
-        GROUP_CONCAT(DISTINCT a.label ORDER BY a.id DESC SEPARATOR ', ') as asmt_label,
-        a.type_id as asmt_type_id,
+        GROUP_CONCAT(DISTINCT a.label ORDER BY a.id DESC SEPARATOR ', ') AS asmt_label,
+        a.type_id AS asmt_type_id,
         ir.asmt_name,
         ir.performance_level,
         ir.org_level,
         ir.resource,
         ir.org_id,
-        coalesce(district_group.name, district.name, school_group.name) as org_name
+        coalesce(district_group.name, district.name, school_group.name) AS org_name
       FROM instructional_resource ir
         JOIN asmt a
           ON a.name = ir.asmt_name
@@ -159,14 +216,14 @@ sql:
 
     findOne: >-
       SELECT
-        GROUP_CONCAT(DISTINCT a.label ORDER BY a.id DESC SEPARATOR ', ') as asmt_label,
-        a.type_id as asmt_type_id,
+        GROUP_CONCAT(DISTINCT a.label ORDER BY a.id DESC SEPARATOR ', ') AS asmt_label,
+        a.type_id AS asmt_type_id,
         ir.asmt_name,
         ir.performance_level,
         ir.org_level,
         ir.resource,
         ir.org_id,
-        coalesce(district_group.name, district.name, school_group.name) as org_name
+        coalesce(district_group.name, district.name, school_group.name) AS org_name
       FROM instructional_resource ir
         JOIN asmt a
           ON a.name = ir.asmt_name

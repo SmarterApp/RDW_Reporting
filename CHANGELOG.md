@@ -2,9 +2,11 @@
 
 #### 1.1.x
 
+* Introduce zuul and jwt (add config)
 * Rename rdw-admin-webapp to rdw-reporting-admin-webapp (affects configuration files).
 * Refactor report processor.
-    * NOTE: reporting-webapp no longer talks directly to wkhtmltopdf, but does talk to report-processor
+    * NOTE: reporting-webapp no longer talks directly to wkhtmltopdf (remove config for url), 
+    but does talk to report-processor (set report-processor url).
 * NOTE: change datasource URL configuration.
 * Added zuul service gateway to webapp.
     * Webapp now proxies requests to services and authenticates using JWT

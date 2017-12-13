@@ -121,12 +121,13 @@ permissionservice:
   endpoint: ${rdw.permission.service}
 
 app:
+  # google analytics configuration
+  analytics:
+    trackingId: ${rdw.admin.analytics.trackingId:}
+  home-url: /
+  school-year: 2018
   state:
     code: CA
     name: California
 
-  home-url: /
 
-  # google analytics configuration
-  analytics:
-    trackingId: ${rdw.admin.analytics.trackingId:}
