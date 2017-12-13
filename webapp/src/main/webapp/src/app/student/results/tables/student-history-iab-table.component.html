@@ -39,7 +39,7 @@
       <span info-button title="{{'labels.groups.results.assessment.exams.cols.iab.performance' | translate}}"
             content="{{'labels.groups.results.assessment.exams.cols.iab.performance-info' | translate}}"></span>
     </ng-template>
-    <ng-template let-i="rowIndex" let-exam="rowData.exam" pTemplate="body">
+    <ng-template let-exam="rowData.exam" pTemplate="body">
       {{ 'enum.iab-category.full.' + (exam.level ? exam.level.toString() : 'missing') | translate }}
       <button
         class="btn btn-borderless btn-xs icon-only pull-right"
@@ -50,7 +50,7 @@
         [popover]="buttonPopover"
         popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:(('enum.iab-category.full.' + (exam.level ? exam.level.toString() : 'missing')) | translate) } }}"
         container="body"
-        (click)="loadInstructionalResources(i)"
+        (click)="loadInstructionalResources(rowData)"
         [outsideClick]="true"><i
         class="fa fa-book"></i></button>
     </ng-template>

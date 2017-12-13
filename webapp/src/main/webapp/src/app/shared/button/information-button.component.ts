@@ -19,5 +19,4 @@ export class InformationButtonComponent {
   @Input()
   public icon: string;
 
-
 }

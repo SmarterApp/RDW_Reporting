@@ -54,8 +54,7 @@ export class StudentHistoryIABTableComponent implements OnInit {
       .build();
   }
 
-  loadInstructionalResources(index: number) {
-    let studentHistoryExam = this.exams[ index ];
+  loadInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper) {
     let exam = studentHistoryExam.exam;
     this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
       this.instructionalResources = instructionalResources.getResourcesByPerformance(exam.level);

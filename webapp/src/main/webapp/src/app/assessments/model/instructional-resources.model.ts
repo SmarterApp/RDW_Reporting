@@ -1,12 +1,12 @@
 export class InstructionalResources {
-  performanceLevelToResources: Map<number, InstructionalResource[]>;
+  resourcesByPerformanceLevel: Map<number, InstructionalResource[]>;
 
   getResourcesByPerformance(performanceLevel: number): InstructionalResource[] {
-    return this.performanceLevelToResources.get(performanceLevel) || [];
+    return this.resourcesByPerformanceLevel.get(performanceLevel) || [];
   }
 
   constructor(instructionalResourcesMap: Map<number, InstructionalResource[]>) {
-    this.performanceLevelToResources = instructionalResourcesMap;
+    this.resourcesByPerformanceLevel = instructionalResourcesMap;
   }
 }
 
