@@ -39,7 +39,7 @@
             angularticsCategory="AssessmentResults"
             [disabled]="false"
             [popover]="buttonPopover"
-            popoverTitle="{{ 'labels.groups.results.assessment.instruct-button-prefix' | translate }}{{ examLevelEnum + performanceLevel.id.toString() | translate }}"
+            popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:((examLevelEnum + performanceLevel.id.toString()) | translate) } }}"
             container="body"
             (click)="loadInstructionalResources(performanceLevel)"
             [outsideClick]="true"><i
