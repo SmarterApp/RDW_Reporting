@@ -1,110 +1,63 @@
 <!-- IAB display -->
-<div *ngIf="hasAverageScore">
+<div *ngIf="hasAverageScore" class="average-scale-score-display">
   <div class="col-md-4">
-    <div class="average-scale-score-display">
-      <strong>{{ 'labels.assessments.average.title' | translate }}</strong>
-      <table class="table overflow">
-        <tr>
-          <td class="col-md-6 gray-light-bg text-center">
-            <span info-button
-                  title="{{ 'labels.assessments.average.scale-score' | translate }}"
-                  content="{{ 'labels.assessments.average.scale-score-info' | translate }}"></span>
-          </td>
-          <td class="level-down">
-            <span class="scale-score">
-              <span class="score label gray-darker">{{ statistics.average | number:'1.0-0' | removeComma }}</span>
-              <span class="error-band">± {{ statistics.standardError | number:'1.0-0' }}</span>
-            </span>
-            <span class="label-group">
-              <span>{{ statistics.total }}</span>
+    <strong>{{ 'labels.assessments.average.title' | translate }}</strong>
+    <table class="table overflow">
+      <tr>
+        <td class="col-md-6 gray-light-bg text-right">
+          <span info-button
+                title="{{ 'labels.assessments.average.scale-score' | translate }}"
+                content="{{ 'labels.assessments.average.scale-score-info' | translate }}"></span>
+        </td>
+        <td class="level-down gray-lightest-bg">
+          <div class="pl-xs">
+            <div class="scale-score font-large text-left">
+              <span class="score label label-primary">{{ statistics.average | number:'1.0-0' | removeComma }}</span>
+              <span class="error-band black">± {{ statistics.standardError | number:'1.0-0' }}</span>
+            </div>
+            <span class="text-left gray-darkest">
+              <span class="font-large">
+                <span class="score">{{ statistics.total }}</span>
+              </span>
               <span>{{ 'labels.assessments.students' | translate }}</span>
             </span>
-          </td>
-        </tr>
-      </table>
-    </div>
+          </div>
+        </td>
+      </tr>
+    </table>
   </div>
-  <div class="col-md-5" [hidden]="!showIab">
-    <div class="scale-score-graph rounded blend-middle">
-      <strong>{{ 'labels.assessments.student-score-distribution.title' | translate }}</strong>
-      <table class="table">
-        <tr *ngFor="let performanceLevel of performanceLevels; let i = index">
-          <td class="col-md-5">
-            <span class="pull-right">
-              {{ examLevelEnum + performanceLevel.id.toString() | translate }}
-              <button
-                class="btn btn-borderless btn-xs icon-only pull-right"
-                angulartics2On="click"
-                angularticsEvent="InstructionalResource"
-                angularticsCategory="AssessmentResults"
-                [disabled]="false"
-                [popover]="buttonPopover"
-                popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:((examLevelEnum + performanceLevel.id.toString()) | translate) } }}"
-                container="body"
-                (click)="loadInstructionalResources(performanceLevel)"
-                [outsideClick]="true"><i
-                class="fa fa-book"></i></button>
-            </span>
-          </td>
-          <td class="col-md-1 level-down">
-            <span class="pull-right">
-              {{ performanceLevel.value | number:'1.0-0' }}{{performanceLevel.suffix }}
-            </span>
-          </td>
-          <td class="col-md-6 level-down">
-            <div class="bar-container">
-              <div *ngIf="performanceLevel.value != 0" class="bar"
-                   [ngClass]="colorService.getPerformanceLevelColor(assessmentExam.assessment, i)"
-                   [attr.data-width]="filledLevel(performanceLevel)"></div>
-              <div *ngIf="performanceLevel.value < 100" class="bar gray"
-                   [attr.data-width]="unfilledLevel(performanceLevel)">
-              </div>
+  <div class="col-md-5">
+    <strong>{{ 'labels.assessments.student-score-distribution.title' | translate }}</strong>
+    <div class="well">
+      <div *ngFor="let performanceLevel of performanceLevels; let i = index" class="score-distribution-container">
+        <div class="text-right gray-lighter">
+          {{ examLevelEnum + performanceLevel.id.toString() | translate }}
+          <button
+            class="btn btn-borderless btn-xs icon-only pull-right"
+            angulartics2On="click"
+            angularticsEvent="InstructionalResource"
+            angularticsCategory="AssessmentResults"
+            [disabled]="false"
+            [popover]="buttonPopover"
+            popoverTitle="{{ 'labels.groups.results.assessment.instruct-button-prefix' | translate }}{{ examLevelEnum + performanceLevel.id.toString() | translate }}"
+            container="body"
+            (click)="loadInstructionalResources(performanceLevel)"
+            [outsideClick]="true"><i
+            class="fa fa-book"></i></button>
+        </div>
+        <div class="level-down text-right gray-lightest">
+          <strong>{{ performanceLevel.value | number:'1.0-0' }}{{performanceLevel.suffix }}</strong>
+        </div>
+        <div class="level-down scale-score-graph rounded blend-middle gray-lightest">
+          <div class="bar-container">
+            <div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="colorService.getPerformanceLevelColor(assessmentExam.assessment, i)"
+                 [attr.data-width]="filledLevel(performanceLevel)"></div>
+            <div *ngIf="performanceLevel.value < 100" class="bar gray"
+                 [attr.data-width]="unfilledLevel(performanceLevel)">
             </div>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  <!-- ICA display -->
-  <div class="col-md-5" [hidden]="!showIcaSummative">
-    <div class="scale-score-graph rounded blend-middle">
-      <strong>{{ 'labels.assessments.student-score-distribution.title' | translate }}</strong>
-      <table class="table">
-        <tr *ngFor="let performanceLevel of performanceLevels; let i = index">
-          <td class="col-md-5">
-            <span class="pull-right">
-              {{ examLevelEnum + performanceLevel.id.toString() | translate }}
-              <button
-                class="btn btn-borderless btn-xs icon-only pull-right"
-                angulartics2On="click"
-                angularticsEvent="InstructionalResource"
-                angularticsCategory="AssessmentResults"
-                [disabled]="false"
-                [popover]="buttonPopover"
-                popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:((examLevelEnum + performanceLevel.id.toString()) | translate) } }}"
-                container="body"
-                (click)="loadInstructionalResources(performanceLevel)"
-                [outsideClick]="true"><i
-                class="fa fa-book"></i></button>
-            </span>
-          </td>
-          <td class="col-md-1 level-down">
-            <span class="pull-right">
-              {{ performanceLevel.value | number:'1.0-0' }}{{performanceLevel.suffix }}
-            </span>
-          </td>
-          <td class="col-md-6 level-down">
-            <div class="bar-container">
-              <div *ngIf="performanceLevel.value != 0" class="bar"
-                   [ngClass]="colorService.getPerformanceLevelColor(assessmentExam.assessment, i)"
-                   [attr.data-width]="filledLevel(performanceLevel)"></div>
-              <div *ngIf="performanceLevel.value < 100" class="bar gray"
-                   [attr.data-width]="unfilledLevel(performanceLevel)">
-              </div>
-            </div>
-          </td>
-        </tr>
-      </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
