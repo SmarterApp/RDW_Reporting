@@ -18,6 +18,7 @@ import { RdwRouteReuseStrategy } from "./shared/rdw-route-reuse.strategy";
 import { ErrorComponent } from './error/error.component';
 import { AccessDeniedComponent } from './error/access-denied/access-denied.component';
 import { OrganizationExportModule } from "./organization-export/organization-export.module";
+import { AggregateReportsModule } from "./aggregate-report/aggregate-reports.module";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { OrganizationExportModule } from "./organization-export/organization-exp
     AccessDeniedComponent
   ],
   imports: [
+    AggregateReportsModule,
     AlertModule.forRoot(),
     BrowserModule,
     CommonModule,
