@@ -10,7 +10,6 @@ import { isNullOrUndefined } from "util";
 import { Organization } from "./model/organization.model";
 import { OrganizationService } from "./organization.service";
 import { OrganizationQuery } from "./model/organization-query.model";
-import * as _ from "lodash";
 import { ValidationErrors } from "@angular/forms";
 
 /**
@@ -123,7 +122,7 @@ export class CreateInstructionalResourceModal {
       return
     }
 
-    let existingResource = _.find(this.existingResources, (existingResource: InstructionalResource) => {
+    let existingResource = this.existingResources.find((existingResource: InstructionalResource) => {
       return existingResource.assessmentName == this.assessment.name &&
         existingResource.organizationType == this.organization.organizationType &&
         existingResource.organizationId == this.organization.id &&
