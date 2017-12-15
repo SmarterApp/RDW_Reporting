@@ -6,7 +6,7 @@
   <!-- Menu column -->
   <p-column field="exam.date" header="{{'labels.student.results.cols.date' | translate}}" sortable="true">
     <ng-template let-data="rowData" let-exam="rowData.exam" pTemplate="body">
-      <popup-menu [item]="data" [actions]="actions" [submenuItems]="loadOverallInstructionalResources(data)" [text]="exam.date | date"></popup-menu>
+      <popup-menu [item]="data" [actions]="actions" (click)="submenuItems = loadAssessmentInstructionalResources(data)" [submenuItems]="submenuItems" [text]="exam.date | date"></popup-menu>
     </ng-template>
   </p-column>
   <p-column field="assessment.label" header="{{'labels.student.results.cols.assessment' | translate}}"

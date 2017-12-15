@@ -63,14 +63,14 @@ export class StudentHistoryIABTableComponent implements OnInit {
     });
   }
 
-  loadOverallInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): Array<[ string, string ]> {
-    let array = new Array<[ string, string ]>();
+  loadAssessmentInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): Array<[ string, string ]> {
+    let assessmentInstructionalResources = new Array<[ string, string ]>();
     let exam = studentHistoryExam.exam;
     this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
       for (let instructionalResource of instructionalResources.getResourcesByPerformance(0)) {
-        array.push([ instructionalResource.url, this.translateService.instant('labels.instructional-resources.link.' + instructionalResource.organizationLevel, instructionalResource) ]);
+        assessmentInstructionalResources.push([ instructionalResource.url, this.translateService.instant('labels.instructional-resources.link.' + instructionalResource.organizationLevel, instructionalResource) ]);
       }
     });
-    return array;
+    return assessmentInstructionalResources;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { StudentHistoryExamWrapper } from "../../model/student-history-exam-wrapper.model";
 import { Student } from "../../model/student.model";
 import { MenuActionBuilder } from "../../../assessments/menu/menu-action.builder";
@@ -15,7 +15,7 @@ import { TranslateService } from "@ngx-translate/core";
   providers: [ MenuActionBuilder ],
   templateUrl: 'student-history-ica-summitive-table.component.html'
 })
-export class StudentHistoryICASummitiveTableComponent {
+export class StudentHistoryICASummitiveTableComponent implements OnInit {
 
   @Input()
   exams: StudentHistoryExamWrapper[] = [];
@@ -67,16 +67,16 @@ export class StudentHistoryICASummitiveTableComponent {
     });
   }
 
-  loadOverallInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): Array<[ string, string ]> {
-    let array = new Array<[ string, string ]>();
+  loadAssessmentInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): Array<[ string, string ]> {
+    let assessmentInstructionalResources = new Array<[ string, string ]>();
     let exam = studentHistoryExam.exam;
 
     this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
       for (let instructionalResource of instructionalResources.getResourcesByPerformance(0)) {
-        array.push([ instructionalResource.url, this.translateService.instant('labels.instructional-resources.link.' + instructionalResource.organizationLevel, instructionalResource) ]);
+        assessmentInstructionalResources.push([ instructionalResource.url, this.translateService.instant('labels.instructional-resources.link.' + instructionalResource.organizationLevel, instructionalResource) ]);
       }
     });
-    return array;
+    return assessmentInstructionalResources;
   }
 
   /**
