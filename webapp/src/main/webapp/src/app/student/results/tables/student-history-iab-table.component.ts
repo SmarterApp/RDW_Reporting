@@ -71,6 +71,9 @@ export class StudentHistoryIABTableComponent implements OnInit {
         assessmentInstructionalResources.push([ instructionalResource.url, this.translateService.instant('labels.instructional-resources.link.' + instructionalResource.organizationLevel, instructionalResource) ]);
       }
     });
+    if (!assessmentInstructionalResources) {
+      assessmentInstructionalResources.push([ 'javascript:void(0)', this.translateService.instant('labels.groups.results.assessment.no-instruct-found') ]);
+    }
     return assessmentInstructionalResources;
   }
 }
