@@ -72,13 +72,11 @@ export class StudentHistoryICASummitiveTableComponent implements OnInit {
     let exam = studentHistoryExam.exam;
 
     this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
-      for (let instructionalResource of instructionalResources.getResourcesByPerformance(0)) {
-        assessmentInstructionalResources.push([ instructionalResource.url, this.translateService.instant('labels.instructional-resources.link.' + instructionalResource.organizationLevel, instructionalResource) ]);
-      }
+      if (instructionalResources)
+        for (let instructionalResource of instructionalResources.getResourcesByPerformance(0)) {
+          assessmentInstructionalResources.push([ instructionalResource.url, this.translateService.instant('labels.instructional-resources.link.' + instructionalResource.organizationLevel, instructionalResource) ]);
+        }
     });
-    if (!assessmentInstructionalResources) {
-      assessmentInstructionalResources.push([ 'javascript:void(0)', this.translateService.instant('labels.groups.results.assessment.no-instruct-found') ]);
-    }
     return assessmentInstructionalResources;
   }
 

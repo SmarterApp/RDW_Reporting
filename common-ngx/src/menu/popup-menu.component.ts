@@ -49,6 +49,9 @@ import { Utils } from "../support/support";
             <li *ngFor="let submenu of submenuItems">
               <a href="{{ submenu[0] }}" target="_blank">{{ submenu[ 1 ] }}</a>
             </li>
+            <li *ngIf="submenuItems == undefined || submenuItems == null || submenuItems.length == 0">
+              <a href="javascript:void(0)">{{ 'labels.groups.results.assessment.no-instruct-found' | translate }}</a>
+            </li>
           </ul>
         </li>
       </ul>
