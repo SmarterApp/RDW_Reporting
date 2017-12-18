@@ -1,8 +1,7 @@
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
-import { Inject, Injectable } from "@angular/core";
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from "@angular/router";
+import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { AuthorizationService } from "./authorization.service";
-import { AccessDeniedRoute } from "./routing-authorization.can-activate";
 
 /**
  * Allows access to a route if a user has at least one of the permissions in ActivatedRouteSnapshot.data.permissions.
@@ -10,18 +9,11 @@ import { AccessDeniedRoute } from "./routing-authorization.can-activate";
 @Injectable()
 export class AuthorizationCanActivate implements CanActivate {
 
-  constructor(@Inject(AccessDeniedRoute) private accessDeniedRoute: string,
-              private authorizationService: AuthorizationService,
-              private router: Router) {
+  constructor(private authorizationService: AuthorizationService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.authorizationService.hasAnyPermission(route.data[ 'permissions' ]).map((permission) => {
-        if (!permission) {
-          this.router.navigate([ this.accessDeniedRoute ]);
-        }
-        return permission;
-      }
-    );
+    return this.authorizationService.hasAnyPermission(route.data[ 'permissions' ]);
   }
+
 }
