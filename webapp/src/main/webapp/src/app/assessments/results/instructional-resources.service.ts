@@ -5,6 +5,8 @@ import { Observable } from "rxjs/Observable";
 import { InstructionalResource, InstructionalResources } from "../model/instructional-resources.model";
 import { URLSearchParams } from '@angular/http';
 
+const ServiceRoute = '/reporting-service';
+
 @Injectable()
 export class InstructionalResourcesService {
   constructor(private dataService: CachingDataService) {
@@ -15,7 +17,7 @@ export class InstructionalResourcesService {
 
     params.set('assessmentId', assessmentId.toString());
     params.set('schoolId', schoolId.toString());
-    return this.dataService.get(`/instructional-resources`, { params: params })
+    return this.dataService.get(`${ServiceRoute}/instructional-resources`, { params: params })
       .catch(ResponseUtils.badResponseToNull)
       .map(instructionalResources => {
         if (instructionalResources === null || instructionalResources.length === 0) return null;

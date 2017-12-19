@@ -8,6 +8,8 @@ import { AssessmentExamMapper } from "../assessments/assessment-exam.mapper";
 import { StudentHistoryExamWrapper } from "./model/student-history-exam-wrapper.model";
 import { ResponseUtils } from "../shared/response-utils";
 
+const ServiceRoute = '/reporting-service';
+
 @Injectable()
 export class StudentExamHistoryService {
 
@@ -22,7 +24,7 @@ export class StudentExamHistoryService {
    * @returns {Observable<StudentExamHistory>} The student's exam history
    */
   findOneById(id: number): Observable<StudentExamHistory> {
-    return this.dataService.get(`/students/${id}/exams`)
+    return this.dataService.get(`${ServiceRoute}/students/${id}/exams`)
       .catch(ResponseUtils.badResponseToNull)
       .map((apiExamHistory) => {
         if (apiExamHistory == null) return null;
@@ -46,7 +48,7 @@ export class StudentExamHistoryService {
     params.set('hasExams', 'true');
     let trimmedSsid: string = ssid.trim();
 
-    return this.dataService.get(`/students/${trimmedSsid}`, {params: params})
+    return this.dataService.get(`${ServiceRoute}/students/${trimmedSsid}`, {params: params})
       .catch(ResponseUtils.badResponseToNull)
       .map((apiStudent) => {
         if (apiStudent == null) return null;

@@ -49,6 +49,23 @@ services:
     links:
       - config-server
       - report-processor-service
+      - reporting-service
+    environment:
+      - spring.profiles.active=local-docker
+      - CONFIG_SERVICE_ENABLED=true
+      - CONFIG_SERVICE_URL=http://config-server:8888
+      # need this until we have it on config server
+      - zuul.routes.reporting-service.url=http://reporting-service:8080
+    extra_hosts:
+      - "dwhost:$DATAWAREHOUSE_HOST"
+
+  reporting-service:
+    image: smarterbalanced/rdw-reporting-reporting-service
+    ports:
+      - 8180:8080
+      - 8108:8008
+    links:
+      - config-server
     environment:
       - spring.profiles.active=local-docker
       - CONFIG_SERVICE_ENABLED=true

@@ -152,7 +152,8 @@
       "create": {
         "link": "Create",
         "title": "Create Instructional Resource",
-        "error": "Unable to create an Instructional Resource."
+        "error": "Unable to create an Instructional Resource.",
+        "duplicate": "An Instructional Resource for this assessment, organization, and performance level already exists."
       },
       "delete": {
         "title": "Delete Instructional Resource",

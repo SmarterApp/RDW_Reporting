@@ -7,6 +7,8 @@ import { OrganizationExportOptions } from "./organization-export-options";
 import { OrganizationExportNamingService } from "./organization-export-naming.service";
 import { OrganizationGroupingService } from "./organization-grouping.service";
 
+const ServiceRoute = '/reporting-service';
+
 @Injectable()
 export class OrganizationExportService {
 
@@ -24,7 +26,7 @@ export class OrganizationExportService {
    * @returns {Observable<void>}
    */
   createExport(schoolYear: number, schools: Organization[], organizations: UserOrganizations): Observable<void> {
-    return this.dataService.post('/exams/export', this.createExportRequest(schoolYear, schools, organizations))
+    return this.dataService.post(`${ServiceRoute}/exams/export`, this.createExportRequest(schoolYear, schools, organizations))
   }
 
   private createExportRequest(schoolYear: number, schools: Organization[], organizations: UserOrganizations): OrganizationExportRequest {

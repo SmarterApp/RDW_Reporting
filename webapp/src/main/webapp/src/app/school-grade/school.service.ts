@@ -4,6 +4,8 @@ import { Observable } from "rxjs/Observable";
 import { Grade } from "./grade.model";
 import { ResponseUtils } from "../shared/response-utils";
 
+const ServiceRoute = '/reporting-service';
+
 /**
  * This service is responsible for retrieving schools.
  */
@@ -21,7 +23,7 @@ export class SchoolService {
    */
   findGradesWithAssessmentsForSchool(schoolId: number): Observable<Grade[]> {
     return this.dataService
-      .get(`/schools/${schoolId}/assessmentGrades`)
+      .get(`${ServiceRoute}/schools/${schoolId}/assessmentGrades`)
       .catch(ResponseUtils.badResponseToNull)
       .map(apiGrades => this.mapGradesFromApi(apiGrades));
   }

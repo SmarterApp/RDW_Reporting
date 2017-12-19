@@ -12,6 +12,8 @@ import { TranslateService } from "@ngx-translate/core";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { Angulartics2 } from "angulartics2";
 
+const ServiceRoute = '/reporting-service';
+
 @Injectable()
 export class SchoolAssessmentService implements AssessmentProvider {
 
@@ -38,7 +40,7 @@ export class SchoolAssessmentService implements AssessmentProvider {
   }
 
   getAvailableAssessments() {
-    return this.dataService.get(`/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments`, { search: this.getSchoolYearParams(this.schoolYear) })
+    return this.dataService.get(`${ServiceRoute}/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments`, { search: this.getSchoolYearParams(this.schoolYear) })
       .catch(ResponseUtils.badResponseToNull)
       .map(x => {
         return this.mapper.mapAssessmentsFromApi(x);
@@ -46,7 +48,7 @@ export class SchoolAssessmentService implements AssessmentProvider {
   }
 
   getExams(assessmentId: number) {
-    return this.dataService.get(`/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments/${assessmentId}/exams`, { search: this.getSchoolYearParams(this.schoolYear) })
+    return this.dataService.get(`${ServiceRoute}/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments/${assessmentId}/exams`, { search: this.getSchoolYearParams(this.schoolYear) })
       .catch(ResponseUtils.badResponseToNull)
       .map(x => {
         return this.mapper.mapExamsFromApi(x);
@@ -59,7 +61,7 @@ export class SchoolAssessmentService implements AssessmentProvider {
 
   getAssessmentItems(assessmentId: number, multipleChoiceMultipleSelectItems?: boolean) {
     if (multipleChoiceMultipleSelectItems) {
-      return this.dataService.get(`/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments/${assessmentId}/examitems`, {
+      return this.dataService.get(`${ServiceRoute}/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments/${assessmentId}/examitems`, {
           params: {
             types: [ 'MC', 'MS' ],
             schoolYear: this.schoolYear.toString()
@@ -70,7 +72,7 @@ export class SchoolAssessmentService implements AssessmentProvider {
           return this.mapper.mapAssessmentItemsFromApi(x);
         });
     }
-    return this.dataService.get(`/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments/${assessmentId}/examitems`, { search: this.getSchoolYearParams(this.schoolYear) })
+    return this.dataService.get(`${ServiceRoute}/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments/${assessmentId}/examitems`, { search: this.getSchoolYearParams(this.schoolYear) })
       .catch(ResponseUtils.badResponseToNull)
       .map(x => {
         return this.mapper.mapAssessmentItemsFromApi(x);
@@ -98,7 +100,7 @@ export class SchoolAssessmentService implements AssessmentProvider {
   }
 
   private getRecentAssessmentBySchoolYear(schoolId: number, gradeId: number, schoolYear: number) {
-    return this.dataService.get(`/schools/${schoolId}/assessmentGrades/${gradeId}/latestassessment`, { search: this.getSchoolYearParams(schoolYear) })
+    return this.dataService.get(`${ServiceRoute}/schools/${schoolId}/assessmentGrades/${gradeId}/latestassessment`, { search: this.getSchoolYearParams(schoolYear) })
       .catch(ResponseUtils.badResponseToNull)
       .map(x => {
         if (x == null) {

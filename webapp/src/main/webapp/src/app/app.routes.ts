@@ -23,6 +23,8 @@ import { OrganizationExportComponent } from "./organization-export/organization-
 import { UserOrganizationsResolve } from "./organization-export/organization/user-organizations.resolve";
 import { RoutingAuthorizationCanActivate } from "@sbac/rdw-reporting-common-ngx/security/routing-authorization.can-activate";
 import { AuthorizationCanActivate } from "@sbac/rdw-reporting-common-ngx/security/authorization.can-activate";
+import { AggregateReportsComponent } from "./aggregate-report/aggregate-reports.component";
+import { AggregateReportsResultsComponent } from "./aggregate-report/results/aggregate-reports-results.component";
 
 
 const studentTestHistoryChildRoute = {
@@ -138,10 +140,30 @@ export const routes: Routes = [
       {
         path: 'reports',
         pathMatch: 'full',
-        data: { breadcrumb: { translate: 'labels.reports.heading' }, permissions: [ 'GROUP_PII_READ' ]},
+        data: {
+          breadcrumb: { translate: 'labels.reports.heading' }, permissions: [ 'GROUP_PII_READ' ]},
         canActivate: [ AuthorizationCanActivate ],
         resolve: { reports: ReportsResolve },
         component: ReportsComponent
+      },
+      {
+        path: 'aggregate-reports',
+        data: { breadcrumb: { translate: 'labels.aggregate-reports.heading'}, permissions: [ /*TODO*/ ]},
+        // canActivate: [ AuthorizationCanActivate ],
+        children: [
+          {
+            path: '',
+            data: { canReuse: true },
+            pathMatch: 'full',
+            component: AggregateReportsComponent
+          },
+          {
+            path: 'results',
+            pathMatch: 'full',
+            data: { breadcrumb: { translate: 'labels.aggregate-reports.results.heading'}},
+            component: AggregateReportsResultsComponent
+          }
+        ]
       },
       {
         path: 'custom-export',

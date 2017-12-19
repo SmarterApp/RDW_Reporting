@@ -1,0 +1,27 @@
+sql:
+  # a tokenized version of the SQL query for the custom aggregate reports
+  # the @{template.XXXX} tokens are replaced with the appropriate queries at run time
+  customAggregate: >-
+      CASE WHEN dim.organization_id = -1 THEN null else dim.organization_name END,
+      CASE WHEN dim.organization_id = -1 THEN null else dim.organization_id END,
+      dim.organization_type,
+      dim.grade_id as asmt_grade_id,
+      dim.school_year,
+      dim.subject_id,
+      dim.dimension_code,
+      dim.dimension,
+      dim.asmt_id,
+      measure.score,
+      measure.std_err,
+      measure.level1,
+      measure.level2,
+      measure.level3,
+      measure.level4
+      FROM (@{template.customAggregateAllPermutations}) dim
+        LEFT JOIN (@{template.customAggregate}) measure
+      ON measure.asmt_grade_id = dim.grade_id
+      AND measure.subject_id = dim.subject_id
+      AND dim.school_year = measure.school_year
+      AND dim.organization_id = measure.organization_id
+      AND measure.dimension_id = dim.dimension_id
+      AND measure.asmt_id = dim.asmt_id

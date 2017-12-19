@@ -1,0 +1,125 @@
+# actuator end-points should be served from a different port than the API/web content
+management:
+  port: 8008
+  security:
+    enabled: false
+  health:
+    redis:
+      enabled: false
+
+saml:
+  # SAML keystore path: file:/some/path/saml.jks
+  key-store-file: ${rdw.reporting.keystore.path}
+  key-store-password: ${rdw.reporting.keystore.password}
+  private-key-entry-alias: ${rdw.reporting.keystore.alias}
+  private-key-entry-password: ${rdw.reporting.keystore.entry.password}
+  idp-metadata-url: ${rdw.reporting.idp}
+  sp-entity-id: ${rdw.reporting.entityId}
+  # SAML settings when hosting behind a load balancer or reverse proxy
+  load-balance:
+    enabled: false
+    scheme: https
+    hostname:
+    context-path: /
+    port: 8080
+    include-server-port: false
+
+server:
+  # tomcat settings for reasonable performance: adjust for tiny/huge configurations
+  tomcat:
+    max-connections: 0
+    max-threads: 4
+    accept-count: 10
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,text/csv
+
+spring:
+  resources:
+    chain:
+      enabled: true
+      gzipped: true
+
+  session:
+    store-type: none
+
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+
+  cache:
+    type: SIMPLE
+    cache-names: permissionsByRole, internalTranslationsByCode, mergeTranslations
+
+  thymeleaf:
+    mode: HTML
+
+security:
+  filter-dispatcher-types: FORWARD, INCLUDE, REQUEST, ASYNC, ERROR
+
+cloud:
+  aws:
+    credentials:
+      #AWS credentials are necessary if reading assessment files from S3
+      accessKey: ${rdw.aws.access.key:}
+      secretKey: ${rdw.aws.secret.key:}
+      instance-profile: false
+    region:
+      auto: false
+      static: us-west-2
+    # disable CloudFormation stuff
+    stack:
+      auto: false
+
+artifacts:
+  #Root location of assessment files [s3://some-bucket/ | classpath: | etc]
+  root: ${rdw.resource.root:"classpath:"}
+  exam-item:
+    directory: ${rdw.reporting.artifacts.exam.item.directory:local/items/Item-{0}/}
+    file-name: item-{0}.xml
+
+permissionservice:
+  component: Reporting
+  endpoint: ${rdw.permission.service}
+
+app:
+  state:
+    code: CA
+    name: California
+
+  datamart:
+    datasource:
+      url: "\
+        jdbc:mysql://${app.datamart.datasource.url-server:localhost:3306}/${app.datamart.datasource.url-schema:reporting}\
+        ?useSSL=${app.datamart.datasource.use-ssl:false}\
+        &useLegacyDatetimeCode=${app.datamart.datasource.use-legacy-datetime-code:false}\
+        &characterEncoding=${app.datamart.datasource.character-encoding:utf8}\
+        &useCompression=${app.datamart.datasource.use-compression:true}\
+        "
+      username: root
+      password:
+      testWhileIdle: true
+      validationQuery: SELECT 1
+      driverClassName: com.mysql.jdbc.Driver
+      initialize: false
+
+  iris:
+    vendorId: ${rdw.reporting.iris.vendorId}
+    url: ${rdw.reporting.iris.url}
+
+  # google analytics configuration
+  analytics:
+    trackingId: ${rdw.reporting.analytics.trackingId:}
+
+  admin-webapp-url:
+
+  external-links:
+    interpretive-guide: https://portal.smarterbalanced.org/library/en/reporting-system-interpretive-guide.pdf
+    user-guide: https://portal.smarterbalanced.org/library/en/reporting-system-user-guide.pdf
+
+  min-item-data-year: 2016
+
+jwt:
+  secret: ${rdw.reporting.jwt.secret:secret}
+

@@ -5,6 +5,8 @@ import { Observable } from "rxjs/Observable";
 import { AssessmentItem } from "../../assessments/model/assessment-item.model";
 import { ResponseUtils } from "../../shared/response-utils";
 
+const ServiceRoute = '/reporting-service';
+
 /**
  * This service is responsible for providing student response information.
  */
@@ -23,7 +25,7 @@ export class StudentResponsesService {
    * @returns {Observable<AssessmentItem[]>} The exam responses
    */
   findItemsByStudentAndExam(studentId: number, examId: number): Observable<AssessmentItem[]> {
-    return this.dataService.get(`/students/${studentId}/exams/${examId}/examitems`)
+    return this.dataService.get(`${ServiceRoute}/students/${studentId}/exams/${examId}/examitems`)
       .catch(ResponseUtils.badResponseToNull)
       .map((apiExamItems) => {
         if (!apiExamItems) return null;

@@ -1,10 +1,11 @@
-include ':common'
-include ':common-web'
-include ':common-ngx'
-include ':webapp'
-include ':report-processor'
-include ':admin-webapp'
-include ':olap'
+include 'common'
+include 'common-web'
+include 'common-ngx'
+include 'webapp'
+include 'report-processor'
+include 'reporting-service'
+include 'admin-webapp'
+include 'olap'
 
 rootProject.name = "rdw-reporting"
 

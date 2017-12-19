@@ -5,6 +5,8 @@ import { Observable } from "rxjs/Observable";
 import { CachingDataService } from "@sbac/rdw-reporting-common-ngx";
 import "rxjs/add/observable/forkJoin";
 
+const ServiceRoute = '/reporting-service';
+
 @Injectable()
 export class OrganizationService {
 
@@ -40,7 +42,7 @@ export class OrganizationService {
 
   private getDistrictNamesById() {
     return this.dataService
-      .get('/organizations/districts')
+      .get(`${ServiceRoute}/organizations/districts`)
       .map(districts => new Map<number, string>(districts.map(x => [ x.id, x.name ])));
   }
 }

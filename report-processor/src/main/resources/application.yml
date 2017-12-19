@@ -5,6 +5,11 @@ management:
   security:
     enabled: false
 
+  ### this can be removed when spring-session dep is moved from common-web to webapp
+  health:
+    redis:
+      enabled: false
+
 server:
   port: 8080
 
@@ -55,7 +60,7 @@ spring:
   thymeleaf:
     mode: HTML
 
-  ### this will go away when spring-session dep is moved from common-web to reporting
+  ### this can be removed when spring-session dep is moved from common-web to webapp
   session:
     store-type: none
 

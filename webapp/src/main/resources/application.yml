@@ -43,6 +43,7 @@ spring:
   session:
     store-type: none
 
+  # still need this for translations api
   jackson:
     default-property-inclusion: non_null
     serialization:
@@ -52,32 +53,8 @@ spring:
     type: SIMPLE
     cache-names: permissionsByRole, internalTranslationsByCode, mergeTranslations
 
-  thymeleaf:
-    mode: HTML
-
 security:
   filter-dispatcher-types: FORWARD, INCLUDE, REQUEST, ASYNC, ERROR
-
-cloud:
-  aws:
-    credentials:
-      #AWS credentials are necessary if reading assessment files from S3
-      accessKey: ${rdw.aws.access.key:}
-      secretKey: ${rdw.aws.secret.key:}
-      instance-profile: false
-    region:
-      auto: false
-      static: us-west-2
-    # disable CloudFormation stuff
-    stack:
-      auto: false
-
-artifacts:
-  #Root location of assessment files [s3://some-bucket/ | classpath: | etc]
-  root: ${rdw.resource.root:"classpath:"}
-  exam-item:
-    directory: ${rdw.reporting.artifacts.exam.item.directory:local/items/Item-{0}/}
-    file-name: item-{0}.xml
 
 permissionservice:
   component: Reporting
@@ -105,20 +82,8 @@ app:
       initialize: false
 
   iris:
-    vendorId: ${rdw.reporting.iris.vendorId}
+    # TODO would be more consistent to config zuul.routes.iris.url on config server
     url: ${rdw.reporting.iris.url}
-
-  # google analytics configuration
-  analytics:
-    trackingId: ${rdw.reporting.analytics.trackingId:}
-
-  admin-webapp-url:
-
-  external-links:
-    interpretive-guide: https://portal.smarterbalanced.org/library/en/reporting-system-interpretive-guide.pdf
-    user-guide: https://portal.smarterbalanced.org/library/en/reporting-system-user-guide.pdf
-
-  min-item-data-year: 2016
 
 # Netflix zuul configuration.
 zuul:
@@ -136,9 +101,12 @@ zuul:
       path: /api/report-processor/**
       url: http://localhost:8085
       stripPrefix: true
+    reporting-service:
+      path: /api/reporting-service/**
+      url: http://localhost:8180
+      stripPrefix: true
 
 jwt:
   secret: ${rdw.reporting.jwt.secret:secret}
   producer: true
-  routePaths: ${zuul.routes.report-processor.path}
-
+  routePaths: ${zuul.routes.report-processor.path},${zuul.routes.reporting-service.path}

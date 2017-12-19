@@ -10,6 +10,8 @@ import { GradeCode } from "../../../shared/enum/grade-code.enum";
 })
 export class SelectAssessmentsComponent {
 
+  private _comparator = (a: string, b: string) => a && b ? a.localeCompare(b) : 0;
+
   assessmentsByGrade: any[] = [];
 
   @Input()
@@ -43,7 +45,7 @@ export class SelectAssessmentsComponent {
     let assessmentsByGrade = [];
 
     let grades: string[] = _.uniq(this._assessments.map(assessment => assessment.grade))
-      .sort((a, b) => a.localeCompare(b));
+      .sort(this._comparator);
 
     for (let grade of grades) {
       let assessments = this._assessments.filter(x => x.grade == grade);

@@ -28,6 +28,7 @@ export class StudentResultsComponent implements OnInit {
   minimumItemDataYear: number;
 
   private typeDisplayOrder: AssessmentType[] = [AssessmentType.IAB, AssessmentType.ICA, AssessmentType.SUMMATIVE];
+  private _comparator = (a: string, b: string) => a && b ? a.localeCompare(b) : 0;
 
   get assessmentTypes(): AssessmentType[] {
     return Array.from(this.examsByTypeAndSubject.keys())
@@ -68,7 +69,7 @@ export class StudentResultsComponent implements OnInit {
    */
   getSubjectsForType(type: AssessmentType): string[] {
     return Array.from(this.examsByTypeAndSubject.get(type).keys())
-      .sort((a, b) => a.localeCompare(b));
+      .sort(this._comparator);
   }
 
   /**
@@ -235,7 +236,7 @@ export class StudentResultsComponent implements OnInit {
 
     //Reduce subjects to ordered unique list
     this.filterState.subjects = subjects
-      .sort((a: string, b: string) => a.localeCompare(b))
+      .sort(this._comparator)
       .filter((subject: string, idx: number, array: string[]) => idx == 0 || subject != array[ idx - 1 ]);
 
     if (params[ "subject" ]) {
