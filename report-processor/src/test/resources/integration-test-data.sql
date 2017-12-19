@@ -1,14 +1,14 @@
 insert into district_group (id, natural_id, name) values
   (-9, 'districtNatgroup1', 'districtgroup1');
 
-insert into district (id, natural_id, name, embargo_enabled) values
-  (-10, 'districtNat1', 'district1', 0);
+insert into district (id, natural_id, name) values
+  (-10, 'districtNat1', 'district1');
 
 insert into school_group (id, natural_id, name) values
   (-11, 'schoolgroupNat1', 'schoolgroup1'),
   (-20, 'schoolgroupNat2', 'schoolgroup2');
 
-insert into school (id, district_group_id, district_id, school_group_id, natural_id, name, district_embargo_enabled, update_import_id, updated, migrate_id) VALUES
+insert into school (id, district_group_id, district_id, school_group_id, natural_id, name, embargo_enabled, update_import_id, updated, migrate_id) VALUES
   (-10, -9, -10, -11, 'schoolNat1', 'school1', 0, -1, '1997-07-18 20:14:34.000000', -1),
   (-11, -9, -10, null, 'schoolNat2', 'school2', 0, -1, '1997-07-18 20:14:34.000000', -1),
   (-12, -9, -10, -20, 'schoolNat3', 'school3', 0, -1, '1997-07-18 20:14:34.000000', -1),
