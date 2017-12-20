@@ -19,8 +19,6 @@ export class AuthorizationCanActivate implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.authorizationService.hasAnyPermission(route.data[ 'permissions' ]).map((permission) => {
-        console.log('route data', route.data);
-        console.log('permission', permission);
         if (!permission && route.data[ 'denyAccess' ]) {
           this.router.navigate([ this.accessDeniedRoute ]);
         }
