@@ -1,10 +1,11 @@
 import { Component, Input } from "@angular/core";
 import { AssessmentExam } from "../model/assessment-exam.model";
 import { ExamStatistics, ExamStatisticsLevel } from "../model/exam-statistics.model";
-import { InstructionalResource, InstructionalResources } from "../model/instructional-resources.model";
+import { InstructionalResource } from "../model/instructional-resources.model";
 import { InstructionalResourcesService } from "./instructional-resources.service";
 import { ColorService } from "../../shared/color.service";
 import { AssessmentProvider } from "../assessment-provider.interface";
+import { Observable } from "rxjs/Observable";
 
 /**
  * This component is responsible for displaying the average scale score visualization
@@ -41,7 +42,7 @@ export class AverageScaleScoreComponent {
     return this._statistics;
   }
 
-  instructionalResources: InstructionalResource[];
+  instructionalResourcesProvider: () => Observable<InstructionalResource[]>;
 
   private _statistics: ExamStatistics;
   private _totalCount: number;
@@ -87,10 +88,8 @@ export class AverageScaleScoreComponent {
   }
 
   loadInstructionalResources(performanceLevel: ExamStatisticsLevel) {
-    this.instructionalResourcesService.getInstructionalResources(this.assessmentExam.assessment.id, this.assessmentProvider.getSchoolId())
-      .subscribe((instructionalResources: InstructionalResources) => {
-        this.instructionalResources = instructionalResources.getResourcesByPerformance(performanceLevel.id);
-      });
+    this.instructionalResourcesProvider = () => this.instructionalResourcesService.getInstructionalResources(this.assessmentExam.assessment.id, this.assessmentProvider.getSchoolId())
+        .map(resources => resources.getResourcesByPerformance(performanceLevel.id));
   }
 
 }

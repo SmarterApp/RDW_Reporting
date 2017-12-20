@@ -32,7 +32,7 @@ export class StudentHistoryIABTableComponent implements OnInit {
 
 
   actions: PopupMenuAction[];
-  instructionalResources: InstructionalResource[];
+  instructionalResourcesProvider: () => Observable<InstructionalResource[]>;
 
   constructor(private actionBuilder: MenuActionBuilder,
               private instructionalResourcesService: InstructionalResourcesService) {
@@ -57,9 +57,8 @@ export class StudentHistoryIABTableComponent implements OnInit {
 
   loadInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): void {
     let exam = studentHistoryExam.exam;
-    this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
-      this.instructionalResources = instructionalResources.getResourcesByPerformance(exam.level);
-    });
+    this.instructionalResourcesProvider = () => this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id)
+      .map(resources => resources.getResourcesByPerformance(exam.level));
   }
 
   loadAssessmentInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): Observable<InstructionalResource[]> {

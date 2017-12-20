@@ -40,7 +40,9 @@ import { Utils } from "../support/support";
         <button
           [disabled]="action.isDisabled(item)"
           (click)="onMenuClick($event, action)"
-          class="btn btn-default btn-borderless">{{action.displayName( item )}}
+          class="btn btn-default btn-borderless">
+          <i *ngIf="isSubActionsLoading(action)" class="fa fa-spinner fa-pulse fa-fw"></i>
+          {{action.displayName( item )}}
         </button>
       </a>
       <ul *ngIf="getSubActions(action).length" class="dropdown-menu">
@@ -65,6 +67,7 @@ export class PopupMenuComponent {
   public actions: PopupMenuAction[];
 
   private _subActions: Map<PopupMenuAction, PopupMenuAction[]> = new Map();
+  private _loadedSubActions: Set<PopupMenuAction> = new Set();
   private _open: boolean;
 
   private removeListener: () => void;
@@ -99,10 +102,15 @@ export class PopupMenuComponent {
     }
   }
 
+  public isSubActionsLoading(action: PopupMenuAction): boolean {
+    return !this._loadedSubActions.has(action);
+  }
+
   public getSubActions(action: PopupMenuAction): PopupMenuAction[] {
     if (!this._subActions.has(action)) {
       this._subActions.set(action, []);
       action.getSubActions(this.item).subscribe((subActions: PopupMenuAction[]) => {
+        this._loadedSubActions.add(action);
         this._subActions.set(action, subActions);
       });
     }

@@ -1,8 +1,15 @@
-<div *ngIf="resources && resources.length; else noResources">
-  <p class="popover-link"
-     *ngFor="let instructionalResource of resources">
-    <a href="{{instructionalResource.url}}" target="_blank">{{ ('labels.instructional-resources.link.' + instructionalResource.organizationLevel) | translate:instructionalResource }}</a>
-  </p>
+<div *ngIf="loading" class="loader">
+  <div class="inner">
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+  </div>
+</div>
+<div *ngIf="!loading">
+  <div *ngIf="resources && resources.length; else noResources">
+    <p class="popover-link"
+       *ngFor="let instructionalResource of resources">
+      <a href="{{instructionalResource.url}}" target="_blank">{{ ('labels.instructional-resources.link.' + instructionalResource.organizationLevel) | translate:instructionalResource }}</a>
+    </p>
+  </div>
 </div>
 
 <ng-template #noResources>

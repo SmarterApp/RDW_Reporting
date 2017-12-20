@@ -8,7 +8,8 @@ import { MenuActionBuilder } from "../../../menu/menu-action.builder";
 import { Assessment } from "../../../model/assessment.model";
 import { PopupMenuAction } from "@sbac/rdw-reporting-common-ngx";
 import { InstructionalResourcesService } from "../../instructional-resources.service";
-import { InstructionalResource, InstructionalResources } from "../../../model/instructional-resources.model";
+import { InstructionalResource } from "../../../model/instructional-resources.model";
+import { Observable } from "rxjs/Observable";
 
 enum ScoreViewState {
   OVERALL = 1,
@@ -43,7 +44,7 @@ export class ResultsByStudentComponent implements OnInit {
   reportDownloader: StudentReportDownloadComponent;
 
   actions: PopupMenuAction[];
-  instructionalResources: InstructionalResource[];
+  instructionalResourcesProvider: () => Observable<InstructionalResource[]>;
   displayState: any = {
     showClaim: ScoreViewState.OVERALL
   };
@@ -105,9 +106,8 @@ export class ResultsByStudentComponent implements OnInit {
   }
 
   loadInstructionalResources(exam: Exam) {
-    this.instructionalResourcesService.getInstructionalResources(this.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
-      this.instructionalResources = instructionalResources.getResourcesByPerformance(exam.level);
-    });
+    this.instructionalResourcesProvider = () => this.instructionalResourcesService.getInstructionalResources(this.assessment.id, exam.school.id)
+        .map(resources => resources.getResourcesByPerformance(exam.level));
   }
 
   private createActions(): PopupMenuAction[] {

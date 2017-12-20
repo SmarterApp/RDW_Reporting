@@ -1,19 +1,23 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { InstructionalResource } from "../model/instructional-resources.model";
-import { TranslateService } from "@ngx-translate/core";
+import { Observable } from "rxjs/Observable";
 
 @Component({
   selector: 'instructional-resource-popover',
   templateUrl: './instructional-resource-popover.component.html'
 })
-export class InstructionalResourcePopoverComponent {
-
-  constructor(private translateService: TranslateService) {}
+export class InstructionalResourcePopoverComponent implements OnInit {
 
   @Input()
-  resources: InstructionalResource[];
+  provider: () => Observable<InstructionalResource[]>;
 
-  @Input()
-  performanceLevel: number;
+  public resources: InstructionalResource[] = [];
+  public loading: boolean = true;
 
+  ngOnInit(): void {
+    this.provider().subscribe((resources) => {
+      this.loading = false;
+      this.resources = resources;
+    })
+  }
 }
