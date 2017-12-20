@@ -8,7 +8,7 @@ import {
   InstructionalResources
 } from "../../../assessments/model/instructional-resources.model";
 import { PopupMenuAction } from "@sbac/rdw-reporting-common-ngx/menu/popup-menu-action.model";
-import { TranslateService } from "@ngx-translate/core";
+import { Observable } from "rxjs/Observable";
 
 @Component({
   selector: 'student-history-iab-table',
@@ -35,8 +35,7 @@ export class StudentHistoryIABTableComponent implements OnInit {
   instructionalResources: InstructionalResource[];
 
   constructor(private actionBuilder: MenuActionBuilder,
-              private instructionalResourcesService: InstructionalResourcesService,
-              private translateService: TranslateService) {
+              private instructionalResourcesService: InstructionalResourcesService) {
   }
 
   ngOnInit(): void {
@@ -52,26 +51,22 @@ export class StudentHistoryIABTableComponent implements OnInit {
     return this.actionBuilder
       .newActions()
       .withResponses(x => x.exam.id, () => this.student, x => x.exam.schoolYear > this.minimumItemDataYear)
-      .withShowResources(x => x.assessment.resourceUrl)
+      .withShowResources(this.loadAssessmentInstructionalResources.bind(this))
       .build();
   }
 
-  loadInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper) {
+  loadInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): void {
     let exam = studentHistoryExam.exam;
     this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
       this.instructionalResources = instructionalResources.getResourcesByPerformance(exam.level);
     });
   }
 
-  loadAssessmentInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): Array<[ string, string ]> {
-    let assessmentInstructionalResources = new Array<[ string, string ]>();
+  loadAssessmentInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): Observable<InstructionalResource[]> {
     let exam = studentHistoryExam.exam;
-    this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
-      if (instructionalResources)
-        for (let instructionalResource of instructionalResources.getResourcesByPerformance(0)) {
-          assessmentInstructionalResources.push([ instructionalResource.url, this.translateService.instant('labels.instructional-resources.link.' + instructionalResource.organizationLevel, instructionalResource) ]);
-        }
-    });
-    return assessmentInstructionalResources;
+    return this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id)
+      .map((resources: InstructionalResources) => {
+        return resources.getResourcesByPerformance(0);
+      });
   }
 }

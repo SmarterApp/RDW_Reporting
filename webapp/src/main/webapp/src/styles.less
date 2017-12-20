@@ -395,14 +395,12 @@ body .select-menu-group {
   left:100%;
   margin-top:-6px;
   margin-left:-1px;
-  -webkit-border-radius:0 6px 6px 6px;
-  -moz-border-radius:0 6px 6px 6px;
-  border-radius:0 6px 6px 6px;
+  border-radius:0 @border-radius-base @border-radius-base @border-radius-base;
 }
 .dropdown-submenu:hover>.dropdown-menu {
   display:block;
 }
-.dropdown-submenu>a:after {
+.dropdown-submenu>a>button:after {
   display:block;
   content:" ";
   float:right;
@@ -412,8 +410,8 @@ body .select-menu-group {
   border-style:solid;
   border-width:5px 0 5px 5px;
   border-left-color:@gray-mid;
-  margin-top:5px;
-  margin-right:-10px;
+  margin-top:@padding-base-vertical;
+  margin-right:-@padding-base-horizontal;
 }
 
 .dropdown-submenu.pull-left {
@@ -422,7 +420,5 @@ body .select-menu-group {
 .dropdown-submenu.pull-left>.dropdown-menu {
   left:-100%;
   margin-left:10px;
-  -webkit-border-radius:6px 0 6px 6px;
-  -moz-border-radius:6px 0 6px 6px;
-  border-radius:6px 0 6px 6px;
+  border-radius:@border-radius-base 0 @border-radius-base @border-radius-base;
 }

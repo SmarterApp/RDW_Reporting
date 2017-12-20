@@ -1,10 +1,10 @@
 import { Assessment } from "../model/assessment.model";
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
-import { TestBed, inject } from "@angular/core/testing";
+import { inject, TestBed } from "@angular/core/testing";
 import { ScaleScoreService } from "./scale-score.service";
 import { ExamStatisticsLevel } from "../model/exam-statistics.model";
 
-describe('Assessment Model', () => {
+describe('ScaleScoreService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({

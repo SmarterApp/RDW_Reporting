@@ -24,38 +24,33 @@ import { Utils } from "../support/support";
         <i class="fa fa-ellipsis-v" [ngClass]="{'mr-xs': hasText}"></i> {{text}}
       </button>
       <ul *ngIf="open" class="dropdown-menu" role="menu">
-        <li *ngFor="let action of actions" role="menuitem">
-          <a *ngIf="!action.isSubmenu()" class="dropdown-item"
-             popover="{{action.tooltip(item)}}"
-             triggers="{{ action.tooltip(item) == '' ? '': 'mouseenter:mouseleave'}}"
-             placement="right"
-             container="body">
-            <button
-              [disabled]="action.isDisabled(item)"
-              (click)="onMenuClick($event, action)"
-              class="btn btn-default btn-borderless">{{action.displayName( item )}}
-            </button>
-          </a>
-        </li>
-        <li *ngFor="let action of actions" role="menuitem" class="dropdown-submenu">
-          <a *ngIf="action.isSubmenu()" class="dropdown-item"
-             popover="{{action.tooltip(item)}}"
-             triggers="{{ action.tooltip(item) == '' ? '': 'mouseenter:mouseleave'}}"
-             placement="right"
-             container="body">
-            {{action.displayName( item )}}
-          </a>
-          <ul class="dropdown-menu">
-            <li *ngFor="let submenu of submenuItems">
-              <a href="{{ submenu[0] }}" target="_blank">{{ submenu[ 1 ] }}</a>
-            </li>
-            <li *ngIf="submenuItems == undefined || submenuItems == null || submenuItems.length == 0">
-              <a href="javascript:void(0)">{{ 'labels.groups.results.assessment.no-instruct-found' | translate }}</a>
-            </li>
-          </ul>
+        <li *ngFor="let action of actions"
+            role="menuitem"
+            [ngClass]="{'dropdown-submenu': getSubActions(action).length}">
+          <ng-container *ngTemplateOutlet="actionTemplate;context:{action: action}"></ng-container>
         </li>
       </ul>
     </div>
+    <ng-template #actionTemplate let-action="action">
+      <a class="dropdown-item"
+         popover="{{action.tooltip(item)}}"
+         triggers="{{ action.tooltip(item) == '' ? '': 'mouseenter:mouseleave'}}"
+         placement="right"
+         container="body">
+        <button
+          [disabled]="action.isDisabled(item)"
+          (click)="onMenuClick($event, action)"
+          class="btn btn-default btn-borderless">{{action.displayName( item )}}
+        </button>
+      </a>
+      <ul *ngIf="getSubActions(action).length" class="dropdown-menu">
+        <li *ngFor="let subAction of getSubActions(action)"
+            role="menuitem"
+            [ngClass]="{'dropdown-submenu': getSubActions(subAction).length}">
+          <ng-container *ngTemplateOutlet="actionTemplate;context:{action: subAction}"></ng-container>
+        </li>
+      </ul>
+    </ng-template>
   `
 })
 export class PopupMenuComponent {
@@ -69,9 +64,7 @@ export class PopupMenuComponent {
   @Input()
   public actions: PopupMenuAction[];
 
-  @Input()
-  public submenuItems: Array<[ string, string ]>;
-
+  private _subActions: Map<PopupMenuAction, PopupMenuAction[]> = new Map();
   private _open: boolean;
 
   private removeListener: () => void;
@@ -106,6 +99,16 @@ export class PopupMenuComponent {
     }
   }
 
+  public getSubActions(action: PopupMenuAction): PopupMenuAction[] {
+    if (!this._subActions.has(action)) {
+      this._subActions.set(action, []);
+      action.getSubActions(this.item).subscribe((subActions: PopupMenuAction[]) => {
+        this._subActions.set(action, subActions);
+      });
+    }
+    return this._subActions.get(action);
+  }
+
   /**
    * Handle a document click event.  If it is outside of the menu, close the menu.
    *
@@ -127,5 +130,4 @@ export class PopupMenuComponent {
 
     action.perform(this.item);
   }
-
 }

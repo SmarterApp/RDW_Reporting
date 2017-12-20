@@ -8,7 +8,7 @@ import {
   InstructionalResource,
   InstructionalResources
 } from "../../../assessments/model/instructional-resources.model";
-import { TranslateService } from "@ngx-translate/core";
+import { Observable } from "rxjs/Observable";
 
 @Component({
   selector: 'student-history-ica-summitive-table',
@@ -39,8 +39,7 @@ export class StudentHistoryICASummitiveTableComponent implements OnInit {
   instructionalResources: InstructionalResource[];
 
   constructor(private actionBuilder: MenuActionBuilder,
-              private instructionalResourcesService: InstructionalResourcesService,
-              private translateService: TranslateService) {
+              private instructionalResourcesService: InstructionalResourcesService) {
   }
 
   ngOnInit(): void {
@@ -67,17 +66,12 @@ export class StudentHistoryICASummitiveTableComponent implements OnInit {
     });
   }
 
-  loadAssessmentInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): Array<[ string, string ]> {
-    let assessmentInstructionalResources = new Array<[ string, string ]>();
+  loadAssessmentInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): Observable<InstructionalResource[]> {
     let exam = studentHistoryExam.exam;
-
-    this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
-      if (instructionalResources)
-        for (let instructionalResource of instructionalResources.getResourcesByPerformance(0)) {
-          assessmentInstructionalResources.push([ instructionalResource.url, this.translateService.instant('labels.instructional-resources.link.' + instructionalResource.organizationLevel, instructionalResource) ]);
-        }
-    });
-    return assessmentInstructionalResources;
+    return this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id)
+      .map((resources: InstructionalResources) => {
+        return resources.getResourcesByPerformance(0);
+      });
   }
 
   /**
@@ -89,7 +83,7 @@ export class StudentHistoryICASummitiveTableComponent implements OnInit {
     return this.actionBuilder
       .newActions()
       .withResponses(x => x.exam.id, () => this.student, x => x.exam.schoolYear > this.minimumItemDataYear)
-      .withShowResources(x => x.assessment.resourceUrl)
+      .withShowResources(this.loadAssessmentInstructionalResources.bind(this))
       .build();
   }
 }

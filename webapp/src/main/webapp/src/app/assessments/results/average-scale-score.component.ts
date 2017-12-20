@@ -3,8 +3,8 @@ import { AssessmentExam } from "../model/assessment-exam.model";
 import { ExamStatistics, ExamStatisticsLevel } from "../model/exam-statistics.model";
 import { InstructionalResource, InstructionalResources } from "../model/instructional-resources.model";
 import { InstructionalResourcesService } from "./instructional-resources.service";
-import { GroupAssessmentService } from "../../groups/results/group-assessment.service";
 import { ColorService } from "../../shared/color.service";
+import { AssessmentProvider } from "../assessment-provider.interface";
 
 /**
  * This component is responsible for displaying the average scale score visualization
@@ -34,6 +34,9 @@ export class AverageScaleScoreComponent {
     }
   }
 
+  @Input()
+  assessmentProvider: AssessmentProvider;
+
   get statistics(): ExamStatistics {
     return this._statistics;
   }
@@ -44,8 +47,7 @@ export class AverageScaleScoreComponent {
   private _totalCount: number;
 
   constructor(public colorService: ColorService,
-              private instructionalResourcesService: InstructionalResourcesService,
-              private assessmentProvider: GroupAssessmentService) {
+              private instructionalResourcesService: InstructionalResourcesService) {
   }
 
   get hasAverageScore(): boolean {
@@ -85,9 +87,10 @@ export class AverageScaleScoreComponent {
   }
 
   loadInstructionalResources(performanceLevel: ExamStatisticsLevel) {
-    this.instructionalResourcesService.getInstructionalResources(this.assessmentExam.assessment.id, this.assessmentProvider.getSchoolId()).subscribe((instructionalResources: InstructionalResources) => {
-      this.instructionalResources = instructionalResources.getResourcesByPerformance(performanceLevel.id);
-    });
+    this.instructionalResourcesService.getInstructionalResources(this.assessmentExam.assessment.id, this.assessmentProvider.getSchoolId())
+      .subscribe((instructionalResources: InstructionalResources) => {
+        this.instructionalResources = instructionalResources.getResourcesByPerformance(performanceLevel.id);
+      });
   }
 
 }

@@ -18,7 +18,7 @@ import { ResultsByItemComponent } from "./view/results-by-item/results-by-item.c
 import { DistractorAnalysisComponent } from "./view/distractor-analysis/distractor-analysis.component";
 import { InstructionalResourcesService } from "./instructional-resources.service";
 import { InstructionalResource, InstructionalResources } from "../model/instructional-resources.model";
-import { TranslateService } from "@ngx-translate/core";
+import { Assessment } from "../model/assessment.model";
 
 enum ResultsViewState {
   ByStudent = 1,
@@ -218,10 +218,11 @@ export class AssessmentResultsComponent implements OnInit {
     window.open(this.assessmentExam.assessment.resourceUrl);
   }
 
-  loadInstructionalResources(performanceLevel: number) {
-    this.instructionalResourcesService.getInstructionalResources(this.assessmentExam.assessment.id, this.assessmentProvider.getSchoolId()).subscribe((instructionalResources: InstructionalResources) => {
-      this.instructionalResources = instructionalResources.getResourcesByPerformance(performanceLevel);
-    });
+  loadInstructionalResources(assessment: Assessment, performanceLevel: number) {
+    this.instructionalResourcesService.getInstructionalResources(assessment.id, this.assessmentProvider.getSchoolId())
+      .subscribe((instructionalResources: InstructionalResources) => {
+        this.instructionalResources = instructionalResources.getResourcesByPerformance(performanceLevel);
+      });
   }
 
   private getDistinctExamSessions(exams: Exam[]) {

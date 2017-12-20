@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { CachingDataService } from "@sbac/rdw-reporting-common-ngx";
+import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { ResponseUtils } from "../../shared/response-utils";
 import { Observable } from "rxjs/Observable";
 import { InstructionalResource, InstructionalResources } from "../model/instructional-resources.model";
@@ -9,19 +9,33 @@ const ServiceRoute = '/reporting-service';
 
 @Injectable()
 export class InstructionalResourcesService {
-  constructor(private dataService: CachingDataService) {
+  private resourcesBySchoolAssessment: { [key: string]: any } = {};
+
+  constructor(private dataService: DataService) {
   }
 
   getInstructionalResources(assessmentId: number, schoolId: number): Observable<InstructionalResources> {
-    let params: URLSearchParams = new URLSearchParams();
+    let cacheKey: string = InstructionalResourcesService.getKey(assessmentId, schoolId);
 
+    // Return cached value
+    if (this.resourcesBySchoolAssessment.hasOwnProperty(cacheKey)) {
+      return Observable.of(this.resourcesBySchoolAssessment[cacheKey]);
+    }
+
+    let params: URLSearchParams = new URLSearchParams();
     params.set('assessmentId', assessmentId.toString());
     params.set('schoolId', schoolId.toString());
+
     return this.dataService.get(`${ServiceRoute}/instructional-resources`, { params: params })
       .catch(ResponseUtils.badResponseToNull)
       .map(instructionalResources => {
-        if (instructionalResources === null || instructionalResources.length === 0) return null;
-        return InstructionalResourcesService.mapInstructionalResourcesFromApi(instructionalResources);
+        let resources: InstructionalResources = (!instructionalResources || instructionalResources.length === 0)
+          ? new InstructionalResources(new Map())
+          : InstructionalResourcesService.mapInstructionalResourcesFromApi(instructionalResources);
+
+        //Cache response
+        this.resourcesBySchoolAssessment[cacheKey] = resources;
+        return resources;
       });
   }
 
@@ -42,8 +56,12 @@ export class InstructionalResourcesService {
     let instructionalResource = new InstructionalResource();
     instructionalResource.organizationLevel = apiModel.organizationLevel;
     instructionalResource.organizationName = apiModel.organizationName;
-    instructionalResource.performanceLevel = apiModel.performanceLevel;
+    instructionalResource.performanceLevel = apiModel.performanceLevel.toString();
     instructionalResource.url = apiModel.resource;
     return instructionalResource;
+  }
+
+  private static getKey(assessmentId: number, schoolId: number): string {
+    return assessmentId + "|" + schoolId;
   }
 }
