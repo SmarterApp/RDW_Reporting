@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { Assessment } from "../../model/assessment.model";
 import * as _ from "lodash";
 import { ColorService } from "../../../shared/color.service";
@@ -9,8 +9,6 @@ import { GradeCode } from "../../../shared/enum/grade-code.enum";
   templateUrl: './select-assessments.component.html'
 })
 export class SelectAssessmentsComponent {
-
-  private _comparator = (a: string, b: string) => a && b ? a.localeCompare(b) : 0;
 
   assessmentsByGrade: any[] = [];
 
@@ -36,7 +34,7 @@ export class SelectAssessmentsComponent {
     return GradeCode.getIndex(gradeCode);
   }
 
-  toggleSelectedAssessment(assessment: Assessment){
+  toggleSelectedAssessment(assessment: Assessment) {
     assessment.selected = !assessment.selected;
     this.selectedAssessmentsChanged.emit(assessment);
   }
@@ -45,7 +43,7 @@ export class SelectAssessmentsComponent {
     let assessmentsByGrade = [];
 
     let grades: string[] = _.uniq(this._assessments.map(assessment => assessment.grade))
-      .sort(this._comparator);
+      .sort((a, b) => a.localeCompare(b));
 
     for (let grade of grades) {
       let assessments = this._assessments.filter(x => x.grade == grade);
