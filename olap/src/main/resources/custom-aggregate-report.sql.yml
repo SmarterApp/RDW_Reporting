@@ -28,7 +28,7 @@ sqlbuilder:
               fe.asmt_grade_id IN (:asmt_grade_ids) AND
               a.grade_id IN (:asmt_grade_ids) AND
               a.subject_id in (:subject_ids) AND
-              a.type_id = 1
+              a.type_id = :asmt_type_id
 
           groupBy: >-
               fe.school_year,
@@ -41,13 +41,13 @@ sqlbuilder:
             state:
               clauses:
                 select: >-
-                     'state' AS organization_type,
+                     'State' AS organization_type,
                      -1 AS organization_id
 
             allDistricts:
               clauses:
                 select: >-
-                     'district' AS organization_type,
+                     'District' AS organization_type,
                      d.id AS organization_id
 
                 join: >-
@@ -62,10 +62,25 @@ sqlbuilder:
                 where: >-
                     d.id in (:district_ids)
 
+            allSchoolsInDistricts:
+              clauses:
+                select: >-
+                    'School' AS organization_type,
+                     sch.id AS organization_id
+
+                join: >-
+                     JOIN school sch ON sch.id = fe.school_id
+
+                where: >-
+                     sch.district_id in (:school_district_ids)
+
+                groupBy: >-
+                     sch.id
+
             schools:
               clauses:
                 select: >-
-                    'school' AS organization_type,
+                    'School' AS organization_type,
                      sch.id AS organization_id
 
                 join: >-
@@ -81,13 +96,13 @@ sqlbuilder:
             overall:
               clauses:
                 select: >-
-                    'overall' AS dimension,
+                    'Overall' AS dimension,
                     -1 AS dimension_id
 
             gender:
               clauses:
                 select: >-
-                    'gender' AS dimension,
+                    'Gender' AS dimension,
                      s.gender_id AS dimension_id
 
                 join:
@@ -99,7 +114,7 @@ sqlbuilder:
             ethnicity:
               clauses:
                 select: >-
-                    'ethnicity' AS dimension,
+                    'Ethnicity' AS dimension,
                      se.ethnicity_id AS dimension_id
 
                 join:
@@ -118,7 +133,7 @@ sqlbuilder:
               x.*
 
           where: >-
-              school_year in (:school_years) AND grade_id in (:asmt_grade_ids) and subject_id in (:subject_ids) and asmt_type_id = 1
+              school_year in (:school_years) AND grade_id in (:asmt_grade_ids) and subject_id in (:subject_ids) and asmt_type_id = :asmt_type_id
 
         addons:
      # ------------ organization parts ----------------------------------------------------------------
@@ -139,6 +154,17 @@ sqlbuilder:
 
                 where: >-
                   organization_id in (:school_ids)
+
+            allSchoolsInDistricts:
+              clauses:
+                from: >-
+                  school_subject_grade_school_year x
+
+                join:
+                  JOIN school sch on sch.id = x.organization_id
+
+                where: >-
+                  sch.district_id in (:school_district_ids)
 
             districts:
               clauses:
