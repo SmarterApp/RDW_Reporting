@@ -1,12 +1,6 @@
-artifacts:
-  root: "classpath:"
-  exam-item:
-    directory: items/Item-{0}/
-
-permissionservice:
-  endpoint:
-
 app:
+  test-mode: true
+
   state:
     code: CA
 
@@ -19,7 +13,7 @@ app:
       maxWait: 10000
 
   iris:
-    vendorId: vendorId
     url: http://my-iris.somewhere.org/iris/
 
-  test-mode: true
+permissionservice:
+  endpoint:

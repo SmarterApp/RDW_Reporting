@@ -8,6 +8,7 @@ import {
   InstructionalResources
 } from "../../../assessments/model/instructional-resources.model";
 import { PopupMenuAction } from "@sbac/rdw-reporting-common-ngx/menu/popup-menu-action.model";
+import { Observable } from "rxjs/Observable";
 
 @Component({
   selector: 'student-history-iab-table',
@@ -31,7 +32,7 @@ export class StudentHistoryIABTableComponent implements OnInit {
 
 
   actions: PopupMenuAction[];
-  instructionalResources: InstructionalResource[];
+  instructionalResourcesProvider: () => Observable<InstructionalResource[]>;
 
   constructor(private actionBuilder: MenuActionBuilder,
               private instructionalResourcesService: InstructionalResourcesService) {
@@ -50,14 +51,21 @@ export class StudentHistoryIABTableComponent implements OnInit {
     return this.actionBuilder
       .newActions()
       .withResponses(x => x.exam.id, () => this.student, x => x.exam.schoolYear > this.minimumItemDataYear)
-      .withShowResources(x => x.assessment.resourceUrl)
+      .withShowResources(this.loadAssessmentInstructionalResources.bind(this))
       .build();
   }
 
-  loadInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper) {
+  loadInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): void {
     let exam = studentHistoryExam.exam;
-    this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
-      this.instructionalResources = instructionalResources.getResourcesByPerformance(exam.level);
-    });
+    this.instructionalResourcesProvider = () => this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id)
+      .map(resources => resources.getResourcesByPerformance(exam.level));
+  }
+
+  loadAssessmentInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): Observable<InstructionalResource[]> {
+    let exam = studentHistoryExam.exam;
+    return this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id)
+      .map((resources: InstructionalResources) => {
+        return resources.getResourcesByPerformance(0);
+      });
   }
 }

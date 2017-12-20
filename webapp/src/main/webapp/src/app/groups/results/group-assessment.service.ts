@@ -12,6 +12,8 @@ import { Angulartics2 } from "angulartics2";
 import { TranslateService } from "@ngx-translate/core";
 import { Group } from "../../user/model/group.model";
 
+const ServiceRoute = '/reporting-service';
+
 @Injectable()
 export class GroupAssessmentService implements AssessmentProvider {
 
@@ -38,7 +40,7 @@ export class GroupAssessmentService implements AssessmentProvider {
   }
 
   getAvailableAssessments() {
-    return this.dataService.get(`/groups/${this.group.id}/assessments`, { search: this.getSchoolYearParams(this.schoolYear) })
+    return this.dataService.get(`${ServiceRoute}/groups/${this.group.id}/assessments`, { search: this.getSchoolYearParams(this.schoolYear) })
       .catch(ResponseUtils.badResponseToNull)
       .map(x => {
         return this.mapper.mapAssessmentsFromApi(x);
@@ -46,7 +48,7 @@ export class GroupAssessmentService implements AssessmentProvider {
   }
 
   getExams(assessmentId: number) {
-    return this.dataService.get(`/groups/${this.group.id}/assessments/${assessmentId}/exams`, { search: this.getSchoolYearParams(this.schoolYear) })
+    return this.dataService.get(`${ServiceRoute}/groups/${this.group.id}/assessments/${assessmentId}/exams`, { search: this.getSchoolYearParams(this.schoolYear) })
       .catch(ResponseUtils.badResponseToNull)
       .map(x => {
         return this.mapper.mapExamsFromApi(x);
@@ -55,7 +57,7 @@ export class GroupAssessmentService implements AssessmentProvider {
 
   getAssessmentItems(assessmentId: number, multipleChoiceMultipleSelectItems?: boolean) {
     if (multipleChoiceMultipleSelectItems) {
-      return this.dataService.get(`/groups/${this.group.id}/assessments/${assessmentId}/examitems`, {
+      return this.dataService.get(`${ServiceRoute}/groups/${this.group.id}/assessments/${assessmentId}/examitems`, {
         params: {
           types: [ 'MC', 'MS' ],
           schoolYear: this.schoolYear.toString()
@@ -66,7 +68,7 @@ export class GroupAssessmentService implements AssessmentProvider {
           return this.mapper.mapAssessmentItemsFromApi(x);
         });
     }
-    return this.dataService.get(`/groups/${this.group.id}/assessments/${assessmentId}/examitems`, { search: this.getSchoolYearParams(this.schoolYear) })
+    return this.dataService.get(`${ServiceRoute}/groups/${this.group.id}/assessments/${assessmentId}/examitems`, { search: this.getSchoolYearParams(this.schoolYear) })
       .catch(ResponseUtils.badResponseToNull)
       .map(x => {
         return this.mapper.mapAssessmentItemsFromApi(x);
@@ -99,7 +101,7 @@ export class GroupAssessmentService implements AssessmentProvider {
   }
 
   private getRecentAssessmentBySchoolYear(groupId: number, schoolYear: number) {
-    return this.dataService.get(`/groups/${groupId}/latestassessment`, { search: this.getSchoolYearParams(schoolYear) })
+    return this.dataService.get(`${ServiceRoute}/groups/${groupId}/latestassessment`, { search: this.getSchoolYearParams(schoolYear) })
       .catch(ResponseUtils.badResponseToNull)
       .map(x => {
         if (x == null) return null;

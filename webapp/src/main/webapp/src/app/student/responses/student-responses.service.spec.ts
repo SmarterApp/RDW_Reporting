@@ -1,4 +1,3 @@
-
 import { MockDataService } from "../../../test/mock.data.service";
 import Spy = jasmine.Spy;
 import createSpy = jasmine.createSpy;
@@ -8,6 +7,8 @@ import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { AssessmentExamMapper } from "../../assessments/assessment-exam.mapper";
 import { AssessmentItem } from "../../assessments/model/assessment-item.model";
 import { Observable } from "rxjs/Observable";
+
+const ServiceRoute = '/reporting-service';
 
 describe('StudentResponsesService', () => {
   let dataService: MockDataService;
@@ -19,13 +20,9 @@ describe('StudentResponsesService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        StudentResponsesService, {
-          provide: DataService,
-          useValue: dataService
-        }, {
-          provide: AssessmentExamMapper,
-          useValue: mapper
-        }
+        StudentResponsesService,
+        { provide: DataService, useValue: dataService },
+        { provide: AssessmentExamMapper, useValue: mapper }
       ]
     });
   });
@@ -34,7 +31,7 @@ describe('StudentResponsesService', () => {
     inject([StudentResponsesService], (service: StudentResponsesService) => {
 
     dataService.get.and.callFake((url) => {
-      expect(url).toBe('/students/123/exams/456/examitems');
+      expect(url).toBe(`${ServiceRoute}/students/123/exams/456/examitems`);
       return Observable.of({ id: 123 });
     });
 

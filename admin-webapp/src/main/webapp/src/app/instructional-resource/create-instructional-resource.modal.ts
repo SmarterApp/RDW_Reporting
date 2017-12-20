@@ -10,6 +10,7 @@ import { isNullOrUndefined } from "util";
 import { Organization } from "./model/organization.model";
 import { OrganizationService } from "./organization.service";
 import { OrganizationQuery } from "./model/organization-query.model";
+import { ValidationErrors } from "@angular/forms";
 
 /**
  * This modal component displays an instructional resource creation form.
@@ -20,7 +21,9 @@ import { OrganizationQuery } from "./model/organization-query.model";
 })
 export class CreateInstructionalResourceModal {
 
+  existingResources: InstructionalResource[] = [];
   unableToCreate: boolean = false;
+  duplicateResource: boolean = false;
   created: EventEmitter<InstructionalResource> = new EventEmitter();
 
   assessmentSource: Observable<Assessment[]>;
@@ -86,6 +89,7 @@ export class CreateInstructionalResourceModal {
   onAssessmentSelect(assessment: Assessment): void {
     this.assessment = assessment;
     this.performanceLevels = this.getPerformanceLevels(this.assessment.type);
+    this.validateExisting();
   }
 
   findOrganizations(search: string): Observable<Organization[]> {
@@ -96,10 +100,35 @@ export class CreateInstructionalResourceModal {
     return this.organizationService.find(query);
   }
 
+  onOrganizationSelect(organization: Organization): void {
+    this.organization = organization;
+    this.validateExisting();
+  }
+
+  onPerformanceLevelSelect(): void {
+    this.validateExisting();
+  }
+
   valid(): boolean {
     return !isNullOrUndefined(this.assessment) &&
       !isNullOrUndefined(this.organization) &&
-      this.performanceLevel >= 0;
+      this.performanceLevel >= 0 &&
+      !this.duplicateResource;
+  }
+
+  private validateExisting(): ValidationErrors | null {
+    if (!this.organization || !this.assessment || this.performanceLevel < 0) {
+      this.duplicateResource = false;
+      return
+    }
+
+    let existingResource = this.existingResources.find((existingResource: InstructionalResource) => {
+      return existingResource.assessmentName == this.assessment.name &&
+        existingResource.organizationType == this.organization.organizationType &&
+        existingResource.organizationId == this.organization.id &&
+        existingResource.performanceLevel == this.performanceLevel;
+    });
+    this.duplicateResource = (existingResource != null);
   }
 
   private removeDuplicateNames(assessments: Assessment[]): Assessment[] {

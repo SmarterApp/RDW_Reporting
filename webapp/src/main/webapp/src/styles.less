@@ -387,4 +387,38 @@ body .select-menu-group {
   }
 }
 
+.dropdown-submenu {
+  position:relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top:0;
+  left:100%;
+  margin-top:-6px;
+  margin-left:-1px;
+  border-radius:0 @border-radius-base @border-radius-base @border-radius-base;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display:block;
+}
+.dropdown-submenu>a>button:after {
+  display:block;
+  content:" ";
+  float:right;
+  width:0;
+  height:0;
+  border-color:transparent;
+  border-style:solid;
+  border-width:5px 0 5px 5px;
+  border-left-color:@gray-mid;
+  margin-top:@padding-base-vertical;
+  margin-right:-@padding-base-horizontal;
+}
 
+.dropdown-submenu.pull-left {
+  float:none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left:-100%;
+  margin-left:10px;
+  border-radius:@border-radius-base 0 @border-radius-base @border-radius-base;
+}

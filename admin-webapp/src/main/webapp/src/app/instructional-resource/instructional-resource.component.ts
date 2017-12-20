@@ -56,6 +56,7 @@ export class InstructionalResourceComponent implements OnInit {
   openCreateResourceModal(): void {
     let modalReference: BsModalRef = this.modalService.show(CreateInstructionalResourceModal, {backdrop: 'static'});
     let modal: CreateInstructionalResourceModal = modalReference.content;
+    modal.existingResources = this._resources;
     modal.created.subscribe(resource => {
       this.resources.push(resource);
       this.updateFilteredResources();

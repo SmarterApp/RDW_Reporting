@@ -5,6 +5,8 @@ import { CachingDataService } from "@sbac/rdw-reporting-common-ngx";
 import { DataService } from "@sbac/rdw-reporting-common-ngx";
 import { URLSearchParams } from "@angular/http";
 
+const ServiceRoute = '/reporting-service';
+
 @Injectable()
 export class ItemInfoService {
 
@@ -21,7 +23,7 @@ export class ItemInfoService {
 
   getTargetDescription(targetId): Observable<string> {
     return this.cachingDataService
-      .get(`/targets/${targetId}`)
+      .get(`${ServiceRoute}/targets/${targetId}`)
       .map(target => target.description);
   }
 
@@ -30,7 +32,7 @@ export class ItemInfoService {
     params.set('itemId', itemId.toString());
 
     return this.dataService
-      .get('/commonCoreStandards', { search: params })
+      .get(`${ServiceRoute}/commonCoreStandards`, { search: params })
       .map(standards => {
         return standards.map(standard => {
           return { code: standard.code, description: standard.description }

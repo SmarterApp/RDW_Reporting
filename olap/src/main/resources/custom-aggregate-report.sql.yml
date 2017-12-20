@@ -1,0 +1,188 @@
+sqlbuilder:
+  templates:
+      # This represents the parts of the SQL query that generates measures based on the available data.
+      # The query is assembled by combining the below clauses with 'organization' and 'dimension' parts.
+      # One 'dimension' and at least one 'organization' part is required for a valid query.
+      customAggregate:
+        clauses:
+          select: >-
+              round(avg(scale_score)) AS score,
+              round(sqrt(sum(power(scale_score_std_err, 2)) / count(*))) as std_err,
+              sum(CASE WHEN performance_level = 1 THEN 1 ELSE 0 END) AS level1,
+              sum(CASE WHEN performance_level = 2 THEN 1 ELSE 0 END) AS level2,
+              sum(CASE WHEN performance_level = 3 THEN 1 ELSE 0 END) AS level3,
+              sum(CASE WHEN performance_level = 4 THEN 1 ELSE 0 END) AS level4,
+              fe.asmt_id,
+              fe.asmt_grade_id,
+              fe.school_year,
+              a.subject_id
+
+          from: >-
+              fact_student_exam fe
+
+          join: >-
+              JOIN asmt a ON a.id = fe.asmt_id
+
+          where: >-
+              fe.school_year IN (:school_years) AND
+              fe.asmt_grade_id IN (:asmt_grade_ids) AND
+              a.grade_id IN (:asmt_grade_ids) AND
+              a.subject_id in (:subject_ids) AND
+              a.type_id = :asmt_type_id
+
+          groupBy: >-
+              fe.school_year,
+              fe.asmt_id,
+              fe.asmt_grade_id,
+              a.subject_id
+
+      # ------------ organization parts -------------------------------------------------------------
+        addons:
+            state:
+              clauses:
+                select: >-
+                     'State' AS organization_type,
+                     -1 AS organization_id
+
+            allDistricts:
+              clauses:
+                select: >-
+                     'District' AS organization_type,
+                     d.id AS organization_id
+
+                join: >-
+                    JOIN school sch ON sch.id = fe.school_id
+                    JOIN district d ON d.id = sch.district_id
+
+                groupBy: >-
+                     d.id
+
+            districts:
+              clauses:
+                where: >-
+                    d.id in (:district_ids)
+
+            allSchoolsInDistricts:
+              clauses:
+                select: >-
+                    'School' AS organization_type,
+                     sch.id AS organization_id
+
+                join: >-
+                     JOIN school sch ON sch.id = fe.school_id
+
+                where: >-
+                     sch.district_id in (:school_district_ids)
+
+                groupBy: >-
+                     sch.id
+
+            schools:
+              clauses:
+                select: >-
+                    'School' AS organization_type,
+                     sch.id AS organization_id
+
+                join: >-
+                     JOIN school sch ON sch.id = fe.school_id
+
+                where: >-
+                    sch.id in (:school_ids)
+
+                groupBy: >-
+                     sch.id
+
+      # ---------- dimension parts -----------------------------------------------------------------------
+            overall:
+              clauses:
+                select: >-
+                    'Overall' AS dimension,
+                    -1 AS dimension_id
+
+            gender:
+              clauses:
+                select: >-
+                    'Gender' AS dimension,
+                     s.gender_id AS dimension_id
+
+                join:
+                     JOIN student s ON fe.student_id = s.id
+
+                groupBy: >-
+                     s.gender_id
+
+            ethnicity:
+              clauses:
+                select: >-
+                    'Ethnicity' AS dimension,
+                     se.ethnicity_id AS dimension_id
+
+                join:
+                     LEFT JOIN student_ethnicity se ON se.student_id = fe.student_id
+
+                groupBy: >-
+                     se.ethnicity_id
+
+      # This represents the parts of the SQL query that generates all possible combinations of the dimensions for the report.
+      # The query is assembled by combining the below clauses with 'organization' and 'dimension' parts.
+      # One 'dimension' and at least one 'organization' part is required for a valid query.
+      customAggregateAllPermutations:
+        clauses:
+          select: >-
+              d.*,
+              x.*
+
+          where: >-
+              school_year in (:school_years) AND grade_id in (:asmt_grade_ids) and subject_id in (:subject_ids) and asmt_type_id = :asmt_type_id
+
+        addons:
+     # ------------ organization parts ----------------------------------------------------------------
+            state:
+              clauses:
+                from: >-
+                  state_subject_grade_school_year x
+
+            allDistricts:
+              clauses:
+                from: >-
+                 district_subject_grade_school_year x
+
+            schools:
+              clauses:
+                from: >-
+                  school_subject_grade_school_year x
+
+                where: >-
+                  organization_id in (:school_ids)
+
+            allSchoolsInDistricts:
+              clauses:
+                from: >-
+                  school_subject_grade_school_year x
+
+                join:
+                  JOIN school sch on sch.id = x.organization_id
+
+                where: >-
+                  sch.district_id in (:school_district_ids)
+
+            districts:
+              clauses:
+                where: >-
+                   organization_id in (:district_ids)
+
+         # ---------- dimension parts -----------------------------------------------------------------------
+            overall:
+              clauses:
+                join: >-
+                  CROSS JOIN (select 'overall' AS dimension, -1 AS dimension_id, null as dimension_code) d
+
+            gender:
+              clauses:
+                join: >-
+                  CROSS JOIN (select 'gender' AS dimension, gen.id AS dimension_id, gen.code as dimension_code from gender gen) d
+
+            ethnicity:
+              clauses:
+                join: >-
+                  CROSS JOIN (select 'ethnicity' AS dimension, e.id AS dimension_id, e.code as dimension_code from ethnicity e) d

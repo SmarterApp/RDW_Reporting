@@ -1,0 +1,25 @@
+artifacts:
+  root: "classpath:"
+  exam-item:
+    directory: items/Item-{0}/
+
+permissionservice:
+  endpoint:
+
+app:
+  state:
+    code: CA
+
+  datamart:
+    datasource:
+      url-schema: reporting_test
+      initialSize: 4
+      maxActive: 10
+      maxIdle: 10
+      maxWait: 10000
+
+  iris:
+    vendorId: vendorId
+    url: http://my-iris.somewhere.org/iris/
+
+  test-mode: true

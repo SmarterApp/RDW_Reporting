@@ -4,6 +4,8 @@ import { CachingDataService, Utils } from "@sbac/rdw-reporting-common-ngx";
 import { Observable } from "rxjs/Observable";
 import { User } from "./model/user.model";
 
+const ServiceRoute = '/reporting-service';
+
 @Injectable()
 export class UserService {
 
@@ -22,7 +24,7 @@ export class UserService {
     // currentUser is not populated and a request is not in progress.
     if(Utils.isNullOrUndefined(this.currentUserObservable)) {
       this.currentUserObservable = this._dataService
-        .get("/user")
+        .get(`${ServiceRoute}/user`)
         .catch(res => {
           return Observable.of(null);
         })

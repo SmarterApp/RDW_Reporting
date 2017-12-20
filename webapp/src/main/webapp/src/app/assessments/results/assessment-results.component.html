@@ -29,7 +29,7 @@
               [popover]="buttonPopover"
               popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:assessmentExam.assessment.label } }}"
               container="body"
-              (click)="loadInstructionalResources(0)"
+              (click)="loadInstructionalResources(assessmentExam.assessment, 0)"
               [outsideClick]="true">
               <i class="fa fa-list-alt"></i> {{'labels.groups.results.assessment.instruct' | translate }}
             </button>
@@ -68,7 +68,8 @@
       <average-scale-score
         [assessmentExam]="assessmentExam"
         [statistics]="statistics"
-        [showValuesAsPercent]="showValuesAsPercent">
+        [showValuesAsPercent]="showValuesAsPercent"
+        [assessmentProvider]="assessmentProvider">
       </average-scale-score>
     </div>
 
@@ -158,5 +159,5 @@
   </div>
 </div>
 <ng-template #buttonPopover>
-  <instructional-resource-popover [resources]="instructionalResources"></instructional-resource-popover>
+  <instructional-resource-popover [provider]="instructionalResourceProvider"></instructional-resource-popover>
 </ng-template>

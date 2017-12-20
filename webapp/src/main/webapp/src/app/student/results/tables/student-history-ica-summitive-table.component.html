@@ -64,7 +64,7 @@
       <span info-button title="{{'labels.groups.results.assessment.exams.cols.ica.performance' | translate}}"
             content="{{'labels.groups.results.assessment.exams.cols.ica.performance-info' | translate}}"></span>
     </ng-template>
-    <ng-template let-exam="rowData.exam" let-i="rowIndex" pTemplate="body">
+    <ng-template let-data="rowData" let-exam="rowData.exam" pTemplate="body">
       {{ 'enum.achievement-level.full.' + (exam.level ? exam.level.toString() : 'missing') | translate }}
       <button
         class="btn btn-borderless btn-xs icon-only pull-right"
@@ -75,7 +75,7 @@
         [popover]="buttonPopover"
         popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:(('enum.achievement-level.full.' + (exam.level ? exam.level.toString() : 'missing') ) | translate) } }}"
         container="body"
-        (click)="loadInstructionalResources(i)"
+        (click)="loadInstructionalResources(data)"
         [outsideClick]="true"><i
         class="fa fa-book"></i></button>
     </ng-template>
@@ -106,6 +106,6 @@
 
 </p-dataTable>
 <ng-template #buttonPopover>
-  <instructional-resource-popover [resources]="instructionalResources"></instructional-resource-popover>
+  <instructional-resource-popover [provider]="instructionalResourcesProvider"></instructional-resource-popover>
 </ng-template>
 

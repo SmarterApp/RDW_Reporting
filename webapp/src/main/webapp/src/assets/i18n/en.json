@@ -51,6 +51,12 @@
   "collapse": "Collapse",
   "select": "Select",
   "labels": {
+    "aggregate-reports": {
+      "heading": "Aggregate Reports",
+      "results": {
+        "heading": "Aggregate Report Results"
+      }
+    },
     "navigation": {
       "user-guide": "User Guide",
       "interpretive-guide": "Interpretive Guide"

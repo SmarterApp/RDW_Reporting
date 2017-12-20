@@ -1,0 +1,18 @@
+# Spring Cloud applications have a bootstrap context so certain properties
+# should be defined here and not in application.yml/properties.
+# (https://github.com/spring-cloud/spring-cloud-commons/blob/master/docs/src/main/asciidoc/spring-cloud-commons.adoc#the-bootstrap-application-context)
+spring:
+  application:
+    # TODO change to rdw-reporting-reporting-service
+    name: rdw-reporting-webapp
+
+  cloud:
+    config:
+      enabled: ${CONFIG_SERVICE_ENABLED:false}
+      fail-fast: ${CONFIG_SERVICE_ENABLED:false}
+      label: ${CONFIG_SERVICE_LABEL:rdw,develop,master}
+      uri: ${CONFIG_SERVICE_URL:http://localhost:8888}
+      # defaults of 1000/2000 are a bit too needy
+      retry:
+        initial-interval: 2000
+        max-interval: 3000

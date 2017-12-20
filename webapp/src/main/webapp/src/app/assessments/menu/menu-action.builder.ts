@@ -3,7 +3,9 @@ import { TranslateService } from "@ngx-translate/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Student } from "../../student/model/student.model";
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
-import { PopupMenuAction, Utils } from "@sbac/rdw-reporting-common-ngx";
+import { PopupMenuAction } from "@sbac/rdw-reporting-common-ngx";
+import { InstructionalResource } from "../model/instructional-resources.model";
+import { Observable } from "rxjs/Observable";
 
 /**
  * This builder will create the menu actions used by the PopupMenuComponent.
@@ -88,31 +90,30 @@ export class MenuActionBuilder {
   }
 
   /**
-   * Adds an action item which shows resources.  If the resource url is null
-   * or undefined then the action item will be disabled with a tooltip.
-   * TODO: This should display a 2nd-level/popup menu containing assessment/school resources on click/hover
+   * Adds an action item which shows instructional resources.
    *
-   * @param getResourceUrl lambda which accesses the assessment resource url.
+   * @param loadResources lambda which fetches the instructional resources for a row item
    * @returns {MenuActionBuilder}
    */
-  withShowResources(getResourceUrl: (actionable: any) => string) {
+  withShowResources(loadResources: (actionable: any) => Observable<InstructionalResource[]>) {
     let resourcesLabel: string = this.translateService.instant('labels.menus.resources');
+
     let resourcesAction: PopupMenuAction = new PopupMenuAction();
-
-    resourcesAction.isDisabled = ((actionable) => {
-      return false;
-    });
-
-    resourcesAction.tooltip = ((actionable) => {
-      return resourcesAction.isDisabled(actionable)
-        ? this.translateService.instant('labels.menus.resources-disabled-message')
-        : '';
+    resourcesAction.getSubActions = ((actionable) => {
+      return loadResources(actionable)
+        .map((resources: InstructionalResource[]) => {
+          if (!resources.length) {
+            let noResourcesAction = new PopupMenuAction();
+            noResourcesAction.isDisabled = () => true;
+            noResourcesAction.displayName = () => this.translateService.instant('labels.groups.results.assessment.no-instruct-found');
+            return [noResourcesAction];
+          }
+          return this.asInstructionalResourceActions.call(this, resources);
+        });
     });
 
     resourcesAction.displayName = (() => resourcesLabel);
-    resourcesAction.perform = ((actionable) => {
-      window.open(getResourceUrl(actionable));
-    }).bind(this);
+    resourcesAction.perform = (() => {});
 
     this.actions.push(resourcesAction);
     return this;
@@ -137,4 +138,19 @@ export class MenuActionBuilder {
     return this.actions;
   }
 
+  private asInstructionalResourceActions(resources: InstructionalResource[]): PopupMenuAction[] {
+    return resources.map(this.asInstructionalResourceAction.bind(this));
+  }
+
+  private asInstructionalResourceAction(resource: InstructionalResource): PopupMenuAction {
+    let action: PopupMenuAction = new PopupMenuAction();
+    action.displayName = (() => {
+      return this.translateService.instant(`labels.instructional-resources.link.${resource.organizationLevel}`, resource);
+    });
+    action.perform = (() => {
+      window.open(resource.url, "_blank");
+    });
+
+    return action;
+  }
 }

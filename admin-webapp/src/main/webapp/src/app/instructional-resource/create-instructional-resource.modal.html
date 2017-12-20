@@ -6,17 +6,18 @@
 </div>
 
 <div class="modal-body">
-  <div *ngIf="unableToCreate" class="alert alert-danger">
-    {{ 'labels.instructional-resource.create.error' | translate }}
-  </div>
   <div class="modal-body text-left">
-      <div class="row">
-        <!-- Left Column -->
-        <div class="col-md-6">
-
-          <!-- Assessment selector -->
-          <div class="form-group">
-            <label for="assessment-label">{{'labels.instructional-resource.form.assessment-label' | translate}}</label>
+    <div *ngIf="unableToCreate" class="alert alert-danger">
+      {{ 'labels.instructional-resource.create.error' | translate }}
+    </div>
+    <div *ngIf="duplicateResource" class="alert alert-danger">
+      {{ 'labels.instructional-resource.create.duplicate' | translate }}
+    </div>
+    <form class="form-horizontal">
+      <fieldset>
+        <div class="form-group row mb-xs">
+          <label for="assessment-label" class="col-xs-4 control-label">{{'labels.instructional-resource.cols.assessment-label' | translate}}</label>
+          <div class="col-xs-8 pl-0">
             <input class="form-control"
                    id="assessment-label"
                    name="assessment-label"
@@ -29,79 +30,79 @@
                    [typeaheadItemTemplate]="assessmentTemplate"
                    typeaheadOptionField="label"
                    placeholder="{{'labels.instructional-resource.form.assessment-label' | translate}}">
-            <div class="h6 text-overflow-ellipsis">
-              <span class="label label-default">{{ 'labels.name' | translate }}</span>
-              <span *ngIf="assessment" title="{{assessment.name}}">{{assessment.name}}</span>
-            </div>
             <div>
               <span [hidden]="!assessmentLoading"><i class="fa fa-spinner"></i></span>
-              <span [hidden]="!assessmentNoResults"class="text-danger">{{'labels.instructional-resource.assessments.no-results' | translate}}</span>
-              <span>&nbsp;</span>
+              <span [hidden]="!assessmentNoResults" class="text-info">{{'labels.instructional-resource.assessments.no-results' | translate}}</span>
             </div>
           </div>
-
-          <!-- Performance Level selector -->
-          <div class="form-group">
-            <label for="performance-level">{{'labels.instructional-resource.cols.performance-level' | translate}}</label>
-            <select id="performance-level" name="performance-level" class="form-control" [(ngModel)]="performanceLevel" [disabled]="!assessment" >
-              <option disabled [ngValue]="-1">{{'prompt.select' | translate}}</option>
-              <option *ngIf="assessment" [ngValue]="0">{{'labels.instructional-resource.assessments.performance-levels.all' | translate}}</option>
-              <option *ngFor="let performanceLevel of performanceLevels" [ngValue]="performanceLevel">{{ ('labels.instructional-resource.assessments.performance-levels.' + assessment.type + '.' + performanceLevel) | translate }}</option>
-            </select>
-          </div>
-
         </div>
-        <!-- Right Column -->
-        <div class="col-md-6">
-
-          <!-- Organization selector -->
-          <div class="form-group">
-            <label for="organization-name">{{'labels.instructional-resource.form.organization-name' | translate}}</label>
+        <div class="form-group row mb-xs">
+          <label class="col-xs-4 control-label">{{'labels.instructional-resource.cols.assessment-name' | translate}}</label>
+          <span *ngIf="assessment" class="col-xs-8 text-overflow-ellipsis pl-md" title="{{assessment.name}}">{{assessment.name}}</span>
+        </div>
+        <div class="form-group row mb-xs">
+          <label for="organization-name" class="col-xs-4 control-label">{{'labels.instructional-resource.form.organization-name' | translate}}</label>
+          <div class="col-xs-8 pl-0">
             <input class="form-control"
                    id="organization-name"
                    name="organization-name"
                    [typeahead]="organizationSource"
                    (typeaheadLoading)="organizationLoading = $event"
                    (typeaheadNoResults)="organizationNoResults = $event"
-                   (typeaheadOnSelect)="organization = $event.item"
+                   (typeaheadOnSelect)="onOrganizationSelect($event.item)"
                    [typeaheadMinLength]="3"
                    [(ngModel)]="organizationSearch"
                    [typeaheadItemTemplate]="organizationTemplate"
                    typeaheadOptionField="name"
                    placeholder="{{'labels.instructional-resource.form.organization-name' | translate}}">
-            <div class="h6 text-overflow-ellipsis">
-              <span class="label label-default">{{'labels.type' | translate}}</span>
-              <span *ngIf="organization">{{ ('labels.instructional-resource.organizations.type.' + organization.organizationType) | translate }}</span>
-            </div>
             <div>
               <span [hidden]="!organizationLoading"><i class="fa fa-spinner"></i></span>
-              <span [hidden]="!organizationNoResults"class="text-danger">{{'labels.instructional-resource.organizations.no-results' | translate}}</span>
-              <span>&nbsp;</span>
+              <span [hidden]="!organizationNoResults"class="text-info">{{'labels.instructional-resource.organizations.no-results' | translate}}</span>
             </div>
           </div>
-
-          <!-- Resource URL input -->
-          <div class="form-group">
-            <label for="resource">{{'labels.instructional-resource.cols.resource' | translate}}</label>
+        </div>
+        <div class="form-group row mb-xs">
+          <label class="col-xs-4 control-label">{{'labels.instructional-resource.cols.organization-type' | translate}}</label>
+          <span *ngIf="organization" class="col-xs-8 text-overflow-ellipsis">{{ ('labels.instructional-resource.organizations.type.' + organization.organizationType) | translate }}</span>
+        </div>
+        <div class="form-group row mb-xs">
+          <label for="performance-level" class="col-xs-4 control-label">{{'labels.instructional-resource.cols.performance-level' | translate}}</label>
+          <div class="col-xs-8 pl-0">
+            <select id="performance-level"
+                    name="performance-level"
+                    class="form-control"
+                    [(ngModel)]="performanceLevel"
+                    (change)="onPerformanceLevelSelect()"
+                    [disabled]="!assessment" >
+              <option disabled [ngValue]="-1">{{'prompt.select' | translate}}</option>
+              <option *ngIf="assessment" [ngValue]="0">{{'labels.instructional-resource.assessments.performance-levels.all' | translate}}</option>
+              <option *ngFor="let performanceLevel of performanceLevels" [ngValue]="performanceLevel">{{ ('labels.instructional-resource.assessments.performance-levels.' + assessment.type + '.' + performanceLevel) | translate }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row mb-xs">
+          <label for="resource" class="col-xs-4 control-label">{{'labels.instructional-resource.cols.resource' | translate}}</label>
+          <div class="col-xs-8 pl-0">
             <input id="resource"
                    name="resource"
-                   #resource="ngModel"
                    class="form-control"
+                   #resource="ngModel"
                    [(ngModel)]="resourceUrl"
                    pattern="https?://.+"
                    required>
           </div>
         </div>
-      </div>
+      </fieldset>
+    </form>
   </div>
 </div>
 
 <div class="modal-footer">
     <span>
       <button type="button" class="btn btn-default" (click)="cancel()">
-        {{ (unableToCreate? 'prompt.close' : 'prompt.cancel') | translate }}
+        {{ 'prompt.cancel' | translate }}
       </button>
-      <button *ngIf="!unableToCreate" class="btn btn-primary" [disabled]="!valid() || resource.invalid" (click)="create()">
+      <button class="btn btn-primary" [disabled]="!valid() || resource.errors" (click)="create()">
         {{ 'prompt.create' | translate }}
       </button>
     </span>

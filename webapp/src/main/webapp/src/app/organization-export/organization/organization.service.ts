@@ -6,6 +6,8 @@ import { OrganizationMapper } from "./organization.mapper";
 import { UserService } from "../../user/user.service";
 import "rxjs/add/observable/forkJoin";
 
+const ServiceRoute = '/reporting-service';
+
 @Injectable()
 export class OrganizationService {
 
@@ -31,11 +33,11 @@ export class OrganizationService {
   }
 
   private getSchoolGroups(): Observable<any[]> {
-    return this.dataService.get('/organizations/schoolGroups');
+    return this.dataService.get(`${ServiceRoute}/organizations/schoolGroups`);
   }
 
   private getDistricts(): Observable<any[]> {
-    return this.dataService.get('/organizations/districts');
+    return this.dataService.get(`${ServiceRoute}/organizations/districts`);
   }
 
 }

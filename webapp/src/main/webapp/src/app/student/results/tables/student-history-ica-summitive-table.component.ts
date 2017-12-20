@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { StudentHistoryExamWrapper } from "../../model/student-history-exam-wrapper.model";
 import { Student } from "../../model/student.model";
 import { MenuActionBuilder } from "../../../assessments/menu/menu-action.builder";
@@ -8,13 +8,14 @@ import {
   InstructionalResource,
   InstructionalResources
 } from "../../../assessments/model/instructional-resources.model";
+import { Observable } from "rxjs/Observable";
 
 @Component({
   selector: 'student-history-ica-summitive-table',
   providers: [ MenuActionBuilder ],
   templateUrl: 'student-history-ica-summitive-table.component.html'
 })
-export class StudentHistoryICASummitiveTableComponent {
+export class StudentHistoryICASummitiveTableComponent implements OnInit {
 
   @Input()
   exams: StudentHistoryExamWrapper[] = [];
@@ -35,7 +36,7 @@ export class StudentHistoryICASummitiveTableComponent {
   };
 
   actions: PopupMenuAction[];
-  instructionalResources: InstructionalResource[];
+  instructionalResourcesProvider: () => Observable<InstructionalResource[]>;
 
   constructor(private actionBuilder: MenuActionBuilder,
               private instructionalResourcesService: InstructionalResourcesService) {
@@ -58,12 +59,18 @@ export class StudentHistoryICASummitiveTableComponent {
     return this.exams[ 0 ].assessment.claimCodes;
   }
 
-  loadInstructionalResources(index: number) {
-    let studentHistoryExam = this.exams[ index ];
+  loadInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper) {
     let exam = studentHistoryExam.exam;
-    this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id).subscribe((instructionalResources: InstructionalResources) => {
-      this.instructionalResources = instructionalResources.getResourcesByPerformance(exam.level);
-    });
+    this.instructionalResourcesProvider = () => this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id)
+      .map(resources => resources.getResourcesByPerformance(exam.level));
+  }
+
+  loadAssessmentInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): Observable<InstructionalResource[]> {
+    let exam = studentHistoryExam.exam;
+    return this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id)
+      .map((resources: InstructionalResources) => {
+        return resources.getResourcesByPerformance(0);
+      });
   }
 
   /**
@@ -75,7 +82,7 @@ export class StudentHistoryICASummitiveTableComponent {
     return this.actionBuilder
       .newActions()
       .withResponses(x => x.exam.id, () => this.student, x => x.exam.schoolYear > this.minimumItemDataYear)
-      .withShowResources(x => x.assessment.resourceUrl)
+      .withShowResources(this.loadAssessmentInstructionalResources.bind(this))
       .build();
   }
 }
