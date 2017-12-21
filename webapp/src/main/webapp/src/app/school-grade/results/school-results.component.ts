@@ -46,11 +46,11 @@ export class SchoolResultsComponent implements OnInit {
   /**
    * The currently selected school
    |  */
-  get currentSchool() {
+  get currentSchool(): School {
     return this._currentSchool;
   }
 
-  set currentSchool(value) {
+  set currentSchool(value: School) {
     this._currentSchool = value;
 
     if (!Utils.isNullOrUndefined(value)) {
@@ -63,7 +63,7 @@ export class SchoolResultsComponent implements OnInit {
    * The currently selected grade.
    * @returns {Grade}
    */
-  get currentGrade() {
+  get currentGrade(): Grade {
     return this._currentGrade;
   }
 
@@ -78,11 +78,11 @@ export class SchoolResultsComponent implements OnInit {
    * The currently selected school year.
    * @returns {number}
    */
-  get currentSchoolYear() {
+  get currentSchoolYear(): number {
     return this._currentSchoolYear;
   }
 
-  set currentSchoolYear(value) {
+  set currentSchoolYear(value: number) {
     this._currentSchoolYear = value;
     this.assessmentProvider.schoolYear = value;
   }
@@ -132,7 +132,7 @@ export class SchoolResultsComponent implements OnInit {
     this.updateAssessment(this.route.snapshot.data[ "assessment" ]);
   }
 
-  updateAssessment(latestAssessment) {
+  updateAssessment(latestAssessment: AssessmentExam): void {
     this.assessmentExams = [];
 
     if (latestAssessment) {
@@ -140,8 +140,8 @@ export class SchoolResultsComponent implements OnInit {
     }
   }
 
-  schoolSelectChanged(school) {
-    if (school) {
+  schoolSelectChanged(school: School): void {
+    if (school && school.id) {
       this.currentSchool = school;
 
       this.schoolService
@@ -159,15 +159,21 @@ export class SchoolResultsComponent implements OnInit {
             this.currentGrade = Utils.isNullOrUndefined(grade)
               ? grades[ 0 ]
               : grade;
+            this.updateRoute('School');
           } else {
             this.currentGrade = undefined;
+            this.assessmentExams = [];
+            this.gradesAreUnavailable = true;
           }
-          this.updateRoute('School');
         });
+    } else {
+      this.currentGrade = undefined;
+      this.assessmentExams = [];
+      this.gradesAreUnavailable = true;
     }
   }
 
-  updateRoute(changedFilter: string) {
+  updateRoute(changedFilter: string): void {
     let params: any = {};
     params.schoolYear = this.currentSchoolYear;
 
@@ -182,7 +188,7 @@ export class SchoolResultsComponent implements OnInit {
     this.trackAnalyticsEvent(changedFilter);
   }
 
-  mapParamsToSchoolYear(params) {
+  mapParamsToSchoolYear(params): number {
     return Number.parseInt(params[ "schoolYear" ]) || this.filterOptions.schoolYears[ 0 ];
   }
 
@@ -201,7 +207,7 @@ export class SchoolResultsComponent implements OnInit {
     this.csvExportService.exportAssessmentExams(this.assessmentsComponent.assessmentExams, this.assessmentsComponent.clientFilterBy, this.filterOptions.ethnicities, filename);
   }
 
-  private trackAnalyticsEvent(changedFilter: string) {
+  private trackAnalyticsEvent(changedFilter: string): void {
     this.angulartics2.eventTrack.next({
       action: 'Change' + changedFilter,
       properties: {
@@ -211,7 +217,7 @@ export class SchoolResultsComponent implements OnInit {
     });
   }
 
-  private getAnalyticsEventLabel(changedFilter: string): any {
+  private getAnalyticsEventLabel(changedFilter: string): string | number {
     switch (changedFilter) {
       case 'Year':
         return this.currentSchoolYear;

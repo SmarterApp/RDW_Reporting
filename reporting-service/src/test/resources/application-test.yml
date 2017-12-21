@@ -3,6 +3,7 @@ artifacts:
   exam-item:
     directory: items/Item-{0}/
 
+# TODO remove when adding qualified reporting-service package
 permissionservice:
   endpoint:
 

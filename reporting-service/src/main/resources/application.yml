@@ -3,26 +3,10 @@ management:
   port: 8008
   security:
     enabled: false
+  # TODO remove when spring-session/redis is moved from common-web to webapp
   health:
     redis:
       enabled: false
-
-saml:
-  # SAML keystore path: file:/some/path/saml.jks
-  key-store-file: ${rdw.reporting.keystore.path}
-  key-store-password: ${rdw.reporting.keystore.password}
-  private-key-entry-alias: ${rdw.reporting.keystore.alias}
-  private-key-entry-password: ${rdw.reporting.keystore.entry.password}
-  idp-metadata-url: ${rdw.reporting.idp}
-  sp-entity-id: ${rdw.reporting.entityId}
-  # SAML settings when hosting behind a load balancer or reverse proxy
-  load-balance:
-    enabled: false
-    scheme: https
-    hostname:
-    context-path: /
-    port: 8080
-    include-server-port: false
 
 server:
   # tomcat settings for reasonable performance: adjust for tiny/huge configurations
@@ -40,9 +24,6 @@ spring:
       enabled: true
       gzipped: true
 
-  session:
-    store-type: none
-
   jackson:
     default-property-inclusion: non_null
     serialization:
@@ -52,8 +33,9 @@ spring:
     type: SIMPLE
     cache-names: permissionsByRole, internalTranslationsByCode, mergeTranslations
 
-  thymeleaf:
-    mode: HTML
+  # TODO remove when spring-session/redis is moved from common-web to webapp
+  session:
+    store-type: none
 
 security:
   filter-dispatcher-types: FORWARD, INCLUDE, REQUEST, ASYNC, ERROR
@@ -79,6 +61,7 @@ artifacts:
     directory: ${rdw.reporting.artifacts.exam.item.directory:local/items/Item-{0}/}
     file-name: item-{0}.xml
 
+# TODO remove when adding qualified reporting-service package
 permissionservice:
   component: Reporting
   endpoint: ${rdw.permission.service}
@@ -106,12 +89,12 @@ app:
 
   iris:
     vendorId: ${rdw.reporting.iris.vendorId}
-    url: ${rdw.reporting.iris.url}
 
   # google analytics configuration
   analytics:
     trackingId: ${rdw.reporting.analytics.trackingId:}
 
+  # TODO can go away when admin-webapp joins webapp
   admin-webapp-url:
 
   external-links:
