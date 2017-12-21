@@ -82,7 +82,7 @@
 
   </div>
 
-  <div id="group-results-edit-assessments" [hidden]="!expandAssessments || !gradesAreUnavailable" class="well gray-lighter">
+  <div id="group-results-edit-assessments" [hidden]="!expandAssessments || hideAssessments" class="well gray-lighter">
     <div id="adv-filters-edit-assessments-collapse" class="pull-right">
       <button class="form-control btn btn-sm" (click)="expandAssessments = false"
               angulartics2On="click" angularticsEvent="HideCustomSelectionView" angularticsCategory="AssessmentResults">
