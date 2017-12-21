@@ -415,6 +415,7 @@
       },
       "messages": {
         "no-grades-available": "No test results are available for the selected school.",
+        "no-results": "No results.",
         "null-school": "This school is unavailable.  Contact your building administrator if you think you should have access to this school."
       },
       "results": {
