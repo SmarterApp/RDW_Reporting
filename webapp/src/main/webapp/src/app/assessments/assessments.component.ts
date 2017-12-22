@@ -30,7 +30,7 @@ export class AssessmentsComponent implements OnInit {
   @Input()
   set assessmentExams(value: AssessmentExam[]) {
     this._assessmentExams = value;
-    this.showOnlyMostRecent = true;
+    this.showOnlyMostRecent = value.length > 0;
     this._hasInitialAssessment = (value != null && value.length != 0);
   }
 
@@ -40,6 +40,9 @@ export class AssessmentsComponent implements OnInit {
    */
   @Input()
   assessmentProvider: AssessmentProvider;
+
+  @Input()
+  hideAssessments: boolean = false;
 
   /**
    * If true, the session toggles will be display with the most recent selected

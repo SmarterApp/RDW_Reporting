@@ -1,14 +1,8 @@
 apply plugin: 'org.springframework.boot'
 
-// TODO uncomment when docker hub repo is setup for this build
-//createDockerfile {
-//    ext.java_opts = ["-Xmx768m"]
-//}
-
 dependencies {
     compile project(':rdw-reporting-common')
     compile project(':rdw-reporting-common-web')
-    compile project(':rdw-reporting-common-ngx')
     compile 'org.opentestsystem.rdw.common:rdw-common-model'
     compile 'org.opentestsystem.rdw.common:rdw-common-security'
     compile 'org.opentestsystem.rdw.common:rdw-common-status'
@@ -20,12 +14,6 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-jdbc'
     compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-data-redis'
-    compile 'org.springframework.session:spring-session'
-    compile 'org.springframework.cloud:spring-cloud-starter-config'
-    compile 'org.springframework.cloud:spring-cloud-starter-zuul'
-    compile 'org.springframework.retry:spring-retry'
-    compile 'org.springframework.security.extensions:spring-security-saml2-core'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-guava'
     compile 'com.google.guava:guava'

@@ -178,6 +178,79 @@
         "error": "Unable to modify instructional resource."
       }
     },
+    "embargo": {
+      "title": "Manage Embargo",
+      "state": {
+        "table": {
+          "headers": {
+            "name": "State",
+            "individualEnabled": "Individual Test Results",
+            "aggregateEnabled": "Aggregate Test Results",
+            "ELA": "ELA",
+            "MATH": "Math"
+          }
+        }
+      },
+      "district": {
+        "table": {
+          "headers": {
+            "name": "District",
+            "individualEnabled": "Individual Test Results",
+            "aggregateEnabled": "Aggregate Test Results",
+            "ELA": "ELA",
+            "MATH": "Math"
+          }
+        }
+      },
+      "toggle": {
+        "true": "Embargoed",
+        "false": "Released"
+      },
+      "released-by-state": "Released by State",
+      "modal": {
+        "header": {
+          "Individual": "Individual Test Results for {{organizationName}}",
+          "Aggregate": "Aggregate Test Results for {{organizationName}}"
+        },
+        "state-description": {
+          "Individual": {
+            "true": "{{stateName}} individual Summative test results are currently embargoed.",
+            "false": "{{stateName}} individual Summative test results are currently released."
+          },
+          "Aggregate": {
+            "true": "{{stateName}} aggregate Summative test results are currently embargoed.",
+            "false": "{{stateName}} aggregate Summative test results are currently released."
+          }
+        },
+        "command-description": {
+          "State": {
+            "Individual": {
+              "true": "Completing this action will prevent users from viewing {{resultCount}} individual Summative test results for {{organizationName}}. This setting can be overridden by individual districts that release their results ahead of the state.",
+              "false": "Completing this action will allow users to view {{resultCount}} individual Summative test results for {{organizationName}}."
+            },
+            "Aggregate": {
+              "true": "Completing this action will prevent users from viewing aggregate data for {{resultCount}} Summative test results for {{organizationName}}. This setting can be overridden by individual districts however, aggregate data views will not be available until all districts have released aggregate test results.",
+              "false": "Completing this action will allow users to view aggregate data for {{resultCount}} Summative test results for {{organizationName}}. Aggregate data views however, will not be available until the state or all districts have released aggregate test results."
+            }
+          },
+          "District": {
+            "Individual": {
+              "true": "Completing this action will prevent users from viewing {{resultCount}} individual Summative test results for {{organizationName}}. This setting will be overridden should the state release all individual Summative test results.",
+              "false": "Completing this action will allow users to view {{resultCount}} individual Summative test results for {{organizationName}}. Do you want to release before the state releases all individual Summative test results?"
+            },
+            "Aggregate": {
+              "true": "Completing this action will prevent users from viewing aggregate data for {{resultCount}} Summative test results for {{organizationName}}. This setting will be overridden should the state release all aggregate Summative test results.",
+              "false": "Completing this action will allow users to view aggregate data for {{resultCount}} Summative test results for {{organizationName}}. Do you want to release before the state releases all aggregate Summative test results?"
+            }
+          }
+        },
+        "accept": {
+          "true": "Embargo",
+          "false": "Release"
+        },
+        "decline": "Cancel"
+      }
+    },
     "menu": "Menu",
     "more-info": "More Information",
     "personName": "{{lastName}}, {{firstName}}",

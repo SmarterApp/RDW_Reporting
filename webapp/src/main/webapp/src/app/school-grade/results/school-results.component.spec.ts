@@ -138,9 +138,9 @@ describe('SchoolResultsComponent', () => {
     component.schoolSelectChanged(school);
 
     expect(component.currentGrade).toBeUndefined();
-    expect(mockRouter.navigate).toHaveBeenCalledWith(
-      [ 'schools', school.id, {schoolYear: schoolYear} ]
-    );
+    expect(component.assessmentExams).toEqual([]);
+    expect(component.gradesAreUnavailable).toEqual(true);
+    expect(mockRouter.navigate).toHaveBeenCalledTimes(0);
   });
 });
 

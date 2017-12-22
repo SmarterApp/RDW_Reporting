@@ -16,6 +16,7 @@ import { FileFormatModule } from "./groups/import/fileformat/file-format.module"
 import { AccessDeniedComponent } from "./access-denied/access-denied.component";
 import { InstructionalResourceModule } from "./instructional-resource/instructional-resource.module";
 import { HomeComponent } from "./home/home.component";
+import { EmbargoModule } from "./embargo/embargo.module";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { HomeComponent } from "./home/home.component";
     GroupImportModule,
     GroupsModule,
     InstructionalResourceModule,
+    EmbargoModule,
     FileFormatModule,
     RouterModule.forRoot(routes),
     UserModule,

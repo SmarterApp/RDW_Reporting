@@ -7,7 +7,7 @@ import { OrganizationExportOptions } from "./organization-export-options";
 import { OrganizationExportNamingService } from "./organization-export-naming.service";
 import { OrganizationGroupingService } from "./organization-grouping.service";
 
-const ServiceRoute = '/reporting-service';
+const ServiceRoute = '/report-processor';
 
 @Injectable()
 export class OrganizationExportService {

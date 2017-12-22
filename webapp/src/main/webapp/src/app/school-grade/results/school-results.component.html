@@ -2,9 +2,9 @@
   {{'labels.school-grade.messages.null-school' | translate }}
 </div>
 
-<div *ngIf="currentSchool && currentGrade">
+<div *ngIf="currentSchool">
   <div class="mb-md">
-    <span class="h3 blue-dark">{{currentSchool.name}}<span> - {{currentGrade.code | gradeDisplay:'long-name'}}</span></span>
+    <span class="h3 blue-dark">{{currentSchool.name}}<span *ngIf="currentGrade"> - {{currentGrade.code | gradeDisplay:'long-name'}}</span></span>
     <span class="pull-right text-right">
       <button class="btn btn-default btn-sm" (click)="exportCsv()"><i class="fa fa-bold fa-table"></i> {{'labels.export.csv' | translate}}</button>
       <a *hasPermission="'INDIVIDUAL_PII_READ'" routerLink="/custom-export" class="btn btn-sm btn-default ml-xs"><i class="fa fa-table"></i> {{'labels.organization-export.title' | translate}}</a>
@@ -19,6 +19,7 @@
   </div>
 
   <assessments [assessmentExams]="assessmentExams"
+               [hideAssessments]="gradesAreUnavailable"
                [assessmentProvider]="assessmentProvider"
                [allowFilterBySessions]="false">
 
@@ -35,9 +36,13 @@
     <!-- Current Grade -->
     <div class="col-md-2">
       <label for="current-grade">{{'labels.school-grade.results.basic-filters.current-grade' | translate}}</label>
-      <select id="current-grade" class="form-control"
-              title="{{ (gradesAreUnavailable ? 'labels.school-grade.messages.no-grades-available': '') | translate}}"
-              [disabled]="!availableGrades || availableGrades.length == 0" [(ngModel)]="currentGrade" (change)="updateRoute('Grade')">
+
+      <select *ngIf="gradesAreUnavailable" id="current-dsiabled-grade" class="form-control"
+              [disabled]="true">
+        <option selected>{{'labels.school-grade.messages.no-results' | translate}}</option>
+      </select>
+      <select *ngIf="!gradesAreUnavailable" id="current-grade" class="form-control"
+              [(ngModel)]="currentGrade" (change)="updateRoute('Grade')">
         <option *ngFor="let grade of availableGrades" [ngValue]="grade">{{grade.code | gradeDisplay:'long-name' }}</option>
       </select>
     </div>
@@ -45,8 +50,9 @@
     <!-- School Year -->
     <div class="col-md-2">
       <label for="school-year">{{'labels.school-grade.results.basic-filters.school-year' | translate}}</label>
-      <select id="school-year" [(ngModel)]="currentSchoolYear" (change)="updateRoute('Year')" class="form-control">
+      <select id="school-year" [disabled]="gradesAreUnavailable" [(ngModel)]="currentSchoolYear" (change)="updateRoute('Year')" class="form-control">
         <option *ngFor="let year of filterOptions.schoolYears" [ngValue]="year">{{year | schoolYear}}</option>
+        <option *ngIf="gradesAreUnavailable" selected>{{'labels.school-grade.messages.no-results' | translate}}</option>
       </select>
     </div>
 

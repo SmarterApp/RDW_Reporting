@@ -10,6 +10,8 @@ import { FileFormatComponent } from "./groups/import/fileformat/file-format.comp
 import { GroupImportDeactivateGuard } from "./groups/import/group-import.deactivate";
 import { GroupImportComponent } from "./groups/import/group-import.component";
 import { GroupsComponent } from "./groups/groups.component";
+import { EmbargoComponent } from "./embargo/embargo.component";
+import { EmbargoResolve } from "./embargo/embargo.resolve";
 import { AuthorizationCanActivate } from "@sbac/rdw-reporting-common-ngx/security"
 
 export const routes: Routes = [
@@ -18,7 +20,8 @@ export const routes: Routes = [
     resolve: { user: UserResolve },
     canActivate: [ AuthorizationCanActivate ],
     data: {
-      permissions: [ 'GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE' ]
+      permissions: [ 'GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE' ],
+      denyAccess: true
     },
     children: [
       {
@@ -40,24 +43,22 @@ export const routes: Routes = [
             data: {
               breadcrumb: {
                 translate: 'labels.groups.title',
-              }
+              },
+              permissions: [ 'GROUP_WRITE' ],
+              denyAccess: true
             },
+            canActivate: [ AuthorizationCanActivate ],
             children: [
               {
                 path: '',
                 pathMatch: 'prefix',
-                data: {
-                  permissions: [ 'GROUP_WRITE' ]
-                },
-                canActivate: [ AuthorizationCanActivate ],
                 component: GroupsComponent
               },
               {
                 path: 'import',
                 data: {
-                  breadcrumb: { translate: 'labels.groups.import.title' }, permissions: [ 'GROUP_WRITE' ]
+                  breadcrumb: { translate: 'labels.groups.import.title' },
                 },
-                canActivate: [ AuthorizationCanActivate ],
                 children: [
                   {
                     path: '',
@@ -84,10 +85,6 @@ export const routes: Routes = [
               {
                 path: 'history',
                 pathMatch: 'prefix',
-                data: {
-                  permissions: [ 'GROUP_WRITE' ]
-                },
-                canActivate: [ AuthorizationCanActivate ],
                 children: [
                   {
                     path: '',
@@ -99,7 +96,25 @@ export const routes: Routes = [
                 ]
               },
             ]
+          },
+          {
+            path: 'embargoes',
+            pathMatch: 'prefix',
+            data: {
+              breadcrumb: { translate: 'labels.embargo.title' },
+              permissions: [ 'EMBARGO_WRITE' ]
+            },
+            canActivate: [ AuthorizationCanActivate ],
+            children: [
+              {
+                path: '',
+                pathMatch: 'prefix',
+                component: EmbargoComponent,
+                resolve: { embargoesByOrganizationType: EmbargoResolve }
+              }
+            ]
           }
+
         ]
       },
       {
@@ -107,7 +122,8 @@ export const routes: Routes = [
         pathMatch: 'prefix',
         data: {
           breadcrumb: { translate: 'labels.instructional-resource.title' },
-          permissions: [ 'INSTRUCTIONAL_RESOURCE_WRITE' ]
+          permissions: [ 'INSTRUCTIONAL_RESOURCE_WRITE' ],
+          denyAccess: true
         },
         canActivate: [ AuthorizationCanActivate ],
         children: [

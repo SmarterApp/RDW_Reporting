@@ -9,12 +9,16 @@
 
   <!-- Row Content Area -->
   <div class="well">
-    <!-- Manage Student Groups -->
-    <a *hasPermission="'GROUP_WRITE'" routerLink="groups">{{ 'labels.groups.title' | translate}} <br/></a>
-
-    <!-- Instructional Resource -->
-    <a *hasPermission="'INSTRUCTIONAL_RESOURCE_WRITE'" routerLink="instructional-resource">{{
-      'labels.instructional-resource.title' | translate}} <br/></a>
-
+    <div class="well-body">
+      <div>
+        <a *hasPermission="'GROUP_WRITE'" routerLink="groups">{{ 'labels.groups.title' | translate}}</a>
+      </div>
+      <div>
+        <a *hasPermission="'INSTRUCTIONAL_RESOURCE_WRITE'" routerLink="instructional-resource">{{'labels.instructional-resource.title' | translate}}</a>
+      </div>
+      <div>
+        <a *hasPermission="'EMBARGO_WRITE'" routerLink="embargoes">{{'labels.embargo.title' | translate}}</a>
+      </div>
+    </div>
   </div>
 </div>
