@@ -14,7 +14,6 @@ import { ExamFilterOptionsMapper } from "./filters/exam-filters/exam-filter-opti
 import { SelectAssessmentsComponent } from "./filters/select-assessments/select-assessments.component";
 import { AssessmentsComponent } from "./assessments.component";
 import { AdvFiltersToggleComponent } from "./filters/adv-filters/adv-filters-toggle.component";
-import { ScaleScoreComponent } from "./results/scale-score.component";
 import { AverageScaleScoreComponent } from "./results/average-scale-score.component";
 import { ItemViewerComponent } from "./items/item-viewer/item-viewer.component";
 import { ItemTabComponent } from "./items/item-tab.component";
@@ -46,7 +45,6 @@ import { InstructionalResourcePopoverComponent } from './popover/instructional-r
     AssessmentResultsComponent,
     ItemTabComponent,
     ItemViewerComponent,
-    ScaleScoreComponent,
     AverageScaleScoreComponent,
     SelectAssessmentsComponent,
     ItemExemplarComponent,
@@ -77,7 +75,6 @@ import { InstructionalResourcePopoverComponent } from './popover/instructional-r
     AdvFiltersToggleComponent,
     AssessmentsComponent,
     ItemTabComponent,
-    ScaleScoreComponent,
     ClaimTargetComponent,
     InstructionalResourcePopoverComponent
   ],

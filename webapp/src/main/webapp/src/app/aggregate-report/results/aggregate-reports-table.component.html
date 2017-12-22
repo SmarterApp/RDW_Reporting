@@ -1,0 +1,149 @@
+<div class="well">
+  <div *ngIf="loading" class="loader">
+    <div class="inner">
+      <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">{{ 'messages.loading' | translate }}</span>
+    </div>
+  </div>
+
+  <p-dataTable #table
+               [ngClass]="{'hidden': loading}"
+               (onPage)="onPage($event)"
+               [rowTrackBy]="rowTrackBy"
+               [immutable]="false"
+               [rows]="100"
+               [paginator]="true"
+               [pageLinks]="3"
+               [rowsPerPageOptions]="[100,500,1000]"
+               emptyMessage="{{'labels.aggregate-reports.results.empty-message' | translate}}"
+               tableStyleClass="table table-striped table-hover overflow">
+    <p-column field="organizationName"
+              sortable="custom"
+              (sortFunction)="sort($event)"
+              header="{{'labels.aggregate-reports.results.cols.organization-name' | translate}}">
+      <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
+        <div *ngIf="treeColumns[i] <= colIndex(col)"
+             class="full-cell pt-0"
+             [ngClass]="{'border-top': treeColumns[i] <= colIndex(col) && treeColumns[i] < columnOrdering.length - 1}">
+          {{reportItem.organizationName}}
+        </div>
+      </ng-template>
+    </p-column>
+    <p-column field="gradeId"
+              sortable="custom"
+              (sortFunction)="sort($event)"
+              header="{{'labels.aggregate-reports.results.cols.assessment-grade' | translate}}">
+      <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
+        <div *ngIf="treeColumns[i] <= colIndex(col)"
+             class="full-cell pt-0"
+             [ngClass]="{'border-top': treeColumns[i] <= colIndex(col) && treeColumns[i] < columnOrdering.length - 1}">
+          {{reportItem.gradeId}}
+        </div>
+      </ng-template>
+    </p-column>
+    <p-column field="schoolYear"
+              sortable="custom"
+              (sortFunction)="sort($event)"
+              header="{{'labels.aggregate-reports.results.cols.school-year' | translate}}">
+      <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
+        <div *ngIf="treeColumns[i] <= colIndex(col)"
+             class="full-cell pt-0"
+             [ngClass]="{'border-top': treeColumns[i] <= colIndex(col) && treeColumns[i] < columnOrdering.length - 1}">
+          {{reportItem.schoolYear}}
+        </div>
+      </ng-template>
+    </p-column>
+    <p-column field="dimensionValue"
+              sortable="custom"
+              (sortFunction)="sort($event)"
+              header="{{'labels.aggregate-reports.results.cols.dimension' | translate}}">
+      <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
+        <div *ngIf="treeColumns[i] <= colIndex(col)"
+             class="full-cell pt-0"
+             [ngClass]="{'border-top': treeColumns[i] <= colIndex(col) && treeColumns[i] < columnOrdering.length - 1}">
+          {{ ('labels.aggregate-reports.results.dimension.' + reportItem.dimensionType + '.' + reportItem.dimensionValue) | translate}}
+        </div>
+      </ng-template>
+    </p-column>
+    <p-column field="studentsTested"
+              sortable="custom"
+              (sortFunction)="sort($event)"
+              header="{{'labels.aggregate-reports.results.cols.students-tested' | translate}}">
+      <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
+        <div class="full-cell pt-0"
+             [ngClass]="{'border-top': treeColumns[i] < columnOrdering.length - 1}">
+          {{ reportItem.studentsTested }}
+        </div>
+      </ng-template>
+    </p-column>
+    <p-column header="{{'labels.aggregate-reports.results.cols.achievement-comparison' | translate}}">
+      <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
+        <div class="full-cell pt-0 pb-0 pl-0 pr-0"
+             [ngClass]="{'border-top': treeColumns[i] < columnOrdering.length - 1}">
+          <performance-comparison [assessmentType]="query.assessmentType"
+                                  [performanceRollup]="performanceRollup"
+                                  [groupPerformanceLevels]="groupPerformanceLevels"
+                                  [performancePercentages]="reportItem.performanceLevelPercents"></performance-comparison>
+        </div>
+      </ng-template>
+    </p-column>
+    <p-column field="avgScaleScore"
+              sortable="custom"
+              (sortFunction)="sort($event)"
+              header="{{'labels.aggregate-reports.results.cols.avg-scale-score' | translate}}">
+      <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
+        <div class="full-cell text-center"
+             [ngClass]="{'border-top': treeColumns[i] < columnOrdering.length - 1}">
+          <span *ngIf="!reportItem.studentsTested">-</span>
+          <span *ngIf="reportItem.studentsTested">
+            <scale-score [score]="reportItem.avgScaleScore" [standardError]="reportItem.avgStdErr"></scale-score>
+          </span>
+        </div>
+      </ng-template>
+    </p-column>
+    <div *ngIf="!groupPerformanceLevels">
+      <p-column *ngFor="let level of performanceLevels; let levelIdx = index"
+                sortable="custom"
+                (sortFunction)="sort($event)"
+                field="{{ (showValuesAsPercent ? 'performanceLevelPercents.' : 'performanceLevelCounts.') + levelIdx }}">
+        <ng-template pTemplate="header">
+          <div class="text-center">
+            <span class="label" [ngClass]="colorService.getPerformanceLevelColor({type: query.assessmentType}, levelIdx)">
+              {{ (performanceLevelTranslationPrefix + level) | translate }}
+            </span><br>
+            <span>{{ 'labels.aggregate-reports.results.cols.performance-level-suffix' | translate }}</span>
+          </div>
+        </ng-template>
+        <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
+          <div class="full-cell text-center"
+               [ngClass]="{'border-top': treeColumns[i] < columnOrdering.length - 1}">
+            <span *ngIf="!reportItem.studentsTested">-</span>
+            <span *ngIf="reportItem.studentsTested">{{ showValuesAsPercent ? reportItem.performanceLevelPercents[levelIdx] + "%" : reportItem.performanceLevelCounts[levelIdx] }}</span>
+          </div>
+        </ng-template>
+      </p-column>
+    </div>
+    <div *ngIf="groupPerformanceLevels">
+      <p-column *ngFor="let level of [performanceRollup-1, performanceRollup]; let leveIdx = index"
+                sortable="custom"
+                (sortFunction)="sort($event)"
+                field="{{ (showValuesAsPercent ? 'groupedPerformanceLevelPercents.' : 'groupedPerformanceLevelCounts.') + leveIdx }}">
+        <ng-template pTemplate="header">
+          <div class="text-center">
+            <span>{{('labels.aggregate-reports.results.cols.grouped-performance-level-prefix.' + leveIdx) | translate}}</span><br>
+            <span class="label" [ngClass]="colorService.getPerformanceLevelColor({type: query.assessmentType}, level - 1)">
+              {{ (performanceLevelTranslationPrefix + level) | translate }}
+            </span><br>
+            <span>{{ 'labels.aggregate-reports.results.cols.performance-level-suffix' | translate }}</span>
+          </div>
+        </ng-template>
+        <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
+          <div class="full-cell text-center"
+               [ngClass]="{'border-top': treeColumns[i] < columnOrdering.length - 1}">
+            <span *ngIf="!reportItem.studentsTested">-</span>
+            <span *ngIf="reportItem.studentsTested">{{ showValuesAsPercent ? reportItem.groupedPerformanceLevelPercents[leveIdx] + "%" : reportItem.groupedPerformanceLevelCounts[leveIdx] }}</span>
+          </div>
+        </ng-template>
+      </p-column>
+    </div>
+  </p-dataTable>
+</div>
