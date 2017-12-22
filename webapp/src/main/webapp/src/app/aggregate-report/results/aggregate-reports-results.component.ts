@@ -36,12 +36,12 @@ export class AggregateReportsResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let detailsObservable: Observable<AssessmentDetails> = this.assessmentDetailsService.getDetails(this.query.assessmentType);
-    let dataObservable: Observable<AggregateReportItem[]> = this.service.getReportData(this.query);
+    const detailsObservable: Observable<AssessmentDetails> = this.assessmentDetailsService.getDetails(this.query.assessmentType);
+    const dataObservable: Observable<AggregateReportItem[]> = this.service.getReportData(this.query);
 
     Observable.forkJoin(detailsObservable, dataObservable).subscribe((value) => {
-      let details: AssessmentDetails = value[0];
-      let items: AggregateReportItem[] = value[1];
+      const details: AssessmentDetails = value[0];
+      const items: AggregateReportItem[] = value[1];
 
       this.performanceRollup = details.performanceRollup;
 

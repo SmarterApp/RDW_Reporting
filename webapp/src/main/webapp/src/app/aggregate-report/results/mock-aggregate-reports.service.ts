@@ -5,7 +5,7 @@ import { ResponseUtils } from "../../shared/response-utils";
 import { AssessmentDetailsService } from "./assessment-details.service";
 import { AggregateReportQuery } from "../model/aggregate-report-query.model";
 import { AssessmentDetails } from "../model/assessment-details.model";
-import { Http } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 
 /**
  * This placeholder service will eventually submit an AggregateReportQuery
@@ -16,7 +16,7 @@ import { Http } from "@angular/http";
 @Injectable()
 export class MockAggregateReportsService {
 
-  constructor(private http: Http,
+  constructor(private http: HttpClient,
               private assessmentDetailsService: AssessmentDetailsService) {
   }
 
@@ -45,6 +45,7 @@ export class MockAggregateReportsService {
     uiModel.subjectId = apiModel.assessment.subjectId;
     uiModel.schoolYear = apiModel.examSchoolYear;
     uiModel.organizationType = apiModel.organization.type;
+    //TODO: "California" should come from the back-end api populated via config-properties
     uiModel.organizationName = (uiModel.organizationType == "State")
       ? "California"
       : apiModel.organization.name;
@@ -66,7 +67,7 @@ export class MockAggregateReportsService {
     uiModel.studentsTested = totalTested;
 
     for (let level = 0; level < uiModel.performanceLevelCounts.length; level++) {
-      let percent = totalTested == 0 ? 0 : Math.floor(uiModel.performanceLevelCounts[level] / totalTested * 100);
+      let percent = totalTested == 0 ? 0 : Math.floor((uiModel.performanceLevelCounts[level] / totalTested) * 100);
       uiModel.performanceLevelPercents.push(percent);
     }
 
@@ -82,9 +83,9 @@ export class MockAggregateReportsService {
         }
       }
       uiModel.groupedPerformanceLevelCounts.push(belowCount);
-      uiModel.groupedPerformanceLevelPercents.push(totalTested == 0 ? 0 : Math.floor(belowCount / totalTested * 100));
+      uiModel.groupedPerformanceLevelPercents.push(totalTested == 0 ? 0 : Math.floor((belowCount / totalTested) * 100));
       uiModel.groupedPerformanceLevelCounts.push(aboveCount);
-      uiModel.groupedPerformanceLevelPercents.push(totalTested == 0 ? 0 : Math.floor(aboveCount / totalTested * 100));
+      uiModel.groupedPerformanceLevelPercents.push(totalTested == 0 ? 0 : Math.floor((aboveCount / totalTested) * 100));
     }
 
     return uiModel;

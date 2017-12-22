@@ -1,5 +1,5 @@
 /**
- * This model represents an aggregate report entry
+ * This model represents an aggregate report data table row result.
  */
 export class AggregateReportItem {
   itemId: number;

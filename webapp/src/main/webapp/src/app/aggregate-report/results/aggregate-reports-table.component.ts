@@ -4,7 +4,7 @@ import { AggregateReportItem } from "../model/aggregate-report-item.model";
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { byNumber, byString, Comparator, join, ranking } from "@kourge/ordering/comparator";
 import { ColorService } from "../../shared/color.service";
-import { Column } from "primeng/primeng";
+import { Column, DataTable } from "primeng/primeng";
 import { isNullOrUndefined } from "util";
 import * as _ from "lodash";
 import { AssessmentDetailsService } from "./assessment-details.service";
@@ -60,7 +60,7 @@ export class AggregateReportsTableComponent implements OnInit {
   public groupPerformanceLevels: boolean;
 
   @ViewChild("table")
-  private resultsTable: any;
+  private resultsTable: DataTable;
 
   public treeColumns: number[] = [];
   public performanceLevels: number[] = [];
@@ -94,7 +94,7 @@ export class AggregateReportsTableComponent implements OnInit {
       this.performanceRollup = details.performanceRollup;
     });
 
-    // Give the datatable a chance to initialize
+    // Give the datatable a chance to initialize, run this next frame
     setTimeout(() => {
       this.updateColumnOrder();
       this.sort();
@@ -108,7 +108,7 @@ export class AggregateReportsTableComponent implements OnInit {
 
       this.resultsTable.value = this.reportItems;
       this.loading = false;
-    });
+    }, 0);
   }
 
   /**
@@ -189,6 +189,8 @@ export class AggregateReportsTableComponent implements OnInit {
 
   /**
    * Given a column field, return a Comparator used to sort on the given field.
+   * NOTE: This assumes any non-tree column is a *number* value.  If we add a non-tree non-number
+   * column, this will need some additional Comparator complexity.
    *
    * @param {string} field  A data field/property
    * @param {number} order  The sort order (1 for asc, -1 for desc)
@@ -229,7 +231,7 @@ export class AggregateReportsTableComponent implements OnInit {
       } else {
         let colIdx: number;
         for (colIdx = 0; colIdx < this.columnOrdering.length - 1; colIdx++) {
-          let column = this.resultsTable.columns[colIdx];
+          let column: Column = this.resultsTable.columns[colIdx];
           let previousValue = _.get(previousItem, column.field);
           let currentValue = _.get(item, column.field);
           if (previousValue != currentValue) {
