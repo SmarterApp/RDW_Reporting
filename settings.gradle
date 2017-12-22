@@ -10,6 +10,12 @@ include 'olap'
 rootProject.name = "rdw-reporting"
 
 rootProject.children.each {
-    it.name = "${rootProject.name}-${it.name}"
+    if (it.name == "reporting-service") {
+        it.name = "${rootProject.name}-service"
+    } else if (it.name == "admin-webapp") {
+        it.name = "${rootProject.name}-admin-service"
+    } else {
+        it.name = "${rootProject.name}-${it.name}"
+    }
 }
 

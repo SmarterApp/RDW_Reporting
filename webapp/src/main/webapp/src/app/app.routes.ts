@@ -25,6 +25,124 @@ import { RoutingAuthorizationCanActivate } from "@sbac/rdw-reporting-common-ngx/
 import { AuthorizationCanActivate } from "@sbac/rdw-reporting-common-ngx/security/authorization.can-activate";
 import { AggregateReportsComponent } from "./aggregate-report/aggregate-reports.component";
 import { AggregateReportsResultsComponent } from "./aggregate-report/results/aggregate-reports-results.component";
+import { InstructionalResourceComponent } from "./admin/instructional-resource/instructional-resource.component";
+import { EmbargoComponent } from "./admin/embargo/embargo.component";
+import { EmbargoResolve } from "./admin/embargo/embargo.resolve";
+import { ImportHistoryComponent } from "./admin/groups/import/history/import-history.component";
+import { FileFormatComponent } from "./admin/groups/import/fileformat/file-format.component";
+import { ImportHistoryResolve } from "./admin/groups/import/history/import-history.resolve";
+import { GroupImportComponent } from "./admin/groups/import/group-import.component";
+import { GroupImportDeactivateGuard } from "./admin/groups/import/group-import.deactivate";
+import { GroupsComponent } from "./admin/groups/groups.component";
+import { HomeComponent as AdminHomeComponent } from "./admin/home/home.component";
+
+const adminRoute = {
+  path: 'admin',
+  data: { breadcrumb: { translate: 'labels.admin.title' }, permissions: [ 'GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE' ] },
+  canActivate: [ AuthorizationCanActivate ],
+  children: [
+    {
+      path: '',
+      pathMatch: 'full',
+      component: AdminHomeComponent
+    },
+    {
+      path: 'admin-groups',
+      pathMatch: 'prefix',
+      data: {
+        breadcrumb: {
+          translate: 'labels.admin-groups.title',
+        },
+        permissions: [ 'GROUP_WRITE' ],
+        denyAccess: true
+      },
+      canActivate: [ AuthorizationCanActivate ],
+      children: [
+        {
+          path: '',
+          pathMatch: 'prefix',
+          component: GroupsComponent
+        },
+        {
+          path: 'import',
+          data: {
+            breadcrumb: { translate: 'labels.admin-groups.import.title' },
+          },
+          children: [
+            {
+              path: '',
+              pathMatch: 'prefix',
+              component: GroupImportComponent,
+              canDeactivate: [ GroupImportDeactivateGuard ]
+            },
+            {
+              path: 'fileformat',
+              pathMatch: 'prefix',
+              data: {
+                breadcrumb: { translate: 'labels.admin-groups.import.file-format.header' }
+              },
+              children: [
+                {
+                  path: '',
+                  pathMatch: 'prefix',
+                  component: FileFormatComponent
+                }
+              ]
+            }
+          ]
+        },
+        {
+          path: 'history',
+          pathMatch: 'prefix',
+          children: [
+            {
+              path: '',
+              pathMatch: 'prefix',
+              component: ImportHistoryComponent,
+              resolve: { imports: ImportHistoryResolve },
+              data: { breadcrumb: { translate: 'labels.admin-groups.history.title' } }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      path: 'instructional-resource',
+      pathMatch: 'prefix',
+      data: {
+        breadcrumb: { translate: 'labels.instructional-resource.title' },
+        permissions: [ 'INSTRUCTIONAL_RESOURCE_WRITE' ],
+        denyAccess: true
+      },
+      canActivate: [ AuthorizationCanActivate ],
+      children: [
+        {
+          path: '',
+          pathMatch: 'prefix',
+          component: InstructionalResourceComponent
+        }
+      ]
+    },
+    {
+      path: 'embargoes',
+      pathMatch: 'prefix',
+      data: {
+        breadcrumb: { translate: 'labels.embargo.title' },
+        permissions: [ 'EMBARGO_WRITE' ]
+      },
+      canActivate: [ AuthorizationCanActivate ],
+      children: [
+        {
+          path: '',
+          pathMatch: 'prefix',
+          component: EmbargoComponent,
+          resolve: { embargoesByOrganizationType: EmbargoResolve }
+        }
+      ]
+    }
+
+  ]
+};
 
 
 const studentTestHistoryChildRoute = {
@@ -74,6 +192,7 @@ export const routes: Routes = [
     resolve: { user: UserResolve, translateComplete: TranslateResolve },
     children: [
       { path: '', pathMatch: 'full', component: HomeComponent },
+      adminRoute,
       {
         path: 'groups/:groupId',
         data: { breadcrumb: { translate: 'labels.groups.name' }, permissions: [ 'GROUP_PII_READ' ] },

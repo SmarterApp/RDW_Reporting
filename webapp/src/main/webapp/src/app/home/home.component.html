@@ -14,7 +14,7 @@
 
         <!-- Student Groups Admin Link -->
         <a *hasAnyPermission="['GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE']"
-           href="{{user.configuration.adminWebappUrl}}" class="btn btn-xs btn-info ml-xs"><i class="fa fa-gear"></i> {{'labels.groups.admin-button' | translate}}</a>
+           routerLink="/admin" class="btn btn-xs btn-info ml-xs"><i class="fa fa-gear"></i> {{'labels.groups.admin-button' | translate}}</a>
 
       </div>
     </div>

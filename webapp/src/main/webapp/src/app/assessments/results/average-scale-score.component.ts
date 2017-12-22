@@ -7,6 +7,8 @@ import { ColorService } from "../../shared/color.service";
 import { AssessmentProvider } from "../assessment-provider.interface";
 import { Observable } from "rxjs/Observable";
 
+const minimumFillLevel = 10;
+
 /**
  * This component is responsible for displaying the average scale score visualization
  */
@@ -68,10 +70,12 @@ export class AverageScaleScoreComponent {
   /**
    * Calculates the amount of the bar filled by the ExamStatisticsLevel
    * @param {ExamStatisticsLevel} examStatisticsLevel
-   * @returns {number} the amount filled by the examStatisticsLevel (0-100)
+   * @returns {number} the amount filled by the examStatisticsLevel (0-100). If the amount is inclusively between 1 and 9 then 10 is returned.
    */
   filledLevel(examStatisticsLevel: ExamStatisticsLevel): number {
-    return this.showValuesAsPercent ? Math.floor(examStatisticsLevel.value) : this.levelCountPercent(examStatisticsLevel.value);
+    const filledLevel = this.showValuesAsPercent ? Math.floor(examStatisticsLevel.value) : this.levelCountPercent(examStatisticsLevel.value);
+    if (filledLevel === 0) return filledLevel;
+    return Math.max(filledLevel, minimumFillLevel);
   }
 
   /**

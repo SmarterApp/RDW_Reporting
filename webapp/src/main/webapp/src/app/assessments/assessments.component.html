@@ -82,7 +82,7 @@
 
   </div>
 
-  <div id="group-results-edit-assessments" [hidden]="!expandAssessments || !gradesAreUnavailable" class="well gray-lighter">
+  <div id="group-results-edit-assessments" [hidden]="!expandAssessments || hideAssessments" class="well gray-lighter">
     <div id="adv-filters-edit-assessments-collapse" class="pull-right">
       <button class="form-control btn btn-sm" (click)="expandAssessments = false"
               angulartics2On="click" angularticsEvent="HideCustomSelectionView" angularticsCategory="AssessmentResults">
@@ -98,7 +98,7 @@
 <h2 class="blue-dark h3 mt-lg mb-md">
   {{'labels.groups.results.title' | translate}}
   <div class="pull-right float-none-xs">
-    <label for="value-format">{{'labels.groups.results.value-as' | translate }} </label>
+    <label for="value-format" class="pr-xs">{{'labels.groups.results.value-as' | translate }} </label>
     <div id="value-format" class="btn-group btn-group-primary btn-group-xs mr-md" role="group">
       <button type="radio" (click)="showValuesAsPercent = true" [ngClass]="{'active':showValuesAsPercent}"
               angulartics2On="click" angularticsEvent="ShowAsPercent" angularticsCategory="AssessmentResults"

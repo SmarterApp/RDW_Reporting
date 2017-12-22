@@ -130,4 +130,5 @@ app:
     code: CA
     name: California
 
-
+jwt:
+  secret: ${rdw.reporting.jwt.secret:secret}

@@ -50,6 +50,14 @@ dependencies {
     testCompile 'org.springframework.cloud:spring-cloud-stream-test-support'
 }
 
+IT{
+    dependsOn ":cleanWarehouseTest"
+    dependsOn ":migrateWarehouseTest"
+}
+moIT{
+    dependsOn ":migrateWarehouseTest"
+}
+
 node {
     version = '8.9.1'
     npmVersion = '5.5.1'

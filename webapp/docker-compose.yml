@@ -56,6 +56,25 @@ services:
       - CONFIG_SERVICE_URL=http://config-server:8888
       # need this until we have it on config server
       - zuul.routes.reporting-service.url=http://reporting-service:8080
+      - zuul.routes.admin-service.url=http://admin-service:8080
+
+    extra_hosts:
+      - "dwhost:$DATAWAREHOUSE_HOST"
+
+  admin-service:
+    image: smarterbalanced/rdw-reporting-admin-webapp
+    ports:
+      - 8280:8080
+      - 8208:8008
+    volumes:
+      - /tmp:/tmp
+    links:
+      - config-server
+      - rabbitmq
+    environment:
+      - spring.profiles.active=local-docker
+      - CONFIG_SERVICE_ENABLED=true
+      - CONFIG_SERVICE_URL=http://config-server:8888
     extra_hosts:
       - "dwhost:$DATAWAREHOUSE_HOST"
 

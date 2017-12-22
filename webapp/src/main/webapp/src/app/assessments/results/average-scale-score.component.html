@@ -13,7 +13,7 @@
           <div class="pl-xs">
             <div class="scale-score font-large text-left">
               <span class="score label label-primary">{{ statistics.average | number:'1.0-0' | removeComma }}</span>
-              <span class="error-band black">± {{ statistics.standardError | number:'1.0-0' }}</span>
+              <span class="error-band black pl-xs">± {{ statistics.standardError | number:'1.0-0' }}</span>
             </div>
             <span class="text-left gray-darkest">
               <span class="font-large">

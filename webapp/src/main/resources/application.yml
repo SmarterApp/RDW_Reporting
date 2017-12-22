@@ -97,6 +97,10 @@ zuul:
       path: /iris/**
       url: ${app.iris.url}
       stripPrefix: true
+    admin-service:
+      path: /api/admin-service/**
+      url: http://localhost:8280
+      stripPrefix: true
     report-processor:
       path: /api/report-processor/**
       url: http://localhost:8085
@@ -109,4 +113,4 @@ zuul:
 jwt:
   secret: ${rdw.reporting.jwt.secret:secret}
   producer: true
-  routePaths: ${zuul.routes.report-processor.path},${zuul.routes.reporting-service.path}
+  routePaths: ${zuul.routes.admin-service.path},${zuul.routes.report-processor.path},${zuul.routes.reporting-service.path}
