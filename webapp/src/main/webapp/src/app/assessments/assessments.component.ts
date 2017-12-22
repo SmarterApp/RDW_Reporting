@@ -30,7 +30,6 @@ export class AssessmentsComponent implements OnInit {
   @Input()
   set assessmentExams(value: AssessmentExam[]) {
     this._assessmentExams = value;
-    this.showOnlyMostRecent = value.length > 0;
     this._hasInitialAssessment = (value != null && value.length != 0);
   }
 
@@ -80,7 +79,7 @@ export class AssessmentsComponent implements OnInit {
   }
 
   get expandAssessments(): boolean {
-    return this._expandAssessments;
+    return this._expandAssessments && this.assessmentExams.length > 0;
   }
 
   set expandAssessments(value: boolean) {
@@ -95,6 +94,7 @@ export class AssessmentsComponent implements OnInit {
     return this._showOnlyMostRecent;
   }
 
+  @Input()
   set showOnlyMostRecent(value: boolean) {
     this.expandAssessments = !value;
     if (value) {
