@@ -1,5 +1,5 @@
 <div class="performance-comparison-graph">
-  <div class="bar-container" [attr.data-width]="hasRollup() > 0 ? 50 : 100">
+  <div class="bar-container" [attr.data-width]="hasRollup() ? 50 : 100">
     <div *ngFor="let percentage of getBelowPercentages(); let levelIdx = index"
          class="bar"
          [ngClass]="getBelowColor(levelIdx)"
