@@ -1,0 +1,24 @@
+<!-- Home Page Content Area -->
+<div class="home-view">
+  <div class="row">
+    <div class="col-md-6">
+      <h1 class="sr-only">{{'labels.admin.title' | translate}}</h1>
+      <h1 class="blue-dark h1 mb-md">{{'labels.admin.title' | translate}}</h1>
+    </div>
+  </div>
+
+  <!-- Row Content Area -->
+  <div class="well">
+    <div class="well-body">
+      <div>
+        <a *hasPermission="'GROUP_WRITE'" routerLink="admin-groups">{{ 'labels.admin-groups.title' | translate}}</a>
+      </div>
+      <div>
+        <a *hasPermission="'INSTRUCTIONAL_RESOURCE_WRITE'" routerLink="instructional-resource">{{'labels.instructional-resource.title' | translate}}</a>
+      </div>
+      <div>
+        <a *hasPermission="'EMBARGO_WRITE'" routerLink="embargoes">{{'labels.embargo.title' | translate}}</a>
+      </div>
+    </div>
+  </div>
+</div>

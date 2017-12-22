@@ -68,7 +68,7 @@ export class AverageScaleScoreComponent {
   /**
    * Calculates the amount of the bar filled by the ExamStatisticsLevel
    * @param {ExamStatisticsLevel} examStatisticsLevel
-   * @returns {number} the amount filled by the examStatisticsLevel (0-100).
+   * @returns {number} the amount filled by the examStatisticsLevel (0-100)
    */
   filledLevel(examStatisticsLevel: ExamStatisticsLevel): number {
     return this.showValuesAsPercent ? Math.floor(examStatisticsLevel.value) : this.levelCountPercent(examStatisticsLevel.value);

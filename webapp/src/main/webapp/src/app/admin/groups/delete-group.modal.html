@@ -1,0 +1,23 @@
+<div *ngIf="group">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{ 'labels.admin-groups.delete.title' | translate:group }}</h4>
+    <button type="button" class="close pull-right" title="{{'prompt.close' | translate}}" (click)="cancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" [innerHTML]="'labels.admin-groups.delete.content-html' | translate">
+  </div>
+  <div *ngIf="unableToDelete" class="alert alert-danger">
+    {{ 'labels.admin-groups.delete.error' | translate }}
+  </div>
+  <div class="modal-footer">
+    <span>
+      <button type="button" class="btn btn-default" (click)="cancel()">
+        {{ (unableToDelete? 'prompt.close' : 'labels.admin-groups.delete.button-cancel') | translate }}
+      </button>
+      <button type="button" *ngIf="!unableToDelete" class="btn btn-danger" (click)="delete()">
+        {{ 'labels.admin-groups.delete.button-save' | translate }}
+      </button>
+    </span>
+  </div>
+</div>

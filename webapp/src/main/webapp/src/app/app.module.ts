@@ -19,6 +19,7 @@ import { ErrorComponent } from './error/error.component';
 import { AccessDeniedComponent } from './error/access-denied/access-denied.component';
 import { OrganizationExportModule } from "./organization-export/organization-export.module";
 import { AggregateReportsModule } from "./aggregate-report/aggregate-reports.module";
+import { AdminModule } from "./admin/admin.module";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AggregateReportsModule } from "./aggregate-report/aggregate-reports.mod
     AccessDeniedComponent
   ],
   imports: [
+    AdminModule,
     AggregateReportsModule,
     AlertModule.forRoot(),
     BrowserModule,

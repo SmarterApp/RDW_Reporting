@@ -1,0 +1,20 @@
+<h3 class="blue-dark mb-md">{{'labels.embargo.title' | translate}}</h3>
+
+<div class="well" *ngIf="stateEmbargo">
+  <div class="well-body mt-sm">
+    <embargo-table translateContext="labels.embargo.state.table"
+                   [embargoes]="[stateEmbargo]"
+                   (toggle)="confirmToggle($event)"></embargo-table>
+  </div>
+</div>
+
+<div class="well" *ngIf="districtEmbargoes">
+  <div class="well-body mt-xsm">
+    <embargo-table translateContext="labels.embargo.district.table"
+                   [embargoes]="districtEmbargoes"
+                   [overridingEmbargo]="stateEmbargo"
+                   (toggle)="confirmToggle($event)"></embargo-table>
+  </div>
+</div>
+
+

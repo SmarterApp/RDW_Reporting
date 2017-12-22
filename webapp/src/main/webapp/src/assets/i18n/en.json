@@ -1,74 +1,393 @@
 {
+  "application": {
+    "title": "Reporting System"
+  },
+  "buttons": {
+    "all": "All",
+    "collapsible": {
+      "collapse": "Collapse",
+      "expand": "Expand"
+    },
+    "display-claim": "Claim Scores",
+    "display-overall": "Overall Scores",
+    "go-home": "Go Home",
+    "search": "Search",
+    "visibility": {
+      "hide": "Hide",
+      "show": "Show"
+    }
+  },
+  "collapse": "Collapse",
   "common-ngx": {
     "breadcrumbs": {
       "home-sr": "Home",
       "window-title": "Smarter Balanced | Reporting System"
     },
-    "navigation-bar": {
-      "logo": {
-        "title": "Reporting System Dashboard",
-        "alt": "Smarter Balanced Assessment Consortium"
-      },
-      "title": "Reporting System",
-      "toggle-sr": "Toggle navigation",
-      "user-dropdown": "Welcome {{firstName}} {{lastName}}",
-      "logout": "Logout"
-    },
-    "footer": "\u00A9 The Regents of the University of California \u2013 Smarter Balanced Assessment Consortium",
-    "session-expired": {
-      "title": "Authentication Expired",
-      "message": "Click Ok to re-authenticate.",
-      "ok": "Ok"
-    },
+    "footer": "© The Regents of the University of California – Smarter Balanced Assessment Consortium",
     "languages": {
       "en": "English",
       "es": "Español",
       "vi": "Tiếng Việt"
+    },
+    "navigation-bar": {
+      "logo": {
+        "alt": "Smarter Balanced Assessment Consortium",
+        "title": "Reporting System Dashboard"
+      },
+      "logout": "Logout",
+      "title": "Reporting System",
+      "toggle-sr": "Toggle navigation",
+      "user-dropdown": "Welcome {{firstName}} {{lastName}}"
+    },
+    "session-expired": {
+      "message": "Click Ok to re-authenticate.",
+      "ok": "Ok",
+      "title": "Authentication Expired"
     }
   },
-  "application": {
-    "title": "Reporting System"
-  },
-  "messages": {
-    "noExams": "There are no exams associated with your account.",
-    "noExamsMatchingCriteria": "There are no exams matching this criteria.",
-    "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above.",
-    "noExamsSelected": "Please select from the assessments above",
-    "notApplicable": "-",
-    "logout": "Logout",
-    "loading": "Loading",
-    "access-denied": {
-      "title": "Access Denied",
-      "message": "Your user account is not permitted to access this reporting system. If you believe you have reached this page in error, please contact your building administrator."
+  "definition": {
+    "claim": {
+      "1": {
+        "description": "Concepts and Procedures - Students can explain and apply mathematical concepts and interpret and carry out mathematical procedures with precision and fluency.",
+        "name": "Concepts and Procedures"
+      },
+      "2": {
+        "description": "Problem Solving - Students can solve a range of complex well-posed problems in pure and applied mathematics, making productive use of knowledge and problem solving strategies.",
+        "name": "Problem Solving"
+      },
+      "3": {
+        "description": "Communicating Reasoning - Students can clearly and precisely construct viable arguments to support their own reasoning and to critique the reasoning of others.",
+        "name": "Communicating Reasoning"
+      },
+      "4": {
+        "description": "Modeling and Data Analysis - Students can analyze complex, real-world scenarios and can construct and use mathematical models to interpret and solve problems.",
+        "name": "Modeling and Data Analysis"
+      },
+      "1-IT": {
+        "description": "Read Analytically: Informational Text - Students can read closely and analytically to comprehend a range of increasingly complex literary and informational texts.",
+        "name": "Read Analytically: Informational Text"
+      },
+      "1-LT": {
+        "description": "Read Analytically: Literary Text - Students can read closely and analytically to comprehend a range of increasingly complex literary and informational texts.",
+        "name": "Read Analytically: Literary Text"
+      },
+      "2-W": {
+        "description": "Write Effectively - Students can produce effective and well-grounded writing for a range of purposes and audiences.",
+        "name": "Write Effectively"
+      },
+      "3-L": {
+        "description": "Speak and Listen purposefully - Students can employ effective speaking and listening skills for a range of purposes and audiences.",
+        "name": "Listen Purposefully"
+      },
+      "3-S": {
+        "description": "Speak and Listen purposefully - Students can employ effective speaking and listening skills for a range of purposes and audiences.",
+        "name": "Speak Purposefully"
+      },
+      "4-CR": {
+        "description": "Conduct Research - Students can engage in research/ inquiry to investigate topics and to analyze, integrate, and present information.",
+        "name": "Conduct Research"
+      },
+      "NA": {
+        "description": "NA",
+        "name": "NA"
+      }
     },
-    "no-results-by-item": "Results by item is not available for tests administered prior to 2017-18 school year.",
-    "no-results-by-item-for-summative-exams": "Results by item is not available for summative tests.",
-    "no-distractor-analysis": "Distractor analysis is not available for tests administered prior to 2017-18 school year.",
-    "no-distractor-analysis-for-summative-exams": "Distractor analysis is not available for summative tests.",
-    "coming-soon": "{{featureName}} is coming soon.",
-    "unknown-error": "An unknown error has occurred. You can try the same action again or click the button below to go to the home page.  If this problem persists, please contact your building administrator."
+    "dok": {
+      "1_1": {
+        "description": "Recall and Reproduction",
+        "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
+      },
+      "1_2": {
+        "description": "Recall and Reproduction",
+        "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
+      },
+      "2_1": {
+        "description": "Basic Skills and Concepts",
+        "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
+      },
+      "2_2": {
+        "description": "Basic Skills and Concepts",
+        "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
+      },
+      "3_1": {
+        "description": "Strategic Thinking and Reasoning",
+        "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
+      },
+      "3_2": {
+        "description": "Strategic Thinking and Reasoning",
+        "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
+      },
+      "4_1": {
+        "description": "Extended Thinking",
+        "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
+      },
+      "4_2": {
+        "description": "Extended Thinking",
+        "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
+      }
+    },
+    "math-practice": {
+      "1": {
+        "description": "Make sense of problems and persevere in solving them"
+      },
+      "2": {
+        "description": "Reason abstractly and quantitatively"
+      },
+      "3": {
+        "description": "Construct viable arguments and critique the reasoning of others"
+      },
+      "4": {
+        "description": "Model with mathematics"
+      },
+      "5": {
+        "description": "Use appropriate tools strategically"
+      },
+      "6": {
+        "description": "Attend to precision"
+      },
+      "7": {
+        "description": "Look for and make use of structure"
+      },
+      "8": {
+        "description": "Look for and express regularity in repeated reasoning"
+      }
+    }
   },
-  "collapse": "Collapse",
-  "select": "Select",
+  "enum": {
+    "achievement-level": {
+      "full": {
+        "1": "Did Not Meet Standard",
+        "2": "Nearly Met Standard",
+        "3": "Met Standard",
+        "4": "Exceeded Standard",
+        "missing": "-"
+      },
+      "request-type": {
+        "distractor-analysis": "DistractorAnalysis",
+        "results-by-item": "ResultsByItems"
+      },
+      "short": {
+        "1": "Did Not Meet",
+        "2": "Nearly Met",
+        "3": "Met",
+        "4": "Exceeded",
+        "missing": "-"
+      }
+    },
+    "administrative-condition": {
+      "IN": "Invalid",
+      "NS": "Nonstandardized",
+      "SD": "Standardized",
+      "Valid": "Valid"
+    },
+    "completeness": {
+      "Complete": "Complete",
+      "Partial": "Partial"
+    },
+    "difficulty": {
+      "D": "Difficult",
+      "E": "Easy",
+      "M": "Moderate"
+    },
+    "ethnicity": {
+      "AmericanIndianOrAlaskaNative": "American Indian or Alaska Native",
+      "Asian": "Asian",
+      "BlackOrAfricanAmerican": "Black or African American",
+      "DemographicRaceTwoOrMoreRaces": "Demographic Race of Two or More",
+      "Filipino": "Filipino",
+      "HispanicOrLatinoEthnicity": "Hispanic/Latino",
+      "NativeHawaiianOrOtherPacificIslander": "Native Hawaiian or Pacific Islander",
+      "White": "White"
+    },
+    "gender": {
+      "Female": "Female",
+      "Male": "Male"
+    },
+    "iab-category": {
+      "full": {
+        "1": "Below Standard",
+        "2": "Near Standard",
+        "3": "Above Standard",
+        "missing": "-"
+      },
+      "short": {
+        "1": "Below Standard",
+        "2": "Near Standard",
+        "3": "Above Standard",
+        "missing": "-"
+      }
+    },
+    "off-grade": {
+      "false": "Show",
+      "true": "Hide"
+    },
+    "polar": {
+      "1": "Yes",
+      "2": "No"
+    },
+    "results-view-state": {
+      "ByItem": "Results By Item",
+      "ByStudent": "Results By Student",
+      "DistractorAnalysis": "Distractor Analysis"
+    },
+    "status": {
+      "ACCEPTED": "Accepted",
+      "BAD_DATA": "Bad Data",
+      "BAD_FORMAT": "Bad Format",
+      "INVALID": "Invalid",
+      "PROCESSED": "Processed",
+      "UNAUTHORIZED": "Unauthorized",
+      "UNKNOWN_ASMT": "Unknown Assessment",
+      "UNKNOWN_SCHOOL": "Unknown School"
+    },
+    "subject": {
+      "ALL": "All",
+      "ELA": "ELA",
+      "MATH": "Math"
+    },
+    "subject-claim-code": {
+      "1": "Concepts & Procedures",
+      "3": "Communicating Reasoning",
+      "2-W": "Writing",
+      "4-CR": "Research & Inquiry",
+      "SOCK_2": "Problem Solving",
+      "SOCK_LS": "Listening",
+      "SOCK_R": "Reading"
+    },
+    "transfer": {
+      "false": "Show",
+      "true": "Hide"
+    }
+  },
+  "html": {
+    "system-news": "<h2 class=\"blue-dark h3 mb-md\">Summary Reports</h2><div class=\"summary-reports-container mb-md\"><p>(Coming Soon)</div><!-- Member Reporting Resources --><h2 class=\"blue-dark h3 mb-md\">Member Reporting Resources</h2><div class=\"member-reporting-resources-container\"><p>(Coming Soon)</p></div>"
+  },
   "labels": {
+    "admin": {
+      "title": "Application Administration"
+    },
+    "admin-groups": {
+      "cols": {
+        "delete": "Delete",
+        "name": "Name",
+        "school": "School",
+        "school-year": "School Year",
+        "student-count": "Num. of Students",
+        "subjects": "Subjects"
+      },
+      "delete": {
+        "button-cancel": "No, keep this group.",
+        "button-save": "Yes, delete this group",
+        "content-html": "<p>When a group is deleted, it is no longer available to any users.  This action cannot be undone.</p><p>Are you sure you would like to continue?</p>",
+        "error": "Unable to delete this group.",
+        "title": "Delete {{name}}?"
+      },
+      "filter": "Search groups by name",
+      "history": {
+        "title": "View Uploads"
+      },
+      "import": {
+        "browse-instruct": "browse for files",
+        "cols": {
+          "created": "Date Created",
+          "file-name": "File Name",
+          "id": "Upload ID",
+          "status": "Upload Status"
+        },
+        "drag-instruct": "Drag and drop to upload or ",
+        "empty": "Upload results will be shown here.",
+        "file-format": {
+          "header": "CSV File Format",
+          "rules": {
+            "body-html": "<ol> <li class=\"mt-md\"> The CSV file must include the headers found in the template file provided below. </li><li class=\"mt-md\"> Every row must include a valid <code>school_natural_id</code>, <code>school_year</code>, and <code>group_name</code>. </li><li class=\"mt-md\"> Groups for a particular school must be listed together and must not be separated by lists of groups for other schools. </li><li class=\"mt-md\"> Groups must be listed together and not separated by rows of other groups. </li><li class=\"mt-md\"> A group's subject must be listed as <code>Math</code>, <code>ELA</code> or <code>All</code>. </li><li class=\"mt-md\"> There is a limit of <code>200</code> students that may be assigned to a single group. </li><li class=\"mt-md\"> A user must have the <code>GROUP_ADMIN</code> role for a school in order to upload groups. </li></ol>",
+            "header": "How to write the CSV"
+          },
+          "template": {
+            "button": "Template",
+            "file": "groups.csv"
+          }
+        },
+        "hide-errors": "Hide Errors",
+        "link": "Upload Groups",
+        "message": "Message",
+        "replacement-instruct": "To make changes to an existing group, please upload a replacement file.",
+        "results": "Upload Results",
+        "sending": "Uploading...",
+        "title": "Upload New or Revised Groups",
+        "view-errors": "View Errors",
+        "warning-html": "<p><strong class=\"mr-xs\">WARNING:</strong> Groups in the uploaded file will replace existing groups if they have the same school ID, school year and group name.</p><p>All other groups will not be deleted or changed.</p>"
+      },
+      "no-results": "No groups found matching the given filter criteria.",
+      "no-schools": "Your user account does not have access to view the groups of any schools.",
+      "search-school": "Start typing a school name...",
+      "select-school": "School",
+      "select-school-year": "School Year",
+      "select-subject": "Subject",
+      "subjects": {
+        "ALL": "MATH, ELA",
+        "ELA": "ELA",
+        "Math": "MATH"
+      },
+      "title": "Manage Student Groups"
+    },
     "aggregate-reports": {
       "heading": "Aggregate Reports",
       "results": {
         "heading": "Aggregate Report Results"
       }
     },
-    "navigation": {
-      "user-guide": "User Guide",
-      "interpretive-guide": "Interpretive Guide"
-    },
-    "homepage": {
-      "title": "Access Assessment Results",
-      "welcome": {
-        "title": "Welcome!",
-        "user-guide-html": "<a href=\"{{userGuideUrl}}\" target=\"_blank\">The User Guide</a> describes features of the Smarter Balanced Reporting System and instructions for using each feature.",
-        "interpretive-guide-html": "<a href=\"{{interpretiveGuideUrl}}\" target=\"_blank\">The Interim Assessments Interpretive Guide</a> is designed to help educators, parents, and other stakeholders interpret interim assessments reports for the Smarter Balanced Reporting System.",
-        "interpretive-guide-subtitle": "Interim Assessments"
-      }
+    "assessments": {
+      "average": {
+        "scale-score": "Scale Score Error Band",
+        "scale-score-info": "Average scale score for the selected group of students and an error band based on the Standard Error of the Mean (SEM) associated with that score. Test scores are estimates of student achievement and come with a certain amount of measurement error. See the Interpretive Guide for additional information about scale scores and measurement error.",
+        "title": "Average"
+      },
+      "items": {
+        "tabs": {
+          "exemplar": {
+            "answer-key": "Key: ",
+            "criterion": {
+              "description": "Description",
+              "points": "Points"
+            },
+            "errors": {
+              "not-found": "The rubric and exemplar are not available.",
+              "unknown": "Error trying to load rubrics and exemplars"
+            },
+            "exemplar": "Exemplar",
+            "rubric": "Rubric",
+            "title": "Rubric and Exemplar"
+          },
+          "item-info": {
+            "calculator": "Calculator: ",
+            "ccs": "Common Core Standard: ",
+            "claim": "Claim: ",
+            "difficulty": "Item Difficulty: ",
+            "docs": "Supporting Documentation: ",
+            "dok": "Depth of Knowledge: ",
+            "guide": "Interim Assessments Interpretive Guide",
+            "math": "Mathematical Practice Standard: ",
+            "title": "Item Information",
+            "view-ref": "View reference"
+          },
+          "item-viewer": "Item Viewer",
+          "item-viewer-intro-text": "This is the view of the item as seen while taking the assessment.  ",
+          "item-viewer-response-not-included": "This does not include student responses.",
+          "item-viewer-see-rubric": "See the Rubric and Exemplar tab to get more information on correct responses.",
+          "scores": {
+            "correctness": "Correctness",
+            "max": "Max Score",
+            "response": "Response",
+            "score": "Student Score"
+          },
+          "student-scores": "Student Scores and Responses",
+          "student-scores-intro-text": "Expand each student row to view their response to this item."
+        }
+      },
+      "student-score-distribution": {
+        "title": "Student Score Distribution"
+      },
+      "students": "Students"
     },
     "assessmentTypes": {
       "1": {
@@ -84,219 +403,277 @@
         "short-name": "SUMMATIVE"
       }
     },
-    "subjects": {
-      "1": {
-        "name": "Mathematics",
-        "short-name": "MATH"
+    "embargo": {
+      "district": {
+        "table": {
+          "headers": {
+            "aggregateEnabled": "Aggregate Test Results",
+            "ELA": "ELA",
+            "individualEnabled": "Individual Test Results",
+            "MATH": "Math",
+            "name": "District"
+          }
+        }
       },
-      "2": {
-        "name": "ELA/Literacy",
-        "short-name": "ELA"
+      "modal": {
+        "accept": {
+          "false": "Release",
+          "true": "Embargo"
+        },
+        "command-description": {
+          "District": {
+            "Aggregate": {
+              "false": "Completing this action will allow users to view aggregate data for {{resultCount}} Summative test results for {{organizationName}}. Do you want to release before the state releases all aggregate Summative test results?",
+              "true": "Completing this action will prevent users from viewing aggregate data for {{resultCount}} Summative test results for {{organizationName}}. This setting will be overridden should the state release all aggregate Summative test results."
+            },
+            "Individual": {
+              "false": "Completing this action will allow users to view {{resultCount}} individual Summative test results for {{organizationName}}. Do you want to release before the state releases all individual Summative test results?",
+              "true": "Completing this action will prevent users from viewing {{resultCount}} individual Summative test results for {{organizationName}}. This setting will be overridden should the state release all individual Summative test results."
+            }
+          },
+          "State": {
+            "Aggregate": {
+              "false": "Completing this action will allow users to view aggregate data for {{resultCount}} Summative test results for {{organizationName}}. Aggregate data views however, will not be available until the state or all districts have released aggregate test results.",
+              "true": "Completing this action will prevent users from viewing aggregate data for {{resultCount}} Summative test results for {{organizationName}}. This setting can be overridden by individual districts however, aggregate data views will not be available until all districts have released aggregate test results."
+            },
+            "Individual": {
+              "false": "Completing this action will allow users to view {{resultCount}} individual Summative test results for {{organizationName}}.",
+              "true": "Completing this action will prevent users from viewing {{resultCount}} individual Summative test results for {{organizationName}}. This setting can be overridden by individual districts that release their results ahead of the state."
+            }
+          }
+        },
+        "decline": "Cancel",
+        "header": {
+          "Aggregate": "Aggregate Test Results for {{organizationName}}",
+          "Individual": "Individual Test Results for {{organizationName}}"
+        },
+        "state-description": {
+          "Aggregate": {
+            "false": "{{stateName}} aggregate Summative test results are currently released.",
+            "true": "{{stateName}} aggregate Summative test results are currently embargoed."
+          },
+          "Individual": {
+            "false": "{{stateName}} individual Summative test results are currently released.",
+            "true": "{{stateName}} individual Summative test results are currently embargoed."
+          }
+        }
+      },
+      "released-by-state": "Released by State",
+      "state": {
+        "table": {
+          "headers": {
+            "aggregateEnabled": "Aggregate Test Results",
+            "ELA": "ELA",
+            "individualEnabled": "Individual Test Results",
+            "MATH": "Math",
+            "name": "State"
+          }
+        }
+      },
+      "title": "Manage Embargo",
+      "toggle": {
+        "false": "Released",
+        "true": "Embargoed"
       }
+    },
+    "export": {
+      "cols": {
+        "504-plan": "Section504Status",
+        "accommodation-codes": "AssignedAccommodationList",
+        "achievement-level": "ScaleScoreAchievementLevel",
+        "administration-condition": "AdministrationCondition",
+        "assessment-name": "AssessmentName",
+        "assessment-session-id": "TestSessionId",
+        "assessment-subtype": "AssessmentSubType",
+        "assessment-type": "AssessmentType",
+        "claim": "Claim",
+        "completeness": "Completeness",
+        "economic-disadvantage": "EconomicDisadvantageStatus",
+        "enrolled-grade": "GradeLevelWhenAssessed",
+        "error-band-max": "Error Band Max",
+        "error-band-min": "Error Band Min",
+        "gender": "Sex",
+        "iep": "IDEAIndicator",
+        "limited-english": "LEPStatus",
+        "migrant-status": "MigrantStatus",
+        "scale-score": "ScaleScore",
+        "school": "SchoolName",
+        "schoolYear": "SchoolYear",
+        "student-first-name": "FirstName",
+        "student-id": "StudentIdentifier",
+        "student-last-name": "LastOrSurname",
+        "subject": "Subject",
+        "submit-date-time": "SubmitDateTime",
+        "target": "Target"
+      },
+      "csv": "Export CSV",
+      "distractor-analysis": "Export Distractor Analysis",
+      "items-by-points-earned": "Export Results By Item",
+      "title": "Export"
     },
     "grade": "Grade",
     "grades": {
-      "KG": {
-        "long-name": "Kindergarten",
-        "short-name": "KG",
-        "enrolled-name": "KG"
-      },
-      "01": {
-        "long-name": "Grade 1",
-        "short-name": "G1",
-        "enrolled-name": "G1"
-      },
-      "02": {
-        "long-name": "Grade 2",
-        "short-name": "G2",
-        "enrolled-name": "G2"
-      },
-      "03": {
-        "long-name": "Grade 3",
-        "short-name": "G3",
-        "enrolled-name": "G3"
-      },
-      "04": {
-        "long-name": "Grade 4",
-        "short-name": "G4",
-        "enrolled-name": "G4"
-      },
-      "05": {
-        "long-name": "Grade 5",
-        "short-name": "G5",
-        "enrolled-name": "G5"
-      },
-      "06": {
-        "long-name": "Grade 6",
-        "short-name": "G6",
-        "enrolled-name": "G6"
-      },
-      "07": {
-        "long-name": "Grade 7",
-        "short-name": "G7",
-        "enrolled-name": "G7"
-      },
-      "08": {
-        "long-name": "Grade 8",
-        "short-name": "G8",
-        "enrolled-name": "G8"
-      },
-      "09": {
-        "long-name": "High School",
-        "short-name": "HS",
-        "enrolled-name": "G9"
-      },
       "10": {
+        "enrolled-name": "G10",
         "long-name": "High School",
-        "short-name": "HS",
-        "enrolled-name": "G10"
+        "short-name": "HS"
       },
       "11": {
+        "enrolled-name": "G11",
         "long-name": "High School",
-        "short-name": "HS",
-        "enrolled-name": "G11"
+        "short-name": "HS"
       },
       "12": {
+        "enrolled-name": "G12",
         "long-name": "High School",
-        "short-name": "HS",
-        "enrolled-name": "G12"
+        "short-name": "HS"
       },
       "13": {
+        "enrolled-name": "G13",
         "long-name": "Grade 13",
-        "short-name": "G13",
-        "enrolled-name": "G13"
+        "short-name": "G13"
       },
-      "PS": {
-        "long-name": "Postsecondary",
-        "short-name": "PS",
-        "enrolled-name": "PS"
+      "01": {
+        "enrolled-name": "G1",
+        "long-name": "Grade 1",
+        "short-name": "G1"
       },
-      "UG": {
-        "long-name": "Ungraded",
-        "short-name": "UG",
-        "enrolled-name": "UG"
+      "02": {
+        "enrolled-name": "G2",
+        "long-name": "Grade 2",
+        "short-name": "G2"
+      },
+      "03": {
+        "enrolled-name": "G3",
+        "long-name": "Grade 3",
+        "short-name": "G3"
+      },
+      "04": {
+        "enrolled-name": "G4",
+        "long-name": "Grade 4",
+        "short-name": "G4"
+      },
+      "05": {
+        "enrolled-name": "G5",
+        "long-name": "Grade 5",
+        "short-name": "G5"
+      },
+      "06": {
+        "enrolled-name": "G6",
+        "long-name": "Grade 6",
+        "short-name": "G6"
+      },
+      "07": {
+        "enrolled-name": "G7",
+        "long-name": "Grade 7",
+        "short-name": "G7"
+      },
+      "08": {
+        "enrolled-name": "G8",
+        "long-name": "Grade 8",
+        "short-name": "G8"
+      },
+      "09": {
+        "enrolled-name": "G9",
+        "long-name": "High School",
+        "short-name": "HS"
       },
       "IT": {
+        "enrolled-name": "IT",
         "long-name": "Infant/Toddler",
-        "short-name": "IT",
-        "enrolled-name": "IT"
+        "short-name": "IT"
       },
-      "PR": {
-        "long-name": "Preschool",
-        "short-name": "PR",
-        "enrolled-name": "PR"
+      "KG": {
+        "enrolled-name": "KG",
+        "long-name": "Kindergarten",
+        "short-name": "KG"
       },
       "PK": {
+        "enrolled-name": "PK",
         "long-name": "Prekindergarten",
-        "short-name": "PK",
-        "enrolled-name": "PK"
+        "short-name": "PK"
+      },
+      "PR": {
+        "enrolled-name": "PR",
+        "long-name": "Preschool",
+        "short-name": "PR"
+      },
+      "PS": {
+        "enrolled-name": "PS",
+        "long-name": "Postsecondary",
+        "short-name": "PS"
       },
       "TK": {
+        "enrolled-name": "TK",
         "long-name": "Transitional Kindergarten",
-        "short-name": "TK",
-        "enrolled-name": "TK"
+        "short-name": "TK"
+      },
+      "UG": {
+        "enrolled-name": "UG",
+        "long-name": "Ungraded",
+        "short-name": "UG"
       }
     },
     "groups": {
-      "subjects": {
-        "ALL": "MATH, ELA",
-        "Math": "MATH",
-        "ELA": "ELA"
-      },
-      "name": "My Groups",
-      "filter": "Search by Group Name",
-      "no-groups-message": "Contact your building administrator for access to group-level test results.",
-      "empty-message": "There are no groups that match your search.  Please try again.",
       "admin-button": "Application Administration",
-      "search-label": "Search by My Groups",
       "cols": {
         "group": "Group Name",
         "school": "School",
         "subject": "Subjects"
       },
+      "empty-message": "There are no groups that match your search.  Please try again.",
+      "filter": "Search by Group Name",
+      "name": "My Groups",
+      "no-groups-message": "Contact your building administrator for access to group-level test results.",
       "results": {
-        "null-group": "This group is unavailable.  Contact your building administrator if you think you should have access to this group.",
-        "title": "Results",
-        "select-group": "Group",
-        "select-year": "School Year",
-        "collapse-all": "Collapse Results",
-        "expand-all": "Expand Results",
         "add-assessment-filters": "Add Assessment Filters",
         "adv-filters": {
-          "label": "Advanced Filters",
-          "subhead": "Click an item to remove it from the list",
+          "floating-action-button": "Filter Results",
           "instruct": "Click an item to add or remove it from your list of selections above.",
+          "label": "Advanced Filters",
+          "status": {
+            "administration": "Manner of Administration (Interim)",
+            "administration-info": "For interim assessments, a Standardized administration follows the same protocols and security procedures as a summative test administration. For a Non Standardized administration, the teacher may use the assessment during instruction and interact with students as they complete the assessment.",
+            "completion": "Complete/Partial",
+            "completion-info": "Indicates whether the test was completed or was partially complete.",
+            "label": "Status",
+            "summative": "Valid/Invalid (Summative)",
+            "summative-info": "For summative assessments, a test is noted as invalid if an appeal is submitted  to invalidate the test due to a test irregularity or breach.  "
+          },
+          "student": {
+            "504-plan": "504 Plan",
+            "504-plan-info": "Indicates that a student has an approved 504 plan.  These plans are for students with disabilities who may need accommodations but do not require specialized instruction.",
+            "economic-disadvantage": "Economic Disadvantage",
+            "economic-disadvantage-info": "Indicates that a student qualifies for free or reduced lunch or meets other state criteria for economic disadvantage.",
+            "ethnicity": "Race/Ethnicity",
+            "ethnicity-info": "Student race and ethnicity",
+            "gender": "Gender",
+            "gender-info": "Student's reported gender",
+            "iep": "IEP",
+            "iep-info": "Indicates that a student has an approved Individual Education Plan (IEP).  These plans are for students with disabilities who require specialized instruction.",
+            "label": "Student",
+            "limited-english-proficiency": "Limited English Proficiency",
+            "limited-english-proficiency-info": "Students who use a language other than English as their primary language and who have been assessed as not possessing the English language skills necessary to succeed in the regular instructional program.",
+            "migrant-status": "Migrant Status",
+            "migrant-status-info": "A child is considered \"migratory\" if the parent or guardian is a migratory worker in the agricultural, dairy, lumber, or fishing industries and the child's family has moved during the past three years. A young adult may also qualify if he or she has moved on his or her own for the same reasons."
+          },
+          "subhead": "Click an item to remove it from the list",
           "test": {
             "label": "Test",
             "off-grade-assessment": "Off-Grade Assessments",
             "off-grade-assessment-info": "Schools may administer interim assessments for any grade.  This filter indicates that a student took an assessment for a grade other than their assigned grade.",
             "transfer-assessment": "Transfer Assessments",
             "transfer-assessment-info": "Indicates whether to show or hide assessments administered outside of the User's standard institutions."
-          },
-          "status": {
-            "label": "Status",
-            "administration": "Manner of Administration (Interim)",
-            "administration-info": "For interim assessments, a Standardized administration follows the same protocols and security procedures as a summative test administration. For a Non Standardized administration, the teacher may use the assessment during instruction and interact with students as they complete the assessment.",
-            "summative": "Valid/Invalid (Summative)",
-            "summative-info": "For summative assessments, a test is noted as invalid if an appeal is submitted  to invalidate the test due to a test irregularity or breach.  ",
-            "completion": "Complete/Partial",
-            "completion-info": "Indicates whether the test was completed or was partially complete."
-          },
-          "student": {
-            "label": "Student",
-            "gender": "Gender",
-            "gender-info": "Student's reported gender",
-            "migrant-status": "Migrant Status",
-            "migrant-status-info": "A child is considered \"migratory\" if the parent or guardian is a migratory worker in the agricultural, dairy, lumber, or fishing industries and the child's family has moved during the past three years. A young adult may also qualify if he or she has moved on his or her own for the same reasons.",
-            "504-plan": "504 Plan",
-            "504-plan-info": "Indicates that a student has an approved 504 plan.  These plans are for students with disabilities who may need accommodations but do not require specialized instruction.",
-            "iep": "IEP",
-            "iep-info": "Indicates that a student has an approved Individual Education Plan (IEP).  These plans are for students with disabilities who require specialized instruction.",
-            "economic-disadvantage": "Economic Disadvantage",
-            "economic-disadvantage-info": "Indicates that a student qualifies for free or reduced lunch or meets other state criteria for economic disadvantage.",
-            "limited-english-proficiency": "Limited English Proficiency",
-            "limited-english-proficiency-info": "Students who use a language other than English as their primary language and who have been assessed as not possessing the English language skills necessary to succeed in the regular instructional program.",
-            "ethnicity": "Race/Ethnicity",
-            "ethnicity-info": "Student race and ethnicity"
-          },
-          "floating-action-button": "Filter Results"
+          }
         },
-        "selected-assessments-title": "Selected Assessments",
-        "selected-assessments-instruct": "Click an assessment to remove it from the list",
-        "select-assessments": {
-          "instruct": "Click an assessment to add or remove it from your list of selections above."
-        },
-        "session-unknown": "[Unknown]",
-        "filter-type-recent": "Most Recent",
-        "filter-type-custom": "Select Assessments",
-        "value-as": "Show value as",
-        "value-as-percent": "Percent",
-        "value-as-number": "Number",
-        "grade-prefix": "G",
-        "grade": "Grade {{id}}",
-        "high-school": "High School",
         "assessment": {
-          "instruct": "Instructional Resources",
-          "instruct-button": "Instructional Resources for {{level}}",
-          "no-instruct-found": "No resources found.",
-          "sessions-title": "Sessions",
-          "exam-results": "Results By Student",
-          "button-items": "Results By Item",
           "button-exams": "Results By Student",
-          "select-view": "Select View",
+          "button-items": "Results By Item",
+          "exam-results": "Results By Student",
           "exams": {
-            "title": "Results By Student",
-            "empty-message": "No test results are available for the sessions and advanced filters selected.",
             "cols": {
-              "name": "Student",
               "date": "Date",
-              "session": "Session",
               "grade": "Enrolled Grade",
-              "school": "School",
-              "status": "Status",
-              "status-info": "Refers to whether an assessment has been flagged as standardized/nonstandardized, complete/partial, and valid/invalid.",
-              "score": "Scale Score / Error Band",
-              "score-info": "A student's test score and an error band based on the Standard Error of Measurement (SEM) associated with that score.  Smarter Balanced test scores are on a vertical scale, meaning that scores for all grades are reported on a single continuous scale to reflect the increased expectations as students advance through the grades.  The error band is included because test scores are estimates of student achievement and come with a certain amount of measurement error. See the Interpretive Guide for additional information about scale scores and measurement error.",
               "iab": {
                 "performance": "Reporting Category",
                 "performance-info": "Student scores on each Interim Assessment Block are assigned to one of three reporting categories (Below Standard, Near Standard, Above Standard).  The standard is based on the minimum scale score for the 'Met Standard' achievement level on the Interim Comprehensive and summative assessments (the score that separates Levels 2 and 3).  See the Interpretive Guide for more information on how placement into the reporting categories is determined."
@@ -304,174 +681,210 @@
               "ica": {
                 "performance": "Achievement Level",
                 "performance-info": "Student scores on the Summative and Interim Comprehensive assessments are assigned to one of four achievement levels (Standard Not Met, Standard Nearly Met, Standard Met, and Standard Exceeded) based on the scale score."
-              }
-            }
+              },
+              "name": "Student",
+              "school": "School",
+              "score": "Scale Score / Error Band",
+              "score-info": "A student's test score and an error band based on the Standard Error of Measurement (SEM) associated with that score.  Smarter Balanced test scores are on a vertical scale, meaning that scores for all grades are reported on a single continuous scale to reflect the increased expectations as students advance through the grades.  The error band is included because test scores are estimates of student achievement and come with a certain amount of measurement error. See the Interpretive Guide for additional information about scale scores and measurement error.",
+              "session": "Session",
+              "status": "Status",
+              "status-info": "Refers to whether an assessment has been flagged as standardized/nonstandardized, complete/partial, and valid/invalid."
+            },
+            "empty-message": "No test results are available for the sessions and advanced filters selected.",
+            "title": "Results By Student"
           },
+          "instruct": "Instructional Resources",
+          "instruct-button": "Instructional Resources for {{level}}",
           "items": {
-            "title": "Results By Item",
             "cols": {
-              "number": "Item #",
+              "answer-key": "Answer Key",
               "claim": "Claim/Target",
               "claim-info-html": "Claims and targets are a way of classifying test content.  The claim is the major topic area.  For example, in English language arts, reading is a claim.  Within each claim, there are targets that describe the particular knowledge and skills that the test measures.  Each target may encompass one or more standards from the Common Core State Standards.  Within the Reading claim, for example, one of the targets is concerned with finding the central idea in a text.  For more information, see the <a href=\"http://www.smarterbalanced.org/assessments/development/\" target=\"_blank\">Smarter Balanced Content Specifications</a>.",
               "difficulty": "Item Difficulty",
               "difficulty-info": "Item difficulty (easy, moderate, difficult) is based on the difficulty of the item for students in a reference population.  See the Interpretive Guide for a description of the reference population and how the difficulty categories are derived.",
+              "full-credit": "Full Credit",
+              "full-credit-info": "Percentage of students in the group who earned the maximum number of points available for a particular test item.",
+              "number": "Item #",
               "standard": "Standard",
               "standard-info-html": {
                 "ELA": "This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  For example, a question that asks students to evaluate research sources may assess both reading and research skills.  For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf\" target=\"_blank\">English Language Arts Content Specifications</a>.",
                 "MATH": "This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  Items that assess mathematical practices (problem solving, modeling and data analysis, and communicating reasoning) are also aligned to standards that describe the mathematical content with which students engage. For example, an item may ask students to communicate their reasoning when solving a problem about geometry or fractions. For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf\" target=\"_blank\">Mathematics Content Specifications</a>."
               },
-              "full-credit": "Full Credit",
-              "full-credit-info": "Percentage of students in the group who earned the maximum number of points available for a particular test item.",
-              "x-points": "{{id}}",
-              "answer-key": "Answer Key"
+              "x-points": "{{id}}"
             },
-            "target": "Target {{target}}"
-          }
-        }
+            "target": "Target {{target}}",
+            "title": "Results By Item"
+          },
+          "no-instruct-found": "No resources found.",
+          "select-view": "Select View",
+          "sessions-title": "Sessions"
+        },
+        "collapse-all": "Collapse Results",
+        "expand-all": "Expand Results",
+        "filter-type-custom": "Select Assessments",
+        "filter-type-recent": "Most Recent",
+        "grade": "Grade {{id}}",
+        "grade-prefix": "G",
+        "high-school": "High School",
+        "null-group": "This group is unavailable.  Contact your building administrator if you think you should have access to this group.",
+        "select-assessments": {
+          "instruct": "Click an assessment to add or remove it from your list of selections above."
+        },
+        "select-group": "Group",
+        "select-year": "School Year",
+        "selected-assessments-instruct": "Click an assessment to remove it from the list",
+        "selected-assessments-title": "Selected Assessments",
+        "session-unknown": "[Unknown]",
+        "title": "Results",
+        "value-as": "Show value as",
+        "value-as-number": "Number",
+        "value-as-percent": "Percent"
+      },
+      "search-label": "Search by My Groups",
+      "subjects": {
+        "ALL": "MATH, ELA",
+        "ELA": "ELA",
+        "Math": "MATH"
       }
     },
-    "assessments": {
-      "items": {
-        "tabs": {
-          "scores":{
-            "score": "Student Score",
-            "max": "Max Score",
-            "response": "Response",
-            "correctness": "Correctness"
-          },
-          "student-scores": "Student Scores and Responses",
-          "student-scores-intro-text": "Expand each student row to view their response to this item.",
-          "item-viewer": "Item Viewer",
-          "item-viewer-intro-text": "This is the view of the item as seen while taking the assessment.  ",
-          "item-viewer-response-not-included": "This does not include student responses.",
-          "item-viewer-see-rubric": "See the Rubric and Exemplar tab to get more information on correct responses.",
-          "exemplar": {
-            "title": "Rubric and Exemplar",
-            "rubric": "Rubric",
-            "exemplar": "Exemplar",
-            "answer-key": "Key: ",
-            "criterion": {
-              "points": "Points",
-              "description": "Description"
-            },
-            "errors": {
-              "not-found": "The rubric and exemplar are not available.",
-              "unknown": "Error trying to load rubrics and exemplars"
-            }
-          },
-          "item-info": {
-            "title": "Item Information",
-            "claim": "Claim: ",
-            "dok": "Depth of Knowledge: ",
-            "view-ref": "View reference",
-            "difficulty": "Item Difficulty: ",
-            "ccs": "Common Core Standard: ",
-            "math": "Mathematical Practice Standard: ",
-            "calculator": "Calculator: ",
-            "docs": "Supporting Documentation: ",
-            "guide": "Interim Assessments Interpretive Guide"
-          }
-        }
-      },
-      "average": {
-        "title": "Average",
-        "scale-score": "Scale Score Error Band",
-        "scale-score-info": "Average scale score for the selected group of students and an error band based on the Standard Error of the Mean (SEM) associated with that score. Test scores are estimates of student achievement and come with a certain amount of measurement error. See the Interpretive Guide for additional information about scale scores and measurement error."
-      },
-      "students": "Students",
-      "student-score-distribution": {
-        "title": "Student Score Distribution"
+    "homepage": {
+      "title": "Access Assessment Results",
+      "welcome": {
+        "interpretive-guide-html": "<a href=\"{{interpretiveGuideUrl}}\" target=\"_blank\">The Interim Assessments Interpretive Guide</a> is designed to help educators, parents, and other stakeholders interpret interim assessments reports for the Smarter Balanced Reporting System.",
+        "interpretive-guide-subtitle": "Interim Assessments",
+        "title": "Welcome!",
+        "user-guide-html": "<a href=\"{{userGuideUrl}}\" target=\"_blank\">The User Guide</a> describes features of the Smarter Balanced Reporting System and instructions for using each feature."
       }
     },
-    "instructional-resources": {
+    "instructional-resource": {
       "link": {
-        "System": "Smarter Balanced Instructional Resource",
-        "State": "{{organizationName}} Instructional Resource",
-        "DistrictGroup": "{{organizationName}} Instructional Resource",
         "District": "{{organizationName}} Instructional Resource",
-        "SchoolGroup": "{{organizationName}} Instructional Resource"
+        "DistrictGroup": "{{organizationName}} Instructional Resource",
+        "SchoolGroup": "{{organizationName}} Instructional Resource",
+        "State": "{{organizationName}} Instructional Resource",
+        "System": "Smarter Balanced Instructional Resource"
+      },
+      "assessments": {
+        "no-results": "No assessments found.",
+        "performance-levels": {
+          "all": "All Levels",
+          "IAB": {
+            "1": "Below Standard",
+            "2": "Near Standard",
+            "3": "Above Standard"
+          },
+          "ICA": {
+            "1": "Standard Not Met",
+            "2": "Standard Nearly Met",
+            "3": "Standard Met",
+            "4": "Standard Exceeded"
+          },
+          "SUMMATIVE": {
+            "1": "Standard Not Met",
+            "2": "Standard Nearly Met",
+            "3": "Standard Met",
+            "4": "Standard Exceeded"
+          }
+        }
+      },
+      "cols": {
+        "assessment-label": "Assessment Label(s)",
+        "assessment-name": "Assessment Name",
+        "organization-name": "Organization",
+        "organization-type": "Organization Type",
+        "performance-level": "Performance Level",
+        "resource": "Resource"
+      },
+      "create": {
+        "duplicate": "An Instructional Resource for this assessment, organization, and performance level already exists.",
+        "error": "Unable to create an Instructional Resource.",
+        "link": "Create",
+        "title": "Create Instructional Resource"
+      },
+      "delete": {
+        "error": "Unable to delete instructional resource.",
+        "title": "Delete Instructional Resource",
+        "warning": "WARNING: Deleting this resource cannot be undone."
+      },
+      "filter": "Search by Assessment/Organization",
+      "form": {
+        "assessment-label": "Assessment Label",
+        "organization-name": "Organization Name"
+      },
+      "no-results": "No instructional resources found matching the given filter criteria.",
+      "organizations": {
+        "no-results": "No organizations found.",
+        "type": {
+          "District": "District",
+          "DistrictGroup": "District Group",
+          "SchoolGroup": "School Group",
+          "State": "State"
+        }
+      },
+      "title": "Manage Instructional Resources",
+      "update": {
+        "error": "Unable to modify instructional resource.",
+        "title": "Update Instructional Resource"
       }
     },
     "menu": "Menu",
     "menus": {
+      "print-report": "Print Report",
+      "resources": "Instructional Resources",
+      "resources-disabled-message": "Instructional resources are not yet available for this assessment.",
       "responses": "{{firstName}}'s Responses",
-      "test-history": "{{firstName}}'s Test History",
       "student-report": {
         "iab": "Print {{firstName}}'s Full IAB Report",
         "ica": "Print {{firstName}}'s ICA Report",
         "summative": "Print {{firstName}}'s Summative Report"
       },
-      "resources": "Instructional Resources",
-      "resources-disabled-message": "Instructional resources are not yet available for this assessment.",
-      "print-report": "Print Report"
+      "test-history": "{{firstName}}'s Test History"
     },
     "more-info": "More Information",
-    "personName": "{{lastName}}, {{firstName}}",
-    "school-grade": {
-      "title": "Search by School & Grade",
-      "school-name": {
-        "label": "Search by School Name",
-        "prompt": "Start typing the school name"
-      },
-      "messages": {
-        "no-grades-available": "No test results are available for the selected school.",
-        "no-results": "No results.",
-        "null-school": "This school is unavailable.  Contact your building administrator if you think you should have access to this school."
-      },
-      "results": {
-        "basic-filters": {
-          "school": "School",
-          "current-grade": "Assessment Grade",
-          "school-year": "School Year"
-        }
-
-      }
+    "name": "Name",
+    "navigation": {
+      "interpretive-guide": "Interpretive Guide",
+      "user-guide": "User Guide"
     },
-    "student": {
-      "title": "Search by Student ID",
-      "prompt": "Enter the Statewide Student Identifier (SSID)",
-      "name": "{{lastName}}, {{firstName}}",
-      "messages": {
-        "no-results": "Student does not exist or has no available test results.",
-        "null-student": "This student is unavailable.  Contact your building administrator if you think you should have access to this student."
-      },
-      "responses": {
-        "title": "Student's Responses",
-        "crumb": "Student Responses",
-        "cols": {
-          "standard": "Standard",
-          "student-score": "Student Score",
-          "max-score": "Max Score",
-          "correctness": "Correctness",
-          "correctness-info": "A value for the degree of correctness in a student's response to a test question. The correctness value is calculated by dividing the student's score on a particular question by the maximum score for that question."
-        }
-      },
-      "results": {
-        "title": "Student Test History Report",
-        "crumb": "Student: {{lastName}}, {{firstName}}",
-        "labels": {
-          "select-subject": "Subject"
+    "organization-export": {
+      "form": {
+        "organization": {
+          "add": "Add",
+          "label": "Search for an Organization",
+          "placeholder": "Start typing an organization name",
+          "select-all": "Select All",
+          "type": {
+            "District": "Districts",
+            "DistrictGroup": "District Groups",
+            "School": "Schools",
+            "SchoolGroup": "School Groups"
+          }
         },
-        "cols": {
-          "school-year": "School Year",
-          "school": "School",
-          "assessment": "Assessment",
-          "date": "Date",
-          "enrolled-grade": "Enrolled Grade"
+        "school-year": {
+          "label": "School Year"
+        },
+        "submit": {
+          "failure": "Error creating export. Please try again.",
+          "label": "Export Results",
+          "success-html": "Creating export."
         }
-      }
-    },
-    "reports": {
-      "subjects": {
-        "0": "MATH, ELA",
-        "1": "MATH",
-        "2": "ELA"
       },
+      "title": "Custom Exports"
+    },
+    "organization-tree": {
+      "header": "Selected Organizations",
+      "remove-district": "Remove District",
+      "subheader-empty": "No organizations selected",
+      "subheader-not-empty": "Click an item to remove it from the list"
+    },
+    "personName": "{{lastName}}, {{firstName}}",
+    "reports": {
       "all": "All",
-      "link": "My Reports",
-      "heading": "My Reports",
-      "no-reports-html": "<p>To create a report, first select a group or school from the <a href=\"/\">Home page</a>. Next click the \"Student Reports\" button to get started.",
-      "reload": "Reload",
+      "button-label": {
+        "group": "Student Reports",
+        "school-grade": "Student Reports",
+        "student": "Student Report"
+      },
       "column": {
         "assessment-type": {
           "header": "Assessment Type"
@@ -496,19 +909,13 @@
           "header": "Subject"
         }
       },
-      "button-label": {
-        "student": "Student Report",
-        "group": "Student Reports",
-        "school-grade": "Student Reports"
-      },
       "form": {
-        "title": {
-          "single": "Create {{firstName}}'s Report",
-          "single-prepopulated": "Create {{name}}'s {{schoolYear}} {{subject}} {{assessmentType}} Report",
-          "multiple": "Create {{name}} Student Reports"
+        "accommodations": {
+          "info": "This feature allows student reports that may be shared with colleges and universities or other external organizations to be printed without reference to accommodations.",
+          "title": "Student Accommodations"
         },
-        "report-name": "Report Name",
         "assessment-type": "Assessment Type",
+        "cancel": "Cancel",
         "language": {
           "header": "Report Language",
           "options": {
@@ -517,319 +924,152 @@
             "vi": "Vietnamese"
           }
         },
-        "subject": "Subject",
-        "school-year": "School Year",
-        "accommodations": {
-          "title": "Student Accommodations",
-          "info": "This feature allows student reports that may be shared with colleges and universities or other external organizations to be printed without reference to accommodations."
-        },
         "order": "Sort Order",
+        "report-name": "Report Name",
+        "school-year": "School Year",
+        "subject": "Subject",
         "submit": "Create",
-        "cancel": "Cancel"
+        "title": {
+          "multiple": "Create {{name}} Student Reports",
+          "single": "Create {{firstName}}'s Report",
+          "single-prepopulated": "Create {{name}}'s {{schoolYear}} {{subject}} {{assessmentType}} Report"
+        }
       },
+      "heading": "My Reports",
+      "link": "My Reports",
+      "messages": {
+        "coming-soon": {
+          "report-regeneration": "Report regeneration is coming soon."
+        },
+        "download-failed": "There was an unexpected error while getting this report. Please try again.",
+        "get-reports-error": "There was an unexpected error while getting your reports. Please click the button below to reload the page and try again.",
+        "submission-failed": {
+          "html": "Error creating report. See <a href=\"/reports\">status</a>."
+        },
+        "submitted": {
+          "html": "Creating report. See <a href=\"/reports\">status</a>."
+        }
+      },
+      "no-reports-html": "<p>To create a report, first select a group or school from the <a href=\"/\">Home page</a>. Next click the \"Student Reports\" button to get started.",
       "orders": {
         "0": "Student Name",
         "1": "Student SSID"
       },
-      "messages" : {
-        "get-reports-error": "There was an unexpected error while getting your reports. Please click the button below to reload the page and try again.",
-        "submitted": {
-          "html": "Creating report. See <a href=\"/reports\">status</a>."
-        },
-        "submission-failed": {
-          "html": "Error creating report. See <a href=\"/reports\">status</a>."
-        },
-        "download-failed": "There was an unexpected error while getting this report. Please try again.",
-        "coming-soon": {
-          "report-regeneration": "Report regeneration is coming soon."
-        }
-      },
+      "reload": "Reload",
       "reportType": {
-        "Student": "Student Report",
-        "SchoolGrade": "School/Grade Report",
+        "ExamExport": "Custom Export",
         "Group": "Group Report",
-        "ExamExport": "Custom Export"
+        "SchoolGrade": "School/Grade Report",
+        "Student": "Student Report"
       },
       "status": {
-        "PENDING": "Pending",
-        "RUNNING": "Running",
         "COMPLETED": "Completed",
-        "FAILED": "Failed",
         "EXPIRED": "Expired",
-        "NO_RESULTS": "No Results"
+        "FAILED": "Failed",
+        "NO_RESULTS": "No Results",
+        "PENDING": "Pending",
+        "RUNNING": "Running"
+      },
+      "subjects": {
+        "0": "MATH, ELA",
+        "1": "MATH",
+        "2": "ELA"
       }
     },
-    "organization-tree": {
-      "header": "Selected Organizations",
-      "subheader-empty": "No organizations selected",
-      "subheader-not-empty": "Click an item to remove it from the list",
-      "remove-district": "Remove District"
-    },
-    "organization-export": {
-      "title": "Custom Exports",
-      "form": {
-        "organization": {
-          "label": "Search for an Organization",
-          "placeholder": "Start typing an organization name",
-          "add": "Add",
-          "select-all": "Select All",
-          "type": {
-            "School": "Schools",
-            "SchoolGroup": "School Groups",
-            "District": "Districts",
-            "DistrictGroup": "District Groups"
-          }
-        },
-        "school-year": {
-          "label": "School Year"
-        },
-        "submit": {
-          "label": "Export Results",
-          "success-html": "Creating export.",
-          "failure": "Error creating export. Please try again."
+    "school-grade": {
+      "messages": {
+        "no-grades-available": "No test results are available for the selected school.",
+        "null-school": "This school is unavailable.  Contact your building administrator if you think you should have access to this school."
+      },
+      "results": {
+        "basic-filters": {
+          "current-grade": "Assessment Grade",
+          "school": "School",
+          "school-year": "School Year"
         }
-      }
+      },
+      "school-name": {
+        "label": "Search by School Name",
+        "prompt": "Start typing the school name"
+      },
+      "title": "Search by School & Grade"
     },
     "select-year": "School Year",
-    "export": {
-      "csv": "Export CSV",
-      "title": "Export",
-      "items-by-points-earned": "Export Results By Item",
-      "distractor-analysis": "Export Distractor Analysis",
-      "cols": {
-        "student-id": "StudentIdentifier",
-        "student-first-name": "FirstName",
-        "student-last-name": "LastOrSurname",
-        "submit-date-time": "SubmitDateTime",
-        "school": "SchoolName",
-        "schoolYear":"SchoolYear",
-        "assessment-session-id": "TestSessionId",
-        "assessment-type": "AssessmentType",
-        "assessment-subtype": "AssessmentSubType",
-        "assessment-name": "AssessmentName",
-        "subject": "Subject",
-        "enrolled-grade": "GradeLevelWhenAssessed",
-        "completeness": "Completeness",
-        "administration-condition": "AdministrationCondition",
-        "achievement-level": "ScaleScoreAchievementLevel",
-        "scale-score": "ScaleScore",
-        "error-band-min": "Error Band Min",
-        "error-band-max": "Error Band Max",
-        "gender": "Sex",
-        "migrant-status": "MigrantStatus",
-        "504-plan": "Section504Status",
-        "iep": "IDEAIndicator",
-        "economic-disadvantage": "EconomicDisadvantageStatus",
-        "limited-english": "LEPStatus",
-        "claim": "Claim",
-        "target": "Target",
-        "accommodation-codes": "AssignedAccommodationList"
-      }
-    }
-  },
-  "prompt": {
-    "search": "Search",
-    "select": "Select"
-  },
-  "buttons": {
-    "all": "All",
-    "visibility": {
-      "show": "Show",
-      "hide": "Hide"
-    },
-    "collapsible": {
-      "expand": "Expand",
-      "collapse": "Collapse"
-    },
-    "search": "Search",
-    "display-overall": "Overall Scores",
-    "display-claim": "Claim Scores",
-    "go-home": "Go Home"
-  },
-  "enum": {
-    "administrative-condition": {
-      "Valid": "Valid",
-      "SD": "Standardized",
-      "NS": "Nonstandardized",
-      "IN": "Invalid"
-    },
-    "completeness": {
-      "Partial": "Partial",
-      "Complete": "Complete"
-    },
-    "iab-category": {
-      "short": {
-        "1": "Below Standard",
-        "2": "Near Standard",
-        "3": "Above Standard",
-        "missing": "-"
+    "student": {
+      "messages": {
+        "no-results": "Student does not exist or has no available test results.",
+        "null-student": "This student is unavailable.  Contact your building administrator if you think you should have access to this student."
       },
-      "full": {
-        "1": "Below Standard",
-        "2": "Near Standard",
-        "3": "Above Standard",
-        "missing": "-"
-      }
-    },
-    "achievement-level": {
-      "short": {
-        "1": "Did Not Meet",
-        "2": "Nearly Met",
-        "3": "Met",
-        "4": "Exceeded",
-        "missing": "-"
+      "name": "{{lastName}}, {{firstName}}",
+      "prompt": "Enter the Statewide Student Identifier (SSID)",
+      "responses": {
+        "cols": {
+          "correctness": "Correctness",
+          "correctness-info": "A value for the degree of correctness in a student's response to a test question. The correctness value is calculated by dividing the student's score on a particular question by the maximum score for that question.",
+          "max-score": "Max Score",
+          "standard": "Standard",
+          "student-score": "Student Score"
+        },
+        "crumb": "Student Responses",
+        "title": "Student's Responses"
       },
-      "request-type": {
-        "results-by-item": "ResultsByItems",
-        "distractor-analysis": "DistractorAnalysis"
+      "results": {
+        "cols": {
+          "assessment": "Assessment",
+          "date": "Date",
+          "enrolled-grade": "Enrolled Grade",
+          "school": "School",
+          "school-year": "School Year"
+        },
+        "crumb": "Student: {{lastName}}, {{firstName}}",
+        "labels": {
+          "select-subject": "Subject"
+        },
+        "title": "Student Test History Report"
       },
-      "full": {
-        "1": "Did Not Meet Standard",
-        "2": "Nearly Met Standard",
-        "3": "Met Standard",
-        "4": "Exceeded Standard",
-        "missing": "-"
-      }
+      "title": "Search by Student ID"
     },
-    "subject-claim-code": {
-      "1": "Concepts & Procedures",
-      "2-W": "Writing",
-      "3": "Communicating Reasoning",
-      "4-CR": "Research & Inquiry",
-      "SOCK_2": "Problem Solving",
-      "SOCK_LS": "Listening",
-      "SOCK_R": "Reading"
-    },
-    "gender": {
-      "Male": "Male",
-      "Female": "Female"
-    },
-    "polar": {
-      "1": "Yes",
-      "2": "No"
-    },
-    "off-grade": {
-      "true": "Hide",
-      "false": "Show"
-    },
-    "transfer": {
-      "true": "Hide",
-      "false": "Show"
-    },
-    "ethnicity": {
-      "HispanicOrLatinoEthnicity": "Hispanic/Latino",
-      "AmericanIndianOrAlaskaNative": "American Indian or Alaska Native",
-      "Asian": "Asian",
-      "BlackOrAfricanAmerican": "Black or African American",
-      "White": "White",
-      "NativeHawaiianOrOtherPacificIslander": "Native Hawaiian or Pacific Islander",
-      "DemographicRaceTwoOrMoreRaces": "Demographic Race of Two or More",
-      "Filipino": "Filipino"
-    },
-    "difficulty": {
-      "E": "Easy",
-      "M": "Moderate",
-      "D": "Difficult"
-    },
-    "results-view-state": {
-      "ByStudent": "Results By Student",
-      "ByItem": "Results By Item",
-      "DistractorAnalysis": "Distractor Analysis"
-    }
-  },
-  "definition": {
-    "claim": {
-      "1-IT": {
-        "name":"Read Analytically: Informational Text",
-        "description": "Read Analytically: Informational Text - Students can read closely and analytically to comprehend a range of increasingly complex literary and informational texts."
-      },
-      "1-LT": {
-        "name": "Read Analytically: Literary Text",
-        "description": "Read Analytically: Literary Text - Students can read closely and analytically to comprehend a range of increasingly complex literary and informational texts."
-      },
-      "2-W": {
-        "name": "Write Effectively",
-        "description": "Write Effectively - Students can produce effective and well-grounded writing for a range of purposes and audiences."
-      },
-      "3-L": {
-        "name": "Listen Purposefully",
-        "description": "Speak and Listen purposefully - Students can employ effective speaking and listening skills for a range of purposes and audiences."
-      },
-      "3-S": {
-        "name": "Speak Purposefully",
-        "description": "Speak and Listen purposefully - Students can employ effective speaking and listening skills for a range of purposes and audiences."
-      },
-      "4-CR": {
-        "name": "Conduct Research",
-        "description": "Conduct Research - Students can engage in research/ inquiry to investigate topics and to analyze, integrate, and present information."
-      },
-      "NA": {
-        "name": "NA",
-        "description": "NA"
-      },
+    "subjects": {
       "1": {
-        "name": "Concepts and Procedures",
-        "description": "Concepts and Procedures - Students can explain and apply mathematical concepts and interpret and carry out mathematical procedures with precision and fluency."
+        "name": "Mathematics",
+        "short-name": "MATH"
       },
       "2": {
-        "name": "Problem Solving",
-        "description": "Problem Solving - Students can solve a range of complex well-posed problems in pure and applied mathematics, making productive use of knowledge and problem solving strategies."
-      },
-      "3": {
-        "name": "Communicating Reasoning",
-        "description": "Communicating Reasoning - Students can clearly and precisely construct viable arguments to support their own reasoning and to critique the reasoning of others."
-      },
-      "4": {
-        "name": "Modeling and Data Analysis",
-        "description": "Modeling and Data Analysis - Students can analyze complex, real-world scenarios and can construct and use mathematical models to interpret and solve problems."
+        "name": "ELA/Literacy",
+        "short-name": "ELA"
       }
-    },
-    "dok": {
-      "1_1": {
-        "description": "Recall and Reproduction",
-        "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
-      },
-      "2_1": {
-        "description": "Basic Skills and Concepts",
-        "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
-      },
-      "3_1": {
-        "description": "Strategic Thinking and Reasoning",
-        "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
-      },
-      "4_1": {
-        "description": "Extended Thinking",
-        "reference": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72"
-      },
-      "1_2": {
-        "description": "Recall and Reproduction",
-        "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
-      },
-      "2_2": {
-        "description": "Basic Skills and Concepts",
-        "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
-      },
-      "3_2": {
-        "description": "Strategic Thinking and Reasoning",
-        "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
-      },
-      "4_2": {
-        "description": "Extended Thinking",
-        "reference": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
-      }
-    },
-    "math-practice": {
-      "1": { "description": "Make sense of problems and persevere in solving them" },
-      "2": { "description": "Reason abstractly and quantitatively" },
-      "3": { "description": "Construct viable arguments and critique the reasoning of others" },
-      "4": { "description": "Model with mathematics" },
-      "5": { "description": "Use appropriate tools strategically" },
-      "6": { "description": "Attend to precision" },
-      "7": { "description": "Look for and make use of structure" },
-      "8": { "description": "Look for and express regularity in repeated reasoning" }
     }
   },
-  "html": {
-    "system-news":"<h2 class=\"blue-dark h3 mb-md\">Summary Reports</h2><div class=\"summary-reports-container mb-md\"><p>(Coming Soon)</div><!-- Member Reporting Resources --><h2 class=\"blue-dark h3 mb-md\">Member Reporting Resources</h2><div class=\"member-reporting-resources-container\"><p>(Coming Soon)</p></div>"
+  "messages": {
+    "no-grades-available": "No test results are available for the selected school.",
+    "no-results": "No results.",
+    "null-school": "This school is unavailable.  Contact your building administrator if you think you should have access to this school.",
+    "access-denied": {
+      "message": "Your user account is not permitted to access this reporting system. If you believe you have reached this page in error, please contact your building administrator.",
+      "title": "Access Denied"
+    },
+    "coming-soon": "{{featureName}} is coming soon.",
+    "loading": "Loading",
+    "logout": "Logout",
+    "no-distractor-analysis": "Distractor analysis is not available for tests administered prior to 2017-18 school year.",
+    "no-distractor-analysis-for-summative-exams": "Distractor analysis is not available for summative tests.",
+    "no-results-by-item": "Results by item is not available for tests administered prior to 2017-18 school year.",
+    "no-results-by-item-for-summative-exams": "Results by item is not available for summative tests.",
+    "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above.",
+    "noExams": "There are no exams associated with your account.",
+    "noExamsMatchingCriteria": "There are no exams matching this criteria.",
+    "noExamsSelected": "Please select from the assessments above",
+    "notApplicable": "-",
+    "unknown-error": "An unknown error has occurred. You can try the same action again or click the button below to go to the home page.  If this problem persists, please contact your building administrator.",
+    "upload-in-progress": "Files are still uploading, are you sure you want to leave?"
+  },
+  "prompt": {
+    "cancel": "Cancel",
+    "close": "Close",
+    "create": "Create",
+    "delete": "Delete",
+    "search": "Search",
+    "select": "Select",
+    "update": "Update"
   }
 }
