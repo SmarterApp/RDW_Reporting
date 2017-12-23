@@ -95,7 +95,6 @@ export class AssessmentsComponent implements OnInit {
     return this._showOnlyMostRecent;
   }
 
-  @Input()
   set showOnlyMostRecent(value: boolean) {
     this.expandAssessments = !value;
     if (value) {
