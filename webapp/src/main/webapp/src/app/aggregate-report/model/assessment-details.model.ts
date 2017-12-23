@@ -13,5 +13,5 @@ export interface AssessmentDetails {
    * performance level.
    * A value of -1 denotes no rollup.
    */
-  performanceRollup: number;
+  performanceGroupingCutpoint: number;
 }

@@ -72,11 +72,11 @@ export class MockAggregateReportsService {
     }
 
     //If there is a rollup level, calculate the grouped values
-    if (details.performanceRollup > 0) {
+    if (details.performanceGroupingCutpoint > 0) {
       let belowCount: number = 0;
       let aboveCount: number = 0;
       for (let level = 0; level < uiModel.performanceLevelCounts.length; level++) {
-        if (level < details.performanceRollup - 1) {
+        if (level < details.performanceGroupingCutpoint - 1) {
           belowCount += uiModel.performanceLevelCounts[level];
         } else {
           aboveCount += uiModel.performanceLevelCounts[level];

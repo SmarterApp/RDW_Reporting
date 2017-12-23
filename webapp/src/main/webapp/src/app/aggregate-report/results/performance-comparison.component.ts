@@ -4,8 +4,8 @@ import { ColorService } from "../../shared/color.service";
 
 /**
  * This component displays a horizontal performance-level population bar chart.
- * If there is a positive {@link #performanceRollup} value supplied, the chart is
- * anchored in the middle between the performanceRollup-1 and performanceRollup value.
+ * If there is a positive {@link #performanceGroupingCutpoint} value supplied, the chart is
+ * anchored in the middle between the performanceGroupingCutpoint-1 and performanceGroupingCutpoint value.
  */
 @Component({
   selector: 'performance-comparison',
@@ -20,7 +20,7 @@ export class PerformanceComparisonComponent implements OnInit {
    * The rollup performance level (1-based)
    */
   @Input()
-  public performanceRollup: number;
+  public performanceGroupingCutpoint: number;
 
   /**
    * The performance level count percentages (0-based)
@@ -38,15 +38,15 @@ export class PerformanceComparisonComponent implements OnInit {
 
   public ngOnInit(): void {
     this.belowPercentages = this.hasRollup()
-      ? this.performancePercentages.slice(0, this.performanceRollup-1)
+      ? this.performancePercentages.slice(0, this.performanceGroupingCutpoint-1)
       : this.performancePercentages;
     this.abovePercentages = this.hasRollup()
-      ? this.performancePercentages.slice(this.performanceRollup-1)
+      ? this.performancePercentages.slice(this.performanceGroupingCutpoint-1)
       : [];
   }
 
   public hasRollup(): boolean {
-    return this.performanceRollup > 0;
+    return this.performanceGroupingCutpoint > 0;
   }
 
   public getBelowPercentages(): number[] {
@@ -71,7 +71,7 @@ export class PerformanceComparisonComponent implements OnInit {
 
   private getColor(level: number): string {
     let effectiveLevel = this.groupPerformanceLevels
-      ? level == 0 ? this.performanceRollup - 2 : this.performanceRollup - 1
+      ? level == 0 ? this.performanceGroupingCutpoint - 2 : this.performanceGroupingCutpoint - 1
       : level;
     return this.colorService.getPerformanceLevelColor({type: this.assessmentType} as any, effectiveLevel);
   }

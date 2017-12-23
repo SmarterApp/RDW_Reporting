@@ -80,7 +80,7 @@
         <div class="full-cell pt-0 pb-0 pl-0 pr-0"
              [ngClass]="{'border-top': treeColumns[i] < columnOrdering.length - 1}">
           <performance-comparison [assessmentType]="query.assessmentType"
-                                  [performanceRollup]="performanceRollup"
+                                  [performanceGroupingCutpoint]="performanceGroupingCutpoint"
                                   [groupPerformanceLevels]="groupPerformanceLevels"
                                   [performancePercentages]="reportItem.performanceLevelPercents"></performance-comparison>
         </div>
@@ -123,7 +123,7 @@
       </p-column>
     </div>
     <div *ngIf="groupPerformanceLevels">
-      <p-column *ngFor="let level of [performanceRollup-1, performanceRollup]; let leveIdx = index"
+      <p-column *ngFor="let level of [performanceGroupingCutpoint-1, performanceGroupingCutpoint]; let leveIdx = index"
                 sortable="custom"
                 (sortFunction)="sort($event)"
                 field="{{ (showValuesAsPercent ? 'groupedPerformanceLevelPercents.' : 'groupedPerformanceLevelCounts.') + leveIdx }}">

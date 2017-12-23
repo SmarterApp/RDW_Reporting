@@ -69,7 +69,7 @@ export class AggregateReportsTableComponent implements OnInit {
 
   private orderingByProperty: {[key: string]: Ordering<AggregateReportItem>} = {};
   private previousSort: any;
-  private performanceRollup: number;
+  private performanceGroupingCutpoint: number;
 
   constructor(public colorService: ColorService,
               private assessmentDetailsService: AssessmentDetailsService) {
@@ -91,7 +91,7 @@ export class AggregateReportsTableComponent implements OnInit {
       for (let level = 1; level <= details.performanceLevels; level++) {
         this.performanceLevels.push(level);
       }
-      this.performanceRollup = details.performanceRollup;
+      this.performanceGroupingCutpoint = details.performanceGroupingCutpoint;
     });
 
     // Give the datatable a chance to initialize, run this next frame

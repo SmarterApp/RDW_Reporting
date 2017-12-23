@@ -16,12 +16,12 @@ import { Observable } from "rxjs/Observable";
 export class AssessmentDetailsService {
   private static IabDetails: AssessmentDetails = {
     performanceLevels: 3,
-    performanceRollup: -1
+    performanceGroupingCutpoint: -1
   };
 
   private static IcaSummativeDetails: AssessmentDetails = {
     performanceLevels: 4,
-    performanceRollup: 3
+    performanceGroupingCutpoint: 3
   };
 
   /**

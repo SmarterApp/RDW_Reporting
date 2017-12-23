@@ -19,7 +19,7 @@ describe('MockAggregateReportsService', () => {
     mockDetailsService = new MockAssessmentDetailsService();
     mockDetailsService.getDetails.and.returnValue(Observable.of({
       performanceLevels: 4,
-      performanceRollup: 3
+      performanceGroupingCutpoint: 3
     }));
 
     http = new MockHttp();

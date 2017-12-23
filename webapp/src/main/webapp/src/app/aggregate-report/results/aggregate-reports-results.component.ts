@@ -25,7 +25,7 @@ export class AggregateReportsResultsComponent implements OnInit {
   public subjectIds: number[] = [];
   public showValuesAsPercent: boolean = true;
   public groupPerformanceLevels: boolean = false;
-  public performanceRollup: number = -1;
+  public performanceGroupingCutpoint: number = -1;
 
   private reportDataBySubjectId: Map<number, AggregateReportItem[]> = new Map();
 
@@ -43,7 +43,7 @@ export class AggregateReportsResultsComponent implements OnInit {
       const details: AssessmentDetails = value[0];
       const items: AggregateReportItem[] = value[1];
 
-      this.performanceRollup = details.performanceRollup;
+      this.performanceGroupingCutpoint = details.performanceGroupingCutpoint;
 
       //Break out results by subject to display in separate tables
       items.forEach(item => {
