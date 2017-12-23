@@ -30,6 +30,7 @@ export class AssessmentsComponent implements OnInit {
   @Input()
   set assessmentExams(value: AssessmentExam[]) {
     this._assessmentExams = value;
+    this.showOnlyMostRecent = true;
     this._hasInitialAssessment = (value != null && value.length != 0);
   }
 

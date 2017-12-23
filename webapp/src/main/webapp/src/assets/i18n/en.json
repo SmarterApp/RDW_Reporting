@@ -978,6 +978,7 @@
     },
     "school-grade": {
       "messages": {
+        "no-results": "No results.",
         "no-grades-available": "No test results are available for the selected school.",
         "null-school": "This school is unavailable.  Contact your building administrator if you think you should have access to this school."
       },
