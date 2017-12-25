@@ -428,6 +428,15 @@
       },
       "students": "Students"
     },
+    "instructional-resources": {
+      "link": {
+        "System": "Smarter Balanced Instructional Resource",
+        "State": "{{organizationName}} Instructional Resource",
+        "DistrictGroup": "{{organizationName}} Instructional Resource",
+        "District": "{{organizationName}} Instructional Resource",
+        "SchoolGroup": "{{organizationName}} Instructional Resource"
+      }
+    },
     "assessmentTypes": {
       "1": {
         "name": "Interim Comprehensive Assessment",
