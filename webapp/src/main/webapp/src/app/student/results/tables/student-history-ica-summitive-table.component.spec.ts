@@ -8,7 +8,6 @@ import { StudentHistoryICASummitiveTableComponent } from "./student-history-ica-
 import { StudentHistoryExamWrapper } from "../../model/student-history-exam-wrapper.model";
 import { Exam } from "../../../assessments/model/exam.model";
 import { Assessment } from "../../../assessments/model/assessment.model";
-import { ScaleScoreComponent } from "../../../assessments/results/scale-score.component";
 import { InformationButtonComponent } from "../../../shared/button/information-button.component";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MockRouter } from "../../../../test/mock.router";
@@ -17,6 +16,7 @@ import { PopoverModule } from "ngx-bootstrap";
 import { InstructionalResourcesService } from "../../../assessments/results/instructional-resources.service";
 import { MockDataService } from "../../../../test/mock.data.service";
 import { InstructionalResourcePopoverComponent } from "../../../assessments/popover/instructional-resource-popover.component";
+import { ScaleScoreComponent } from "../../../shared/scale-score/scale-score.component";
 
 describe('StudentHistoryICASummitiveTableComponent', () => {
   let component: StudentHistoryICASummitiveTableComponent;

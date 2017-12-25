@@ -33,6 +33,7 @@ import {
   RdwSecurityModule,
   RdwTranslateLoader,
 } from "@sbac/rdw-reporting-common-ngx";
+import { ScaleScoreComponent } from "./scale-score/scale-score.component";
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import {
     RemoveCommaPipe,
     SBCheckboxList,
     SBRadioButtonComponent,
-    SBToggleComponent
+    SBToggleComponent,
+    ScaleScoreComponent
   ],
   imports: [
     AlertModule,
@@ -89,6 +91,7 @@ import {
     SBCheckboxList,
     SBRadioButtonComponent,
     SBToggleComponent,
+    ScaleScoreComponent,
     TranslateModule
   ],
   providers: [
