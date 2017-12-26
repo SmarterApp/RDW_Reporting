@@ -141,6 +141,9 @@ export class SchoolResultsComponent implements OnInit {
   }
 
   schoolSelectChanged(school: School): void {
+    if (school instanceof Event) {
+      return;
+    }
     if (school && school.id) {
       this.currentSchool = school;
 
