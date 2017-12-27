@@ -6,16 +6,16 @@ INSERT INTO gender VALUES (-9,'gender-9'),(-8,'gender-8');
 INSERT INTO school_year VALUES (1999),(2000),(2001);
 
 -- ------------------------------------------ School/Districts --------------------------------------------------------------------------------------------------
-INSERT INTO district (id, name) VALUES
-  (-7, 'District-7'),
-  (-8, 'District-8'),
-  (-9, 'District-9');
+INSERT INTO district (id, name, natural_id, external_id, migrate_id) VALUES
+  (-7, 'District-7', 'id-7', 'externalId-7', -1),
+  (-8, 'District-8', 'id-8', 'externalId-8', -1),
+  (-9, 'District-9', 'id-9', 'externalId-9', -1);
 
-INSERT INTO school (id, district_id, name, update_import_id, migrate_id) VALUES
-  (-7, -7, 'School-7', -1, -1),
-  (-8, -8, 'School-8', -1, -1),
-  (-9, -9, 'School-9', -1, -1),
-  (-10, -9, 'School-10', -1, -1);
+INSERT INTO school (id, district_id, name, natural_id, external_id, update_import_id, migrate_id) VALUES
+  (-7, -7, 'School-7', 'id-7', 'externalId-7', -1, -1),
+  (-8, -8, 'School-8', 'id-8', 'externalId-8',-1, -1),
+  (-9, -9, 'School-9', 'id-9', 'externalId-9',-1, -1),
+  (-10, -9, 'School-10','id-10', 'externalId-10', -1, -1);
 
 -- ------------------------------------------ Asmt ---------------------------------------------------------------------------------------------------------
 INSERT INTO asmt (id, grade_id, subject_id, type_id, school_year, name, label, update_import_id, migrate_id) VALUES

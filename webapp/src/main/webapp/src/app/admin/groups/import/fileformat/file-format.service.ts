@@ -1,5 +1,5 @@
 import { Observable } from "rxjs/Observable";
-import { Response, Http } from "@angular/http";
+import { Http, Response } from "@angular/http";
 import { TranslateService } from "@ngx-translate/core";
 import { Download } from "@sbac/rdw-reporting-common-ngx";
 import { Injectable } from "@angular/core";

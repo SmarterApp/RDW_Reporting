@@ -5,7 +5,6 @@ import { SharedModule } from "primeng/components/common/shared";
 import { CachingDataService, PopupMenuComponent, SchoolYearPipe } from "@sbac/rdw-reporting-common-ngx";
 import { TranslateModule } from "@ngx-translate/core";
 import { DataTableModule } from "primeng/components/datatable/datatable";
-import { ScaleScoreComponent } from "../../../assessments/results/scale-score.component";
 import { InformationButtonComponent } from "../../../shared/button/information-button.component";
 import { MockRouter } from "../../../../test/mock.router";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -15,6 +14,7 @@ import { InstructionalResourcesService } from "../../../assessments/results/inst
 import { DataService } from "@sbac/rdw-reporting-common-ngx/data/data.service";
 import { MockDataService } from "../../../../test/mock.data.service";
 import { InstructionalResourcePopoverComponent } from "../../../assessments/popover/instructional-resource-popover.component";
+import { ScaleScoreComponent } from "../../../shared/scale-score/scale-score.component";
 
 describe('StudentHistoryIABTableComponent', () => {
   let component: StudentHistoryIABTableComponent;

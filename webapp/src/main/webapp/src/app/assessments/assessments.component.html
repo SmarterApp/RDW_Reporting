@@ -117,17 +117,19 @@
 </h2>
 
 <!-- Results Container -->
-<div *ngFor="let assessment of assessmentExams; let i = index" class="groups-results-wrapper">
-  <assessment-results [assessmentExam]="assessment"
-                      [showValuesAsPercent]="showValuesAsPercent"
-                      [filterBy]="clientFilterBy"
-                      [allowFilterBySessions]="allowFilterBySessions"
-                      [assessmentProvider]="assessmentProvider"
-                      [minimumItemDataYear]="minimumItemDataYear"></assessment-results>
+<div *ngIf="!hideAssessments">
+  <div *ngFor="let assessment of assessmentExams; let i = index" class="groups-results-wrapper">
+    <assessment-results [assessmentExam]="assessment"
+                        [showValuesAsPercent]="showValuesAsPercent"
+                        [filterBy]="clientFilterBy"
+                        [allowFilterBySessions]="allowFilterBySessions"
+                        [assessmentProvider]="assessmentProvider"
+                        [minimumItemDataYear]="minimumItemDataYear"></assessment-results>
+  </div>
 </div>
 
 <!-- No Results Error -->
-<div class="alert alert-info" *ngIf="assessmentExams.length == 0">
+<div class="alert alert-info" *ngIf="assessmentExams.length == 0 || hideAssessments">
   {{'messages.no-results-found' | translate}}
 </div>
 

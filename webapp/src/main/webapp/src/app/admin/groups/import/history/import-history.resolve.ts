@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { ImportResult } from "../import-result.model";
 import { Observable } from "rxjs/Observable";
 import { GroupImportService } from "../group-import.service";

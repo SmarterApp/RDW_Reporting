@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { GroupImportService } from "./group-import.service";
 import { ImportResult } from "./import-result.model";
 import { FileUploader } from "ng2-file-upload";

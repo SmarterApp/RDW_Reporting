@@ -6,8 +6,8 @@ import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { BsModalService } from "ngx-bootstrap";
 import { InstructionalResourceService } from "./instructional-resource.service";
 import { Observable } from "rxjs/Observable";
-import Spy = jasmine.Spy;
 import { CommonModule } from "../../shared/common.module";
+import Spy = jasmine.Spy;
 
 describe('InstructionalResourceComponent', () => {
   let component: InstructionalResourceComponent;

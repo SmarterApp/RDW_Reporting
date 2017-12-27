@@ -36,9 +36,10 @@ export class ColorService {
   }
 
   /**
-   * Retrieves the color for the performance level
+   * Retrieves the color for the performance level (0-based)
+   *
    * @param {Assessment} assessment
-   * @param {number} performanceLevel
+   * @param {number} performanceLevel (0-based)
    * @returns {string} the class of the color
    */
   getPerformanceLevelColor(assessment: Assessment, performanceLevel: number): string {

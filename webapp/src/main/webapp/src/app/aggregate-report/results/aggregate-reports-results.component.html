@@ -1,4 +1,52 @@
-<div class="well">
-  <h3>Sample Aggregate Report Results</h3>
+<div class="aggregate-report-results">
+  <span class="h3 blue-dark">Sample Aggregate Report Results</span>
+
+  <div *ngIf="loading" class="loader">
+    <div class="inner">
+      <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">{{ 'messages.loading' | translate }}</span>
+    </div>
+  </div>
+
+  <div [ngClass]="{'hidden': loading}">
+    <h2 class="blue-dark h3 mt-lg mb-md">
+      {{'labels.groups.results.title' | translate}}
+      <div class="pull-right float-none-xs">
+        <label for="value-format">{{'labels.groups.results.value-as' | translate }} </label>
+        <div id="value-format" class="btn-group btn-group-primary btn-group-xs mr-md" role="group">
+          <button type="radio" (click)="showValuesAsPercent = true" [ngClass]="{'active':showValuesAsPercent}"
+                  angulartics2On="click" angularticsEvent="ShowAsPercent" angularticsCategory="AggregateReportResults"
+                  class="btn btn-default">{{'labels.groups.results.value-as-percent' | translate}}
+          </button>
+          <button type="radio" (click)="showValuesAsPercent = false" [ngClass]="{'active':!showValuesAsPercent}"
+                  angulartics2On="click" angularticsEvent="ShowAsNumber" angularticsCategory="AggregateReportResults"
+                  class="btn btn-default">{{'labels.groups.results.value-as-number' | translate}}
+          </button>
+        </div>
+      </div>
+      <div *ngIf="performanceGroupingCutpoint >= 0"
+           class="pull-right float-none-xs">
+        <label for="group-performance">{{'labels.aggregate-reports.results.performance-group-prompt' | translate }} </label>
+        <div id="group-performance" class="btn-group btn-group-primary btn-group-xs mr-md" role="group">
+          <button type="radio" (click)="groupPerformanceLevels = false" [ngClass]="{'active':!groupPerformanceLevels}"
+                  angulartics2On="click" angularticsEvent="SeparatePerformanceLevels" angularticsCategory="AggregateReportResults"
+                  class="btn btn-default">{{'labels.aggregate-reports.results.performance-separated' | translate}}
+          </button>
+          <button type="radio" (click)="groupPerformanceLevels = true" [ngClass]="{'active':groupPerformanceLevels}"
+                  angulartics2On="click" angularticsEvent="GroupPerformanceLevels" angularticsCategory="AggregateReportResults"
+                  class="btn btn-default">{{'labels.aggregate-reports.results.performance-grouped' | translate}}
+          </button>
+        </div>
+      </div>
+    </h2>
+
+    <div *ngFor="let subjectId of subjectIds">
+      <aggregate-reports-table [reportItems]="reportDataBySubjectId.get(subjectId)"
+                               [query]="query"
+                               [showValuesAsPercent]="showValuesAsPercent"
+                               [columnOrdering]="['organizationName', 'gradeId', 'schoolYear', 'dimensionValue']"
+                               [groupPerformanceLevels]="groupPerformanceLevels"
+      ></aggregate-reports-table>
+    </div>
+  </div>
 
 </div>

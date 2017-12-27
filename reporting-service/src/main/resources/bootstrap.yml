@@ -3,8 +3,7 @@
 # (https://github.com/spring-cloud/spring-cloud-commons/blob/master/docs/src/main/asciidoc/spring-cloud-commons.adoc#the-bootstrap-application-context)
 spring:
   application:
-    # TODO change to rdw-reporting-reporting-service
-    name: rdw-reporting-webapp
+    name: rdw-reporting-service
 
   cloud:
     config:

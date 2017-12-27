@@ -3,10 +3,6 @@ management:
   port: 8008
   security:
     enabled: false
-  # TODO remove when spring-session/redis is moved from common-web to webapp
-  health:
-    redis:
-      enabled: false
 
 server:
   # tomcat settings for reasonable performance: adjust for tiny/huge configurations
@@ -28,14 +24,6 @@ spring:
     default-property-inclusion: non_null
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
-
-  cache:
-    type: SIMPLE
-    cache-names: permissionsByRole, internalTranslationsByCode, mergeTranslations
-
-  # TODO remove when spring-session/redis is moved from common-web to webapp
-  session:
-    store-type: none
 
 security:
   filter-dispatcher-types: FORWARD, INCLUDE, REQUEST, ASYNC, ERROR
@@ -60,11 +48,6 @@ artifacts:
   exam-item:
     directory: ${rdw.reporting.artifacts.exam.item.directory:local/items/Item-{0}/}
     file-name: item-{0}.xml
-
-# TODO remove when adding qualified reporting-service package
-permissionservice:
-  component: Reporting
-  endpoint: ${rdw.permission.service}
 
 app:
   state:

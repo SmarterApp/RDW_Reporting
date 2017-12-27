@@ -1,9 +1,5 @@
 apply plugin: 'org.springframework.boot'
 
-createDockerfile {
-    ext.java_opts = ["-Xmx512m"]
-}
-
 dependencies {
     compile project(':rdw-reporting-common')
     compile project(':rdw-reporting-common-web')

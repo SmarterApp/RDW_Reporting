@@ -10,7 +10,7 @@ dependencies {
     compile 'org.opentestsystem.rdw.common:rdw-common-security'
     compile 'org.opentestsystem.rdw.common:rdw-common-utils'
     compile 'javax.validation:validation-api'
-    compile 'org.apache.commons:commons-io'
+    compile 'commons-io:commons-io'
     compile 'com.google.guava:guava'
     compile 'com.fasterxml.jackson.core:jackson-annotations'
     compile 'com.fasterxml.jackson.core:jackson-databind'

@@ -51,7 +51,8 @@
       {{ exam.enrolledGrade | gradeDisplay:'enrolled-name' }}
     </ng-template>
   </p-column>
-  <p-column field="school.name" header="{{'labels.groups.results.assessment.exams.cols.school' | translate }}" sortable="true"></p-column>
+  <p-column field="school.name" header="{{'labels.groups.results.assessment.exams.cols.school' | translate }}"
+            sortable="true"></p-column>
   <p-column field="administrativeCondition" [sortable]="true" [hidden]="isClaimScoreSelected">
     <ng-template pTemplate="header">
       <span info-button title="{{'labels.groups.results.assessment.exams.cols.status' | translate}}"
@@ -70,18 +71,22 @@
       </span>
     </ng-template>
     <ng-template let-exam="rowData" pTemplate="body">
-      {{ examLevelEnum + (exam.level ? exam.level : 'missing') | translate }}
-      <button
-        class="btn btn-borderless btn-xs icon-only pull-right"
-        angulartics2On="click"
-        angularticsEvent="InstructionalResource"
-        angularticsCategory="AssessmentResults"
-        [disabled]="false"
-        [popover]="buttonPopover"
-        popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:((examLevelEnum + (exam.level ? exam.level : 'missing')) | translate) } }}"
-        container="body"
-        (click)="loadInstructionalResources(exam)"
-        [outsideClick]="true"><i class="fa fa-book"></i></button>
+      <span class="pull-left">
+        {{ examLevelEnum + (exam.level ? exam.level : 'missing') | translate }}
+      </span>
+      <span class="pull-right">
+        <button
+          class="btn btn-borderless btn-xs icon-only"
+          angulartics2On="click"
+          angularticsEvent="InstructionalResource"
+          angularticsCategory="AssessmentResults"
+          [disabled]="false"
+          [popover]="buttonPopover"
+          popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:((examLevelEnum + (exam.level ? exam.level : 'missing')) | translate) } }}"
+          container="body"
+          (click)="loadInstructionalResources(exam)"
+          [outsideClick]="true"><i class="fa fa-book"></i></button>
+      </span>
     </ng-template>
   </p-column>
   <p-column field="score" [sortable]="true" [hidden]="isClaimScoreSelected">
