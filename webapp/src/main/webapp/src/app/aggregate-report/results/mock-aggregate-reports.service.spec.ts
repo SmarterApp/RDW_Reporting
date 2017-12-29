@@ -4,17 +4,27 @@ import { Observable } from "rxjs/Observable";
 import { AggregateReportQuery } from "../model/aggregate-report-query.model";
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { AggregateReportItem } from "../model/aggregate-report-item.model";
+import { MockUserService } from "../../../test/mock.user.service";
 
 describe('MockAggregateReportsService', () => {
 
   let query: AggregateReportQuery;
   let mockDetailsService: MockAssessmentDetailsService;
+  let mockUserService: MockUserService;
   let http: MockHttp;
   let service: MockAggregateReportsService;
 
   beforeEach(() => {
     query = new AggregateReportQuery();
     query.assessmentType = AssessmentType.ICA;
+
+    mockUserService = new MockUserService();
+    spyOn(mockUserService, "getCurrentUser").and.returnValue(Observable.of({
+      configuration: {
+        stateName: "stateName"
+      }
+    }));
+
 
     mockDetailsService = new MockAssessmentDetailsService();
     mockDetailsService.getDetails.and.returnValue(Observable.of({
@@ -23,7 +33,7 @@ describe('MockAggregateReportsService', () => {
     }));
 
     http = new MockHttp();
-    service = new MockAggregateReportsService(http as any, mockDetailsService as any);
+    service = new MockAggregateReportsService(http as any, mockDetailsService as any, mockUserService as any);
   });
 
   it('should map api report items to model instances', (done) => {
@@ -125,6 +135,23 @@ describe('MockAggregateReportsService', () => {
         expect(item.performanceLevelCounts[1]).toBe(0);
         expect(item.performanceLevelCounts[2]).toBe(0);
         expect(item.performanceLevelCounts[3]).toBe(0);
+
+        done();
+      });
+  });
+
+  it('should populate the state organization name', (done) => {
+    let apiItem: any = createApiItem("org-a");
+    apiItem.organization.type = "State";
+    delete apiItem.organization.name;
+    http.get.and.returnValue(Observable.of([
+      apiItem
+    ]));
+
+    service.getReportData(query)
+      .subscribe((items: AggregateReportItem[]) => {
+        let item: AggregateReportItem = items[0];
+        expect(item.organizationName).toBe("stateName");
 
         done();
       });

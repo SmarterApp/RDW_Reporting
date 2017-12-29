@@ -82,6 +82,7 @@ export class UserMapper {
     uiModel.reportLanguages = apiModel.reportLanguages;
     uiModel.uiLanguages = apiModel.uiLanguages;
     uiModel.transferAccess = apiModel.transferAccess;
+    uiModel.stateName = apiModel.stateName;
     return uiModel;
   }
 

@@ -6,6 +6,8 @@ import { AssessmentDetailsService } from "./assessment-details.service";
 import { AggregateReportQuery } from "../model/aggregate-report-query.model";
 import { AssessmentDetails } from "../model/assessment-details.model";
 import { HttpClient } from "@angular/common/http";
+import { UserService } from "../../user/user.service";
+import { User } from "../../user/model/user.model";
 
 /**
  * This placeholder service will eventually submit an AggregateReportQuery
@@ -17,37 +19,39 @@ import { HttpClient } from "@angular/common/http";
 export class MockAggregateReportsService {
 
   constructor(private http: HttpClient,
-              private assessmentDetailsService: AssessmentDetailsService) {
+              private assessmentDetailsService: AssessmentDetailsService,
+              private userService: UserService) {
   }
 
   public getReportData(query: AggregateReportQuery): Observable<AggregateReportItem[]> {
+    let userObservable: Observable<User> = this.userService.getCurrentUser();
     let detailsObservable: Observable<AssessmentDetails> = this.assessmentDetailsService.getDetails(query.assessmentType);
     let dataObservable: Observable<Object> = this.http.get(`/assets/public/test-aggregate.json`)
       .catch(ResponseUtils.badResponseToNull);
-    return Observable.forkJoin(detailsObservable, dataObservable)
+    return Observable.forkJoin(detailsObservable, userObservable, dataObservable)
       .map((value) => {
         let details: AssessmentDetails = value[0];
-        let apiReportItems: any = value[1];
+        let user: User = value[1];
+        let apiReportItems: any = value[2];
 
         if (apiReportItems === null) return [];
-        return this.mapReportItemsFromApi(details, apiReportItems);
+        return this.mapReportItemsFromApi(details, user, apiReportItems);
       });
   }
 
-  private mapReportItemsFromApi(details: AssessmentDetails, apiModels: any[]): AggregateReportItem[] {
-    return apiModels.map((apiModel, idx) => this.mapReportItemFromApi(details, apiModel, idx));
+  private mapReportItemsFromApi(details: AssessmentDetails, user: User, apiModels: any[]): AggregateReportItem[] {
+    return apiModels.map((apiModel, idx) => this.mapReportItemFromApi(details, user, apiModel, idx));
   }
 
-  private mapReportItemFromApi(details: AssessmentDetails, apiModel: any, idx: number): AggregateReportItem {
+  private mapReportItemFromApi(details: AssessmentDetails, user: User, apiModel: any, idx: number): AggregateReportItem {
     let uiModel = new AggregateReportItem();
     uiModel.assessmentId = apiModel.assessment.id;
     uiModel.gradeId = apiModel.assessment.gradeId;
     uiModel.subjectId = apiModel.assessment.subjectId;
     uiModel.schoolYear = apiModel.examSchoolYear;
     uiModel.organizationType = apiModel.organization.type;
-    //TODO: "California" should come from the back-end api populated via config-properties
     uiModel.organizationName = (uiModel.organizationType == "State")
-      ? "California"
+      ? user.configuration.stateName
       : apiModel.organization.name;
     uiModel.organizationId = apiModel.organization.id;
     uiModel.dimensionType = apiModel.dimension.type;

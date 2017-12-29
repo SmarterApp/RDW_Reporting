@@ -25,67 +25,81 @@ services:
       - 5672:5672
       - 15672:15672
 
-  config-server:
-    image: smarterbalanced/configuration-service:3.1.0.RELEASE
-    container_name: config-server
-    ports:
-      - 8888:8888
-    links:
-      - rabbitmq
-    environment:
-      - CONFIG_SERVICE_REPO
-      - ENCRYPT_KEY
-      - GIT_USER
-      - GIT_PASSWORD
-      - SPRING_RABBITMQ_ADDRESSES=rabbitmq:5672
-      - SPRING_RABBITMQ_USERNAME=guest
-      - SPRING_RABBITMQ_PASSWORD=guest
-
-  webapp:
-    image: smarterbalanced/rdw-reporting-webapp
-    ports:
-      - 8080:8080
-      - 8081:8008
-    links:
-      - config-server
-      - admin-service
-#      TODO uncomment when aggregate-service is uncommented
-#      - aggregate-service
-      - report-processor-service
-      - reporting-service
-    environment:
-      - spring.profiles.active=local-docker
-      - CONFIG_SERVICE_ENABLED=true
-      - CONFIG_SERVICE_URL=http://config-server:8888
-
-    extra_hosts:
-      - "dwhost:$DATAWAREHOUSE_HOST"
-
-  admin-service:
-    image: smarterbalanced/rdw-reporting-admin-service
-    ports:
-      - 8280:8080
-      - 8208:8008
-    volumes:
-      - /tmp:/tmp
-    links:
-      - config-server
-      - rabbitmq
-    environment:
-      - spring.profiles.active=local-docker
-      - CONFIG_SERVICE_ENABLED=true
-      - CONFIG_SERVICE_URL=http://config-server:8888
-    extra_hosts:
-      - "dwhost:$DATAWAREHOUSE_HOST"
-
-# TODO uncomment when rdw-reporting-aggregate-service.yml is added to config repo
-#  aggregate-service:
-#    image: smarterbalanced/rdw-reporting-aggregate-service
+#  config-server:
+#    image: smarterbalanced/configuration-service:3.1.0.RELEASE
+#    container_name: config-server
 #    ports:
-#      - 8380:8080
-#      - 8308:8008
+#      - 8888:8888
+#    links:
+#      - rabbitmq
+#    environment:
+#      - CONFIG_SERVICE_REPO
+#      - ENCRYPT_KEY
+#      - GIT_USER
+#      - GIT_PASSWORD
+#      - SPRING_RABBITMQ_ADDRESSES=rabbitmq:5672
+#      - SPRING_RABBITMQ_USERNAME=guest
+#      - SPRING_RABBITMQ_PASSWORD=guest
+#
+#  webapp:
+#    image: smarterbalanced/rdw-reporting-webapp
+#    ports:
+#      - 8080:8080
+#      - 8081:8008
+#    links:
+#      - config-server
+#      - admin-service
+##      TODO uncomment when aggregate-service is uncommented
+##      - aggregate-service
+#      - report-processor-service
+#      - reporting-service
+#    environment:
+#      - spring.profiles.active=local-docker
+#      - CONFIG_SERVICE_ENABLED=true
+#      - CONFIG_SERVICE_URL=http://config-server:8888
+#
+#    extra_hosts:
+#      - "dwhost:$DATAWAREHOUSE_HOST"
+#
+#  admin-service:
+#    image: smarterbalanced/rdw-reporting-admin-service
+#    ports:
+#      - 8280:8080
+#      - 8208:8008
 #    volumes:
 #      - /tmp:/tmp
+#    links:
+#      - config-server
+#      - rabbitmq
+#    environment:
+#      - spring.profiles.active=local-docker
+#      - CONFIG_SERVICE_ENABLED=true
+#      - CONFIG_SERVICE_URL=http://config-server:8888
+#    extra_hosts:
+#      - "dwhost:$DATAWAREHOUSE_HOST"
+#
+## TODO uncomment when rdw-reporting-aggregate-service.yml is added to config repo
+##  aggregate-service:
+##    image: smarterbalanced/rdw-reporting-aggregate-service
+##    ports:
+##      - 8380:8080
+##      - 8308:8008
+##    volumes:
+##      - /tmp:/tmp
+##    links:
+##      - config-server
+##    environment:
+##      - spring.profiles.active=local-docker
+##      - CONFIG_SERVICE_ENABLED=true
+##      - CONFIG_SERVICE_URL=http://config-server:8888
+##    extra_hosts:
+##      - "dwhost:$DATAWAREHOUSE_HOST"
+#
+#  reporting-service:
+#    image: smarterbalanced/rdw-reporting-reporting-service
+#    ports:
+#      - 8180:8080
+#      - 8108:8008
 #    links:
 #      - config-server
 #    environment:
@@ -94,38 +108,24 @@ services:
 #      - CONFIG_SERVICE_URL=http://config-server:8888
 #    extra_hosts:
 #      - "dwhost:$DATAWAREHOUSE_HOST"
-
-  reporting-service:
-    image: smarterbalanced/rdw-reporting-reporting-service
-    ports:
-      - 8180:8080
-      - 8108:8008
-    links:
-      - config-server
-    environment:
-      - spring.profiles.active=local-docker
-      - CONFIG_SERVICE_ENABLED=true
-      - CONFIG_SERVICE_URL=http://config-server:8888
-    extra_hosts:
-      - "dwhost:$DATAWAREHOUSE_HOST"
-
-  report-processor-service:
-    image: smarterbalanced/rdw-reporting-report-processor
-    ports:
-      - 8085:8080
-      - 8086:8008
-    volumes:
-      - /tmp:/tmp
-    links:
-      - config-server
-      - rabbitmq
-      - wkhtmltopdf
-    environment:
-      - spring.profiles.active=local-docker
-      - CONFIG_SERVICE_ENABLED=true
-      - CONFIG_SERVICE_URL=http://config-server:8888
-    extra_hosts:
-      - "dwhost:$DATAWAREHOUSE_HOST"
+#
+#  report-processor-service:
+#    image: smarterbalanced/rdw-reporting-report-processor
+#    ports:
+#      - 8085:8080
+#      - 8086:8008
+#    volumes:
+#      - /tmp:/tmp
+#    links:
+#      - config-server
+#      - rabbitmq
+#      - wkhtmltopdf
+#    environment:
+#      - spring.profiles.active=local-docker
+#      - CONFIG_SERVICE_ENABLED=true
+#      - CONFIG_SERVICE_URL=http://config-server:8888
+#    extra_hosts:
+#      - "dwhost:$DATAWAREHOUSE_HOST"
 
   wkhtmltopdf:
     image: smarterbalanced/wkhtmltopdf-image:latest
