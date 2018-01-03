@@ -9,25 +9,32 @@ import { BrowserModule } from "@angular/platform-browser";
 import { AggregateReportsTableComponent } from "./results/aggregate-reports-table.component";
 import { AssessmentDetailsService } from "./results/assessment-details.service";
 import { PerformanceComparisonComponent } from "./results/performance-comparison.component";
+import { UpdateQueryComponent } from "./results/update-query.component";
+import { FormsModule } from "@angular/forms";
+import { OrganizationExportModule } from "../organization-export/organization-export.module";
 
 @NgModule({
   declarations: [
     AggregateReportsComponent,
     AggregateReportsResultsComponent,
     AggregateReportsTableComponent,
-    PerformanceComparisonComponent
+    PerformanceComparisonComponent,
+    UpdateQueryComponent
   ],
   imports: [
     Angulartics2Module.forChild(),
     BrowserModule,
+    FormsModule,
     CommonModule,
-    DataTableModule
+    DataTableModule,
+    OrganizationExportModule
   ],
   exports: [
     AggregateReportsComponent,
     AggregateReportsResultsComponent,
     AggregateReportsTableComponent,
-    PerformanceComparisonComponent
+    PerformanceComparisonComponent,
+    UpdateQueryComponent
   ],
   providers: [
     AssessmentDetailsService,

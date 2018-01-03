@@ -1,0 +1,307 @@
+<h2 class="h3 gray-darkest">
+  {{'labels.aggregate-reports.update-query.customize.title' | translate}}
+</h2>
+
+<p class="small gray-darkest"
+   [innerHTML]="'labels.aggregate-reports.update-query.customize.description' | translate"></p>
+
+<div class="mt-md mb-md">
+  <button class="btn btn-success btn-sm mr-sm" angulartics2on="click" container="body">
+    <i class="fa fa-gears"></i> {{'labels.aggregate-reports.update-query.customize.generate-report-button' | translate}}
+  </button>
+
+  <button class="btn btn-default btn-sm float-none-xs" angulartics2on="click" container="body">
+    <i class="fa fa-table"></i> {{'labels.export.csv' | translate }}
+  </button>
+</div>
+
+<h2 class="h3 gray-darkest">
+  {{'labels.aggregate-reports.update-query.organizations.title' | translate}}
+</h2>
+
+<p class="small gray-darkest"
+   [innerHTML]="'labels.aggregate-reports.update-query.organizations.description' | translate"></p>
+
+<div class="well-group">
+  <div class="well">
+    <div class="row">
+      <label class="col-md-3" info-button
+             title="{{'labels.aggregate-reports.update-query.organizations.assessment-type' | translate}}"
+             content="{{'labels.aggregate-reports.update-query.organizations.assessment-type-info' | translate}}"></label>
+      <div class="col-md-5 pull-right">
+        <div class="btn-group btn-group-sm toggle-group">
+          <label class="btn btn-primary disabled">{{'labels.assessmentTypes.2.short-name' | translate}}</label>
+          <label class="btn btn-primary active">{{'labels.assessmentTypes.1.short-name' | translate}}</label>
+          <label class="btn btn-primary disabled">{{'labels.assessmentTypes.3.name' | translate}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="well">
+    <div class="row">
+      <label class="col-md-3" info-button
+             title="{{'labels.aggregate-reports.update-query.organizations.subject' | translate}}"
+             content="{{'labels.aggregate-reports.update-query.organizations.subject-info' | translate}}"></label>
+      <div class="col-md-5 pull-right">
+        <sb-radio-button-list [model]="filterBy" [values]="['MATH','ELA']" property="subject" enum="enum.subject"
+                              label="{{ translateRoot + 'status.label' | translate }}"
+                              analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
+      </div>
+    </div>
+  </div>
+  <div class="well">
+    <div class="row">
+
+      <div class="flex-children">
+        <div class="flex-child col-md-12">
+          <label>{{'labels.aggregate-reports.update-query.organizations.add-district-or-school'
+            | translate}}</label>
+        </div>
+        <div class="col-md-9 flex-child grow">
+         <span sb-button-typeahead
+               inputId="search"
+               [options]="organizationOptions"
+               (buttonClick)="add($event)"
+               placeholder="{{'prompt.select' | translate}}"
+               buttonLabel="{{'labels.organization-export.form.organization.add' | translate}}">
+            </span>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-md">
+      <label class="col-md-3">{{'labels.aggregate-reports.update-query.organizations.selected-organizations'
+        | translate}}</label>
+      <organization-tree [model]="organizationTree" (select)="remove($event)" [displayForAggregateReports]="true"></organization-tree>
+    </div>
+  </div>
+
+</div>
+
+<h2 class="h3 gray-darkest">
+  {{'labels.aggregate-reports.update-query.filter-results.title' | translate}}
+</h2>
+
+<p class="small gray-darkest"
+   [innerHTML]="'labels.aggregate-reports.update-query.filter-results.description' | translate"></p>
+
+<div class="well-group">
+  <div class="well">
+    <div class="h4 sans">{{'labels.aggregate-reports.update-query.filter-results.status-well.title' |
+      translate}}
+    </div>
+  </div>
+  <div class="well">
+    <div class="row">
+      <label class="col-md-3" info-button
+             title="{{'labels.groups.results.adv-filters.status.administration' | translate}}"
+             content="{{'labels.groups.results.adv-filters.status.administration-info' | translate}}"></label>
+      <div class="col-md-5 pull-right">
+        <sb-radio-button-list [model]="filterBy" [values]="['SD','NS']" property="administration"
+                              enum="enum.administrative-condition"
+                              label="{{ translateRoot + 'status.label' | translate }}"
+                              analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
+      </div>
+    </div>
+  </div>
+  <div class="well">
+    <div class="row">
+      <label class="col-md-3" info-button title="{{'labels.groups.results.adv-filters.status.summative' | translate}}"
+             content="{{'labels.groups.results.adv-filters.status.summative-info' | translate}}"></label>
+      <div class="col-md-5 pull-right">
+        <sb-radio-button-list [model]="filterBy" [values]="['Valid','IN']" property="summativeStatus"
+                              enum="enum.administrative-condition"
+                              label="{{ translateRoot + 'status.summative' | translate }}"
+                              analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
+      </div>
+    </div>
+  </div>
+  <div class="well">
+    <div class="row">
+      <label class="col-md-3" info-button title="{{'labels.groups.results.adv-filters.status.completion' | translate}}"
+             content="{{'labels.groups.results.adv-filters.status.completion-info' | translate}}"></label>
+      <div class="col-md-5 pull-right">
+        <sb-radio-button-list [model]="filterBy" [values]="['Complete','Partial']" property="completion"
+                              enum="enum.completeness"
+                              label="{{ translateRoot + 'status.completion' | translate }}"
+                              analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="well-group">
+  <div class="well">
+    <div class="h4 sans">{{'labels.aggregate-reports.update-query.filter-results.student-well.title' | translate}}</div>
+  </div>
+  <div class="well">
+    <div class="row">
+      <label class="col-md-3" info-button title="{{'labels.groups.results.adv-filters.student.gender' | translate}}"
+             content="{{'labels.groups.results.adv-filters.student.gender-info' | translate}}"></label>
+      <div class="col-md-5 pull-right">
+        <sb-radio-button-list [model]="filterBy" [values]="['Male','Female']" property="gender" enum="enum.gender"
+                              label="{{ translateRoot + 'status.label' | translate }}"
+                              analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
+      </div>
+    </div>
+  </div>
+  <div class="well">
+    <div class="row">
+      <label class="col-md-3" info-button
+             title="{{'labels.groups.results.adv-filters.student.migrant-status' | translate}}"
+             content="{{'labels.groups.results.adv-filters.student.migrant-status-info' | translate}}"></label>
+      <div class="col-md-5 pull-right">
+        <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="migrantStatus" enum="enum.polar"
+                              label="{{ translateRoot + 'status.label' | translate }}"
+                              analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
+      </div>
+    </div>
+  </div>
+  <div class="well">
+    <div class="row">
+      <label class="col-md-3" info-button title="{{'labels.groups.results.adv-filters.student.504-plan' | translate}}"
+             content="{{'labels.groups.results.adv-filters.student.504-plan-info' | translate}}"></label>
+      <div class="col-md-5 pull-right">
+        <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="plan504" enum="enum.polar"
+                              label="{{ translateRoot + 'student.504-plan' | translate }}"
+                              analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
+      </div>
+    </div>
+  </div>
+  <div class="well">
+    <div class="row">
+      <label class="col-md-3" info-button title="{{'labels.groups.results.adv-filters.student.iep' | translate}}"
+             content="{{'labels.groups.results.adv-filters.student.iep-info' | translate}}"></label>
+      <div class="col-md-5 pull-right">
+        <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="iep" enum="enum.polar"
+                              label="{{ translateRoot + 'student.iep' | translate }}"
+                              analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
+      </div>
+    </div>
+  </div>
+  <div class="well">
+    <div class="row">
+      <label class="col-md-3" info-button
+             title="{{'labels.groups.results.adv-filters.student.economic-disadvantage' | translate}}"
+             content="{{'labels.groups.results.adv-filters.student.economic-disadvantage-info' | translate}}"></label>
+      <div class="col-md-5 pull-right">
+        <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="economicDisadvantage" enum="enum.polar"
+                              label="{{ translateRoot + 'student.economic-disadvantage' | translate }}"
+                              analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
+      </div>
+    </div>
+  </div>
+  <div class="well">
+    <div class="row">
+      <label class="col-md-3" info-button
+             title="{{'labels.groups.results.adv-filters.student.limited-english-proficiency' | translate}}"
+             content="{{'labels.groups.results.adv-filters.student.limited-english-proficiency-info' | translate}}"></label>
+      <div class="col-md-5 pull-right">
+        <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="limitedEnglishProficiency" enum="enum.polar"
+                              label="{{ translateRoot + 'student.limited-english-proficiency' | translate }}"
+                              analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
+      </div>
+    </div>
+  </div>
+  <div class="well">
+    <div class="row">
+      <label class="col-md-3" info-button title="{{'labels.groups.results.adv-filters.student.ethnicity' | translate}}"
+             content="{{'labels.groups.results.adv-filters.student.ethnicity-info' | translate}}"></label>
+      <div class="col-md-5 pull-right">
+        <sb-checkbox-list [model]="filterBy" [values]="filterOptions.ethnicities" property="ethnicities"
+                          enum="enum.ethnicity"
+                          label="{{ translateRoot + 'student.ethnicity' | translate }}"
+                          analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-checkbox-list>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="well-group">
+  <div class="well">
+    <div class="h4 sans">{{'labels.aggregate-reports.update-query.filter-results.data-well.title' | translate}}</div>
+  </div>
+  <div class="well">
+    <div class="row">
+      <label class="col-md-3" info-button
+             title="{{'labels.aggregate-reports.update-query.filter-results.data-well.assessment-grade' | translate}}"
+             content="{{'labels.aggregate-reports.update-query.filter-results.data-well.assessment-grade-info' | translate}}"></label>
+      <div class="col-md-5 pull-right">
+        <sb-radio-button-list [model]="filterBy"
+                              [values]="['3', '4', '5', '6', '7', '8', 'HS']"
+                              property="assessmentGrade" enum="labels.assessmentGrades"
+                              label="{{ translateRoot + 'student.limited-english-proficiency' | translate }}"
+                              analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
+
+      </div>
+    </div>
+  </div>
+  <div class="well">
+    <div class="row">
+      <label class="col-md-3" info-button
+             title="{{'labels.aggregate-reports.update-query.filter-results.data-well.academic-year' | translate}}"
+             content="{{'labels.aggregate-reports.update-query.filter-results.data-well.academic-year-info' | translate}}"></label>
+      <div class="col-md-5 pull-right">
+        <sb-checkbox-list [model]="filterBy" [values]="filterOptions.schoolYears" property="schoolYears"
+                          label="{{ translateRoot + 'schoolYear' | translate }}"
+                          analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-checkbox-list>
+      </div>
+    </div>
+  </div>
+  <div class="well">
+    <div class="row">
+      <label class="col-md-3" info-button
+             title="{{'labels.aggregate-reports.update-query.filter-results.data-well.achievement-levels' | translate}}"
+             content="{{'labels.aggregate-reports.update-query.filter-results.data-well.achievement-levels-info' | translate}}"></label>
+      <div class="col-md-5 pull-right">
+        <div class="col-md-5">
+          <sb-toggle name="achivement-levels-toggle"
+                     [(ngModel)]="filterBy.achievementLevels"
+                     [options]="[
+                           {value: false, text: 'labels.aggregate-reports.results.performance-separated' | translate, angularticsProperties: {label: 'Achievement Levels: Separated'}},
+                           {value: true, text: 'labels.aggregate-reports.results.performance-grouped' | translate, angularticsProperties: {label: 'Achievement Levels: Grouped'}}
+                         ]"></sb-toggle>
+        </div>
+        <div class="col-md-4">
+          <performance-comparison [assessmentType]="AssessmentType.ICA"
+                                  [performanceGroupingCutpoint]="3"
+                                  [groupPerformanceLevels]="filterBy.achievementLevels"
+                                  [performancePercentages]="[25,25,25,25]"></performance-comparison>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="well">
+    <div class="row">
+      <label class="col-md-3" info-button
+             title="{{'labels.aggregate-reports.update-query.filter-results.data-well.show-value-as' | translate}}"
+             content="{{'labels.aggregate-reports.update-query.filter-results.data-well.show-value-as-info' | translate}}"></label>
+      <div class="col-md-5 pull-right">
+        <sb-toggle name="show-value-as-toggle"
+                   [(ngModel)]="filterBy.showValueAs"
+                   [options]="[
+                           {value: false, text: 'enum.show-value-as.1' | translate, angularticsProperties: {label: 'Show Value as: Percent'}},
+                           {value: true, text: 'enum.show-value-as.2' | translate, angularticsProperties: {label: 'Show Value as: Number'}}
+                         ]"></sb-toggle>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="well-group">
+  <div class="well">
+    <div class="h4 sans">{{'labels.aggregate-reports.update-query.filter-results.organize-result-set-well.title' |
+      translate}}
+    </div>
+  </div>
+</div>
+
+<div class="mt-md mb-md">
+  <button class="btn btn-success btn-sm mr-sm" angulartics2on="click" container="body">
+    <i class="fa fa-gears"></i> {{'labels.aggregate-reports.update-query.customize.generate-report-button' | translate}}
+  </button>
+
+  <button class="btn btn-default btn-sm float-none-xs" angulartics2on="click" container="body">
+    <i class="fa fa-table"></i> {{'labels.export.csv' | translate }}
+  </button>
+</div>
