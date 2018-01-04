@@ -8,7 +8,7 @@ import { Utils } from "../../../shared/support/support";
 
 @Injectable()
 export class ExamFilterService {
-  private root = 'labels.groups.results.adv-filters.';
+  private root = 'labels.filters.';
 
   private filterDefinitions = [
     new ExamFilter('offGradeAssessment', this.root + 'test.off-grade-assessment', 'enum.off-grade', this.filterByEnrolledGradeOff),

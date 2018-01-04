@@ -59,7 +59,7 @@ export class QueryBuilderComponent {
 
 
   get translateRoot() {
-    return "labels.groups.results.adv-filters.";
+    return "labels.filters.";
   }
 
   constructor(private filterOptionService: ExamFilterOptionsService,

@@ -97,8 +97,8 @@
   <div class="well">
     <div class="row">
       <label class="col-md-3" info-button
-             title="{{'labels.groups.results.adv-filters.status.administration' | translate}}"
-             content="{{'labels.groups.results.adv-filters.status.administration-info' | translate}}"></label>
+             title="{{'labels.filters.status.administration' | translate}}"
+             content="{{'labels.filters.status.administration-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="filterBy" [values]="['SD','NS']" property="administration"
                               enum="enum.administrative-condition"
@@ -110,8 +110,8 @@
   </div>
   <div class="well">
     <div class="row">
-      <label class="col-md-3" info-button title="{{'labels.groups.results.adv-filters.status.summative' | translate}}"
-             content="{{'labels.groups.results.adv-filters.status.summative-info' | translate}}"></label>
+      <label class="col-md-3" info-button title="{{'labels.filters.status.summative' | translate}}"
+             content="{{'labels.filters.status.summative-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="filterBy" [values]="['Valid','IN']" property="summativeStatus"
                               enum="enum.administrative-condition"
@@ -123,8 +123,8 @@
   </div>
   <div class="well">
     <div class="row">
-      <label class="col-md-3" info-button title="{{'labels.groups.results.adv-filters.status.completion' | translate}}"
-             content="{{'labels.groups.results.adv-filters.status.completion-info' | translate}}"></label>
+      <label class="col-md-3" info-button title="{{'labels.filters.status.completion' | translate}}"
+             content="{{'labels.filters.status.completion-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="filterBy" [values]="['Complete','Partial']" property="completion"
                               enum="enum.completeness"
@@ -143,8 +143,8 @@
   </div>
   <div class="well">
     <div class="row">
-      <label class="col-md-3" info-button title="{{'labels.groups.results.adv-filters.student.gender' | translate}}"
-             content="{{'labels.groups.results.adv-filters.student.gender-info' | translate}}"></label>
+      <label class="col-md-3" info-button title="{{'labels.filters.student.gender' | translate}}"
+             content="{{'labels.filters.student.gender-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="filterBy" [values]="['Male','Female']" property="gender" enum="enum.gender"
                               label="{{ translateRoot + 'status.label' | translate }}"
@@ -156,8 +156,8 @@
   <div class="well">
     <div class="row">
       <label class="col-md-3" info-button
-             title="{{'labels.groups.results.adv-filters.student.migrant-status' | translate}}"
-             content="{{'labels.groups.results.adv-filters.student.migrant-status-info' | translate}}"></label>
+             title="{{'labels.filters.student.migrant-status' | translate}}"
+             content="{{'labels.filters.student.migrant-status-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="migrantStatus" enum="enum.polar"
                               label="{{ translateRoot + 'status.label' | translate }}"
@@ -168,8 +168,8 @@
   </div>
   <div class="well">
     <div class="row">
-      <label class="col-md-3" info-button title="{{'labels.groups.results.adv-filters.student.504-plan' | translate}}"
-             content="{{'labels.groups.results.adv-filters.student.504-plan-info' | translate}}"></label>
+      <label class="col-md-3" info-button title="{{'labels.filters.student.504-plan' | translate}}"
+             content="{{'labels.filters.student.504-plan-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="plan504" enum="enum.polar"
                               label="{{ translateRoot + 'student.504-plan' | translate }}"
@@ -180,8 +180,8 @@
   </div>
   <div class="well">
     <div class="row">
-      <label class="col-md-3" info-button title="{{'labels.groups.results.adv-filters.student.iep' | translate}}"
-             content="{{'labels.groups.results.adv-filters.student.iep-info' | translate}}"></label>
+      <label class="col-md-3" info-button title="{{'labels.filters.student.iep' | translate}}"
+             content="{{'labels.filters.student.iep-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="iep" enum="enum.polar"
                               label="{{ translateRoot + 'student.iep' | translate }}"
@@ -193,8 +193,8 @@
   <div class="well">
     <div class="row">
       <label class="col-md-3" info-button
-             title="{{'labels.groups.results.adv-filters.student.economic-disadvantage' | translate}}"
-             content="{{'labels.groups.results.adv-filters.student.economic-disadvantage-info' | translate}}"></label>
+             title="{{'labels.filters.student.economic-disadvantage' | translate}}"
+             content="{{'labels.filters.student.economic-disadvantage-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="economicDisadvantage" enum="enum.polar"
                               label="{{ translateRoot + 'student.economic-disadvantage' | translate }}"
@@ -205,8 +205,8 @@
   <div class="well">
     <div class="row">
       <label class="col-md-3" info-button
-             title="{{'labels.groups.results.adv-filters.student.limited-english-proficiency' | translate}}"
-             content="{{'labels.groups.results.adv-filters.student.limited-english-proficiency-info' | translate}}"></label>
+             title="{{'labels.filters.student.limited-english-proficiency' | translate}}"
+             content="{{'labels.filters.student.limited-english-proficiency-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="limitedEnglishProficiency" enum="enum.polar"
                               label="{{ translateRoot + 'student.limited-english-proficiency' | translate }}"
@@ -217,8 +217,8 @@
   </div>
   <div class="well">
     <div class="row">
-      <label class="col-md-3" info-button title="{{'labels.groups.results.adv-filters.student.ethnicity' | translate}}"
-             content="{{'labels.groups.results.adv-filters.student.ethnicity-info' | translate}}"></label>
+      <label class="col-md-3" info-button title="{{'labels.filters.student.ethnicity' | translate}}"
+             content="{{'labels.filters.student.ethnicity-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-checkbox-list [model]="filterBy" [values]="filterOptions.ethnicities" property="ethnicities"
                           enum="enum.ethnicity"
