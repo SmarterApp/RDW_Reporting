@@ -1,29 +1,57 @@
-<div *ngFor="let districtTree of model.children" class="district-tree">
+<div *ngIf="!displayForAggregateReports">
+  <div *ngFor="let districtTree of model.children" class="district-tree">
 
-  <a *ngIf="districtTree.value.name && !disabled" class="link-button" (click)="onClick(districtTree.value)" href="javascript:void(0)">
-    <h3>{{districtTree.value.name}}</h3>
-  </a>
-  <a *ngIf="districtTree.value.name && !disabled" class="tag tag-xs" (click)="onClick(districtTree.value)" href="javascript:void(0)">
-    <span class="pr-xs"></span> {{'labels.organization-tree.remove-district' | translate}}<span class="icon"><i class="fa fa-close"></i></span>
-  </a>
-  <h3 *ngIf="districtTree.value.name && disabled">{{districtTree.value.name}}</h3>
-
-  <div *ngFor="let schoolGroupTree of districtTree.children" class="school-group-tree ml-xs">
-
-    <a *ngIf="schoolGroupTree.value.name && !disabled" class="link-button" (click)="onClick(schoolGroupTree.value)" href="javascript:void(0)">
-      <h4>{{schoolGroupTree.value.name}} <span class="icon"><i class="fa fa-close"></i></span></h4>
+    <a *ngIf="districtTree.value.name && !disabled" class="link-button" (click)="onClick(districtTree.value)"
+       href="javascript:void(0)">
+      <h3>{{districtTree.value.name}}</h3>
     </a>
-    <h4 *ngIf="schoolGroupTree.value.name && disabled">{{schoolGroupTree.value.name}}</h4>
+    <a *ngIf="districtTree.value.name && !disabled" class="tag tag-xs" (click)="onClick(districtTree.value)"
+       href="javascript:void(0)">
+      <span class="pr-xs"></span> {{'labels.organization-tree.remove-district' | translate}}<span class="icon"><i
+      class="fa fa-close"></i></span>
+    </a>
+    <h3 *ngIf="districtTree.value.name && disabled">{{districtTree.value.name}}</h3>
 
-    <div class="flex-children">
+    <div *ngFor="let schoolGroupTree of districtTree.children" class="school-group-tree ml-xs">
 
-      <a *ngFor="let schoolTree of (disabled ? [] : schoolGroupTree.children)" class="school-tree tag tag-xs" (click)="onClick(schoolTree.value)" href="javascript:void(0)">
-        <span class="pr-xs"></span> {{schoolTree.value.name}} <span class="icon"><i class="fa fa-close"></i></span>
+      <a *ngIf="schoolGroupTree.value.name && !disabled" class="link-button" (click)="onClick(schoolGroupTree.value)"
+         href="javascript:void(0)">
+        <h4>{{schoolGroupTree.value.name}} <span class="icon"><i class="fa fa-close"></i></span></h4>
       </a>
-      <span *ngFor="let schoolTree of (disabled ? schoolGroupTree.children : [])" class="school-tree tag tag-xs">{{schoolTree.value.name}}</span>
+      <h4 *ngIf="schoolGroupTree.value.name && disabled">{{schoolGroupTree.value.name}}</h4>
+
+      <div class="flex-children">
+
+        <a *ngFor="let schoolTree of (disabled ? [] : schoolGroupTree.children)" class="school-tree tag tag-xs"
+           (click)="onClick(schoolTree.value)" href="javascript:void(0)">
+          <span class="pr-xs"></span> {{schoolTree.value.name}} <span class="icon"><i class="fa fa-close"></i></span>
+        </a>
+        <span *ngFor="let schoolTree of (disabled ? schoolGroupTree.children : [])" class="school-tree tag tag-xs">{{schoolTree.value.name}}</span>
+
+      </div>
 
     </div>
 
   </div>
-
 </div>
+<table *ngIf="displayForAggregateReports">
+  <!--<p-dataTable [val></p-dataTable>-->
+  <tr *ngFor="let districtTree of model.children" class="district-tree">
+
+
+    <td *ngIf="districtTree.value.name && !disabled" class="link-button">
+      <a class="icon"><i
+        class="fa fa-close" (click)="onClick(districtTree.value)"
+        href="javascript:void(0)"></i></a>
+      <span class="pl-md">{{districtTree.value.name}}</span>
+    </td>
+
+    <td *ngIf="!districtTree.children[0].children">
+      <input type="checkbox" checked><span> Include {{districtTree.children[0].value.name}}?</span>
+    </td>
+    <td *ngIf="districtTree.children[0].children">
+      <input type="checkbox" checked><span>Include {{districtTree.children[0].children.length}} Schools?</span>
+    </td>
+
+  </tr>
+</table>

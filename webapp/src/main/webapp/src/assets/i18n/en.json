@@ -225,6 +225,10 @@
       "1": "Yes",
       "2": "No"
     },
+    "show-value-as": {
+      "1": "Percent",
+      "2": "Number"
+    },
     "results-view-state": {
       "ByItem": "Results By Item",
       "ByStudent": "Results By Student",
@@ -373,6 +377,48 @@
             "Filipino": "Filipino"
           }
         }
+      },
+      "query-builder": {
+        "heading": "Student Group Aggregate Report",
+        "customize": {
+          "title": "Customize School Aggregate Report",
+          "description": "Select the items you wish to include in your report. Then click <strong>\"Generate Report\"</strong>",
+          "generate-report-button": "Generate Report"
+        },
+        "organizations" : {
+          "title": "Organizations",
+          "description": "Select schools and / or districts to compare.",
+          "assessment-type": "Assessment Type",
+          "subject": "Subject",
+          "add-district-or-school": "Add a District or School",
+          "selected-organizations": "Selected Organizations"
+        },
+        "filter-results" : {
+          "title": "Filter Results",
+          "description": "<span class=\"label teal\">Selected</span> items will be available in the report you generate.",
+          "status-well": {
+            "title": "Status"
+          },
+          "student-well": {
+            "title": "Student"
+          },
+          "data-well": {
+            "title": "Data Set",
+            "longitudinal-report": "Longitudinal Report",
+            "longitudinal-report-info": "longitudinal-report-info",
+            "assessment-grade": "Assessment Grade",
+            "assessment-grade-info": "assessment-grade-info",
+            "academic-year": "Academic Year",
+            "academic-year-info": "academic-year-info",
+            "achievement-levels": "Achievement Levels",
+            "achievement-levels-info": "achievement-levels-info",
+            "show-value-as": "Show Value as",
+            "show-value-as-info": "show-value-as-info"
+          },
+          "organize-result-set-well": {
+            "title": "Organize Result Set"
+          }
+        }
       }
     },
     "assessments": {
@@ -436,6 +482,15 @@
         "District": "{{organizationName}} Instructional Resource",
         "SchoolGroup": "{{organizationName}} Instructional Resource"
       }
+    },
+    "assessmentGrades": {
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "HS": "HS"
     },
     "assessmentTypes": {
       "1": {
