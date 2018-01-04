@@ -32,7 +32,7 @@ import { GroupImportComponent } from "./admin/groups/import/group-import.compone
 import { GroupImportDeactivateGuard } from "./admin/groups/import/group-import.deactivate";
 import { GroupsComponent } from "./admin/groups/groups.component";
 import { HomeComponent as AdminHomeComponent } from "./admin/home/home.component";
-import { UpdateQueryComponent } from "./aggregate-report/results/update-query.component";
+import { QueryBuilderComponent } from "./aggregate-report/results/query-builder.component";
 import { SessionExpiredComponent } from "./shared/security/session-expired.component";
 import { AuthorizationCanActivate } from "./shared/security/authorization.can-activate";
 import { RoutingAuthorizationCanActivate } from "./shared/security/routing-authorization.can-activate";
@@ -284,11 +284,11 @@ export const routes: Routes = [
             component: AggregateReportsResultsComponent
           },
           {
-            path: 'update-query',
+            path: 'query-builder',
             pathMatch: 'full',
-            data: { breadcrumb: { translate: 'labels.aggregate-reports.update-query.heading'}},
+            data: { breadcrumb: { translate: 'labels.aggregate-reports.query-builder.heading'}},
             resolve: { organizations: UserOrganizationsResolve },
-            component: UpdateQueryComponent
+            component: QueryBuilderComponent
           }
         ]
       },

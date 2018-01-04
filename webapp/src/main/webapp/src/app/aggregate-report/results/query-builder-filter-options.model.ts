@@ -1,6 +1,5 @@
 import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
 
-export class UpdateQueryFilterOptions extends ExamFilterOptions {
+export class QueryBuilderFilterOptions extends ExamFilterOptions {
   subject: string[];
-
 }

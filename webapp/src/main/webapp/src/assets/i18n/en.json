@@ -378,7 +378,7 @@
           }
         }
       },
-      "update-query": {
+      "query-builder": {
         "heading": "Student Group Aggregate Report",
         "customize": {
           "title": "Customize School Aggregate Report",

@@ -9,7 +9,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { AggregateReportsTableComponent } from "./results/aggregate-reports-table.component";
 import { AssessmentDetailsService } from "./results/assessment-details.service";
 import { PerformanceComparisonComponent } from "./results/performance-comparison.component";
-import { UpdateQueryComponent } from "./results/update-query.component";
+import { QueryBuilderComponent } from "./results/query-builder.component";
 import { FormsModule } from "@angular/forms";
 import { OrganizationExportModule } from "../organization-export/organization-export.module";
 
@@ -19,7 +19,7 @@ import { OrganizationExportModule } from "../organization-export/organization-ex
     AggregateReportsResultsComponent,
     AggregateReportsTableComponent,
     PerformanceComparisonComponent,
-    UpdateQueryComponent
+    QueryBuilderComponent
   ],
   imports: [
     Angulartics2Module.forChild(),
@@ -34,7 +34,7 @@ import { OrganizationExportModule } from "../organization-export/organization-ex
     AggregateReportsResultsComponent,
     AggregateReportsTableComponent,
     PerformanceComparisonComponent,
-    UpdateQueryComponent
+    QueryBuilderComponent
   ],
   providers: [
     AssessmentDetailsService,

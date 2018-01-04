@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { UpdateQueryFilterOptions } from "./update-query-filter-options.model";
-import { UpdateQueryFilterBy } from "./update-query-filterby.model";
+import { QueryBuilderFilterOptions } from "./query-builder-filter-options.model";
+import { QueryBuilderFilterBy } from "./query-builder-filterby.model";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { OrganizationType } from "../../organization-export/organization/organization-type.enum";
@@ -13,17 +13,16 @@ import { Tree } from "../../organization-export/organization/tree";
 import { Option } from "../../shared/form/sb-typeahead.component";
 
 @Component({
-  selector: 'update-query',
-  templateUrl: './update-query.component.html',
+  selector: 'query-builder',
+  templateUrl: './query-builder.component.html',
 })
-export class UpdateQueryComponent {
+export class QueryBuilderComponent {
 
-  filterBy: UpdateQueryFilterBy = new UpdateQueryFilterBy();
+  private readonly ICA: AssessmentType = AssessmentType.ICA;
 
-  filterOptions: UpdateQueryFilterOptions = new UpdateQueryFilterOptions();
+  filterBy: QueryBuilderFilterBy;
 
-  AssessmentType: any = AssessmentType;
-  assessmentTypes: AssessmentType[] = [ null, AssessmentType.IAB, AssessmentType.ICA ];
+  filterOptions: QueryBuilderFilterOptions = new QueryBuilderFilterOptions();
 
   /**
    * Organization option view models computed from schools
@@ -68,31 +67,31 @@ export class UpdateQueryComponent {
               private route: ActivatedRoute,
               private translate: TranslateService,
               private mapper: OrganizationMapper) {
-    this.filterBy = new UpdateQueryFilterBy()
+    this.filterBy = new QueryBuilderFilterBy()
   }
 
   ngOnInit() {
-    this.filterOptionService.getExamFilterOptions().subscribe((filterOptions: UpdateQueryFilterOptions) => {
+    this.filterOptionService.getExamFilterOptions().subscribe((filterOptions: QueryBuilderFilterOptions) => {
       this.filterOptions = filterOptions;
     });
 
-      this._organizations = this.route.snapshot.data[ 'organizations' ];
+    this._organizations = this.route.snapshot.data[ 'organizations' ];
 
-      // pre-sorted so mapper.option() results don't need to be sorted
-      // this._organizations.schools.sort(this._comparator);
+    // pre-sorted so mapper.option() results don't need to be sorted
+    // this._organizations.schools.sort(this._comparator);
 
-      // create all options and reuse them when calling mapper.option()
-      this._organizationOptionsByUuid = new Map<string, Option>(
-        this._organizations.organizations.map(organization => <any>[
-            organization.uuid,
-            {
-              label: organization.name,
-              group: this.translate.instant(`labels.organization-export.form.organization.type.${OrganizationType[ organization.type ]}`),
-              value: organization
-            }
-          ]
-        )
-      );
+    // create all options and reuse them when calling mapper.option()
+    this._organizationOptionsByUuid = new Map<string, Option>(
+      this._organizations.organizations.map(organization => <any>[
+          organization.uuid,
+          {
+            label: organization.name,
+            group: this.translate.instant(`labels.organization-export.form.organization.type.${OrganizationType[ organization.type ]}`),
+            value: organization
+          }
+        ]
+      )
+    );
 
     // initialize selected schools based on user organizations
     // if the user only has one school to select, select it for them.
@@ -143,7 +142,4 @@ export class UpdateQueryComponent {
         .sort(this._comparator);
     }
   }
-
-
-
 }

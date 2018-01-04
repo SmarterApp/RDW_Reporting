@@ -1,20 +1,20 @@
 import { FilterBy } from "../../assessments/model/filter-by.model";
 
-export class UpdateQueryFilterBy extends FilterBy {
+export class QueryBuilderFilterBy extends FilterBy {
 
   _subject: any = -1
   _showValueAs: boolean = false;
   _assessmentGrade: any = -1;
   _achievementLevels: boolean = false;
-  _schoolYears: boolean[] = [ false ];
+  _schoolYears: Map<any, boolean> = new Map<any, boolean>();
 
   constructor() {
     super();
     this.administration = 'SD';
     this.summativeStatus = 'Valid';
     this.completion = 'Complete';
-    // why does this work and other methods do not??
-    this.schoolYears[2018] = true;
+    this.schoolYears ['2017-18'] = true;
+
   }
 
   set subject(value: any[]) {
@@ -53,12 +53,12 @@ export class UpdateQueryFilterBy extends FilterBy {
     return this._achievementLevels;
   }
 
-  set schoolYears(value: boolean[]) {
+  set schoolYears(value: Map<any, boolean>) {
     this._schoolYears = value;
     this.notifyChange('schoolYears');
   }
 
-  get schoolYears(): boolean[] {
+  get schoolYears(): Map<any, boolean> {
     return this._schoolYears;
   }
 
