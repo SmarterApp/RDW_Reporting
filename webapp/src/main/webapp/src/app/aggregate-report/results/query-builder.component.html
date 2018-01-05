@@ -8,7 +8,8 @@
 <div class="mt-md mb-md">
   <button class="btn btn-success btn-sm mr-sm" analyticsEvent="GenerateReport" analyticsCategory="AggregateQueryBuilder"
           angulartics2on="click" container="body">
-    <i class="fa fa-gears"></i> {{'labels.aggregate-reports.query-builder.customize.generate-report-button' | translate}}
+    <i class="fa fa-gears"></i> {{'labels.aggregate-reports.query-builder.customize.generate-report-button' |
+    translate}}
   </button>
 
   <button class="btn btn-default btn-sm float-none-xs" analyticsEvent="GenerateReportExportCSV"
@@ -139,7 +140,8 @@
 
 <div class="well-group">
   <div class="well">
-    <div class="h4 sans">{{'labels.aggregate-reports.query-builder.filter-results.student-well.title' | translate}}</div>
+    <div class="h4 sans">{{'labels.aggregate-reports.query-builder.filter-results.student-well.title' | translate}}
+    </div>
   </div>
   <div class="well">
     <div class="row">
@@ -303,22 +305,119 @@
   </div>
 </div>
 
-<div class="well-group">
+<div class="container-jumbo">
   <div class="well">
-    <div class="h4 sans">{{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.title' |
+    <div class="h4 sans mb-md">{{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.title'
+      |
       translate}}
     </div>
+    <div class="row">
+      <div class="flex-children">
+        <div class="flex-header">
+          <strong>{{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.table-heading.title'
+            | translate}}</strong>
+          <div class="flex-children--horizontal mt-md">
+            <div class="flex-child">
+              <button class="btn btn-primary" analyticsEvent="Assessment" analyticsCategory="AggregateQueryBuilder"
+                      angulartics2on="click" container="body">
+                {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.table-heading.assessment'
+                | translate}}
+              </button>
+            </div>
+          </div>
+          <div class="mt-md">
+            <a href="javascript:void(0)">{{'labels.aggregate-reports.query-builder.edit' | translate}}</a>
+          </div>
+        </div>
+        <div class="flex-header">
+          <strong>{{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.required-fields.title'
+            | translate}}</strong>
+          <div class="flex-children--horizontal mt-md">
+            <div class="flex-child">
+              <button class="btn btn-primary" analyticsEvent="Organization" analyticsCategory="AggregateQueryBuilder"
+                      angulartics2on="click" container="body">
+                {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.required-fields.organization'
+                | translate}}
+              </button>
+            </div>
+            <div class="flex-child">
+              <button class="btn btn-primary" analyticsEvent="AssessmentGrade" analyticsCategory="AggregateQueryBuilder"
+                      angulartics2on="click" container="body">
+                {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.required-fields.assessment-grade'
+                | translate}}
+              </button>
+            </div>
+            <div class="flex-child">
+              <button class="btn btn-primary" analyticsEvent="AcademicYear" analyticsCategory="AggregateQueryBuilder"
+                      angulartics2on="click" container="body">
+                {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.required-fields.academic-year'
+                | translate}}
+              </button>
+            </div>
+          </div>
+          <div class="mt-md">
+            <a href="javascript:void(0)">{{'labels.aggregate-reports.query-builder.edit' | translate}}</a>
+          </div>
+        </div>
+
+        <div class="flex-header">
+          <strong>{{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.comparative-dimensions.title'
+            | translate}}</strong>
+          <div class="flex-children--horizontal mt-md">
+            <div class="flex-child">
+              <button class="btn btn-primary" analyticsEvent="Something" analyticsCategory="AggregateQueryBuilder"
+                      angulartics2on="click" container="body">something
+              </button>
+            </div>
+          </div>
+          <div class="mt-md">
+            <a href="javascript:void(0)">{{'labels.aggregate-reports.query-builder.edit' | translate}}</a>
+          </div>
+        </div>
+        <div class="flex-header">
+          <strong>{{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.data-values.title' |
+            translate}}</strong>
+          <div class="flex-children--horizontal mt-md">
+            <div class="flex-child">
+              <button class="btn btn-primary" analyticsEvent="Something" analyticsCategory="AggregateQueryBuilder"
+                      angulartics2on="click" container="body">Something
+              </button>
+            </div>
+            <div class="flex-child">
+              <button class="btn btn-primary" analyticsEvent="AverageScaleScore"
+                      analyticsCategory="AggregateQueryBuilder"
+                      angulartics2on="click" container="body">
+                {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.data-values.average-scale-score'
+                | translate}}
+              </button>
+            </div>
+            <div class="flex-child">
+              <button class="btn btn-primary" analyticsEvent="AchievementLevel"
+                      analyticsCategory="AggregateQueryBuilder"
+                      angulartics2on="click" container="body">
+                {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.data-values.achievement-level'
+                | translate}}
+              </button>
+            </div>
+          </div>
+          <div class="mt-md">
+            <a href="javascript:void(0)">{{'labels.aggregate-reports.query-builder.edit' | translate}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 
-<div class="mt-md mb-md">
-  <button class="btn btn-success btn-sm mr-sm" analyticsEvent="GenerateReport" analyticsCategory="AggregateQueryBuilder"
-          angulartics2on="click" container="body">
-    <i class="fa fa-gears"></i> {{'labels.aggregate-reports.query-builder.customize.generate-report-button' | translate}}
-  </button>
+  <div class="mt-md mb-md">
+    <button class="btn btn-success btn-sm mr-sm" analyticsEvent="GenerateReport"
+            analyticsCategory="AggregateQueryBuilder"
+            angulartics2on="click" container="body">
+      <i class="fa fa-gears"></i> {{'labels.aggregate-reports.query-builder.customize.generate-report-button' |
+      translate}}
+    </button>
 
-  <button class="btn btn-default btn-sm float-none-xs" analyticsEvent="GenerateReportExportCSV"
-          analyticsCategory="AggregateQueryBuilder" angulartics2on="click" container="body">
-    <i class="fa fa-table"></i> {{'labels.export.csv' | translate }}
-  </button>
-</div>
+    <button class="btn btn-default btn-sm float-none-xs" analyticsEvent="GenerateReportExportCSV"
+            analyticsCategory="AggregateQueryBuilder" angulartics2on="click" container="body">
+      <i class="fa fa-table"></i> {{'labels.export.csv' | translate }}
+    </button>
+  </div>

@@ -380,6 +380,7 @@
       },
       "query-builder": {
         "heading": "Student Group Aggregate Report",
+        "edit": "Edit",
         "customize": {
           "title": "Customize School Aggregate Report",
           "description": "Select the items you wish to include in your report. Then click <strong>\"Generate Report\"</strong>",
@@ -416,7 +417,25 @@
             "show-value-as-info": "show-value-as-info"
           },
           "organize-result-set-well": {
-            "title": "Organize Result Set"
+            "title": "Organize Result Set",
+            "table-heading": {
+              "title": "Table Heading",
+              "assessment": "Assessment"
+            },
+            "required-fields": {
+              "title": "Required Fields",
+              "organization": "Organization",
+              "assessment-grade": "Assessment Grade",
+              "academic-year": "Academic Year"
+            },
+            "comparative-dimensions": {
+              "title": "Comparative Dimensions"
+            },
+            "data-values": {
+              "title": "Data Values",
+              "average-scale-score": "Average Scale Score",
+              "achievement-level": "Achievement Level"
+            }
           }
         }
       }
