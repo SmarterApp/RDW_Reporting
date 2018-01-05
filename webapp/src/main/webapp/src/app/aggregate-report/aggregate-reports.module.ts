@@ -12,6 +12,7 @@ import { PerformanceComparisonComponent } from "./results/performance-comparison
 import { QueryBuilderComponent } from "./results/query-builder.component";
 import { FormsModule } from "@angular/forms";
 import { OrganizationExportModule } from "../organization-export/organization-export.module";
+import { MultiselectDropdownModule } from "angular-2-dropdown-multiselect";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { OrganizationExportModule } from "../organization-export/organization-ex
     FormsModule,
     CommonModule,
     DataTableModule,
-    OrganizationExportModule
+    OrganizationExportModule,
+    MultiselectDropdownModule
   ],
   exports: [
     AggregateReportsComponent,

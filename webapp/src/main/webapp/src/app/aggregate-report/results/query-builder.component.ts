@@ -11,6 +11,7 @@ import { Organization } from "../../organization-export/organization/organizatio
 import { OrganizationMapper } from "../../organization-export/organization/organization.mapper";
 import { Tree } from "../../organization-export/organization/tree";
 import { Option } from "../../shared/form/sb-typeahead.component";
+import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts } from 'angular-2-dropdown-multiselect'
 
 @Component({
   selector: 'query-builder',
@@ -18,12 +19,18 @@ import { Option } from "../../shared/form/sb-typeahead.component";
 })
 export class QueryBuilderComponent {
 
-  private readonly ICA: AssessmentType = AssessmentType.ICA;
+  readonly ICA: AssessmentType = AssessmentType.ICA;
 
   filterBy: QueryBuilderFilterBy;
 
   filterOptions: QueryBuilderFilterOptions = new QueryBuilderFilterOptions();
 
+  multiSelectOptions: IMultiSelectOption[];
+  optionsModel: number[];
+  texts: IMultiSelectTexts;
+  settings: IMultiSelectSettings = {
+    fixedTitle: true
+  };
   /**
    * Organization option view models computed from schools
    */
@@ -98,6 +105,25 @@ export class QueryBuilderComponent {
     this.selectedSchools = this._organizations.schools.length == 1
       ? [ this._organizations.schools[ 0 ] ]
       : [];
+    this.multiSelectOptions = [
+      { id: 0, name: this.translate.instant('labels.filters.student.gender') },
+      { id: 1, name: this.translate.instant('labels.filters.student.ethnicity') },
+      { id: 2, name: this.translate.instant('labels.filters.student.limited-english-proficiency') },
+      { id: 3, name: this.translate.instant('labels.filters.student.migrant-status') },
+      { id: 4, name: this.translate.instant('labels.filters.student.economic-disadvantage') }
+
+    ];
+    this.texts = {
+      defaultTitle: this.translate.instant('labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.comparative-subgroups.title')
+    };
+  }
+
+  onChange() {
+    console.log(this.optionsModel);
+  }
+
+  get schoolOptions(): Option[] {
+    return this._schoolOptions;
   }
 
   get organizationOptions(): Option[] {
@@ -141,5 +167,11 @@ export class QueryBuilderComponent {
         .createOrganizationTreeWithPlaceholders(value, this._organizations)
         .sort(this._comparator);
     }
+  }
+
+  scrollTo(id: string) {
+    setTimeout(() => {
+      document.getElementById(id).scrollIntoView();
+    }, 0);
   }
 }

@@ -390,7 +390,9 @@
           "title": "Organizations",
           "description": "Select schools and / or districts to compare.",
           "assessment-type": "Assessment Type",
+          "assessment-type-info": "assessment-type-info",
           "subject": "Subject",
+          "subject-info": "subject-info",
           "add-district-or-school": "Add a District or School",
           "selected-organizations": "Selected Organizations"
         },
@@ -428,13 +430,14 @@
               "assessment-grade": "Assessment Grade",
               "academic-year": "Academic Year"
             },
-            "comparative-dimensions": {
-              "title": "Comparative Dimensions"
+            "comparative-subgroups": {
+              "title": "Comparative Subgroups"
             },
             "data-values": {
               "title": "Data Values",
               "average-scale-score": "Average Scale Score",
-              "achievement-level": "Achievement Level"
+              "achievement-level": "Achievement Level",
+              "students-tested": "Students Tested"
             }
           }
         }
