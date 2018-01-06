@@ -12,7 +12,7 @@ import { Utils } from "./support/support";
 @Component({
   selector: 'sb-checkbox-list',
   template: `
-    <div class="nested-btn-group btn-group-sm toggle-group vertical" data-toggle="buttons">
+    <div [ngClass]="{'vertical':!horizontal}" class="nested-btn-group btn-group-sm toggle-group" data-toggle="buttons">
       <label class="btn btn-primary" [ngClass]="{'active': modelValue[0] }">
         <input type="checkbox" [(ngModel)]="modelValue[0]" (ngModelChange)="allChange($event)" autocomplete="off" checked=""
               angulartics2On="click" [angularticsEvent]="analyticsEvent" 
@@ -56,6 +56,9 @@ export class SBCheckboxList implements OnInit {
   // The label for this button list
   @Input()
   public label: string;
+
+  @Input()
+  public horizontal: boolean = false;
 
   private _name: string;
 

@@ -4,7 +4,7 @@ export class QueryBuilderFilterBy extends FilterBy {
 
   _subject: any = -1
   _showValueAs: boolean = false;
-  _assessmentGrade: any = -1;
+  _assessmentGrade: any[] = [ true ];
   _achievementLevels: boolean = false;
   _schoolYears: Map<any, boolean> = new Map<any, boolean>();
 
@@ -13,7 +13,7 @@ export class QueryBuilderFilterBy extends FilterBy {
     this.administration = 'SD';
     this.summativeStatus = 'Valid';
     this.completion = 'Complete';
-    this.schoolYears ['2017-18'] = true;
+    this.schoolYears [ '2017-18' ] = true;
 
   }
 
