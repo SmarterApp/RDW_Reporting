@@ -1,8 +1,9 @@
 import { FilterBy } from "../../assessments/model/filter-by.model";
+import { AssessmentSubjectType } from "../../shared/enum/assessment-subject-type.enum";
 
 export class QueryBuilderFilterBy extends FilterBy {
 
-  _subject: any = -1;
+  _subject: AssessmentSubjectType = -1;
   _showValueAs: boolean = false;
   _assessmentGrade: Map<any, boolean> = new Map<any, boolean>();
   _achievementLevels: boolean = false;
@@ -18,7 +19,7 @@ export class QueryBuilderFilterBy extends FilterBy {
 
   }
 
-  set subject(value: any[]) {
+  set subject(value: AssessmentSubjectType) {
     this._subject = value;
     this.notifyChange('subject');
   }
