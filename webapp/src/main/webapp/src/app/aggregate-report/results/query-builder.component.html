@@ -242,11 +242,11 @@
              content="{{'labels.aggregate-reports.query-builder.filter-results.data-well.assessment-grade-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-checkbox-list [horizontal]="true" [model]="filterBy"
-                              [values]="['3', '4', '5', '6', '7', '8', 'HS']"
-                              property="assessmentGrade" enum="labels.assessmentGrades"
-                              label="{{ translateRoot + 'student.assessment-grade' | translate }}"
-                              analyticsEvent="FilterClick"
-                              analyticsCategory="AggregateQueryBuilder"></sb-checkbox-list>
+                          [values]="['3', '4', '5', '6', '7', '8', 'HS']"
+                          property="assessmentGrade" enum="labels.assessmentGrades"
+                          label="{{ translateRoot + 'student.assessment-grade' | translate }}"
+                          analyticsEvent="FilterClick"
+                          analyticsCategory="AggregateQueryBuilder"></sb-checkbox-list>
 
       </div>
     </div>
@@ -311,70 +311,109 @@
       |
       translate}}
     </div>
-    <div class="row">
+    <div class="row ml-0">
       <div class="flex-children">
+
+        <!-- Table Heading -->
         <div class="table-heading">
           <div class="flex-header">
             <strong>{{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.table-heading.title'
               | translate}}</strong>
             <div class="flex-children--horizontal mt-md">
               <div class="flex-child">
-                <div class="section">
-                  {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.table-heading.assessment'
-                  | translate}}
+                <div class="bordered">
+                  <div class="section">
+                    {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.table-heading.assessment'
+                    | translate}}
+                  </div>
+                  <div class="mt-md">
+                    <a class="btn btn-link" (click)="scrollTo('assessment-type-section')">{{'labels.aggregate-reports.query-builder.edit'
+                      | translate}}</a>
+                  </div>
                 </div>
-                <div class="mt-md">
-                  <a class="btn btn-link" (click)="scrollTo('assessment-type-section')">{{'labels.aggregate-reports.query-builder.edit'
-                    | translate}}</a>
+                <div>
+                  <div><label class="label"><span class="gray-dark"><strong>Subject</strong></span></label></div>
+                  <div><label class="label"><span class="gray-dark">{{(filterBy.subject === -1 ? 'buttons.all' : filterBy.subject) | translate}}</span></label>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="required-fields">
-          <div class="flex-header">
-            <strong>{{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.required-fields.title'
-              | translate}}</strong>
-            <div class="flex-children--horizontal mt-md">
-              <div class="flex-child">
-                <div class="section">
-                  {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.required-fields.organization'
-                  | translate}}
-                </div>
-                <div class="mt-md">
-                  <a class="btn btn-link" (click)="scrollTo('organization-section')">{{'labels.aggregate-reports.query-builder.edit'
-                    | translate}}</a>
-                </div>
-              </div>
-              <div class="flex-child">
-                <div class="section">
-                  {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.required-fields.assessment-grade'
-                  | translate}}
-                </div>
-                <div class="mt-md">
-                  <a class="btn btn-link" (click)="scrollTo('assessment-grade-section')">{{'labels.aggregate-reports.query-builder.edit'
-                    | translate}}</a>
-                </div>
-              </div>
-              <div class="flex-child">
-                <div class="section">
-                  {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.required-fields.academic-year'
-                  | translate}}
-                </div>
-                <div class="mt-md">
-                  <a class="btn btn-link" (click)="scrollTo('academic-year-section')">{{'labels.aggregate-reports.query-builder.edit'
-                    | translate}}</a>
+                <div>
+                  <div><label class="label"><span class="gray-dark"><strong>Type</strong></span></label></div>
+                  <div><label class="label"><span class="gray-dark">ICA</span></label></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- Required Fields -->
+        <div class="required-fields">
+          <div class="flex-header">
+            <strong>{{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.required-fields.title'
+              | translate}}</strong>
+            <div class="flex-children--horizontal mt-md">
+              <div class="flex-child">
+                <div class="bordered">
+                  <div class="section">
+                    {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.required-fields.organization'
+                    | translate}}
+                  </div>
+                  <div class="mt-md">
+                    <a class="btn btn-link" (click)="scrollTo('organization-section')">{{'labels.aggregate-reports.query-builder.edit'
+                      | translate}}</a>
+                  </div>
+                </div>
+                <div>
+                  <div><label class="label"><span class="gray-dark"><strong>Organizations</strong></span></label></div>
+                  <div><label class="label"><span class="gray-dark">{{(filterBy.subject === -1 ? 'buttons.all' : filterBy.subject) | translate}}</span></label>
+                  </div>
+                </div>
+              </div>
+              <div class="flex-child">
+                <div class="bordered">
+                  <div class="section">
+                    {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.required-fields.assessment-grade'
+                    | translate}}
+                  </div>
+                  <div class="mt-md">
+                    <a class="btn btn-link" (click)="scrollTo('assessment-grade-section')">{{'labels.aggregate-reports.query-builder.edit'
+                      | translate}}</a>
+                  </div>
+                </div>
+                <div>
+                  <div><label class="label"><span class="gray-dark"><strong>Grade(s)</strong></span></label></div>
+                  <div *ngFor="let assessmentGrade of filterBy.getAssessmentGrades()"><label class="label"><span
+                    class="gray-dark">{{(assessmentGrade == 0 ? 'buttons.all' : assessmentGrade) | translate}}</span></label>
+                  </div>
+                </div>
+              </div>
+              <div class="flex-child">
+                <div class="bordered">
+                  <div class="section">
+                    {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.required-fields.academic-year'
+                    | translate}}
+                  </div>
+                  <div class="mt-md">
+                    <a class="btn btn-link" (click)="scrollTo('academic-year-section')">{{'labels.aggregate-reports.query-builder.edit'
+                      | translate}}</a>
+                  </div>
+                </div>
+                <div>
+                  <div><label class="label"><span class="gray-dark"><strong>Years</strong></span></label></div>
+                  <div *ngFor="let schoolYear of filterBy.getSchoolYears()"><label class="label"><span
+                    class="gray-dark">{{(schoolYear == 0 ? 'buttons.all' : schoolYear) | translate}}</span></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comparative Subgroups -->
         <div class="comparative-subgroups">
           <div class="flex-header">
             <div class="btn-group" dropdown>
               <ss-multiselect-dropdown [settings]="settings" [texts]="texts" [options]="multiSelectOptions"
-                                       [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)">
+                                       [(ngModel)]="optionsModel">
                 {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.comparative-subgroups.title'
                 | translate}}
               </ss-multiselect-dropdown>
@@ -386,9 +425,12 @@
             </div>
           </div>
         </div>
+
+        <!-- Data Values -->
         <div class="data-values">
           <div class="flex-header">
-            <strong>{{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.data-values.title' |
+            <strong>{{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.data-values.title'
+              |
               translate}}</strong>
             <div class="flex-children--horizontal mt-md">
               <div class="flex-child">
@@ -396,49 +438,59 @@
                   {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.data-values.students-tested'
                   | translate}}
                 </div>
-                <!-- no edit link ?-->
-                <!--<div class="mt-md">-->
-                <!--<a class="btn btn-link" href="javascript:void(0)">{{'labels.aggregate-reports.query-builder.edit' | translate}}</a>-->
-                <!--</div>-->
               </div>
               <div class="flex-child">
-                <div class="section">
-                  {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.data-values.average-scale-score'
-                  | translate}}
+                <div class="bordered">
+                  <div class="section">
+                    {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.data-values.average-scale-score'
+                    | translate}}
+                  </div>
+                  <div class="mt-md">
+                    <a class="btn btn-link" (click)="scrollTo('show-value-as-section')">{{'labels.aggregate-reports.query-builder.edit'
+                      | translate}}</a>
+                  </div>
                 </div>
-                <div class="mt-md">
-                  <a class="btn btn-link" (click)="scrollTo('show-value-as-section')">{{'labels.aggregate-reports.query-builder.edit'
-                    | translate}}</a>
+                <div>
+                  <div><label class="label"><span class="gray-dark"><strong>Values</strong></span></label></div>
+                  <div><label class="label"><span class="gray-dark">{{(filterBy.showValueAs ? 'enum.show-value-as.2' : 'enum.show-value-as.1') | translate}}</span></label>
+                  </div>
                 </div>
               </div>
               <div class="flex-child">
-                <div class="section">
-                  {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.data-values.achievement-level'
-                  | translate}}
+                <div class="bordered">
+                  <div class="section">
+                    {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.data-values.achievement-level'
+                    | translate}}
+                  </div>
+                  <div class="mt-md">
+                    <a class="btn btn-link" (click)="scrollTo('achievement-level-section')">{{'labels.aggregate-reports.query-builder.edit'
+                      | translate}}</a>
+                  </div>
                 </div>
-                <div class="mt-md">
-                  <a class="btn btn-link" (click)="scrollTo('achievement-level-section')">{{'labels.aggregate-reports.query-builder.edit'
-                    | translate}}</a>
+                <div>
+                  <div><label class="label"><span class="gray-dark"><strong>Grouping</strong></span></label></div>
+                  <div><label class="label"><span class="gray-dark">{{(filterBy.achievementLevels ? 'labels.aggregate-reports.results.performance-grouped' : 'labels.aggregate-reports.results.performance-separated') | translate }}</span></label>
+                  </div>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="mt-md mb-md">
-    <button class="btn btn-success btn-sm mr-sm" analyticsEvent="GenerateReport"
-            analyticsCategory="AggregateQueryBuilder"
-            angulartics2on="click" container="body">
-      <i class="fa fa-gears"></i> {{'labels.aggregate-reports.query-builder.customize.generate-report-button' |
-      translate}}
-    </button>
+<div class="mt-md mb-md">
+  <button class="btn btn-success btn-sm mr-sm" analyticsEvent="GenerateReport"
+          analyticsCategory="AggregateQueryBuilder"
+          angulartics2on="click" container="body">
+    <i class="fa fa-gears"></i> {{'labels.aggregate-reports.query-builder.customize.generate-report-button' |
+    translate}}
+  </button>
 
-    <button class="btn btn-default btn-sm float-none-xs" analyticsEvent="GenerateReportExportCSV"
-            analyticsCategory="AggregateQueryBuilder" angulartics2on="click" container="body">
-      <i class="fa fa-table"></i> {{'labels.export.csv' | translate }}
-    </button>
-  </div>
+  <button class="btn btn-default btn-sm float-none-xs" analyticsEvent="GenerateReportExportCSV"
+          analyticsCategory="AggregateQueryBuilder" angulartics2on="click" container="body">
+    <i class="fa fa-table"></i> {{'labels.export.csv' | translate }}
+  </button>
+</div>

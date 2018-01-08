@@ -2,9 +2,9 @@ import { FilterBy } from "../../assessments/model/filter-by.model";
 
 export class QueryBuilderFilterBy extends FilterBy {
 
-  _subject: any = -1
+  _subject: any = -1;
   _showValueAs: boolean = false;
-  _assessmentGrade: any[] = [ true ];
+  _assessmentGrade: Map<any, boolean> = new Map<any, boolean>();
   _achievementLevels: boolean = false;
   _schoolYears: Map<any, boolean> = new Map<any, boolean>();
 
@@ -14,6 +14,7 @@ export class QueryBuilderFilterBy extends FilterBy {
     this.summativeStatus = 'Valid';
     this.completion = 'Complete';
     this.schoolYears [ '2017-18' ] = true;
+    this.assessmentGrade [ '0' ] = true;
 
   }
 
@@ -35,13 +36,23 @@ export class QueryBuilderFilterBy extends FilterBy {
     return this._showValueAs;
   }
 
-  set assessmentGrade(value: any[]) {
+  set assessmentGrade(value: Map<any, boolean>) {
     this._assessmentGrade = value;
     this.notifyChange('assessmentGrade');
   }
 
   get assessmentGrade() {
     return this._assessmentGrade;
+  }
+
+  getAssessmentGrades(): Array<any> {
+    let array: Array<any> = [];
+    let assessmentGrades = this.assessmentGrade;
+    for (let val in assessmentGrades) {
+      if (assessmentGrades[ val ]) array.push(val);
+    }
+
+    return array;
   }
 
   set achievementLevels(value: boolean) {
@@ -60,6 +71,16 @@ export class QueryBuilderFilterBy extends FilterBy {
 
   get schoolYears(): Map<any, boolean> {
     return this._schoolYears;
+  }
+
+  getSchoolYears(): Array<any> {
+    let array: Array<any> = [];
+    let schoolYears = this.schoolYears;
+    for (let schoolYear in schoolYears) {
+      if (schoolYears[ schoolYear ]) array.push(schoolYear);
+    }
+
+    return array;
   }
 
 }

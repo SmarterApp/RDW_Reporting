@@ -122,10 +122,6 @@ export class QueryBuilderComponent {
     console.log(this.optionsModel);
   }
 
-  get schoolOptions(): Option[] {
-    return this._schoolOptions;
-  }
-
   get organizationOptions(): Option[] {
     return this._organizationOptions;
   }
