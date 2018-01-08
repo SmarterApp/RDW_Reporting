@@ -31,7 +31,7 @@
 <!-- Assessments Grouped by Type and Subject -->
 <div *ngIf="examHistory">
   <div *ngFor="let assessmentType of assessmentTypes">
-    <div *ngFor="let subject of getSubjectsForType(assessmentType)" class="well">
+    <div *ngFor="let subject of getSubjectsForType(assessmentType)" class="well wide-content-container">
       <span class="h3 label-group {{ colorService.getColor(assessmentType) }}">
         <span class="label">{{assessmentType | assessmentType}}</span><span class="label">{{subject}}</span>
       </span>

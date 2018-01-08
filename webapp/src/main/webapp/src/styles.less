@@ -502,121 +502,128 @@ body .select-menu-group {
   padding: .2em 0 .3em;
 }
 
+/** used on well's containing wide data tables to push the well out with the table */
+.wide-content-container {
+  width: min-content;
+  width: -moz-min-content;
+  width: -webkit-min-content;
+}
+
 query-builder {
-  .well-group .well:not(:first-child) {
-    box-shadow: none;
-  }
+.well-group .well:not(:first-child) {
+box-shadow: none;
+}
 
-  .flex-header {
-    strong {
-      display: table-caption;
-    }
-    border-left: 1px solid black;
-    padding-left: 10px;
-  }
-  .flex-children--horizontal {
-    .flex-child:not(:last-child) {
-      padding-right: 10px;
-    }
-    .flex-child:not(:first-child) {
-      border-left: 1px solid @gray-mid;
-      padding-left: 10px;
-    }
-    display: flex;
-  }
-  .flex-children--vertical {
-    .flex-child:not(:last-child) {
-      margin-bottom: 5px;
-    }
-    .flex-child {
-      display: block;
-    }
-  }
-  .table-heading .section {
-    &:extend(.btn,.btn-primary);
-    &:hover {
-      background-color: @btn-primary-bg;
-      color: @btn-primary-color;
-    }
-    cursor: auto;
-  }
-  .required-fields .section {
-    &:extend(.btn,.btn-primary);
-    &:hover {
-      background-color: @btn-primary-bg;
-      color: @btn-primary-color;
-    }
-    cursor: auto;
-  }
+.flex-header {
+strong {
+display: table-caption;
+}
+border-left: 1px solid black;
+padding-left: 10px;
+}
+.flex-children--horizontal {
+.flex-child:not(:last-child) {
+padding-right: 10px;
+}
+.flex-child:not(:first-child) {
+border-left: 1px solid @gray-mid;
+padding-left: 10px;
+}
+display: flex;
+}
+.flex-children--vertical {
+.flex-child:not(:last-child) {
+margin-bottom: 5px;
+}
+.flex-child {
+display: block;
+}
+}
+.table-heading .section {
+&:extend(.btn,.btn-primary);
+&:hover {
+background-color: @btn-primary-bg;
+color: @btn-primary-color;
+}
+cursor: auto;
+}
+.required-fields .section {
+&:extend(.btn,.btn-primary);
+&:hover {
+background-color: @btn-primary-bg;
+color: @btn-primary-color;
+}
+cursor: auto;
+}
 
-  .comparative-subgroups .banner-dropdown {
-    display: table-caption;
-  }
-  .comparative-subgroups .section {
-    &:extend(.btn,.btn-success);
-    &:hover {
-      background-color: @btn-success-bg;
-      color: @btn-success-color;
-    }
-    cursor: auto;
-  }
-  .data-values .section {
-    &:extend(.btn,.btn-danger);
-    &:hover {
-      background-color: @btn-danger-bg;
-      color: @btn-danger-color;
-    }
-    cursor: auto;
-  }
+.comparative-subgroups .banner-dropdown {
+display: table-caption;
+}
+.comparative-subgroups .section {
+&:extend(.btn,.btn-success);
+&:hover {
+background-color: @btn-success-bg;
+color: @btn-success-color;
+}
+cursor: auto;
+}
+.data-values .section {
+&:extend(.btn,.btn-danger);
+&:hover {
+background-color: @btn-danger-bg;
+color: @btn-danger-color;
+}
+cursor: auto;
+}
 
-  ss-multiselect-dropdown {
-    .dropdown-menu > li > a {
-      padding-top: 10px;
-      padding-bottom: 10px;
-    }
-    .dropdown-menu > li:nth-child(even) {
-      background-color: @gray-lightest;
-    }
-    .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default,
-    .btn-default:active:hover, .btn-default.active:hover, .open > .dropdown-toggle.btn-default:hover, .btn-default:active:focus, .btn-default.active:focus, .open > .dropdown-toggle.btn-default:focus, .btn-default:active.focus, .btn-default.active.focus, .open > .dropdown-toggle.btn-default.focus {
-      color: @white;
-      border: 3px solid @black;
-      background-color: @black;
-      margin-bottom: 0;
-    }
-    .btn-default {
-      color: @black;
-      border-color: @black;
-    }
-    ul.dropdown-menu {
-      border: 3px solid @black;
-      margin-top: -3px;
-      border-top-left-radius: 0;
-    }
-  }
+ss-multiselect-dropdown {
+.dropdown-menu > li > a {
+padding-top: 10px;
+padding-bottom: 10px;
+}
+.dropdown-menu > li:nth-child(even) {
+background-color: @gray-lightest;
+}
+.btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default,
+.btn-default:active:hover, .btn-default.active:hover, .open > .dropdown-toggle.btn-default:hover, .btn-default:active:focus, .btn-default.active:focus, .open > .dropdown-toggle.btn-default:focus, .btn-default:active.focus, .btn-default.active.focus, .open > .dropdown-toggle.btn-default.focus {
+color: @white;
+border: 3px solid @black;
+background-color: @black;
+margin-bottom: 0;
+}
+.btn-default {
+color: @black;
+border-color: @black;
+}
+ul.dropdown-menu {
+border: 3px solid @black;
+margin-top: -3px;
+border-top-left-radius: 0;
+}
+}
 }
 
 @media (min-width: 768px) {
-  .container-jumbo {
-    width: 768px !important;
-  }
+.container-jumbo {
+width: 768px !important;
+}
 }
 
 @media (min-width: 992px) {
-  .container-jumbo {
-    width: 992px !important;
-  }
+.container-jumbo {
+width: 992px !important;
+}
 }
 
 @media (min-width: 1200px) {
-  .container-jumbo {
-    width: 1200px !important;
-  }
+.container-jumbo {
+width: 1200px !important;
+}
 }
 
 @media (min-width: 1400px) {
-  .container-jumbo {
-    width: 1400px !important;
-    margin-left: -120px;
-  }
+.container-jumbo {
+width: 1400px !important;
+margin-left: -120px;
+}
 }

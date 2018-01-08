@@ -40,22 +40,26 @@ sqlbuilder:
         addons:
             state:
               clauses:
+                # the 'magic' number -1 is needed here to support JOIN in the final overarching query defined in the application.sql.yml
                 select: >-
                      'State' AS organization_type,
-                     -1 AS organization_id
+                     -1 AS organization_id,
+                     NULL AS organization_name
 
             allDistricts:
               clauses:
                 select: >-
                      'District' AS organization_type,
-                     d.id AS organization_id
+                     d.id AS organization_id,
+                     d.name AS organization_name
 
                 join: >-
                     JOIN school sch ON sch.id = fe.school_id
                     JOIN district d ON d.id = sch.district_id
 
                 groupBy: >-
-                     d.id
+                     d.id,
+                     d.name
 
             districts:
               clauses:
@@ -66,7 +70,8 @@ sqlbuilder:
               clauses:
                 select: >-
                     'School' AS organization_type,
-                     sch.id AS organization_id
+                     sch.id AS organization_id,
+                     sch.name as organization_name
 
                 join: >-
                      JOIN school sch ON sch.id = fe.school_id
@@ -75,13 +80,15 @@ sqlbuilder:
                      sch.district_id in (:school_district_ids)
 
                 groupBy: >-
-                     sch.id
+                     sch.id,
+                     sch.name
 
             schools:
               clauses:
                 select: >-
                     'School' AS organization_type,
-                     sch.id AS organization_id
+                     sch.id AS organization_id,
+                     sch.name AS organization_name
 
                 join: >-
                      JOIN school sch ON sch.id = fe.school_id
@@ -90,19 +97,19 @@ sqlbuilder:
                     sch.id in (:school_ids)
 
                 groupBy: >-
-                     sch.id
+                     sch.id,
+                     sch.name
 
       # ---------- dimension parts -----------------------------------------------------------------------
-            overall:
+            Overall:
               clauses:
+              # the 'magic' number -1 is needed here to support JOIN in the final overarching query defined in the application.sql.yml
                 select: >-
-                    'Overall' AS dimension,
                     -1 AS dimension_id
 
-            gender:
+            Gender:
               clauses:
                 select: >-
-                    'Gender' AS dimension,
                      s.gender_id AS dimension_id
 
                 join:
@@ -111,10 +118,9 @@ sqlbuilder:
                 groupBy: >-
                      s.gender_id
 
-            ethnicity:
+            Ethnicity:
               clauses:
                 select: >-
-                    'Ethnicity' AS dimension,
                      se.ethnicity_id AS dimension_id
 
                 join:
@@ -122,6 +128,76 @@ sqlbuilder:
 
                 groupBy: >-
                      se.ethnicity_id
+
+            IEP:
+              clauses:
+                select: >-
+                     sb.id AS dimension_id
+
+                join:
+                     JOIN strict_boolean sb ON sb.id = fe.iep
+
+                groupBy: >-
+                     sb.id
+
+            LEP:
+              clauses:
+                select: >-
+                     sb.id AS dimension_id
+
+                join:
+                     JOIN strict_boolean sb ON sb.id = fe.lep
+
+                groupBy: >-
+                     sb.id
+
+            EconomicDisadvantage:
+              clauses:
+                select: >-
+                     sb.id AS dimension_id
+
+                join:
+                     JOIN strict_boolean sb ON sb.id = fe.economic_disadvantage
+
+                groupBy: >-
+                     sb.id
+
+            Section504:
+              clauses:
+                select: >-
+                     b.id AS dimension_id
+
+                join:
+                     JOIN boolean b ON b.id = fe.section504
+
+                groupBy: >-
+                     b.id
+
+            MigrantStatus:
+              clauses:
+                select: >-
+                     b.id AS dimension_id
+
+                join:
+                     JOIN boolean b ON b.id = fe.migrant_status
+
+                groupBy: >-
+                     b.id
+
+            # unlike all other dimensions we are not back-filling missing enrolled grades
+            StudentEnrolledGrade:
+               clauses:
+                 select: >-
+                      'StudentEnrolledGrade' AS dimension,
+                      fe.grade_id AS dimension_id,
+                      g.code AS dimension_code
+
+                 join:
+                      JOIN grade g ON g.id = fe.grade_id
+
+                 groupBy: >-
+                      fe.grade_id,
+                      g.code
 
       # This represents the parts of the SQL query that generates all possible combinations of the dimensions for the report.
       # The query is assembled by combining the below clauses with 'organization' and 'dimension' parts.
@@ -172,17 +248,44 @@ sqlbuilder:
                    organization_id in (:district_ids)
 
          # ---------- dimension parts -----------------------------------------------------------------------
-            overall:
+         # These values correspond to the exact name of DimensionType enums
+            Overall:
+              # the 'magic' number -1 is needed here to support JOIN in the final overarching query defined in the application.sql.yml
               clauses:
                 join: >-
-                  CROSS JOIN (select 'overall' AS dimension, -1 AS dimension_id, null as dimension_code) d
+                  CROSS JOIN (select 'Overall' AS dimension, -1 AS dimension_id, null as dimension_code) d
 
-            gender:
+            Gender:
               clauses:
                 join: >-
-                  CROSS JOIN (select 'gender' AS dimension, gen.id AS dimension_id, gen.code as dimension_code from gender gen) d
+                  CROSS JOIN (select 'Gender' AS dimension, gen.id AS dimension_id, gen.code as dimension_code from gender gen) d
 
-            ethnicity:
+            Ethnicity:
               clauses:
                 join: >-
-                  CROSS JOIN (select 'ethnicity' AS dimension, e.id AS dimension_id, e.code as dimension_code from ethnicity e) d
+                  CROSS JOIN (select 'Ethnicity' AS dimension, e.id AS dimension_id, e.code as dimension_code from ethnicity e) d
+
+            IEP:
+              clauses:
+                join: >-
+                  CROSS JOIN (select 'IEP' AS dimension, b.id AS dimension_id, b.code as dimension_code from strict_boolean b) d
+
+            LEP:
+              clauses:
+                join: >-
+                  CROSS JOIN (select 'LEP' AS dimension, b.id AS dimension_id, b.code as dimension_code from strict_boolean b) d
+
+            EconomicDisadvantage:
+              clauses:
+                join: >-
+                  CROSS JOIN (select 'EconomicDisadvantage' AS dimension, b.id AS dimension_id, b.code as dimension_code from strict_boolean b) d
+
+            Section504:
+              clauses:
+                join: >-
+                  CROSS JOIN (select 'Section504' AS dimension, b.id AS dimension_id, b.code as dimension_code from boolean b) d
+
+            MigrantStatus:
+              clauses:
+                join: >-
+                  CROSS JOIN (select 'MigrantStatus' AS dimension, b.id AS dimension_id, b.code as dimension_code from boolean b) d
