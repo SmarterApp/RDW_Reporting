@@ -333,46 +333,46 @@
     "aggregate-reports": {
       "heading": "Aggregate Reports",
       "results": {
-        "heading": "Aggregate Report Results",
-        "empty-message": "No Results Found",
-        "performance-group-prompt": "Show performance as",
-        "performance-grouped": "Grouped",
-        "performance-separated": "Separate",
         "cols": {
           "achievement-comparison": "Achievement Comparison",
           "assessment-grade": "Assessment Grade",
           "avg-scale-score": "Average Scale Score",
           "dimension": "Subgroup",
-          "organization-name": "Organization",
-          "school-year": "Academic Year",
-          "students-tested": "Students Tested",
-          "performance-level-suffix": "Standard",
           "grouped-performance-level-prefix": {
             "0": "At or Below",
             "1": "At or Above"
-          }
+          },
+          "organization-name": "Organization",
+          "performance-level-suffix": "Standard",
+          "school-year": "Academic Year",
+          "students-tested": "Students Tested"
         },
         "dimension": {
-          "Overall": {
-            "default": "Overall"
-          },
-          "Gender": {
-            "default": "Unspecified",
-            "Male": "Male",
-            "Female": "Female"
-          },
           "Ethnicity": {
-            "default": "Unspecified",
-            "HispanicOrLatinoEthnicity": "Hispanic/Latino",
             "AmericanIndianOrAlaskaNative": "American Indian or Alaska Native",
             "Asian": "Asian",
             "BlackOrAfricanAmerican": "Black or African American",
-            "White": "White",
-            "NativeHawaiianOrOtherPacificIslander": "Native Hawaiian or Pacific Islander",
+            "default": "Unspecified",
             "DemographicRaceTwoOrMoreRaces": "Demographic Race of Two or More",
-            "Filipino": "Filipino"
+            "Filipino": "Filipino",
+            "HispanicOrLatinoEthnicity": "Hispanic/Latino",
+            "NativeHawaiianOrOtherPacificIslander": "Native Hawaiian or Pacific Islander",
+            "White": "White"
+          },
+          "Gender": {
+            "default": "Unspecified",
+            "Female": "Female",
+            "Male": "Male"
+          },
+          "Overall": {
+            "default": "Overall"
           }
-        }
+        },
+        "empty-message": "No Results Found",
+        "heading": "Aggregate Report Results",
+        "performance-group-prompt": "Show performance as",
+        "performance-grouped": "Grouped",
+        "performance-separated": "Separate"
       }
     },
     "assessments": {
@@ -427,15 +427,6 @@
         "title": "Student Score Distribution"
       },
       "students": "Students"
-    },
-    "instructional-resources": {
-      "link": {
-        "System": "Smarter Balanced Instructional Resource",
-        "State": "{{organizationName}} Instructional Resource",
-        "DistrictGroup": "{{organizationName}} Instructional Resource",
-        "District": "{{organizationName}} Instructional Resource",
-        "SchoolGroup": "{{organizationName}} Instructional Resource"
-      }
     },
     "assessmentTypes": {
       "1": {
@@ -805,13 +796,6 @@
       }
     },
     "instructional-resource": {
-      "link": {
-        "District": "{{organizationName}} Instructional Resource",
-        "DistrictGroup": "{{organizationName}} Instructional Resource",
-        "SchoolGroup": "{{organizationName}} Instructional Resource",
-        "State": "{{organizationName}} Instructional Resource",
-        "System": "Smarter Balanced Instructional Resource"
-      },
       "assessments": {
         "no-results": "No assessments found.",
         "performance-levels": {
@@ -859,6 +843,13 @@
         "assessment-label": "Assessment Label",
         "organization-name": "Organization Name"
       },
+      "link": {
+        "District": "{{organizationName}} Instructional Resource",
+        "DistrictGroup": "{{organizationName}} Instructional Resource",
+        "SchoolGroup": "{{organizationName}} Instructional Resource",
+        "State": "{{organizationName}} Instructional Resource",
+        "System": "Smarter Balanced Instructional Resource"
+      },
       "no-results": "No instructional resources found matching the given filter criteria.",
       "organizations": {
         "no-results": "No organizations found.",
@@ -873,6 +864,15 @@
       "update": {
         "error": "Unable to modify instructional resource.",
         "title": "Update Instructional Resource"
+      }
+    },
+    "instructional-resources": {
+      "link": {
+        "District": "{{organizationName}} Instructional Resource",
+        "DistrictGroup": "{{organizationName}} Instructional Resource",
+        "SchoolGroup": "{{organizationName}} Instructional Resource",
+        "State": "{{organizationName}} Instructional Resource",
+        "System": "Smarter Balanced Instructional Resource"
       }
     },
     "menu": "Menu",
@@ -1026,8 +1026,8 @@
     },
     "school-grade": {
       "messages": {
-        "no-results": "No results.",
         "no-grades-available": "No test results are available for the selected school.",
+        "no-results": "No results.",
         "null-school": "This school is unavailable.  Contact your building administrator if you think you should have access to this school."
       },
       "results": {
@@ -1087,12 +1087,10 @@
         "name": "ELA/Literacy",
         "short-name": "ELA"
       }
-    }
+    },
+    "type": "Type"
   },
   "messages": {
-    "no-grades-available": "No test results are available for the selected school.",
-    "no-results": "No results.",
-    "null-school": "This school is unavailable.  Contact your building administrator if you think you should have access to this school.",
     "access-denied": {
       "message": "Your user account is not permitted to access this reporting system. If you believe you have reached this page in error, please contact your building administrator.",
       "title": "Access Denied"
@@ -1102,6 +1100,8 @@
     "logout": "Logout",
     "no-distractor-analysis": "Distractor analysis is not available for tests administered prior to 2017-18 school year.",
     "no-distractor-analysis-for-summative-exams": "Distractor analysis is not available for summative tests.",
+    "no-grades-available": "No test results are available for the selected school.",
+    "no-results": "No results.",
     "no-results-by-item": "Results by item is not available for tests administered prior to 2017-18 school year.",
     "no-results-by-item-for-summative-exams": "Results by item is not available for summative tests.",
     "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above.",
@@ -1109,6 +1109,7 @@
     "noExamsMatchingCriteria": "There are no exams matching this criteria.",
     "noExamsSelected": "Please select from the assessments above",
     "notApplicable": "-",
+    "null-school": "This school is unavailable.  Contact your building administrator if you think you should have access to this school.",
     "unknown-error": "An unknown error has occurred. You can try the same action again or click the button below to go to the home page.  If this problem persists, please contact your building administrator.",
     "upload-in-progress": "Files are still uploading, are you sure you want to leave?"
   },
