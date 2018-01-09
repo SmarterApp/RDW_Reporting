@@ -323,8 +323,7 @@
               <div class="flex-child">
                 <div class="bordered">
                   <div class="section">
-                    {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.table-heading.assessment'
-                    | translate}}
+                    {{ 'labels.aggregate-reports.query-builder.assessment' | translate }}
                   </div>
                   <div class="mt-md">
                     <a class="btn btn-link" (click)="scrollTo('assessment-type-section')">{{'labels.aggregate-reports.query-builder.edit'
@@ -332,18 +331,22 @@
                   </div>
                 </div>
                 <div>
-                  <div><label class="label"><span class="gray-dark"><strong>Subject</strong></span></label></div>
+                  <div><label class="label"><span class="gray-dark"><strong>{{ 'labels.aggregate-reports.query-builder.organizations.subject' | translate }}</strong></span></label>
+                  </div>
                   <div><label class="label"><span class="gray-dark">{{(filterBy.subject === -1 ? 'buttons.all' : filterBy.subject) | translate}}</span></label>
                   </div>
                 </div>
                 <div>
-                  <div><label class="label"><span class="gray-dark"><strong>Type</strong></span></label></div>
-                  <div><label class="label"><span class="gray-dark">ICA</span></label></div>
+                  <div><label class="label"><span class="gray-dark"><strong>{{ 'labels.aggregate-reports.query-builder.type' | translate }}</strong></span></label>
+                  </div>
+                  <div><label class="label"><span class="gray-dark">{{'labels.assessmentTypes.1.short-name' | translate}}</span></label>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
 
         <!-- Required Fields -->
         <div class="required-fields">
@@ -363,7 +366,8 @@
                   </div>
                 </div>
                 <div>
-                  <div><label class="label"><span class="gray-dark"><strong>Organizations</strong></span></label></div>
+                  <div><label class="label"><span class="gray-dark"><strong>{{ 'labels.aggregate-reports.query-builder.organizations.title' | translate }}</strong></span></label>
+                  </div>
                   <div><label class="label"><span class="gray-dark">{{(filterBy.subject === -1 ? 'buttons.all' : filterBy.subject) | translate}}</span></label>
                   </div>
                 </div>
@@ -380,7 +384,8 @@
                   </div>
                 </div>
                 <div>
-                  <div><label class="label"><span class="gray-dark"><strong>Grade(s)</strong></span></label></div>
+                  <div><label class="label"><span class="gray-dark"><strong>{{ 'labels.aggregate-reports.query-builder.organizations.grades' | translate }}</strong></span></label>
+                  </div>
                   <div *ngFor="let assessmentGrade of filterBy.getAssessmentGrades()"><label class="label"><span
                     class="gray-dark">{{(assessmentGrade == 0 ? 'buttons.all' : assessmentGrade) | translate}}</span></label>
                   </div>
@@ -398,7 +403,8 @@
                   </div>
                 </div>
                 <div>
-                  <div><label class="label"><span class="gray-dark"><strong>Years</strong></span></label></div>
+                  <div><label class="label"><span class="gray-dark"><strong>{{ 'labels.aggregate-reports.query-builder.organizations.years' | translate }}</strong></span></label>
+                  </div>
                   <div *ngFor="let schoolYear of filterBy.getSchoolYears()"><label class="label"><span
                     class="gray-dark">{{(schoolYear == 0 ? 'buttons.all' : schoolYear) | translate}}</span></label>
                   </div>
@@ -407,6 +413,7 @@
             </div>
           </div>
         </div>
+
 
         <!-- Comparative Subgroups -->
         <div class="comparative-subgroups">
@@ -434,9 +441,11 @@
               translate}}</strong>
             <div class="flex-children--horizontal mt-md">
               <div class="flex-child">
-                <div class="section">
-                  {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.data-values.students-tested'
-                  | translate}}
+                <div class="bordered">
+                  <div class="section">
+                    {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.data-values.students-tested'
+                    | translate}}
+                  </div>
                 </div>
               </div>
               <div class="flex-child">
@@ -451,7 +460,8 @@
                   </div>
                 </div>
                 <div>
-                  <div><label class="label"><span class="gray-dark"><strong>Values</strong></span></label></div>
+                  <div><label class="label"><span class="gray-dark"><strong>{{ 'labels.aggregate-reports.query-builder.filter-results.data-well.values' | translate }}</strong></span></label>
+                  </div>
                   <div><label class="label"><span class="gray-dark">{{(filterBy.showValueAs ? 'enum.show-value-as.2' : 'enum.show-value-as.1') | translate}}</span></label>
                   </div>
                 </div>
@@ -468,7 +478,8 @@
                   </div>
                 </div>
                 <div>
-                  <div><label class="label"><span class="gray-dark"><strong>Grouping</strong></span></label></div>
+                  <div><label class="label"><span class="gray-dark"><strong>{{ 'labels.aggregate-reports.query-builder.filter-results.data-well.grouping' | translate }}</strong></span></label>
+                  </div>
                   <div><label class="label"><span class="gray-dark">{{(filterBy.achievementLevels ? 'labels.aggregate-reports.results.performance-grouped' : 'labels.aggregate-reports.results.performance-separated') | translate }}</span></label>
                   </div>
                 </div>
@@ -480,6 +491,7 @@
     </div>
   </div>
 </div>
+
 
 <div class="mt-md mb-md">
   <button class="btn btn-success btn-sm mr-sm" analyticsEvent="GenerateReport"

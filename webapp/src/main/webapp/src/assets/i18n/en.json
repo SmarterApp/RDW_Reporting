@@ -381,6 +381,8 @@
       "query-builder": {
         "heading": "Student Group Aggregate Report",
         "edit": "Edit",
+        "assessment": "Assessment",
+        "type": "Type",
         "customize": {
           "title": "Customize School Aggregate Report",
           "description": "Select the items you wish to include in your report. Then click <strong>\"Generate Report\"</strong>",
@@ -394,7 +396,9 @@
           "subject": "Subject",
           "subject-info": "subject-info",
           "add-district-or-school": "Add a District or School",
-          "selected-organizations": "Selected Organizations"
+          "selected-organizations": "Selected Organizations",
+          "years": "Years",
+          "grades": "Grade(s)"
         },
         "filter-results" : {
           "title": "Filter Results",
@@ -416,7 +420,9 @@
             "achievement-levels": "Achievement Levels",
             "achievement-levels-info": "achievement-levels-info",
             "show-value-as": "Show Value as",
-            "show-value-as-info": "show-value-as-info"
+            "show-value-as-info": "show-value-as-info",
+            "values": "Values",
+            "grouping": "Grouping"
           },
           "organize-result-set-well": {
             "title": "Organize Result Set",
