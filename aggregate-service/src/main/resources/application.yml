@@ -47,5 +47,9 @@ spring:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
 
+  cache:
+    type: SIMPLE
+    cache-names: reportOptions
+
 jwt:
   secret: ${rdw.reporting.jwt.secret:secret}
