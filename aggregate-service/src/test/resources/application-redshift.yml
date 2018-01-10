@@ -1,11 +1,10 @@
+# Testing redshift makes use of the CI environment so this overrides some default properties.
+# All the properties should be set to default to the CI environment settings; developers may
+# override them locally but the CI system assumes the defaults are for CI resources.
 app:
   datamart:
-     olap_datasource:
-        url: "\
-            jdbc:redshift://${app.datamart.olap_datasource.url-server:localhost:5439}/dev\
-            ?ApplicationName=rdw-reporting-olap\
-            &currentSchema=${app.datamart.olap_datasource.url-schema:reporting_olap_rst}
-           "
-        username: awsrst
-        password:
-        driverClassName: com.amazon.redshift.jdbc42.Driver
+    olap_datasource:
+      url-server: rdw-qa.cibkulpjrgtr.us-west-2.redshift.amazonaws.com:5439
+      url-db: ci
+      username: ci
+      password:
