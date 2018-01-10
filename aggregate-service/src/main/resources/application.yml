@@ -32,9 +32,8 @@ app:
   datamart:
      olap_datasource:
         url: "\
-           jdbc:redshift://${app.datamart.olap_datasource.url-server:localhost:5439}/dev\
-           ?ApplicationName=rdw-reporting-olap\
-           &currentSchema=${app.datamart.olap_datasource.url-schema:reporting_olap}
+           jdbc:redshift://${app.datamart.olap_datasource.url-server:localhost:5432}/${app.datamart.olap_datasource.url-db:dev}\
+           ?ApplicationName=rdw-reporting-aggregate-service\
            "
         username: root
         password:
@@ -47,3 +46,6 @@ spring:
     default-property-inclusion: non_null
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
+
+jwt:
+  secret: ${rdw.reporting.jwt.secret:secret}

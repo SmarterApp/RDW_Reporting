@@ -6,6 +6,7 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.cloud:spring-cloud-starter-aws'
     compile 'org.springframework.boot:spring-boot-starter-jdbc'
+    compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'org.springframework.cloud:spring-cloud-starter-config'
 
     // this is for retrying connection to config server
@@ -20,17 +21,45 @@ dependencies {
     compile 'org.opentestsystem.rdw.common:rdw-common-model'
 
     compile project(':rdw-reporting-common')
+    compile project(':rdw-reporting-common-web')
 
     // fixes java 8 time marshaling
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.7'
 
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile project(path: ':rdw-reporting-common', configuration: 'tests')
+    testCompile('org.springframework.boot:spring-boot-starter-test') {
+        exclude(module: 'commons-logging')
+    }
+    testCompile 'org.springframework.security:spring-security-test'
 }
 
+// Task to run RST (redshift integration tests).
+// Note that this does *not* run the schema scripts, it assumes test databases are in good shape.
+// If you need to run the schema scripts you'll need to set gradle properties for the data sources, e.g.:
+/*
+gradle \
+-Predshift_url=jdbc:redshift://rdw-qa.cibkulpjrgtr.us-west-2.redshift.amazonaws.com:5439/ci \
+-Predshift_user=ci -Predshift_password=password \
+cleanReportingOlapTest migrateReportingOlapTest
+ */
+//
+// To run these tests locally, you must either manually adjust the application-redshift.yml file
+// (but don't check in your changes!) or set environment variables. If you are using the default
+// CI data resources you should set:
+//   APP_DATAMART_OLAP_DATASOURCE_PASSWORD
+// If you are using different instances the full set of variables can be found in application-redshift.yml.
+// If you are running from the command-line you can use local bash export to do it in one command, e.g.:
+/*
+(export APP_DATAMART_OLAP_DATASOURCE_PASSWORD=secretkey; \
+ gradle rst)
+*/
 task RST(type: Test) {
     include '**/*RST.*'
+    group = 'Verification'
+    description = 'Runs the redshift integration tests (slow!).'
     outputs.upToDateWhen { false }
     doFirst {
         println "Running Redshift System Tests..."
     }
 }
+
