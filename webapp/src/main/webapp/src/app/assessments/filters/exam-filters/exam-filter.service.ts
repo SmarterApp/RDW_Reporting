@@ -8,7 +8,7 @@ import { Utils } from "../../../shared/support/support";
 
 @Injectable()
 export class ExamFilterService {
-  private root = 'labels.groups.results.adv-filters.';
+  private root = 'labels.filters.';
 
   private filterDefinitions = [
     new ExamFilter('offGradeAssessment', this.root + 'test.off-grade-assessment', 'enum.off-grade', this.filterByEnrolledGradeOff),
@@ -25,11 +25,11 @@ export class ExamFilterService {
     new ExamFilter('ethnicities', this.root + 'student.ethnicity', 'enum.ethnicity', this.filterByEthnicity)
   ];
 
-  getFilterDefinitions() {
+  getFilterDefinitions(): ExamFilter[] {
     return this.filterDefinitions;
   }
 
-  getFilterDefinitionFor(filterName) {
+  getFilterDefinitionFor(filterName: string): ExamFilter {
     return this.filterDefinitions.find(x => x.name == filterName);
   }
 
@@ -111,7 +111,7 @@ export class ExamFilterService {
     return results;
   }
 
-  private getFilters(filterBy : FilterBy) {
+  private getFilters(filterBy : FilterBy): string[] {
     let filters = filterBy.all;
     if(filters.some(x => x.indexOf('ethnicities') > -1)){
       // remove individual 'ethnicities.code' and add just one ethnicities
@@ -123,47 +123,47 @@ export class ExamFilterService {
     return filters;
   }
 
-  private filterByAdministrativeCondition(exam: Exam, filterValue: any) {
+  private filterByAdministrativeCondition(exam: Exam, filterValue: any): boolean {
     return exam.administrativeCondition === filterValue;
   }
 
-  private filterByCompleteness(exam: Exam, filterValue: any) {
+  private filterByCompleteness(exam: Exam, filterValue: any): boolean {
     return exam.completeness === filterValue;
   }
 
-  private filterByEnrolledGradeOff(exam: Exam, filterValue: any) {
+  private filterByEnrolledGradeOff(exam: Exam, filterValue: any): boolean {
     return exam.enrolledGrade === filterValue;
   }
 
-  private filterByGender(exam: Exam, filterValue: any) {
+  private filterByGender(exam: Exam, filterValue: any): boolean {
     return exam.student && exam.student.genderCode === filterValue;
   }
 
-  private filterByMigrantStatus(exam: Exam, filterValue: any) {
+  private filterByMigrantStatus(exam: Exam, filterValue: any): boolean {
     return exam.migrantStatus == Utils.polarEnumToBoolean(filterValue);
   }
 
-  private filterByplan504(exam: Exam, filterValue: any) {
+  private filterByplan504(exam: Exam, filterValue: any): boolean {
     return exam.plan504 === Utils.polarEnumToBoolean(filterValue);
   }
 
-  private filterByIep(exam: Exam, filterValue: any) {
+  private filterByIep(exam: Exam, filterValue: any): boolean {
     return exam.iep === Utils.polarEnumToBoolean(filterValue);
   }
 
-  private filterByEconomicDisadvantage(exam: Exam, filterValue: any) {
+  private filterByEconomicDisadvantage(exam: Exam, filterValue: any): boolean {
     return exam.economicDisadvantage === Utils.polarEnumToBoolean(filterValue);
   }
 
-  private filterByLimitedEnglishProficiency(exam: Exam, filterValue: any) {
+  private filterByLimitedEnglishProficiency(exam: Exam, filterValue: any): boolean {
     return exam.limitedEnglishProficiency === Utils.polarEnumToBoolean(filterValue);
   }
 
-  private filterByEthnicity(exam: Exam, filterValue: any) {
+  private filterByEthnicity(exam: Exam, filterValue: any): boolean {
     return exam.student && exam.student.ethnicityCodes.some(ethnicity => filterValue.some(code => code == ethnicity));
   }
 
-  private filterByTransferAssessment(exam: Exam, filterValue: any) {
+  private filterByTransferAssessment(exam: Exam, filterValue: any): boolean {
     return !filterValue || !exam.transfer;
   }
 }

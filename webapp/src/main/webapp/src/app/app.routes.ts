@@ -32,6 +32,7 @@ import { GroupImportComponent } from "./admin/groups/import/group-import.compone
 import { GroupImportDeactivateGuard } from "./admin/groups/import/group-import.deactivate";
 import { GroupsComponent } from "./admin/groups/groups.component";
 import { HomeComponent as AdminHomeComponent } from "./admin/home/home.component";
+import { QueryBuilderComponent } from "./aggregate-report/results/query-builder.component";
 import { SessionExpiredComponent } from "./shared/security/session-expired.component";
 import { AuthorizationCanActivate } from "./shared/security/authorization.can-activate";
 import { RoutingAuthorizationCanActivate } from "./shared/security/routing-authorization.can-activate";
@@ -281,6 +282,13 @@ export const routes: Routes = [
             pathMatch: 'full',
             data: { breadcrumb: { translate: 'labels.aggregate-reports.results.heading'}},
             component: AggregateReportsResultsComponent
+          },
+          {
+            path: 'query-builder',
+            pathMatch: 'full',
+            data: { breadcrumb: { translate: 'labels.aggregate-reports.query-builder.heading'}},
+            resolve: { organizations: UserOrganizationsResolve },
+            component: QueryBuilderComponent
           }
         ]
       },

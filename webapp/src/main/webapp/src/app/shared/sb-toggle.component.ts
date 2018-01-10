@@ -17,15 +17,10 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   selector: 'sb-toggle',
   template: `
     <div class="btn-group btn-group-sm toggle-group" data-toggle="buttons">
-      <label class="btn btn-primary" [ngClass]="{active: options[0].value === value, disabled: disabled}">
-        <input type="radio" [id]="name" [name]="name" [disabled]="disabled" [value]="options[0].value" [(ngModel)]="value"
+      <label *ngFor="let option of options" class="btn btn-primary" [ngClass]="{active: option.value === value, disabled: disabled}">
+        <input type="radio" [id]="name" [name]="name" [disabled]="disabled" [value]="option.value" [(ngModel)]="value"
                angulartics2On="click" [angularticsEvent]="analyticsEvent"
-               [angularticsCategory]="analyticsCategory" [angularticsProperties]="options[0].angularticsProperties || {label: options[0].text}">{{options[0].text}}
-      </label>
-      <label class="btn btn-primary" [ngClass]="{'active': options[1].value === value, disabled: disabled}">
-        <input type="radio" [id]="name" [name]="name" [disabled]="disabled" [value]="options[1].value" [(ngModel)]="value"
-               angulartics2On="click" [angularticsEvent]="analyticsEvent"
-               [angularticsCategory]="analyticsCategory" [angularticsProperties]="options[1].angularticsProperties || {label: options[1].text}">{{options[1].text}}
+               [angularticsCategory]="analyticsCategory" [angularticsProperties]="option.angularticsProperties || {label: option.text}">{{option.text}}
       </label>
     </div>
   `,

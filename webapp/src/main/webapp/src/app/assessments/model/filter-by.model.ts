@@ -34,7 +34,7 @@ export class FilterBy extends ObservableObject {
     return ethnicities;
   }
 
-  get all() {
+  get all(): string[] {
     let all = [];
 
     for (let property of this._filters) {

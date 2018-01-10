@@ -225,6 +225,10 @@
       "1": "Yes",
       "2": "No"
     },
+    "show-value-as": {
+      "1": "Percent",
+      "2": "Number"
+    },
     "results-view-state": {
       "ByItem": "Results By Item",
       "ByStudent": "Results By Student",
@@ -373,6 +377,76 @@
             "Filipino": "Filipino"
           }
         }
+      },
+      "query-builder": {
+        "heading": "Student Group Aggregate Report",
+        "edit": "Edit",
+        "assessment": "Assessment",
+        "type": "Type",
+        "customize": {
+          "title": "Customize School Aggregate Report",
+          "description": "Select the items you wish to include in your report. Then click <strong>\"Generate Report\"</strong>",
+          "generate-report-button": "Generate Report"
+        },
+        "organizations" : {
+          "title": "Organizations",
+          "description": "Select schools and / or districts to compare.",
+          "assessment-type": "Assessment Type",
+          "assessment-type-info": "assessment-type-info",
+          "subject": "Subject",
+          "subject-info": "subject-info",
+          "add-district-or-school": "Add a District or School",
+          "selected-organizations": "Selected Organizations",
+          "years": "Years",
+          "grades": "Grade(s)"
+        },
+        "filter-results" : {
+          "title": "Filter Results",
+          "description": "<span class=\"label teal\">Selected</span> items will be available in the report you generate.",
+          "status-well": {
+            "title": "Status"
+          },
+          "student-well": {
+            "title": "Student"
+          },
+          "data-well": {
+            "title": "Data Set",
+            "longitudinal-report": "Longitudinal Report",
+            "longitudinal-report-info": "longitudinal-report-info",
+            "assessment-grade": "Assessment Grade(s)",
+            "assessment-grade-info": "assessment-grade-info",
+            "academic-year": "Academic Year",
+            "academic-year-info": "academic-year-info",
+            "achievement-levels": "Achievement Levels",
+            "achievement-levels-info": "achievement-levels-info",
+            "show-value-as": "Show Value as",
+            "show-value-as-info": "show-value-as-info",
+            "values": "Values",
+            "grouping": "Grouping"
+          },
+          "organize-result-set-well": {
+            "title": "Organize Result Set",
+            "table-heading": {
+              "title": "Table Heading",
+              "assessment": "Assessment"
+            },
+            "required-fields": {
+              "title": "Required Fields",
+              "organization": "Organization",
+              "assessment-grade": "Assessment Grade",
+              "academic-year": "Academic Year"
+            },
+            "comparative-subgroups": {
+              "title": "Comparative Subgroups"
+            },
+            "data-values": {
+              "title": "Data Values",
+              "average-scale-score": "Average Scale Score",
+              "achievement-level": "Achievement Level",
+              "students-tested": "Students Tested"
+            }
+          }
+        }
       }
     },
     "assessments": {
@@ -437,6 +511,15 @@
         "District": "{{organizationName}} Instructional Resource",
         "SchoolGroup": "{{organizationName}} Instructional Resource"
       }
+    },
+    "assessmentGrades": {
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "HS": "HS"
     },
     "assessmentTypes": {
       "1": {
@@ -560,6 +643,45 @@
       "items-by-points-earned": "Export Results By Item",
       "title": "Export"
     },
+    "filters": {
+      "floating-action-button": "Filter Results",
+      "instruct": "Click an item to add or remove it from your list of selections above.",
+      "label": "Advanced Filters",
+      "status": {
+        "administration": "Manner of Administration (Interim)",
+        "administration-info": "For interim assessments, a Standardized administration follows the same protocols and security procedures as a summative test administration. For a Non Standardized administration, the teacher may use the assessment during instruction and interact with students as they complete the assessment.",
+        "completion": "Complete/Partial",
+        "completion-info": "Indicates whether the test was completed or was partially complete.",
+        "label": "Status",
+        "summative": "Valid/Invalid (Summative)",
+        "summative-info": "For summative assessments, a test is noted as invalid if an appeal is submitted  to invalidate the test due to a test irregularity or breach.  "
+      },
+      "student": {
+        "504-plan": "504 Plan",
+        "504-plan-info": "Indicates that a student has an approved 504 plan.  These plans are for students with disabilities who may need accommodations but do not require specialized instruction.",
+        "economic-disadvantage": "Economic Disadvantage",
+        "economic-disadvantage-info": "Indicates that a student qualifies for free or reduced lunch or meets other state criteria for economic disadvantage.",
+        "ethnicity": "Race/Ethnicity",
+        "ethnicity-info": "Student race and ethnicity",
+        "gender": "Gender",
+        "gender-info": "Student's reported gender",
+        "iep": "IEP",
+        "iep-info": "Indicates that a student has an approved Individual Education Plan (IEP).  These plans are for students with disabilities who require specialized instruction.",
+        "label": "Student",
+        "limited-english-proficiency": "Limited English Proficiency",
+        "limited-english-proficiency-info": "Students who use a language other than English as their primary language and who have been assessed as not possessing the English language skills necessary to succeed in the regular instructional program.",
+        "migrant-status": "Migrant Status",
+        "migrant-status-info": "A child is considered \"migratory\" if the parent or guardian is a migratory worker in the agricultural, dairy, lumber, or fishing industries and the child's family has moved during the past three years. A young adult may also qualify if he or she has moved on his or her own for the same reasons."
+      },
+      "subhead": "Click an item to remove it from the list",
+      "test": {
+        "label": "Test",
+        "off-grade-assessment": "Off-Grade Assessments",
+        "off-grade-assessment-info": "Schools may administer interim assessments for any grade.  This filter indicates that a student took an assessment for a grade other than their assigned grade.",
+        "transfer-assessment": "Transfer Assessments",
+        "transfer-assessment-info": "Indicates whether to show or hide assessments administered outside of the User's standard institutions."
+      }
+    },
     "grade": "Grade",
     "grades": {
       "10": {
@@ -676,45 +798,6 @@
       "no-groups-message": "Contact your building administrator for access to group-level test results.",
       "results": {
         "add-assessment-filters": "Add Assessment Filters",
-        "adv-filters": {
-          "floating-action-button": "Filter Results",
-          "instruct": "Click an item to add or remove it from your list of selections above.",
-          "label": "Advanced Filters",
-          "status": {
-            "administration": "Manner of Administration (Interim)",
-            "administration-info": "For interim assessments, a Standardized administration follows the same protocols and security procedures as a summative test administration. For a Non Standardized administration, the teacher may use the assessment during instruction and interact with students as they complete the assessment.",
-            "completion": "Complete/Partial",
-            "completion-info": "Indicates whether the test was completed or was partially complete.",
-            "label": "Status",
-            "summative": "Valid/Invalid (Summative)",
-            "summative-info": "For summative assessments, a test is noted as invalid if an appeal is submitted  to invalidate the test due to a test irregularity or breach.  "
-          },
-          "student": {
-            "504-plan": "504 Plan",
-            "504-plan-info": "Indicates that a student has an approved 504 plan.  These plans are for students with disabilities who may need accommodations but do not require specialized instruction.",
-            "economic-disadvantage": "Economic Disadvantage",
-            "economic-disadvantage-info": "Indicates that a student qualifies for free or reduced lunch or meets other state criteria for economic disadvantage.",
-            "ethnicity": "Race/Ethnicity",
-            "ethnicity-info": "Student race and ethnicity",
-            "gender": "Gender",
-            "gender-info": "Student's reported gender",
-            "iep": "IEP",
-            "iep-info": "Indicates that a student has an approved Individual Education Plan (IEP).  These plans are for students with disabilities who require specialized instruction.",
-            "label": "Student",
-            "limited-english-proficiency": "Limited English Proficiency",
-            "limited-english-proficiency-info": "Students who use a language other than English as their primary language and who have been assessed as not possessing the English language skills necessary to succeed in the regular instructional program.",
-            "migrant-status": "Migrant Status",
-            "migrant-status-info": "A child is considered \"migratory\" if the parent or guardian is a migratory worker in the agricultural, dairy, lumber, or fishing industries and the child's family has moved during the past three years. A young adult may also qualify if he or she has moved on his or her own for the same reasons."
-          },
-          "subhead": "Click an item to remove it from the list",
-          "test": {
-            "label": "Test",
-            "off-grade-assessment": "Off-Grade Assessments",
-            "off-grade-assessment-info": "Schools may administer interim assessments for any grade.  This filter indicates that a student took an assessment for a grade other than their assigned grade.",
-            "transfer-assessment": "Transfer Assessments",
-            "transfer-assessment-info": "Indicates whether to show or hide assessments administered outside of the User's standard institutions."
-          }
-        },
         "assessment": {
           "button-exams": "Results By Student",
           "button-items": "Results By Item",
