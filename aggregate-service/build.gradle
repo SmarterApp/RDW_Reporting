@@ -27,6 +27,7 @@ dependencies {
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.7'
 
     testCompile project(path: ':rdw-reporting-common', configuration: 'tests')
+    testCompile 'org.apache.commons:commons-math3:3.6.1'
     testCompile('org.springframework.boot:spring-boot-starter-test') {
         exclude(module: 'commons-logging')
     }
