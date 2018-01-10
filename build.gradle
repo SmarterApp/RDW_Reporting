@@ -32,7 +32,7 @@ apply plugin: 'io.spring.dependency-management'
 
 // Set version dependencies. This allows the cli to force version, e.g. `-Pcommon=1.1.0-SNAPSHOT`
 String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "1.1.0-58"
-String rdwSchemaVersion = project.hasProperty("schema") ? project.property("schema") : "1.1.0-288"
+String rdwSchemaVersion = project.hasProperty("schema") ? project.property("schema") : "1.1.0-296"
 String dockerPrefix = "smarterbalanced"
 
 allprojects {
@@ -194,6 +194,8 @@ subprojects {
     //The omission of the ':' in manualIT is on purpose - we need the relative path to manualIT
     task IT(type: Test, dependsOn:[":cleanReportingTest", ":migrateReportingTest"]) {
         include '**/*IT.*'
+        group = 'Verification'
+        description = 'Runs the integration tests.'
         outputs.upToDateWhen { false }
         doLast {
             println "Running Integration Tests..."
@@ -260,21 +262,25 @@ task extractSchema(type: Sync) {
  *********************************************************************/
 
 //These are the tasks available in the Schema dependency that we would want to use in this project
-def taskMap = ["migrateReporting": "Migrates the schemas that are required for running locally",
-               "cleanReporting": "Cleans the schemas that are required for running locally",
-               "migrateReporting_test": "Migrates the schemas that integration tests depend on",
-               "cleanReporting_test": "Cleans the schemas that integration tests depend on",
-               "migrateWarehouse": "Migrates the schemas that are required for running locally",
-               "cleanWarehouse": "Cleans the schemas that are required for running locally",
-               "migrateWarehouse_test": "Migrates the schemas that integration tests depend on",
-               "cleanWarehouse_test": "Cleans the schemas that integration tests depend on"]
+def taskMap = [
+//        "cleanReporting": "Cleans the schemas that are required for running locally",
+//        "migrateReporting": "Migrates the schemas that are required for running locally",
+        "cleanReporting_test": "Cleans the schemas that integration tests depend on",
+        "migrateReporting_test": "Migrates the schemas that integration tests depend on",
+        "cleanReporting_olap_test": "Cleans the schemas that redshift tests depend on",
+        "migrateReporting_olap_test": "Migrates the schemas that redshift tests depend on"
+]
 
 taskMap.keySet().each { key ->
-    task(key.contains("_test")?"${key.take(key.lastIndexOf('_test'))}Test":"${key}Prod", type: GradleBuild, dependsOn: extractSchema) {
+    def taskName = key.replaceAll("_test", "Test").replaceAll("_olap", "Olap")
+    if (!taskName.endsWith("Test")) taskName += "Prod"
+    task(taskName, type: GradleBuild, dependsOn: extractSchema) {
         group = "Schema"
         description = taskMap[key]
         doFirst {
             dir { schemaDir() }
+            // need to copy any command-line properties for sub-build
+            startParameter.projectProperties = gradle.startParameter.projectProperties
         }
         tasks = [key]
     }
