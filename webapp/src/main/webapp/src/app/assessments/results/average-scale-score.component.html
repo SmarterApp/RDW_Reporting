@@ -4,7 +4,7 @@
     <strong>{{ 'labels.assessments.average.title' | translate }}</strong>
     <table class="table overflow">
       <tr>
-        <td class="col-md-6 gray-light-bg text-right">
+        <td class="col-md-5 gray-light-bg text-right">
           <span info-button
                 title="{{ 'labels.assessments.average.scale-score' | translate }}"
                 content="{{ 'labels.assessments.average.scale-score-info' | translate }}"></span>
@@ -13,13 +13,13 @@
           <div class="pl-xs">
             <div class="scale-score font-large text-left">
               <span class="score label label-primary">{{ statistics.average | number:'1.0-0' | removeComma }}</span>
-              <span class="error-band black pl-xs">± {{ statistics.standardError | number:'1.0-0' }}</span>
+              <span class="error-band black pl-xs">±{{ statistics.standardError | number:'1.0-0' }}</span>
             </div>
             <span class="text-left gray-darkest">
               <span class="font-large">
                 <span class="score">{{ statistics.total }}</span>
               </span>
-              <span>{{ 'labels.assessments.students' | translate }}</span>
+              <span class="pl-xs">{{ (statistics.total == 1 ? 'labels.assessments.student' : 'labels.assessments.students') | translate }}</span>
             </span>
           </div>
         </td>
@@ -52,7 +52,7 @@
           <div class="bar-container">
             <div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="colorService.getPerformanceLevelColor(assessmentExam.assessment, i)"
                  [attr.data-width]="filledLevel(performanceLevel)"></div>
-            <div *ngIf="performanceLevel.value < 100" class="bar gray"
+            <div *ngIf="filledLevel(performanceLevel) < 100" class="bar gray"
                  [attr.data-width]="unfilledLevel(performanceLevel)">
             </div>
           </div>
