@@ -52,7 +52,7 @@
           <div class="bar-container">
             <div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="colorService.getPerformanceLevelColor(assessmentExam.assessment, i)"
                  [attr.data-width]="filledLevel(performanceLevel)"></div>
-            <div *ngIf="performanceLevel.value < 100" class="bar gray"
+            <div *ngIf="filledLevel(performanceLevel) < 100" class="bar gray"
                  [attr.data-width]="unfilledLevel(performanceLevel)">
             </div>
           </div>
