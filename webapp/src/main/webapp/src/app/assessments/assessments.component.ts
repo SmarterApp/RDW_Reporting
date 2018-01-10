@@ -203,8 +203,10 @@ export class AssessmentsComponent implements OnInit {
   }
 
   removeAssessment(assessment: Assessment) {
-    assessment.selected = false;
-    this.selectedAssessmentsChanged(assessment);
+    if (this.selectedAssessments.length > 1) {
+      assessment.selected = false;
+      this.selectedAssessmentsChanged(assessment);
+    }
   }
 
   selectedAssessmentsChanged(assessment: Assessment) {
