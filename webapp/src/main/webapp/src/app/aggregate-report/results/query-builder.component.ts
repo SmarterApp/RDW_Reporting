@@ -1,7 +1,5 @@
 import { Component } from "@angular/core";
-import { QueryBuilderFilterOptions } from "./query-builder-filter-options.model";
 import { QueryBuilderFilterBy } from "./query-builder-filterby.model";
-import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { OrganizationType } from "../../organization-export/organization/organization-type.enum";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -12,6 +10,8 @@ import { OrganizationMapper } from "../../organization-export/organization/organ
 import { Tree } from "../../organization-export/organization/tree";
 import { Option } from "../../shared/form/sb-typeahead.component";
 import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts } from 'angular-2-dropdown-multiselect'
+import { ReportOptionsService } from "./report-options.service";
+import { QueryBuilderModel } from "../model/query-builder.model";
 
 @Component({
   selector: 'query-builder',
@@ -23,7 +23,7 @@ export class QueryBuilderComponent {
 
   filterBy: QueryBuilderFilterBy;
 
-  filterOptions: QueryBuilderFilterOptions = new QueryBuilderFilterOptions();
+  filterOptions: QueryBuilderModel = new QueryBuilderModel();
 
   multiSelectOptions: IMultiSelectOption[];
   optionsModel: number[];
@@ -69,16 +69,17 @@ export class QueryBuilderComponent {
     return "labels.filters.";
   }
 
-  constructor(private filterOptionService: ExamFilterOptionsService,
-              private router: Router,
+  constructor(private router: Router,
               private route: ActivatedRoute,
               private translate: TranslateService,
-              private mapper: OrganizationMapper) {
+              private mapper: OrganizationMapper,
+              private reportOptionsService: ReportOptionsService) {
     this.filterBy = new QueryBuilderFilterBy()
+
   }
 
   ngOnInit() {
-    this.filterOptionService.getExamFilterOptions().subscribe((filterOptions: QueryBuilderFilterOptions) => {
+    this.reportOptionsService.get().subscribe((filterOptions: QueryBuilderModel) => {
       this.filterOptions = filterOptions;
     });
 

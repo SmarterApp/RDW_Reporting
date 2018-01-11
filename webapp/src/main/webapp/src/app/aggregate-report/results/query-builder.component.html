@@ -46,7 +46,7 @@
              title="{{'labels.aggregate-reports.query-builder.organizations.subject' | translate}}"
              content="{{'labels.aggregate-reports.query-builder.organizations.subject-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-radio-button-list [model]="filterBy" [values]="['MATH','ELA']" property="subject" enum="enum.subject"
+        <sb-radio-button-list [model]="filterBy" [values]="filterOptions.subjects" property="subject" enum="enum.subject"
                               label="{{ translateRoot + 'status.label' | translate }}"
                               analyticsEvent="FilterClick"
                               analyticsCategory="AggregateQueryBuilder"></sb-radio-button-list>
@@ -127,7 +127,7 @@
       <label class="col-md-3" info-button title="{{'labels.filters.status.completion' | translate}}"
              content="{{'labels.filters.status.completion-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-radio-button-list [model]="filterBy" [values]="['Complete','Partial']" property="completion"
+        <sb-radio-button-list [model]="filterBy" [values]="filterOptions.completenesses" property="completion"
                               enum="enum.completeness"
                               label="{{ translateRoot + 'status.completion' | translate }}"
                               analyticsEvent="FilterClick"
@@ -148,7 +148,7 @@
       <label class="col-md-3" info-button title="{{'labels.filters.student.gender' | translate}}"
              content="{{'labels.filters.student.gender-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-radio-button-list [model]="filterBy" [values]="['Male','Female']" property="gender" enum="enum.gender"
+        <sb-radio-button-list [model]="filterBy" [values]="filterOptions.genders" property="gender" enum="enum.gender"
                               label="{{ translateRoot + 'status.label' | translate }}"
                               analyticsEvent="FilterClick"
                               analyticsCategory="AggregateQueryBuilder"></sb-radio-button-list>
@@ -242,7 +242,7 @@
              content="{{'labels.aggregate-reports.query-builder.filter-results.data-well.assessment-grade-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-checkbox-list [horizontal]="true" [model]="filterBy"
-                          [values]="['3', '4', '5', '6', '7', '8', 'HS']"
+                          [values]="filterOptions.grades"
                           property="assessmentGrade" enum="labels.assessmentGrades"
                           label="{{ translateRoot + 'student.assessment-grade' | translate }}"
                           analyticsEvent="FilterClick"
@@ -387,7 +387,7 @@
                   <div><label class="label"><span class="gray-dark"><strong>{{ 'labels.aggregate-reports.query-builder.organizations.grades' | translate }}</strong></span></label>
                   </div>
                   <div *ngFor="let assessmentGrade of filterBy.getAssessmentGrades()"><label class="label"><span
-                    class="gray-dark">{{(assessmentGrade == 0 ? 'buttons.all' : assessmentGrade) | translate}}</span></label>
+                    class="gray-dark">{{(assessmentGrade == 0 ? 'buttons.all' : 'labels.assessmentGrades.' + assessmentGrade) | translate}}</span></label>
                   </div>
                 </div>
               </div>

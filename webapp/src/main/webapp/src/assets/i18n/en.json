@@ -247,7 +247,8 @@
     "subject": {
       "ALL": "All",
       "ELA": "ELA",
-      "MATH": "Math"
+      "MATH": "Math",
+      "Math": "Math"
     },
     "subject-claim-code": {
       "1": "Concepts & Procedures",
@@ -388,7 +389,7 @@
           "description": "Select the items you wish to include in your report. Then click <strong>\"Generate Report\"</strong>",
           "generate-report-button": "Generate Report"
         },
-        "organizations" : {
+        "organizations": {
           "title": "Organizations",
           "description": "Select schools and / or districts to compare.",
           "assessment-type": "Assessment Type",
@@ -400,7 +401,7 @@
           "years": "Years",
           "grades": "Grade(s)"
         },
-        "filter-results" : {
+        "filter-results": {
           "title": "Filter Results",
           "description": "<span class=\"label teal\">Selected</span> items will be available in the report you generate.",
           "status-well": {
@@ -513,13 +514,13 @@
       }
     },
     "assessmentGrades": {
-      "3": "3",
-      "4": "4",
-      "5": "5",
-      "6": "6",
-      "7": "7",
-      "8": "8",
-      "HS": "HS"
+      "03": "3",
+      "04": "4",
+      "05": "5",
+      "06": "6",
+      "07": "7",
+      "08": "8",
+      "11": "HS"
     },
     "assessmentTypes": {
       "1": {
