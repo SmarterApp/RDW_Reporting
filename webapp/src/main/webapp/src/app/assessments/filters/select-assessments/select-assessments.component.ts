@@ -35,8 +35,27 @@ export class SelectAssessmentsComponent {
   }
 
   toggleSelectedAssessment(assessment: Assessment) {
-    assessment.selected = !assessment.selected;
-    this.selectedAssessmentsChanged.emit(assessment);
+    if (assessment.selected) {
+      this.deselectAssessment(assessment)
+    } else {
+      assessment.selected = true;
+      this.selectedAssessmentsChanged.emit(assessment);
+    }
+  }
+
+  private deselectAssessment(assessment: Assessment) {
+    let count = 0;
+    this._assessments.forEach(asmt => {
+        if (asmt.selected) {
+          count++;
+          if (count > 1) return;
+        }
+      }
+    );
+    if (count > 1) {
+      assessment.selected = false;
+      this.selectedAssessmentsChanged.emit(assessment);
+    }
   }
 
   private groupAssessmentsByGrade() {

@@ -7,7 +7,7 @@ sqlbuilder:
         clauses:
           select: >-
               round(avg(scale_score)) AS score,
-              round(sqrt(sum(power(scale_score_std_err, 2)) / count(*))) as std_err,
+              round(stddev_samp(scale_score)/sqrt(count(*))) as std_err,
               sum(CASE WHEN performance_level = 1 THEN 1 ELSE 0 END) AS level1,
               sum(CASE WHEN performance_level = 2 THEN 1 ELSE 0 END) AS level2,
               sum(CASE WHEN performance_level = 3 THEN 1 ELSE 0 END) AS level3,

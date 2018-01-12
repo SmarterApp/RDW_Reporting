@@ -41,11 +41,20 @@ app:
         validationQuery: SELECT 1
         driverClassName: com.amazon.redshift.jdbc42.Driver
 
+  cache:
+    reportOrganizations:
+      # every day at 1:00 am
+      refresh-cron: "0 0 1 * * *"
+
 spring:
   jackson:
     default-property-inclusion: non_null
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
+
+  cache:
+    type: SIMPLE
+    cache-names: reportOptions, reportOrganizations
 
 jwt:
   secret: ${rdw.reporting.jwt.secret:secret}
