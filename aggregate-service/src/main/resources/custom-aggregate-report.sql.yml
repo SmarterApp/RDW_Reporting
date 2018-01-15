@@ -15,13 +15,16 @@ sqlbuilder:
               fe.asmt_id,
               fe.asmt_grade_id,
               fe.school_year,
-              a.subject_id
+              a.subject_id,
+              subject.code as subject_code,
+              a.label as asmt_label
 
           from: >-
               fact_student_exam fe
 
           join: >-
               JOIN asmt a ON a.id = fe.asmt_id
+              JOIN subject ON subject.id = a.subject_id
 
           where: >-
               fe.school_year IN (:school_years) AND
@@ -34,7 +37,9 @@ sqlbuilder:
               fe.school_year,
               fe.asmt_id,
               fe.asmt_grade_id,
-              a.subject_id
+              a.subject_id,
+              subject.code,
+              a.label
 
       # ------------ organization parts -------------------------------------------------------------
         addons:
@@ -44,6 +49,7 @@ sqlbuilder:
                 select: >-
                      'State' AS organization_type,
                      -1 AS organization_id,
+                     NULL AS organization_natural_id,
                      NULL AS organization_name
 
             allDistricts:
@@ -51,6 +57,7 @@ sqlbuilder:
                 select: >-
                      'District' AS organization_type,
                      d.id AS organization_id,
+                     d.natural_id AS organization_natural_id,
                      d.name AS organization_name
 
                 join: >-
@@ -59,7 +66,8 @@ sqlbuilder:
 
                 groupBy: >-
                      d.id,
-                     d.name
+                     d.name,
+                     d.natural_id
 
             districts:
               clauses:
@@ -71,7 +79,8 @@ sqlbuilder:
                 select: >-
                     'School' AS organization_type,
                      sch.id AS organization_id,
-                     sch.name as organization_name
+                     sch.natural_id AS organization_natural_id,
+                     sch.name AS organization_name
 
                 join: >-
                      JOIN school sch ON sch.id = fe.school_id
@@ -81,13 +90,15 @@ sqlbuilder:
 
                 groupBy: >-
                      sch.id,
-                     sch.name
+                     sch.name,
+                     sch.natural_id
 
             schools:
               clauses:
                 select: >-
                     'School' AS organization_type,
                      sch.id AS organization_id,
+                     sch.natural_id AS organization_natural_id,
                      sch.name AS organization_name
 
                 join: >-
@@ -98,7 +109,8 @@ sqlbuilder:
 
                 groupBy: >-
                      sch.id,
-                     sch.name
+                     sch.name,
+                     sch.natural_id
 
       # ---------- dimension parts -----------------------------------------------------------------------
             Overall:

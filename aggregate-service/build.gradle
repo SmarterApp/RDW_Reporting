@@ -3,6 +3,15 @@ apply plugin: 'org.springframework.boot'
 dependencies {
     optional 'org.springframework.boot:spring-boot-configuration-processor'
 
+    compile 'com.amazon.redshift:redshift-jdbc42-no-awssdk:1.2.8.1005'
+
+    // fixes java 8 time marshaling
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.7'
+
+    compile 'org.apache.commons:commons-csv:+'
+    compile 'org.opentestsystem.rdw.common:rdw-common-status'
+    compile 'org.opentestsystem.rdw.common:rdw-common-utils'
+    compile 'org.opentestsystem.rdw.common:rdw-common-model'
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.cloud:spring-cloud-starter-aws'
     compile 'org.springframework.boot:spring-boot-starter-jdbc'
@@ -13,18 +22,8 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-aop'
     compile 'org.springframework.retry:spring-retry'
 
-    compile 'com.amazon.redshift:redshift-jdbc42-no-awssdk:1.2.8.1005'
-
-    compile 'org.opentestsystem.rdw.common:rdw-common-status'
-    compile 'org.opentestsystem.rdw.common:rdw-common-utils'
-
-    compile 'org.opentestsystem.rdw.common:rdw-common-model'
-
     compile project(':rdw-reporting-common')
     compile project(':rdw-reporting-common-web')
-
-    // fixes java 8 time marshaling
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.7'
 
     testCompile project(path: ':rdw-reporting-common', configuration: 'tests')
     testCompile 'org.apache.commons:commons-math3:3.6.1'

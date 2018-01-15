@@ -54,7 +54,7 @@ spring:
 
   cache:
     type: SIMPLE
-    cache-names: reportOptions, reportOrganizations
+    cache-names: internalTranslationsByCode, reportOptions, reportOrganizations
 
 jwt:
   secret: ${rdw.reporting.jwt.secret:secret}
