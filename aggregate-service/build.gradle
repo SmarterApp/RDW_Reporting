@@ -35,23 +35,29 @@ dependencies {
 }
 
 // Task to run RST (redshift integration tests).
+//
+// RSTs require AWS databases. The convention is for developers to use the CI instances and either
+// use the CI schemas or create personal schemas with a prefix. Using the CI schemas can lead to
+// conflicts so let's use developer Bob as our example for running RSTs ...
+//
 // Note that this does *not* run the schema scripts, it assumes test databases are in good shape.
 // If you need to run the schema scripts you'll need to set gradle properties for the data sources, e.g.:
 /*
-gradle \
+gradle -Pschema_prefix=bob_ \
 -Predshift_url=jdbc:redshift://rdw-qa.cibkulpjrgtr.us-west-2.redshift.amazonaws.com:5439/ci \
--Predshift_user=ci -Predshift_password=password \
+-Predshift_user=bob -Predshift_password=password \
 cleanReportingOlapTest migrateReportingOlapTest
  */
 //
 // To run these tests locally, you must either manually adjust the application-redshift.yml file
 // (but don't check in your changes!) or set environment variables. If you are using the default
-// CI data resources you should set:
+// CI data resources with personal schemas you should set:
+//   APP_DATAMART_OLAP_DATASOURCE_USERNAME
 //   APP_DATAMART_OLAP_DATASOURCE_PASSWORD
-// If you are using different instances the full set of variables can be found in application-redshift.yml.
 // If you are running from the command-line you can use local bash export to do it in one command, e.g.:
 /*
-(export APP_DATAMART_OLAP_DATASOURCE_PASSWORD=secretkey; \
+(export APP_DATAMART_OLAP_DATASOURCE_USERNAME=bob; \
+ export APP_DATAMART_OLAP_DATASOURCE_PASSWORD=password; \
  gradle rst)
 */
 task RST(type: Test) {

@@ -49,8 +49,7 @@ services:
     links:
       - config-server
       - admin-service
-#      TODO uncomment when aggregate-service is uncommented
-#      - aggregate-service
+      - aggregate-service
       - report-processor-service
       - reporting-service
     environment:
@@ -78,25 +77,24 @@ services:
     extra_hosts:
       - "dwhost:$DATAWAREHOUSE_HOST"
 
-# TODO uncomment when rdw-reporting-aggregate-service.yml is added to config repo
-#  aggregate-service:
-#    image: smarterbalanced/rdw-reporting-aggregate-service
-#    ports:
-#      - 8380:8080
-#      - 8308:8008
-#    volumes:
-#      - /tmp:/tmp
-#    links:
-#      - config-server
-#    environment:
-#      - spring.profiles.active=local-docker
-#      - CONFIG_SERVICE_ENABLED=true
-#      - CONFIG_SERVICE_URL=http://config-server:8888
-#    extra_hosts:
-#      - "dwhost:$DATAWAREHOUSE_HOST"
+  aggregate-service:
+    image: smarterbalanced/rdw-reporting-aggregate-service
+    ports:
+      - 8380:8080
+      - 8308:8008
+    volumes:
+      - /tmp:/tmp
+    links:
+      - config-server
+    environment:
+      - spring.profiles.active=local-docker
+      - CONFIG_SERVICE_ENABLED=true
+      - CONFIG_SERVICE_URL=http://config-server:8888
+    extra_hosts:
+      - "dwhost:$DATAWAREHOUSE_HOST"
 
   reporting-service:
-    image: smarterbalanced/rdw-reporting-reporting-service
+    image: smarterbalanced/rdw-reporting-service
     ports:
       - 8180:8080
       - 8108:8008
