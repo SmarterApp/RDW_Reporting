@@ -46,6 +46,8 @@ app:
       # every day at 1:00 am
       refresh-cron: "0 0 1 * * *"
 
+  interim-aggregate-reports-for-statewide-users-enabled: false
+
 spring:
   jackson:
     default-property-inclusion: non_null
