@@ -10,7 +10,7 @@ import { Utils } from "./support/support";
   selector: 'sb-radio-button-list',
   template: `
     <div class="nested-btn-group btn-group-sm toggle-group" data-toggle="buttons">
-      <label class="btn btn-primary" [ngClass]="{'active': !selectedValue, 'disabled': disabled }">
+      <label class="btn btn-primary" [ngClass]="{'active': this.model[this.property] === -1, 'disabled': disabled }">
         <input [value]="-1" [(ngModel)]="model[property]" type="radio" [name]="name"
                [attr.disabled]="disabled?'disabled':null"
                angulartics2On="click" [angularticsEvent]="analyticsEvent"
@@ -67,18 +67,18 @@ export class SBRadioButtonComponent implements AfterViewChecked {
   @Input()
   public selectedValue: string;
 
-
   private _name: string;
 
   get name(): string {
     return this._name;
   }
 
-  isSelected(avalue: string): boolean {
-    if (avalue == this.selectedValue) {
-      this.model[ this.property ] = avalue;
+
+  isSelected(value: string): boolean {
+    if (value == this.selectedValue) {
+      this.model[ this.property ] = value;
     }
-    return avalue == this.selectedValue;
+    return value == this.selectedValue;
   }
 
   constructor(private changeDetector: ChangeDetectorRef) {

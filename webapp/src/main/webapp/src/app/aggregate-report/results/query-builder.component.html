@@ -435,8 +435,8 @@
               </ss-multiselect-dropdown>
             </div>
             <div class="flex-children--vertical mt-md">
-              <div *ngFor="let idx of optionsModel" class="flex-child section">
-                {{multiSelectOptions[idx]?.name}}
+              <div *ngFor="let option of optionsModel" class="flex-child section">
+                {{ getMultiSelectOption(option)?.name }}
               </div>
             </div>
           </div>
@@ -498,18 +498,22 @@
         </div>
       </div>
     </div>
+    <div class="pt-md">
+      <span class="disabled-table-text"
+            *ngIf="responsePreview">{{ 'labels.aggregate-reports.preview' | translate }}</span>
+      <div class="disabled-table">
+        <aggregate-reports-table *ngIf="responsePreview" [reportItems]="responsePreview"
+                                 [query]="aggregateReportQuery"
+                                 [showValuesAsPercent]="!aggregateReportQuery.showValueAs"
+                                 [columnOrdering]="['organizationName', 'gradeId', 'schoolYear', 'dimensionValue']"
+                                 [previewOnly]="true"
+                                 [groupPerformanceLevels]="groupPerformanceLevels"
+        ></aggregate-reports-table>
+      </div>
+    </div>
   </div>
 </div>
-<span class="disabled-table-text" *ngIf="responsePreview">{{ 'labels.aggregate-reports.preview' | translate }}</span>
-<div class="disabled-table">
-  <aggregate-reports-table *ngIf="responsePreview" [reportItems]="responsePreview"
-                           [query]="aggregateReportQuery"
-                           [showValuesAsPercent]="!aggregateReportQuery.showValueAs"
-                           [columnOrdering]="['organizationName', 'gradeId', 'schoolYear', 'dimensionValue']"
-                           [previewOnly]="true"
-                           [groupPerformanceLevels]="groupPerformanceLevels"
-  ></aggregate-reports-table>
-</div>
+
 
 <div class="mt-md mb-md">
   <button class="btn btn-success btn-sm mr-sm" analyticsEvent="GenerateReport"

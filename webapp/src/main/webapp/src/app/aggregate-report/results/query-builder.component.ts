@@ -31,7 +31,7 @@ export class QueryBuilderComponent {
   responsePreview: AggregateReportItem[];
 
   multiSelectOptions: IMultiSelectOption[];
-  optionsModel: number[];
+  optionsModel: string[];
   texts: IMultiSelectTexts;
   settings: IMultiSelectSettings = {
     fixedTitle: true,
@@ -114,14 +114,15 @@ export class QueryBuilderComponent {
     this.selectedSchools = this._organizations.schools.length == 1
       ? [ this._organizations.schools[ 0 ] ]
       : [];
+
     this.multiSelectOptions = [
-      { id: 0, name: this.translate.instant('labels.filters.student.gender') },
-      { id: 1, name: this.translate.instant('labels.filters.student.ethnicity') },
-      { id: 2, name: this.translate.instant('labels.filters.student.limited-english-proficiency') },
-      { id: 3, name: this.translate.instant('labels.filters.student.migrant-status') },
-      { id: 4, name: this.translate.instant('labels.filters.student.economic-disadvantage') },
-      { id: 5, name: this.translate.instant('labels.filters.student.iep') },
-      { id: 6, name: this.translate.instant('labels.filters.student.504-plan') },
+      { id: 'Gender', name: this.translate.instant('labels.filters.student.gender') },
+      { id: 'Ethnicity', name: this.translate.instant('labels.filters.student.ethnicity') },
+      { id: 'LimitedEnglishProficiency', name: this.translate.instant('labels.filters.student.limited-english-proficiency') },
+      { id: 'MigrantStatus', name: this.translate.instant('labels.filters.student.migrant-status') },
+      { id: 'EconomicDisadvantage', name: this.translate.instant('labels.filters.student.economic-disadvantage') },
+      { id: 'IEP', name: this.translate.instant('labels.filters.student.iep') },
+      { id: '504Plan', name: this.translate.instant('labels.filters.student.504-plan') },
 
     ];
     this.texts = {
@@ -172,6 +173,17 @@ export class QueryBuilderComponent {
     }
   }
 
+  getMultiSelectOption(key: string): IMultiSelectOption {
+    let option: IMultiSelectOption;
+    this.multiSelectOptions.find(name => {
+      if (name.id === key) {
+        option = name;
+        return true;
+      }
+    });
+    return option;
+  }
+
   scrollTo(id: string) {
     setTimeout(() => {
       document.getElementById(id).scrollIntoView();
@@ -182,11 +194,9 @@ export class QueryBuilderComponent {
     this.responsePreview = null;
     setTimeout(() => {
       this.responsePreview = []
-      this.mockAggregateReportsService.generateQueryBuilderSampleData(this.aggregateReportQuery, this.queryBuilderModel).subscribe(next => {
+      this.mockAggregateReportsService.generateQueryBuilderSampleData(this.optionsModel, this.aggregateReportQuery, this.queryBuilderModel).subscribe(next => {
         this.responsePreview = next;
       })
     }, 0);
-
-    // response.forEach()
   }
 }

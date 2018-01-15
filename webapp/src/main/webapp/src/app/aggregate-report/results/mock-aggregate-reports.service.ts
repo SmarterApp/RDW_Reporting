@@ -35,13 +35,11 @@ export class MockAggregateReportsService {
       });
   }
 
-  public generateQueryBuilderSampleData(query: AggregateReportQuery, queryModel: QueryBuilderModel) {
+  public generateQueryBuilderSampleData(options: string[], query: AggregateReportQuery, queryModel: QueryBuilderModel) {
     let generatedResponse: any;
-    // if (!query.organizations || !query.organizations.length) return [];
-    // if (query.organizations.length == 1) {
     let detailsObservable: Observable<AssessmentDetails> = this.assessmentDetailsService.getDetails(query.assessmentType);
 
-    let mockData: Array<any> = this.createResponse(query, queryModel);
+    let mockData: Array<any> = this.createResponse(options, query, queryModel);
 
     return Observable.forkJoin(detailsObservable, Observable.of(mockData))
       .map((value) => {
@@ -53,14 +51,14 @@ export class MockAggregateReportsService {
       });
   }
 
-  private createResponse(query: AggregateReportQuery, queryModel: QueryBuilderModel) {
+  private createResponse(options: string[], query: AggregateReportQuery, queryModel: QueryBuilderModel): any[] {
     let array: any[] = [];
     let gender = query.gender;
     let genders: string[] = gender == -1 ? [ 'Female', 'Male' ] : [ gender ];
     let years = query.getSchoolYearsSelected();
     let grades = query.getSelected(query.assessmentGrades);
     let ethnicities = query.getSelected(query.ethnicities);
-    let organizationNames = [ 'testA' ];
+    let organizationNames = [ 'Organization A' ];
 
     if (ethnicities.length == 1 && ethnicities[ 0 ] == "0") {
       ethnicities.pop();
@@ -77,7 +75,7 @@ export class MockAggregateReportsService {
 
     }
 
-    if (years.length == 1 && years[0] == 0) {
+    if (years.length == 1 && years[ 0 ] == 0) {
       years.pop();
       queryModel.schoolYears.forEach(year => {
         years.push(year);
@@ -92,27 +90,31 @@ export class MockAggregateReportsService {
       }
     }
 
+    array = this.generateRowsForOption(options, 'Ethnicity', array, ethnicities, organizationNames, years, grades);
+    array = this.generateRowsForOption(options, 'Gender', array, genders, organizationNames, years, grades);
+    array = this.generateRowsForOption(options, 'LimitedEnglishProficiency', array, query.limitedEnglishProficiency == -1 ? [ '2', '1' ] : [ query.limitedEnglishProficiency.toLocaleString() ], organizationNames, years, grades);
+    array = this.generateRowsForOption(options, 'MigrantStatus', array, query.migrantStatus == -1 ? [ '2', '1' ] : [ query.migrantStatus.toLocaleString() ], organizationNames, years, grades);
+    array = this.generateRowsForOption(options, 'EconomicDisadvantage', array, query.economicDisadvantage == -1 ? [ '2', '1' ] : [ query.economicDisadvantage.toLocaleString() ], organizationNames, years, grades);
+    array = this.generateRowsForOption(options, 'IEP', array, query.iep == -1 ? [ '2', '1' ] : [ query.iep.toLocaleString() ], organizationNames, years, grades);
+    array = this.generateRowsForOption(options, '504Plan', array, query.plan504 == -1 ? [ '2', '1' ] : [ query.plan504.toLocaleString() ], organizationNames, years, grades);
 
-    for (let organizationName of organizationNames) {
-      for (let year of years) {
-        for (let ethnicity of ethnicities) {
-          for (let grade of grades) {
-            array.push(this.createApiItem(organizationName, "Ethnicity", grade, 1, year, ethnicity));
+
+    return array;
+  }
+
+
+  private generateRowsForOption(options: string[], key: string, array: any[], datas: any[], organizationNames: string[], years: number[], grades: any[]): any[] {
+    if (options && options.indexOf(key) >= 0) {
+      for (let organizationName of organizationNames) {
+        for (let year of years) {
+          for (let data of datas) {
+            for (let grade of grades) {
+              array.push(this.createApiItem(organizationName, key, grade, 1, year, data));
+            }
           }
         }
       }
     }
-
-    for (let organizationName of organizationNames) {
-      for (let year of years) {
-        for (let gender of genders) {
-          for (let grade of grades) {
-            array.push(this.createApiItem(organizationName, "Gender", grade, 1, year, gender));
-          }
-        }
-      }
-    }
-
     return array;
   }
 
