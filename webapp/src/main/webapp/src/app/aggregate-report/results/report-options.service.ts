@@ -36,10 +36,6 @@ export class ReportOptionsService {
     apiModel.assessmentTypes.forEach(assessmentType => uiModel.assessmentTypes.push(assessmentType.code));
     uiModel.assessmentTypes.sort(this._compareFn);
 
-    uiModel.completenesses = [];
-    apiModel.completenesses.forEach(completeness => uiModel.completenesses.push(completeness.code));
-    uiModel.completenesses.sort(this._compareFn);
-
     uiModel.ethnicities = [];
     apiModel.ethnicities.forEach(ethnicity => uiModel.ethnicities.push(ethnicity.code));
     uiModel.ethnicities = uiModel.ethnicities.sort(this._compareFn);

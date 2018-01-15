@@ -1,4 +1,4 @@
-<div class="well">
+<div [ngClass]="{'disabled-table': previewOnly, 'well': !previewOnly}">
   <div *ngIf="loading" class="loader">
     <div class="inner">
       <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">{{ 'messages.loading' | translate }}</span>
@@ -11,13 +11,13 @@
                [rowTrackBy]="rowTrackBy"
                [immutable]="false"
                [rows]="100"
-               [paginator]="true"
+               [paginator]="previewOnly ? false : true"
                [pageLinks]="3"
                [rowsPerPageOptions]="[100,500,1000]"
                emptyMessage="{{'labels.aggregate-reports.results.empty-message' | translate}}"
                tableStyleClass="table table-striped table-hover overflow">
     <p-column field="organizationName"
-              sortable="custom"
+              [sortable]="previewOnly ? false : 'custom'"
               (sortFunction)="sort($event)"
               header="{{'labels.aggregate-reports.results.cols.organization-name' | translate}}">
       <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
@@ -29,7 +29,7 @@
       </ng-template>
     </p-column>
     <p-column field="gradeId"
-              sortable="custom"
+              [sortable]="previewOnly ? false : 'custom'"
               (sortFunction)="sort($event)"
               header="{{'labels.aggregate-reports.results.cols.assessment-grade' | translate}}">
       <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
@@ -41,7 +41,7 @@
       </ng-template>
     </p-column>
     <p-column field="schoolYear"
-              sortable="custom"
+              [sortable]="previewOnly ? false : 'custom'"
               (sortFunction)="sort($event)"
               header="{{'labels.aggregate-reports.results.cols.school-year' | translate}}">
       <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
@@ -53,7 +53,7 @@
       </ng-template>
     </p-column>
     <p-column field="dimensionValue"
-              sortable="custom"
+              [sortable]="previewOnly ? false : 'custom'"
               (sortFunction)="sort($event)"
               header="{{'labels.aggregate-reports.results.cols.dimension' | translate}}">
       <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
@@ -65,7 +65,7 @@
       </ng-template>
     </p-column>
     <p-column field="studentsTested"
-              sortable="custom"
+              [sortable]="previewOnly ? false : 'custom'"
               (sortFunction)="sort($event)"
               header="{{'labels.aggregate-reports.results.cols.students-tested' | translate}}">
       <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
@@ -87,7 +87,7 @@
       </ng-template>
     </p-column>
     <p-column field="avgScaleScore"
-              sortable="custom"
+              [sortable]="previewOnly ? false : 'custom'"
               (sortFunction)="sort($event)"
               header="{{'labels.aggregate-reports.results.cols.avg-scale-score' | translate}}">
       <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
@@ -102,7 +102,7 @@
     </p-column>
     <div *ngIf="!groupPerformanceLevels">
       <p-column *ngFor="let level of performanceLevels; let levelIdx = index"
-                sortable="custom"
+                [sortable]="previewOnly ? false : 'custom'"
                 (sortFunction)="sort($event)"
                 field="{{ (showValuesAsPercent ? 'performanceLevelPercents.' : 'performanceLevelCounts.') + levelIdx }}">
         <ng-template pTemplate="header">
@@ -124,7 +124,7 @@
     </div>
     <div *ngIf="groupPerformanceLevels">
       <p-column *ngFor="let level of [performanceGroupingCutpoint-1, performanceGroupingCutpoint]; let leveIdx = index"
-                sortable="custom"
+                [sortable]="previewOnly ? false : 'custom'"
                 (sortFunction)="sort($event)"
                 field="{{ (showValuesAsPercent ? 'groupedPerformanceLevelPercents.' : 'groupedPerformanceLevelCounts.') + leveIdx }}">
         <ng-template pTemplate="header">

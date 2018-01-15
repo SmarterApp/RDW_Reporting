@@ -605,6 +605,12 @@ query-builder {
   }
 }
 
+.disabled-table {
+  background-color: @black;
+  cursor: not-allowed;
+  opacity: .7;
+  min-width: fit-content;
+}
 @media (min-width: 768px) {
   .container-jumbo {
     min-width: 768px !important;
@@ -628,4 +634,15 @@ query-builder {
     min-width: 1400px !important;
     margin-left: -120px;
   }
+}
+
+.disabled-table-text {
+  position: relative;
+  top: 35px;
+  z-index: 2;
+  margin-left: 10px;
+  background: @red-dark;
+  color: @white;
+  padding: 5px;
+  border-radius: 5px;
 }

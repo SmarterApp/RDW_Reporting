@@ -5,5 +5,4 @@ export class QueryBuilderModel {
   schoolYears: number[] = [];
   genders: string[] = [];
   ethnicities: string[] = [];
-  completenesses: any[];
 }

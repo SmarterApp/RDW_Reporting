@@ -1,5 +1,4 @@
 import { Component } from "@angular/core";
-import { QueryBuilderFilterBy } from "./query-builder-filterby.model";
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { OrganizationType } from "../../organization-export/organization/organization-type.enum";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -12,6 +11,10 @@ import { Option } from "../../shared/form/sb-typeahead.component";
 import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts } from 'angular-2-dropdown-multiselect'
 import { ReportOptionsService } from "./report-options.service";
 import { QueryBuilderModel } from "../model/query-builder.model";
+import { MockAggregateReportsService } from "./mock-aggregate-reports.service";
+import { AggregateReportQuery } from "../model/aggregate-report-query.model";
+import { SchoolYearPipe } from "../../shared/format/school-year.pipe";
+import { AggregateReportItem } from "../model/aggregate-report-item.model";
 
 @Component({
   selector: 'query-builder',
@@ -21,15 +24,18 @@ export class QueryBuilderComponent {
 
   readonly ICA: AssessmentType = AssessmentType.ICA;
 
-  filterBy: QueryBuilderFilterBy;
+  aggregateReportQuery: AggregateReportQuery = new AggregateReportQuery();
 
-  filterOptions: QueryBuilderModel = new QueryBuilderModel();
+  queryBuilderModel: QueryBuilderModel = new QueryBuilderModel();
+
+  responsePreview: AggregateReportItem[];
 
   multiSelectOptions: IMultiSelectOption[];
   optionsModel: number[];
   texts: IMultiSelectTexts;
   settings: IMultiSelectSettings = {
-    fixedTitle: true
+    fixedTitle: true,
+    maxHeight: null
   };
   /**
    * Organization option view models computed from schools
@@ -73,14 +79,16 @@ export class QueryBuilderComponent {
               private route: ActivatedRoute,
               private translate: TranslateService,
               private mapper: OrganizationMapper,
-              private reportOptionsService: ReportOptionsService) {
-    this.filterBy = new QueryBuilderFilterBy()
-
+              private reportOptionsService: ReportOptionsService,
+              private mockAggregateReportsService: MockAggregateReportsService,
+              private schoolYearPipe: SchoolYearPipe) {
+    this.aggregateReportQuery.assessmentType = AssessmentType.ICA;
   }
 
   ngOnInit() {
-    this.reportOptionsService.get().subscribe((filterOptions: QueryBuilderModel) => {
-      this.filterOptions = filterOptions;
+    this.reportOptionsService.get().subscribe((queryBuilderModel: QueryBuilderModel) => {
+      this.queryBuilderModel = queryBuilderModel;
+      this.aggregateReportQuery.schoolYears [ this.schoolYearPipe.transform(queryBuilderModel.schoolYears[ 0 ]) ] = true;
     });
 
     this._organizations = this.route.snapshot.data[ 'organizations' ];
@@ -111,16 +119,14 @@ export class QueryBuilderComponent {
       { id: 1, name: this.translate.instant('labels.filters.student.ethnicity') },
       { id: 2, name: this.translate.instant('labels.filters.student.limited-english-proficiency') },
       { id: 3, name: this.translate.instant('labels.filters.student.migrant-status') },
-      { id: 4, name: this.translate.instant('labels.filters.student.economic-disadvantage') }
+      { id: 4, name: this.translate.instant('labels.filters.student.economic-disadvantage') },
+      { id: 5, name: this.translate.instant('labels.filters.student.iep') },
+      { id: 6, name: this.translate.instant('labels.filters.student.504-plan') },
 
     ];
     this.texts = {
       defaultTitle: this.translate.instant('labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.comparative-subgroups.title')
     };
-  }
-
-  onChange() {
-    console.log(this.optionsModel);
   }
 
   get organizationOptions(): Option[] {
@@ -170,5 +176,17 @@ export class QueryBuilderComponent {
     setTimeout(() => {
       document.getElementById(id).scrollIntoView();
     }, 0);
+  }
+
+  generateReport() {
+    this.responsePreview = null;
+    setTimeout(() => {
+      this.responsePreview = []
+      this.mockAggregateReportsService.generateQueryBuilderSampleData(this.aggregateReportQuery, this.queryBuilderModel).subscribe(next => {
+        this.responsePreview = next;
+      })
+    }, 0);
+
+    // response.forEach()
   }
 }

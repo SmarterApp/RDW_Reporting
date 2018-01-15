@@ -337,6 +337,7 @@
     },
     "aggregate-reports": {
       "heading": "Aggregate Reports",
+      "preview": "Table for preview purposes only. This is NOT actual data.",
       "results": {
         "heading": "Aggregate Report Results",
         "empty-message": "No Results Found",

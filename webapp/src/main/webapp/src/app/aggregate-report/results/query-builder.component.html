@@ -7,7 +7,7 @@
 
 <div class="mt-md mb-md">
   <button class="btn btn-success btn-sm mr-sm" analyticsEvent="GenerateReport" analyticsCategory="AggregateQueryBuilder"
-          angulartics2on="click" container="body">
+          angulartics2on="click" container="body" (click)="generateReport()">
     <i class="fa fa-gears"></i> {{'labels.aggregate-reports.query-builder.customize.generate-report-button' |
     translate}}
   </button>
@@ -46,7 +46,8 @@
              title="{{'labels.aggregate-reports.query-builder.organizations.subject' | translate}}"
              content="{{'labels.aggregate-reports.query-builder.organizations.subject-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-radio-button-list [model]="filterBy" [values]="filterOptions.subjects" property="subject" enum="enum.subject"
+        <sb-radio-button-list [model]="aggregateReportQuery" [values]="queryBuilderModel.subjects" property="subject"
+                              enum="enum.subject"
                               label="{{ translateRoot + 'status.label' | translate }}"
                               analyticsEvent="FilterClick"
                               analyticsCategory="AggregateQueryBuilder"></sb-radio-button-list>
@@ -101,7 +102,8 @@
              title="{{'labels.filters.status.administration' | translate}}"
              content="{{'labels.filters.status.administration-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-radio-button-list [model]="filterBy" [values]="['SD','NS']" property="administration"
+        <sb-radio-button-list [model]="aggregateReportQuery" [values]="['SD','NS']" [selectedValue]="'SD'"
+                              property="administration"
                               enum="enum.administrative-condition"
                               label="{{ translateRoot + 'status.label' | translate }}"
                               analyticsEvent="FilterClick"
@@ -114,7 +116,8 @@
       <label class="col-md-3" info-button title="{{'labels.filters.status.summative' | translate}}"
              content="{{'labels.filters.status.summative-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-radio-button-list [model]="filterBy" [values]="['Valid','IN']" property="summativeStatus"
+        <sb-radio-button-list [model]="aggregateReportQuery" [values]="['Valid','IN']" [selectedValue]="'Valid'"
+                              property="summativeStatus"
                               enum="enum.administrative-condition"
                               label="{{ translateRoot + 'status.summative' | translate }}"
                               analyticsEvent="FilterClick"
@@ -127,7 +130,8 @@
       <label class="col-md-3" info-button title="{{'labels.filters.status.completion' | translate}}"
              content="{{'labels.filters.status.completion-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-radio-button-list [model]="filterBy" [values]="filterOptions.completenesses" property="completion"
+        <sb-radio-button-list [model]="aggregateReportQuery" [values]="['Complete','Partial']"
+                              [selectedValue]="'Complete'" property="completeness"
                               enum="enum.completeness"
                               label="{{ translateRoot + 'status.completion' | translate }}"
                               analyticsEvent="FilterClick"
@@ -148,7 +152,8 @@
       <label class="col-md-3" info-button title="{{'labels.filters.student.gender' | translate}}"
              content="{{'labels.filters.student.gender-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-radio-button-list [model]="filterBy" [values]="filterOptions.genders" property="gender" enum="enum.gender"
+        <sb-radio-button-list [model]="aggregateReportQuery" [values]="queryBuilderModel.genders" property="gender"
+                              enum="enum.gender"
                               label="{{ translateRoot + 'status.label' | translate }}"
                               analyticsEvent="FilterClick"
                               analyticsCategory="AggregateQueryBuilder"></sb-radio-button-list>
@@ -161,7 +166,7 @@
              title="{{'labels.filters.student.migrant-status' | translate}}"
              content="{{'labels.filters.student.migrant-status-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="migrantStatus" enum="enum.polar"
+        <sb-radio-button-list [model]="aggregateReportQuery" [values]="[1,2]" property="migrantStatus" enum="enum.polar"
                               label="{{ translateRoot + 'status.label' | translate }}"
                               analyticsEvent="FilterClick"
                               analyticsCategory="AggregateQueryBuilder"></sb-radio-button-list>
@@ -173,7 +178,7 @@
       <label class="col-md-3" info-button title="{{'labels.filters.student.504-plan' | translate}}"
              content="{{'labels.filters.student.504-plan-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="plan504" enum="enum.polar"
+        <sb-radio-button-list [model]="aggregateReportQuery" [values]="[1,2]" property="plan504" enum="enum.polar"
                               label="{{ translateRoot + 'student.504-plan' | translate }}"
                               analyticsEvent="FilterClick"
                               analyticsCategory="AggregateQueryBuilder"></sb-radio-button-list>
@@ -185,7 +190,7 @@
       <label class="col-md-3" info-button title="{{'labels.filters.student.iep' | translate}}"
              content="{{'labels.filters.student.iep-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="iep" enum="enum.polar"
+        <sb-radio-button-list [model]="aggregateReportQuery" [values]="[1,2]" property="iep" enum="enum.polar"
                               label="{{ translateRoot + 'student.iep' | translate }}"
                               analyticsEvent="FilterClick"
                               analyticsCategory="AggregateQueryBuilder"></sb-radio-button-list>
@@ -198,7 +203,8 @@
              title="{{'labels.filters.student.economic-disadvantage' | translate}}"
              content="{{'labels.filters.student.economic-disadvantage-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="economicDisadvantage" enum="enum.polar"
+        <sb-radio-button-list [model]="aggregateReportQuery" [values]="[1,2]" property="economicDisadvantage"
+                              enum="enum.polar"
                               label="{{ translateRoot + 'student.economic-disadvantage' | translate }}"
                               analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
       </div>
@@ -210,7 +216,8 @@
              title="{{'labels.filters.student.limited-english-proficiency' | translate}}"
              content="{{'labels.filters.student.limited-english-proficiency-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="limitedEnglishProficiency" enum="enum.polar"
+        <sb-radio-button-list [model]="aggregateReportQuery" [values]="[1,2]" property="limitedEnglishProficiency"
+                              enum="enum.polar"
                               label="{{ translateRoot + 'student.limited-english-proficiency' | translate }}"
                               analyticsEvent="FilterClick"
                               analyticsCategory="AggregateQueryBuilder"></sb-radio-button-list>
@@ -222,7 +229,7 @@
       <label class="col-md-3" info-button title="{{'labels.filters.student.ethnicity' | translate}}"
              content="{{'labels.filters.student.ethnicity-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-checkbox-list [model]="filterBy" [values]="filterOptions.ethnicities" property="ethnicities"
+        <sb-checkbox-list [model]="aggregateReportQuery" [values]="queryBuilderModel.ethnicities" property="ethnicities"
                           enum="enum.ethnicity"
                           label="{{ translateRoot + 'student.ethnicity' | translate }}"
                           analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-checkbox-list>
@@ -241,9 +248,9 @@
              title="{{'labels.aggregate-reports.query-builder.filter-results.data-well.assessment-grade' | translate}}"
              content="{{'labels.aggregate-reports.query-builder.filter-results.data-well.assessment-grade-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-checkbox-list [horizontal]="true" [model]="filterBy"
-                          [values]="filterOptions.grades"
-                          property="assessmentGrade" enum="labels.assessmentGrades"
+        <sb-checkbox-list [horizontal]="true" [model]="aggregateReportQuery"
+                          [values]="queryBuilderModel.grades"
+                          property="assessmentGrades" enum="labels.assessmentGrades"
                           label="{{ translateRoot + 'student.assessment-grade' | translate }}"
                           analyticsEvent="FilterClick"
                           analyticsCategory="AggregateQueryBuilder"></sb-checkbox-list>
@@ -257,7 +264,8 @@
              title="{{'labels.aggregate-reports.query-builder.filter-results.data-well.academic-year' | translate}}"
              content="{{'labels.aggregate-reports.query-builder.filter-results.data-well.academic-year-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-checkbox-list [model]="filterBy" [values]="filterOptions.schoolYears | schoolYears" property="schoolYears"
+        <sb-checkbox-list [model]="aggregateReportQuery" [values]="queryBuilderModel.schoolYears | schoolYears"
+                          property="schoolYears"
                           label="{{'schoolYear' | schoolYear }}"
                           analyticsEvent="FilterClick" analyticsCategory="AggregateQueryBuilder"></sb-checkbox-list>
       </div>
@@ -272,7 +280,7 @@
         <div class="col-md-5">
           <sb-toggle name="achivement-levels-toggle"
                      analyticsEvent="FilterClick" analyticsCategory="AggregateQueryBuilder"
-                     [(ngModel)]="filterBy.achievementLevels"
+                     [(ngModel)]="aggregateReportQuery.achievementLevels"
                      [options]="[
                            {value: false, text: 'labels.aggregate-reports.results.performance-separated' | translate, angularticsProperties: {label: 'Achievement Levels: Separated'}},
                            {value: true, text: 'labels.aggregate-reports.results.performance-grouped' | translate, angularticsProperties: {label: 'Achievement Levels: Grouped'}}
@@ -281,7 +289,7 @@
         <div class="col-md-4">
           <performance-comparison [assessmentType]="ICA"
                                   [performanceGroupingCutpoint]="3"
-                                  [groupPerformanceLevels]="filterBy.achievementLevels"
+                                  [groupPerformanceLevels]="aggregateReportQuery.achievementLevels"
                                   [performancePercentages]="[50,50,50,50]"></performance-comparison>
         </div>
       </div>
@@ -295,7 +303,7 @@
       <div class="col-md-5 pull-right">
         <sb-toggle name="show-value-as-toggle"
                    analyticsEvent="FilterClick" analyticsCategory="AggregateQueryBuilder"
-                   [(ngModel)]="filterBy.showValueAs"
+                   [(ngModel)]="aggregateReportQuery.showValueAs"
                    [options]="[
                            {value: false, text: 'enum.show-value-as.1' | translate, angularticsProperties: {label: 'Show Value as: Percent'}},
                            {value: true, text: 'enum.show-value-as.2' | translate, angularticsProperties: {label: 'Show Value as: Number'}}
@@ -333,7 +341,7 @@
                 <div>
                   <div><label class="label"><span class="gray-dark"><strong>{{ 'labels.aggregate-reports.query-builder.organizations.subject' | translate }}</strong></span></label>
                   </div>
-                  <div><label class="label"><span class="gray-dark">{{(filterBy.subject === -1 ? 'buttons.all' : filterBy.subject) | translate}}</span></label>
+                  <div><label class="label"><span class="gray-dark">{{(aggregateReportQuery.subject === -1 ? 'buttons.all' : aggregateReportQuery.subject) | translate}}</span></label>
                   </div>
                 </div>
                 <div>
@@ -368,7 +376,7 @@
                 <div>
                   <div><label class="label"><span class="gray-dark"><strong>{{ 'labels.aggregate-reports.query-builder.organizations.title' | translate }}</strong></span></label>
                   </div>
-                  <div><label class="label"><span class="gray-dark">{{(filterBy.subject === -1 ? 'buttons.all' : filterBy.subject) | translate}}</span></label>
+                  <div><label class="label"><span class="gray-dark">{{(aggregateReportQuery.subject === -1 ? 'buttons.all' : aggregateReportQuery.subject) | translate}}</span></label>
                   </div>
                 </div>
               </div>
@@ -386,7 +394,8 @@
                 <div>
                   <div><label class="label"><span class="gray-dark"><strong>{{ 'labels.aggregate-reports.query-builder.organizations.grades' | translate }}</strong></span></label>
                   </div>
-                  <div *ngFor="let assessmentGrade of filterBy.getAssessmentGrades()"><label class="label"><span
+                  <div *ngFor="let assessmentGrade of aggregateReportQuery.getAssessmentGradesSelected()"><label
+                    class="label"><span
                     class="gray-dark">{{(assessmentGrade == 0 ? 'buttons.all' : 'labels.assessmentGrades.' + assessmentGrade) | translate}}</span></label>
                   </div>
                 </div>
@@ -405,7 +414,7 @@
                 <div>
                   <div><label class="label"><span class="gray-dark"><strong>{{ 'labels.aggregate-reports.query-builder.organizations.years' | translate }}</strong></span></label>
                   </div>
-                  <div *ngFor="let schoolYear of filterBy.getSchoolYears()"><label class="label"><span
+                  <div *ngFor="let schoolYear of aggregateReportQuery.getSchoolYears()"><label class="label"><span
                     class="gray-dark">{{(schoolYear == 0 ? 'buttons.all' : schoolYear) | translate}}</span></label>
                   </div>
                 </div>
@@ -462,7 +471,7 @@
                 <div>
                   <div><label class="label"><span class="gray-dark"><strong>{{ 'labels.aggregate-reports.query-builder.filter-results.data-well.values' | translate }}</strong></span></label>
                   </div>
-                  <div><label class="label"><span class="gray-dark">{{(filterBy.showValueAs ? 'enum.show-value-as.2' : 'enum.show-value-as.1') | translate}}</span></label>
+                  <div><label class="label"><span class="gray-dark">{{(aggregateReportQuery.showValueAs ? 'enum.show-value-as.2' : 'enum.show-value-as.1') | translate}}</span></label>
                   </div>
                 </div>
               </div>
@@ -480,7 +489,7 @@
                 <div>
                   <div><label class="label"><span class="gray-dark"><strong>{{ 'labels.aggregate-reports.query-builder.filter-results.data-well.grouping' | translate }}</strong></span></label>
                   </div>
-                  <div><label class="label"><span class="gray-dark">{{(filterBy.achievementLevels ? 'labels.aggregate-reports.results.performance-grouped' : 'labels.aggregate-reports.results.performance-separated') | translate }}</span></label>
+                  <div><label class="label"><span class="gray-dark">{{(aggregateReportQuery.achievementLevels ? 'labels.aggregate-reports.results.performance-grouped' : 'labels.aggregate-reports.results.performance-separated') | translate }}</span></label>
                   </div>
                 </div>
               </div>
@@ -491,12 +500,21 @@
     </div>
   </div>
 </div>
-
+<span class="disabled-table-text" *ngIf="responsePreview">{{ 'labels.aggregate-reports.preview' | translate }}</span>
+<div class="disabled-table">
+  <aggregate-reports-table *ngIf="responsePreview" [reportItems]="responsePreview"
+                           [query]="aggregateReportQuery"
+                           [showValuesAsPercent]="!aggregateReportQuery.showValueAs"
+                           [columnOrdering]="['organizationName', 'gradeId', 'schoolYear', 'dimensionValue']"
+                           [previewOnly]="true"
+                           [groupPerformanceLevels]="groupPerformanceLevels"
+  ></aggregate-reports-table>
+</div>
 
 <div class="mt-md mb-md">
   <button class="btn btn-success btn-sm mr-sm" analyticsEvent="GenerateReport"
           analyticsCategory="AggregateQueryBuilder"
-          angulartics2on="click" container="body">
+          angulartics2on="click" container="body" (click)="generateReport()">
     <i class="fa fa-gears"></i> {{'labels.aggregate-reports.query-builder.customize.generate-report-button' |
     translate}}
   </button>
