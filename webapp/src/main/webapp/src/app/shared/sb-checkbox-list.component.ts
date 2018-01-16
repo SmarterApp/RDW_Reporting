@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Utils } from "./support/support";
 
 /*
@@ -14,19 +14,24 @@ import { Utils } from "./support/support";
   template: `
     <div [ngClass]="{'vertical':!horizontal}" class="nested-btn-group btn-group-sm toggle-group" data-toggle="buttons">
       <label class="btn btn-primary" [ngClass]="{'active': modelValue[0] }">
-        <input type="checkbox" [(ngModel)]="modelValue[0]" (ngModelChange)="allChange($event)" autocomplete="off" checked=""
-              angulartics2On="click" [angularticsEvent]="analyticsEvent" 
-              [angularticsCategory]="analyticsCategory" [angularticsProperties]="{label: label + ': All'}"> {{ 'buttons.all' | translate }}
+        <input type="checkbox" [(ngModel)]="modelValue[0]" (ngModelChange)="allChange($event)" autocomplete="off"
+               checked=""
+               angulartics2On="click" [angularticsEvent]="analyticsEvent"
+               [angularticsCategory]="analyticsCategory" [angularticsProperties]="{label: label + ': All'}">
+        {{ 'buttons.all' | translate }}
       </label>
       <div class="btn-group">
         <label *ngFor="let value of values" class="btn btn-primary" [ngClass]="{'active': modelValue[value] }">
-          <input type="checkbox" [(ngModel)]="modelValue[value]" (ngModelChange)="valueChange($event)"  autocomplete="off" [attr.selected]="value === selectedValue ? 'true' : 'false'"
-                angulartics2On="click" [angularticsEvent]="analyticsEvent" 
-                [angularticsCategory]="analyticsCategory" [angularticsProperties]="{label: enum === undefined ? value : label + ': ' + enum + '.' + value}"> {{ enum === undefined ? value : enum + '.' + value | translate }}
+          <input type="checkbox" [(ngModel)]="modelValue[value]" (ngModelChange)="valueChange($event)"
+                 autocomplete="off" [attr.selected]="value === selectedValue ? 'true' : 'false'"
+                 angulartics2On="click" [angularticsEvent]="analyticsEvent"
+                 [angularticsCategory]="analyticsCategory"
+                 [angularticsProperties]="{label: enum === undefined ? value : label + ': ' + enum + '.' + value}">
+          {{ enum === undefined ? value : enum + '.' + value | translate }}
         </label>
       </div>
     </div>
-`
+  `
 })
 export class SBCheckboxList implements OnInit {
   // An array of values which must map to the given enum.
@@ -60,6 +65,9 @@ export class SBCheckboxList implements OnInit {
   @Input()
   public horizontal: boolean = false;
 
+  @Output()
+  public selected: EventEmitter<any> = new EventEmitter<any>();
+
   private _name: string;
 
   get name(): string {
@@ -67,11 +75,11 @@ export class SBCheckboxList implements OnInit {
   }
 
   get modelValue() {
-    return this.model[this.property];
+    return this.model[ this.property ];
   }
 
   set modelValue(value) {
-    this.model[this.property] = value;
+    this.model[ this.property ] = value;
   }
 
   constructor() {
@@ -84,25 +92,27 @@ export class SBCheckboxList implements OnInit {
   }
 
   allChange(newValue): void {
-    if(newValue) {
+    if (newValue) {
       this.setValuesToFalse();
     }
     else {
       // Don't allow All to be to set to false by clicking.
-      this.modelValue[0] = true;
+      this.modelValue[ 0 ] = true;
     }
     this.modelValue = Object.assign({}, this.modelValue);
+    this.selected.emit('all');
   }
 
   valueChange(value): void {
     // Set all to true if all options are false.
-    this.modelValue[0] = this.areAllValuesFalse();
+    this.modelValue[ 0 ] = this.areAllValuesFalse();
     this.modelValue = Object.assign({}, this.modelValue);
+    this.selected.emit(this.modelValue);
   }
 
-  private areAllValuesFalse() : boolean {
+  private areAllValuesFalse(): boolean {
     for (let i = 0; i < this.values.length; i++) {
-      if(this.modelValue[ this.values[ i ] ])
+      if (this.modelValue[ this.values[ i ] ])
         return false;
     }
 

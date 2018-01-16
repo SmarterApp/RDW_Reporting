@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { OrganizationType } from "../../organization-export/organization/organization-type.enum";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -20,7 +20,7 @@ import { AggregateReportItem } from "../model/aggregate-report-item.model";
   selector: 'query-builder',
   templateUrl: './query-builder.component.html',
 })
-export class QueryBuilderComponent {
+export class QueryBuilderComponent implements OnInit {
 
   readonly ICA: AssessmentType = AssessmentType.ICA;
 
@@ -28,7 +28,7 @@ export class QueryBuilderComponent {
 
   queryBuilderModel: QueryBuilderModel = new QueryBuilderModel();
 
-  responsePreview: AggregateReportItem[];
+  responsePreview: AggregateReportItem[] = [];
 
   multiSelectOptions: IMultiSelectOption[];
   optionsModel: string[];
@@ -89,6 +89,9 @@ export class QueryBuilderComponent {
     this.reportOptionsService.get().subscribe((queryBuilderModel: QueryBuilderModel) => {
       this.queryBuilderModel = queryBuilderModel;
       this.aggregateReportQuery.schoolYears [ this.schoolYearPipe.transform(queryBuilderModel.schoolYears[ 0 ]) ] = true;
+      this.aggregateReportQuery.completeness = 'Complete';
+      this.aggregateReportQuery.administration = 'SD';
+      this.aggregateReportQuery.summativeStatus = 'Valid';
     });
 
     this._organizations = this.route.snapshot.data[ 'organizations' ];
@@ -118,7 +121,10 @@ export class QueryBuilderComponent {
     this.multiSelectOptions = [
       { id: 'Gender', name: this.translate.instant('labels.filters.student.gender') },
       { id: 'Ethnicity', name: this.translate.instant('labels.filters.student.ethnicity') },
-      { id: 'LimitedEnglishProficiency', name: this.translate.instant('labels.filters.student.limited-english-proficiency') },
+      {
+        id: 'LimitedEnglishProficiency',
+        name: this.translate.instant('labels.filters.student.limited-english-proficiency')
+      },
       { id: 'MigrantStatus', name: this.translate.instant('labels.filters.student.migrant-status') },
       { id: 'EconomicDisadvantage', name: this.translate.instant('labels.filters.student.economic-disadvantage') },
       { id: 'IEP', name: this.translate.instant('labels.filters.student.iep') },
@@ -193,7 +199,7 @@ export class QueryBuilderComponent {
   generateReport() {
     this.responsePreview = null;
     setTimeout(() => {
-      this.responsePreview = []
+      this.responsePreview = null;
       this.mockAggregateReportsService.generateQueryBuilderSampleData(this.optionsModel, this.aggregateReportQuery, this.queryBuilderModel).subscribe(next => {
         this.responsePreview = next;
       })

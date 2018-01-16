@@ -53,8 +53,6 @@ export class MockAggregateReportsService {
 
   private createResponse(options: string[], query: AggregateReportQuery, queryModel: QueryBuilderModel): any[] {
     let array: any[] = [];
-    let gender = query.gender;
-    let genders: string[] = gender == -1 ? [ 'Female', 'Male' ] : [ gender ];
     let years = query.getSchoolYearsSelected();
     let grades = query.getSelected(query.assessmentGrades);
     let ethnicities = query.getSelected(query.ethnicities);
@@ -64,22 +62,21 @@ export class MockAggregateReportsService {
       ethnicities.pop();
       queryModel.ethnicities.forEach(ethnicity => {
         ethnicities.push(ethnicity);
-      })
+      });
     }
 
     if (grades.length == 1 && grades[ 0 ] == "0") {
       grades.pop();
       queryModel.grades.forEach(grade => {
         grades.push(grade);
-      })
-
+      });
     }
 
     if (years.length == 1 && years[ 0 ] == 0) {
       years.pop();
       queryModel.schoolYears.forEach(year => {
         years.push(year);
-      })
+      });
     }
 
     for (let organizationName of organizationNames) {
@@ -91,13 +88,12 @@ export class MockAggregateReportsService {
     }
 
     array = this.generateRowsForOption(options, 'Ethnicity', array, ethnicities, organizationNames, years, grades);
-    array = this.generateRowsForOption(options, 'Gender', array, genders, organizationNames, years, grades);
+    array = this.generateRowsForOption(options, 'Gender', array, query.gender == -1 ? [ 'Female', 'Male' ] : [ query.gender ], organizationNames, years, grades);
     array = this.generateRowsForOption(options, 'LimitedEnglishProficiency', array, query.limitedEnglishProficiency == -1 ? [ '2', '1' ] : [ query.limitedEnglishProficiency.toLocaleString() ], organizationNames, years, grades);
     array = this.generateRowsForOption(options, 'MigrantStatus', array, query.migrantStatus == -1 ? [ '2', '1' ] : [ query.migrantStatus.toLocaleString() ], organizationNames, years, grades);
     array = this.generateRowsForOption(options, 'EconomicDisadvantage', array, query.economicDisadvantage == -1 ? [ '2', '1' ] : [ query.economicDisadvantage.toLocaleString() ], organizationNames, years, grades);
     array = this.generateRowsForOption(options, 'IEP', array, query.iep == -1 ? [ '2', '1' ] : [ query.iep.toLocaleString() ], organizationNames, years, grades);
     array = this.generateRowsForOption(options, '504Plan', array, query.plan504 == -1 ? [ '2', '1' ] : [ query.plan504.toLocaleString() ], organizationNames, years, grades);
-
 
     return array;
   }
@@ -182,12 +178,12 @@ export class MockAggregateReportsService {
       "assessment": { "id": 231, "gradeId": gradeId, "subjectId": subjectId },
       "examSchoolYear": schoolYear,
       "measures": {
-        "avgScaleScore": 2526,
-        "avgStdErr": 77,
-        "level1Count": 1,
-        "level2Count": 2,
-        "level3Count": 3,
-        "level4Count": 4
+        "avgScaleScore": Math.floor(2000 + Math.random() * 1000),
+        "avgStdErr": Math.floor(Math.random() * 125),
+        "level1Count": Math.floor(Math.random() * 100),
+        "level2Count": Math.floor(Math.random() * 100),
+        "level3Count": Math.floor(Math.random() * 100),
+        "level4Count": Math.floor(Math.random() * 100)
       }
     }
   }

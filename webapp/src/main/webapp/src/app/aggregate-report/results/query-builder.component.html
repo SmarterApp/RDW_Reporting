@@ -7,7 +7,7 @@
 
 <div class="mt-md mb-md">
   <button class="btn btn-success btn-sm mr-sm" analyticsEvent="GenerateReport" analyticsCategory="AggregateQueryBuilder"
-          angulartics2on="click" container="body" (click)="generateReport()">
+          angulartics2on="click" container="body">
     <i class="fa fa-gears"></i> {{'labels.aggregate-reports.query-builder.customize.generate-report-button' |
     translate}}
   </button>
@@ -102,7 +102,7 @@
              title="{{'labels.filters.status.administration' | translate}}"
              content="{{'labels.filters.status.administration-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-radio-button-list [model]="aggregateReportQuery" [values]="['SD','NS']" [selectedValue]="'SD'"
+        <sb-radio-button-list [model]="aggregateReportQuery" [values]="['SD','NS']"
                               property="administration"
                               enum="enum.administrative-condition"
                               label="{{ translateRoot + 'status.label' | translate }}"
@@ -116,8 +116,9 @@
       <label class="col-md-3" info-button title="{{'labels.filters.status.summative' | translate}}"
              content="{{'labels.filters.status.summative-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-radio-button-list [model]="aggregateReportQuery" [values]="['Valid','IN']" [selectedValue]="'Valid'"
+        <sb-radio-button-list [model]="aggregateReportQuery" [values]="['Valid','IN']"
                               property="summativeStatus"
+                              (selected)="generateReport()"
                               enum="enum.administrative-condition"
                               label="{{ translateRoot + 'status.summative' | translate }}"
                               analyticsEvent="FilterClick"
@@ -131,7 +132,8 @@
              content="{{'labels.filters.status.completion-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="aggregateReportQuery" [values]="['Complete','Partial']"
-                              [selectedValue]="'Complete'" property="completeness"
+                              property="completeness"
+                              (selected)="generateReport()"
                               enum="enum.completeness"
                               label="{{ translateRoot + 'status.completion' | translate }}"
                               analyticsEvent="FilterClick"
@@ -154,6 +156,7 @@
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="aggregateReportQuery" [values]="queryBuilderModel.genders" property="gender"
                               enum="enum.gender"
+                              (selected)="generateReport()"
                               label="{{ translateRoot + 'status.label' | translate }}"
                               analyticsEvent="FilterClick"
                               analyticsCategory="AggregateQueryBuilder"></sb-radio-button-list>
@@ -167,6 +170,7 @@
              content="{{'labels.filters.student.migrant-status-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="aggregateReportQuery" [values]="[1,2]" property="migrantStatus" enum="enum.polar"
+                              (selected)="generateReport()"
                               label="{{ translateRoot + 'status.label' | translate }}"
                               analyticsEvent="FilterClick"
                               analyticsCategory="AggregateQueryBuilder"></sb-radio-button-list>
@@ -179,6 +183,7 @@
              content="{{'labels.filters.student.504-plan-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="aggregateReportQuery" [values]="[1,2]" property="plan504" enum="enum.polar"
+                              (selected)="generateReport()"
                               label="{{ translateRoot + 'student.504-plan' | translate }}"
                               analyticsEvent="FilterClick"
                               analyticsCategory="AggregateQueryBuilder"></sb-radio-button-list>
@@ -191,6 +196,7 @@
              content="{{'labels.filters.student.iep-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="aggregateReportQuery" [values]="[1,2]" property="iep" enum="enum.polar"
+                              (selected)="generateReport()"
                               label="{{ translateRoot + 'student.iep' | translate }}"
                               analyticsEvent="FilterClick"
                               analyticsCategory="AggregateQueryBuilder"></sb-radio-button-list>
@@ -204,6 +210,7 @@
              content="{{'labels.filters.student.economic-disadvantage-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="aggregateReportQuery" [values]="[1,2]" property="economicDisadvantage"
+                              (selected)="generateReport()"
                               enum="enum.polar"
                               label="{{ translateRoot + 'student.economic-disadvantage' | translate }}"
                               analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
@@ -217,6 +224,7 @@
              content="{{'labels.filters.student.limited-english-proficiency-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="aggregateReportQuery" [values]="[1,2]" property="limitedEnglishProficiency"
+                              (selected)="generateReport()"
                               enum="enum.polar"
                               label="{{ translateRoot + 'student.limited-english-proficiency' | translate }}"
                               analyticsEvent="FilterClick"
@@ -229,7 +237,8 @@
       <label class="col-md-3" info-button title="{{'labels.filters.student.ethnicity' | translate}}"
              content="{{'labels.filters.student.ethnicity-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
-        <sb-checkbox-list [model]="aggregateReportQuery" [values]="queryBuilderModel.ethnicities" property="ethnicities"
+        <sb-checkbox-list [model]="aggregateReportQuery" [values]="queryBuilderModel.ethnicities"
+                          (selected)="generateReport()" property="ethnicities"
                           enum="enum.ethnicity"
                           label="{{ translateRoot + 'student.ethnicity' | translate }}"
                           analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-checkbox-list>
@@ -249,7 +258,7 @@
              content="{{'labels.aggregate-reports.query-builder.filter-results.data-well.assessment-grade-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-checkbox-list [horizontal]="true" [model]="aggregateReportQuery"
-                          [values]="queryBuilderModel.grades"
+                          [values]="queryBuilderModel.grades" (selected)="generateReport()"
                           property="assessmentGrades" enum="labels.assessmentGrades"
                           label="{{ translateRoot + 'student.assessment-grade' | translate }}"
                           analyticsEvent="FilterClick"
@@ -265,6 +274,7 @@
              content="{{'labels.aggregate-reports.query-builder.filter-results.data-well.academic-year-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-checkbox-list [model]="aggregateReportQuery" [values]="queryBuilderModel.schoolYears | schoolYears"
+                          (selected)="generateReport()"
                           property="schoolYears"
                           label="{{'schoolYear' | schoolYear }}"
                           analyticsEvent="FilterClick" analyticsCategory="AggregateQueryBuilder"></sb-checkbox-list>
@@ -355,7 +365,6 @@
           </div>
         </div>
 
-
         <!-- Required Fields -->
         <div class="required-fields">
           <div class="flex-header">
@@ -423,13 +432,13 @@
           </div>
         </div>
 
-
         <!-- Comparative Subgroups -->
         <div class="comparative-subgroups">
           <div class="flex-header">
             <div class="btn-group" dropdown>
               <ss-multiselect-dropdown [settings]="settings" [texts]="texts" [options]="multiSelectOptions"
-                                       [(ngModel)]="optionsModel">
+                                       [(ngModel)]="optionsModel" (onAdded)="generateReport()"
+                                       (onRemoved)="generateReport()">
                 {{'labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.comparative-subgroups.title'
                 | translate}}
               </ss-multiselect-dropdown>
@@ -518,7 +527,7 @@
 <div class="mt-md mb-md">
   <button class="btn btn-success btn-sm mr-sm" analyticsEvent="GenerateReport"
           analyticsCategory="AggregateQueryBuilder"
-          angulartics2on="click" container="body" (click)="generateReport()">
+          angulartics2on="click" container="body">
     <i class="fa fa-gears"></i> {{'labels.aggregate-reports.query-builder.customize.generate-report-button' |
     translate}}
   </button>
