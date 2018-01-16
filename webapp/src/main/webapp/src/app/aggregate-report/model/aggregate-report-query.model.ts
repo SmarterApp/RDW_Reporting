@@ -1,5 +1,4 @@
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
-import { Organization } from "../../admin/instructional-resource/model/organization.model";
 import { AssessmentSubjectType } from "../../shared/enum/assessment-subject-type.enum";
 
 /**
@@ -8,7 +7,6 @@ import { AssessmentSubjectType } from "../../shared/enum/assessment-subject-type
 export class AggregateReportQuery {
   assessmentType: AssessmentType;
   subject: AssessmentSubjectType = -1;
-  organizations: Organization[] = [];
   administration: any = -1;
   summativeStatus: any = -1;
   completeness: any = -1;
@@ -20,7 +18,7 @@ export class AggregateReportQuery {
   limitedEnglishProficiency: number = -1;
   ethnicities: boolean[] = [ true ];
   assessmentGrades: boolean[] = [ true ];
-  schoolYears: boolean[] = [ ];
+  schoolYears: boolean[] = [];
   achievementLevels: boolean = false;
   showValueAs: boolean = false;
 
@@ -53,7 +51,7 @@ export class AggregateReportQuery {
     return array;
   }
 
-  getSchoolYearsSelected() : number[] {
+  getSchoolYearsSelected(): number[] {
     let array: number[] = [];
     let schoolYears = this.schoolYears;
     for (let schoolYear in schoolYears) {

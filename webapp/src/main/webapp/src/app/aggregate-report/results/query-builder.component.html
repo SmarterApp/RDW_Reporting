@@ -54,32 +54,7 @@
       </div>
     </div>
   </div>
-  <div class="well">
-    <div class="row">
-
-      <div class="flex-children">
-        <div class="flex-child col-md-12">
-          <label>{{'labels.aggregate-reports.query-builder.organizations.add-district-or-school'
-            | translate}}</label>
-        </div>
-        <div class="col-md-9 flex-child grow">
-         <span sb-button-typeahead
-               inputId="search"
-               [options]="organizationOptions"
-               (buttonClick)="add($event)"
-               placeholder="{{'prompt.select' | translate}}"
-               buttonLabel="{{'labels.organization-export.form.organization.add' | translate}}">
-            </span>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-md">
-      <label class="col-md-3">{{'labels.aggregate-reports.query-builder.organizations.selected-organizations'
-        | translate}}</label>
-      <organization-tree [model]="organizationTree" (select)="remove($event)"
-                         [displayForAggregateReports]="true"></organization-tree>
-    </div>
-  </div>
+  <!-- TODO select organizations-->
 
 </div>
 

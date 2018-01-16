@@ -17,9 +17,6 @@ export class OrganizationTreeComponent {
   @Input()
   disabled: boolean = false;
 
-  @Input()
-  displayForAggregateReports: boolean = false;
-
   onClick(organization: Organization): void {
     this.select.emit(organization);
   }
