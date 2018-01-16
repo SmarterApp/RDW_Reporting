@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import { OrganizationMapper } from "../../organization-export/organization/organization.mapper";
 import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts } from 'angular-2-dropdown-multiselect'
 import { ReportOptionsService } from "./report-options.service";
 import { QueryBuilderModel } from "../model/query-builder.model";
@@ -41,7 +40,6 @@ export class QueryBuilderComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private translate: TranslateService,
-              private mapper: OrganizationMapper,
               private reportOptionsService: ReportOptionsService,
               private mockAggregateReportsService: MockAggregateReportsService,
               private schoolYearPipe: SchoolYearPipe) {

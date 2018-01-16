@@ -11,7 +11,6 @@ import { AssessmentDetailsService } from "./results/assessment-details.service";
 import { PerformanceComparisonComponent } from "./results/performance-comparison.component";
 import { QueryBuilderComponent } from "./results/query-builder.component";
 import { FormsModule } from "@angular/forms";
-import { OrganizationExportModule } from "../organization-export/organization-export.module";
 import { MultiselectDropdownModule } from "angular-2-dropdown-multiselect";
 import { ReportOptionsService } from "./results/report-options.service";
 
@@ -29,7 +28,6 @@ import { ReportOptionsService } from "./results/report-options.service";
     FormsModule,
     CommonModule,
     DataTableModule,
-    OrganizationExportModule,
     MultiselectDropdownModule
   ],
   exports: [
