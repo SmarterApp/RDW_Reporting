@@ -50,14 +50,14 @@
       <div class="col-md-3">
         <div *ngIf="allowFilterBySessions">
           <p><strong>{{'labels.groups.results.assessment.sessions-title' | translate}}</strong></p>
-          <div class="btn-group-vertical">
-            <a *ngFor="let session of sessions" class="reverse multi-line btn"
+          <div class="flex-children">
+            <a *ngFor="let session of sessions" class="reverse multi-line btn btn-sm flex-child"
                [ngClass]="{'gray-dark':!session.filter, 'aqua': session.filter}" (click)="toggleSession(session)"
                angulartics2On="click" angularticsEvent="ToggleSession" angularticsCategory="AssessmentResults">
-                    <span class="text-left">
+                    <span class="block-children">
                         <strong>{{session.date | date }}</strong>
                         <small
-                          class="ml-sm">{{session.id || 'labels.groups.results.session-unknown' | translate }}</small>
+                          class="text-right">{{session.id || 'labels.groups.results.session-unknown' | translate }}</small>
                     </span>
             </a>
           </div>
