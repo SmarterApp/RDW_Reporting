@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { AfterViewChecked, ChangeDetectorRef, Component, EventEmitter, Input, Output } from "@angular/core";
 import { Utils } from "./support/support";
 
 /*
@@ -10,24 +10,31 @@ import { Utils } from "./support/support";
   selector: 'sb-radio-button-list',
   template: `
     <div class="nested-btn-group btn-group-sm toggle-group" data-toggle="buttons">
-      <label class="btn btn-primary" [ngClass]="{'active': model[property] == -1, 'disabled': disabled }">
-        <input [value]="-1" [(ngModel)]="model[property]" type="radio" [name]="name" [attr.disabled]="disabled?'disabled':null"
-                angulartics2On="click" [angularticsEvent]="analyticsEvent" 
-                [angularticsCategory]="analyticsCategory" [angularticsProperties]="{label: label + ': All'}">{{ 'buttons.all' | translate }}
+      <label class="btn btn-primary" [ngClass]="{'active': this.model[this.property] === -1, 'disabled': disabled }">
+        <input [value]="-1" [(ngModel)]="model[property]" type="radio" [name]="name" (click)="selected.emit(-1)"
+               [attr.disabled]="disabled?'disabled':null"
+               angulartics2On="click" [angularticsEvent]="analyticsEvent"
+               [angularticsCategory]="analyticsCategory"
+               [angularticsProperties]="{label: label + ': All'}">{{ 'buttons.all' | translate }}
       </label>
       <div class="btn-group">
-        <label *ngFor="let value of values" class="btn btn-primary" [ngClass]="{'active': model[property] == value, 'disabled': disabled }">
-          <input [value]="value" [(ngModel)]="model[property]" type="radio" [name]="name" [attr.disabled]="disabled?'disabled':null"
-                angulartics2On="click" [angularticsEvent]="analyticsEvent" 
-                [angularticsCategory]="analyticsCategory" [angularticsProperties]="{label: label + ': ' + enum + '.' + value}">{{ enum + '.' + value | translate }}
+        <label *ngFor="let value of values" class="btn btn-primary"
+               [ngClass]="{'active': model[property] == value, 'disabled': disabled }">
+          <input [value]="value" [(ngModel)]="model[property]" type="radio" [name]="name" (click)="selected.emit(value)"
+                 [attr.disabled]="disabled?'disabled':null"
+                 angulartics2On="click" [angularticsEvent]="analyticsEvent"
+                 [angularticsCategory]="analyticsCategory"
+                 [angularticsProperties]="{label: label + ': ' + enum + '.' + value}">{{ enum + '.' + value | translate
+          }}
         </label>
       </div>
     </div>`
 })
-export class SBRadioButtonComponent {
+export class SBRadioButtonComponent implements AfterViewChecked {
+
   // An array of values which must map to the given enum.
   @Input()
-  public values: number[];
+  public values: any[];
 
   // An enum defined in the translations which has a value.
   @Input()
@@ -57,13 +64,23 @@ export class SBRadioButtonComponent {
   @Input()
   public label: string;
 
+  @Input()
+  public selectedValue: string;
+
+  @Output()
+  public selected: EventEmitter<any> = new EventEmitter<any>();
+
   private _name: string;
 
   get name(): string {
     return this._name;
   }
 
-  constructor() {
+  constructor(private changeDetector: ChangeDetectorRef) {
     this._name = Utils.newGuid();
+  }
+
+  ngAfterViewChecked() {
+    this.changeDetector.detectChanges();
   }
 }

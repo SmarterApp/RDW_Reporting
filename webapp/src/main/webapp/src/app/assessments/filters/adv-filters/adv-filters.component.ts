@@ -43,6 +43,6 @@ export class AdvFiltersComponent implements OnInit {
   }
 
   get translateRoot() {
-    return "labels.groups.results.adv-filters.";
+    return "labels.filters.";
   }
 }

@@ -128,7 +128,7 @@ sqlbuilder:
                      JOIN gender gn on gn.id = s.gender_id
 
                 where: >-
-                     ( true = :all_genders OR gn.code in (:genders) )
+                     ( true = :all_genders OR gn.code in (:gender_ids) )
 
                 groupBy: >-
                      s.gender_id
@@ -203,27 +203,20 @@ sqlbuilder:
             completeness:
                clauses:
                  where: >-
-                     cmp.code in (:completeness)
-
-                 join: >-
-                    JOIN completeness cmp ON cmp.id = fe.completeness_id
+                     fe.completeness_id in (:completeness_ids)
 
             administration_condition:
                clauses:
                  where: >-
-                     acnd.code in (:administration_conditions)
-
-                 join: >-
-                    JOIN administration_condition acnd ON acnd.id = fe.administration_condition_id
+                     fe.administration_condition_id in (:administration_condition_ids)
 
             Gender_filter:
                clauses:
                  join: >-
                      JOIN student s ON fe.student_id = s.id
-                     JOIN gender gn on gn.id = s.gender_id
 
                  where: >-
-                    gn.code in (:genders)
+                    s.gender_id in (:gender_ids)
 
       # This represents the parts of the SQL query that generates all possible combinations of the dimensions for the report.
       # The query is assembled by combining the below clauses with 'organization' and 'dimension' parts.
@@ -287,7 +280,7 @@ sqlbuilder:
                   CROSS JOIN (select 'Gender' AS dimension, gen.id AS dimension_id, gen.code as dimension_code from gender gen) d
 
                 where: >-
-                  ( true = :all_genders OR d.dimension_code in (:genders) )
+                  ( true = :all_genders OR d.dimension_id in (:gender_ids) )
 
             Ethnicity:
               clauses:

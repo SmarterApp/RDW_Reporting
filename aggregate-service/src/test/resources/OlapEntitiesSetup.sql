@@ -11,11 +11,11 @@ INSERT INTO district (id, name, natural_id, external_id, migrate_id) VALUES
   (-8, 'District-8', 'id-8', 'externalId-8', -1),
   (-9, 'District-9', 'id-9', 'externalId-9', -1);
 
-INSERT INTO school (id, district_id, name, natural_id, external_id, embargo_enabled, updated, update_import_id, migrate_id) VALUES
-  (-7, -7, 'School-7', 'id-7', 'externalId-7', 1, '2016-08-14 19:05:33.000000', -1, -1),
-  (-8, -8, 'School-8', 'id-8', 'externalId-8', 1, '2016-08-14 19:05:33.000000', -1, -1),
-  (-9, -9, 'School-9', 'id-9', 'externalId-9', 1, '2016-08-14 19:05:33.000000', -1, -1),
-  (-10, -9, 'School-10','id-10', 'externalId-10', 1, '2016-08-14 19:05:33.000000', -1, -1);
+INSERT INTO school (id, district_group_id, district_id, school_group_id, name, natural_id, external_id, embargo_enabled, updated, update_import_id, migrate_id) VALUES
+  (-7, -1, -7, -1, 'School-7', 'id-7', 'externalId-7', 1, '2016-08-14 19:05:33.000000', -1, -1),
+  (-8, -1, -8, -1, 'School-8', 'id-8', 'externalId-8', 1, '2016-08-14 19:05:33.000000', -1, -1),
+  (-9, -1, -9, -1, 'School-9', 'id-9', 'externalId-9', 1, '2016-08-14 19:05:33.000000', -1, -1),
+  (-10, -1, -9, -1, 'School-10','id-10', 'externalId-10', 1, '2016-08-14 19:05:33.000000', -1, -1);
 
 -- ------------------------------------------ Asmt ---------------------------------------------------------------------------------------------------------
 INSERT INTO asmt (id, grade_id, subject_id, type_id, school_year, name, label, updated, update_import_id, migrate_id) VALUES

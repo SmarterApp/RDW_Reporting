@@ -9,29 +9,38 @@ import { BrowserModule } from "@angular/platform-browser";
 import { AggregateReportsTableComponent } from "./results/aggregate-reports-table.component";
 import { AssessmentDetailsService } from "./results/assessment-details.service";
 import { PerformanceComparisonComponent } from "./results/performance-comparison.component";
+import { QueryBuilderComponent } from "./results/query-builder.component";
+import { FormsModule } from "@angular/forms";
+import { MultiselectDropdownModule } from "angular-2-dropdown-multiselect";
+import { ReportOptionsService } from "./results/report-options.service";
 
 @NgModule({
   declarations: [
     AggregateReportsComponent,
     AggregateReportsResultsComponent,
     AggregateReportsTableComponent,
-    PerformanceComparisonComponent
+    PerformanceComparisonComponent,
+    QueryBuilderComponent
   ],
   imports: [
     Angulartics2Module.forChild(),
     BrowserModule,
+    FormsModule,
     CommonModule,
-    DataTableModule
+    DataTableModule,
+    MultiselectDropdownModule
   ],
   exports: [
     AggregateReportsComponent,
     AggregateReportsResultsComponent,
     AggregateReportsTableComponent,
-    PerformanceComparisonComponent
+    PerformanceComparisonComponent,
+    QueryBuilderComponent
   ],
   providers: [
     AssessmentDetailsService,
-    MockAggregateReportsService
+    MockAggregateReportsService,
+    ReportOptionsService
   ]
 })
 export class AggregateReportsModule {

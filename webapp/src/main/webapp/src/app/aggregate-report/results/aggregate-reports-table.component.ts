@@ -59,6 +59,9 @@ export class AggregateReportsTableComponent implements OnInit {
   @Input()
   public groupPerformanceLevels: boolean;
 
+  @Input()
+  public previewOnly: boolean = false;
+
   @ViewChild("table")
   private resultsTable: DataTable;
 
