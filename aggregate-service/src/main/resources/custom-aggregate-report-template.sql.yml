@@ -297,53 +297,47 @@ sqlbuilder:
               # the 'magic' number -1 is needed here to support JOIN in the final overarching query defined in the application.sql.yml
               clauses:
                 join: >-
-                  CROSS JOIN (select 'Overall' AS dimension, -1 AS dimension_id, null as dimension_code) d
+                  LEFT JOIN (select 'Overall' AS dimension, -1 AS dimension_id, null as dimension_code) d
+                    ON true = true
 
             Gender:
               clauses:
                 join: >-
-                  CROSS JOIN (select 'Gender' AS dimension, gen.id AS dimension_id, gen.code as dimension_code from gender gen) d
-                where: >-
-                  ( true = :all_genders OR d.dimension_id in (:gender_ids) )
+                  LEFT JOIN (select 'Gender' AS dimension, gen.id AS dimension_id, gen.code as dimension_code from gender gen) d
+                    ON ( true = :all_genders OR d.dimension_id in (:gender_ids) )
 
             Ethnicity:
               clauses:
                 join: >-
-                  CROSS JOIN (select 'Ethnicity' AS dimension, e.id AS dimension_id, e.code as dimension_code from ethnicity e) d
-                where: >-
-                  (true = :all_ethnicities OR d.dimension_id in (:ethnicity_ids))
+                  LEFT JOIN (select 'Ethnicity' AS dimension, e.id AS dimension_id, e.code as dimension_code from ethnicity e) d
+                    ON (true = :all_ethnicities OR d.dimension_id in (:ethnicity_ids))
 
             IEP:
               clauses:
                 join: >-
-                  CROSS JOIN (select 'IEP' AS dimension, b.id AS dimension_id, b.code as dimension_code from strict_boolean b) d
-                where: >-
-                  (true = :all_ieps OR d.dimension_id in (:iep_ids))
+                  LEFT JOIN (select 'IEP' AS dimension, b.id AS dimension_id, b.code as dimension_code from strict_boolean b) d
+                    ON (true = :all_ieps OR d.dimension_id in (:iep_ids))
 
             LEP:
               clauses:
                 join: >-
-                  CROSS JOIN (select 'LEP' AS dimension, b.id AS dimension_id, b.code as dimension_code from strict_boolean b) d
-                where: >-
-                  (true = :all_leps OR d.dimension_id in (:lep_ids))
+                  LEFT JOIN (select 'LEP' AS dimension, b.id AS dimension_id, b.code as dimension_code from strict_boolean b) d
+                    ON (true = :all_leps OR d.dimension_id in (:lep_ids))
 
             EconomicDisadvantage:
               clauses:
                 join: >-
-                  CROSS JOIN (select 'EconomicDisadvantage' AS dimension, b.id AS dimension_id, b.code as dimension_code from strict_boolean b) d
-                where: >-
-                  (true = :all_economic_disadvantages OR d.dimension_id in (:economic_disadvantage_ids))
+                  LEFT JOIN (select 'EconomicDisadvantage' AS dimension, b.id AS dimension_id, b.code as dimension_code from strict_boolean b) d
+                    ON (true = :all_economic_disadvantages OR d.dimension_id in (:economic_disadvantage_ids))
 
             Section504:
               clauses:
                 join: >-
-                  CROSS JOIN (select 'Section504' AS dimension, b.id AS dimension_id, b.code as dimension_code from boolean b) d
-                where: >-
-                  (true = :all_section504s OR d.dimension_id in (:section504_ids))
+                  LEFT JOIN (select 'Section504' AS dimension, b.id AS dimension_id, b.code as dimension_code from boolean b) d
+                    ON (true = :all_section504s OR d.dimension_id in (:section504_ids))
 
             MigrantStatus:
               clauses:
                 join: >-
-                  CROSS JOIN (select 'MigrantStatus' AS dimension, b.id AS dimension_id, b.code as dimension_code from boolean b) d
-                where: >-
-                  (true = :all_migrant_statuses OR d.dimension_id in (:migrant_status_ids))
+                  LEFT JOIN (select 'MigrantStatus' AS dimension, b.id AS dimension_id, b.code as dimension_code from boolean b) d
+                    ON (true = :all_migrant_statuses OR d.dimension_id in (:migrant_status_ids))
