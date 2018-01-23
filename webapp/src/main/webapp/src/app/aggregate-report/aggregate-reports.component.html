@@ -65,6 +65,7 @@
               <sb-checkbox-group [horizontal]="true"
                                  [options]="options.assessmentGrades"
                                  [(ngModel)]="settings.assessmentGrades"
+                                 [allOptionEnabled]="false"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
                                  [allOptionAnalyticsProperties]="{label: 'Assessment Grade: All'}"
@@ -361,6 +362,7 @@
             <div class="col-md-3">
               <sb-checkbox-group [options]="options.dimensionTypes"
                                  [(ngModel)]="settings.dimensionTypes"
+                                 [allOptionEnabled]="false"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
                                  [allOptionAnalyticsProperties]="{label: 'Comparative Subgroups: All'}"

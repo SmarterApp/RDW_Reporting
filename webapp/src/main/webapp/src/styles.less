@@ -331,6 +331,36 @@ body .select-menu-group {
   padding: 0.5em 0.5em 0.5em 0;
 }
 
+/**
+ * TODO candidate for moving to UI kit
+ */
+.nested-btn-group.vertical .btn-group .btn:last-child {
+  margin-bottom: 0;
+}
+
+/**
+ * Minor style fixes for vertical checkbox group.
+ * The default btn-group style is margin-left: -1px
+ */
+.nested-btn-group.vertical .btn-group .btn + .btn {
+  margin-left: 0;
+}
+
+/**
+ * Removes left border for vertical checkbox groups without the all option
+ */
+.nested-btn-group.vertical:not(.all-option) .btn-group {
+  border-left: none;
+}
+
+/**
+ * Styles for horizontal checkbox groups without an all option
+ */
+.nested-btn-group.btn-group-sm:not(.all-option) .btn-group {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
 .btn-group-vertical > .btn {
   margin-bottom: 5px;
 }

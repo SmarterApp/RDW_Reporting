@@ -36,7 +36,7 @@ export class AggregateReportFormResolve implements Resolve<AggregateReportForm> 
     const valuesOf = options => options.map(option => option.value);
     const firstValueOf = options => options[ 0 ].value;
     return <AggregateReportFormSettings>{
-      assessmentGrades: valuesOf(options.assessmentGrades),
+      assessmentGrades: [],
       assessmentType: firstValueOf(options.assessmentTypes),
       completenesses: valuesOf(options.completenesses),
       ethnicities: valuesOf(options.ethnicities),
@@ -52,7 +52,7 @@ export class AggregateReportFormResolve implements Resolve<AggregateReportForm> 
       economicDisadvantages: valuesOf(options.economicDisadvantages),
       achievementLevelDisplayType: firstValueOf(options.achievementLevelDisplayTypes),
       valueDisplayType: firstValueOf(options.valueDisplayTypes),
-      dimensionTypes: valuesOf(options.dimensionTypes)
+      dimensionTypes: []
     };
   }
 

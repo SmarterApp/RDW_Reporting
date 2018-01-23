@@ -591,11 +591,11 @@
           },
           "completeness": {
             "label": "Completeness",
-            "info": "Completeness"
+            "info": "Indicates whether the test was completed or was partially complete."
           },
           "interim-administration-condition": {
             "label": "Manner of Administration",
-            "info": "Manner of Administration",
+            "info": "For interim assessments, a Standardized administration follows the same protocols and security procedures as a summative test administration. For a Non Standardized administration, the teacher may use the assessment during instruction and interact with students as they complete the assessment.",
             "qualifier": "Interim"
           },
           "school-year": {
@@ -608,36 +608,36 @@
           },
           "summative-administration-condition": {
             "label": "Validity",
-            "info": "Validity",
+            "info": "For summative assessments, a test is noted as invalid if an appeal is submitted  to invalidate the test due to a test irregularity or breach.",
             "qualifier": "Summative"
           },
           "gender": {
             "label": "Gender",
-            "info": "Gender"
+            "info": "Student's reported gender"
           },
           "ethnicity": {
             "label": "Race / Ethnicity",
-            "info": "Race / Ethnicity"
+            "info": "Student race and ethnicity"
           },
           "migrant-status": {
             "label": "Migrant Status",
-            "info": "Migrant Status"
+            "info": "A child is considered \"migratory\" if the parent or guardian is a migratory worker in the agricultural, dairy, lumber, or fishing industries and the child's family has moved during the past three years. A young adult may also qualify if he or she has moved on his or her own for the same reasons."
           },
           "iep": {
             "label": "IEP",
-            "info": "IEP"
+            "info": "Indicates that a student has an approved Individual Education Plan (IEP). These plans are for students with disabilities who require specialized instruction."
           },
           "504": {
             "label": "504",
-            "info": "504"
+            "info": "Indicates that a student has an approved 504 plan. These plans are for students with disabilities who may need accommodations but do not require specialized instruction."
           },
           "limited-english-proficiency": {
             "label": "Limited English Proficiency",
-            "info": "Limited English Proficiency"
+            "info": "Students who use a language other than English as their primary language and who have been assessed as not possessing the English language skills necessary to succeed in the regular instructional program."
           },
           "economic-disadvantage": {
             "label": "Economic Disadvantage",
-            "info": "Economic Disadvantage"
+            "info": "Indicates that a student qualifies for free or reduced lunch or meets other state criteria for economic disadvantage."
           },
           "achievement-level-display-type": {
             "label": "Achievement Level",

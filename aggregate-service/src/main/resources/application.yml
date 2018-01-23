@@ -60,7 +60,7 @@ spring:
 
   cache:
     type: SIMPLE
-    cache-names: internalTranslationsByCode, reportOptions, reportOrganizations, assessmentTypes
+    cache-names: internalTranslationsByCode, administrationConditions, assessmentGrades, assessmentTypes, booleans, strictBooleans, organizations, completenessCodes, ethnicities, genders, schoolYears, subjects
 
 jwt:
   secret: ${rdw.reporting.jwt.secret:secret}

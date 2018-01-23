@@ -20,6 +20,9 @@ sqlbuilder:
               a.label as asmt_label,
               subject.code as subject_code
 
+          from: >-
+              fact_student_exam fe
+
           join: >-
               JOIN asmt a ON a.id = fe.asmt_id
               JOIN subject ON subject.id = a.subject_id
@@ -113,17 +116,12 @@ sqlbuilder:
                     'Overall' AS dimension,
                     null  AS dimension_id,
                     null AS dimension_code
-                from: >-
-                  fact_student_exam_new fe
-
             Gender:
               clauses:
                 select: >-
                      'Gender' AS dimension,
                       s.gender_id  AS dimension_id,
                       gn.code AS dimension_code
-                from: >-
-                  fact_student_exam_gender fe
                 join: >-
                      JOIN student s ON fe.student_id = s.id
                      JOIN gender gn on gn.id = s.gender_id
@@ -140,8 +138,6 @@ sqlbuilder:
                      'Ethnicity' AS dimension,
                      se.ethnicity_id AS dimension_id,
                      e.code AS dimension_code
-                from: >-
-                  fact_student_exam_ethnicity fe
                 join: >-
                      JOIN student_ethnicity se ON se.student_id = fe.student_id
                      JOIN ethnicity e ON e.id = se.ethnicity_id
@@ -156,8 +152,6 @@ sqlbuilder:
                      'IEP' AS dimension,
                      fe.iep AS dimension_id,
                      CASE WHEN fe.iep = 1 THEN 'yes' ELSE 'no' END AS dimension_code
-                from: >-
-                  fact_student_exam_iep fe
                 where: >-
                      ( true = :all_ieps OR fe.iep in (:iep_ids) )
                 groupBy: >-
@@ -169,8 +163,6 @@ sqlbuilder:
                      'EconomicDisadvantage' AS dimension,
                      fe.lep AS dimension_id,
                      CASE WHEN fe.lep = 1 THEN 'yes' ELSE 'no' END AS dimension_code
-                from: >-
-                  fact_student_exam_lep fe
                 where: >-
                      ( true = :all_leps OR fe.lep in (:lep_ids) )
                 groupBy: >-
@@ -182,8 +174,6 @@ sqlbuilder:
                      'EconomicDisadvantage' AS dimension,
                      fe.economic_disadvantage AS dimension_id,
                      CASE WHEN fe.economic_disadvantage = 1 THEN 'yes' ELSE 'no' END AS dimension_code
-                from: >-
-                  fact_student_exam_economic_disadvantage fe
                 where: >-
                      ( true = :all_economic_disadvantages OR fe.economic_disadvantage in (:economic_disadvantage_ids) )
                 groupBy: >-
@@ -195,8 +185,6 @@ sqlbuilder:
                      'Section504' AS dimension,
                      fe.section504 AS dimension_id,
                      CASE WHEN fe.section504 = 1 THEN 'yes' WHEN fe.section504 = 0 THEN 'no' ELSE 'undefined' END AS dimension_code
-                from: >-
-                  fact_student_exam_section504 fe
                 where: >-
                      ( true = :all_section504s OR fe.section504 in (:section504_ids) )
                 groupBy: >-
@@ -208,8 +196,6 @@ sqlbuilder:
                      'MigrantStatus' AS dimension,
                      fe.migrant_status AS dimension_id,
                      CASE WHEN fe.migrant_status = 1 THEN 'yes' WHEN fe.migrant_status = 0 THEN 'no' ELSE 'undefined' END AS dimension_code
-                from: >-
-                  fact_student_exam_migrant_status fe
                 where: >-
                      ( true = :all_migrant_statuses OR fe.migrant_status in (:migrant_status_ids) )
                 groupBy: >-
@@ -222,8 +208,6 @@ sqlbuilder:
                       'StudentEnrolledGrade' AS dimension,
                       fe.grade_id AS dimension_id,
                       g.code AS dimension_code
-                 from: >-
-                   fact_student_exam_student_grade_id fe
                  join: >-
                       JOIN grade g ON g.id = fe.grade_id
                  groupBy: >-
