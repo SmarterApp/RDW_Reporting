@@ -25,7 +25,7 @@ import { AggregateReportQuery } from "../model/aggregate-report-query.model";
 })
 export class AggregateReportsTableComponent implements OnInit {
   private static OrderingDimensionType: Ordering<AggregateReportItem> = ordering(ranking(['Overall', 'Gender', 'Ethnicity'])).on((item) => item.dimensionType);
-  private static OrderingDimensionValue: Ordering<AggregateReportItem> = ordering(byString).on((item) => item.dimensionValue);
+  private static OrderingDimensionValue: Ordering<AggregateReportItem> = ordering(byString).on((item) => item.dimensionValue.toString());
 
   /**
    * True if performance aggregate values should be displayed as percentages of total
