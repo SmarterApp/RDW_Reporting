@@ -11,7 +11,7 @@ import { Utils } from "./support/support";
   template: `
     <div class="nested-btn-group btn-group-sm toggle-group" data-toggle="buttons">
       <label class="btn btn-primary" [ngClass]="{'active': this.model[this.property] === -1, 'disabled': disabled }">
-        <input [value]="-1" [(ngModel)]="model[property]" type="radio" [name]="name" (click)="selected.emit(-1)"
+        <input [value]="-1" [(ngModel)]="model[property]" type="radio" [name]="name" (ngModelChange)="changed.emit(-1)"
                [attr.disabled]="disabled?'disabled':null"
                angulartics2On="click" [angularticsEvent]="analyticsEvent"
                [angularticsCategory]="analyticsCategory"
@@ -20,7 +20,8 @@ import { Utils } from "./support/support";
       <div class="btn-group">
         <label *ngFor="let value of values" class="btn btn-primary"
                [ngClass]="{'active': model[property] == value, 'disabled': disabled }">
-          <input [value]="value" [(ngModel)]="model[property]" type="radio" [name]="name" (click)="selected.emit(value)"
+          <input [value]="value" [(ngModel)]="model[property]" type="radio" [name]="name"
+                 (ngModelChange)="changed.emit(value)"
                  [attr.disabled]="disabled?'disabled':null"
                  angulartics2On="click" [angularticsEvent]="analyticsEvent"
                  [angularticsCategory]="analyticsCategory"
@@ -68,7 +69,7 @@ export class SBRadioButtonComponent implements AfterViewChecked {
   public selectedValue: string;
 
   @Output()
-  public selected: EventEmitter<any> = new EventEmitter<any>();
+  public changed: EventEmitter<any> = new EventEmitter<any>();
 
   private _name: string;
 

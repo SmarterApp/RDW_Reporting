@@ -93,7 +93,7 @@
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="aggregateReportQuery" [values]="['Valid','IN']"
                               property="summativeStatus"
-                              (selected)="generateReport()"
+                              (changed)="generateReport()"
                               enum="enum.administrative-condition"
                               label="{{ translateRoot + 'status.summative' | translate }}"
                               analyticsEvent="FilterClick"
@@ -108,7 +108,7 @@
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="aggregateReportQuery" [values]="['Complete','Partial']"
                               property="completeness"
-                              (selected)="generateReport()"
+                              (changed)="generateReport()"
                               enum="enum.completeness"
                               label="{{ translateRoot + 'status.completion' | translate }}"
                               analyticsEvent="FilterClick"
@@ -131,7 +131,7 @@
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="aggregateReportQuery" [values]="queryBuilderModel.genders" property="gender"
                               enum="enum.gender"
-                              (selected)="generateReport()"
+                              (changed)="generateReport()"
                               label="{{ translateRoot + 'status.label' | translate }}"
                               analyticsEvent="FilterClick"
                               analyticsCategory="AggregateQueryBuilder"></sb-radio-button-list>
@@ -145,7 +145,7 @@
              content="{{'labels.filters.student.migrant-status-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="aggregateReportQuery" [values]="[1,2]" property="migrantStatus" enum="enum.polar"
-                              (selected)="generateReport()"
+                              (changed)="generateReport()"
                               label="{{ translateRoot + 'status.label' | translate }}"
                               analyticsEvent="FilterClick"
                               analyticsCategory="AggregateQueryBuilder"></sb-radio-button-list>
@@ -158,7 +158,7 @@
              content="{{'labels.filters.student.504-plan-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="aggregateReportQuery" [values]="[1,2]" property="plan504" enum="enum.polar"
-                              (selected)="generateReport()"
+                              (changed)="generateReport()"
                               label="{{ translateRoot + 'student.504-plan' | translate }}"
                               analyticsEvent="FilterClick"
                               analyticsCategory="AggregateQueryBuilder"></sb-radio-button-list>
@@ -171,7 +171,7 @@
              content="{{'labels.filters.student.iep-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="aggregateReportQuery" [values]="[1,2]" property="iep" enum="enum.polar"
-                              (selected)="generateReport()"
+                              (changed)="generateReport()"
                               label="{{ translateRoot + 'student.iep' | translate }}"
                               analyticsEvent="FilterClick"
                               analyticsCategory="AggregateQueryBuilder"></sb-radio-button-list>
@@ -185,7 +185,7 @@
              content="{{'labels.filters.student.economic-disadvantage-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="aggregateReportQuery" [values]="[1,2]" property="economicDisadvantage"
-                              (selected)="generateReport()"
+                              (changed)="generateReport()"
                               enum="enum.polar"
                               label="{{ translateRoot + 'student.economic-disadvantage' | translate }}"
                               analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
@@ -199,7 +199,7 @@
              content="{{'labels.filters.student.limited-english-proficiency-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-radio-button-list [model]="aggregateReportQuery" [values]="[1,2]" property="limitedEnglishProficiency"
-                              (selected)="generateReport()"
+                              (changed)="generateReport()"
                               enum="enum.polar"
                               label="{{ translateRoot + 'student.limited-english-proficiency' | translate }}"
                               analyticsEvent="FilterClick"
@@ -213,7 +213,7 @@
              content="{{'labels.filters.student.ethnicity-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-checkbox-list [model]="aggregateReportQuery" [values]="queryBuilderModel.ethnicities"
-                          (selected)="generateReport()" property="ethnicities"
+                          (changed)="generateReport()" property="ethnicities"
                           enum="enum.ethnicity"
                           label="{{ translateRoot + 'student.ethnicity' | translate }}"
                           analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-checkbox-list>
@@ -233,7 +233,7 @@
              content="{{'labels.aggregate-reports.query-builder.filter-results.data-well.assessment-grade-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-checkbox-list [horizontal]="true" [model]="aggregateReportQuery"
-                          [values]="queryBuilderModel.grades" (selected)="generateReport()"
+                          [values]="queryBuilderModel.grades" (changed)="generateReport()"
                           property="assessmentGrades" enum="labels.assessmentGrades"
                           label="{{ translateRoot + 'student.assessment-grade' | translate }}"
                           analyticsEvent="FilterClick"
@@ -249,7 +249,7 @@
              content="{{'labels.aggregate-reports.query-builder.filter-results.data-well.academic-year-info' | translate}}"></label>
       <div class="col-md-5 pull-right">
         <sb-checkbox-list [model]="aggregateReportQuery" [values]="queryBuilderModel.schoolYears | schoolYears"
-                          (selected)="generateReport()"
+                          (changed)="generateReport()"
                           property="schoolYears"
                           label="{{'schoolYear' | schoolYear }}"
                           analyticsEvent="FilterClick" analyticsCategory="AggregateQueryBuilder"></sb-checkbox-list>

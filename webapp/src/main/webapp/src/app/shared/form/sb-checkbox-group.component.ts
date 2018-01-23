@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
 const NOOP: () => void = () => {};
@@ -70,6 +70,9 @@ export class SBCheckboxGroup implements ControlValueAccessor, OnInit {
   @Input()
   public allOptionAnalyticsProperties: any = {};
 
+  @Output()
+  public changed: EventEmitter<any> = new EventEmitter<any>();
+
   private _options: Option[];
   private _value: any[] = [];
   private _onTouchedCallback: () => void = NOOP;
@@ -129,12 +132,14 @@ export class SBCheckboxGroup implements ControlValueAccessor, OnInit {
   optionChangedInternal(): void {
     this.selectedAllOptionInternal = this.selectedOptionsInternal.every(selected => !selected);
     this.updateValue();
+    this.changed.emit();
   }
 
   allOptionChangedInternal(): void {
     this.selectedAllOptionInternal = true;
     this.selectedOptionsInternal = [];
     this.updateValue();
+    this.changed.emit();
   }
 
   private updateValue(): void {

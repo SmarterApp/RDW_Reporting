@@ -555,25 +555,25 @@
             "DemographicRaceTwoOrMoreRaces": "Demographic Race of Two or More",
             "Filipino": "Filipino"
           },
-          "LimitedEnglishProficiency": {
-            "2": "Limited English Proficiency: No",
-            "1": "Limited English Proficiency: Yes"
+          "LEP": {
+            "default": "Limited English Proficiency: No",
+            "true": "Limited English Proficiency: Yes"
           },
           "IEP": {
-            "2": "IEP: No",
-            "1": "IEP: Yes"
+            "default": "IEP: No",
+            "true": "IEP: Yes"
           },
           "MigrantStatus": {
-            "2": "Migrant Status: No",
-            "1": "Migrant Status: Yes"
+            "default": "Migrant Status: No",
+            "true": "Migrant Status: Yes"
           },
           "EconomicDisadvantage": {
-            "2": "Economic Disadvantage: No",
-            "1": "Economic Disadvantage: Yes"
+            "default": "Economic Disadvantage: No",
+            "true": "Economic Disadvantage: Yes"
           },
-          "504Plan": {
-            "2": "504 Plan: No",
-            "1": "504 Plan: Yes"
+          "Section504": {
+            "default": "504 Plan: No",
+            "true": "504 Plan: Yes"
           }
         }
       },

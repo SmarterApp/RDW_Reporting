@@ -66,7 +66,7 @@ export class SBCheckboxList implements OnInit {
   public horizontal: boolean = false;
 
   @Output()
-  public selected: EventEmitter<any> = new EventEmitter<any>();
+  public changed: EventEmitter<any> = new EventEmitter<any>();
 
   private _name: string;
 
@@ -100,14 +100,14 @@ export class SBCheckboxList implements OnInit {
       this.modelValue[ 0 ] = true;
     }
     this.modelValue = Object.assign({}, this.modelValue);
-    this.selected.emit('all');
+    this.changed.emit('all');
   }
 
   valueChange(value): void {
     // Set all to true if all options are false.
     this.modelValue[ 0 ] = this.areAllValuesFalse();
     this.modelValue = Object.assign({}, this.modelValue);
-    this.selected.emit(this.modelValue);
+    this.changed.emit(this.modelValue);
   }
 
   private areAllValuesFalse(): boolean {

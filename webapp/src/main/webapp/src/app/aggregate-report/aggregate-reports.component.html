@@ -31,7 +31,8 @@
               <span *ngIf="options.assessmentTypes.length == 1">{{options.assessmentTypes[0].text}}</span>
               <sb-toggle *ngIf="options.assessmentTypes.length > 1"
                          [options]="options.assessmentTypes"
-                         [(ngModel)]="settings.assessmentType"></sb-toggle>
+                         [(ngModel)]="settings.assessmentType"
+                         (changed)="generateReport()"></sb-toggle>
             </div>
           </div>
         </div>
@@ -48,7 +49,8 @@
                                  [(ngModel)]="settings.subjects"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
-                                 [allOptionAnalyticsProperties]="{label: 'Subject: All'}"></sb-checkbox-group>
+                                 [allOptionAnalyticsProperties]="{label: 'Subject: All'}"
+                                 (changed)="generateReport()"></sb-checkbox-group>
             </div>
           </div>
         </div>
@@ -65,7 +67,8 @@
                                  [(ngModel)]="settings.assessmentGrades"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
-                                 [allOptionAnalyticsProperties]="{label: 'Assessment Grade: All'}"></sb-checkbox-group>
+                                 [allOptionAnalyticsProperties]="{label: 'Assessment Grade: All'}"
+                                 (changed)="generateReport()"></sb-checkbox-group>
             </div>
           </div>
         </div>
@@ -81,7 +84,8 @@
                                  [(ngModel)]="settings.schoolYears"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
-                                 [allOptionAnalyticsProperties]="{label: 'Academic Year: All'}"></sb-checkbox-group>
+                                 [allOptionAnalyticsProperties]="{label: 'Academic Year: All'}"
+                                 (changed)="generateReport()"></sb-checkbox-group>
             </div>
           </div>
         </div>
@@ -101,7 +105,8 @@
                                  [(ngModel)]="settings.interimAdministrationConditions"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
-                                 [allOptionAnalyticsProperties]="{label: 'Manner of Administration: All'}"></sb-checkbox-group>
+                                 [allOptionAnalyticsProperties]="{label: 'Manner of Administration: All'}"
+                                 (changed)="generateReport()"></sb-checkbox-group>
             </div>
           </div>
         </div>
@@ -121,7 +126,8 @@
                                  [(ngModel)]="settings.summativeAdministrationConditions"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
-                                 [allOptionAnalyticsProperties]="{label: 'Validity: All'}"></sb-checkbox-group>
+                                 [allOptionAnalyticsProperties]="{label: 'Validity: All'}"
+                                 (changed)="generateReport()"></sb-checkbox-group>
             </div>
           </div>
         </div>
@@ -138,7 +144,8 @@
                                  [(ngModel)]="settings.completenesses"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
-                                 [allOptionAnalyticsProperties]="{label: 'Completeness: All'}"></sb-checkbox-group>
+                                 [allOptionAnalyticsProperties]="{label: 'Completeness: All'}"
+                                 (changed)="generateReport()"></sb-checkbox-group>
             </div>
           </div>
         </div>
@@ -170,7 +177,8 @@
                                  [(ngModel)]="settings.genders"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
-                                 [allOptionAnalyticsProperties]="{label: 'Gender: All'}"></sb-checkbox-group>
+                                 [allOptionAnalyticsProperties]="{label: 'Gender: All'}"
+                                 (changed)="generateReport()"></sb-checkbox-group>
             </div>
           </div>
         </div>
@@ -186,7 +194,8 @@
                                  [(ngModel)]="settings.ethnicities"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
-                                 [allOptionAnalyticsProperties]="{label: 'Ethnicity: All'}"></sb-checkbox-group>
+                                 [allOptionAnalyticsProperties]="{label: 'Ethnicity: All'}"
+                                 (changed)="generateReport()"></sb-checkbox-group>
             </div>
           </div>
         </div>
@@ -203,7 +212,8 @@
                                  [(ngModel)]="settings.migrantStatuses"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
-                                 [allOptionAnalyticsProperties]="{label: 'Migrant Status: All'}"></sb-checkbox-group>
+                                 [allOptionAnalyticsProperties]="{label: 'Migrant Status: All'}"
+                                 (changed)="generateReport()"></sb-checkbox-group>
             </div>
           </div>
         </div>
@@ -220,7 +230,8 @@
                                  [(ngModel)]="settings.ieps"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
-                                 [allOptionAnalyticsProperties]="{label: 'IEP: All'}"></sb-checkbox-group>
+                                 [allOptionAnalyticsProperties]="{label: 'IEP: All'}"
+                                 (changed)="generateReport()"></sb-checkbox-group>
             </div>
           </div>
         </div>
@@ -237,7 +248,8 @@
                                  [(ngModel)]="settings.plan504s"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
-                                 [allOptionAnalyticsProperties]="{label: '504 Plan: All'}"></sb-checkbox-group>
+                                 [allOptionAnalyticsProperties]="{label: '504 Plan: All'}"
+                                 (changed)="generateReport()"></sb-checkbox-group>
             </div>
           </div>
         </div>
@@ -254,7 +266,8 @@
                                  [(ngModel)]="settings.limitedEnglishProficiencies"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
-                                 [allOptionAnalyticsProperties]="{label: 'Limited English Proficiency: All'}"></sb-checkbox-group>
+                                 [allOptionAnalyticsProperties]="{label: 'Limited English Proficiency: All'}"
+                                 (changed)="generateReport()"></sb-checkbox-group>
             </div>
           </div>
         </div>
@@ -271,7 +284,8 @@
                                  [(ngModel)]="settings.economicDisadvantages"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
-                                 [allOptionAnalyticsProperties]="{label: 'Economic Disadvantage: All'}"></sb-checkbox-group>
+                                 [allOptionAnalyticsProperties]="{label: 'Economic Disadvantage: All'}"
+                                 (changed)="generateReport()"></sb-checkbox-group>
             </div>
           </div>
         </div>
@@ -349,7 +363,8 @@
                                  [(ngModel)]="settings.dimensionTypes"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
-                                 [allOptionAnalyticsProperties]="{label: 'Comparative Subgroups: All'}"></sb-checkbox-group>
+                                 [allOptionAnalyticsProperties]="{label: 'Comparative Subgroups: All'}"
+                                 (changed)="generateReport()"></sb-checkbox-group>
             </div>
           </div>
         </div>
@@ -462,6 +477,17 @@
               ]
             }
             ]"></aggregate-report-summary>
+          <div class="pt-md">
+            <span class="disabled-table-text" *ngIf="responsePreview">{{ 'labels.aggregate-reports.preview' | translate }}</span>
+            <div class="disabled-table-container">
+              <aggregate-reports-preview-table *ngIf="responsePreview" [reportItems]="responsePreview"
+                                               [query]="settings"
+                                               [showValuesAsPercent]="settings.valueDisplayType == 'Percent'"
+                                               [columnOrdering]="['organizationName', 'gradeId', 'schoolYear', 'dimensionValue']"
+                                               [groupPerformanceLevels]="groupPerformanceLevels"
+              ></aggregate-reports-preview-table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
