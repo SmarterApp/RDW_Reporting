@@ -1531,7 +1531,8 @@
         "name": "ELA/Literacy",
         "short-name": "ELA"
       }
-    }
+    },
+    "type": "Type"
   },
   "messages": {
     "no-grades-available": "No test results are available for the selected school.",
