@@ -23,7 +23,6 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
       <label *ngFor="let option of options" class="btn btn-primary"
              [ngClass]="{active: option.value === value, disabled: disabled}">
         <input type="radio" [id]="name" [name]="name" [disabled]="disabled" [value]="option.value" [(ngModel)]="value"
-               (ngModelChange)="changed.emit(value)"
                angulartics2On="click" [angularticsEvent]="analyticsEvent"
                [angularticsCategory]="analyticsCategory"
                [angularticsProperties]="option.angularticsProperties || {label: option.text}">{{option.text}}
@@ -51,9 +50,6 @@ export class SBToggleComponent implements ControlValueAccessor, OnInit {
    */
   @Input()
   public analyticsCategory: string;
-
-  @Output()
-  public changed: EventEmitter<any> = new EventEmitter<any>();
 
   private _options: Option[];
   private _value: any;
