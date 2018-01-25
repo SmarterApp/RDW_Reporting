@@ -42,7 +42,7 @@ app:
         driverClassName: com.amazon.redshift.jdbc42.Driver
 
   cache:
-    reportOrganizations:
+    repository:
       # every day at 1:00 am
       refresh-cron: "0 0 1 * * *"
 
