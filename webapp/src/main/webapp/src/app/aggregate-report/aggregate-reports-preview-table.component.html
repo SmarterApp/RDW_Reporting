@@ -42,7 +42,7 @@
         <div *ngIf="treeColumns[i] <= colIndex(col)"
              class="full-cell pt-0"
              [ngClass]="{'border-top': treeColumns[i] <= colIndex(col) && treeColumns[i] < columnOrdering.length - 1}">
-          {{reportItem.schoolYear}}
+          {{reportItem.schoolYear | schoolYear}}
         </div>
       </ng-template>
     </p-column>
@@ -64,7 +64,7 @@
       <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
         <div class="full-cell pt-0"
              [ngClass]="{'border-top': treeColumns[i] < columnOrdering.length - 1}">
-          --
+          {{ reportItem.studentsTested }}
         </div>
       </ng-template>
     </p-column>
@@ -85,8 +85,7 @@
       <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
         <div class="full-cell text-center"
              [ngClass]="{'border-top': treeColumns[i] < columnOrdering.length - 1}">
-          <span *ngIf="!reportItem.studentsTested">-</span>
-          <span *ngIf="reportItem.studentsTested">
+          <span>
             <scale-score [score]="reportItem.avgScaleScore" [standardError]="reportItem.avgStdErr"></scale-score>
           </span>
         </div>
@@ -108,7 +107,7 @@
         <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
           <div class="full-cell text-center"
                [ngClass]="{'border-top': treeColumns[i] < columnOrdering.length - 1}">
-            <span>--</span>
+            <span>{{ showValuesAsPercent ? reportItem.performanceLevelPercents[levelIdx] + "%" : reportItem.performanceLevelCounts[levelIdx] }}</span>
           </div>
         </ng-template>
       </p-column>
@@ -130,7 +129,7 @@
         <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
           <div class="full-cell text-center"
                [ngClass]="{'border-top': treeColumns[i] < columnOrdering.length - 1}">
-            <span>--</span>
+            <span>{{ showValuesAsPercent ? reportItem.groupedPerformanceLevelPercents[leveIdx] + "%" : reportItem.groupedPerformanceLevelCounts[leveIdx] }}</span>
           </div>
         </ng-template>
       </p-column>
