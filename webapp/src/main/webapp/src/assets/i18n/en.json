@@ -341,7 +341,8 @@
       },
       "request-type": {
         "distractor-analysis": "DistractorAnalysis",
-        "results-by-item": "ResultsByItems"
+        "results-by-item": "ResultsByItems",
+        "writing-trait-scores": "WritingTraitScores"
       },
       "short": {
         "1": "Did Not Meet",
@@ -409,7 +410,8 @@
     "results-view-state": {
       "ByItem": "Results By Item",
       "ByStudent": "Results By Student",
-      "DistractorAnalysis": "Distractor Analysis"
+      "DistractorAnalysis": "Distractor Analysis",
+      "WritingTraitScores": "Writing Trait Scores"
     },
     "status": {
       "ACCEPTED": "Accepted",
@@ -439,6 +441,12 @@
     "transfer": {
       "false": "Show",
       "true": "Hide"
+    },
+    "writing-trait": {
+      "evidence": "Evidence / Elaboration",
+      "organization": "Organization / Purpose",
+      "conventions": "Conventions",
+      "total": "Total Points"
     }
   },
   "html": {
@@ -555,25 +563,25 @@
             "DemographicRaceTwoOrMoreRaces": "Demographic Race of Two or More",
             "Filipino": "Filipino"
           },
-          "LimitedEnglishProficiency": {
-            "2": "Limited English Proficiency: No",
-            "1": "Limited English Proficiency: Yes"
+          "LEP": {
+            "default": "Limited English Proficiency: No",
+            "true": "Limited English Proficiency: Yes"
           },
           "IEP": {
-            "2": "IEP: No",
-            "1": "IEP: Yes"
+            "default": "IEP: No",
+            "true": "IEP: Yes"
           },
           "MigrantStatus": {
-            "2": "Migrant Status: No",
-            "1": "Migrant Status: Yes"
+            "default": "Migrant Status: No",
+            "true": "Migrant Status: Yes"
           },
           "EconomicDisadvantage": {
-            "2": "Economic Disadvantage: No",
-            "1": "Economic Disadvantage: Yes"
+            "default": "Economic Disadvantage: No",
+            "true": "Economic Disadvantage: Yes"
           },
-          "504Plan": {
-            "2": "504 Plan: No",
-            "1": "504 Plan: Yes"
+          "Section504": {
+            "default": "504 Plan: No",
+            "true": "504 Plan: Yes"
           }
         }
       },
@@ -583,7 +591,9 @@
         "field": {
           "assessment-grades": {
             "label": "Assessment Grades",
-            "info": "Assessment Grades"
+            "info": "The grade of the assessment that was administered",
+            "subtext": "* Required",
+            "error-empty": "Please select an assessment grade."
           },
           "assessment-type": {
             "label": "Assessment Type",
@@ -596,7 +606,7 @@
           "interim-administration-condition": {
             "label": "Manner of Administration",
             "info": "For interim assessments, a Standardized administration follows the same protocols and security procedures as a summative test administration. For a Non Standardized administration, the teacher may use the assessment during instruction and interact with students as they complete the assessment.",
-            "qualifier": "Interim"
+            "subtext": "Interim"
           },
           "school-year": {
             "label": "Academic Years",
@@ -609,7 +619,7 @@
           "summative-administration-condition": {
             "label": "Validity",
             "info": "For summative assessments, a test is noted as invalid if an appeal is submitted  to invalidate the test due to a test irregularity or breach.",
-            "qualifier": "Summative"
+            "subtext": "Summative"
           },
           "gender": {
             "label": "Gender",
@@ -632,7 +642,7 @@
             "info": "Indicates that a student has an approved 504 plan. These plans are for students with disabilities who may need accommodations but do not require specialized instruction."
           },
           "limited-english-proficiency": {
-            "label": "Limited English Proficiency",
+            "label": "English Learners",
             "info": "Students who use a language other than English as their primary language and who have been assessed as not possessing the English language skills necessary to succeed in the regular instructional program."
           },
           "economic-disadvantage": {
@@ -640,8 +650,8 @@
             "info": "Indicates that a student qualifies for free or reduced lunch or meets other state criteria for economic disadvantage."
           },
           "achievement-level-display-type": {
-            "label": "Achievement Level",
-            "info": "Achievement Level",
+            "label": "Achievement Level Display",
+            "info": "Achievement Level Display",
             "value": {
               "Separate": "Separate",
               "Grouped": "Grouped"
@@ -661,7 +671,7 @@
             "value": {
               "Gender": "Gender",
               "Ethnicity": "Race / Ethnicity",
-              "LEP": "Limited English Proficiency",
+              "LEP": "English Learners",
               "MigrantStatus": "Migrant Status",
               "Section504": "504",
               "IEP": "IEP",
@@ -675,7 +685,7 @@
           "subheading": "Select the attributes to include in the report. Then click \"Generate Report.\""
         },
         "summary": {
-          "heading": "Report Summary",
+          "heading": "Report Preview",
           "edit": "Edit",
           "column": {
             "assessment": {
@@ -725,7 +735,7 @@
             "achievement-level": {
               "label": "Achievement Level",
               "attribute": {
-                "grouping": "Grouping"
+                "grouping": "Display"
               }
             }
           }
@@ -1188,13 +1198,17 @@
           "items": {
             "cols": {
               "answer-key": "Answer Key",
+              "average": "Average",
+              "category": "Category",
               "claim": "Claim/Target",
               "claim-info-html": "Claims and targets are a way of classifying test content.  The claim is the major topic area.  For example, in English language arts, reading is a claim.  Within each claim, there are targets that describe the particular knowledge and skills that the test measures.  Each target may encompass one or more standards from the Common Core State Standards.  Within the Reading claim, for example, one of the targets is concerned with finding the central idea in a text.  For more information, see the <a href=\"http://www.smarterbalanced.org/assessments/development/\" target=\"_blank\">Smarter Balanced Content Specifications</a>.",
               "difficulty": "Item Difficulty",
               "difficulty-info": "Item difficulty (easy, moderate, difficult) is based on the difficulty of the item for students in a reference population.  See the Interpretive Guide for a description of the reference population and how the difficulty categories are derived.",
               "full-credit": "Full Credit",
               "full-credit-info": "Percentage of students in the group who earned the maximum number of points available for a particular test item.",
+              "max-score": "Maximum Score",
               "number": "Item #",
+              "performance-task-writing-type": "Writing Type",
               "standard": "Standard",
               "standard-info-html": {
                 "ELA": "This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  For example, a question that asks students to evaluate research sources may assess both reading and research skills.  For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf\" target=\"_blank\">English Language Arts Content Specifications</a>.",
@@ -1466,6 +1480,12 @@
         "2": "ELA"
       }
     },
+    "results-view-state-intro": {
+      "ByItem": "",
+      "ByStudent": "",
+      "DistractorAnalysis": "",
+      "WritingTraitScores": ""
+    },
     "school-grade": {
       "messages": {
         "no-results": "No results.",
@@ -1529,6 +1549,10 @@
         "name": "ELA/Literacy",
         "short-name": "ELA"
       }
+    },
+    "type": "Type",
+    "writing-trait-scores": {
+      "aggregate-header": "Point Breakdown: {{traitType}}"
     }
   },
   "messages": {
@@ -1542,11 +1566,13 @@
     "coming-soon": "{{featureName}} is coming soon.",
     "loading": "Loading",
     "logout": "Logout",
-    "no-distractor-analysis": "Distractor analysis is not available for tests administered prior to 2017-18 school year.",
-    "no-distractor-analysis-for-summative-exams": "Distractor analysis is not available for summative tests.",
-    "no-results-by-item": "Results by item is not available for tests administered prior to 2017-18 school year.",
-    "no-results-by-item-for-summative-exams": "Results by item is not available for summative tests.",
+    "no-distractor-analysis": "Distractor analysis is not available for assessments administered prior to 2017-18 school year.",
+    "no-distractor-analysis-for-summative-exams": "Distractor analysis is not available for summative assessments.",
+    "no-results-by-item": "Results by item is not available for assessments administered prior to 2017-18 school year.",
+    "no-results-by-item-for-summative-exams": "Results by item is not available for summative assessments.",
     "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above.",
+    "no-writing-trait-scores": "Writing trait scores are not available for assessments administered prior to 2017-18 school year.",
+    "no-writing-trait-scores-for-summative-ica-exams": "Writing trait scores are only currently available for IAB assessments.",
     "noExams": "There are no exams associated with your account.",
     "noExamsMatchingCriteria": "There are no exams matching this criteria.",
     "noExamsSelected": "Please select from the assessments above",

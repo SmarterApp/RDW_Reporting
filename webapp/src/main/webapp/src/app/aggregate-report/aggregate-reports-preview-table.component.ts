@@ -1,14 +1,14 @@
 import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { Ordering, ordering } from "@kourge/ordering";
-import { AggregateReportItem } from "../model/aggregate-report-item.model";
-import { AssessmentType } from "../../shared/enum/assessment-type.enum";
+import { AggregateReportItem } from "./model/aggregate-report-item.model";
+import { AssessmentType } from "../shared/enum/assessment-type.enum";
 import { byNumber, byString, Comparator, join, ranking } from "@kourge/ordering/comparator";
-import { ColorService } from "../../shared/color.service";
+import { ColorService } from "../shared/color.service";
 import { Column, DataTable } from "primeng/primeng";
 import { isNullOrUndefined } from "util";
 import * as _ from "lodash";
-import { AssessmentDetailsService } from "./assessment-details.service";
-import { AggregateReportQuery } from "../model/aggregate-report-query.model";
+import { AssessmentDetailsService } from "./results/assessment-details.service";
+import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
 
 /**
  * This component is responsible for displaying a table of aggregate report results
@@ -20,11 +20,11 @@ import { AggregateReportQuery } from "../model/aggregate-report-query.model";
  *                  identified subject group
  */
 @Component({
-  selector: 'aggregate-reports-table',
-  templateUrl: './aggregate-reports-table.component.html',
+  selector: 'aggregate-reports-preview-table',
+  templateUrl: './aggregate-reports-preview-table.component.html',
 })
-export class AggregateReportsTableComponent implements OnInit {
-  private static OrderingDimensionType: Ordering<AggregateReportItem> = ordering(ranking(['Overall', 'Gender', 'Ethnicity'])).on((item) => item.dimensionType);
+export class AggregateReportsPreviewTableComponent implements OnInit {
+  private static OrderingDimensionType: Ordering<AggregateReportItem> = ordering(ranking([ 'Overall', 'Gender', 'Ethnicity', 'LEP', 'MigrantStatus', 'Section504', 'IEP', 'EconomicDisadvantage' ])).on((item) => item.dimensionType);
   private static OrderingDimensionValue: Ordering<AggregateReportItem> = ordering(byString).on((item) => item.dimensionValue.toString());
 
   /**
@@ -38,7 +38,7 @@ export class AggregateReportsTableComponent implements OnInit {
    * The report request query containing additional information on the report data.
    */
   @Input()
-  public query: AggregateReportQuery;
+  public query: AggregateReportFormSettings;
 
   /**
    * The tree column ordering as an array of field strings.
@@ -59,9 +59,6 @@ export class AggregateReportsTableComponent implements OnInit {
   @Input()
   public groupPerformanceLevels: boolean;
 
-  @Input()
-  public previewOnly: boolean = false;
-
   @ViewChild("table")
   private resultsTable: DataTable;
 
@@ -70,7 +67,7 @@ export class AggregateReportsTableComponent implements OnInit {
   public performanceLevelTranslationPrefix: string;
   public loading: boolean = true;
 
-  private orderingByProperty: {[key: string]: Ordering<AggregateReportItem>} = {};
+  private orderingByProperty: { [key: string]: Ordering<AggregateReportItem> } = {};
   private previousSort: any;
   private performanceGroupingCutpoint: number;
 
@@ -80,17 +77,17 @@ export class AggregateReportsTableComponent implements OnInit {
     this.orderingByProperty.gradeId = ordering(byNumber).on((item) => item.gradeId);
     this.orderingByProperty.schoolYear = ordering(byNumber).on((item) => item.schoolYear);
     this.orderingByProperty.dimensionValue = ordering(join.apply(null, [
-      AggregateReportsTableComponent.OrderingDimensionType.compare,
-      AggregateReportsTableComponent.OrderingDimensionValue.compare
+      AggregateReportsPreviewTableComponent.OrderingDimensionType.compare,
+      AggregateReportsPreviewTableComponent.OrderingDimensionValue.compare
     ]));
   }
 
   ngOnInit(): void {
     this.performanceLevelTranslationPrefix = 'enum.' +
-      (this.query.assessmentType == AssessmentType.IAB ? 'iab-category' : 'achievement-level') +
+      (this.query.assessmentType.id == AssessmentType.IAB ? 'iab-category' : 'achievement-level') +
       '.short.';
 
-    this.assessmentDetailsService.getDetails(this.query.assessmentType).subscribe((details) => {
+    this.assessmentDetailsService.getDetails(this.query.assessmentType.id).subscribe((details) => {
       for (let level = 1; level <= details.performanceLevels; level++) {
         this.performanceLevels.push(level);
       }
@@ -99,15 +96,8 @@ export class AggregateReportsTableComponent implements OnInit {
 
     // Give the datatable a chance to initialize, run this next frame
     setTimeout(() => {
-      this.updateColumnOrder();
       this.sort();
       this.calculateTreeColumns();
-
-      this.resultsTable.cols.changes.subscribe(() => {
-        this.updateColumnOrder();
-        this.sort(this.previousSort);
-        this.calculateTreeColumns();
-      });
 
       this.resultsTable.value = this.reportItems;
       this.loading = false;
@@ -129,16 +119,6 @@ export class AggregateReportsTableComponent implements OnInit {
   }
 
   /**
-   * Event listener that recalculates tree columns whenever the
-   * DataTable is paged or the results to display per-page is changed.
-   *
-   * @param event A page event
-   */
-  public onPage(event: any): void {
-    this.calculateTreeColumns();
-  }
-
-  /**
    * Sort the data by the event's column first, then by default column-ordered sorting.
    * Attempt to preserve as much of the tree structure as possible.
    *
@@ -148,7 +128,7 @@ export class AggregateReportsTableComponent implements OnInit {
     let ordering: Comparator<AggregateReportItem>[] = this.getColumnOrdering();
 
     if (event &&
-      ( !this.previousSort ||
+      (!this.previousSort ||
         event.order != 1 ||
         event.field != this.previousSort.field
       )) {
@@ -200,7 +180,7 @@ export class AggregateReportsTableComponent implements OnInit {
    * @returns {Comparator<AggregateReportItem>} A Comparator for ordering results by the given field
    */
   private getComparator(field: string, order: number): Comparator<AggregateReportItem> {
-    let rowOrdering: Ordering<AggregateReportItem> = this.orderingByProperty[field];
+    let rowOrdering: Ordering<AggregateReportItem> = this.orderingByProperty[ field ];
     if (!rowOrdering) {
       rowOrdering = ordering(byNumber).on((item) => _.get(item, field, 0));
     }
@@ -216,8 +196,12 @@ export class AggregateReportsTableComponent implements OnInit {
    */
   private getColumnOrdering(): Comparator<AggregateReportItem>[] {
     return this.resultsTable.columns
-      .map(column => this.orderingByProperty[column.field] ? this.orderingByProperty[column.field].compare : null)
-      .filter(value => !isNullOrUndefined(value));
+      .map((column: Column) => (
+        this.orderingByProperty[ column.field ] ? this.orderingByProperty[ column.field ].compare : null
+      )).filter((value: Comparator<AggregateReportItem>) => (
+          !isNullOrUndefined(value)
+        )
+      );
   }
 
   /**
@@ -234,7 +218,7 @@ export class AggregateReportsTableComponent implements OnInit {
       } else {
         let colIdx: number;
         for (colIdx = 0; colIdx < this.columnOrdering.length - 1; colIdx++) {
-          let column: Column = this.resultsTable.columns[colIdx];
+          let column: Column = this.resultsTable.columns[ colIdx ];
           let previousValue = _.get(previousItem, column.field);
           let currentValue = _.get(item, column.field);
           if (previousValue != currentValue) {

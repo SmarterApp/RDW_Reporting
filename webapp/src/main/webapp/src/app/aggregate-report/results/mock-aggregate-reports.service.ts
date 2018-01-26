@@ -36,7 +36,6 @@ export class MockAggregateReportsService {
   }
 
   public generateQueryBuilderSampleData(options: string[], query: AggregateReportQuery, queryModel: QueryBuilderModel) {
-    let generatedResponse: any;
     let detailsObservable: Observable<AssessmentDetails> = this.assessmentDetailsService.getDetails(query.assessmentType);
 
     let mockData: Array<any> = this.createResponse(options, query, queryModel);
@@ -147,7 +146,7 @@ export class MockAggregateReportsService {
     uiModel.studentsTested = totalTested;
 
     for (let level = 0; level < uiModel.performanceLevelCounts.length; level++) {
-      let percent = totalTested == 0 ? 0 : Math.floor((uiModel.performanceLevelCounts[ level ] / totalTested) * 100);
+      let percent = totalTested == 0 ? 0 : Math.floor((<number>uiModel.performanceLevelCounts[ level ] / totalTested) * 100);
       uiModel.performanceLevelPercents.push(percent);
     }
 
@@ -157,9 +156,9 @@ export class MockAggregateReportsService {
       let aboveCount: number = 0;
       for (let level = 0; level < uiModel.performanceLevelCounts.length; level++) {
         if (level < details.performanceGroupingCutpoint - 1) {
-          belowCount += uiModel.performanceLevelCounts[ level ];
+          belowCount += <number>uiModel.performanceLevelCounts[ level ];
         } else {
-          aboveCount += uiModel.performanceLevelCounts[ level ];
+          aboveCount += <number>uiModel.performanceLevelCounts[ level ];
         }
       }
       uiModel.groupedPerformanceLevelCounts.push(belowCount);

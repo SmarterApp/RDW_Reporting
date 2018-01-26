@@ -16,7 +16,7 @@ import { Observable } from "rxjs/Observable";
 export class AssessmentDetailsService {
   private static IabDetails: AssessmentDetails = {
     performanceLevels: 3,
-    performanceGroupingCutpoint: -1
+    performanceGroupingCutpoint: 3
   };
 
   private static IcaSummativeDetails: AssessmentDetails = {

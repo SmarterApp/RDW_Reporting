@@ -4,12 +4,7 @@ import { AssessmentExamMapper } from "../../assessments/assessment-exam.mapper";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { AssessmentProvider } from "../../assessments/assessment-provider.interface";
 import { ResponseUtils } from "../../shared/response-utils";
-import { ExportRequest } from "../../assessments/model/export-request.model";
-import { Assessment } from "../../assessments/model/assessment.model";
 import { Grade } from "../grade.model";
-import { TranslateService } from "@ngx-translate/core";
-import { CsvExportService } from "../../csv-export/csv-export.service";
-import { Angulartics2 } from "angulartics2";
 import { DataService } from "../../shared/data/data.service";
 import { Utils } from "../../shared/support/support";
 
@@ -25,9 +20,6 @@ export class SchoolAssessmentService implements AssessmentProvider {
 
   constructor(private dataService: DataService,
               private filterOptionService: ExamFilterOptionsService,
-              private csvExportService: CsvExportService,
-              private translate: TranslateService,
-              private angulartics2: Angulartics2,
               private mapper: AssessmentExamMapper) {
   }
 
@@ -60,11 +52,10 @@ export class SchoolAssessmentService implements AssessmentProvider {
     return this.schoolId;
   }
 
-  getAssessmentItems(assessmentId: number, multipleChoiceMultipleSelectItems?: boolean) {
-    if (multipleChoiceMultipleSelectItems) {
+  getAssessmentItems(assessmentId: number, itemTypes?: string[]) {
       return this.dataService.get(`${ServiceRoute}/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments/${assessmentId}/examitems`, {
           params: {
-            types: [ 'MC', 'MS' ],
+            types: itemTypes,
             schoolYear: this.schoolYear.toString()
           }
         })
@@ -72,32 +63,6 @@ export class SchoolAssessmentService implements AssessmentProvider {
         .map(x => {
           return this.mapper.mapAssessmentItemsFromApi(x);
         });
-    }
-    return this.dataService.get(`${ServiceRoute}/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments/${assessmentId}/examitems`, { search: this.getSchoolYearParams(this.schoolYear) })
-      .catch(ResponseUtils.badResponseToNull)
-      .map(x => {
-        return this.mapper.mapAssessmentItemsFromApi(x);
-      });
-  }
-
-  exportItemsToCsv(exportRequest: ExportRequest) {
-    let filename: string = this.getFilename(exportRequest);
-
-    this.angulartics2.eventTrack.next({
-      action: 'Export School/Grade Results by Items',
-      properties: {
-        category: 'Export'
-      }
-    });
-
-    this.csvExportService.exportResultItems(exportRequest, filename);
-  }
-
-  private getFilename(exportRequest: ExportRequest) {
-    let assessment: Assessment = exportRequest.assessment;
-    return this.schoolName +
-      "-" + this.translate.instant(`labels.grades.${this.grade.code}.short-name`) +
-      "-" + assessment.label + "-" + this.translate.instant(exportRequest.type.toString()) + "-" + new Date().toDateString();
   }
 
   private getRecentAssessmentBySchoolYear(schoolId: number, gradeId: number, schoolYear: number) {

@@ -7,16 +7,16 @@ export class AggregateReportItem {
   gradeId: number;
   subjectId: number;
   schoolYear: number;
-  avgScaleScore: number;
-  avgStdErr: number;
-  studentsTested: number;
-  performanceLevelCounts: number[] = [];
-  performanceLevelPercents: number[] = [];
-  groupedPerformanceLevelCounts: number[] = [];
-  groupedPerformanceLevelPercents: number[] = [];
+  avgScaleScore: string | number;
+  avgStdErr: string | number;
+  studentsTested: any;
+  performanceLevelCounts: (number | string)[] = [];
+  performanceLevelPercents: (number | string)[] = [];
+  groupedPerformanceLevelCounts: (number | string)[] = [];
+  groupedPerformanceLevelPercents: (number | string)[] = [];
   organizationType: string;
   organizationName: string;
   organizationId: string;
   dimensionType: string;
-  dimensionValue: string;
+  dimensionValue: string | boolean;
 }

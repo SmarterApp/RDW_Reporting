@@ -1,4 +1,3 @@
-import { ExportRequest } from "../app/assessments/model/export-request.model";
 import { Observable } from "rxjs/Observable";
 import { AssessmentItem } from "../app/assessments/model/assessment-item.model";
 import { Exam } from "../app/assessments/model/exam.model";
@@ -16,9 +15,6 @@ export class MockAssessmentProvider implements AssessmentProvider {
 
   getAssessmentItems(assessmentId: number): Observable<AssessmentItem[]> {
     return Observable.of([]);
-  }
-
-  exportItemsToCsv(exportRequest: ExportRequest) {
   }
 
   getSchoolId() {

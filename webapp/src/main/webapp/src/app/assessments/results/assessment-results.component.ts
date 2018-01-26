@@ -20,11 +20,14 @@ import { InstructionalResourcesService } from "./instructional-resources.service
 import { InstructionalResource } from "../model/instructional-resources.model";
 import { Assessment } from "../model/assessment.model";
 import { Observable } from "rxjs/Observable";
+import { WritingTraitScoresComponent } from "./view/writing-trait-scores/writing-trait-scores.component";
+import { AssessmentExporter } from "../assessment-exporter.interface";
 
 enum ResultsViewState {
   ByStudent = 1,
   ByItem = 2,
-  DistractorAnalysis = 3
+  DistractorAnalysis = 3,
+  WritingTraitScores = 4
 }
 
 @Component({
@@ -76,6 +79,12 @@ export class AssessmentResultsComponent implements OnInit {
   assessmentProvider: AssessmentProvider;
 
   /**
+   * Service class which provides export capabilities=for this assessment and exam.
+   */
+  @Input()
+  assessmentExporter: AssessmentExporter;
+
+  /**
    * If true, values will be shown as percents.  Otherwise values will be shown
    * as numbers.
    */
@@ -120,16 +129,24 @@ export class AssessmentResultsComponent implements OnInit {
     this.assessmentExam.collapsed = collapsed;
   }
 
-  get collapsed() {
+  get collapsed(): boolean {
     return this.assessmentExam.collapsed;
   }
 
-  get assessmentExam() {
+  get assessmentExam(): AssessmentExam {
     return this._assessmentExam;
   }
 
   get displayItemLevelData(): boolean {
-    return this._assessmentExam.exams.some(x => x.schoolYear > this.minimumItemDataYear) && !this._assessmentExam.assessment.isSummative;
+    return !this._assessmentExam.assessment.isSummative && this._assessmentExam.exams.some(x => x.schoolYear > this.minimumItemDataYear);
+  }
+
+  get displayWritingTraitScores(): boolean {
+    return this._assessmentExam.assessment.isEla;
+  }
+
+  get enableWritingTraitScores(): boolean {
+    return this._assessmentExam.assessment.isIab && this.displayItemLevelData;
   }
 
   get showStudentResults(): boolean {
@@ -144,12 +161,22 @@ export class AssessmentResultsComponent implements OnInit {
     return this.currentResultsView.value == ResultsViewState.DistractorAnalysis;
   }
 
-  get currentExportResults(): ExportResults {
-    if (this.showItemsByPointsEarned)
-      return this.resultsByItem;
+  get showWritingTraitScores(): boolean {
+    return this.currentResultsView.value == ResultsViewState.WritingTraitScores;
+  }
 
-    if (this.showDistractorAnalysis)
+  get currentExportResults(): ExportResults {
+    if (this.showItemsByPointsEarned) {
+      return this.resultsByItem;
+    }
+
+    if (this.showDistractorAnalysis) {
       return this.distractorAnalysis;
+    }
+
+    if (this.showWritingTraitScores) {
+      return this.writingTraitScores;
+    }
 
     return undefined;
   }
@@ -163,6 +190,9 @@ export class AssessmentResultsComponent implements OnInit {
   @ViewChild('distractorAnalysis')
   distractorAnalysis: DistractorAnalysisComponent;
 
+  @ViewChild('writingTraitScores')
+  writingTraitScores: WritingTraitScoresComponent;
+
   exams: Exam[] = [];
   sessions = [];
   statistics: ExamStatistics;
@@ -170,6 +200,7 @@ export class AssessmentResultsComponent implements OnInit {
   resultsByStudentView: ResultsView;
   resultsByItemView: ResultsView;
   distractorAnalysisView: ResultsView;
+  writingTraitScoresView: ResultsView;
   instructionalResourceProvider: () => Observable<InstructionalResource[]>;
 
   private _filterBy: FilterBy;
@@ -188,21 +219,23 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   setViews(): void {
-    this.resultsByStudentView = this.getResultViewState(ResultsViewState.ByStudent, true, false);
-    this.resultsByItemView = this.getResultViewState(ResultsViewState.ByItem, this.displayItemLevelData, true)
-    this.distractorAnalysisView = this.getResultViewState(ResultsViewState.DistractorAnalysis, this.displayItemLevelData, true);
+    this.resultsByStudentView = this.createResultViewState(ResultsViewState.ByStudent, true, false, true);
+    this.resultsByItemView = this.createResultViewState(ResultsViewState.ByItem, this.displayItemLevelData, true, true)
+    this.distractorAnalysisView = this.createResultViewState(ResultsViewState.DistractorAnalysis, this.displayItemLevelData, true, true);
+    this.writingTraitScoresView = this.createResultViewState(ResultsViewState.WritingTraitScores, this.enableWritingTraitScores, true, this.displayWritingTraitScores);
   }
 
-  getResultViewState(viewState: ResultsViewState, enabled: boolean, canExport: boolean): ResultsView {
+  createResultViewState(viewState: ResultsViewState, enabled: boolean, canExport: boolean, display: boolean): ResultsView {
     return {
       label: 'enum.results-view-state.' + ResultsViewState[ viewState ],
       value: viewState,
       disabled: !enabled,
+      display: display,
       canExport: canExport
     }
   }
 
-  setCurrentView(view: ResultsView) {
+  setCurrentView(view: ResultsView): void {
     this.currentResultsView = view;
   }
 
@@ -210,21 +243,25 @@ export class AssessmentResultsComponent implements OnInit {
     return GradeCode.getIndex(gradeCode);
   }
 
-  toggleSession(session) {
+  getCurrentViewIntroductionLabel(): string {
+    return 'labels.results-view-state-intro.' + ResultsViewState[ this.currentResultsView.value ];
+  }
+
+  toggleSession(session): void {
     session.filter = !session.filter;
     this.updateExamSessions();
   }
 
-  openInstructionalResource() {
+  openInstructionalResource(): void {
     window.open(this.assessmentExam.assessment.resourceUrl);
   }
 
-  loadInstructionalResources(assessment: Assessment, performanceLevel: number) {
+  loadInstructionalResources(assessment: Assessment, performanceLevel: number): void {
     this.instructionalResourceProvider = () => this.instructionalResourcesService.getInstructionalResources(assessment.id, this.assessmentProvider.getSchoolId())
         .map((resources) => resources.getResourcesByPerformance(performanceLevel));
   }
 
-  private getDistinctExamSessions(exams: Exam[]) {
+  private getDistinctExamSessions(exams: Exam[]): any[] {
     let sessions = [];
 
     for (let exam of exams) {
@@ -240,12 +277,12 @@ export class AssessmentResultsComponent implements OnInit {
         .compare);
   }
 
-  private updateExamSessions() {
+  private updateExamSessions(): void {
     this.exams = this.filterExams();
     this.statistics = this.calculateStats();
   }
 
-  private filterExams() {
+  private filterExams(): Exam[] {
     let exams: Exam[] = this.examFilterService
       .filterExams(this._assessmentExam, this._filterBy);
 
@@ -275,6 +312,7 @@ interface ResultsView {
   value: ResultsViewState;
   disabled: boolean;
   canExport: boolean;
+  display: boolean;
 }
 
 export interface ExportResults {

@@ -140,6 +140,7 @@ export class AssessmentExamMapper {
     uiModel.points = apiModel.points;
     uiModel.position = apiModel.position;
     uiModel.response = apiModel.response;
+    uiModel.writingTraitScores = apiModel.writingTraitScores;
 
     return uiModel;
   }
@@ -162,6 +163,7 @@ export class AssessmentExamMapper {
     uiModel.type = apiModel.type;
     uiModel.answerKey = apiModel.answerKey;
     uiModel.numberOfChoices = apiModel.optionsCount;
+    uiModel.performanceTaskWritingType = apiModel.performanceTaskWritingType;
 
     return uiModel;
   }

@@ -17,12 +17,12 @@ import { ItemScoresComponent } from "../../../items/item-scores/item-scores.comp
 import { ItemViewerComponent } from "../../../items/item-viewer/item-viewer.component";
 import { Component } from "@angular/core";
 import { Assessment } from "../../../model/assessment.model";
-import { DistractorAnalysisComponent } from "./distractor-analysis.component";
+import { WritingTraitScoresComponent } from "./writing-trait-scores.component";
 import { MockAssessmentProvider } from "../../../../../test/mock.assessment.provider";
 import { MockAssessmentExporter } from "../../../../../test/mock.assessment.exporter";
 
-describe('DistractorAnalysisComponent', () => {
-  let component: DistractorAnalysisComponent;
+describe('WritingTraitScoresComponent', () => {
+  let component: WritingTraitScoresComponent;
   let fixture: ComponentFixture<TestComponentWrapper>;
   let mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', [ 'eventTrack' ]);
   mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', [ 'next' ]);
@@ -42,7 +42,7 @@ describe('DistractorAnalysisComponent', () => {
       ],
       declarations: [
         TestComponentWrapper,
-        DistractorAnalysisComponent,
+        WritingTraitScoresComponent,
         ItemTabComponent,
         ClaimTargetComponent,
         ItemInfoComponent,
@@ -71,7 +71,7 @@ describe('DistractorAnalysisComponent', () => {
 
 @Component({
   selector: 'test-component-wrapper',
-  template: '<distractor-analysis [assessmentProvider]="assessmentProvider" [assessmentExporter]="assessmentExporter" [assessment]="assessment" [exams]="[]"></distractor-analysis>'
+  template: '<writing-trait-scores [assessmentProvider]="assessmentProvider" [assessmentExporter]="assessmentExporter" [assessment]="assessment" [exams]="[]"></writing-trait-scores>'
 })
 class TestComponentWrapper {
   assessmentProvider = new MockAssessmentProvider();

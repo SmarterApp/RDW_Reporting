@@ -31,6 +31,7 @@ import { ClaimTargetComponent } from "./results/claim-target.component";
 import { ReportModule } from "../report/report.module";
 import { ResultsByStudentComponent } from './results/view/results-by-student/results-by-student.component';
 import { DistractorAnalysisComponent } from './results/view/distractor-analysis/distractor-analysis.component';
+import { WritingTraitScoresComponent } from './results/view/writing-trait-scores/writing-trait-scores.component';
 import { ResultsByItemComponent } from "./results/view/results-by-item/results-by-item.component";
 import { ScaleScoreService } from "./results/scale-score.service";
 import { InstructionalResourcesService } from "./results/instructional-resources.service";
@@ -54,6 +55,7 @@ import { RdwMenuModule } from "../shared/menu/rdw-menu.module";
     ResultsByItemComponent,
     ResultsByStudentComponent,
     DistractorAnalysisComponent,
+    WritingTraitScoresComponent,
     InstructionalResourcePopoverComponent
   ],
   imports: [

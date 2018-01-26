@@ -1,7 +1,9 @@
-import { Component, forwardRef, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { Utils } from "./support/support";
 
-const NOOP: () => void = () => {};
+const NOOP: () => void = () => {
+};
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -19,10 +21,12 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   selector: 'sb-toggle',
   template: `
     <div class="btn-group btn-group-sm toggle-group" data-toggle="buttons">
-      <label *ngFor="let option of options" class="btn btn-primary" [ngClass]="{active: option.value === value, disabled: disabled}">
+      <label *ngFor="let option of options" class="btn btn-primary"
+             [ngClass]="{active: option.value === value, disabled: disabled}">
         <input type="radio" [id]="name" [name]="name" [disabled]="disabled" [value]="option.value" [(ngModel)]="value"
                angulartics2On="click" [angularticsEvent]="analyticsEvent"
-               [angularticsCategory]="analyticsCategory" [angularticsProperties]="option.angularticsProperties || {label: option.text}">{{option.text}}
+               [angularticsCategory]="analyticsCategory"
+               [angularticsProperties]="option.angularticsProperties || {label: option.text}">{{option.text}}
       </label>
     </div>
   `,
@@ -34,7 +38,7 @@ export class SBToggleComponent implements ControlValueAccessor, OnInit {
   disabled: boolean = false;
 
   @Input()
-  name: string;
+  name: string = Utils.newGuid();
 
   /**
    *  The analytics event to send when clicked

@@ -4,11 +4,12 @@ import { Exam } from "../../../model/exam.model";
 import { DynamicItemField } from "../../../model/item-point-field.model";
 import { ExamStatisticsCalculator } from "../../exam-statistics-calculator";
 import { AssessmentProvider } from "../../../assessment-provider.interface";
-import { ExportRequest } from "../../../model/export-request.model";
+import { ExportItemsRequest } from "../../../model/export-items-request.model";
 import { Assessment } from "../../../model/assessment.model";
 import { Angulartics2 } from "angulartics2";
 import { RequestType } from "../../../../shared/enum/request-type.enum";
 import { ExportResults } from "../../assessment-results.component";
+import { AssessmentExporter } from "../../../assessment-exporter.interface";
 
 @Component({
   selector: 'distractor-analysis',
@@ -26,6 +27,12 @@ export class DistractorAnalysisComponent implements OnInit, ExportResults {
    */
   @Input()
   assessmentProvider: AssessmentProvider;
+
+  /**
+   * Service class which provides export capabilities=for this assessment and exam.
+   */
+  @Input()
+  assessmentExporter: AssessmentExporter;
 
   /**
    * The assessment
@@ -62,7 +69,7 @@ export class DistractorAnalysisComponent implements OnInit, ExportResults {
 
   ngOnInit() {
     this.loading = true;
-    this.assessmentProvider.getAssessmentItems(this.assessment.id, true).subscribe(assessmentItems => {
+    this.assessmentProvider.getAssessmentItems(this.assessment.id, ['MC', 'MS']).subscribe(assessmentItems => {
 
       let numOfScores = assessmentItems.reduce((x, y) => x + y.scores.length, 0);
 
@@ -83,22 +90,14 @@ export class DistractorAnalysisComponent implements OnInit, ExportResults {
   }
 
   exportToCsv(): void {
-    let exportRequest = new ExportRequest();
+    let exportRequest = new ExportItemsRequest();
     exportRequest.assessment = this.assessment;
     exportRequest.showAsPercent = this.showValuesAsPercent;
     exportRequest.assessmentItems = this.filteredMultipleChoiceItems;
     exportRequest.pointColumns = this.choiceColumns;
     exportRequest.type = RequestType.DistractorAnalysis;
 
-
-    this.angulartics2.eventTrack.next({
-      action: 'Export DistractorAnalysis',
-      properties: {
-        category: 'Export'
-      }
-    });
-
-    this.assessmentProvider.exportItemsToCsv(exportRequest);
+    this.assessmentExporter.exportItemsToCsv(exportRequest);
   }
 
   getChoiceRowStyleClass(index: number) {

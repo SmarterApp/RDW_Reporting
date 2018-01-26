@@ -10,19 +10,22 @@ import { AggregateReportsTableComponent } from "./results/aggregate-reports-tabl
 import { AssessmentDetailsService } from "./results/assessment-details.service";
 import { PerformanceComparisonComponent } from "./results/performance-comparison.component";
 import { QueryBuilderComponent } from "./results/query-builder.component";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MultiselectDropdownModule } from "angular-2-dropdown-multiselect";
 import { ReportOptionsService } from "./results/report-options.service";
 import { AggregateReportFormResolve } from "./aggregate-report-form.resolve";
 import { AggregateReportOptionsService } from "./aggregate-report-options.service";
 import { AggregateReportFormOptionsMapper } from "./aggregate-report-form-options.mapper";
 import { AggregateReportSummary } from "./aggregate-report-summary.component";
+import { AggregateReportsPreviewTableComponent } from "./aggregate-reports-preview-table.component";
+import { MockAggregateReportsPreviewService } from "./results/mock-aggregate-reports-preview.service";
 
 @NgModule({
   declarations: [
     AggregateReportsComponent,
     AggregateReportsResultsComponent,
     AggregateReportsTableComponent,
+    AggregateReportsPreviewTableComponent,
     PerformanceComparisonComponent,
     QueryBuilderComponent,
     AggregateReportSummary
@@ -32,6 +35,7 @@ import { AggregateReportSummary } from "./aggregate-report-summary.component";
     BrowserModule,
     FormsModule,
     CommonModule,
+    ReactiveFormsModule,
     DataTableModule,
     MultiselectDropdownModule
   ],
@@ -39,12 +43,14 @@ import { AggregateReportSummary } from "./aggregate-report-summary.component";
     AggregateReportsComponent,
     AggregateReportsResultsComponent,
     AggregateReportsTableComponent,
+    AggregateReportsPreviewTableComponent,
     PerformanceComparisonComponent,
     QueryBuilderComponent
   ],
   providers: [
     AssessmentDetailsService,
     MockAggregateReportsService,
+    MockAggregateReportsPreviewService,
     ReportOptionsService,
     AggregateReportFormResolve,
     AggregateReportOptionsService,

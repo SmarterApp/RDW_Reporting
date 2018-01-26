@@ -15,6 +15,7 @@ import { ReportModule } from "../report/report.module";
 import { TypeaheadModule } from "ngx-bootstrap";
 import { UserModule } from "../user/user.module";
 import { OrganizationService } from "./organization.service";
+import { SchoolAssessmentExportService } from "./results/school-assessment-export.service";
 
 /**
  * This module contains a search component for finding assessments
@@ -47,6 +48,7 @@ import { OrganizationService } from "./organization.service";
     OrganizationService,
     SchoolAssessmentResolve,
     SchoolAssessmentService,
+    SchoolAssessmentExportService,
     SchoolService
   ]
 })

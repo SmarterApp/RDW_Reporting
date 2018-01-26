@@ -19,6 +19,7 @@ import { ItemViewerComponent } from "../../../items/item-viewer/item-viewer.comp
 import { Component } from "@angular/core";
 import { Assessment } from "../../../model/assessment.model";
 import { MockAssessmentProvider } from "../../../../../test/mock.assessment.provider";
+import { MockAssessmentExporter } from "../../../../../test/mock.assessment.exporter";
 
 describe('ResultsByItemComponent', () => {
   let component: ResultsByItemComponent;
@@ -71,9 +72,10 @@ describe('ResultsByItemComponent', () => {
 
 @Component({
   selector: 'test-component-wrapper',
-  template: '<results-by-item [assessmentProvider]="assessmentProvider" [assessment]="assessment" [exams]="[]"></results-by-item>'
+  template: '<results-by-item [assessmentProvider]="assessmentProvider" [assessmentExporter]="assessmentExporter" [assessment]="assessment" [exams]="[]"></results-by-item>'
 })
 class TestComponentWrapper {
   assessmentProvider = new MockAssessmentProvider();
+  assessmentExporter = new MockAssessmentExporter();
   assessment = new Assessment();
 }

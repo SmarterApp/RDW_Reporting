@@ -36,4 +36,12 @@ export class Assessment {
   get isSummative(): boolean {
     return this.type == AssessmentType.SUMMATIVE;
   }
+
+  get isEla(): boolean {
+    return this.assessmentSubjectType == AssessmentSubjectType.ELA;
+  }
+
+  get isMath(): boolean {
+    return this.assessmentSubjectType == AssessmentSubjectType.MATH;
+  }
 }

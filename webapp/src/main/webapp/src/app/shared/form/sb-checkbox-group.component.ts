@@ -1,5 +1,6 @@
 import { Component, forwardRef, Input, OnInit } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { Utils } from "../support/support";
 
 const NOOP: () => void = () => {};
 
@@ -22,11 +23,12 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   template: `
     <div data-toggle="buttons"
          class="nested-btn-group btn-group-sm toggle-group"
-         [ngClass]="{'vertical': !horizontal}">
+         [ngClass]="{'vertical': !horizontal, 'all-option': allOptionEnabled}">
       <label *ngIf="allOptionEnabled"
              class="btn btn-primary"
              [ngClass]="{ active: selectedAllOptionInternal, disabled: disabled }">
         <input type="checkbox"
+               [name]="name"
                [disabled]="disabled"
                [(ngModel)]="selectedAllOptionInternal"
                (ngModelChange)="allOptionChangedInternal()"
@@ -43,6 +45,7 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
                class="btn btn-primary"
                [ngClass]="{ active: selectedOptionsInternal[ i ], disabled: disabled }">
           <input type="checkbox"
+                 [name]="name"
                  [disabled]="disabled"
                  [(ngModel)]="selectedOptionsInternal[ i ]"
                  (ngModelChange)="optionChangedInternal()"
@@ -63,6 +66,9 @@ export class SBCheckboxGroup implements ControlValueAccessor, OnInit {
 
   @Input()
   public horizontal: boolean = false;
+
+  @Input()
+  public name: string = Utils.newGuid();
 
   @Input()
   public analyticsEvent: string;

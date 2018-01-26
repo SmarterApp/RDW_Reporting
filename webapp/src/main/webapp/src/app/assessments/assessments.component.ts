@@ -11,6 +11,7 @@ import { AssessmentProvider } from "./assessment-provider.interface";
 import { GradeCode } from "../shared/enum/grade-code.enum";
 import { ColorService } from "../shared/color.service";
 import { UserService } from "../user/user.service";
+import { AssessmentExporter } from "./assessment-exporter.interface";
 
 /**
  * This component encompasses all the functionality for displaying and filtering
@@ -40,6 +41,13 @@ export class AssessmentsComponent implements OnInit {
    */
   @Input()
   assessmentProvider: AssessmentProvider;
+
+  /**
+   * The provider which implements the AssessmentExporter interface in order
+   * to export data.
+   */
+  @Input()
+  assessmentExporter: AssessmentExporter;
 
   @Input()
   hideAssessments: boolean = false;

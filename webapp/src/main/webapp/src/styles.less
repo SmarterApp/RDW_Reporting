@@ -635,12 +635,19 @@ query-builder {
   }
 }
 
-.disabled-table {
+.disabled-table-container {
+  .disabled-table {
+    cursor: not-allowed;
+    opacity: .7;
+  }
+  opacity: 1;
   background-color: @black;
-  cursor: not-allowed;
-  opacity: .7;
   min-width: fit-content;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
+
 @media (min-width: 768px) {
   .container-jumbo {
     min-width: 768px !important;

@@ -75,61 +75,79 @@
 
     <!-- Student Results -->
     <div *ngIf="!collapsed" @fadeAnimation>
-      <div class="col-md-4 z-index-over-data-table pl-0 mb-sm">
-        <div class="select-menu-group">
-          <label class="sr-only">{{ 'labels.groups.results.assessment.select-view' | translate }}</label>
-          <div class="btn-group" dropdown>
-            <button dropdownToggle type="button" class="btn btn-default btn-borderless dropdown-toggle">
-              {{ currentResultsView.label | translate }} <i class="fa fa-angle-down"></i>
+      <div class="row">
+        <div class="col-md-4 z-index-over-data-table mb-sm">
+          <div class="select-menu-group">
+            <label class="sr-only">{{ 'labels.groups.results.assessment.select-view' | translate }}</label>
+            <div class="btn-group" dropdown>
+              <button dropdownToggle type="button" class="btn btn-default btn-borderless dropdown-toggle">
+                {{ currentResultsView.label | translate }} <i class="fa fa-angle-down"></i>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <li role="menuitem" *ngIf="resultsByStudentView.display">
+                  <a class="dropdown-item"
+                     popover="{{'messages.no-results-by-item' | translate }}"
+                     triggers="{{ !resultsByStudentView.disabled ? '': 'mouseenter:mouseleave'}}"
+                     placement="right"
+                     [ngClass]="{'selected': currentResultsView == resultsByStudentView }">
+                    <button [disabled]="resultsByStudentView.disabled"
+                            class="btn btn-default btn-borderless"
+                            (click)="setCurrentView(resultsByStudentView)">
+                      {{ resultsByStudentView.label | translate }}
+                    </button>
+                  </a>
+                </li>
+                <li role="menuitem" *ngIf="resultsByItemView.display">
+                  <a class="dropdown-item"
+                     popover="{{ (assessmentExam.assessment.isSummative ? 'messages.no-results-by-item-for-summative-exams' : 'messages.no-results-by-item') | translate }}"
+                     triggers="{{ !resultsByItemView.disabled ? '': 'mouseenter:mouseleave'}}"
+                     placement="right"
+                     [ngClass]="{'selected': currentResultsView == resultsByItemView }">
+                    <button [disabled]="resultsByItemView.disabled"
+                            class="btn btn-default btn-borderless"
+                            (click)="setCurrentView(resultsByItemView)">
+                      {{ resultsByItemView.label | translate }}
+                    </button>
+                  </a>
+                </li>
+                <li role="menuitem" *ngIf="distractorAnalysisView.display">
+                  <a class="dropdown-item"
+                     popover="{{ (assessmentExam.assessment.isSummative ? 'messages.no-distractor-analysis-for-summative-exams' : 'messages.no-distractor-analysis') | translate }}"
+                     triggers="{{ !distractorAnalysisView.disabled ? '': 'mouseenter:mouseleave'}}"
+                     placement="right"
+                     [ngClass]="{'selected': currentResultsView == distractorAnalysisView }">
+                    <button [disabled]="distractorAnalysisView.disabled"
+                            class="btn btn-default btn-borderless"
+                            (click)="setCurrentView(distractorAnalysisView)">
+                      {{ distractorAnalysisView.label | translate }}
+                    </button>
+                  </a>
+                </li>
+                <li role="menuitem" *ngIf="writingTraitScoresView.display">
+                  <a class="dropdown-item"
+                     popover="{{ (!assessmentExam.assessment.isIab ? 'messages.no-writing-trait-scores-for-summative-ica-exams' : 'messages.no-writing-trait-scores') | translate }}"
+                     triggers="{{ !writingTraitScoresView.disabled ? '': 'mouseenter:mouseleave'}}"
+                     placement="right"
+                     [ngClass]="{'selected': currentResultsView == writingTraitScoresView }">
+                    <button [disabled]="writingTraitScoresView.disabled"
+                            class="btn btn-default btn-borderless"
+                            (click)="setCurrentView(writingTraitScoresView)">
+                      {{ writingTraitScoresView.label | translate }}
+                    </button>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <button *ngIf="currentResultsView.canExport"
+                    class="btn btn-sm btn-default"
+                    [disabled]="!currentExportResults || !currentExportResults.hasDataToExport()"
+                    (click)="currentExportResults.exportToCsv()">
+              <i class="fa fa-cloud-download"></i> {{ 'labels.export.title' | translate }}
             </button>
-            <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li role="menuitem">
-                <a class="dropdown-item"
-                   popover="{{'messages.no-results-by-item' | translate }}"
-                   triggers="{{ !resultsByStudentView.disabled ? '': 'mouseenter:mouseleave'}}"
-                   placement="right"
-                   [ngClass]="{'selected': currentResultsView == resultsByStudentView }">
-                  <button [disabled]="resultsByStudentView.disabled"
-                          class="btn btn-default btn-borderless"
-                          (click)="setCurrentView(resultsByStudentView)">
-                    {{ resultsByStudentView.label | translate }}
-                  </button>
-                </a>
-              </li>
-              <li role="menuitem">
-                <a class="dropdown-item"
-                   popover="{{ (assessmentExam.assessment.isSummative ? 'messages.no-results-by-item-for-summative-exams' : 'messages.no-results-by-item') | translate }}"
-                   triggers="{{ !resultsByItemView.disabled ? '': 'mouseenter:mouseleave'}}"
-                   placement="right"
-                   [ngClass]="{'selected': currentResultsView == resultsByItemView }">
-                  <button [disabled]="resultsByItemView.disabled"
-                          class="btn btn-default btn-borderless"
-                          (click)="setCurrentView(resultsByItemView)">
-                    {{ resultsByItemView.label | translate }}
-                  </button>
-                </a>
-              </li>
-              <li role="menuitem">
-                <a class="dropdown-item"
-                   popover="{{ (assessmentExam.assessment.isSummative ? 'messages.no-distractor-analysis-for-summative-exams' : 'messages.no-distractor-analysis') | translate }}"
-                   triggers="{{ !distractorAnalysisView.disabled ? '': 'mouseenter:mouseleave'}}"
-                   placement="right"
-                   [ngClass]="{'selected': currentResultsView == distractorAnalysisView }">
-                  <button [disabled]="distractorAnalysisView.disabled"
-                          class="btn btn-default btn-borderless"
-                          (click)="setCurrentView(distractorAnalysisView)">
-                    {{ distractorAnalysisView.label | translate }}
-                  </button>
-                </a>
-              </li>
-            </ul>
           </div>
-          <button *ngIf="currentResultsView.canExport"
-                  class="btn btn-sm btn-default"
-                  [disabled]="!currentExportResults || !currentExportResults.hasDataToExport()"
-                  (click)="currentExportResults.exportToCsv()">
-            <i class="fa fa-cloud-download"></i> {{ 'labels.export.title' | translate }}
-          </button>
+        </div>
+        <div class="col-md-8 pt-md">
+          <span class="results-view-intro">{{ getCurrentViewIntroductionLabel() | translate }}</span>
         </div>
       </div>
       <div *ngIf="showStudentResults">
@@ -143,6 +161,7 @@
         <results-by-item #resultsByItem
                          [showValuesAsPercent]="showValuesAsPercent"
                          [assessmentProvider]="assessmentProvider"
+                         [assessmentExporter]="assessmentExporter"
                          [assessment]="assessmentExam.assessment"
                          [exams]="exams">
         </results-by-item>
@@ -151,9 +170,19 @@
         <distractor-analysis #distractorAnalysis
                              [showValuesAsPercent]="showValuesAsPercent"
                              [assessmentProvider]="assessmentProvider"
+                             [assessmentExporter]="assessmentExporter"
                              [assessment]="assessmentExam.assessment"
                              [exams]="exams">
         </distractor-analysis>
+      </div>
+      <div *ngIf="showWritingTraitScores">
+        <writing-trait-scores #writingTraitScores
+                              [showValuesAsPercent]="showValuesAsPercent"
+                              [assessmentProvider]="assessmentProvider"
+                              [assessmentExporter]="assessmentExporter"
+                              [assessment]="assessmentExam.assessment"
+                              [exams]="exams">
+        </writing-trait-scores>
       </div>
     </div>
   </div>

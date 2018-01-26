@@ -30,7 +30,7 @@ export class StudentResponsesComponent implements OnInit {
 
   ngOnInit(): void {
     let routeItems: AssessmentItem[] = this.route.snapshot.data[ "assessmentItems" ];
-    if(routeItems) {
+    if (routeItems) {
       this.assessmentItems = routeItems.map(item => this.mapAssessmentItem(item));
     }
 
