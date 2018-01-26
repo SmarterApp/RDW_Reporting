@@ -235,9 +235,9 @@ sql:
 
     create: >-
       insert into user_report
-        (user_login, total_chunk_count, status, report_resource_uri, label, report_request, created)
+        (user_login, status, report_resource_uri, label, report_request, created)
         values
-        (:user_login, :total_chunk_count, :status, :report_resource_uri, :label, :report_request, :created)
+        (:user_login, :status, :report_resource_uri, :label, :report_request, :created)
 
     update: >-
       update user_report
@@ -247,7 +247,6 @@ sql:
         report_resource_uri = :report_resource_uri,
         label = :label,
         report_request = :report_request,
-        total_chunk_count = :total_chunk_count,
         created = :created
       where
         id = :id
@@ -279,6 +278,22 @@ sql:
         set complete_chunk_count = LAST_INSERT_ID(complete_chunk_count + 1)
       where
         id = :report_id;
+
+    insertMetadataForReport: >-
+      insert into user_report_metadata
+        (report_id, name, value)
+        values
+        (:report_id, :name, :value);
+
+    deleteMetadataForReport: >-
+      delete from user_report_metadata
+      where
+        report_id = :report_id;
+
+    findMetadataForReports: >-
+      select * from user_report_metadata
+      where
+        report_id IN (:report_ids);
 
   student:
     findByExamQueryParamsUnknownPermissions: >-
@@ -420,8 +435,6 @@ sql:
               r.report_resource_uri,
               r.label,
               r.report_request,
-              r.total_chunk_count,
-              r.complete_chunk_count,
               r.created
             from user_report r
 
