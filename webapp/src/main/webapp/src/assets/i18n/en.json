@@ -446,7 +446,8 @@
       "evidence": "Evidence / Elaboration",
       "organization": "Organization / Purpose",
       "conventions": "Conventions",
-      "total": "Total Points"
+      "total": "Total Points",
+      "total-info": "total points more info text here"
     }
   },
   "html": {
@@ -862,7 +863,8 @@
             "score": "Student Score"
           },
           "student-scores": "Student Scores and Responses",
-          "student-scores-intro-text": "Expand each student row to view their response to this item."
+          "student-scores-intro-text": "Expand each student row to view their response to this item.",
+          "writing-trait-scores": "Writing Trait Scores"
         }
       },
       "student-score-distribution": {
@@ -1519,10 +1521,12 @@
           "correctness-info": "A value for the degree of correctness in a student's response to a test question. The correctness value is calculated by dividing the student's score on a particular question by the maximum score for that question.",
           "max-score": "Max Score",
           "standard": "Standard",
-          "student-score": "Student Score"
+          "student-score": "Student Score",
+          "writing-trait": "Writing Trait"
         },
         "crumb": "Student Responses",
-        "title": "Student's Responses"
+        "title": "Student's Responses",
+        "writing-trait-purpose": "Purpose: {{traitType}}"
       },
       "results": {
         "cols": {

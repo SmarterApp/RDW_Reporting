@@ -77,6 +77,7 @@
     </p-column>
     <ng-template let-item pTemplate="rowexpansion">
       <item-tab [item]="item.assessmentItem"
+                [responsesAssessmentItem]="item"
                 [response]="item.response"
                 [position]="item.assessmentItem.position"
                 [showItemDetails]="assessment.isInterim"
