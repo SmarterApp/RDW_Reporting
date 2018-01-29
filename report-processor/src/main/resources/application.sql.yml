@@ -274,10 +274,11 @@ sql:
       delete from `user_report` WHERE `id` in (:ids);
 
     completeChunk: >-
-      update user_report
-        set complete_chunk_count = LAST_INSERT_ID(complete_chunk_count + 1)
+      update user_report_metadata
+        set value = cast(LAST_INSERT_ID(cast(value as unsigned) + 1) AS CHAR)
       where
-        id = :report_id;
+        report_id = :report_id and
+        name = 'completed_chunk_count';
 
     insertMetadataForReport: >-
       insert into user_report_metadata
