@@ -27,37 +27,34 @@
         <tr>
           <td>{{'enum.writing-trait.evidence' | translate}}</td>
           <td>
-            <span *ngIf="responsesAssessmentItem.writingTraitScores.evidence !== null">{{responsesAssessmentItem.writingTraitScores.evidence}}</span>
-            <span *ngIf="responsesAssessmentItem.writingTraitScores.evidence === null">&mdash;</span>
+            <display-optional [value]="responsesAssessmentItem.writingTraitScores.evidence"></display-optional>
           </td>
           <td>4</td>
           <td>
-            <span *ngIf="responsesAssessmentItem.writingTraitScores.evidence !== null">{{(responsesAssessmentItem.writingTraitScores.evidence / 4) | number:'1.2-2' }}</span>
-            <span *ngIf="responsesAssessmentItem.writingTraitScores.evidence === null">&mdash;</span>
+            <display-optional [value]="responsesAssessmentItem.writingTraitScores.evidence"
+                         displayValue="{{(responsesAssessmentItem.writingTraitScores.evidence / 4) | number:'1.2-2' }}"></display-optional>
           </td>
         </tr>
         <tr>
           <td>{{'enum.writing-trait.organization' | translate}}</td>
           <td>
-            <span *ngIf="responsesAssessmentItem.writingTraitScores.organization !== null">{{responsesAssessmentItem.writingTraitScores.organization}}</span>
-            <span *ngIf="responsesAssessmentItem.writingTraitScores.organization === null">&mdash;</span>
+            <display-optional [value]="responsesAssessmentItem.writingTraitScores.organization"></display-optional>
           </td>
           <td>4</td>
           <td>
-            <span *ngIf="responsesAssessmentItem.writingTraitScores.organization !== null">{{(responsesAssessmentItem.writingTraitScores.organization / 4) | number:'1.2-2' }}</span>
-            <span *ngIf="responsesAssessmentItem.writingTraitScores.organization === null">&mdash;</span>
+            <display-optional [value]="responsesAssessmentItem.writingTraitScores.organization"
+                              displayValue="{{(responsesAssessmentItem.writingTraitScores.organization / 4) | number:'1.2-2' }}"></display-optional>
           </td>
         </tr>
         <tr>
           <td>{{'enum.writing-trait.conventions' | translate}}</td>
           <td>
-            <span *ngIf="responsesAssessmentItem.writingTraitScores.conventions !== null">{{responsesAssessmentItem.writingTraitScores.conventions}}</span>
-            <span *ngIf="responsesAssessmentItem.writingTraitScores.conventions === null">&mdash;</span>
+            <display-optional [value]="responsesAssessmentItem.writingTraitScores.conventions"></display-optional>
           </td>
           <td>2</td>
           <td>
-            <span *ngIf="responsesAssessmentItem.writingTraitScores.conventions !== null">{{(responsesAssessmentItem.writingTraitScores.conventions / 2) | number:'1.2-2' }}</span>
-            <span *ngIf="responsesAssessmentItem.writingTraitScores.conventions === null">&mdash;</span>
+            <display-optional [value]="responsesAssessmentItem.writingTraitScores.conventions"
+                              displayValue="{{(responsesAssessmentItem.writingTraitScores.conventions / 2) | number:'1.2-2' }}"></display-optional>
           </td>
         </tr>
         <tr>
@@ -66,13 +63,12 @@
                   content="{{'enum.writing-trait.total-info' | translate}}"></span>
           </td>
           <td>
-            <span *ngIf="responsesAssessmentItem.score !== null">{{responsesAssessmentItem.score}}</span>
-            <span *ngIf="responsesAssessmentItem.score === null">&mdash;</span>
+            <display-optional [value]="responsesAssessmentItem.score"></display-optional>
           </td>
           <td>{{ responsesAssessmentItem.assessmentItem.maxPoints }}</td>
           <td>
-            <span *ngIf="responsesAssessmentItem.score !== null">{{(responsesAssessmentItem.score / responsesAssessmentItem.assessmentItem.maxPoints) | number:'1.2-2' }}</span>
-            <span *ngIf="responsesAssessmentItem.score === null">&mdash;</span>
+            <display-optional [value]="responsesAssessmentItem.score"
+                              displayValue="{{(responsesAssessmentItem.score / responsesAssessmentItem.assessmentItem.maxPoints) | number:'1.2-2' }}"></display-optional>
           </td>
         </tr>
         </tbody>
