@@ -439,7 +439,7 @@ export class CsvBuilder {
     );
 
     this.withColumn(
-      this.translateService.instant('labels.groups.results.assessment.items.cols.max-score'),
+      this.translateService.instant('labels.groups.results.assessment.items.cols.max-points'),
       (item) => this.numberAsString(getWritingTraitAggregate(item).trait.maxPoints, false)
     );
 

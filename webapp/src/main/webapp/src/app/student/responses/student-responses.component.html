@@ -58,12 +58,12 @@
         <span *ngFor="let standard of standards" class="label border-only blue mr-xs">{{standard}}</span>
       </ng-template>
     </p-column>
-    <p-column field="score" header="{{'labels.student.responses.cols.student-score' | translate}}" sortable="true">
+    <p-column field="score" header="{{'labels.student.responses.cols.student-points' | translate}}" sortable="true">
       <ng-template let-score="rowData.score" pTemplate="body">
         <display-optional [value]="score"></display-optional>
       </ng-template>
     </p-column>
-    <p-column field="assessmentItem.maxPoints" header="{{'labels.student.responses.cols.max-score' | translate}}" sortable="true"></p-column>
+    <p-column field="assessmentItem.maxPoints" header="{{'labels.student.responses.cols.max-points' | translate}}" sortable="true"></p-column>
     <p-column field="correctness" sortable="true">
       <ng-template pTemplate="header">
               <span info-button title="{{'labels.student.responses.cols.correctness' | translate}}"
