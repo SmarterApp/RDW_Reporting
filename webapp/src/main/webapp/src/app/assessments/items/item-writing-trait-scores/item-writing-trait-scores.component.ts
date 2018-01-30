@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { StudentResponsesAssessmentItem } from "../../../student/responses/student-responses-item.model";
-import {WritingTrait} from "../../model/writing-trait.model";
+import { WritingTrait } from "../../model/writing-trait.model";
 
 @Component({
   selector: 'item-writing-trait-scores',
