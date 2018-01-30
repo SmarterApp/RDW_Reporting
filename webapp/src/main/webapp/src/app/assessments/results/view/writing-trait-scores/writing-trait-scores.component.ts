@@ -9,6 +9,7 @@ import { ExportResults } from "../../assessment-results.component";
 import { WritingTraitScoreSummary } from "../../../model/writing-trait-score-summary.model";
 import { ExportWritingTraitsRequest } from "../../../model/export-writing-trait-request.model";
 import { AssessmentExporter } from "../../../assessment-exporter.interface";
+import { WritingTrait } from "../../../model/writing-trait.model";
 
 @Component({
   selector: 'writing-trait-scores',
@@ -106,6 +107,10 @@ export class WritingTraitScoresComponent implements OnInit, ExportResults {
     return index == 0
       ? 'level-down'
       : '';
+  }
+
+  get totalType(): string {
+    return WritingTrait.total().type;
   }
 
   private filterItems(items: AssessmentItem[]) {

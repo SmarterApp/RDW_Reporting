@@ -6,23 +6,24 @@ import { Option as SbCheckboxGroupOption } from "../shared/form/sb-checkbox-grou
  */
 export interface AggregateReportFormOptions {
 
+  achievementLevelDisplayTypes: SbToggleOption[];
   assessmentGrades: SbCheckboxGroupOption[];
   assessmentTypes: SbToggleOption[];
   completenesses: SbCheckboxGroupOption[];
+  dimensionTypes: SbCheckboxGroupOption[];
+  economicDisadvantages: SbCheckboxGroupOption[];
   ethnicities: SbCheckboxGroupOption[];
   genders: SbCheckboxGroupOption[];
-  interimAdministrationConditions: SbCheckboxGroupOption[];
-  summativeAdministrationConditions: SbCheckboxGroupOption[];
-  schoolYears: SbCheckboxGroupOption[];
-  subjects: SbCheckboxGroupOption[];
-  migrantStatuses: SbCheckboxGroupOption[];
   ieps: SbCheckboxGroupOption[];
-  plan504s: SbCheckboxGroupOption[];
+  interimAdministrationConditions: SbCheckboxGroupOption[];
   limitedEnglishProficiencies: SbCheckboxGroupOption[];
-  economicDisadvantages: SbCheckboxGroupOption[];
-  achievementLevelDisplayTypes: SbToggleOption[];
+  migrantStatuses: SbCheckboxGroupOption[];
+  plan504s: SbCheckboxGroupOption[];
+  schoolYears: SbCheckboxGroupOption[];
+  statewideReporter: boolean;
+  subjects: SbCheckboxGroupOption[];
+  summativeAdministrationConditions: SbCheckboxGroupOption[];
   valueDisplayTypes: SbToggleOption[];
-  dimensionTypes: SbCheckboxGroupOption[];
 
 }
 

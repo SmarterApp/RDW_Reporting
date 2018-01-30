@@ -12,14 +12,19 @@ export class AggregateReportSummary {
   columns: Column[];
 
   summarizeSelection(attribute: Attribute): boolean {
-    return attribute.options.length > 1
+    return attribute.options
+      && attribute.options.length > 1
       && attribute.options.length === attribute.values.length;
   }
 
   getValues(attribute: Attribute): string[] {
-    return attribute.valueMapper
-      ? attribute.values.map(attribute.valueMapper(attribute))
-      : attribute.values.map(valueToOptionText(attribute))
+    return (
+      attribute.valueMapper
+        ? attribute.values.map(attribute.valueMapper(attribute))
+        : attribute.options
+          ? attribute.values.map(valueToOptionText(attribute))
+          : attribute.values
+    ).filter(value => typeof value !== 'undefined');
   }
 
 }

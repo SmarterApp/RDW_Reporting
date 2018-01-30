@@ -1,7 +1,6 @@
 <div class="mb-md" *ngIf="currentGroup">
   <span class="h3 blue-dark">{{'labels.groups.name' | translate}}</span>
   <span class="pull-right text-right">
-    <button class="btn btn-default btn-sm" (click)="exportCsv()"><i class="fa fa-bold fa-table"></i> {{'labels.export.csv' | translate}}</button>
     <a *hasPermission="'INDIVIDUAL_PII_READ'" routerLink="/custom-export" class="btn btn-sm btn-default ml-xs"><i class="fa fa-table"></i> {{'labels.organization-export.title' | translate}}</a>
     <button class="btn btn-default btn-sm ml-xs" (click)="reportDownloader.modal.show()"><i class="fa fa-cloud-download" aria-hidden="true"></i> {{'labels.reports.button-label.group' | translate}}</button>
     <span group-report-download #reportDownloader
@@ -18,6 +17,7 @@
 <assessments [assessmentExams]="assessmentExams"
              [assessmentProvider]="assessmentProvider"
              [assessmentExporter]="assessmentExporter"
+             (export)="exportCsv()"
              [allowFilterBySessions]="true">
 
   <!-- Group Select -->

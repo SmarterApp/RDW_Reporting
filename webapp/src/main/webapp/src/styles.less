@@ -49,6 +49,17 @@
 @aqua: #0f6bad;
 
 /**
+ * Bootstrap addition
+ */
+.list-group.list-group-md > .list-group-item {
+  padding: 10px 15px;
+}
+
+.list-group.list-group-sm > .list-group-item {
+  padding: 8px 12px;
+}
+
+/**
   Required to meet WCAG 2 AA contrast ratio
  */
 .navbar-default {
@@ -674,10 +685,6 @@ query-builder {
 }
 
 .disabled-table-text {
-  position: relative;
-  top: 35px;
-  z-index: 2;
-  margin-left: 10px;
   background: @red-dark;
   color: @white;
   padding: 5px;
@@ -697,7 +704,11 @@ aggregate-reports {
   .performance-comparison-graph {
     margin: -6px;
   }
+  .inline-label {
+    font-weight: normal;
+  }
 }
+
 .aggregate-report-summary {
   .column-heading {
     height: 48px;
@@ -726,5 +737,39 @@ aggregate-reports {
     .column-label-container {
       border-left: none;
     }
+  }
+}
+
+.writing-trait-scores {
+  min-width: 60% !important;
+}
+
+@media (max-width: 991px) {
+  .leftnav {
+    position: static;
+  }
+}
+
+.leftnav {
+  border-left: 1px solid @gray-darker;
+  max-width: 200px;
+}
+
+.nav > li > button {
+  position: relative;
+  display: block;
+  margin: 10px 15px;
+}
+
+scroll-nav li a {
+  &.active {
+    color: @blue-dark;
+    font-weight: bolder;
+  }
+}
+
+aggregate-report-organization-list {
+  .list-group {
+    margin-bottom: 10px; /* was 20 */
   }
 }

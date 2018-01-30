@@ -109,10 +109,13 @@
               class="btn btn-default">{{'labels.groups.results.value-as-number' | translate}}
       </button>
     </div>
+
     <button class="btn btn-default btn-xs pull-right" (click)="allCollapsed = !allCollapsed">
       <span *ngIf="!allCollapsed">{{'labels.groups.results.collapse-all' | translate}} <i class="fa fa-angle-up"></i></span>
       <span *ngIf="allCollapsed">{{'labels.groups.results.expand-all' | translate}} <i class="fa fa-angle-down"></i></span>
     </button>
+
+    <button class="btn btn-default btn-xs pull-right mr-sm" (click)="callExport()"><i class="fa fa-bold fa-table"></i> {{'labels.export.csv' | translate}}</button>
   </div>
 </h2>
 

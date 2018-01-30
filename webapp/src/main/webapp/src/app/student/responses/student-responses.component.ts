@@ -52,6 +52,7 @@ export class StudentResponsesComponent implements OnInit {
     let maxScore = item.maxPoints;
     responseItem.correctness = responseItem.score !== null ? responseItem.score / maxScore : null;
     responseItem.response = score ? score.response : null;
+    responseItem.writingTraitScores =  score.writingTraitScores;
 
     return responseItem;
   }

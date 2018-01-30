@@ -7,6 +7,11 @@
       </item-scores>
     </div>
   </tab>
+  <tab *ngIf="responsesAssessmentItem && responsesAssessmentItem.writingTraitScores" (select)="selectTab('Writing Trait Scores')" heading="{{translateRoot + 'writing-trait-scores' | translate }}">
+    <div class="tab-content well">
+      <item-writing-trait-scores [responsesAssessmentItem]="responsesAssessmentItem"></item-writing-trait-scores>
+    </div>
+  </tab>
   <tab *ngIf="showItemDetails" (select)="selectTab('Item Viewer')" heading="{{translateRoot + 'item-viewer' | translate }}">
     <div class="tab-content well">
       <item-viewer *ngIf="loadItemViewer"

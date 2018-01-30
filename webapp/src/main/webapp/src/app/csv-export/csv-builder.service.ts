@@ -419,7 +419,7 @@ export class CsvBuilder {
 
   withPerformanceTaskWritingType(getAssessmentItem: (item: any) => AssessmentItem) {
     return this.withColumn(
-      this.translateService.instant('labels.groups.results.assessment.items.cols.performance-task-writing-type'),
+      this.translateService.instant('labels.groups.results.assessment.items.cols.purpose'),
       (item) => getAssessmentItem(item).performanceTaskWritingType
     );
   }
@@ -439,7 +439,7 @@ export class CsvBuilder {
     );
 
     this.withColumn(
-      this.translateService.instant('labels.groups.results.assessment.items.cols.max-score'),
+      this.translateService.instant('labels.groups.results.assessment.items.cols.max-points'),
       (item) => this.numberAsString(getWritingTraitAggregate(item).trait.maxPoints, false)
     );
 

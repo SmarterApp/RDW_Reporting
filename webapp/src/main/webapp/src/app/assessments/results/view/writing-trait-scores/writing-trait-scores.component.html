@@ -5,18 +5,17 @@
 </div>
 
 <div *ngIf="!loading" class="pt-sm">
-  <p-dataTable #datatable [value]="filteredItems" sortField="position"
+  <p-dataTable #datatable [value]="filteredItems"
                tableStyleClass="table table-striped table-hover" [tableStyle]="{'table-layout':'auto', 'min-width': 'auto'}"
                expandableRows="true" rowExpandMode="single">
-    <p-column field="position" header="{{'labels.groups.results.assessment.items.cols.number' | translate}}"
-              sortable="true">
+    <p-column field="position" header="{{'labels.groups.results.assessment.items.cols.number' | translate}}">
       <ng-template let-row="rowData" let-item="rowData" pTemplate="body">
         <datatable-row-expander [datatable]="datatable" [row]="row"
                                 [text]="item.position"></datatable-row-expander>
       </ng-template>
     </p-column>
 
-    <p-column field="claimTarget" [sortable]="true">
+    <p-column field="claimTarget">
       <ng-template pTemplate="header">
             <span info-button title="{{'labels.groups.results.assessment.items.cols.claim' | translate}}"
                   content="{{'labels.groups.results.assessment.items.cols.claim-info-html' | translate}}"></span>
@@ -25,7 +24,16 @@
         <claim-target [item]="item"></claim-target>
       </ng-template>
     </p-column>
-    <p-column field="difficulty" [sortable]="true" sortField="difficultySortOrder">
+    <p-column>
+      <ng-template pTemplate="header">
+        <span info-button title="{{'labels.groups.results.assessment.items.cols.purpose' | translate}}"
+              content="{{'labels.groups.results.assessment.items.cols.purpose-info' | translate}}"></span>
+      </ng-template>
+      <ng-template pTemplate="body">
+        {{ writingTraitType }}
+      </ng-template>
+    </p-column>
+    <p-column field="difficulty">
       <ng-template pTemplate="header">
             <span info-button title="{{'labels.groups.results.assessment.items.cols.difficulty' | translate}}"
                   content="{{'labels.groups.results.assessment.items.cols.difficulty-info' | translate}}"></span>
@@ -34,7 +42,7 @@
         {{ 'enum.difficulty.' + item.difficulty | translate }}
       </ng-template>
     </p-column>
-    <p-column field="commonCoreStandardIds" sortable="true">
+    <p-column field="commonCoreStandardIds">
       <ng-template pTemplate="header">
             <span info-button title="{{'labels.groups.results.assessment.items.cols.standard' | translate}}"
                   content="{{'labels.groups.results.assessment.items.cols.standard-info-html.' + assessment.subject | translate}}"></span>
@@ -43,10 +51,10 @@
         <span *ngFor="let standard of standards" class="label border-only blue mr-xs">{{standard}}</span>
       </ng-template>
     </p-column>
-    <p-column field="fullCredit" [sortable]="true">
+    <p-column field="fullCredit">
       <ng-template pTemplate="header">
-            <span info-button title="{{'labels.groups.results.assessment.items.cols.full-credit' | translate}}"
-                  content="{{'labels.groups.results.assessment.items.cols.full-credit-info' | translate}}"></span>
+        <span info-button title="{{'labels.groups.results.assessment.items.cols.full-credit' | translate}}"
+              content="{{'labels.groups.results.assessment.items.cols.full-credit-info' | translate}}"></span>
       </ng-template>
       <ng-template let-item="rowData" pTemplate="body">
         <span [hidden]="showValuesAsPercent">{{ item.fullCredit }}</span>
@@ -64,13 +72,15 @@
   </p-dataTable>
 
   <div *ngFor="let traitScoreSummary of traitScoreSummaries">
-    <h4 *ngIf="isWritingTraitItem" class="pt-md">{{'labels.writing-trait-scores.aggregate-header' | translate:{traitType:writingTraitType} }}</h4>
+    <h4 *ngIf="isWritingTraitItem" class="pt-md">{{'labels.writing-trait-scores.aggregate-header' | translate }}</h4>
 
     <p-dataTable *ngIf="isWritingTraitItem" #traitScoreTable [value]="traitScoreSummary.rows"
                  tableStyleClass="table table-striped table-hover" [tableStyle]="{'table-layout':'auto', 'min-width' : '65%'}">
       <p-column header="{{'labels.groups.results.assessment.items.cols.category' | translate}}">
         <ng-template let-item="rowData" pTemplate="body">
-          {{'enum.writing-trait.' + item.trait.type | translate}}
+          <span *ngIf="item.trait.type != totalType">{{'enum.writing-trait.' + item.trait.type | translate}}</span>
+          <span *ngIf="item.trait.type == totalType" info-button title="{{'enum.writing-trait.total' | translate}}"
+                content="{{'enum.writing-trait.total-info' | translate}}"></span>
         </ng-template>
       </p-column>
 

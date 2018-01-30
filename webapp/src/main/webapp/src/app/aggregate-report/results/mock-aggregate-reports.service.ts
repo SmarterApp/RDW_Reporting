@@ -146,7 +146,7 @@ export class MockAggregateReportsService {
     uiModel.studentsTested = totalTested;
 
     for (let level = 0; level < uiModel.performanceLevelCounts.length; level++) {
-      let percent = totalTested == 0 ? 0 : Math.floor((<number>uiModel.performanceLevelCounts[ level ] / totalTested) * 100);
+      let percent = totalTested == 0 ? 0 : Math.floor((uiModel.performanceLevelCounts[ level ] / totalTested) * 100);
       uiModel.performanceLevelPercents.push(percent);
     }
 
@@ -156,9 +156,9 @@ export class MockAggregateReportsService {
       let aboveCount: number = 0;
       for (let level = 0; level < uiModel.performanceLevelCounts.length; level++) {
         if (level < details.performanceGroupingCutpoint - 1) {
-          belowCount += <number>uiModel.performanceLevelCounts[ level ];
+          belowCount += uiModel.performanceLevelCounts[ level ];
         } else {
-          aboveCount += <number>uiModel.performanceLevelCounts[ level ];
+          aboveCount += uiModel.performanceLevelCounts[ level ];
         }
       }
       uiModel.groupedPerformanceLevelCounts.push(belowCount);
