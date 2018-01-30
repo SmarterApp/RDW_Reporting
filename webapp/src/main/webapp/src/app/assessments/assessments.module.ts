@@ -23,6 +23,7 @@ import { ItemExemplarComponent } from "./items/item-exemplar/item-exemplar.compo
 import { ItemScoringService } from "./items/item-exemplar/item-scoring.service";
 import { ItemScoringGuideMapper } from "./items/item-exemplar/item-scoring-guide.mapper";
 import { ItemScoresComponent } from "./items/item-scores/item-scores.component";
+import { ItemWritingTraitScoresComponent } from "./items/item-writing-trait-scores/item-writing-trait-scores.component";
 import { StudentScoreService } from "./items/item-scores/student-score.service";
 import { ItemInfoComponent } from "./items/item-info/item-info.component";
 import { ItemInfoService } from "./items/item-info/item-info.service";
@@ -50,6 +51,7 @@ import { RdwMenuModule } from "../shared/menu/rdw-menu.module";
     SelectAssessmentsComponent,
     ItemExemplarComponent,
     ItemScoresComponent,
+    ItemWritingTraitScoresComponent,
     ItemInfoComponent,
     ClaimTargetComponent,
     ResultsByItemComponent,

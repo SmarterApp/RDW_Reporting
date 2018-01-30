@@ -7,72 +7,9 @@
       </item-scores>
     </div>
   </tab>
-  <tab *ngIf="responsesAssessmentItem.writingTraitScores" (select)="selectTab('Writing Trait Scores')" heading="{{translateRoot + 'writing-trait-scores' | translate }}">
+  <tab *ngIf="responsesAssessmentItem && responsesAssessmentItem.writingTraitScores" (select)="selectTab('Writing Trait Scores')" heading="{{translateRoot + 'writing-trait-scores' | translate }}">
     <div class="tab-content well">
-      <h5>{{'labels.student.responses.writing-trait-purpose' | translate:{traitType: responsesAssessmentItem.assessmentItem.performanceTaskWritingType } }}</h5>
-
-      <table class="table table-striped table-hover" style="min-width: 60%">
-        <thead class="ui-datatable-thead">
-        <tr>
-          <th>{{'labels.student.responses.cols.writing-trait' | translate}}</th>
-          <th>{{'labels.student.responses.cols.student-score' | translate}}</th>
-          <th>{{'labels.student.responses.cols.max-score' | translate}}</th>
-          <th>
-            <span info-button title="{{'labels.student.responses.cols.correctness' | translate}}"
-                    content="{{'labels.student.responses.cols.correctness-info' | translate}}"></span>
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>{{'enum.writing-trait.evidence' | translate}}</td>
-          <td>
-            <display-optional [value]="responsesAssessmentItem.writingTraitScores.evidence"></display-optional>
-          </td>
-          <td>4</td>
-          <td>
-            <display-optional [value]="responsesAssessmentItem.writingTraitScores.evidence"
-                         displayValue="{{(responsesAssessmentItem.writingTraitScores.evidence / 4) | number:'1.2-2' }}"></display-optional>
-          </td>
-        </tr>
-        <tr>
-          <td>{{'enum.writing-trait.organization' | translate}}</td>
-          <td>
-            <display-optional [value]="responsesAssessmentItem.writingTraitScores.organization"></display-optional>
-          </td>
-          <td>4</td>
-          <td>
-            <display-optional [value]="responsesAssessmentItem.writingTraitScores.organization"
-                              displayValue="{{(responsesAssessmentItem.writingTraitScores.organization / 4) | number:'1.2-2' }}"></display-optional>
-          </td>
-        </tr>
-        <tr>
-          <td>{{'enum.writing-trait.conventions' | translate}}</td>
-          <td>
-            <display-optional [value]="responsesAssessmentItem.writingTraitScores.conventions"></display-optional>
-          </td>
-          <td>2</td>
-          <td>
-            <display-optional [value]="responsesAssessmentItem.writingTraitScores.conventions"
-                              displayValue="{{(responsesAssessmentItem.writingTraitScores.conventions / 2) | number:'1.2-2' }}"></display-optional>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <span info-button title="{{'enum.writing-trait.total' | translate}}"
-                  content="{{'enum.writing-trait.total-info' | translate}}"></span>
-          </td>
-          <td>
-            <display-optional [value]="responsesAssessmentItem.score"></display-optional>
-          </td>
-          <td>{{ responsesAssessmentItem.assessmentItem.maxPoints }}</td>
-          <td>
-            <display-optional [value]="responsesAssessmentItem.score"
-                              displayValue="{{(responsesAssessmentItem.score / responsesAssessmentItem.assessmentItem.maxPoints) | number:'1.2-2' }}"></display-optional>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <item-writing-trait-scores [responsesAssessmentItem]="responsesAssessmentItem"></item-writing-trait-scores>
     </div>
   </tab>
   <tab *ngIf="showItemDetails" (select)="selectTab('Item Viewer')" heading="{{translateRoot + 'item-viewer' | translate }}">
