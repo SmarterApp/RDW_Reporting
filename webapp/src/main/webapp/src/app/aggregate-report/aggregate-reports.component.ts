@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AggregateReportFormOptions } from "./aggregate-report-form-options";
 import { AggregateReportForm } from "./aggregate-report-form";
@@ -10,6 +10,10 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { Forms } from "../shared/form/forms";
 import { AggregateReportItem } from "./model/aggregate-report-item.model";
 import { MockAggregateReportsPreviewService } from "./results/mock-aggregate-reports-preview.service";
+import { District, Organization, OrganizationType, School } from "../shared/organization/organization";
+import { Observable } from "rxjs/Observable";
+import { OrganizationTypeahead } from "../shared/organization/organization-typeahead";
+import { AggregateReportOrganizationService } from "./aggregate-report-organization.service";
 
 /**
  * Form control validator that makes sure the control value is not an empty array
@@ -20,6 +24,9 @@ import { MockAggregateReportsPreviewService } from "./results/mock-aggregate-rep
 const notEmpty = properties => control => {
   return control.value.length ? null : { notEmpty: properties };
 };
+
+const OrganizationComparator = (a: Organization, b: Organization) => a.name.localeCompare(b.name);
+
 
 /**
  * Aggregate report form component
@@ -34,6 +41,10 @@ export class AggregateReportsComponent {
    * Holds the form options and state
    */
   form: AggregateReportForm;
+
+  /**
+   * The tabular data for the response preview
+   */
   responsePreview: AggregateReportItem[] = [];
 
   /**
@@ -41,16 +52,49 @@ export class AggregateReportsComponent {
    */
   formGroup: FormGroup;
 
+  /**
+   * The organization typeahead
+   */
+  @ViewChild('organizationTypeahead')
+  organizationTypeahead: OrganizationTypeahead;
+
+  /**
+   * The organization typeahead options
+   */
+  organizationTypeaheadOptions: Observable<Organization[]>;
+
+  /**
+   * The selected organizations
+   */
+  organizations: Organization[] = [];
+
   constructor(private router: Router,
               private route: ActivatedRoute,
               private notificationService: NotificationService,
+              private organizationService: AggregateReportOrganizationService,
               private mockAggregateReportsPreviewService: MockAggregateReportsPreviewService) {
+
     this.form = route.snapshot.data[ 'form' ];
+
     this.formGroup = new FormGroup({
+      organizations: new FormControl(this.organizations, notEmpty({
+        messageId: 'labels.aggregate-reports.form.field.organization.error-empty'
+      })),
       assessmentGrades: new FormControl(this.form.settings.assessmentGrades, notEmpty({
         messageId: 'labels.aggregate-reports.form.field.assessment-grades.error-empty'
+      })),
+      schoolYears: new FormControl(this.form.settings.schoolYears, notEmpty({
+        messageId: 'labels.aggregate-reports.form.field.school-year.error-empty'
       }))
     });
+
+    this.organizationTypeaheadOptions = Observable.create(observer => {
+      observer.next(this.organizationTypeahead.value);
+    }).mergeMap(search => this.organizationService.getOrganizationsMatchingName(search)
+      .map(organizations => organizations.filter(
+        organization => this.organizations.findIndex(x => organization.equals(x)) === -1
+      ))
+    );
   }
 
   get options(): AggregateReportFormOptions {
@@ -62,6 +106,13 @@ export class AggregateReportsComponent {
   }
 
   /**
+   * @returns {any} The organizations form control
+   */
+  get organizationsControl(): FormControl {
+    return <FormControl>this.formGroup.get('organizations');
+  }
+
+  /**
    * @returns {any} The assessment grades form control
    */
   get assessmentGradesControl(): FormControl {
@@ -69,11 +120,17 @@ export class AggregateReportsComponent {
   }
 
   /**
-   * @returns {boolean} true if the assessment grade control has errors and has been touched or the form submitted
+   * @returns {any} The school years form control
    */
-  get showAssessmentGradeErrors(): boolean {
-    return this.assessmentGradesControl.invalid
-      && (this.assessmentGradesControl.dirty || this.assessmentGradesControl.touched);
+  get schoolYearsControl(): FormControl {
+    return <FormControl>this.formGroup.get('schoolYears');
+  }
+
+  /**
+   * @returns {boolean} true if the control has errors and has been touched or dirtied
+   */
+  showErrors(formControl: FormControl): boolean {
+    return Forms.showErrors(formControl);
   }
 
   /**
@@ -89,6 +146,65 @@ export class AggregateReportsComponent {
    */
   get summativeFieldsDisabled(): boolean {
     return !this.interimFieldsDisabled;
+  }
+
+  /**
+   * Organization typeahead select handler
+   *
+   * @param organization the selected organization
+   */
+  onOrganizationTypeaheadSelect(organization: any): void {
+    this.organizationTypeahead.value = '';
+    this.addOrganization(organization);
+  }
+
+  /**
+   * Organization list close handler
+   *
+   * @param organization
+   */
+  onOrganizationListItemClose(organization: any): void {
+    this.removeOrganization(organization);
+  }
+
+  /**
+   * Adds an organization to the selected organizations
+   *
+   * @param {Organization} organization
+   */
+  private addOrganization(organization: Organization): void {
+    const finder = value => value.equals(organization);
+    const index = this.organizations.findIndex(finder);
+    if (index === -1) {
+      // new array needed for change detection to kick in
+      this.organizations = this.organizations.concat(organization);
+      this.organizationsControl.markAsTouched();
+      if (organization.type === OrganizationType.District) {
+        this.settings.districts.push(<District>organization);
+        this.settings.districts.sort(OrganizationComparator);
+      } else if (organization.type === OrganizationType.School) {
+        this.settings.schools.push(<School>organization);
+        this.settings.schools.sort(OrganizationComparator);
+      }
+    }
+  }
+
+  /**
+   * Removes an organization from the selected organizations
+   *
+   * @param {Organization} organization the organization to remove
+   */
+  private removeOrganization(organization: Organization): void {
+    const finder = value => value.equals(organization);
+    const index = this.organizations.findIndex(finder);
+    if (index !== -1) {
+      this.organizations = this.organizations.filter(value => !organization.equals(value));
+      if (organization.type === OrganizationType.District) {
+        this.settings.districts.splice(this.settings.districts.findIndex(finder), 1);
+      } else if (organization.type === OrganizationType.School) {
+        this.settings.schools.splice(this.settings.schools.findIndex(finder), 1);
+      }
+    }
   }
 
   /**

@@ -13,6 +13,7 @@ import { Angulartics2Module } from 'angulartics2';
 import { ReportModule } from "../report/report.module";
 import { PopoverModule } from "ngx-bootstrap";
 import { UserModule } from "../user/user.module";
+import { GroupAssessmentExportService } from "./results/group-assessment-export.service";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { UserModule } from "../user/user.module";
   ],
   providers: [
     GroupAssessmentsResolve,
-    GroupAssessmentService
+    GroupAssessmentService,
+    GroupAssessmentExportService
   ]
 })
 export class GroupsModule {

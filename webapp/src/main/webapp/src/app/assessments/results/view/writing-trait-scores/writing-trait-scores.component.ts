@@ -1,15 +1,14 @@
 import { Component, Input, OnInit, Renderer2 } from '@angular/core';
 import { AssessmentItem } from "../../../model/assessment-item.model";
 import { Exam } from "../../../model/exam.model";
-import { DynamicItemField } from "../../../model/item-point-field.model";
 import { ExamStatisticsCalculator } from "../../exam-statistics-calculator";
 import { AssessmentProvider } from "../../../assessment-provider.interface";
-import { ExportRequest } from "../../../model/export-request.model";
 import { Assessment } from "../../../model/assessment.model";
 import { Angulartics2 } from "angulartics2";
-import { RequestType } from "../../../../shared/enum/request-type.enum";
 import { ExportResults } from "../../assessment-results.component";
-import {WritingTraitScoreSummary} from "../../../model/writing-trait-score-summary.model";
+import { WritingTraitScoreSummary } from "../../../model/writing-trait-score-summary.model";
+import { ExportWritingTraitsRequest } from "../../../model/export-writing-trait-request.model";
+import { AssessmentExporter } from "../../../assessment-exporter.interface";
 
 @Component({
   selector: 'writing-trait-scores',
@@ -27,6 +26,12 @@ export class WritingTraitScoresComponent implements OnInit, ExportResults {
    */
   @Input()
   assessmentProvider: AssessmentProvider;
+
+  /**
+   * Service class which provides export capabilities=for this assessment and exam.
+   */
+  @Input()
+  assessmentExporter: AssessmentExporter;
 
   /**
    * The assessment
@@ -87,24 +92,14 @@ export class WritingTraitScoresComponent implements OnInit, ExportResults {
     return this.filteredItems && this.filteredItems.length > 0;
   }
 
-  // TODO: need to get this working still
   exportToCsv(): void {
-    let exportRequest = new ExportRequest();
+    let exportRequest = new ExportWritingTraitsRequest();
     exportRequest.assessment = this.assessment;
     exportRequest.showAsPercent = this.showValuesAsPercent;
     exportRequest.assessmentItems = this.filteredItems;
-    //exportRequest.pointColumns = this.pointColumns;
-    exportRequest.type = RequestType.WritingTraitScores;
+    exportRequest.summaries = this.traitScoreSummaries;
 
-
-    this.angulartics2.eventTrack.next({
-      action: 'Export WritingTraitScores',
-      properties: {
-        category: 'Export'
-      }
-    });
-
-    this.assessmentProvider.exportItemsToCsv(exportRequest);
+    this.assessmentExporter.exportWritingTraitScoresToCsv(exportRequest);
   }
 
   getPointRowStyleClass(index: number) {

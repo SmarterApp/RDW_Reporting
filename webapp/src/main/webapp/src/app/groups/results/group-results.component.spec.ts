@@ -16,6 +16,7 @@ import { MockRouter } from "../../../test/mock.router";
 import { MockAuthorizeDirective } from "../../../test/mock.authorize.directive";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/of";
+import { GroupAssessmentExportService } from "./group-assessment-export.service";
 
 let availableGrades = [];
 
@@ -44,6 +45,8 @@ describe('GroupResultsComponent', () => {
 
     let mockGroupAssessmentService = {};
 
+    let mockGroupAssessmentExportService = {};
+
     let mockRouter = new MockRouter();
 
     TestBed.configureTestingModule({
@@ -58,6 +61,7 @@ describe('GroupResultsComponent', () => {
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
         { provide: GroupAssessmentService, useValue: mockGroupAssessmentService },
+        { provide: GroupAssessmentExportService, useValue: mockGroupAssessmentExportService },
         { provide: ExamFilterOptionsService, useClass: MockExamFilterOptionService },
         { provide: ActivatedRoute, useValue: route },
         { provide: Angulartics2, useValue: mockAngulartics2 },

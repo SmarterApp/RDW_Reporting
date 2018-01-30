@@ -53,12 +53,91 @@
       </div>
     </div>
 
+    <!-- Organization -->
+    <div class="row mt-sm" #organizationSection>
+      <div class="col-md-8 col-md-offset-2">
+        <h3 class="h3 gray-darkest">
+          {{'labels.aggregate-reports.form.section.organization.heading' | translate}}
+        </h3>
+        <p class="small gray-darkest">{{'labels.aggregate-reports.form.section.organization.subtext' | translate}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="well pb-0">
+
+          <!-- Typeahead -->
+          <div>
+            <label>{{'labels.aggregate-reports.form.field.organization.label' | translate}}</label>
+            <organization-typeahead #organizationTypeahead
+                                    [options]="organizationTypeaheadOptions"
+                                    (select)="onOrganizationTypeaheadSelect($event)"></organization-typeahead>
+            <div class="form-group">
+              <input type="hidden" [(ngModel)]="organizations" formControlName="organizations">
+              <div *ngIf="showErrors(organizationsControl)">
+                <p *ngIf="organizationsControl.errors.notEmpty" class="help-block small red">{{organizationsControl.errors.notEmpty.messageId | translate}}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Settings -->
+          <div>
+            <label>{{'labels.aggregate-reports.form.section.organization.include.heading' | translate}}</label>
+            <ul class="list-group list-group-sm small">
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label class="inline-label">
+                      <input type="checkbox" [(ngModel)]="settings.includeStateResults" [ngModelOptions]="{standalone: true}">
+                      <span class="ml-xs">{{'labels.aggregate-reports.form.section.organization.include.state-results' | translate}}</span>
+                    </label>
+                  </div>
+                  <div class="col-sm-6" *ngIf="options.statewideReporter">
+                    <label class="inline-label">
+                      <input type="checkbox" [(ngModel)]="settings.includeAllDistricts" [ngModelOptions]="{standalone: true}">
+                      <span class="ml-xs">{{'labels.aggregate-reports.form.section.organization.include.all-districts' | translate}}</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label class="inline-label">
+                      <input type="checkbox" [(ngModel)]="settings.includeAllSchoolsOfSelectedDistricts" [ngModelOptions]="{standalone: true}">
+                      <span class="ml-xs">{{'labels.aggregate-reports.form.section.organization.include.all-schools-of-districts' | translate}}</span>
+                    </label>
+                  </div>
+                  <div class="col-sm-6">
+                    <label class="inline-label">
+                      <input type="checkbox" [(ngModel)]="settings.includeAllDistrictsOfSelectedSchools" [ngModelOptions]="{standalone: true}">
+                      <span class="ml-xs">{{'labels.aggregate-reports.form.section.organization.include.all-districts-of-schools' | translate}}</span>
+                    </label>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Selections -->
+          <div [hidden]="!settings.districts.length || settings.includeAllDistricts">
+            <label>{{'labels.aggregate-reports.form.section.organization.district-list-heading' | translate}}</label>
+            <aggregate-report-organization-list [organizations]="settings.districts"
+                                                (organizationClick)="onOrganizationListItemClose($event)"></aggregate-report-organization-list>
+          </div>
+          <div [hidden]="!settings.schools.length">
+            <label>{{'labels.aggregate-reports.form.section.organization.school-list-heading' | translate}}</label>
+            <aggregate-report-organization-list [organizations]="settings.schools"
+                                                (organizationClick)="onOrganizationListItemClose($event)"></aggregate-report-organization-list>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Assessment Attributes -->
     <div class="row mt-sm" #assessmentSection id="assessmentSection">
       <div class="col-md-8 col-md-offset-2">
-        <h2 class="h3 gray-darkest">
-          {{'labels.aggregate-reports.form.assessment-attributes-heading' | translate}}
-        </h2>
+        <h3 class="h3 gray-darkest">
+          {{'labels.aggregate-reports.form.section.assessment.heading' | translate}}
+        </h3>
       </div>
     </div>
     <div class="row">
@@ -109,8 +188,8 @@
                        title="{{'labels.aggregate-reports.form.field.assessment-grades.label' | translate}}"
                        content="{{'labels.aggregate-reports.form.field.assessment-grades.info' | translate}}"></label>
                 <p class="small"
-                   [ngClass]="{'red': showAssessmentGradeErrors, 'gray-darker': !showAssessmentGradeErrors}">
-                  {{'labels.aggregate-reports.form.field.assessment-grades.subtext' | translate}}
+                   [ngClass]="{'red': showErrors(assessmentGradesControl), 'gray-darker': !showErrors(assessmentGradesControl)}">
+                  {{'labels.aggregate-reports.form.required' | translate}}
                 </p>
               </div>
               <div class="col-md-6">
@@ -125,9 +204,8 @@
                                      analyticsCategory="AggregateQueryBuilder"
                                      [allOptionAnalyticsProperties]="{label: 'Assessment Grade: All'}"
                                      (change)="generateReport()"></sb-checkbox-group>
-                  <div *ngIf="showAssessmentGradeErrors">
-                    <p *ngIf="assessmentGradesControl.errors.notEmpty" class="help-block small red">
-                      {{assessmentGradesControl.errors.notEmpty.messageId | translate}}</p>
+                  <div *ngIf="showErrors(assessmentGradesControl)">
+                    <p *ngIf="assessmentGradesControl.errors.notEmpty" class="help-block small red">{{assessmentGradesControl.errors.notEmpty.messageId | translate}}</p>
                   </div>
                 </div>
               </div>
@@ -139,16 +217,28 @@
                 <label info-button
                        title="{{'labels.aggregate-reports.form.field.school-year.label' | translate}}"
                        content="{{'labels.aggregate-reports.form.field.school-year.info' | translate}}"></label>
+                <p class="small"
+                   [ngClass]="{'red': showErrors(schoolYearsControl), 'gray-darker': !showErrors(schoolYearsControl)}">
+                  {{'labels.aggregate-reports.form.required' | translate}}
+                </p>
               </div>
               <div class="col-md-6">
-                <sb-checkbox-group [options]="options.schoolYears"
-                                   [(ngModel)]="settings.schoolYears"
-                                   [ngModelOptions]="{standalone: true}"
-                                   name="schoolYears"
-                                   analyticsEvent="FilterClick"
-                                   analyticsCategory="AggregateQueryBuilder"
-                                   [allOptionAnalyticsProperties]="{label: 'Academic Year: All'}"
-                                   (change)="generateReport()"></sb-checkbox-group>
+                <div class="form-group">
+                  <sb-checkbox-group [options]="options.schoolYears"
+                                     [(ngModel)]="settings.schoolYears"
+                                     [horizontal]="true"
+                                     [allOptionEnabled]="false"
+                                     formControlName="schoolYears"
+                                     name="schoolYears"
+                                     analyticsEvent="FilterClick"
+                                     analyticsCategory="AggregateQueryBuilder"
+                                     [allOptionAnalyticsProperties]="{label: 'Academic Year: All'}"
+                                     (change)="generateReport()"></sb-checkbox-group>
+                  <div *ngIf="showErrors(schoolYearsControl)">
+                    <p *ngIf="schoolYearsControl.errors.notEmpty" class="help-block small red">{{schoolYearsControl.errors.notEmpty.messageId | translate}}</p>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -158,9 +248,6 @@
                 <label info-button
                        title="{{'labels.aggregate-reports.form.field.interim-administration-condition.label' | translate}}"
                        content="{{'labels.aggregate-reports.form.field.interim-administration-condition.info' | translate}}"></label>
-                <p class="small gray-darker">
-                  {{'labels.aggregate-reports.form.field.interim-administration-condition.subtext' | translate}}
-                </p>
               </div>
               <div class="col-md-6">
                 <sb-checkbox-group [horizontal]="true"
@@ -181,9 +268,6 @@
                 <label info-button
                        title="{{'labels.aggregate-reports.form.field.summative-administration-condition.label' | translate}}"
                        content="{{'labels.aggregate-reports.form.field.summative-administration-condition.info' | translate}}"></label>
-                <p class="small gray-darker">
-                  {{'labels.aggregate-reports.form.field.summative-administration-condition.subtext' | translate}}
-                </p>
               </div>
               <div class="col-md-6">
                 <sb-checkbox-group [horizontal]="true"
@@ -225,9 +309,9 @@
     <!-- Subgroup Filters -->
     <div class="row mt-sm" #subgroupFiltersSection id="subgroupFiltersSection">
       <div class="col-md-8 col-md-offset-2">
-        <h2 class="h3 gray-darkest">
-          {{'labels.aggregate-reports.form.subgroup-filters-heading' | translate}}
-        </h2>
+        <h3 class="h3 gray-darkest">
+          {{'labels.aggregate-reports.form.section.subgroup-filters.heading' | translate}}
+        </h3>
       </div>
     </div>
     <div class="row">
@@ -379,9 +463,9 @@
     <!-- Report Features -->
     <div class="row mt-sm" #reportFeatureSection id="reportFeatureSection">
       <div class="col-md-8 col-md-offset-2">
-        <h2 class="h3 gray-darkest">
-          {{'labels.aggregate-reports.form.report-features-heading' | translate}}
-        </h2>
+        <h3 class="h3 gray-darkest">
+          {{'labels.aggregate-reports.form.section.report-features.heading' | translate}}
+        </h3>
       </div>
     </div>
     <div class="row">
@@ -432,9 +516,9 @@
     <!-- Comparative Subgroups -->
     <div class="row mt-sm" #comparativeSubgroupSection id="comparativeSubgroupSection">
       <div class="col-md-8 col-md-offset-2">
-        <h2 class="h3 gray-darkest">
-          {{'labels.aggregate-reports.form.comparative-subgroups-heading' | translate}}
-        </h2>
+        <h3 class="h3 gray-darkest">
+          {{'labels.aggregate-reports.form.section.comparative-subgroups.heading' | translate}}
+        </h3>
       </div>
     </div>
     <div class="row">
@@ -495,9 +579,29 @@
               labelCssClasses: {'aqua': true},
               attributes: [
                 {
-                  label: 'labels.aggregate-reports.form.summary.column.organization.attribute.organization' | translate,
-                  options: [],
-                  values: []
+                  label: 'labels.aggregate-reports.form.summary.column.organization.attribute.organization.label' | translate,
+                  values: [
+                   organizations.length < 2
+                      ? (organizations.length > 0 ? organizations[0].name : '')
+                      : 'labels.aggregate-reports.form.summary.column.organization.attribute.organization.value.multiple' | translate
+                  ]
+                },
+                {
+                  label: 'labels.aggregate-reports.form.summary.column.organization.attribute.include.label' | translate,
+                  values: [
+                    settings.includeStateResults && settings.assessmentType.code === 'sum'
+                      ? ('labels.aggregate-reports.form.summary.column.organization.attribute.include.value.state-results' | translate)
+                      : undefined,
+                    settings.includeAllDistricts
+                      ? ('labels.aggregate-reports.form.summary.column.organization.attribute.include.value.all-districts' | translate)
+                      : undefined,
+                    settings.includeAllSchoolsOfSelectedDistricts
+                      ? ('labels.aggregate-reports.form.summary.column.organization.attribute.include.value.all-schools-of-districts' | translate)
+                      : undefined,
+                    settings.includeAllDistrictsOfSelectedSchools
+                      ? ('labels.aggregate-reports.form.summary.column.organization.attribute.include.value.all-districts-of-schools' | translate)
+                      : undefined
+                  ]
                 }
               ]
             },

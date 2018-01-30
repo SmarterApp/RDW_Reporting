@@ -45,19 +45,7 @@ sql:
 
   organization:
     aggregate:
-      findAllSchoolsAndDistricts: >-
-        SELECT
-          district.id,
-          district.name,
-          district.natural_id,
-          'District' as org_type,
-          sch.district_group_id,
-          null as district_id,
-          null as school_group_id
-        FROM district
-          JOIN school sch
-            ON sch.district_id = district.id
-        UNION
+      findAllSchools: >-
         SELECT
           school.id,
           school.name,
@@ -67,6 +55,19 @@ sql:
           school.district_id,
           school.school_group_id
         FROM school
+
+      findAllDistricts: >-
+        SELECT DISTINCT
+          district.id,
+          district.name,
+          district.natural_id,
+          'District' as org_type,
+          sch.district_group_id,
+          null::int as district_id,
+          null::int as school_group_id
+        FROM district
+          JOIN school sch
+            ON sch.district_id = district.id
 
   schoolYear:
     findAll: >-
@@ -87,6 +88,19 @@ sql:
         code
       FROM subject
       ORDER BY id
+
+  activeAsmt:
+    findAllByType: >-
+       SELECT
+         a.id as asmt_id,
+         a.grade_id as asmt_grade_id,
+         ay.school_year,
+         s.code as subject_code,
+         a.label as asmt_label
+       FROM asmt_active_year ay
+         JOIN asmt a ON a.id = ay.asmt_id
+         JOIN subject s ON s.id = a.subject_id
+        WHERE a.type_id = :asmt_type_id
 
   # SQL does not support an Aggregate Product, but this seems to be a recommended way
   estimateReportRowCount: >-

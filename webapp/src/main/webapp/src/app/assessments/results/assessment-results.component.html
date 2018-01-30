@@ -161,6 +161,7 @@
         <results-by-item #resultsByItem
                          [showValuesAsPercent]="showValuesAsPercent"
                          [assessmentProvider]="assessmentProvider"
+                         [assessmentExporter]="assessmentExporter"
                          [assessment]="assessmentExam.assessment"
                          [exams]="exams">
         </results-by-item>
@@ -169,16 +170,18 @@
         <distractor-analysis #distractorAnalysis
                              [showValuesAsPercent]="showValuesAsPercent"
                              [assessmentProvider]="assessmentProvider"
+                             [assessmentExporter]="assessmentExporter"
                              [assessment]="assessmentExam.assessment"
                              [exams]="exams">
         </distractor-analysis>
       </div>
       <div *ngIf="showWritingTraitScores">
         <writing-trait-scores #writingTraitScores
-                             [showValuesAsPercent]="showValuesAsPercent"
-                             [assessmentProvider]="assessmentProvider"
-                             [assessment]="assessmentExam.assessment"
-                             [exams]="exams">
+                              [showValuesAsPercent]="showValuesAsPercent"
+                              [assessmentProvider]="assessmentProvider"
+                              [assessmentExporter]="assessmentExporter"
+                              [assessment]="assessmentExam.assessment"
+                              [exams]="exams">
         </writing-trait-scores>
       </div>
     </div>

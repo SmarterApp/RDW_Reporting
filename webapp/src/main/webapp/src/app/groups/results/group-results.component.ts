@@ -9,6 +9,7 @@ import { AssessmentsComponent } from "../../assessments/assessments.component";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { GroupReportDownloadComponent } from "../../report/group-report-download.component";
 import { Group } from "../../user/model/group.model";
+import { GroupAssessmentExportService } from "./group-assessment-export.service";
 
 @Component({
   selector: 'app-group-results',
@@ -31,6 +32,7 @@ export class GroupResultsComponent implements OnInit {
     this._currentGroup = value;
     if(this._currentGroup) {
       this.assessmentProvider.group = this._currentGroup;
+      this.assessmentExporter.group = this._currentGroup;
     }
   }
 
@@ -51,7 +53,8 @@ export class GroupResultsComponent implements OnInit {
               private filterOptionService: ExamFilterOptionsService,
               private angulartics2: Angulartics2,
               private csvExportService: CsvExportService,
-              public assessmentProvider: GroupAssessmentService) {
+              public assessmentProvider: GroupAssessmentService,
+              public assessmentExporter: GroupAssessmentExportService) {
   }
 
   ngOnInit() {

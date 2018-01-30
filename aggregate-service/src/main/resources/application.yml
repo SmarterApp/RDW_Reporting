@@ -42,7 +42,7 @@ app:
         driverClassName: com.amazon.redshift.jdbc42.Driver
 
   cache:
-    reportOrganizations:
+    repository:
       # every day at 1:00 am
       refresh-cron: "0 0 1 * * *"
 
@@ -60,7 +60,7 @@ spring:
 
   cache:
     type: SIMPLE
-    cache-names: internalTranslationsByCode, administrationConditions, assessmentGrades, assessmentTypes, booleans, strictBooleans, organizations, completenessCodes, ethnicities, genders, schoolYears, subjects
+    cache-names: internalTranslationsByCode, administrationConditions, assessmentGrades, assessmentTypes, booleans, strictBooleans, organizations, completenessCodes, ethnicities, genders, schoolYears, subjects, activeAssessments
 
 jwt:
   secret: ${rdw.reporting.jwt.secret:secret}

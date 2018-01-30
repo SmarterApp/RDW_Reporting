@@ -16,6 +16,7 @@ import { SchoolGradeDownloadComponent } from "../../report/school-grade-report-d
 import { OrganizationService } from "../organization.service";
 import { Option } from "../../shared/form/sb-typeahead.component";
 import { Utils } from "../../shared/support/support";
+import { SchoolAssessmentExportService } from "./school-assessment-export.service";
 
 @Component({
   selector: 'app-group-results',
@@ -57,6 +58,8 @@ export class SchoolResultsComponent implements OnInit {
     if (!Utils.isNullOrUndefined(value)) {
       this.assessmentProvider.schoolId = value.id;
       this.assessmentProvider.schoolName = value.name;
+      this.assessmentExporter.schoolId = value.id;
+      this.assessmentExporter.schoolName = value.name;
     }
   }
 
@@ -72,6 +75,7 @@ export class SchoolResultsComponent implements OnInit {
     this._currentGrade = value;
     if (!Utils.isNullOrUndefined(value)) {
       this.assessmentProvider.grade = value;
+      this.assessmentExporter.grade = value;
     }
   }
 
@@ -86,6 +90,7 @@ export class SchoolResultsComponent implements OnInit {
   set currentSchoolYear(value: number) {
     this._currentSchoolYear = value;
     this.assessmentProvider.schoolYear = value;
+    this.assessmentExporter.schoolYear = value;
   }
 
   constructor(private route: ActivatedRoute,
@@ -96,6 +101,7 @@ export class SchoolResultsComponent implements OnInit {
               private csvExportService: CsvExportService,
               private translate: TranslateService,
               public assessmentProvider: SchoolAssessmentService,
+              public assessmentExporter: SchoolAssessmentExportService,
               private organizationService: OrganizationService) {
   }
 

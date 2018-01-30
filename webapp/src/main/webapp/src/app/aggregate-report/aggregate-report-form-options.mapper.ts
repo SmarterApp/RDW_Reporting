@@ -5,15 +5,11 @@ import { Option as SbToggleOption } from "../shared/sb-toggle.component";
 import { Option as SbCheckboxGroupOption } from "../shared/form/sb-checkbox-group.component";
 import { TranslateService } from "@ngx-translate/core";
 import { SchoolYearPipe } from "../shared/format/school-year.pipe";
-import { ordering } from "@kourge/ordering";
-import { ranking } from "@kourge/ordering/comparator";
 
-const localeCompareText = (a, b) => a.text.localeCompare(b.text);
-
-const dimensionTypeComparator = ordering(ranking(
-  ['Gender', 'Ethnicity', 'LEP', 'MigrantStatus', 'Section504', 'IEP', 'EconomicDisadvantage', 'StudentEnrolledGrade']
-)).on((option: SbCheckboxGroupOption) => option.value).compare;
-
+/**
+ * Responsible for mapping server provided report options into option
+ * models that can be directly consumed by the UI components
+ */
 @Injectable()
 export class AggregateReportFormOptionsMapper {
 
@@ -129,7 +125,8 @@ export class AggregateReportFormOptionsMapper {
           value: value,
           text: this.translate.instant(`labels.aggregate-reports.form.field.comparative-subgroup.value.${value}`),
           analyticsProperties: { label: `Comparative Subgroup: ${value}` }
-        })
+        }),
+      statewideReporter: options.statewideReporter
     };
   }
 

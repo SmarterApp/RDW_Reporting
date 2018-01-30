@@ -4,11 +4,6 @@ import { AssessmentExamMapper } from "../../assessments/assessment-exam.mapper";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { AssessmentProvider } from "../../assessments/assessment-provider.interface";
 import { ResponseUtils } from "../../shared/response-utils";
-import { ExportRequest } from "../../assessments/model/export-request.model";
-import { Assessment } from "../../assessments/model/assessment.model";
-import { CsvExportService } from "../../csv-export/csv-export.service";
-import { Angulartics2 } from "angulartics2";
-import { TranslateService } from "@ngx-translate/core";
 import { Group } from "../../user/model/group.model";
 import { DataService } from "../../shared/data/data.service";
 
@@ -22,10 +17,7 @@ export class GroupAssessmentService implements AssessmentProvider {
 
   constructor(private dataService: DataService,
               private filterOptionService: ExamFilterOptionsService,
-              private mapper: AssessmentExamMapper,
-              private csvExportService: CsvExportService,
-              private angulartics2: Angulartics2,
-              private translate: TranslateService) {
+              private mapper: AssessmentExamMapper) {
   }
 
   getMostRecentAssessment(groupId: number, schoolYear?: number) {
@@ -70,26 +62,6 @@ export class GroupAssessmentService implements AssessmentProvider {
 
   getSchoolId() {
     return this.group.schoolId;
-  }
-
-  exportItemsToCsv(exportRequest: ExportRequest) {
-    let filename: string = this.getFilename(exportRequest);
-
-    this.angulartics2.eventTrack.next({
-      action: 'Export Group Results by Items',
-      properties: {
-        category: 'Export'
-      }
-    });
-
-    this.csvExportService.exportResultItems(exportRequest, filename);
-  }
-
-  private getFilename(exportRequest: ExportRequest) {
-    let assessment: Assessment = exportRequest.assessment;
-    let filename: string = this.group.name +
-      "-" + assessment.label + "-" + this.translate.instant(exportRequest.type.toString()) + "-" + new Date().toDateString();
-    return filename;
   }
 
   private getRecentAssessmentBySchoolYear(groupId: number, schoolYear: number) {

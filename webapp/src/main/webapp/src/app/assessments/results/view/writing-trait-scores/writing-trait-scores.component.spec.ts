@@ -19,6 +19,7 @@ import { Component } from "@angular/core";
 import { Assessment } from "../../../model/assessment.model";
 import { WritingTraitScoresComponent } from "./writing-trait-scores.component";
 import { MockAssessmentProvider } from "../../../../../test/mock.assessment.provider";
+import { MockAssessmentExporter } from "../../../../../test/mock.assessment.exporter";
 
 describe('WritingTraitScoresComponent', () => {
   let component: WritingTraitScoresComponent;
@@ -70,10 +71,11 @@ describe('WritingTraitScoresComponent', () => {
 
 @Component({
   selector: 'test-component-wrapper',
-  template: '<writing-trait-scores [assessmentProvider]="assessmentProvider" [assessment]="assessment" [exams]="[]"></writing-trait-scores>'
+  template: '<writing-trait-scores [assessmentProvider]="assessmentProvider" [assessmentExporter]="assessmentExporter" [assessment]="assessment" [exams]="[]"></writing-trait-scores>'
 })
 class TestComponentWrapper {
   assessmentProvider = new MockAssessmentProvider();
+  assessmentExporter = new MockAssessmentExporter();
   assessment = new Assessment();
 }
 

@@ -38,13 +38,13 @@ export class AggregateReportFormResolve implements Resolve<AggregateReportForm> 
     return <AggregateReportFormSettings>{
       assessmentGrades: [],
       assessmentType: firstValueOf(options.assessmentTypes),
-      completenesses: valuesOf(options.completenesses),
+      completenesses: [ firstValueOf(options.completenesses) ],
       ethnicities: valuesOf(options.ethnicities),
       genders: valuesOf(options.genders),
-      interimAdministrationConditions: valuesOf(options.interimAdministrationConditions),
+      interimAdministrationConditions: [ firstValueOf(options.interimAdministrationConditions) ],
       schoolYears: [ firstValueOf(options.schoolYears) ],
       subjects: valuesOf(options.subjects),
-      summativeAdministrationConditions: valuesOf(options.summativeAdministrationConditions),
+      summativeAdministrationConditions: [ firstValueOf(options.summativeAdministrationConditions) ],
       migrantStatuses: valuesOf(options.migrantStatuses),
       ieps: valuesOf(options.ieps),
       plan504s: valuesOf(options.plan504s),
@@ -52,7 +52,13 @@ export class AggregateReportFormResolve implements Resolve<AggregateReportForm> 
       economicDisadvantages: valuesOf(options.economicDisadvantages),
       achievementLevelDisplayType: firstValueOf(options.achievementLevelDisplayTypes),
       valueDisplayType: firstValueOf(options.valueDisplayTypes),
-      dimensionTypes: []
+      dimensionTypes: [],
+      includeStateResults: true,
+      includeAllDistricts: false,
+      includeAllSchoolsOfSelectedDistricts: false,
+      includeAllDistrictsOfSelectedSchools: true,
+      districts: [],
+      schools: []
     };
   }
 

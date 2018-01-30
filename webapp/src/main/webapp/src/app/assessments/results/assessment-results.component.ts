@@ -20,7 +20,8 @@ import { InstructionalResourcesService } from "./instructional-resources.service
 import { InstructionalResource } from "../model/instructional-resources.model";
 import { Assessment } from "../model/assessment.model";
 import { Observable } from "rxjs/Observable";
-import {WritingTraitScoresComponent} from "./view/writing-trait-scores/writing-trait-scores.component";
+import { WritingTraitScoresComponent } from "./view/writing-trait-scores/writing-trait-scores.component";
+import { AssessmentExporter } from "../assessment-exporter.interface";
 
 enum ResultsViewState {
   ByStudent = 1,
@@ -76,6 +77,12 @@ export class AssessmentResultsComponent implements OnInit {
    */
   @Input()
   assessmentProvider: AssessmentProvider;
+
+  /**
+   * Service class which provides export capabilities=for this assessment and exam.
+   */
+  @Input()
+  assessmentExporter: AssessmentExporter;
 
   /**
    * If true, values will be shown as percents.  Otherwise values will be shown

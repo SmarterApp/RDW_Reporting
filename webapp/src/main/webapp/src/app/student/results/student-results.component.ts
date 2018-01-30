@@ -26,6 +26,7 @@ export class StudentResultsComponent implements OnInit {
   examsByTypeAndSubject: Map<AssessmentType, Map<string, StudentHistoryExamWrapper[]>> = new Map();
   displayState: any = {};
   minimumItemDataYear: number;
+  hasResults: boolean;
 
   private typeDisplayOrder: AssessmentType[] = [AssessmentType.IAB, AssessmentType.ICA, AssessmentType.SUMMATIVE];
 
@@ -135,6 +136,8 @@ export class StudentResultsComponent implements OnInit {
       this.filterState.filterBy
     );
 
+    this.hasResults = filteredExams.length != 0;
+
     let examsByTypeAndSubject: Map<AssessmentType, Map<string, StudentHistoryExamWrapper[]>> = new Map();
     filteredExams.forEach((wrapper) => {
       let type: AssessmentType = wrapper.assessment.type;
@@ -145,7 +148,7 @@ export class StudentResultsComponent implements OnInit {
       byType.set(subject, bySubject);
       examsByTypeAndSubject.set(type, byType);
 
-      //Initialize collapse state if it doesn't exist
+      // Initialize collapse state if it doesn't exist
       this.displayState[type] = this.displayState[type] || {};
       this.displayState[type][subject] = this.displayState[type][subject] || {};
       this.displayState[type][subject].collapsed = this.displayState[type][subject].collapsed || false;

@@ -34,6 +34,7 @@ import {
   AuthenticationServiceAuthenticationExpiredRoute,
   AuthenticationServiceDefaultAuthenticationRoute
 } from "./security/authentication.service";
+import { OrganizationModule } from "./organization/organization.module";
 import { ScrollNavComponent } from "./nav/scroll-nav.component";
 
 
@@ -57,6 +58,7 @@ import { ScrollNavComponent } from "./nav/scroll-nav.component";
     BrowserModule,
     FormsModule,
     HttpModule,
+    OrganizationModule,
     PopoverModule.forRoot(),
     RdwCoreModule,
     RdwDataModule.forRoot(),
@@ -82,6 +84,7 @@ import { ScrollNavComponent } from "./nav/scroll-nav.component";
     LoaderComponent,
     NotificationComponent,
     ScrollNavComponent,
+    OrganizationModule,
     RemoveCommaPipe,
     RouterModule,
     RdwCoreModule,

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AssessmentItem } from "../../../model/assessment-item.model";
-import { ExportRequest } from "../../../model/export-request.model";
+import { ExportItemsRequest } from "../../../model/export-items-request.model";
 import { Angulartics2 } from "angulartics2";
 import { DynamicItemField } from "../../../model/item-point-field.model";
 import { AssessmentProvider } from "../../../assessment-provider.interface";
@@ -9,6 +9,7 @@ import { Exam } from "../../../model/exam.model";
 import { Assessment } from "../../../model/assessment.model";
 import { RequestType } from "../../../../shared/enum/request-type.enum";
 import { ExportResults } from "../../assessment-results.component";
+import { AssessmentExporter } from "../../../assessment-exporter.interface";
 
 @Component({
   selector: 'results-by-item',
@@ -26,6 +27,12 @@ export class ResultsByItemComponent implements OnInit, ExportResults {
    */
   @Input()
   assessmentProvider: AssessmentProvider;
+
+  /**
+   * Service class which provides export capabilities for this assessment and exam.
+   */
+  @Input()
+  assessmentExporter: AssessmentExporter;
 
   /**
    * The assessment
@@ -84,21 +91,14 @@ export class ResultsByItemComponent implements OnInit, ExportResults {
   }
 
   exportToCsv(): void {
-    let exportRequest = new ExportRequest();
+    let exportRequest = new ExportItemsRequest();
     exportRequest.assessment = this.assessment;
     exportRequest.assessmentItems = this.filteredAssessmentItems;
     exportRequest.pointColumns = this.pointColumns;
     exportRequest.showAsPercent = this.showValuesAsPercent;
     exportRequest.type = RequestType.ResultsByItems;
 
-    this.angulartics2.eventTrack.next({
-      action: 'Export ResultByItems',
-      properties: {
-        category: 'Export'
-      }
-    });
-
-    this.assessmentProvider.exportItemsToCsv(exportRequest);
+    this.assessmentExporter.exportItemsToCsv(exportRequest);
   }
 
   getPointRowStyleClass(index: number) {
