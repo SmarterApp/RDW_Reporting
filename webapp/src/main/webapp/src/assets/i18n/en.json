@@ -1262,7 +1262,7 @@
               "full-credit-info": "Percentage of students in the group who earned the maximum number of points available for a particular test item.",
               "max-score": "Maximum Score",
               "number": "Item #",
-              "purpose": "Purpose",
+              "purpose": "Writing Purpose",
               "purpose-info": "The performance task writing purpose.",
               "standard": "Standard",
               "standard-info-html": {
@@ -1580,7 +1580,7 @@
         },
         "crumb": "Student Responses",
         "title": "Student's Responses",
-        "writing-trait-purpose": "Purpose: {{traitType}}"
+        "writing-trait-purpose": "Writing Purpose: {{traitType}}"
       },
       "results": {
         "cols": {

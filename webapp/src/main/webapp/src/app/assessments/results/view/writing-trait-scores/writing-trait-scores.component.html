@@ -24,6 +24,15 @@
         <claim-target [item]="item"></claim-target>
       </ng-template>
     </p-column>
+    <p-column>
+      <ng-template pTemplate="header">
+        <span info-button title="{{'labels.groups.results.assessment.items.cols.purpose' | translate}}"
+              content="{{'labels.groups.results.assessment.items.cols.purpose-info' | translate}}"></span>
+      </ng-template>
+      <ng-template pTemplate="body">
+        {{ writingTraitType }}
+      </ng-template>
+    </p-column>
     <p-column field="difficulty">
       <ng-template pTemplate="header">
             <span info-button title="{{'labels.groups.results.assessment.items.cols.difficulty' | translate}}"
@@ -40,15 +49,6 @@
       </ng-template>
       <ng-template let-standards="rowData.commonCoreStandardIds" pTemplate="body">
         <span *ngFor="let standard of standards" class="label border-only blue mr-xs">{{standard}}</span>
-      </ng-template>
-    </p-column>
-    <p-column>
-      <ng-template pTemplate="header">
-        <span info-button title="{{'labels.groups.results.assessment.items.cols.purpose' | translate}}"
-              content="{{'labels.groups.results.assessment.items.cols.purpose-info' | translate}}"></span>
-      </ng-template>
-      <ng-template pTemplate="body">
-        {{ writingTraitType }}
       </ng-template>
     </p-column>
     <p-column field="fullCredit">
