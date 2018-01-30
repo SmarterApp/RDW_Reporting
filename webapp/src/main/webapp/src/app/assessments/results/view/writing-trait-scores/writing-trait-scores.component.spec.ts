@@ -15,6 +15,7 @@ import { ItemInfoComponent } from "../../../items/item-info/item-info.component"
 import { ItemExemplarComponent } from "../../../items/item-exemplar/item-exemplar.component";
 import { ItemScoresComponent } from "../../../items/item-scores/item-scores.component";
 import { ItemViewerComponent } from "../../../items/item-viewer/item-viewer.component";
+import { ItemWritingTraitScoresComponent } from "../../../items/item-writing-trait-scores/item-writing-trait-scores.component";
 import { Component } from "@angular/core";
 import { Assessment } from "../../../model/assessment.model";
 import { WritingTraitScoresComponent } from "./writing-trait-scores.component";
@@ -48,7 +49,8 @@ describe('WritingTraitScoresComponent', () => {
         ItemInfoComponent,
         ItemExemplarComponent,
         ItemScoresComponent,
-        ItemViewerComponent
+        ItemViewerComponent,
+        ItemWritingTraitScoresComponent
       ],
       providers: [
         { provide: Angulartics2, useValue: mockAngulartics2 },

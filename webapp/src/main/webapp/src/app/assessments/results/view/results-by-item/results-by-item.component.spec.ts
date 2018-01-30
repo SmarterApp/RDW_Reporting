@@ -20,6 +20,7 @@ import { Component } from "@angular/core";
 import { Assessment } from "../../../model/assessment.model";
 import { MockAssessmentProvider } from "../../../../../test/mock.assessment.provider";
 import { MockAssessmentExporter } from "../../../../../test/mock.assessment.exporter";
+import { ItemWritingTraitScoresComponent } from "../../../items/item-writing-trait-scores/item-writing-trait-scores.component";
 
 describe('ResultsByItemComponent', () => {
   let component: ResultsByItemComponent;
@@ -48,7 +49,8 @@ describe('ResultsByItemComponent', () => {
         ItemInfoComponent,
         ItemExemplarComponent,
         ItemScoresComponent,
-        ItemViewerComponent
+        ItemViewerComponent,
+        ItemWritingTraitScoresComponent
       ],
       providers: [
         { provide: Angulartics2, useValue: mockAngulartics2 },

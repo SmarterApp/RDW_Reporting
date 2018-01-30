@@ -16,34 +16,34 @@
   <tr>
     <td>{{'enum.writing-trait.evidence' | translate}}</td>
     <td>
-      <display-optional [value]="responsesAssessmentItem.writingTraitScores.evidence"></display-optional>
+      <display-optional [value]="evidence"></display-optional>
     </td>
     <td>4</td>
     <td>
-      <display-optional [value]="responsesAssessmentItem.writingTraitScores.evidence"
-                        displayValue="{{(responsesAssessmentItem.writingTraitScores.evidence / 4) | number:'1.2-2' }}"></display-optional>
+      <display-optional [value]="evidence"
+                        displayValue="{{(evidence / evidenceMaxPoints) | number:'1.2-2' }}"></display-optional>
     </td>
   </tr>
   <tr>
     <td>{{'enum.writing-trait.organization' | translate}}</td>
     <td>
-      <display-optional [value]="responsesAssessmentItem.writingTraitScores.organization"></display-optional>
+      <display-optional [value]="organization"></display-optional>
     </td>
     <td>4</td>
     <td>
-      <display-optional [value]="responsesAssessmentItem.writingTraitScores.organization"
-                        displayValue="{{(responsesAssessmentItem.writingTraitScores.organization / 4) | number:'1.2-2' }}"></display-optional>
+      <display-optional [value]="organization"
+                        displayValue="{{(organization / organizationMaxPoints) | number:'1.2-2' }}"></display-optional>
     </td>
   </tr>
   <tr>
     <td>{{'enum.writing-trait.conventions' | translate}}</td>
     <td>
-      <display-optional [value]="responsesAssessmentItem.writingTraitScores.conventions"></display-optional>
+      <display-optional [value]="conventions"></display-optional>
     </td>
     <td>2</td>
     <td>
-      <display-optional [value]="responsesAssessmentItem.writingTraitScores.conventions"
-                        displayValue="{{(responsesAssessmentItem.writingTraitScores.conventions / 2) | number:'1.2-2' }}"></display-optional>
+      <display-optional [value]="conventions"
+                        displayValue="{{(conventions / conventionsMaxPoints) | number:'1.2-2' }}"></display-optional>
     </td>
   </tr>
   <tr>

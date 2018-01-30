@@ -1,12 +1,11 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { ItemWritingTraitScoresComponent } from "./item-writing-trait-scores.component";
-import { DataTableModule } from "primeng/components/datatable/datatable";
 
 import { Component } from "@angular/core";
-import { AssessmentItem } from "../../model/assessment-item.model";
 import { CommonModule } from "../../../shared/common.module";
 import { TestModule } from "../../../../test/test.module";
-import { PopoverModule } from "ngx-bootstrap";
+import { StudentResponsesAssessmentItem } from "../../../student/responses/student-responses-item.model";
+import { AssessmentItem } from "../../model/assessment-item.model";
 
 describe('ItemWritingTraitScoresComponent', () => {
   let component: ItemWritingTraitScoresComponent;
@@ -15,7 +14,7 @@ describe('ItemWritingTraitScoresComponent', () => {
   beforeEach(async(() => {
 
     TestBed.configureTestingModule({
-      imports: [ DataTableModule, CommonModule, TestModule, PopoverModule.forRoot() ],
+      imports: [ CommonModule, TestModule ],
       declarations: [ TestComponentWrapper, ItemWritingTraitScoresComponent ]
     })
       .compileComponents();
@@ -35,9 +34,12 @@ describe('ItemWritingTraitScoresComponent', () => {
 
 @Component({
   selector: 'test-component-wrapper',
-  template: '<item-scores [item]="item" [exams]="exams"></item-scores>'
+  template: '<item-writing-trait-scores [responsesAssessmentItem]="item"></item-writing-trait-scores>'
 })
 class TestComponentWrapper {
-  item = new AssessmentItem();
-  exams = [];
+  item = new StudentResponsesAssessmentItem();
+
+  constructor() {
+    this.item.assessmentItem = new AssessmentItem();
+  }
 }

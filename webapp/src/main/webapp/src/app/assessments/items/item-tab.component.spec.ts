@@ -15,6 +15,7 @@ import { TestModule } from "../../../test/test.module";
 import { ItemInfoComponent } from "./item-info/item-info.component";
 import { Angulartics2, Angulartics2Module } from "angulartics2";
 import { CachingDataService } from "../../shared/data/caching-data.service";
+import { ItemWritingTraitScoresComponent } from "./item-writing-trait-scores/item-writing-trait-scores.component";
 
 describe('ItemTabComponent', () => {
   let component: ItemTabComponent;
@@ -26,7 +27,7 @@ describe('ItemTabComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [ TabsModule, CommonModule, DataTableModule, TestModule, Angulartics2Module, PopoverModule.forRoot() ],
-      declarations: [ TestComponentWrapper, ItemTabComponent, ItemViewerComponent, ItemInfoComponent, ItemExemplarComponent, ItemScoresComponent ],
+      declarations: [ TestComponentWrapper, ItemTabComponent, ItemViewerComponent, ItemInfoComponent, ItemExemplarComponent, ItemScoresComponent, ItemWritingTraitScoresComponent ],
       providers: [
         TabsetConfig,
         { provide: CachingDataService, useClass: MockDataService },
