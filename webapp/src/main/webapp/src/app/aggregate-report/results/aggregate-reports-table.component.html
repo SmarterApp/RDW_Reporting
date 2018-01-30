@@ -48,7 +48,7 @@
         <div *ngIf="treeColumns[i] <= colIndex(col)"
              class="full-cell pt-0"
              [ngClass]="{'border-top': treeColumns[i] <= colIndex(col) && treeColumns[i] < columnOrdering.length - 1}">
-          {{reportItem.schoolYear}}
+          {{reportItem.schoolYear | schoolYear}}
         </div>
       </ng-template>
     </p-column>
@@ -60,7 +60,8 @@
         <div *ngIf="treeColumns[i] <= colIndex(col)"
              class="full-cell pt-0"
              [ngClass]="{'border-top': treeColumns[i] <= colIndex(col) && treeColumns[i] < columnOrdering.length - 1}">
-          {{ ('labels.aggregate-reports.results.dimension.' + reportItem.dimensionType + '.' + reportItem.dimensionValue) | translate}}
+          {{ ('labels.aggregate-reports.results.dimension.' + reportItem.dimensionType + '.' +
+          reportItem.dimensionValue) | translate}}
         </div>
       </ng-template>
     </p-column>
@@ -107,7 +108,8 @@
                 field="{{ (showValuesAsPercent ? 'performanceLevelPercents.' : 'performanceLevelCounts.') + levelIdx }}">
         <ng-template pTemplate="header">
           <div class="text-center">
-            <span class="label" [ngClass]="colorService.getPerformanceLevelColor({type: query.assessmentType}, levelIdx)">
+            <span class="label"
+                  [ngClass]="colorService.getPerformanceLevelColor({type: query.assessmentType}, levelIdx)">
               {{ (performanceLevelTranslationPrefix + level) | translate }}
             </span><br>
             <span>{{ 'labels.aggregate-reports.results.cols.performance-level-suffix' | translate }}</span>
@@ -130,7 +132,8 @@
         <ng-template pTemplate="header">
           <div class="text-center">
             <span>{{('labels.aggregate-reports.results.cols.grouped-performance-level-prefix.' + leveIdx) | translate}}</span><br>
-            <span class="label" [ngClass]="colorService.getPerformanceLevelColor({type: query.assessmentType}, level - 1)">
+            <span class="label"
+                  [ngClass]="colorService.getPerformanceLevelColor({type: query.assessmentType}, level - 1)">
               {{ (performanceLevelTranslationPrefix + level) | translate }}
             </span><br>
             <span>{{ 'labels.aggregate-reports.results.cols.performance-level-suffix' | translate }}</span>
