@@ -1,14 +1,6 @@
 import { Component, forwardRef, Input, OnInit } from "@angular/core";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { Utils } from "../support/support";
-
-const NOOP: () => void = () => {};
-
-const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => SBCheckboxGroup),
-  multi: true
-};
+import { NG_VALUE_ACCESSOR } from "@angular/forms";
+import { AbstractControlValueAccessor } from "./abstract-control-value-accessor";
 
 /**
  * A checkbox group with an all option for convenience
@@ -60,15 +52,18 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
       </div>
     </div>
   `,
-  providers: [ CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR ]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SBCheckboxGroup),
+      multi: true
+    }
+  ]
 })
-export class SBCheckboxGroup implements ControlValueAccessor, OnInit {
+export class SBCheckboxGroup extends AbstractControlValueAccessor<any[]> implements OnInit {
 
   @Input()
   public horizontal: boolean = false;
-
-  @Input()
-  public name: string = Utils.newGuid();
 
   @Input()
   public analyticsEvent: string;
@@ -83,19 +78,11 @@ export class SBCheckboxGroup implements ControlValueAccessor, OnInit {
   public allOptionEnabled: boolean = true;
 
   private _options: Option[];
-  private _value: any[] = [];
-  private _onTouchedCallback: () => void = NOOP;
-  private _onChangeCallback: (_: any) => void = NOOP;
-  private _disabled: boolean = false;
 
   // internal properties necessarily made public for ng build --prod
   // these are also needed for (ngModelChange) to fire
   public selectedAllOptionInternal: boolean = true;
   public selectedOptionsInternal: boolean[] = [];
-
-  get disabled(): boolean {
-    return this._disabled;
-  }
 
   get options(): Option[] {
     return this._options;
@@ -164,38 +151,6 @@ export class SBCheckboxGroup implements ControlValueAccessor, OnInit {
 
   private throwError(message: string): void {
     throw new Error(this.constructor.name + ' ' + message);
-  }
-
-  /**
-   * @override
-   * @inheritDoc
-   */
-  writeValue(value: any[]): void {
-    this.value = value;
-  }
-
-  /**
-   * @override
-   * @inheritDoc
-   */
-  registerOnChange(callback: any): void {
-    this._onChangeCallback = (callback !== null ? callback : NOOP);
-  }
-
-  /**
-   * @override
-   * @inheritDoc
-   */
-  registerOnTouched(callback: any): void {
-    this._onTouchedCallback = (callback !== null ? callback : NOOP);
-  }
-
-  /**
-   * @override
-   * @inheritDoc
-   */
-  setDisabledState(disabled: boolean): void {
-    this._disabled = disabled;
   }
 
 }

@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup, ValidationErrors } from "@angular/forms";
+import { AbstractControl, FormControl, FormGroup, ValidationErrors } from "@angular/forms";
 
 /**
  * Holds common methods for dealing with angular form components
@@ -26,10 +26,20 @@ export class Forms {
     Object.keys(formGroup.controls).forEach(key => {
       const errors: ValidationErrors = formGroup.get(key).errors || {};
       Object.keys(errors).forEach(errorId => {
-        holders.push({ id: errorId, properties: errors[errorId] });
+        holders.push({ controlId: key, id: errorId, properties: errors[errorId] });
       });
     });
     return holders;
+  }
+
+  /**
+   * True if the control has errors and has been touched or dirtied
+   *
+   * @param {FormControl} formControl the form control to test
+   * @returns {boolean}
+   */
+  public static showErrors(formControl: FormControl): boolean {
+    return formControl.invalid && (formControl.dirty || formControl.touched);
   }
 
 }
@@ -38,6 +48,7 @@ export class Forms {
  * Holds the form group error information
  */
 export interface ValidationErrorHolder {
+  controlId: string;
   id: string;
   properties?: {[key: string]: any};
 }

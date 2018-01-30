@@ -17,8 +17,22 @@
       "show": "Show"
     }
   },
+  "organization-typeahead": {
+    "type-label": "Type",
+    "placeholder": "Enter name",
+    "no-matches": "There are no organizations matching your search."
+  },
   "collapse": "Collapse",
   "common": {
+    "organization": {
+      "type": {
+        "State": "State",
+        "DistrictGroup": "District Group",
+        "District": "District",
+        "SchoolGroup": "School Group",
+        "School": "School"
+      }
+    },
     "form-field-boolean-values": {
       "true": "Yes",
       "false": "No",
@@ -410,7 +424,7 @@
     "results-view-state": {
       "ByItem": "Results By Item",
       "ByStudent": "Results By Student",
-      "DistractorAnalysis": "Distractor Analysis",
+      "DistractorAnalysis": "Key / Distractor Analysis",
       "WritingTraitScores": "Writing Trait Scores"
     },
     "status": {
@@ -589,11 +603,15 @@
       "form": {
         "heading": "Custom Aggregate Report",
         "subheading": "Select the attributes to include in the report. Then click \"Generate Report.\"",
+        "required": "* Required",
         "field": {
+          "organization": {
+            "label": "Search a School or District",
+            "error-empty": "Please select a school or district."
+          },
           "assessment-grades": {
             "label": "Assessment Grades",
             "info": "The grade of the assessment that was administered",
-            "subtext": "* Required",
             "error-empty": "Please select an assessment grade."
           },
           "assessment-type": {
@@ -606,12 +624,12 @@
           },
           "interim-administration-condition": {
             "label": "Manner of Administration",
-            "info": "For interim assessments, a Standardized administration follows the same protocols and security procedures as a summative test administration. For a Non Standardized administration, the teacher may use the assessment during instruction and interact with students as they complete the assessment.",
-            "subtext": "Interim"
+            "info": "For interim assessments, a Standardized administration follows the same protocols and security procedures as a summative test administration. For a Non Standardized administration, the teacher may use the assessment during instruction and interact with students as they complete the assessment."
           },
           "school-year": {
             "label": "Academic Years",
-            "info": "Academic Years"
+            "info": "Academic Years",
+            "error-empty": "Please select a school year."
           },
           "subjects": {
             "label": "Subjects",
@@ -619,8 +637,7 @@
           },
           "summative-administration-condition": {
             "label": "Validity",
-            "info": "For summative assessments, a test is noted as invalid if an appeal is submitted  to invalidate the test due to a test irregularity or breach.",
-            "subtext": "Summative"
+            "info": "For summative assessments, a test is noted as invalid if an appeal is submitted  to invalidate the test due to a test irregularity or breach."
           },
           "gender": {
             "label": "Gender",
@@ -699,9 +716,23 @@
             },
             "organization": {
               "heading": "Required Fields",
-              "label": "Organization",
+              "label": "Schools / Districts",
               "attribute": {
-                "organization":  "Organizations"
+                "organization":  {
+                  "label": "Schools / Districts",
+                  "value": {
+                    "multiple": "Multiple"
+                  }
+                },
+                "include": {
+                  "label": "Includes",
+                  "value": {
+                    "state-results": "State Results",
+                    "all-districts": "All Districts",
+                    "all-schools-of-districts": "Districts' Schools",
+                    "all-districts-of-schools": "Schools' Districts"
+                  }
+                }
               }
             },
             "assessment-grade": {
@@ -741,10 +772,33 @@
             }
           }
         },
-        "assessment-attributes-heading": "Assessment Attributes",
-        "subgroup-filters-heading": "Subgroup Filters",
-        "report-features-heading": "Report Features",
-        "comparative-subgroups-heading": "Comparative Subgroups",
+        "section": {
+          "organization": {
+            "heading": "Schools and Districts",
+            "subtext": "Select schools and districts to compare.",
+            "include": {
+              "heading": "Include",
+              "state-results": "State results (Summatives only)",
+              "all-districts": "All district results",
+              "all-schools-of-districts": "School results for listed districts",
+              "all-districts-of-schools": "District results for listed schools"
+            },
+            "district-list-heading": "Districts",
+            "school-list-heading": "Schools"
+          },
+          "assessment": {
+            "heading": "Assessment Attributes"
+          },
+          "subgroup-filters": {
+            "heading": "Subgroup Filters"
+          },
+          "report-features": {
+            "heading": "Report Features"
+          },
+          "comparative-subgroups": {
+            "heading": "Comparative Subgroups"
+          }
+        },
         "submit": "Generate Report"
       },
       "query-builder": {
@@ -867,11 +921,11 @@
           "writing-trait-scores": "Writing Trait Scores"
         }
       },
+      "result": "Result",
+      "results": "Results",
       "student-score-distribution": {
         "title": "Student Score Distribution"
-      },
-      "student": "Student",
-      "students": "Students"
+      }
     },
     "instructional-resources": {
       "link": {
@@ -1009,8 +1063,6 @@
         "target": "Target"
       },
       "csv": "Export CSV",
-      "distractor-analysis": "Export Distractor Analysis",
-      "items-by-points-earned": "Export Results By Item",
       "title": "Export"
     },
     "filters": {
@@ -1376,7 +1428,7 @@
           "success-html": "Creating export."
         }
       },
-      "title": "Custom Exports"
+      "title": "District / School Exports"
     },
     "organization-tree": {
       "header": "Selected Organizations",
@@ -1512,7 +1564,8 @@
     "student": {
       "messages": {
         "no-results": "Student does not exist or has no available test results.",
-        "null-student": "This student is unavailable.  Contact your building administrator if you think you should have access to this student."
+        "null-student": "This student is unavailable.  Contact your building administrator if you think you should have access to this student.",
+        "empty-filtered-results": "No test results are available for the filters selected."
       },
       "name": "{{lastName}}, {{firstName}}",
       "prompt": "Enter the Statewide Student Identifier (SSID)",
@@ -1571,8 +1624,8 @@
     "coming-soon": "{{featureName}} is coming soon.",
     "loading": "Loading",
     "logout": "Logout",
-    "no-distractor-analysis": "Distractor analysis is not available for assessments administered prior to 2017-18 school year.",
-    "no-distractor-analysis-for-summative-exams": "Distractor analysis is not available for summative assessments.",
+    "no-distractor-analysis": "Key / Distractor Analysis is not available for assessments administered prior to 2017-18 school year.",
+    "no-distractor-analysis-for-summative-exams": "Key / Distractor Analysis is not available for summative assessments.",
     "no-results-by-item": "Results by item is not available for assessments administered prior to 2017-18 school year.",
     "no-results-by-item-for-summative-exams": "Results by item is not available for summative assessments.",
     "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above.",

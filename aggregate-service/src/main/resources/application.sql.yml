@@ -89,6 +89,19 @@ sql:
       FROM subject
       ORDER BY id
 
+  activeAsmt:
+    findAllByType: >-
+       SELECT
+         a.id as asmt_id,
+         a.grade_id as asmt_grade_id,
+         ay.school_year,
+         s.code as subject_code,
+         a.label as asmt_label
+       FROM asmt_active_year ay
+         JOIN asmt a ON a.id = ay.asmt_id
+         JOIN subject s ON s.id = a.subject_id
+        WHERE a.type_id = :asmt_type_id
+
   # SQL does not support an Aggregate Product, but this seems to be a recommended way
   estimateReportRowCount: >-
    SELECT round(exp(sum(ln(count)))) as count from (

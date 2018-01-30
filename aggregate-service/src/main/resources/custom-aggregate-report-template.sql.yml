@@ -16,16 +16,15 @@ sqlbuilder:
               fe.school_year,
               fe.asmt_id,
               a.grade_id as asmt_grade_id,
-              a.subject_id,
               a.label as asmt_label,
-              subject.code as subject_code
+              sa.code as subject_code
 
           from: >-
               fact_student_exam fe
 
           join: >-
               JOIN asmt a ON a.id = fe.asmt_id
-              JOIN subject ON subject.id = a.subject_id
+              JOIN subject sa ON sa.id = a.subject_id
 
           where: >-
               fe.school_year IN (:school_years) AND
@@ -37,9 +36,8 @@ sqlbuilder:
               fe.school_year,
               fe.asmt_id,
               a.grade_id,
-              a.subject_id,
               a.label,
-              subject.code
+              sa.code
 
       # ------------ organization parts -------------------------------------------------------------
         addons:
@@ -141,7 +139,8 @@ sqlbuilder:
                 join: >-
                      JOIN student_ethnicity se ON se.student_id = fe.student_id
                      JOIN ethnicity e ON e.id = se.ethnicity_id
-
+                where: >-
+                    ( true = :all_ethnicities OR se.ethnicity_id in (:ethnicity_ids) )
                 groupBy: >-
                      se.ethnicity_id,
                      e.code
@@ -160,7 +159,7 @@ sqlbuilder:
             LEP:
               clauses:
                 select: >-
-                     'EconomicDisadvantage' AS dimension,
+                     'LEP' AS dimension,
                      fe.lep AS dimension_id,
                      CASE WHEN fe.lep = 1 THEN 'yes' ELSE 'no' END AS dimension_code
                 where: >-

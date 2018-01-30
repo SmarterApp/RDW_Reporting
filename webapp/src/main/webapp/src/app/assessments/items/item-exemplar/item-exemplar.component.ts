@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ItemScoringService } from "./item-scoring.service";
 import { ItemScoringGuide } from "./model/item-scoring-guide.model";
 import { Utils } from "../../../shared/support/support";
+import {AssessmentItem} from "../../model/assessment-item.model";
 
 @Component({
   selector: 'item-exemplar',
@@ -10,10 +11,11 @@ import { Utils } from "../../../shared/support/support";
 export class ItemExemplarComponent implements OnInit {
 
   /**
-   * The bank item key of an item.
+   * The item which we want to display the exemplar for.
    */
   @Input()
-  public bankItemKey: string;
+  public item: AssessmentItem;
+
   public model: ItemScoringGuide;
   public notFound: boolean = false;
   public errorLoading: boolean = false;
@@ -27,7 +29,7 @@ export class ItemExemplarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.service.getGuide(this.bankItemKey)
+    this.service.getGuide(this.item.bankItemKey)
       .subscribe(guide => {
           this.model = guide;
           this.loading = false;
@@ -47,5 +49,14 @@ export class ItemExemplarComponent implements OnInit {
 
           this.loading = false;
         });
+  }
+
+  /**
+   * Returns true if this item is a MC or MS and has an answer key
+   * @param {AssessmentItem} item
+   * @returns {boolean}
+   */
+  hasAnswerKey(item: AssessmentItem): boolean {
+    return (item.type === 'MC' || item.type === 'MC') && (item.answerKey !== undefined || item.answerKey !== null);
   }
 }
