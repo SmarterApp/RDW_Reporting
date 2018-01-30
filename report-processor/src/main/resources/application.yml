@@ -47,6 +47,18 @@ spring:
           producer:
             requiredGroups: default
 
+        AggregateRequest:
+          content-type: application/json
+          group: default
+          producer:
+            requiredGroups: default
+
+        AggregateResponse:
+          content-type: application/json
+          group: default
+          producer:
+            requiredGroups: default
+
   jackson:
       default-property-inclusion: non_null
       serialization:
