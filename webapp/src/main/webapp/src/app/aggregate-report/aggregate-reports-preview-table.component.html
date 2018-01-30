@@ -9,8 +9,8 @@
                [ngClass]="{'hidden': loading}"
                [rowTrackBy]="rowTrackBy"
                [immutable]="false"
-               [rows]="100"
-               [paginator]="false"
+               [rows]="20"
+               [paginator]="true"
                emptyMessage="{{'labels.aggregate-reports.results.empty-message' | translate}}"
                tableStyleClass="table table-striped table-hover overflow">
     <p-column field="organizationName"

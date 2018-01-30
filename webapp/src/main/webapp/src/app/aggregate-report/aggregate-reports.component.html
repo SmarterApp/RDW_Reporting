@@ -1,3 +1,122 @@
+<left-nav
+  [sections]="[
+  {
+    scrollTo: assessmentSection,
+    text: 'labels.aggregate-reports.form.assessment-attributes-heading' | translate,
+    isLink: true,
+    subsections: [
+      {
+        scrollTo: assessmentTypeSection,
+        text: 'labels.aggregate-reports.form.field.assessment-type.label' | translate,
+        isLink: true
+      },
+      {
+        scrollTo: subjectsSection,
+        text: 'labels.aggregate-reports.form.field.subjects.label' | translate,
+        isLink: true
+      },
+      {
+        scrollTo: assessmentGradeSection,
+        text: 'labels.aggregate-reports.form.field.assessment-grades.label' | translate,
+        isLink: true
+      },
+      {
+        scrollTo: schoolYearSection,
+        text: 'labels.aggregate-reports.form.field.school-year.label' | translate,
+        isLink: true
+      },
+      {
+        scrollTo: completenessSection,
+        text: 'labels.aggregate-reports.form.field.completeness.label' | translate,
+        isLink: true
+      }
+    ]
+  },
+  {
+    scrollTo: subgroupFiltersSection,
+    text: 'labels.aggregate-reports.form.subgroup-filters-heading' | translate,
+    isLink: true,
+    subsections: [
+      {
+        scrollTo: genderSection,
+        text: 'labels.aggregate-reports.form.field.gender.label' | translate,
+        isLink: true
+      },
+      {
+        scrollTo: ethnicitySection,
+        text: 'labels.aggregate-reports.form.field.ethnicity.label' | translate,
+        isLink: true
+      },
+      {
+        scrollTo: migrantStatusSection,
+        text: 'labels.aggregate-reports.form.field.migrant-status.label' | translate,
+        isLink: true
+      },
+      {
+        scrollTo: iepSection,
+        text: 'labels.aggregate-reports.form.field.iep.label' | translate,
+        isLink: true
+      },
+      {
+        scrollTo: plan504Section,
+        text: 'labels.aggregate-reports.form.field.504.label' | translate,
+        isLink: true
+      },
+      {
+        scrollTo: lepSection,
+        text: 'labels.aggregate-reports.form.field.limited-english-proficiency.label' | translate,
+        isLink: true
+      },
+      {
+        scrollTo: economicDisadvantageSection,
+        text: 'labels.aggregate-reports.form.field.economic-disadvantage.label' | translate,
+        isLink: true
+      }
+    ]
+  },
+  {
+    scrollTo: reportFeatureSection,
+    text: 'labels.aggregate-reports.form.report-features-heading' | translate,
+    isLink: true,
+    subsections: [
+      {
+        scrollTo: achievementLevelDisplayTypeSection,
+        text: 'labels.aggregate-reports.form.field.achievement-level-display-type.label' | translate,
+        isLink: true
+      },
+      {
+        scrollTo: valueDisplayTypeSection,
+        text: 'labels.aggregate-reports.form.field.value-display-type.label' | translate,
+        isLink: true
+      }
+    ]
+  },
+  {
+    scrollTo: comparativeSubgroupSection,
+    text: 'labels.aggregate-reports.form.comparative-subgroups-heading' | translate,
+    isLink: true
+  },
+  {
+    scrollTo: reportPreviewSection,
+    text: 'labels.aggregate-reports.form.summary.heading' | translate,
+    isLink: true
+  },
+  {
+    clickAction: export.bind(this),
+    text: 'labels.export.csv' | translate,
+    classes: 'navbar-link btn btn-default btn-sm float-none-xs',
+    isButton: true,
+    iconClasses: 'fa fa-table'
+  },
+  {
+    clickAction: submit.bind(this),
+    text: 'labels.aggregate-reports.form.submit' | translate,
+    classes: 'navbar-link btn btn-success btn-sm ml-xs green',
+    isButton: true,
+    iconClasses: 'fa fa-gears'
+  }
+
+  ]"></left-nav>
 <div class="container">
 
   <form #form [formGroup]="formGroup">
@@ -11,7 +130,7 @@
     </div>
 
     <!-- Assessment Attributes -->
-    <div class="row mt-sm" #assessmentSection>
+    <div class="row mt-sm" #assessmentSection id="assessmentSection">
       <div class="col-md-8 col-md-offset-2">
         <h2 class="h3 gray-darkest">
           {{'labels.aggregate-reports.form.assessment-attributes-heading' | translate}}
@@ -21,7 +140,7 @@
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <div class="well-group">
-          <div class="well">
+          <div class="well" #assessmentTypeSection id="assessmentTypeSection">
             <div class="row">
               <div class="col-md-6">
                 <label info-button
@@ -39,7 +158,7 @@
               </div>
             </div>
           </div>
-          <div class="well">
+          <div class="well" #subjectsSection id="subjectsSection">
             <div class="row">
               <div class="col-md-6">
                 <label info-button
@@ -59,7 +178,7 @@
               </div>
             </div>
           </div>
-          <div class="well" #assessmentGradeSection>
+          <div class="well" #assessmentGradeSection id="assessmentGradeSection">
             <div class="row">
               <div class="col-md-6">
                 <label info-button
@@ -83,13 +202,14 @@
                                      [allOptionAnalyticsProperties]="{label: 'Assessment Grade: All'}"
                                      (change)="generateReport()"></sb-checkbox-group>
                   <div *ngIf="showAssessmentGradeErrors">
-                    <p *ngIf="assessmentGradesControl.errors.notEmpty" class="help-block small red">{{assessmentGradesControl.errors.notEmpty.messageId | translate}}</p>
+                    <p *ngIf="assessmentGradesControl.errors.notEmpty" class="help-block small red">
+                      {{assessmentGradesControl.errors.notEmpty.messageId | translate}}</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="well" #schoolYearSection>
+          <div class="well" #schoolYearSection id="schoolYearSection">
             <div class="row">
               <div class="col-md-6">
                 <label info-button
@@ -154,7 +274,7 @@
               </div>
             </div>
           </div>
-          <div class="well">
+          <div class="well" #completenessSection id="completenessSection">
             <div class="row">
               <div class="col-md-6">
                 <label info-button
@@ -179,7 +299,7 @@
     </div>
 
     <!-- Subgroup Filters -->
-    <div class="row mt-sm">
+    <div class="row mt-sm" #subgroupFiltersSection id="subgroupFiltersSection">
       <div class="col-md-8 col-md-offset-2">
         <h2 class="h3 gray-darkest">
           {{'labels.aggregate-reports.form.subgroup-filters-heading' | translate}}
@@ -189,7 +309,7 @@
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <div class="well-group">
-          <div class="well">
+          <div class="well" #genderSection id="genderSection">
             <div class="row">
               <div class="col-md-6">
                 <label info-button
@@ -209,7 +329,7 @@
               </div>
             </div>
           </div>
-          <div class="well">
+          <div class="well" #ethnicitySection id="ethnicitySection">
             <div class="row">
               <div class="col-md-6">
                 <label info-button
@@ -228,7 +348,7 @@
               </div>
             </div>
           </div>
-          <div class="well">
+          <div class="well" #migrantStatusSection id="migrantStatusSection">
             <div class="row">
               <div class="col-md-6">
                 <label info-button
@@ -248,7 +368,7 @@
               </div>
             </div>
           </div>
-          <div class="well">
+          <div class="well" #iepSection id="iepSection">
             <div class="row">
               <div class="col-md-6">
                 <label info-button
@@ -268,7 +388,7 @@
               </div>
             </div>
           </div>
-          <div class="well">
+          <div class="well" #plan504Section id="plan504Section">
             <div class="row">
               <div class="col-md-6">
                 <label info-button
@@ -288,7 +408,7 @@
               </div>
             </div>
           </div>
-          <div class="well">
+          <div class="well" #lepSection id="lepSection">
             <div class="row">
               <div class="col-md-6">
                 <label info-button
@@ -308,7 +428,7 @@
               </div>
             </div>
           </div>
-          <div class="well">
+          <div class="well" #economicDisadvantageSection id="economicDisadvantageSection">
             <div class="row">
               <div class="col-md-6">
                 <label info-button
@@ -333,7 +453,7 @@
     </div>
 
     <!-- Report Features -->
-    <div class="row mt-sm" #reportFeatureSection>
+    <div class="row mt-sm" #reportFeatureSection id="reportFeatureSection">
       <div class="col-md-8 col-md-offset-2">
         <h2 class="h3 gray-darkest">
           {{'labels.aggregate-reports.form.report-features-heading' | translate}}
@@ -343,7 +463,7 @@
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <div class="well-group">
-          <div class="well">
+          <div class="well" #achievementLevelDisplayTypeSection id="achievementLevelDisplayTypeSection">
             <div class="row">
               <div class="col-md-6">
                 <label info-button
@@ -365,7 +485,7 @@
               </div>
             </div>
           </div>
-          <div class="well">
+          <div class="well" #valueDisplayTypeSection id="valueDisplayTypeSection">
             <div class="row">
               <div class="col-md-6">
                 <label info-button
@@ -386,7 +506,7 @@
     </div>
 
     <!-- Comparative Subgroups -->
-    <div class="row mt-sm" #comparativeSubgroupSection>
+    <div class="row mt-sm" #comparativeSubgroupSection id="comparativeSubgroupSection">
       <div class="col-md-8 col-md-offset-2">
         <h2 class="h3 gray-darkest">
           {{'labels.aggregate-reports.form.comparative-subgroups-heading' | translate}}
@@ -421,9 +541,8 @@
     </div>
 
   </form>
-
   <!-- Summary -->
-  <div class="row">
+  <div class="row" #reportPreviewSection id="reportPreviewSection">
     <div class="col-md-12">
       <div class="well-group">
         <div class="well">
@@ -433,7 +552,6 @@
               heading: 'labels.aggregate-reports.form.summary.column.assessment.heading' | translate,
               label: 'labels.aggregate-reports.form.summary.column.assessment.label' | translate,
               labelCssClasses: {'aqua': true},
-              scrollElement: assessmentSection,
               attributes: [
                 {
                   label: 'labels.aggregate-reports.form.summary.column.assessment.attribute.subject' | translate,
@@ -451,7 +569,6 @@
               heading: 'labels.aggregate-reports.form.summary.column.organization.heading' | translate,
               label: 'labels.aggregate-reports.form.summary.column.organization.label' | translate,
               labelCssClasses: {'aqua': true},
-              scrollElement: assessmentSection,
               attributes: [
                 {
                   label: 'labels.aggregate-reports.form.summary.column.organization.attribute.organization' | translate,
@@ -463,7 +580,6 @@
             {
               label: 'labels.aggregate-reports.form.summary.column.assessment-grade.label' | translate,
               labelCssClasses: {'aqua': true},
-              scrollElement: assessmentGradeSection,
               attributes: [
                 {
                   label: 'labels.aggregate-reports.form.summary.column.assessment-grade.attribute.grade' | translate,
@@ -475,7 +591,6 @@
             {
               label: 'labels.aggregate-reports.form.summary.column.school-year.label' | translate,
               labelCssClasses: {'aqua': true},
-              scrollElement: schoolYearSection,
               attributes: [
                 {
                   label: 'labels.aggregate-reports.form.summary.column.school-year.attribute.year' | translate,
@@ -488,7 +603,6 @@
               heading: 'labels.aggregate-reports.form.summary.column.comparative-subgroup.heading' | translate,
               label: 'labels.aggregate-reports.form.summary.column.comparative-subgroup.label' | translate,
               labelCssClasses: {'green': true},
-              scrollElement: comparativeSubgroupSection,
               attributes: [
                 {
                   label: 'labels.aggregate-reports.form.summary.column.comparative-subgroup.attribute.subgroup' | translate,
@@ -505,7 +619,6 @@
             {
               label: 'labels.aggregate-reports.form.summary.column.average-scale-score.label' | translate,
               labelCssClasses: {'red': true},
-              scrollElement: reportFeatureSection,
               attributes: [
                 {
                   label: 'labels.aggregate-reports.form.summary.column.average-scale-score.attribute.value' | translate,
@@ -517,7 +630,6 @@
             {
               label: 'labels.aggregate-reports.form.summary.column.achievement-level.label' | translate,
               labelCssClasses: {'red': true},
-              scrollElement: reportFeatureSection,
               attributes: [
                 {
                   label: 'labels.aggregate-reports.form.summary.column.achievement-level.attribute.grouping' | translate,
@@ -542,25 +654,5 @@
     </div>
   </div>
 
-  <div class="row mt-sm">
-    <div class="col-md-12">
-      <div class="pull-right">
-        <button class="btn btn-default btn-sm float-none-xs"
-                (click)="export()"
-                analyticsEvent="GenerateReportExportCSV"
-                analyticsCategory="AggregateQueryBuilder"
-                angulartics2on="click">
-          <i class="fa fa-table"></i> {{'labels.export.csv' | translate }}
-        </button>
-        <button class="btn btn-success btn-sm ml-xs green"
-                (click)="submit()"
-                analyticsEvent="GenerateReport"
-                analyticsCategory="AggregateQueryBuilder"
-                angulartics2on="click">
-          <i class="fa fa-gears"></i> {{'labels.aggregate-reports.form.submit' | translate}}
-        </button>
-      </div>
-    </div>
-  </div>
 
 </div>

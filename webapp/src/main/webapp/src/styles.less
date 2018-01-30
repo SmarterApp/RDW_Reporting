@@ -724,3 +724,31 @@ aggregate-reports {
     }
   }
 }
+
+.leftnav {
+  background-color: @gray-lightest;
+  border-left: 1px solid @gray-darker;
+  z-index: 3;
+}
+
+.nav > li > button {
+  position: relative;
+  display: block;
+  margin: 10px 15px;
+}
+
+left-nav li a {
+  &.active {
+    color: @blue-dark;
+    font-weight: bolder;
+    li {
+      margin: 10px 15px;
+      a {
+        font-weight: normal;
+        &.active {
+          font-weight: bolder;
+        }
+      }
+    }
+  }
+}
