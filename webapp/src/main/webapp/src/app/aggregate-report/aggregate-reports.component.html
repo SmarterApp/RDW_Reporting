@@ -1,23 +1,28 @@
 <scroll-nav
   [sections]="[
   {
+    scrollTo: organizationSection,
+    text: 'labels.aggregate-reports.form.section.organization.heading' | translate,
+    isLink: true
+  },
+  {
     scrollTo: assessmentSection,
-    text: 'labels.aggregate-reports.form.assessment-attributes-heading' | translate,
+    text: 'labels.aggregate-reports.form.section.assessment.heading' | translate,
     isLink: true
   },
   {
     scrollTo: subgroupFiltersSection,
-    text: 'labels.aggregate-reports.form.subgroup-filters-heading' | translate,
+    text: 'labels.aggregate-reports.form.section.subgroup-filters.heading' | translate,
     isLink: true
   },
   {
     scrollTo: reportFeatureSection,
-    text: 'labels.aggregate-reports.form.report-features-heading' | translate,
+    text: 'labels.aggregate-reports.form.section.report-features.heading' | translate,
     isLink: true
   },
   {
     scrollTo: comparativeSubgroupSection,
-    text: 'labels.aggregate-reports.form.comparative-subgroups-heading' | translate,
+    text: 'labels.aggregate-reports.form.section.comparative-subgroups.heading' | translate,
     isLink: true
   },
   {
@@ -54,7 +59,7 @@
     </div>
 
     <!-- Organization -->
-    <div class="row mt-sm" #organizationSection>
+    <div class="row mt-sm" #organizationSection id="organizationSection">
       <div class="col-md-8 col-md-offset-2">
         <h3 class="h3 gray-darkest">
           {{'labels.aggregate-reports.form.section.organization.heading' | translate}}
