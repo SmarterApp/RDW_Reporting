@@ -694,6 +694,7 @@ aggregate-reports {
     margin: -6px;
   }
 }
+
 .aggregate-report-summary {
   .column-heading {
     height: 48px;
@@ -725,6 +726,12 @@ aggregate-reports {
   }
 }
 
+@media (max-width: 991px) {
+  .leftnav {
+    position: static;
+  }
+}
+
 .leftnav {
   border-left: 1px solid @gray-darker;
   max-width: 200px;
@@ -736,18 +743,9 @@ aggregate-reports {
   margin: 10px 15px;
 }
 
-left-nav li a {
+scroll-nav li a {
   &.active {
     color: @blue-dark;
     font-weight: bolder;
-    li {
-      margin: 10px 15px;
-      a {
-        font-weight: normal;
-        &.active {
-          font-weight: bolder;
-        }
-      }
-    }
   }
 }

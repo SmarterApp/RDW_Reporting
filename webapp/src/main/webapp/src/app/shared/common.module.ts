@@ -34,7 +34,7 @@ import {
   AuthenticationServiceAuthenticationExpiredRoute,
   AuthenticationServiceDefaultAuthenticationRoute
 } from "./security/authentication.service";
-import { LeftNavComponent } from "./nav/left-nav.component";
+import { ScrollNavComponent } from "./nav/scroll-nav.component";
 
 
 @NgModule({
@@ -43,7 +43,7 @@ import { LeftNavComponent } from "./nav/left-nav.component";
     GradeDisplayPipe,
     InformationButtonComponent,
     LoaderComponent,
-    LeftNavComponent,
+    ScrollNavComponent,
     NotificationComponent,
     RemoveCommaPipe,
     SBCheckboxList,
@@ -81,7 +81,7 @@ import { LeftNavComponent } from "./nav/left-nav.component";
     InformationButtonComponent,
     LoaderComponent,
     NotificationComponent,
-    LeftNavComponent,
+    ScrollNavComponent,
     RemoveCommaPipe,
     RouterModule,
     RdwCoreModule,

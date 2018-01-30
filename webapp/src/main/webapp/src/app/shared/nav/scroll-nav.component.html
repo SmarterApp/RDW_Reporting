@@ -4,10 +4,6 @@
 
       <a *ngIf="section.isLink" class="navbar-link" [ngClass]="{'active': section.isActive}"
          (click)="section.scrollTo.scrollIntoView()">{{section.text}}
-        <li *ngFor="let subsection of section.subsections" [hidden]="!section.isActive">
-          <a *ngIf="subsection.isLink" class="navbar-link" [ngClass]="{'active': subsection.isActive}"
-            (click)="subsection.scrollTo.scrollIntoView()">{{subsection.text}}</a>
-        </li>
       </a>
       <button *ngIf="section.isButton" [className]="section.classes"
               (click)="section.clickAction()"><i [class]="section.iconClasses"></i> {{section.text}}

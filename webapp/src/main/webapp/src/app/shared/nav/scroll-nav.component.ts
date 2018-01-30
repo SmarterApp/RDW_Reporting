@@ -3,10 +3,10 @@ import { DOCUMENT } from "@angular/common";
 import { WindowRefService } from "../core/window-ref.service";
 
 @Component({
-  selector: 'left-nav',
-  templateUrl: 'left-nav.component.html'
+  selector: 'scroll-nav',
+  templateUrl: 'scroll-nav.component.html'
 })
-export class LeftNavComponent {
+export class ScrollNavComponent {
 
   @Input()
   sections: Section[] = [];
@@ -16,6 +16,7 @@ export class LeftNavComponent {
               private windowRef: WindowRefService) {
     this.window = windowRef.nativeWindow;
   }
+
   @HostListener("window:scroll", [])
   onWindowScroll() {
     let number = this.window.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0;
@@ -24,22 +25,20 @@ export class LeftNavComponent {
 
     if (activatedSection) {
       activatedSection.isActive = true;
-      if (activatedSection.subsections) {
-        let activatedSubsection = this.activateSection(activatedSection.subsections, number - document.getElementById(activatedSection.scrollTo.id).offsetTop);
-        if (activatedSubsection)
-         activatedSubsection.isActive = true;
-      }
     }
   }
 
   private activateSection(sections: Section[], number: number | number): Section {
+    // mark all as not active
     for (let section of sections) {
       section.isActive = false;
     }
     let activatedSection: Section;
     for (let section of sections) {
       if (section.isLink) {
-        if (document.getElementById(section.scrollTo.id).offsetTop <= number) {
+        // minus small number (5) since clicking on scroll nav sometimes resulted in the link above the one clicked
+        // being highlighted until scrolling down a bit
+        if (document.getElementById(section.scrollTo.id).offsetTop - 5 <= number) {
           activatedSection = section;
         } else {
           break;
@@ -60,5 +59,4 @@ class Section {
   isButton?: boolean = false;
   classes?: string;
   iconClasses?: string;
-  subsections?: Section[];
 }
