@@ -1200,7 +1200,7 @@
           "items": {
             "cols": {
               "answer-key": "Answer Key",
-              "average": "Average",
+              "average": "Average / Max",
               "category": "Category",
               "claim": "Claim/Target",
               "claim-info-html": "Claims and targets are a way of classifying test content.  The claim is the major topic area.  For example, in English language arts, reading is a claim.  Within each claim, there are targets that describe the particular knowledge and skills that the test measures.  Each target may encompass one or more standards from the Common Core State Standards.  Within the Reading claim, for example, one of the targets is concerned with finding the central idea in a text.  For more information, see the <a href=\"http://www.smarterbalanced.org/assessments/development/\" target=\"_blank\">Smarter Balanced Content Specifications</a>.",
@@ -1210,7 +1210,8 @@
               "full-credit-info": "Percentage of students in the group who earned the maximum number of points available for a particular test item.",
               "max-score": "Maximum Score",
               "number": "Item #",
-              "performance-task-writing-type": "Writing Type",
+              "purpose": "Purpose",
+              "purpose-info": "The performance task writing purpose.",
               "standard": "Standard",
               "standard-info-html": {
                 "ELA": "This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  For example, a question that asks students to evaluate research sources may assess both reading and research skills.  For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf\" target=\"_blank\">English Language Arts Content Specifications</a>.",
@@ -1556,7 +1557,7 @@
     },
     "type": "Type",
     "writing-trait-scores": {
-      "aggregate-header": "Point Breakdown: {{traitType}}"
+      "aggregate-header": "Points Breakdown"
     }
   },
   "messages": {

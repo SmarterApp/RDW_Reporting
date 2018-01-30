@@ -419,7 +419,7 @@ export class CsvBuilder {
 
   withPerformanceTaskWritingType(getAssessmentItem: (item: any) => AssessmentItem) {
     return this.withColumn(
-      this.translateService.instant('labels.groups.results.assessment.items.cols.performance-task-writing-type'),
+      this.translateService.instant('labels.groups.results.assessment.items.cols.purpose'),
       (item) => getAssessmentItem(item).performanceTaskWritingType
     );
   }
