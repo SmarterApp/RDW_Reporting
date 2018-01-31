@@ -70,7 +70,7 @@ export class SBTypeahead implements OnInit {
         ? options
           .sort(
             join(
-              ordering(byString).on<Option>(o => o.group).compare,
+              ordering(byString).on<Option>(o => o.group === undefined ? '' : o.group).compare,
               ordering(byString).on<Option>(o => o.label).compare
             ))
         : [];
