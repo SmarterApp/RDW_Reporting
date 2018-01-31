@@ -51,7 +51,7 @@ app:
 
   aggregate-reports:
     summative-enabled: true
-    statewide-interim-enabled: true
+    statewide-interim-enabled: false
 
 spring:
   jackson:
