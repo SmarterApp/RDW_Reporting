@@ -1516,6 +1516,7 @@
       },
       "reload": "Reload",
       "reportType": {
+        "AggregateReportRequest": "Aggregate Report",
         "ExamExport": "Custom Export",
         "Group": "Group Report",
         "SchoolGrade": "School/Grade Report",

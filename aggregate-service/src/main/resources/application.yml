@@ -29,6 +29,9 @@ app:
     code: CA
     name: California
 
+  archive:
+      root: file:///tmp/
+
   datamart:
      olap_datasource:
         url: "\
@@ -48,9 +51,7 @@ app:
 
   aggregate-reports:
     summative-enabled: true
-    statewide-interim-enabled: false
-    custom-aggregate-report-repository:
-      organization-partition-size: 5
+    statewide-interim-enabled: true
 
 spring:
   jackson:
@@ -61,6 +62,21 @@ spring:
   cache:
     type: SIMPLE
     cache-names: internalTranslationsByCode, administrationConditions, assessmentGrades, assessmentTypes, booleans, strictBooleans, organizations, completenessCodes, ethnicities, genders, schoolYears, subjects, activeAssessments
+
+  cloud:
+      stream:
+        bindings:
+          AggregateRequest:
+            content-type: application/json
+            group: default
+            producer:
+              requiredGroups: default
+
+          AggregateResponse:
+            content-type: application/json
+            group: default
+            producer:
+              requiredGroups: default
 
 jwt:
   secret: ${rdw.reporting.jwt.secret:secret}
