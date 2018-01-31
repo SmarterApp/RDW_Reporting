@@ -5,8 +5,6 @@ import {Pipe, PipeTransform} from "@angular/core";
  */
 @Pipe({ name: 'optional'})
 export class OptionalPipe implements PipeTransform {
-  defaultMissingValue: string = '-';
-
   /**
    * Determines what value should be displayed based on if the value parameter is null
    * @param value the value that is checked to see if it is missing
@@ -15,7 +13,9 @@ export class OptionalPipe implements PipeTransform {
    * @returns {any}
    */
   transform(value: any, displayValue: any, missingValue: any) {
-    if (missingValue == null) missingValue = this.defaultMissingValue;
+    const defaultMissingValue: string = '-';
+
+    if (missingValue == null) missingValue = defaultMissingValue;
 
     if (value === null) return missingValue;
 
