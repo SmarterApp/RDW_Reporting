@@ -36,7 +36,7 @@ import {
 } from "./security/authentication.service";
 import { OrganizationModule } from "./organization/organization.module";
 import { ScrollNavComponent } from "./nav/scroll-nav.component";
-import {OptionalPipe} from "./optional.pipe";
+import { OptionalPipe } from "./optional.pipe";
 
 
 @NgModule({
