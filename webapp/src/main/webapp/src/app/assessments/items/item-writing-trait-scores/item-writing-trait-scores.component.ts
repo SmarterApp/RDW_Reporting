@@ -32,6 +32,14 @@ export class ItemWritingTraitScoresComponent {
   }
 
   /**
+   * Return the correctness value for the evidence writing trait score
+   * @returns {number}
+   */
+  get evidenceCorrectness(): number {
+    return this.evidence == null ? 0 : this.evidence / this.evidenceMaxPoints;
+  }
+
+  /**
    * Return the writing trait organization score or <code>null</code>
    * @returns {number}
    */
@@ -50,6 +58,14 @@ export class ItemWritingTraitScoresComponent {
   }
 
   /**
+   * Return the correctness value for the organization writing trait score
+   * @returns {number}
+   */
+  get organizationCorrectness(): number {
+    return this.organization == null ? 0 : this.organization / this.organizationMaxPoints;
+  }
+
+  /**
    * Return the writing trait conventions score or <code>null</code>
    * @returns {number}
    */
@@ -65,5 +81,21 @@ export class ItemWritingTraitScoresComponent {
    */
   get conventionsMaxPoints(): number {
     return WritingTrait.conventions().maxPoints;
+  }
+
+  /**
+   * Return the correctness value for the organization writing trait score
+   * @returns {number}
+   */
+  get conventionsCorrectness(): number {
+    return this.conventions == null ? 0 : this.conventions / this.conventionsMaxPoints;
+  }
+
+  /**
+   * Return the correctness value for the organization writing trait score
+   * @returns {number}
+   */
+  get totalCorrectness(): number {
+    return this.responsesAssessmentItem.score / this.responsesAssessmentItem.assessmentItem.maxPoints;
   }
 }

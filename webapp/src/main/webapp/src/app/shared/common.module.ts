@@ -18,7 +18,6 @@ import { DatePipe, DecimalPipe } from "@angular/common";
 import { LoaderComponent } from "./loader/loader.component";
 import { SBToggleComponent } from "./sb-toggle.component";
 import { InformationButtonComponent } from "./button/information-button.component";
-import { DisplayOptionalComponent } from "./display-optional/display-optional.component";
 import { ScaleScoreComponent } from "./scale-score/scale-score.component";
 import { RdwDataTableModule } from "./datatable/rdw-datatable.module";
 import { RdwCoreModule } from "./core/rdw-core.module";
@@ -37,6 +36,7 @@ import {
 } from "./security/authentication.service";
 import { OrganizationModule } from "./organization/organization.module";
 import { ScrollNavComponent } from "./nav/scroll-nav.component";
+import {OptionalPipe} from "./optional.pipe";
 
 
 @NgModule({
@@ -44,8 +44,8 @@ import { ScrollNavComponent } from "./nav/scroll-nav.component";
     AssessmentTypePipe,
     GradeDisplayPipe,
     InformationButtonComponent,
-    DisplayOptionalComponent,
     LoaderComponent,
+    OptionalPipe,
     ScrollNavComponent,
     NotificationComponent,
     RemoveCommaPipe,
@@ -83,8 +83,8 @@ import { ScrollNavComponent } from "./nav/scroll-nav.component";
     AssessmentTypePipe,
     GradeDisplayPipe,
     InformationButtonComponent,
-    DisplayOptionalComponent,
     LoaderComponent,
+    OptionalPipe,
     NotificationComponent,
     ScrollNavComponent,
     OrganizationModule,
