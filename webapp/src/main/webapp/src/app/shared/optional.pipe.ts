@@ -12,12 +12,8 @@ export class OptionalPipe implements PipeTransform {
    * @param missingValue if value is missing, then display this value or the default '-' if this is not provided
    * @returns {any}
    */
-  transform(value: any, displayValue: any, missingValue: any) {
-    const defaultMissingValue: string = '-';
-
-    if (missingValue == null) missingValue = defaultMissingValue;
-
-    if (value === null) return missingValue;
+  transform(value: any, displayValue: any, missingValue: any = '-') {
+    if (value == null) return missingValue;
 
     return displayValue == null ? value : displayValue;
   }
