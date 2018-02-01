@@ -14,10 +14,12 @@
                      th:with="assessment=${report.examsByAssessment.firstEntry().key},exam=${report.examsByAssessment.firstEntry().value[0]}">
                     <div>
                         <span class="h3 label-group green">
-                            <span class="label" th:text="#{report.iab.short-name}"></span><span class="label" th:text="#{'report.subject.' + ${assessment.subject} + '.name'}"></span>
+                            <span class="label" th:text="#{report.iab.short-name}"></span><span class="label"
+                                                                                                th:text="#{'report.subject.' + ${assessment.subject} + '.name'}"></span>
                         </span>
                     </div>
-                    <div class="h4" th:text="#{('report.iab.title.grade.' + ${assessment.gradeCode})(${#strings.toString(exam.schoolYear - 1)}, ${support.getLastTwoDigits(exam.schoolYear)})}"></div>
+                    <div class="h4"
+                         th:text="#{('report.iab.title.grade.' + ${assessment.gradeCode})(${#strings.toString(exam.schoolYear - 1)}, ${support.getLastTwoDigits(exam.schoolYear)})}"></div>
                 </div>
                 <div class="col-xs-3 pr-0 text-right">
                     <div class="scale-score-legend"></div>
@@ -64,7 +66,8 @@
                                                 th:text="${exam.scaleScore.value}"></span> <span class="error-band">&plusmn;
                                             <span th:text="${support.round(exam.scaleScore.standardError)}"
                                                   th:remove="tag"></span></span></span>
-                                        <div class="bar blue-dark" th:attr="data-width=${scaleScoreView.levels[0].width}">
+                                        <div class="bar blue-dark"
+                                             th:attr="data-width=${scaleScoreView.levels[0].width}">
                                             <span class="bar-label" th:text="#{'report.iab.level.1.label'}"></span>
                                         </div>
                                         <div class="bar blue" th:attr="data-width=${scaleScoreView.levels[1].width}">
@@ -92,7 +95,8 @@
                     <div class="well-body">
                         <ul class="previous-results">
                             <li th:with="assessment=${entry.key}" th:each="exam : ${entry.value}"><span
-                                    th:if="${examStat.index} > 0"><span class="previous-result"><span class="date" th:text="${#dates.format(exam.dateTime, 'MM-dd-yyyy')}"></span> <span
+                                    th:if="${examStat.index} > 0"><span class="previous-result"><span class="date"
+                                                                                                      th:text="${#dates.format(exam.dateTime, 'MM-dd-yyyy')}"></span> <span
                                     th:if="${exam.scaleScore != null}" class="scale-score"><span
                                     th:text="${exam.scaleScore.value}" th:remove="tag"></span> <span class="error-band">&plusmn;
                                 <span th:text="${support.round(exam.scaleScore.standardError)}"
@@ -101,6 +105,30 @@
                                     th:text="${exam.scaleScore != null} ? #{'report.iab.level.' + ${exam.scaleScore.level} + '.label'} : #{report.not-scored}"></span></span></span>
                             </li>
                         </ul>
+                    </div>
+                </div>
+                <hr th:if="${entry.key.label.contains('ELA Performance Task')}"/>
+                <div class="col-lg-12" th:if="${entry.key.label.contains('ELA Performance Task')}"
+                     th:with="scored=${entry.key.label.contains('ELA Performance Task')}">
+                    <h2 th:if="${scored}" th:text="#{'report.writing.trait.title'}"></h2>
+                    <p th:if="${scored}" th:text="#{'report.writing.trait.description'}"></p>
+                    <div class="col-md-4 pull-left" data-width="33">
+                        <h3 class="text-center" th:text="#{'report.writing.trait.Evidence/Elaboration'}"></h3>
+                        <h1 class="label-group blue text-center"><span class="label">2</span></h1>
+                        <br/>
+                        <p th:text="#{'report.writing.trait.' + 'Opinion.' + 'Evidence/Elaboration.' + '2'}"></p>
+                    </div>
+                    <div class="col-md-4 pull-left" data-width="33">
+                        <h3 class="text-center" th:text="#{'report.writing.trait.Organization/Purpose'}"></h3>
+                        <h1 class="label-group blue text-center"><span class="label">1</span></h1>
+                        <br/>
+                        <p th:text="#{'report.writing.trait.' + 'Opinion.' + 'Organization/Purpose.' + '1'}"></p>
+                    </div>
+                    <div class="col-md-4 pull-left" data-width="33">
+                        <h3 class="text-center" th:text="#{'report.writing.trait.Conventions'}"></h3>
+                        <h1 class="label-group blue text-center"><span class="label">0</span></h1>
+                        <br/>
+                        <p th:text="#{'report.writing.trait.' + 'Opinion.' + 'Conventions.' + '0'}"></p>
                     </div>
                 </div>
             </div>
