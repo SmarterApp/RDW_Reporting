@@ -1,9 +1,9 @@
-<div *ngIf="item.validAnswerKey">
+<div *ngIf="item.answerKey">
   <strong>{{translateRoot + 'answer-key' | translate }}</strong>
-  {{ item.validAnswerKey }}
+  {{ item.answerKey }}
 </div>
 
-<div *ngIf="!item.validAnswerKey">
+<div *ngIf="!item.answerKey">
   <div *ngIf="loading" class="loader">
     <div class="inner">
       <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">{{ 'messages.loading' | translate }}</span>

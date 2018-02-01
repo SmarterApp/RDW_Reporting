@@ -29,25 +29,26 @@ export class ItemExemplarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.service.getGuide(this.item.bankItemKey)
-      .subscribe(guide => {
-          this.model = guide;
-          this.loading = false;
+    if (Utils.isNullOrUndefined(this.item.answerKey)) {
+      this.service.getGuide(this.item.bankItemKey)
+        .subscribe(guide => {
+            this.model = guide;
+            this.loading = false;
 
-          // TODO re-look at this logic
-          this.notFound = guide.rubrics.length === 0
-            && guide.exemplars.length === 0
-            && Utils.isNullOrUndefined(guide.answerKeyValue);
-        },
-        (response) => {
+            // TODO re-look at this logic
+            this.notFound = guide.rubrics.length === 0
+              && guide.exemplars.length === 0;
+          },
+          (response) => {
 
-          // TODO fix this?
-          if (response.status = 404)
-            this.notFound = true;
-          else
-            this.errorLoading = true;
+            // TODO fix this?
+            if (response.status = 404)
+              this.notFound = true;
+            else
+              this.errorLoading = true;
 
-          this.loading = false;
-        });
+            this.loading = false;
+          });
+    }
   }
 }

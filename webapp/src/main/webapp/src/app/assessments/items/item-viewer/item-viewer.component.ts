@@ -58,8 +58,6 @@ export class ItemViewerComponent implements OnInit {
 
       this._irisFrame.addEventListener('load', this.irisframeOnLoad.bind(this));
     });
-
-    this.answerKeyValue = this.item.validAnswerKey;
   }
 
   irisframeOnLoad() {

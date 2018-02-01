@@ -32,7 +32,7 @@ export class Utils {
   }
 
   static isNullOrEmpty(value: string): boolean {
-    return value === null || value.length === 0;
+    return !Utils.isUndefined(value) && (value === null || value.length === 0);
   }
 
   static isUndefined(value: any): boolean {

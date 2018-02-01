@@ -5,10 +5,10 @@
     </div>
   </div>
 
-  <div *ngIf="item.validAnswerKey" class="mb-md">
-    <strong>{{ 'labels.assessments.items.tabs.exemplar.answer-key' | translate }}</strong> {{ item.validAnswerKey }}
+  <div *ngIf="item.answerKey" class="mb-md">
+    <strong>{{ 'labels.assessments.items.tabs.exemplar.answer-key' | translate }}</strong> {{ item.answerKey }}
   </div>
-  <div *ngIf="!item.validAnswerKey" class="mb-md">
+  <div *ngIf="!item.answerKey" class="mb-md">
     {{ 'labels.assessments.items.tabs.item-viewer-see-rubric' | translate }}
   </div>
   <p>

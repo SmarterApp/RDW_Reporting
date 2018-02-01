@@ -49,12 +49,4 @@ export class AssessmentItem {
       ? this.fullCredit / this.scores.length * 100
       : 0;
   }
-
-  /**
-   * If this item is MC or MS the answer key is returned, otherwise the data is not a valid answer key
-   * @returns {string}
-   */
-  get validAnswerKey(): string {
-    return (this.type === 'MC' || this.type === 'MS') ? this.answerKey : undefined;
-  }
 }
