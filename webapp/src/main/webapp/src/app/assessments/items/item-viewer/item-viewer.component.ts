@@ -1,6 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { UserService } from "../../../user/user.service";
-import { ItemScoringService } from "../item-exemplar/item-scoring.service";
 import { AssessmentItem } from "../../model/assessment-item.model";
 
 /**
@@ -35,7 +34,6 @@ export class ItemViewerComponent implements OnInit {
   public showResponse: boolean = true;
 
   public irisIsLoading: boolean = true;
-  public answerKeyValue: string;
 
   private vendorId;
   private _irisFrame;
@@ -48,8 +46,7 @@ export class ItemViewerComponent implements OnInit {
     }
   }
 
-  constructor(private userService: UserService,
-              private itemScoringService: ItemScoringService) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
