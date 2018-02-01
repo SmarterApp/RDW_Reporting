@@ -30,6 +30,7 @@ export class StudentScoreService {
     }
 
     score.response = itemScore.response;
+    score.writingTraitScores = itemScore.writingTraitScores;
 
     return score;
   }

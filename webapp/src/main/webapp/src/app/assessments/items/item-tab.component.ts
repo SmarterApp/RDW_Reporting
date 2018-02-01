@@ -55,6 +55,9 @@ export class ItemTabComponent implements OnInit {
   includeResponseInStudentScores: boolean = false;
 
   @Input()
+  includeWritingTraitScores: boolean = false;
+
+  @Input()
   set position(value: number) {
     this._position = value;
   }

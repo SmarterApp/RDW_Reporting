@@ -18,9 +18,12 @@
   </p-column>
   <p-column field="school.name" header="{{'labels.groups.results.assessment.exams.cols.school' | translate }}" sortable="true"></p-column>
   <p-column *ngIf="includeResponse" field="response" header="{{'labels.assessments.items.tabs.scores.response' | translate}}" [sortable]="true"></p-column>
-  <p-column field="score" header="{{'labels.assessments.items.tabs.scores.score' | translate}}" [sortable]="true"></p-column>
-  <p-column field="maxScore" header="{{'labels.assessments.items.tabs.scores.max' | translate}}" [sortable]="true"></p-column>
-  <p-column field="correctness" header="{{'labels.assessments.items.tabs.scores.correctness' | translate}}" [sortable]="true">
+  <p-column *ngIf="includeWritingTraitScores" field="writingTraitScores.evidence" header="{{'enum.writing-trait.evidence' | translate}}" [sortable]="true"></p-column>
+  <p-column *ngIf="includeWritingTraitScores" field="writingTraitScores.organization" header="{{'enum.writing-trait.organization' | translate}}" [sortable]="true"></p-column>
+  <p-column *ngIf="includeWritingTraitScores" field="writingTraitScores.conventions" header="{{'enum.writing-trait.conventions' | translate}}" [sortable]="true"></p-column>
+  <p-column field="score" header="{{(includeWritingTraitScores ? 'enum.writing-trait.total' : 'labels.assessments.items.tabs.scores.score') | translate}}" [sortable]="true"></p-column>
+  <p-column *ngIf="!includeWritingTraitScores" field="maxScore" header="{{'labels.assessments.items.tabs.scores.max' | translate}}" [sortable]="true"></p-column>
+  <p-column *ngIf="!includeWritingTraitScores" field="correctness" header="{{'labels.assessments.items.tabs.scores.correctness' | translate}}" [sortable]="true">
     <ng-template let-correctness="rowData.correctness" pTemplate="body">
       {{ correctness | number:'1.2-2' }}
     </ng-template>
