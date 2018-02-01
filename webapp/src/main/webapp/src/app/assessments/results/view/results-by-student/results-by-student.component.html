@@ -91,8 +91,8 @@
   </p-column>
   <p-column field="score" [sortable]="true" [hidden]="isClaimScoreSelected">
     <ng-template pTemplate="header">
-              <span info-button title="{{'labels.groups.results.assessment.exams.cols.score' | translate}}"
-                    content="{{'labels.groups.results.assessment.exams.cols.score-info' | translate}}"></span>
+      <span info-button title="{{'labels.groups.results.assessment.exams.cols.score' | translate}}"
+            content="{{'labels.groups.results.assessment.exams.cols.score-info' | translate}}"></span>
     </ng-template>
     <ng-template let-exam="rowData" pTemplate="body">
       <scale-score [score]="exam.score" [standardError]="exam.standardError"></scale-score>
