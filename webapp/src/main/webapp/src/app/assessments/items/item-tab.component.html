@@ -15,7 +15,7 @@
   <tab *ngIf="showItemDetails" (select)="selectTab('Item Viewer')" heading="{{translateRoot + 'item-viewer' | translate }}">
     <div class="tab-content well">
       <item-viewer *ngIf="loadItemViewer"
-                   [bankItemKey]="item.bankItemKey"
+                   [item]="item"
                    [response]="response"
                    [showResponse]="showResponse"
                    [position]="position"></item-viewer>

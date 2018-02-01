@@ -1,9 +1,9 @@
-<div *ngIf="hasAnswerKey(item)">
+<div *ngIf="item.validAnswerKey">
   <strong>{{translateRoot + 'answer-key' | translate }}</strong>
-  {{item.answerKey}}
+  {{ item.validAnswerKey }}
 </div>
 
-<div *ngIf="!hasAnswerKey(item)">
+<div *ngIf="!item.validAnswerKey">
   <div *ngIf="loading" class="loader">
     <div class="inner">
       <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">{{ 'messages.loading' | translate }}</span>
@@ -16,50 +16,46 @@
       <strong>{{ translateRoot + 'answer-key' | translate }}</strong> {{model.answerKeyValue}}
     </div>
 
-    <div *ngIf="model.rubrics.length > 0">
-      <div *ngIf="model.rubrics.length ==1" [innerHtml]="model.rubrics[0].templateHtml"></div>
+    <!-- rubrics -->
+    <div *ngIf="model.rubrics.length ==1" [innerHtml]="model.rubrics[0].templateHtml"></div>
 
-      <div *ngIf="model.rubrics.length > 1">
-        <h4>{{ translateRoot + 'rubric' | translate }}</h4>
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th>{{ translateRoot + 'criterion.points' | translate }}</th>
-            <th>{{ translateRoot + 'criterion.description' | translate }}</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let rubric of model.rubrics">
-            <td>{{rubric.scorepoint}}</td>
-            <td [innerHTML]="rubric.templateHtml"></td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-
+    <div *ngIf="model.rubrics.length > 1">
+      <h4>{{ translateRoot + 'rubric' | translate }}</h4>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>{{ translateRoot + 'criterion.points' | translate }}</th>
+          <th>{{ translateRoot + 'criterion.description' | translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let rubric of model.rubrics">
+          <td>{{rubric.scorepoint}}</td>
+          <td [innerHTML]="rubric.templateHtml"></td>
+        </tr>
+        </tbody>
+      </table>
     </div>
 
-    <div *ngIf="model.exemplars.length > 0">
-      <div *ngIf="model.exemplars.length ==1" [innerHtml]="model.exemplars[0].templateHtml"></div>
+    <!-- exemplars -->
+    <div *ngIf="model.exemplars.length ==1" [innerHtml]="model.exemplars[0].templateHtml"></div>
 
-      <div *ngIf="model.exemplars.length > 1">
-        <h4>{{ translateRoot + 'exemplar' | translate }}</h4>
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th>{{ translateRoot + 'criterion.points' | translate }}</th>
-            <th>{{ translateRoot + 'criterion.description' | translate }}</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let exemplar of model.exemplars">
-            <td>{{exemplar.scorepoint}}</td>
-            <td [innerHTML]="exemplar.templateHtml"></td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-
+    <div *ngIf="model.exemplars.length > 1">
+      <h4>{{ translateRoot + 'exemplar' | translate }}</h4>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>{{ translateRoot + 'criterion.points' | translate }}</th>
+          <th>{{ translateRoot + 'criterion.description' | translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let exemplar of model.exemplars">
+          <td>{{exemplar.scorepoint}}</td>
+          <td [innerHTML]="exemplar.templateHtml"></td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
   <div *ngIf="notFound" class="alert alert-danger">

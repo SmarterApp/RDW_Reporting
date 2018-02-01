@@ -27,7 +27,7 @@
   </p-column>
   <ng-template let-score pTemplate="rowexpansion">
     <div class="tab-content well">
-      <item-viewer [bankItemKey]="item.bankItemKey"
+      <item-viewer [item]="item"
                    [response]="score.response"
                    [position]="item.position"></item-viewer>
     </div>

@@ -50,13 +50,4 @@ export class ItemExemplarComponent implements OnInit {
           this.loading = false;
         });
   }
-
-  /**
-   * Returns true if this item is a MC or MS and has an answer key
-   * @param {AssessmentItem} item
-   * @returns {boolean}
-   */
-  hasAnswerKey(item: AssessmentItem): boolean {
-    return (item.type === 'MC' || item.type === 'MC') && (item.answerKey !== undefined || item.answerKey !== null);
-  }
 }
