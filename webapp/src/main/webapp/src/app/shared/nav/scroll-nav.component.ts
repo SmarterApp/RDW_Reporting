@@ -11,20 +11,24 @@ export class ScrollNavComponent {
   @Input()
   sections: Section[] = [];
   private window: Window;
+  private path: string;
 
   constructor(@Inject(DOCUMENT) private document: Document,
               private windowRef: WindowRefService) {
     this.window = windowRef.nativeWindow;
+    this.path = this.window.location.href;
   }
 
   @HostListener("window:scroll", [])
   onWindowScroll() {
-    let number = this.window.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0;
+    if (this.path === this.window.location.href) {
+      let number = this.window.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0;
 
-    let activatedSection = this.activateSection(this.sections, number);
+      let activatedSection = this.activateSection(this.sections, number);
 
-    if (activatedSection) {
-      activatedSection.isActive = true;
+      if (activatedSection) {
+        activatedSection.isActive = true;
+      }
     }
   }
 
