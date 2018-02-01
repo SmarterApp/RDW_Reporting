@@ -1,4 +1,4 @@
-import {Pipe, PipeTransform} from "@angular/core";
+import { Pipe, PipeTransform } from "@angular/core";
 
 /**
  * This pipe is used when an optional value is missing and we want to display a missing value like "-" which is the default.

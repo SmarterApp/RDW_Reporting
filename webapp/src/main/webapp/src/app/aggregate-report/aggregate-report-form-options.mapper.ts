@@ -1,8 +1,6 @@
 import { AggregateReportOptions } from "./aggregate-report-options";
 import { AggregateReportFormOptions } from "./aggregate-report-form-options";
 import { Injectable } from "@angular/core";
-import { Option as SbToggleOption } from "../shared/sb-toggle.component";
-import { Option as SbCheckboxGroupOption } from "../shared/form/sb-checkbox-group.component";
 import { TranslateService } from "@ngx-translate/core";
 import { SchoolYearPipe } from "../shared/format/school-year.pipe";
 
