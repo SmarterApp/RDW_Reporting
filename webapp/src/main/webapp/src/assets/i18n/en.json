@@ -33,9 +33,9 @@
         "School": "School"
       }
     },
-    "form-field-boolean-values": {
-      "true": "Yes",
-      "false": "No",
+    "strict-boolean": {
+      "yes": "Yes",
+      "no": "No",
       "undefined": "Not Stated"
     },
     "administration-condition": {
@@ -1517,9 +1517,9 @@
       "reload": "Reload",
       "reportType": {
         "AggregateReportRequest": "Aggregate Report",
-        "ExamExport": "Custom Export",
+        "ExamExport": "District / School Export",
         "Group": "Group Report",
-        "SchoolGrade": "School/Grade Report",
+        "SchoolGrade": "School / Grade Report",
         "Student": "Student Report"
       },
       "status": {

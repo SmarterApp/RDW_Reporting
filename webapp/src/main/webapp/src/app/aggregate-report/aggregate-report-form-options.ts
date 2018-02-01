@@ -14,11 +14,11 @@ export interface AggregateReportFormOptions {
   economicDisadvantages: SbCheckboxGroupOption[];
   ethnicities: SbCheckboxGroupOption[];
   genders: SbCheckboxGroupOption[];
-  ieps: SbCheckboxGroupOption[];
+  individualEducationPlans: SbCheckboxGroupOption[];
   interimAdministrationConditions: SbCheckboxGroupOption[];
   limitedEnglishProficiencies: SbCheckboxGroupOption[];
   migrantStatuses: SbCheckboxGroupOption[];
-  plan504s: SbCheckboxGroupOption[];
+  section504s: SbCheckboxGroupOption[];
   schoolYears: SbCheckboxGroupOption[];
   statewideReporter: boolean;
   subjects: SbCheckboxGroupOption[];

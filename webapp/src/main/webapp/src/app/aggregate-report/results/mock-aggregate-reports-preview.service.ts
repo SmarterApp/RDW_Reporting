@@ -47,14 +47,15 @@ export class MockAggregateReportsPreviewService {
       }
     }
 
+
     array = this.generateRowsForOption(options, 'Overall', array, null, organizationNames, settings.schoolYears, settings.assessmentGrades);
     array = this.generateRowsForOption(options, 'Gender', array, settings.genders, organizationNames, settings.schoolYears, settings.assessmentGrades);
     array = this.generateRowsForOption(options, 'Ethnicity', array, settings.ethnicities, organizationNames, settings.schoolYears, settings.assessmentGrades);
     array = this.generateRowsForOption(options, 'LEP', array, settings.limitedEnglishProficiencies, organizationNames, settings.schoolYears, settings.assessmentGrades);
     array = this.generateRowsForOption(options, 'MigrantStatus', array, settings.migrantStatuses, organizationNames, settings.schoolYears, settings.assessmentGrades);
     array = this.generateRowsForOption(options, 'EconomicDisadvantage', array, settings.economicDisadvantages, organizationNames, settings.schoolYears, settings.assessmentGrades);
-    array = this.generateRowsForOption(options, 'IEP', array, settings.ieps, organizationNames, settings.schoolYears, settings.assessmentGrades);
-    array = this.generateRowsForOption(options, 'Section504', array, settings.plan504s, organizationNames, settings.schoolYears, settings.assessmentGrades);
+    array = this.generateRowsForOption(options, 'IEP', array, settings.individualEducationPlans, organizationNames, settings.schoolYears, settings.assessmentGrades);
+    array = this.generateRowsForOption(options, 'Section504', array, settings.section504s, organizationNames, settings.schoolYears, settings.assessmentGrades);
 
     return array;
   }

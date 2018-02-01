@@ -38,10 +38,10 @@ sql:
       ORDER BY id
 
   boolean:
-    findAll: select id, code from boolean
+    findAll: select id, code from boolean order by id
 
   strictBoolean:
-    findAll: select id, code from strict_boolean
+    findAll: select id, code from strict_boolean order by id
 
   organization:
     aggregate:

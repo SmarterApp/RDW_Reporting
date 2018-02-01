@@ -30,7 +30,7 @@ export interface AggregateReportFormSettings {
   /**
    * Economic disadvantage result filter
    */
-  economicDisadvantages: any[];
+  economicDisadvantages: CodedEntity[];
 
   /**
    * Race / Ethnicity result filter
@@ -48,9 +48,9 @@ export interface AggregateReportFormSettings {
   genders: CodedEntity[];
 
   /**
-   * IEP result filter
+   * Individual education plans result filter
    */
-  ieps: any[];
+  individualEducationPlans: CodedEntity[];
 
   /**
    * Interim administration condition result filter
@@ -60,17 +60,17 @@ export interface AggregateReportFormSettings {
   /**
    * English learners result filter
    */
-  limitedEnglishProficiencies: any[];
+  limitedEnglishProficiencies: CodedEntity[];
 
   /**
    * Migrant status result filter
    */
-  migrantStatuses: any[];
+  migrantStatuses: CodedEntity[];
 
   /**
    * Plan 504 result filter
    */
-  plan504s: any[];
+  section504s: CodedEntity[];
 
   /**
    * The school years to be covered on the report

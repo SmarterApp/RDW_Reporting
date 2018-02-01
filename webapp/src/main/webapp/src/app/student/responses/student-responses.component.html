@@ -60,7 +60,7 @@
     </p-column>
     <p-column field="score" header="{{'labels.student.responses.cols.student-points' | translate}}" sortable="true">
       <ng-template let-score="rowData.score" pTemplate="body">
-        <display-optional [value]="score"></display-optional>
+        {{ score | optional }}
       </ng-template>
     </p-column>
     <p-column field="assessmentItem.maxPoints" header="{{'labels.student.responses.cols.max-points' | translate}}" sortable="true"></p-column>
@@ -70,7 +70,7 @@
                     content="{{'labels.student.responses.cols.correctness-info' | translate}}"></span>
       </ng-template>
       <ng-template let-correctness="rowData.correctness" pTemplate="body">
-        <display-optional [value]="correctness" displayValue="{{ correctness | number:'1.2-2' }}"></display-optional>
+        {{ correctness | optional:(correctness | number:'1.2-2') }}
       </ng-template>
     </p-column>
     <ng-template let-item pTemplate="rowexpansion">

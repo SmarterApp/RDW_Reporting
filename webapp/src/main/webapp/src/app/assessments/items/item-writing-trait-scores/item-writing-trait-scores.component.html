@@ -7,8 +7,8 @@
     <th>{{'labels.student.responses.cols.student-points' | translate}}</th>
     <th>{{'labels.student.responses.cols.max-points' | translate}}</th>
     <th>
-          <span info-button title="{{'labels.student.responses.cols.correctness' | translate}}"
-                content="{{'labels.student.responses.cols.correctness-info' | translate}}"></span>
+      <span info-button title="{{'labels.student.responses.cols.correctness' | translate}}"
+            content="{{'labels.student.responses.cols.correctness-info' | translate}}"></span>
     </th>
   </tr>
   </thead>
@@ -16,48 +16,44 @@
   <tr>
     <td>{{'enum.writing-trait.evidence' | translate}}</td>
     <td>
-      <display-optional [value]="evidence"></display-optional>
+      {{ evidence | optional }}
     </td>
-    <td>4</td>
+    <td>{{ evidenceMaxPoints }}</td>
     <td>
-      <display-optional [value]="evidence"
-                        displayValue="{{(evidence / evidenceMaxPoints) | number:'1.2-2' }}"></display-optional>
+      {{ evidence | optional:(evidenceCorrectness | number:'1.2-2') }}
     </td>
   </tr>
   <tr>
     <td>{{'enum.writing-trait.organization' | translate}}</td>
     <td>
-      <display-optional [value]="organization"></display-optional>
+      {{ organization | optional }}
     </td>
-    <td>4</td>
+    <td>{{ organizationMaxPoints }}</td>
     <td>
-      <display-optional [value]="organization"
-                        displayValue="{{(organization / organizationMaxPoints) | number:'1.2-2' }}"></display-optional>
+      {{ organization | optional:(organizationCorrectness | number:'1.2-2') }}
     </td>
   </tr>
   <tr>
     <td>{{'enum.writing-trait.conventions' | translate}}</td>
     <td>
-      <display-optional [value]="conventions"></display-optional>
+      {{ conventions | optional }}
     </td>
-    <td>2</td>
+    <td>{{ conventionsMaxPoints }}</td>
     <td>
-      <display-optional [value]="conventions"
-                        displayValue="{{(conventions / conventionsMaxPoints) | number:'1.2-2' }}"></display-optional>
+      {{ conventions | optional:(conventionsCorrectness | number:'1.2-2') }}
     </td>
   </tr>
   <tr>
     <td>
-          <span info-button title="{{'enum.writing-trait.total' | translate}}"
-                content="{{'enum.writing-trait.total-info' | translate}}"></span>
+      <span info-button title="{{'enum.writing-trait.total' | translate}}"
+            content="{{'enum.writing-trait.total-info' | translate}}"></span>
     </td>
     <td>
-      <display-optional [value]="responsesAssessmentItem.score"></display-optional>
+      {{ responsesAssessmentItem.score | optional }}
     </td>
     <td>{{ responsesAssessmentItem.assessmentItem.maxPoints }}</td>
     <td>
-      <display-optional [value]="responsesAssessmentItem.score"
-                        displayValue="{{(responsesAssessmentItem.score / responsesAssessmentItem.assessmentItem.maxPoints) | number:'1.2-2' }}"></display-optional>
+      {{ responsesAssessmentItem.score | optional:(totalCorrectness | number:'1.2-2') }}
     </td>
   </tr>
   </tbody>
