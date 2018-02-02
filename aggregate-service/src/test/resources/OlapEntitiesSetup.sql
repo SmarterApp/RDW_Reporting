@@ -1,6 +1,6 @@
 INSERT INTO grade (id, code) VALUES (-3,'-3'),(-4 ,'-4'),(-5, '-5'),(-6, '-6');
 INSERT INTO completeness (id, code) VALUES (-9, 'Complete'), (-8, 'Partial');
-INSERT INTO administration_condition VALUES (-99,'IN'),(-98,'SD'),(-97,'IN'),(-96,'Valid');
+INSERT INTO administration_condition VALUES (-99,'IN'),(-98,'SD'),(-97,'NS'),(-96,'Valid');
 INSERT INTO ethnicity VALUES (-29,'ethnicity-29'),(-28,'ethnicity-28');
 INSERT INTO gender VALUES (-19,'gender-19'),(-18,'gender-18');
 INSERT INTO school_year VALUES (1999),(2000),(2001);
