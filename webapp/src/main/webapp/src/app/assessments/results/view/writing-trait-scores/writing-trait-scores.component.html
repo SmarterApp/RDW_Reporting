@@ -65,7 +65,7 @@
       <item-tab [item]="item"
                 [showResponse]="false"
                 [exams]="exams"
-                [includeResponseInStudentScores]="false"
+                [includeWritingTraitScores]="true"
                 [showItemDetails]="assessment.isInterim"
       ></item-tab>
     </ng-template>
@@ -84,7 +84,7 @@
         </ng-template>
       </p-column>
 
-      <p-column header="{{'labels.groups.results.assessment.items.cols.average' | translate}}" styleClass="level-up">
+      <p-column header="{{'labels.groups.results.assessment.items.cols.average-max' | translate}}" styleClass="level-up">
         <ng-template let-item="rowData" pTemplate="body">
           <strong>{{ item.average | number:'1.0-1' }}</strong> / {{ item.trait.maxPoints | number:'1.0-0' }}
         </ng-template>

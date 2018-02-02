@@ -88,13 +88,13 @@ export class AggregateReportsComponent {
 
     this.formGroup = new FormGroup({
       organizations: new FormControl(this.organizations, notEmpty({
-        messageId: 'labels.aggregate-reports.form.field.organization.error-empty'
+        messageId: 'aggregate-reports.form.field.organization.error-empty'
       })),
       assessmentGrades: new FormControl(this.form.settings.assessmentGrades, notEmpty({
-        messageId: 'labels.aggregate-reports.form.field.assessment-grades.error-empty'
+        messageId: 'aggregate-reports.form.field.assessment-grades.error-empty'
       })),
       schoolYears: new FormControl(this.form.settings.schoolYears, notEmpty({
-        messageId: 'labels.aggregate-reports.form.field.school-year.error-empty'
+        messageId: 'aggregate-reports.form.field.school-year.error-empty'
       }))
     });
 

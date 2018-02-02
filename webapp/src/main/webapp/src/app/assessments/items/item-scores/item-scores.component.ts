@@ -28,6 +28,9 @@ export class ItemScoresComponent implements OnInit {
   @Input()
   includeResponse: boolean;
 
+  @Input()
+  includeWritingTraitScores: boolean = false;
+
   scores: StudentScore[];
 
   constructor(private service: StudentScoreService) { }

@@ -1,7 +1,7 @@
 <div class="aggregate-report-summary sans">
 
   <div class="mb-md">
-    <h4>{{'labels.aggregate-reports.form.summary.heading' | translate}}</h4>
+    <h4>{{'aggregate-reports.form.summary.heading' | translate}}</h4>
   </div>
 
   <div class="flex-children flex-cols-8">
@@ -18,7 +18,7 @@
       </div>
       <div class="column-values">
         <div *ngIf="column.scrollElement">
-          <a class="aqua" (click)="column.scrollElement.scrollIntoView()">{{'labels.aggregate-reports.form.summary.edit' | translate}}</a>
+          <a class="aqua" (click)="column.scrollElement.scrollIntoView()">{{'aggregate-reports.form.summary.edit' | translate}}</a>
         </div>
         <ng-container *ngFor="let attribute of column.attributes">
           <div>

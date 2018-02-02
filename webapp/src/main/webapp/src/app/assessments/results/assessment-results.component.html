@@ -31,7 +31,7 @@
               container="body"
               (click)="loadInstructionalResources(assessmentExam.assessment, 0)"
               [outsideClick]="true">
-              <i class="fa fa-list-alt"></i> {{'labels.groups.results.assessment.instruct' | translate }}
+              <i class="fa fa-book"></i> {{'labels.groups.results.assessment.instruct' | translate }}
             </button>
           </div>
         </div>
@@ -75,7 +75,7 @@
 
     <!-- Student Results -->
     <div *ngIf="!collapsed" @fadeAnimation>
-      <div class="col-md-4 z-index-over-data-table pl-0 mb-sm">
+      <div class="col-md-4 z-index-over-data-table pl-0 mb-sm mr-xl">
           <div class="select-menu-group">
             <label class="sr-only">{{ 'labels.groups.results.assessment.select-view' | translate }}</label>
             <div class="btn-group" dropdown>

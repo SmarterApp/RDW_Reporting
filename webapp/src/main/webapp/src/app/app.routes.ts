@@ -269,7 +269,7 @@ export const routes: Routes = [
       },
       {
         path: 'aggregate-reports',
-        data: { breadcrumb: { translate: 'labels.aggregate-reports.heading'}, permissions: [ 'CUSTOM_AGGREGATE_READ' ]},
+        data: { breadcrumb: { translate: 'aggregate-reports.heading'}, permissions: [ 'CUSTOM_AGGREGATE_READ' ]},
         canActivate: [ AuthorizationCanActivate ],
         children: [
           {
@@ -282,13 +282,13 @@ export const routes: Routes = [
           {
             path: ':id',
             pathMatch: 'full',
-            data: { breadcrumb: { translate: 'labels.aggregate-reports.results.heading'}},
+            data: { breadcrumb: { translate: 'aggregate-reports.results.heading'}},
             component: AggregateReportsResultsComponent
           },
           {
             path: 'query-builder',
             pathMatch: 'full',
-            data: { breadcrumb: { translate: 'labels.aggregate-reports.query-builder.heading'}},
+            data: { breadcrumb: { translate: 'aggregate-reports.query-builder.heading'}},
             resolve: { organizations: UserOrganizationsResolve },
             component: QueryBuilderComponent
           }

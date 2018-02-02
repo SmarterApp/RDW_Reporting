@@ -11,11 +11,11 @@
                [immutable]="false"
                [rows]="20"
                [paginator]="true"
-               emptyMessage="{{'labels.aggregate-reports.results.empty-message' | translate}}"
+               emptyMessage="{{'aggregate-reports.results.empty-message' | translate}}"
                tableStyleClass="table table-striped table-hover overflow">
     <p-column field="organizationName"
               [sortable]="false"
-              header="{{'labels.aggregate-reports.results.cols.organization-name' | translate}}">
+              header="{{'aggregate-reports.results.cols.organization-name' | translate}}">
       <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
         <div *ngIf="treeColumns[i] <= colIndex(col)"
              class="full-cell pt-0"
@@ -26,7 +26,7 @@
     </p-column>
     <p-column field="gradeId"
               [sortable]="false"
-              header="{{'labels.aggregate-reports.results.cols.assessment-grade' | translate}}">
+              header="{{'aggregate-reports.results.cols.assessment-grade' | translate}}">
       <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
         <div *ngIf="treeColumns[i] <= colIndex(col)"
              class="full-cell pt-0"
@@ -37,7 +37,7 @@
     </p-column>
     <p-column field="schoolYear"
               [sortable]="false"
-              header="{{'labels.aggregate-reports.results.cols.school-year' | translate}}">
+              header="{{'aggregate-reports.results.cols.school-year' | translate}}">
       <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
         <div *ngIf="treeColumns[i] <= colIndex(col)"
              class="full-cell pt-0"
@@ -48,19 +48,19 @@
     </p-column>
     <p-column field="dimensionValue"
               [sortable]="false"
-              header="{{'labels.aggregate-reports.results.cols.dimension' | translate}}">
+              header="{{'aggregate-reports.results.cols.dimension' | translate}}">
       <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
         <div *ngIf="treeColumns[i] <= colIndex(col)"
              class="full-cell pt-0"
              [ngClass]="{'border-top': treeColumns[i] <= colIndex(col) && treeColumns[i] < columnOrdering.length - 1}">
-          {{ ('labels.aggregate-reports.results.dimension.' + reportItem.dimensionType + '.' +
+          {{ ('aggregate-reports.results.dimension.' + reportItem.dimensionType + '.' +
           reportItem.dimensionValue) | translate}}
         </div>
       </ng-template>
     </p-column>
     <p-column field="studentsTested"
               [sortable]="false"
-              header="{{'labels.aggregate-reports.results.cols.students-tested' | translate}}">
+              header="{{'aggregate-reports.results.cols.students-tested' | translate}}">
       <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
         <div class="full-cell pt-0"
              [ngClass]="{'border-top': treeColumns[i] < columnOrdering.length - 1}">
@@ -68,7 +68,7 @@
         </div>
       </ng-template>
     </p-column>
-    <p-column header="{{'labels.aggregate-reports.results.cols.achievement-comparison' | translate}}">
+    <p-column header="{{'aggregate-reports.results.cols.achievement-comparison' | translate}}">
       <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
         <div class="full-cell pt-0 pb-0 pl-0 pr-0"
              [ngClass]="{'border-top': treeColumns[i] < columnOrdering.length - 1}">
@@ -81,7 +81,7 @@
     </p-column>
     <p-column field="avgScaleScore"
               [sortable]="false"
-              header="{{'labels.aggregate-reports.results.cols.avg-scale-score' | translate}}">
+              header="{{'aggregate-reports.results.cols.avg-scale-score' | translate}}">
       <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
         <div class="full-cell text-center"
              [ngClass]="{'border-top': treeColumns[i] < columnOrdering.length - 1}">
@@ -101,7 +101,7 @@
                   [ngClass]="colorService.getPerformanceLevelColor({type: query.assessmentType.id}, levelIdx)">
               {{ (performanceLevelTranslationPrefix + level) | translate }}
             </span><br>
-            <span>{{ 'labels.aggregate-reports.results.cols.performance-level-suffix' | translate }}</span>
+            <span>{{ 'aggregate-reports.results.cols.performance-level-suffix' | translate }}</span>
           </div>
         </ng-template>
         <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
@@ -118,12 +118,12 @@
                 field="{{ (showValuesAsPercent ? 'groupedPerformanceLevelPercents.' : 'groupedPerformanceLevelCounts.') + leveIdx }}">
         <ng-template pTemplate="header">
           <div class="text-center">
-            <span>{{('labels.aggregate-reports.results.cols.grouped-performance-level-prefix.' + leveIdx) | translate}}</span><br>
+            <span>{{('aggregate-reports.results.cols.grouped-performance-level-prefix.' + leveIdx) | translate}}</span><br>
             <span class="label"
                   [ngClass]="colorService.getPerformanceLevelColor({type: query.assessmentType.id}, level - 1)">
               {{ (performanceLevelTranslationPrefix + level) | translate }}
             </span><br>
-            <span>{{ 'labels.aggregate-reports.results.cols.performance-level-suffix' | translate }}</span>
+            <span>{{ 'aggregate-reports.results.cols.performance-level-suffix' | translate }}</span>
           </div>
         </ng-template>
         <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">

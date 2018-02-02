@@ -47,27 +47,20 @@ sql:
     aggregate:
       findAllSchools: >-
         SELECT
-          school.id,
-          school.name,
-          school.natural_id,
-          'School' as org_type,
-          school.district_group_id,
-          school.district_id,
-          school.school_group_id
+          id AS organization_id,
+          name AS organization_name,
+          natural_id AS organization_natural_id,
+          'School' as organization_type,
+          district_id
         FROM school
 
       findAllDistricts: >-
-        SELECT DISTINCT
-          district.id,
-          district.name,
-          district.natural_id,
-          'District' as org_type,
-          sch.district_group_id,
-          null::int as district_id,
-          null::int as school_group_id
+        SELECT
+          id AS organization_id,
+          name AS organization_name,
+          natural_id AS organization_natural_id,
+          'District' as organization_type
         FROM district
-          JOIN school sch
-            ON sch.district_id = district.id
 
   schoolYear:
     findAll: >-

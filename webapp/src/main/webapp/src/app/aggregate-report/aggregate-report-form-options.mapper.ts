@@ -116,17 +116,17 @@ export class AggregateReportFormOptionsMapper {
         .sort(IdDescending),
       achievementLevelDisplayTypes: [ 'Separate', 'Grouped' ]
         .map(optionMapper(
-          value => translate(`labels.aggregate-reports.form.field.achievement-level-display-type.value.${value}`),
+          value => translate(`aggregate-reports.form.field.achievement-level-display-type.value.${value}`),
           value => `Achievement Level Display Type: ${value}`
         )),
       valueDisplayTypes: [ 'Percent', 'Number' ]
         .map(optionMapper(
-          value => translate(`labels.aggregate-reports.form.field.value-display-type.value.${value}`),
+          value => translate(`aggregate-reports.form.field.value-display-type.value.${value}`),
           value => `Value Display Type: ${value}`
         )),
       dimensionTypes: options.dimensionTypes
         .map(optionMapper(
-          value => translate(`labels.aggregate-reports.form.field.comparative-subgroup.value.${value}`),
+          value => translate(`aggregate-reports.form.field.comparative-subgroup.value.${value}`),
           value => `Comparative Subgroup: ${value}`
         )),
       statewideReporter: options.statewideReporter

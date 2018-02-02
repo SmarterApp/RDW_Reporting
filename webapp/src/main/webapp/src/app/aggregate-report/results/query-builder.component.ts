@@ -70,7 +70,7 @@ export class QueryBuilderComponent implements OnInit {
 
     ];
     this.texts = {
-      defaultTitle: this.translate.instant('labels.aggregate-reports.query-builder.filter-results.organize-result-set-well.comparative-subgroups.title')
+      defaultTitle: this.translate.instant('aggregate-reports.query-builder.filter-results.organize-result-set-well.comparative-subgroups.title')
     };
   }
 
