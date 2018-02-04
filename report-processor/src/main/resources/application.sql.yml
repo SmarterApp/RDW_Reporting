@@ -96,6 +96,26 @@ sql:
         and ${sql.reportProcessor.snippet.individualScopePermission}
       order by e.completed_at asc
 
+    item:
+      findWritingTraitExamItems: >-
+        select
+          ei.id,
+          ei.exam_id,
+          ei.item_id,
+          ei.score,
+          ei.position,
+          ei.response,
+          ei.trait_evidence_elaboration_score,
+          ei.trait_organization_purpose_score,
+          ei.trait_conventions_score,
+          i.performance_task_writing_type
+        from exam_item ei
+        join item i on i.id=ei.item_id
+        join exam e on e.id=ei.exam_id
+        where
+          ei.exam_id in (:exam_ids)
+          and i.type=:type
+
   export:
     exam: >-
       select
