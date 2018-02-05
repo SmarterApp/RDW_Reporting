@@ -115,27 +115,27 @@
 
                     <div class="col-md-4 pull-left" data-width="33">
                         <h3 class="text-center" th:text="#{'report.writing.trait.Evidence'}"></h3>
-                        <h1 class="label-group blue text-center"><span class="label"
+                        <h2 class="label-group gray-light bordered text-center"><span class="label"
                                                                        th:text="${exam.writingTraitScores.evidence}"></span>
-                        </h1>
+                        </h2>
                         <h4 class="text-center" th:text="#{('report.writing.trait.outof')(4)}"></h4>
                         <br/>
                         <p th:text="#{'report.writing.trait.' + (${exam.performanceWritingType != null} ? ${exam.performanceWritingType} : 'Unknown') + '.Evidence.' + ${exam.writingTraitScores.evidence}}"></p>
                     </div>
                     <div class="col-md-4 pull-left" data-width="33">
                         <h3 class="text-center" th:text="#{'report.writing.trait.Organization'}"></h3>
-                        <h1 class="label-group blue text-center"><span class="label"
+                        <h2 class="label-group gray-light bordered text-center"><span class="label"
                                                                        th:text="${exam.writingTraitScores.organization}"></span>
-                        </h1>
+                        </h2>
                         <h4 class="text-center" th:text="#{('report.writing.trait.outof')(4)}"></h4>
                         <br/>
                         <p th:text="#{'report.writing.trait.' + (${exam.performanceWritingType != null} ? ${exam.performanceWritingType} : 'Unknown') + '.Organization.' + ${exam.writingTraitScores.organization}}"></p>
                     </div>
                     <div class="col-md-4 pull-left" data-width="33">
                         <h3 class="text-center" th:text="#{'report.writing.trait.Conventions'}"></h3>
-                        <h1 class="label-group blue text-center"><span class="label"
+                        <h2 class="label-group gray-light bordered text-center"><span class="label"
                                                                        th:text="${exam.writingTraitScores.conventions}"></span>
-                        </h1>
+                        </h2>
                         <h4 class="text-center" th:text="#{('report.writing.trait.outof')(2)}"></h4>
                         <br/>
                         <p th:text="#{'report.writing.trait.' + (${exam.performanceWritingType != null} ? ${exam.performanceWritingType} : 'Unknown') + '.Conventions.' + ${exam.writingTraitScores.conventions}}"></p>
