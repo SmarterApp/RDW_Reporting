@@ -191,23 +191,3 @@ sql:
           join asmt a on e.asmt_id = a.id
           join school s on e.school_id = s.id
           join school isch on st.inferred_school_id = isch.id
-
-    selectFromItem: >-
-      select
-        i.id,
-        i.natural_id,
-        i.position,
-        i.difficulty_code,
-        i.max_points,
-        i.claim_code,
-        i.target_code,
-        i.target_id,
-        i.dok_level_subject_id,
-        i.math_practice_code,
-        i.allow_calc,
-        i.common_core_standard_ids,
-        i.answer_key,
-        i.options_count,
-        i.type,
-        i.performance_task_writing_type
-      from item i
