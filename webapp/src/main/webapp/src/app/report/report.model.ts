@@ -7,32 +7,32 @@ import { AssessmentType } from "../shared/enum/assessment-type.enum";
 
 export class Report {
 
-  public id: number;
-  public label: string;
-  public status: string;
-  public reportType: string;
-  // TODO change to use code or coded entity
-  public assessmentType: AssessmentType;
-  // TODO change to use code or coded entity
-  public subjectId: number;
-  public schoolYear: number;
-  public created: Date;
-  public request: any;
-  public metadata: {[key: string]: string};
+  id: number;
+  label: string;
+  status: string;
+  reportType: string;
+  /** @deprecated */ assessmentType: AssessmentType;
+  assessmentTypeCode: string;
+  /** @deprecated */ subjectId: number;
+  subjectCode: string;
+  schoolYear: number;
+  created: Date;
+  request: any;
+  metadata: {[key: string]: string};
 
-  public get completed(): boolean {
+  get completed(): boolean {
     return this.status === 'COMPLETED';
   }
 
-  public get processing(): boolean {
+  get processing(): boolean {
     return this.status === 'PENDING' || this.status === 'RUNNING';
   }
 
-  public get regenerable(): boolean {
+  get regenerable(): boolean {
     return !(this.completed || this.processing);
   }
 
-  public get statusColor(): string {
+  get statusColor(): string {
     if (this.completed) {
       return 'blue-dark';
     }

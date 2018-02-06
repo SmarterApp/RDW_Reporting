@@ -23,7 +23,7 @@ export class AggregateReportService {
    * @returns {Observable<number>} the row count
    */
   getReportRowCount(request: AggregateReportRequest): Observable<number> {
-    return this.dataService.post(`${AggregateServiceRoute}/aggregate/rowCount`, request);
+    return this.dataService.post(`${AggregateServiceRoute}/aggregate/estimatedRowCount`, request);
   }
 
   /**
