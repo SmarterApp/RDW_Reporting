@@ -6,8 +6,9 @@ import { ExamFilterService } from "../assessments/filters/exam-filters/exam-filt
 import { CsvBuilder } from "./csv-builder.service";
 import { StudentHistoryExamWrapper } from "../student/model/student-history-exam-wrapper.model";
 import { Student } from "../student/model/student.model";
-import { ExportRequest} from "../assessments/model/export-request.model";
+import { ExportItemsRequest} from "../assessments/model/export-items-request.model";
 import { RequestType } from "../shared/enum/request-type.enum";
+import {ExportWritingTraitsRequest} from "../assessments/model/export-writing-trait-request.model";
 
 @Injectable()
 export class CsvExportService {
@@ -105,7 +106,7 @@ export class CsvExportService {
       .build(wrappers);
   }
 
-  exportResultItems(exportRequest: ExportRequest,
+  exportResultItems(exportRequest: ExportItemsRequest,
                     filename: string) {
 
     let getAssessment = () => exportRequest.assessment;
@@ -128,5 +129,43 @@ export class CsvExportService {
 
       builder.withPoints(getAssessmentItem, exportRequest.pointColumns, exportRequest.showAsPercent)
       .build(exportRequest.assessmentItems);
+  }
+
+  exportWritingTraitScores(exportRequest: ExportWritingTraitsRequest,
+                           filename: string) {
+
+    let compositeRows: any[] = [];
+    let maxPoints: number = 0;
+
+    // since there can be multiple items, we need to iterate over multiple summary table rows if there are multiple items that have writing trait scores
+    //  here we flatten the items and summary rows into a single array the CSV builder can iterate over
+    exportRequest.assessmentItems.forEach((item, i) => {
+
+      exportRequest.summaries[i].rows.forEach(summary => {
+        compositeRows.push({
+          assessmentItem: item,
+          writingTraitAggregate: summary
+        });
+
+        if (summary.trait.maxPoints > maxPoints) maxPoints = summary.trait.maxPoints;
+      });
+
+    });
+
+    let getAssessmentItem = (item) => item.assessmentItem;
+
+    this.csvBuilder
+      .newBuilder()
+      .withFilename(filename)
+      .withAssessmentTypeNameAndSubject(() => exportRequest.assessment)
+      .withItemNumber(getAssessmentItem)
+      .withClaim(getAssessmentItem)
+      .withTarget(getAssessmentItem)
+      .withItemDifficulty(getAssessmentItem)
+      .withStandards(getAssessmentItem)
+      .withFullCredit(getAssessmentItem, exportRequest.showAsPercent)
+      .withPerformanceTaskWritingType(getAssessmentItem)
+      .withWritingTraitAggregate((item) => item.writingTraitAggregate, maxPoints, exportRequest.showAsPercent)
+      .build(compositeRows);
   }
 }

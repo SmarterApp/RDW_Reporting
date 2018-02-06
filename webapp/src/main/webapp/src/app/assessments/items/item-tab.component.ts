@@ -3,6 +3,7 @@ import { AssessmentItem } from "../model/assessment-item.model";
 import { TabsetComponent, TabDirective } from "ngx-bootstrap";
 import { Exam } from "../model/exam.model";
 import { Angulartics2 } from "angulartics2";
+import { StudentResponsesAssessmentItem } from "../../student/responses/student-responses-item.model";
 
 @Component({
   selector: 'item-tab',
@@ -35,6 +36,12 @@ export class ItemTabComponent implements OnInit {
   @Input()
   showItemDetails: boolean;
 
+  /**
+   * The student response assessment item wrapper that includes the writing trait scores.
+   */
+  @Input()
+  responsesAssessmentItem: StudentResponsesAssessmentItem;
+
   @Input()
   response: any;
 
@@ -46,6 +53,9 @@ export class ItemTabComponent implements OnInit {
    */
   @Input()
   includeResponseInStudentScores: boolean = false;
+
+  @Input()
+  includeWritingTraitScores: boolean = false;
 
   @Input()
   set position(value: number) {

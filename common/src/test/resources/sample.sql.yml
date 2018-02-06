@@ -53,6 +53,10 @@ sqlbuilder:
       # ------------ achievement level by selected district(s)  -----------------------------------------------------------
             districts:
               clauses:
+                select: >-
+                    district_column
+                join: >-
+                    JOIN another_join
                 where: >-
                    district_id in (:district_ids)
 

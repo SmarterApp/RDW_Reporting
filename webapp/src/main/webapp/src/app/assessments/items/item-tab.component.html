@@ -3,14 +3,20 @@
     <div class="tab-content well">
       <item-scores [item]="item"
                    [exams]="exams"
-                   [includeResponse]="includeResponseInStudentScores">
+                   [includeResponse]="includeResponseInStudentScores"
+                   [includeWritingTraitScores]="includeWritingTraitScores">
       </item-scores>
+    </div>
+  </tab>
+  <tab *ngIf="item.performanceTaskWritingType && responsesAssessmentItem" (select)="selectTab('Writing Trait Scores')" heading="{{translateRoot + 'writing-trait-scores' | translate }}">
+    <div class="tab-content well">
+      <item-writing-trait-scores [responsesAssessmentItem]="responsesAssessmentItem"></item-writing-trait-scores>
     </div>
   </tab>
   <tab *ngIf="showItemDetails" (select)="selectTab('Item Viewer')" heading="{{translateRoot + 'item-viewer' | translate }}">
     <div class="tab-content well">
       <item-viewer *ngIf="loadItemViewer"
-                   [bankItemKey]="item.bankItemKey"
+                   [item]="item"
                    [response]="response"
                    [showResponse]="showResponse"
                    [position]="position"></item-viewer>
@@ -18,11 +24,7 @@
   </tab>
   <tab *ngIf="showItemDetails" (select)="selectTab('Rubric Exemplar')" heading="{{translateRoot + 'exemplar.title' | translate }}">
     <div class="tab-content well">
-      <item-exemplar *ngIf="loadExemplar && item.answerKey == undefined" [bankItemKey]="item.bankItemKey"></item-exemplar>
-      <div *ngIf="loadExemplar && item.answerKey !== undefined">
-        <strong>{{translateRoot + 'exemplar.answer-key' | translate }}</strong>
-        {{item.answerKey}}
-      </div>
+      <item-exemplar *ngIf="loadExemplar" [item]="item"></item-exemplar>
     </div>
   </tab>
   <tab *ngIf="showItemDetails" (select)="selectTab('Item Information')" heading="{{translateRoot + 'item-info.title' | translate }}">

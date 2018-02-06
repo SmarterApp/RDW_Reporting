@@ -1,0 +1,41 @@
+<div class="aggregate-report-summary sans">
+
+  <div class="mb-md">
+    <h4>{{'aggregate-reports.form.summary.heading' | translate}}</h4>
+  </div>
+
+  <div class="flex-children flex-cols-8">
+    <div *ngFor="let column of columns" class="block-children" [ngClass]="{'heading-column': column.heading}">
+      <div class="column-heading-container">
+        <div class="column-heading">
+          <strong>{{column.heading}}</strong>
+        </div>
+        <div class="column-label-container">
+          <div class="column-label" [ngClass]="column.labelCssClasses">
+            {{column.label}}
+          </div>
+        </div>
+      </div>
+      <div class="column-values">
+        <div *ngIf="column.scrollElement">
+          <a class="aqua" (click)="column.scrollElement.scrollIntoView()">{{'aggregate-reports.form.summary.edit' | translate}}</a>
+        </div>
+        <ng-container *ngFor="let attribute of column.attributes">
+          <div>
+            <label class="label"><span class="gray-dark"><strong>{{attribute.label}}</strong></span></label>
+          </div>
+          <ng-container *ngIf="summarizeSelection(attribute)">
+            <label class="label"><span class="gray-dark">{{'buttons.all' | translate}}</span></label>
+          </ng-container>
+          <ng-container *ngIf="!summarizeSelection(attribute)">
+            <div *ngFor="let value of getValues(attribute)">
+              <label class="label"><span class="gray-dark">{{value}}</span></label>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+
+</div>

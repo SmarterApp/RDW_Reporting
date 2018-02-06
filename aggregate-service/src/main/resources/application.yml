@@ -29,6 +29,9 @@ app:
     code: CA
     name: California
 
+  archive:
+      root: file:///tmp/
+
   datamart:
      olap_datasource:
         url: "\
@@ -42,12 +45,14 @@ app:
         driverClassName: com.amazon.redshift.jdbc42.Driver
 
   cache:
-    reportOrganizations:
+    repository:
       # every day at 1:00 am
       refresh-cron: "0 0 1 * * *"
 
   aggregate-reports:
+    summative-enabled: true
     statewide-interim-enabled: false
+    api-access-enabled: true
 
 spring:
   jackson:
@@ -57,7 +62,22 @@ spring:
 
   cache:
     type: SIMPLE
-    cache-names: internalTranslationsByCode, reportOptions, reportOrganizations
+    cache-names: internalTranslationsByCode, administrationConditions, assessmentGrades, assessmentTypes, booleans, strictBooleans, organizations, completenessCodes, ethnicities, genders, schoolYears, subjects, activeAssessments
+
+  cloud:
+      stream:
+        bindings:
+          AggregateRequest:
+            content-type: application/json
+            group: default
+            producer:
+              requiredGroups: default
+
+          AggregateResponse:
+            content-type: application/json
+            group: default
+            producer:
+              requiredGroups: default
 
 jwt:
   secret: ${rdw.reporting.jwt.secret:secret}

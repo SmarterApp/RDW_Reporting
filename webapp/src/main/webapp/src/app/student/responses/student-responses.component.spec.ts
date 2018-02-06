@@ -13,6 +13,7 @@ import { ExamItemScore } from "../../assessments/model/exam-item-score.model";
 import createSpy = jasmine.createSpy;
 import Spy = jasmine.Spy;
 import { Student } from "../model/student.model";
+import { OptionalPipe } from "../../shared/optional.pipe";
 
 describe('StudentResponsesComponent', () => {
   let component: StudentResponsesComponent;
@@ -37,15 +38,14 @@ describe('StudentResponsesComponent', () => {
         TranslateModule.forRoot()
       ],
       declarations: [
+        OptionalPipe,
         AssessmentTypePipe,
         GradeDisplayPipe,
         StudentResponsesComponent
       ],
       providers: [
-        ColorService, {
-        provide: ActivatedRoute,
-        useValue: route
-        }
+        ColorService,
+        { provide: ActivatedRoute, useValue: route }
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     })

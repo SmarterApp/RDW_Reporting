@@ -4,7 +4,7 @@
                          [lockSubject]="true"
                          [lockSchoolYear]="true"></student-report-download>
 <div class="pull-right ">
-  <div *ngIf="showClaimToggle" class="btn-group btn-group-xs z-index-over-data-table" role="group">
+  <div *ngIf="showClaimToggle" class="btn-group btn-group-xs z-index-over-data-table mt-md" role="group">
     <button (click)="setOverallScoreSelected()"
             class="btn btn-default"
             angulartics2On="click"
@@ -91,8 +91,8 @@
   </p-column>
   <p-column field="score" [sortable]="true" [hidden]="isClaimScoreSelected">
     <ng-template pTemplate="header">
-              <span info-button title="{{'labels.groups.results.assessment.exams.cols.score' | translate}}"
-                    content="{{'labels.groups.results.assessment.exams.cols.score-info' | translate}}"></span>
+      <span info-button title="{{'labels.groups.results.assessment.exams.cols.score' | translate}}"
+            content="{{'labels.groups.results.assessment.exams.cols.score-info' | translate}}"></span>
     </ng-template>
     <ng-template let-exam="rowData" pTemplate="body">
       <scale-score [score]="exam.score" [standardError]="exam.standardError"></scale-score>

@@ -18,8 +18,8 @@
         <sb-toggle name="off-grade-assessment-toggle"
                    [(ngModel)]="filterBy.offGradeAssessment"
                    [options]="[
-                           {value: false, text: 'buttons.visibility.show' | translate, angularticsProperties: {label: 'Off-Grade: Show'}},
-                           {value: true, text: 'buttons.visibility.hide' | translate, angularticsProperties: {label: 'Off-Grade: Hide'}}
+                           {value: false, text: 'buttons.visibility.show' | translate, analyticsProperties: {label: 'Off-Grade: Show'}},
+                           {value: true, text: 'buttons.visibility.hide' | translate, analyticsProperties: {label: 'Off-Grade: Hide'}}
                          ]"></sb-toggle>
       </div>
       <!-- Transfer Assessments -->
@@ -32,8 +32,8 @@
         <sb-toggle name="transfer-assessment-toggle"
                    [(ngModel)]="filterBy.transferAssessment"
                    [options]="[
-                           {value: false, text: 'buttons.visibility.show' | translate, angularticsProperties: {label: 'Transfer-Assessment: Show'}},
-                           {value: true, text: 'buttons.visibility.hide' | translate, angularticsProperties: {label: 'Transfer-Assessment: Hide'}}
+                           {value: false, text: 'buttons.visibility.show' | translate, analyticsProperties: {label: 'Transfer-Assessment: Show'}},
+                           {value: true, text: 'buttons.visibility.hide' | translate, analyticsProperties: {label: 'Transfer-Assessment: Hide'}}
                          ]"></sb-toggle>
       </div>
     </div>

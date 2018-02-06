@@ -1,8 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { UserService } from "../../../user/user.service";
-import { ItemScoringGuide } from "../item-exemplar/model/item-scoring-guide.model";
-import { ItemScoringService } from "../item-exemplar/item-scoring.service";
-import { Utils } from "../../../shared/support/support";
+import { AssessmentItem } from "../../model/assessment-item.model";
 
 /**
  * IRiS is the vendor client which allows us to integrate with the
@@ -21,10 +19,10 @@ declare var IRiS: any;
 })
 export class ItemViewerComponent implements OnInit {
   /**
-   * The bank item key resolvable in Iris.
+   * The item which we want to display the item viewer for.
    */
   @Input()
-  public bankItemKey: string;
+  public item: AssessmentItem;
 
   @Input()
   public response: string;
@@ -36,7 +34,6 @@ export class ItemViewerComponent implements OnInit {
   public showResponse: boolean = true;
 
   public irisIsLoading: boolean = true;
-  public rubricModel: ItemScoringGuide;
 
   private vendorId;
   private _irisFrame;
@@ -49,8 +46,7 @@ export class ItemViewerComponent implements OnInit {
     }
   }
 
-  constructor(private userService: UserService,
-              private itemScoringService: ItemScoringService) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
@@ -59,21 +55,6 @@ export class ItemViewerComponent implements OnInit {
 
       this._irisFrame.addEventListener('load', this.irisframeOnLoad.bind(this));
     });
-
-    //Fetch the rubric for displaying a simple answer key or letting the user know
-    //that more scoring information can be found in the exemplar tab.
-    //NOTE: if the rubric is empty, don't tell the user more info can be found in the exemplar tab
-    this.itemScoringService
-      .getGuide(this.bankItemKey)
-      .subscribe(guide => {
-        if (guide.rubrics.length > 0 ||
-          guide.exemplars.length > 0 ||
-          !Utils.isNullOrUndefined(guide.answerKeyValue)) {
-          this.rubricModel = guide;
-        }
-      }, (response) => {
-        console.warn(response);
-      });
   }
 
   irisframeOnLoad() {
@@ -87,7 +68,7 @@ export class ItemViewerComponent implements OnInit {
    * Send a request to load the specified assessment item.
    */
   loadToken() {
-    let token = this.getToken(this.bankItemKey);
+    let token = this.getToken(this.item.bankItemKey);
     IRiS.loadToken(this.vendorId, token)
       .done((function () {
         this.loadResponse();

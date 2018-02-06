@@ -1,16 +1,22 @@
-<div *ngIf="loading" class="loader">
-  <div class="inner">
-    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">{{ 'messages.loading' | translate }}</span>
-  </div>
+<div *ngIf="item.answerKey">
+  <strong>{{translateRoot + 'answer-key' | translate }}</strong>
+  {{ item.answerKey }}
 </div>
-<!-- TODO: Remove custom style of white-space: normal once @asleeper's latest update
-     TODO: updates the white-space:nowrap style implementation-->
-<div *ngIf="model" style="white-space: normal">
-  <div *ngIf="model.answerKeyValue" class="pad-bottom-10">
-    <strong>{{ translateRoot + 'answer-key' | translate }}</strong> {{model.answerKeyValue}}
-  </div>
 
-  <div *ngIf="model.rubrics.length > 0">
+<div *ngIf="!item.answerKey">
+  <div *ngIf="loading" class="loader">
+    <div class="inner">
+      <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">{{ 'messages.loading' | translate }}</span>
+    </div>
+  </div>
+  <!-- TODO: Remove custom style of white-space: normal once @asleeper's latest update
+       TODO: updates the white-space:nowrap style implementation-->
+  <div *ngIf="model" style="white-space: normal">
+    <div *ngIf="model.answerKeyValue" class="pad-bottom-10">
+      <strong>{{ translateRoot + 'answer-key' | translate }}</strong> {{model.answerKeyValue}}
+    </div>
+
+    <!-- rubrics -->
     <div *ngIf="model.rubrics.length ==1" [innerHtml]="model.rubrics[0].templateHtml"></div>
 
     <div *ngIf="model.rubrics.length > 1">
@@ -31,9 +37,7 @@
       </table>
     </div>
 
-  </div>
-
-  <div *ngIf="model.exemplars.length > 0">
+    <!-- exemplars -->
     <div *ngIf="model.exemplars.length ==1" [innerHtml]="model.exemplars[0].templateHtml"></div>
 
     <div *ngIf="model.exemplars.length > 1">
@@ -53,14 +57,13 @@
         </tbody>
       </table>
     </div>
-
   </div>
-</div>
-<div *ngIf="notFound" class="alert alert-danger">
-  {{ translateRoot + 'errors.not-found' | translate}}
-</div>
-<div *ngIf="errorLoading" class="alert alert-danger">
-  {{ translateRoot + 'errors.unknown' | translate}}
+  <div *ngIf="notFound" class="alert alert-danger">
+    {{ translateRoot + 'errors.not-found' | translate}}
+  </div>
+  <div *ngIf="errorLoading" class="alert alert-danger">
+    {{ translateRoot + 'errors.unknown' | translate}}
+  </div>
 </div>
 
 

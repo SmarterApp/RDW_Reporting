@@ -23,6 +23,7 @@ import { MockAuthorizeDirective } from "../../../test/mock.authorize.directive";
 import { MockTranslateService } from "../../../test/mock.translate.service";
 import { TranslateService } from "@ngx-translate/core";
 import { DataService } from "../../shared/data/data.service";
+import { SchoolAssessmentExportService } from "./school-assessment-export.service";
 
 let availableGrades = [];
 
@@ -56,6 +57,8 @@ describe('SchoolResultsComponent', () => {
 
     let mockAssessmentService = jasmine.createSpyObj('SchoolAssessmentService', ['findGradesWithAssessmentsForSchool']);
 
+    let mockAssessmentExportService = jasmine.createSpyObj('SchoolAssessmentExportService', ['exportItemsToCsv', 'exportWritingTraitScoresToCsv']);
+
     let mockOrganizationService = jasmine.createSpyObj('OrganizationService', ['getSchoolsWithDistricts']);
 
     availableGrades = [];
@@ -73,6 +76,7 @@ describe('SchoolResultsComponent', () => {
         { provide: OrganizationService, useValue: mockOrganizationService },
         { provide: APP_BASE_HREF, useValue: '/' },
         { provide: SchoolAssessmentService, useValue: mockAssessmentService },
+        { provide: SchoolAssessmentExportService, useValue: mockAssessmentExportService },
         { provide: DataService, useClass: MockDataService },
         { provide: ExamFilterOptionsService, useClass: MockExamFilterOptionService },
         { provide: SchoolService, useClass: MockSchoolService },

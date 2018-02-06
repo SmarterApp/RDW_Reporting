@@ -10,13 +10,11 @@ export class Utils {
     return property;
   }
 
-  static newGuidReplacer(c: string): string {
-    let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  };
-
   static newGuid(): string {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace('/[xy]/g', Utils.newGuidReplacer);
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+      const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
   }
 
   static polarEnumToBoolean(value: any): boolean {
@@ -33,8 +31,14 @@ export class Utils {
     return undefined;
   }
 
-  static isNullOrEmpty(value: string): boolean {
-    return value === null || value.length === 0;
+  /**
+   * Checks to see if the string or array is <code>null</code>, <code>undefined</code> or empty.
+   *
+   * @param {string | any[]} value
+   * @returns {boolean}
+   */
+  static isNullOrEmpty(value: string | any[]): boolean {
+    return Utils.isNullOrUndefined(value) || value.length === 0;
   }
 
   static isUndefined(value: any): boolean {
@@ -42,8 +46,7 @@ export class Utils {
   }
 
   static isNullOrUndefined(value: any): boolean {
-    return value == null || Utils.isUndefined(value);
+    return value == null;
   }
 
 }
-

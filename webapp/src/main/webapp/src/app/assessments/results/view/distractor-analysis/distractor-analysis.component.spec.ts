@@ -19,6 +19,8 @@ import { Component } from "@angular/core";
 import { Assessment } from "../../../model/assessment.model";
 import { DistractorAnalysisComponent } from "./distractor-analysis.component";
 import { MockAssessmentProvider } from "../../../../../test/mock.assessment.provider";
+import { MockAssessmentExporter } from "../../../../../test/mock.assessment.exporter";
+import { ItemWritingTraitScoresComponent } from "../../../items/item-writing-trait-scores/item-writing-trait-scores.component";
 
 describe('DistractorAnalysisComponent', () => {
   let component: DistractorAnalysisComponent;
@@ -47,7 +49,8 @@ describe('DistractorAnalysisComponent', () => {
         ItemInfoComponent,
         ItemExemplarComponent,
         ItemScoresComponent,
-        ItemViewerComponent
+        ItemViewerComponent,
+        ItemWritingTraitScoresComponent
       ],
       providers: [
         { provide: Angulartics2, useValue: mockAngulartics2 },
@@ -70,10 +73,11 @@ describe('DistractorAnalysisComponent', () => {
 
 @Component({
   selector: 'test-component-wrapper',
-  template: '<distractor-analysis [assessmentProvider]="assessmentProvider" [assessment]="assessment" [exams]="[]"></distractor-analysis>'
+  template: '<distractor-analysis [assessmentProvider]="assessmentProvider" [assessmentExporter]="assessmentExporter" [assessment]="assessment" [exams]="[]"></distractor-analysis>'
 })
 class TestComponentWrapper {
   assessmentProvider = new MockAssessmentProvider();
+  assessmentExporter = new MockAssessmentExporter();
   assessment = new Assessment();
 }
 

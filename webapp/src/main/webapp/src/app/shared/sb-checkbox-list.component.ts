@@ -12,7 +12,7 @@ import { Utils } from "./support/support";
 @Component({
   selector: 'sb-checkbox-list',
   template: `
-    <div [ngClass]="{'vertical':!horizontal}" class="nested-btn-group btn-group-sm toggle-group" data-toggle="buttons">
+    <div [ngClass]="{'vertical':!horizontal}" class="nested-btn-group btn-group-sm toggle-group all-option" data-toggle="buttons">
       <label class="btn btn-primary" [ngClass]="{'active': modelValue[0] }">
         <input type="checkbox" [(ngModel)]="modelValue[0]" (ngModelChange)="allChange($event)" autocomplete="off"
                checked=""
@@ -65,9 +65,6 @@ export class SBCheckboxList implements OnInit {
   @Input()
   public horizontal: boolean = false;
 
-  @Output()
-  public selected: EventEmitter<any> = new EventEmitter<any>();
-
   private _name: string;
 
   get name(): string {
@@ -100,14 +97,12 @@ export class SBCheckboxList implements OnInit {
       this.modelValue[ 0 ] = true;
     }
     this.modelValue = Object.assign({}, this.modelValue);
-    this.selected.emit('all');
   }
 
   valueChange(value): void {
     // Set all to true if all options are false.
     this.modelValue[ 0 ] = this.areAllValuesFalse();
     this.modelValue = Object.assign({}, this.modelValue);
-    this.selected.emit(this.modelValue);
   }
 
   private areAllValuesFalse(): boolean {

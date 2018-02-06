@@ -30,7 +30,7 @@ export class StudentResponsesComponent implements OnInit {
 
   ngOnInit(): void {
     let routeItems: AssessmentItem[] = this.route.snapshot.data[ "assessmentItems" ];
-    if(routeItems) {
+    if (routeItems) {
       this.assessmentItems = routeItems.map(item => this.mapAssessmentItem(item));
     }
 
@@ -52,6 +52,7 @@ export class StudentResponsesComponent implements OnInit {
     let maxScore = item.maxPoints;
     responseItem.correctness = responseItem.score !== null ? responseItem.score / maxScore : null;
     responseItem.response = score ? score.response : null;
+    responseItem.writingTraitScores =  score.writingTraitScores;
 
     return responseItem;
   }

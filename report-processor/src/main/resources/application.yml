@@ -15,33 +15,75 @@ spring:
   cloud:
     stream:
       bindings:
-        ReportExportExams:
+        ReportExportExamsOut:
           content-type: application/json
+          destination: ReportExportExams
           group: default
           producer:
             requiredGroups: default
 
-        ReportFetchStudents:
+        ReportExportExamsIn:
           content-type: application/json
+          destination: ReportExportExams
+          group: default
+
+        ReportFetchStudentsOut:
+          content-type: application/json
+          destination: ReportFetchStudents
           group: default
           producer:
             requiredGroups: default
 
-        ReportGenerateForStudents:
+        ReportFetchStudentsIn:
           content-type: application/json
+          destination: ReportFetchStudents
+          group: default
+
+        ReportGenerateForStudentsOut:
+          content-type: application/json
+          destination: ReportGenerateForStudents
+          group: default
+          producer:
+            requiredGroups: default
+
+        ReportGenerateForStudentsIn:
+          content-type: application/json
+          destination: ReportGenerateForStudents
           group: default
           consumer:
             concurrency: 2
+
+        ReportCollateOut:
+          content-type: application/json
+          destination: ReportCollate
+          group: default
           producer:
             requiredGroups: default
 
-        ReportCollate:
+        ReportCollateIn:
+          content-type: application/json
+          destination: ReportCollate
+          group: default
+
+        ReportAggregateReportsOut:
+          content-type: application/json
+          destination: ReportAggregateReports
+          group: default
+          producer:
+            requiredGroups: default
+
+        ReportAggregateReportsIn:
+          content-type: application/json
+          destination: ReportAggregateReports
+          group: default
+
+        AggregateRequest:
           content-type: application/json
           group: default
           producer:
             requiredGroups: default
 
-        ReportAggregateReports:
+        AggregateResponse:
           content-type: application/json
           group: default
           producer:

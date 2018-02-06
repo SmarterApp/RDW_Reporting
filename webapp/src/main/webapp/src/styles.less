@@ -49,6 +49,17 @@
 @aqua: #0f6bad;
 
 /**
+ * Bootstrap addition
+ */
+.list-group.list-group-md > .list-group-item {
+  padding: 10px 15px;
+}
+
+.list-group.list-group-sm > .list-group-item {
+  padding: 8px 12px;
+}
+
+/**
   Required to meet WCAG 2 AA contrast ratio
  */
 .navbar-default {
@@ -331,6 +342,36 @@ body .select-menu-group {
   padding: 0.5em 0.5em 0.5em 0;
 }
 
+/**
+ * TODO candidate for moving to UI kit
+ */
+.nested-btn-group.vertical .btn-group .btn:last-child {
+  margin-bottom: 0;
+}
+
+/**
+ * Minor style fixes for vertical checkbox group.
+ * The default btn-group style is margin-left: -1px
+ */
+.nested-btn-group.vertical .btn-group .btn + .btn {
+  margin-left: 0;
+}
+
+/**
+ * Removes left border for vertical checkbox groups without the all option
+ */
+.nested-btn-group.vertical:not(.all-option) .btn-group {
+  border-left: none;
+}
+
+/**
+ * Styles for horizontal checkbox groups without an all option
+ */
+.nested-btn-group.btn-group-sm:not(.all-option) .btn-group {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
 .btn-group-vertical > .btn {
   margin-bottom: 5px;
 }
@@ -433,7 +474,7 @@ body .select-menu-group {
   padding: @table-cell-padding;
 }
 
-.aggregate-report-results {
+aggregate-report-results {
   .table .scale-score {
     font-size: inherit;
   }
@@ -605,12 +646,19 @@ query-builder {
   }
 }
 
-.disabled-table {
+.disabled-table-container {
+  .disabled-table {
+    cursor: not-allowed;
+    opacity: .7;
+  }
+  opacity: 1;
   background-color: @black;
-  cursor: not-allowed;
-  opacity: .7;
   min-width: fit-content;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
+
 @media (min-width: 768px) {
   .container-jumbo {
     min-width: 768px !important;
@@ -637,12 +685,91 @@ query-builder {
 }
 
 .disabled-table-text {
-  position: relative;
-  top: 35px;
-  z-index: 2;
-  margin-left: 10px;
   background: @red-dark;
   color: @white;
   padding: 5px;
   border-radius: 5px;
+}
+
+aggregate-reports {
+  .well-group .well {
+    padding-bottom: 20px;
+  }
+  .well-group > .well:not(:first-child) {
+    box-shadow: none;
+  }
+  .nested-btn-group {
+    margin-bottom: 0;
+  }
+  .performance-comparison-graph {
+    margin: -6px;
+  }
+  .inline-label {
+    font-weight: normal;
+  }
+}
+
+.aggregate-report-summary {
+  .column-heading {
+    height: 48px;
+    padding-left: @padding-small-horizontal;
+  }
+  .column-label-container {
+    height: 96px;
+    border-left: 1px solid @gray-light;
+    padding: @padding-base-horizontal 0 @padding-base-horizontal @padding-small-horizontal;
+    .column-label {
+      color: white;
+      border-radius: @border-radius-base @border-radius-base @border-radius-base @border-radius-base;
+      padding: @padding-xs-horizontal @padding-small-horizontal @padding-xs-horizontal @padding-small-horizontal;
+    }
+  }
+  .column-values {
+    padding-left: @padding-small-horizontal;
+    .label {
+      padding-left: 0;
+    }
+  }
+  .heading-column {
+    .column-heading-container {
+      border-left: 1px solid @gray-darker;
+    }
+    .column-label-container {
+      border-left: none;
+    }
+  }
+}
+
+.writing-trait-scores {
+  min-width: 60% !important;
+}
+
+@media (max-width: 991px) {
+  .leftnav {
+    position: static;
+  }
+}
+
+.leftnav {
+  border-left: 1px solid @gray-darker;
+  max-width: 200px;
+}
+
+.nav > li > button {
+  position: relative;
+  display: block;
+  margin: 10px 15px;
+}
+
+scroll-nav li a {
+  &.active {
+    color: @blue-dark;
+    font-weight: bolder;
+  }
+}
+
+aggregate-report-organization-list {
+  .list-group {
+    margin-bottom: 10px; /* was 20 */
+  }
 }

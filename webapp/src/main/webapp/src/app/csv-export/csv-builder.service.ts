@@ -11,6 +11,7 @@ import { AssessmentItem } from "../assessments/model/assessment-item.model";
 import { DynamicItemField } from "../assessments/model/item-point-field.model";
 import { SchoolYearPipe } from "../shared/format/school-year.pipe";
 import { Utils } from "../shared/support/support";
+import { WritingTraitAggregate } from "../assessments/model/writing-trait-aggregate.model";
 
 @Injectable()
 export class CsvBuilder {
@@ -413,6 +414,45 @@ export class CsvBuilder {
         }
       )
     });
+    return this;
+  }
+
+  withPerformanceTaskWritingType(getAssessmentItem: (item: any) => AssessmentItem) {
+    return this.withColumn(
+      this.translateService.instant('labels.groups.results.assessment.items.cols.purpose'),
+      (item) => getAssessmentItem(item).performanceTaskWritingType
+    );
+  }
+
+  withWritingTraitAggregate(getWritingTraitAggregate: (item: any) => WritingTraitAggregate,
+                            maxPoints: number,
+                            showAsPercent: boolean) {
+
+    this.withColumn(
+      this.translateService.instant('labels.groups.results.assessment.items.cols.category'),
+      (item) => this.translateService.instant('enum.writing-trait.' + getWritingTraitAggregate(item).trait.type)
+    );
+
+    this.withColumn(
+      this.translateService.instant('labels.groups.results.assessment.items.cols.average'),
+      (item) => this.numberPipe.transform(getWritingTraitAggregate(item).average, '1.0-1')
+    );
+
+    this.withColumn(
+      this.translateService.instant('labels.groups.results.assessment.items.cols.max-points'),
+      (item) => this.numberAsString(getWritingTraitAggregate(item).trait.maxPoints, false)
+    );
+
+    for (let i=0; i <= maxPoints; i++) {
+      this.withColumn(
+        this.translateService.instant('labels.groups.results.assessment.items.cols.x-points', { id: i }),
+        (item) => {
+          let value = showAsPercent ? getWritingTraitAggregate(item).percents[i] : getWritingTraitAggregate(item).numbers[i];
+          return Utils.isNullOrUndefined(value) ? '' : this.numberAsString(value, showAsPercent);
+        }
+      );
+    }
+
     return this;
   }
 

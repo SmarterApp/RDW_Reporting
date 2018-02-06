@@ -1,7 +1,9 @@
-import { Component, forwardRef, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { Utils } from "./support/support";
 
-const NOOP: () => void = () => {};
+const NOOP: () => void = () => {
+};
 
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -10,17 +12,29 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 };
 
 /**
+ * TODO rename to sb-radio-button-group
+ *
  * A two state switch component that can be used in place of a checkbox
  * @example <code><sb-toggle [options]="[{value: true, text: 'On'}, {value: false, text: 'Off'}]" [(ngModel)]="myModel"></sb-toggle></code>
  */
 @Component({
   selector: 'sb-toggle',
   template: `
-    <div class="btn-group btn-group-sm toggle-group" data-toggle="buttons">
-      <label *ngFor="let option of options" class="btn btn-primary" [ngClass]="{active: option.value === value, disabled: disabled}">
-        <input type="radio" [id]="name" [name]="name" [disabled]="disabled" [value]="option.value" [(ngModel)]="value"
-               angulartics2On="click" [angularticsEvent]="analyticsEvent"
-               [angularticsCategory]="analyticsCategory" [angularticsProperties]="option.angularticsProperties || {label: option.text}">{{option.text}}
+    <div class="btn-group btn-group-sm toggle-group"
+         data-toggle="buttons">
+      <label *ngFor="let option of options"
+             class="btn btn-primary"
+             [ngClass]="{active: option.value === value, disabled: disabled}">
+        <input type="radio"
+               [id]="name"
+               [name]="name"
+               [disabled]="disabled"
+               [value]="option.value"
+               [(ngModel)]="value"
+               angulartics2On="click"
+               [angularticsEvent]="analyticsEvent"
+               [angularticsCategory]="analyticsCategory"
+               [angularticsProperties]="option.analyticsProperties || {label: option.text}">{{option.text}}
       </label>
     </div>
   `,
@@ -32,7 +46,7 @@ export class SBToggleComponent implements ControlValueAccessor, OnInit {
   disabled: boolean = false;
 
   @Input()
-  name: string;
+  name: string = Utils.newGuid();
 
   /**
    *  The analytics event to send when clicked
@@ -59,9 +73,6 @@ export class SBToggleComponent implements ControlValueAccessor, OnInit {
   set options(options: Option[]) {
     if (options == null || typeof options === 'undefined') {
       this.throwError('options must not be null or undefined');
-    }
-    if (options.length != 2) {
-      this.throwError('expected two options but got ' + options.length);
     }
     this._options = options.map(option => <Option>{
       value: option.value,
@@ -122,5 +133,5 @@ export class SBToggleComponent implements ControlValueAccessor, OnInit {
 export interface Option {
   value: any;
   text?: string;
-  angularticsProperties?: any;
+  analyticsProperties?: any;
 }

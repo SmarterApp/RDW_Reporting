@@ -11,23 +11,51 @@
     </ng-template>
   </p-column>
   <p-column field="session" header="{{'labels.groups.results.assessment.exams.cols.session' | translate}}" [sortable]="true"></p-column>
-  <p-column class="text-center" field="enrolledGrade" header="{{'labels.groups.results.assessment.exams.cols.grade' | translate}}" [sortable]="true">
+  <p-column field="enrolledGrade" header="{{'labels.groups.results.assessment.exams.cols.grade' | translate}}" [sortable]="true">
     <ng-template let-score="rowData" pTemplate="body">
       {{ score.enrolledGrade | gradeDisplay:'enrolled-name' }}
     </ng-template>
   </p-column>
-  <p-column field="school.name" header="{{'labels.groups.results.assessment.exams.cols.school' | translate }}" sortable="true"></p-column>
+  <p-column field="school.name" header="{{'labels.groups.results.assessment.exams.cols.school' | translate }}" [sortable]="true"></p-column>
   <p-column *ngIf="includeResponse" field="response" header="{{'labels.assessments.items.tabs.scores.response' | translate}}" [sortable]="true"></p-column>
-  <p-column field="score" header="{{'labels.assessments.items.tabs.scores.score' | translate}}" [sortable]="true"></p-column>
-  <p-column field="maxScore" header="{{'labels.assessments.items.tabs.scores.max' | translate}}" [sortable]="true"></p-column>
-  <p-column field="correctness" header="{{'labels.assessments.items.tabs.scores.correctness' | translate}}" [sortable]="true">
+  <p-column *ngIf="includeWritingTraitScores" field="writingTraitScores.evidence" header="{{'enum.writing-trait.evidence' | translate}}" [sortable]="true">
+    <ng-template let-score="rowData" pTemplate="body">
+      <div class="text-center">{{ (score.writingTraitScores ? score.writingTraitScores.evidence : null) | optional }}</div>
+    </ng-template>
+  </p-column>
+  <p-column *ngIf="includeWritingTraitScores" field="writingTraitScores.organization" header="{{'enum.writing-trait.organization' | translate}}" [sortable]="true">
+    <ng-template let-score="rowData" pTemplate="body">
+      <div class="text-center">{{ (score.writingTraitScores ? score.writingTraitScores.organization : null) | optional }}</div>
+    </ng-template>
+  </p-column>
+  <p-column *ngIf="includeWritingTraitScores" field="writingTraitScores.conventions" header="{{'enum.writing-trait.conventions' | translate}}" [sortable]="true">
+    <ng-template let-score="rowData" pTemplate="body">
+      <div class="text-center">{{ (score.writingTraitScores ? score.writingTraitScores.conventions : null) | optional }}</div>
+    </ng-template>
+  </p-column>
+  <p-column field="score" header="{{(includeWritingTraitScores ? 'enum.writing-trait.total' : 'labels.assessments.items.tabs.scores.score') | translate}}" [sortable]="true">
+    <ng-template pTemplate="header">
+      <span *ngIf="includeWritingTraitScores" info-button title="{{'enum.writing-trait.total' | translate}}"
+            content="{{'enum.writing-trait.total-info' | translate}}"></span>
+      <span *ngIf="!includeWritingTraitScores">{{ 'labels.assessments.items.tabs.scores.score' | translate}}</span>
+    </ng-template>
+    <ng-template let-score="rowData" pTemplate="body">
+      <div class="text-center">{{ score.score | optional }}</div>
+    </ng-template>
+  </p-column>
+  <p-column *ngIf="!includeWritingTraitScores" field="maxScore" header="{{'labels.assessments.items.tabs.scores.max' | translate}}" [sortable]="true">
+    <ng-template let-score="rowData" pTemplate="body">
+      <div class="text-center">{{ score.maxScore }}</div>
+    </ng-template>
+  </p-column>
+  <p-column *ngIf="!includeWritingTraitScores" field="correctness" header="{{'labels.assessments.items.tabs.scores.correctness' | translate}}" [sortable]="true">
     <ng-template let-correctness="rowData.correctness" pTemplate="body">
-      {{ correctness | number:'1.2-2' }}
+      <div class="text-center">{{ correctness | number:'1.2-2' }}</div>
     </ng-template>
   </p-column>
   <ng-template let-score pTemplate="rowexpansion">
     <div class="tab-content well">
-      <item-viewer [bankItemKey]="item.bankItemKey"
+      <item-viewer [item]="item"
                    [response]="score.response"
                    [position]="item.position"></item-viewer>
     </div>

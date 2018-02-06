@@ -140,6 +140,7 @@ export class AssessmentExamMapper {
     uiModel.points = apiModel.points;
     uiModel.position = apiModel.position;
     uiModel.response = apiModel.response;
+    uiModel.writingTraitScores = apiModel.writingTraitScores;
 
     return uiModel;
   }
@@ -160,8 +161,11 @@ export class AssessmentExamMapper {
     uiModel.maxPoints = apiModel.maximumPoints;
     uiModel.commonCoreStandardIds = apiModel.commonCoreStandardIds || [];
     uiModel.type = apiModel.type;
-    uiModel.answerKey = apiModel.answerKey;
     uiModel.numberOfChoices = apiModel.optionsCount;
+    uiModel.performanceTaskWritingType = apiModel.performanceTaskWritingType;
+
+    // only multiple choice and multiple select have valid answer keys, so ignore the others
+    uiModel.answerKey = (apiModel.type === 'MC' || apiModel.type === 'MS') ? apiModel.answerKey : undefined;
 
     return uiModel;
   }

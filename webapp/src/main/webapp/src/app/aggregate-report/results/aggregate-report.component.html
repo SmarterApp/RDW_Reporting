@@ -1,0 +1,41 @@
+<h2 class="h3 blue-dark">{{report.label}}</h2>
+
+<ng-container *ngIf="loading">
+  <spinner></spinner>
+</ng-container>
+
+<ng-container *ngIf="!reportSizeSupported">
+  <div class="well">
+    <p>{{'aggregate-report.unsupported-size-error' | translate}}</p>
+    <ng-container *ngTemplateOutlet="updateRequestButton"></ng-container>
+  </div>
+
+</ng-container>
+
+<ng-container *ngIf="!loading">
+
+  <div class="mb-sm">
+    <ng-container *ngTemplateOutlet="updateRequestButton"></ng-container>
+  </div>
+
+  <div *ngFor="let table of reportTables" class="well wide-content-container">
+
+    <h3 class="h3 label-group green">
+      <span class="label">{{'common.assessment-type.' + report.request.assessmentTypeCode + '.short-name' | translate}}</span><span class="label">{{'common.subject.' + table.subjectCode + '.short-name' | translate}}</span>
+    </h3>
+
+    <div class="mt-xs">
+      <aggregate-report-table [table]="table"
+                              [dimensionRanking]="dimensionRanking"
+                              [showValuesAsPercent]="report.request.valueDisplayType === 'Percent'"
+                              [groupPerformanceLevels]="report.request.performanceLevelDisplayType === 'Grouped'"
+                              [columnOrdering]="['organization', 'assessmentGrade', 'schoolYear', 'dimension']"></aggregate-report-table>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #updateRequestButton>
+  <button class="btn btn-default btn-sm" (click)="onUpdateRequestButtonClick()">
+    <i class="fa fa-chevron-left mr-xs"></i>{{'aggregate-report.update-request' | translate}}
+  </button>
+</ng-template>

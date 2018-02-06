@@ -51,18 +51,7 @@ sql:
 
     item:
       findAllForExam: >-
-        select
-          ei.exam_id,
-          ei.item_id,
-          ei.score,
-          ei.position,
-          ei.response
-        from exam_item ei
-          join exam e on ei.exam_id=e.id
-          join student st on st.id = e.student_id
-          join asmt a on a.id = e.asmt_id
-          join school s on e.school_id=s.id
-          join school isch on st.inferred_school_id = isch.id
+        ${sql.reporting.snippet.selectFromExamItem}
         where e.id=:exam_id
           and ${sql.reporting.snippet.unknownScopePermission}
 
@@ -396,7 +385,8 @@ sql:
               i.common_core_standard_ids,
               i.answer_key,
               i.options_count,
-              i.type
+              i.type,
+              i.performance_task_writing_type
             from item i
 
       selectFromExamItem: >-
@@ -406,7 +396,10 @@ sql:
               ei.item_id,
               ei.score,
               ei.position,
-              ei.response
+              ei.response,
+              ei.trait_evidence_elaboration_score,
+              ei.trait_organization_purpose_score,
+              ei.trait_conventions_score
             from exam_item ei
             join exam e on ei.exam_id=e.id
             join asmt a on e.asmt_id=a.id

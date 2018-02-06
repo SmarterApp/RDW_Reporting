@@ -1,55 +1,34 @@
 import { Injectable } from "@angular/core";
-import { DataService } from "../../shared/data/data.service";
 import { QueryBuilderModel } from "../model/query-builder.model";
 import { ResponseUtils } from "../../shared/response-utils";
 import { Observable } from "rxjs/Observable";
+import { CachingDataService } from "../../shared/data/caching-data.service";
 
-const ServiceRoute = '/aggregate-service/reportOptions';
+const ServiceRoute = '/aggregate-service';
+const safeLocaleCompare = (a, b) => a && b ? a.localeCompare(b) : 0;
+const safeReverseLocaleCompare = (a, b) => a && b ? b.localeCompare(a) : 0;
 
 @Injectable()
 export class ReportOptionsService {
 
-  private _compareFn = (a, b) => {
-    return a && b ? a.localeCompare(b) : 0;
-  };
-
-  constructor(private dataService: DataService) {
+  constructor(private dataService: CachingDataService) {
   }
 
   get(): Observable<any> {
-    return this.dataService.get(`${ServiceRoute}`)
+    return this.dataService.get(`${ServiceRoute}/reportOptions`)
       .catch(ResponseUtils.badResponseToNull)
-      .map(x => {
-        if (x == null) {
-          return x;
-        }
-        return this.mapFromApi(x);
-      });
+      .map(x => x == null ? null : this.mapFromApi(x));
   }
 
-  private mapFromApi(apiModel): QueryBuilderModel {
-    let uiModel: QueryBuilderModel = new QueryBuilderModel();
-
-    uiModel.schoolYears = apiModel.schoolYears.sort((a, b) => b - a);
-
-    uiModel.assessmentTypes = [];
-    apiModel.assessmentTypes.forEach(assessmentType => uiModel.assessmentTypes.push(assessmentType.code));
-    uiModel.assessmentTypes.sort(this._compareFn);
-
-    uiModel.ethnicities = [];
-    apiModel.ethnicities.forEach(ethnicity => uiModel.ethnicities.push(ethnicity.code));
-    uiModel.ethnicities = uiModel.ethnicities.sort(this._compareFn);
-
-    uiModel.genders = [];
-    apiModel.genders.forEach(gender => uiModel.genders.push(gender.code));
-    uiModel.genders = uiModel.genders.sort((a, b) => a && b ? b.localeCompare(a) : 0);
-
-    uiModel.grades = [];
-    apiModel.grades.forEach(grade => uiModel.grades.push(grade.code));
-    uiModel.grades = uiModel.grades.sort(this._compareFn);
-
-    uiModel.subjects = [];
-    apiModel.subjects.forEach(subject => uiModel.subjects.push(subject.code));
-    return uiModel;
+  private mapFromApi(remote): QueryBuilderModel {
+    const local: QueryBuilderModel = new QueryBuilderModel();
+    local.grades = remote.assessmentGrades.map(grade => grade.code).sort(safeLocaleCompare);
+    local.assessmentTypes = remote.assessmentTypes.map(type => type.code).sort(safeLocaleCompare);
+    local.ethnicities = remote.ethnicities.map(ethnicity => ethnicity.code).sort(safeLocaleCompare);
+    local.genders = remote.genders.map(gender => gender.code).sort(safeReverseLocaleCompare);
+    local.schoolYears = remote.schoolYears.sort((a, b) => b - a);
+    local.subjects = remote.subjects.map(subject => subject.code);
+    return local;
   }
+
 }

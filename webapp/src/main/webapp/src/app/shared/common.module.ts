@@ -15,7 +15,7 @@ import { NotificationComponent } from "./notification/notification.component";
 import { NotificationService } from "./notification/notification.service";
 import { AlertModule, PopoverModule } from "ngx-bootstrap";
 import { DatePipe, DecimalPipe } from "@angular/common";
-import { LoaderComponent } from "./loader/loader.component";
+import { RdwLoadingModule } from "./loading/rdw-loading.module";
 import { SBToggleComponent } from "./sb-toggle.component";
 import { InformationButtonComponent } from "./button/information-button.component";
 import { ScaleScoreComponent } from "./scale-score/scale-score.component";
@@ -34,6 +34,9 @@ import {
   AuthenticationServiceAuthenticationExpiredRoute,
   AuthenticationServiceDefaultAuthenticationRoute
 } from "./security/authentication.service";
+import { OrganizationModule } from "./organization/organization.module";
+import { ScrollNavComponent } from "./nav/scroll-nav.component";
+import { OptionalPipe } from "./optional.pipe";
 
 
 @NgModule({
@@ -41,7 +44,8 @@ import {
     AssessmentTypePipe,
     GradeDisplayPipe,
     InformationButtonComponent,
-    LoaderComponent,
+    OptionalPipe,
+    ScrollNavComponent,
     NotificationComponent,
     RemoveCommaPipe,
     SBCheckboxList,
@@ -55,6 +59,7 @@ import {
     BrowserModule,
     FormsModule,
     HttpModule,
+    OrganizationModule,
     PopoverModule.forRoot(),
     RdwCoreModule,
     RdwDataModule.forRoot(),
@@ -63,6 +68,7 @@ import {
     RdwFormatModule,
     RdwI18nModule,
     RdwLayoutModule,
+    RdwLoadingModule,
     RdwMenuModule,
     RdwPreferenceModule,
     RdwSecurityModule,
@@ -77,8 +83,10 @@ import {
     AssessmentTypePipe,
     GradeDisplayPipe,
     InformationButtonComponent,
-    LoaderComponent,
+    OptionalPipe,
     NotificationComponent,
+    ScrollNavComponent,
+    OrganizationModule,
     RemoveCommaPipe,
     RouterModule,
     RdwCoreModule,
@@ -87,6 +95,7 @@ import {
     RdwFormatModule,
     RdwI18nModule,
     RdwLayoutModule,
+    RdwLoadingModule,
     RdwPreferenceModule,
     RdwSecurityModule,
     SBCheckboxList,

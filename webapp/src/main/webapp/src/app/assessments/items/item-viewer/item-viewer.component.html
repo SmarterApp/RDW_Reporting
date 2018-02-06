@@ -4,13 +4,12 @@
       <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">{{ 'messages.loading' | translate }}</span>
     </div>
   </div>
-  <div *ngIf="rubricModel" style="white-space: normal">
-    <div *ngIf="rubricModel.answerKeyValue" class="mb-md">
-      <strong>{{ 'labels.assessments.items.tabs.exemplar.answer-key' | translate }}</strong> {{rubricModel.answerKeyValue}}
-    </div>
-    <div *ngIf="!rubricModel.answerKeyValue" class="mb-md">
-      {{ 'labels.assessments.items.tabs.item-viewer-see-rubric' | translate }}
-    </div>
+
+  <div *ngIf="item.answerKey" class="mb-md">
+    <strong>{{ 'labels.assessments.items.tabs.exemplar.answer-key' | translate }}</strong> {{ item.answerKey }}
+  </div>
+  <div *ngIf="!item.answerKey" class="mb-md">
+    {{ 'labels.assessments.items.tabs.item-viewer-see-rubric' | translate }}
   </div>
   <p>
     {{ 'labels.assessments.items.tabs.item-viewer-intro-text' | translate }}

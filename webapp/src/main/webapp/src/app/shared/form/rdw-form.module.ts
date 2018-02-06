@@ -4,21 +4,28 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TypeaheadModule } from "ngx-bootstrap";
 import { SBButtonTypeahead } from "./sb-button-typeahead.component";
 import { SBTypeahead } from "./sb-typeahead.component";
+import { SBCheckboxGroup } from "./sb-checkbox-group.component";
+import { Angulartics2Module } from "angulartics2";
+import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
     SBTypeahead,
-    SBButtonTypeahead
+    SBButtonTypeahead,
+    SBCheckboxGroup
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    TypeaheadModule.forRoot()
+    TypeaheadModule.forRoot(),
+    TranslateModule.forRoot(),
+    Angulartics2Module.forChild(),
   ],
   exports: [
     SBTypeahead,
-    SBButtonTypeahead
+    SBButtonTypeahead,
+    SBCheckboxGroup
   ]
 })
 export class RdwFormModule {

@@ -1,0 +1,60 @@
+<h5>{{'labels.student.responses.writing-trait-purpose' | translate:{traitType: responsesAssessmentItem.assessmentItem.performanceTaskWritingType } }}</h5>
+
+<table class="table table-striped table-hover writing-trait-scores">
+  <thead class="ui-datatable-thead">
+  <tr>
+    <th>{{'labels.groups.results.assessment.items.cols.category' | translate}}</th>
+    <th>{{'labels.student.responses.cols.student-points' | translate}}</th>
+    <th>{{'labels.student.responses.cols.max-points' | translate}}</th>
+    <th>
+      <span info-button title="{{'labels.student.responses.cols.correctness' | translate}}"
+            content="{{'labels.student.responses.cols.correctness-info' | translate}}"></span>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>{{'enum.writing-trait.evidence' | translate}}</td>
+    <td>
+      {{ evidence | optional }}
+    </td>
+    <td>{{ evidenceMaxPoints }}</td>
+    <td>
+      {{ evidence | optional:(evidenceCorrectness | number:'1.2-2') }}
+    </td>
+  </tr>
+  <tr>
+    <td>{{'enum.writing-trait.organization' | translate}}</td>
+    <td>
+      {{ organization | optional }}
+    </td>
+    <td>{{ organizationMaxPoints }}</td>
+    <td>
+      {{ organization | optional:(organizationCorrectness | number:'1.2-2') }}
+    </td>
+  </tr>
+  <tr>
+    <td>{{'enum.writing-trait.conventions' | translate}}</td>
+    <td>
+      {{ conventions | optional }}
+    </td>
+    <td>{{ conventionsMaxPoints }}</td>
+    <td>
+      {{ conventions | optional:(conventionsCorrectness | number:'1.2-2') }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span info-button title="{{'enum.writing-trait.total' | translate}}"
+            content="{{'enum.writing-trait.total-info' | translate}}"></span>
+    </td>
+    <td>
+      {{ responsesAssessmentItem.score | optional }}
+    </td>
+    <td>{{ responsesAssessmentItem.assessmentItem.maxPoints }}</td>
+    <td>
+      {{ responsesAssessmentItem.score | optional:(totalCorrectness | number:'1.2-2') }}
+    </td>
+  </tr>
+  </tbody>
+</table>

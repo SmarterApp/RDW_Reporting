@@ -8,14 +8,16 @@ import { ItemScoringGuide } from "./model/item-scoring-guide.model";
 import { MockDataService } from "../../../../test/mock.data.service";
 import { CachingDataService } from "../../../shared/data/caching-data.service";
 import { DataService } from "../../../shared/data/data.service";
+import {AssessmentItem} from "../../model/assessment-item.model";
+import {Component} from "@angular/core";
 
 describe('ItemExemplarComponent', () => {
   let component: ItemExemplarComponent;
-  let fixture: ComponentFixture<ItemExemplarComponent>;
+  let fixture: ComponentFixture<TestComponentWrapper>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemExemplarComponent ],
+      declarations: [ ItemExemplarComponent, TestComponentWrapper ],
       imports: [ CommonModule ],
       providers: [
         ItemScoringService,
@@ -28,8 +30,8 @@ describe('ItemExemplarComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ItemExemplarComponent);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(TestComponentWrapper);
+    component = fixture.debugElement.children[ 0 ].componentInstance;
     fixture.detectChanges();
   });
 
@@ -43,4 +45,12 @@ class MockItemScoringService extends ItemScoringService {
   getGuide(item: string) {
     return Observable.of(new ItemScoringGuide());
   }
+}
+
+@Component({
+  selector: 'test-component-wrapper',
+  template: '<item-exemplar [item]="item"></item-exemplar>'
+})
+class TestComponentWrapper {
+  item = new AssessmentItem();
 }
