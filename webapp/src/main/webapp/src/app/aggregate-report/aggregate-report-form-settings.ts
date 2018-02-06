@@ -1,16 +1,11 @@
-import { CodedEntity } from "./aggregate-report-options";
 import { District, School } from "../shared/organization/organization";
+import { CodedEntity } from "../shared/coded-entity";
 
 /**
  * Client side representation of a report request.
  * This object must be mapped into a format that the server supports
  */
 export interface AggregateReportFormSettings {
-
-  /**
-   * The achievement level graph display type
-   */
-  achievementLevelDisplayType: string;
 
   /**
    * Assessment grades to be covered on the report
@@ -66,6 +61,11 @@ export interface AggregateReportFormSettings {
    * Migrant status result filter
    */
   migrantStatuses: CodedEntity[];
+
+  /**
+   * The achievement level graph display type
+   */
+  performanceLevelDisplayType: string;
 
   /**
    * Plan 504 result filter

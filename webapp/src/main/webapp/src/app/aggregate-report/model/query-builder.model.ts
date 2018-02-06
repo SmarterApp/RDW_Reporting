@@ -1,3 +1,6 @@
+/**
+ * @deprecated
+ */
 export class QueryBuilderModel {
   assessmentTypes: string[] = [];
   subjects: string[] = [];

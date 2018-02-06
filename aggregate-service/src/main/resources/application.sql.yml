@@ -86,59 +86,13 @@ sql:
     findAllByType: >-
        SELECT
          a.id as asmt_id,
-         a.grade_id as asmt_grade_id,
+         g.code as asmt_grade_code,
          ay.school_year,
          s.code as subject_code,
          a.label as asmt_label
        FROM asmt_active_year ay
          JOIN asmt a ON a.id = ay.asmt_id
          JOIN subject s ON s.id = a.subject_id
-        WHERE a.type_id = :asmt_type_id
-
-  # SQL does not support an Aggregate Product, but this seems to be a recommended way
-  estimateReportRowCount: >-
-   SELECT round(exp(sum(ln(count)))) as count from (
-    SELECT sum(org_count)  AS count, 'organizations' AS type
-      FROM
-      (
-        SELECT CASE WHEN :isIncludeState THEN 1 ELSE 0 END AS org_count
-        UNION ALL
-        SELECT CASE WHEN :isIncludeAllDistricts THEN (SELECT count(*) FROM district) ELSE 0 END AS org_count
-        UNION ALL
-        SELECT CASE WHEN :isIncludeDistricts THEN (SELECT count(*) FROM district WHERE id IN(:district_ids)) ELSE 0 END AS org_count
-        UNION ALL
-        SELECT CASE WHEN :isIncludeAllSchoolsInDistricts THEN (SELECT count(*) FROM school WHERE district_id IN (:school_district_ids)) ELSE 0 END AS org_count
-        UNION ALL
-        SELECT CASE WHEN :isIncludeSchools THEN (SELECT count(*) FROM school WHERE id IN (:school_ids)) ELSE 0 END AS org_count
-      )
-    
-    UNION ALL
-    
-    SELECT count(*)  AS count, 'assessments' AS type
-      FROM asmt_active_year ay LEFT JOIN asmt a ON a.id = ay.asmt_id
-      WHERE a.grade_id IN (:asmt_grade_ids) AND a.subject_id IN (:subject_ids) AND a.type_id = :asmt_type_id AND ay.school_year IN (:school_years)
-    
-    UNION ALL
-    
-    SELECT sum(dim_count) AS count, 'dimensions' AS type
-    FROM
-      (
-        SELECT CASE WHEN :gender THEN (select count(*) from gender where (true = :all_genders OR id in (:gender_ids)) ) ELSE 0 END AS dim_count
-        UNION ALL
-        SELECT CASE WHEN :ethnicity THEN (select count(*) from ethnicity where (true = :all_ethnicities OR id in (:ethnicity_ids)) ) ELSE 0 END AS dim_count
-        UNION ALL
-        SELECT CASE WHEN :iep THEN (select count(*) from strict_boolean where (true = :all_ieps OR id in (:iep_ids)) ) ELSE 0 END AS dim_count
-        UNION ALL
-        SELECT CASE WHEN :lep THEN (select count(*) from strict_boolean where (true = :all_leps OR id in (:lep_ids)) ) ELSE 0 END AS dim_count
-        UNION ALL
-        SELECT CASE WHEN :section504 THEN (select count(*) from boolean where (true = :all_section504s OR id in (:section504_ids)) ) ELSE 0 END AS dim_count
-        UNION ALL
-        SELECT CASE WHEN :economic_disadvantage THEN (select count(*) from strict_boolean where (true = :all_economic_disadvantages OR id in (:economic_disadvantage_ids)) ) ELSE 0 END AS dim_count
-        UNION ALL
-        SELECT CASE WHEN :migrant_status THEN (select count(*) from boolean where (true = :all_migrant_statuses OR id in (:migrant_status_ids)) ) ELSE 0 END AS dim_count
-        UNION ALL
-        SELECT CASE WHEN :student_enrolled_grade THEN 1 ELSE 0 END AS dim_count
-        UNION ALL
-        SELECT CASE WHEN :overall THEN 1 ELSE 0 END AS dim_count
-      )
-    )
+         JOIN asmt_type at on at.id = a.type_id
+         JOIN grade g on g.id = a.grade_id
+        WHERE at.code= :asmt_type_code

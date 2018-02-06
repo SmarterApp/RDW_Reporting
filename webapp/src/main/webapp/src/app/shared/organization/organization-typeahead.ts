@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Organization } from "./organization";
 import { AbstractControlValueAccessor } from "../form/abstract-control-value-accessor";
+import { TypeaheadMatch } from "ngx-bootstrap";
 
 @Component({
   selector: 'organization-typeahead',
@@ -13,7 +14,7 @@ import { AbstractControlValueAccessor } from "../form/abstract-control-value-acc
            [typeahead]="options"
            (typeaheadLoading)="loadingInternal = $event"
            (typeaheadNoResults)="noResultsInternal = $event"
-           (typeaheadOnSelect)="select.emit($event.item)"
+           (typeaheadOnSelect)="onTypeaheadSelectInternal($event)"
            [typeaheadMinLength]="3"
            [(ngModel)]="value"
            [typeaheadItemTemplate]="organizationTemplate"
@@ -50,6 +51,10 @@ export class OrganizationTypeahead extends AbstractControlValueAccessor<string> 
       this._value = value;
       this._onChangeCallback(value);
     }
+  }
+
+  onTypeaheadSelectInternal(event: TypeaheadMatch): void {
+    event.item && this.select.emit(event.item);
   }
 
 }

@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { ColorService } from "../../shared/color.service";
 
 /**
@@ -14,7 +13,7 @@ import { ColorService } from "../../shared/color.service";
 export class PerformanceComparisonComponent implements OnInit {
 
   @Input()
-  public assessmentType: AssessmentType;
+  public assessmentTypeCode: string;
 
   /**
    * The rollup performance level (1-based)
@@ -73,7 +72,7 @@ export class PerformanceComparisonComponent implements OnInit {
     let effectiveLevel = this.groupPerformanceLevels
       ? level == 0 ? this.performanceGroupingCutpoint - 2 : this.performanceGroupingCutpoint - 1
       : level;
-    return this.colorService.getPerformanceLevelColor({type: this.assessmentType} as any, effectiveLevel);
+    return this.colorService.getPerformanceLevelColorsByAssessmentTypeCode(this.assessmentTypeCode, effectiveLevel);
   }
 
 }

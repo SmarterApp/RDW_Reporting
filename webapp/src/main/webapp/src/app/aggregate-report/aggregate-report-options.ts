@@ -1,3 +1,5 @@
+import { CodedEntity } from "../shared/coded-entity";
+
 /**
  * Represents the aggregate report options as provided by the API
  */
@@ -19,15 +21,5 @@ export interface AggregateReportOptions {
   readonly statewideReporter: boolean;
   readonly subjects: CodedEntity[];
   readonly summativeAdministrationConditions: CodedEntity[];
-
-}
-
-/**
- * An entity ID - code pair
- */
-export interface CodedEntity {
-
-  readonly id: number;
-  readonly code: string;
 
 }

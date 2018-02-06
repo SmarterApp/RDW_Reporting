@@ -8,8 +8,11 @@ import { QueryBuilderModel } from "../model/query-builder.model";
 import { MockAggregateReportsService } from "./mock-aggregate-reports.service";
 import { AggregateReportQuery } from "../model/aggregate-report-query.model";
 import { SchoolYearPipe } from "../../shared/format/school-year.pipe";
-import { AggregateReportItem } from "../model/aggregate-report-item.model";
+import { AggregateReportItem } from "./aggregate-report-item";
 
+/**
+ * @deprecated
+ */
 @Component({
   selector: 'query-builder',
   templateUrl: './query-builder.component.html',

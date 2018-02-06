@@ -2,6 +2,7 @@ import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { AssessmentSubjectType } from "../../shared/enum/assessment-subject-type.enum";
 
 /**
+ * @deprecated
  * This model represents an aggregate report query
  */
 export class AggregateReportQuery {

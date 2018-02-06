@@ -34,6 +34,11 @@
     </ng-template>
   </p-column>
   <p-column field="score" header="{{(includeWritingTraitScores ? 'enum.writing-trait.total' : 'labels.assessments.items.tabs.scores.score') | translate}}" [sortable]="true">
+    <ng-template pTemplate="header">
+      <span *ngIf="includeWritingTraitScores" info-button title="{{'enum.writing-trait.total' | translate}}"
+            content="{{'enum.writing-trait.total-info' | translate}}"></span>
+      <span *ngIf="!includeWritingTraitScores">{{ 'labels.assessments.items.tabs.scores.score' | translate}}</span>
+    </ng-template>
     <ng-template let-score="rowData" pTemplate="body">
       <div class="text-center">{{ score.score | optional }}</div>
     </ng-template>

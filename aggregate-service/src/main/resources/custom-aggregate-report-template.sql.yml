@@ -14,17 +14,13 @@ sqlbuilder:
               sum(CASE WHEN performance_level = 3 THEN 1 ELSE 0 END) AS level3,
               sum(CASE WHEN performance_level = 4 THEN 1 ELSE 0 END) AS level4,
               fe.school_year,
-              fe.asmt_id,
-              a.grade_id as asmt_grade_id,
-              a.label as asmt_label,
-              sa.code as subject_code
+              fe.asmt_id
 
           from: >-
               fact_student_exam fe
 
           join: >-
               JOIN asmt a ON a.id = fe.asmt_id
-              JOIN subject sa ON sa.id = a.subject_id
 
           where: >-
               fe.school_year IN (:school_years) AND
@@ -34,10 +30,7 @@ sqlbuilder:
 
           groupBy: >-
               fe.school_year,
-              fe.asmt_id,
-              a.grade_id,
-              a.label,
-              sa.code
+              fe.asmt_id
 
       # ------------ organization parts -------------------------------------------------------------
         addons:

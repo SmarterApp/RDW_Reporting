@@ -1,37 +1,32 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { AggregateReportItem } from "../model/aggregate-report-item.model";
-import { AssessmentDetailsService } from "./assessment-details.service";
-import { AssessmentDetails } from "../model/assessment-details.model";
-import { HttpClient } from "@angular/common/http";
+import { AggregateReportItem } from "./aggregate-report-item";
 import { AggregateReportFormSettings } from "../aggregate-report-form-settings";
-import { CodedEntity } from "../aggregate-report-options";
+import { CodedEntity } from "../../shared/coded-entity";
+import { AssessmentDefinition } from "../assessment/assessment-definition";
+import { AssessmentDefinitionService } from "../assessment/assessment-definition.service";
+import { OrganizationMapper } from "../../shared/organization/organization.mapper";
 
 const avgScaleScore = 2500;
 const stdErr = 50;
 const studentsTested = 120;
+
 /**
  * This service is used by the aggregate reports preview
  */
 @Injectable()
 export class MockAggregateReportsPreviewService {
 
-  constructor(private http: HttpClient,
-              private assessmentDetailsService: AssessmentDetailsService) {
+  constructor(private assessmentDefinitionService: AssessmentDefinitionService,
+              private organizationMapper: OrganizationMapper) {
   }
 
   public generateSampleData(options: string[], settings: AggregateReportFormSettings) {
-    let detailsObservable: Observable<AssessmentDetails> = this.assessmentDetailsService.getDetails(settings.assessmentType.id);
-
-    let mockData: Array<any> = this.mockResponse(options, settings);
-
-    return Observable.forkJoin(detailsObservable, Observable.of(mockData))
-      .map((value) => {
-        let details: AssessmentDetails = value[ 0 ];
-        let apiReportItems: any = value[ 1 ];
-
-        if (apiReportItems === null) return [];
-        return this.mapReportPreviewItemsFromApi(details, apiReportItems);
+    const mockData: Array<any> = this.mockResponse(options, settings);
+    return this.assessmentDefinitionService
+      .getDefinitionsByAssessmentTypeCode()
+      .map(definitions => {
+        const definition: AssessmentDefinition = definitions.get(settings.assessmentType.code);
+        return this.mapReportPreviewItemsFromApi(definition, mockData);
       });
   }
 
@@ -78,17 +73,16 @@ export class MockAggregateReportsPreviewService {
     return array;
   }
 
-  private mapReportPreviewItemsFromApi(details: AssessmentDetails, apiModels: any[]): AggregateReportItem[] {
-    return apiModels.map((apiModel, idx) => this.mapReportPreviewItemFromApi(details, apiModel, idx));
+  private mapReportPreviewItemsFromApi(definition: AssessmentDefinition, apiModels: any[]): AggregateReportItem[] {
+    return apiModels.map((apiModel, idx) => this.mapReportPreviewItemFromApi(definition, apiModel, idx));
   }
 
-  private mapReportPreviewItemFromApi(details: AssessmentDetails, apiModel: any, idx: number): AggregateReportItem {
+  private mapReportPreviewItemFromApi(definition: AssessmentDefinition, apiModel: any, idx: number): AggregateReportItem {
     let uiModel = new AggregateReportItem();
     uiModel.assessmentId = apiModel.assessment.id;
     uiModel.gradeId = apiModel.assessment.gradeId;
     uiModel.schoolYear = apiModel.examSchoolYear;
-    uiModel.organizationType = apiModel.organization.type;
-    uiModel.organizationName = apiModel.organization.name;
+    uiModel.organization = this.organizationMapper.map(apiModel.organization);
     uiModel.dimensionType = apiModel.dimension.type;
     uiModel.dimensionValue = apiModel.dimension.code || 'default';
     uiModel.itemId = idx;
@@ -98,12 +92,12 @@ export class MockAggregateReportsPreviewService {
     let apiMeasures = apiModel.measures || {};
     let totalTested: number = studentsTested;
     uiModel.studentsTested = totalTested;
-    for (let level = 1; level <= details.performanceLevels; level++) {
-      uiModel.performanceLevelCounts.push(Math.floor(totalTested / details.performanceLevels));
+    for (let level = 1; level <= definition.performanceLevelCount; level++) {
+      uiModel.performanceLevelCounts.push(Math.floor(totalTested / definition.performanceLevelCount));
     }
     uiModel.studentsTested = totalTested;
 
-    for (let level = 0; level < details.performanceLevels; level++) {
+    for (let level = 0; level < definition.performanceLevelCount; level++) {
       uiModel.performanceLevelPercents.push(Math.floor(100 / uiModel.performanceLevelCounts.length));
     }
 

@@ -6,7 +6,7 @@
 
 <div *ngIf="!loading" class="pt-sm">
   <p-dataTable #datatable [value]="filteredItems"
-               tableStyleClass="table table-striped table-hover" [tableStyle]="{'table-layout':'auto', 'min-width': 'auto'}"
+               tableStyleClass="table table-striped table-hover" [tableStyle]="{'table-layout':'auto', 'min-width': '65%'}"
                expandableRows="true" rowExpandMode="single">
     <p-column field="position" header="{{'labels.groups.results.assessment.items.cols.number' | translate}}">
       <ng-template let-row="rowData" let-item="rowData" pTemplate="body">

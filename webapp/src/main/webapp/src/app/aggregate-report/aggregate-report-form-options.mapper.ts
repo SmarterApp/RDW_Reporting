@@ -114,9 +114,9 @@ export class AggregateReportFormOptionsMapper {
           value => `Economic Disadvantage: ${value.code}`
         ))
         .sort(IdDescending),
-      achievementLevelDisplayTypes: [ 'Separate', 'Grouped' ]
+      performanceLevelDisplayTypes: [ 'Separate', 'Grouped' ]
         .map(optionMapper(
-          value => translate(`aggregate-reports.form.field.achievement-level-display-type.value.${value}`),
+          value => translate(`aggregate-reports.form.field.performance-level-display-type.value.${value}`),
           value => `Achievement Level Display Type: ${value}`
         )),
       valueDisplayTypes: [ 'Percent', 'Number' ]

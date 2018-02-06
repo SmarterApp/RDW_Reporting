@@ -3,12 +3,17 @@ import { MockAggregateReportsService } from "./mock-aggregate-reports.service";
 import { Observable } from "rxjs/Observable";
 import { AggregateReportQuery } from "../model/aggregate-report-query.model";
 import { AssessmentType } from "../../shared/enum/assessment-type.enum";
-import { AggregateReportItem } from "../model/aggregate-report-item.model";
+import { AggregateReportItem } from "./aggregate-report-item";
+import { AssessmentDefinitionService } from "../assessment/assessment-definition.service";
+import { OrganizationMapper } from "../../shared/organization/organization.mapper";
 
+/**
+ * @deprecated
+ */
 describe('MockAggregateReportsService', () => {
 
   let query: AggregateReportQuery;
-  let mockDetailsService: MockAssessmentDetailsService;
+  let mockAssessmentDefinitionService: MockAssessmentDefinitionService;
   let http: MockHttp;
   let service: MockAggregateReportsService;
 
@@ -16,14 +21,13 @@ describe('MockAggregateReportsService', () => {
     query = new AggregateReportQuery();
     query.assessmentType = AssessmentType.ICA;
 
-    mockDetailsService = new MockAssessmentDetailsService();
-    mockDetailsService.getDetails.and.returnValue(Observable.of({
-      performanceLevels: 4,
-      performanceGroupingCutpoint: 3
-    }));
+    mockAssessmentDefinitionService = new MockAssessmentDefinitionService();
+    mockAssessmentDefinitionService.getDefinitionsByAssessmentTypeCode.and.returnValue(
+      new AssessmentDefinitionService().getDefinitionsByAssessmentTypeCode()
+    );
 
     http = new MockHttp();
-    service = new MockAggregateReportsService(http as any, mockDetailsService as any);
+    service = new MockAggregateReportsService(http as any, mockAssessmentDefinitionService as any, new OrganizationMapper());
   });
 
   it('should map api report items to model instances', (done) => {
@@ -133,7 +137,7 @@ describe('MockAggregateReportsService', () => {
   let createApiItem = function(orgName: string): any {
     return {
       "dimension": { "type": "Overall" },
-      "organization": { "type": "School", "name": orgName, "id": 1 },
+      "organization": { "organizationType": "School", "name": orgName, "id": 1 },
       "assessment": { "id": 231, "gradeId": 6, "subjectId": 1 },
       "examSchoolYear": 2018,
       "measures": {
@@ -148,8 +152,8 @@ describe('MockAggregateReportsService', () => {
   }
 });
 
-class MockAssessmentDetailsService {
-  public getDetails: Spy = jasmine.createSpy("getDetails");
+class MockAssessmentDefinitionService {
+  public getDefinitionsByAssessmentTypeCode: Spy = jasmine.createSpy("getDefinitionsByAssessmentTypeCode");
 }
 
 class MockHttp {

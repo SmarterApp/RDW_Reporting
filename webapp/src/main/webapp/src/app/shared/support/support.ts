@@ -31,8 +31,14 @@ export class Utils {
     return undefined;
   }
 
-  static isNullOrEmpty(value: string): boolean {
-    return !Utils.isUndefined(value) && (value === null || value.length === 0);
+  /**
+   * Checks to see if the string or array is <code>null</code>, <code>undefined</code> or empty.
+   *
+   * @param {string | any[]} value
+   * @returns {boolean}
+   */
+  static isNullOrEmpty(value: string | any[]): boolean {
+    return Utils.isNullOrUndefined(value) || value.length === 0;
   }
 
   static isUndefined(value: any): boolean {
@@ -40,7 +46,7 @@ export class Utils {
   }
 
   static isNullOrUndefined(value: any): boolean {
-    return value == null || Utils.isUndefined(value);
+    return value == null;
   }
 
 }

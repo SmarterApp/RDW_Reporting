@@ -20,13 +20,21 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
 @Component({
   selector: 'sb-toggle',
   template: `
-    <div class="btn-group btn-group-sm toggle-group" data-toggle="buttons">
-      <label *ngFor="let option of options" class="btn btn-primary"
+    <div class="btn-group btn-group-sm toggle-group"
+         data-toggle="buttons">
+      <label *ngFor="let option of options"
+             class="btn btn-primary"
              [ngClass]="{active: option.value === value, disabled: disabled}">
-        <input type="radio" [id]="name" [name]="name" [disabled]="disabled" [value]="option.value" [(ngModel)]="value"
-               angulartics2On="click" [angularticsEvent]="analyticsEvent"
+        <input type="radio"
+               [id]="name"
+               [name]="name"
+               [disabled]="disabled"
+               [value]="option.value"
+               [(ngModel)]="value"
+               angulartics2On="click"
+               [angularticsEvent]="analyticsEvent"
                [angularticsCategory]="analyticsCategory"
-               [angularticsProperties]="option.angularticsProperties || {label: option.text}">{{option.text}}
+               [angularticsProperties]="option.analyticsProperties || {label: option.text}">{{option.text}}
       </label>
     </div>
   `,
@@ -125,5 +133,5 @@ export class SBToggleComponent implements ControlValueAccessor, OnInit {
 export interface Option {
   value: any;
   text?: string;
-  angularticsProperties?: any;
+  analyticsProperties?: any;
 }

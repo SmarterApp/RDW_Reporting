@@ -1,14 +1,14 @@
 import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { Ordering, ordering } from "@kourge/ordering";
-import { AggregateReportItem } from "./model/aggregate-report-item.model";
+import { AggregateReportItem } from "./results/aggregate-report-item";
 import { AssessmentType } from "../shared/enum/assessment-type.enum";
 import { byNumber, byString, Comparator, join, ranking } from "@kourge/ordering/comparator";
 import { ColorService } from "../shared/color.service";
 import { Column, DataTable } from "primeng/primeng";
 import { isNullOrUndefined } from "util";
 import * as _ from "lodash";
-import { AssessmentDetailsService } from "./results/assessment-details.service";
 import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
+import { AssessmentDefinitionService } from "./assessment/assessment-definition.service";
 
 /**
  * This component is responsible for displaying a table of aggregate report results
@@ -69,11 +69,11 @@ export class AggregateReportsPreviewTableComponent implements OnInit {
 
   private orderingByProperty: { [key: string]: Ordering<AggregateReportItem> } = {};
   private previousSort: any;
-  private performanceGroupingCutpoint: number;
+  public performanceGroupingCutpoint: number;
 
   constructor(public colorService: ColorService,
-              private assessmentDetailsService: AssessmentDetailsService) {
-    this.orderingByProperty.organizationName = ordering(byString).on((item) => item.organizationName);
+              private assessmentDefinitionService: AssessmentDefinitionService) {
+    this.orderingByProperty.organizationName = ordering(byString).on((item) => item.organization.name);
     this.orderingByProperty.gradeId = ordering(byNumber).on((item) => item.gradeId);
     this.orderingByProperty.schoolYear = ordering(byNumber).on((item) => item.schoolYear);
     this.orderingByProperty.dimensionValue = ordering(join.apply(null, [
@@ -87,11 +87,12 @@ export class AggregateReportsPreviewTableComponent implements OnInit {
       (this.query.assessmentType.id == AssessmentType.IAB ? 'iab-category' : 'achievement-level') +
       '.short.';
 
-    this.assessmentDetailsService.getDetails(this.query.assessmentType.id).subscribe((details) => {
-      for (let level = 1; level <= details.performanceLevels; level++) {
+    this.assessmentDefinitionService.getDefinitionsByAssessmentTypeCode().subscribe(definitions => {
+      const definition = definitions.get(this.query.assessmentType.code);
+      for (let level = 1; level <= definition.performanceLevelCount; level++) {
         this.performanceLevels.push(level);
       }
-      this.performanceGroupingCutpoint = details.performanceGroupingCutpoint;
+      this.performanceGroupingCutpoint = definition.performanceLevelGroupingCutPoint;
     });
 
     // Give the datatable a chance to initialize, run this next frame

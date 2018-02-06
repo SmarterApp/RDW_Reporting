@@ -66,8 +66,8 @@
     <p-column field="assessmentItem.maxPoints" header="{{'labels.student.responses.cols.max-points' | translate}}" sortable="true"></p-column>
     <p-column field="correctness" sortable="true">
       <ng-template pTemplate="header">
-              <span info-button title="{{'labels.student.responses.cols.correctness' | translate}}"
-                    content="{{'labels.student.responses.cols.correctness-info' | translate}}"></span>
+        <span info-button title="{{'labels.student.responses.cols.correctness' | translate}}"
+              content="{{'labels.student.responses.cols.correctness-info' | translate}}"></span>
       </ng-template>
       <ng-template let-correctness="rowData.correctness" pTemplate="body">
         {{ correctness | optional:(correctness | number:'1.2-2') }}

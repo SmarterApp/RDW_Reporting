@@ -13,14 +13,14 @@
                [paginator]="true"
                emptyMessage="{{'aggregate-reports.results.empty-message' | translate}}"
                tableStyleClass="table table-striped table-hover overflow">
-    <p-column field="organizationName"
+    <p-column field="organization"
               [sortable]="false"
               header="{{'aggregate-reports.results.cols.organization-name' | translate}}">
       <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
         <div *ngIf="treeColumns[i] <= colIndex(col)"
              class="full-cell pt-0"
              [ngClass]="{'border-top': treeColumns[i] <= colIndex(col) && treeColumns[i] < columnOrdering.length - 1}">
-          {{reportItem.organizationName}}
+          {{reportItem.organization.name}}
         </div>
       </ng-template>
     </p-column>
@@ -72,7 +72,7 @@
       <ng-template let-col let-reportItem="rowData" let-i="rowIndex" pTemplate="body">
         <div class="full-cell pt-0 pb-0 pl-0 pr-0"
              [ngClass]="{'border-top': treeColumns[i] < columnOrdering.length - 1}">
-          <performance-comparison [assessmentType]="query.assessmentType.id"
+          <performance-comparison [assessmentTypeCode]="query.assessmentType.code"
                                   [performanceGroupingCutpoint]="performanceGroupingCutpoint"
                                   [groupPerformanceLevels]="groupPerformanceLevels"
                                   [performancePercentages]="reportItem.performanceLevelPercents"></performance-comparison>

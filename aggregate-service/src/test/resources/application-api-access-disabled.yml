@@ -1,0 +1,3 @@
+app:
+  aggregate-reports:
+    api-access-enabled: false

@@ -8,7 +8,11 @@ import {
 export class OrganizationMapper {
 
   public map(organization: any): Organization {
-    switch (organization.organizationType) {
+
+    // TODO fix models to avoid this bridge
+    const type = organization.type || organization.organizationType;
+
+    switch (type) {
       case 'School':
         const school: DefaultSchool = new DefaultSchool();
         school.name = organization.name;
@@ -40,7 +44,7 @@ export class OrganizationMapper {
         state.name = organization.name;
         return state;
       default:
-        throw new Error('invalid organization type: ' + organization.organizationType);
+        throw new Error('invalid organization type: ' + type);
     }
   }
 

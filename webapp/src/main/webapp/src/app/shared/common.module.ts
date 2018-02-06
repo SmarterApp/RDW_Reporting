@@ -15,7 +15,7 @@ import { NotificationComponent } from "./notification/notification.component";
 import { NotificationService } from "./notification/notification.service";
 import { AlertModule, PopoverModule } from "ngx-bootstrap";
 import { DatePipe, DecimalPipe } from "@angular/common";
-import { LoaderComponent } from "./loader/loader.component";
+import { RdwLoadingModule } from "./loading/rdw-loading.module";
 import { SBToggleComponent } from "./sb-toggle.component";
 import { InformationButtonComponent } from "./button/information-button.component";
 import { ScaleScoreComponent } from "./scale-score/scale-score.component";
@@ -44,7 +44,6 @@ import { OptionalPipe } from "./optional.pipe";
     AssessmentTypePipe,
     GradeDisplayPipe,
     InformationButtonComponent,
-    LoaderComponent,
     OptionalPipe,
     ScrollNavComponent,
     NotificationComponent,
@@ -69,6 +68,7 @@ import { OptionalPipe } from "./optional.pipe";
     RdwFormatModule,
     RdwI18nModule,
     RdwLayoutModule,
+    RdwLoadingModule,
     RdwMenuModule,
     RdwPreferenceModule,
     RdwSecurityModule,
@@ -83,7 +83,6 @@ import { OptionalPipe } from "./optional.pipe";
     AssessmentTypePipe,
     GradeDisplayPipe,
     InformationButtonComponent,
-    LoaderComponent,
     OptionalPipe,
     NotificationComponent,
     ScrollNavComponent,
@@ -96,6 +95,7 @@ import { OptionalPipe } from "./optional.pipe";
     RdwFormatModule,
     RdwI18nModule,
     RdwLayoutModule,
+    RdwLoadingModule,
     RdwPreferenceModule,
     RdwSecurityModule,
     SBCheckboxList,

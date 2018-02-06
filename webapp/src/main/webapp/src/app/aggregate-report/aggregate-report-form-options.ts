@@ -6,7 +6,6 @@ import { Option as SbCheckboxGroupOption } from "../shared/form/sb-checkbox-grou
  */
 export interface AggregateReportFormOptions {
 
-  achievementLevelDisplayTypes: SbToggleOption[];
   assessmentGrades: SbCheckboxGroupOption[];
   assessmentTypes: SbToggleOption[];
   completenesses: SbCheckboxGroupOption[];
@@ -18,6 +17,7 @@ export interface AggregateReportFormOptions {
   interimAdministrationConditions: SbCheckboxGroupOption[];
   limitedEnglishProficiencies: SbCheckboxGroupOption[];
   migrantStatuses: SbCheckboxGroupOption[];
+  performanceLevelDisplayTypes: SbToggleOption[];
   section504s: SbCheckboxGroupOption[];
   schoolYears: SbCheckboxGroupOption[];
   statewideReporter: boolean;

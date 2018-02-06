@@ -8,7 +8,7 @@
       </item-scores>
     </div>
   </tab>
-  <tab *ngIf="item.performanceTaskWritingType" (select)="selectTab('Writing Trait Scores')" heading="{{translateRoot + 'writing-trait-scores' | translate }}">
+  <tab *ngIf="item.performanceTaskWritingType && responsesAssessmentItem" (select)="selectTab('Writing Trait Scores')" heading="{{translateRoot + 'writing-trait-scores' | translate }}">
     <div class="tab-content well">
       <item-writing-trait-scores [responsesAssessmentItem]="responsesAssessmentItem"></item-writing-trait-scores>
     </div>

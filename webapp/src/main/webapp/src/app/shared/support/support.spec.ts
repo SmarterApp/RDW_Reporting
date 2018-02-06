@@ -17,7 +17,7 @@ describe('Utils', () => {
 
   it('should pass isNullOrEmpty', () => {
     expect(Utils.isNullOrEmpty(null)).toEqual(true);
-    expect(Utils.isNullOrEmpty(undefined)).toEqual(false);
+    expect(Utils.isNullOrEmpty(undefined)).toEqual(true);
     expect(Utils.isNullOrEmpty('')).toEqual(true);
     expect(Utils.isNullOrEmpty('asdf')).toEqual(false);
   });

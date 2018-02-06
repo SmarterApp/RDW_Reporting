@@ -1,16 +1,21 @@
-import { Component } from "@angular/core";
+///<reference path="../../node_modules/@angular/router/src/events.d.ts"/>
+import { Component, ViewChild } from "@angular/core";
 import { UserService } from "./user/user.service";
-import { NavigationEnd, Router } from "@angular/router";
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from "@angular/router";
 import { Location, PopStateEvent } from "@angular/common";
 import { User } from "./user/model/user.model";
 import { LanguageStore } from "./shared/i18n/language.store";
 import { Utils } from "./shared/support/support";
+import { SpinnerModal } from "./shared/loading/spinner.modal";
 
 @Component({
   selector: 'app-component',
   templateUrl: './app.component.html'
 })
 export class AppComponent {
+
+  @ViewChild('spinnerModal')
+  spinnerModal: SpinnerModal;
 
   private _lastPoppedUrl: string;
   private _user: User;
@@ -39,6 +44,7 @@ export class AppComponent {
       }
     });
     this.initializeNavigationScrollReset();
+    this.initializeNavigationLoadingSpinner();
   }
 
   private initializeAnalytics(trackingId: string): void {
@@ -68,6 +74,18 @@ export class AppComponent {
         window.scrollTo(0, 0);
       }
     });
+  }
+
+  private initializeNavigationLoadingSpinner(): void {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        this.spinnerModal.loading = true;
+      } else if (event instanceof NavigationEnd
+        || event instanceof NavigationCancel
+        || event instanceof NavigationError) {
+        this.spinnerModal.loading = false;
+      }
+    })
   }
 
 }

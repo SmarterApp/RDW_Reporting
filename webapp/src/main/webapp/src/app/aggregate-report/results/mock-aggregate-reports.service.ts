@@ -1,14 +1,19 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { AggregateReportItem } from "../model/aggregate-report-item.model";
+import { AggregateReportItem } from "./aggregate-report-item";
 import { ResponseUtils } from "../../shared/response-utils";
-import { AssessmentDetailsService } from "./assessment-details.service";
 import { AggregateReportQuery } from "../model/aggregate-report-query.model";
-import { AssessmentDetails } from "../model/assessment-details.model";
 import { HttpClient } from "@angular/common/http";
 import { QueryBuilderModel } from "../model/query-builder.model";
+import { AssessmentDefinition } from "../assessment/assessment-definition";
+import { AssessmentDefinitionService } from "../assessment/assessment-definition.service";
+import { OrganizationMapper } from "../../shared/organization/organization.mapper";
+
+const AssessmentTypeCodesById = [null, 'ica', 'iab', 'sum'];
 
 /**
+ * @deprecated
+ *
  * This placeholder service will eventually submit an AggregateReportQuery
  * to the backend and return the list of supplied AggregateReportItem results.
  *
@@ -18,36 +23,30 @@ import { QueryBuilderModel } from "../model/query-builder.model";
 export class MockAggregateReportsService {
 
   constructor(private http: HttpClient,
-              private assessmentDetailsService: AssessmentDetailsService) {
+              private assessmentDetailsService: AssessmentDefinitionService,
+              private organizationMapper: OrganizationMapper) {
   }
 
   public getReportData(query: AggregateReportQuery): Observable<AggregateReportItem[]> {
-    let detailsObservable: Observable<AssessmentDetails> = this.assessmentDetailsService.getDetails(query.assessmentType);
-    let dataObservable: Observable<Object> = this.http.get(`/assets/public/test-aggregate.json`)
-      .catch(ResponseUtils.badResponseToNull);
-    return Observable.forkJoin(detailsObservable, dataObservable)
-      .map((value) => {
-        let details: AssessmentDetails = value[ 0 ];
-        let apiReportItems: any = value[ 1 ];
-
-        if (apiReportItems === null) return [];
-        return this.mapReportItemsFromApi(details, apiReportItems);
+    return Observable.forkJoin(
+      this.assessmentDetailsService.getDefinitionsByAssessmentTypeCode(),
+      this.http.get(`/assets/public/test-aggregate.json`)
+        .catch(ResponseUtils.badResponseToNull)
+    ).map(responses => {
+        const [ details, items ] = responses;
+        if (items === null) {
+          return [];
+        }
+        const definition = details.get(AssessmentTypeCodesById[query.assessmentType]);
+        return this.mapReportItemsFromApi(definition, <any[]>items);
       });
   }
 
   public generateQueryBuilderSampleData(options: string[], query: AggregateReportQuery, queryModel: QueryBuilderModel) {
-    let detailsObservable: Observable<AssessmentDetails> = this.assessmentDetailsService.getDetails(query.assessmentType);
-
-    let mockData: Array<any> = this.createResponse(options, query, queryModel);
-
-    return Observable.forkJoin(detailsObservable, Observable.of(mockData))
-      .map((value) => {
-        let details: AssessmentDetails = value[ 0 ];
-        let apiReportItems: any = value[ 1 ];
-
-        if (apiReportItems === null) return [];
-        return this.mapReportItemsFromApi(details, apiReportItems);
-      });
+    return this.assessmentDetailsService.getDefinitionsByAssessmentTypeCode().map(details => {
+      const definition = details.get(AssessmentTypeCodesById[query.assessmentType]);
+      return this.mapReportItemsFromApi(definition, this.createResponse(options, query, queryModel));
+    });
   }
 
   private createResponse(options: string[], query: AggregateReportQuery, queryModel: QueryBuilderModel): any[] {
@@ -113,22 +112,17 @@ export class MockAggregateReportsService {
     return array;
   }
 
-  private mapReportItemsFromApi(details: AssessmentDetails, apiModels: any[]): AggregateReportItem[] {
+  private mapReportItemsFromApi(details: AssessmentDefinition, apiModels: any[]): AggregateReportItem[] {
     return apiModels.map((apiModel, idx) => this.mapReportItemFromApi(details, apiModel, idx));
   }
 
-  private mapReportItemFromApi(details: AssessmentDetails, apiModel: any, idx: number): AggregateReportItem {
+  private mapReportItemFromApi(details: AssessmentDefinition, apiModel: any, idx: number): AggregateReportItem {
     let uiModel = new AggregateReportItem();
     uiModel.assessmentId = apiModel.assessment.id;
     uiModel.gradeId = apiModel.assessment.gradeId;
     uiModel.subjectId = apiModel.assessment.subjectId;
     uiModel.schoolYear = apiModel.examSchoolYear;
-    uiModel.organizationType = apiModel.organization.type;
-    //TODO: "California" should come from the back-end api populated via config-properties
-    uiModel.organizationName = (uiModel.organizationType == "State")
-      ? "California"
-      : apiModel.organization.name;
-    uiModel.organizationId = apiModel.organization.id;
+    uiModel.organization = this.organizationMapper.map(apiModel.organization);
     uiModel.dimensionType = apiModel.dimension.type;
     uiModel.dimensionValue = apiModel.dimension.code || 'default';
     uiModel.itemId = idx;
@@ -138,7 +132,7 @@ export class MockAggregateReportsService {
     uiModel.avgStdErr = apiMeasures.avgStdErr || 0;
 
     let totalTested: number = 0;
-    for (let level = 1; level <= details.performanceLevels; level++) {
+    for (let level = 1; level <= details.performanceLevelCount; level++) {
       let count = apiMeasures[ `level${level}Count` ] || 0;
       totalTested += count;
       uiModel.performanceLevelCounts.push(count);
@@ -151,11 +145,11 @@ export class MockAggregateReportsService {
     }
 
     //If there is a rollup level, calculate the grouped values
-    if (details.performanceGroupingCutpoint > 0) {
+    if (details.performanceLevelGroupingCutPoint > 0) {
       let belowCount: number = 0;
       let aboveCount: number = 0;
       for (let level = 0; level < uiModel.performanceLevelCounts.length; level++) {
-        if (level < details.performanceGroupingCutpoint - 1) {
+        if (level < details.performanceLevelGroupingCutPoint - 1) {
           belowCount += uiModel.performanceLevelCounts[ level ];
         } else {
           aboveCount += uiModel.performanceLevelCounts[ level ];
