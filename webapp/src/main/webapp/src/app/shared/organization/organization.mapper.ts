@@ -1,6 +1,10 @@
 import { Injectable } from "@angular/core";
 import {
-  DefaultDistrict, DefaultDistrictGroup, DefaultSchool, DefaultSchoolGroup, DefaultState,
+  DefaultDistrict,
+  DefaultDistrictGroup,
+  DefaultSchool,
+  DefaultSchoolGroup,
+  DefaultState,
   Organization
 } from "./organization";
 
