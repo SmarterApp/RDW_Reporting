@@ -4,18 +4,21 @@ import { Observable } from "rxjs/Observable";
 
 const Iab: AssessmentDefinition = {
   typeCode: 'iab',
+  performanceLevels: [1, 2, 3],
   performanceLevelCount: 3,
   performanceLevelGroupingCutPoint: 3
 };
 
 const Ica: AssessmentDefinition = {
   typeCode: 'ica',
+  performanceLevels: [1, 2, 3, 4],
   performanceLevelCount: 4,
   performanceLevelGroupingCutPoint: 3
 };
 
 const Summative: AssessmentDefinition = {
   typeCode: 'sum',
+  performanceLevels: [1, 2, 3, 4],
   performanceLevelCount: 4,
   performanceLevelGroupingCutPoint: 3
 };

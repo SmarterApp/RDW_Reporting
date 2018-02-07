@@ -36,4 +36,14 @@ export class AggregateReportService {
     return this.reportService.createAggregateReport(request);
   }
 
+  /**
+   * Gets a single aggregate report by ID
+   *
+   * @param {number} id the report ID
+   * @returns {Observable<Report>} the report resource handle
+   */
+  getReportById(id: number): Observable<Report> {
+    return this.reportService.getReportById(id);
+  }
+
 }

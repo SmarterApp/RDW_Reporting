@@ -2,18 +2,13 @@ import { Angulartics2Module } from "angulartics2";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "../shared/common.module";
 import { DataTableModule } from "primeng/primeng";
-import { MockAggregateReportsService } from "./results/mock-aggregate-reports.service";
 import { BrowserModule } from "@angular/platform-browser";
 import { PerformanceComparisonComponent } from "./results/performance-comparison.component";
-import { QueryBuilderComponent } from "./results/query-builder.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MultiselectDropdownModule } from "angular-2-dropdown-multiselect";
-import { ReportOptionsService } from "./results/report-options.service";
 import { AggregateReportOptionsService } from "./aggregate-report-options.service";
 import { AggregateReportFormOptionsMapper } from "./aggregate-report-form-options.mapper";
 import { AggregateReportSummary } from "./aggregate-report-summary.component";
-import { AggregateReportsPreviewTableComponent } from "./aggregate-reports-preview-table.component";
-import { MockAggregateReportsPreviewService } from "./results/mock-aggregate-reports-preview.service";
 import { AggregateReportOrganizationService } from "./aggregate-report-organization.service";
 import { ModalModule, TypeaheadModule } from "ngx-bootstrap";
 import { AggregateReportOrganizationList } from "./aggregate-report-organization-list.component";
@@ -27,7 +22,7 @@ import { AggregateReportOptionsResolve } from "./aggregate-report-options.resolv
 import { AggregateReportItemMapper } from "./results/aggregate-report-item.mapper";
 import { AggregateReportTableComponent } from "./results/aggregate-report-table.component";
 import { AssessmentModule } from "./assessment/assessment.module";
-import { AssessmentDefinitionResolve } from "./assessment/assessment-definition.resolve";
+import { AggregateReportTableDataService } from "./aggregate-report-table-data.service";
 
 @NgModule({
   declarations: [
@@ -35,9 +30,7 @@ import { AssessmentDefinitionResolve } from "./assessment/assessment-definition.
     AggregateReportFormComponent,
     AggregateReportComponent,
     AggregateReportTableComponent,
-    AggregateReportsPreviewTableComponent,
     PerformanceComparisonComponent,
-    QueryBuilderComponent,
     AggregateReportSummary,
     AggregateReportOrganizationList
   ],
@@ -62,9 +55,7 @@ import { AssessmentDefinitionResolve } from "./assessment/assessment-definition.
     AggregateReportConfirmationModal
   ],
   providers: [
-    MockAggregateReportsService,
-    MockAggregateReportsPreviewService,
-    ReportOptionsService,
+    AggregateReportTableDataService,
     AggregateReportService,
     AggregateReportResolve,
     AggregateReportOptionsResolve,

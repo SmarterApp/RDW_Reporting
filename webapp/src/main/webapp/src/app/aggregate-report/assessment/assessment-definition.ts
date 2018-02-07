@@ -8,6 +8,11 @@ export interface AssessmentDefinition {
   /**
    * The total performance levels available for this assessment type.
    */
+  readonly performanceLevels: number[];
+
+  /**
+   * The total performance levels available for this assessment type.
+   */
   readonly performanceLevelCount: number;
 
   /**

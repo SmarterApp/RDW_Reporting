@@ -5,14 +5,12 @@ import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
 import { NotificationService } from "../shared/notification/notification.service";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Forms } from "../shared/form/forms";
-import { AggregateReportItem } from "./results/aggregate-report-item";
-import { MockAggregateReportsPreviewService } from "./results/mock-aggregate-reports-preview.service";
 import { District, Organization, OrganizationType, School } from "../shared/organization/organization";
 import { Observable } from "rxjs/Observable";
 import { OrganizationTypeahead } from "../shared/organization/organization-typeahead";
 import { AggregateReportOrganizationService } from "./aggregate-report-organization.service";
 import { AggregateReportService } from "./aggregate-report.service";
-import { SupportedRowCount } from "./results/aggregate-report-table.component";
+import { AggregateReportTable, SupportedRowCount } from "./results/aggregate-report-table.component";
 import "rxjs/add/observable/interval";
 import "rxjs/add/operator/switchMap";
 import { BsModalService } from "ngx-bootstrap";
@@ -20,6 +18,10 @@ import { AggregateReportConfirmationModal } from "./aggregate-report-confirmatio
 import { Report } from "../report/report.model";
 import { AggregateReportRequest } from "../report/aggregate-report-request";
 import { AggregateReportFormOptionsMapper } from "./aggregate-report-form-options.mapper";
+import { AggregateReportTableDataService } from "./aggregate-report-table-data.service";
+import { AssessmentDefinition } from "./assessment/assessment-definition";
+import { AggregateReportOptions } from "./aggregate-report-options";
+import { AggregateReportItem } from "./results/aggregate-report-item";
 
 /**
  * Form control validator that makes sure the control value is not an empty array
@@ -58,11 +60,6 @@ export class AggregateReportFormComponent {
   settings: AggregateReportFormSettings;
 
   /**
-   * The tabular data for the response preview
-   */
-  responsePreview: AggregateReportItem[] = [];
-
-  /**
    * Responsible for tracking form validity
    */
   formGroup: FormGroup;
@@ -83,6 +80,22 @@ export class AggregateReportFormComponent {
    */
   organizations: Organization[] = [];
 
+  /**
+   * The preview table data
+   */
+  previewTable: AggregateReportTable;
+
+  /**
+   * Holds the server report options
+   */
+  aggregateReportOptions: AggregateReportOptions;
+
+  /**
+   * Assessment definitions for use in generating sample data
+   */
+  assessmentDefinitionsByTypeCode: Map<string, AssessmentDefinition>;
+
+
   constructor(private router: Router,
               private route: ActivatedRoute,
               private optionMapper: AggregateReportFormOptionsMapper,
@@ -90,9 +103,13 @@ export class AggregateReportFormComponent {
               private organizationService: AggregateReportOrganizationService,
               private reportService: AggregateReportService,
               private modalService: BsModalService,
-              private mockAggregateReportsPreviewService: MockAggregateReportsPreviewService) {
+              private tableDataService: AggregateReportTableDataService) {
 
-    this.options = optionMapper.map(route.parent.snapshot.data[ 'options' ]);
+    this.assessmentDefinitionsByTypeCode = route.parent.snapshot.data[ 'assessmentDefinitionsByAssessmentTypeCode' ];
+
+    this.aggregateReportOptions = route.parent.snapshot.data[ 'options' ];
+
+    this.options = optionMapper.map(this.aggregateReportOptions);
 
     this.organizationTypeaheadOptions = Observable.create(observer => {
       observer.next(this.organizationTypeahead.value);
@@ -115,6 +132,13 @@ export class AggregateReportFormComponent {
         messageId: 'aggregate-reports.form.field.school-year.error-empty'
       }))
     });
+
+    this.previewTable = {
+      assessmentDefinition: this.assessmentDefinitionsByTypeCode.get(this.settings.assessmentType.code),
+      options: this.aggregateReportOptions,
+      rows: []
+    };
+
   }
 
   /**
@@ -398,15 +422,13 @@ export class AggregateReportFormComponent {
   /**
    * Reloads the report preview based on current form state
    */
-  generateReport() {
-    this.responsePreview = null;
-    // TODO remove need for this timeout
-    setTimeout(() => {
-      this.responsePreview = null;
-      this.mockAggregateReportsPreviewService.generateSampleData(this.settings.dimensionTypes, this.settings).subscribe(next => {
-        this.responsePreview = next;
-      })
-    }, 0);
+  onSettingsChange() {
+    const assessmentDefinition = this.assessmentDefinitionsByTypeCode.get(this.settings.assessmentType.code);
+    this.previewTable = {
+      rows: this.tableDataService.createSampleData(assessmentDefinition, this.settings),
+      options: this.aggregateReportOptions,
+      assessmentDefinition: assessmentDefinition
+    };
   }
 
 }
