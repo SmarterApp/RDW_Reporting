@@ -52,6 +52,9 @@ app:
   aggregate-reports:
     summative-enabled: true
     statewide-interim-enabled: false
+    custom-aggregate-report-repository:
+      organization-partition-size: 10
+    api-access-enabled: true
 
 spring:
   jackson:

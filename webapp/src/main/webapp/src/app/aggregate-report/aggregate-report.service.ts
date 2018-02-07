@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Observable";
 import { AggregateServiceRoute } from "../shared/service-route";
 import { ReportService } from "../report/report.service";
 import { Report } from "../report/report.model";
-import { AggregateReportRequest } from "../report/aggregate-report-request";
+import { AggregateReportQuery, AggregateReportRequest } from "../report/aggregate-report-request";
 
 /**
  * Responsible for interfacing with aggregate report server
@@ -22,8 +22,8 @@ export class AggregateReportService {
    * @param {AggregateReportRequest} request the report parameters
    * @returns {Observable<number>} the row count
    */
-  getReportRowCount(request: AggregateReportRequest): Observable<number> {
-    return this.dataService.post(`${AggregateServiceRoute}/aggregate/rowCount`, request);
+  getEstimatedRowCount(query: AggregateReportQuery): Observable<number> {
+    return this.dataService.post(`${AggregateServiceRoute}/aggregate/estimatedRowCount`, query);
   }
 
   /**

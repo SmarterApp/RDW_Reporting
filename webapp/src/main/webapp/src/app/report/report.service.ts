@@ -129,8 +129,7 @@ export class ReportService {
     return this.dataService.get(`${ServiceRoute}/reports/${reportId}`, {
       headers: new Headers({
         'Accept': 'application/json',
-      }),
-      responseType: ResponseContentType.Blob
+      })
     }).catch(ResponseUtils.throwError);
   }
 
@@ -142,9 +141,6 @@ export class ReportService {
    */
   public getAggregateReportAsSpreadsheet(reportId: number): Observable<Download> {
     return this.dataService.get(`${ServiceRoute}/reports/${reportId}`, {
-      headers: new Headers({
-        'Accept': 'text/csv',
-      }),
       responseType: ResponseContentType.Blob
     }).catch(ResponseUtils.throwError);
   }
@@ -192,16 +188,19 @@ export class ReportService {
    * @returns {Report} the local model
    */
   private toReport(remote: any): Report {
-    let local: Report = new Report();
+    const local: Report = new Report();
     local.id = remote.id;
     local.label = remote.label;
     local.status = remote.status;
     local.created = remote.created;
     local.reportType = remote.reportType;
     local.assessmentType = AssessmentType[ remote.assessmentType as string ];
+    local.assessmentTypeCode = remote.assessmentTypeCode;
     local.subjectId = AssessmentSubjectType[ remote.subject as string ] || 0;
+    local.subjectCode = remote.subjectCode;
     local.schoolYear = remote.schoolYear;
-    local.metadata = remote.metadata;
+    local.metadata = remote.metadata || {};
+    local.request = remote.request;
     return local;
   }
 

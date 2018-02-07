@@ -2,6 +2,11 @@
  * Represents an aggregate report request
  */
 export interface AggregateReportRequest {
+  readonly name: string;
+  readonly reportQuery: AggregateReportQuery
+}
+
+export interface AggregateReportQuery {
   readonly achievementLevelDisplayType: string;
   readonly administrationConditionCodes: string[];
   readonly assessmentGradeCodes: string[];
@@ -10,7 +15,7 @@ export interface AggregateReportRequest {
   readonly economicDisadvantageCodes: string[];
   readonly ethnicityCodes: string[];
   readonly dimensionTypes: string[];
-  readonly districtCodes: string[];
+  readonly districtIds: number[];
   readonly genderCodes: string[];
   readonly iepCodes: string[];
   readonly includeAllDistricts: boolean;
@@ -20,7 +25,7 @@ export interface AggregateReportRequest {
   readonly lepCodes: string[];
   readonly migrantStatusCodes: string[];
   readonly section504Codes: string[];
-  readonly schoolCodes: string[];
+  readonly schoolIds: number[];
   readonly schoolYears: number[];
   readonly subjectCodes: string[];
   readonly valueDisplayType: string;

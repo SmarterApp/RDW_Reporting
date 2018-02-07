@@ -1,21 +1,21 @@
 INSERT INTO grade (id, code) VALUES (-3,'-3'),(-4 ,'-4'),(-5, '-5'),(-6, '-6');
 INSERT INTO completeness (id, code) VALUES (-9, 'Complete'), (-8, 'Partial');
 INSERT INTO administration_condition VALUES (-99,'IN'),(-98,'SD'),(-97,'NS'),(-96,'Valid');
-INSERT INTO ethnicity VALUES (-29,'ethnicity-29'),(-28,'ethnicity-28');
+INSERT INTO ethnicity VALUES (-29,'ethnicity-29'),(-28,'ethnicity-28'),(-27, 'ethnicity-27'), (-26, 'ethnicity-26');
 INSERT INTO gender VALUES (-19,'gender-19'),(-18,'gender-18');
 INSERT INTO school_year VALUES (1999),(2000),(2001);
 
 -- ------------------------------------------ School/Districts --------------------------------------------------------------------------------------------------
 INSERT INTO district (id, name, natural_id, external_id, migrate_id) VALUES
-  (-7, 'District-7', 'id-7', 'externalId-7', -1),
-  (-8, 'District-8', 'id-8', 'externalId-8', -1),
-  (-9, 'District-9', 'id-9', 'externalId-9', -1);
+  (-17, 'District-7', 'id-7', 'externalId-7', -1),
+  (-18, 'District-8', 'id-8', 'externalId-8', -1),
+  (-19, 'District-9', 'id-9', 'externalId-9', -1);
 
 INSERT INTO school (id, district_group_id, district_id, school_group_id, name, natural_id, external_id, embargo_enabled, updated, update_import_id, migrate_id) VALUES
-  (-7, -1, -7, -1, 'School-7', 'id-7', 'externalId-7', 1, '2016-08-14 19:05:33.000000', -1, -1),
-  (-8, -1, -8, -1, 'School-8', 'id-8', 'externalId-8', 1, '2016-08-14 19:05:33.000000', -1, -1),
-  (-9, -1, -9, -1, 'School-9', 'id-9', 'externalId-9', 1, '2016-08-14 19:05:33.000000', -1, -1),
-  (-10, -1, -9, -1, 'School-10','id-10', 'externalId-10', 1, '2016-08-14 19:05:33.000000', -1, -1);
+  (-7, -1, -17, -1, 'School-7', 'id-7', 'externalId-7', 1, '2016-08-14 19:05:33.000000', -1, -1),
+  (-8, -1, -18, -1, 'School-8', 'id-8', 'externalId-8', 1, '2016-08-14 19:05:33.000000', -1, -1),
+  (-9, -1, -19, -1, 'School-9', 'id-9', 'externalId-9', 1, '2016-08-14 19:05:33.000000', -1, -1),
+  (-10, -1, -19, -1, 'School-10','id-10', 'externalId-10', 1, '2016-08-14 19:05:33.000000', -1, -1);
 
 -- ------------------------------------------ Asmt ---------------------------------------------------------------------------------------------------------
 INSERT INTO asmt (id, grade_id, subject_id, type_id, school_year, name, label, updated, update_import_id, migrate_id) VALUES

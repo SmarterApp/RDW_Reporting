@@ -2,7 +2,6 @@ import { Component, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AggregateReportFormOptions } from "./aggregate-report-form-options";
 import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
-import { AssessmentType } from "../shared/enum/assessment-type.enum";
 import { NotificationService } from "../shared/notification/notification.service";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Forms } from "../shared/form/forms";
@@ -20,7 +19,6 @@ import { BsModalService } from "ngx-bootstrap";
 import { AggregateReportConfirmationModal } from "./aggregate-report-confirmation.modal";
 import { Report } from "../report/report.model";
 import { AggregateReportRequest } from "../report/aggregate-report-request";
-import { CodedEntity } from "../shared/coded-entity";
 import { AggregateReportFormOptionsMapper } from "./aggregate-report-form-options.mapper";
 
 /**
@@ -35,6 +33,10 @@ const notEmpty = properties => control => {
 
 const OrganizationComparator = (a: Organization, b: Organization) => a.name.localeCompare(b.name);
 
+const valuesOf = values => values.map(value => value.value);
+const firstValueOf = values => values[ 0 ].value;
+const codesOf = values => values.map(value => value.code);
+const idsOf = values => values.map(value => value.id);
 
 /**
  * Aggregate report form component
@@ -223,7 +225,7 @@ export class AggregateReportFormComponent {
   onGenerateButtonClick(): void {
     this.validate(this.formGroup, () => {
       const request = this.createReportRequest(this.settings);
-      this.reportService.getReportRowCount(request)
+      this.reportService.getEstimatedRowCount(request.reportQuery)
         .subscribe(
           count => {
             if (count < SupportedRowCount) {
@@ -328,8 +330,6 @@ export class AggregateReportFormComponent {
    * @returns {AggregateReportFormSettings} the initial form state
    */
   private createDefaultSettings(options: AggregateReportFormOptions): AggregateReportFormSettings {
-    const valuesOf = options => options.map(option => option.value);
-    const firstValueOf = options => options[ 0 ].value;
     return <AggregateReportFormSettings>{
       assessmentGrades: [],
       assessmentType: firstValueOf(options.assessmentTypes),
@@ -364,32 +364,34 @@ export class AggregateReportFormComponent {
    * @returns {AggregateReportRequest} the created request
    */
   private createReportRequest(settings: AggregateReportFormSettings): AggregateReportRequest {
-    const codesOf = values => values.map(entity => entity.code);
     return {
-      achievementLevelDisplayType: settings.performanceLevelDisplayType,
-      administrationConditionCodes: codesOf(
-        settings.interimAdministrationConditions.concat(settings.summativeAdministrationConditions)
-      ),
-      assessmentGradeCodes: codesOf(settings.assessmentGrades),
-      assessmentTypeCode: settings.assessmentType.code,
-      completenessCodes: codesOf(settings.completenesses),
-      economicDisadvantageCodes: codesOf(settings.economicDisadvantages),
-      ethnicityCodes: codesOf(settings.ethnicities),
-      dimensionTypes: settings.dimensionTypes,
-      districtCodes: codesOf(settings.districts),
-      genderCodes: codesOf(settings.genders),
-      iepCodes: codesOf(settings.individualEducationPlans),
-      includeAllDistricts: settings.includeAllDistricts,
-      includeAllDistrictsOfSchools: settings.includeAllDistrictsOfSelectedSchools,
-      includeAllSchoolsOfDistricts: settings.includeAllSchoolsOfSelectedDistricts,
-      includeState: settings.includeStateResults,
-      lepCodes: codesOf(settings.limitedEnglishProficiencies),
-      migrantStatusCodes: codesOf(settings.migrantStatuses),
-      section504Codes: codesOf(settings.section504s),
-      schoolYears: settings.schoolYears,
-      schoolCodes: codesOf(settings.schools),
-      subjectCodes: codesOf(settings.subjects),
-      valueDisplayType: settings.valueDisplayType
+      name: 'Custom Aggregate Report', // TODO add form field for name
+      reportQuery: {
+        achievementLevelDisplayType: settings.performanceLevelDisplayType,
+        administrationConditionCodes: codesOf(
+          settings.interimAdministrationConditions.concat(settings.summativeAdministrationConditions)
+        ),
+        assessmentGradeCodes: codesOf(settings.assessmentGrades),
+        assessmentTypeCode: settings.assessmentType.code,
+        completenessCodes: codesOf(settings.completenesses),
+        economicDisadvantageCodes: codesOf(settings.economicDisadvantages),
+        ethnicityCodes: codesOf(settings.ethnicities),
+        dimensionTypes: settings.dimensionTypes,
+        districtIds: idsOf(settings.districts),
+        genderCodes: codesOf(settings.genders),
+        iepCodes: codesOf(settings.individualEducationPlans),
+        includeAllDistricts: settings.includeAllDistricts,
+        includeAllDistrictsOfSchools: settings.includeAllDistrictsOfSelectedSchools,
+        includeAllSchoolsOfDistricts: settings.includeAllSchoolsOfSelectedDistricts,
+        includeState: settings.includeStateResults,
+        lepCodes: codesOf(settings.limitedEnglishProficiencies),
+        migrantStatusCodes: codesOf(settings.migrantStatuses),
+        section504Codes: codesOf(settings.section504s),
+        schoolYears: settings.schoolYears,
+        schoolIds: idsOf(settings.schools),
+        subjectCodes: codesOf(settings.subjects),
+        valueDisplayType: settings.valueDisplayType
+      }
     }
   }
 

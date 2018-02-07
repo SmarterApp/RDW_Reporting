@@ -9,6 +9,7 @@ import { AggregateReportItemMapper } from "./aggregate-report-item.mapper";
 import { AssessmentDefinition } from "../assessment/assessment-definition";
 import { AggregateReportRow } from "../../report/aggregate-report";
 import { Subscription } from "rxjs/Subscription";
+import { Utils } from "../../shared/support/support";
 
 const PollingInterval = 4000;
 
@@ -37,7 +38,8 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     this.assessmentDefinitionsByAssessmentTypeCode = this.route.snapshot.data[ 'assessmentDefinitionsByAssessmentTypeCode' ];
     this.options = this.route.parent.snapshot.data[ 'options' ];
     this.report = this.route.snapshot.data[ 'report' ];
-    this.reportSizeSupported = Number.parseInt(this.report.metadata.row_count) < SupportedRowCount;
+    this.reportSizeSupported = Utils.isUndefined(this.report.metadata.totalCount)
+      || (Number.parseInt(this.report.metadata.totalCount) <= SupportedRowCount);
   }
 
   get loading(): boolean {
@@ -85,7 +87,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   private initializeReportTables(rows: AggregateReportRow[]): void {
 
     const subjects = this.options.subjects;
-    const assessmentDefinition = this.assessmentDefinitionsByAssessmentTypeCode.get(this.report.request.assessmentTypeCode);
+    const assessmentDefinition = this.assessmentDefinitionsByAssessmentTypeCode.get(this.report.request.reportQuery.assessmentTypeCode);
 
     this.reportTables = rows.reduce((tables, row, index) => {
 
