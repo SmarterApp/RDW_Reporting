@@ -74,13 +74,12 @@
       <span class="pull-left">
         {{ examLevelEnum + (exam.level ? exam.level : 'missing') | translate }}
       </span>
-      <span class="pull-right">
+      <span class="pull-right" *ngIf="assessment.isIab">
         <button
           class="btn btn-borderless btn-xs icon-only"
           angulartics2On="click"
           angularticsEvent="InstructionalResource"
           angularticsCategory="AssessmentResults"
-          [disabled]="false"
           [popover]="buttonPopover"
           popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:((examLevelEnum + (exam.level ? exam.level : 'missing')) | translate) } }}"
           container="body"

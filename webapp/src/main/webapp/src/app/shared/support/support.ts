@@ -1,3 +1,5 @@
+import Timer = NodeJS.Timer;
+
 export class Utils {
 
   static getPropertyValue(propertyPath: string, object: any): any {
@@ -47,6 +49,10 @@ export class Utils {
 
   static isNullOrUndefined(value: any): boolean {
     return value == null;
+  }
+
+  static setImmediate(callback: (...args: any[]) => void, ...args: any[]): any {
+    return setTimeout(callback, 0, ...args);
   }
 
 }

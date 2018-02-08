@@ -5,14 +5,12 @@ import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
 import { NotificationService } from "../shared/notification/notification.service";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Forms } from "../shared/form/forms";
-import { AggregateReportItem } from "./results/aggregate-report-item";
-import { MockAggregateReportsPreviewService } from "./results/mock-aggregate-reports-preview.service";
 import { District, Organization, OrganizationType, School } from "../shared/organization/organization";
 import { Observable } from "rxjs/Observable";
 import { OrganizationTypeahead } from "../shared/organization/organization-typeahead";
 import { AggregateReportOrganizationService } from "./aggregate-report-organization.service";
 import { AggregateReportService } from "./aggregate-report.service";
-import { SupportedRowCount } from "./results/aggregate-report-table.component";
+import { AggregateReportTable, SupportedRowCount } from "./results/aggregate-report-table.component";
 import "rxjs/add/observable/interval";
 import "rxjs/add/operator/switchMap";
 import { BsModalService } from "ngx-bootstrap";
@@ -20,6 +18,10 @@ import { AggregateReportConfirmationModal } from "./aggregate-report-confirmatio
 import { Report } from "../report/report.model";
 import { AggregateReportRequest } from "../report/aggregate-report-request";
 import { AggregateReportFormOptionsMapper } from "./aggregate-report-form-options.mapper";
+import { AggregateReportTableDataService } from "./aggregate-report-table-data.service";
+import { AssessmentDefinition } from "./assessment/assessment-definition";
+import { AggregateReportOptions } from "./aggregate-report-options";
+import { AggregateReportRequestMapper } from "./aggregate-report-request.mapper";
 
 /**
  * Form control validator that makes sure the control value is not an empty array
@@ -35,8 +37,6 @@ const OrganizationComparator = (a: Organization, b: Organization) => a.name.loca
 
 const valuesOf = values => values.map(value => value.value);
 const firstValueOf = values => values[ 0 ].value;
-const codesOf = values => values.map(value => value.code);
-const idsOf = values => values.map(value => value.id);
 
 /**
  * Aggregate report form component
@@ -56,11 +56,6 @@ export class AggregateReportFormComponent {
    * Holds the form state
    */
   settings: AggregateReportFormSettings;
-
-  /**
-   * The tabular data for the response preview
-   */
-  responsePreview: AggregateReportItem[] = [];
 
   /**
    * Responsible for tracking form validity
@@ -83,16 +78,37 @@ export class AggregateReportFormComponent {
    */
   organizations: Organization[] = [];
 
+  /**
+   * The preview table data
+   */
+  previewTable: AggregateReportTable;
+
+  /**
+   * Holds the server report options
+   */
+  aggregateReportOptions: AggregateReportOptions;
+
+  /**
+   * Assessment definitions for use in generating sample data
+   */
+  assessmentDefinitionsByTypeCode: Map<string, AssessmentDefinition>;
+
+
   constructor(private router: Router,
               private route: ActivatedRoute,
               private optionMapper: AggregateReportFormOptionsMapper,
+              private requestMapper: AggregateReportRequestMapper,
               private notificationService: NotificationService,
               private organizationService: AggregateReportOrganizationService,
               private reportService: AggregateReportService,
               private modalService: BsModalService,
-              private mockAggregateReportsPreviewService: MockAggregateReportsPreviewService) {
+              private tableDataService: AggregateReportTableDataService) {
 
-    this.options = optionMapper.map(route.parent.snapshot.data[ 'options' ]);
+    this.assessmentDefinitionsByTypeCode = route.parent.snapshot.data[ 'assessmentDefinitionsByAssessmentTypeCode' ];
+
+    this.aggregateReportOptions = route.parent.snapshot.data[ 'options' ];
+
+    this.options = optionMapper.map(this.aggregateReportOptions);
 
     this.organizationTypeaheadOptions = Observable.create(observer => {
       observer.next(this.organizationTypeahead.value);
@@ -115,24 +131,38 @@ export class AggregateReportFormComponent {
         messageId: 'aggregate-reports.form.field.school-year.error-empty'
       }))
     });
+
+    this.previewTable = {
+      assessmentDefinition: this.assessmentDefinitionsByTypeCode.get(this.settings.assessmentType),
+      options: this.aggregateReportOptions,
+      rows: []
+    };
+
   }
 
   /**
-   * @returns {any} The organizations form control
+   * @returns {boolean} True if the user does not have access to create aggregate reports
+   */
+  get accessDenied(): boolean {
+    return this.aggregateReportOptions.assessmentTypes.length === 0;
+  }
+
+  /**
+   * @returns {FormControl} The organizations form control
    */
   get organizationsControl(): FormControl {
     return <FormControl>this.formGroup.get('organizations');
   }
 
   /**
-   * @returns {any} The assessment grades form control
+   * @returns {FormControl} The assessment grades form control
    */
   get assessmentGradesControl(): FormControl {
     return <FormControl>this.formGroup.get('assessmentGrades');
   }
 
   /**
-   * @returns {any} The school years form control
+   * @returns {FormControl} The school years form control
    */
   get schoolYearsControl(): FormControl {
     return <FormControl>this.formGroup.get('schoolYears');
@@ -149,8 +179,7 @@ export class AggregateReportFormComponent {
    * @returns {boolean} <code>true</code> if a non-interim assessment type is selected
    */
   get interimFieldsDisabled(): boolean {
-    // TODO implement as !assessmentType.interim
-    return this.settings.assessmentType.code === 'sum';
+    return !this.currentAssessmentDefinition.interim;
   }
 
   /**
@@ -158,6 +187,10 @@ export class AggregateReportFormComponent {
    */
   get summativeFieldsDisabled(): boolean {
     return !this.interimFieldsDisabled;
+  }
+
+  get currentAssessmentDefinition(): AssessmentDefinition {
+    return this.assessmentDefinitionsByTypeCode.get(this.settings.assessmentType);
   }
 
   /**
@@ -223,8 +256,9 @@ export class AggregateReportFormComponent {
    * Creates a report if the form is valid
    */
   onGenerateButtonClick(): void {
+    console.log('called!')
     this.validate(this.formGroup, () => {
-      const request = this.createReportRequest(this.settings);
+      const request = this.createReportRequest();
       this.reportService.getEstimatedRowCount(request.reportQuery)
         .subscribe(
           count => {
@@ -243,7 +277,7 @@ export class AggregateReportFormComponent {
    */
   onExportButtonClick(): void {
     this.validate(this.formGroup, () => {
-      this.createNonViewableReport(this.createReportRequest(this.settings));
+      this.createNonViewableReport(this.createReportRequest());
     });
   }
 
@@ -360,53 +394,22 @@ export class AggregateReportFormComponent {
   /**
    * Creates an aggregate report request from a
    *
-   * @param {AggregateReportFormSettings} settings the form state
    * @returns {AggregateReportRequest} the created request
    */
-  private createReportRequest(settings: AggregateReportFormSettings): AggregateReportRequest {
-    return {
-      name: 'Custom Aggregate Report', // TODO add form field for name
-      reportQuery: {
-        achievementLevelDisplayType: settings.performanceLevelDisplayType,
-        administrationConditionCodes: codesOf(
-          settings.interimAdministrationConditions.concat(settings.summativeAdministrationConditions)
-        ),
-        assessmentGradeCodes: codesOf(settings.assessmentGrades),
-        assessmentTypeCode: settings.assessmentType.code,
-        completenessCodes: codesOf(settings.completenesses),
-        economicDisadvantageCodes: codesOf(settings.economicDisadvantages),
-        ethnicityCodes: codesOf(settings.ethnicities),
-        dimensionTypes: settings.dimensionTypes,
-        districtIds: idsOf(settings.districts),
-        genderCodes: codesOf(settings.genders),
-        iepCodes: codesOf(settings.individualEducationPlans),
-        includeAllDistricts: settings.includeAllDistricts,
-        includeAllDistrictsOfSchools: settings.includeAllDistrictsOfSelectedSchools,
-        includeAllSchoolsOfDistricts: settings.includeAllSchoolsOfSelectedDistricts,
-        includeState: settings.includeStateResults,
-        lepCodes: codesOf(settings.limitedEnglishProficiencies),
-        migrantStatusCodes: codesOf(settings.migrantStatuses),
-        section504Codes: codesOf(settings.section504s),
-        schoolYears: settings.schoolYears,
-        schoolIds: idsOf(settings.schools),
-        subjectCodes: codesOf(settings.subjects),
-        valueDisplayType: settings.valueDisplayType
-      }
-    }
+  private createReportRequest(): AggregateReportRequest {
+    return this.requestMapper.map(this.options, this.settings);
   }
 
   /**
    * Reloads the report preview based on current form state
    */
-  generateReport() {
-    this.responsePreview = null;
-    // TODO remove need for this timeout
-    setTimeout(() => {
-      this.responsePreview = null;
-      this.mockAggregateReportsPreviewService.generateSampleData(this.settings.dimensionTypes, this.settings).subscribe(next => {
-        this.responsePreview = next;
-      })
-    }, 0);
+  onSettingsChange() {
+    const assessmentDefinition = this.currentAssessmentDefinition;
+    this.previewTable = {
+      rows: this.tableDataService.createSampleData(assessmentDefinition, this.settings),
+      options: this.aggregateReportOptions,
+      assessmentDefinition: assessmentDefinition
+    };
   }
 
 }

@@ -32,12 +32,11 @@
       <div *ngFor="let performanceLevel of performanceLevels; let i = index" class="score-distribution-container">
         <div class="text-right gray-lighter">
           {{ examLevelEnum + performanceLevel.id.toString() | translate }}
-          <button
+          <button *ngIf="assessmentExam.assessment.isIab"
             class="btn btn-borderless btn-xs icon-only pull-right"
             angulartics2On="click"
             angularticsEvent="InstructionalResource"
             angularticsCategory="AssessmentResults"
-            [disabled]="false"
             [popover]="buttonPopover"
             popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:((examLevelEnum + performanceLevel.id.toString()) | translate) } }}"
             container="body"

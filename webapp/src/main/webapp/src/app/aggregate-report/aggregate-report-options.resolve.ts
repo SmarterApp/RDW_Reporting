@@ -4,6 +4,7 @@ import { Injectable } from "@angular/core";
 import { AggregateReportOptionsService } from "./aggregate-report-options.service";
 import { AggregateReportOptions } from "./aggregate-report-options";
 
+
 /**
  * This resolver is responsible for fetching assessment items for a student and exam.
  */

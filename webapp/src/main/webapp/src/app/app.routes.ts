@@ -30,7 +30,6 @@ import { GroupImportComponent } from "./admin/groups/import/group-import.compone
 import { GroupImportDeactivateGuard } from "./admin/groups/import/group-import.deactivate";
 import { GroupsComponent } from "./admin/groups/groups.component";
 import { HomeComponent as AdminHomeComponent } from "./admin/home/home.component";
-import { QueryBuilderComponent } from "./aggregate-report/results/query-builder.component";
 import { SessionExpiredComponent } from "./shared/security/session-expired.component";
 import { AuthorizationCanActivate } from "./shared/security/authorization.can-activate";
 import { RoutingAuthorizationCanActivate } from "./shared/security/routing-authorization.can-activate";
@@ -42,7 +41,10 @@ import { AssessmentDefinitionResolve } from "./aggregate-report/assessment/asses
 
 const adminRoute = {
   path: 'admin',
-  data: { breadcrumb: { translate: 'labels.admin.title' }, permissions: [ 'GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE' ] },
+  data: {
+    breadcrumb: { translate: 'labels.admin.title' },
+    permissions: [ 'GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE' ]
+  },
   canActivate: [ AuthorizationCanActivate ],
   children: [
     {
@@ -315,15 +317,6 @@ export const routes: Routes = [
             },
             resolve: { report: AggregateReportResolve },
             component: AggregateReportComponent
-          },
-          {
-            path: 'query-builder',
-            pathMatch: 'full',
-            data: {
-              breadcrumb: { translate: 'aggregate-reports.query-builder.heading'}
-            },
-            resolve: { organizations: UserOrganizationsResolve },
-            component: QueryBuilderComponent
           }
         ]
       },

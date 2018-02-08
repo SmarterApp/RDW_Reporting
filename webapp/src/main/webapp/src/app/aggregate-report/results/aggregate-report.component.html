@@ -21,14 +21,13 @@
   <div *ngFor="let table of reportTables" class="well wide-content-container">
 
     <h3 class="h3 label-group green">
-      <span class="label">{{'common.assessment-type.' + report.request.assessmentTypeCode + '.short-name' | translate}}</span><span class="label">{{'common.subject.' + table.subjectCode + '.short-name' | translate}}</span>
+      <span class="label">{{'common.assessment-type.' + query.assessmentTypeCode + '.short-name' | translate}}</span><span class="label">{{'common.subject.' + table.subjectCode + '.short-name' | translate}}</span>
     </h3>
 
     <div class="mt-xs">
-      <aggregate-report-table [table]="table"
-                              [dimensionRanking]="dimensionRanking"
-                              [showValuesAsPercent]="report.request.valueDisplayType === 'Percent'"
-                              [groupPerformanceLevels]="report.request.performanceLevelDisplayType === 'Grouped'"
+      <aggregate-report-table [table]="table.table"
+                              [valueDisplayType]="query.valueDisplayType"
+                              [performanceLevelDisplayType]="query.achievementLevelDisplayType"
                               [columnOrdering]="['organization', 'assessmentGrade', 'schoolYear', 'dimension']"></aggregate-report-table>
     </div>
   </div>

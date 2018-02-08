@@ -1,60 +1,53 @@
-<scroll-nav [sections]="[
+<ng-container *ngIf="accessDenied">
+  <h2 class="h3 gray-darkest">{{'aggregate-reports.form.heading' | translate}}</h2>
+  <div class="well">
+    <p>{{'aggregate-reports.access-denied-error' | translate}}</p>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!accessDenied">
+
+  <scroll-nav [items]="[
   {
     scrollTo: organizationSection,
-    text: 'aggregate-reports.form.section.organization.heading' | translate,
-    isLink: true
+    text: 'aggregate-reports.form.section.organization.heading' | translate
   },
   {
     scrollTo: assessmentSection,
-    text: 'aggregate-reports.form.section.assessment.heading' | translate,
-    isLink: true
+    text: 'aggregate-reports.form.section.assessment.heading' | translate
   },
   {
     scrollTo: subgroupFiltersSection,
-    text: 'aggregate-reports.form.section.subgroup-filters.heading' | translate,
-    isLink: true
+    text: 'aggregate-reports.form.section.subgroup-filters.heading' | translate
   },
   {
     scrollTo: reportFeatureSection,
-    text: 'aggregate-reports.form.section.report-features.heading' | translate,
-    isLink: true
+    text: 'aggregate-reports.form.section.report-features.heading' | translate
   },
   {
     scrollTo: comparativeSubgroupSection,
-    text: 'aggregate-reports.form.section.comparative-subgroups.heading' | translate,
-    isLink: true
+    text: 'aggregate-reports.form.section.comparative-subgroups.heading' | translate
   },
   {
     scrollTo: reportPreviewSection,
-    text: 'aggregate-reports.form.summary.heading' | translate,
-    isLink: true
+    text: 'aggregate-reports.form.summary.heading' | translate
   },
   {
-    clickAction: onExportButtonClick.bind(this),
-    text: 'labels.export.csv' | translate,
-    classes: 'navbar-link btn btn-default btn-sm float-none-xs',
-    isButton: true,
-    iconClasses: 'fa fa-table'
-  },
-  {
-    clickAction: onGenerateButtonClick.bind(this),
     text: 'aggregate-reports.form.submit' | translate,
-    classes: 'navbar-link btn btn-success btn-sm ml-xs green',
-    isButton: true,
-    iconClasses: 'fa fa-gears'
+    classes: 'btn btn-success btn-sm ml-xs green',
+    click: onGenerateButtonClick.bind(this)
   }]"></scroll-nav>
 
-<div class="container">
+  <div class="row mt-sm">
+    <div class="col-md-8 col-md-offset-2">
+      <h2 class="h3 gray-darkest">
+        {{'aggregate-reports.form.heading' | translate}}
+      </h2>
+      <p class="small gray-darkest">{{'aggregate-reports.form.subheading' | translate}}</p>
+    </div>
+  </div>
 
   <form #form [formGroup]="formGroup">
-    <div class="row mt-sm">
-      <div class="col-md-8 col-md-offset-2">
-        <h2 class="h3 gray-darkest">
-          {{'aggregate-reports.form.heading' | translate}}
-        </h2>
-        <p class="small gray-darkest">{{'aggregate-reports.form.subheading' | translate}}</p>
-      </div>
-    </div>
 
     <!-- Organization -->
     <div class="row mt-sm" #organizationSection id="organizationSection">
@@ -74,9 +67,12 @@
             <label>{{'aggregate-reports.form.field.organization.label' | translate}}</label>
             <organization-typeahead #organizationTypeahead
                                     [options]="organizationTypeaheadOptions"
-                                    (select)="onOrganizationTypeaheadSelect($event)"></organization-typeahead>
+                                    (selected)="onOrganizationTypeaheadSelect($event)"></organization-typeahead>
             <div class="form-group">
-              <input type="hidden" [(ngModel)]="organizations" formControlName="organizations">
+              <input type="hidden"
+                     [(ngModel)]="organizations"
+                     formControlName="organizations"
+                     (ngModelChange)="onSettingsChange()">
               <div *ngIf="showErrors(organizationsControl)">
                 <p *ngIf="organizationsControl.errors.notEmpty" class="help-block small red">{{organizationsControl.errors.notEmpty.messageId | translate}}</p>
               </div>
@@ -158,7 +154,7 @@
                            [options]="options.assessmentTypes"
                            [(ngModel)]="settings.assessmentType"
                            [ngModelOptions]="{standalone: true}"
-                           (change)="generateReport()"></sb-toggle>
+                           (change)="onSettingsChange()"></sb-toggle>
               </div>
             </div>
           </div>
@@ -176,7 +172,7 @@
                                    analyticsEvent="FilterClick"
                                    analyticsCategory="AggregateQueryBuilder"
                                    [allOptionAnalyticsProperties]="{label: 'Subject: All'}"
-                                   (change)="generateReport()"></sb-checkbox-group>
+                                   (change)="onSettingsChange()"></sb-checkbox-group>
               </div>
             </div>
           </div>
@@ -202,7 +198,7 @@
                                      analyticsEvent="FilterClick"
                                      analyticsCategory="AggregateQueryBuilder"
                                      [allOptionAnalyticsProperties]="{label: 'Assessment Grade: All'}"
-                                     (change)="generateReport()"></sb-checkbox-group>
+                                     (change)="onSettingsChange()"></sb-checkbox-group>
                   <div *ngIf="showErrors(assessmentGradesControl)">
                     <p *ngIf="assessmentGradesControl.errors.notEmpty" class="help-block small red">{{assessmentGradesControl.errors.notEmpty.messageId | translate}}</p>
                   </div>
@@ -230,7 +226,7 @@
                                      analyticsEvent="FilterClick"
                                      analyticsCategory="AggregateQueryBuilder"
                                      [allOptionAnalyticsProperties]="{label: 'Academic Year: All'}"
-                                     (change)="generateReport()"></sb-checkbox-group>
+                                     (change)="onSettingsChange()"></sb-checkbox-group>
                   <div *ngIf="showErrors(schoolYearsControl)">
                     <p *ngIf="schoolYearsControl.errors.notEmpty" class="help-block small red">{{schoolYearsControl.errors.notEmpty.messageId | translate}}</p>
                   </div>
@@ -255,7 +251,7 @@
                                    analyticsEvent="FilterClick"
                                    analyticsCategory="AggregateQueryBuilder"
                                    [allOptionAnalyticsProperties]="{label: 'Manner of Administration: All'}"
-                                   (change)="generateReport()"></sb-checkbox-group>
+                                   (change)="onSettingsChange()"></sb-checkbox-group>
               </div>
             </div>
           </div>
@@ -275,7 +271,7 @@
                                    analyticsEvent="FilterClick"
                                    analyticsCategory="AggregateQueryBuilder"
                                    [allOptionAnalyticsProperties]="{label: 'Validity: All'}"
-                                   (change)="generateReport()"></sb-checkbox-group>
+                                   (change)="onSettingsChange()"></sb-checkbox-group>
               </div>
             </div>
           </div>
@@ -295,7 +291,7 @@
                                    analyticsEvent="FilterClick"
                                    analyticsCategory="AggregateQueryBuilder"
                                    [allOptionAnalyticsProperties]="{label: 'Completeness: All'}"
-                                   (change)="generateReport()"></sb-checkbox-group>
+                                   (change)="onSettingsChange()"></sb-checkbox-group>
               </div>
             </div>
           </div>
@@ -330,7 +326,7 @@
                                    analyticsEvent="FilterClick"
                                    analyticsCategory="AggregateQueryBuilder"
                                    [allOptionAnalyticsProperties]="{label: 'Gender: All'}"
-                                   (change)="generateReport()"></sb-checkbox-group>
+                                   (change)="onSettingsChange()"></sb-checkbox-group>
               </div>
             </div>
           </div>
@@ -349,7 +345,7 @@
                                    analyticsEvent="FilterClick"
                                    analyticsCategory="AggregateQueryBuilder"
                                    [allOptionAnalyticsProperties]="{label: 'Ethnicity: All'}"
-                                   (change)="generateReport()"></sb-checkbox-group>
+                                   (change)="onSettingsChange()"></sb-checkbox-group>
               </div>
             </div>
           </div>
@@ -369,7 +365,7 @@
                                    analyticsEvent="FilterClick"
                                    analyticsCategory="AggregateQueryBuilder"
                                    [allOptionAnalyticsProperties]="{label: 'Migrant Status: All'}"
-                                   (change)="generateReport()"></sb-checkbox-group>
+                                   (change)="onSettingsChange()"></sb-checkbox-group>
               </div>
             </div>
           </div>
@@ -389,7 +385,7 @@
                                    analyticsEvent="FilterClick"
                                    analyticsCategory="AggregateQueryBuilder"
                                    [allOptionAnalyticsProperties]="{label: 'IEP: All'}"
-                                   (change)="generateReport()"></sb-checkbox-group>
+                                   (change)="onSettingsChange()"></sb-checkbox-group>
               </div>
             </div>
           </div>
@@ -409,7 +405,7 @@
                                    analyticsEvent="FilterClick"
                                    analyticsCategory="AggregateQueryBuilder"
                                    [allOptionAnalyticsProperties]="{label: '504 Plan: All'}"
-                                   (change)="generateReport()"></sb-checkbox-group>
+                                   (change)="onSettingsChange()"></sb-checkbox-group>
               </div>
             </div>
           </div>
@@ -429,7 +425,7 @@
                                    analyticsEvent="FilterClick"
                                    analyticsCategory="AggregateQueryBuilder"
                                    [allOptionAnalyticsProperties]="{label: 'Limited English Proficiency: All'}"
-                                   (change)="generateReport()"></sb-checkbox-group>
+                                   (change)="onSettingsChange()"></sb-checkbox-group>
               </div>
             </div>
           </div>
@@ -449,7 +445,7 @@
                                    analyticsEvent="FilterClick"
                                    analyticsCategory="AggregateQueryBuilder"
                                    [allOptionAnalyticsProperties]="{label: 'Economic Disadvantage: All'}"
-                                   (change)="generateReport()"></sb-checkbox-group>
+                                   (change)="onSettingsChange()"></sb-checkbox-group>
               </div>
             </div>
           </div>
@@ -482,13 +478,14 @@
                            name="performanceLevelDisplayType"
                            analyticsEvent="FilterClick"
                            analyticsCategory="AggregateQueryBuilder"
-                           (change)="generateReport()"></sb-toggle>
+                           (change)="onSettingsChange()"></sb-toggle>
               </div>
               <div class="col-md-3">
-                <performance-comparison [assessmentTypeCode]="settings.assessmentType.code"
+                <!-- this doesnt quite work but it will be going away -->
+                <performance-comparison [assessmentTypeCode]="settings.assessmentType"
                                         [groupPerformanceLevels]="settings.performanceLevelDisplayType === 'Grouped'"
-                                        [performanceGroupingCutpoint]="3"
-                                        [performancePercentages]="[50,50,50,50]"></performance-comparison>
+                                        [performanceGroupingCutpoint]="currentAssessmentDefinition.performanceLevelGroupingCutPoint"
+                                        [performancePercentages]="[50, 50, 50, 50]"></performance-comparison>
               </div>
             </div>
           </div>
@@ -504,7 +501,7 @@
                            name="valueDisplayType"
                            analyticsEvent="FilterClick"
                            analyticsCategory="AggregateQueryBuilder"
-                           (change)="generateReport()"></sb-toggle>
+                           (change)="onSettingsChange()"></sb-toggle>
               </div>
             </div>
           </div>
@@ -539,7 +536,7 @@
                                    analyticsEvent="FilterClick"
                                    analyticsCategory="AggregateQueryBuilder"
                                    [allOptionAnalyticsProperties]="{label: 'Comparative Subgroups: All'}"
-                                   (change)="generateReport()"></sb-checkbox-group>
+                                   (change)="onSettingsChange()"></sb-checkbox-group>
               </div>
             </div>
           </div>
@@ -548,137 +545,146 @@
     </div>
 
   </form>
-  <!-- Summary -->
-  <div class="row" #reportPreviewSection id="reportPreviewSection">
-    <div class="col-md-12 col-md-offset-2">
-      <div class="well-group">
-        <div class="well wide-content-container">
 
-          <aggregate-report-summary [columns]="[
+  <!-- Summary -->
+  <div class="row mt-sm" #reportPreviewSection id="reportPreviewSection">
+    <div class="col-md-8 col-md-offset-2">
+      <h3 class="h3 gray-darkest">
+        {{'aggregate-reports.form.summary.heading' | translate}}
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-md-offset-2">
+      <div class="well">
+        <aggregate-report-summary [columns]="[
+        {
+          heading: 'aggregate-reports.form.summary.column.assessment.heading' | translate,
+          label: 'aggregate-reports.form.summary.column.assessment.label' | translate,
+          labelCssClasses: {'aqua': true},
+          attributes: [
             {
-              heading: 'aggregate-reports.form.summary.column.assessment.heading' | translate,
-              label: 'aggregate-reports.form.summary.column.assessment.label' | translate,
-              labelCssClasses: {'aqua': true},
-              attributes: [
-                {
-                  label: 'aggregate-reports.form.summary.column.assessment.attribute.subject' | translate,
-                  options: options.subjects,
-                  values: settings.subjects
-                },
-                {
-                  label: 'aggregate-reports.form.summary.column.assessment.attribute.type' | translate,
-                  options: options.assessmentTypes,
-                  values: [ settings.assessmentType ]
-                }
+              label: 'aggregate-reports.form.summary.column.assessment.attribute.subject' | translate,
+              options: options.subjects,
+              values: settings.subjects
+            },
+            {
+              label: 'aggregate-reports.form.summary.column.assessment.attribute.type' | translate,
+              options: options.assessmentTypes,
+              values: [ settings.assessmentType ]
+            }
+          ]
+        },
+        {
+          heading: 'aggregate-reports.form.summary.column.organization.heading' | translate,
+          label: 'aggregate-reports.form.summary.column.organization.label' | translate,
+          labelCssClasses: {'aqua': true},
+          attributes: [
+            {
+              label: 'aggregate-reports.form.summary.column.organization.attribute.organization.label' | translate,
+              values: [
+               organizations.length < 2
+                  ? (organizations.length > 0 ? organizations[0].name : '')
+                  : 'aggregate-reports.form.summary.column.organization.attribute.organization.value.multiple' | translate
               ]
             },
             {
-              heading: 'aggregate-reports.form.summary.column.organization.heading' | translate,
-              label: 'aggregate-reports.form.summary.column.organization.label' | translate,
-              labelCssClasses: {'aqua': true},
-              attributes: [
-                {
-                  label: 'aggregate-reports.form.summary.column.organization.attribute.organization.label' | translate,
-                  values: [
-                   organizations.length < 2
-                      ? (organizations.length > 0 ? organizations[0].name : '')
-                      : 'aggregate-reports.form.summary.column.organization.attribute.organization.value.multiple' | translate
-                  ]
-                },
-                {
-                  label: 'aggregate-reports.form.summary.column.organization.attribute.include.label' | translate,
-                  values: [
-                    settings.includeStateResults && settings.assessmentType.code === 'sum'
-                      ? ('aggregate-reports.form.summary.column.organization.attribute.include.value.state-results' | translate)
-                      : undefined,
-                    settings.includeAllDistricts
-                      ? ('aggregate-reports.form.summary.column.organization.attribute.include.value.all-districts' | translate)
-                      : undefined,
-                    settings.includeAllSchoolsOfSelectedDistricts
-                      ? ('aggregate-reports.form.summary.column.organization.attribute.include.value.all-schools-of-districts' | translate)
-                      : undefined,
-                    settings.includeAllDistrictsOfSelectedSchools
-                      ? ('aggregate-reports.form.summary.column.organization.attribute.include.value.all-districts-of-schools' | translate)
-                      : undefined
-                  ]
-                }
-              ]
-            },
-            {
-              label: 'aggregate-reports.form.summary.column.assessment-grade.label' | translate,
-              labelCssClasses: {'aqua': true},
-              attributes: [
-                {
-                  label: 'aggregate-reports.form.summary.column.assessment-grade.attribute.grade' | translate,
-                  options: options.assessmentGrades,
-                  values: settings.assessmentGrades
-                }
-              ]
-            },
-            {
-              label: 'aggregate-reports.form.summary.column.school-year.label' | translate,
-              labelCssClasses: {'aqua': true},
-              attributes: [
-                {
-                  label: 'aggregate-reports.form.summary.column.school-year.attribute.year' | translate,
-                  options: options.schoolYears,
-                  values: settings.schoolYears
-                }
-              ]
-            },
-            {
-              heading: 'aggregate-reports.form.summary.column.comparative-subgroup.heading' | translate,
-              label: 'aggregate-reports.form.summary.column.comparative-subgroup.label' | translate,
-              labelCssClasses: {'green': true},
-              attributes: [
-                {
-                  label: 'aggregate-reports.form.summary.column.comparative-subgroup.attribute.subgroup' | translate,
-                  options: options.dimensionTypes,
-                  values: settings.dimensionTypes
-                }
-              ]
-            },
-            {
-              heading: 'aggregate-reports.form.summary.column.students-tested.heading' | translate,
-              label: 'aggregate-reports.form.summary.column.students-tested.label' | translate,
-              labelCssClasses: {'red': true}
-            },
-            {
-              label: 'aggregate-reports.form.summary.column.average-scale-score.label' | translate,
-              labelCssClasses: {'red': true}
-            },
-            {
-              label: 'aggregate-reports.form.summary.column.performance-level.label' | translate,
-              labelCssClasses: {'red': true},
-              attributes: [
-                {
-                  label: 'aggregate-reports.form.summary.column.performance-level.attribute.grouping' | translate,
-                  options: options.performanceLevelDisplayTypes,
-                  values: [ settings.performanceLevelDisplayType ]
-                },
-                {
-                  label: 'aggregate-reports.form.summary.column.performance-level.attribute.value' | translate,
-                  options: options.valueDisplayTypes,
-                  values: [ settings.valueDisplayType ]
-                }
+              label: 'aggregate-reports.form.summary.column.organization.attribute.include.label' | translate,
+              values: [
+                settings.includeStateResults && !this.currentAssessmentDefinition.interim
+                  ? ('aggregate-reports.form.summary.column.organization.attribute.include.value.state-results' | translate)
+                  : undefined,
+                settings.includeAllDistricts
+                  ? ('aggregate-reports.form.summary.column.organization.attribute.include.value.all-districts' | translate)
+                  : undefined,
+                settings.includeAllSchoolsOfSelectedDistricts
+                  ? ('aggregate-reports.form.summary.column.organization.attribute.include.value.all-schools-of-districts' | translate)
+                  : undefined,
+                settings.includeAllDistrictsOfSelectedSchools
+                  ? ('aggregate-reports.form.summary.column.organization.attribute.include.value.all-districts-of-schools' | translate)
+                  : undefined
               ]
             }
-            ]"></aggregate-report-summary>
-          <div class="pt-md">
-            <span class="disabled-table-text" *ngIf="responsePreview">{{ 'aggregate-reports.preview' | translate }}</span>
-            <div class="disabled-table-container">
-              <aggregate-reports-preview-table *ngIf="responsePreview"
-                                               [reportItems]="responsePreview"
-                                               [query]="settings"
-                                               [showValuesAsPercent]="settings.valueDisplayType == 'Percent'"
-                                               [groupPerformanceLevels]="settings.performanceLevelDisplayType == 'Grouped'"
-                                               [columnOrdering]="['organizationName', 'gradeId', 'schoolYear', 'dimensionValue']"></aggregate-reports-preview-table>
-            </div>
-          </div>
+          ]
+        },
+        {
+          label: 'aggregate-reports.form.summary.column.assessment-grade.label' | translate,
+          labelCssClasses: {'aqua': true},
+          attributes: [
+            {
+              label: 'aggregate-reports.form.summary.column.assessment-grade.attribute.grade' | translate,
+              options: options.assessmentGrades,
+              values: settings.assessmentGrades
+            }
+          ]
+        },
+        {
+          label: 'aggregate-reports.form.summary.column.school-year.label' | translate,
+          labelCssClasses: {'aqua': true},
+          attributes: [
+            {
+              label: 'aggregate-reports.form.summary.column.school-year.attribute.year' | translate,
+              options: options.schoolYears,
+              values: settings.schoolYears
+            }
+          ]
+        },
+        {
+          heading: 'aggregate-reports.form.summary.column.comparative-subgroup.heading' | translate,
+          label: 'aggregate-reports.form.summary.column.comparative-subgroup.label' | translate,
+          labelCssClasses: {'green': true},
+          attributes: [
+            {
+              label: 'aggregate-reports.form.summary.column.comparative-subgroup.attribute.subgroup' | translate,
+              options: options.dimensionTypes,
+              values: settings.dimensionTypes
+            }
+          ]
+        },
+        {
+          heading: 'aggregate-reports.form.summary.column.students-tested.heading' | translate,
+          label: 'aggregate-reports.form.summary.column.students-tested.label' | translate,
+          labelCssClasses: {'red': true}
+        },
+        {
+          label: 'aggregate-reports.form.summary.column.average-scale-score.label' | translate,
+          labelCssClasses: {'red': true}
+        },
+        {
+          label: 'aggregate-reports.form.summary.column.performance-level.label' | translate,
+          labelCssClasses: {'red': true},
+          attributes: [
+            {
+              label: 'aggregate-reports.form.summary.column.performance-level.attribute.grouping' | translate,
+              options: options.performanceLevelDisplayTypes,
+              values: [ settings.performanceLevelDisplayType ]
+            },
+            {
+              label: 'aggregate-reports.form.summary.column.performance-level.attribute.value' | translate,
+              options: options.valueDisplayTypes,
+              values: [ settings.valueDisplayType ]
+            }
+          ]
+        }
+        ]"></aggregate-report-summary>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-md-offset-2">
+      <div class="well wide-content-container">
+        <div>
+          <span class="red label">{{ 'aggregate-reports.preview' | translate }}</span>
+        </div>
+        <div>
+          <aggregate-report-table [preview]="true"
+                                  [table]="previewTable"
+                                  [valueDisplayType]="settings.valueDisplayType"
+                                  [performanceLevelDisplayType]="settings.performanceLevelDisplayType"
+                                  [columnOrdering]="['organization', 'assessmentGrade', 'schoolYear', 'dimension']"></aggregate-report-table>
         </div>
       </div>
     </div>
   </div>
 
-</div>
-
+</ng-container>

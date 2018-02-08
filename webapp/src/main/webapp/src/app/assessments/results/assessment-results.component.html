@@ -19,13 +19,12 @@
               </span>
           </div>
           <div class="col-md-4">
-            <button
+            <button *ngIf="assessmentExam.assessment.isIab"
               class="btn btn-success btn-xs float-none-xs pull-right"
               angulartics2On="click"
               angularticsEvent="InstructionalResource"
               angularticsCategory="AssessmentResults"
               [angularticsProperties]="{label: assessmentExam.assessment.label}"
-              [disabled]="false"
               [popover]="buttonPopover"
               popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:assessmentExam.assessment.label } }}"
               container="body"

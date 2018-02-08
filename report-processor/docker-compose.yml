@@ -20,42 +20,42 @@ services:
       - 5672:5672
       - 15672:15672
 
-  config-server:
-    image: smarterbalanced/configuration-service:3.1.0.RELEASE
-    container_name: config-server
-    ports:
-      - 8888:8888
-    links:
-      - rabbitmq
-    environment:
-      - CONFIG_SERVICE_REPO
-      - ENCRYPT_KEY
-      - GIT_USER
-      - GIT_PASSWORD
-      - SPRING_RABBITMQ_ADDRESSES=rabbitmq:5672
-      - SPRING_RABBITMQ_USERNAME=guest
-      - SPRING_RABBITMQ_PASSWORD=guest
-
-  report-processor-service:
-    image: smarterbalanced/rdw-reporting-report-processor
-    ports:
-      - 8085:8080
-      - 8086:8008
-    volumes:
-      - /tmp:/tmp
-    links:
-      - config-server
-      - rabbitmq
-      - wkhtmltopdf
-    environment:
-      - spring.profiles.active=local-docker
-      - CONFIG_SERVICE_ENABLED=true
-      - CONFIG_SERVICE_URL=http://config-server:8888
-      - task.remove-stale-reports.cron=0 1 * * * *
-      - task.remove-stale-reports.max-report-lifetime-days=30
-      - task.remove-stale-reports.max-random-minutes=0
-    extra_hosts:
-      - "dwhost:$DATAWAREHOUSE_HOST"
+#  config-server:
+#    image: smarterbalanced/configuration-service:3.1.0.RELEASE
+#    container_name: config-server
+#    ports:
+#      - 8888:8888
+#    links:
+#      - rabbitmq
+#    environment:
+#      - CONFIG_SERVICE_REPO
+#      - ENCRYPT_KEY
+#      - GIT_USER
+#      - GIT_PASSWORD
+#      - SPRING_RABBITMQ_ADDRESSES=rabbitmq:5672
+#      - SPRING_RABBITMQ_USERNAME=guest
+#      - SPRING_RABBITMQ_PASSWORD=guest
+#
+#  report-processor-service:
+#    image: smarterbalanced/rdw-reporting-report-processor
+#    ports:
+#      - 8085:8080
+#      - 8086:8008
+#    volumes:
+#      - /tmp:/tmp
+#    links:
+#      - config-server
+#      - rabbitmq
+#      - wkhtmltopdf
+#    environment:
+#      - spring.profiles.active=local-docker
+#      - CONFIG_SERVICE_ENABLED=true
+#      - CONFIG_SERVICE_URL=http://config-server:8888
+#      - task.remove-stale-reports.cron=0 1 * * * *
+#      - task.remove-stale-reports.max-report-lifetime-days=30
+#      - task.remove-stale-reports.max-random-minutes=0
+#    extra_hosts:
+#      - "dwhost:$DATAWAREHOUSE_HOST"
 
   wkhtmltopdf:
     image: smarterbalanced/wkhtmltopdf-image:latest
