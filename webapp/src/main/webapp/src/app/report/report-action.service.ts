@@ -32,7 +32,7 @@ export class ReportActionService {
    */
   public getActions(report: Report): ReportAction[] {
     return this.actionProviders
-      .find(provider => provider.accept(report))
+      .find(provider => provider.supports(report))
       .getActions(report);
   }
 
@@ -53,7 +53,7 @@ export class ReportActionService {
   }
 
   private performDownload(action: ReportAction): void {
-    this.reportService.getExamReport(action.value)
+    this.reportService.getReportContent(action.value)
       .subscribe(
         (download: Download) => {
           saveAs(download.content, download.name);
@@ -89,7 +89,7 @@ export enum ActionType {
 }
 
 /**
- * This default action provider is capable of accepting all Report instances.
+ * This default action provider is capable of supporting all Report instances.
  * It will return:
  *   no actions for an incomplete report,
  *   a download action for a complete report,
@@ -97,7 +97,7 @@ export enum ActionType {
  */
 class DefaultActionProvider implements ActionProvider {
 
-  public accept(report: Report) {
+  public supports(report: Report) {
     return true;
   }
 
@@ -115,7 +115,7 @@ class DefaultActionProvider implements ActionProvider {
 }
 
 /**
- * This action provider only accepts completed aggregate reports.
+ * This action provider only supports completed aggregate reports.
  * It returns a:
  *  view report action,
  *  view query action,
@@ -123,7 +123,7 @@ class DefaultActionProvider implements ActionProvider {
  */
 class AggregateReportActionProvider extends DefaultActionProvider {
 
-  public accept(report: Report): boolean {
+  public supports(report: Report): boolean {
     return report.reportType === AggregateReportType &&
       report.completed;
   }
@@ -147,12 +147,12 @@ class AggregateReportActionProvider extends DefaultActionProvider {
 
 /**
  * Implementations of this interface are responsible for optionally
- * accepting a report instance.  If accepted, the implementation is
+ * supporting a report instance.  If supported, the implementation is
  * responsible for providing all actions that can be performed on
  * the given report.
  */
 interface ActionProvider {
-  accept(report: Report): boolean;
+  supports(report: Report): boolean;
 
   getActions(report: Report): ReportAction[];
 }

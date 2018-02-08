@@ -49,7 +49,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
   }
 
   download(report: Report): void {
-    this.service.getExamReport(report.id)
+    this.service.getReportContent(report.id)
       .subscribe(
         (download: Download) => {
           saveAs(download.content, download.name);
