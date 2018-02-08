@@ -23,6 +23,7 @@ import { AggregateReportItemMapper } from "./results/aggregate-report-item.mappe
 import { AggregateReportTableComponent } from "./results/aggregate-report-table.component";
 import { AssessmentModule } from "./assessment/assessment.module";
 import { AggregateReportTableDataService } from "./aggregate-report-table-data.service";
+import { AggregateReportRequestMapper } from "./aggregate-report-request.mapper";
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { AggregateReportTableDataService } from "./aggregate-report-table-data.s
     AggregateReportConfirmationModal
   ],
   providers: [
+    AggregateReportRequestMapper,
     AggregateReportTableDataService,
     AggregateReportService,
     AggregateReportResolve,

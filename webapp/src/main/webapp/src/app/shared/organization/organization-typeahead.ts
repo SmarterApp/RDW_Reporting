@@ -37,7 +37,7 @@ export class OrganizationTypeahead extends AbstractControlValueAccessor<string> 
   options: Observable<Organization[]> | Organization[];
 
   @Output()
-  select: EventEmitter<Organization> = new EventEmitter<Organization>();
+  selected: EventEmitter<Organization> = new EventEmitter<Organization>();
 
   loadingInternal: boolean = false;
   noResultsInternal: boolean = false;
@@ -54,7 +54,7 @@ export class OrganizationTypeahead extends AbstractControlValueAccessor<string> 
   }
 
   onTypeaheadSelectInternal(event: TypeaheadMatch): void {
-    event.item && this.select.emit(event.item);
+    event.item && this.selected.emit(event.item);
   }
 
 }

@@ -45,7 +45,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
       .get(this.report.request.reportQuery.assessmentTypeCode);
     this.reportSizeSupported = Utils.isUndefined(this.report.metadata.totalCount)
       || (Number.parseInt(this.report.metadata.totalCount) <= SupportedRowCount);
-    this._tableViewComparator = ordering(ranking(this.options.subjects.map(subject => subject.code)))
+    this._tableViewComparator = ordering(ranking(this.options.subjects))
       .on((wrapper: AggregateReportTableView) => wrapper.subjectCode).compare;
   }
 

@@ -6,6 +6,11 @@ export interface AssessmentDefinition {
   readonly typeCode: string;
 
   /**
+   * Whether or not the assessment is interim or not
+   */
+  readonly interim: boolean;
+
+  /**
    * The total performance levels available for this assessment type.
    */
   readonly performanceLevels: number[];

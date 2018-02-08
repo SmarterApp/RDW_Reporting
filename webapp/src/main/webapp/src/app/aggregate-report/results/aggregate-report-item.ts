@@ -6,7 +6,7 @@ import { Organization } from "../../shared/organization/organization";
 export class AggregateReportItem {
   itemId: number;
   assessmentId: number;
-  gradeCode: string;
+  assessmentGradeCode: string;
   subjectCode: string;
   schoolYear: number;
   avgScaleScore: number;

@@ -1,13 +1,11 @@
 <nav class="sidebar affix leftnav">
   <ul class="nav nav-pills nav-stacked">
-    <li *ngFor="let section of sections">
-
-      <a *ngIf="section.isLink" class="navbar-link" [ngClass]="{'active': section.isActive}"
-         (click)="section.scrollTo.scrollIntoView()">{{section.text}}
-      </a>
-      <button *ngIf="section.isButton" [className]="section.classes"
-              (click)="section.clickAction()"><i [class]="section.iconClasses"></i> {{section.text}}
-      </button>
+    <li *ngFor="let item of items">
+      <a class="navbar-link small"
+         href="javascript:void(0)"
+         [ngClass]="{active: item === activeItem}"
+         [class]="item.classes"
+         (click)="onItemClickInternal(item)"><ng-container *ngIf="item.iconClasses"><i [class]="item.iconClasses"></i> </ng-container>{{item.text}}</a>
     </li>
   </ul>
 </nav>

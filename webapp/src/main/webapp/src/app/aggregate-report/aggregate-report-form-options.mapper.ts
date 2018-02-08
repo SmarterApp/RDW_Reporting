@@ -37,33 +37,33 @@ export class AggregateReportFormOptionsMapper {
     return <AggregateReportFormOptions>{
       assessmentGrades: options.assessmentGrades
         .map(optionMapper(
-          value => translate(`common.grade.${value.code}.form-name`),
-          value => `Assessment Grade: ${value.code}`
+          value => translate(`common.grade.${value}.form-name`),
+          value => `Assessment Grade: ${value}`
         )),
       assessmentTypes: options.assessmentTypes
         .map(optionMapper(
-          value => translate(`common.assessment-type.${value.code}.short-name`),
-          value => `Assessment Type: ${value.code}`
+          value => translate(`common.assessment-type.${value}.short-name`),
+          value => `Assessment Type: ${value}`
         )),
       completenesses: options.completenesses
         .map(optionMapper(
-          value => translate(`common.completeness.${value.code}`),
-          value => `Completeness: ${value.code}`
+          value => translate(`common.completeness.${value}`),
+          value => `Completeness: ${value}`
         )),
       ethnicities: options.ethnicities
         .map(optionMapper(
-          value => translate(`common.ethnicity.${value.code}`),
-          value => `Ethnicity: ${value.code}`
+          value => translate(`common.ethnicity.${value}`),
+          value => `Ethnicity: ${value}`
         )),
       genders: options.genders
         .map(optionMapper(
-          value => translate(`common.gender.${value.code}`),
-          value => `Gender: ${value.code}`
+          value => translate(`common.gender.${value}`),
+          value => `Gender: ${value}`
         )),
       interimAdministrationConditions: options.interimAdministrationConditions
         .map(optionMapper(
-          value => translate(`common.administration-condition.${value.code}`),
-          value => `Manner of Administration: ${value.code}`
+          value => translate(`common.administration-condition.${value}`),
+          value => `Manner of Administration: ${value}`
         )),
       schoolYears: options.schoolYears
         .map(optionMapper(
@@ -72,38 +72,38 @@ export class AggregateReportFormOptionsMapper {
         )),
       subjects: options.subjects
         .map(optionMapper(
-          value => translate(`common.subject.${value.code}.short-name`),
-          value => `Subject: ${value.code}`
+          value => translate(`common.subject.${value}.short-name`),
+          value => `Subject: ${value}`
         )),
       summativeAdministrationConditions: options.summativeAdministrationConditions
         .map(optionMapper(
-          value => translate(`common.administration-condition.${value.code}`),
-          value => `Validity: ${value.code}`
+          value => translate(`common.administration-condition.${value}`),
+          value => `Validity: ${value}`
         )),
       migrantStatuses: options.migrantStatuses
         .map(optionMapper(
-          value => translate(`common.strict-boolean.${value.code}`),
-          value => `Migrant Status: ${value.code}`
+          value => translate(`common.strict-boolean.${value}`),
+          value => `Migrant Status: ${value}`
         )),
       individualEducationPlans: options.individualEducationPlans
         .map(optionMapper(
-          value => translate(`common.strict-boolean.${value.code}`),
-          value => `Individual Education Plan: ${value.code}`
+          value => translate(`common.strict-boolean.${value}`),
+          value => `Individual Education Plan: ${value}`
         )),
       section504s: options.section504s
         .map(optionMapper(
-          value => translate(`common.strict-boolean.${value.code}`),
-          value => `Section 504: ${value.code}`
+          value => translate(`common.strict-boolean.${value}`),
+          value => `Section 504: ${value}`
         )),
       limitedEnglishProficiencies: options.limitedEnglishProficiencies
         .map(optionMapper(
-          value => translate(`common.strict-boolean.${value.code}`),
-          value => `Limited English Proficiency: ${value.code}`
+          value => translate(`common.strict-boolean.${value}`),
+          value => `Limited English Proficiency: ${value}`
         )),
       economicDisadvantages: options.economicDisadvantages
         .map(optionMapper(
-          value => translate(`common.strict-boolean.${value.code}`),
-          value => `Economic Disadvantage: ${value.code}`
+          value => translate(`common.strict-boolean.${value}`),
+          value => `Economic Disadvantage: ${value}`
         )),
       performanceLevelDisplayTypes: [ 'Separate', 'Grouped' ]
         .map(optionMapper(

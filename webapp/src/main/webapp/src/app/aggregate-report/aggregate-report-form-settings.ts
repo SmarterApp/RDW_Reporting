@@ -1,5 +1,4 @@
 import { District, School } from "../shared/organization/organization";
-import { CodedEntity } from "../shared/coded-entity";
 
 /**
  * Client side representation of a report request.
@@ -10,27 +9,27 @@ export interface AggregateReportFormSettings {
   /**
    * Assessment grades to be covered on the report
    */
-  assessmentGrades: CodedEntity[];
+  assessmentGrades: string[];
 
   /**
    * Assessment type of the report
    */
-  assessmentType: CodedEntity;
+  assessmentType: string;
 
   /**
    * Completeness result filter
    */
-  completenesses: CodedEntity[];
+  completenesses: string[];
 
   /**
    * Economic disadvantage result filter
    */
-  economicDisadvantages: CodedEntity[];
+  economicDisadvantages: string[];
 
   /**
    * Race / Ethnicity result filter
    */
-  ethnicities: CodedEntity[];
+  ethnicities: string[];
 
   /**
    * The comparative subgroups to compare on the report
@@ -40,27 +39,27 @@ export interface AggregateReportFormSettings {
   /**
    * Gender result filter
    */
-  genders: CodedEntity[];
+  genders: string[];
 
   /**
    * Individual education plans result filter
    */
-  individualEducationPlans: CodedEntity[];
+  individualEducationPlans: string[];
 
   /**
    * Interim administration condition result filter
    */
-  interimAdministrationConditions: CodedEntity[];
+  interimAdministrationConditions: string[];
 
   /**
    * English learners result filter
    */
-  limitedEnglishProficiencies: CodedEntity[];
+  limitedEnglishProficiencies: string[];
 
   /**
    * Migrant status result filter
    */
-  migrantStatuses: CodedEntity[];
+  migrantStatuses: string[];
 
   /**
    * The achievement level graph display type
@@ -70,7 +69,7 @@ export interface AggregateReportFormSettings {
   /**
    * Plan 504 result filter
    */
-  section504s: CodedEntity[];
+  section504s: string[];
 
   /**
    * The school years to be covered on the report
@@ -80,12 +79,12 @@ export interface AggregateReportFormSettings {
   /**
    * Subject result filter
    */
-  subjects: CodedEntity[];
+  subjects: string[];
 
   /**
    * Summative administration conditions result filter
    */
-  summativeAdministrationConditions: CodedEntity[];
+  summativeAdministrationConditions: string[];
 
   /**
    * Determines if values are displayed as percent or number in the report

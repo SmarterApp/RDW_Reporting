@@ -39,6 +39,20 @@
         <groups [groups]="user.groups"></groups>
       </div>
 
+      <!-- Aggregate Reports -->
+      <div *hasPermission="'CUSTOM_AGGREGATE_READ'" class="well">
+        <div class="row">
+          <div class="col-sm-6">
+            <label>{{'aggregate-reports.form.heading' | translate}}</label>
+            <p><!-- blurb placeholder --></p>
+          </div>
+          <div class="col-sm-6">
+            <div class="pull-right">
+              <button class="btn btn-primary" [routerLink]="['aggregate-reports']">{{'home.section.aggregate-report.link-label' | translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Right Column Content Area -->
@@ -54,7 +68,9 @@
         <div>
           <p [innerHTML]="'labels.homepage.welcome.interpretive-guide-html' | translate:user.configuration"></p>
           <a href="{{user.configuration.interpretiveGuideUrl}}" target="_blank" class="btn btn-success">
-            <small>{{'labels.homepage.welcome.interpretive-guide-subtitle' | translate}}</small><br>{{'labels.navigation.interpretive-guide' | translate}}
+            <small>{{'labels.homepage.welcome.interpretive-guide-subtitle' | translate}}</small>
+            <br>
+            {{'labels.navigation.interpretive-guide' | translate}}
           </a>
         </div>
       </div>

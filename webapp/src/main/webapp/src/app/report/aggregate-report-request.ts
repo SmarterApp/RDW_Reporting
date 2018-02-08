@@ -8,25 +8,25 @@ export interface AggregateReportRequest {
 
 export interface AggregateReportQuery {
   readonly achievementLevelDisplayType: string;
-  readonly administrationConditionCodes: string[];
+  readonly administrationConditionCodes?: string[];
   readonly assessmentGradeCodes: string[];
   readonly assessmentTypeCode: string;
-  readonly completenessCodes: string[];
-  readonly economicDisadvantageCodes: string[];
-  readonly ethnicityCodes: string[];
+  readonly completenessCodes?: string[];
+  readonly economicDisadvantageCodes?: string[];
+  readonly ethnicityCodes?: string[];
   readonly dimensionTypes: string[];
-  readonly districtIds: number[];
-  readonly genderCodes: string[];
-  readonly iepCodes: string[];
+  readonly districtIds?: number[];
+  readonly genderCodes?: string[];
+  readonly iepCodes?: string[];
   readonly includeAllDistricts: boolean;
   readonly includeAllDistrictsOfSchools: boolean;
   readonly includeAllSchoolsOfDistricts: boolean;
   readonly includeState: boolean;
-  readonly lepCodes: string[];
-  readonly migrantStatusCodes: string[];
-  readonly section504Codes: string[];
-  readonly schoolIds: number[];
+  readonly lepCodes?: string[];
+  readonly migrantStatusCodes?: string[];
+  readonly section504Codes?: string[];
+  readonly schoolIds?: number[];
   readonly schoolYears: number[];
-  readonly subjectCodes: string[];
+  readonly subjectCodes?: string[];
   readonly valueDisplayType: string;
 }

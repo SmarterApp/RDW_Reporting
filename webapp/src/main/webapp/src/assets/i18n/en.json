@@ -2,6 +2,13 @@
   "application": {
     "title": "Reporting System"
   },
+  "home": {
+    "section": {
+      "aggregate-report": {
+        "link-label": "Create Report"
+      }
+    }
+  },
   "sample-aggregate-table-data-service": {
     "organization-name-format": "School / District {{id}}"
   },
@@ -13,6 +20,7 @@
   "aggregate-reports": {
     "heading": "Aggregate Reports",
     "preview": "Table for preview purposes only. This is NOT actual data.",
+    "access-denied-error": "Your user account is not permitted to create aggregate reports by the system. If you believe you have reached this page in error, please contact your building administrator.",
     "confirmation-modal": {
       "body": "The requested report will contain {{formattedRowCount}} rows and is too large to display in the browser. Would you like to generate this report for download as a spreadsheet?",
       "accept": "Generate",

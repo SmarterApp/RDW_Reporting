@@ -116,20 +116,19 @@ export class AggregateReportTableComponent implements OnInit {
 
       // TODO outsource this common logic
       const options = table.options;
-      const codesOf = values => values.map(value => value.code);
 
-      const assessmentGradeOrdering = ordering(ranking(codesOf(options.assessmentGrades)))
-        .on((item: AggregateReportItem) => item.gradeCode);
+      const assessmentGradeOrdering = ordering(ranking(options.assessmentGrades))
+        .on((item: AggregateReportItem) => item.assessmentGradeCode);
 
       const dimensionOptionsByDimensionType = {
-        Gender: codesOf(options.genders),
-        Ethnicity: codesOf(options.ethnicities),
-        LEP: codesOf(options.limitedEnglishProficiencies),
-        MigrantStatus: codesOf(options.migrantStatuses),
-        Section504: codesOf(options.migrantStatuses),
-        IEP: codesOf(options.individualEducationPlans),
-        EconomicDisadvantage: codesOf(options.economicDisadvantages),
-        StudentEnrolledGrade: codesOf(options.assessmentGrades)
+        Gender: options.genders,
+        Ethnicity: options.ethnicities,
+        LEP: options.limitedEnglishProficiencies,
+        MigrantStatus: options.migrantStatuses,
+        Section504: options.migrantStatuses,
+        IEP: options.individualEducationPlans,
+        EconomicDisadvantage: options.economicDisadvantages,
+        StudentEnrolledGrade: options.assessmentGrades
       };
 
       const dimensionTypeAndCodeRanking = table.options.dimensionTypes.reduce((ranking, dimensionType) => {
@@ -144,7 +143,7 @@ export class AggregateReportTableComponent implements OnInit {
 
       this._districtNamesById = this.getDistrictNamesById(value.rows);
       this._orderingByColumnField['organization.name'] = this.createOrganizationOrdering();
-      this._orderingByColumnField['gradeCode'] = assessmentGradeOrdering;
+      this._orderingByColumnField['assessmentGradeCode'] = assessmentGradeOrdering;
       this._orderingByColumnField['schoolYear'] = SchoolYearOrdering;
       this._orderingByColumnField['dimension.id'] = dimensionOrdering;
       this._table = table;

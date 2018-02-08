@@ -29,7 +29,7 @@
       </ng-template>
     </p-column>
     <p-column colId="assessmentGrade"
-              field="gradeCode"
+              field="assessmentGradeCode"
               [sortable]="rowSortingEnabled"
               (sortFunction)="sort($event)"
               header="{{'aggregate-reports.results.cols.assessment-grade' | translate}}">
@@ -37,7 +37,7 @@
         <div *ngIf="treeColumns[i] <= getColumnIndex(col)"
              class="full-cell pt-0"
              [ngClass]="{'border-top': treeColumns[i] <= getColumnIndex(col) && treeColumns[i] < columnOrdering.length - 1}">
-          {{'common.grade.' + row.gradeCode + '.form-name' | translate}}
+          {{'common.grade.' + row.assessmentGradeCode + '.form-name' | translate}}
         </div>
       </ng-template>
     </p-column>

@@ -8,48 +8,45 @@ import { TranslateService } from "@ngx-translate/core";
 
 const OverallDimension: Dimension = { id: 'Overall', type: 'Overall', includeType: true };
 
-const codeOf = entity => entity.code;
-const codesOf = entities => entities.map(codeOf);
-
 // when adding a new dimension type one needs to be defined here
 const DimensionConfigurationByType: { [dimensionType: string]: DimensionConfiguration } = {
   Gender: {
-    getDimensionValueCodes: settings => codesOf(settings.genders),
+    getDimensionValueCodes: settings => settings.genders,
     getTranslationCode: value => `common.gender.${value}`,
     includeType: true
   },
   Ethnicity: {
-    getDimensionValueCodes: settings => codesOf(settings.ethnicities),
+    getDimensionValueCodes: settings => settings.ethnicities,
     getTranslationCode: value => `common.ethnicity.${value}`,
     includeType: true
   },
   LEP: {
-    getDimensionValueCodes: settings => codesOf(settings.limitedEnglishProficiencies),
+    getDimensionValueCodes: settings => settings.limitedEnglishProficiencies,
     getTranslationCode: value => `common.strict-boolean.${value}`,
     includeType: true
   },
   MigrantStatus: {
-    getDimensionValueCodes: settings => codesOf(settings.migrantStatuses),
+    getDimensionValueCodes: settings => settings.migrantStatuses,
     getTranslationCode: value => `common.strict-boolean.${value}`,
     includeType: true
   },
   Section504: {
-    getDimensionValueCodes: settings => codesOf(settings.section504s),
+    getDimensionValueCodes: settings => settings.section504s,
     getTranslationCode: value => `common.strict-boolean.${value}`,
     includeType: true
   },
   IEP: {
-    getDimensionValueCodes: settings => codesOf(settings.individualEducationPlans),
+    getDimensionValueCodes: settings => settings.individualEducationPlans,
     getTranslationCode: value => `common.strict-boolean.${value}`,
     includeType: true
   },
   EconomicDisadvantage: {
-    getDimensionValueCodes: settings => codesOf(settings.economicDisadvantages),
+    getDimensionValueCodes: settings => settings.economicDisadvantages,
     getTranslationCode: value => `common.strict-boolean.${value}`,
     includeType: true
   },
   StudentEnrolledGrade: {
-    getDimensionValueCodes: settings => Utils.isNullOrEmpty(settings.assessmentGrades) ? [] : [ settings.assessmentGrades[0].code ],
+    getDimensionValueCodes: settings => Utils.isNullOrEmpty(settings.assessmentGrades) ? [] : [ settings.assessmentGrades[0] ],
     getTranslationCode: value => `common.grade.${value}.enrolled`,
     includeType: true
   }
@@ -63,7 +60,7 @@ export class AggregateReportTableDataService {
 
   createSampleData(assessmentDefinition: AssessmentDefinition, settings: AggregateReportFormSettings): AggregateReportItem[] {
     const organizations = this.createSampleOrganizations([ ...settings.districts, ...settings.schools ].length);
-    const assessmentGradeCodes = codesOf(settings.assessmentGrades);
+    const assessmentGradeCodes = settings.assessmentGrades;
     const schoolYears = settings.schoolYears;
     const dimensions = [ OverallDimension, ...this.createDimensions(settings) ];
     const studentsTested = 100;
@@ -90,7 +87,7 @@ export class AggregateReportTableDataService {
               itemId: ++uuid,
               organization: organization,
               assessmentId: undefined,
-              gradeCode: assessmentGradeCode,
+              assessmentGradeCode: assessmentGradeCode,
               subjectCode: undefined,
               schoolYear: schoolYear,
               avgScaleScore: averageScaleScore,
