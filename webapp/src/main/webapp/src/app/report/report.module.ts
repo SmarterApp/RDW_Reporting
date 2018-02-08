@@ -13,13 +13,17 @@ import { ReportsComponent } from "./reports.component";
 import { DataTableModule } from "primeng/components/datatable/datatable";
 import { GroupReportDownloadComponent } from "./group-report-download.component";
 import { SchoolGradeDownloadComponent } from "./school-grade-report-download.component";
+import { ReportActionService } from "./report-action.service";
+import { ReportActionComponent } from "./report-action.component";
+import { RdwMenuModule } from "../shared/menu/rdw-menu.module";
 
 @NgModule({
   declarations: [
     ReportsComponent,
     StudentReportDownloadComponent,
     GroupReportDownloadComponent,
-    SchoolGradeDownloadComponent
+    SchoolGradeDownloadComponent,
+    ReportActionComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -30,6 +34,7 @@ import { SchoolGradeDownloadComponent } from "./school-grade-report-download.com
     CommonModule,
     SharedModule,
     DataTableModule,
+    RdwMenuModule,
     Angulartics2Module.forChild()
   ],
   exports: [
@@ -40,7 +45,8 @@ import { SchoolGradeDownloadComponent } from "./school-grade-report-download.com
   ],
   providers: [
     ReportService,
-    ReportsResolve
+    ReportsResolve,
+    ReportActionService
   ]
 })
 export class ReportModule {

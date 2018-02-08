@@ -1556,6 +1556,11 @@
         "SchoolGrade": "School / Grade Report",
         "Student": "Student Report"
       },
+      "report-actions": {
+        "view-report": "View Report",
+        "view-query": "View Report Query",
+        "download-report": "Download Report Data"
+      },
       "status": {
         "COMPLETED": "Completed",
         "EXPIRED": "Expired",
