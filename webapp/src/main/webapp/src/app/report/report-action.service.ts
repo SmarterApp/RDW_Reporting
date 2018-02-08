@@ -130,17 +130,14 @@ class AggregateReportActionProvider extends DefaultActionProvider {
 
   public getActions(report: Report): ReportAction[] {
     return [{
-      icon: "fa-cloud-download",
       type: ActionType.Navigate,
       value: `/aggregate-reports/${report.id}`,
       labelKey: "labels.reports.report-actions.view-report"
     }, {
-      icon: "fa-cloud-download",
       type: ActionType.Navigate,
       value: `/aggregate-reports?src=${report.id}`,
       labelKey: "labels.reports.report-actions.view-query"
     }, {
-      icon: "fa-cloud-download",
       type: ActionType.Download,
       value: report.id,
       labelKey: "labels.reports.report-actions.download-report"
