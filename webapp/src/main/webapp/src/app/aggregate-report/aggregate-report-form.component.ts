@@ -13,7 +13,6 @@ import { AggregateReportService } from "./aggregate-report.service";
 import { AggregateReportTable } from "./results/aggregate-report-table.component";
 import "rxjs/add/observable/interval";
 import "rxjs/add/operator/switchMap";
-import { BsModalService } from "ngx-bootstrap";
 import { AggregateReportRequest } from "../report/aggregate-report-request";
 import { AggregateReportFormOptionsMapper } from "./aggregate-report-form-options.mapper";
 import { AggregateReportTableDataService } from "./aggregate-report-table-data.service";
@@ -95,7 +94,6 @@ export class AggregateReportFormComponent {
               private notificationService: NotificationService,
               private organizationService: AggregateReportOrganizationService,
               private reportService: AggregateReportService,
-              private modalService: BsModalService,
               private tableDataService: AggregateReportTableDataService) {
 
     this.assessmentDefinitionsByTypeCode = route.parent.snapshot.data[ 'assessmentDefinitionsByAssessmentTypeCode' ];

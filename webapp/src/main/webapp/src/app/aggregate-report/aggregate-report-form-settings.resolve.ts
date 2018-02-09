@@ -9,10 +9,10 @@ import { Option } from "../shared/form/sb-checkbox-group.component";
 import { District, OrganizationType, School } from "../shared/organization/organization";
 import { AggregateReportOrganizationService } from "./aggregate-report-organization.service";
 import { AggregateReportFormOptionsMapper } from "./aggregate-report-form-options.mapper";
+import { Utils } from "../shared/support/support";
 
 const valuesOf = values => values.map(value => value.value);
 const firstValueOf = values => values[ 0 ].value;
-const hasValues = (value: any[]) => value && value.length;
 const hasOption = (options: Option[], value: any) => options.find(option => option.value === value) != null;
 
 /**
@@ -81,12 +81,12 @@ export class AggregateReportFormSettingsResolve implements Resolve<AggregateRepo
 
   private saturateOrgs(request: AggregateReportRequest): Observable<SaturatedRequest> {
     const schoolIds: number[] = request.reportQuery.schoolIds;
-    const schools: Observable<School[]> = hasValues(schoolIds)
+    const schools: Observable<School[]> = !Utils.isNullOrEmpty(schoolIds)
       ? this.organizationService.getOrganizationsByIdAndType(OrganizationType.School, schoolIds)
       : Observable.of([]);
 
     const districtIds: number[] = request.reportQuery.districtIds;
-    const districts: Observable<District[]> = hasValues(districtIds)
+    const districts: Observable<District[]> = !Utils.isNullOrEmpty(districtIds)
       ? this.organizationService.getOrganizationsByIdAndType(OrganizationType.District, districtIds)
       : Observable.of([]);
 
@@ -122,39 +122,39 @@ export class AggregateReportFormSettingsResolve implements Resolve<AggregateRepo
       settings.valueDisplayType = query.valueDisplayType;
     }
 
-    if (hasValues(query.completenessCodes)) {
+    if (!Utils.isNullOrEmpty(query.completenessCodes)) {
       settings.completenesses = query.completenessCodes;
     }
 
-    if (hasValues(query.economicDisadvantageCodes)) {
+    if (!Utils.isNullOrEmpty(query.economicDisadvantageCodes)) {
       settings.economicDisadvantages = query.economicDisadvantageCodes;
     }
 
-    if (hasValues(query.ethnicityCodes)) {
+    if (!Utils.isNullOrEmpty(query.ethnicityCodes)) {
       settings.ethnicities = query.ethnicityCodes;
     }
 
-    if (hasValues(query.genderCodes)) {
+    if (!Utils.isNullOrEmpty(query.genderCodes)) {
       settings.genders = query.genderCodes;
     }
 
-    if (hasValues(query.iepCodes)) {
+    if (!Utils.isNullOrEmpty(query.iepCodes)) {
       settings.individualEducationPlans = query.iepCodes;
     }
 
-    if (hasValues(query.lepCodes)) {
+    if (!Utils.isNullOrEmpty(query.lepCodes)) {
       settings.limitedEnglishProficiencies = query.lepCodes;
     }
 
-    if (hasValues(query.migrantStatusCodes)) {
+    if (!Utils.isNullOrEmpty(query.migrantStatusCodes)) {
       settings.migrantStatuses = query.migrantStatusCodes;
     }
 
-    if (hasValues(query.section504Codes)) {
+    if (!Utils.isNullOrEmpty(query.section504Codes)) {
       settings.section504s = query.section504Codes;
     }
 
-    if (hasValues(query.administrationConditionCodes)) {
+    if (!Utils.isNullOrEmpty(query.administrationConditionCodes)) {
       const interim: string[] = query.administrationConditionCodes
         .filter((code) => hasOption(options.interimAdministrationConditions, code));
       if (interim.length) {
@@ -168,11 +168,11 @@ export class AggregateReportFormSettingsResolve implements Resolve<AggregateRepo
       }
     }
 
-    if (hasValues(saturatedRequest.districts)) {
+    if (!Utils.isNullOrEmpty(saturatedRequest.districts)) {
       settings.districts = saturatedRequest.districts;
     }
 
-    if (hasValues(saturatedRequest.schools)) {
+    if (!Utils.isNullOrEmpty(saturatedRequest.schools)) {
       settings.schools = saturatedRequest.schools;
     }
 
