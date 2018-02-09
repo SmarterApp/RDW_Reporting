@@ -93,8 +93,6 @@ export class AggregateReportFormSettingsResolve implements Resolve<AggregateRepo
     return Observable.forkJoin(schools, districts)
       .map((results) => {
         let [ schools, districts ] = results;
-        console.log("schools", schools);
-        console.log("districts", districts);
         return {
           request: request,
           schools: schools,
@@ -106,7 +104,6 @@ export class AggregateReportFormSettingsResolve implements Resolve<AggregateRepo
   private mapOntoSettings(saturatedRequest: SaturatedRequest, options: AggregateReportFormOptions, settings: AggregateReportFormSettings): void {
     const request: AggregateReportRequest = saturatedRequest.request;
     const query: AggregateReportQuery = request.reportQuery;
-    settings.performanceLevelDisplayType = query.achievementLevelDisplayType;
     settings.assessmentType = query.assessmentTypeCode;
     settings.assessmentGrades = query.assessmentGradeCodes;
     settings.dimensionTypes = query.dimensionTypes;
@@ -116,7 +113,14 @@ export class AggregateReportFormSettingsResolve implements Resolve<AggregateRepo
     settings.includeStateResults = query.includeState;
     settings.schoolYears = query.schoolYears;
     settings.subjects = query.subjectCodes;
-    settings.valueDisplayType = query.valueDisplayType;
+
+    if (query.achievementLevelDisplayType) {
+      settings.performanceLevelDisplayType = query.achievementLevelDisplayType;
+    }
+
+    if (query.valueDisplayType) {
+      settings.valueDisplayType = query.valueDisplayType;
+    }
 
     if (hasValues(query.completenessCodes)) {
       settings.completenesses = query.completenessCodes;

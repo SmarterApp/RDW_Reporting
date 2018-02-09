@@ -92,8 +92,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   }
 
   onUpdateRequestButtonClick(): void {
-    // TODO pass report ID for resolution
-    this.router.navigate([ '..' ], { relativeTo: this.route });
+    this.router.navigate([ '..'  ], { relativeTo: this.route, queryParams: {src: this.report.id} });
   }
 
   onDisplayReportButtonClick(): void {

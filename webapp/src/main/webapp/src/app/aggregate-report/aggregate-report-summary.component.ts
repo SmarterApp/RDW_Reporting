@@ -1,6 +1,9 @@
 import { Component, Input } from "@angular/core";
 
-const valueToOptionText = attribute => value => attribute.options.find(option => option.value === value).text;
+const valueToOptionText = attribute => value => {
+  const option: any = attribute.options.find(option => option.value === value);
+  return option ? option.text : undefined;
+};
 
 @Component({
   selector: 'aggregate-report-summary',

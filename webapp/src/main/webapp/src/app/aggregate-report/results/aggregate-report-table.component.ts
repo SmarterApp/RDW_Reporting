@@ -81,6 +81,7 @@ export class AggregateReportTableComponent implements OnInit {
   private _previousSortEvent: any;
   private _table: any;
   private _columnOrdering: string[];
+  private _paginationEnabled: boolean = false;
   private _districtNamesById: Map<number, string> = new Map();
   private _orderingByColumnField: { [key: string]: Ordering<AggregateReportItem> } = {};
 
@@ -98,6 +99,7 @@ export class AggregateReportTableComponent implements OnInit {
       });
       this.columnOrdering && this.updateColumnOrder();
       this.table && this.render();
+      this.updatePagination();
       this.loading = false;
     });
   }
@@ -147,6 +149,7 @@ export class AggregateReportTableComponent implements OnInit {
       this._orderingByColumnField['schoolYear'] = SchoolYearOrdering;
       this._orderingByColumnField['dimension.id'] = dimensionOrdering;
       this._table = table;
+      this.updatePagination();
 
       if (!this.loading) {
         this.render();
@@ -184,6 +187,10 @@ export class AggregateReportTableComponent implements OnInit {
       ];
   }
 
+  get paginationEnabled(): boolean {
+    return this._paginationEnabled;
+  }
+
   getPerformanceLevelColumnHeaderTranslationCode(level: number): string {
     return this.performanceLevelDisplayType === 'Separate'
       ? this.performanceLevelTranslationPrefix + String(level) + '.short-name'
@@ -192,14 +199,6 @@ export class AggregateReportTableComponent implements OnInit {
 
   get rowSortingEnabled(): boolean | string {
     return this.preview ? false : 'custom';
-  }
-
-  get paginationEnabled(): boolean {
-    return !this.preview
-      && this.table.rows
-      && this.resultsTable.rowsPerPageOptions
-      && this.resultsTable.rowsPerPageOptions.length
-      && this.table.rows.length > this.resultsTable.rowsPerPageOptions[0];
   }
 
   private render(): void {
@@ -387,6 +386,16 @@ export class AggregateReportTableComponent implements OnInit {
       DistrictOrdering.compare,
       SchoolOrdering.compare
     ));
+  }
+
+  private updatePagination() {
+    this._paginationEnabled = !this.preview
+        && this.table
+        && this.table.rows
+        && this.resultsTable
+        && this.resultsTable.rowsPerPageOptions
+        && this.resultsTable.rowsPerPageOptions.length
+        && this.table.rows.length > this.resultsTable.rowsPerPageOptions[0];
   }
 
 }

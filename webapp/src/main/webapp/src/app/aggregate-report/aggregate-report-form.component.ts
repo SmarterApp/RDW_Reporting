@@ -103,6 +103,7 @@ export class AggregateReportFormComponent {
     this.aggregateReportOptions = route.parent.snapshot.data[ 'options' ];
 
     this.settings = route.snapshot.data[ 'settings' ];
+    this.organizations = this.organizations.concat(this.settings.districts, this.settings.schools);
 
     this.options = optionMapper.map(this.aggregateReportOptions);
 
@@ -113,8 +114,6 @@ export class AggregateReportFormComponent {
         organization => this.organizations.findIndex(x => organization.equals(x)) === -1
       ))
     );
-
-
 
     this.formGroup = new FormGroup({
       organizations: new FormControl(this.organizations, notEmpty({
