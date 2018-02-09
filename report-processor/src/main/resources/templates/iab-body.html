@@ -110,35 +110,41 @@
 
                 <!-- Writing trait scores-->
                 <div class="col-lg-12" th:if="${entry.value[0].writingTraitScores}"
-                     th:with="scored=true,assessment=${entry.key},exam=${entry.value[0]}">
-                    <h2 th:if="${scored}" th:text="#{('report.writing.trait.purpose')(${entry.value[0].performanceWritingType})}"></h2>
+                     th:with="scored=true,assessment=${entry.key}">
+                    <div th:each="exam : ${entry.value}">
+                        <div class="row"
+                             th:if="${exam.sessionId == entry.value[0].sessionId && exam.writingTraitScores != null}">
+                            <h2 th:if="${scored}"
+                                th:text="#{('report.writing.trait.purpose')(${exam.performanceWritingType})}"></h2>
 
-                    <div class="col-md-4 pull-left" data-width="33">
-                        <h3 class="text-center" th:text="#{'report.writing.trait.Evidence'}"></h3>
-                        <h2 class="label-group gray-light bordered text-center"><span class="label"
-                                                                       th:text="${exam.writingTraitScores.evidence}"></span>
-                        </h2>
-                        <h4 class="text-center" th:text="#{('report.writing.trait.outof')(4)}"></h4>
-                        <br/>
-                        <p th:text="#{'report.writing.trait.' + (${exam.performanceWritingType != null} ? ${exam.performanceWritingType} : 'Unknown') + '.Evidence.' + ${exam.writingTraitScores.evidence}}"></p>
-                    </div>
-                    <div class="col-md-4 pull-left" data-width="33">
-                        <h3 class="text-center" th:text="#{'report.writing.trait.Organization'}"></h3>
-                        <h2 class="label-group gray-light bordered text-center"><span class="label"
-                                                                       th:text="${exam.writingTraitScores.organization}"></span>
-                        </h2>
-                        <h4 class="text-center" th:text="#{('report.writing.trait.outof')(4)}"></h4>
-                        <br/>
-                        <p th:text="#{'report.writing.trait.' + (${exam.performanceWritingType != null} ? ${exam.performanceWritingType} : 'Unknown') + '.Organization.' + ${exam.writingTraitScores.organization}}"></p>
-                    </div>
-                    <div class="col-md-4 pull-left" data-width="33">
-                        <h3 class="text-center" th:text="#{'report.writing.trait.Conventions'}"></h3>
-                        <h2 class="label-group gray-light bordered text-center"><span class="label"
-                                                                       th:text="${exam.writingTraitScores.conventions}"></span>
-                        </h2>
-                        <h4 class="text-center" th:text="#{('report.writing.trait.outof')(2)}"></h4>
-                        <br/>
-                        <p th:text="#{'report.writing.trait.' + (${exam.performanceWritingType != null} ? ${exam.performanceWritingType} : 'Unknown') + '.Conventions.' + ${exam.writingTraitScores.conventions}}"></p>
+                            <div class="col-md-4 pull-left" data-width="33">
+                                <h3 class="text-center" th:text="#{'report.writing.trait.Evidence'}"></h3>
+                                <h2 class="label-group gray-light bordered text-center"><span class="label"
+                                                                                              th:text="${exam.writingTraitScores.evidence}"></span>
+                                </h2>
+                                <h4 class="text-center" th:text="#{('report.writing.trait.outof')(4)}"></h4>
+                                <br/>
+                                <p th:text="#{'report.writing.trait.' + (${exam.performanceWritingType != null} ? ${exam.performanceWritingType} : 'Unknown') + '.Evidence.' + ${exam.writingTraitScores.evidence}}"></p>
+                            </div>
+                            <div class="col-md-4 pull-left" data-width="33">
+                                <h3 class="text-center" th:text="#{'report.writing.trait.Organization'}"></h3>
+                                <h2 class="label-group gray-light bordered text-center"><span class="label"
+                                                                                              th:text="${exam.writingTraitScores.organization}"></span>
+                                </h2>
+                                <h4 class="text-center" th:text="#{('report.writing.trait.outof')(4)}"></h4>
+                                <br/>
+                                <p th:text="#{'report.writing.trait.' + (${exam.performanceWritingType != null} ? ${exam.performanceWritingType} : 'Unknown') + '.Organization.' + ${exam.writingTraitScores.organization}}"></p>
+                            </div>
+                            <div class="col-md-4 pull-left" data-width="33">
+                                <h3 class="text-center" th:text="#{'report.writing.trait.Conventions'}"></h3>
+                                <h2 class="label-group gray-light bordered text-center"><span class="label"
+                                                                                              th:text="${exam.writingTraitScores.conventions}"></span>
+                                </h2>
+                                <h4 class="text-center" th:text="#{('report.writing.trait.outof')(2)}"></h4>
+                                <br/>
+                                <p th:text="#{'report.writing.trait.' + (${exam.performanceWritingType != null} ? ${exam.performanceWritingType} : 'Unknown') + '.Conventions.' + ${exam.writingTraitScores.conventions}}"></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

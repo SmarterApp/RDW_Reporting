@@ -191,3 +191,15 @@ sql:
           join asmt a on e.asmt_id = a.id
           join school s on e.school_id = s.id
           join school isch on st.inferred_school_id = isch.id
+
+    writingTraits: >-
+      ei.id as ei_id,
+      ei.exam_id as ei_exam_id,
+      ei.item_id as ei_item_id,
+      ei.score as ei_score,
+      ei.position as ei_position,
+      ei.response as ei_response,
+      ei.trait_evidence_elaboration_score as ei_trait_evidence_elaboration_score,
+      ei.trait_organization_purpose_score as ei_trait_organization_purpose_score,
+      ei.trait_conventions_score as ei_trait_conventions_score,
+      i.performance_task_writing_type
