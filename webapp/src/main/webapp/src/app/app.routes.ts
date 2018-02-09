@@ -38,7 +38,7 @@ import { AggregateReportFormComponent } from "./aggregate-report/aggregate-repor
 import { AggregateReportResolve } from "./aggregate-report/results/aggregate-report.resolve";
 import { AggregateReportOptionsResolve } from "./aggregate-report/aggregate-report-options.resolve";
 import { AssessmentDefinitionResolve } from "./aggregate-report/assessment/assessment-definition.resolve";
-import { AggregateReportFormSettingsResolve, } from "./aggregate-report/aggregate-report-query.resolve";
+import { AggregateReportFormSettingsResolve } from "./aggregate-report/aggregate-report-form-settings.resolve";
 
 const adminRoute = {
   path: 'admin',

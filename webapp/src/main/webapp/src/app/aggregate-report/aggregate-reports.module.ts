@@ -23,7 +23,7 @@ import { AggregateReportTableComponent } from "./results/aggregate-report-table.
 import { AssessmentModule } from "./assessment/assessment.module";
 import { AggregateReportTableDataService } from "./aggregate-report-table-data.service";
 import { AggregateReportRequestMapper } from "./aggregate-report-request.mapper";
-import { AggregateReportFormSettingsResolve } from "./aggregate-report-query.resolve";
+import { AggregateReportFormSettingsResolve } from "./aggregate-report-form-settings.resolve";
 
 @NgModule({
   declarations: [
