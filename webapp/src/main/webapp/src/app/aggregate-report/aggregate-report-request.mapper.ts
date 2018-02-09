@@ -66,9 +66,6 @@ export class AggregateReportRequestMapper {
     if (!equalSize(settings.section504s, options.section504s)) {
       query.section504Codes = settings.section504s;
     }
-    if (!equalSize(settings.section504s, options.section504s)) {
-      query.section504Codes = settings.section504s;
-    }
     if (settings.schools.length) {
       query.schoolIds = idsOf(settings.schools)
     }

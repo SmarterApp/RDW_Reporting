@@ -5,7 +5,7 @@ import { Report } from "../../report/report.model";
 import { AggregateReportService } from "../aggregate-report.service";
 
 /**
- * This resolver is responsible for fetching assessment items for a student and exam.
+ * This resolver is responsible for fetching an aggregate report based upon a report id path parameter
  */
 @Injectable()
 export class AggregateReportResolve implements Resolve<Report> {
