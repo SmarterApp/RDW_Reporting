@@ -3,8 +3,11 @@ sql:
     findAllIabsByStudentIdsAndQueryParamsUnknownPermissions: >-
       select
         d.name as district_name,
+        ${sql.snippet.writingTraits},
         ${sql.snippet.exam}
       join district d on s.district_id=d.id
+      left join exam_item ei on ei.exam_id=e.id
+      left join item i on i.id=ei.item_id
       where e.student_id in (:student_ids)
         and (:school_year is null or e.school_year=:school_year)
         and (:subject_id is null or a.subject_id=:subject_id)
@@ -12,13 +15,17 @@ sql:
         and a.type_id=2
         and ${sql.reportProcessor.snippet.schoolScopePermission}
         and ${sql.reportProcessor.snippet.unknownScopePermission}
-      order by e.completed_at desc
+      order by e.completed_at desc,
+        i.performance_task_writing_type desc
 
     findAllIabsByStudentIdsAndQueryParamsIndividualPermissions: >-
       select
         d.name as district_name,
+        ${sql.snippet.writingTraits},
         ${sql.snippet.exam}
       join district d on s.district_id=d.id
+      left join exam_item ei on ei.exam_id=e.id
+      left join item i on i.id=ei.item_id
       where e.student_id in (:student_ids)
         and (:school_year is null or e.school_year=:school_year)
         and (:subject_id is null or a.subject_id=:subject_id)
@@ -26,13 +33,17 @@ sql:
         and a.type_id=2
         and ${sql.reportProcessor.snippet.schoolScopePermission}
         and ${sql.reportProcessor.snippet.individualScopePermission}
-      order by e.completed_at desc
+      order by e.completed_at desc,
+              i.performance_task_writing_type desc
 
     findAllIabsByStudentIdsAndQueryParamsGroupPermissions: >-
       select
         d.name as district_name,
+        ${sql.snippet.writingTraits},
         ${sql.snippet.exam}
       join district d on s.district_id=d.id
+      left join exam_item ei on ei.exam_id=e.id
+      left join item i on i.id=ei.item_id
       join student_group_membership sgm on st.id = sgm.student_id
       join student_group sg on sgm.student_group_id = sg.id
           and (sg.subject_id is null or a.subject_id = sg.subject_id)
@@ -44,7 +55,8 @@ sql:
         and a.type_id=2
         and ${sql.reportProcessor.snippet.schoolScopePermission}
         and ${sql.reportProcessor.snippet.individualScopePermission}
-      order by e.completed_at desc
+      order by e.completed_at desc,
+              i.performance_task_writing_type desc
 
     findAllIcasByStudentIdsAndQueryParamsUnknownPermissions: >-
       select
