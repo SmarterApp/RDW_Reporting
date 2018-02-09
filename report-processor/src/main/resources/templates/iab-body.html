@@ -114,7 +114,7 @@
                     <div th:each="exam : ${entry.value}">
                         <div class="row"
                              th:if="${exam.sessionId == entry.value[0].sessionId && exam.writingTraitScores != null}">
-                            <h2 th:if="${scored}"
+                            <h2 class="pb-sm pl-sm" th:if="${scored}"
                                 th:text="#{('report.writing.trait.purpose')(${exam.performanceWritingType})}"></h2>
 
                             <div class="col-md-4 pull-left" data-width="33">
