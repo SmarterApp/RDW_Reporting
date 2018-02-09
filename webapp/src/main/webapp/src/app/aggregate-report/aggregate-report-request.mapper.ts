@@ -36,7 +36,7 @@ export class AggregateReportRequestMapper {
 
     if (!equalSize(settings.interimAdministrationConditions, options.interimAdministrationConditions)
       || !equalSize(settings.summativeAdministrationConditions, options.summativeAdministrationConditions)) {
-      query.administrationConditionCodes = settings.interimAdministrationConditions
+      query.administrativeConditionCodes = settings.interimAdministrationConditions
         .concat(settings.summativeAdministrationConditions);
     }
     if (!equalSize(settings.completenesses, options.completenesses)) {
@@ -62,9 +62,6 @@ export class AggregateReportRequestMapper {
     }
     if (!equalSize(settings.migrantStatuses, options.migrantStatuses)) {
       query.migrantStatusCodes = settings.migrantStatuses;
-    }
-    if (!equalSize(settings.section504s, options.section504s)) {
-      query.section504Codes = settings.section504s;
     }
     if (!equalSize(settings.section504s, options.section504s)) {
       query.section504Codes = settings.section504s;

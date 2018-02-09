@@ -1,12 +1,12 @@
-import { OnInit, Component, OnDestroy } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { saveAs } from "file-saver";
 import { Report } from "./report.model";
 import { ActivatedRoute } from "@angular/router";
 import { ReportService } from "./report.service";
 import { NotificationService } from "../shared/notification/notification.service";
 import { Resolution } from "../shared/resolution.model";
-import Timer = NodeJS.Timer;
 import { Download } from "../shared/data/download.model";
+import Timer = NodeJS.Timer;
 
 /**
  * Responsible for controlling the behavior of the reports page
@@ -49,7 +49,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
   }
 
   download(report: Report): void {
-    this.service.getExamReport(report.id)
+    this.service.getReportContent(report.id)
       .subscribe(
         (download: Download) => {
           saveAs(download.content, download.name);

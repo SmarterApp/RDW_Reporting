@@ -8,35 +8,34 @@
 <ng-container *ngIf="!accessDenied">
 
   <scroll-nav [items]="[
-  {
-    scrollTo: organizationSection,
-    text: 'aggregate-reports.form.section.organization.heading' | translate
-  },
-  {
-    scrollTo: assessmentSection,
-    text: 'aggregate-reports.form.section.assessment.heading' | translate
-  },
-  {
-    scrollTo: subgroupFiltersSection,
-    text: 'aggregate-reports.form.section.subgroup-filters.heading' | translate
-  },
-  {
-    scrollTo: reportFeatureSection,
-    text: 'aggregate-reports.form.section.report-features.heading' | translate
-  },
-  {
-    scrollTo: comparativeSubgroupSection,
-    text: 'aggregate-reports.form.section.comparative-subgroups.heading' | translate
-  },
-  {
-    scrollTo: reportPreviewSection,
-    text: 'aggregate-reports.form.summary.heading' | translate
-  },
-  {
-    text: 'aggregate-reports.form.submit' | translate,
-    classes: 'btn btn-success btn-sm ml-xs green',
-    click: onGenerateButtonClick.bind(this)
-  }]"></scroll-nav>
+      {
+        scrollTo: organizationSection,
+        text: 'aggregate-reports.form.section.organization.heading' | translate
+      },
+      {
+        scrollTo: assessmentSection,
+        text: 'aggregate-reports.form.section.assessment.heading' | translate
+      },
+      {
+        scrollTo: subgroupFiltersSection,
+        text: 'aggregate-reports.form.section.subgroup-filters.heading' | translate
+      },
+      {
+        scrollTo: reportFeatureSection,
+        text: 'aggregate-reports.form.section.report-features.heading' | translate
+      },
+      {
+        scrollTo: comparativeSubgroupSection,
+        text: 'aggregate-reports.form.section.comparative-subgroups.heading' | translate
+      },
+      {
+        scrollTo: reportPreviewSection,
+        text: 'aggregate-reports.form.summary.heading' | translate
+      }
+    ]">
+    <button class="btn btn-success btn-sm green ml-sm mt-xs"
+            (click)="onGenerateButtonClick()">{{'aggregate-reports.form.submit' | translate}}</button>
+  </scroll-nav>
 
   <div class="row mt-sm">
     <div class="col-md-8 col-md-offset-2">

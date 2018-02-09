@@ -12,9 +12,7 @@
 
     <p-column field="label" header="{{'labels.reports.column.label.header' | translate}}" sortable="true">
       <ng-template let-report="rowData" pTemplate="body">
-        <div *ngIf="report.processing" [title]="report.label"  class="label-max-width">{{report.label}}</div>
-        <button *ngIf="report.completed" [title]="report.label" class="btn btn-info btn-xs label-max-width" (click)="download(report)"><i class="fa fa-cloud-download mr-xs" aria-hidden="true"></i> {{report.label}}</button>
-        <button *ngIf="report.regenerable" [title]="report.label" class="btn btn-default btn-xs label-max-width" (click)="regenerate(report)"><i class="fa fa-refresh mr-xs" aria-hidden="true"></i> {{report.label}}</button>
+        <report-action [report]="report"></report-action>
       </ng-template>
     </p-column>
     <p-column field="reportType" header="{{'labels.reports.column.report-type.header' | translate}}" sortable="true">

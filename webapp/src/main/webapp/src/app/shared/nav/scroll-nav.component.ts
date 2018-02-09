@@ -30,13 +30,31 @@ export class ScrollNavComponent {
     }
   }
 
+  ngOnInit(): void {
+    if (!this.activeItem && this.items.length) {
+      this._activeItem = this.items[ 0 ];
+    }
+  }
+
   get activeItem(): ScrollNavItem {
     return this._activeItem;
   }
 
+  @Input()
+  set activeItem(item: ScrollNavItem) {
+    this._activeItem = item;
+    if (item.scrollTo) {
+      item.scrollTo.scrollIntoView();
+    }
+  }
+
   onItemClickInternal(item: ScrollNavItem): void {
-    item.scrollTo && item.scrollTo.scrollIntoView();
-    item.click && item.click();
+    if (item.scrollTo) {
+      item.scrollTo.scrollIntoView();
+    }
+    if (item.click) {
+      item.click();
+    }
   }
 
   private getScrollTop(): number {
@@ -49,12 +67,22 @@ export class ScrollNavComponent {
   }
 
   private updateActiveLink(): void {
+
+    // Sets the last item to active if the user scrolls to the very bottom of the page
+    if ((this._window.innerHeight + this._window.scrollY) >= this._document.body.offsetHeight) {
+      // you're at the bottom of the page
+      this._activeItem = this.items[ this.items.length - 1 ];
+      return;
+    }
+
     const scrollTop = this.getScrollTop();
-    this.items
+    const threshold = 20;
+
     // TODO clean up or use a 3rd party lib if possible
     // document.getElementById(item.scrollTo.id) is a HOTFIX for offsetTop javascript error
     // ngOnDestroy is not called in this component because it belongs to a "reusable" view
     // Angular does not currently support removal of global host listeners
+    this.items
       .filter(item => item.scrollTo && document.getElementById(item.scrollTo.id))
       .forEach(item => {
         const scrollItem = document.getElementById(item.scrollTo.id);
@@ -62,15 +90,12 @@ export class ScrollNavComponent {
 
         // minus small number (20) since clicking on scroll nav sometimes resulted in the link above the one clicked
         // being highlighted until scrolling down a bit
-        if (itemOffsetTop - 20 <= scrollTop) {
+        if ((itemOffsetTop - threshold) <= scrollTop) {
           this._activeItem = item;
         } else {
           return;
         }
       });
-    if (!this.activeItem && this.items.length) {
-      this._activeItem = this.items[0];
-    }
   }
 }
 

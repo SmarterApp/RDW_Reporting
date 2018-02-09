@@ -64,7 +64,7 @@ spring:
 
   cache:
     type: SIMPLE
-    cache-names: internalTranslationsByCode, administrationConditions, assessmentGrades, assessmentTypes, booleans, strictBooleans, organizations, completenessCodes, ethnicities, genders, schoolYears, subjects, activeAssessments
+    cache-names: internalTranslationsByCode, reportOptions, administrationConditions, assessmentGrades, assessmentTypes, booleans, strictBooleans, organizations, completenessCodes, ethnicities, genders, schoolYears, subjects, activeAssessments
 
   cloud:
       stream:

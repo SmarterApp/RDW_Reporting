@@ -28,6 +28,10 @@ export class Report {
     return this.status === 'PENDING' || this.status === 'RUNNING';
   }
 
+  get loadable(): boolean {
+    return this.status !== 'FAILED' && this.status !== 'EXPIRED';
+  }
+
   get regenerable(): boolean {
     return !(this.completed || this.processing);
   }

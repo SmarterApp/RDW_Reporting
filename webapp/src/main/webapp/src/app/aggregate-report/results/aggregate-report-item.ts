@@ -36,7 +36,6 @@ export class AggregateReportItem {
 export interface Dimension {
   readonly id: string;
   readonly type: string;
-  readonly includeType?: boolean;
   readonly code?: string;
   readonly codeTranslationCode?: string;
 }

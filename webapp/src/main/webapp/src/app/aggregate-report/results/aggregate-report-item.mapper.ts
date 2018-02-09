@@ -3,6 +3,7 @@ import { AggregateReportItem, Dimension } from "./aggregate-report-item";
 import { AggregateReportRow } from "../../report/aggregate-report";
 import { AssessmentDefinition } from "../assessment/assessment-definition";
 import { OrganizationMapper } from "../../shared/organization/organization.mapper";
+import { DimensionConfigurationByType } from "../dimension-configuration";
 
 /**
  * Maps server modeled aggregate report rows into client friendly table rows
@@ -69,14 +70,16 @@ export class AggregateReportItemMapper {
   }
 
   private mapDimension(dimension: any): Dimension {
-    return {
+    const dimensionConfiguration = DimensionConfigurationByType[dimension.type];
+    const dimensionBuilder: any = {
       id: `${dimension.type}.${dimension.code}`,
       type: dimension.type,
-      includeType: true,
-      code: dimension.code,
-      codeTranslationCode: dimension.code // TODO
+      code: dimension.code
     };
+    if (dimensionConfiguration) {
+      dimensionBuilder.codeTranslationCode = dimensionConfiguration.getTranslationCode(dimension.code);
+    }
+    return dimensionBuilder;
   }
-
 
 }

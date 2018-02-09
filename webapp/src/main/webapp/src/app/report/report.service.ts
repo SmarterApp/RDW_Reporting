@@ -110,11 +110,8 @@ export class ReportService {
    * @param reportId the handle used to lookup the download
    * @returns {Observable<Download>}
    */
-  public getExamReport(reportId: number): Observable<Download> {
+  public getReportContent(reportId: number): Observable<Download> {
     return this.dataService.get(`${ServiceRoute}/reports/${reportId}`, {
-      headers: new Headers({
-        'Accept': 'application/pdf',
-      }),
       responseType: ResponseContentType.Blob
     }).catch(ResponseUtils.throwError);
   }

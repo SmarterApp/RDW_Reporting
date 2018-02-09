@@ -8,4 +8,5 @@
          (click)="onItemClickInternal(item)"><ng-container *ngIf="item.iconClasses"><i [class]="item.iconClasses"></i> </ng-container>{{item.text}}</a>
     </li>
   </ul>
+  <ng-content></ng-content>
 </nav>

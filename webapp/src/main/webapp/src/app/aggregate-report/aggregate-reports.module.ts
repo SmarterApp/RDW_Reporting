@@ -14,7 +14,6 @@ import { ModalModule, TypeaheadModule } from "ngx-bootstrap";
 import { AggregateReportOrganizationList } from "./aggregate-report-organization-list.component";
 import { AggregateReportService } from "./aggregate-report.service";
 import { ReportModule } from "../report/report.module";
-import { AggregateReportConfirmationModal } from "./aggregate-report-confirmation.modal";
 import { AggregateReportFormComponent } from "./aggregate-report-form.component";
 import { AggregateReportComponent } from "./results/aggregate-report.component";
 import { AggregateReportResolve } from "./results/aggregate-report.resolve";
@@ -27,7 +26,6 @@ import { AggregateReportRequestMapper } from "./aggregate-report-request.mapper"
 
 @NgModule({
   declarations: [
-    AggregateReportConfirmationModal,
     AggregateReportFormComponent,
     AggregateReportComponent,
     AggregateReportTableComponent,
@@ -51,9 +49,6 @@ import { AggregateReportRequestMapper } from "./aggregate-report-request.mapper"
   exports: [
     AggregateReportComponent,
     AggregateReportFormComponent
-  ],
-  entryComponents: [
-    AggregateReportConfirmationModal
   ],
   providers: [
     AggregateReportRequestMapper,
