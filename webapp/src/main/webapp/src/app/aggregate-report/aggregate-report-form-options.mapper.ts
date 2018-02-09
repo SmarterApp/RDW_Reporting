@@ -82,7 +82,7 @@ export class AggregateReportFormOptionsMapper {
         )),
       migrantStatuses: options.migrantStatuses
         .map(optionMapper(
-          value => translate(`common.strict-boolean.${value}`),
+          value => translate(`common.boolean.${value}`),
           value => `Migrant Status: ${value}`
         )),
       individualEducationPlans: options.individualEducationPlans
@@ -92,7 +92,7 @@ export class AggregateReportFormOptionsMapper {
         )),
       section504s: options.section504s
         .map(optionMapper(
-          value => translate(`common.strict-boolean.${value}`),
+          value => translate(`common.boolean.${value}`),
           value => `Section 504: ${value}`
         )),
       limitedEnglishProficiencies: options.limitedEnglishProficiencies

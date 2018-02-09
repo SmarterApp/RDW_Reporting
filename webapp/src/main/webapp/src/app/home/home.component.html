@@ -8,9 +8,13 @@
     <div class="col-md-6">
       <div class="pull-right">
 
+        <!-- Aggregate Reports Link -->
+        <a *hasPermission="'CUSTOM_AGGREGATE_READ'"
+           routerLink="/aggregate-reports" class="btn btn-xs btn-default">{{'home.aggregate-reports-link' | translate}}</a>
+
         <!-- Custom Exports Link -->
         <a *hasPermission="'INDIVIDUAL_PII_READ'"
-           routerLink="/custom-export" class="btn btn-xs btn-default"><i class="fa fa-bold fa-table"></i> {{'labels.organization-export.title' | translate}}</a>
+           routerLink="/custom-export" class="btn btn-xs btn-default ml-xs"><i class="fa fa-bold fa-table"></i> {{'labels.organization-export.title' | translate}}</a>
 
         <!-- Student Groups Admin Link -->
         <a *hasAnyPermission="['GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE']"
@@ -39,20 +43,6 @@
         <groups [groups]="user.groups"></groups>
       </div>
 
-      <!-- Aggregate Reports -->
-      <div *hasPermission="'CUSTOM_AGGREGATE_READ'" class="well">
-        <div class="row">
-          <div class="col-sm-6">
-            <label>{{'aggregate-reports.form.heading' | translate}}</label>
-            <p><!-- blurb placeholder --></p>
-          </div>
-          <div class="col-sm-6">
-            <div class="pull-right">
-              <button class="btn btn-primary" [routerLink]="['aggregate-reports']">{{'home.section.aggregate-report.link-label' | translate}}</button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- Right Column Content Area -->

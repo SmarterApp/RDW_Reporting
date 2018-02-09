@@ -3,19 +3,22 @@
     "title": "Reporting System"
   },
   "home": {
-    "section": {
-      "aggregate-report": {
-        "link-label": "Create Report"
-      }
-    }
+    "aggregate-reports-link": "Create Aggregate Report"
   },
   "sample-aggregate-table-data-service": {
     "organization-name-format": "School / District {{id}}"
   },
   "aggregate-report": {
     "heading": "Aggregate Report",
-    "update-request": "Update Query",
-    "unsupported-size-error": "This report is too large to view. Please modify the query and retry."
+    "form-link": "View Query",
+    "processing": "Your report is being generated. This may take several minutes. ",
+    "download-data": "Download Data",
+    "display-report": "Display Report",
+    "reports-link": "My Reports",
+    "error": {
+      "unloadable": "The requested report cannot be loaded. Visit \"My Reports\" to see status.",
+      "unsupported-size": "The requested report may be too large to view in the browser and may slow down or crash your browser if displayed. Would you like to download the report data as a spreadsheet instead?"
+    }
   },
   "aggregate-reports": {
     "heading": "Aggregate Reports",
@@ -350,6 +353,10 @@
     },
     "strict-boolean": {
       "yes": "Yes",
+      "no": "No"
+    },
+    "boolean": {
+      "yes": "Yes",
       "no": "No",
       "undefined": "Not Stated"
     },
@@ -451,93 +458,102 @@
       "Partial": "Partial",
       "Complete": "Complete"
     },
+    "enrolled-grade": {
+      "01": "1",
+      "02": "2",
+      "03": "3",
+      "04": "4",
+      "05": "5",
+      "06": "6",
+      "07": "7",
+      "08": "8",
+      "09": "9",
+      "10": "10",
+      "11": "11",
+      "12": "12",
+      "13": "13",
+      "IT": "IT",
+      "KG": "KG",
+      "PK": "PK",
+      "PR": "PR",
+      "PS": "PS",
+      "TK": "TK",
+      "UG": "UG"
+    },
     "grade": {
       "01": {
-        "enrolled": "1",
         "enrolled-name": "G1",
         "long-name": "Grade 1",
         "short-name": "G1",
         "form-name": "1"
       },
       "02": {
-        "enrolled": "2",
         "enrolled-name": "G2",
         "long-name": "Grade 2",
         "short-name": "G2",
         "form-name": "2"
       },
       "03": {
-        "enrolled": "3",
         "enrolled-name": "G3",
         "long-name": "Grade 3",
         "short-name": "G3",
         "form-name": "3"
       },
       "04": {
-        "enrolled": "4",
         "enrolled-name": "G4",
         "long-name": "Grade 4",
         "short-name": "G4",
         "form-name": "4"
       },
       "05": {
-        "enrolled": "5",
         "enrolled-name": "G5",
         "long-name": "Grade 5",
         "short-name": "G5",
         "form-name": "5"
       },
       "06": {
-        "enrolled-number": "6",
         "enrolled-name": "G6",
         "long-name": "Grade 6",
         "short-name": "G6",
         "form-name": "6"
       },
       "07": {
-        "enrolled": "7",
         "enrolled-name": "G7",
         "long-name": "Grade 7",
         "short-name": "G7",
         "form-name": "7"
       },
       "08": {
-        "enrolled": "8",
         "enrolled-name": "G8",
         "long-name": "Grade 8",
         "short-name": "G8",
         "form-name": "8"
       },
       "09": {
-        "enrolled": "9",
         "enrolled-name": "G9",
         "long-name": "High School",
         "short-name": "HS",
         "form-name": "HS"
       },
       "10": {
-        "enrolled": "10",
         "enrolled-name": "G10",
         "long-name": "High School",
         "short-name": "HS",
         "form-name": "HS"
       },
       "11": {
-        "enrolled": "11",
         "enrolled-name": "G11",
         "long-name": "High School",
         "short-name": "HS",
         "form-name": "HS"
       },
       "12": {
-        "enrolled": "12",
         "enrolled-name": "G12",
         "long-name": "High School",
         "short-name": "HS",
         "form-name": "HS"
       },
       "13": {
-        "enrolled": "13",
         "enrolled-name": "G13",
         "long-name": "Grade 13",
         "short-name": "G13",

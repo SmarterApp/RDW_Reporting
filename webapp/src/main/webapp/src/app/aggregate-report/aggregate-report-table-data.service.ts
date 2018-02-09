@@ -5,52 +5,11 @@ import { AssessmentDefinition } from "./assessment/assessment-definition";
 import { AggregateReportItem, Dimension } from "./results/aggregate-report-item";
 import { Utils } from "../shared/support/support";
 import { TranslateService } from "@ngx-translate/core";
+import { DimensionConfigurationByType } from "./dimension-configuration";
 
-const OverallDimension: Dimension = { id: 'Overall', type: 'Overall', includeType: true };
+const OverallDimension: Dimension = { id: 'Overall', type: 'Overall' };
 
 // when adding a new dimension type one needs to be defined here
-const DimensionConfigurationByType: { [dimensionType: string]: DimensionConfiguration } = {
-  Gender: {
-    getDimensionValueCodes: settings => settings.genders,
-    getTranslationCode: value => `common.gender.${value}`,
-    includeType: true
-  },
-  Ethnicity: {
-    getDimensionValueCodes: settings => settings.ethnicities,
-    getTranslationCode: value => `common.ethnicity.${value}`,
-    includeType: true
-  },
-  LEP: {
-    getDimensionValueCodes: settings => settings.limitedEnglishProficiencies,
-    getTranslationCode: value => `common.strict-boolean.${value}`,
-    includeType: true
-  },
-  MigrantStatus: {
-    getDimensionValueCodes: settings => settings.migrantStatuses,
-    getTranslationCode: value => `common.strict-boolean.${value}`,
-    includeType: true
-  },
-  Section504: {
-    getDimensionValueCodes: settings => settings.section504s,
-    getTranslationCode: value => `common.strict-boolean.${value}`,
-    includeType: true
-  },
-  IEP: {
-    getDimensionValueCodes: settings => settings.individualEducationPlans,
-    getTranslationCode: value => `common.strict-boolean.${value}`,
-    includeType: true
-  },
-  EconomicDisadvantage: {
-    getDimensionValueCodes: settings => settings.economicDisadvantages,
-    getTranslationCode: value => `common.strict-boolean.${value}`,
-    includeType: true
-  },
-  StudentEnrolledGrade: {
-    getDimensionValueCodes: settings => Utils.isNullOrEmpty(settings.assessmentGrades) ? [] : [ settings.assessmentGrades[0] ],
-    getTranslationCode: value => `common.grade.${value}.enrolled`,
-    includeType: true
-  }
-};
 
 @Injectable()
 export class AggregateReportTableDataService {
@@ -125,7 +84,6 @@ export class AggregateReportTableDataService {
         dimensions.push({
           id: `${dimensionType}.${code}`,
           type: dimensionType,
-          includeType: configuration.includeType,
           code: code,
           codeTranslationCode: configuration.getTranslationCode(code)
         });
@@ -150,12 +108,6 @@ export class AggregateReportTableDataService {
     return school;
   }
 
-}
-
-interface DimensionConfiguration {
-  readonly getDimensionValueCodes: (settings: AggregateReportFormSettings) => string[];
-  readonly getTranslationCode: (dimensionCode: string) => string;
-  readonly includeType?: boolean;
 }
 
 

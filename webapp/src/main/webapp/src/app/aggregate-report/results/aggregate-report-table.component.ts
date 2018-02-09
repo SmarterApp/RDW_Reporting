@@ -195,7 +195,11 @@ export class AggregateReportTableComponent implements OnInit {
   }
 
   get paginationEnabled(): boolean {
-    return !this.preview;
+    return !this.preview
+      && this.table.rows
+      && this.resultsTable.rowsPerPageOptions
+      && this.resultsTable.rowsPerPageOptions.length
+      && this.table.rows.length > this.resultsTable.rowsPerPageOptions[0];
   }
 
   private render(): void {
