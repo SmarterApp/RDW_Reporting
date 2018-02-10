@@ -103,7 +103,7 @@ The integration tests dealing with Redshift have been separated out because they
 and they take a while to run. To run these tests you must set credentials -- please see the comment in 
 aggregate-service/build.gradle. By default it uses the CI database instances:
 ```bash
-(export APP_DATAMART_OLAP_DATASOURCE_PASSWORD=password; \
+(export SPRING_OLAP_DATASOURCE_PASSWORD=password; \
  ./gradlew rst)
 ```
 

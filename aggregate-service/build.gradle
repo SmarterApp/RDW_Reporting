@@ -53,12 +53,12 @@ cleanReportingOlapTest migrateReportingOlapTest
 // To run these tests locally, you must either manually adjust the application-redshift.yml file
 // (but don't check in your changes!) or set environment variables. If you are using the default
 // CI data resources with personal schemas you should set:
-//   APP_DATAMART_OLAP_DATASOURCE_USERNAME
-//   APP_DATAMART_OLAP_DATASOURCE_PASSWORD
+//   SPRING_OLAP_DATASOURCE_USERNAME
+//   SPRING_OLAP_DATASOURCE_PASSWORD
 // If you are running from the command-line you can use local bash export to do it in one command, e.g.:
 /*
-(export APP_DATAMART_OLAP_DATASOURCE_USERNAME=bob; \
- export APP_DATAMART_OLAP_DATASOURCE_PASSWORD=password; \
+(export SPRING_OLAP_DATASOURCE_USERNAME=bob; \
+ export SPRING_OLAP_DATASOURCE_PASSWORD=password; \
  gradle rst)
 */
 task RST(type: Test) {

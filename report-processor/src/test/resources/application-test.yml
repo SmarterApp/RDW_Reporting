@@ -1,4 +1,3 @@
-app:
-  datamart:
-    datasource:
-      url-schema: reporting_test
+spring:
+  datasource:
+    url-schema: reporting_test

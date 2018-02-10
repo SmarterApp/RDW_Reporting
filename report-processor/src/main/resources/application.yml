@@ -88,12 +88,23 @@ spring:
           group: default
           producer:
             requiredGroups: default
-
+  datasource:
+    url: "\
+      jdbc:mysql://${spring.datasource.url-server:localhost:3306}/${spring.datasource.url-schema:reporting}\
+      ?useSSL=${spring.datasource.use-ssl:false}\
+      &useLegacyDatetimeCode=${spring.datasource.use-legacy-datetime-code:false}\
+      &characterEncoding=${spring.datasource.character-encoding:utf8}\
+      "
+    username: root
+    password:
+    testWhileIdle: true
+    validationQuery: SELECT 1
+    driverClassName: com.mysql.jdbc.Driver
+    initialize: false
   jackson:
       default-property-inclusion: non_null
       serialization:
         WRITE_DATES_AS_TIMESTAMPS: false
-
   thymeleaf:
     mode: HTML
 
@@ -114,21 +125,6 @@ app:
 
   archive:
     root: file:///tmp/
-
-  datamart:
-    datasource:
-      url: "\
-        jdbc:mysql://${app.datamart.datasource.url-server:localhost:3306}/${app.datamart.datasource.url-schema:reporting}\
-        ?useSSL=${app.datamart.datasource.use-ssl:false}\
-        &useLegacyDatetimeCode=${app.datamart.datasource.use-legacy-datetime-code:false}\
-        &characterEncoding=${app.datamart.datasource.character-encoding:utf8}\
-        "
-      username: root
-      password:
-      testWhileIdle: true
-      validationQuery: SELECT 1
-      driverClassName: com.mysql.jdbc.Driver
-      initialize: false
 
   wkhtmltopdf:
     url: http://localhost:8082
