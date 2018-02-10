@@ -118,10 +118,10 @@ export class OrganizationMapper {
     organizations.schools.forEach(school => {
       let node = root;
       if (!Utils.isUndefined(school.districtId)) {
-        node = node.getOrCreate(x => x.id === school.districtId, organizations.districtsById.get(school.districtId))
+        node = node.getOrCreate(x => x.id === school.districtId, this.getDistrict(organizations, school.districtId));
       }
       if (!Utils.isUndefined(school.schoolGroupId)) {
-        node = node.getOrCreate(x => x.id === school.schoolGroupId, organizations.schoolGroupsById.get(school.schoolGroupId))
+        node = node.getOrCreate(x => x.id === school.schoolGroupId, this.getSchoolGroup(organizations, school.schoolGroupId))
       }
       node.create(school);
     });
@@ -130,6 +130,26 @@ export class OrganizationMapper {
 
   private or(a: any, b: any) {
     return Utils.isUndefined(a) ? b : a;
+  }
+
+  private getDistrict(organizations: UserOrganizations, id: number): District {
+    if (organizations.districtsById.has(id)) {
+      return organizations.districtsById.get(id);
+    }
+
+    let district: District = new District();
+    district.id = id;
+    return district;
+  }
+
+  private getSchoolGroup(organizations: UserOrganizations, id: number): SchoolGroup {
+    if (organizations.schoolGroupsById.has(id)) {
+      return organizations.schoolGroupsById.get(id);
+    }
+
+    let schoolGroup: SchoolGroup = new SchoolGroup();
+    schoolGroup.id = id;
+    return schoolGroup;
   }
 
 }
