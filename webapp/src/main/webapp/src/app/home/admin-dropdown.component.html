@@ -1,20 +1,19 @@
 <div dropdown style="display: inline-block;" class="btn-group ml-xs">
   <a dropdownToggle type="button"
-     *hasAnyPermission="['GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE']"
      class="btn btn-xs btn-info" (click)="toggle()"
      title="{{'labels.groups.admin-button' | translate}}"><i class="fa mr-xs"
                                                              [ngClass]="{'fa-chevron-right': !expanded, 'fa-chevron-down': expanded}"></i>
     {{'labels.groups.admin-button' | translate}}</a>
   <ul *dropdownMenu class="dropdown-menu" role="menu">
-    <li><a *hasPermission="'GROUP_WRITE'" routerLink="admin-groups">{{ 'labels.admin-groups.title' |
+    <li *hasPermission="'GROUP_WRITE'"><a routerLink="/admin-groups">{{ 'labels.admin-groups.title' |
       translate}}</a>
     </li>
-    <li>
-      <a *hasPermission="'INSTRUCTIONAL_RESOURCE_WRITE'" routerLink="instructional-resource">{{'labels.instructional-resource.title'
+    <li *hasPermission="'INSTRUCTIONAL_RESOURCE_WRITE'">
+      <a routerLink="/instructional-resource">{{'labels.instructional-resource.title'
         | translate}}</a>
     </li>
-    <li>
-      <a *hasPermission="'EMBARGO_WRITE'" routerLink="embargoes">{{'labels.embargo.title' |
+    <li *hasPermission="'EMBARGO_WRITE'">
+      <a routerLink="/embargoes">{{'labels.embargo.title' |
         translate}}</a>
     </li>
   </ul>
