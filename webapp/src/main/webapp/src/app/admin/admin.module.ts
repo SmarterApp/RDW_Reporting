@@ -3,15 +3,15 @@ import { GroupImportModule } from "./groups/import/group-import.module";
 import { GroupsModule } from "./groups/groups.module";
 import { FileFormatModule } from "./groups/import/fileformat/file-format.module";
 import { InstructionalResourceModule } from "./instructional-resource/instructional-resource.module";
-import { HomeComponent } from "./home/home.component";
 import { EmbargoModule } from "./embargo/embargo.module";
 import { CommonModule } from "../shared/common.module";
+import { BrowserModule } from "@angular/platform-browser";
 
 @NgModule({
   declarations: [
-    HomeComponent
   ],
   imports: [
+    BrowserModule,
     CommonModule,
     GroupImportModule,
     GroupsModule,
@@ -25,7 +25,6 @@ import { CommonModule } from "../shared/common.module";
     InstructionalResourceModule,
     EmbargoModule,
     FileFormatModule,
-    HomeComponent
   ],
   providers: []
 })

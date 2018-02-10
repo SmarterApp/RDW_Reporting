@@ -20,11 +20,13 @@ import { AccessDeniedComponent } from './error/access-denied/access-denied.compo
 import { OrganizationExportModule } from "./organization-export/organization-export.module";
 import { AggregateReportsModule } from "./aggregate-report/aggregate-reports.module";
 import { AdminModule } from "./admin/admin.module";
+import { AdminDropdownComponent } from "./home/admin-dropdown.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    AdminDropdownComponent,
     ErrorComponent,
     AccessDeniedComponent
   ],

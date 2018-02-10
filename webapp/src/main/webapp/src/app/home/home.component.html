@@ -10,16 +10,15 @@
 
         <!-- Aggregate Reports Link -->
         <a *hasPermission="'CUSTOM_AGGREGATE_READ'"
-           routerLink="/aggregate-reports" class="btn btn-xs btn-default">{{'home.aggregate-reports-link' | translate}}</a>
+           routerLink="/aggregate-reports" class="btn btn-xs btn-default">{{'home.aggregate-reports-link' |
+          translate}}</a>
 
         <!-- Custom Exports Link -->
         <a *hasPermission="'INDIVIDUAL_PII_READ'"
-           routerLink="/custom-export" class="btn btn-xs btn-default ml-xs"><i class="fa fa-bold fa-table"></i> {{'labels.organization-export.title' | translate}}</a>
+           routerLink="/custom-export" class="btn btn-xs btn-default ml-xs"><i class="fa fa-bold fa-table"></i>
+          {{'labels.organization-export.title' | translate}}</a>
 
-        <!-- Student Groups Admin Link -->
-        <a *hasAnyPermission="['GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE']"
-           routerLink="/admin" class="btn btn-xs btn-info ml-xs"><i class="fa fa-gear"></i> {{'labels.groups.admin-button' | translate}}</a>
-
+        <admin-dropdown></admin-dropdown>
       </div>
     </div>
   </div>
@@ -53,7 +52,8 @@
         <p class="lead">{{'labels.homepage.welcome.title' | translate}}</p>
         <div class="mb-md">
           <p [innerHTML]="'labels.homepage.welcome.user-guide-html' | translate:user.configuration"></p>
-          <a href="{{user.configuration.userGuideUrl}}" target="_blank" class="btn btn-primary">{{'labels.navigation.user-guide' | translate}}</a>
+          <a href="{{user.configuration.userGuideUrl}}" target="_blank" class="btn btn-primary">{{'labels.navigation.user-guide'
+            | translate}}</a>
         </div>
         <div>
           <p [innerHTML]="'labels.homepage.welcome.interpretive-guide-html' | translate:user.configuration"></p>
