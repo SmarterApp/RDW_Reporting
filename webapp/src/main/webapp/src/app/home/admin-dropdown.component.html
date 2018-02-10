@@ -1,9 +1,9 @@
 <div dropdown style="display: inline-block;" class="btn-group ml-xs">
   <a dropdownToggle type="button"
      class="btn btn-xs btn-info" (click)="toggle()"
-     title="{{'labels.groups.admin-button' | translate}}"><i class="fa mr-xs"
-                                                             [ngClass]="{'fa-chevron-right': !expanded, 'fa-chevron-down': expanded}"></i>
-    {{'labels.groups.admin-button' | translate}}</a>
+     title="{{'labels.groups.admin-button' | translate}}">
+    {{'labels.groups.admin-button' | translate}}<i class="fa ml-xs"
+                                                   [ngClass]="{'fa-chevron-right': !expanded, 'fa-chevron-down': expanded}"></i></a>
   <ul *dropdownMenu class="dropdown-menu" role="menu">
     <li *hasPermission="'GROUP_WRITE'"><a routerLink="/admin-groups">{{ 'labels.admin-groups.title' |
       translate}}</a>
