@@ -112,6 +112,9 @@ export class ReportService {
    */
   public getReportContent(reportId: number): Observable<Download> {
     return this.dataService.get(`${ServiceRoute}/reports/${reportId}`, {
+      headers: new Headers({
+        'Accept': '*/*',
+      }),
       responseType: ResponseContentType.Blob
     }).catch(ResponseUtils.throwError);
   }
