@@ -99,6 +99,23 @@ describe('OrganizationExportNamingService', () => {
     expect(service.name(options, organizations)).toBe('District 1 1000');
   });
 
+  it('should handle multi-school export without district permissions', () => {
+    organizations = new OrganizationMapper().createUserOrganizations([
+      { id: 1, name: 'School 1', schoolGroupId: 1, districtId: 1 },
+      { id: 2, name: 'School 2', schoolGroupId: 1, districtId: 2 },
+    ], [
+    ], [
+    ]);
+
+    let options = {
+      schoolYear: 1000,
+      schoolIds: [1, 2],
+      schoolGroupIds: [],
+      districtIds: []
+    };
+    expect(service.name(options, organizations)).toBe('School 1 1000');
+  });
+
 });
 
 

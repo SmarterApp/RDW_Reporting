@@ -52,10 +52,14 @@ export class OrganizationExportNamingService {
     }
     if (selection.schoolCount > 1) {
       if (!Utils.isUndefined(selection.firstSchool.schoolGroupId)
+        && !Utils.isUndefined(selection.firstSchool.schoolGroup)
         && selection.schools.every(x => x.schoolGroupId === selection.firstSchool.schoolGroupId)) {
         return selection.firstSchool.schoolGroup.name;
       }
-      return selection.firstSchool.district.name;
+      if (!Utils.isUndefined(selection.firstSchool.district)) {
+        return selection.firstSchool.district.name;
+      }
+      return selection.firstSchool.name;
     }
     return '';
   }

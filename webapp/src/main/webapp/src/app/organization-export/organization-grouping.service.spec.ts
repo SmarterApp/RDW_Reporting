@@ -52,6 +52,25 @@ describe('OrganizationGroupingService', () => {
     });
   });
 
+  it('should handle multi-school export without district permissions', () => {
+    organizations = new OrganizationMapper().createUserOrganizations([
+      { id: 1, name: 'School 1', schoolGroupId: 1, districtId: 1 },
+      { id: 2, name: 'School 2', schoolGroupId: 1, districtId: 2 },
+    ], [
+    ], [
+    ]);
+
+    expect(service.groupSelectedOrganizationIdsByType([
+        organizations.schoolsById.get(1),
+        organizations.schoolsById.get(2)
+      ], organizations
+    )).toEqual({
+      districtIds: [],
+      schoolGroupIds: [],
+      schoolIds: [1, 2]
+    });
+  });
+
 });
 
 

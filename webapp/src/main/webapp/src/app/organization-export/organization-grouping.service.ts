@@ -5,6 +5,7 @@ import { Injectable } from "@angular/core";
 import { OrganizationMapper } from "./organization/organization.mapper";
 import { OrganizationType } from "./organization/organization-type.enum";
 import { Tree } from "./organization/tree";
+import { isNullOrUndefined } from "util";
 
 @Injectable()
 export class OrganizationGroupingService {
@@ -85,11 +86,23 @@ export class OrganizationGroupingService {
    * @param {GroupedOrganizationIds} ids grouped organization IDs
    */
   private groupIfAllDescendantsSelected(node: Tree<Organization>, selectedSchoolIds: Set<number>, ids: GroupedOrganizationIds) {
-    if (this.allDescendantsSelected(node, selectedSchoolIds)) {
+    if (this.validGroupingNode(node) && this.allDescendantsSelected(node, selectedSchoolIds)) {
       this.groupOrganization(node.value, ids);
     } else {
       node.children.forEach(child => this.groupIfAllDescendantsSelected(child, selectedSchoolIds, ids));
     }
+  }
+
+  /**
+   * Test if this is a valid grouping node.  While building the organization tree we create shallow
+   * placeholders for districts and school groups that the user does not have explicit access to.  These
+   * shallow nodes should not be used for grouping.
+   *
+   * @param {Tree<Organization>} node An organizaiton node
+   * @returns {boolean} True if the node is a valid grouping node
+   */
+  private validGroupingNode(node: Tree<Organization>) {
+    return !isNullOrUndefined(node.value.name);
   }
 
 }
