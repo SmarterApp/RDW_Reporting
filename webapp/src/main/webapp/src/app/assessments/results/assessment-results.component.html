@@ -31,10 +31,10 @@
     </div>
   </div>
 
-  <div *ngIf="allowFilterBySessions" class="row">
+  <div *ngIf="allowFilterBySessions" class="row mb-sm">
     <!-- Sessions -->
     <div class="col-md-12">
-      <p><strong>{{'labels.groups.results.assessment.sessions-title' | translate}}</strong></p>
+      <strong>{{'labels.groups.results.assessment.sessions-title' | translate}}</strong>
       <div class="flex-children">
         <a *ngFor="let session of sessions"
            class="reverse multi-line btn flex-child"
@@ -45,7 +45,7 @@
            angularticsCategory="AssessmentResults">
           <span class="block-children">
               <strong>{{session.date | date }}</strong>
-              <small class="text-right">{{session.id || 'labels.groups.results.session-unknown' | translate }}</small>
+              <small class="text-left">{{session.id || 'labels.groups.results.session-unknown' | translate }}</small>
           </span>
         </a>
       </div>
