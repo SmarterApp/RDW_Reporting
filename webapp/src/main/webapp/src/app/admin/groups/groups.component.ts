@@ -80,7 +80,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
       schoolYear: this.query.schoolYear,
       subject: this.query.subject
     };
-    this.router.navigate([ '/admin/admin-groups', params ]);
+    this.router.navigate([ '/admin-groups', params ]);
   }
 
   onSearchChange() {
