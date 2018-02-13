@@ -667,27 +667,27 @@
       },
       "1-IT": {
         "description": "Read Analytically: Informational Text - Students can read closely and analytically to comprehend a range of increasingly complex literary and informational texts.",
-        "name": "Read Analytically: Informational Text"
+        "name": "Reading"
       },
       "1-LT": {
         "description": "Read Analytically: Literary Text - Students can read closely and analytically to comprehend a range of increasingly complex literary and informational texts.",
-        "name": "Read Analytically: Literary Text"
+        "name": "Reading"
       },
       "2-W": {
         "description": "Write Effectively - Students can produce effective and well-grounded writing for a range of purposes and audiences.",
-        "name": "Write Effectively"
+        "name": "Writing"
       },
       "3-L": {
         "description": "Speak and Listen purposefully - Students can employ effective speaking and listening skills for a range of purposes and audiences.",
-        "name": "Listen Purposefully"
+        "name": "Listening"
       },
       "3-S": {
         "description": "Speak and Listen purposefully - Students can employ effective speaking and listening skills for a range of purposes and audiences.",
-        "name": "Speak Purposefully"
+        "name": "Listening"
       },
       "4-CR": {
         "description": "Conduct Research - Students can engage in research/ inquiry to investigate topics and to analyze, integrate, and present information.",
-        "name": "Conduct Research"
+        "name": "Research and Inquiry"
       },
       "NA": {
         "description": "NA",
