@@ -22,6 +22,7 @@ export class InstructionalResourceComponent implements OnInit {
   searchTerm: string = '';
   filteredResources: InstructionalResource[] = [];
   actions: PopupMenuAction[];
+  loading: boolean = true;
 
   private _resources: InstructionalResource[];
   get resources(): InstructionalResource[] {
@@ -39,8 +40,9 @@ export class InstructionalResourceComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.findAll()
-      .subscribe((resources) => {
-        this.resources = resources
+      .subscribe((resources: InstructionalResource[]) => {
+        this.resources = resources;
+        this.loading = false;
       });
 
     this.actions = this.createActions();
