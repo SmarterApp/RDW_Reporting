@@ -16,7 +16,7 @@ import { Utils } from "../support/support";
     <div class="btn-group btn-block" [ngClass]="{'open': open}">
       <button type="button"
               (click)="open = !open"
-              class="btn btn-info btn-xs btn-block text-left dropdown-toggle"
+              class="btn btn-info btn-xs btn-block text-left dropdown-toggle label-max-width"
               [ngClass]="{'icon-only': !hasText}"
               aria-haspopup="true"
               aria-expanded="false">
