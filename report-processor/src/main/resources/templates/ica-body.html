@@ -10,7 +10,7 @@
             <div th:replace="fragments::student-header"></div>
 
             <div class="row">
-                <div class="col-xs-7">
+                <div class="col-xs-6">
                     <div>
                     <span class="h3 label-group red">
                         <span class="label" th:text="#{report.ica.short-name}"></span><span class="label" th:text="#{'report.subject.' + ${report.assessment.subject} + '.name'}"></span>
@@ -20,7 +20,7 @@
                         <small><strong th:text="#{report.ica.date.label}"></strong> <span th:text="${#dates.format(report.exam.dateTime, 'MM/dd/yyyy')}" th:remove="tag"></span></small>
                     </div>
                 </div>
-                <div class="col-xs-5">
+                <div class="col-xs-6">
                     <div class="well" th:if="${scored}">
                         <div class="well-body">
                             <p th:text="#{('report.overall-achievement.grade.' + ${report.assessment.gradeCode} + '.subject.' + ${report.assessment.subject} + '.level.' + ${report.exam.scaleScore.level})(${report.student.firstName})}"></p>
@@ -29,7 +29,7 @@
                 </div>
             </div>
 
-            <hr class="mt-sm mb-sm"/>
+            <hr class="mt-xs mb-xs"/>
 
             <h2 th:if="${!scored}" th:text="#{report.not-scored}" class="gray-darker mt-lg mb-lg"></h2>
 
@@ -71,14 +71,14 @@
                 </div>
             </div>
 
-            <hr class="mt-sm mb-sm"/>
+            <hr class="mt-sm mb-xs"/>
 
             <h2 th:if="${scored}" th:text="#{report.ica.section.claim.header}"></h2>
             <p th:if="${scored}" th:text="#{('report.student-achievement-by-claim.grade.' + ${report.assessment.gradeCode} + '.subject.' + ${report.assessment.subject})(${report.student.firstName})}"></p>
 
             <div th:if="${scored}" class="row" th:with="columnClass=${report.assessment.claimCodes.size() == 4} ? 'col-xs-3' : 'col-xs-4'">
                 <div th:class="${columnClass}" th:each="claimCode : ${report.assessment.claimCodes}">
-                    <h3 class="text-center" th:text="#{'report.claim.' + ${claimCode} + '.name'}"></h3>
+                    <h4 class="text-center" th:text="#{'report.claim.' + ${claimCode} + '.name'}"></h4>
                     <span class="h4 gray-darkest"><i class="fa fa-5x text-center" th:classappend="#{'report.claim.' + ${claimCode} + '.icon'}"></i></span>
                     <br/>
                     <div th:if="${report.exam.claimScaleScores[claimCodeStat.index] != null}">
