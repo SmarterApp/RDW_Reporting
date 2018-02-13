@@ -11,6 +11,7 @@ import { Utils } from "../../shared/support/support";
 import { AggregateReportOptions } from "../aggregate-report-options";
 import { PerformanceLevelDisplayTypes } from "../../shared/display-options/performance-level-display-type";
 import { ValueDisplayTypes } from "../../shared/display-options/value-display-type";
+import { AggregateReportTableExportService, ExportOptions } from "./aggregate-report-table-export.service";
 
 export const SupportedRowCount = 10000;
 
@@ -70,7 +71,7 @@ export class AggregateReportTableComponent implements OnInit {
   public loading: boolean = true;
 
   private _previousSortEvent: any;
-  private _table: any;
+  private _table: AggregateReportTable;
   private _columnOrdering: string[];
   private _paginationEnabled: boolean = false;
   private _districtNamesById: Map<number, string> = new Map();
@@ -78,7 +79,8 @@ export class AggregateReportTableComponent implements OnInit {
   private _valueDisplayType: string = ValueDisplayTypes.Percent;
   private _performanceLevelDisplayType: string = PerformanceLevelDisplayTypes.Separate;
 
-  constructor(public colorService: ColorService) {
+  constructor(public colorService: ColorService,
+              private exportService: AggregateReportTableExportService) {
   }
 
   ngOnInit(): void {
@@ -91,7 +93,7 @@ export class AggregateReportTableComponent implements OnInit {
         this.renderWithPreviousRowSorting();
       });
       this.columnOrdering && this.updateColumnOrder();
-      this.table && this.render();
+      this.table && this.sort();
       this.updatePagination();
       this.loading = false;
     });
@@ -163,7 +165,7 @@ export class AggregateReportTableComponent implements OnInit {
       this.updatePagination();
 
       if (!this.loading) {
-        this.render();
+        this.sort();
       }
     }
   }
@@ -181,7 +183,7 @@ export class AggregateReportTableComponent implements OnInit {
     this._columnOrdering = value ? value.concat() : [];
     if (!this.loading) {
       this.updateColumnOrder();
-      this.render();
+      this.sort();
     }
   }
 
@@ -210,14 +212,6 @@ export class AggregateReportTableComponent implements OnInit {
 
   get rowSortingEnabled(): boolean | string {
     return this.preview ? false : 'custom';
-  }
-
-  private render(): void {
-    this.sort();
-  }
-
-  private renderWithPreviousRowSorting(): void {
-    this.sort(this._previousSortEvent);
   }
 
   /**
@@ -268,7 +262,7 @@ export class AggregateReportTableComponent implements OnInit {
     }
 
     //Sort the data based upon the ordered list of Comparators
-    this._table.rows = this.table.rows.sort(join(...ordering));
+    (this._table as any).rows = this.table.rows.sort(join(...ordering));
     this.calculateTreeColumns();
     this.resultsTable.value = this.table.rows;
   }
@@ -281,6 +275,25 @@ export class AggregateReportTableComponent implements OnInit {
    */
   public getColumnIndex(column: Column): number {
     return this.resultsTable.columns.indexOf(column);
+  }
+
+  /**
+   * Export the current table contents in the currently-displayed format as a csv.
+   */
+  public exportTable(name: string): void {
+    const options: ExportOptions = {
+      valueDisplayType: this.valueDisplayType,
+      performanceLevelDisplayType: this.performanceLevelDisplayType,
+      columnOrdering: this.columnOrdering,
+      assessmentDefinition: this.table.assessmentDefinition,
+      name: name
+    };
+
+    this.exportService.exportTable(this.table.rows, options);
+  }
+
+  private renderWithPreviousRowSorting(): void {
+    this.sort(this._previousSortEvent);
   }
 
   /**

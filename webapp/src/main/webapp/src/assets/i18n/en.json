@@ -30,6 +30,7 @@
     "default-report-name": "Custom Aggregate Report",
     "preview": "Table for preview purposes only. This is NOT actual data.",
     "access-denied-error": "Your user account is not permitted to create aggregate reports by the system. If you believe you have reached this page in error, please contact your building administrator.",
+    "export-name": "{{label}}_{{subject}}_view",
     "confirmation-modal": {
       "body": "The requested report will contain {{formattedRowCount}} rows and is too large to display in the browser. Would you like to generate this report for download as a spreadsheet?",
       "accept": "Generate",
@@ -46,6 +47,7 @@
         "avg-scale-score": "Average Scale Score",
         "dimension": "Subgroup",
         "organization-name": "Organization",
+        "organization-id": "Organization Natural Id",
         "school-year": "Academic Year",
         "students-tested": "Students Tested",
         "performance-level-suffix": "Standard",

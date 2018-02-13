@@ -24,6 +24,7 @@ export class OrganizationMapper {
         school.districtGroupId = organization.districtGroupId;
         school.districtId = organization.districtId;
         school.schoolGroupId = organization.schoolGroupId;
+        school.naturalId = organization.naturalId;
         return school;
       case 'SchoolGroup':
         const schoolGroup: DefaultSchoolGroup = new DefaultSchoolGroup();
@@ -31,17 +32,20 @@ export class OrganizationMapper {
         schoolGroup.id = organization.id;
         schoolGroup.districtGroupId = organization.districtGroupId;
         schoolGroup.districtId = organization.districtId;
+        schoolGroup.naturalId = organization.naturalId;
         return schoolGroup;
       case 'District':
         const district: DefaultDistrict = new DefaultDistrict();
         district.name = organization.name;
         district.id = organization.id;
         district.districtGroupId = organization.districtGroupId;
+        district.naturalId = organization.naturalId;
         return district;
       case 'DistrictGroup':
         const districtGroup: DefaultDistrictGroup = new DefaultDistrictGroup();
         districtGroup.name = organization.name;
         districtGroup.id = organization.id;
+        districtGroup.naturalId = organization.naturalId;
         return districtGroup;
       case 'State':
         const state: DefaultState = new DefaultState();

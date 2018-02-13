@@ -40,9 +40,8 @@
               <span class="label">{{'common.assessment-type.' + query.assessmentTypeCode + '.short-name' | translate}}</span><span class="label">{{'common.subject.' + table.subjectCode + '.short-name' | translate}}</span>
             </h3>
 
-            <!-- TODO add export -->
-            <!--<button class="btn btn-sm btn-default ml-sm"-->
-                    <!--(click)="onExportButtonClick(table)"><i class="fa fa-cloud-download"></i> {{'common.export' | translate}}</button>-->
+            <button class="btn btn-sm btn-default ml-sm"
+                    (click)="reportTable.exportTable(getExportName(table))"><i class="fa fa-cloud-download"></i> {{'common.export' | translate}}</button>
 
             <div class="pull-right">
               <span>
@@ -69,7 +68,8 @@
 
         <div class="row mt-xs">
           <div class="col-md-12">
-            <aggregate-report-table [table]="table.table"
+            <aggregate-report-table #reportTable
+                                    [table]="table.table"
                                     [valueDisplayType]="table.valueDisplayType"
                                     [performanceLevelDisplayType]="table.performanceLevelDisplayType"
                                     [columnOrdering]="['organization', 'assessmentGrade', 'schoolYear', 'dimension']"></aggregate-report-table>
