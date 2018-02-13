@@ -4,11 +4,9 @@
     <span class="btn btn-primary mr-xs" (click)="openCreateResourceModal()"><i class="fa fa-cloud-upload"></i> {{'prompt.create' | translate}}</span>
   </div>
 </div>
-<div *ngIf="loading" class="loader">
-  <div class="inner">
-    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">{{ 'messages.loading' | translate }}</span>
-  </div>
-</div>
+
+<spinner *ngIf="loading" text="{{'messages.loading' | translate}}"></spinner>
+
 <!-- Results Table -->
 <div class="well" *ngIf="!loading">
   <div class="table-search-form-container">
