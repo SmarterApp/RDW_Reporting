@@ -17,6 +17,7 @@ import { Utils } from "../support/support";
       <button type="button"
               (click)="open = !open"
               class="btn btn-info btn-xs btn-block text-left dropdown-toggle label-max-width"
+              [attr.title]="hasText ? text : undefined"
               [ngClass]="{'icon-only': !hasText}"
               aria-haspopup="true"
               aria-expanded="false">
@@ -37,8 +38,9 @@ import { Utils } from "../support/support";
          triggers="{{ action.tooltip(item) == '' ? '': 'mouseenter:mouseleave'}}"
          placement="right"
          container="body"
+         [attr.title]="action.displayName( item )"
          (click)="action.isDisabled(item) || onMenuClick($event, action)">
-        <button class="btn btn-default btn-borderless"
+        <button class="btn btn-default btn-borderless label-max-width"
           [disabled]="action.isDisabled(item)">
           <i *ngIf="isSubActionsLoading(action)" class="fa fa-spinner fa-pulse fa-fw"></i>
           {{action.displayName( item )}}
