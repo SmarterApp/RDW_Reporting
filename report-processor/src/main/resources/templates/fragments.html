@@ -70,14 +70,14 @@
 <div th:fragment="bottom">
     <div class="row">
         <div class="col-xs-8">
-            <h4 class="h3 gray-darker" th:text="#{report.faq.header}"></h4>
+            <h4 class="h2 gray-darker" th:text="#{report.faq.header}"></h4>
             <p th:utext="#{report.faq.p1.html}"></p>
             <p>
                 <strong th:text="#{report.faq.p2.header}"></strong>
                 <br/>
                 <span th:utext="#{report.faq.p2.html}" th:remove="tag"></span>
             </p>
-            <hr class="mt-xs mb-sm"/>
+            <hr/>
             <p th:utext="#{report.faq.p3.html}"></p>
         </div>
         <div class="col-xs-4">
@@ -93,15 +93,17 @@
     </div>
 </div>
 
-<footer th:fragment="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="copyright text-right" th:utext="#{report.copyright}"></div>
+<div th:fragment="footer">
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="copyright text-right" th:utext="#{report.copyright}"></div>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
+</div>
 
 </body>
 </html>
