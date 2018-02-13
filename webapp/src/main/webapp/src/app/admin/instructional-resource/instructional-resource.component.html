@@ -4,9 +4,13 @@
     <span class="btn btn-primary mr-xs" (click)="openCreateResourceModal()"><i class="fa fa-cloud-upload"></i> {{'prompt.create' | translate}}</span>
   </div>
 </div>
-
+<div *ngIf="loading" class="loader">
+  <div class="inner">
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">{{ 'messages.loading' | translate }}</span>
+  </div>
+</div>
 <!-- Results Table -->
-<div class="well">
+<div class="well" *ngIf="!loading">
   <div class="table-search-form-container">
     <label for="search" class="sr-only">{{'labels.instructional-resource.filter' | translate}}</label>
     <input [(ngModel)]="searchTerm" class="search form-control" id="search" type="text"
