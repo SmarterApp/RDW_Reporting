@@ -7,10 +7,10 @@
         <ng-content></ng-content>
         <div class="col-md-2">
           <!-- Advanced Filters Toggle -->
-          <div class="pull-right">
-            <label for="advanced" class="pull-right">{{'labels.filters.label' | translate}}</label>
+          <div class="pull-right text-right">
+            <label for="advanced">{{'labels.filters.label' | translate}}</label>
             <button id="advanced"
-                    class="form-control btn btn-default pull-right btn-sm"
+                    class="form-control btn btn-default pull-right"
                     (click)="showAdvancedFilters = !showAdvancedFilters"
                     angulartics2On="click"
                     angularticsEvent="ToggleAdvancedFilters"
@@ -101,8 +101,8 @@
   </div>
 
   <div id="group-results-edit-assessments"
-       [hidden]="!expandAssessments || hideAssessments"
-       class="well gray-lighter">
+       class="well gray-lighter"
+       [hidden]="!expandAssessments || hideAssessments">
     <div id="adv-filters-edit-assessments-collapse"
          class="pull-right">
       <button class="form-control btn btn-sm"
@@ -144,19 +144,17 @@
 
     <button class="btn btn-default btn-xs ml-xs"
             (click)="allCollapsed = !allCollapsed">
-      <span>
-        {{('labels.groups.results.' + (allCollapsed ? 'expand-all' : 'collapse-all')) | translate }}
-        <i class="fa" [ngClass]="{'fa-angle-down': allCollapsed, 'fa-angle-up': !allCollapsed}"></i>
-      </span>
+      {{('labels.groups.results.' + (allCollapsed ? 'expand-all' : 'collapse-all')) | translate }}
+      <i class="fa" [ngClass]="{'fa-angle-down': allCollapsed, 'fa-angle-up': !allCollapsed}"></i>
     </button>
 
-    <button class="btn btn-default btn-xs"
+    <button class="btn btn-default btn-xs ml-xs"
             (click)="callExport()"><i class="fa fa-bold fa-table"></i> {{'labels.export.csv' | translate}}</button>
   </div>
 </h2>
 
 <!-- Results Container -->
-<div *ngIf="!hideAssessments">
+<ng-container *ngIf="!hideAssessments">
   <div *ngFor="let assessment of assessmentExams"
        class="groups-results-wrapper">
     <assessment-results [assessmentExam]="assessment"
@@ -167,7 +165,7 @@
                         [assessmentExporter]="assessmentExporter"
                         [minimumItemDataYear]="minimumItemDataYear"></assessment-results>
   </div>
-</div>
+</ng-container>
 
 <!-- No Results Error -->
 <div class="alert alert-info" *ngIf="assessmentExams.length == 0 || hideAssessments">

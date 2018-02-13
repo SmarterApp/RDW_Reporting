@@ -36,11 +36,10 @@ import { Utils } from "../support/support";
          popover="{{action.tooltip(item)}}"
          triggers="{{ action.tooltip(item) == '' ? '': 'mouseenter:mouseleave'}}"
          placement="right"
-         container="body">
-        <button
-          [disabled]="action.isDisabled(item)"
-          (click)="onMenuClick($event, action)"
-          class="btn btn-default btn-borderless">
+         container="body"
+         (click)="action.isDisabled(item) || onMenuClick($event, action)">
+        <button class="btn btn-default btn-borderless"
+          [disabled]="action.isDisabled(item)">
           <i *ngIf="isSubActionsLoading(action)" class="fa fa-spinner fa-pulse fa-fw"></i>
           {{action.displayName( item )}}
         </button>

@@ -5,13 +5,13 @@
   </div>
 
   <!-- My Groups Search Input -->
-  <div *ngIf="groups.length > 2" class="gray-lightest pt-sm pr-sm pb-sm pl-sm my-groups-search-form-container">
+  <div *ngIf="groups.length > 2" class="table-search-form-container">
     <label for="search" class="sr-only">{{'labels.groups.filter' | translate}}</label>
     <input [(ngModel)]="searchTerm" class="search form-control" id="search" type="text" placeholder="{{'labels.groups.filter' | translate}}" autocomplete="off" (ngModelChange)="onSearchChange($event)">
   </div>
 
   <!-- My Groups Search Results List -->
-  <div class="my-groups-list-container">
+  <div class="table-list-container">
     <p-dataTable [value]="filteredGroups" emptyMessage="{{ emptyMessageTranslateKey | translate}}" sortField="name" tableStyleClass="table table-striped table-hover">
       <p-column field="name" header="{{'labels.groups.cols.group' | translate}}" [sortable]="true">
         <ng-template let-group="rowData" pTemplate="body">

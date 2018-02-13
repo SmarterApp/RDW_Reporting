@@ -1,13 +1,13 @@
 <ng-container *ngIf="visible">
   <div [attr.data-width]="performanceLevelBars.right.length ? 50 : 100"
-       class="bar-container">
+       class="bar-container scale-score-graph blend-middle">
     <ng-container *ngFor="let bar of performanceLevelBars.left">
       <ng-container *ngTemplateOutlet="barTemplate; context:{ $implicit: bar }"></ng-container>
     </ng-container>
   </div>
   <div *ngIf="center"
        [attr.data-width]="50"
-       class="bar-container">
+       class="bar-container scale-score-graph blend-middle">
     <ng-container *ngFor="let bar of performanceLevelBars.right">
       <ng-container *ngTemplateOutlet="barTemplate; context:{ $implicit: bar }"></ng-container>
     </ng-container>

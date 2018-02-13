@@ -123,9 +123,19 @@ h1 + p.pull-left, .h1 + p.pull-left, h2 + p.pull-left, .h2 + p.pull-left, h3 + p
 // ------------------------------
 // RDW Custom Styles to Match Comps
 // ------------------------------
-.my-groups-search-form-container {
+.table-search-form-container {
+  background-color: @gray-lightest;
   border: 1px solid @gray-lighter;
-  border-radius: 5px 5px 0 0;
+  border-radius: @border-radius-base @border-radius-base 0 0;
+  padding: @padding-base-horizontal @padding-large-horizontal;
+  +.table-list-container .table > thead > tr  {
+    > th:first-child {
+      border-top-left-radius: 0;
+    }
+    > th:last-child {
+      border-top-right-radius: 0;
+    }
+  }
 }
 
 .navbar-nav > li > div {
@@ -141,15 +151,6 @@ h1 + p.pull-left, .h1 + p.pull-left, h2 + p.pull-left, .h2 + p.pull-left, h3 + p
   position: relative;
   display: block;
   padding: 10px 15px;
-}
-
-.home-view .my-groups-list-container .table > thead > tr > th {
-  &:first-child {
-    border-top-left-radius: 0;
-  }
-  &:last-child {
-    border-top-right-radius: 0;
-  }
 }
 
 .ui-dropdown {
@@ -774,5 +775,16 @@ scroll-nav li a {
 aggregate-report-organization-list {
   .list-group {
     margin-bottom: 10px; /* was 20 */
+  }
+}
+
+//Enable click-through on prime-ng data table headers
+//Workaround for https://github.com/primefaces/primeng/issues/4762
+//TODO convert from DataTable to the new TurboTable
+.ui-column-title > * {
+  pointer-events: none;
+
+  button {
+    pointer-events: all;
   }
 }

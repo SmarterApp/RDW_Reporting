@@ -88,10 +88,10 @@
                      popover="{{'messages.no-results-by-item' | translate }}"
                      triggers="{{ !resultsByStudentView.disabled ? '': 'mouseenter:mouseleave'}}"
                      placement="right"
+                     (click)="resultsByStudentView.disabled || setCurrentView(resultsByStudentView)"
                      [ngClass]="{'selected': currentResultsView == resultsByStudentView }">
                     <button [disabled]="resultsByStudentView.disabled"
-                            class="btn btn-default btn-borderless"
-                            (click)="setCurrentView(resultsByStudentView)">
+                            class="btn btn-default btn-borderless">
                       {{ resultsByStudentView.label | translate }}
                     </button>
                   </a>
@@ -102,36 +102,38 @@
                      popover="{{ (assessmentExam.assessment.isSummative ? 'messages.no-results-by-item-for-summative-exams' : 'messages.no-results-by-item') | translate }}"
                      triggers="{{ !resultsByItemView.disabled ? '': 'mouseenter:mouseleave'}}"
                      placement="right"
+                     (click)="resultsByItemView.disabled || setCurrentView(resultsByItemView)"
                      [ngClass]="{'selected': currentResultsView == resultsByItemView }">
                     <button [disabled]="resultsByItemView.disabled"
-                            class="btn btn-default btn-borderless"
-                            (click)="setCurrentView(resultsByItemView)">
+                            class="btn btn-default btn-borderless">
                       {{ resultsByItemView.label | translate }}
                     </button>
                   </a>
                 </li>
-                <li role="menuitem" *ngIf="distractorAnalysisView.display">
+                <li role="menuitem"
+                    *ngIf="distractorAnalysisView.display">
                   <a class="dropdown-item"
                      popover="{{ (assessmentExam.assessment.isSummative ? 'messages.no-distractor-analysis-for-summative-exams' : 'messages.no-distractor-analysis') | translate }}"
-                     triggers="{{ !distractorAnalysisView.disabled ? '': 'mouseenter:mouseleave'}}"
+                     triggers="{{ !distractorAnalysisView.disabled ? '' : 'mouseenter:mouseleave'}}"
                      placement="right"
+                     (click)="distractorAnalysisView.disabled || setCurrentView(distractorAnalysisView)"
                      [ngClass]="{'selected': currentResultsView == distractorAnalysisView }">
                     <button [disabled]="distractorAnalysisView.disabled"
-                            class="btn btn-default btn-borderless"
-                            (click)="setCurrentView(distractorAnalysisView)">
+                            class="btn btn-default btn-borderless">
                       {{ distractorAnalysisView.label | translate }}
                     </button>
                   </a>
                 </li>
-                <li role="menuitem" *ngIf="writingTraitScoresView.display">
+                <li role="menuitem"
+                    *ngIf="writingTraitScoresView.display">
                   <a class="dropdown-item"
                      popover="{{ (!assessmentExam.assessment.isIab ? 'messages.no-writing-trait-scores-for-summative-ica-exams' : 'messages.no-writing-trait-scores') | translate }}"
-                     triggers="{{ !writingTraitScoresView.disabled ? '': 'mouseenter:mouseleave'}}"
+                     triggers="{{ !writingTraitScoresView.disabled ? '' : 'mouseenter:mouseleave'}}"
                      placement="right"
+                     (click)="writingTraitScoresView.disabled || setCurrentView(writingTraitScoresView)"
                      [ngClass]="{'selected': currentResultsView == writingTraitScoresView }">
                     <button [disabled]="writingTraitScoresView.disabled"
-                            class="btn btn-default btn-borderless"
-                            (click)="setCurrentView(writingTraitScoresView)">
+                            class="btn btn-default btn-borderless">
                       {{ writingTraitScoresView.label | translate }}
                     </button>
                   </a>

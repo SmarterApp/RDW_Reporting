@@ -19,9 +19,9 @@
         <label for="select-subject">{{'labels.student.results.labels.select-subject' | translate}}</label>
         <select id="select-subject"
                 name="select-subject"
+                class="form-control"
                 [(ngModel)]="filterState.subject"
-                (change)="onFilterChange('Subject')"
-                class="form-control">
+                (change)="onFilterChange('Subject')">
           <option selected value="">{{ 'buttons.all' | translate }}</option>
           <option *ngFor="let subject of filterState.subjects" [ngValue]="subject">{{subject}}</option>
         </select>
@@ -29,16 +29,20 @@
 
       <!-- Advanced Filters -->
       <div class="col-md-2 col-md-offset-6">
-        <label for="show-advanced-filters">{{'labels.filters.label' | translate}}</label>
-        <button id="show-advanced-filters"
-                class="form-control btn btn-default"
-                (click)="showAdvancedFilters = !showAdvancedFilters"
-                angulartics2On="click" angularticsEvent="ToggleAdvancedFilters" angularticsCategory="StudentHistoryAdvancedFilters">
-          {{'buttons.visibility.' + (showAdvancedFilters ? 'hide' : 'show') | translate}}
-          <i class="fa"
-             [ngClass]="{'fa-chevron-up': showAdvancedFilters, 'fa-chevron-down': !showAdvancedFilters}"
-             aria-hidden="true"></i>
-        </button>
+        <div class="pull-right text-right">
+          <label for="show-advanced-filters">{{'labels.filters.label' | translate}}</label>
+          <button id="show-advanced-filters"
+                  class="btn btn-default form-control pull-right"
+                  (click)="showAdvancedFilters = !showAdvancedFilters"
+                  angulartics2On="click"
+                  angularticsEvent="ToggleAdvancedFilters"
+                  angularticsCategory="StudentHistoryAdvancedFilters">
+            {{'buttons.visibility.' + (showAdvancedFilters ? 'hide' : 'show') | translate}}
+            <i class="fa"
+               aria-hidden="true"
+               [ngClass]="{'fa-chevron-up': showAdvancedFilters, 'fa-chevron-down': !showAdvancedFilters}"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>

@@ -876,7 +876,7 @@
     }
   },
   "html": {
-    "system-news": "<h2 class=\"blue-dark h3 mb-md\">Summary Reports</h2><div class=\"summary-reports-container mb-md\"><p>(Coming Soon)</div><!-- Member Reporting Resources --><h2 class=\"blue-dark h3 mb-md\">Member Reporting Resources</h2><div class=\"member-reporting-resources-container\"><p>(Coming Soon)</p></div>"
+    "system-news": ""
   },
   "labels": {
     "admin": {
@@ -940,9 +940,9 @@
       "select-school-year": "School Year",
       "select-subject": "Subject",
       "subjects": {
-        "ALL": "MATH, ELA",
+        "ALL": "Math, ELA",
         "ELA": "ELA",
-        "Math": "MATH"
+        "Math": "Math"
       },
       "title": "Manage Student Groups"
     },
@@ -1376,9 +1376,9 @@
       },
       "search-label": "Search by My Groups",
       "subjects": {
-        "ALL": "MATH, ELA",
+        "ALL": "Math, ELA",
         "ELA": "ELA",
-        "Math": "MATH"
+        "Math": "Math"
       }
     },
     "homepage": {
@@ -1611,8 +1611,8 @@
         "RUNNING": "Running"
       },
       "subjects": {
-        "0": "MATH, ELA",
-        "1": "MATH",
+        "0": "Math, ELA",
+        "1": "Math",
         "2": "ELA"
       }
     },
