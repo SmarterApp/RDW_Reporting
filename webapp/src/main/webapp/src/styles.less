@@ -776,3 +776,14 @@ aggregate-report-organization-list {
     margin-bottom: 10px; /* was 20 */
   }
 }
+
+//Enable click-through on prime-ng data table headers
+//Workaround for https://github.com/primefaces/primeng/issues/4762
+//TODO convert from DataTable to the new TurboTable
+.ui-column-title > * {
+  pointer-events: none;
+
+  button {
+    pointer-events: all;
+  }
+}
