@@ -300,7 +300,6 @@ export const routes: Routes = [
           {
             path: '',
             pathMatch: 'full',
-            data: { canReuse: true },
             resolve: {
               settings: AggregateReportFormSettingsResolve
             },
