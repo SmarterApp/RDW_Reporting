@@ -39,8 +39,10 @@ export class SchoolGradeComponent {
     }
   }
 
-  schoolChanged(value: School) {
-    this.school = value;
+  schoolChanged(value: any) {
+    if (value instanceof School) {
+      this.school = value;
+    }
   }
 
   get school(): School {
