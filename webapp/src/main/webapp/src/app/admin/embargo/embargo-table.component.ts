@@ -66,7 +66,7 @@ export class EmbargoTable {
         overridingEmbargoEnabled: overridingEmbargoEnabled
       });
     } else {
-      toggle.value = toggle.previousValue;
+      toggle.value = !toggle.value;
     }
   }
 

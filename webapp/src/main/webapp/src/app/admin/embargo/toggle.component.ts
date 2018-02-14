@@ -34,7 +34,6 @@ export class Toggle implements ControlValueAccessor {
 
   @Output()
   click: EventEmitter<void> = new EventEmitter();
-  previousValue: any= null;
 
   private _options: Option[] = [];
   private _value: any;
@@ -72,7 +71,6 @@ export class Toggle implements ControlValueAccessor {
   @Input()
   set value(value: any) {
     if (this._value !== value) {
-      this.previousValue = this._value;
       this._value = value;
       this._onChangeCallback(value);
     }
