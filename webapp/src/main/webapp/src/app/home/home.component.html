@@ -5,23 +5,31 @@
       <h1 class="sr-only">{{'labels.homepage.title' | translate}}</h1>
       <h1 class="blue-dark h1 mb-md">{{'labels.homepage.title' | translate}}</h1>
     </div>
-    <div class="col-md-6">
-      <div class="pull-right">
+    <div class="col-md-6 text-right">
 
-        <!-- Aggregate Reports Link -->
+      <!-- Aggregate Reports Link -->
+      <span class="flex-child">
         <a *hasPermission="'CUSTOM_AGGREGATE_READ'"
-           routerLink="/aggregate-reports" class="btn btn-xs btn-default">{{'aggregate-reports.form.heading' | translate}}</a>
+           routerLink="/aggregate-reports"
+           class="btn btn-xs btn-default">
+          {{'aggregate-reports.form.heading' | translate}}
+        </a>
+      </span>
 
-        <!-- Custom Exports Link -->
+      <!-- Custom Exports Link -->
+      <span class="flex-child">
         <a *hasPermission="'INDIVIDUAL_PII_READ'"
-           routerLink="/custom-export" class="btn btn-xs btn-default ml-xs"><i class="fa fa-bold fa-table"></i>
-          {{'labels.organization-export.title' | translate}}</a>
+           routerLink="/custom-export"
+           class="btn btn-xs btn-default">
+          <i class="fa fa-bold fa-table"></i>
+          {{'labels.organization-export.title' | translate}}
+        </a>
+      </span>
 
-        <span class="ml-xs">
-          <admin-dropdown *hasAnyPermission="['GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE']"></admin-dropdown>
-        </span>
+      <span class="flex-child">
+        <admin-dropdown *hasAnyPermission="['GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE']"></admin-dropdown>
+      </span>
 
-      </div>
     </div>
   </div>
   <div class="row">
