@@ -31,7 +31,7 @@
                    typeaheadOptionField="label"
                    placeholder="{{'labels.instructional-resource.form.field.assessment.placeholder' | translate}}">
             <div>
-              <span [hidden]="!assessmentLoading"><i class="fa fa-spinner"></i></span>
+              <span [hidden]="!assessmentLoading"><i class="fa fa-spinner fa-pulse"></i></span>
               <span [hidden]="!assessmentNoResults" class="text-info">{{'labels.instructional-resource.assessments.no-results' | translate}}</span>
             </div>
           </div>
@@ -56,7 +56,7 @@
                    typeaheadOptionField="name"
                    placeholder="{{'labels.instructional-resource.form.field.organization.placeholder' | translate}}">
             <div>
-              <span [hidden]="!organizationLoading"><i class="fa fa-spinner"></i></span>
+              <span [hidden]="!organizationLoading"><i class="fa fa-spinner fa-pulse"></i></span>
               <span [hidden]="!organizationNoResults"class="text-info">{{'labels.instructional-resource.organizations.no-results' | translate}}</span>
             </div>
           </div>

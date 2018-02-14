@@ -31,7 +31,7 @@
       <strong>{{ 'labels.assessments.student-score-distribution.title' | translate }}</strong>
       <div class="well">
         <div *ngFor="let performanceLevel of performanceLevels; let i = index" class="score-distribution-container">
-          <div class="text-right gray-lighter">
+          <div class="text-right gray-lighter grid-item">
             {{ examLevelEnum + performanceLevel.id.toString() | translate }}
             <button *ngIf="assessmentExam.assessment.isIab"
               class="btn btn-borderless btn-xs icon-only pull-right"
@@ -45,10 +45,10 @@
               [outsideClick]="true"><i
               class="fa fa-book"></i></button>
           </div>
-          <div class="level-down text-right gray-lightest">
+          <div class="level-down text-right gray-lightest grid-item">
             <strong>{{ performanceLevel.value | number:'1.0-0' }}{{performanceLevel.suffix }}</strong>
           </div>
-          <div class="level-down scale-score-graph rounded blend-middle gray-lightest">
+          <div class="level-down scale-score-graph rounded blend-middle gray-lightest grid-item">
             <div class="bar-container">
               <div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="colorService.getPerformanceLevelColor(assessmentExam.assessment, i)"
                    [attr.data-width]="filledLevel(performanceLevel)"></div>

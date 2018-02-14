@@ -66,7 +66,7 @@ describe('AggregateReportTableExportService', () => {
     const item: AggregateReportItem = mockItem();
     service.exportTable([item], options);
 
-    expect(csvBuilder.withFilename).toHaveBeenCalledWith(options.name + '.csv');
+    expect(csvBuilder.withFilename).toHaveBeenCalledWith(options.name);
   });
 
   it('should append user-ordered columns in the specified order', () => {
