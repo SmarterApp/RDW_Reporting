@@ -5,10 +5,11 @@
 </div>
 <div *ngIf="!loading">
   <div *ngIf="resources && resources.length; else noResources">
-    <p class="popover-link"
-       *ngFor="let instructionalResource of resources">
+    <div *ngFor="let instructionalResource of resources"
+         [ngClass]="{'border-bottom': instructionalResource.organizationLevel == 'System' && resources.length > 1}"
+         class="popover-link">
       <a href="{{instructionalResource.url}}" target="_blank">{{ ('labels.instructional-resources.link.' + instructionalResource.organizationLevel) | translate:instructionalResource }}</a>
-    </p>
+    </div>
   </div>
 </div>
 
