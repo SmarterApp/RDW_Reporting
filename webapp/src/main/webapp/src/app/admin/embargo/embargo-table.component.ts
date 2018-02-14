@@ -50,12 +50,13 @@ export class EmbargoTable {
   private toggleInternal(toggle: Toggle, embargo: Embargo, scope: EmbargoScope, embargoEnabled: boolean, overridingEmbargoEnabled: boolean): void {
     const value = toggle.value;
 
-    // Fixes display by undoing visual state change to toggle when clicked.
-    // It was not sufficient to prevent event propagation
-    // The new state will be programmatically applied when the confirmation is issued through the toggle event listener
-    toggle.value = !value;
-
     if (value !== embargoEnabled) {
+
+      // Fixes display by undoing visual state change to toggle when clicked.
+      // It was not sufficient to prevent event propagation
+      // The new state will be programmatically applied when the confirmation is issued through the toggle event listener
+      toggle.value = !value;
+
       this.toggle.emit({
         toggle: toggle,
         embargo: embargo,
@@ -65,8 +66,6 @@ export class EmbargoTable {
         overridingEmbargo: this.overridingEmbargo,
         overridingEmbargoEnabled: overridingEmbargoEnabled
       });
-    } else {
-      toggle.value = !toggle.value;
     }
   }
 
