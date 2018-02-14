@@ -422,11 +422,27 @@ body .select-menu-group {
   }
 
   .score-distribution-container {
+    width: 100%;
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: 40% 13% 1fr;
     grid-template-columns: 40% 13% 1fr;
 
     > div {
       padding: @table-cell-padding @table-cell-padding 0 @table-cell-padding;
+    }
+
+    // Explicit positioning for IE11
+    > .grid-item {
+      &:nth-child(1) {
+        -ms-grid-column: 1;
+      }
+      &:nth-child(2) {
+        -ms-grid-column: 2;
+      }
+      &:nth-child(3) {
+        -ms-grid-column: 3;
+      }
     }
   }
 }
