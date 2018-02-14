@@ -12,10 +12,10 @@
     {{ 'labels.assessments.items.tabs.item-viewer-see-rubric' | translate }}
   </div>
   <p>
-    {{ 'labels.assessments.items.tabs.item-viewer-intro-text' | translate }}
-    <span *ngIf="!showResponse">
-      {{ 'labels.assessments.items.tabs.item-viewer-response-not-included' | translate }}
-    </span>
+    {{ 'labels.assessments.items.tabs.item-viewer-intro-text-prefix' | translate }}{{ (showResponse ?
+    'labels.assessments.items.tabs.item-viewer-response-included' :
+    'labels.assessments.items.tabs.item-viewer-response-not-included' ) | translate}}
   </p>
-  <iframe title="{{'labels.assessments.items.tabs.item-viewer' | translate }}" class="center" #irisframe src="/iris/" width="950" height="500" frameborder="0" ></iframe>
+  <iframe title="{{'labels.assessments.items.tabs.item-viewer' | translate }}" class="center" #irisframe src="/iris/"
+          width="950" height="500" frameborder="0"></iframe>
 </div>

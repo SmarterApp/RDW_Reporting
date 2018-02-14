@@ -983,8 +983,9 @@
             "view-ref": "View reference"
           },
           "item-viewer": "Item Viewer",
-          "item-viewer-intro-text": "This is the view of the item as seen while taking the assessment.  ",
-          "item-viewer-response-not-included": "This does not include student responses.",
+          "item-viewer-intro-text-prefix": "This is the view of the item as seen while taking the assessment",
+          "item-viewer-response-included": ", including the student's response.",
+          "item-viewer-response-not-included": ".  This does not include student responses.",
           "item-viewer-see-rubric": "See the Rubric and Exemplar tab to get more information on correct responses.",
           "scores": {
             "correctness": "Correctness",
