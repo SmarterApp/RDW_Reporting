@@ -33,7 +33,28 @@
             </select>
           </div>
         </div>
-        <div class="text-right" [ngClass]="{'col-md-4': !editingDisabled, 'col-md-10': editingDisabled}">
+        <div class="col-md-2" *ngIf="transferAccess">
+          <div class="form-group">
+            <label>
+                <span info-button
+                      title="{{'labels.filters.test.transfer-assessment' | translate}}"
+                      content="{{'labels.filters.test.transfer-assessment-info' | translate}}"></span>
+            </label>
+            <sb-radio-button-group name="transfer-assessment-toggle"
+                                   [(ngModel)]="disableTransferAccess"
+                                   [options]="[
+                           {value: false, text: 'buttons.visibility.show' | translate},
+                           {value: true, text: 'buttons.visibility.hide' | translate}
+                         ]">
+            </sb-radio-button-group>
+          </div>
+        </div>
+        <div class="text-right" [ngClass]="{
+            'col-md-2': !editingDisabled && transferAccess,
+            'col-md-4': !editingDisabled && !transferAccess,
+            'col-md-8': editingDisabled && transferAccess,
+            'col-md-10': editingDisabled && !transferAccess
+          }">
           <button type="submit" class="btn btn-info aqua" [disabled]="selectedSchools.length == 0"><i class="fa fa-cloud-download"></i> {{'labels.organization-export.form.submit.label' | translate}}</button>
         </div>
       </div>

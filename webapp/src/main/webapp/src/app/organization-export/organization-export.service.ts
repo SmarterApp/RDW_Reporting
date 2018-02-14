@@ -23,16 +23,18 @@ export class OrganizationExportService {
    * @param {number} schoolYear the school year to filter exam results on
    * @param {Organization[]} schools the schools to filter exam results on
    * @param {UserOrganizations} organizations all organizations available to the user
+   * @param {boolean} disableTransferAccess true to exclude transfer student exams from other schools
    * @returns {Observable<void>}
    */
-  createExport(schoolYear: number, schools: Organization[], organizations: UserOrganizations): Observable<void> {
-    return this.dataService.post(`${ServiceRoute}/exams/export`, this.createExportRequest(schoolYear, schools, organizations))
+  createExport(schoolYear: number, schools: Organization[], disableTransferAccess: boolean, organizations: UserOrganizations): Observable<void> {
+    return this.dataService.post(`${ServiceRoute}/exams/export`, this.createExportRequest(schoolYear, schools, disableTransferAccess, organizations))
   }
 
-  private createExportRequest(schoolYear: number, schools: Organization[], organizations: UserOrganizations): OrganizationExportRequest {
+  private createExportRequest(schoolYear: number, schools: Organization[], disableTransferAccess: boolean, organizations: UserOrganizations): OrganizationExportRequest {
     let ids = this.groupingService.groupSelectedOrganizationIdsByType(schools, organizations);
     let options = Object.assign({ schoolYear: schoolYear }, ids);
     let name = this.namingService.name(options, organizations);
+    options = Object.assign({ disableTransferAccess: disableTransferAccess}, options);
     return Object.assign({ name: name }, options);
   }
 

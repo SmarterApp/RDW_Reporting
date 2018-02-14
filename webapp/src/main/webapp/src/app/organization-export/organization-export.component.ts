@@ -62,6 +62,10 @@ export class OrganizationExportComponent implements OnInit {
    */
   private _comparator = (a: Organization, b: Organization) => a.name && b.name ? a.name.localeCompare(b.name) : 0;
 
+  public transferAccess: boolean;
+
+  public disableTransferAccess: boolean = false;
+
   constructor(private router: Router,
               private route: ActivatedRoute,
               private translate: TranslateService,
@@ -107,6 +111,9 @@ export class OrganizationExportComponent implements OnInit {
           this._selectedSchoolYear = schoolYears[ 0 ];
         }
       });
+
+    //set transfer access
+    this.transferAccess = this.route.snapshot.data[ 'user' ].configuration.transferAccess;
   }
 
   get organizations(): UserOrganizations {
@@ -197,7 +204,7 @@ export class OrganizationExportComponent implements OnInit {
   }
 
   submit(): void {
-    this.service.createExport(this._selectedSchoolYear, this._selectedSchools, this._organizations)
+    this.service.createExport(this._selectedSchoolYear, this._selectedSchools, this.disableTransferAccess, this._organizations)
       .subscribe(
         () => {
           this.notificationService.info({ id: 'labels.organization-export.form.submit.success-html', html: true });
