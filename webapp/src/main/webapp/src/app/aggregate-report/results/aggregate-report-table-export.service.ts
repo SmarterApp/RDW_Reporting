@@ -27,7 +27,7 @@ export class AggregateReportTableExportService {
 
     let builder: CsvBuilder = this.csvBuilder
       .newBuilder()
-      .withFilename(options.name + ".csv");
+      .withFilename(options.name);
 
     options.columnOrdering.forEach((column) => {
       builder = this.appendUserOrderedColumn(column, builder)

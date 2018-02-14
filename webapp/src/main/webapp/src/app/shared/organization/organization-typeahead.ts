@@ -23,7 +23,7 @@ import { TypeaheadMatch } from "ngx-bootstrap";
     <div>
       <br [hidden]="loadingInternal || noResultsInternal">
       <span [hidden]="!noResultsInternal" class="small gray-darker">{{'organization-typeahead.no-matches' | translate}}</span>
-      <span [hidden]="!loadingInternal"><i class="fa fa-spinner"></i></span>
+      <span [hidden]="!loadingInternal"><i class="fa fa-spinner fa-pulse"></i></span>
     </div>
     <ng-template #organizationTemplate let-organization="item" let-index="index" let-query="query">
       <p class="mb-0">{{organization.name}}</p>

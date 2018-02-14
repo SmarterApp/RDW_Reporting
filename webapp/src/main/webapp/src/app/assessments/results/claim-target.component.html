@@ -10,5 +10,6 @@
    outsideClick="true">{{'labels.groups.results.assessment.items.target' | translate:item}}</a>
 
 <ng-template #targetPopover>
+  <i *ngIf="!target" class="fa fa-spinner fa-pulse"></i>
   <span *ngIf="target">{{target}}</span>
 </ng-template>
