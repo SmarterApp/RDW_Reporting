@@ -30,11 +30,11 @@ sql:
       where st.ssid=:student_ssid
         and
         (
-          (1 = :individual_statewide
-            or s.district_group_id in (:individual_district_group_ids)
-            or s.district_id in (:individual_district_ids)
-            or s.school_group_id in (:individual_school_group_ids)
-            or e.school_id in (:individual_school_ids))
+          (1 = :statewide
+            or s.district_group_id in (:district_group_ids)
+            or s.district_id in (:district_ids)
+            or s.school_group_id in (:school_group_ids)
+            or e.school_id in (:school_ids))
           or (
             exists(
                 select 1
@@ -84,8 +84,7 @@ sql:
             and a.id = e.asmt_id
             and sgm.student_group_id=:group_id
             and (0=:group_subject_id or a.subject_id=:group_subject_id)
-            and ${sql.reporting.snippet.individualScopePermission}
-
+            and ${sql.reporting.snippet.groupScopePermission}
 
     exam:
       # NOTE that findLatest does not sample the students' inferred schools
@@ -118,7 +117,7 @@ sql:
           and e.school_year=:school_year
           and sgm.student_group_id=:group_id
           and (0=:group_subject_id or a.subject_id=:group_subject_id)
-          and ${sql.reporting.snippet.individualScopePermission}
+          and ${sql.reporting.snippet.groupScopePermission}
 
       item:
         findAllExamItemScoresForAssessment:
@@ -128,7 +127,7 @@ sql:
             and e.school_year=:school_year
             and sgm.student_group_id=:group_id
             and (0=:group_subject_id or a.subject_id=:group_subject_id)
-            and ${sql.reporting.snippet.individualScopePermission}
+            and ${sql.reporting.snippet.groupScopePermission}
 
   schoolgrade:
     assessment:
@@ -298,11 +297,11 @@ sql:
           (
              # Individual permissions test
             (
-              (1 = :individual_statewide or s.district_group_id in (:individual_district_group_ids) or s.district_id in (:individual_district_ids) or s.school_group_id in (:individual_school_group_ids) or e.school_id in (:individual_school_ids))
+              (1 = :statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
               or
               (
                 1 = :allow_transfer_access
-                and (isch.district_group_id in (:individual_district_group_ids) or isch.district_id in (:individual_district_ids) or isch.school_group_id in (:individual_school_group_ids) or isch.id in (:individual_school_ids))
+                and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
               )
             )
             or
@@ -328,13 +327,12 @@ sql:
             )
           )
 
-      individualScopePermission: >-
+      groupScopePermission: >-
           (
-            (1=:statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
-            or
-            (
-              1 = :allow_transfer_access
-              and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
+            (1 = :group_statewide or s.district_group_id in (:group_district_group_ids) or s.district_id in (:group_district_ids) or s.school_group_id in (:group_school_group_ids) or e.school_id in (:group_school_ids))
+              or
+            ( 1 = :allow_transfer_access
+               and (isch.district_group_id in (:group_district_group_ids) or isch.district_id in (:group_district_ids) or isch.school_group_id in (:group_school_group_ids) or isch.id in (:group_school_ids))
             )
           )
 

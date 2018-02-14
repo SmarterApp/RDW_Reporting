@@ -230,15 +230,15 @@ sql:
         e.school_year = :school_year
         and
         (
-          (1 = :individual_statewide or s.district_group_id in (:individual_district_group_ids) or s.district_id in (:individual_district_ids) or s.school_group_id in (:individual_school_group_ids) or e.school_id in (:individual_school_ids))
+          (1 = :statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
           and
           (s.district_group_id in (:query_district_group_ids) or s.district_id in (:query_district_ids) or s.school_group_id in (:query_school_group_ids) or e.school_id in (:query_school_ids))
         )
         or
         (
-          (1 = :individual_allow_transfer_access and 0 = :disable_transfer_access)
+          (1 = :allow_transfer_access and 0 = :disable_transfer_access)
           and
-          (1 = :individual_statewide or isch.district_group_id in (:individual_district_group_ids) or isch.district_id in (:individual_district_ids) or isch.school_group_id in (:individual_school_group_ids) or isch.id in (:individual_school_ids))
+          (1 = :statewide or isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
           and
           (isch.district_group_id in (:query_district_group_ids) or isch.district_id in (:query_district_ids) or isch.school_group_id in (:query_school_group_ids) or isch.id in (:query_school_ids))
         )
@@ -321,11 +321,11 @@ sql:
         ( # This query can run from the context of both GROUP_PII_READ and INDIVIDUAL_PII_READ, so need to evaluate both.
           # Individual permissions test
           (
-            (1 = :individual_statewide or s.district_group_id in (:individual_district_group_ids) or s.district_id in (:individual_district_ids) or s.school_group_id in (:individual_school_group_ids) or e.school_id in (:individual_school_ids))
+            (1 = :statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
             or
             (
               (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-              and (isch.district_group_id in (:individual_district_group_ids) or isch.district_id in (:individual_district_ids) or isch.school_group_id in (:individual_school_group_ids) or isch.id in (:individual_school_ids))
+              and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
             )
           )
           or
@@ -384,11 +384,11 @@ sql:
           ( # This query can run from the context of both GROUP_PII_READ and INDIVIDUAL_PII_READ, so need to evaluate both.
             # Individual permissions test
             (
-              (1 = :individual_statewide or s.district_group_id in (:individual_district_group_ids) or s.district_id in (:individual_district_ids) or s.school_group_id in (:individual_school_group_ids) or e.school_id in (:individual_school_ids))
+              (1 = :statewide or s.district_group_id in (:district_group_ids) or s.district_id in (:district_ids) or s.school_group_id in (:school_group_ids) or e.school_id in (:school_ids))
               or
               (
                 (1 = :allow_transfer_access and 0 = :disable_transfer_access)
-                and (isch.district_group_id in (:individual_district_group_ids) or isch.district_id in (:individual_district_ids) or isch.school_group_id in (:individual_school_group_ids) or isch.id in (:individual_school_ids))
+                and (isch.district_group_id in (:district_group_ids) or isch.district_id in (:district_ids) or isch.school_group_id in (:school_group_ids) or isch.id in (:school_ids))
               )
             )
             or
