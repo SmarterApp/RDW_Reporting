@@ -1351,7 +1351,7 @@
             "target": "Target {{target}}",
             "title": "Results By Item"
           },
-          "no-instruct-found": "Resources Not Yet Available",
+          "no-instruct-found": "Resources not yet available",
           "select-view": "Select View",
           "sessions-title": "Sessions"
         },
