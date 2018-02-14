@@ -22,9 +22,10 @@ import { AggregateReportTableComponent } from "./results/aggregate-report-table.
 import { AssessmentModule } from "./assessment/assessment.module";
 import { AggregateReportTableDataService } from "./aggregate-report-table-data.service";
 import { AggregateReportRequestMapper } from "./aggregate-report-request.mapper";
-import { PerformanceLevelDistributionChart } from "../shared/assessment/performanc-level/performance-level-distribution-chart.component";
 import { AggregateReportFormSettingsResolve } from "./aggregate-report-form-settings.resolve";
 import { StickyDirective } from "../shared/nav/sticky.directive";
+import { CsvModule } from "../csv-export/csv-export.module";
+import { AggregateReportTableExportService } from "./results/aggregate-report-table-export.service";
 
 @NgModule({
   declarations: [
@@ -39,14 +40,15 @@ import { StickyDirective } from "../shared/nav/sticky.directive";
     AssessmentModule,
     Angulartics2Module.forChild(),
     BrowserModule,
-    FormsModule,
     CommonModule,
-    ReactiveFormsModule,
+    CsvModule,
     DataTableModule,
-    MultiselectDropdownModule,
-    TypeaheadModule,
+    FormsModule,
     ModalModule,
-    ReportModule
+    MultiselectDropdownModule,
+    ReactiveFormsModule,
+    ReportModule,
+    TypeaheadModule
   ],
   exports: [
     AggregateReportComponent,
@@ -55,6 +57,7 @@ import { StickyDirective } from "../shared/nav/sticky.directive";
   providers: [
     AggregateReportRequestMapper,
     AggregateReportTableDataService,
+    AggregateReportTableExportService,
     AggregateReportService,
     AggregateReportResolve,
     AggregateReportOptionsResolve,

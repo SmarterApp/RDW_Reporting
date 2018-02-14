@@ -39,20 +39,18 @@ import { Utils } from "../support/support";
          placement="right"
          container="body"
          [attr.title]="action.displayName( item )"
+         [ngClass]="{disabled: action.isDisabled(item)}"
          (click)="action.isDisabled(item) || onMenuClick($event, action)">
-        <button class="btn btn-default btn-borderless label-max-width"
-          [disabled]="action.isDisabled(item)">
-          <i *ngIf="isSubActionsLoading(action)" class="fa fa-spinner fa-pulse fa-fw"></i>
-          {{action.displayName( item )}}
-        </button>
+        <i *ngIf="isSubActionsLoading(action)" class="fa fa-spinner fa-pulse fa-fw"></i>
+        {{action.displayName( item )}}
+        <ul *ngIf="getSubActions(action).length" class="dropdown-menu">
+          <li *ngFor="let subAction of getSubActions(action)"
+              role="menuitem"
+              [ngClass]="{'dropdown-submenu': getSubActions(subAction).length}">
+            <ng-container *ngTemplateOutlet="actionTemplate;context:{action: subAction}"></ng-container>
+          </li>
+        </ul>
       </a>
-      <ul *ngIf="getSubActions(action).length" class="dropdown-menu">
-        <li *ngFor="let subAction of getSubActions(action)"
-            role="menuitem"
-            [ngClass]="{'dropdown-submenu': getSubActions(subAction).length}">
-          <ng-container *ngTemplateOutlet="actionTemplate;context:{action: subAction}"></ng-container>
-        </li>
-      </ul>
     </ng-template>
   `
 })

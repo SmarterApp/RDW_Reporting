@@ -30,6 +30,7 @@
     "default-report-name": "Custom Aggregate Report",
     "preview": "Table for preview purposes only. This is NOT actual data.",
     "access-denied-error": "Your user account is not permitted to create aggregate reports by the system. If you believe you have reached this page in error, please contact your building administrator.",
+    "export-name": "{{label}}_{{subject}}_view",
     "confirmation-modal": {
       "body": "The requested report will contain {{formattedRowCount}} rows and is too large to display in the browser. Would you like to generate this report for download as a spreadsheet?",
       "accept": "Generate",
@@ -46,6 +47,7 @@
         "avg-scale-score": "Average Scale Score",
         "dimension": "Subgroup",
         "organization-name": "Organization",
+        "organization-id": "Organization Natural Id",
         "school-year": "Academic Year",
         "students-tested": "Students Tested",
         "performance-level-suffix": "Standard",
@@ -362,9 +364,9 @@
     "organization": {
       "type": {
         "State": "State",
-        "DistrictGroup": "District Group",
+        "DistrictGroup": "Group of Districts",
         "District": "District",
-        "SchoolGroup": "School Group",
+        "SchoolGroup": "Group of Schools",
         "School": "School"
       }
     },
@@ -981,8 +983,8 @@
             "view-ref": "View reference"
           },
           "item-viewer": "Item Viewer",
-          "item-viewer-intro-text": "This is the view of the item as seen while taking the assessment.  ",
-          "item-viewer-response-not-included": "This does not include student responses.",
+          "item-viewer-response-included": "This is the view of the item as seen while taking the assessment, including the student's response.",
+          "item-viewer-response-not-included": "This is the view of the item as seen while taking the assessment.  This does not include student responses.",
           "item-viewer-see-rubric": "See the Rubric and Exemplar tab to get more information on correct responses.",
           "scores": {
             "correctness": "Correctness",
@@ -1349,7 +1351,7 @@
             "target": "Target {{target}}",
             "title": "Results By Item"
           },
-          "no-instruct-found": "No resources found.",
+          "no-instruct-found": "Resources not yet available",
           "select-view": "Select View",
           "sessions-title": "Sessions"
         },
@@ -1427,7 +1429,7 @@
         "organization-name": "Organization",
         "organization-type": "Organization Type",
         "performance-level": "Performance Level",
-        "resource": "Resource"
+        "resource": "URL"
       },
       "create": {
         "duplicate": "An Instructional Resource for this assessment, organization, and performance level already exists.",
@@ -1437,28 +1439,45 @@
       },
       "delete": {
         "error": "Unable to delete instructional resource.",
+        "link": "Delete",
         "title": "Delete Instructional Resource",
         "warning": "WARNING: Deleting this resource cannot be undone."
       },
       "filter": "Search by Assessment/Organization",
       "form": {
         "assessment-label": "Assessment Label",
-        "organization-name": "Organization Name"
+        "organization-name": "Organization Name",
+        "field": {
+          "assessment": {
+            "placeholder": "Search Assessment Label"
+          },
+          "organization": {
+            "placeholder": "Search Organization Name"
+          },
+          "resource": {
+            "placeholder": "Enter URL",
+            "error": {
+              "pattern": "URL must start with http:// or https://",
+              "required": "* Required"
+            }
+          }
+        }
       },
       "no-results": "No instructional resources found matching the given filter criteria.",
       "organizations": {
         "no-results": "No organizations found.",
         "type": {
           "District": "District",
-          "DistrictGroup": "District Group",
-          "SchoolGroup": "School Group",
+          "DistrictGroup": "Group of Districts",
+          "SchoolGroup": "Group of Schools",
           "State": "State"
         }
       },
       "title": "Manage Instructional Resources",
       "update": {
         "error": "Unable to modify instructional resource.",
-        "title": "Update Instructional Resource"
+        "title": "Edit Instructional Resource",
+        "link": "Edit"
       }
     },
     "menu": "Menu",
@@ -1489,9 +1508,9 @@
           "select-all": "Select All",
           "type": {
             "District": "Districts",
-            "DistrictGroup": "District Groups",
+            "DistrictGroup": "Groups of Districts",
             "School": "Schools",
-            "SchoolGroup": "School Groups"
+            "SchoolGroup": "Groups of Schools"
           }
         },
         "school-year": {

@@ -5,8 +5,10 @@
   </div>
 </div>
 
+<spinner *ngIf="loading" text="{{'messages.loading' | translate}}"></spinner>
+
 <!-- Results Table -->
-<div class="well">
+<div class="well wide-content-container" *ngIf="!loading">
   <div class="table-search-form-container">
     <label for="search" class="sr-only">{{'labels.instructional-resource.filter' | translate}}</label>
     <input [(ngModel)]="searchTerm" class="search form-control" id="search" type="text"
@@ -15,14 +17,9 @@
   <div class="table-list-container">
     <p-dataTable [value]="filteredResources" emptyMessage="{{'labels.instructional-resource.no-results' | translate}}" sortField="assessmentName"
                  tableStyleClass="table table-striped table-hover overflow">
-      <p-column field="assessmentName" header="{{'labels.instructional-resource.cols.assessment-name' | translate}}" [sortable]="true">
-        <ng-template let-data="rowData" pTemplate="body">
-          <popup-menu [item]="data" [actions]="actions" [text]="data.assessmentName"></popup-menu>
-        </ng-template>
-      </p-column>
       <p-column field="assessmentLabel" header="{{'labels.instructional-resource.cols.assessment-label' | translate}}" [sortable]="true">
-        <ng-template let-label="rowData.assessmentLabel" pTemplate="body">
-          <div class="label-max-width" title="{{label}}">{{label}}</div>
+        <ng-template let-data="rowData" pTemplate="body">
+          <popup-menu [item]="data" [actions]="actions" [text]="data.assessmentLabel"></popup-menu>
         </ng-template>
       </p-column>
       <p-column field="organizationType" header="{{'labels.instructional-resource.cols.organization-type' | translate}}" [sortable]="true">
@@ -37,7 +34,11 @@
           <span *ngIf="performanceLevel > 0">{{ ('labels.instructional-resource.assessments.performance-levels.' + assessmentType + '.' + performanceLevel) | translate }}</span>
         </ng-template>
       </p-column>
-      <p-column field="resource" header="{{'labels.instructional-resource.cols.resource' | translate}}"></p-column>
+      <p-column field="resource" header="{{'labels.instructional-resource.cols.resource' | translate}}">
+        <ng-template let-resource="rowData.resource" pTemplate="body">
+          <a href="{{resource}}" target="_blank">{{resource}}</a>
+        </ng-template>
+      </p-column>
     </p-dataTable>
   </div>
 </div>

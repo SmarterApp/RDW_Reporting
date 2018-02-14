@@ -128,7 +128,7 @@ h1 + p.pull-left, .h1 + p.pull-left, h2 + p.pull-left, .h2 + p.pull-left, h3 + p
   border: 1px solid @gray-lighter;
   border-radius: @border-radius-base @border-radius-base 0 0;
   padding: @padding-base-horizontal @padding-large-horizontal;
-  +.table-list-container .table > thead > tr  {
+  + .table-list-container .table > thead > tr {
     > th:first-child {
       border-top-left-radius: 0;
     }
@@ -788,3 +788,16 @@ aggregate-report-organization-list {
     pointer-events: all;
   }
 }
+
+:not(typeahead-container) > .dropdown-menu > li > a {
+  color: #5b5e62;
+  padding: @padding-large-vertical @padding-large-horizontal;
+  &:hover {
+    color: #5b5e62;
+  }
+  &.disabled {
+    cursor: not-allowed;
+    opacity: .65;
+  }
+}
+

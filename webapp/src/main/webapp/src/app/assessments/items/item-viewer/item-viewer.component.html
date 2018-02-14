@@ -1,21 +1,33 @@
 <div>
-  <div *ngIf="irisIsLoading" class="loader">
+  <div *ngIf="irisIsLoading"
+       class="loader">
     <div class="inner">
-      <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">{{ 'messages.loading' | translate }}</span>
+      <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+      <span class="text">
+        {{ 'messages.loading' | translate }}
+      </span>
     </div>
   </div>
 
-  <div *ngIf="item.answerKey" class="mb-md">
+  <div *ngIf="item.answerKey"
+       class="mb-md">
     <strong>{{ 'labels.assessments.items.tabs.exemplar.answer-key' | translate }}</strong> {{ item.answerKey }}
   </div>
-  <div *ngIf="!item.answerKey" class="mb-md">
+  <div *ngIf="!item.answerKey"
+       class="mb-md">
     {{ 'labels.assessments.items.tabs.item-viewer-see-rubric' | translate }}
   </div>
   <p>
-    {{ 'labels.assessments.items.tabs.item-viewer-intro-text' | translate }}
-    <span *ngIf="!showResponse">
-      {{ 'labels.assessments.items.tabs.item-viewer-response-not-included' | translate }}
-    </span>
+    {{ (showResponse ?
+    'labels.assessments.items.tabs.item-viewer-response-included' :
+    'labels.assessments.items.tabs.item-viewer-response-not-included' ) | translate}}
   </p>
-  <iframe title="{{'labels.assessments.items.tabs.item-viewer' | translate }}" class="center" #irisframe src="/iris/" width="950" height="500" frameborder="0" ></iframe>
+  <iframe title="{{'labels.assessments.items.tabs.item-viewer' | translate }}"
+          class="center"
+          #irisframe
+          src="/iris/"
+          width="950"
+          height="500"
+          frameborder="0">
+  </iframe>
 </div>

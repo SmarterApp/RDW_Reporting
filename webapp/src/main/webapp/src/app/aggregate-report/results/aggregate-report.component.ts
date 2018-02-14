@@ -15,7 +15,7 @@ import { ordering } from "@kourge/ordering";
 import { AggregateReportQuery } from "../../report/aggregate-report-request";
 import { saveAs } from "file-saver";
 import { DisplayOptionService } from "../../shared/display-options/display-option.service";
-import { NotificationService } from "../../shared/notification/notification.service";
+import { TranslateService } from "@ngx-translate/core";
 
 const PollingInterval = 4000;
 
@@ -43,7 +43,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
               private reportService: ReportService,
               private itemMapper: AggregateReportItemMapper,
               private displayOptionService: DisplayOptionService,
-              private notificationService: NotificationService) {
+              private translateService: TranslateService) {
 
     this.options = this.route.snapshot.data[ 'options' ];
     this.report = this.route.snapshot.data[ 'report' ];
@@ -121,9 +121,12 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
       });
   }
 
-  onExportButtonClick(table: AggregateReportTableView): void {
-    // TODO implement CSV export of current table view
-    this.notificationService.info({id: 'CSV Export coming soon.'});
+  getExportName(table: AggregateReportTableView): string {
+    const subjectLabel: string = this.translateService.instant(`common.subject.${table.subjectCode}.short-name`);
+    return this.translateService.instant('aggregate-reports.export-name', {
+      label: this.report.label,
+      subject: subjectLabel
+    });
   }
 
   private loadOrPollReport(): void {

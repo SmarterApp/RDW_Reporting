@@ -29,7 +29,7 @@
                    [(ngModel)]="assessmentSearch"
                    [typeaheadItemTemplate]="assessmentTemplate"
                    typeaheadOptionField="label"
-                   placeholder="{{'labels.instructional-resource.form.assessment-label' | translate}}">
+                   placeholder="{{'labels.instructional-resource.form.field.assessment.placeholder' | translate}}">
             <div>
               <span [hidden]="!assessmentLoading"><i class="fa fa-spinner"></i></span>
               <span [hidden]="!assessmentNoResults" class="text-info">{{'labels.instructional-resource.assessments.no-results' | translate}}</span>
@@ -54,7 +54,7 @@
                    [(ngModel)]="organizationSearch"
                    [typeaheadItemTemplate]="organizationTemplate"
                    typeaheadOptionField="name"
-                   placeholder="{{'labels.instructional-resource.form.organization-name' | translate}}">
+                   placeholder="{{'labels.instructional-resource.form.field.organization.placeholder' | translate}}">
             <div>
               <span [hidden]="!organizationLoading"><i class="fa fa-spinner"></i></span>
               <span [hidden]="!organizationNoResults"class="text-info">{{'labels.instructional-resource.organizations.no-results' | translate}}</span>
@@ -80,17 +80,27 @@
             </select>
           </div>
         </div>
-        <div class="form-group row mb-xs">
+        <div class="form-group row mb-xs"
+             [ngClass]="{'has-error': resource.invalid && (resource.dirty || resource.touched)}">
           <label for="resource" class="col-xs-4 control-label">{{'labels.instructional-resource.cols.resource' | translate}}</label>
           <div class="col-xs-8 pl-0">
             <input id="resource"
                    name="resource"
                    class="form-control"
                    #resource="ngModel"
+                   placeholder="{{'labels.instructional-resource.form.field.resource.placeholder' | translate}}"
                    [(ngModel)]="resourceUrl"
                    pattern="https?://.+"
                    required>
+            <div *ngIf="resource.invalid && (resource.dirty || resource.touched)">
+              <p *ngIf="resource.errors.pattern"
+                 class="help-block small red">{{'labels.instructional-resource.form.field.resource.error.pattern' | translate}}</p>
+              <p *ngIf="!resource.errors.pattern && resource.errors.required"
+                 class="help-block small red">{{'labels.instructional-resource.form.field.resource.error.required' | translate}}</p>
+            </div>
           </div>
+
+
         </div>
       </fieldset>
     </form>

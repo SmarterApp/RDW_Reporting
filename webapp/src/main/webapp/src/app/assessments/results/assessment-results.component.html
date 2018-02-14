@@ -89,11 +89,8 @@
                      triggers="{{ !resultsByStudentView.disabled ? '': 'mouseenter:mouseleave'}}"
                      placement="right"
                      (click)="resultsByStudentView.disabled || setCurrentView(resultsByStudentView)"
-                     [ngClass]="{'selected': currentResultsView == resultsByStudentView }">
-                    <button [disabled]="resultsByStudentView.disabled"
-                            class="btn btn-default btn-borderless">
-                      {{ resultsByStudentView.label | translate }}
-                    </button>
+                     [ngClass]="{'selected': currentResultsView == resultsByStudentView, disabled: resultsByStudentView.disabled }">
+                    {{ resultsByStudentView.label | translate }}
                   </a>
                 </li>
                 <li role="menuitem"
@@ -103,11 +100,8 @@
                      triggers="{{ !resultsByItemView.disabled ? '': 'mouseenter:mouseleave'}}"
                      placement="right"
                      (click)="resultsByItemView.disabled || setCurrentView(resultsByItemView)"
-                     [ngClass]="{'selected': currentResultsView == resultsByItemView }">
-                    <button [disabled]="resultsByItemView.disabled"
-                            class="btn btn-default btn-borderless">
-                      {{ resultsByItemView.label | translate }}
-                    </button>
+                     [ngClass]="{'selected': currentResultsView == resultsByItemView, disabled: resultsByItemView.disabled }">
+                    {{ resultsByItemView.label | translate }}
                   </a>
                 </li>
                 <li role="menuitem"
@@ -117,11 +111,8 @@
                      triggers="{{ !distractorAnalysisView.disabled ? '' : 'mouseenter:mouseleave'}}"
                      placement="right"
                      (click)="distractorAnalysisView.disabled || setCurrentView(distractorAnalysisView)"
-                     [ngClass]="{'selected': currentResultsView == distractorAnalysisView }">
-                    <button [disabled]="distractorAnalysisView.disabled"
-                            class="btn btn-default btn-borderless">
-                      {{ distractorAnalysisView.label | translate }}
-                    </button>
+                     [ngClass]="{'selected': currentResultsView == distractorAnalysisView, disabled: distractorAnalysisView.disabled }">
+                    {{ distractorAnalysisView.label | translate }}
                   </a>
                 </li>
                 <li role="menuitem"
@@ -131,11 +122,8 @@
                      triggers="{{ !writingTraitScoresView.disabled ? '' : 'mouseenter:mouseleave'}}"
                      placement="right"
                      (click)="writingTraitScoresView.disabled || setCurrentView(writingTraitScoresView)"
-                     [ngClass]="{'selected': currentResultsView == writingTraitScoresView }">
-                    <button [disabled]="writingTraitScoresView.disabled"
-                            class="btn btn-default btn-borderless">
-                      {{ writingTraitScoresView.label | translate }}
-                    </button>
+                     [ngClass]="{'selected': currentResultsView == writingTraitScoresView, disabled: writingTraitScoresView.disabled}">
+                    {{ writingTraitScoresView.label | translate }}
                   </a>
                 </li>
               </ul>
