@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ReportService } from "../../report/report.service";
 import { Report } from "../../report/report.model";
@@ -16,6 +16,7 @@ import { AggregateReportQuery } from "../../report/aggregate-report-request";
 import { saveAs } from "file-saver";
 import { DisplayOptionService } from "../../shared/display-options/display-option.service";
 import { TranslateService } from "@ngx-translate/core";
+import { SpinnerModal } from "../../shared/loading/spinner.modal";
 
 const PollingInterval = 4000;
 
@@ -28,6 +29,9 @@ const PollingInterval = 4000;
   templateUrl: 'aggregate-report.component.html',
 })
 export class AggregateReportComponent implements OnInit, OnDestroy {
+
+  @ViewChild('spinnerModal')
+  spinnerModal: SpinnerModal;
 
   assessmentDefinition: AssessmentDefinition;
   options: AggregateReportOptions;
@@ -106,7 +110,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   }
 
   onUpdateRequestButtonClick(): void {
-    this.router.navigate([ '..'  ], { relativeTo: this.route, queryParams: {src: this.report.id} });
+    this.router.navigate([ '..' ], { relativeTo: this.route, queryParams: { src: this.report.id } });
   }
 
   onDisplayReportButtonClick(): void {
@@ -115,9 +119,13 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   }
 
   onDownloadDataButtonClick(): void {
+    this.spinnerModal.loading = true;
     this.reportService.getReportContent(this.report.id)
       .subscribe(download => {
+        this.spinnerModal.loading = false;
         saveAs(download.content, download.name);
+      }, error => {
+        this.spinnerModal.loading = false;
       });
   }
 
