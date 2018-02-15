@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
 import { AuthenticationService } from "./authentication.service";
+import { Router } from "@angular/router";
+import { routes } from "../../app.routes";
 
 @Component({
   selector: 'session-expired',
@@ -17,7 +19,7 @@ import { AuthenticationService } from "./authentication.service";
 })
 export class SessionExpiredComponent {
 
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor(private router: Router, private authenticationService: AuthenticationService) {}
 
   /**
    * On OK, navigate the browser to their previous route with a full browser refresh.
@@ -25,6 +27,8 @@ export class SessionExpiredComponent {
    */
   onOk(): void {
     this.authenticationService.authenticate();
+    this.router.resetConfig(routes);
+
   }
 
 }
