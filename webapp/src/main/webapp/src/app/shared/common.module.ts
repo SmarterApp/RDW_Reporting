@@ -39,6 +39,8 @@ import { ScrollNavComponent } from "./nav/scroll-nav.component";
 import { OptionalPipe } from "./optional.pipe";
 import { RdwDisplayOptionsModule } from "./display-options/rdw-display-options.module";
 import { RdwAssessmentModule } from "./assessment/rdw-assessment.module";
+import { OrderSelectorComponent } from "./order-selector/order-selector.component";
+import { NgxDnDModule } from "@swimlane/ngx-dnd";
 
 
 @NgModule({
@@ -47,6 +49,7 @@ import { RdwAssessmentModule } from "./assessment/rdw-assessment.module";
     GradeDisplayPipe,
     InformationButtonComponent,
     OptionalPipe,
+    OrderSelectorComponent,
     ScrollNavComponent,
     NotificationComponent,
     RemoveCommaPipe,
@@ -61,6 +64,7 @@ import { RdwAssessmentModule } from "./assessment/rdw-assessment.module";
     BrowserModule,
     FormsModule,
     HttpModule,
+    NgxDnDModule,
     OrganizationModule,
     PopoverModule.forRoot(),
     RdwAssessmentModule,
@@ -88,6 +92,7 @@ import { RdwAssessmentModule } from "./assessment/rdw-assessment.module";
     GradeDisplayPipe,
     InformationButtonComponent,
     OptionalPipe,
+    OrderSelectorComponent,
     NotificationComponent,
     ScrollNavComponent,
     OrganizationModule,

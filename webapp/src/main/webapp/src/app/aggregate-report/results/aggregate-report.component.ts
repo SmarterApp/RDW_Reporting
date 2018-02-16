@@ -17,6 +17,7 @@ import { saveAs } from "file-saver";
 import { DisplayOptionService } from "../../shared/display-options/display-option.service";
 import { TranslateService } from "@ngx-translate/core";
 import { SpinnerModal } from "../../shared/loading/spinner.modal";
+import { OrderableItem } from "../../shared/order-selector/order-selector.component";
 
 const PollingInterval = 4000;
 
@@ -37,10 +38,17 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   options: AggregateReportOptions;
   report: Report;
   reportTables: AggregateReportTableView[];
+
   private _tableViewComparator: Comparator<AggregateReportTableView>;
   private _pollingSubscription: Subscription;
   private _displayLargeReport: boolean = false;
   private _displayOptions: AggregateReportTableDisplayOptions;
+  private _columnToLabel: {[key: string]: string} = {
+    organization: 'aggregate-reports.results.cols.organization-name',
+    assessmentGrade: 'aggregate-reports.results.cols.assessment-grade',
+    schoolYear: 'aggregate-reports.results.cols.school-year',
+    dimension: 'aggregate-reports.results.cols.dimension'
+  };
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -137,6 +145,10 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     });
   }
 
+  onColumnOrderChange(tableView: AggregateReportTableView, items: OrderableItem[]) {
+    tableView.columnOrdering = items.map(item => item.value);
+  }
+
   private loadOrPollReport(): void {
     if (this.report.completed) {
       this.loadReport();
@@ -175,6 +187,8 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
       const item = this.itemMapper.map(this.assessmentDefinition, row, index);
       const subjectCode = row.assessment.subjectCode;
       const tableWrapper = tableWrappers.find(wrapper => wrapper.subjectCode == subjectCode);
+      //TODO this should come from the query
+      const columnOrder: string[] = ['organization', 'assessmentGrade', 'schoolYear', 'dimension'];
       if (!tableWrapper) {
         tableWrappers.push({
           subjectCode: subjectCode,
@@ -184,7 +198,9 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
             rows: [ item ]
           },
           valueDisplayType: this.query.valueDisplayType,
-          performanceLevelDisplayType: this.query.achievementLevelDisplayType
+          performanceLevelDisplayType: this.query.achievementLevelDisplayType,
+          columnOrdering: columnOrder,
+          columnOrderingItems: this.asOrderingItems(columnOrder)
         });
       } else {
         tableWrapper.table.rows.push(item);
@@ -200,6 +216,15 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     }
   }
 
+  private asOrderingItems(columns: string[]): OrderableItem[] {
+    return columns.map(column => {
+      return {
+        value: column,
+        labelKey: this._columnToLabel[column]
+      };
+    });
+  }
+
 }
 
 interface AggregateReportTableDisplayOptions {
@@ -212,6 +237,8 @@ interface AggregateReportTableView {
   table: AggregateReportTable;
   valueDisplayType: string;
   performanceLevelDisplayType: string;
+  columnOrdering: string[];
+  columnOrderingItems: OrderableItem[];
 }
 
 enum ViewState {

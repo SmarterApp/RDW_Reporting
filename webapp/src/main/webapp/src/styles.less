@@ -18,6 +18,9 @@
 // Font Awesome
 @import "@{library-path}/font-awesome/less/font-awesome.less";
 
+// ngx drag and drop
+@import "@{library-path}/@swimlane/ngx-dnd/release/ngx-dnd.css";
+
 // SBAC UI Kit
 @import "@{library-path}/@sbac/sbac-ui-kit/src/less/sbac-ui-kit.less";
 @import "primeng-overrides.less";
@@ -118,6 +121,33 @@ h1 + p.pull-left, .h1 + p.pull-left, h2 + p.pull-left, .h2 + p.pull-left, h3 + p
 
 .btn.btn-borderless.btn-default, .scale-score-graph .bar-container .bar .bar-label, .table .scale-score .error-band {
   color: darken(@gray-mid, 10%);
+}
+
+// ------------------------------
+// Drag-and-Drop default style overrides
+// ------------------------------
+
+.ngx-dnd-container {
+  border: inherit;
+  background-color: inherit;
+  margin: inherit;
+  padding: inherit;
+
+  &:nth-child(odd), &:nth-child(even) {
+    background-color: inherit;
+  }
+}
+
+.ngx-dnd-item {
+  margin: inherit;
+  padding: inherit;
+  background-color: transparent;
+  border: inherit;
+  display: inherit;
+
+  &:hover {
+    border: inherit;
+  }
 }
 
 // ------------------------------
@@ -724,4 +754,5 @@ aggregate-report-organization-list {
     opacity: .65;
   }
 }
+
 

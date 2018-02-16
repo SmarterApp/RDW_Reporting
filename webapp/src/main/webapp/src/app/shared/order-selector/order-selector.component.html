@@ -1,0 +1,38 @@
+<span class="order-selector">
+  <span ngxDroppable
+        class="ngx-dnd-container"
+        [model]="items"
+        (drag)="onDrag()"
+        (drop)="onDrop()">
+    <span *ngFor="let item of items"
+          class="ngx-dnd-item"
+          ngxDraggable
+          [model]="item">
+      <span class="btn btn-sm"
+            [ngClass]="{
+              'btn-primary': item === selectedItem,
+              'btn-default': item !== selectedItem
+              }"
+            (click)="selectItem(item)">
+        <span *ngIf="item.label">{{item.label}}</span>
+        <span *ngIf="item.labelKey">{{item.labelKey | translate}}</span>
+      </span>
+    </span>
+  </span>
+  <span class="btn-group flex-child">
+    <button class="btn btn-primary icon-only"
+            [disabled]="!selectedItem || selectedIdx == 0"
+            title="{{ 'order-selector.move-left' | translate }}"
+            (click)="moveLeft()">
+      <span class="sr-only">{{ 'order-selector.move-left' | translate }}</span>
+      <i class="fa fa-arrow-left"></i>
+    </button>
+    <button class="btn btn-primary icon-only"
+            title="{{ 'order-selector.move-right' | translate }}"
+            [disabled]="!selectedItem || selectedIdx == items.length - 1"
+            (click)="moveRight()">
+      <span class="sr-only">{{ 'order-selector.move-right' | translate }}</span>
+      <i class="fa fa-arrow-right"></i>
+    </button>
+  </span>
+</span>

@@ -35,25 +35,25 @@
       <div *ngFor="let table of reportTables" class="well wide-content-container">
         <div class="row">
           <div class="col-md-12">
-
-            <h3 class="h3 label-group green pull-left">
-              <span class="label">{{'common.assessment-type.' + query.assessmentTypeCode + '.short-name' | translate}}</span><span class="label">{{'common.subject.' + table.subjectCode + '.short-name' | translate}}</span>
-            </h3>
-
-            <button class="btn btn-sm btn-default ml-sm"
-                    (click)="reportTable.exportTable(getExportName(table))"><i class="fa fa-cloud-download"></i> {{'common.export' | translate}}</button>
-
-            <div class="pull-right">
-              <span>
-                <label class="mr-xs">{{'common.performance-level-display-type-input-label' | translate}}</label>
-                <sb-radio-button-group [options]="displayOptions.performanceLevelDisplayTypes"
-                           [(ngModel)]="table.performanceLevelDisplayType"
-                           buttonGroupStyles="btn-group-xs"
-                           buttonStyles="btn-default"
-                           analyticsCategory="AggregateReportControl"
-                           analyticsEvent="Change"></sb-radio-button-group>
+            <div>
+              <h3 class="h3 label-group green pull-left">
+                <span class="label">{{'common.assessment-type.' + query.assessmentTypeCode + '.short-name' | translate}}</span><span class="label">{{'common.subject.' + table.subjectCode + '.short-name' | translate}}</span>
+              </h3>
+              <button class="btn btn-sm btn-default ml-sm"
+                      (click)="reportTable.exportTable(getExportName(table))"><i class="fa fa-cloud-download"></i> {{'common.export' | translate}}</button>
+            </div>
+            <div class="clearfix"></div>
+            <div>
+              <span class="pull-left flex-child">
+                <label class="mr-xs">
+                  <info-button title="{{'aggregate-report.column-order' | translate}}"
+                               content="{{'aggregate-report.column-order-info' | translate}}">
+                  </info-button>
+                </label>
+                <order-selector [items]="table.columnOrderingItems"
+                                (itemsChange)="onColumnOrderChange(table, $event)"></order-selector>
               </span>
-              <span class="ml-sm">
+              <span class="pull-right flex-child ml-xs">
                 <label class="mr-xs">{{'common.value-display-type-input-label' | translate}}</label>
                 <sb-radio-button-group [options]="displayOptions.valueDisplayTypes"
                            [(ngModel)]="table.valueDisplayType"
@@ -61,6 +61,15 @@
                            buttonStyles="btn-default"
                            analyticsCategory="AggregateReportControl"
                            analyticsEvent="Change"></sb-radio-button-group>
+              </span>
+              <span class="pull-right flex-child ml-xs">
+                <label class="mr-xs">{{'common.performance-level-display-type-input-label' | translate}}</label>
+                <sb-radio-button-group [options]="displayOptions.performanceLevelDisplayTypes"
+                                       [(ngModel)]="table.performanceLevelDisplayType"
+                                       buttonGroupStyles="btn-group-xs"
+                                       buttonStyles="btn-default"
+                                       analyticsCategory="AggregateReportControl"
+                                       analyticsEvent="Change"></sb-radio-button-group>
               </span>
             </div>
           </div>
@@ -72,7 +81,7 @@
                                     [table]="table.table"
                                     [valueDisplayType]="table.valueDisplayType"
                                     [performanceLevelDisplayType]="table.performanceLevelDisplayType"
-                                    [columnOrdering]="['organization', 'assessmentGrade', 'schoolYear', 'dimension']"></aggregate-report-table>
+                                    [columnOrdering]="table.columnOrdering"></aggregate-report-table>
           </div>
         </div>
       </div>

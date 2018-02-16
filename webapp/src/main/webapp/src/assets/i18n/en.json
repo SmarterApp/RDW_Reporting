@@ -14,6 +14,8 @@
     "organization-name-format": "School / District {{id}}"
   },
   "aggregate-report": {
+    "column-order": "Column Order",
+    "column-order-info": "Change your result column order to easily compare your results broken down in different ways.",
     "heading": "Aggregate Report",
     "form-link": "View Query",
     "processing": "Your report is being generated. This may take several minutes. ",
@@ -256,6 +258,10 @@
       "hide": "Hide",
       "show": "Show"
     }
+  },
+  "order-selector": {
+    "move-left": "Move Left",
+    "move-right": "Move Right"
   },
   "organization-typeahead": {
     "type-label": "Type",
