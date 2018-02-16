@@ -8,7 +8,7 @@
     <div class="col-md-6 text-right">
 
       <!-- Aggregate Reports Link -->
-      <span class="flex-child">
+      <span class="flex-child mr-xs">
         <a *hasPermission="'CUSTOM_AGGREGATE_READ'"
            routerLink="/aggregate-reports"
            class="btn btn-xs btn-default">
@@ -17,7 +17,7 @@
       </span>
 
       <!-- Custom Exports Link -->
-      <span class="flex-child">
+      <span class="flex-child mr-xs">
         <a *hasPermission="'INDIVIDUAL_PII_READ'"
            routerLink="/custom-export"
            class="btn btn-xs btn-default">
@@ -26,7 +26,7 @@
         </a>
       </span>
 
-      <span class="flex-child">
+      <span class="flex-child mr-xs">
         <admin-dropdown *hasAnyPermission="['GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE']"></admin-dropdown>
       </span>
 
