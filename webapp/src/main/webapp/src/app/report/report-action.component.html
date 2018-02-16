@@ -6,7 +6,7 @@
 <!-- One Action -->
 <button *ngIf="reportActions.length == 1"
         [title]="report.label"
-        class="btn btn-info btn-xs label-max-width"
+        class="btn btn-info btn-xs btn-block label-max-width"
         (click)="performAction(reportActions[0])">
   <i *ngIf="reportActions[0].icon"
      class="fa {{ reportActions[0].icon }} mr-xs"

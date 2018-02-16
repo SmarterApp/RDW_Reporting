@@ -44,6 +44,9 @@ export class ReportActionComponent implements OnInit {
     menuAction.displayName = () => {
       return this.translateService.instant(reportAction.labelKey);
     };
+    menuAction.isDisabled = () => {
+      return reportAction.disabled;
+    };
     return menuAction;
   }
 }

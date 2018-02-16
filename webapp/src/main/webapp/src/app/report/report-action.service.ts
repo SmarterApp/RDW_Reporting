@@ -22,7 +22,8 @@ export class ReportActionService {
 
   constructor(private reportService: ReportService,
               private router: Router,
-              private notificationService: NotificationService) {}
+              private notificationService: NotificationService) {
+  }
 
   /**
    * Get the list of actions that can be performed on the given report.
@@ -78,6 +79,7 @@ export interface ReportAction {
   readonly value: any;
   readonly icon?: string;
   readonly labelKey?: string;
+  readonly disabled?: boolean;
 }
 
 /**
@@ -105,12 +107,13 @@ class DefaultActionProvider implements ActionProvider {
     if (!report.completed) {
       return [];
     }
-
-    return [{
-      icon: "fa-cloud-download",
-      type: ActionType.Download,
-      value: report.id
-    }];
+    return [
+      {
+        icon: 'fa-cloud-download',
+        type: ActionType.Download,
+        value: report.id
+      }
+    ];
   }
 }
 
@@ -124,25 +127,33 @@ class DefaultActionProvider implements ActionProvider {
 class AggregateReportActionProvider extends DefaultActionProvider {
 
   public supports(report: Report): boolean {
-    return report.reportType === AggregateReportType &&
-      report.completed;
+    return report.reportType === AggregateReportType
+      && !report.processing;
   }
 
   public getActions(report: Report): ReportAction[] {
-    return [{
-      type: ActionType.Navigate,
-      value: `/aggregate-reports/${report.id}`,
-      labelKey: "labels.reports.report-actions.view-report"
-    }, {
-      type: ActionType.Navigate,
-      value: `/aggregate-reports?src=${report.id}`,
-      labelKey: "labels.reports.report-actions.view-query"
-    }, {
-      type: ActionType.Download,
-      value: report.id,
-      labelKey: "labels.reports.report-actions.download-report"
-    }]
+    const disableViewAndDownload = !report.completed && !report.processing;
+    return [
+      {
+        type: ActionType.Navigate,
+        value: `/aggregate-reports/${report.id}`,
+        labelKey: 'labels.reports.report-actions.view-report',
+        disabled: disableViewAndDownload
+      },
+      {
+        type: ActionType.Navigate,
+        value: `/aggregate-reports?src=${report.id}`,
+        labelKey: 'labels.reports.report-actions.view-query'
+      },
+      {
+        type: ActionType.Download,
+        value: report.id,
+        labelKey: 'labels.reports.report-actions.download-report',
+        disabled: disableViewAndDownload
+      }
+    ];
   }
+
 }
 
 /**
@@ -152,9 +163,11 @@ class AggregateReportActionProvider extends DefaultActionProvider {
  * the given report.
  */
 interface ActionProvider {
+
   supports(report: Report): boolean;
 
   getActions(report: Report): ReportAction[];
+
 }
 
 
