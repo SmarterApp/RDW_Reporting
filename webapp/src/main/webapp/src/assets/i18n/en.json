@@ -1513,6 +1513,7 @@
             "SchoolGroup": "Groups of Schools"
           }
         },
+        "default-report-name": "District and School Exam Data",
         "school-year": {
           "label": "School Year"
         },

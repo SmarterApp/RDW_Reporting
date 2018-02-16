@@ -5,8 +5,48 @@
   <div class="well">
     <form ngForm="form" (submit)="submit()">
       <div class="row">
-        <div class="col-md-6" *ngIf="!editingDisabled">
+        <div class="col-md-6">
           <div class="form-group">
+            <label for="report-name">{{'labels.reports.form.report-name' | translate}}</label>
+            <input id="report-name"
+                   name="report-name"
+                   class="form-control"
+                   maxlength="255"
+                   [(ngModel)]="reportName"
+                   placeholder="{{'labels.organization-export.form.default-report-name' | translate}}">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="select-year">{{'labels.select-year' | translate}}</label>
+            <select id="select-year" name="select-year" class="form-control" [(ngModel)]="orgExport.schoolYear">
+              <option *ngFor="let year of schoolYearOptions" [ngValue]="year">{{year | schoolYear}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3" *ngIf="transferAccess">
+          <div class="form-group">
+            <div>
+              <label>
+                <span info-button
+                      title="{{'labels.filters.test.transfer-assessment' | translate}}"
+                      content="{{'labels.filters.test.transfer-assessment-info' | translate}}"></span>
+              </label>
+            </div>
+            <sb-radio-button-group name="transfer-assessment-toggle"
+                                   [(ngModel)]="orgExport.disableTransferAccess"
+                                   buttonGroupStyles=""
+                                   [options]="[
+                           {value: false, text: 'buttons.visibility.show' | translate},
+                           {value: true, text: 'buttons.visibility.hide' | translate}
+                         ]">
+            </sb-radio-button-group>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group" *ngIf="!editingDisabled">
             <label for="search">{{'labels.organization-export.form.organization.label' | translate}}</label>
             <span sb-button-typeahead
                   inputId="search"
@@ -25,37 +65,10 @@
             </div>
           </div>
         </div>
-        <div class="col-md-2">
-          <div class="form-group">
-            <label for="select-year">{{'labels.select-year' | translate}}</label>
-            <select id="select-year" name="select-year" class="form-control" [(ngModel)]="selectedSchoolYear">
-              <option *ngFor="let year of schoolYearOptions" [ngValue]="year">{{year | schoolYear}}</option>
-            </select>
+        <div [ngClass]="{'col-md-6': !editingDisabled, 'col-md-12': editingDisabled}">
+          <div class="text-right">
+            <button type="submit" class="btn btn-info aqua" [disabled]="selectedSchools.length == 0"><i class="fa fa-cloud-download"></i> {{'labels.organization-export.form.submit.label' | translate}}</button>
           </div>
-        </div>
-        <div class="col-md-2" *ngIf="transferAccess">
-          <div class="form-group">
-            <label>
-                <span info-button
-                      title="{{'labels.filters.test.transfer-assessment' | translate}}"
-                      content="{{'labels.filters.test.transfer-assessment-info' | translate}}"></span>
-            </label>
-            <sb-radio-button-group name="transfer-assessment-toggle"
-                                   [(ngModel)]="disableTransferAccess"
-                                   [options]="[
-                           {value: false, text: 'buttons.visibility.show' | translate},
-                           {value: true, text: 'buttons.visibility.hide' | translate}
-                         ]">
-            </sb-radio-button-group>
-          </div>
-        </div>
-        <div class="text-right" [ngClass]="{
-            'col-md-2': !editingDisabled && transferAccess,
-            'col-md-4': !editingDisabled && !transferAccess,
-            'col-md-8': editingDisabled && transferAccess,
-            'col-md-10': editingDisabled && !transferAccess
-          }">
-          <button type="submit" class="btn btn-info aqua" [disabled]="selectedSchools.length == 0"><i class="fa fa-cloud-download"></i> {{'labels.organization-export.form.submit.label' | translate}}</button>
         </div>
       </div>
     </form>
