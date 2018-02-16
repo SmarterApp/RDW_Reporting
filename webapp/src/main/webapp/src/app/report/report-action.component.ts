@@ -8,6 +8,7 @@ import { Download } from "../shared/data/download.model";
 import { saveAs } from "file-saver";
 import { SpinnerModal } from "../shared/loading/spinner.modal";
 import { NotificationService } from "../shared/notification/notification.service";
+import 'rxjs/add/operator/finally';
 
 /**
  * Responsible for providing a UI displaying and performing an action
@@ -46,15 +47,15 @@ export class ReportActionComponent implements OnInit {
     this.spinnerModal.loading = true;
     const observable: Observable<Download> | void = this.actionService.performAction(reportAction);
     if (observable) {
-      observable.subscribe(
+      observable.finally(() => {
+        this.spinnerModal.loading = false;
+      }).subscribe(
         (download: Download) => {
-          this.spinnerModal.loading = false;
           saveAs(download.content, download.name);
         },
         () => {
-          this.spinnerModal.loading = false;
           this.notificationService.error({ id: 'labels.reports.messages.download-failed' });
-        }
+        },
       );
     }
   }

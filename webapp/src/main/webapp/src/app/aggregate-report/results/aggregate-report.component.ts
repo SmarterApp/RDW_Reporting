@@ -121,11 +121,11 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   onDownloadDataButtonClick(): void {
     this.spinnerModal.loading = true;
     this.reportService.getReportContent(this.report.id)
+      .finally(() => {
+        this.spinnerModal.loading = false;
+      })
       .subscribe(download => {
-        this.spinnerModal.loading = false;
         saveAs(download.content, download.name);
-      }, error => {
-        this.spinnerModal.loading = false;
       });
   }
 
