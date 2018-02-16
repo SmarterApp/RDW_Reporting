@@ -1,12 +1,11 @@
 <!-- No Actions -->
 <div *ngIf="!reportActions.length"
-     [title]="report.label"
-     class="label-max-width">{{report.label}}
-</div>
+     title="{{report.label}}"
+     class="label-max-width">{{report.label}}</div>
 
 <!-- One Action -->
 <button *ngIf="reportActions.length == 1"
-        [title]="report.label"
+        title="{{report.label}}"
         class="btn btn-info btn-xs btn-block label-max-width"
         (click)="performAction(reportActions[0])">
   <i *ngIf="reportActions[0].icon"
@@ -19,5 +18,5 @@
 <popup-menu *ngIf="reportActions.length > 1"
             [item]="report"
             [actions]="menuActions"
-            [text]="report.label"></popup-menu>
+            text="{{report.label}}"></popup-menu>
 <spinner-modal #spinnerModal></spinner-modal>

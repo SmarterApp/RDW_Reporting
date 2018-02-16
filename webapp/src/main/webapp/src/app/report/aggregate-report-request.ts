@@ -8,7 +8,7 @@ export interface AggregateReportRequest {
 
 export interface AggregateReportQuery {
   readonly achievementLevelDisplayType: string;
-  readonly administrationConditionCodes?: string[];
+  readonly administrativeConditionCodes?: string[];
   readonly assessmentGradeCodes: string[];
   readonly assessmentTypeCode: string;
   readonly completenessCodes?: string[];

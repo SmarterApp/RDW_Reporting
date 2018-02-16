@@ -134,7 +134,7 @@ describe('AggregateReportFormSettingsResolve', () => {
   function mockReport(): Report {
     const query: AggregateReportQuery = {
       achievementLevelDisplayType: 'Separate',
-      administrationConditionCodes: ['Valid','SD'],
+      administrativeConditionCodes: ['Valid','SD'],
       assessmentGradeCodes: ['03', '04'],
       assessmentTypeCode: 'ica',
       completenessCodes: ['Complete'],
