@@ -48,7 +48,6 @@ export class OrderSelectorComponent {
   }
 
   public onDrop() {
-    console.log("items", this.items);
     this.itemsChange.emit(this.items);
   }
 }
