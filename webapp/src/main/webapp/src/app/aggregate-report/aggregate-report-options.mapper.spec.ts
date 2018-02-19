@@ -1,18 +1,8 @@
-import {
-  DefaultDistrict,
-  DefaultSchool,
-  District,
-  OrganizationType,
-  School
-} from "../shared/organization/organization";
-import { Observable } from "rxjs/Observable";
 import { AggregateReportOptions } from "./aggregate-report-options";
-import { AggregateReportQuery, AggregateReportRequest } from "../report/aggregate-report-request";
-import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
-import { AggregateReportOptionsMapper } from "./aggregate-report-options.mapper";
-import Spy = jasmine.Spy;
+import { AggregateReportOptionsMapper, DefaultColumnOrder } from "./aggregate-report-options.mapper";
 import { PerformanceLevelDisplayTypes } from "../shared/display-options/performance-level-display-type";
 import { ValueDisplayTypes } from "../shared/display-options/value-display-type";
+import Spy = jasmine.Spy;
 
 describe('AggregateReportOptionsMapper', () => {
 
@@ -34,7 +24,7 @@ describe('AggregateReportOptionsMapper', () => {
       'createOptionMapper'
     ]);
     fixture = new AggregateReportOptionsMapper(translateService, schoolYearPipe, displayOptionService);
-  })
+  });
 
   it('toDefaultSettings should create default settings correctly from options', () => {
 
@@ -83,7 +73,8 @@ describe('AggregateReportOptionsMapper', () => {
       schools: [],
       schoolYears: [options.schoolYears[0]],
       subjects: options.subjects,
-      valueDisplayType: ValueDisplayTypes.Percent
+      valueDisplayType: ValueDisplayTypes.Percent,
+      columnOrder: DefaultColumnOrder
     });
 
   });

@@ -662,33 +662,43 @@
       <div class="well wide-content-container">
         <div>
           <span class="red label">{{ 'aggregate-reports.preview' | translate }}</span>
-          <div class="pull-right">
-        <span>
-          <label class="mr-xs">{{'common.performance-level-display-type-input-label' | translate}}</label>
-          <sb-radio-button-group [options]="options.performanceLevelDisplayTypes"
-                     [(ngModel)]="settings.performanceLevelDisplayType"
-                     buttonGroupStyles="btn-group-xs"
-                     buttonStyles="btn-default"
-                     analyticsCategory="AggregateQueryBuilder"
-                     analyticsEvent="Change"></sb-radio-button-group>
-        </span>
-            <span class="ml-sm">
-          <label class="mr-xs">{{'common.value-display-type-input-label' | translate}}</label>
-          <sb-radio-button-group [options]="options.valueDisplayTypes"
-                     [(ngModel)]="settings.valueDisplayType"
-                     buttonGroupStyles="btn-group-xs"
-                     buttonStyles="btn-default"
-                     analyticsCategory="AggregateQueryBuilder"
-                     analyticsEvent="Change"></sb-radio-button-group>
-        </span>
+          <div>
+            <span class="pull-left flex-child">
+              <label class="mr-xs">
+                <info-button title="{{'aggregate-report.column-order' | translate}}"
+                             content="{{'aggregate-report.column-order-info' | translate}}">
+                </info-button>
+              </label>
+              <order-selector [items]="columnItems"
+                              (itemsChange)="onColumnOrderChange($event)"></order-selector>
+            </span>
+            <span class="pull-right flex-child ml-xs">
+              <label class="mr-xs">{{'common.value-display-type-input-label' | translate}}</label>
+              <sb-radio-button-group [options]="options.valueDisplayTypes"
+                                     [(ngModel)]="settings.valueDisplayType"
+                                     buttonGroupStyles="btn-group-xs"
+                                     buttonStyles="btn-default"
+                                     analyticsCategory="AggregateQueryBuilder"
+                                     analyticsEvent="Change"></sb-radio-button-group>
+            </span>
+            <span class="pull-right flex-child ml-xs">
+              <label class="mr-xs">{{'common.performance-level-display-type-input-label' | translate}}</label>
+              <sb-radio-button-group [options]="options.performanceLevelDisplayTypes"
+                         [(ngModel)]="settings.performanceLevelDisplayType"
+                         buttonGroupStyles="btn-group-xs"
+                         buttonStyles="btn-default"
+                         analyticsCategory="AggregateQueryBuilder"
+                         analyticsEvent="Change"></sb-radio-button-group>
+            </span>
           </div>
+          <div class="clearfix"></div>
         </div>
         <div class="mt-sm">
           <aggregate-report-table [preview]="true"
                                   [table]="previewTable"
                                   [valueDisplayType]="settings.valueDisplayType"
                                   [performanceLevelDisplayType]="settings.performanceLevelDisplayType"
-                                  [columnOrdering]="['organization', 'assessmentGrade', 'schoolYear', 'dimension']"></aggregate-report-table>
+                                  [columnOrdering]="settings.columnOrder"></aggregate-report-table>
         </div>
       </div>
     </div>

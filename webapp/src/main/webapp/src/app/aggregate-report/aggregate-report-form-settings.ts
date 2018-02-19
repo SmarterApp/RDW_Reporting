@@ -92,6 +92,11 @@ export interface AggregateReportFormSettings {
   valueDisplayType: string;
 
   /**
+   * The user-selected result column order
+   */
+  columnOrder?: string[];
+
+  /**
    * Determines if state results will be included in the report
    */
   includeStateResults: boolean;

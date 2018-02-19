@@ -9,6 +9,7 @@ import { Observable } from "rxjs/Observable";
 import { District, OrganizationType, School } from "../shared/organization/organization";
 import { Utils } from "../shared/support/support";
 import { AggregateReportOrganizationService } from "./aggregate-report-organization.service";
+import { DefaultColumnOrder } from "./aggregate-report-options.mapper";
 
 const equalSize = (a: any[], b: any[]) => a.length === b.length;
 const idsOf = values => values.map(value => value.id);
@@ -47,7 +48,8 @@ export class AggregateReportRequestMapper {
       includeState: settings.includeStateResults,
       schoolYears: settings.schoolYears,
       subjectCodes: settings.subjects,
-      valueDisplayType: settings.valueDisplayType
+      valueDisplayType: settings.valueDisplayType,
+      columnOrder: settings.columnOrder
     };
 
     if (assessmentDefinition.interim) {
@@ -174,6 +176,9 @@ export class AggregateReportRequestMapper {
           schools: schools,
           subjects: query.subjectCodes,
           valueDisplayType: query.valueDisplayType,
+          columnOrder: Utils.isNullOrEmpty(request.reportQuery.columnOrder)
+            ? DefaultColumnOrder
+            : request.reportQuery.columnOrder
         };
       });
   }

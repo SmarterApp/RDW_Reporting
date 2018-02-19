@@ -12,6 +12,7 @@ import { Observable } from "rxjs/Observable";
 import { AggregateReportOptions } from "./aggregate-report-options";
 import { AggregateReportQuery, AggregateReportRequest } from "../report/aggregate-report-request";
 import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
+import { DefaultColumnOrder } from "./aggregate-report-options.mapper";
 import Spy = jasmine.Spy;
 
 describe('AggregateReportRequestMapper', () => {
@@ -63,7 +64,8 @@ describe('AggregateReportRequestMapper', () => {
       schoolIds: [ 2 ],
       schoolYears: [ 2000 ],
       subjectCodes: [ 'Math' ],
-      valueDisplayType: 'Number'
+      valueDisplayType: 'Number',
+      columnOrder: ['columnA', 'columnB']
     };
 
     const request: AggregateReportRequest = {
@@ -95,7 +97,8 @@ describe('AggregateReportRequestMapper', () => {
       schoolYears: query.schoolYears,
       subjects: query.subjectCodes,
       valueDisplayType: query.valueDisplayType,
-      name: request.name
+      name: request.name,
+      columnOrder: ['columnA', 'columnB']
     };
 
     fixture.toSettings(request, mockOptions())
@@ -151,7 +154,8 @@ describe('AggregateReportRequestMapper', () => {
       schoolYears: query.schoolYears,
       subjects: query.subjectCodes,
       valueDisplayType: query.valueDisplayType,
-      name: request.name
+      name: request.name,
+      columnOrder: DefaultColumnOrder
     };
 
     fixture.toSettings(request, options)

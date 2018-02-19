@@ -18,6 +18,8 @@ import { DisplayOptionService } from "../../shared/display-options/display-optio
 import { TranslateService } from "@ngx-translate/core";
 import { SpinnerModal } from "../../shared/loading/spinner.modal";
 import { OrderableItem } from "../../shared/order-selector/order-selector.component";
+import { AggregateReportColumnOrderItemProvider } from "../aggregate-report-column-order-item.provider";
+import { DefaultColumnOrder } from "../aggregate-report-options.mapper";
 
 const PollingInterval = 4000;
 
@@ -43,19 +45,14 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   private _pollingSubscription: Subscription;
   private _displayLargeReport: boolean = false;
   private _displayOptions: AggregateReportTableDisplayOptions;
-  private _columnToLabel: {[key: string]: string} = {
-    organization: 'aggregate-reports.results.cols.organization-name',
-    assessmentGrade: 'aggregate-reports.results.cols.assessment-grade',
-    schoolYear: 'aggregate-reports.results.cols.school-year',
-    dimension: 'aggregate-reports.results.cols.dimension'
-  };
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private reportService: ReportService,
               private itemMapper: AggregateReportItemMapper,
               private displayOptionService: DisplayOptionService,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,
+              private columnOrderableItemProvider: AggregateReportColumnOrderItemProvider) {
 
     this.options = this.route.snapshot.data[ 'options' ];
     this.report = this.route.snapshot.data[ 'report' ];
@@ -187,8 +184,9 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
       const item = this.itemMapper.map(this.assessmentDefinition, row, index);
       const subjectCode = row.assessment.subjectCode;
       const tableWrapper = tableWrappers.find(wrapper => wrapper.subjectCode == subjectCode);
-      //TODO this should come from the query
-      const columnOrder: string[] = ['organization', 'assessmentGrade', 'schoolYear', 'dimension'];
+      const columnOrder: string[] = Utils.isNullOrEmpty(this.report.request.reportQuery.columnOrder)
+        ? DefaultColumnOrder
+        : this.report.request.reportQuery.columnOrder;
       if (!tableWrapper) {
         tableWrappers.push({
           subjectCode: subjectCode,
@@ -200,7 +198,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
           valueDisplayType: this.query.valueDisplayType,
           performanceLevelDisplayType: this.query.achievementLevelDisplayType,
           columnOrdering: columnOrder,
-          columnOrderingItems: this.asOrderingItems(columnOrder)
+          columnOrderingItems: this.columnOrderableItemProvider.toOrderableItems(columnOrder)
         });
       } else {
         tableWrapper.table.rows.push(item);
@@ -214,15 +212,6 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
       this._pollingSubscription.unsubscribe();
       this._pollingSubscription = undefined;
     }
-  }
-
-  private asOrderingItems(columns: string[]): OrderableItem[] {
-    return columns.map(column => {
-      return {
-        value: column,
-        labelKey: this._columnToLabel[column]
-      };
-    });
   }
 
 }

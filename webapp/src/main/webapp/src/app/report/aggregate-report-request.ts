@@ -29,4 +29,5 @@ export interface AggregateReportQuery {
   readonly schoolYears: number[];
   readonly subjectCodes?: string[];
   readonly valueDisplayType: string;
+  readonly columnOrder?: string[];
 }

@@ -9,6 +9,8 @@ import { ValueDisplayTypes } from "../shared/display-options/value-display-type"
 import { PerformanceLevelDisplayTypes } from "../shared/display-options/performance-level-display-type";
 
 
+export const DefaultColumnOrder: string[] = ['organization', 'assessmentGrade', 'schoolYear', 'dimension'];
+
 /**
  * Responsible for mapping server provided report options into option
  * models that can be directly consumed by the UI components
@@ -136,6 +138,7 @@ export class AggregateReportOptionsMapper {
       economicDisadvantages: options.economicDisadvantages,
       performanceLevelDisplayType: PerformanceLevelDisplayTypes.Separate,
       valueDisplayType: ValueDisplayTypes.Percent,
+      columnOrder: DefaultColumnOrder,
       dimensionTypes: [],
       includeStateResults: true,
       includeAllDistricts: false,
