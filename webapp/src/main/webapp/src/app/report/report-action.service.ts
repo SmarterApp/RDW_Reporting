@@ -3,7 +3,9 @@ import { Report } from "./report.model";
 import { ReportService } from "./report.service";
 import { Download } from "../shared/data/download.model";
 import { Router } from "@angular/router";
+import { saveAs } from "file-saver";
 import { Observable } from "rxjs/Observable";
+import { NotificationService } from "../shared/notification/notification.service";
 
 export const AggregateReportType: string = "AggregateReportRequest";
 
@@ -20,7 +22,8 @@ export class ReportActionService {
   ];
 
   constructor(private reportService: ReportService,
-              private router: Router) {
+              private router: Router,
+              private notificationService: NotificationService) {
   }
 
   /**
@@ -40,17 +43,33 @@ export class ReportActionService {
    *
    * @param {ReportAction} action An action
    */
-  public performAction(action: ReportAction): Observable<Download> | void {
+  public performAction(action: ReportAction): Observable<any> {
     switch (action.type) {
       case ActionType.Download:
         return this.performDownload(action);
       case ActionType.Navigate:
-        return this.performNavigate(action);
+        this.performNavigate(action);
+        return Observable.empty();
     }
   }
 
-  private performDownload(action: ReportAction): Observable<Download> {
-    return this.reportService.getReportContent(action.value);
+  /**
+   * Test
+   * @param {ReportAction} action
+   * @returns {Observable<any>}
+   */
+  private performDownload(action: ReportAction): Observable<any> {
+    const observable: Observable<any> = this.reportService.getReportContent(action.value);
+    observable
+      .subscribe(
+        (download: Download) => {
+          saveAs(download.content, download.name);
+          console.log("done saving");
+        },
+        (error) => {
+          this.notificationService.error({ id: 'labels.reports.messages.download-failed' });
+        });
+    return observable;
   }
 
   private performNavigate(action: ReportAction): void {
