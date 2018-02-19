@@ -2,11 +2,12 @@ import { Observable } from "rxjs/Observable";
 import { Injectable } from "@angular/core";
 import { Embargo } from "./embargo";
 import { isUndefined } from "util";
-import { HttpClient } from "@angular/common/http";
 import { EmbargoScope } from "./embargo-scope.enum";
 import { OrganizationType } from "./organization-type.enum";
+import { ResponseContentType } from "@angular/http";
+import { DataService } from "../../shared/data/data.service";
 
-const ResourceContext = '/api/admin-service/embargoes';
+const ResourceContext = '/admin-service/embargoes';
 
 /**
  * Service responsible for managing organization embargo settings
@@ -14,7 +15,7 @@ const ResourceContext = '/api/admin-service/embargoes';
 @Injectable()
 export class EmbargoService {
 
-  constructor(private http: HttpClient) {
+  constructor(private dataService: DataService) {
   }
 
   /**
@@ -23,7 +24,7 @@ export class EmbargoService {
    * @returns {Observable<Map<OrganizationType, Embargo[]>>}
    */
   getEmbargoesByOrganizationType(): Observable<Map<OrganizationType, Embargo[]>> {
-    return this.http.get(`${ResourceContext}`)
+    return this.dataService.get(`${ResourceContext}`)
       .map((sourceEmbargoes: any[]) => {
         return sourceEmbargoes.reduce((embargoesByOrganizationType, sourceEmbargo) => {
           const embargo = this.toEmbargo(sourceEmbargo),
@@ -44,10 +45,10 @@ export class EmbargoService {
    * @returns {Observable<Object>}
    */
   update(embargo: Embargo, scope: EmbargoScope, value: boolean): Observable<Object> {
-    return this.http.put(
+    return this.dataService.put(
       `${ResourceContext}/${embargo.organization.type}/${embargo.organization.id ? embargo.organization.id : -1}/${scope}`,
       String(value),
-      { responseType: 'text' }
+      { responseType: ResponseContentType.Text }
     );
   }
 

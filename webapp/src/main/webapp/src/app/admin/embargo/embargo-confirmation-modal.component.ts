@@ -65,6 +65,9 @@ export class EmbargoConfirmationModal {
 
     // apply desired embargo setting via the API
     this.embargoService.update(embargo, scope, value)
+      .finally(() => {
+        this.modal.hide();
+      })
       .subscribe(() => {
 
         // reflect new embargo setting in the UI
@@ -74,7 +77,6 @@ export class EmbargoConfirmationModal {
           embargo.aggregateEnabled = value;
         }
         toggle.value = value;
-        this.modal.hide();
       });
   }
 
