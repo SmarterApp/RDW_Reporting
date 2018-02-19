@@ -14,7 +14,7 @@ INSERT INTO instructional_resource (asmt_name, performance_level, org_level, org
   -- districtGroup1 ica1 resources
   ('ica1', 0, 'DistrictGroup', -10, 'http://ica1/districtgroup1/assessment-wide'),
   -- districtNat2 ica1 resources
-  ('ica1', 0, 'District', -20, 'http://ica1/district2/assessment-wide'),
+  ('ica1', 0, 'District', -10, 'http://ica1/district1/assessment-wide'),
   -- districtNat3 ica1 resources
   ('ica1', 0, 'District', -30, 'http://ica1/district3/assessment-wide'),
   -- schoolGroup1 ica1 resources

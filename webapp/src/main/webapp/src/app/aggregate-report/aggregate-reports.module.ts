@@ -6,7 +6,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MultiselectDropdownModule } from "angular-2-dropdown-multiselect";
 import { AggregateReportOptionsService } from "./aggregate-report-options.service";
-import { AggregateReportFormOptionsMapper } from "./aggregate-report-form-options.mapper";
+import { AggregateReportOptionsMapper } from "./aggregate-report-options.mapper";
 import { AggregateReportSummary } from "./aggregate-report-summary.component";
 import { AggregateReportOrganizationService } from "./aggregate-report-organization.service";
 import { ModalModule, TypeaheadModule } from "ngx-bootstrap";
@@ -62,7 +62,7 @@ import { AggregateReportTableExportService } from "./results/aggregate-report-ta
     AggregateReportResolve,
     AggregateReportOptionsResolve,
     AggregateReportOptionsService,
-    AggregateReportFormOptionsMapper,
+    AggregateReportOptionsMapper,
     AggregateReportOrganizationService,
     AggregateReportItemMapper,
     AggregateReportFormSettingsResolve

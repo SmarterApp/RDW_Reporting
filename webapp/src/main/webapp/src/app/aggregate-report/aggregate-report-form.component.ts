@@ -12,7 +12,7 @@ import { AggregateReportOrganizationService } from "./aggregate-report-organizat
 import { AggregateReportService } from "./aggregate-report.service";
 import { AggregateReportTable } from "./results/aggregate-report-table.component";
 import { AggregateReportRequest } from "../report/aggregate-report-request";
-import { AggregateReportFormOptionsMapper } from "./aggregate-report-form-options.mapper";
+import { AggregateReportOptionsMapper } from "./aggregate-report-options.mapper";
 import { AggregateReportTableDataService } from "./aggregate-report-table-data.service";
 import { AssessmentDefinition } from "./assessment/assessment-definition";
 import { AggregateReportOptions } from "./aggregate-report-options";
@@ -112,7 +112,7 @@ export class AggregateReportFormComponent {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private optionMapper: AggregateReportFormOptionsMapper,
+              private optionMapper: AggregateReportOptionsMapper,
               private requestMapper: AggregateReportRequestMapper,
               private notificationService: NotificationService,
               private organizationService: AggregateReportOrganizationService,

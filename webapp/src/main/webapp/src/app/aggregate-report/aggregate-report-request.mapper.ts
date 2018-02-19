@@ -4,9 +4,16 @@ import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
 import { AggregateReportFormOptions } from "./aggregate-report-form-options";
 import { TranslateService } from "@ngx-translate/core";
 import { AssessmentDefinition } from "./assessment/assessment-definition";
+import { AggregateReportOptions } from "./aggregate-report-options";
+import { Observable } from "rxjs/Observable";
+import { District, OrganizationType, School } from "../shared/organization/organization";
+import { Utils } from "../shared/support/support";
+import { AggregateReportOrganizationService } from "./aggregate-report-organization.service";
 
 const equalSize = (a: any[], b: any[]) => a.length === b.length;
 const idsOf = values => values.map(value => value.id);
+
+const hasOption = (options: any[], value) => options.find(option => option === value) != null;
 
 /**
  * Responsible for creating aggregate report requests from supplied models
@@ -14,7 +21,8 @@ const idsOf = values => values.map(value => value.id);
 @Injectable()
 export class AggregateReportRequestMapper {
 
-  constructor(private translate: TranslateService){
+  constructor(private translate: TranslateService,
+              private organizationService: AggregateReportOrganizationService){
   }
 
   /**
@@ -22,6 +30,7 @@ export class AggregateReportRequestMapper {
    *
    * @param {AggregateReportFormOptions} options the available report options
    * @param {AggregateReportFormSettings} settings the aggregate report form state
+   * @param {AssessmentDefinition} assessmentDefinition
    * @returns {AggregateReportRequest}
    */
   map(options: AggregateReportFormOptions,
@@ -32,7 +41,6 @@ export class AggregateReportRequestMapper {
       achievementLevelDisplayType: settings.performanceLevelDisplayType,
       assessmentTypeCode: settings.assessmentType,
       assessmentGradeCodes: settings.assessmentGrades,
-      dimensionTypes: settings.dimensionTypes,
       includeAllDistricts: settings.includeAllDistricts,
       includeAllDistrictsOfSchools: settings.includeAllDistrictsOfSelectedSchools,
       includeAllSchoolsOfDistricts: settings.includeAllSchoolsOfSelectedDistricts,
@@ -54,6 +62,9 @@ export class AggregateReportRequestMapper {
 
     if (!equalSize(settings.completenesses, options.completenesses)) {
       query.completenessCodes = settings.completenesses;
+    }
+    if (!equalSize(settings.dimensionTypes, options.dimensionTypes)) {
+      query.dimensionTypes = settings.dimensionTypes;
     }
     if (!equalSize(settings.economicDisadvantages, options.economicDisadvantages)) {
       query.economicDisadvantageCodes = settings.economicDisadvantages;
@@ -91,6 +102,80 @@ export class AggregateReportRequestMapper {
       name: name,
       reportQuery: query
     }
+  }
+
+  toSettings(request: AggregateReportRequest, options: AggregateReportOptions): Observable<AggregateReportFormSettings> {
+
+    const query: AggregateReportQuery = request.reportQuery;
+
+    const queryInterimAdministrationConditions = (query.administrativeConditionCodes || [])
+      .filter(code => hasOption(options.interimAdministrationConditions, code));
+
+    const querySummativeAdministrationConditions = (query.administrativeConditionCodes || [])
+      .filter(code => hasOption(options.summativeAdministrationConditions, code));
+
+    const schoolIds: number[] = request.reportQuery.schoolIds;
+    const schools: Observable<School[]> = !Utils.isNullOrEmpty(schoolIds)
+      ? this.organizationService.getOrganizationsByIdAndType(OrganizationType.School, schoolIds)
+      : Observable.of([]);
+
+    const districtIds: number[] = request.reportQuery.districtIds;
+    const districts: Observable<District[]> = !Utils.isNullOrEmpty(districtIds)
+      ? this.organizationService.getOrganizationsByIdAndType(OrganizationType.District, districtIds)
+      : Observable.of([]);
+
+    return Observable.forkJoin(schools, districts)
+      .map((results) => {
+        const [ schools, districts ] = results;
+        return <AggregateReportFormSettings>{
+          assessmentType: query.assessmentTypeCode,
+          assessmentGrades: query.assessmentGradeCodes,
+          completenesses: Utils.isNullOrEmpty(query.completenessCodes)
+            ? options.completenesses
+            : query.completenessCodes,
+          dimensionTypes: Utils.isNullOrEmpty(query.dimensionTypes)
+            ? options.dimensionTypes
+            : query.dimensionTypes,
+          districts: districts,
+          economicDisadvantages: Utils.isNullOrEmpty(query.economicDisadvantageCodes)
+            ? options.economicDisadvantages
+            : query.economicDisadvantageCodes,
+          ethnicities: Utils.isNullOrEmpty(query.ethnicityCodes)
+            ? options.ethnicities
+            : query.ethnicityCodes,
+          genders: Utils.isNullOrEmpty(query.genderCodes)
+            ? options.genders
+            : query.genderCodes,
+          includeAllDistricts: query.includeAllDistricts,
+          includeAllDistrictsOfSelectedSchools: query.includeAllDistrictsOfSchools,
+          includeAllSchoolsOfSelectedDistricts: query.includeAllSchoolsOfDistricts,
+          includeStateResults: query.includeState,
+          individualEducationPlans: Utils.isNullOrEmpty(query.iepCodes)
+            ? options.individualEducationPlans
+            : query.iepCodes,
+          interimAdministrationConditions: !queryInterimAdministrationConditions.length
+            ? options.interimAdministrationConditions
+            : queryInterimAdministrationConditions,
+          limitedEnglishProficiencies: Utils.isNullOrEmpty(query.lepCodes)
+            ? options.individualEducationPlans
+            : query.lepCodes,
+          migrantStatuses: Utils.isNullOrEmpty(query.migrantStatusCodes)
+            ? options.migrantStatuses
+            : query.migrantStatusCodes,
+          name: request.name,
+          performanceLevelDisplayType: query.achievementLevelDisplayType,
+          section504s: Utils.isNullOrEmpty(query.section504Codes)
+            ? options.section504s
+            : query.section504Codes,
+          summativeAdministrationConditions: !querySummativeAdministrationConditions.length
+            ? options.summativeAdministrationConditions
+            : querySummativeAdministrationConditions,
+          schoolYears: query.schoolYears,
+          schools: schools,
+          subjects: query.subjectCodes,
+          valueDisplayType: query.valueDisplayType,
+        };
+      });
   }
 
 }

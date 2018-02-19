@@ -4,6 +4,9 @@ import { Injectable } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { SchoolYearPipe } from "../shared/format/school-year.pipe";
 import { DisplayOptionService } from "../shared/display-options/display-option.service";
+import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
+import { ValueDisplayTypes } from "../shared/display-options/value-display-type";
+import { PerformanceLevelDisplayTypes } from "../shared/display-options/performance-level-display-type";
 
 
 /**
@@ -11,7 +14,7 @@ import { DisplayOptionService } from "../shared/display-options/display-option.s
  * models that can be directly consumed by the UI components
  */
 @Injectable()
-export class AggregateReportFormOptionsMapper {
+export class AggregateReportOptionsMapper {
 
   constructor(private translateService: TranslateService,
               private schoolYearPipe: SchoolYearPipe,
@@ -106,6 +109,40 @@ export class AggregateReportFormOptionsMapper {
           value => `Comparative Subgroup: ${value}`
         )),
       statewideReporter: options.statewideReporter // TODO move to user context?
+    };
+  }
+
+  /**
+   * Creates the default/initial state of the aggregate report form based on the available options
+   *
+   * @param {AggregateReportFormOptions} options the options available for selection
+   * @returns {AggregateReportFormSettings} the initial form state
+   */
+  toDefaultSettings(options: AggregateReportOptions): AggregateReportFormSettings {
+    return <AggregateReportFormSettings>{
+      assessmentGrades: [],
+      assessmentType: options.assessmentTypes[0],
+      completenesses: [ options.completenesses[0] ],
+      ethnicities: options.ethnicities,
+      genders: options.genders,
+      interimAdministrationConditions: [ options.interimAdministrationConditions[0] ],
+      schoolYears: [ options.schoolYears[0] ],
+      subjects: options.subjects,
+      summativeAdministrationConditions: [ options.summativeAdministrationConditions[0] ],
+      migrantStatuses: options.migrantStatuses,
+      individualEducationPlans: options.individualEducationPlans,
+      section504s: options.section504s,
+      limitedEnglishProficiencies: options.limitedEnglishProficiencies,
+      economicDisadvantages: options.economicDisadvantages,
+      performanceLevelDisplayType: PerformanceLevelDisplayTypes.Separate,
+      valueDisplayType: ValueDisplayTypes.Percent,
+      dimensionTypes: [],
+      includeStateResults: true,
+      includeAllDistricts: false,
+      includeAllSchoolsOfSelectedDistricts: false,
+      includeAllDistrictsOfSelectedSchools: true,
+      districts: [],
+      schools: []
     };
   }
 

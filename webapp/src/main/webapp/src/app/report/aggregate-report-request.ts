@@ -14,7 +14,7 @@ export interface AggregateReportQuery {
   readonly completenessCodes?: string[];
   readonly economicDisadvantageCodes?: string[];
   readonly ethnicityCodes?: string[];
-  readonly dimensionTypes: string[];
+  readonly dimensionTypes?: string[];
   readonly districtIds?: number[];
   readonly genderCodes?: string[];
   readonly iepCodes?: string[];

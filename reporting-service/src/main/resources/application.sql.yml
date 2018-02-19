@@ -41,12 +41,14 @@ sql:
           from asmt a
             join exam e on e.asmt_id = a.id
             join student_group_membership sgm on e.student_id = sgm.student_id
+            join student_group sg ON sg.id = sgm.student_group_id
             join school s on e.school_id = s.id
             join student st on e.student_id = st.id
             join school isch on st.inferred_school_id = isch.id
           where e.school_year=:school_year
             and a.id = e.asmt_id
             and sgm.student_group_id=:group_id
+            and (sg.subject_id is null or a.subject_id = sg.subject_id)
             and (0=:group_subject_id or a.subject_id=:group_subject_id)
             and ${sql.reporting.snippet.individualScopePermission}
 
