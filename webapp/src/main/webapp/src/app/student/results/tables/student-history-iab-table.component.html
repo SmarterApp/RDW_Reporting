@@ -55,7 +55,9 @@
   </p-column>
   <p-column field="exam.score" sortable="true">
     <ng-template pTemplate="header">
-      <span info-button title="{{'labels.groups.results.assessment.exams.cols.score' | translate}}"
+      <span info-button
+            placement="left"
+            title="{{'labels.groups.results.assessment.exams.cols.score' | translate}}"
             content="{{'labels.groups.results.assessment.exams.cols.score-info' | translate}}"></span>
     </ng-template>
     <ng-template let-exam="rowData.exam" pTemplate="body">

@@ -19,4 +19,7 @@ export class InformationButtonComponent {
   @Input()
   public icon: string;
 
+  @Input()
+  public placement: string = "top";
+
 }
