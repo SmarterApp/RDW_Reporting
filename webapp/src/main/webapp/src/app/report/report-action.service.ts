@@ -64,7 +64,6 @@ export class ReportActionService {
       .subscribe(
         (download: Download) => {
           saveAs(download.content, download.name);
-          console.log("done saving");
         },
         (error) => {
           this.notificationService.error({ id: 'labels.reports.messages.download-failed' });
