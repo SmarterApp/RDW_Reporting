@@ -29,10 +29,7 @@ export class ReportActionComponent implements OnInit {
 
   public reportActions: ReportAction[] = [];
 
-  public get menuActions(): PopupMenuAction[] {
-    return this.reportActions
-      .map(reportAction => this.toMenuAction(reportAction));
-  }
+  public menuActions: PopupMenuAction[];
 
   constructor(private actionService: ReportActionService,
               private translateService: TranslateService,
@@ -41,6 +38,8 @@ export class ReportActionComponent implements OnInit {
 
   ngOnInit(): void {
     this.reportActions = this.actionService.getActions(this.report);
+    this.menuActions = this.reportActions
+      .map(reportAction => this.toMenuAction(reportAction));
   }
 
   performAction(reportAction: ReportAction): void {
