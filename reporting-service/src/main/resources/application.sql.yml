@@ -31,6 +31,7 @@ sql:
       findAllForExam: >-
         ${sql.reporting.snippet.selectFromExamItem}
         WHERE e.id = :exam_id
+        AND a.type_id != 3
         AND ${sql.snippet.studentExamPermission}
 
   group:

@@ -90,7 +90,9 @@ insert into item (id, natural_id, claim_id, claim_code, target_id, target_code, 
 
 insert into exam_item (id, exam_id, item_id, score, position, response, trait_evidence_elaboration_score, trait_organization_purpose_score, trait_conventions_score) values
   (-1, -1, -1, 0, 1, 'A', null, null, null),
-  (-2, -1, -2, 1, 2, 'D', 2, 3, 1);
+  (-2, -1, -2, 1, 2, 'D', 2, 3, 1),
+  (-3, -8, -1, 0, 1, 'A', null, null, null),
+  (-4, -8, -2, 1, 2, 'D', 2, 3, 1);
 
 insert into common_core_standard (id, natural_id, subject_id, description) values
   (-1, 'ABC.223.1', 1, 'test-description1'),

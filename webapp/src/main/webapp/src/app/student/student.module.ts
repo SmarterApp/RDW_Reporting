@@ -12,7 +12,7 @@ import { AssessmentsModule } from "../assessments/assessments.module";
 import { StudentResultsFilterComponent } from "./results/student-results-filter.component";
 import { DataTableModule } from "primeng/components/datatable/datatable";
 import { StudentHistoryIABTableComponent } from "./results/tables/student-history-iab-table.component";
-import { StudentHistoryICASummitiveTableComponent } from "./results/tables/student-history-ica-summitive-table.component";
+import { StudentHistoryICASummativeTableComponent } from "./results/tables/student-history-ica-summative-table.component";
 import { Angulartics2Module } from "angulartics2";
 import { StudentResponsesComponent } from "./responses/student-responses.component";
 import { StudentResponsesService } from "./responses/student-responses.service";
@@ -33,7 +33,7 @@ import { RdwMenuModule } from "../shared/menu/rdw-menu.module";
     StudentResultsComponent,
     StudentResultsFilterComponent,
     StudentHistoryIABTableComponent,
-    StudentHistoryICASummitiveTableComponent
+    StudentHistoryICASummativeTableComponent
   ],
   imports: [
     Angulartics2Module.forChild(),

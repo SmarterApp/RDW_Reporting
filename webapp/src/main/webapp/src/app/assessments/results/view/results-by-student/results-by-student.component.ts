@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Exam } from "../../../model/exam.model";
-import { AssessmentType } from "../../../../shared/enum/assessment-type.enum";
 import { StudentReportDownloadComponent } from "../../../../report/student-report-download.component";
 import { ReportOptions } from "../../../../report/report-options.model";
 import { TranslateService } from "@ngx-translate/core";
@@ -67,7 +66,7 @@ export class ResultsByStudentComponent implements OnInit {
 
   get performanceLevelHeader() {
     return "labels.groups.results.assessment.exams.cols." +
-      (this.isIab ? "iab" : "ica") + ".performance";
+      (this.assessment.isIab ? "iab" : "ica") + ".performance";
   }
 
   get performanceLevelHeaderInfo() {
@@ -75,25 +74,13 @@ export class ResultsByStudentComponent implements OnInit {
   }
 
   get examLevelEnum() {
-    return this.isIab
+    return this.assessment.isIab
       ? "enum.iab-category.full."
       : "enum.achievement-level.full.";
   }
 
-  get assessmentType() {
-    return this.assessment.type;
-  }
-
-  get isIab() {
-    return this.assessmentType == AssessmentType.IAB;
-  }
-
-  get isInterim() {
-    return this.assessmentType != AssessmentType.SUMMATIVE;
-  }
-
   get showClaimToggle() {
-    return !this.isIab;
+    return !this.assessment.type;
   }
 
   constructor(private actionBuilder: MenuActionBuilder,
@@ -107,27 +94,27 @@ export class ResultsByStudentComponent implements OnInit {
 
   loadInstructionalResources(exam: Exam) {
     this.instructionalResourcesProvider = () => this.instructionalResourcesService.getInstructionalResources(this.assessment.id, exam.school.id)
-        .map(resources => resources.getResourcesByPerformance(exam.level));
+      .map(resources => resources.getResourcesByPerformance(exam.level));
   }
 
   private createActions(): PopupMenuAction[] {
     let builder = this.actionBuilder.newActions();
 
-    if (this.isInterim) {
+    if (this.assessment.isInterim) {
       builder.withResponses(exam => exam.id, exam => exam.student, exam => exam.schoolYear > this.minimumItemDataYear);
     }
 
     return builder
       .withStudentHistory(exam => exam.student)
       .withStudentReport(
-        () => this.assessmentType,
+        () => this.assessment.type,
         exam => exam.student,
         exam => {
           let downloader: StudentReportDownloadComponent = this.reportDownloader;
           let options: ReportOptions = downloader.options;
           let subject = this.assessment.assessmentSubjectType;
 
-          options.assessmentType = this.assessmentType;
+          options.assessmentType = this.assessment.type;
           options.subject = subject;
           options.schoolYear = exam.schoolYear;
 

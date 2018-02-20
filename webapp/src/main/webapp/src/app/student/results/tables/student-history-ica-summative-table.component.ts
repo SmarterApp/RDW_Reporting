@@ -3,19 +3,24 @@ import { StudentHistoryExamWrapper } from "../../model/student-history-exam-wrap
 import { Student } from "../../model/student.model";
 import { MenuActionBuilder } from "../../../assessments/menu/menu-action.builder";
 import { PopupMenuAction } from "../../../shared/menu/popup-menu-action.model";
+import { TranslateService } from "@ngx-translate/core";
+import { AssessmentType } from "../../../shared/enum/assessment-type.enum";
 
 @Component({
-  selector: 'student-history-ica-summitive-table',
+  selector: 'student-history-ica-summative-table',
   providers: [ MenuActionBuilder ],
-  templateUrl: 'student-history-ica-summitive-table.component.html'
+  templateUrl: 'student-history-ica-summative-table.component.html'
 })
-export class StudentHistoryICASummitiveTableComponent implements OnInit {
+export class StudentHistoryICASummativeTableComponent implements OnInit {
 
   @Input()
   exams: StudentHistoryExamWrapper[] = [];
 
   @Input()
   student: Student;
+
+  @Input()
+  type: AssessmentType;
 
   /**
    * Represents the cutoff year for when there is no item level response data available.
@@ -31,11 +36,16 @@ export class StudentHistoryICASummitiveTableComponent implements OnInit {
 
   actions: PopupMenuAction[];
 
-  constructor(private actionBuilder: MenuActionBuilder) {
+  constructor(private actionBuilder: MenuActionBuilder,
+              private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
-    this.actions = this.createActions();
+    if (this.type === AssessmentType.ICA) {
+      this.actions = this.createIcaActions();
+    } else if (this.type === AssessmentType.SUMMATIVE) {
+      this.actions = this.createSummativeActions();
+    }
   }
 
   /**
@@ -56,9 +66,23 @@ export class StudentHistoryICASummitiveTableComponent implements OnInit {
    *
    * @returns {PopupMenuAction[]} The table row menu actions
    */
-  private createActions(): PopupMenuAction[] {
+  private createIcaActions(): PopupMenuAction[] {
     return this.actionBuilder.newActions()
       .withResponses(x => x.exam.id, () => this.student, x => x.exam.schoolYear > this.minimumItemDataYear)
       .build();
+  }
+
+  private createSummativeActions(): PopupMenuAction[] {
+    const menuAction: PopupMenuAction = new PopupMenuAction();
+    menuAction.displayName = () => {
+      return this.translateService.instant('labels.groups.results.assessment.items.title');
+    };
+    menuAction.tooltip = () => {
+      return this.translateService.instant('messages.no-results-by-item-for-summative-exams');
+    };
+    menuAction.isDisabled = () => {
+      return true;
+    };
+    return [menuAction];
   }
 }
