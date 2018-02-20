@@ -60,7 +60,8 @@ insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, oppo
   (-6, 3, -1, 'g1', -1, -30, null, 1, 1, 1, 1, 1997, -3, 'v1', 1, 'Partial', 2, 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
   (-7, 3, -1, 'g1', -2, -30, null, 1, 1, 1, 1, 1997, -4, 'v1', 1, 'Partial', 2, 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
   (-17, 3, -1, 'g1', -2, -30, null, 1, 1, 1, 1, 1997, -1, 'v1', 1, 'Partial', 2, 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
-  (-8, 3, -1, 'g1', -1, -30, null, 1, 1, 1, 1, 1997, -4, 'v1', 1, 'Partial', 2, 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1);
+  (-8, 3, -1, 'g1', -1, -30, null, 1, 1, 1, 1, 1997, -4, 'v1', 1, 'Partial', 2, 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
+  (-9, 3, -1, 'g1', -1, -10, 0, 0, 0, 0, 0, 1997, -3, 'v1', 2, 'Complete', 1, 'Valid', 'session5', 2400, 24, 2, '1997-01-05 00:00:00.000000', 1, 1200, 120, 2, 2200, 220, 3, 3200, 320, null, null, null, -1, '1997-06-18 20:14:34.000000', -1);
 
 -- items
 
@@ -90,7 +91,9 @@ insert into item (id, natural_id, claim_id, claim_code, target_id, target_code, 
 
 insert into exam_item (id, exam_id, item_id, score, position, response, trait_evidence_elaboration_score, trait_organization_purpose_score, trait_conventions_score) values
   (-1, -1, -1, 0, 1, 'A', null, null, null),
-  (-2, -1, -2, 1, 2, 'D', 2, 3, 1);
+  (-2, -1, -2, 1, 2, 'D', 2, 3, 1),
+  (-3, -9, -1, 0, 1, 'A', null, null, null),
+  (-4, -9, -2, 1, 2, 'D', 2, 3, 1);
 
 insert into common_core_standard (id, natural_id, subject_id, description) values
   (-1, 'ABC.223.1', 1, 'test-description1'),
