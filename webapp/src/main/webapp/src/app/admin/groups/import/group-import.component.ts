@@ -5,7 +5,7 @@ import { FileUploader } from "ng2-file-upload";
 import { TranslateService } from "@ngx-translate/core";
 import { Utils } from "../../../shared/support/support";
 
-const URL = '/api/studentGroups/';
+const URL = '/api/admin-service/studentGroups';
 
 @Component({
   selector: 'admin',
