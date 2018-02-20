@@ -49,12 +49,12 @@
             </div>
 
             <div class="form-group" *ngIf="transferAccess">
-              <label>
+              <label for="report-transfer-assessment-toggle">
                 <span info-button
                       title="{{'labels.filters.test.transfer-assessment' | translate}}"
                       content="{{'labels.filters.test.transfer-assessment-info' | translate}}"></span>
               </label>
-              <sb-radio-button-group name="transfer-assessment-toggle"
+              <sb-radio-button-group name="report-transfer-assessment-toggle"
                          [(ngModel)]="options.disableTransferAccess"
                          [options]="[
                            {value: false, text: 'buttons.visibility.show' | translate},
