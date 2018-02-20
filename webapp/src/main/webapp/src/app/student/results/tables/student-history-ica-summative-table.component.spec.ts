@@ -3,7 +3,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { SharedModule } from "primeng/components/common/shared";
 import { TranslateModule } from "@ngx-translate/core";
 import { DataTableModule } from "primeng/components/datatable/datatable";
-import { StudentHistoryICASummitiveTableComponent } from "./student-history-ica-summitive-table.component";
+import { StudentHistoryICASummativeTableComponent } from "./student-history-ica-summative-table.component";
 import { StudentHistoryExamWrapper } from "../../model/student-history-exam-wrapper.model";
 import { Exam } from "../../../assessments/model/exam.model";
 import { Assessment } from "../../../assessments/model/assessment.model";
@@ -21,9 +21,9 @@ import { PopupMenuComponent } from "../../../shared/menu/popup-menu.component";
 import { DataService } from "../../../shared/data/data.service";
 import { CachingDataService } from "../../../shared/data/caching-data.service";
 
-describe('StudentHistoryICASummitiveTableComponent', () => {
-  let component: StudentHistoryICASummitiveTableComponent;
-  let fixture: ComponentFixture<StudentHistoryICASummitiveTableComponent>;
+describe('StudentHistoryICASummativeTableComponent', () => {
+  let component: StudentHistoryICASummativeTableComponent;
+  let fixture: ComponentFixture<StudentHistoryICASummativeTableComponent>;
   let router: MockRouter;
   let activatedRoute: ActivatedRoute;
   let dataService: MockDataService;
@@ -42,7 +42,7 @@ describe('StudentHistoryICASummitiveTableComponent', () => {
         GradeDisplayPipe,
         InformationButtonComponent,
         InstructionalResourcePopoverComponent,
-        StudentHistoryICASummitiveTableComponent,
+        StudentHistoryICASummativeTableComponent,
         SchoolYearPipe,
         ScaleScoreComponent,
         PopupMenuComponent
@@ -65,7 +65,7 @@ describe('StudentHistoryICASummitiveTableComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StudentHistoryICASummitiveTableComponent);
+    fixture = TestBed.createComponent(StudentHistoryICASummativeTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
