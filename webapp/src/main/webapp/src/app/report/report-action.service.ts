@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { saveAs } from "file-saver";
 import { Observable } from "rxjs/Observable";
 import { NotificationService } from "../shared/notification/notification.service";
+import "rxjs/add/observable/empty";
 
 export const AggregateReportType: string = "AggregateReportRequest";
 
