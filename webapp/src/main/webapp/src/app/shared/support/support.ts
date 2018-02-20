@@ -165,4 +165,20 @@ export class Utils {
     return 0;
   }
 
+  /**
+   * Takes a string or boolean and returns it's boolean value
+   *
+   * @param stringOrBoolean the input
+   * @returns {number} the boolean value of the string or boolean
+   */
+  static booleanValueOf(stringOrBoolean: any): boolean {
+    switch (typeof stringOrBoolean) {
+      case 'string':
+        return Boolean(stringOrBoolean);
+      case 'boolean':
+        return stringOrBoolean;
+    }
+    return false;
+  }
+
 }

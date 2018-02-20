@@ -159,6 +159,14 @@ sql:
             )
           )
         )
+        AND
+        (
+           e.school_year < ${app.school-year}
+           OR e.type_id <> 3
+           OR s.embargo_enabled = 0
+           OR 1 = :state_embargo_admin
+           OR s.district_id IN (:district_embargo_admin_ids)
+        )
 
     claimColumns: >-
         e.claim1_category,

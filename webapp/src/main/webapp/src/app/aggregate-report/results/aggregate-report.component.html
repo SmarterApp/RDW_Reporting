@@ -1,12 +1,30 @@
 <h2 class="h3 blue-dark">{{report.label}}</h2>
 
-<div class="row mb-sm">
-  <div class="col-md-12">
-    <button class="btn btn-default btn-sm" (click)="onUpdateRequestButtonClick()">
-      <i class="fa fa-chevron-left mr-xs"></i>{{'aggregate-report.form-link' | translate}}
-    </button>
+<div class="well well-compact">
+  <div class="row">
+    <div class="col-md-12">
+      <button class="btn btn-default btn-sm"
+              (click)="onUpdateRequestButtonClick()">
+        <i class="fa fa-chevron-left mr-xs"></i>{{'aggregate-report.form-link' | translate}}
+      </button>
+      <button class="btn btn-default btn-sm icon-only pull-right"
+              (click)="onToggleRequestViewButtonClick()">
+        <i class="fa" [ngClass]="showRequest ? 'fa-angle-up' : 'fa-angle-down'"></i>
+      </button>
+    </div>
+  </div>
+  <div [hidden]="!showRequest" class="row mt-md">
+    <div class="col-md-12">
+      <ng-container *ngIf="summary; else summaryLoading">
+        <aggregate-report-summary [summary]="summary"></aggregate-report-summary>
+      </ng-container>
+      <ng-template #summaryLoading>
+        <spinner></spinner>
+      </ng-template>
+    </div>
   </div>
 </div>
+
 <div class="row">
   <div class="col-md-12">
 

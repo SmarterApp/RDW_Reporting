@@ -1,37 +1,27 @@
-<div class="aggregate-report-summary sans">
+<ng-template #rowTemplate let-row>
+  <td><strong>{{row.label}}</strong></td>
+  <td>
+    <ul class="list-unstyled">
+      <li *ngFor="let value of row.values">
+        {{value}}
+      </li>
+    </ul>
+  </td>
+</ng-template>
 
-  <div class="flex-children flex-cols-8">
-    <div *ngFor="let column of columns" class="block-children" [ngClass]="{'heading-column': column.heading}">
-      <div class="column-heading-container">
-        <div class="column-heading">
-          <strong>{{column.heading}}</strong>
-        </div>
-        <div class="column-label-container">
-          <div class="column-label" [ngClass]="column.labelStyles">
-            {{column.label}}
-          </div>
-        </div>
+<div class="row">
+  <div *ngFor="let sections of columns" [ngClass]="narrow ? 'col-md-6' : 'col-md-3'">
+    <div *ngFor="let section of sections">
+      <div class="h5 column-heading">
+        {{section.label}}
       </div>
-      <div class="column-values">
-        <div *ngIf="column.scrollElement">
-          <a class="aqua" (click)="column.scrollElement.scrollIntoView()">{{'aggregate-reports.form.summary.edit' | translate}}</a>
-        </div>
-        <ng-container *ngFor="let attribute of column.attributes">
-          <div>
-            <label class="label"><span class="gray-dark"><strong>{{attribute.label}}</strong></span></label>
-          </div>
-          <ng-container *ngIf="summarizeSelection(attribute)">
-            <label class="label" [ngClass]="column.attributeStyles"><span class="gray-dark">{{'buttons.all' | translate}}</span></label>
-          </ng-container>
-          <ng-container *ngIf="!summarizeSelection(attribute)">
-            <div *ngFor="let value of getValues(attribute)">
-              <label class="label" [ngClass]="column.attributeStyles"><span class="gray-dark">{{value}}</span></label>
-            </div>
-          </ng-container>
-        </ng-container>
-      </div>
+      <table>
+        <tbody>
+        <tr *ngFor="let row of section.rows">
+          <ng-container *ngTemplateOutlet="rowTemplate; context: {$implicit: row}"></ng-container>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-
-
 </div>

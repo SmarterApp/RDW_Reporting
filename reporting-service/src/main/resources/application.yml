@@ -62,6 +62,7 @@ artifacts:
     file-name: item-{0}.xml
 
 app:
+  school-year: 2018
   state:
     code: CA
     name: California

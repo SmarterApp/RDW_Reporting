@@ -27,6 +27,16 @@
       "unsupported-size": "The requested report may be too large to view in the browser and may slow down or crash your browser if displayed. Would you like to download the report data as a spreadsheet instead?"
     }
   },
+  "aggregate-reports-summary": {
+    "field": {
+      "include": {
+        "state-results": "State Results",
+        "all-districts": "All Districts",
+        "all-schools-of-districts": "Districts' Schools",
+        "all-districts-of-schools": "Schools' Districts"
+      }
+    }
+  },
   "aggregate-reports": {
     "heading": "Aggregate Reports",
     "default-report-name": "Custom Aggregate Report",
@@ -143,74 +153,6 @@
         "heading": "Schools and Districts",
         "subheading": "Select the attributes to include in the report. Then click \"Generate Report.\""
       },
-      "summary": {
-        "heading": "Report Preview",
-        "edit": "Edit",
-        "column": {
-          "assessment": {
-            "heading": "Table Heading",
-            "label": "Assessment",
-            "attribute": {
-              "subject": "Subjects",
-              "type": "Type"
-            }
-          },
-          "organization": {
-            "heading": "Required Fields",
-            "label": "Schools / Districts",
-            "attribute": {
-              "organization": {
-                "label": "Schools / Districts",
-                "value": {
-                  "multiple": "Multiple"
-                }
-              },
-              "include": {
-                "label": "Includes",
-                "value": {
-                  "state-results": "State Results",
-                  "all-districts": "All Districts",
-                  "all-schools-of-districts": "Districts' Schools",
-                  "all-districts-of-schools": "Schools' Districts"
-                }
-              }
-            }
-          },
-          "assessment-grade": {
-            "label": "Assessment Grade",
-            "attribute": {
-              "grade": "Grades"
-            }
-          },
-          "school-year": {
-            "label": "Academic Year",
-            "attribute": {
-              "year": "Years"
-            }
-          },
-          "comparative-subgroup": {
-            "heading": "Comparative Subgroups",
-            "label": "Subgroups",
-            "attribute": {
-              "subgroup": "Subgroups"
-            }
-          },
-          "students-tested": {
-            "heading": "Data Values",
-            "label": "Students Tested"
-          },
-          "average-scale-score": {
-            "label": "Average Scale Score"
-          },
-          "performance-level": {
-            "label": "Achievement Level",
-            "attribute": {
-              "grouping": "Display",
-              "value": "Values"
-            }
-          }
-        }
-      },
       "section": {
         "organization": {
           "heading": "Schools and Districts",
@@ -231,14 +173,17 @@
         "subgroup-filters": {
           "heading": "Subgroup Filters"
         },
-        "report-features": {
-          "heading": "Report Features"
-        },
         "comparative-subgroups": {
           "heading": "Comparative Subgroups"
         },
         "report-name": {
           "heading": "Report Name"
+        },
+        "review": {
+          "heading": "Report Review"
+        },
+        "preview": {
+          "heading": "Report Preview"
         }
       },
       "submit": "Generate Report"
@@ -270,6 +215,10 @@
   },
   "collapse": "Collapse",
   "common": {
+    "collection-selection": {
+      "all": "All",
+      "none": "None"
+    },
     "copy-suffix": "(copy)",
     "export": "Export",
     "dimension": {

@@ -120,6 +120,7 @@ cloud:
       instance-profile: false
 
 app:
+  school-year : 2018
   state:
     code: CA
 

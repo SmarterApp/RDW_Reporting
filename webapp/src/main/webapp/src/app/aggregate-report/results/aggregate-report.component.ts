@@ -16,10 +16,14 @@ import { AggregateReportQuery } from "../../report/aggregate-report-request";
 import { saveAs } from "file-saver";
 import { DisplayOptionService } from "../../shared/display-options/display-option.service";
 import { TranslateService } from "@ngx-translate/core";
+import { AggregateReportRequestMapper } from "../aggregate-report-request.mapper";
+import { AggregateReportFormSettings } from "../aggregate-report-form-settings";
 import { SpinnerModal } from "../../shared/loading/spinner.modal";
+import "rxjs/add/operator/finally";
 import { OrderableItem } from "../../shared/order-selector/order-selector.component";
 import { AggregateReportColumnOrderItemProvider } from "../aggregate-report-column-order-item.provider";
 import { DefaultColumnOrder } from "../aggregate-report-options.mapper";
+import { AggregateReportRequestSummary } from "../aggregate-report-summary.component";
 
 const PollingInterval = 4000;
 
@@ -40,6 +44,8 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   options: AggregateReportOptions;
   report: Report;
   reportTables: AggregateReportTableView[];
+  showRequest: boolean = false;
+  summary: AggregateReportRequestSummary;
 
   private _tableViewComparator: Comparator<AggregateReportTableView>;
   private _pollingSubscription: Subscription;
@@ -49,6 +55,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private reportService: ReportService,
+              private requestMapper: AggregateReportRequestMapper,
               private itemMapper: AggregateReportItemMapper,
               private displayOptionService: DisplayOptionService,
               private translateService: TranslateService,
@@ -64,6 +71,12 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
       valueDisplayTypes: this.displayOptionService.getValueDisplayTypeOptions(),
       performanceLevelDisplayTypes: this.displayOptionService.getPerformanceLevelDisplayTypeOptions()
     };
+    this.requestMapper.toSettings(this.report.request, this.options)
+      .subscribe(settings => this.summary = {
+        assessmentDefinition: this.assessmentDefinition,
+        options: this.options,
+        settings: settings
+      });
   }
 
   get displayOptions(): AggregateReportTableDisplayOptions {
@@ -116,6 +129,10 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
 
   onUpdateRequestButtonClick(): void {
     this.router.navigate([ '..' ], { relativeTo: this.route, queryParams: { src: this.report.id } });
+  }
+
+  onToggleRequestViewButtonClick(): void {
+    this.showRequest = !this.showRequest;
   }
 
   onDisplayReportButtonClick(): void {

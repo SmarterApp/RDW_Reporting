@@ -17,10 +17,11 @@ import { AggregateReportTableDataService } from "./aggregate-report-table-data.s
 import { AssessmentDefinition } from "./assessment/assessment-definition";
 import { AggregateReportOptions } from "./aggregate-report-options";
 import { AggregateReportRequestMapper } from "./aggregate-report-request.mapper";
-import "rxjs/add/observable/interval";
-import "rxjs/add/operator/switchMap";
 import { AggregateReportColumnOrderItemProvider } from "./aggregate-report-column-order-item.provider";
 import { OrderableItem } from "../shared/order-selector/order-selector.component";
+import { AggregateReportRequestSummary, AggregateReportSummary } from "./aggregate-report-summary.component";
+import "rxjs/add/observable/interval";
+import "rxjs/add/operator/switchMap";
 
 /**
  * Form control validator that makes sure the control value is not an empty array
@@ -51,8 +52,8 @@ const fileName = (properties: any) => control => {
  */
 const organizationValidator = (properties, settings) => control => {
   return settings.includeStateResults
-    || settings.includeAllDistricts
-    || control.value.length ? null : { invalid: properties };
+  || settings.includeAllDistricts
+  || control.value.length ? null : { invalid: properties };
 };
 
 const OrganizationComparator = (a: Organization, b: Organization) => a.name.localeCompare(b.name);
@@ -112,6 +113,8 @@ export class AggregateReportFormComponent {
    */
   assessmentDefinitionsByTypeCode: Map<string, AssessmentDefinition>;
 
+  summary: AggregateReportRequestSummary;
+
   /**
    * The current column order
    */
@@ -140,8 +143,14 @@ export class AggregateReportFormComponent {
 
     this.columnItems = this.columnOrderableItemProvider.toOrderableItems(this.settings.columnOrder);
 
+    this.summary = {
+      assessmentDefinition: this.currentAssessmentDefinition,
+      options: this.aggregateReportOptions,
+      settings: this.settings
+    };
+
     this.previewTable = {
-      assessmentDefinition: this.assessmentDefinitionsByTypeCode.get(this.settings.assessmentType),
+      assessmentDefinition: this.currentAssessmentDefinition,
       options: this.aggregateReportOptions,
       rows: []
     };
@@ -373,12 +382,22 @@ export class AggregateReportFormComponent {
    * Reloads the report preview based on current form state
    */
   onSettingsChange() {
+
     const assessmentDefinition = this.currentAssessmentDefinition;
-    this.previewTable = {
-      rows: this.tableDataService.createSampleData(assessmentDefinition, this.settings),
+
+    this.summary = {
+      assessmentDefinition: assessmentDefinition,
       options: this.aggregateReportOptions,
-      assessmentDefinition: assessmentDefinition
+      settings: this.settings
     };
+
+    // TODO this table should be lazily updated when it is scrolled into view. There is serious lag when changing settings above
+    this.previewTable = {
+      assessmentDefinition: assessmentDefinition,
+      options: this.aggregateReportOptions,
+      rows: this.tableDataService.createSampleData(assessmentDefinition, this.settings)
+    };
+
   }
 
 }

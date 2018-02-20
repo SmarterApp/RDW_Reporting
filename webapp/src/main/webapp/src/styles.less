@@ -676,37 +676,6 @@ aggregate-report-form {
   }
 }
 
-.aggregate-report-summary {
-  .column-heading {
-    height: 48px;
-    padding-left: @padding-small-horizontal;
-  }
-  .column-label-container {
-    height: 96px;
-    border-left: 1px solid @gray-light;
-    padding: @padding-base-horizontal 0 @padding-base-horizontal @padding-small-horizontal;
-    .column-label {
-      color: white;
-      border-radius: @border-radius-base @border-radius-base @border-radius-base @border-radius-base;
-      padding: @padding-xs-horizontal @padding-small-horizontal @padding-xs-horizontal @padding-small-horizontal;
-    }
-  }
-  .column-values {
-    padding-left: @padding-small-horizontal;
-    .label {
-      padding-left: 0;
-    }
-  }
-  .heading-column {
-    .column-heading-container {
-      border-left: 1px solid @gray-darker;
-    }
-    .column-label-container {
-      border-left: none;
-    }
-  }
-}
-
 .writing-trait-scores {
   min-width: 60% !important;
 }
@@ -755,4 +724,46 @@ aggregate-report-organization-list {
   }
 }
 
+.aggregate-report-summary {
+  .small;
+  .column-heading {
+    color: @gray-darker;
+    padding-bottom: @padding-base-vertical;
+  }
+  table {
+    width: 100%;
+    > tbody > tr {
+      > td {
+        vertical-align: top;
+        &:first-child {
+          color: @gray-darkest;
+        }
+        &:last-child {
+          color: @gray-darker;
+          padding-left: @padding-small-horizontal;
+        }
+      }
+    }
+  }
+}
+
+// Fixes well group border radius - should be in kit
+.well-group {
+  border-radius: @border-radius-base;
+  > .well {
+    &:first-child {
+      border-top: none;
+      border-top-left-radius: @border-radius-base;
+      border-top-right-radius: @border-radius-base;
+    }
+    &:last-child {
+      border-bottom-left-radius: @border-radius-base;
+      border-bottom-right-radius: @border-radius-base;
+    }
+  }
+}
+
+.well.well-compact {
+  padding: @padding-small-horizontal @padding-base-horizontal;
+}
 
