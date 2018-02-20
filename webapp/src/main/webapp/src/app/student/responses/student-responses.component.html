@@ -28,8 +28,7 @@
                expandableRows="true">
     <p-column field="assessmentItem.position" header="{{'labels.groups.results.assessment.items.cols.number' | translate}}" sortable="true">
       <ng-template let-row="rowData" let-item="rowData.assessmentItem" pTemplate="body">
-        <datatable-row-expander *ngIf="assessment.isInterim" [datatable]="datatable" [row]="row" [text]="item.position"></datatable-row-expander>
-        <p *ngIf="!assessment.isInterim">{{item.position}}</p>
+        <datatable-row-expander [datatable]="datatable" [row]="row" [text]="item.position"></datatable-row-expander>
       </ng-template>
     </p-column>
     <p-column field="assessmentItem.claimTarget" [sortable]="true">
