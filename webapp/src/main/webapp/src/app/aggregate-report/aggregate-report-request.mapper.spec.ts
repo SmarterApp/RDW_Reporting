@@ -139,7 +139,7 @@ describe('AggregateReportRequestMapper', () => {
       completenesses: options.completenesses,
       economicDisadvantages: options.economicDisadvantages,
       ethnicities: options.ethnicities,
-      dimensionTypes: options.dimensionTypes,
+      dimensionTypes: [],
       districts: [],
       genders: options.genders,
       individualEducationPlans: options.individualEducationPlans,

@@ -48,6 +48,7 @@ export class AggregateReportRequestMapper {
       includeState: settings.includeStateResults,
       schoolYears: settings.schoolYears,
       subjectCodes: settings.subjects,
+      dimensionTypes: settings.dimensionTypes,
       valueDisplayType: settings.valueDisplayType,
       columnOrder: settings.columnOrder
     };
@@ -64,9 +65,6 @@ export class AggregateReportRequestMapper {
 
     if (!equalSize(settings.completenesses, options.completenesses)) {
       query.completenessCodes = settings.completenesses;
-    }
-    if (!equalSize(settings.dimensionTypes, options.dimensionTypes)) {
-      query.dimensionTypes = settings.dimensionTypes;
     }
     if (!equalSize(settings.economicDisadvantages, options.economicDisadvantages)) {
       query.economicDisadvantageCodes = settings.economicDisadvantages;
@@ -136,7 +134,7 @@ export class AggregateReportRequestMapper {
             ? options.completenesses
             : query.completenessCodes,
           dimensionTypes: Utils.isNullOrEmpty(query.dimensionTypes)
-            ? options.dimensionTypes
+            ? []
             : query.dimensionTypes,
           districts: districts,
           economicDisadvantages: Utils.isNullOrEmpty(query.economicDisadvantageCodes)
