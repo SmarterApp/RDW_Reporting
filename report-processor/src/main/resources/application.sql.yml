@@ -129,19 +129,85 @@ sql:
         'AssignedAccommodationList'
       union all
       select
-        ${sql.reportProcessor.snippet.exportExams.select}
+        d.natural_id as district_natural_id,
+        d.name as district_name,
+
+        coalesce(s.external_id, '') as school_ncesid,
+        s.natural_id as school_natural_id,
+        s.name as school_name,
+
+        st.ssid as student_ssid,
+        coalesce(st.first_name, '') as student_first_name,
+        coalesce(st.last_or_surname, '') as student_last_name,
+
+        e.completed_at,
+        e.school_year,
+        e.session_id,
+
+        case when at.code = 'sum' then 'Summative' else 'Interim' end,
+        upper(at.code),
+        a.label as asmt_label,
+        su.code as asmt_subject_code,
+
+        e.grade_code,
+        e.completeness_code,
+        e.administration_condition_code,
+
+        coalesce(e.performance_level, ''),
+        coalesce(e.scale_score, ''),
+        coalesce(e.scale_score_std_err, ''),
+
+        coalesce(e.claim1_category, ''),
+        coalesce(e.claim2_category, ''),
+        coalesce(e.claim3_category, ''),
+        coalesce(e.claim4_category, ''),
+
+        coalesce(st.gender_code, '') as student_gender_code,
+
+        (case when e.migrant_status = 1 then 'Yes' when e.migrant_status = 0 then 'No' else '' end),
+        (case when e.section504 = 1 then 'Yes' when e.section504 = 0 then 'No' else '' end),
+        (case when e.iep then 'Yes' else 'No' end),
+        (case when e.economic_disadvantage then 'Yes' else 'No' end),
+        (case when e.lep then 'Yes' else 'No' end),
+
+        (case when exists (select 1 from student_ethnicity where student_id = st.id and ethnicity_code = 'HispanicOrLatinoEthnicity') then 'Yes' else 'No' end ),
+        (case when exists (select 1 from student_ethnicity where student_id = st.id and ethnicity_code = 'AmericanIndianOrAlaskaNative') then 'Yes' else 'No' end ),
+        (case when exists (select 1 from student_ethnicity where student_id = st.id and ethnicity_code = 'Asian') then 'Yes' else 'No' end ),
+        (case when exists (select 1 from student_ethnicity where student_id = st.id and ethnicity_code = 'BlackOrAfricanAmerican') then 'Yes' else 'No' end ),
+        (case when exists (select 1 from student_ethnicity where student_id = st.id and ethnicity_code = 'White') then 'Yes' else 'No' end ),
+        (case when exists (select 1 from student_ethnicity where student_id = st.id and ethnicity_code = 'NativeHawaiianOrOtherPacificIslander') then 'Yes' else 'No' end ),
+        (case when exists (select 1 from student_ethnicity where student_id = st.id and ethnicity_code = 'TwoOrMoreRaces') then 'Yes' else 'No' end ),
+        (case when exists (select 1 from student_ethnicity where student_id = st.id and ethnicity_code = 'Filipino') then 'Yes' else 'No' end ),
+
+        coalesce(e.available_accommodation_codes, '')
       into outfile ::EXPORT_DESTINATION:: :export_location
       fields terminated by ',' optionally enclosed by '"'
       lines terminated by '\n'
-      ${sql.reportProcessor.snippet.exportExams.from}
-      ${sql.reportProcessor.snippet.exportExams.where}
+      from exam e
+        join student st on st.id = e.student_id
+        join asmt a on e.asmt_id = a.id
+        join subject su on su.id = a.subject_id
+        join asmt_type at on at.id = a.type_id
+        join school s on e.school_id = s.id
+        join district d on d.id = s.district_id
+        join school isch on st.inferred_school_id = isch.id
+      where
+        ${sql.reportProcessor.snippet.exportExamsFilter}
+        and ${sql.snippet.studentExamPermission}
 
     hasExams: >-
-      select
-        ${sql.reportProcessor.snippet.exportExams.select}
-      ${sql.reportProcessor.snippet.exportExams.from}
-      ${sql.reportProcessor.snippet.exportExams.where}
-      limit 1
+      select 1
+      from exam e
+        join student st on st.id = e.student_id
+        join asmt a on e.asmt_id = a.id
+        join subject su on su.id = a.subject_id
+        join asmt_type at on at.id = a.type_id
+        join school s on e.school_id = s.id
+        join district d on d.id = s.district_id
+        join school isch on st.inferred_school_id = isch.id
+      where
+        ${sql.reportProcessor.snippet.exportExamsFilter}
+        and ${sql.snippet.studentExamPermission}
 
   student:
     findByExamQueryParamsUnknownPermissions: >-
@@ -199,84 +265,18 @@ sql:
             join school s on e.school_id = s.id
             join school isch on st.inferred_school_id = isch.id
 
-      exportExams:
-        select: >-
-          d.natural_id as district_natural_id,
-          d.name as district_name,
-
-          coalesce(s.external_id, '') as school_ncesid,
-          s.natural_id as school_natural_id,
-          s.name as school_name,
-
-          st.ssid as student_ssid,
-          coalesce(st.first_name, '') as student_first_name,
-          coalesce(st.last_or_surname, '') as student_last_name,
-
-          e.completed_at,
-          e.school_year,
-          e.session_id,
-
-          case when at.code = 'sum' then 'Summative' else 'Interim' end,
-          upper(at.code),
-          a.label as asmt_label,
-          su.code as asmt_subject_code,
-
-          e.grade_code,
-          e.completeness_code,
-          e.administration_condition_code,
-
-          coalesce(e.performance_level, ''),
-          coalesce(e.scale_score, ''),
-          coalesce(e.scale_score_std_err, ''),
-
-          coalesce(e.claim1_category, ''),
-          coalesce(e.claim2_category, ''),
-          coalesce(e.claim3_category, ''),
-          coalesce(e.claim4_category, ''),
-
-          coalesce(st.gender_code, '') as student_gender_code,
-
-          (case when e.migrant_status = 1 then 'Yes' when e.migrant_status = 0 then 'No' else '' end),
-          (case when e.section504 = 1 then 'Yes' when e.section504 = 0 then 'No' else '' end),
-          (case when e.iep then 'Yes' else 'No' end),
-          (case when e.economic_disadvantage then 'Yes' else 'No' end),
-          (case when e.lep then 'Yes' else 'No' end),
-
-          (case when exists (select 1 from student_ethnicity where student_id = st.id and ethnicity_code = 'HispanicOrLatinoEthnicity') then 'Yes' else 'No' end ),
-          (case when exists (select 1 from student_ethnicity where student_id = st.id and ethnicity_code = 'AmericanIndianOrAlaskaNative') then 'Yes' else 'No' end ),
-          (case when exists (select 1 from student_ethnicity where student_id = st.id and ethnicity_code = 'Asian') then 'Yes' else 'No' end ),
-          (case when exists (select 1 from student_ethnicity where student_id = st.id and ethnicity_code = 'BlackOrAfricanAmerican') then 'Yes' else 'No' end ),
-          (case when exists (select 1 from student_ethnicity where student_id = st.id and ethnicity_code = 'White') then 'Yes' else 'No' end ),
-          (case when exists (select 1 from student_ethnicity where student_id = st.id and ethnicity_code = 'NativeHawaiianOrOtherPacificIslander') then 'Yes' else 'No' end ),
-          (case when exists (select 1 from student_ethnicity where student_id = st.id and ethnicity_code = 'TwoOrMoreRaces') then 'Yes' else 'No' end ),
-          (case when exists (select 1 from student_ethnicity where student_id = st.id and ethnicity_code = 'Filipino') then 'Yes' else 'No' end ),
-
-          coalesce(e.available_accommodation_codes, '')
-
-        from: >-
-          from exam e
-            join student st on st.id = e.student_id
-            join asmt a on e.asmt_id = a.id
-            join subject su on su.id = a.subject_id
-            join asmt_type at on at.id = a.type_id
-            join school s on e.school_id = s.id
-            join district d on d.id = s.district_id
-            join school isch on st.inferred_school_id = isch.id
-
-        where: >-
-          where
-            e.school_year = :school_year
-            and
+      exportExamsFilter: >-
+        e.school_year = :school_year
+        and
+        (
+          (
+            s.district_group_id in (:query_district_group_ids) or s.district_id in (:query_district_ids) or s.school_group_id in (:query_school_group_ids) or e.school_id in (:query_school_ids)
+          )
+          or
+          (
+            (1 = :allow_transfer_access and 0 = :disable_transfer_access) and
             (
-              (
-                s.district_group_id in (:query_district_group_ids) or s.district_id in (:query_district_ids) or s.school_group_id in (:query_school_group_ids) or e.school_id in (:query_school_ids)
-              )
-              or
-              (
-                (1 = :allow_transfer_access and 0 = :disable_transfer_access) and
-                (
-                  isch.district_group_id in (:query_district_group_ids) or isch.district_id in (:query_district_ids) or isch.school_group_id in (:query_school_group_ids) or isch.id in (:query_school_ids)
-                )
-              )
+              isch.district_group_id in (:query_district_group_ids) or isch.district_id in (:query_district_ids) or isch.school_group_id in (:query_school_group_ids) or isch.id in (:query_school_ids)
             )
-            and ${sql.snippet.studentExamPermission}
+          )
+        )
