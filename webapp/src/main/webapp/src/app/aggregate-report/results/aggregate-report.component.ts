@@ -146,7 +146,6 @@ export class AggregateReportComponent implements OnDestroy {
 
   private updateViewState(): void {
     let targetViewState: ViewState = this.getTargetViewState();
-
     this.onViewStateChange(this._viewState, targetViewState);
     this._viewState = targetViewState;
   }
