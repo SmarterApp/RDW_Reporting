@@ -4,8 +4,9 @@ import { ImportResult } from "./import-result.model";
 import { FileUploader } from "ng2-file-upload";
 import { TranslateService } from "@ngx-translate/core";
 import { Utils } from "../../../shared/support/support";
+import { AdminServiceRoute } from "../../../shared/service-route";
 
-const URL = '/api/studentGroups/';
+const URL = '/api' + AdminServiceRoute + '/studentGroups';
 
 @Component({
   selector: 'admin',

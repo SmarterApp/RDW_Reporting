@@ -44,7 +44,9 @@
         <p>{{'aggregate-report.error.unsupported-size' | translate}}</p>
         <div>
           <button class="btn btn-danger btn-sm" (click)="onDisplayReportButtonClick()">{{'aggregate-report.display-report' | translate}}</button>
-          <button class="btn btn-default btn-sm" (click)="onDownloadDataButtonClick()">{{'aggregate-report.download-data' | translate}}</button>
+          <button class="btn btn-default btn-sm"
+                  [disabled]="spinnerModal.loading"
+                  (click)="onDownloadDataButtonClick()">{{'aggregate-report.download-data' | translate}}</button>
         </div>
       </div>
     </ng-container>

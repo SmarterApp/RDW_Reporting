@@ -75,7 +75,7 @@ sql:
       order by e.completed_at asc
 
   export:
-    exam: >-
+    exams: >-
       select
         'DistrictId',
         'DistrictName',
@@ -180,7 +180,6 @@ sql:
         (case when exists (select 1 from student_ethnicity where student_id = st.id and ethnicity_code = 'Filipino') then 'Yes' else 'No' end ),
 
         coalesce(e.available_accommodation_codes, '')
-
       into outfile ::EXPORT_DESTINATION:: :export_location
       fields terminated by ',' optionally enclosed by '"'
       lines terminated by '\n'
@@ -193,20 +192,21 @@ sql:
         join district d on d.id = s.district_id
         join school isch on st.inferred_school_id = isch.id
       where
-        e.school_year = :school_year
-        and
-        (
-          (
-            s.district_group_id in (:query_district_group_ids) or s.district_id in (:query_district_ids) or s.school_group_id in (:query_school_group_ids) or e.school_id in (:query_school_ids)
-          )
-          or
-          (
-            (1 = :allow_transfer_access and 0 = :disable_transfer_access) and
-            (
-              isch.district_group_id in (:query_district_group_ids) or isch.district_id in (:query_district_ids) or isch.school_group_id in (:query_school_group_ids) or isch.id in (:query_school_ids)
-            )
-          )
-        )
+        ${sql.reportProcessor.snippet.exportExamsFilter}
+        and ${sql.snippet.studentExamPermission}
+
+    hasExams: >-
+      select 1
+      from exam e
+        join student st on st.id = e.student_id
+        join asmt a on e.asmt_id = a.id
+        join subject su on su.id = a.subject_id
+        join asmt_type at on at.id = a.type_id
+        join school s on e.school_id = s.id
+        join district d on d.id = s.district_id
+        join school isch on st.inferred_school_id = isch.id
+      where
+        ${sql.reportProcessor.snippet.exportExamsFilter}
         and ${sql.snippet.studentExamPermission}
 
   student:
@@ -264,3 +264,19 @@ sql:
             join asmt a on e.asmt_id=a.id
             join school s on e.school_id = s.id
             join school isch on st.inferred_school_id = isch.id
+
+      exportExamsFilter: >-
+        e.school_year = :school_year
+        and
+        (
+          (
+            s.district_group_id in (:query_district_group_ids) or s.district_id in (:query_district_ids) or s.school_group_id in (:query_school_group_ids) or e.school_id in (:query_school_ids)
+          )
+          or
+          (
+            (1 = :allow_transfer_access and 0 = :disable_transfer_access) and
+            (
+              isch.district_group_id in (:query_district_group_ids) or isch.district_id in (:query_district_ids) or isch.school_group_id in (:query_school_group_ids) or isch.id in (:query_school_ids)
+            )
+          )
+        )

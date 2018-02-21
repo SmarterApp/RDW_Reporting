@@ -30,7 +30,7 @@ dependencies {
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-guava'
     compile 'com.google.guava:guava'
     compile 'mysql:mysql-connector-java'
-    compile 'org.apache.commons:commons-io'
+    compile 'commons-io:commons-io'
 
     testCompile project(path: ':rdw-reporting-common', configuration: 'tests')
     testCompile('org.springframework.boot:spring-boot-starter-test') {

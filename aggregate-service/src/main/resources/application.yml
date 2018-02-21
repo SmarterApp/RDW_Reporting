@@ -38,8 +38,8 @@ app:
 
   cache:
     repository:
-      # every day at 1:00 am
-      refresh-cron: "0 0 1 * * *"
+      # every day at 2:00 am (GMT)
+      refresh-cron: "0 0 2 * * *"
 
   state:
     code: CA
