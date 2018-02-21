@@ -15,6 +15,8 @@ import { AggregateReportTableExportService, ExportOptions } from "./aggregate-re
 
 export const SupportedRowCount = 10000;
 
+export const DefaultRowsPerPageOptions = [100, 500, 1000];
+
 const OverallDimensionType: string = 'Overall';
 
 const StateOrdering: Ordering<AggregateReportItem> = ordering(ranking([ OrganizationType.State ]))
@@ -69,6 +71,9 @@ export class AggregateReportTableComponent implements OnInit {
   public treeColumns: number[] = [];
   public performanceLevelTranslationPrefix: string;
   public loading: boolean = true;
+
+  @Input()
+  public rowsPerPageOptions: number[] = DefaultRowsPerPageOptions;
 
   private _previousSortEvent: any;
   private _table: AggregateReportTable;
@@ -413,8 +418,7 @@ export class AggregateReportTableComponent implements OnInit {
   }
 
   private updatePagination() {
-    this._paginationEnabled = !this.preview
-        && this.table
+    this._paginationEnabled = this.table
         && this.table.rows
         && this.resultsTable
         && this.resultsTable.rowsPerPageOptions

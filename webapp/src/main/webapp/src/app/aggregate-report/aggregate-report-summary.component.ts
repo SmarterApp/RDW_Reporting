@@ -6,11 +6,11 @@ import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
 import { AssessmentDefinition } from "./assessment/assessment-definition";
 import { Utils } from "../shared/support/support";
 
-const NarrowColumnProvider: ColumnProvider = (organizationRows, assessmentRows, filterRows, subgroupRows) =>
-  [[organizationRows, assessmentRows], [filterRows, subgroupRows]];
+const NarrowColumnProvider: ColumnProvider = (organization, assessment, subgroup, filter) =>
+  [[organization, assessment], [filter, subgroup]];
 
-const WideColumnProvider: ColumnProvider = (organizationRows, assessmentRows, filterRows, subgroupRows) =>
-  [[organizationRows], [assessmentRows], [filterRows], [subgroupRows]];
+const WideColumnProvider: ColumnProvider = (organization, assessment, subgroup, filter) =>
+  [[organization], [assessment], [filter], [subgroup]];
 
 @Component({
   selector: 'aggregate-report-summary',
@@ -63,7 +63,7 @@ export class AggregateReportSummary {
 
     const {assessmentDefinition, options, settings} = this.summary;
 
-    const equalSize = (a, b) => a.length === b.length;
+    const equalSize = Utils.hasEqualLength;
     const translate = code => this.translate.instant(code);
 
     const All = translate('common.collection-selection.all');
@@ -142,28 +142,49 @@ export class AggregateReportSummary {
       }
     ];
 
-    const filterRows = [
-      {
+    const filterRows = [];
+    if (!equalSize(options.genders, settings.genders)) {
+      filterRows.push({
         label: translate('aggregate-reports.form.field.gender.label'),
         values: inline(orAll(options.genders, settings.genders, code => translate(`common.gender.${code}`)))
-      },
-      {
+      });
+    }
+    if (!equalSize(options.ethnicities, settings.ethnicities)) {
+      filterRows.push({
         label: translate('aggregate-reports.form.field.ethnicity.label'),
-        values: orAll(options.ethnicities, settings.ethnicities, code => translate(`common.ethnicity.${code}`))
-      },
-      {
+          values: orAll(options.ethnicities, settings.ethnicities, code => translate(`common.ethnicity.${code}`))
+      });
+    }
+    if (!equalSize(options.migrantStatuses, settings.migrantStatuses)) {
+      filterRows.push({
         label: translate('aggregate-reports.form.field.migrant-status.label'),
         values: inline(orAll(options.migrantStatuses, settings.migrantStatuses, code => translate(`common.boolean.${code}`)))
-      },
-      {
+      });
+    }
+    if (!equalSize(options.individualEducationPlans, settings.individualEducationPlans)) {
+      filterRows.push({
         label: translate('aggregate-reports.form.field.iep.label'),
         values: inline(orAll(options.individualEducationPlans, settings.individualEducationPlans, code => translate(`common.strict-boolean.${code}`)))
-      },
-      {
+      });
+    }
+    if (!equalSize(options.section504s, settings.section504s)) {
+      filterRows.push({
         label: translate('aggregate-reports.form.field.504.label'),
         values: inline(orAll(options.section504s, settings.section504s, code => translate(`common.boolean.${code}`)))
-      }
-    ];
+      });
+    }
+    if (!equalSize(options.limitedEnglishProficiencies, settings.limitedEnglishProficiencies)) {
+      filterRows.push({
+        label: translate('aggregate-reports.form.field.limited-english-proficiency.label'),
+        values: inline(orAll(options.limitedEnglishProficiencies, settings.limitedEnglishProficiencies, code => translate(`common.boolean.${code}`)))
+      });
+    }
+    if (!equalSize(options.economicDisadvantages, settings.economicDisadvantages)) {
+      filterRows.push({
+        label: translate('aggregate-reports.form.field.economic-disadvantage.label'),
+        values: inline(orAll(options.economicDisadvantages, settings.economicDisadvantages, code => translate(`common.boolean.${code}`)))
+      });
+    }
 
     const subgroupRows = [
       {
@@ -182,12 +203,12 @@ export class AggregateReportSummary {
         rows: assessmentRows
       },
       {
-        label: translate('aggregate-reports.form.section.subgroup-filters.heading'),
-        rows: filterRows
-      },
-      {
         label: translate('aggregate-reports.form.section.comparative-subgroups.heading'),
         rows: subgroupRows
+      },
+      {
+        label: translate('aggregate-reports.form.section.subgroup-filters.heading'),
+        rows: filterRows
       }
     );
   }
@@ -204,7 +225,7 @@ interface Row {
 }
 
 interface ColumnProvider {
-  (organization: Section, assessment: Section, filter: Section, subgroup: Section): Section[][];
+  (organization: Section, assessment: Section, subgroup: Section, filter: Section): Section[][];
 }
 
 export interface AggregateReportRequestSummary {

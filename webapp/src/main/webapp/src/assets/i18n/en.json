@@ -52,7 +52,7 @@
       "empty-message": "No Results Found",
       "performance-group-prompt": "Show performance as",
       "performance-grouped": "Grouped",
-      "performance-separated": "Separate",
+      "performance-separated": "All",
       "cols": {
         "achievement-comparison": "Achievement Comparison",
         "assessment-grade": "Assessment Grade",
@@ -130,15 +130,14 @@
           "info": "Indicates that a student qualifies for free or reduced lunch or meets other state criteria for economic disadvantage."
         },
         "performance-level-display-type": {
-          "label": "Achievement Level Display",
-          "info": "Two options are available:  1) each of the four achievement levels are displayed or 2) Levels 1 and 2 are combined and levels 3 and 4 are combined to show two groups:  Below Standard and At/Above Standard."
+            "label": "Achievement Level Display",
+            "info": "Two options are available:  1) each of the four achievement levels are displayed or 2) Levels 1 and 2 are combined and levels 3 and 4 are combined to show two groups:  Below Standard and At/Above Standard."
         },
         "value-display-type": {
-          "label": "Show Value as"
+            "label": "Show Value as"
         },
         "comparative-subgroup": {
-          "label": "Subgroups",
-          "info": "Select the student sub-groups to display separately in results."
+          "label": "Subgroups"
         },
         "report-name": {
           "label": "Enter a name",
@@ -167,10 +166,12 @@
           "heading": "Assessment Attributes"
         },
         "subgroup-filters": {
-          "heading": "Subgroup Filters"
+          "heading": "Advanced Filters",
+          "subtext": "Refine results by selecting student attributes to filter by."
         },
         "comparative-subgroups": {
-          "heading": "Comparative Subgroups"
+          "heading": "Subgroups",
+          "subtext": "The results will be broken down by the subgroups you select."
         },
         "report-name": {
           "heading": "Report Name"
@@ -245,7 +246,7 @@
     },
     "performance-level-display-type-input-label": "Show achievement levels",
     "performance-level-display-type": {
-      "Separate": "Separate",
+      "Separate": "All",
       "Grouped": "Grouped"
     },
     "organization": {
@@ -359,6 +360,10 @@
         "name": "Mathematics",
         "short-name": "Math"
       }
+    },
+    "completeness": {
+      "Partial": "Partial",
+      "Complete": "Complete"
     },
     "enrolled-grade": {
       "01": "1",
@@ -1614,7 +1619,7 @@
     "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above.",
     "no-writing-trait-scores": "Writing trait scores are not available for assessments administered prior to 2017-18 school year.",
     "no-writing-trait-scores-for-summative-ica-exams": "Writing trait scores are only currently available for IAB assessments.",
-    "no-responses-for-summative-exams": "{{firstName}}'s Responses is not available is not available for summative assessments.",
+    "no-responses-for-summative-exams": "Summative assessment responses are not made available by this system.",
     "noExams": "There are no exams associated with your account.",
     "noExamsMatchingCriteria": "There are no exams matching this criteria.",
     "noExamsSelected": "Please select from the assessments above",

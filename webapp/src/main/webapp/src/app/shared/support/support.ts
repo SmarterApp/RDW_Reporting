@@ -181,4 +181,17 @@ export class Utils {
     return false;
   }
 
+  /**
+   * Returns true if the provided arrays are both defined and of equal length
+   *
+   * @param {any[]} a the first array
+   * @param {any[]} b the second array
+   * @returns {boolean} true if the provided arrays are both defined and of equal length
+   */
+  static hasEqualLength(a: any[], b: any[]) {
+    return a != null
+      && b != null
+      && a.length === b.length;
+  }
+
 }

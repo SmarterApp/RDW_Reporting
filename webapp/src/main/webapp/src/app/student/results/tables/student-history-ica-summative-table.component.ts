@@ -78,7 +78,7 @@ export class StudentHistoryICASummativeTableComponent implements OnInit {
       return this.translateService.instant('labels.menus.responses', this.student);
     };
     menuAction.tooltip = () => {
-      return this.translateService.instant('messages.no-responses-for-summative-exams', this.student);
+      return this.translateService.instant('messages.no-responses-for-summative-exams');
     };
     menuAction.isDisabled = () => {
       return true;

@@ -22,6 +22,8 @@ import { OrderableItem } from "../shared/order-selector/order-selector.component
 import { AggregateReportRequestSummary, AggregateReportSummary } from "./aggregate-report-summary.component";
 import "rxjs/add/observable/interval";
 import "rxjs/add/operator/switchMap";
+import { Subscription } from "rxjs/Subscription";
+import { Utils } from "../shared/support/support";
 
 /**
  * Form control validator that makes sure the control value is not an empty array
@@ -113,12 +115,22 @@ export class AggregateReportFormComponent {
    */
   assessmentDefinitionsByTypeCode: Map<string, AssessmentDefinition>;
 
+  /**
+   * The report request summary view
+   */
   summary: AggregateReportRequestSummary;
 
   /**
    * The current column order
    */
   columnItems: OrderableItem[];
+
+  /**
+   * Determines whether or not the advanced filters section is visible
+   */
+  showAdvancedFilters: boolean = false;
+
+  submissionSubscription: Subscription;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -133,6 +145,7 @@ export class AggregateReportFormComponent {
     this.assessmentDefinitionsByTypeCode = route.snapshot.data[ 'assessmentDefinitionsByAssessmentTypeCode' ];
     this.aggregateReportOptions = route.snapshot.data[ 'options' ];
     this.settings = route.snapshot.data[ 'settings' ];
+    this.showAdvancedFilters = this.hasExplicitAdvancedFilters(this.settings, this.aggregateReportOptions);
 
     this.organizations = this.organizations.concat(this.settings.districts, this.settings.schools);
 
@@ -270,6 +283,10 @@ export class AggregateReportFormComponent {
     this.markOrganizationsControlTouched();
   }
 
+  onAdvancedFiltersExpanderButtonClick(): void {
+    this.showAdvancedFilters = !this.showAdvancedFilters;
+  }
+
   onColumnOrderChange(items: OrderableItem[]): void {
     this.settings.columnOrder = items.map(item => item.value);
   }
@@ -332,7 +349,11 @@ export class AggregateReportFormComponent {
    */
   onGenerateButtonClick(): void {
     this.validate(this.formGroup, () => {
-      this.reportService.createReport(this.createReportRequest())
+      this.submissionSubscription = this.reportService.createReport(this.createReportRequest())
+        .finally(() => {
+          this.submissionSubscription.unsubscribe();
+          this.submissionSubscription = undefined;
+        })
         .subscribe(
           resource => {
             this.router.navigate([ resource.id ], { relativeTo: this.route });
@@ -342,6 +363,28 @@ export class AggregateReportFormComponent {
           }
         );
     });
+  }
+
+  /**
+   * Reloads the report preview based on current form state
+   */
+  onSettingsChange() {
+
+    const assessmentDefinition = this.currentAssessmentDefinition;
+
+    this.summary = {
+      assessmentDefinition: assessmentDefinition,
+      options: this.aggregateReportOptions,
+      settings: this.settings
+    };
+
+    // TODO this table should be lazily updated when it is scrolled into view. There is serious lag when changing settings above
+    this.previewTable = {
+      assessmentDefinition: assessmentDefinition,
+      options: this.aggregateReportOptions,
+      rows: this.tableDataService.createSampleData(assessmentDefinition, this.settings)
+    };
+
   }
 
   /**
@@ -379,25 +422,19 @@ export class AggregateReportFormComponent {
   }
 
   /**
-   * Reloads the report preview based on current form state
+   * @param {AggregateReportFormSettings} settings
+   * @param {AggregateReportOptions} options
+   * @returns {boolean} True if the provided settings have explicitly set advanced filters that deviate from the defaults
    */
-  onSettingsChange() {
-
-    const assessmentDefinition = this.currentAssessmentDefinition;
-
-    this.summary = {
-      assessmentDefinition: assessmentDefinition,
-      options: this.aggregateReportOptions,
-      settings: this.settings
-    };
-
-    // TODO this table should be lazily updated when it is scrolled into view. There is serious lag when changing settings above
-    this.previewTable = {
-      assessmentDefinition: assessmentDefinition,
-      options: this.aggregateReportOptions,
-      rows: this.tableDataService.createSampleData(assessmentDefinition, this.settings)
-    };
-
+  private hasExplicitAdvancedFilters(settings: AggregateReportFormSettings, options: AggregateReportOptions): boolean {
+    const hasDifferentLength = (a: any[], b:any[]) => !Utils.hasEqualLength(a, b);
+    return hasDifferentLength(settings.genders, options.genders)
+      || hasDifferentLength(settings.ethnicities, options.ethnicities)
+      || hasDifferentLength(settings.migrantStatuses, options.migrantStatuses)
+      || hasDifferentLength(settings.individualEducationPlans, options.individualEducationPlans)
+      || hasDifferentLength(settings.section504s, options.section504s)
+      || hasDifferentLength(settings.limitedEnglishProficiencies, options.limitedEnglishProficiencies)
+      || hasDifferentLength(settings.economicDisadvantages, options.economicDisadvantages);
   }
 
 }

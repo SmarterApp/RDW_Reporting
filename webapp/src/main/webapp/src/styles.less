@@ -659,11 +659,28 @@ aggregate-report-results {
 }
 
 aggregate-report-form {
-  .well-group .well {
-    padding-bottom: 20px;
-  }
-  .well-group > .well:not(:first-child) {
+  .well-group > .well {
     box-shadow: none;
+    padding-bottom: 20px;
+    &:not(:first-child) {
+      box-shadow: none;
+    }
+    &:first-child {
+      padding: 15px 20px;
+      h3 {
+        .h4;
+        color: @gray-darkest;
+        margin: 0;
+        + .subtext {
+          font-size: @font-size-small;
+          color: @gray-darker;
+          margin-top: @padding-small-horizontal;
+        }
+        + .label {
+          margin-top: @padding-small-horizontal;
+        }
+      }
+    }
   }
   .nested-btn-group {
     margin-bottom: 0;
@@ -730,19 +747,12 @@ aggregate-report-organization-list {
     color: @gray-darker;
     padding-bottom: @padding-base-vertical;
   }
-  table {
-    width: 100%;
-    > tbody > tr {
-      > td {
-        vertical-align: top;
-        &:first-child {
-          color: @gray-darkest;
-        }
-        &:last-child {
-          color: @gray-darker;
-          padding-left: @padding-small-horizontal;
-        }
-      }
+  .row > div {
+    &:first-child {
+      color: @gray-darkest;
+    }
+    &:last-child {
+      color: @gray-darker;
     }
   }
 }
@@ -750,7 +760,7 @@ aggregate-report-organization-list {
 // Fixes well group border radius - should be in kit
 .well-group {
   border-radius: @border-radius-base;
-  > .well {
+  .well {
     &:first-child {
       border-top: none;
       border-top-left-radius: @border-radius-base;
@@ -765,5 +775,11 @@ aggregate-report-organization-list {
 
 .well.well-compact {
   padding: @padding-small-horizontal @padding-base-horizontal;
+}
+
+@media (max-width: @screen-sm-max) {
+  scroll-nav {
+    display: none;
+  }
 }
 

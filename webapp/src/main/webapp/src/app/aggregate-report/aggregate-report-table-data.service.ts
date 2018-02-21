@@ -6,6 +6,7 @@ import { AggregateReportItem, Dimension } from "./results/aggregate-report-item"
 import { Utils } from "../shared/support/support";
 import { TranslateService } from "@ngx-translate/core";
 import { DimensionConfigurationByType } from "./dimension-configuration";
+import { DefaultRowsPerPageOptions } from "./results/aggregate-report-table.component";
 
 const MaximumOrganizations = 2;
 const OverallDimension: Dimension = { id: 'Overall', type: 'Overall' };

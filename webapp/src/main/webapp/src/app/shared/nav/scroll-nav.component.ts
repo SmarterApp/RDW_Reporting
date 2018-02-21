@@ -49,9 +49,7 @@ export class ScrollNavComponent {
   }
 
   onItemClickInternal(item: ScrollNavItem): void {
-    if (item.scrollTo) {
-      item.scrollTo.scrollIntoView();
-    }
+    this.activeItem = item;
     if (item.click) {
       item.click();
     }
@@ -63,6 +61,11 @@ export class ScrollNavComponent {
   }
 
   private updateActiveLink(): void {
+
+    // Sets the first item to active if the window scroll is zero
+    if (this._window.scrollY <= 0) {
+      this._activeItem = this.items[ 0 ];
+    }
 
     // Sets the last item to active if the user scrolls to the very bottom of the page
     if ((this._window.innerHeight + this._window.scrollY) >= this._document.body.offsetHeight) {
@@ -78,7 +81,7 @@ export class ScrollNavComponent {
     this.items
       .filter(item => item.scrollTo && document.getElementById(item.scrollTo.id))
       .forEach(item => {
-        const itemOffsetTop = Utils.getAbsoluteOffsetTop(item.scrollTo) - Utils.getHeight(item.scrollTo);
+        const itemOffsetTop = Utils.getAbsoluteOffsetTop(item.scrollTo);
         if (itemOffsetTop <= scrollTop) {
           this._activeItem = item;
         } else {

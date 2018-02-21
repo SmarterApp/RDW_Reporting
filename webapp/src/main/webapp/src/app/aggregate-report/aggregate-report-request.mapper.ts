@@ -10,6 +10,8 @@ import { District, OrganizationType, School } from "../shared/organization/organ
 import { Utils } from "../shared/support/support";
 import { AggregateReportOrganizationService } from "./aggregate-report-organization.service";
 import { DefaultColumnOrder } from "./aggregate-report-options.mapper";
+import { ranking } from "@kourge/ordering/comparator";
+import { ordering } from "@kourge/ordering";
 
 const equalSize = (a: any[], b: any[]) => a.length === b.length;
 const idsOf = values => values.map(value => value.id);
@@ -124,59 +126,75 @@ export class AggregateReportRequestMapper {
       ? this.organizationService.getOrganizationsByIdAndType(OrganizationType.District, districtIds)
       : Observable.of([]);
 
+    // Returns the first argument that is not null or undefined
+    const or = (a: any, b: any) => Utils.isNullOrEmpty(a) ? b : a;
+
+    // Safely sorts the provided values ranked by the provided options
+    const sort = (values: any[], options: any[]) => (values || []).sort(ordering(ranking(options)).compare);
+
     return Observable.forkJoin(schools, districts)
       .map((results) => {
         const [ schools, districts ] = results;
         return <AggregateReportFormSettings>{
           assessmentType: query.assessmentTypeCode,
-          assessmentGrades: query.assessmentGradeCodes,
-          completenesses: Utils.isNullOrEmpty(query.completenessCodes)
-            ? options.completenesses
-            : query.completenessCodes,
-          dimensionTypes: Utils.isNullOrEmpty(query.dimensionTypes)
-            ? []
-            : query.dimensionTypes,
+          assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
+          completenesses: or(
+            sort(query.completenessCodes, options.completenesses),
+            options.completenesses
+          ),
+          dimensionTypes: or(
+            sort(query.dimensionTypes, options.dimensionTypes),
+            []
+          ),
           districts: districts,
-          economicDisadvantages: Utils.isNullOrEmpty(query.economicDisadvantageCodes)
-            ? options.economicDisadvantages
-            : query.economicDisadvantageCodes,
-          ethnicities: Utils.isNullOrEmpty(query.ethnicityCodes)
-            ? options.ethnicities
-            : query.ethnicityCodes,
-          genders: Utils.isNullOrEmpty(query.genderCodes)
-            ? options.genders
-            : query.genderCodes,
+          economicDisadvantages: or(
+            sort(query.economicDisadvantageCodes, options.economicDisadvantages),
+            options.economicDisadvantages
+          ),
+          ethnicities: or(
+            sort(query.ethnicityCodes, options.ethnicities),
+            options.ethnicities
+          ),
+          genders: or(
+            sort(query.genderCodes, options.genders),
+            options.genders
+          ),
           includeAllDistricts: query.includeAllDistricts,
           includeAllDistrictsOfSelectedSchools: query.includeAllDistrictsOfSchools,
           includeAllSchoolsOfSelectedDistricts: query.includeAllSchoolsOfDistricts,
           includeStateResults: query.includeState,
-          individualEducationPlans: Utils.isNullOrEmpty(query.iepCodes)
-            ? options.individualEducationPlans
-            : query.iepCodes,
+          individualEducationPlans: or(
+            sort(query.iepCodes, options.individualEducationPlans),
+            options.individualEducationPlans
+          ),
           interimAdministrationConditions: !queryInterimAdministrationConditions.length
             ? options.interimAdministrationConditions
             : queryInterimAdministrationConditions,
-          limitedEnglishProficiencies: Utils.isNullOrEmpty(query.lepCodes)
-            ? options.individualEducationPlans
-            : query.lepCodes,
-          migrantStatuses: Utils.isNullOrEmpty(query.migrantStatusCodes)
-            ? options.migrantStatuses
-            : query.migrantStatusCodes,
+          limitedEnglishProficiencies: or(
+            sort(query.lepCodes, options.individualEducationPlans),
+            options.individualEducationPlans
+          ),
+          migrantStatuses: or(
+            sort(query.migrantStatusCodes, options.migrantStatuses),
+            options.migrantStatuses
+          ),
           name: request.name,
           performanceLevelDisplayType: query.achievementLevelDisplayType,
-          section504s: Utils.isNullOrEmpty(query.section504Codes)
-            ? options.section504s
-            : query.section504Codes,
+          section504s: or(
+            sort(query.section504Codes, options.section504s),
+            options.section504s
+          ),
           summativeAdministrationConditions: !querySummativeAdministrationConditions.length
             ? options.summativeAdministrationConditions
             : querySummativeAdministrationConditions,
-          schoolYears: query.schoolYears,
+          schoolYears: query.schoolYears.sort((a, b) => b - a),
           schools: schools,
-          subjects: query.subjectCodes,
+          subjects: sort(query.subjectCodes, options.subjects),
           valueDisplayType: query.valueDisplayType,
-          columnOrder: Utils.isNullOrEmpty(request.reportQuery.columnOrder)
-            ? DefaultColumnOrder
-            : request.reportQuery.columnOrder
+          columnOrder: or(
+            request.reportQuery.columnOrder,
+            DefaultColumnOrder
+          )
         };
       });
   }
