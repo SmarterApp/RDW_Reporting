@@ -210,10 +210,12 @@
       "none": "None"
     },
     "completeness": {
-      "label": "Completeness",
-      "info": "A test is considered complete when the student provides an answer for every question.",
       "Partial": "Partial",
       "Complete": "Complete"
+    },
+    "completeness-form-control": {
+      "label": "Completeness",
+      "info": "A test is considered complete when the student provides an answer for every question."
     },
     "copy-suffix": "(copy)",
     "export": "Export",

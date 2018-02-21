@@ -137,7 +137,7 @@ export class AggregateReportSummary {
           }
       ],
       {
-        label: translate('common.completeness.label'),
+        label: translate('common.completeness-form-control.label'),
         values: settings.completenesses.map(code => translate(`common.completeness.${code}`))
       }
     ];
