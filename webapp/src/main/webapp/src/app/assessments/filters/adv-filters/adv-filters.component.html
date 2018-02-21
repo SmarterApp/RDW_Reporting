@@ -69,8 +69,8 @@
       <div class="block-children">
         <label>
           <span info-button
-                title="{{ translateRoot + 'status.completion' | translate }}"
-                content="{{ translateRoot + 'status.completion-info' | translate }}"></span>
+                title="{{ 'common.completeness.label' | translate }}"
+                content="{{ 'common.completeness.info' | translate }}"></span>
         </label>
         <sb-radio-button-list [model]="filterBy" [values]="['Complete','Partial']" property="completion" enum="enum.completeness"
                               label="{{ translateRoot + 'status.completion' | translate }}"

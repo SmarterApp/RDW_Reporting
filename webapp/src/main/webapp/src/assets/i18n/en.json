@@ -86,10 +86,6 @@
         "assessment-type": {
           "label": "Assessment Type"
         },
-        "completeness": {
-          "label": "Completeness",
-          "info": "A test is considered complete when the student provides an answer for every question."
-        },
         "interim-administration-condition": {
           "label": "Manner of Administration",
           "info": "For interim assessments, a Standardized administration follows the same protocols and security procedures as a summative test administration. For a Non Standardized administration, the teacher may use the assessment during instruction and interact with students as they complete the assessment."
@@ -218,6 +214,12 @@
     "collection-selection": {
       "all": "All",
       "none": "None"
+    },
+    "completeness": {
+      "label": "Completeness",
+      "info": "A test is considered complete when the student provides an answer for every question.",
+      "Partial": "Partial",
+      "Complete": "Complete"
     },
     "copy-suffix": "(copy)",
     "export": "Export",
@@ -357,10 +359,6 @@
         "name": "Mathematics",
         "short-name": "Math"
       }
-    },
-    "completeness": {
-      "Partial": "Partial",
-      "Complete": "Complete"
     },
     "enrolled-grade": {
       "01": "1",
@@ -1033,8 +1031,6 @@
       "status": {
         "administration": "Manner of Administration (Interim)",
         "administration-info": "For interim assessments, a Standardized administration follows the same protocols and security procedures as a summative test administration. For a Non Standardized administration, the teacher may use the assessment during instruction and interact with students as they complete the assessment.",
-        "completion": "Completeness",
-        "completion-info": "A test is considered complete when the student provides an answer for every question.",
         "label": "Status",
         "summative": "Valid/Invalid (Summative)",
         "summative-info": "For summative assessments, a test is noted as invalid if an appeal is submitted  to invalidate the test due to a test irregularity or breach.  "
