@@ -53,9 +53,10 @@ export class DataService {
    * @returns {Observable<R>}
    */
   put(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
-    return this.http
-      .put(`${this.contextUrl}${url}`, body, options)
-      .map(this.getMapper(options));
+    let observable: Observable<any> = this.http
+      .put(`${this.contextUrl}${url}`, body, options);
+    if (options) observable = observable.map(this.getMapper(options));
+    return observable;
   }
 
   /**
