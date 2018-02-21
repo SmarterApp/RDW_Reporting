@@ -1450,7 +1450,7 @@
       },
       "form": {
         "accommodations": {
-          "info": "This feature allows student reports that may be shared with colleges and universities or other external organizations to be printed without reference to accommodations.",
+          "info": "This feature allows student reports that may be shared with colleges and universities or other external organizations to be printed without reference to accommodations made available to the student.",
           "title": "Student Accommodations"
         },
         "assessment-type": "Assessment Type",
