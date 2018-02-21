@@ -198,7 +198,11 @@ export class AggregateReportComponent implements OnDestroy {
   }
 
   private loadReport(): void {
+    this.spinnerModal.loading = true;
     this.reportService.getAggregateReport(this.report.id)
+      .finally(() => {
+        this.spinnerModal.loading = false;
+      })
       .subscribe(rows => this.initializeReportTables(rows));
   }
 
