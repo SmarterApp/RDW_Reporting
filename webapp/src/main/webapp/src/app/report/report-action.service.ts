@@ -116,9 +116,9 @@ class DefaultActionProvider implements ActionProvider {
     }
     return [
       {
-        icon: 'fa-cloud-download',
         type: ActionType.Download,
-        value: report.id
+        value: report.id,
+        labelKey: 'labels.reports.report-actions.download-report'
       }
     ];
   }
