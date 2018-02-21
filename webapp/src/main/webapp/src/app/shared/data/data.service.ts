@@ -88,7 +88,7 @@ export class DataService {
     }
     return response => {
       const contentLength = response.headers.get("content-length");
-      if (!contentLength)
+      if (contentLength == null || Number.parseInt(contentLength) > 0)
         return response.json();
       return null;
     }
