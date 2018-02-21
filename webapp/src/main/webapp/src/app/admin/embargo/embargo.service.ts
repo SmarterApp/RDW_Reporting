@@ -5,6 +5,7 @@ import { isUndefined } from "util";
 import { EmbargoScope } from "./embargo-scope.enum";
 import { OrganizationType } from "./organization-type.enum";
 import { DataService } from "../../shared/data/data.service";
+import { ResponseContentType } from "@angular/http";
 
 const ResourceContext = '/admin-service/embargoes';
 
@@ -46,7 +47,8 @@ export class EmbargoService {
   update(embargo: Embargo, scope: EmbargoScope, value: boolean): Observable<Object> {
     return this.dataService.put(
       `${ResourceContext}/${embargo.organization.type}/${embargo.organization.id ? embargo.organization.id : -1}/${scope}`,
-      String(value)
+      String(value),
+      { responseType: ResponseContentType.Text }
     );
   }
 

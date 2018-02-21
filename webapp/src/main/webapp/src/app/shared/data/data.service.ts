@@ -53,10 +53,9 @@ export class DataService {
    * @returns {Observable<R>}
    */
   put(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
-    let observable: Observable<any> = this.http
-      .put(`${this.contextUrl}${url}`, body, options);
-    if (options) observable = observable.map(this.getMapper(options));
-    return observable;
+    return this.http
+      .put(`${this.contextUrl}${url}`, body, options)
+      .map(this.getMapper(options));
   }
 
   /**
@@ -88,7 +87,11 @@ export class DataService {
         new Blob([ response.blob() ], { type: this.getContentType(response) })
       );
     }
-    return response => response.json();
+    return response => {
+      const contentType = response.headers.has("content-type");
+      if (contentType)
+        return response.json();
+    }
   }
 
   /**
