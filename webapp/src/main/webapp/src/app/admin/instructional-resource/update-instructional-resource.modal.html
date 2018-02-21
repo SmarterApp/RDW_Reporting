@@ -21,7 +21,10 @@
           <span class="col-xs-8 text-overflow-ellipsis" title="{{resource.assessmentName}}">{{resource.assessmentName}}</span>
         </div>
         <div class="form-group row">
-          <label class="col-xs-4 control-label">{{'labels.instructional-resource.cols.organization-name' | translate}}</label>
+          <label class="col-xs-4 control-label">
+            <info-button title="{{'labels.instructional-resource.cols.organization-name' | translate}}"
+                         content="{{'labels.instructional-resource.cols.organization-name-info' | translate}}"></info-button>
+          </label>
           <span class="col-xs-8 text-overflow-ellipsis" title="{{resource.organizationName}}">{{resource.organizationName}}</span>
         </div>
         <div class="form-group row">

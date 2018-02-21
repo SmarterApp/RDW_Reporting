@@ -1310,9 +1310,10 @@
       },
       "cols": {
         "assessment-label": "Assessment Label(s)",
-        "assessment-name": "Assessment Name",
+        "assessment-name": "System Name",
         "organization-name": "Organization",
-        "organization-type": "Organization Type",
+        "organization-name-info": "Instructional Resources can be bound to a State, Group of Districts, District, or Group of Schools.",
+        "organization-type": "Type",
         "performance-level": "Performance Level",
         "resource": "URL"
       },
@@ -1330,14 +1331,14 @@
       },
       "filter": "Search by Assessment/Organization",
       "form": {
-        "assessment-label": "Assessment Label",
-        "organization-name": "Organization Name",
+        "assessment-label": "Search for an Assessment",
+        "organization-name": "Search for a State, Group of Districts, District, or Group of Schools",
         "field": {
           "assessment": {
-            "placeholder": "Search Assessment Label"
+            "placeholder": "Enter name"
           },
           "organization": {
-            "placeholder": "Search Organization Name"
+            "placeholder": "Enter name"
           },
           "resource": {
             "placeholder": "Enter URL",

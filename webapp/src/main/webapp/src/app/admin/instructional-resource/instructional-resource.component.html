@@ -1,7 +1,7 @@
 <div class="mb-md">
   <span class="h3 blue-dark">{{'labels.instructional-resource.title' | translate}}</span>
   <div class="pull-right">
-    <span class="btn btn-primary mr-xs" (click)="openCreateResourceModal()"><i class="fa fa-cloud-upload"></i> {{'prompt.create' | translate}}</span>
+    <span class="btn btn-primary mr-xs" (click)="openCreateResourceModal()"><i class="fa fa-plus"></i> {{'prompt.create' | translate}}</span>
   </div>
 </div>
 
@@ -27,7 +27,12 @@
           {{ ('labels.instructional-resource.organizations.type.' + type) | translate }}
         </ng-template>
       </p-column>
-      <p-column field="organizationName" header="{{'labels.instructional-resource.cols.organization-name' | translate}}" [sortable]="true"></p-column>
+      <p-column field="organizationName" [sortable]="true">
+        <ng-template pTemplate="header">
+          <info-button title="{{'labels.instructional-resource.cols.organization-name' | translate}}"
+                       content="{{'labels.instructional-resource.cols.organization-name-info' | translate}}"></info-button>
+        </ng-template>
+      </p-column>
       <p-column field="performanceLevel" header="{{'labels.instructional-resource.cols.performance-level' | translate}}" [sortable]="true">
         <ng-template let-assessmentType="rowData.assessmentType" let-performanceLevel="rowData.performanceLevel" pTemplate="body">
           <span *ngIf="performanceLevel == 0">{{ 'labels.instructional-resource.assessments.performance-levels.all' | translate }}</span>
