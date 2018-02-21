@@ -88,6 +88,8 @@ export class DataService {
     }
     return response => {
       const contentLength = response.headers.get("content-length");
+      // content-length is 0 when there is no response body and is optional otherwise
+      // response.json() throws an exception when content-length is 0
       if (contentLength == null || Number.parseInt(contentLength) > 0)
         return response.json();
       return null;
