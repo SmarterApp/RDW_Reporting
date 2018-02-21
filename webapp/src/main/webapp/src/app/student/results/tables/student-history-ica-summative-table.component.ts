@@ -75,14 +75,14 @@ export class StudentHistoryICASummativeTableComponent implements OnInit {
   private createSummativeActions(): PopupMenuAction[] {
     const menuAction: PopupMenuAction = new PopupMenuAction();
     menuAction.displayName = () => {
-      return this.translateService.instant('labels.groups.results.assessment.items.title');
+      return this.translateService.instant('labels.menus.responses', this.student);
     };
     menuAction.tooltip = () => {
-      return this.translateService.instant('messages.no-results-by-item-for-summative-exams');
+      return this.translateService.instant('messages.no-responses-for-summative-exams', this.student);
     };
     menuAction.isDisabled = () => {
       return true;
     };
-    return [menuAction];
+    return [ menuAction ];
   }
 }
