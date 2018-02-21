@@ -88,9 +88,10 @@ export class DataService {
       );
     }
     return response => {
-      const contentType = response.headers.has("content-type");
-      if (contentType)
+      const contentLength = response.headers.get("content-length");
+      if (!contentLength)
         return response.json();
+      return null;
     }
   }
 
