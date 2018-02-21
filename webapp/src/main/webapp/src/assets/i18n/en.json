@@ -1310,9 +1310,10 @@
       },
       "cols": {
         "assessment-label": "Assessment Label(s)",
-        "assessment-name": "Assessment Name",
+        "assessment-name": "System Name",
         "organization-name": "Organization",
-        "organization-type": "Organization Type",
+        "organization-name-info": "Instructional Resources can be bound to a State, Group of Districts, District, or Group of Schools.",
+        "organization-type": "Type",
         "performance-level": "Performance Level",
         "resource": "URL"
       },
@@ -1330,14 +1331,14 @@
       },
       "filter": "Search by Assessment/Organization",
       "form": {
-        "assessment-label": "Assessment Label",
-        "organization-name": "Organization Name",
+        "assessment-label": "Search for an Assessment",
+        "organization-name": "Search for a State, Group of Districts, District, or Group of Schools",
         "field": {
           "assessment": {
-            "placeholder": "Search Assessment Label"
+            "placeholder": "Enter name"
           },
           "organization": {
-            "placeholder": "Search Organization Name"
+            "placeholder": "Enter name"
           },
           "resource": {
             "placeholder": "Enter URL",
@@ -1450,7 +1451,7 @@
       },
       "form": {
         "accommodations": {
-          "info": "This feature allows student reports that may be shared with colleges and universities or other external organizations to be printed without reference to accommodations.",
+          "info": "This feature allows student reports that may be shared with colleges and universities or other external organizations to be printed without reference to accommodations made available to the student.",
           "title": "Student Accommodations"
         },
         "assessment-type": "Assessment Type",
@@ -1617,6 +1618,7 @@
     "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above.",
     "no-writing-trait-scores": "Writing trait scores are not available for assessments administered prior to 2017-18 school year.",
     "no-writing-trait-scores-for-summative-ica-exams": "Writing trait scores are only currently available for IAB assessments.",
+    "no-responses-for-summative-exams": "{{firstName}}'s Responses is not available is not available for summative assessments.",
     "noExams": "There are no exams associated with your account.",
     "noExamsMatchingCriteria": "There are no exams matching this criteria.",
     "noExamsSelected": "Please select from the assessments above",

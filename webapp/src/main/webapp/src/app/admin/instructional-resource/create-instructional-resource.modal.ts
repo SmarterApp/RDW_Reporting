@@ -1,5 +1,5 @@
 import { BsModalRef } from "ngx-bootstrap";
-import { Component, EventEmitter } from "@angular/core";
+import { Component, EventEmitter, OnDestroy } from "@angular/core";
 import { InstructionalResource } from "./model/instructional-resource.model";
 import { InstructionalResourceService } from "./instructional-resource.service";
 import { Assessment } from "./model/assessment.model";
@@ -11,6 +11,8 @@ import { Organization } from "./model/organization.model";
 import { OrganizationService } from "./organization.service";
 import { OrganizationQuery } from "./model/organization-query.model";
 import { ValidationErrors } from "@angular/forms";
+import { Subscription } from "rxjs/Subscription";
+import { NavigationStart, Router } from "@angular/router";
 
 /**
  * This modal component displays an instructional resource creation form.
@@ -19,7 +21,7 @@ import { ValidationErrors } from "@angular/forms";
   selector: 'create-instructional-resource-modal',
   templateUrl: './create-instructional-resource.modal.html'
 })
-export class CreateInstructionalResourceModal {
+export class CreateInstructionalResourceModal implements OnDestroy {
 
   existingResources: InstructionalResource[] = [];
   unableToCreate: boolean = false;
@@ -43,10 +45,13 @@ export class CreateInstructionalResourceModal {
 
   resourceUrl: string;
 
+  private _subscription: Subscription;
+
   constructor(private modal: BsModalRef,
               private assessmentService: AssessmentService,
               private organizationService: OrganizationService,
-              private resourceService: InstructionalResourceService) {
+              private resourceService: InstructionalResourceService,
+              private router: Router) {
 
     this.assessmentSource = Observable.create((observer: any) => {
       observer.next(this.assessmentSearch);
@@ -55,6 +60,14 @@ export class CreateInstructionalResourceModal {
     this.organizationSource = Observable.create((observer: any) => {
       observer.next(this.organizationSearch);
     }).mergeMap((token: string) => this.findOrganizations(token));
+
+    this._subscription = router.events.filter(e => e instanceof NavigationStart).subscribe(() => {
+      this.cancel();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
   }
 
   cancel() {

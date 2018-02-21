@@ -26,8 +26,7 @@ import { Utils } from "../support/support";
       </button>
       <ul *ngIf="open" class="dropdown-menu" role="menu">
         <li *ngFor="let action of actions"
-            role="menuitem"
-            [ngClass]="{'dropdown-submenu': getSubActions(action).length}">
+            role="menuitem">
           <ng-container *ngTemplateOutlet="actionTemplate;context:{action: action}"></ng-container>
         </li>
       </ul>
@@ -39,7 +38,10 @@ import { Utils } from "../support/support";
          placement="right"
          container="body"
          [attr.title]="action.displayName( item )"
-         [ngClass]="{disabled: action.isDisabled(item)}"
+         [ngClass]="{
+             disabled: action.isDisabled(item),
+             'dropdown-submenu': getSubActions(action).length
+         }"
          (click)="action.isDisabled(item) || onMenuClick($event, action)">
         <i *ngIf="isSubActionsLoading(action)" class="fa fa-spinner fa-pulse fa-fw"></i>
         {{action.displayName( item )}}

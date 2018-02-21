@@ -13,94 +13,84 @@
     <div *ngIf="duplicateResource" class="alert alert-danger">
       {{ 'labels.instructional-resource.create.duplicate' | translate }}
     </div>
-    <form class="form-horizontal">
+    <form>
       <fieldset>
-        <div class="form-group row mb-xs">
-          <label for="assessment-label" class="col-xs-4 control-label">{{'labels.instructional-resource.cols.assessment-label' | translate}}</label>
-          <div class="col-xs-8 pl-0">
-            <input class="form-control"
-                   id="assessment-label"
-                   name="assessment-label"
-                   [typeahead]="assessmentSource"
-                   (typeaheadLoading)="assessmentLoading = $event"
-                   (typeaheadNoResults)="assessmentNoResults = $event"
-                   (typeaheadOnSelect)="onAssessmentSelect($event.item)"
-                   [typeaheadMinLength]="3"
-                   [(ngModel)]="assessmentSearch"
-                   [typeaheadItemTemplate]="assessmentTemplate"
-                   typeaheadOptionField="label"
-                   placeholder="{{'labels.instructional-resource.form.field.assessment.placeholder' | translate}}">
-            <div>
-              <span [hidden]="!assessmentLoading"><i class="fa fa-spinner fa-pulse"></i></span>
-              <span [hidden]="!assessmentNoResults" class="text-info">{{'labels.instructional-resource.assessments.no-results' | translate}}</span>
-            </div>
+        <div class="form-group mb-xs">
+          <label for="assessment-label" class="control-label">{{'labels.instructional-resource.form.assessment-label' | translate}}</label>
+          <input class="form-control"
+                 id="assessment-label"
+                 name="assessment-label"
+                 [typeahead]="assessmentSource"
+                 (typeaheadLoading)="assessmentLoading = $event"
+                 (typeaheadNoResults)="assessmentNoResults = $event"
+                 (typeaheadOnSelect)="onAssessmentSelect($event.item)"
+                 [typeaheadMinLength]="3"
+                 [(ngModel)]="assessmentSearch"
+                 [typeaheadItemTemplate]="assessmentTemplate"
+                 typeaheadOptionField="label"
+                 placeholder="{{'labels.instructional-resource.form.field.assessment.placeholder' | translate}}">
+          <div>
+            <span [hidden]="!assessmentLoading"><i class="fa fa-spinner fa-pulse"></i></span>
+            <span [hidden]="!assessmentNoResults" class="text-info">{{'labels.instructional-resource.assessments.no-results' | translate}}</span>
           </div>
         </div>
-        <div class="form-group row mb-xs">
-          <label class="col-xs-4 control-label">{{'labels.instructional-resource.cols.assessment-name' | translate}}</label>
-          <span *ngIf="assessment" class="col-xs-8 text-overflow-ellipsis pl-md" title="{{assessment.name}}">{{assessment.name}}</span>
+        <div class="mb-xs" *ngIf="assessment">
+          <span class="label label-default">{{'labels.instructional-resource.cols.assessment-name' | translate}}</span>
+          <span class="text-overflow-ellipsis small" title="{{assessment.name}}">{{assessment.name}}</span>
         </div>
-        <div class="form-group row mb-xs">
-          <label for="organization-name" class="col-xs-4 control-label">{{'labels.instructional-resource.form.organization-name' | translate}}</label>
-          <div class="col-xs-8 pl-0">
-            <input class="form-control"
-                   id="organization-name"
-                   name="organization-name"
-                   [typeahead]="organizationSource"
-                   (typeaheadLoading)="organizationLoading = $event"
-                   (typeaheadNoResults)="organizationNoResults = $event"
-                   (typeaheadOnSelect)="onOrganizationSelect($event.item)"
-                   [typeaheadMinLength]="3"
-                   [(ngModel)]="organizationSearch"
-                   [typeaheadItemTemplate]="organizationTemplate"
-                   typeaheadOptionField="name"
-                   placeholder="{{'labels.instructional-resource.form.field.organization.placeholder' | translate}}">
-            <div>
-              <span [hidden]="!organizationLoading"><i class="fa fa-spinner fa-pulse"></i></span>
-              <span [hidden]="!organizationNoResults"class="text-info">{{'labels.instructional-resource.organizations.no-results' | translate}}</span>
-            </div>
+        <div class="form-group mb-xs">
+          <label for="organization-name" class="control-label">{{'labels.instructional-resource.form.organization-name' | translate}}</label>
+          <input class="form-control"
+                 id="organization-name"
+                 name="organization-name"
+                 [typeahead]="organizationSource"
+                 (typeaheadLoading)="organizationLoading = $event"
+                 (typeaheadNoResults)="organizationNoResults = $event"
+                 (typeaheadOnSelect)="onOrganizationSelect($event.item)"
+                 [typeaheadMinLength]="3"
+                 [(ngModel)]="organizationSearch"
+                 [typeaheadItemTemplate]="organizationTemplate"
+                 typeaheadOptionField="name"
+                 placeholder="{{'labels.instructional-resource.form.field.organization.placeholder' | translate}}">
+          <div>
+            <span [hidden]="!organizationLoading"><i class="fa fa-spinner fa-pulse"></i></span>
+            <span [hidden]="!organizationNoResults"class="text-info">{{'labels.instructional-resource.organizations.no-results' | translate}}</span>
           </div>
         </div>
-        <div class="form-group row mb-xs">
-          <label class="col-xs-4 control-label">{{'labels.instructional-resource.cols.organization-type' | translate}}</label>
-          <span *ngIf="organization" class="col-xs-8 text-overflow-ellipsis">{{ ('labels.instructional-resource.organizations.type.' + organization.organizationType) | translate }}</span>
+        <div class="mb-xs" *ngIf="organization">
+          <span class="label label-default">{{'labels.instructional-resource.cols.organization-type' | translate}}</span>
+          <span class="text-overflow-ellipsis small">{{ ('labels.instructional-resource.organizations.type.' + organization.organizationType) | translate }}</span>
         </div>
-        <div class="form-group row mb-xs">
-          <label for="performance-level" class="col-xs-4 control-label">{{'labels.instructional-resource.cols.performance-level' | translate}}</label>
-          <div class="col-xs-8 pl-0">
-            <select id="performance-level"
-                    name="performance-level"
-                    class="form-control"
-                    [(ngModel)]="performanceLevel"
-                    (change)="onPerformanceLevelSelect()"
-                    [disabled]="!assessment" >
-              <option disabled [ngValue]="-1">{{'prompt.select' | translate}}</option>
-              <option *ngIf="assessment" [ngValue]="0">{{'labels.instructional-resource.assessments.performance-levels.all' | translate}}</option>
-              <option *ngFor="let performanceLevel of performanceLevels" [ngValue]="performanceLevel">{{ ('labels.instructional-resource.assessments.performance-levels.' + assessment.type + '.' + performanceLevel) | translate }}</option>
-            </select>
-          </div>
+        <div class="form-group mb-xs">
+          <label for="performance-level" class="control-label">{{'labels.instructional-resource.cols.performance-level' | translate}}</label>
+          <select id="performance-level"
+                  name="performance-level"
+                  class="form-control"
+                  [(ngModel)]="performanceLevel"
+                  (change)="onPerformanceLevelSelect()"
+                  [disabled]="!assessment" >
+            <option disabled [ngValue]="-1">{{'prompt.select' | translate}}</option>
+            <option *ngIf="assessment" [ngValue]="0">{{'labels.instructional-resource.assessments.performance-levels.all' | translate}}</option>
+            <option *ngFor="let performanceLevel of performanceLevels" [ngValue]="performanceLevel">{{ ('labels.instructional-resource.assessments.performance-levels.' + assessment.type + '.' + performanceLevel) | translate }}</option>
+          </select>
         </div>
-        <div class="form-group row mb-xs"
+        <div class="form-group"
              [ngClass]="{'has-error': resource.invalid && (resource.dirty || resource.touched)}">
-          <label for="resource" class="col-xs-4 control-label">{{'labels.instructional-resource.cols.resource' | translate}}</label>
-          <div class="col-xs-8 pl-0">
-            <input id="resource"
-                   name="resource"
-                   class="form-control"
-                   #resource="ngModel"
-                   placeholder="{{'labels.instructional-resource.form.field.resource.placeholder' | translate}}"
-                   [(ngModel)]="resourceUrl"
-                   pattern="https?://.+"
-                   required>
-            <div *ngIf="resource.invalid && (resource.dirty || resource.touched)">
-              <p *ngIf="resource.errors.pattern"
-                 class="help-block small red">{{'labels.instructional-resource.form.field.resource.error.pattern' | translate}}</p>
-              <p *ngIf="!resource.errors.pattern && resource.errors.required"
-                 class="help-block small red">{{'labels.instructional-resource.form.field.resource.error.required' | translate}}</p>
-            </div>
+          <label for="resource" class="control-label">{{'labels.instructional-resource.cols.resource' | translate}}</label>
+          <input id="resource"
+                 name="resource"
+                 class="form-control"
+                 #resource="ngModel"
+                 placeholder="{{'labels.instructional-resource.form.field.resource.placeholder' | translate}}"
+                 [(ngModel)]="resourceUrl"
+                 pattern="https?://.+"
+                 required>
+          <div *ngIf="resource.invalid && (resource.dirty || resource.touched)">
+            <p *ngIf="resource.errors.pattern"
+               class="help-block small red">{{'labels.instructional-resource.form.field.resource.error.pattern' | translate}}</p>
+            <p *ngIf="!resource.errors.pattern && resource.errors.required"
+               class="help-block small red">{{'labels.instructional-resource.form.field.resource.error.required' | translate}}</p>
           </div>
-
-
         </div>
       </fieldset>
     </form>

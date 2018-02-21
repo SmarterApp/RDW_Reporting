@@ -71,7 +71,6 @@ export class DataService {
       .map(this.getMapper(options));
   }
 
-
   /**
    * Resolves which mapper to use when mapping HTTP responses from the API server.
    * If the response type is {ResponseContentType.Blob} a {Download} mapper will be returned.

@@ -6,7 +6,8 @@
      aria-hidden="true"
      (onShow)="onShowInternal($event)">
 
-  <div class="modal-dialog modal-md">
+  <div *ngIf="modal.isShown"
+       class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title pull-left">{{title}}</h4>

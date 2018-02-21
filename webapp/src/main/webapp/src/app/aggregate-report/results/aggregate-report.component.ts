@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ReportService } from "../../report/report.service";
 import { Report } from "../../report/report.model";
@@ -17,7 +17,6 @@ import { saveAs } from "file-saver";
 import { DisplayOptionService } from "../../shared/display-options/display-option.service";
 import { TranslateService } from "@ngx-translate/core";
 import { AggregateReportRequestMapper } from "../aggregate-report-request.mapper";
-import { AggregateReportFormSettings } from "../aggregate-report-form-settings";
 import { SpinnerModal } from "../../shared/loading/spinner.modal";
 import "rxjs/add/operator/finally";
 import { OrderableItem } from "../../shared/order-selector/order-selector.component";
@@ -35,7 +34,7 @@ const PollingInterval = 4000;
   selector: 'aggregate-report',
   templateUrl: 'aggregate-report.component.html',
 })
-export class AggregateReportComponent implements OnInit, OnDestroy {
+export class AggregateReportComponent implements OnDestroy {
 
   @ViewChild('spinnerModal')
   spinnerModal: SpinnerModal;
@@ -51,6 +50,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   private _pollingSubscription: Subscription;
   private _displayLargeReport: boolean = false;
   private _displayOptions: AggregateReportTableDisplayOptions;
+  private _viewState: ViewState;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -77,6 +77,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
         options: this.options,
         settings: settings
       });
+    this.updateViewState();
   }
 
   get displayOptions(): AggregateReportTableDisplayOptions {
@@ -87,40 +88,20 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     return this.report.request.reportQuery;
   }
 
-  get viewState(): ViewState {
-    if (this.report.processing) {
-      return ViewState.ReportProcessing;
-    }
-    if (!this.report.loadable) {
-      return ViewState.ReportNotLoadable;
-    }
-    if (!this.isSupportedSize(this.report) && !this._displayLargeReport) {
-      return ViewState.ReportSizeNotSupported;
-    }
-    if (!Utils.isUndefined(this.reportTables) || this._displayLargeReport) {
-      return ViewState.ReportView;
-    }
-    return ViewState.ReportProcessing;
-  }
-
   get reportProcessing(): boolean {
-    return this.viewState === ViewState.ReportProcessing;
+    return this._viewState === ViewState.ReportProcessing;
   }
 
   get reportNotLoadable(): boolean {
-    return this.viewState === ViewState.ReportNotLoadable;
+    return this._viewState === ViewState.ReportNotLoadable;
   }
 
   get reportSizeNotSupported(): boolean {
-    return this.viewState === ViewState.ReportSizeNotSupported;
+    return this._viewState === ViewState.ReportSizeNotSupported;
   }
 
   get reportView(): boolean {
-    return this.viewState === ViewState.ReportView;
-  }
-
-  ngOnInit(): void {
-    this.loadOrPollReport();
+    return this._viewState === ViewState.ReportView;
   }
 
   ngOnDestroy(): void {
@@ -137,7 +118,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
 
   onDisplayReportButtonClick(): void {
     this._displayLargeReport = true;
-    this.loadReport();
+    this.updateViewState();
   }
 
   onDownloadDataButtonClick(): void {
@@ -163,11 +144,41 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     tableView.columnOrdering = items.map(item => item.value);
   }
 
-  private loadOrPollReport(): void {
+  private updateViewState(): void {
+    let targetViewState: ViewState = this.getTargetViewState();
+    this.onViewStateChange(this._viewState, targetViewState);
+    this._viewState = targetViewState;
+  }
+
+  private getTargetViewState(): ViewState {
+    if (this.report.processing) {
+      return ViewState.ReportProcessing;
+    }
+    if (!this.report.loadable) {
+      return ViewState.ReportNotLoadable;
+    }
+    if (!this.isSupportedSize(this.report) && !this._displayLargeReport) {
+      return ViewState.ReportSizeNotSupported;
+    }
     if (this.report.completed) {
-      this.loadReport();
-    } else if (this.report.processing) {
+      return ViewState.ReportView;
+    }
+    return ViewState.ReportProcessing;
+  }
+
+  private onViewStateChange(oldState: ViewState, newState: ViewState) {
+    if (oldState == newState) {
+      return;
+    }
+
+    if (oldState == ViewState.ReportProcessing) {
+      this.unsubscribe();
+    }
+    if (newState == ViewState.ReportProcessing) {
       this.pollReport();
+    }
+    if (newState == ViewState.ReportView) {
+      this.loadReport();
     }
   }
 
@@ -175,13 +186,8 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     this._pollingSubscription = Observable.interval(PollingInterval)
       .switchMap(() => this.reportService.getReportById(this.report.id))
       .subscribe(report => {
-        if (!report.processing) {
-          this.unsubscribe();
-        }
-        if (report.completed) {
-          this.loadReport();
-        }
         this.report = report;
+        this.updateViewState();
       });
   }
 
