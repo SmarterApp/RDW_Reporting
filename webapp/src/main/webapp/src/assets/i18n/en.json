@@ -129,13 +129,6 @@
           "label": "Economic Disadvantage",
           "info": "Indicates that a student qualifies for free or reduced lunch or meets other state criteria for economic disadvantage."
         },
-        "performance-level-display-type": {
-            "label": "Achievement Level Display",
-            "info": "Two options are available:  1) each of the four achievement levels are displayed or 2) Levels 1 and 2 are combined and levels 3 and 4 are combined to show two groups:  Below Standard and At/Above Standard."
-        },
-        "value-display-type": {
-            "label": "Show Value as"
-        },
         "comparative-subgroup": {
           "label": "Subgroups"
         },
