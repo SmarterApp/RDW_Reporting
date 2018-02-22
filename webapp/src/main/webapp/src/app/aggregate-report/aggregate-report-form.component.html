@@ -40,7 +40,8 @@
       ]">
       <button class="btn btn-success btn-sm green ml-sm mt-xs"
               [disabled]="submissionSubscription"
-              (click)="onGenerateButtonClick()">{{'aggregate-reports.form.submit' | translate}}</button>
+              (click)="onGenerateButtonClick()">{{'aggregate-reports.form.submit' | translate}}
+      </button>
     </scroll-nav>
   </div>
 
@@ -77,7 +78,8 @@
                        formControlName="organizations"
                        (ngModelChange)="onSettingsChange()">
                 <div *ngIf="showErrors(organizationsControl)">
-                  <p *ngIf="organizationsControl.errors.invalid" class="help-block small red">{{organizationsControl.errors.invalid.messageId | translate}}</p>
+                  <p *ngIf="organizationsControl.errors.invalid" class="help-block small red">
+                    {{organizationsControl.errors.invalid.messageId | translate}}</p>
                 </div>
               </div>
             </div>
@@ -160,11 +162,11 @@
               <div class="col-md-6">
                 <span class="gray-darker" *ngIf="options.assessmentTypes.length == 1">{{options.assessmentTypes[0].text}}</span>
                 <sb-radio-button-group *ngIf="options.assessmentTypes.length > 1"
-                           name="assessmentType"
-                           [options]="options.assessmentTypes"
-                           [(ngModel)]="settings.assessmentType"
-                           [ngModelOptions]="{standalone: true}"
-                           (change)="onSettingsChange()"></sb-radio-button-group>
+                                       name="assessmentType"
+                                       [options]="options.assessmentTypes"
+                                       [(ngModel)]="settings.assessmentType"
+                                       [ngModelOptions]="{standalone: true}"
+                                       (change)="onSettingsChange()"></sb-radio-button-group>
               </div>
             </div>
           </div>
@@ -210,7 +212,8 @@
                                      [allOptionAnalyticsProperties]="{label: 'Assessment Grade: All'}"
                                      (change)="onSettingsChange()"></sb-checkbox-group>
                   <div *ngIf="showErrors(assessmentGradesControl)">
-                    <p *ngIf="assessmentGradesControl.errors.notEmpty" class="help-block small red">{{assessmentGradesControl.errors.notEmpty.messageId | translate}}</p>
+                    <p *ngIf="assessmentGradesControl.errors.notEmpty" class="help-block small red">
+                      {{assessmentGradesControl.errors.notEmpty.messageId | translate}}</p>
                   </div>
                 </div>
               </div>
@@ -238,7 +241,8 @@
                                      [allOptionAnalyticsProperties]="{label: 'Academic Year: All'}"
                                      (change)="onSettingsChange()"></sb-checkbox-group>
                   <div *ngIf="showErrors(schoolYearsControl)">
-                    <p *ngIf="schoolYearsControl.errors.notEmpty" class="help-block small red">{{schoolYearsControl.errors.notEmpty.messageId | translate}}</p>
+                    <p *ngIf="schoolYearsControl.errors.notEmpty" class="help-block small red">
+                      {{schoolYearsControl.errors.notEmpty.messageId | translate}}</p>
                   </div>
                 </div>
 
@@ -519,7 +523,8 @@
                          [required]="false"
                          placeholder="{{'aggregate-reports.default-report-name' | translate}}">
                   <div *ngIf="showErrors(reportNameControl)">
-                    <p *ngIf="reportNameControl.errors.fileName" class="help-block small red">{{reportNameControl.errors.fileName.messageId | translate}}</p>
+                    <p *ngIf="reportNameControl.errors.fileName" class="help-block small red">
+                      {{reportNameControl.errors.fileName.messageId | translate}}</p>
                   </div>
                 </div>
               </div>
@@ -568,24 +573,27 @@
                 <order-selector [items]="columnItems"
                                 (itemsChange)="onColumnOrderChange($event)"></order-selector>
               </span>
-              <span class="pull-right flex-child ml-xs">
-                <label class="mr-xs">{{'common.value-display-type-input-label' | translate}}</label>
-                <sb-radio-button-group [options]="options.valueDisplayTypes"
-                                       [(ngModel)]="settings.valueDisplayType"
-                                       buttonGroupStyles="btn-group-xs"
-                                       buttonStyles="btn-default"
-                                       analyticsCategory="AggregateQueryBuilder"
-                                       analyticsEvent="Change"></sb-radio-button-group>
-              </span>
-              <span class="pull-right flex-child ml-xs">
-                <label class="mr-xs">{{'common.performance-level-display-type-input-label' | translate}}</label>
-                <sb-radio-button-group [options]="options.performanceLevelDisplayTypes"
-                                       [(ngModel)]="settings.performanceLevelDisplayType"
-                                       buttonGroupStyles="btn-group-xs"
-                                       buttonStyles="btn-default"
-                                       analyticsCategory="AggregateQueryBuilder"
-                                       analyticsEvent="Change"></sb-radio-button-group>
-              </span>
+              <div class="pull-right flex-child">
+                <span>
+                  <label class="mr-xs">{{'common.value-display-type-input-label' | translate}}</label>
+                  <sb-radio-button-group [options]="options.valueDisplayTypes"
+                                         [(ngModel)]="settings.valueDisplayType"
+                                         buttonGroupStyles="btn-group-xs"
+                                         buttonStyles="btn-default"
+                                         analyticsCategory="AggregateQueryBuilder"
+                                         analyticsEvent="Change"></sb-radio-button-group>
+                </span>
+
+                <span class="ml-xs">
+                  <label class="mr-xs">{{'common.performance-level-display-type-input-label' | translate}}</label>
+                  <sb-radio-button-group [options]="options.performanceLevelDisplayTypes"
+                                         [(ngModel)]="settings.performanceLevelDisplayType"
+                                         buttonGroupStyles="btn-group-xs"
+                                         buttonStyles="btn-default"
+                                         analyticsCategory="AggregateQueryBuilder"
+                                         analyticsEvent="Change"></sb-radio-button-group>
+                </span>
+              </div>
             </div>
             <div class="clearfix"></div>
           </div>
