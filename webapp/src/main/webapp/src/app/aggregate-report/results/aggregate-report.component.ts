@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ReportService } from "../../report/report.service";
 import { Report } from "../../report/report.model";
@@ -34,7 +34,7 @@ const PollingInterval = 4000;
   selector: 'aggregate-report',
   templateUrl: 'aggregate-report.component.html',
 })
-export class AggregateReportComponent implements OnDestroy {
+export class AggregateReportComponent implements OnInit, OnDestroy {
 
   @ViewChild('spinnerModal')
   spinnerModal: SpinnerModal;
@@ -77,7 +77,6 @@ export class AggregateReportComponent implements OnDestroy {
         options: this.options,
         settings: settings
       });
-    this.updateViewState();
   }
 
   get displayOptions(): AggregateReportTableDisplayOptions {
@@ -102,6 +101,10 @@ export class AggregateReportComponent implements OnDestroy {
 
   get reportView(): boolean {
     return this._viewState === ViewState.ReportView;
+  }
+
+  ngOnInit(): void {
+    this.updateViewState();
   }
 
   ngOnDestroy(): void {
