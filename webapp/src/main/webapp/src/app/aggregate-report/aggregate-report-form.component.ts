@@ -378,9 +378,6 @@ export class AggregateReportFormComponent {
       settings: this.settings
     };
 
-    // set include state results to false when summative fields are disabled
-    this.summary.settings.includeStateResults = this.summary.settings.includeStateResults && !this.summativeFieldsDisabled;
-
     // TODO this table should be lazily updated when it is scrolled into view. There is serious lag when changing settings above
     this.previewTable = {
       assessmentDefinition: assessmentDefinition,

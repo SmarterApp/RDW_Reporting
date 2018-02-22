@@ -47,7 +47,8 @@ export class AggregateReportRequestMapper {
       includeAllDistricts: settings.includeAllDistricts,
       includeAllDistrictsOfSchools: settings.includeAllDistrictsOfSelectedSchools,
       includeAllSchoolsOfDistricts: settings.includeAllSchoolsOfSelectedDistricts,
-      includeState: settings.includeStateResults,
+      // includeState is false whenever the aggregate report request is for non-summative assessments
+      includeState: settings.includeStateResults && settings.assessmentType == 'sum',
       schoolYears: settings.schoolYears,
       subjectCodes: settings.subjects,
       dimensionTypes: settings.dimensionTypes,
