@@ -64,7 +64,7 @@
         "students-tested": "Students Tested",
         "performance-level-suffix": "Standard",
         "grouped-performance-level-prefix": {
-          "0": "At or Below",
+          "0": "Below",
           "1": "At or Above"
         }
       }
@@ -160,7 +160,7 @@
         },
         "subgroup-filters": {
           "heading": "Advanced Filters",
-          "subtext": "Refine results by selecting student attributes to filter by."
+          "subtext": "Use this feature to include only selected student sub-groups, e.g. only male Hispanic students."
         },
         "comparative-subgroups": {
           "heading": "Subgroups",
@@ -1610,7 +1610,7 @@
     "no-results-by-item-for-summative-exams": "Results by item is not available for summative assessments.",
     "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above.",
     "no-writing-trait-scores": "Writing trait scores are not available for assessments administered prior to 2017-18 school year.",
-    "no-writing-trait-scores-for-summative-ica-exams": "Writing trait scores are only currently available for IAB assessments.",
+    "no-writing-trait-scores-for-summative-ica-exams": "Writing trait scores are currently available for only ELA Performance Task IABs.",
     "no-responses-for-summative-exams": "Summative assessment responses are not made available by this system.",
     "noExams": "There are no exams associated with your account.",
     "noExamsMatchingCriteria": "There are no exams matching this criteria.",
