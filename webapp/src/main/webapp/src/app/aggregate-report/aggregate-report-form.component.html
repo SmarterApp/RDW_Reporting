@@ -93,6 +93,8 @@
                     <div class="col-sm-6">
                       <label class="inline-label">
                         <input type="checkbox"
+                               [disabled]="summativeFieldsDisabled"
+                               [checked]="!summativeFieldsDisabled"
                                [(ngModel)]="settings.includeStateResults"
                                [ngModelOptions]="{standalone: true}"
                                (change)="onIncludeStateResultsChange()">
