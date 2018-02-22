@@ -16,7 +16,10 @@
     <form>
       <fieldset>
         <div class="form-group mb-xs">
-          <label for="assessment-label" class="control-label">{{'labels.instructional-resource.form.assessment-label' | translate}}</label>
+          <label for="assessment-label" class="control-label">
+            {{'labels.instructional-resource.form.assessment-label' | translate}}
+          </label>
+          <span [hidden]="!assessmentLoading"><i class="fa fa-spinner fa-pulse"></i></span>
           <input class="form-control"
                  id="assessment-label"
                  name="assessment-label"
@@ -30,8 +33,10 @@
                  typeaheadOptionField="label"
                  placeholder="{{'labels.instructional-resource.form.field.assessment.placeholder' | translate}}">
           <div>
-            <span [hidden]="!assessmentLoading"><i class="fa fa-spinner fa-pulse"></i></span>
-            <span [hidden]="!assessmentNoResults" class="text-info">{{'labels.instructional-resource.assessments.no-results' | translate}}</span>
+            <span [hidden]="!assessmentNoResults"
+                  class="text-info">
+              {{'labels.instructional-resource.assessments.no-results' | translate}}
+            </span>
           </div>
         </div>
         <div class="mb-xs" *ngIf="assessment">
@@ -40,6 +45,7 @@
         </div>
         <div class="form-group mb-xs">
           <label for="organization-name" class="control-label">{{'labels.instructional-resource.form.organization-name' | translate}}</label>
+          <span [hidden]="!organizationLoading"><i class="fa fa-spinner fa-pulse"></i></span>
           <input class="form-control"
                  id="organization-name"
                  name="organization-name"
@@ -53,8 +59,10 @@
                  typeaheadOptionField="name"
                  placeholder="{{'labels.instructional-resource.form.field.organization.placeholder' | translate}}">
           <div>
-            <span [hidden]="!organizationLoading"><i class="fa fa-spinner fa-pulse"></i></span>
-            <span [hidden]="!organizationNoResults"class="text-info">{{'labels.instructional-resource.organizations.no-results' | translate}}</span>
+            <span [hidden]="!organizationNoResults"
+                  class="text-info">
+              {{'labels.instructional-resource.organizations.no-results' | translate}}
+            </span>
           </div>
         </div>
         <div class="mb-xs" *ngIf="organization">
