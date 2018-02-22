@@ -353,10 +353,6 @@
         "short-name": "Math"
       }
     },
-    "completeness": {
-      "Partial": "Partial",
-      "Complete": "Complete"
-    },
     "enrolled-grade": {
       "01": "1",
       "02": "2",
