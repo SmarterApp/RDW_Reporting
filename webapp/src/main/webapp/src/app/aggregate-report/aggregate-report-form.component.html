@@ -354,12 +354,12 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="well-group">
           <div class="well">
-            <div class="row">
-              <div class="col-sm-6">
+            <div class="flex-children">
+              <div class="flex-child grow">
                 <h3>{{'aggregate-reports.form.section.subgroup-filters.heading' | translate}}</h3>
                 <p class="text-muted small">{{'aggregate-reports.form.section.subgroup-filters.subtext' | translate}}</p>
               </div>
-              <div class="col-sm-6">
+              <div class="flex-child">
                 <button class="btn btn-default btn-sm icon-only pull-right"
                         (click)="onAdvancedFiltersExpanderButtonClick()">
                   <i class="fa" [ngClass]="showAdvancedFilters ? 'fa-angle-up' : 'fa-angle-down'"></i>
