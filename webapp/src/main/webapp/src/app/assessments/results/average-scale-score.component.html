@@ -50,7 +50,7 @@
           </div>
           <div class="level-down scale-score-graph rounded blend-middle gray-lightest grid-item">
             <div class="bar-container">
-              <div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="colorService.getPerformanceLevelColor(assessmentExam.assessment, i)"
+              <div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="colorService.getPerformanceLevelColor(assessmentExam.assessment, performanceLevels.length - i)"
                    [attr.data-width]="filledLevel(performanceLevel)"></div>
               <div *ngIf="filledLevel(performanceLevel) < 100" class="bar gray"
                    [attr.data-width]="unfilledLevel(performanceLevel)">

@@ -13,9 +13,9 @@ const Colors: string[] = [
 ];
 
 const Pallets: any[] = [
-  [ 'aqua', 'blue-dark aqua', 'blue-dark' ],
-  [ 'blue-dark', 'green-dark', 'gray-darkest', 'maroon' ],
-  [ 'blue-dark', 'green-dark', 'gray-darkest', 'maroon' ],
+  [ 'blue-dark', 'blue-dark aqua', 'aqua' ],
+  [ 'maroon', 'gray-darkest', 'green-dark', 'blue-dark' ],
+  [ 'maroon', 'gray-darkest', 'green-dark', 'blue-dark' ],
 ];
 
 const PerformanceLevelColorsByAssessmentType: Map<AssessmentType, string[]> = new Map([
@@ -47,16 +47,23 @@ export class ColorService {
   }
 
   /**
-   * Retrieves the color for the performance level (0-based)
+   * Retrieves the color for the performance level (1-based)
    *
    * @param {Assessment} assessment
-   * @param {number} performanceLevel (0-based)
+   * @param {number} performanceLevel (1-based)
    * @returns {string} the class of the color
    */
   getPerformanceLevelColor(assessment: Assessment, performanceLevel: number): string {
-    return PerformanceLevelColorsByAssessmentType.get(assessment.type)[ performanceLevel ];
+    return PerformanceLevelColorsByAssessmentType.get(assessment.type)[ performanceLevel - 1 ];
   }
 
+  /**
+   * Retrieves the color for the performance level (1-based)
+   *
+   * @param {string} assessment type (ica, iab, sum)
+   * @param {number} performanceLevel (1-based)
+   * @returns {string} the class of the color
+   */
   getPerformanceLevelColorsByAssessmentTypeCode(code: string, performanceLevel: number): string {
     return PerformanceLevelColorsByAssessmentTypeCode.get(code)[ performanceLevel - 1 ];
   }
