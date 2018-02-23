@@ -30,7 +30,7 @@
     <div class="col-md-7">
       <strong>{{ 'labels.assessments.student-score-distribution.title' | translate }}</strong>
       <div class="well">
-        <div *ngFor="let performanceLevel of performanceLevels.reverse(); let i = index" class="score-distribution-container">
+        <div *ngFor="let performanceLevel of performanceLevels; let i = index" class="score-distribution-container">
           <div class="text-right gray-lighter grid-item">
             {{ examLevelEnum + performanceLevel.id.toString() | translate }}
             <button *ngIf="assessmentExam.assessment.isIab"

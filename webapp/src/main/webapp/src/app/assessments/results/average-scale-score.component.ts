@@ -24,6 +24,8 @@ export class AverageScaleScoreComponent {
 
   @Input()
   set statistics(value: ExamStatistics) {
+    value.percents = value.percents.reverse();
+    value.levels = value.levels.reverse();
     this._statistics = value;
 
     if (value && value.levels) {
