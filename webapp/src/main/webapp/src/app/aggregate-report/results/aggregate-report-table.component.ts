@@ -419,10 +419,20 @@ export class AggregateReportTableComponent implements OnInit {
       .on((item: AggregateReportItem) => `${item.dimension.type}.${item.dimension.code}`)
       .compare;
 
+    // Attempt to sort based upon the enrolled grade code as a number ("01", "02", "KG", "UG", etc)
+    // If the code cannot be parsed as a number, the order is undefined
+    // TODO we should have a specific ordering for all grade codes, although the system only currently uses "03" - "12"
     const enrolledGradeComparator: Comparator<AggregateReportItem> = ordering(byNumber)
-      .on((item: AggregateReportItem) => item.dimension.type == 'StudentEnrolledGrade'
-        ? parseInt(item.dimension.code)
-        : -1)
+      .on((item: AggregateReportItem) => {
+        if (item.dimension.type != 'StudentEnrolledGrade') {
+          return -1;
+        }
+        try {
+          return parseInt(item.dimension.code);
+        } catch (error) {
+          return 1;
+        }
+      })
       .compare;
 
     return ordering(join(
