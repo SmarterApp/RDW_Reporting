@@ -13,6 +13,10 @@ export class Assessment {
   claimCodes: string[];
   cutPoints: number[];
 
+  get typeCode(): string {
+    return Utils.toAssessmentTypeCode(this.type);
+  }
+
   get assessmentSubjectType(): AssessmentSubjectType {
     return AssessmentSubjectType[this.subject];
   }
