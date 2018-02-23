@@ -140,32 +140,11 @@ export class AggregateReportTableComponent implements OnInit {
       const assessmentGradeOrdering = ordering(ranking(options.assessmentGrades))
         .on((item: AggregateReportItem) => item.assessmentGradeCode);
 
-      const dimensionOptionsByDimensionType = {
-        Gender: options.genders,
-        Ethnicity: options.ethnicities,
-        LEP: options.limitedEnglishProficiencies,
-        MigrantStatus: options.migrantStatuses,
-        Section504: options.migrantStatuses,
-        IEP: options.individualEducationPlans,
-        EconomicDisadvantage: options.economicDisadvantages,
-        StudentEnrolledGrade: options.assessmentGrades
-      };
-
-      const dimensionTypeAndCodeRanking = table.options.dimensionTypes.reduce((ranking, dimensionType) => {
-        return ranking.concat(
-          (dimensionOptionsByDimensionType[ dimensionType ] || []).map(dimensionCode => `${dimensionType}.${dimensionCode}`)
-        );
-      }, []);
-
-      const dimensionOrdering = ordering(ranking(
-        [OverallDimensionType, ...dimensionTypeAndCodeRanking]
-      )).on((item: AggregateReportItem) => `${item.dimension.type}.${item.dimension.code}`);
-
       this._districtNamesById = this.getDistrictNamesById(value.rows);
       this._orderingByColumnField['organization.name'] = this.createOrganizationOrdering();
       this._orderingByColumnField['assessmentGradeCode'] = assessmentGradeOrdering;
       this._orderingByColumnField['schoolYear'] = SchoolYearOrdering;
-      this._orderingByColumnField['dimension.id'] = dimensionOrdering;
+      this._orderingByColumnField['dimension.id'] = this.createDimensionOrdering(options);
       this._table = table;
       this.updatePagination();
 
@@ -415,6 +394,40 @@ export class AggregateReportTableComponent implements OnInit {
       DistrictOrdering.compare,
       SchoolOrdering.compare
     ));
+  }
+
+  private createDimensionOrdering(options: AggregateReportOptions): Ordering<AggregateReportItem> {
+    const dimensionOptionsByDimensionType = {
+      Gender: options.genders,
+      Ethnicity: options.ethnicities,
+      LEP: options.limitedEnglishProficiencies,
+      MigrantStatus: options.migrantStatuses,
+      Section504: options.migrantStatuses,
+      IEP: options.individualEducationPlans,
+      EconomicDisadvantage: options.economicDisadvantages
+    };
+
+    const dimensionTypeAndCodeRankingValues = options.dimensionTypes.reduce((ranking, dimensionType) => {
+      return ranking.concat(
+        (dimensionOptionsByDimensionType[ dimensionType ] || []).map(dimensionCode => `${dimensionType}.${dimensionCode}`)
+      );
+    }, []);
+
+    const dimensionTypeAndCodeComparator: Comparator<AggregateReportItem> = ordering(ranking(
+      [OverallDimensionType, ...dimensionTypeAndCodeRankingValues]
+    ))
+      .on((item: AggregateReportItem) => `${item.dimension.type}.${item.dimension.code}`)
+      .compare;
+
+    const enrolledGradeComparator: Comparator<AggregateReportItem> = ordering(byNumber)
+      .on((item: AggregateReportItem) => item.dimension.type == 'StudentEnrolledGrade'
+        ? parseInt(item.dimension.code)
+        : -1)
+      .compare;
+
+    return ordering(join(
+      dimensionTypeAndCodeComparator,
+      enrolledGradeComparator));
   }
 
   private updatePagination() {
