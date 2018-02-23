@@ -1,3 +1,6 @@
+import { AssessmentSubjectType } from "../enum/assessment-subject-type.enum";
+import { AssessmentType } from "../enum/assessment-type.enum";
+
 export class Utils {
 
   static getPropertyValue(propertyPath: string, object: any): any {
@@ -192,6 +195,24 @@ export class Utils {
     return a != null
       && b != null
       && a.length === b.length;
+  }
+
+  // TODO stop using subject/assessment type enums. use codes instead.
+
+  static toServerSubjectEnum(code: string): string {
+    return { 'Math': 'MATH', 'ELA': 'ELA' }[ code ];
+  }
+
+  static toSubjectCode(subject: AssessmentSubjectType): string {
+    return [ undefined, 'Math', 'ELA' ][ subject ];
+  }
+
+  static toServerAssessmentTypeEnum(code: string): string {
+    return { 'ica': 'ICA', 'iab': 'IAB', 'sum': 'SUMMATIVE' }[ code ];
+  }
+
+  static toAssessmentTypeCode(assessmentType: AssessmentType): string {
+    return [ undefined, 'ica', 'iab', 'sum' ][ assessmentType ];
   }
 
 }

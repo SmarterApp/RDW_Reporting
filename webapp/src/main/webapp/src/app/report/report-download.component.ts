@@ -1,7 +1,5 @@
 import { EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { ReportOptions } from "./report-options.model";
-import { AssessmentType } from "../shared/enum/assessment-type.enum";
-import { AssessmentSubjectType } from "../shared/enum/assessment-subject-type.enum";
 import { NotificationService } from "../shared/notification/notification.service";
 import { ReportOrder } from "./report-order.enum";
 import { ModalDirective } from "ngx-bootstrap";
@@ -28,7 +26,7 @@ export abstract class ReportDownloadComponent implements OnInit {
   lockSchoolYear: boolean = false;
 
   @Input()
-  assessmentType: AssessmentType = null;
+  assessmentType: string;
 
   @Input()
   lockAssessmentType: boolean = false;
@@ -48,17 +46,11 @@ export abstract class ReportDownloadComponent implements OnInit {
   @Output()
   onShow: EventEmitter<any> = new EventEmitter<any>();
 
-  onShowInternal(event: any) {
-    this.onShow.emit(event);
-    this.options.name = this.generateName();
-  }
-
-  AssessmentType: any = AssessmentType;
-  assessmentTypes: AssessmentType[] = [ null, AssessmentType.IAB, AssessmentType.ICA ];
-  subjectTypes: AssessmentSubjectType[] = [ null, AssessmentSubjectType.MATH, AssessmentSubjectType.ELA ];
+  assessmentTypes: string[] = [ null, 'ica', 'iab', 'sum' ];
+  subjectTypes: string[] = [ null, 'Math', 'ELA' ];
   orders: ReportOrder[] = [ ReportOrder.STUDENT_NAME, ReportOrder.STUDENT_SSID ];
   options: ReportOptions;
-  reportLanguages: string[] = ['en'];
+  reportLanguages: string[] = [ 'en' ];
   transferAccess: boolean;
 
   constructor(protected notificationService: NotificationService,
@@ -66,11 +58,11 @@ export abstract class ReportDownloadComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let defaultOptions: ReportOptions = new ReportOptions();
+    const defaultOptions: ReportOptions = new ReportOptions();
     defaultOptions.assessmentType = this.assessmentType != null ? this.assessmentType : this.assessmentTypes[ 0 ];
-    defaultOptions.subject = this.subject != null ? this.getSubjectFromString(this.subject) : this.subjectTypes[ 0 ];
+    defaultOptions.subject = this.subject != null ? this.subject : this.subjectTypes[ 0 ];
     defaultOptions.schoolYear = this.schoolYear != null ? this.schoolYear : this.schoolYears[ 0 ];
-    defaultOptions.language = this.reportLanguages[0];
+    defaultOptions.language = this.reportLanguages[ 0 ];
     defaultOptions.accommodationsVisible = false;
     defaultOptions.order = this.orders[ 0 ];
     defaultOptions.grayscale = false;
@@ -97,6 +89,11 @@ export abstract class ReportDownloadComponent implements OnInit {
       );
   }
 
+  onShowInternal(event: any) {
+    this.onShow.emit(event);
+    this.options.name = this.generateName();
+  }
+
   /**
    * Implement this to give behavior to the exam report download form when it is submitted
    */
@@ -108,15 +105,5 @@ export abstract class ReportDownloadComponent implements OnInit {
    * @returns {string} The default report name
    */
   abstract generateName(): string;
-
-  /**
-   * Converts the given string to an AssessmentSubjectType
-   *
-   * @param value the AssessmentSubjectType name
-   * @returns the AssessmentSubjectType for the given string assessment type name
-   */
-  private getSubjectFromString(value: string): AssessmentSubjectType {
-    return value === '' ? null : AssessmentSubjectType[value];
-  }
 
 }

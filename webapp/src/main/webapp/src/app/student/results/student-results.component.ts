@@ -13,6 +13,7 @@ import { Angulartics2 } from "angulartics2";
 import { UserService } from "../../user/user.service";
 import { StudentReportDownloadComponent } from "../../report/student-report-download.component";
 import { AssessmentSubjectType } from "../../shared/enum/assessment-subject-type.enum";
+import { Utils } from "../../shared/support/support";
 
 @Component({
   selector: 'student-results',
@@ -256,7 +257,7 @@ export class StudentResultsComponent implements OnInit {
       downloader.options.schoolYear = this.filterState.schoolYear;
     }
     if (this.filterState.subject !== '') {
-      downloader.options.subject = AssessmentSubjectType[this.filterState.subject];
+      downloader.options.subject = Utils.toSubjectCode(AssessmentSubjectType[ this.filterState.subject ]);
     }
   }
 

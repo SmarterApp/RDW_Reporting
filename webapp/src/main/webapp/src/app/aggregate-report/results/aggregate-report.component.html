@@ -5,18 +5,28 @@
 </page-heading>
 
 <div class="well well-compact">
-  <div class="row">
-    <div class="col-md-12">
+  <div class="flex-children">
+    <div class="flex-child grow">
       <button class="btn btn-default btn-sm"
               (click)="onUpdateRequestButtonClick()">
         <i class="fa fa-chevron-left mr-xs"></i>{{'aggregate-report.form-link' | translate}}
       </button>
-      <button class="btn btn-default btn-sm icon-only pull-right"
-              (click)="onToggleRequestViewButtonClick()">
-        <i class="fa" [ngClass]="showRequest ? 'fa-angle-up' : 'fa-angle-down'"></i>
-      </button>
+    </div>
+    <div class="flex-child">
+      <ul class="list-unstyled list-inline mb-0">
+        <li *ngIf="reportView" class="text-muted">
+          {{'aggregate-reports.row-count-label' | translate}} <span class="label gray-darker">{{report.metadata.totalCount | number}}</span>
+        </li>
+        <li>
+          <button class="btn btn-default btn-sm icon-only"
+                  (click)="onToggleRequestViewButtonClick()">
+            <i class="fa {{showRequest ? 'fa-angle-up' : 'fa-angle-down'}}"></i>
+          </button>
+        </li>
+      </ul>
     </div>
   </div>
+
   <div [hidden]="!showRequest" class="row mt-md">
     <div class="col-md-12">
       <ng-container *ngIf="summary; else summaryLoading">
@@ -46,12 +56,17 @@
     <ng-container *ngIf="reportSizeNotSupported">
       <div class="well">
         <p>{{'aggregate-report.error.unsupported-size' | translate}}</p>
-        <div>
-          <button class="btn btn-danger btn-sm" (click)="onDisplayReportButtonClick()">{{'aggregate-report.display-report' | translate}}</button>
-          <button class="btn btn-default btn-sm"
-                  [disabled]="spinnerModal.loading"
-                  (click)="onDownloadDataButtonClick()">{{'aggregate-report.download-data' | translate}}</button>
-        </div>
+        <ul class="list-unstyled list-inline">
+          <li>
+            <button class="btn btn-danger btn-sm"
+                    (click)="onDisplayReportButtonClick()">{{'aggregate-report.display-report' | translate}}</button>
+          </li>
+          <li>
+            <button class="btn btn-default btn-sm"
+                    [disabled]="spinnerModal.loading"
+                    (click)="onDownloadDataButtonClick()">{{'aggregate-report.download-data' | translate}}</button>
+          </li>
+        </ul>
       </div>
     </ng-container>
 

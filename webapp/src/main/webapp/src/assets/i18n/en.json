@@ -40,13 +40,19 @@
   "aggregate-reports": {
     "heading": "Aggregate Reports",
     "default-report-name": "Custom Aggregate Report",
-    "preview": "Table for preview purposes only. This is NOT actual data.",
+    "preview": "This table does not contain actual data and is for preview purposes only.",
     "access-denied-error": "Your user account is not permitted to create aggregate reports by the system. If you believe you have reached this page in error, please contact your building administrator.",
     "export-name": "{{label}}_{{subject}}_view",
     "confirmation-modal": {
       "body": "The requested report will contain {{formattedRowCount}} rows and is too large to display in the browser. Would you like to generate this report for download as a spreadsheet?",
       "accept": "Generate",
       "decline": "Cancel"
+    },
+    "row-count-label": "Row count: ",
+    "estimated-row-count": {
+      "loading": "Estimating row count",
+      "label": "Estimated row count: ",
+      "warning": "This report is large and may result in a slow experience when viewed in your browser"
     },
     "results": {
       "empty-message": "No Results Found",

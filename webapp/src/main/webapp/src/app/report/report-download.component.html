@@ -11,7 +11,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title pull-left">{{title}}</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modal.hide()">
+        <button type="button"
+                class="close pull-right"
+                aria-label="Close"
+                (click)="modal.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -21,41 +24,62 @@
 
             <div class="form-group">
               <label for="report-name">{{'labels.reports.form.report-name' | translate}}</label>
-              <input id="report-name" name="report-name" class="form-control input-sm" type="text" maxlength="255" [(ngModel)]="options.name" required>
+              <input id="report-name"
+                     name="report-name"
+                     class="form-control input-sm"
+                     type="text"
+                     maxlength="255"
+                     [(ngModel)]="options.name" required>
             </div>
 
             <div class="form-group">
               <label for="assessment-type-select">{{'labels.reports.form.assessment-type' | translate}}</label>
               <div *ngIf="lockAssessmentType && options.assessmentType">
-                <span>{{'labels.assessmentTypes.' + options.assessmentType + '.short-name' | translate}}</span>
+                <span>{{'common.assessment-type.' + options.assessmentType + '.short-name' | translate}}</span>
               </div>
-              <select *ngIf="!lockAssessmentType" id="assessment-type-select" class="form-control input-sm" name="assessment-type" [(ngModel)]="options.assessmentType">
-                <option *ngFor="let type of assessmentTypes" [ngValue]="type">{{(type != null ? 'labels.assessmentTypes.' + type + '.short-name' : 'buttons.all') | translate}}</option>
+              <select *ngIf="!lockAssessmentType"
+                      id="assessment-type-select"
+                      class="form-control input-sm"
+                      name="assessment-type"
+                      [(ngModel)]="options.assessmentType">
+                <option *ngFor="let type of assessmentTypes"
+                        [ngValue]="type">{{(type != null ? 'common.assessment-type.' + type + '.short-name' : 'common.collection-selection.all') | translate}}</option>
               </select>
             </div>
 
             <div class="form-group" *ngIf="displayOrder">
               <label for="order-select">{{'labels.reports.form.order' | translate}}</label>
-              <select id="order-select" class="form-control input-sm" name="order" [(ngModel)]="options.order">
-                <option *ngFor="let order of orders" [ngValue]="order">{{'labels.reports.orders.' + order | translate}}
+              <select id="order-select"
+                      class="form-control input-sm"
+                      name="order"
+                      [(ngModel)]="options.order">
+                <option *ngFor="let order of orders"
+                        [ngValue]="order">{{'labels.reports.orders.' + order | translate}}
                 </option>
               </select>
             </div>
 
-            <div class="form-group" *ngIf="reportLanguages.length > 1">
+            <div class="form-group"
+                 *ngIf="reportLanguages.length > 1">
               <label for="language-select">{{'labels.reports.form.language.header' | translate}}</label>
-              <select id="language-select" class="form-control input-sm" name="language" [(ngModel)]="options.language">
-                <option *ngFor="let language of reportLanguages" [ngValue]="language">{{'labels.reports.form.language.options.' + language | translate}}</option>
+              <select id="language-select"
+                      class="form-control input-sm"
+                      name="language"
+                      [(ngModel)]="options.language">
+                <option *ngFor="let language of reportLanguages"
+                        [ngValue]="language">{{'labels.reports.form.language.options.' + language | translate}}</option>
               </select>
             </div>
 
-            <div class="form-group" *ngIf="transferAccess">
+            <div class="form-group"
+                 *ngIf="transferAccess">
               <label for="report-transfer-assessment-toggle">
                 <span info-button
                       title="{{'labels.filters.test.transfer-assessment' | translate}}"
                       content="{{'labels.filters.test.transfer-assessment-info' | translate}}"></span>
               </label>
-              <sb-radio-button-group name="report-transfer-assessment-toggle"
+              <sb-radio-button-group id="report-transfer-assessment-toggle"
+                         name="report-transfer-assessment-toggle"
                          [(ngModel)]="options.disableTransferAccess"
                          [options]="[
                            {value: false, text: 'buttons.visibility.show' | translate},
@@ -71,7 +95,11 @@
               <div *ngIf="lockSchoolYear && options.schoolYear">
                 <span>{{options.schoolYear | schoolYear}}</span>
               </div>
-              <select *ngIf="!lockSchoolYear" id="school-year-select" class="form-control input-sm" name="school-year" [(ngModel)]="options.schoolYear">
+              <select *ngIf="!lockSchoolYear"
+                      id="school-year-select"
+                      class="form-control input-sm"
+                      name="school-year"
+                      [(ngModel)]="options.schoolYear">
                 <option *ngFor="let year of schoolYears" [ngValue]="year">{{year | schoolYear}}</option>
               </select>
             </div>
@@ -79,10 +107,15 @@
             <div class="form-group">
               <label for="subject-select">{{'labels.reports.form.subject' | translate}}</label>
               <div *ngIf="lockSubject && options.subject">
-                <span>{{'labels.subjects.' + options.subject + '.short-name' | translate}}</span>
+                <span>{{'common.subject.' + options.subject + '.short-name' | translate}}</span>
               </div>
-              <select *ngIf="!lockSubject" id="subject-select" class="form-control input-sm" name="subject" [(ngModel)]="options.subject">
-                <option *ngFor="let subject of subjectTypes" [ngValue]="subject">{{(subject != null ? 'labels.subjects.' + subject + '.short-name' : 'buttons.all') | translate}}</option>
+              <select *ngIf="!lockSubject"
+                      id="subject-select"
+                      class="form-control input-sm"
+                      name="subject"
+                      [(ngModel)]="options.subject">
+                <option *ngFor="let subject of subjectTypes"
+                        [ngValue]="subject">{{(subject != null ? 'common.subject.' + subject + '.short-name' : 'common.collection-selection.all') | translate}}</option>
               </select>
             </div>
 
@@ -94,7 +127,7 @@
               </label>
               <sb-radio-button-group name="accommodations-toggle"
                          [(ngModel)]="options.accommodationsVisible"
-                         [disabled]="options.assessmentType === AssessmentType.IAB"
+                         [disabled]="options.assessmentType === 'iab'"
                          [options]="[
                            {value: true, text: 'buttons.visibility.show' | translate},
                            {value: false, text: 'buttons.visibility.hide' | translate}
@@ -105,8 +138,10 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" (click)="modal.hide(); submit()">{{'labels.reports.form.submit' | translate}}</button>
-        <button class="btn btn-default" (click)="modal.hide()">{{'labels.reports.form.cancel' | translate}}</button>
+        <button class="btn btn-primary"
+                (click)="modal.hide(); submit()">{{'labels.reports.form.submit' | translate}}</button>
+        <button class="btn btn-default"
+                (click)="modal.hide()">{{'labels.reports.form.cancel' | translate}}</button>
       </div>
     </div>
   </div>

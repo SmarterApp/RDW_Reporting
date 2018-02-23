@@ -69,7 +69,7 @@
         <div class="well-group">
           <div class="well">
             <h3>{{'aggregate-reports.form.section.organization.heading' | translate}}</h3>
-            <div class="subtext">{{'aggregate-reports.form.section.organization.subtext' | translate}}</div>
+            <p class="text-muted small">{{'aggregate-reports.form.section.organization.subtext' | translate}}</p>
           </div>
           <div class="well pb-0">
 
@@ -113,7 +113,7 @@
                         <input type="checkbox"
                                [(ngModel)]="settings.includeStateResults"
                                [ngModelOptions]="{standalone: true}"
-                               (change)="onIncludeStateResultsChange()">
+                               (ngModelChange)="onIncludeStateResultsChange(); onSettingsChange()">
                         <span class="ml-xs">{{'aggregate-reports.form.section.organization.include.state-results' | translate}}</span>
                       </label>
                     </div>
@@ -122,7 +122,7 @@
                         <input type="checkbox"
                                [(ngModel)]="settings.includeAllDistricts"
                                [ngModelOptions]="{standalone: true}"
-                               (change)="onIncludeAllDistrictsChange()">
+                               (ngModelChange)="onIncludeAllDistrictsChange(); onSettingsChange()">
                         <span class="ml-xs">{{'aggregate-reports.form.section.organization.include.all-districts' | translate}}</span>
                       </label>
                     </div>
@@ -132,7 +132,8 @@
                       <label class="inline-label">
                         <input type="checkbox"
                                [(ngModel)]="settings.includeAllSchoolsOfSelectedDistricts"
-                               [ngModelOptions]="{standalone: true}">
+                               [ngModelOptions]="{standalone: true}"
+                               (ngModelChange)="onSettingsChange()">
                         <span class="ml-xs">{{'aggregate-reports.form.section.organization.include.all-schools-of-districts' | translate}}</span>
                       </label>
                     </div>
@@ -140,7 +141,8 @@
                       <label class="inline-label">
                         <input type="checkbox"
                                [(ngModel)]="settings.includeAllDistrictsOfSelectedSchools"
-                               [ngModelOptions]="{standalone: true}">
+                               [ngModelOptions]="{standalone: true}"
+                               (ngModelChange)="onSettingsChange()">
                         <span class="ml-xs">{{'aggregate-reports.form.section.organization.include.all-districts-of-schools' | translate}}</span>
                       </label>
                     </div>
@@ -324,7 +326,7 @@
         <div class="well-group">
           <div class="well">
             <h3>{{'aggregate-reports.form.section.comparative-subgroups.heading' | translate}}</h3>
-            <div class="subtext">{{'aggregate-reports.form.section.comparative-subgroups.subtext' | translate}}</div>
+            <p class="text-muted small">{{'aggregate-reports.form.section.comparative-subgroups.subtext' | translate}}</p>
           </div>
           <div class="well">
             <div class="row">
@@ -355,7 +357,7 @@
             <div class="row">
               <div class="col-sm-6">
                 <h3>{{'aggregate-reports.form.section.subgroup-filters.heading' | translate}}</h3>
-                <div class="subtext">{{'aggregate-reports.form.section.subgroup-filters.subtext' | translate}}</div>
+                <p class="text-muted small">{{'aggregate-reports.form.section.subgroup-filters.subtext' | translate}}</p>
               </div>
               <div class="col-sm-6">
                 <button class="btn btn-default btn-sm icon-only pull-right"
@@ -516,12 +518,29 @@
         <div class="well-group">
           <div class="well">
             <h3>{{'aggregate-reports.form.section.review.heading' | translate}}</h3>
+            <ng-container *ngIf="formGroup.valid">
+              <ng-container *ngIf="estimatedRowCount != null; else estimatedRowCountSpinner">
+                <p>
+                  <span class="text-muted small">{{'aggregate-reports.estimated-row-count.label' | translate}}</span>
+                  <strong class="label gray-darker">{{estimatedRowCount | number}}</strong>
+                  <ng-container *ngIf="estimatedRowCountIsLarge">
+                    <ng-container *ngTemplateOutlet="warning; context: {$implicit: ('aggregate-reports.estimated-row-count.warning' | translate)}"></ng-container>
+                  </ng-container>
+                </p>
+              </ng-container>
+              <ng-template #estimatedRowCountSpinner>
+                <p class="text-muted small">
+                  {{'aggregate-reports.estimated-row-count.loading' | translate}} <i class="fa fa-spinner fa-pulse"></i>
+                </p>
+              </ng-template>
+            </ng-container>
           </div>
           <div class="well">
 
             <!-- TODO add estimated row count section here -->
 
-            <aggregate-report-summary narrow="true"
+            <aggregate-report-summary *ngIf="summary"
+                                      narrow="true"
                                       [summary]="summary"></aggregate-report-summary>
           </div>
           <div class="well">
@@ -558,7 +577,9 @@
       <div class="well-group wide-content-container">
         <div class="well inline-headings">
           <h3>{{'aggregate-reports.form.section.preview.heading' | translate}}</h3>
-          <span class="red label ml-sm">{{ 'aggregate-reports.preview' | translate }}</span>
+          <ng-container *ngIf="estimatedRowCountIsLarge">
+            <ng-container *ngTemplateOutlet="warning; context: {$implicit: ('aggregate-reports.preview' | translate)}"></ng-container>
+          </ng-container>
         </div>
         <div class="well">
           <div>
@@ -594,7 +615,8 @@
             <div class="clearfix"></div>
           </div>
           <div class="mt-sm">
-            <aggregate-report-table [preview]="true"
+            <aggregate-report-table *ngIf="previewTable"
+                                    [preview]="true"
                                     [table]="previewTable"
                                     [valueDisplayType]="settings.valueDisplayType"
                                     [performanceLevelDisplayType]="settings.performanceLevelDisplayType"
@@ -605,4 +627,11 @@
     </div>
   </div>
 
+</ng-template>
+
+<ng-template #warning let-text>
+  <span class="alert alert-warning small pt-xs pr-xs pb-xs pl-xs ml-sm">
+    <i class="fa fa-exclamation-triangle"></i>
+    {{text}}
+  </span>
 </ng-template>

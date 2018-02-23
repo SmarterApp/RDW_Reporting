@@ -13,8 +13,9 @@ import { School } from "../user/model/school.model";
 import { Grade } from "../school-grade/grade.model";
 import { DataService } from "../shared/data/data.service";
 import { Download } from "../shared/data/download.model";
-import { AggregateReportRequest, AggregateReportQuery } from "./aggregate-report-request";
+import { AggregateReportRequest } from "./aggregate-report-request";
 import { AggregateReportRow } from "./aggregate-report";
+import { Utils } from "../shared/support/support";
 
 const ServiceRoute = '/report-processor';
 
@@ -42,7 +43,7 @@ export class ReportService {
    */
   public getReportById(id: number): Observable<Report> {
     return this.getReportsById([ id ])
-      .map(reports => reports[0]);
+      .map(reports => reports[ 0 ]);
   }
 
   /**
@@ -158,8 +159,8 @@ export class ReportService {
   private toReportRequestParameters(options: ReportOptions): Object {
     return {
       name: options.name,
-      assessmentType: AssessmentType[ options.assessmentType ],
-      subject: AssessmentSubjectType[ options.subject ],
+      assessmentType: Utils.toServerAssessmentTypeEnum(options.assessmentType),
+      subject: Utils.toServerSubjectEnum(options.subject),
       schoolYear: options.schoolYear,
       language: options.language,
       grayscale: options.grayscale,

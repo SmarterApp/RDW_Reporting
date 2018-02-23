@@ -101,12 +101,15 @@ export class AggregateReportSummary {
             ? organizations[0].name
             : organizations.length
         ]
-      },
-      {
-        label: translate('aggregate-reports.form.section.organization.include.heading'),
-        values: includes
       }
     ];
+
+    if (includes.length) {
+      organizationRows.push({
+        label: translate('aggregate-reports.form.section.organization.include.heading'),
+        values: includes
+      });
+    }
 
     const assessmentRows = [
       {
@@ -210,7 +213,9 @@ export class AggregateReportSummary {
         label: translate('aggregate-reports.form.section.subgroup-filters.heading'),
         rows: filterRows
       }
-    );
+    )
+    // removes empty columns
+    .filter(holder => holder.reduce((totalRows, column) =>  totalRows + column.rows.length, 0) > 0);
   }
 
 }

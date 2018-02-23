@@ -1,5 +1,3 @@
-import { AssessmentType } from "../shared/enum/assessment-type.enum";
-import { AssessmentSubjectType } from "../shared/enum/assessment-subject-type.enum";
 import { ReportOrder } from "./report-order.enum";
 
 /**
@@ -7,8 +5,8 @@ import { ReportOrder } from "./report-order.enum";
  */
 export class ReportOptions {
 
-  public assessmentType: AssessmentType;
-  public subject: AssessmentSubjectType;
+  public assessmentType: string;
+  public subject: string;
   public schoolYear: number;
   public language: string;
   public grayscale: boolean;

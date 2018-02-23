@@ -667,18 +667,9 @@ aggregate-report-form {
     }
     &:first-child {
       padding: 15px 20px;
-      h3 {
-        .h4;
-        color: @gray-darkest;
-        margin: 0;
-        + .subtext {
-          font-size: @font-size-small;
-          color: @gray-darker;
-          margin-top: @padding-small-horizontal;
-        }
-        + .label {
-          margin-top: @padding-small-horizontal;
-        }
+      > *:last-child,
+      > .row > [class^=col-]:first-child > *:last-child {
+        margin-bottom: 0;
       }
     }
   }

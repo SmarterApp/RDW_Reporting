@@ -9,6 +9,7 @@ import { InstructionalResourcesService } from "../../instructional-resources.ser
 import { InstructionalResource } from "../../../model/instructional-resources.model";
 import { Observable } from "rxjs/Observable";
 import { PopupMenuAction } from "../../../../shared/menu/popup-menu-action.model";
+import { Utils } from "../../../../shared/support/support";
 
 enum ScoreViewState {
   OVERALL = 1,
@@ -98,7 +99,7 @@ export class ResultsByStudentComponent implements OnInit {
   }
 
   private createActions(): PopupMenuAction[] {
-    let builder = this.actionBuilder.newActions();
+    const builder = this.actionBuilder.newActions();
 
     if (this.assessment.isInterim) {
       builder.withResponses(exam => exam.id, exam => exam.student, exam => exam.schoolYear > this.minimumItemDataYear);
@@ -110,12 +111,13 @@ export class ResultsByStudentComponent implements OnInit {
         () => this.assessment.type,
         exam => exam.student,
         exam => {
-          let downloader: StudentReportDownloadComponent = this.reportDownloader;
-          let options: ReportOptions = downloader.options;
-          let subject = this.assessment.assessmentSubjectType;
 
-          options.assessmentType = this.assessment.type;
-          options.subject = subject;
+          const downloader: StudentReportDownloadComponent = this.reportDownloader;
+          const options: ReportOptions = downloader.options;
+          const subject = this.assessment.assessmentSubjectType;
+
+          options.assessmentType = Utils.toAssessmentTypeCode(this.assessment.type);
+          options.subject = Utils.toSubjectCode(subject);
           options.schoolYear = exam.schoolYear;
 
           downloader.student = exam.student;
