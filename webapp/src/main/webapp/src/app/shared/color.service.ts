@@ -13,9 +13,9 @@ const Colors: string[] = [
 ];
 
 const Pallets: any[] = [
-  [ 'blue-dark', 'blue-dark aqua', 'aqua' ],
-  [ 'maroon', 'gray-darkest', 'green-dark', 'blue-dark' ],
-  [ 'maroon', 'gray-darkest', 'green-dark', 'blue-dark' ],
+  [ 'aqua', 'blue-dark aqua', 'blue-dark' ],
+  [ 'blue-dark', 'green-dark', 'gray-darkest', 'maroon' ],
+  [ 'blue-dark', 'green-dark', 'gray-darkest', 'maroon' ],
 ];
 
 const PerformanceLevelColorsByAssessmentType: Map<AssessmentType, string[]> = new Map([
