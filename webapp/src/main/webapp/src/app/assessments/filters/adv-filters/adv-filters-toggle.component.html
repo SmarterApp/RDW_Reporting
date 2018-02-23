@@ -8,7 +8,7 @@
             (click)="displayOptions.expanded = !displayOptions.expanded"
             angulartics2On="click" angularticsEvent="ToggleExpandCollapse" angularticsCategory="AdvancedFilters">
       {{'buttons.collapsible.' + (displayOptions.expanded ? 'collapse' : 'expand') | translate }}
-      <i class="fa" [ngClass]="{'fa-chevron-up': displayOptions.expanded, 'fa-chevron-down': !displayOptions.expanded}"
+      <i class="fa" [ngClass]="{'fa-caret-square-o-down': displayOptions.expanded, 'fa-caret-square-o-up': !displayOptions.expanded}"
          aria-hidden="true"></i>
     </button>
   </div>

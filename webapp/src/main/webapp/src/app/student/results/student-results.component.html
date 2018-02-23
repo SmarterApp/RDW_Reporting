@@ -56,7 +56,7 @@
                 angularticsEvent="ToggleCollapseResults"
                 angularticsCategory="StudentHistory">
           <span class="sr-only">{{ 'buttons.collapsible.collapse' | translate }}</span>
-          <i class="fa fa-bold {{ isCollapsed(assessmentType, subject) ? 'fa-angle-down' : 'fa-angle-up' }}"></i>
+          <i class="fa fa-bold {{ isCollapsed(assessmentType, subject) ? 'fa-caret-square-o-up' : 'fa-caret-square-o-down' }}"></i>
         </button>
 
         <div class="mt-md" [hidden]="isCollapsed(assessmentType, subject)">

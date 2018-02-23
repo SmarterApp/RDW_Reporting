@@ -17,7 +17,7 @@
                     angularticsCategory="AssessmentResults">
               {{'buttons.visibility.' + (showAdvancedFilters ? 'hide' : 'show') | translate}}
               <i class="fa ml-xs"
-                 [ngClass]="{'fa-chevron-up': showAdvancedFilters, 'fa-chevron-down': !showAdvancedFilters}"
+                 [ngClass]="{'fa-caret-square-o-down': showAdvancedFilters, 'fa-caret-square-o-up': !showAdvancedFilters}"
                  aria-hidden="true"></i>
             </button>
           </div>
@@ -151,7 +151,7 @@
         <button class="btn btn-default btn-xs"
                 (click)="allCollapsed = !allCollapsed">
           {{('labels.groups.results.' + (allCollapsed ? 'expand-all' : 'collapse-all')) | translate }}
-          <i class="fa" [ngClass]="{'fa-angle-down': allCollapsed, 'fa-angle-up': !allCollapsed}"></i>
+          <i class="fa" [ngClass]="{'fa-caret-square-o-up': allCollapsed, 'fa-caret-square-o-down': !allCollapsed}"></i>
         </button>
       </li>
       <li>
