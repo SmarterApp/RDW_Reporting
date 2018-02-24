@@ -51,16 +51,22 @@ sql:
           name AS organization_name,
           natural_id AS organization_natural_id,
           'School' as organization_type,
-          district_id
+          district_id,
+          embargo_enabled
         FROM school
 
       findAllDistricts: >-
-        SELECT
-          id AS organization_id,
-          name AS organization_name,
-          natural_id AS organization_natural_id,
-          'District' as organization_type
-        FROM district
+        SELECT DISTINCT
+          s.district_id AS organization_id,
+          d.name AS organization_name,
+          d.natural_id AS organization_natural_id,
+          'District' as organization_type,
+          s.embargo_enabled
+        FROM school s
+          JOIN district d on s.district_id = d.id
+
+      isStateEmbargoEnabled: >-
+        SELECT EXISTS(SELECT 1FROM state_embargo WHERE aggregate = 1) as embargo_enabled
 
   schoolYear:
     findAll: >-
