@@ -29,11 +29,26 @@ export class AggregateReportFormSettingsResolve implements Resolve<AggregateRepo
       return this.service.getReportById(Number.parseInt(reportId))
         .flatMap(report => this.requestMapper.toSettings(<AggregateReportRequest>report.request, options))
         .map(settings => Object.assign(settings, {
-          name: `${settings.name} ${this.translate.instant('common.copy-suffix')}`
+          name: AggregateReportFormSettingsResolve.incrementFileNameSuffix(settings.name)
         }));
     }
     return Observable.of(this.optionMapper.toDefaultSettings(options));
   }
 
+  /**
+   * Given the name "My Name" this method will return "My Name (1)"
+   * Given the name "My Name (1)" this method will return "My Name (2)"
+   *
+   * @param {string} name the name with an optional "(N)" to increment
+   * @returns {string} the given name suffixed with "(N + 1)" or " (1)" is no "(N)" is provided
+   */
+  static incrementFileNameSuffix(name: string): string {
+    return name.replace(/((\((\d+)\)(\s)?)?$)/, (a) => {
+      if (a == '') {
+        return ` (${Number(a.replace(/[()]/g, '')) + 1})`;
+      }
+      return `(${Number(a.replace(/[()]/g, '')) + 1})`;
+    });
+  }
 }
 
