@@ -40,7 +40,7 @@ export class AggregateReportFormSettingsResolve implements Resolve<AggregateRepo
    * Given the name "My Name (1)" this method will return "My Name (2)"
    *
    * @param {string} name the name with an optional "(N)" to increment
-   * @returns {string} the given name suffixed with "(N + 1)" or " (1)" is no "(N)" is provided
+   * @returns {string} the given name suffixed with "(N + 1)" or " (1)" if no "(N)" is provided
    */
   static incrementFileNameSuffix(name: string): string {
     return name.replace(/((\((\d+)\)(\s)?)?$)/, (a) => {
