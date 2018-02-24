@@ -8,6 +8,7 @@ import { AggregateReportOptionsMapper } from "./aggregate-report-options.mapper"
 import { AggregateReportRequestMapper } from "./aggregate-report-request.mapper";
 import { AggregateReportOptions } from "./aggregate-report-options";
 import { TranslateService } from "@ngx-translate/core";
+import { Utils } from "../shared/support/support";
 
 /**
  * This resolver is responsible for fetching an aggregate report based upon
@@ -29,26 +30,11 @@ export class AggregateReportFormSettingsResolve implements Resolve<AggregateRepo
       return this.service.getReportById(Number.parseInt(reportId))
         .flatMap(report => this.requestMapper.toSettings(<AggregateReportRequest>report.request, options))
         .map(settings => Object.assign(settings, {
-          name: AggregateReportFormSettingsResolve.incrementFileNameSuffix(settings.name)
+          name: Utils.appendOrIncrementFileNameSuffix(settings.name)
         }));
     }
     return Observable.of(this.optionMapper.toDefaultSettings(options));
   }
 
-  /**
-   * Given the name "My Name" this method will return "My Name (1)"
-   * Given the name "My Name (1)" this method will return "My Name (2)"
-   *
-   * @param {string} name the name with an optional "(N)" to increment
-   * @returns {string} the given name suffixed with "(N + 1)" or " (1)" if no "(N)" is provided
-   */
-  static incrementFileNameSuffix(name: string): string {
-    return name.replace(/((\((\d+)\)(\s)?)?$)/, (a) => {
-      if (a == '') {
-        return ` (${Number(a.replace(/[()]/g, '')) + 1})`;
-      }
-      return `(${Number(a.replace(/[()]/g, '')) + 1})`;
-    });
-  }
 }
 

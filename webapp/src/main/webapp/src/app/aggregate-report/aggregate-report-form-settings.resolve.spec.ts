@@ -32,11 +32,10 @@ describe('AggregateReportFormSettingsResolve', () => {
     (optionMapper.toDefaultSettings as Spy).and.callFake(() => defaultSettings);
     (reportService.getReportById as Spy).and.callFake(() => Observable.of(report));
     (requestMapper.toSettings as Spy).and.callFake(() => Observable.of(reportSettings));
-    (translateService.instant as Spy).and.callFake(() => 'B');
 
     fixture.resolve(routeWithReport(reportId), <any>{}).subscribe(settings => {
       expect(settings).toEqual(<any>{
-        name: 'A B'
+        name: 'A (1)'
       });
     });
 
