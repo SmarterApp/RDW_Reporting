@@ -6,7 +6,7 @@ import { Report } from "./report.model";
 import { Observable } from "rxjs/Observable";
 import { AssessmentType } from "../shared/enum/assessment-type.enum";
 import { AssessmentSubjectType } from "../shared/enum/assessment-subject-type.enum";
-import { DataService } from "../shared/data/data.service";
+import { DATA_CONTEXT_URL, DataService } from "../shared/data/data.service";
 
 describe('ReportService', () => {
   let dataService: MockDataService;
@@ -20,6 +20,9 @@ describe('ReportService', () => {
         ReportService, {
           provide: DataService,
           useValue: dataService
+        }, {
+          provide: DATA_CONTEXT_URL,
+          useValue: '/api'
         }
       ]
     });

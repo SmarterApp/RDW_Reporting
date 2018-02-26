@@ -13,7 +13,6 @@ import { Utils } from "../../shared/support/support";
 import { Comparator, ranking } from "@kourge/ordering/comparator";
 import { ordering } from "@kourge/ordering";
 import { AggregateReportQuery } from "../../report/aggregate-report-request";
-import { saveAs } from "file-saver";
 import { DisplayOptionService } from "../../shared/display-options/display-option.service";
 import { TranslateService } from "@ngx-translate/core";
 import { AggregateReportRequestMapper } from "../aggregate-report-request.mapper";
@@ -125,14 +124,8 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   }
 
   onDownloadDataButtonClick(): void {
-    this.spinnerModal.loading = true;
-    this.reportService.getReportContent(this.report.id)
-      .finally(() => {
-        this.spinnerModal.loading = false;
-      })
-      .subscribe(download => {
-        saveAs(download.content, download.name);
-      });
+    this.reportService.downloadReportContent(this.report.id);
+    this.router.navigateByUrl("/reports");
   }
 
   getExportName(table: AggregateReportTableView): string {

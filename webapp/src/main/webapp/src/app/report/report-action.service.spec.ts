@@ -20,7 +20,7 @@ describe('ReportActionService', () => {
 
     reportService = jasmine.createSpyObj(
       "ReportService",
-      ["getReportContent"]
+      ["getReportContent", "downloadReportContent"]
     );
     (reportService.getReportContent as Spy).and.callFake(() => Observable.empty());
 
@@ -69,7 +69,7 @@ describe('ReportActionService', () => {
     expect(actions[0].type).toBe(ActionType.Download);
 
     service.performAction(actions[0]);
-    expect(reportService.getReportContent).toHaveBeenCalledWith(report.id);
+    expect(reportService.downloadReportContent).toHaveBeenCalledWith(report.id);
   });
 
   it('should provide multiple actions for a completed AggregateReportRequest', () => {
@@ -90,7 +90,7 @@ describe('ReportActionService', () => {
 
     const downloadReportAction: ReportAction = actions[2];
     service.performAction(downloadReportAction);
-    expect(reportService.getReportContent).toHaveBeenCalledWith(report.id);
+    expect(reportService.downloadReportContent).toHaveBeenCalledWith(report.id);
   });
 
   function createReport(): Report {

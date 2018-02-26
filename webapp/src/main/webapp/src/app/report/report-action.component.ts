@@ -5,7 +5,6 @@ import { Report } from "./report.model";
 import { TranslateService } from "@ngx-translate/core";
 import { SpinnerModal } from "../shared/loading/spinner.modal";
 import 'rxjs/add/operator/finally';
-import { Observable } from "rxjs/Observable";
 
 /**
  * Responsible for providing a UI displaying and performing an action
@@ -39,13 +38,7 @@ export class ReportActionComponent implements OnInit {
   }
 
   performAction(reportAction: ReportAction): void {
-    this.spinnerModal.loading = true;
-    const action: Observable<any> = this.actionService.performAction(reportAction);
-    action
-      .finally(() => {
-        this.spinnerModal.loading = false;
-      })
-      .subscribe(() => {});
+    this.actionService.performAction(reportAction);
   }
 
   private toMenuAction(reportAction: ReportAction): PopupMenuAction {
