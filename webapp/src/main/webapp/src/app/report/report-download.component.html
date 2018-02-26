@@ -25,11 +25,16 @@
             <div class="form-group">
               <label for="report-name">{{'labels.reports.form.report-name' | translate}}</label>
               <input id="report-name"
+                     #resourceControl="ngModel"
                      name="report-name"
                      class="form-control input-sm"
                      type="text"
                      maxlength="255"
                      [(ngModel)]="options.name" required>
+            </div>
+            <div *ngIf="resourceControl.invalid && (resourceControl.dirty || resourceControl.touched)">
+              <p *ngIf="resourceControl.errors.required"
+                 class="help-block small red">{{'common.error.required' | translate}}</p>
             </div>
 
             <div class="form-group">
@@ -138,7 +143,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary"
+        <button class="btn btn-primary" [disabled]="resourceControl.invalid"
                 (click)="modal.hide(); submit()">{{'labels.reports.form.submit' | translate}}</button>
         <button class="btn btn-default"
                 (click)="modal.hide()">{{'labels.reports.form.cancel' | translate}}</button>

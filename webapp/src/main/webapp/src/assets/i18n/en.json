@@ -78,7 +78,6 @@
     "form": {
       "heading": "Custom Aggregate Report",
       "subheading": "Select the attributes to include in the report. Then click \"Generate Report.\"",
-      "required": "* Required",
       "field": {
         "organization": {
           "label": "Search a School or District",
@@ -222,6 +221,9 @@
     },
     "copy-suffix": "(copy)",
     "export": "Export",
+    "error": {
+      "required": "* Required"
+    },
     "dimension": {
       "Overall": "Overall",
       "Gender": "Gender",
@@ -1339,8 +1341,7 @@
           "resource": {
             "placeholder": "Enter URL",
             "error": {
-              "pattern": "URL must start with http:// or https://",
-              "required": "* Required"
+              "pattern": "URL must start with http:// or https://"
             }
           }
         }
