@@ -29,8 +29,25 @@
     .accommodations {
         page-break-after: always;
     }
+    .row, .well-group {
+        page-break-inside: avoid;
+    }
     .bordered.gray-light .label {
         border: 1px solid #64666A;
+    }
+    .well-group--horizontal>.well {
+        min-height: 180px;
+    }
+    .relative-container {
+        position: relative;
+    }
+    .bottom-right-aligned {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+    .well.pad-small {
+        padding: 10px 20px;
     }
 </style>
 </div>
@@ -85,13 +102,10 @@
             <p th:utext="#{report.faq.p3.html}"></p>
         </div>
         <div class="col-xs-4">
-            <div class="well">
-                <div class="well-body">
-                    <p><strong th:text="#{report.important-information.header}"></strong></p>
-                    <p th:text="#{report.important-information.item1}"></p>
-                    <p th:text="#{report.important-information.item2}"></p>
-                    </ol>
-                </div>
+            <div class="well pad-small">
+                <p><strong th:text="#{report.important-information.header}"></strong></p>
+                <p th:text="#{report.important-information.item1}"></p>
+                <p th:text="#{report.important-information.item2}"></p>
             </div>
         </div>
     </div>

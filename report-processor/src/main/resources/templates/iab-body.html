@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row relative-container">
                             <div class="col-xs-9">
                                 <div th:if="${exam.scaleScore != null}" class="scale-score-graph individual"
                                      th:with="scaleScoreView=${support.getScaleScoreView(exam, assessment)}">
@@ -82,12 +82,18 @@
                                     <span class="gray-darker h2" th:text="#{report.not-scored}"></span>
                                 </div>
                             </div>
+                            <div class="col-xs-3 bottom-right-aligned text-right">
+                                <div class="date" th:text="${#dates.format(exam.dateTime, 'MM-dd-yyyy')}"></div>
+                                <div class="performance-level"
+                                     th:if="${exam.scaleScore != null}"
+                                     th:text="#{'report.iab.level.' + ${exam.scaleScore.level} + '.label'}"></div>
+                            </div>
                         </div>
-                        <div class="details">
-                            <div class="date text-right" th:text="${#dates.format(exam.dateTime, 'MM-dd-yyyy')}"></div>
-                            <div class="performance-level text-right"
-                                 th:if="${exam.scaleScore != null}"
-                                 th:text="#{'report.iab.level.' + ${exam.scaleScore.level} + '.label'}"></div>
+
+                        <div th:if="${exam.percentileRank != null && exam.percentileMean != null}"
+                             class="mt-xs">
+                            <span th:text="#{('report.percentile.rank')(${exam.percentileRank})}"></span>
+                            <span th:text="#{('report.percentile.mean')(${exam.percentileMean.toString()})}"></span>
                         </div>
                     </div>
                 </div>
