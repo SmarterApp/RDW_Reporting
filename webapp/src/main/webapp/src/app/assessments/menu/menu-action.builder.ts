@@ -119,7 +119,7 @@ export class MenuActionBuilder {
     return this;
   }
 
-  withStudentReport(getAssessmentType: (x:any) => AssessmentType, getStudent: (x:any) => Student, submitReport: (x:any) => void): MenuActionBuilder {
+  withStudentReport(getAssessmentType: (x:any) => AssessmentType, getStudent: (x:any) => Student, submitReport: (x:any) => void, disable: () => boolean, tooltip: () => string): MenuActionBuilder {
     let action: PopupMenuAction = new PopupMenuAction();
 
     action.displayName = ((actionable: any) => {
@@ -129,6 +129,9 @@ export class MenuActionBuilder {
     action.perform = ((actionable: any) => {
       submitReport(actionable);
     }).bind(this);
+
+    action.isDisabled = disable;
+    action.tooltip = tooltip;
 
     this.actions.push(action);
     return this;

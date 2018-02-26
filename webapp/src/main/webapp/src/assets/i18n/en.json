@@ -1615,6 +1615,7 @@
     "no-writing-trait-scores": "Writing trait scores are not available for assessments administered prior to 2017-18 school year.",
     "no-writing-trait-scores-for-summative-ica-exams": "Writing trait scores are currently available for only ELA Performance Task IABs.",
     "no-responses-for-summative-exams": "Summative assessment responses are not made available by this system.",
+    "no-print-report-for-summative-exams": "Printing summative reports are not made available by this system.",
     "noExams": "There are no exams associated with your account.",
     "noExamsMatchingCriteria": "There are no exams matching this criteria.",
     "noExamsSelected": "Please select from the assessments above",
