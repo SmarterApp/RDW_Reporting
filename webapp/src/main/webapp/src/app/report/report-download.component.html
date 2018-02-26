@@ -22,7 +22,7 @@
         <div class="row">
           <div class="col-md-6">
 
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{'has-error': resourceControl.invalid && (resourceControl.dirty || resourceControl.touched)}">
               <label for="report-name">{{'labels.reports.form.report-name' | translate}}</label>
               <input id="report-name"
                      #resourceControl="ngModel"

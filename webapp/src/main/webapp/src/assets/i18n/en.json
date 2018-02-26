@@ -219,7 +219,6 @@
       "label": "Completeness",
       "info": "A test is considered complete when the student provides an answer for every question."
     },
-    "copy-suffix": "(copy)",
     "export": "Export",
     "error": {
       "required": "* Required"
