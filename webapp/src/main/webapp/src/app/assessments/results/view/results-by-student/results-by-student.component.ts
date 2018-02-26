@@ -129,7 +129,9 @@ export class ResultsByStudentComponent implements OnInit {
           });
 
           downloader.modal.show();
-        }
+        },
+        () => this.assessment.isSummative,
+        () => this.assessment.isSummative ? this.translate.instant('messages.no-print-report-for-summative-exams') : ''
       )
       .build();
   }
