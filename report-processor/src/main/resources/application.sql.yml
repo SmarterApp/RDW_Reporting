@@ -257,6 +257,7 @@ sql:
 
   reportProcessor:
     snippet:
+#    nobody is allowed to export the data or generated PDFs for embargoed data, including the embargo admins
       studentExamPermissionWithEmbargo: >-
             ${sql.snippet.studentExamPermissionWithoutEmbargo}
             AND
@@ -264,8 +265,6 @@ sql:
                e.school_year < ${app.school-year}
                OR e.type_id <> 3
                OR s.embargo_enabled = 0
-               OR 1 = :state_embargo_admin
-               OR s.district_id IN (:district_embargo_admin_ids)
             )
 
       schoolFilter:
