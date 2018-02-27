@@ -42,6 +42,10 @@ export class ReportActionService {
    * @param {ReportAction} action An action
    */
   public performAction(action: ReportAction): void {
+    if (action.disabled) {
+      return;
+    }
+
     if (action.type == ActionType.Download) {
       this.performDownload(action);
     }
@@ -69,6 +73,7 @@ export interface ReportAction {
   readonly icon?: string;
   readonly labelKey?: string;
   readonly disabled?: boolean;
+  readonly tooltipKey?: string;
 }
 
 /**
@@ -121,7 +126,8 @@ class AggregateReportActionProvider extends DefaultActionProvider {
   }
 
   public getActions(report: Report): ReportAction[] {
-    const disableViewAndDownload = !report.completed && !report.processing;
+    const disableViewAndDownload: boolean = !report.completed && !report.processing;
+    const embargoed: boolean = report.metadata.createdWhileDataEmbargoed == "true";
     return [
       {
         type: ActionType.Navigate,
@@ -138,7 +144,8 @@ class AggregateReportActionProvider extends DefaultActionProvider {
         type: ActionType.Download,
         value: report.id,
         labelKey: 'labels.reports.report-actions.download-report',
-        disabled: disableViewAndDownload
+        disabled: disableViewAndDownload || embargoed,
+        tooltipKey: embargoed ? 'labels.reports.report-actions.embargoed' : undefined
       }
     ];
   }

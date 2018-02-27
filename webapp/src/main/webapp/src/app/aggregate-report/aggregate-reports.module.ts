@@ -8,7 +8,7 @@ import { MultiselectDropdownModule } from "angular-2-dropdown-multiselect";
 import { AggregateReportOptionsService } from "./aggregate-report-options.service";
 import { AggregateReportOptionsMapper } from "./aggregate-report-options.mapper";
 import { AggregateReportOrganizationService } from "./aggregate-report-organization.service";
-import { ModalModule, TypeaheadModule } from "ngx-bootstrap";
+import { ModalModule, PopoverModule, TypeaheadModule } from "ngx-bootstrap";
 import { AggregateReportOrganizationList } from "./aggregate-report-organization-list.component";
 import { AggregateReportService } from "./aggregate-report.service";
 import { ReportModule } from "../report/report.module";
@@ -47,6 +47,7 @@ import { AggregateReportColumnOrderItemProvider } from "./aggregate-report-colum
     FormsModule,
     ModalModule,
     MultiselectDropdownModule,
+    PopoverModule.forRoot(),
     ReactiveFormsModule,
     ReportModule,
     TypeaheadModule

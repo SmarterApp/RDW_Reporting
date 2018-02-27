@@ -144,6 +144,10 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     tableView.columnOrdering = items.map(item => item.value);
   }
 
+  isEmbargoed(): boolean {
+    return this.report.metadata.createdWhileDataEmbargoed == "true";
+  }
+
   private updateViewState(): void {
     let targetViewState: ViewState = this.getTargetViewState();
     this.onViewStateChange(this._viewState, targetViewState);

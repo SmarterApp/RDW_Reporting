@@ -47,6 +47,10 @@ export class ReportActionComponent implements OnInit {
     menuAction.isDisabled = () => {
       return reportAction.disabled;
     };
+    if (reportAction.tooltipKey) {
+      menuAction.tooltip = () => this.translateService.instant(reportAction.tooltipKey);
+    }
+
     return menuAction;
   }
 }

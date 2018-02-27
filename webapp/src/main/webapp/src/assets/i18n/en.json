@@ -1523,7 +1523,8 @@
       "report-actions": {
         "view-report": "View Report",
         "view-query": "View Report Query",
-        "download-report": "Download Report Data"
+        "download-report": "Download Report Data",
+        "embargoed": "Report contains embargoed results"
       },
       "status": {
         "COMPLETED": "Completed",

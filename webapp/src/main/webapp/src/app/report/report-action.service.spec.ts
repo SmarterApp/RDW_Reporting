@@ -76,6 +76,7 @@ describe('ReportActionService', () => {
     const report: Report = createReport();
     report.status = "COMPLETED";
     report.reportType = AggregateReportType;
+    report.metadata = {'createdWhileDataEmbargoed' : 'false'};
 
     const actions: ReportAction[] = service.getActions(report);
     expect(actions.length).toBe(3);
@@ -89,8 +90,27 @@ describe('ReportActionService', () => {
     expect(router.navigateByUrl).toHaveBeenCalledWith(`/aggregate-reports?src=${report.id}`);
 
     const downloadReportAction: ReportAction = actions[2];
+    expect(downloadReportAction.tooltipKey).toBeUndefined();
+    expect(downloadReportAction.disabled).toBe(false);
     service.performAction(downloadReportAction);
     expect(reportService.downloadReportContent).toHaveBeenCalledWith(report.id);
+
+  });
+
+  it('should disable the download action for an embargoed AggregateReportRequest', () => {
+    const report: Report = createReport();
+    report.status = "COMPLETED";
+    report.reportType = AggregateReportType;
+    report.metadata = {'createdWhileDataEmbargoed' : 'true'};
+
+    const actions: ReportAction[] = service.getActions(report);
+    expect(actions.length).toBe(3);
+
+    const downloadReportAction: ReportAction = actions[2];
+    expect(downloadReportAction.tooltipKey.length).toBeGreaterThan(1);
+    expect(downloadReportAction.disabled).toBe(true);
+    service.performAction(downloadReportAction);
+    expect(reportService.downloadReportContent).not.toHaveBeenCalled();
   });
 
   function createReport(): Report {
