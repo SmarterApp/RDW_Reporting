@@ -49,19 +49,6 @@ const fileName = (properties: any) => control => {
   return /^[^\\<>:;,?"*|/]*$/.test((control.value || '').trim()) ? null : { fileName: properties };
 };
 
-/**
- * Form control validator that makes sure the organization control is not empty
- * or includeStateResults or inlcudeAllDistricts is flagged
- *
- * @param properties the properties to propagate when the control value is invalid
- * @return {null|{notEmpty: any}}}
- */
-const organizationValidator = (properties, settings) => control => {
-  return settings.includeStateResults
-  || settings.includeAllDistricts
-  || control.value.length ? null : { invalid: properties };
-};
-
 const OrganizationComparator = (a: Organization, b: Organization) => a.name.localeCompare(b.name);
 
 /**
@@ -183,10 +170,13 @@ export class AggregateReportFormComponent {
     );
 
     this.formGroup = new FormGroup({
-      organizations: new FormControl(this.organizations, organizationValidator(
-        { messageId: 'aggregate-reports.form.field.organization.error-invalid' },
-        this.settings
-      )),
+      organizations: new FormControl(this.organizations, control => {
+        return this.includeStateResults
+        || this.settings.includeAllDistricts
+        || control.value.length ? null : {
+          invalid: { messageId: 'aggregate-reports.form.field.organization.error-invalid' }
+        };
+      }),
       assessmentGrades: new FormControl(this.settings.assessmentGrades, notEmpty(
         { messageId: 'aggregate-reports.form.field.assessment-grades.error-empty' }
       )),
@@ -269,6 +259,18 @@ export class AggregateReportFormComponent {
 
   get estimatedRowCountIsLarge(): boolean {
     return this.estimatedRowCount > SupportedRowCount;
+  }
+
+  get includeStateResults(): boolean {
+    return this.settings.includeStateResults && !this.summativeFieldsDisabled;
+  }
+
+  set includeStateResults(value: boolean) {
+    if (this.summativeFieldsDisabled) {
+      return;
+    }
+
+    this.settings.includeStateResults = value;
   }
 
   /**
@@ -402,9 +404,6 @@ export class AggregateReportFormComponent {
       options: this.aggregateReportOptions,
       settings: this.settings
     };
-
-    // set include state results to false when summative fields are disabled
-    this.summary.settings.includeStateResults = this.summary.settings.includeStateResults && !this.summativeFieldsDisabled;
 
     // TODO this table should be lazily updated when it is scrolled into view. There is serious lag when changing settings above
     this.previewTable = {

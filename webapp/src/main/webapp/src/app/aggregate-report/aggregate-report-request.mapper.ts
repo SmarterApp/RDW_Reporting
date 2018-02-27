@@ -47,7 +47,7 @@ export class AggregateReportRequestMapper {
       includeAllDistricts: settings.includeAllDistricts,
       includeAllDistrictsOfSchools: settings.includeAllDistrictsOfSelectedSchools,
       includeAllSchoolsOfDistricts: settings.includeAllSchoolsOfSelectedDistricts,
-      includeState: settings.includeStateResults,
+      includeState: settings.includeStateResults && settings.assessmentType == "sum",
       schoolYears: settings.schoolYears,
       subjectCodes: settings.subjects,
       dimensionTypes: settings.dimensionTypes,

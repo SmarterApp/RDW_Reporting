@@ -112,8 +112,7 @@
                       <label class="inline-label">
                         <input type="checkbox"
                                [disabled]="summativeFieldsDisabled"
-                               [checked]="!summativeFieldsDisabled"
-                               [(ngModel)]="settings.includeStateResults"
+                               [(ngModel)]="includeStateResults"
                                [ngModelOptions]="{standalone: true}"
                                (ngModelChange)="onIncludeStateResultsChange(); onSettingsChange()">
                         <span class="ml-xs">{{'aggregate-reports.form.section.organization.include.state-results' | translate}}</span>
@@ -177,7 +176,7 @@
                            [options]="options.assessmentTypes"
                            [(ngModel)]="settings.assessmentType"
                            [ngModelOptions]="{standalone: true}"
-                           (change)="onSettingsChange()"></sb-radio-button-group>
+                           (change)="onIncludeStateResultsChange(); onSettingsChange()"></sb-radio-button-group>
               </div>
             </div>
           </div>
