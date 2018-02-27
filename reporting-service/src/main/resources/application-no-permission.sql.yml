@@ -32,6 +32,20 @@ sql:
           join exam e on e.asmt_id = i.asmt_id
         where e.id=:exam_id
 
+    percentile:
+      findAllForAssessment: >-
+        SELECT start_date,
+          end_date,
+          count,
+          ROUND(mean) AS mean,
+          ROUND(standard_deviation) AS standard_deviation,
+          percentile_rank,
+          ROUND(score) AS score
+        FROM percentile p
+          JOIN percentile_score ps ON ps.percentile_id = p.id
+        where p.asmt_id = :assessmentId AND :endDate >= start_date AND end_date >= :startDate
+        ORDER BY start_date, percentile_rank
+
   student:
     findOneById: >-
       select id,

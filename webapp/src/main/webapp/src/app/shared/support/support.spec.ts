@@ -21,4 +21,9 @@ describe('Utils', () => {
     expect(Utils.isNullOrEmpty('')).toEqual(true);
     expect(Utils.isNullOrEmpty('asdf')).toEqual(false);
   });
+
+  it('should create correct filename appendOrIncrementFileNameSuffix', () => {
+    expect(Utils.appendOrIncrementFileNameSuffix('an aggregateReport')).toEqual('an aggregateReport (1)');
+    expect(Utils.appendOrIncrementFileNameSuffix('an aggregateReport (1)')).toEqual('an aggregateReport (2)');
+  });
 });

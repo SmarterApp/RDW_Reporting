@@ -8,6 +8,7 @@ import { AggregateReportOptionsMapper } from "./aggregate-report-options.mapper"
 import { AggregateReportRequestMapper } from "./aggregate-report-request.mapper";
 import { AggregateReportOptions } from "./aggregate-report-options";
 import { TranslateService } from "@ngx-translate/core";
+import { Utils } from "../shared/support/support";
 
 /**
  * This resolver is responsible for fetching an aggregate report based upon
@@ -29,7 +30,7 @@ export class AggregateReportFormSettingsResolve implements Resolve<AggregateRepo
       return this.service.getReportById(Number.parseInt(reportId))
         .flatMap(report => this.requestMapper.toSettings(<AggregateReportRequest>report.request, options))
         .map(settings => Object.assign(settings, {
-          name: `${settings.name} ${this.translate.instant('common.copy-suffix')}`
+          name: Utils.appendOrIncrementFileNameSuffix(settings.name)
         }));
     }
     return Observable.of(this.optionMapper.toDefaultSettings(options));

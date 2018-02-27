@@ -1,8 +1,5 @@
-export class School {
-  id: number;
-  name: string;
-  schoolGroupId?: number;
-  districtId: number;
+import { DefaultSchool } from "../../shared/organization/organization";
+
+export class School extends DefaultSchool {
   districtName?: string;
-  districtGroupId?: number;
 }

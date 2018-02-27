@@ -1,11 +1,9 @@
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { ReportAction, ReportActionService } from "./report-action.service";
 import { PopupMenuAction } from "../shared/menu/popup-menu-action.model";
 import { Report } from "./report.model";
 import { TranslateService } from "@ngx-translate/core";
-import { SpinnerModal } from "../shared/loading/spinner.modal";
 import 'rxjs/add/operator/finally';
-import { Observable } from "rxjs/Observable";
 
 /**
  * Responsible for providing a UI displaying and performing an action
@@ -16,10 +14,6 @@ import { Observable } from "rxjs/Observable";
   templateUrl: './report-action.component.html'
 })
 export class ReportActionComponent implements OnInit {
-
-
-  @ViewChild('spinnerModal')
-  spinnerModal: SpinnerModal;
 
   @Input()
   public report: Report;
@@ -39,13 +33,7 @@ export class ReportActionComponent implements OnInit {
   }
 
   performAction(reportAction: ReportAction): void {
-    this.spinnerModal.loading = true;
-    const action: Observable<any> = this.actionService.performAction(reportAction);
-    action
-      .finally(() => {
-        this.spinnerModal.loading = false;
-      })
-      .subscribe(() => {});
+    this.actionService.performAction(reportAction);
   }
 
   private toMenuAction(reportAction: ReportAction): PopupMenuAction {

@@ -17,6 +17,7 @@ import { CommonModule } from "../../shared/common.module";
 import { InstructionalResourcesService } from "./instructional-resources.service";
 import { CachingDataService } from "../../shared/data/caching-data.service";
 import { DataService } from "../../shared/data/data.service";
+import { AssessmentPercentileService } from "../percentile/assessment-percentile.service";
 
 describe('AssessmentResultsComponent', () => {
   let component: AssessmentResultsComponent;
@@ -48,7 +49,8 @@ describe('AssessmentResultsComponent', () => {
         ColorService,
         InstructionalResourcesService,
         CachingDataService,
-        DataService
+        DataService,
+        AssessmentPercentileService
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();

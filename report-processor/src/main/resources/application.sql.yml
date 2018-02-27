@@ -1,34 +1,53 @@
 sql:
+#  this is used in tests ONLY to verify the non-embargo SQL clause from studentExamPermissionWithEmbargo
+  examPermissionTest:
+    findAllByStudentId: >-
+      SELECT
+        e.iep,
+        e.lep,
+        e.section504,
+        e.economic_disadvantage,
+        e.migrant_status,
+        ${sql.snippet.claimColumns},
+        ${sql.snippet.exam}
+      WHERE e.student_id = :student_id
+       AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
+
   exam:
     findAllIabsByStudentIdsAndQueryParamsUnknownPermissions: >-
       SELECT
         d.name AS district_name,
+        round(p.mean) AS percentile_mean,
+        ps.percentile_rank,
         ${sql.snippet.writingTraits},
         ${sql.snippet.exam}
       JOIN district d ON s.district_id=d.id
       LEFT JOIN exam_item ei ON ei.exam_id=e.id
       LEFT JOIN item i ON i.id = ei.item_id
+      ${sql.reportProcessor.snippet.percentileLeftJoin}
       WHERE e.student_id in (:student_ids)
         AND (:school_year is null or e.school_year=:school_year)
         AND (:subject_id is null or a.subject_id=:subject_id)
         AND (:grade_id is null or a.grade_id=:grade_id)
         AND a.type_id = 2
         AND ${sql.reportProcessor.snippet.schoolFilter}
-        AND ${sql.snippet.studentExamPermission}
+        AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
       ORDER BY e.completed_at DESC,
         i.performance_task_writing_type DESC
 
     findAllIabsByStudentIdsAndQueryParamsGroupPermissions: >-
       SELECT
         d.name AS district_name,
+        round(p.mean) AS percentile_mean,
+        ps.percentile_rank,
         ${sql.snippet.writingTraits},
         ${sql.snippet.exam}
       JOIN district d ON s.district_id=d.id
       LEFT JOIN exam_item ei ON ei.exam_id=e.id
       LEFT JOIN item i ON i.id=ei.item_id
+      ${sql.reportProcessor.snippet.percentileLeftJoin}
       JOIN student_group_membership sgm ON st.id = sgm.student_id
-      JOIN student_group sg ON sgm.student_group_id = sg.id
-          AND (sg.subject_id is null or a.subject_id = sg.subject_id)
+      JOIN student_group sg ON sgm.student_group_id = sg.id AND (sg.subject_id is null or a.subject_id = sg.subject_id)
       WHERE e.student_id in (:student_ids)
         AND sg.id=:group_id
         AND (:school_year is null or e.school_year=:school_year)
@@ -36,7 +55,7 @@ sql:
         AND (:grade_id is null or a.grade_id=:grade_id)
         AND a.type_id=2
         AND ${sql.reportProcessor.snippet.schoolFilter}
-        AND ${sql.snippet.studentExamPermission}
+        AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
       ORDER BY e.completed_at DESC,
               i.performance_task_writing_type DESC
 
@@ -52,7 +71,7 @@ sql:
         AND (:grade_id is null or a.grade_id=:grade_id)
         AND a.type_id=1
         AND ${sql.reportProcessor.snippet.schoolFilter}
-        AND ${sql.snippet.studentExamPermission}
+        AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
       ORDER BY e.completed_at asc
 
     findAllIcasByStudentIdsAndQueryParamsGroupPermissions: >-
@@ -71,7 +90,7 @@ sql:
         AND (:grade_id is null or a.grade_id=:grade_id)
         AND a.type_id=1
         AND ${sql.reportProcessor.snippet.schoolFilter}
-        AND ${sql.snippet.studentExamPermission}
+        AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
       ORDER BY e.completed_at asc
 
   export:
@@ -193,7 +212,7 @@ sql:
         JOIN school isch ON st.inferred_school_id = isch.id
       WHERE
         ${sql.reportProcessor.snippet.exportExamsFilter}
-        AND ${sql.snippet.studentExamPermission}
+        AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
 
     hasExams: >-
       SELECT 1
@@ -207,7 +226,7 @@ sql:
         JOIN school isch ON st.inferred_school_id = isch.id
       where
         ${sql.reportProcessor.snippet.exportExamsFilter}
-        AND ${sql.snippet.studentExamPermission}
+        AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
 
   student:
     findByExamQueryParamsUnknownPermissions: >-
@@ -218,7 +237,7 @@ sql:
         AND (:grade_id is null or a.grade_id = :grade_id)
         AND (:assessment_type is null or a.type_id = :assessment_type)
         AND ${sql.reportProcessor.snippet.schoolFilter}
-        AND ${sql.snippet.studentExamPermission}
+        AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
       group by st.id
 
     findByExamQueryParamsGroupPermissions: >-
@@ -233,11 +252,21 @@ sql:
         AND (:grade_id is null or a.grade_id = :grade_id)
         AND (:assessment_type is null or a.type_id = :assessment_type)
         AND ${sql.reportProcessor.snippet.schoolFilter}
-        AND ${sql.snippet.studentExamPermission}
+        AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
       GROUP BY st.id
 
   reportProcessor:
     snippet:
+#    nobody is allowed to export the data or generated PDFs for embargoed data, including the embargo admins
+      studentExamPermissionWithEmbargo: >-
+            ${sql.snippet.studentExamPermissionWithoutEmbargo}
+            AND
+            (
+               e.school_year < ${app.school-year}
+               OR e.type_id <> 3
+               OR s.embargo_enabled = 0
+            )
+
       schoolFilter:
             (
               :school_id is null
@@ -280,3 +309,7 @@ sql:
             )
           )
         )
+
+      percentileLeftJoin: >-
+          LEFT JOIN percentile p ON e.asmt_id = p.asmt_id AND DATE(e.completed_at) >= p.start_date AND DATE(e.completed_at) <= p.end_date
+          LEFT JOIN percentile_score ps ON ps.percentile_id = p.id AND e.scale_score >= ps.min_inclusive AND e.scale_score < ps.max_exclusive

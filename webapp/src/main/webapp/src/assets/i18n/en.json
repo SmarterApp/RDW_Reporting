@@ -5,6 +5,26 @@
   "home": {
     "aggregate-reports-link": "Create Aggregate Report"
   },
+  "assessment-percentile-table": {
+    "column": {
+      "effective-date": {
+        "header": "Effective Date",
+        "value-format": "{{from}} - {{to}}"
+      },
+      "count": "N",
+      "mean": "Mean",
+      "standard-deviation": "SD"
+    }
+  },
+  "assessment-percentile-history": {
+    "heading": "Consortium Percentiles",
+    "heading-info": "The percentile tables show the points at which a score is greater than X% of other student results. The effective date range, number (N), mean, and standard deviation (SD) of the data are included for reference. The numbered columns on the right hand side of the table denote the percentile rank for the listed scores.",
+    "button": {
+      "show": "Show Percentiles",
+      "hide": "Hide Percentiles"
+    },
+    "no-results": "There are currently no consortium percentiles uploaded for this assessment."
+  },
   "assessment-results": {
     "result-view-select": {
       "label": "Select a results view"
@@ -16,6 +36,7 @@
   "aggregate-report": {
     "column-order": "Column Order",
     "column-order-info": "Change your result column order to easily compare your results broken down in different ways.",
+    "empty": "Your report does not contain any results. Please modify your query and generate a new report.",
     "heading": "Aggregate Report",
     "form-link": "View Query",
     "processing": "Your report is being generated. This may take several minutes. ",
@@ -78,7 +99,6 @@
     "form": {
       "heading": "Custom Aggregate Report",
       "subheading": "Select the attributes to include in the report. Then click \"Generate Report.\"",
-      "required": "* Required",
       "field": {
         "organization": {
           "label": "Search a School or District",
@@ -220,8 +240,10 @@
       "label": "Completeness",
       "info": "A test is considered complete when the student provides an answer for every question."
     },
-    "copy-suffix": "(copy)",
     "export": "Export",
+    "error": {
+      "required": "* Required"
+    },
     "dimension": {
       "Overall": "Overall",
       "Gender": "Gender",
@@ -832,9 +854,9 @@
     },
     "assessments": {
       "average": {
-        "scale-score": "Scale Score / Error Band",
+        "scale-score": "Average Scale Score and Error Band",
         "scale-score-info": "Average scale score for the selected group of students and an error band based on the Standard Error of the Mean (SEM) associated with that score. Test scores are estimates of student achievement and come with a certain amount of measurement error. See the Interpretive Guide for additional information about scale scores and measurement error.",
-        "title": "Average"
+        "title": "Results Summary"
       },
       "items": {
         "tabs": {
@@ -881,6 +903,7 @@
       },
       "result": "Result",
       "results": "Results",
+      "results-label": "Number of Test Results",
       "student-score-distribution": {
         "title": "Student Score Distribution"
       }
@@ -1338,8 +1361,7 @@
           "resource": {
             "placeholder": "Enter URL",
             "error": {
-              "pattern": "URL must start with http:// or https://",
-              "required": "* Required"
+              "pattern": "URL must start with http:// or https://"
             }
           }
         }

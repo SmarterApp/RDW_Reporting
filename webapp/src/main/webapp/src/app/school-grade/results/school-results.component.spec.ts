@@ -38,10 +38,17 @@ describe('SchoolResultsComponent', () => {
   let schoolYear: number = 2017;
 
   beforeEach(async(() => {
-    let user = new User();
-    user.schools = [ { name: "Ogden", id: 2, districtId: 0, districtName: "Test District" } ];
 
-    let mockRouteSnapshot: any = {};
+    const school = new School();
+    school.id = 2;
+    school.name = 'Ogden';
+    school.districtId = 0;
+    school.districtName = 'Test District';
+
+    const user = new User();
+    user.schools = [ school ];
+
+    const mockRouteSnapshot: any = {};
     mockRouteSnapshot.data = { user: user };
     mockRouteSnapshot.params = { schoolId: 2, schoolYear: schoolYear };
 
@@ -50,16 +57,16 @@ describe('SchoolResultsComponent', () => {
     route = new MockActivatedRoute();
     route.snapshotResult.and.returnValue(mockRouteSnapshot);
 
-    let mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', [ 'eventTrack' ]);
+    const mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', [ 'eventTrack' ]);
     mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', [ 'next' ]);
 
-    let mockTranslate = new MockTranslateService();
+    const mockTranslate = new MockTranslateService();
 
-    let mockAssessmentService = jasmine.createSpyObj('SchoolAssessmentService', ['findGradesWithAssessmentsForSchool']);
+    const mockAssessmentService = jasmine.createSpyObj('SchoolAssessmentService', ['findGradesWithAssessmentsForSchool']);
 
-    let mockAssessmentExportService = jasmine.createSpyObj('SchoolAssessmentExportService', ['exportItemsToCsv', 'exportWritingTraitScoresToCsv']);
+    const mockAssessmentExportService = jasmine.createSpyObj('SchoolAssessmentExportService', ['exportItemsToCsv', 'exportWritingTraitScoresToCsv']);
 
-    let mockOrganizationService = jasmine.createSpyObj('OrganizationService', ['getSchoolsWithDistricts']);
+    const mockOrganizationService = jasmine.createSpyObj('OrganizationService', ['getSchoolsWithDistricts']);
 
     availableGrades = [];
     exportService = {};

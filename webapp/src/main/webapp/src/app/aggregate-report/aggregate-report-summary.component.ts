@@ -7,10 +7,10 @@ import { AssessmentDefinition } from "./assessment/assessment-definition";
 import { Utils } from "../shared/support/support";
 
 const NarrowColumnProvider: ColumnProvider = (organization, assessment, subgroup, filter) =>
-  [[organization, assessment], [filter, subgroup]];
+  [[organization, assessment], [subgroup, filter]];
 
 const WideColumnProvider: ColumnProvider = (organization, assessment, subgroup, filter) =>
-  [[organization], [assessment], [filter], [subgroup]];
+  [[organization], [assessment], [subgroup], [filter]];
 
 @Component({
   selector: 'aggregate-report-summary',

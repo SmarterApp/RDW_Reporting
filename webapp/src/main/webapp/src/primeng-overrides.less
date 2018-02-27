@@ -16,17 +16,11 @@ body {
 }
 
 
+// TODO Added .ui-table* to apply styles to primeng 5 turbo table.
+// TODO Once we move all tables to p-table we can remove the .ui-datatable* selectors here
 // Tables
-
-// sbac-ui-kit does not currently support colors on tds, so this
-// is a work around.  !important is required to override the existing
-// background-color.
-td.green{
-  background-color: @green !important;
-  color: @white;
-}
-
-body .ui-widget.ui-datatable {
+body .ui-widget.ui-datatable,
+body .ui-table {
   font-family: @font-family-serif;
   font-size: @font-size-small;
   table {
@@ -36,8 +30,11 @@ body .ui-widget.ui-datatable {
     min-width: 100%;
     // head, foot, and data
     .ui-datatable-thead,
+    .ui-table-thead,
     .ui-datatable-tfoot,
-    .ui-datatable-data {
+    .ui-table-tfoot,
+    .ui-datatable-data,
+    .ui-table-data {
       > tr {
         > th,
         > td {
@@ -51,12 +48,30 @@ body .ui-widget.ui-datatable {
           &:last-child {
             border-right: 1px solid @table-border-color;
           }
+          // Table Dropdown Arrows
+          &.col-icon a {
+            .btn;
+            .btn-default;
+            .btn-xs;
+            .square(@line-height-computed);
+            .ui-row-toggler {
+              width: auto;
+              height: auto;
+              .small;
+              .chevron-circle-right:before {
+                content: "\f054";
+              }
+              .chevron-circle-down:before {
+                content: "\f078";
+              }
+            }
+          }
         }
         > th {padding: (@table-cell-padding / 2) @table-cell-padding}
         &:last-child td {
           border-bottom: 1px solid @table-border-color;
         }
-        .btn{
+        .btn {
           &.icon-only {
             width: inherit;
             height: inherit;
@@ -67,7 +82,9 @@ body .ui-widget.ui-datatable {
     }
     // head, and foot
     .ui-datatable-thead,
-    .ui-datatable-tfoot {
+    .ui-table-thead,
+    .ui-datatable-tfoot,
+    .ui-table-tfoot {
       > tr {
         > th,
         > td {
@@ -83,7 +100,8 @@ body .ui-widget.ui-datatable {
       }
     }
     // head
-    .ui-datatable-thead {
+    .ui-datatable-thead,
+    .ui-table-thead {
       > tr {
         > th {
           border-right: 1px solid rgba(100, 102, 106, 0.17);
@@ -103,34 +121,42 @@ body .ui-widget.ui-datatable {
       }
     }
     // body
-    .ui-datatable-data {
+    .ui-datatable-data,
+    .ui-table-data {
       > tr {
         > td {
           border-right: 1px solid rgba(213, 213, 213, 0.26);
           border-bottom: 1px solid @table-border-color;
         }
-        &.ui-datatable-even:hover {
+        &.ui-datatable-even:hover,
+        &.ui-table-even:hover {
           background-color: @table-bg-hover;
         }
       }
     }
   }
   // fixing the scrollable table
-  &.ui-datatable-scrollable {
+  &.ui-datatable-scrollable,
+  &.ui-table-scrollable {
     margin: 0px;
     width: 100;
     max-width: 100%;
-    .ui-datatable-scrollable-wrapper {
-      .ui-datatable-scrollable-view {
-        .ui-datatable-scrollable-header {
-          .ui-datatable-scrollable-header-box {
+    .ui-datatable-scrollable-wrapper,
+    .ui-table-scrollable-wrapper {
+      .ui-datatable-scrollable-view,
+      .ui-table-scrollable-view {
+        .ui-datatable-scrollable-header,
+        .ui-table-scrollable-header {
+          .ui-datatable-scrollable-header-box,
+          .ui-table-scrollable-header-box {
             table {
               width: auto;
               max-width: none;
             }
           }
         }
-        .ui-datatable-scrollable-body {
+        .ui-datatable-scrollable-body,
+        .ui-table-scrollable-body {
           > div {
             table {
               width: auto;
@@ -162,7 +188,8 @@ body .ui-widget.ui-datatable {
   }
   // overflow styles
   // table.overflow {
-  table:not(".my-groups-list-container table") {
+  // TODO we should have to add a class to get the below styles not add a style to remove them
+  :not(p-table.no-well) table {
     .well;
     padding-top: (@line-height-computed / 2);
     padding-right: (@grid-gutter-width / 2);
@@ -198,25 +225,18 @@ body .ui-widget.ui-datatable {
   }
 }
 
-// Table Dropdown Arrows
-td.col-icon a {
-  .btn;
-  .btn-default;
-  .btn-xs;
-  .square(@line-height-computed);
-  .ui-row-toggler {
-    width: auto;
-    height: auto;
-    .small;
-    .chevron-circle-right:before {
-      content: "\f054";
-    }
-    .chevron-circle-down:before {
-      content: "\f078";
+
+
+p-table {
+  table {
+    .table;
+    .table-striped;
+    .table-hover;
+    font-family: @font-family-serif;
+    font-size: @font-size-small;
+    border: 1px solid @gray-light;
+    > thead > tr > th {
+      font-weight: normal;
     }
   }
-}
-
-.popover {
-  width: 300px;
 }

@@ -6,19 +6,15 @@
 
 <!-- Individual Assessment Result Container -->
 <div class="assessment-result well wide-content-container">
-  <!-- Top Right Buttons -->
-  <div class="row">
-    <div class="col-xs-10 col-sm-11">
-      <div class="row">
-        <div class="col-md-12 mb-sm">
-          <!-- Assessment Title -->
-          <span class="tag tag-lg {{colorService.getColor(getGradeIdx(assessmentExam.assessment.grade))}}">
-                <span class="label">{{assessmentExam.assessment.grade | gradeDisplay}}</span>
-                {{assessmentExam.assessment.label}}
-            </span>
-        </div>
-      </div>
+
+  <div class="flex-children">
+    <div class="flex-child grow">
+      <span class="tag tag-lg {{colorService.getColor(getGradeIdx(assessmentExam.assessment.grade))}}">
+        <span class="label">{{assessmentExam.assessment.grade | gradeDisplay}}</span>
+        {{assessmentExam.assessment.label}}
+      </span>
     </div>
+<<<<<<< HEAD
     <div class="col-xs-2 col-sm-1">
       <button class="btn btn-default btn-sm icon-only pull-right"
               (click)="collapsed = !collapsed"
@@ -28,6 +24,22 @@
         <i class="fa font-bold"
            [ngClass]="{'fa-caret-square-o-up': !collapsed, 'fa-caret-square-o-down': collapsed}"></i> <span class="sr-only">{{'prompt.collapse' | translate}}</span>
       </button>
+=======
+    <div class="flex-child">
+      <ul class="list-unstyled list-inline">
+        <li>
+          <button class="btn btn-default btn-sm icon-only"
+                  (click)="collapsed = !collapsed"
+                  angulartics2On="click"
+                  angularticsEvent="ToggleCollapseResults"
+                  angularticsCategory="AssessmentResults">
+            <i class="fa font-bold"
+               [ngClass]="collapsed ? 'fa-caret-square-o-down' : 'fa-caret-square-o-up'"></i>
+            <span class="sr-only">{{'prompt.collapse' | translate}}</span>
+          </button>
+        </li>
+      </ul>
+>>>>>>> develop
     </div>
   </div>
 
@@ -37,8 +49,7 @@
       <strong>{{'labels.groups.results.assessment.sessions-title' | translate}}</strong>
       <div class="flex-children">
         <a *ngFor="let session of sessions"
-           class="reverse multi-line btn flex-child"
-           [ngClass]="{'gray-dark':!session.filter, 'aqua': session.filter}"
+           class="reverse multi-line btn flex-child {{session.filter ? 'aqua' : 'gray-dark'}}"
            (click)="toggleSession(session)"
            angulartics2On="click"
            angularticsEvent="ToggleSession"
@@ -58,6 +69,14 @@
                            [statistics]="statistics"
                            [showValuesAsPercent]="showValuesAsPercent"
                            [assessmentProvider]="assessmentProvider"></average-scale-score>
+    </div>
+  </div>
+
+  <div class="row mt-md" [hidden]="!showPercentileHistory">
+    <div class="col-md-12">
+      <div class="assessment-percentile-container">
+        <assessment-percentile-history [percentileGroups]="percentileGroups"></assessment-percentile-history>
+      </div>
     </div>
   </div>
 
@@ -131,67 +150,77 @@
           </div>
         </span>
 
-        <!-- Bottons right of view select -->
+        <!-- Buttons right of view select -->
         <div class="pull-right mt-sm">
-          <button *ngIf="assessmentExam.assessment.isIab"
-                  class="btn btn-success btn-sm"
-                  angulartics2On="click"
-                  angularticsEvent="InstructionalResource"
-                  angularticsCategory="AssessmentResults"
-                  [angularticsProperties]="{label: assessmentExam.assessment.label}"
-                  [popover]="buttonPopover"
-                  popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:assessmentExam.assessment.label } }}"
-                  container="body"
-                  (click)="loadInstructionalResources(assessmentExam.assessment, 0)"
-                  [outsideClick]="true">
-            <i class="fa fa-book"></i> {{'labels.groups.results.assessment.instruct' | translate }}
-          </button>
-          <button *ngIf="currentResultsView.canExport"
-                  class="btn btn-default btn-sm ml-xs"
-                  [disabled]="!currentExportResults || !currentExportResults.hasDataToExport()"
-                  (click)="currentExportResults.exportToCsv()">
-            <i class="fa fa-cloud-download"></i> {{ 'labels.export.title' | translate }}
-          </button>
+          <ul class="list-unstyled list-inline">
+            <li *ngIf="assessmentExam.assessment.isIab">
+              <button class="btn btn-success btn-sm"
+                      angulartics2On="click"
+                      angularticsEvent="InstructionalResource"
+                      angularticsCategory="AssessmentResults"
+                      [angularticsProperties]="{label: assessmentExam.assessment.label}"
+                      [popover]="buttonPopover"
+                      popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:assessmentExam.assessment.label } }}"
+                      container="body"
+                      (click)="loadInstructionalResources(assessmentExam.assessment, 0)"
+                      [outsideClick]="true">
+                <i class="fa fa-book"></i> {{'labels.groups.results.assessment.instruct' | translate }}
+              </button>
+            </li>
+            <li *ngIf="assessmentExam.assessment.isIab">
+              <button class="btn btn-default btn-sm"
+                      type="button"
+                      (click)="onPercentileButtonClickInternal()">
+                {{(showPercentileHistory
+                  ? 'assessment-percentile-history.button.hide'
+                  : 'assessment-percentile-history.button.show'
+                ) | translate}}
+              </button>
+            </li>
+            <li *ngIf="currentResultsView.canExport">
+              <button class="btn btn-default btn-sm"
+                      [disabled]="!currentExportResults || !currentExportResults.hasDataToExport()"
+                      (click)="currentExportResults.exportToCsv()">
+                <i class="fa fa-cloud-download"></i> {{ 'labels.export.title' | translate }}
+              </button>
+            </li>
+          </ul>
         </div>
 
-
-
-
-        <!--<div>-->
-          <ng-container *ngIf="showStudentResults">
-            <results-by-student [exams]="exams"
+        <ng-container *ngIf="showStudentResults">
+          <results-by-student [exams]="exams"
+                              [assessment]="assessmentExam.assessment"
+                              [minimumItemDataYear]="minimumItemDataYear"></results-by-student>
+        </ng-container>
+        <ng-container *ngIf="showItemsByPointsEarned">
+          <results-by-item #resultsByItem
+                           [showValuesAsPercent]="showValuesAsPercent"
+                           [assessmentProvider]="assessmentProvider"
+                           [assessmentExporter]="assessmentExporter"
+                           [assessment]="assessmentExam.assessment"
+                           [exams]="exams"></results-by-item>
+        </ng-container>
+        <ng-container *ngIf="showDistractorAnalysis">
+          <distractor-analysis #distractorAnalysis
+                               [showValuesAsPercent]="showValuesAsPercent"
+                               [assessmentProvider]="assessmentProvider"
+                               [assessmentExporter]="assessmentExporter"
+                               [assessment]="assessmentExam.assessment"
+                               [exams]="exams"></distractor-analysis>
+        </ng-container>
+        <ng-container *ngIf="showWritingTraitScores">
+          <writing-trait-scores #writingTraitScores
+                                [showValuesAsPercent]="showValuesAsPercent"
+                                [assessmentProvider]="assessmentProvider"
+                                [assessmentExporter]="assessmentExporter"
                                 [assessment]="assessmentExam.assessment"
-                                [minimumItemDataYear]="minimumItemDataYear"></results-by-student>
-          </ng-container>
-          <ng-container *ngIf="showItemsByPointsEarned">
-            <results-by-item #resultsByItem
-                             [showValuesAsPercent]="showValuesAsPercent"
-                             [assessmentProvider]="assessmentProvider"
-                             [assessmentExporter]="assessmentExporter"
-                             [assessment]="assessmentExam.assessment"
-                             [exams]="exams"></results-by-item>
-          </ng-container>
-          <ng-container *ngIf="showDistractorAnalysis">
-            <distractor-analysis #distractorAnalysis
-                                 [showValuesAsPercent]="showValuesAsPercent"
-                                 [assessmentProvider]="assessmentProvider"
-                                 [assessmentExporter]="assessmentExporter"
-                                 [assessment]="assessmentExam.assessment"
-                                 [exams]="exams"></distractor-analysis>
-          </ng-container>
-          <ng-container *ngIf="showWritingTraitScores">
-            <writing-trait-scores #writingTraitScores
-                                  [showValuesAsPercent]="showValuesAsPercent"
-                                  [assessmentProvider]="assessmentProvider"
-                                  [assessmentExporter]="assessmentExporter"
-                                  [assessment]="assessmentExam.assessment"
-                                  [exams]="exams"></writing-trait-scores>
-          </ng-container>
-        <!--</div>-->
+                                [exams]="exams"></writing-trait-scores>
+        </ng-container>
       </div>
     </div>
   </ng-container>
 </div>
+
 <ng-template #buttonPopover>
   <instructional-resource-popover [provider]="instructionalResourceProvider"></instructional-resource-popover>
 </ng-template>

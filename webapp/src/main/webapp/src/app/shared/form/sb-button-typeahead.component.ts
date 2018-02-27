@@ -21,6 +21,7 @@ import { Utils } from "../support/support";
              typeaheadGroupField="group"
              (typeaheadOnSelect)="onSelectInternal($event.item)"
              (ngModelChange)="onChangeInternal()"
+             typeaheadWaitMs="300"
              [(ngModel)]="search"
              [placeholder]="placeholder">
       

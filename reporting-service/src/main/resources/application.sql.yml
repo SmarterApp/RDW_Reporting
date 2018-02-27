@@ -10,7 +10,7 @@ sql:
         ${sql.snippet.claimColumns},
         ${sql.snippet.exam}
       WHERE e.student_id = :student_id
-       AND ${sql.snippet.studentExamPermission}
+       AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
     existsForStudentId: >-
       SELECT
@@ -24,7 +24,7 @@ sql:
         JOIN school s ON e.school_id = s.id
         JOIN school isch ON st.inferred_school_id = isch.id
       WHERE st.ssid = :student_ssid
-      AND ${sql.snippet.studentExamPermission}
+      AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
       LIMIT 1
 
   examItem:
@@ -32,7 +32,7 @@ sql:
         ${sql.reporting.snippet.selectFromExamItem}
         WHERE e.id = :exam_id
         AND a.type_id != 3
-        AND ${sql.snippet.studentExamPermission}
+        AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
   group:
     assessment:
@@ -50,7 +50,7 @@ sql:
             AND a.id = e.asmt_id
             AND sg.id = :group_id
             AND (sg.subject_id is null OR a.subject_id = sg.subject_id)
-            AND ${sql.snippet.studentExamPermission}
+            AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
       findLatestExam: >-
           SELECT
@@ -65,7 +65,7 @@ sql:
           WHERE e.school_year = :school_year
             AND sgm.student_group_id = :group_id
             AND (sg.subject_id is null OR a.subject_id = sg.subject_id)
-            AND ${sql.snippet.studentExamPermission}
+            AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
           ORDER BY e.completed_at desc
           LIMIT 1
     exam:
@@ -84,7 +84,7 @@ sql:
           AND e.school_year = :school_year
           AND sg.id = :group_id
           AND (sg.subject_id is null OR a.subject_id = sg.subject_id)
-          AND ${sql.snippet.studentExamPermission}
+          AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
     examItem:
         findAllExamItemScoresForAssessment:
@@ -95,7 +95,7 @@ sql:
             AND e.school_year = :school_year
             AND sg.id = :group_id
             AND (sg.subject_id is null OR a.subject_id = sg.subject_id)
-            AND ${sql.snippet.studentExamPermission}
+            AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
   schoolgrade:
     assessment:
@@ -111,7 +111,7 @@ sql:
             WHERE e.school_year = :school_year
             AND a.id = e.asmt_id
             AND (s.id = :school_id OR (1 = :allow_transfer_access AND isch.id = :school_id))
-            AND ${sql.snippet.studentExamPermission}
+            AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
         )
         AND a.grade_id = :grade_id
 
@@ -126,7 +126,7 @@ sql:
         WHERE e.school_year = :school_year
         AND e.school_id = :school_id
         AND a.grade_id = :grade_id
-        AND ${sql.snippet.studentExamPermission}
+        AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
         ORDER BY e.completed_at desc
         LIMIT 1
 
@@ -144,7 +144,7 @@ sql:
         AND a.grade_id = :grade_id
         AND e.school_year = :school_year
         AND (s.id = :school_id OR (1 = :allow_transfer_access AND isch.id = :school_id))
-        AND ${sql.snippet.studentExamPermission}
+        AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
     examItem:
         findAllExamItemScoresForAssessment:
@@ -153,7 +153,7 @@ sql:
           AND e.school_year = :school_year
           AND a.grade_id = :grade_id
           AND (s.id = :school_id OR (1 = :allow_transfer_access AND isch.id = :school_id))
-          AND ${sql.snippet.studentExamPermission}
+          AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
   assessment:
     grade:
@@ -167,7 +167,7 @@ sql:
               JOIN student st ON e.student_id = st.id
               JOIN school isch ON st.inferred_school_id = isch.id
             WHERE e.school_id = :school_id
-            AND ${sql.snippet.studentExamPermission}
+            AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
             AND g.id=a.grade_id
         )
 
@@ -207,3 +207,14 @@ sql:
             JOIN school s ON e.school_id=s.id
             JOIN student st ON st.id=e.student_id
             JOIN school isch ON st.inferred_school_id = isch.id
+            
+      studentExamPermissionWithEmbargo: >-
+          ${sql.snippet.studentExamPermissionWithoutEmbargo}
+          AND
+          (
+             e.school_year < ${app.school-year}
+             OR e.type_id <> 3
+             OR s.embargo_enabled = 0
+             OR 1 = :state_embargo_admin
+             OR s.district_id IN (:district_embargo_admin_ids)
+          )

@@ -38,6 +38,7 @@ import { ScaleScoreService } from "./results/scale-score.service";
 import { InstructionalResourcesService } from "./results/instructional-resources.service";
 import { InstructionalResourcePopoverComponent } from './popover/instructional-resource-popover.component';
 import { RdwMenuModule } from "../shared/menu/rdw-menu.module";
+import { AssessmentPercentileModule } from "./percentile/assessment-percentile.module";
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { RdwMenuModule } from "../shared/menu/rdw-menu.module";
     RdwMenuModule,
     ReportModule,
     SharedModule,
-    TabsModule
+    TabsModule,
+    AssessmentPercentileModule
   ],
   exports: [
     AdvFiltersComponent,

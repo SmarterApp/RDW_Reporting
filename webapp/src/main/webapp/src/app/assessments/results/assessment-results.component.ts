@@ -22,6 +22,9 @@ import { Assessment } from "../model/assessment.model";
 import { Observable } from "rxjs/Observable";
 import { WritingTraitScoresComponent } from "./view/writing-trait-scores/writing-trait-scores.component";
 import { AssessmentExporter } from "../assessment-exporter.interface";
+import { AssessmentPercentileRequest, AssessmentPercentileService } from "../percentile/assessment-percentile.service";
+import { PercentileGroup } from "../percentile/assessment-percentile";
+import { Utils } from "../../shared/support/support";
 
 enum ResultsViewState {
   ByStudent = 1,
@@ -202,6 +205,8 @@ export class AssessmentResultsComponent implements OnInit {
   distractorAnalysisView: ResultsView;
   writingTraitScoresView: ResultsView;
   instructionalResourceProvider: () => Observable<InstructionalResource[]>;
+  showPercentileHistory: boolean = false;
+  percentileGroups: PercentileGroup[];
 
   private _filterBy: FilterBy;
   private _assessmentExam: AssessmentExam;
@@ -210,17 +215,18 @@ export class AssessmentResultsComponent implements OnInit {
   constructor(public colorService: ColorService,
               private examCalculator: ExamStatisticsCalculator,
               private examFilterService: ExamFilterService,
-              private instructionalResourcesService: InstructionalResourcesService) {
+              private instructionalResourcesService: InstructionalResourcesService,
+              private percentileService: AssessmentPercentileService) {
   }
 
   ngOnInit(): void {
-    this.setViews();
+    this.initializeViews();
     this.setCurrentView(this.resultsByStudentView);
   }
 
-  setViews(): void {
+  initializeViews(): void {
     this.resultsByStudentView = this.createResultViewState(ResultsViewState.ByStudent, true, false, true);
-    this.resultsByItemView = this.createResultViewState(ResultsViewState.ByItem, this.displayItemLevelData, true, true)
+    this.resultsByItemView = this.createResultViewState(ResultsViewState.ByItem, this.displayItemLevelData, true, true);
     this.distractorAnalysisView = this.createResultViewState(ResultsViewState.DistractorAnalysis, this.displayItemLevelData, true, true);
     this.writingTraitScoresView = this.createResultViewState(ResultsViewState.WritingTraitScores, this.enableWritingTraitScores, true, this.displayWritingTraitScores);
   }
@@ -257,8 +263,24 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   loadInstructionalResources(assessment: Assessment, performanceLevel: number): void {
-    this.instructionalResourceProvider = () => this.instructionalResourcesService.getInstructionalResources(assessment.id, this.assessmentProvider.getSchoolId())
-        .map((resources) => resources.getResourcesByPerformance(performanceLevel));
+    this.instructionalResourceProvider = () => this.instructionalResourcesService
+      .getInstructionalResources(assessment.id, this.assessmentProvider.getSchoolId())
+      .map((resources) => resources.getResourcesByPerformance(performanceLevel));
+  }
+
+  onPercentileButtonClickInternal(): void {
+    this.showPercentileHistory = !this.showPercentileHistory;
+    if (Utils.isNullOrUndefined(this.percentileGroups)) {
+      const results = this.assessmentExam;
+      const dates = results.exams.map(exam => new Date(exam.date)).sort();
+      const request = <AssessmentPercentileRequest>{
+        assessmentId: results.assessment.id,
+        from: dates[ 0 ],
+        to: dates[ dates.length - 1 ]
+      };
+      this.percentileService.getPercentilesGroupedByRank(request)
+        .subscribe(percentileGroups => this.percentileGroups = percentileGroups);
+    }
   }
 
   private getDistinctExamSessions(exams: Exam[]): any[] {

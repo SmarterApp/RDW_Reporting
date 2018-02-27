@@ -13,7 +13,6 @@ import { Utils } from "../../shared/support/support";
 import { Comparator, ranking } from "@kourge/ordering/comparator";
 import { ordering } from "@kourge/ordering";
 import { AggregateReportQuery } from "../../report/aggregate-report-request";
-import { saveAs } from "file-saver";
 import { DisplayOptionService } from "../../shared/display-options/display-option.service";
 import { TranslateService } from "@ngx-translate/core";
 import { AggregateReportRequestMapper } from "../aggregate-report-request.mapper";
@@ -91,6 +90,10 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     return this._viewState === ViewState.ReportProcessing;
   }
 
+  get reportEmpty(): boolean {
+    return this._viewState === ViewState.ReportEmpty;
+  }
+
   get reportNotLoadable(): boolean {
     return this._viewState === ViewState.ReportNotLoadable;
   }
@@ -125,14 +128,8 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   }
 
   onDownloadDataButtonClick(): void {
-    this.spinnerModal.loading = true;
-    this.reportService.getReportContent(this.report.id)
-      .finally(() => {
-        this.spinnerModal.loading = false;
-      })
-      .subscribe(download => {
-        saveAs(download.content, download.name);
-      });
+    this.reportService.downloadReportContent(this.report.id);
+    this.router.navigateByUrl("/reports");
   }
 
   getExportName(table: AggregateReportTableView): string {
@@ -157,7 +154,10 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     if (this.report.processing) {
       return ViewState.ReportProcessing;
     }
-    if (!this.report.loadable) {
+    if (this.report.empty) {
+      return ViewState.ReportEmpty;
+    }
+    if (!this.report.completed) {
       return ViewState.ReportNotLoadable;
     }
     if (!this.isSupportedSize(this.report) && !this._displayLargeReport) {
@@ -262,6 +262,7 @@ interface AggregateReportTableView {
 
 enum ViewState {
   ReportProcessing,
+  ReportEmpty,
   ReportNotLoadable,
   ReportSizeNotSupported,
   ReportView

@@ -101,7 +101,7 @@
   </div>
 
   <div id="group-results-edit-assessments"
-       class="well gray-lighter"
+       class="well gray-lighter clearfix"
        [hidden]="!expandAssessments || hideAssessments">
     <div id="adv-filters-edit-assessments-collapse"
          class="pull-right">
@@ -113,8 +113,14 @@
         <i class="fa fa-close" aria-hidden="true"></i>
       </button>
     </div>
-    <select-assessments [assessments]="availableAssessments"
-                        (selectedAssessmentsChanged)="selectedAssessmentsChanged($event)"></select-assessments>
+    <ng-container *ngIf="availableAssessments && availableAssessments.length; else loadingAssessments">
+      <select-assessments [assessments]="availableAssessments"
+                          (selectedAssessmentsChanged)="selectedAssessmentsChanged($event)"></select-assessments>
+    </ng-container>
+    <ng-template #loadingAssessments>
+      <i class="fa fa-spinner fa-pulse fa-2x"></i>
+    </ng-template>
+
   </div>
 
 </div>

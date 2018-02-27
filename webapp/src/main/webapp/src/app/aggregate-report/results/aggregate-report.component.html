@@ -46,6 +46,12 @@
       <spinner text="{{'aggregate-report.processing' | translate}}"></spinner>
     </ng-container>
 
+    <ng-container *ngIf="reportEmpty">
+      <div class="well">
+        <p>{{'aggregate-report.empty' | translate}}</p>
+      </div>
+    </ng-container>
+
     <ng-container *ngIf="reportNotLoadable">
       <div class="well">
         <p>{{'aggregate-report.error.unloadable' | translate}}</p>

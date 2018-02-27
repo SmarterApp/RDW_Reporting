@@ -24,12 +24,12 @@ export class Report {
     return this.status === 'COMPLETED';
   }
 
-  get processing(): boolean {
-    return this.status === 'PENDING' || this.status === 'RUNNING';
+  get empty(): boolean {
+    return this.status === 'NO_RESULTS';
   }
 
-  get loadable(): boolean {
-    return this.status !== 'FAILED' && this.status !== 'EXPIRED';
+  get processing(): boolean {
+    return this.status === 'PENDING' || this.status === 'RUNNING';
   }
 
   get regenerable(): boolean {

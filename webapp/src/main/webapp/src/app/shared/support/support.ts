@@ -215,4 +215,19 @@ export class Utils {
     return [ undefined, 'ica', 'iab', 'sum' ][ assessmentType ];
   }
 
+  /**
+   * Given the name "My Name" this method will return "My Name (1)"
+   * Given the name "My Name (1)" this method will return "My Name (2)"
+   *
+   * @param {string} name the name with an optional "(N)" to increment
+   * @returns {string} the given name suffixed with "(N + 1)" or " (1)" if no "(N)" is provided
+   */
+  static appendOrIncrementFileNameSuffix(name: string): string {
+    return name.replace(/((\((\d+)\)(\s)?)?$)/, (a) => {
+      if (a == '') {
+        return ` (1)`;
+      }
+      return `(${Number(a.replace(/[()]/g, '')) + 1})`;
+    });
+  }
 }

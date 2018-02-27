@@ -140,32 +140,11 @@ export class AggregateReportTableComponent implements OnInit {
       const assessmentGradeOrdering = ordering(ranking(options.assessmentGrades))
         .on((item: AggregateReportItem) => item.assessmentGradeCode);
 
-      const dimensionOptionsByDimensionType = {
-        Gender: options.genders,
-        Ethnicity: options.ethnicities,
-        LEP: options.limitedEnglishProficiencies,
-        MigrantStatus: options.migrantStatuses,
-        Section504: options.migrantStatuses,
-        IEP: options.individualEducationPlans,
-        EconomicDisadvantage: options.economicDisadvantages,
-        StudentEnrolledGrade: options.assessmentGrades
-      };
-
-      const dimensionTypeAndCodeRanking = table.options.dimensionTypes.reduce((ranking, dimensionType) => {
-        return ranking.concat(
-          (dimensionOptionsByDimensionType[ dimensionType ] || []).map(dimensionCode => `${dimensionType}.${dimensionCode}`)
-        );
-      }, []);
-
-      const dimensionOrdering = ordering(ranking(
-        [OverallDimensionType, ...dimensionTypeAndCodeRanking]
-      )).on((item: AggregateReportItem) => `${item.dimension.type}.${item.dimension.code}`);
-
       this._districtNamesById = this.getDistrictNamesById(value.rows);
       this._orderingByColumnField['organization.name'] = this.createOrganizationOrdering();
       this._orderingByColumnField['assessmentGradeCode'] = assessmentGradeOrdering;
       this._orderingByColumnField['schoolYear'] = SchoolYearOrdering;
-      this._orderingByColumnField['dimension.id'] = dimensionOrdering;
+      this._orderingByColumnField['dimension.id'] = this.createDimensionOrdering(options);
       this._table = table;
       this.updatePagination();
 
@@ -415,6 +394,50 @@ export class AggregateReportTableComponent implements OnInit {
       DistrictOrdering.compare,
       SchoolOrdering.compare
     ));
+  }
+
+  private createDimensionOrdering(options: AggregateReportOptions): Ordering<AggregateReportItem> {
+    const dimensionOptionsByDimensionType = {
+      Gender: options.genders,
+      Ethnicity: options.ethnicities,
+      LEP: options.limitedEnglishProficiencies,
+      MigrantStatus: options.migrantStatuses,
+      Section504: options.migrantStatuses,
+      IEP: options.individualEducationPlans,
+      EconomicDisadvantage: options.economicDisadvantages
+    };
+
+    const dimensionTypeAndCodeRankingValues = options.dimensionTypes.reduce((ranking, dimensionType) => {
+      return ranking.concat(
+        (dimensionOptionsByDimensionType[ dimensionType ] || []).map(dimensionCode => `${dimensionType}.${dimensionCode}`)
+      );
+    }, []);
+
+    const dimensionTypeAndCodeComparator: Comparator<AggregateReportItem> = ordering(ranking(
+      [OverallDimensionType, ...dimensionTypeAndCodeRankingValues]
+    ))
+      .on((item: AggregateReportItem) => `${item.dimension.type}.${item.dimension.code}`)
+      .compare;
+
+    // Attempt to sort based upon the enrolled grade code as a number ("01", "02", "KG", "UG", etc)
+    // If the code cannot be parsed as a number, the order is undefined
+    // TODO we should have a specific ordering for all grade codes, although the system only currently uses "03" - "12"
+    const enrolledGradeComparator: Comparator<AggregateReportItem> = ordering(byNumber)
+      .on((item: AggregateReportItem) => {
+        if (item.dimension.type != 'StudentEnrolledGrade') {
+          return -1;
+        }
+        try {
+          return parseInt(item.dimension.code);
+        } catch (error) {
+          return 1;
+        }
+      })
+      .compare;
+
+    return ordering(join(
+      dimensionTypeAndCodeComparator,
+      enrolledGradeComparator));
   }
 
   private updatePagination() {

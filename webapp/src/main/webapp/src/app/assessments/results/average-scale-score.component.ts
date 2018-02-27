@@ -24,6 +24,9 @@ export class AverageScaleScoreComponent {
 
   @Input()
   set statistics(value: ExamStatistics) {
+    // reverse percents and levels so scale score statistics appear in descending order ("good" statistics levels comes before "bad")
+    value.percents = value.percents.reverse();
+    value.levels = value.levels.reverse();
     this._statistics = value;
 
     if (value && value.levels) {
@@ -89,7 +92,7 @@ export class AverageScaleScoreComponent {
 
   loadInstructionalResources(performanceLevel: ExamStatisticsLevel) {
     this.instructionalResourcesProvider = () => this.instructionalResourcesService.getInstructionalResources(this.assessmentExam.assessment.id, this.assessmentProvider.getSchoolId())
-        .map(resources => resources.getResourcesByPerformance(performanceLevel.id));
+      .map(resources => resources.getResourcesByPerformance(performanceLevel.id));
   }
 
 }

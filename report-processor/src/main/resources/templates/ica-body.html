@@ -21,10 +21,8 @@
                     </div>
                 </div>
                 <div class="col-xs-6">
-                    <div class="well" th:if="${scored}">
-                        <div class="well-body">
-                            <p th:text="#{('report.overall-achievement.grade.' + ${report.assessment.gradeCode} + '.subject.' + ${report.assessment.subject} + '.level.' + ${report.exam.scaleScore.level})(${report.student.firstName})}"></p>
-                        </div>
+                    <div class="well pad-small" th:if="${scored}">
+                            <span th:text="#{('report.overall-achievement.grade.' + ${report.assessment.gradeCode} + '.subject.' + ${report.assessment.subject} + '.level.' + ${report.exam.scaleScore.level})(${report.student.firstName})}"></span>
                     </div>
                 </div>
             </div>

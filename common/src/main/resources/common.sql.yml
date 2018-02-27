@@ -128,7 +128,7 @@ sql:
     basicPermission: >-
         (1=:statewide or sc.district_group_id in (:district_group_ids) or sc.district_id in (:district_ids) or sc.school_group_id in (:school_group_ids) or sc.id in (:school_ids))
 
-    studentExamPermission: >-
+    studentExamPermissionWithoutEmbargo: >-
         (
            # Individual permissions
           (
@@ -158,14 +158,6 @@ sql:
               )
             )
           )
-        )
-        AND
-        (
-           e.school_year < ${app.school-year}
-           OR e.type_id <> 3
-           OR s.embargo_enabled = 0
-           OR 1 = :state_embargo_admin
-           OR s.district_id IN (:district_embargo_admin_ids)
         )
 
     claimColumns: >-

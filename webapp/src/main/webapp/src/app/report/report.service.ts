@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { Headers, ResponseContentType } from "@angular/http";
 import { ReportOptions } from "./report-options.model";
 import { Observable } from "rxjs/Observable";
@@ -11,7 +11,7 @@ import { Student } from "../student/model/student.model";
 import { Group } from "../user/model/group.model";
 import { School } from "../user/model/school.model";
 import { Grade } from "../school-grade/grade.model";
-import { DataService } from "../shared/data/data.service";
+import { DATA_CONTEXT_URL, DataService } from "../shared/data/data.service";
 import { Download } from "../shared/data/download.model";
 import { AggregateReportRequest } from "./aggregate-report-request";
 import { AggregateReportRow } from "./aggregate-report";
@@ -22,7 +22,8 @@ const ServiceRoute = '/report-processor';
 @Injectable()
 export class ReportService {
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService,
+              @Inject(DATA_CONTEXT_URL) private contextUrl: string = '/api') {
   }
 
   /**
@@ -118,6 +119,15 @@ export class ReportService {
       }),
       responseType: ResponseContentType.Blob
     }).catch(ResponseUtils.throwError);
+  }
+
+  /**
+   * Download the given report by opening a tab to the report content.
+   *
+   * @param {number} reportId The report id
+   */
+  public downloadReportContent(reportId: number): void {
+    window.open(`${this.contextUrl}${ServiceRoute}/reports/${reportId}`, '_blank');
   }
 
   /**

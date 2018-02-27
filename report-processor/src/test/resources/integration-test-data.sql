@@ -42,6 +42,40 @@ insert into asmt (id, type_id, natural_id, grade_id, grade_code, subject_id, sch
   (-6, 2, 'iab4', -1, 'g1', 2, 1997, 'iab2', 'iab4', 'v1', null, null, null, null, 1, null, 2, null, 3, -1, '1997-07-18 20:14:34.000000', -1),
   (-7, 2, 'iab5', -1, 'g1', 2, 1997, 'iab3', 'iab5', 'v1', null, null, null, null, 1, null, 2, null, 3, -1, '1997-07-18 20:14:34.000000', -1);
 
+-- mean values are intentionally unique here, the test relies on it
+INSERT INTO percentile (id, asmt_id, start_date, end_date, count, mean, standard_deviation, min_score, max_score, update_import_id, updated, migrate_id) VALUES
+  (1, -2, '1996-01-01', '1997-01-07', 1, 2410.1, 88.9, 1, 1, -1, '1997-07-18 20:14:34.000000', -1),
+  (2, -2, '2016-01-02', '2018-06-30', 1, 2420.5, 77.9, 1, 1, -1, '1997-07-18 20:14:34.000000', -1),
+  (3, -6, '1997-01-01', '1997-03-31', 1, 2430.1, 88.9, 1, 1, -1, '1997-07-18 20:14:34.000000', -1),
+  (4, -6, '1997-04-01', '2016-01-05', 1, 2440.5, 77.9, 1, 1, -1, '1997-07-18 20:14:34.000000', -1);
+
+INSERT INTO percentile_score (percentile_id, percentile_rank, score, min_inclusive, max_exclusive) VALUES
+-- note that score is irrelevant here
+  (1,  5, 1, 1111, 2000),
+  (1, 10, 1, 2000, 2322),
+  (1, 20, 1, 2322, 2354),
+  (1, 25, 1, 2354, 2368),
+  (1, 90, 1, 2368, 2566),
+  (1, 95, 1, 2566, 4444),
+  (2,  5, 1, 1111, 2303), -- 2303 is the score of the exam, checking for max exclusive
+  (2, 10, 1, 2303, 2322),
+  (2, 15, 1, 2322, 2338),
+  (2, 95, 1, 2338, 4444),
+  (3,  5, 1, 1111, 2300),
+  (3, 70, 1, 2300, 2485),
+  (3, 75, 1, 2485, 2500),
+  (3, 80, 1, 2500, 2517),
+  (3, 85, 1, 2517, 2538),
+  (3, 90, 1, 2538, 2566),
+  (3, 95, 1, 2566, 4444),
+  (4,  5, 1, 1111, 2300),
+  (4, 10, 1, 2300, 2322),
+  (4, 15, 1, 2322, 2338), -- 2322 is the score of the exam, checking for min inclusive
+  (4, 80, 1, 2338, 2517),
+  (4, 85, 1, 2517, 2538),
+  (4, 90, 1, 2538, 2566),
+  (4, 95, 1, 2566, 4444);
+
 insert into claim (id, subject_id, code, name, description) values
   (-1, 1, 'c1', 'c1', 'c1');
 
@@ -69,7 +103,7 @@ insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, oppo
   (-1, 1, -2, 'g2', -1, -10, 0, null, 0, 0, 0, 0, 1997, -1, 'v1', 2, 'Complete', 1, 'Valid', 'session1', 2000, 20, 1, '1997-01-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, '123|456', -1, '1997-07-18 20:14:34.000000', -1),
   (-2, 1, -1, 'g1', -1, -10, 0, null, 0, 0, 0, 0, 1996, -1, 'v1', 2, 'Complete', 1, 'Valid', 'session2', 2000, 20, 1, '2016-01-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, null, -1, '1997-07-18 20:14:34.000000', -1),
   (-3, 2, -2, 'g2', -1, -10, 1, null, 0, 0, 0, 0, 1997, -2, 'v1', 2, 'Complete', 1, 'Valid', 'session3', 2100, 21, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
-  (-4, 2, -2, 'g2', -1, -10, 1, null, 0, 0, 0, 0, 1997, -2, 'v1', 2, 'Complete', 1, 'Valid', 'session4', 2100, 21, 2, '1997-01-02 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-4, 2, -2, 'g2', -1, -10, 1, null, 0, 0, 0, 0, 1997, -2, 'v1', 2, 'Complete', 1, 'Valid', 'session4', 2303, 21, 2, '2016-01-02 02:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
   (-5, 2, -2, 'g2', -1, -10, 1, null, 0, 0, 0, 0, 1997, -3, 'v1', 2, 'Complete', 1, 'Valid', 'session5', 2100, 21, 2, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
   (-6, 2, -2, 'g2', -1, -10, 1, null, 0, 0, 0, 0, 1997, -3, 'v1', 2, 'Complete', 1, 'Valid', 'session6', 2100, 21, 2, '1997-01-04 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
   (-7, 2, -1, 'g1', -1, -10, 1, null, 0, 0, 0, 0, 1996, -4, 'v1', 2, 'Complete', 1, 'Valid', 'session7', 2100, 21, 2, '1997-01-05 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
@@ -78,7 +112,7 @@ insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, oppo
   (-10, 2, -1, 'g1', -1, -10, 1, null, 0, 0, 0, 0, 1997, -6, 'v1', 2, 'Complete', 1, 'Valid', 'session10', 2100, 21, 2, '1997-01-05 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
   (-11, 2, -1, 'g1', -1, -10, 1, null, 0, 0, 0, 0, 1997, -7, 'v1', 2, 'Complete', 1, 'Valid', 'session11', 2100, 21, 2, '1997-01-06 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
   (-12, 1, -2, 'g2', -2, -10, 0, null, 0, 0, 0, 0, 1997, -5, 'v1', 2, 'Complete', 1, 'Valid', 'session9', 2000, 20, 1, '1997-01-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, null, -1, '1997-07-18 20:14:34.000000', -1),
-  (-13, 2, -1, 'g1', -2, -10, 1, null, 0, 0, 0, 0, 1997, -6, 'v1', 2, 'Complete', 1, 'Valid', 'session10', 2100, 21, 2, '1997-01-05 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-13, 2, -1, 'g1', -2, -10, 1, null, 0, 0, 0, 0, 1997, -6, 'v1', 2, 'Complete', 1, 'Valid', 'session10', 2322, 21, 2, '2016-01-05 02:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
   (-14, 2, -1, 'g1', -2, -10, 1, null, 0, 0, 0, 0, 1997, -7, 'v1', 2, 'Complete', 1, 'Valid', 'session11', 2100, 21, 2, '1997-01-06 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
   (-15, 1, -1, 'g1', -2, -10, 0, null, 0, 0, 0, 0, 1997, -1, 'v1', 2, 'Complete', 1, 'Valid', 'session2', 2000, 20, 1, '2016-01-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, null, -1, '1997-07-18 20:14:34.000000', -1),
   (-16, 2, -2, 'g2', -2, -10, 1, null, 0, 0, 0, 0, 1997, -2, 'v1', 2, 'Complete', 1, 'Valid', 'session3', 2100, 21, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),

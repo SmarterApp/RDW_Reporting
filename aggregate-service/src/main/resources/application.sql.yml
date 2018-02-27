@@ -43,6 +43,13 @@ sql:
   strictBoolean:
     findAll: select id, code from strict_boolean order by id
 
+  embargo:
+    isStateEmbargoed: >-
+      SELECT EXISTS(SELECT 1 FROM state_embargo WHERE aggregate = 1) as embargo_enabled
+
+    findAllEmbargoedDistrictIds: >-
+      SELECT id FROM district d WHERE EXiSTS (SELECT 1 FROM school WHERE embargo_enabled = 1 AND district_id = d.id)
+
   organization:
     aggregate:
       findAllSchools: >-

@@ -1,0 +1,20 @@
+<div info-button
+     title="{{'assessment-percentile-history.heading' | translate}}"
+     content="{{'assessment-percentile-history.heading-info' | translate}}"
+     class="mb-sm"></div>
+
+<ng-container *ngIf="percentileGroups; else loading">
+  <ng-container *ngIf="percentileGroups.length; else noResults">
+    <ng-container *ngFor="let group of percentileGroups">
+      <assessment-percentile-table [percentiles]="group.percentiles"></assessment-percentile-table>
+    </ng-container>
+  </ng-container>
+  <ng-template #noResults>
+    <p class="small text-muted">
+      {{'assessment-percentile-history.no-results' | translate}}
+    </p>
+  </ng-template>
+</ng-container>
+<ng-template #loading>
+  <i class="fa fa-spinner fa-pulse"></i>
+</ng-template>
