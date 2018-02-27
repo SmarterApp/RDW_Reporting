@@ -36,7 +36,7 @@
   "aggregate-report": {
     "column-order": "Column Order",
     "column-order-info": "Change your result column order to easily compare your results broken down in different ways.",
-    "empty": "No available test results matching your report query. Please modify your query and generate a new report.",
+    "empty": "There are no available test results matching your report query. Please modify your query and generate a new report.",
     "heading": "Aggregate Report",
     "form-link": "View Query",
     "processing": "Your report is being generated. This may take several minutes. ",
