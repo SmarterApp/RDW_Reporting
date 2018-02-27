@@ -6,10 +6,10 @@ import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
 import { AssessmentDefinition } from "./assessment/assessment-definition";
 import { Utils } from "../shared/support/support";
 
-const NarrowColumnProvider: ColumnProvider = (organization, assessment, subgroup, filter) =>
+const NarrowColumnProvider: ColumnProvider = (organization, assessment, filter, subgroup) =>
   [[organization, assessment], [filter, subgroup]];
 
-const WideColumnProvider: ColumnProvider = (organization, assessment, subgroup, filter) =>
+const WideColumnProvider: ColumnProvider = (organization, assessment, filter, subgroup) =>
   [[organization], [assessment], [filter], [subgroup]];
 
 @Component({
@@ -230,7 +230,7 @@ interface Row {
 }
 
 interface ColumnProvider {
-  (organization: Section, assessment: Section, subgroup: Section, filter: Section): Section[][];
+  (organization: Section, assessment: Section, filter: Section, subgroup: Section): Section[][];
 }
 
 export interface AggregateReportRequestSummary {
