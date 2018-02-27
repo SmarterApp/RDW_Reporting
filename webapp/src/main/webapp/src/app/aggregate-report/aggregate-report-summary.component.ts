@@ -6,11 +6,11 @@ import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
 import { AssessmentDefinition } from "./assessment/assessment-definition";
 import { Utils } from "../shared/support/support";
 
-const NarrowColumnProvider: ColumnProvider = (organization, assessment, filter, subgroup) =>
-  [[organization, assessment], [filter, subgroup]];
+const NarrowColumnProvider: ColumnProvider = (organization, assessment, subgroup, filter) =>
+  [[organization, assessment], [subgroup, filter]];
 
-const WideColumnProvider: ColumnProvider = (organization, assessment, filter, subgroup) =>
-  [[organization], [assessment], [filter], [subgroup]];
+const WideColumnProvider: ColumnProvider = (organization, assessment, subgroup, filter) =>
+  [[organization], [assessment], [subgroup], [filter]];
 
 @Component({
   selector: 'aggregate-report-summary',
