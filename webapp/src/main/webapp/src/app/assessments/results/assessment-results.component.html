@@ -15,19 +15,17 @@
       </span>
     </div>
     <div class="flex-child">
-      <ul class="list-unstyled list-inline">
-        <li>
-          <button class="btn btn-default btn-sm icon-only"
-                  (click)="collapsed = !collapsed"
-                  angulartics2On="click"
-                  angularticsEvent="ToggleCollapseResults"
-                  angularticsCategory="AssessmentResults">
-            <i class="fa font-bold"
-               [ngClass]="collapsed ? 'fa-caret-square-o-down' : 'fa-caret-square-o-up'"></i>
-            <span class="sr-only">{{'prompt.collapse' | translate}}</span>
-          </button>
-        </li>
-      </ul>
+      <button class="form-control btn btn-default pull-right"
+              (click)="collapsed = !collapsed"
+              angulartics2On="click"
+              angularticsEvent="ToggleCollapseResults"
+              angularticsCategory="AssessmentResults">
+        {{'buttons.collapsible.' + (collapsed ? 'expand' : 'collapse') | translate}}
+        <i class="fa"
+           [ngClass]="{'fa-caret-square-o-up': !collapsed, 'fa-caret-square-o-down': collapsed}"
+           aria-hidden="true"></i>
+        <span class="sr-only">{{'prompt.collapse' | translate}}</span>
+      </button>
     </div>
   </div>
 

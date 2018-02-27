@@ -12,18 +12,18 @@
         <i class="fa fa-chevron-left mr-xs"></i>{{'aggregate-report.form-link' | translate}}
       </button>
     </div>
+    <div *ngIf="reportView" class="flex-child text-muted pt-xs">
+      {{'aggregate-reports.row-count-label' | translate}} <span class="label gray-darker">{{report.metadata.totalCount | number}}</span>
+    </div>
+
     <div class="flex-child">
-      <ul class="list-unstyled list-inline mb-0">
-        <li *ngIf="reportView" class="text-muted">
-          {{'aggregate-reports.row-count-label' | translate}} <span class="label gray-darker">{{report.metadata.totalCount | number}}</span>
-        </li>
-        <li>
-          <button class="btn btn-default btn-sm icon-only"
-                  (click)="onToggleRequestViewButtonClick()">
-            <i class="fa {{showRequest ? 'fa-caret-square-o-up' : 'fa-caret-square-o-down'}}"></i>
-          </button>
-        </li>
-      </ul>
+      <button class="form-control btn btn-default pull-right"
+              (click)="onToggleRequestViewButtonClick()">
+        {{'buttons.visibility.' + (showRequest ? 'hide' : 'show') | translate}}
+        <i class="fa ml-xs"
+           [ngClass]="{'fa-caret-square-o-up': showRequest, 'fa-caret-square-o-down': !showRequest}"
+           aria-hidden="true"></i>
+      </button>
     </div>
   </div>
 
@@ -55,7 +55,8 @@
     <ng-container *ngIf="reportNotLoadable">
       <div class="well">
         <p>{{'aggregate-report.error.unloadable' | translate}}</p>
-        <button class="btn btn-primary" [routerLink]="['/reports']">{{'aggregate-report.reports-link' | translate}}</button>
+        <button class="btn btn-primary" [routerLink]="['/reports']">{{'aggregate-report.reports-link' | translate}}
+        </button>
       </div>
     </ng-container>
 
@@ -65,12 +66,14 @@
         <ul class="list-unstyled list-inline">
           <li>
             <button class="btn btn-danger btn-sm"
-                    (click)="onDisplayReportButtonClick()">{{'aggregate-report.display-report' | translate}}</button>
+                    (click)="onDisplayReportButtonClick()">{{'aggregate-report.display-report' | translate}}
+            </button>
           </li>
           <li>
             <button class="btn btn-default btn-sm"
                     [disabled]="spinnerModal.loading"
-                    (click)="onDownloadDataButtonClick()">{{'aggregate-report.download-data' | translate}}</button>
+                    (click)="onDownloadDataButtonClick()">{{'aggregate-report.download-data' | translate}}
+            </button>
           </li>
         </ul>
       </div>
@@ -82,10 +85,14 @@
           <div class="col-md-12">
             <div>
               <h3 class="h3 label-group green pull-left">
-                <span class="label">{{'common.assessment-type.' + query.assessmentTypeCode + '.short-name' | translate}}</span><span class="label">{{'common.subject.' + table.subjectCode + '.short-name' | translate}}</span>
+                <span
+                  class="label">{{'common.assessment-type.' + query.assessmentTypeCode + '.short-name' | translate}}</span><span
+                class="label">{{'common.subject.' + table.subjectCode + '.short-name' | translate}}</span>
               </h3>
               <button class="btn btn-sm btn-default ml-sm"
-                      (click)="reportTable.exportTable(getExportName(table))"><i class="fa fa-cloud-download"></i> {{'common.export' | translate}}</button>
+                      (click)="reportTable.exportTable(getExportName(table))"><i class="fa fa-cloud-download"></i>
+                {{'common.export' | translate}}
+              </button>
             </div>
             <div class="clearfix"></div>
             <div>
@@ -101,11 +108,11 @@
               <span class="pull-right flex-child ml-xs">
                 <label class="mr-xs">{{'common.value-display-type-input-label' | translate}}</label>
                 <sb-radio-button-group [options]="displayOptions.valueDisplayTypes"
-                           [(ngModel)]="table.valueDisplayType"
-                           buttonGroupStyles="btn-group-xs"
-                           buttonStyles="btn-default"
-                           analyticsCategory="AggregateReportControl"
-                           analyticsEvent="Change"></sb-radio-button-group>
+                                       [(ngModel)]="table.valueDisplayType"
+                                       buttonGroupStyles="btn-group-xs"
+                                       buttonStyles="btn-default"
+                                       analyticsCategory="AggregateReportControl"
+                                       analyticsEvent="Change"></sb-radio-button-group>
               </span>
               <span class="pull-right flex-child ml-xs">
                 <label class="mr-xs">{{'common.performance-level-display-type-input-label' | translate}}</label>
