@@ -16,6 +16,7 @@
   "aggregate-report": {
     "column-order": "Column Order",
     "column-order-info": "Change your result column order to easily compare your results broken down in different ways.",
+    "empty": "Your report does not contain any results. Please modify your query and generate a new report.",
     "heading": "Aggregate Report",
     "form-link": "View Query",
     "processing": "Your report is being generated. This may take several minutes. ",

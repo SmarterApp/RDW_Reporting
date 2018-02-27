@@ -90,6 +90,10 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     return this._viewState === ViewState.ReportProcessing;
   }
 
+  get reportEmpty(): boolean {
+    return this._viewState === ViewState.ReportEmpty;
+  }
+
   get reportNotLoadable(): boolean {
     return this._viewState === ViewState.ReportNotLoadable;
   }
@@ -150,7 +154,10 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     if (this.report.processing) {
       return ViewState.ReportProcessing;
     }
-    if (!this.report.loadable) {
+    if (this.report.empty) {
+      return ViewState.ReportEmpty;
+    }
+    if (!this.report.completed) {
       return ViewState.ReportNotLoadable;
     }
     if (!this.isSupportedSize(this.report) && !this._displayLargeReport) {
@@ -255,6 +262,7 @@ interface AggregateReportTableView {
 
 enum ViewState {
   ReportProcessing,
+  ReportEmpty,
   ReportNotLoadable,
   ReportSizeNotSupported,
   ReportView
