@@ -16,6 +16,7 @@ import { TypeaheadMatch } from "ngx-bootstrap";
            (typeaheadNoResults)="noResultsInternal = $event"
            (typeaheadOnSelect)="onTypeaheadSelectInternal($event)"
            [typeaheadMinLength]="3"
+           typeaheadWaitMs="300"
            [(ngModel)]="value"
            [typeaheadItemTemplate]="organizationTemplate"
            typeaheadOptionField="name"
