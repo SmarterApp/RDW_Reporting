@@ -413,38 +413,18 @@
               <div class="row">
                 <div class="col-md-6">
                   <label info-button
-                         title="{{'aggregate-reports.form.field.migrant-status.label' | translate}}"
-                         content="{{'aggregate-reports.form.field.migrant-status.info' | translate}}"></label>
+                         title="{{'aggregate-reports.form.field.limited-english-proficiency.label' | translate}}"
+                         content="{{'aggregate-reports.form.field.limited-english-proficiency.info' | translate}}"></label>
                 </div>
                 <div class="col-md-6">
                   <sb-checkbox-group [horizontal]="true"
-                                     [options]="options.migrantStatuses"
-                                     [(ngModel)]="settings.migrantStatuses"
+                                     [options]="options.limitedEnglishProficiencies"
+                                     [(ngModel)]="settings.limitedEnglishProficiencies"
                                      [ngModelOptions]="{standalone: true}"
-                                     name="migrantStatuses"
+                                     name="limitedEnglishProficiencies"
                                      analyticsEvent="FilterClick"
                                      analyticsCategory="AggregateQueryBuilder"
-                                     [allOptionAnalyticsProperties]="{label: 'Migrant Status: All'}"
-                                     (change)="onSettingsChange()"></sb-checkbox-group>
-                </div>
-              </div>
-            </div>
-            <div class="well">
-              <div class="row">
-                <div class="col-md-6">
-                  <label info-button
-                         title="{{'aggregate-reports.form.field.iep.label' | translate}}"
-                         content="{{'aggregate-reports.form.field.iep.info' | translate}}"></label>
-                </div>
-                <div class="col-md-6">
-                  <sb-checkbox-group [horizontal]="true"
-                                     [options]="options.individualEducationPlans"
-                                     [(ngModel)]="settings.individualEducationPlans"
-                                     [ngModelOptions]="{standalone: true}"
-                                     name="individualEducationPlans"
-                                     analyticsEvent="FilterClick"
-                                     analyticsCategory="AggregateQueryBuilder"
-                                     [allOptionAnalyticsProperties]="{label: 'IEP: All'}"
+                                     [allOptionAnalyticsProperties]="{label: 'Limited English Proficiency: All'}"
                                      (change)="onSettingsChange()"></sb-checkbox-group>
                 </div>
               </div>
@@ -473,18 +453,38 @@
               <div class="row">
                 <div class="col-md-6">
                   <label info-button
-                         title="{{'aggregate-reports.form.field.limited-english-proficiency.label' | translate}}"
-                         content="{{'aggregate-reports.form.field.limited-english-proficiency.info' | translate}}"></label>
+                         title="{{'aggregate-reports.form.field.iep.label' | translate}}"
+                         content="{{'aggregate-reports.form.field.iep.info' | translate}}"></label>
                 </div>
                 <div class="col-md-6">
                   <sb-checkbox-group [horizontal]="true"
-                                     [options]="options.limitedEnglishProficiencies"
-                                     [(ngModel)]="settings.limitedEnglishProficiencies"
+                                     [options]="options.individualEducationPlans"
+                                     [(ngModel)]="settings.individualEducationPlans"
                                      [ngModelOptions]="{standalone: true}"
-                                     name="limitedEnglishProficiencies"
+                                     name="individualEducationPlans"
                                      analyticsEvent="FilterClick"
                                      analyticsCategory="AggregateQueryBuilder"
-                                     [allOptionAnalyticsProperties]="{label: 'Limited English Proficiency: All'}"
+                                     [allOptionAnalyticsProperties]="{label: 'IEP: All'}"
+                                     (change)="onSettingsChange()"></sb-checkbox-group>
+                </div>
+              </div>
+            </div>
+            <div class="well">
+              <div class="row">
+                <div class="col-md-6">
+                  <label info-button
+                         title="{{'aggregate-reports.form.field.migrant-status.label' | translate}}"
+                         content="{{'aggregate-reports.form.field.migrant-status.info' | translate}}"></label>
+                </div>
+                <div class="col-md-6">
+                  <sb-checkbox-group [horizontal]="true"
+                                     [options]="options.migrantStatuses"
+                                     [(ngModel)]="settings.migrantStatuses"
+                                     [ngModelOptions]="{standalone: true}"
+                                     name="migrantStatuses"
+                                     analyticsEvent="FilterClick"
+                                     analyticsCategory="AggregateQueryBuilder"
+                                     [allOptionAnalyticsProperties]="{label: 'Migrant Status: All'}"
                                      (change)="onSettingsChange()"></sb-checkbox-group>
                 </div>
               </div>

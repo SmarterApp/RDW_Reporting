@@ -7,10 +7,10 @@ import { AssessmentDefinition } from "./assessment/assessment-definition";
 import { Utils } from "../shared/support/support";
 
 const NarrowColumnProvider: ColumnProvider = (organization, assessment, subgroup, filter) =>
-  [[organization, assessment], [subgroup, filter]];
+  [ [ organization, assessment ], [ subgroup, filter ] ];
 
 const WideColumnProvider: ColumnProvider = (organization, assessment, subgroup, filter) =>
-  [[organization], [assessment], [subgroup], [filter]];
+  [ [ organization ], [ assessment ], [ subgroup ], [ filter ] ];
 
 @Component({
   selector: 'aggregate-report-summary',
@@ -61,7 +61,7 @@ export class AggregateReportSummary {
       return;
     }
 
-    const {assessmentDefinition, options, settings} = this.summary;
+    const { assessmentDefinition, options, settings } = this.summary;
 
     const equalSize = Utils.hasEqualLength;
     const translate = code => this.translate.instant(code);
@@ -98,7 +98,7 @@ export class AggregateReportSummary {
           organizations.length === 0
             ? None
             : organizations.length === 1
-            ? organizations[0].name
+            ? organizations[ 0 ].name
             : organizations.length
         ]
       }
@@ -155,19 +155,13 @@ export class AggregateReportSummary {
     if (!equalSize(options.ethnicities, settings.ethnicities)) {
       filterRows.push({
         label: translate('aggregate-reports.form.field.ethnicity.label'),
-          values: orAll(options.ethnicities, settings.ethnicities, code => translate(`common.ethnicity.${code}`))
+        values: orAll(options.ethnicities, settings.ethnicities, code => translate(`common.ethnicity.${code}`))
       });
     }
-    if (!equalSize(options.migrantStatuses, settings.migrantStatuses)) {
+    if (!equalSize(options.limitedEnglishProficiencies, settings.limitedEnglishProficiencies)) {
       filterRows.push({
-        label: translate('aggregate-reports.form.field.migrant-status.label'),
-        values: inline(orAll(options.migrantStatuses, settings.migrantStatuses, code => translate(`common.boolean.${code}`)))
-      });
-    }
-    if (!equalSize(options.individualEducationPlans, settings.individualEducationPlans)) {
-      filterRows.push({
-        label: translate('aggregate-reports.form.field.iep.label'),
-        values: inline(orAll(options.individualEducationPlans, settings.individualEducationPlans, code => translate(`common.strict-boolean.${code}`)))
+        label: translate('aggregate-reports.form.field.limited-english-proficiency.label'),
+        values: inline(orAll(options.limitedEnglishProficiencies, settings.limitedEnglishProficiencies, code => translate(`common.boolean.${code}`)))
       });
     }
     if (!equalSize(options.section504s, settings.section504s)) {
@@ -176,10 +170,16 @@ export class AggregateReportSummary {
         values: inline(orAll(options.section504s, settings.section504s, code => translate(`common.boolean.${code}`)))
       });
     }
-    if (!equalSize(options.limitedEnglishProficiencies, settings.limitedEnglishProficiencies)) {
+    if (!equalSize(options.individualEducationPlans, settings.individualEducationPlans)) {
       filterRows.push({
-        label: translate('aggregate-reports.form.field.limited-english-proficiency.label'),
-        values: inline(orAll(options.limitedEnglishProficiencies, settings.limitedEnglishProficiencies, code => translate(`common.boolean.${code}`)))
+        label: translate('aggregate-reports.form.field.iep.label'),
+        values: inline(orAll(options.individualEducationPlans, settings.individualEducationPlans, code => translate(`common.strict-boolean.${code}`)))
+      });
+    }
+    if (!equalSize(options.migrantStatuses, settings.migrantStatuses)) {
+      filterRows.push({
+        label: translate('aggregate-reports.form.field.migrant-status.label'),
+        values: inline(orAll(options.migrantStatuses, settings.migrantStatuses, code => translate(`common.boolean.${code}`)))
       });
     }
     if (!equalSize(options.economicDisadvantages, settings.economicDisadvantages)) {
@@ -215,10 +215,11 @@ export class AggregateReportSummary {
       }
     )
     // removes empty columns
-    .filter(holder => holder.reduce((totalRows, column) =>  totalRows + column.rows.length, 0) > 0);
+      .filter(holder => holder.reduce((totalRows, column) => totalRows + column.rows.length, 0) > 0);
   }
 
 }
+
 interface Section {
   readonly label: string;
   readonly rows: Row[];
