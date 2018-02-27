@@ -1258,8 +1258,8 @@
           "select-view": "Select View",
           "sessions-title": "Sessions"
         },
-        "collapse-all": "Collapse Results",
-        "expand-all": "Expand Results",
+        "collapse-all": "Collapse All",
+        "expand-all": "Expand All",
         "filter-type-custom": "Select Assessments",
         "filter-type-recent": "Most Recent",
         "grade": "Grade {{id}}",
