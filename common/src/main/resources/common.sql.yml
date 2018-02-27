@@ -217,7 +217,8 @@ sql:
         s.name as school_name,
         s.district_id as school_district_id,
         s.district_group_id as school_district_group_id,
-        s.school_group_id
+        s.school_group_id,
+        CASE WHEN e.school_year = ${app.school-year} AND s.embargo_enabled THEN true ELSE false END AS embargo_enabled
         from exam e
           join student st on st.id = e.student_id
           join asmt a on e.asmt_id = a.id
