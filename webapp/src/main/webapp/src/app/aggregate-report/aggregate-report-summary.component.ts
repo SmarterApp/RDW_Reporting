@@ -230,7 +230,7 @@ interface Row {
 }
 
 interface ColumnProvider {
-  (organization: Section, assessment: Section, filter: Section, subgroup: Section): Section[][];
+  (organization: Section, assessment: Section, subgroup: Section, filter: Section): Section[][];
 }
 
 export interface AggregateReportRequestSummary {
