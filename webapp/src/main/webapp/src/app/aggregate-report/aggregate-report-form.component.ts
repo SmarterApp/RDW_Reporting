@@ -266,10 +266,6 @@ export class AggregateReportFormComponent {
   }
 
   set includeStateResults(value: boolean) {
-    if (this.summativeFieldsDisabled) {
-      return;
-    }
-
     this.settings.includeStateResults = value;
   }
 
