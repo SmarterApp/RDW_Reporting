@@ -90,7 +90,7 @@ describe('ReportActionService', () => {
     expect(router.navigateByUrl).toHaveBeenCalledWith(`/aggregate-reports?src=${report.id}`);
 
     const downloadReportAction: ReportAction = actions[2];
-    expect(downloadReportAction.tooltipKey).toBeUndefined();
+    expect(downloadReportAction.popoverKey).toBeUndefined();
     expect(downloadReportAction.disabled).toBe(false);
     service.performAction(downloadReportAction);
     expect(reportService.downloadReportContent).toHaveBeenCalledWith(report.id);
@@ -107,7 +107,7 @@ describe('ReportActionService', () => {
     expect(actions.length).toBe(3);
 
     const downloadReportAction: ReportAction = actions[2];
-    expect(downloadReportAction.tooltipKey.length).toBeGreaterThan(1);
+    expect(downloadReportAction.popoverKey.length).toBeGreaterThan(1);
     expect(downloadReportAction.disabled).toBe(true);
     service.performAction(downloadReportAction);
     expect(reportService.downloadReportContent).not.toHaveBeenCalled();

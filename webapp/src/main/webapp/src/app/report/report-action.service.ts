@@ -73,7 +73,7 @@ export interface ReportAction {
   readonly icon?: string;
   readonly labelKey?: string;
   readonly disabled?: boolean;
-  readonly tooltipKey?: string;
+  readonly popoverKey?: string;
 }
 
 /**
@@ -127,7 +127,7 @@ class AggregateReportActionProvider extends DefaultActionProvider {
 
   public getActions(report: Report): ReportAction[] {
     const disableViewAndDownload: boolean = !report.completed && !report.processing;
-    const embargoed: boolean = report.metadata.createdWhileDataEmbargoed == "true";
+    const embargoed: boolean = report.metadata.createdWhileDataEmbargoed === "true";
     return [
       {
         type: ActionType.Navigate,
@@ -145,7 +145,7 @@ class AggregateReportActionProvider extends DefaultActionProvider {
         value: report.id,
         labelKey: 'labels.reports.report-actions.download-report',
         disabled: disableViewAndDownload || embargoed,
-        tooltipKey: embargoed ? 'labels.reports.report-actions.embargoed' : undefined
+        popoverKey: embargoed ? 'labels.reports.report-actions.embargoed' : undefined
       }
     ];
   }

@@ -145,7 +145,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   }
 
   isEmbargoed(): boolean {
-    return this.report.metadata.createdWhileDataEmbargoed == "true";
+    return this.report.metadata.createdWhileDataEmbargoed === "true";
   }
 
   private updateViewState(): void {
