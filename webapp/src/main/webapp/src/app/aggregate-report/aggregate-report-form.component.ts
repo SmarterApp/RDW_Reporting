@@ -40,12 +40,6 @@ const notEmpty = properties => control => {
 };
 
 /**
- * Used to determine the ordering of the subgroups section
- * @type {string[]}
- */
-const subgroupOrdering = [ "Gender", "Ethnicity", "LEP", "Section504", "IEP", "MigrantStatus", "EconomicDisadvantage", "StudentEnrolledGrade" ];
-
-/**
  * Form control validator that makes sure the control value is a valid filename
  *
  * @param properties the properties to propagate when the control value is invalid
@@ -179,10 +173,6 @@ export class AggregateReportFormComponent {
     this.columnItems = this.columnOrderableItemProvider.toOrderableItems(this.settings.columnOrder);
 
     this.options = optionMapper.map(this.aggregateReportOptions);
-    this.options.dimensionTypes.sort((a, b) => {
-      return subgroupOrdering.indexOf(a.value) - subgroupOrdering.indexOf(b.value);
-    });
-
 
     this.organizationTypeaheadOptions = Observable.create(observer => {
       observer.next(this.organizationTypeahead.value);
