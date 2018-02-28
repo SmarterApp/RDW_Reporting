@@ -162,6 +162,7 @@
       </li>
       <li>
         <button class="btn btn-default btn-xs"
+                [disabled]="exportDisabled"
                 (click)="callExport()"><i class="fa fa-bold fa-table"></i> {{'labels.export.csv' | translate}}</button>
       </li>
     </ul>

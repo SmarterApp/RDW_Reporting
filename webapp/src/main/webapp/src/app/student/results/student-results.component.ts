@@ -1,4 +1,4 @@
-import { OnInit, Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { StudentExamHistory } from "../model/student-exam-history.model";
 import { StudentResultsFilterState } from "./model/student-results-filter-state.model";
@@ -14,6 +14,7 @@ import { UserService } from "../../user/user.service";
 import { StudentReportDownloadComponent } from "../../report/student-report-download.component";
 import { AssessmentSubjectType } from "../../shared/enum/assessment-subject-type.enum";
 import { Utils } from "../../shared/support/support";
+import { ReportingEmbargoService } from "../../shared/embargo/reporting-embargo.service";
 
 @Component({
   selector: 'student-results',
@@ -28,6 +29,7 @@ export class StudentResultsComponent implements OnInit {
   displayState: any = {};
   minimumItemDataYear: number;
   hasResults: boolean;
+  exportDisabled: boolean;
 
   private typeDisplayOrder: AssessmentType[] = [AssessmentType.IAB, AssessmentType.ICA, AssessmentType.SUMMATIVE];
 
@@ -46,7 +48,8 @@ export class StudentResultsComponent implements OnInit {
               private router: Router,
               private angulartics2: Angulartics2,
               private userService: UserService,
-              private examFilterService: ExamFilterService) {
+              private examFilterService: ExamFilterService,
+              private embargoService: ReportingEmbargoService) {
   }
 
   ngOnInit(): void {
@@ -60,6 +63,12 @@ export class StudentResultsComponent implements OnInit {
     this.userService.getCurrentUser().subscribe(user => {
       this.minimumItemDataYear = user.configuration.minItemDataYear;
     });
+
+    this.embargoService.isEmbargoed().subscribe(
+      embargoed => {
+        this.exportDisabled = embargoed;
+      }
+    );
   }
 
   /**

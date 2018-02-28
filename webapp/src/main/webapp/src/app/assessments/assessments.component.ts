@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ordering } from "@kourge/ordering";
 import { FilterBy } from "./model/filter-by.model";
@@ -12,6 +12,7 @@ import { GradeCode } from "../shared/enum/grade-code.enum";
 import { ColorService } from "../shared/color.service";
 import { UserService } from "../user/user.service";
 import { AssessmentExporter } from "./assessment-exporter.interface";
+import { ReportingEmbargoService } from "../shared/embargo/reporting-embargo.service";
 
 /**
  * This component encompasses all the functionality for displaying and filtering
@@ -72,6 +73,7 @@ export class AssessmentsComponent implements OnInit {
   availableAssessments: Assessment[] = [];
   assessmentsLoading: any[] = [];
   minimumItemDataYear: number;
+  exportDisabled: boolean = true;
 
   get assessmentExams(): AssessmentExam[] {
     return this._assessmentExams;
@@ -159,7 +161,8 @@ export class AssessmentsComponent implements OnInit {
   constructor(public colorService: ColorService,
               private route: ActivatedRoute,
               private filterOptionService: ExamFilterOptionsService,
-              private userService: UserService) {
+              private userService: UserService,
+              private embargoService: ReportingEmbargoService) {
     this.clientFilterBy = new FilterBy()
   }
 
@@ -174,6 +177,11 @@ export class AssessmentsComponent implements OnInit {
       this.minimumItemDataYear = user.configuration.minItemDataYear;
     });
 
+    this.embargoService.isEmbargoed().subscribe(
+      embargoed => {
+        this.exportDisabled = embargoed;
+      }
+    )
   }
 
   getGradeIdx(gradeCode: string): number {
