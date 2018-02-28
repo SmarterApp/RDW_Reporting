@@ -55,8 +55,9 @@ export class EmbargoService {
   /**
    * Maps an API provided embargo model to a UI model
    *
-   * NOTE: This method coerces individual and aggregate embargo enabled fields to <code>true</code> (embargoed) if undefined.
-   * This method assumes the state individual and aggregate embargo enabled fields will not be undefined.
+   * NOTE: This method coerces:
+   *   - aggregate embargo enabled fields to <code>true</code> (embargoed) if undefined
+   *   - individual embargo enabled fields to <code>false</code> (released) if undefined
    *
    * @param source the API embargo model
    * @returns {Embargo} a UI embargo model
@@ -71,7 +72,7 @@ export class EmbargoService {
       schoolYear: source.schoolYear,
       readonly: source.readOnly,
       examCountsBySubject: source.examCounts,
-      individualEnabled: isUndefined(source.individualEnabled) ? true : source.individualEnabled,
+      individualEnabled: isUndefined(source.individualEnabled) ? false : source.individualEnabled,
       aggregateEnabled: isUndefined(source.aggregateEnabled) ? true : source.aggregateEnabled
     };
   }

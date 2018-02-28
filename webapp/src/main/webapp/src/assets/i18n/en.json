@@ -6,7 +6,10 @@
     "aggregate-reports-link": "Create Aggregate Report"
   },
   "embargo-admin-alert": {
-    "message": "Summative test results in your region of administration are not yet released. These results may be viewed online but not downloaded."
+    "message": "Summative test results in your region of administration are not yet released. These results may be viewed online but not downloaded.",
+    "export": {
+      "disabled": "Embargoed results can be viewed online, but may not be exported."
+    }
   },
   "assessment-percentile-table": {
     "column": {
