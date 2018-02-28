@@ -53,6 +53,7 @@ describe('ReportingEmbargoService', () => {
     service.isEmbargoed().subscribe(
       embargoed => {
         expect(embargoed).toBe(false);
+        expect(dataService.get).not.toHaveBeenCalled();
         done();
       }
     )
@@ -65,6 +66,7 @@ describe('ReportingEmbargoService', () => {
     service.isEmbargoed().subscribe(
       embargoed => {
         expect(embargoed).toBe(false);
+        expect(dataService.get).toHaveBeenCalled();
         done();
       }
     )

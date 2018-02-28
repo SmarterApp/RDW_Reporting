@@ -29,7 +29,7 @@ export class StudentResultsComponent implements OnInit {
   displayState: any = {};
   minimumItemDataYear: number;
   hasResults: boolean;
-  exportDisabled: boolean;
+  exportDisabled: boolean = true;
 
   private typeDisplayOrder: AssessmentType[] = [AssessmentType.IAB, AssessmentType.ICA, AssessmentType.SUMMATIVE];
 
