@@ -363,9 +363,12 @@
                 <p class="text-muted small">{{'aggregate-reports.form.section.subgroup-filters.subtext' | translate}}</p>
               </div>
               <div class="flex-child">
-                <button class="btn btn-default btn-sm icon-only pull-right"
+                <button class="form-control btn btn-default pull-right"
                         (click)="onAdvancedFiltersExpanderButtonClick()">
-                  <i class="fa" [ngClass]="showAdvancedFilters ? 'fa-caret-square-o-up' : 'fa-caret-square-o-down'"></i>
+                  {{'buttons.visibility.' + (showAdvancedFilters ? 'hide' : 'show') | translate}}
+                  <i class="fa ml-xs"
+                     [ngClass]="{'fa-caret-square-o-up': showAdvancedFilters, 'fa-caret-square-o-down': !showAdvancedFilters}"
+                     aria-hidden="true"></i>
                 </button>
               </div>
             </div>
