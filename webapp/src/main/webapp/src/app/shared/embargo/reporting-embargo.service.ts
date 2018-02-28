@@ -30,8 +30,7 @@ export class ReportingEmbargoService {
 
           return this.dataService.get(`${ReportingServiceRoute}/user-organizations/embargoed`)
             .pipe(catchError(response => of(false)))
-        }),
-      );
+        }));
   }
 
 }
