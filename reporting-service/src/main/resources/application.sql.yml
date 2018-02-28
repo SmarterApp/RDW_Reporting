@@ -1,4 +1,13 @@
 sql:
+  embargo:
+    existsForSchool: >-
+      SELECT EXISTS(
+        SELECT 1
+        FROM school sc
+        WHERE sc.embargo_enabled = 1
+          AND ${sql.snippet.basicPermission}
+        LIMIT 1) AS embargo_enabled
+
   exam:
     findAllByStudentId: >-
       SELECT
