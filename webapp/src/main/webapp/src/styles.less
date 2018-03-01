@@ -915,3 +915,9 @@ body .ui-widget.ui-datatable table .ui-datatable-data > tr > td.level-down,
 a.btn.disabled.with-pointer {
   pointer-events: auto;
 }
+
+//TODO move to SBAC UI kit
+distractor-analysis .ui-widget.ui-datatable table .ui-datatable-data td.green {
+  color: contrast(@green, darken(@green, 100%), lighten(@green, 100%));
+  background-color: @green;
+}
