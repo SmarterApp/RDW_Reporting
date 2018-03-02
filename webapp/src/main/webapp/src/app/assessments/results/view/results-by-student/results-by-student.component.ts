@@ -81,7 +81,7 @@ export class ResultsByStudentComponent implements OnInit {
   }
 
   get showClaimToggle() {
-    return !this.assessment.type;
+    return !this.assessment.isIab;
   }
 
   constructor(private actionBuilder: MenuActionBuilder,
@@ -114,18 +114,19 @@ export class ResultsByStudentComponent implements OnInit {
 
           const downloader: StudentReportDownloadComponent = this.reportDownloader;
           const options: ReportOptions = downloader.options;
-          const subject = this.assessment.assessmentSubjectType;
+          const subject = Utils.toSubjectCode(this.assessment.assessmentSubjectType);
+          const assessmentType = Utils.toAssessmentTypeCode(this.assessment.type);
 
-          options.assessmentType = Utils.toAssessmentTypeCode(this.assessment.type);
-          options.subject = Utils.toSubjectCode(subject);
+          options.assessmentType = assessmentType;
+          options.subject = subject;
           options.schoolYear = exam.schoolYear;
 
           downloader.student = exam.student;
           downloader.title = this.translate.instant('labels.reports.form.title.single-prepopulated', {
             name: exam.student.firstName,
             schoolYear: exam.schoolYear,
-            subject: this.translate.instant(`labels.subjects.${subject}.short-name`),
-            assessmentType: this.translate.instant(`labels.assessmentTypes.${subject}.short-name`)
+            subject: this.translate.instant(`common.subject.${subject}.short-name`),
+            assessmentType: this.translate.instant(`common.assessment-type.${assessmentType}.short-name`)
           });
 
           downloader.modal.show();

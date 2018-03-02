@@ -72,9 +72,13 @@
                 title="{{ 'common.completeness-form-control.label' | translate }}"
                 content="{{ 'common.completeness-form-control.info' | translate }}"></span>
         </label>
-        <sb-radio-button-list [model]="filterBy" [values]="['Complete','Partial']" property="completion" enum="enum.completeness"
-                              label="{{ translateRoot + 'status.completion' | translate }}"
-                              analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
+        <sb-radio-button-list [model]="filterBy"
+                              [values]="['Complete', 'Partial']"
+                              property="completion"
+                              enum="common.completeness"
+                              label="{{ 'common.completeness-form-control.label' | translate }}"
+                              analyticsEvent="FilterClick"
+                              analyticsCategory="AdvancedFilters"></sb-radio-button-list>
       </div>
     </div>
   </div>

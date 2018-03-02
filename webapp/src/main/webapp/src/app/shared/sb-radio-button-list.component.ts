@@ -1,10 +1,12 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, EventEmitter, Input, Output } from "@angular/core";
 import { Utils } from "./support/support";
 
-/*
-  A generic component which builds and binds a radio button list.
-  It is most typically used as:
-  (All) [ (Option 1) (Option 2) ]
+/**
+ * @deprecated use sb-radio-group or sb-checkbox-group
+ *
+ * A generic component which builds and binds a radio button list.
+ * It is most typically used as:
+ * (All) [ (Option 1) (Option 2) ]
  */
 @Component({
   selector: 'sb-radio-button-list',

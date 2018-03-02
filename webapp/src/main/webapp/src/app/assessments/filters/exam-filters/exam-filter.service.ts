@@ -15,7 +15,7 @@ export class ExamFilterService {
     new ExamFilter('transferAssessment', this.root + 'test.transfer-assessment', 'enum.transfer', this.filterByTransferAssessment),
     new ExamFilter('administration', this.root + 'status.administration', 'enum.administrative-condition', this.filterByAdministrativeCondition, x => x.isInterim),
     new ExamFilter('summativeStatus', this.root + 'status.summative', 'enum.administrative-condition', this.filterByAdministrativeCondition, x => x.isSummative),
-    new ExamFilter('completion', this.root + 'status.completion', 'enum.completeness', this.filterByCompleteness),
+    new ExamFilter('completion', 'common.completeness-form-control.label', 'common.completeness', this.filterByCompleteness),
     new ExamFilter('gender', this.root + 'student.gender', 'enum.gender', this.filterByGender),
     new ExamFilter('migrantStatus', this.root + 'student.migrant-status', 'enum.polar', this.filterByMigrantStatus),
     new ExamFilter('plan504', this.root + 'student.504-plan', 'enum.polar', this.filterByplan504),

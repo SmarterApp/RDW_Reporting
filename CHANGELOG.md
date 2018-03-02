@@ -1,5 +1,14 @@
 ## Change Log
 
+#### 1.1.1 - 2018-03-01
+
+* Add app-level flag to disable Percentiles feature in UI (DWR-1535).
+* Fix title of printing modal for student reports (DWR-1534).
+* Restore Distractor Analysis coloring of correct answers (DWR-1529).
+* Restore the Overall/Claim toggle button when viewing student results (DWR-1521).
+* Fix individual embargo handling (DWR-1520).
+* Fix missing label text in a couple places (DWR-1519).
+
 #### 1.1.0 - 2018-02-27
 
 * Custom Aggregate Reporting.

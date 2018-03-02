@@ -3,8 +3,10 @@
                          [lockAssessmentType]="true"
                          [lockSubject]="true"
                          [lockSchoolYear]="true"></student-report-download>
-<div class="pull-right ">
-  <div *ngIf="showClaimToggle" class="btn-group btn-group-xs z-index-over-data-table mt-md" role="group">
+<div class="pull-right">
+  <div *ngIf="showClaimToggle"
+       class="btn-group btn-group-xs z-index-over-data-table mt-md"
+       role="group">
     <button (click)="setOverallScoreSelected()"
             class="btn btn-default"
             angulartics2On="click"
@@ -15,10 +17,11 @@
     </button>
     <button (click)="setClaimScoreSelected()"
             class="btn btn-default z-index-over-data-table"
-            angulartics2On="click" angularticsEvent="ViewClaimScores" angularticsCategory="AssessmentResults"
+            angulartics2On="click"
+            angularticsEvent="ViewClaimScores"
+            angularticsCategory="AssessmentResults"
             [ngClass]="{'active': isClaimScoreSelected}">
       <i class="fa fa-bold fa-table"></i>
-
       {{'buttons.display-claim' | translate}}
     </button>
   </div>
@@ -27,33 +30,42 @@
 <!-- Student Results Table -->
 <p-dataTable [value]="exams"
              emptyMessage="{{'labels.groups.results.assessment.exams.empty-message' | translate}}"
-             sortField="student.lastName" tableStyleClass="table table-striped table-hover overflow"
+             sortField="student.lastName"
+             tableStyleClass="table table-striped table-hover overflow"
              expandableRows="true">
   <!-- Row Menu -->
   <p-column sortField="student.lastName"
-            header="{{'labels.groups.results.assessment.exams.cols.name' | translate}}" [sortable]="true">
+            header="{{'labels.groups.results.assessment.exams.cols.name' | translate}}"
+            [sortable]="true">
     <ng-template let-exam="rowData" pTemplate="body">
-      <popup-menu [item]="exam" [actions]="actions"
+      <popup-menu [item]="exam"
+                  [actions]="actions"
                   [text]="'labels.personName' | translate:exam.student"></popup-menu>
     </ng-template>
   </p-column>
-  <p-column field="date" header="{{'labels.groups.results.assessment.exams.cols.date' | translate}}"
+  <p-column field="date"
+            header="{{'labels.groups.results.assessment.exams.cols.date' | translate}}"
             [sortable]="true">
     <ng-template let-exam="rowData" pTemplate="body">
       {{ exam.date | date }}
     </ng-template>
   </p-column>
-  <p-column field="session" header="{{'labels.groups.results.assessment.exams.cols.session' | translate}}"
+  <p-column field="session"
+            header="{{'labels.groups.results.assessment.exams.cols.session' | translate}}"
             [sortable]="true"></p-column>
-  <p-column field="enrolledGrade" header="{{'labels.groups.results.assessment.exams.cols.grade' | translate}}"
+  <p-column field="enrolledGrade"
+            header="{{'labels.groups.results.assessment.exams.cols.grade' | translate}}"
             [sortable]="true" [hidden]="isClaimScoreSelected">
     <ng-template let-exam="rowData" pTemplate="body">
       {{ exam.enrolledGrade | gradeDisplay:'enrolled-name' }}
     </ng-template>
   </p-column>
-  <p-column field="school.name" header="{{'labels.groups.results.assessment.exams.cols.school' | translate }}"
+  <p-column field="school.name"
+            header="{{'labels.groups.results.assessment.exams.cols.school' | translate }}"
             sortable="true"></p-column>
-  <p-column field="administrativeCondition" [sortable]="true" [hidden]="isClaimScoreSelected">
+  <p-column field="administrativeCondition"
+            [sortable]="true"
+            [hidden]="isClaimScoreSelected">
     <ng-template pTemplate="header">
       <span info-button title="{{'labels.groups.results.assessment.exams.cols.status' | translate}}"
             content="{{'labels.groups.results.assessment.exams.cols.status-info' | translate}}">
@@ -64,7 +76,9 @@
       <span *ngIf="exam.completeness == 'Partial'" class="label border-only maroon">{{ 'enum.completeness.' + exam.completeness | translate }}</span>
     </ng-template>
   </p-column>
-  <p-column field="level" [sortable]="true" [hidden]="isClaimScoreSelected">
+  <p-column field="level"
+            [sortable]="true"
+            [hidden]="isClaimScoreSelected">
     <ng-template pTemplate="header">
       <span info-button title="{{performanceLevelHeader | translate}}"
             content="{{performanceLevelHeaderInfo | translate}}">
@@ -88,7 +102,9 @@
       </span>
     </ng-template>
   </p-column>
-  <p-column field="score" [sortable]="true" [hidden]="isClaimScoreSelected">
+  <p-column field="score"
+            [sortable]="true"
+            [hidden]="isClaimScoreSelected">
     <ng-template pTemplate="header">
       <span info-button
             placement="left"
@@ -96,7 +112,8 @@
             content="{{'labels.groups.results.assessment.exams.cols.score-info' | translate}}"></span>
     </ng-template>
     <ng-template let-exam="rowData" pTemplate="body">
-      <scale-score [score]="exam.score" [standardError]="exam.standardError"></scale-score>
+      <scale-score [score]="exam.score"
+                   [standardError]="exam.standardError"></scale-score>
     </ng-template>
   </p-column>
 

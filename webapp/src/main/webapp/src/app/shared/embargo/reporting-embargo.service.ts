@@ -28,7 +28,7 @@ export class ReportingEmbargoService {
             return of(false);
           }
 
-          return this.dataService.get(`${ReportingServiceRoute}/user-organizations/embargoed`)
+          return this.dataService.get(`${ReportingServiceRoute}/organizations/embargoed`)
             .pipe(catchError(response => of(false)))
         }));
   }
