@@ -82,7 +82,7 @@ export class UserMapper {
     uiModel.reportLanguages = apiModel.reportLanguages;
     uiModel.uiLanguages = apiModel.uiLanguages;
     uiModel.transferAccess = apiModel.transferAccess;
-    uiModel.enablePercentileDisplay = apiModel.enablePercentileDisplay;
+    uiModel.percentileDisplayEnabled = apiModel.percentileDisplayEnabled;
     return uiModel;
   }
 

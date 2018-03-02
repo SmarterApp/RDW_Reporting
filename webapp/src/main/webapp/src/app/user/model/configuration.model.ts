@@ -7,5 +7,5 @@ export class Configuration {
   reportLanguages: string[];
   uiLanguages: string[];
   transferAccess: boolean;
-  enablePercentileDisplay: boolean;
+  percentileDisplayEnabled: boolean;
 }

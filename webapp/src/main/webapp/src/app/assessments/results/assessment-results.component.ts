@@ -206,7 +206,7 @@ export class AssessmentResultsComponent implements OnInit {
   distractorAnalysisView: ResultsView;
   writingTraitScoresView: ResultsView;
   instructionalResourceProvider: () => Observable<InstructionalResource[]>;
-  enablePercentileDisplay: boolean = false;
+  percentileDisplayEnabled: boolean = false;
   showPercentileHistory: boolean = false;
   percentileGroups: PercentileGroup[];
 
@@ -221,7 +221,7 @@ export class AssessmentResultsComponent implements OnInit {
               private percentileService: AssessmentPercentileService,
               private userService: UserService) {
     this.userService.getCurrentUser().subscribe(user => {
-      this.enablePercentileDisplay = user.configuration.enablePercentileDisplay;
+      this.percentileDisplayEnabled = user.configuration.percentileDisplayEnabled;
     });
   }
 
