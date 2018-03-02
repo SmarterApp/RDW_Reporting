@@ -5,12 +5,14 @@ insert into district (id, natural_id, name) values
 
 insert into state_embargo (school_year, individual, aggregate) values
   (2018, false, true),
-  (2019, true, true);
+  (2019, true, true),
+  (2020, false, false);
 
 insert into district_embargo (district_id, school_year, individual, aggregate) values
   (-10, 2018, true, true),
   (-20, 2018, false, null),
-  (-10, 2017, false, false);
+  (-10, 2017, false, false),
+  (-10, 2020, true, true);
 
 
 -- get some summative exams in there to test counts
