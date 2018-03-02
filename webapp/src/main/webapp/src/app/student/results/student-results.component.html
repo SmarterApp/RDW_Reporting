@@ -25,11 +25,6 @@
             <i class="fa fa-bold fa-table"></i> {{'labels.export.csv' | translate}}
           </button>
         </li>
-        <li *hasPermission="'INDIVIDUAL_PII_READ'">
-          <a routerLink="/custom-export"
-             class="btn btn-default btn-sm"><i
-            class="fa fa-table"></i> {{'labels.organization-export.title' | translate}}</a>
-        </li>
         <li>
           <button class="btn btn-default btn-sm"
                   (click)="reportDownloader.modal.show()">
