@@ -58,21 +58,6 @@ describe('EmbargoService', () => {
     });
   });
 
-  it('should default individual embargo to false and aggregate embargo to true', (done) => {
-    const apiEmbargoData: any = apiEmbargo("State");
-    delete apiEmbargoData.individualEnabled;
-    delete apiEmbargoData.aggregateEnabled;
-    dataService.get.and.returnValue(of([apiEmbargoData]));
-
-    service.getEmbargoesByOrganizationType().subscribe((result: Map<OrganizationType, Embargo[]>) => {
-      expect(result.size).toBe(1);
-      const embargo: Embargo = result.get(OrganizationType.State)[0];
-      expect(embargo.individualEnabled).toBe(false);
-      expect(embargo.aggregateEnabled).toBe(true);
-      done();
-    });
-  });
-
   function apiEmbargo(type: string): any {
     return {
       organizationType: type,

@@ -4,7 +4,8 @@ insert into district (id, natural_id, name) values
   (-30, 'district3', 'district3');
 
 insert into state_embargo (school_year, individual, aggregate) values
-  (2018, false, true);
+  (2018, false, true),
+  (2019, true, true);
 
 insert into district_embargo (district_id, school_year, individual, aggregate) values
   (-10, 2018, true, true),

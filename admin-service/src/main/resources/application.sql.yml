@@ -33,7 +33,12 @@ sql:
     # query to find all embargo records given a school year and a list of (user's) districts
     # this includes counts of summative exams grouped by each org so it has performance implications
     findAllBySchoolYear: >-
-      SELECT st.*, se.individual, se.aggregate, cnt.subject_id, cnt.count
+      SELECT
+        st.*,
+        coalesce(se.individual, 0) as individual,
+        coalesce(se.aggregate, 1) as aggregate,
+        cnt.subject_id,
+        cnt.count
       FROM (SELECT 'State' AS org_type, NULL AS org_id, NULL AS org_name, :school_year AS school_year) st
         LEFT JOIN state_embargo se ON se.school_year = :school_year
         LEFT JOIN (SELECT a.subject_id, count(e.id) AS count
@@ -41,8 +46,17 @@ sql:
                      WHERE a.type_id = 3 AND e.deleted = 0 AND e.school_year = :school_year
                      GROUP BY a.subject_id) cnt ON 1=1
       UNION ALL
-      SELECT 'District' AS org_type, d.id AS org_id, d.name AS org_name, :school_year AS school_year, de.individual, de.aggregate, cnt.subject_id, cnt.count
+      SELECT
+        'District' AS org_type,
+        d.id AS org_id,
+        d.name AS org_name,
+        :school_year AS school_year,
+        coalesce(de.individual, se.individual, 0) as individual,
+        coalesce(de.aggregate, se.aggregate, 1) as aggregate,
+        cnt.subject_id,
+        cnt.count
       FROM district d
+        LEFT JOIN state_embargo se ON se.school_year = :school_year
         LEFT JOIN district_embargo de ON d.id = de.district_id and de.school_year = :school_year
         LEFT JOIN (SELECT s.district_id, a.subject_id, count(e.id) AS count
                    FROM school s
