@@ -71,12 +71,12 @@
         <div class="well-group">
           <div class="well">
             <h3>{{'aggregate-reports.form.section.organization.heading' | translate}}</h3>
-            <p class="text-muted small">{{'aggregate-reports.form.section.organization.subtext' | translate}}</p>
+            <p *ngIf="!hasDefaultSchoolOrganization" class="text-muted small">{{'aggregate-reports.form.section.organization.subtext' | translate}}</p>
           </div>
           <div class="well pb-0">
 
             <!-- Typeahead -->
-            <div>
+            <div *ngIf="!hasDefaultSchoolOrganization">
               <label>{{'aggregate-reports.form.field.organization.label' | translate}}</label>
               <organization-typeahead #organizationTypeahead
                                       [options]="organizationTypeaheadOptions"
@@ -101,7 +101,8 @@
             <div [hidden]="!settings.schools.length" class="mb-sm">
               <label>{{'aggregate-reports.form.section.organization.school-list-heading' | translate}}</label>
               <aggregate-report-organization-list [organizations]="settings.schools"
-                                                  (organizationClick)="onOrganizationListItemClose($event)"></aggregate-report-organization-list>
+                                                  (organizationClick)="onOrganizationListItemClose($event)"
+                                                  [onlyOneOrganization]="hasDefaultSchoolOrganization"></aggregate-report-organization-list>
             </div>
 
             <!-- Settings -->

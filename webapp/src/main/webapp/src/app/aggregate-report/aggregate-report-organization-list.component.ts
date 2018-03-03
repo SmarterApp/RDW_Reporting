@@ -10,6 +10,9 @@ export class AggregateReportOrganizationList {
   @Input()
   organizations: Organization[];
 
+  @Input()
+  onlyOneOrganization: boolean = false;
+
   @Output()
   organizationClick: EventEmitter<Organization> = new EventEmitter<Organization>();
 

@@ -198,6 +198,20 @@ export class AggregateReportFormComponent {
   }
 
   /**
+   * @returns {boolean} True if the default organization exists and it is a school
+   */
+  get hasDefaultSchoolOrganization(): boolean {
+    return this.defaultOrganization && this.defaultOrganization.type === OrganizationType.School;
+  }
+
+  /**
+   * @returns {Organization} The default organization, if one exists
+   */
+  get defaultOrganization(): Organization {
+    return this.aggregateReportOptions.defaultOrganization;
+  }
+
+  /**
    * @returns {boolean} True if the user does not have access to create aggregate reports
    */
   get accessDenied(): boolean {
