@@ -15,6 +15,7 @@ import { OptionalPipe } from "../../shared/optional.pipe";
 import { AuthorizationDirective } from "../../shared/security/authorization.directive";
 import { AuthorizationService } from "../../shared/security/authorization.service";
 import { PermissionService } from "../../shared/security/permission.service";
+import { WritingTraitScores } from "../../assessments/model/writing-trait-scores.model";
 import createSpy = jasmine.createSpy;
 import Spy = jasmine.Spy;
 
@@ -105,6 +106,35 @@ describe('StudentResponsesComponent', () => {
 
     expect(component.assessmentItems[ 0 ].correctness).toBe(1);
     expect(component.assessmentItems[ 1 ].correctness).toBe(0.5);
+  });
+
+  it('should handle a missing score', () => {
+    const score: ExamItemScore = new ExamItemScore();
+    score.points = 1;
+    score.position = 1;
+    score.response = "A";
+    score.writingTraitScores = new WritingTraitScores();
+    score.writingTraitScores.organization = 123;
+    score.writingTraitScores.conventions = 456;
+    score.writingTraitScores.evidence = 789;
+
+    const scoredItem: AssessmentItem = new AssessmentItem();
+    scoredItem.maxPoints = 2;
+    scoredItem.scores = [score];
+
+    const unscoredItem: AssessmentItem = new AssessmentItem();
+    unscoredItem.maxPoints = 2;
+
+    let mockRouteSnapshot: any = route.snapshot;
+    mockRouteSnapshot.data.assessmentItems.push(scoredItem);
+    mockRouteSnapshot.data.assessmentItems.push(unscoredItem);
+
+    fixture = TestBed.createComponent(StudentResponsesComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    expect(component.assessmentItems[ 0 ].writingTraitScores).toBe(score.writingTraitScores);
+    expect(component.assessmentItems[ 1 ].writingTraitScores).toBeNull();
   });
 
 });
