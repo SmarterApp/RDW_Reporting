@@ -44,15 +44,21 @@ export class StudentResponsesComponent implements OnInit {
   }
 
   private mapAssessmentItem(item: AssessmentItem): StudentResponsesAssessmentItem {
-    let responseItem = new StudentResponsesAssessmentItem();
+    const responseItem = new StudentResponsesAssessmentItem();
     responseItem.assessmentItem = item;
 
-    let score: ExamItemScore = item.scores.length === 1 ?  item.scores[0] : null;
-    responseItem.score = score && score.points >= 0 ? score.points : null;
-    let maxScore = item.maxPoints;
-    responseItem.correctness = responseItem.score !== null ? responseItem.score / maxScore : null;
-    responseItem.response = score ? score.response : null;
-    responseItem.writingTraitScores =  score ? score.writingTraitScores : null;
+    if (item.scores.length !== 1) {
+      return responseItem;
+    }
+
+    const score: ExamItemScore = item.scores[0];
+    if (score.points >= 0) {
+      responseItem.score = score.points;
+      responseItem.correctness = responseItem.score / item.maxPoints;
+    }
+
+    responseItem.response = score.response;
+    responseItem.writingTraitScores = score.writingTraitScores;
 
     return responseItem;
   }

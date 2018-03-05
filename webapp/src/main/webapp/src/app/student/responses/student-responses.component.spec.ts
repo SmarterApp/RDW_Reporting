@@ -134,7 +134,8 @@ describe('StudentResponsesComponent', () => {
     fixture.detectChanges();
 
     expect(component.assessmentItems[ 0 ].writingTraitScores).toBe(score.writingTraitScores);
-    expect(component.assessmentItems[ 1 ].writingTraitScores).toBeNull();
+    expect(component.assessmentItems[ 1 ].writingTraitScores).toBeUndefined();
+    expect(component.assessmentItems[ 1 ].writingTraitScores == null).toBe(true);
   });
 
 });
