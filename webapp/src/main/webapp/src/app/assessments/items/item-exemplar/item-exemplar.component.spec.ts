@@ -8,12 +8,19 @@ import { ItemScoringGuide } from "./model/item-scoring-guide.model";
 import { MockDataService } from "../../../../test/mock.data.service";
 import { CachingDataService } from "../../../shared/data/caching-data.service";
 import { DataService } from "../../../shared/data/data.service";
-import {AssessmentItem} from "../../model/assessment-item.model";
-import {Component} from "@angular/core";
+import { AssessmentItem } from "../../model/assessment-item.model";
+import { Component } from "@angular/core";
+
+let mockItemScoringGuide = { itemScoringGuide: new ItemScoringGuide() };
 
 describe('ItemExemplarComponent', () => {
   let component: ItemExemplarComponent;
   let fixture: ComponentFixture<TestComponentWrapper>;
+  let mockItemScoringService = {
+    getGuide(item: string) {
+      return Observable.of(mockItemScoringGuide.itemScoringGuide)
+    },
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -22,7 +29,7 @@ describe('ItemExemplarComponent', () => {
       providers: [
         ItemScoringService,
         ItemScoringGuideMapper,
-        { provide: ItemScoringService, useClass: MockItemScoringService },
+        { provide: ItemScoringService, useValue: mockItemScoringService },
         { provide: CachingDataService, useClass: MockDataService },
         { provide: DataService, useClass: MockDataService } ]
     })
@@ -38,14 +45,27 @@ describe('ItemExemplarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should display not found when item scoring guide is empty', () => {
+    component.ngOnInit();
+    expect(component.notFound).toBeTruthy();
+    expect(component.errorLoading).toBeFalsy();
+    expect(component.model.answerKeyValue).toBeUndefined();
+    expect(component.model.exemplars).toEqual([]);
+    expect(component.model.rubrics).toEqual([]);
+  });
+
+  it('should display answer key when item scoring guide has answer key', () => {
+    mockItemScoringGuide.itemScoringGuide.answerKeyValue = "Answer";
+    component.ngOnInit();
+    expect(component.notFound).toBeFalsy();
+    expect(component.errorLoading).toBeFalsy();
+    expect(component.model.answerKeyValue).toEqual(mockItemScoringGuide.itemScoringGuide.answerKeyValue);
+    expect(component.model.exemplars).toEqual([]);
+    expect(component.model.rubrics).toEqual([]);
+  });
+
 });
-
-
-class MockItemScoringService extends ItemScoringService {
-  getGuide(item: string) {
-    return Observable.of(new ItemScoringGuide());
-  }
-}
 
 @Component({
   selector: 'test-component-wrapper',
