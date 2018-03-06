@@ -152,7 +152,7 @@ export class AggregateReportFormComponent {
 
     this.organizations = this.organizations.concat(this.settings.districts, this.settings.schools);
 
-    const defaultOrganization = this.aggregateReportOptions.defaultOrganization;
+    const defaultOrganization = this.defaultOrganization;
     if (this.organizations.length == 0 && defaultOrganization) {
       this.addOrganizationToSettings(defaultOrganization);
     }
