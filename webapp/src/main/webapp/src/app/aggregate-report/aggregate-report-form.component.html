@@ -102,7 +102,7 @@
               <label>{{'aggregate-reports.form.section.organization.school-list-heading' | translate}}</label>
               <aggregate-report-organization-list [organizations]="settings.schools"
                                                   (organizationClick)="onOrganizationListItemClose($event)"
-                                                  [onlyOneOrganization]="hasDefaultSchoolOrganization"></aggregate-report-organization-list>
+                                                  [disabled]="hasDefaultSchoolOrganization"></aggregate-report-organization-list>
             </div>
 
             <!-- Settings -->

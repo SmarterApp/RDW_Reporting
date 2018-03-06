@@ -1,6 +1,6 @@
 <ul class="list-group list-group-sm small" >
   <li class="list-group-item" *ngFor="let organization of organizations">
-    <a *ngIf="!onlyOneOrganization" class="mr-xs" href="javascript:void(0)" (click)="organizationClick.emit(organization)"><i class="fa fa-close"></i></a>
+    <a *ngIf="!disabled" class="mr-xs" href="javascript:void(0)" (click)="organizationClick.emit(organization)"><i class="fa fa-close"></i></a>
     {{organization.name}}
   </li>
 </ul>
