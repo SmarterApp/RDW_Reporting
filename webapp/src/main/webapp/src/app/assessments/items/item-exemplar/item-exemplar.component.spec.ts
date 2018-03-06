@@ -46,7 +46,7 @@ describe('ItemExemplarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should report not found when item scoring guide is empty', () => {
+  it('should display not found when item scoring guide is empty', () => {
     component.ngOnInit();
     expect(component.notFound).toBeTruthy();
     expect(component.errorLoading).toBeFalsy();
@@ -55,7 +55,7 @@ describe('ItemExemplarComponent', () => {
     expect(component.model.rubrics).toEqual([]);
   });
 
-  it('should report answer key when item scoring guide has answer key', () => {
+  it('should display answer key when item scoring guide has answer key', () => {
     mockItemScoringGuide.itemScoringGuide.answerKeyValue = "Answer";
     component.ngOnInit();
     expect(component.notFound).toBeFalsy();
