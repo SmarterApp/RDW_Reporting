@@ -25,6 +25,7 @@ import { AssessmentExporter } from "../assessment-exporter.interface";
 import { AssessmentPercentileRequest, AssessmentPercentileService } from "../percentile/assessment-percentile.service";
 import { PercentileGroup } from "../percentile/assessment-percentile";
 import { Utils } from "../../shared/support/support";
+import { UserService } from "../../user/user.service";
 
 enum ResultsViewState {
   ByStudent = 1,
@@ -205,6 +206,7 @@ export class AssessmentResultsComponent implements OnInit {
   distractorAnalysisView: ResultsView;
   writingTraitScoresView: ResultsView;
   instructionalResourceProvider: () => Observable<InstructionalResource[]>;
+  percentileDisplayEnabled: boolean = false;
   showPercentileHistory: boolean = false;
   percentileGroups: PercentileGroup[];
 
@@ -216,7 +218,11 @@ export class AssessmentResultsComponent implements OnInit {
               private examCalculator: ExamStatisticsCalculator,
               private examFilterService: ExamFilterService,
               private instructionalResourcesService: InstructionalResourcesService,
-              private percentileService: AssessmentPercentileService) {
+              private percentileService: AssessmentPercentileService,
+              private userService: UserService) {
+    this.userService.getCurrentUser().subscribe(user => {
+      this.percentileDisplayEnabled = user.configuration.percentileDisplayEnabled;
+    });
   }
 
   ngOnInit(): void {

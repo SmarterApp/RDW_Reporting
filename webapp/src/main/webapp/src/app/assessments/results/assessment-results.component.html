@@ -93,6 +93,7 @@
                      popover="{{'messages.no-results-by-item' | translate }}"
                      triggers="{{ !resultsByStudentView.disabled ? '': 'mouseenter:mouseleave'}}"
                      placement="right"
+                     container="body"
                      (click)="resultsByStudentView.disabled || setCurrentView(resultsByStudentView)"
                      [ngClass]="{'selected': currentResultsView == resultsByStudentView, disabled: resultsByStudentView.disabled }">
                     {{ resultsByStudentView.label | translate }}
@@ -104,6 +105,7 @@
                      popover="{{ (assessmentExam.assessment.isSummative ? 'messages.no-results-by-item-for-summative-exams' : 'messages.no-results-by-item') | translate }}"
                      triggers="{{ !resultsByItemView.disabled ? '': 'mouseenter:mouseleave'}}"
                      placement="right"
+                     container="body"
                      (click)="resultsByItemView.disabled || setCurrentView(resultsByItemView)"
                      [ngClass]="{'selected': currentResultsView == resultsByItemView, disabled: resultsByItemView.disabled }">
                     {{ resultsByItemView.label | translate }}
@@ -115,6 +117,7 @@
                      popover="{{ (assessmentExam.assessment.isSummative ? 'messages.no-distractor-analysis-for-summative-exams' : 'messages.no-distractor-analysis') | translate }}"
                      triggers="{{ !distractorAnalysisView.disabled ? '' : 'mouseenter:mouseleave'}}"
                      placement="right"
+                     container="body"
                      (click)="distractorAnalysisView.disabled || setCurrentView(distractorAnalysisView)"
                      [ngClass]="{'selected': currentResultsView == distractorAnalysisView, disabled: distractorAnalysisView.disabled }">
                     {{ distractorAnalysisView.label | translate }}
@@ -126,6 +129,7 @@
                      popover="{{ (!assessmentExam.assessment.isIab ? 'messages.no-writing-trait-scores-for-summative-ica-exams' : 'messages.no-writing-trait-scores') | translate }}"
                      triggers="{{ !writingTraitScoresView.disabled ? '' : 'mouseenter:mouseleave'}}"
                      placement="right"
+                     container="body"
                      (click)="writingTraitScoresView.disabled || setCurrentView(writingTraitScoresView)"
                      [ngClass]="{'selected': currentResultsView == writingTraitScoresView, disabled: writingTraitScoresView.disabled}">
                     {{ writingTraitScoresView.label | translate }}
@@ -153,7 +157,7 @@
                 <i class="fa fa-book"></i> {{'labels.groups.results.assessment.instruct' | translate }}
               </button>
             </li>
-            <li *ngIf="assessmentExam.assessment.isIab">
+            <li *ngIf="percentileDisplayEnabled && assessmentExam.assessment.isIab">
               <button class="btn btn-default btn-sm"
                       type="button"
                       (click)="onPercentileButtonClickInternal()">

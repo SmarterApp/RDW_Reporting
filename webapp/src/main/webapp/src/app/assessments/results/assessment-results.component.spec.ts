@@ -18,17 +18,21 @@ import { InstructionalResourcesService } from "./instructional-resources.service
 import { CachingDataService } from "../../shared/data/caching-data.service";
 import { DataService } from "../../shared/data/data.service";
 import { AssessmentPercentileService } from "../percentile/assessment-percentile.service";
+import { MockUserService } from "../../../test/mock.user.service";
+import { UserService } from "../../user/user.service";
 
 describe('AssessmentResultsComponent', () => {
   let component: AssessmentResultsComponent;
   let fixture: ComponentFixture<TestComponentWrapper>;
   let dataService: MockDataService;
+  let mockUserService: MockUserService;
 
   let mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', [ 'eventTrack' ]);
   mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', [ 'next' ]);
 
   beforeEach(async(() => {
     dataService = new MockDataService();
+    mockUserService = new MockUserService();
 
     TestBed.configureTestingModule({
       imports: [
@@ -44,6 +48,7 @@ describe('AssessmentResultsComponent', () => {
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
         { provide: Angulartics2, useValue: mockAngulartics2 },
+        { provide: UserService, useValue: mockUserService },
         ExamStatisticsCalculator,
         ExamFilterService,
         ColorService,
