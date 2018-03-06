@@ -37,7 +37,8 @@ export class ItemExemplarComponent implements OnInit {
 
             // TODO re-look at this logic
             this.notFound = guide.rubrics.length === 0
-              && guide.exemplars.length === 0;
+              && guide.exemplars.length === 0
+              && Utils.isNullOrEmpty(guide.answerKeyValue);
           },
           (response) => {
 
