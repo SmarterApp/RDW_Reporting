@@ -312,11 +312,15 @@ export class AggregateReportTableComponent implements OnInit {
    * @returns {Comparator<AggregateReportItem>} A Comparator for ordering results by the given field
    */
   private getComparator(field: string, order: number): Comparator<AggregateReportItem> {
+    let ascending: boolean = order >= 0;
     let rowOrdering: Ordering<AggregateReportItem> = this._orderingByColumnField[ field ];
     if (!rowOrdering) {
-      rowOrdering = ordering(byNumber).on(item => _.get(item, field, 0));
+      const defaultValue: number = ascending ? Number.MAX_SAFE_INTEGER : Number.MIN_SAFE_INTEGER;
+      rowOrdering = ordering(byNumber).on(item => {
+        return item.studentsTested === 0 ? defaultValue : _.get(item, field, defaultValue);
+      });
     }
-    return order < 0 ? rowOrdering.reverse().compare : rowOrdering.compare;
+    return ascending ?  rowOrdering.compare : rowOrdering.reverse().compare;
   }
 
   /**
