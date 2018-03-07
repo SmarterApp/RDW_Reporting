@@ -93,73 +93,73 @@ export class CsvBuilder {
 
   withStudentId(getStudent: (item: any) => Student) {
     return this.withColumn(
-      this.translateHeader('student-id'),
+      this.translateService.instant('labels.export.cols.student-id'),
       (item) => getStudent(item).ssid
     );
   }
 
   withStudentName(getStudent: (item: any) => Student) {
     return this.withColumn(
-      this.translateHeader('student-first-name'),
+      this.translateService.instant('labels.export.cols.student-first-name'),
       (item) => getStudent(item).firstName
     ).withColumn(
-      this.translateHeader('student-last-name'),
+      this.translateService.instant('labels.export.cols.student-last-name'),
       (item) => getStudent(item).lastName
     );
   }
 
   withExamDate(getExam: (item: any) => Exam) {
     return this.withColumn(
-      this.translateHeader('submit-date-time'),
+      this.translateService.instant('labels.export.cols.submit-date-time'),
       (item) => this.datePipe.transform(getExam(item).date)
     )
   }
 
   withExamSession(getExam: (item: any) => Exam) {
     return this.withColumn(
-      this.translateHeader('assessment-session-id'),
+      this.translateService.instant('labels.export.cols.assessment-session-id'),
       (item) => getExam(item).session
     )
   }
 
   withSchool(getExam: (item: any) => Exam) {
     return this.withColumn(
-      this.translateHeader('school'),
+      this.translateService.instant('labels.export.cols.school'),
       (item) => getExam(item).school.name
     )
   }
 
   withSchoolYear(getExam: (item: any) => Exam) {
     return this.withColumn(
-      this.translateHeader('schoolYear'),
+      this.translateService.instant('labels.export.cols.school-year'),
       (item) => this.schoolYearPipe.transform(getExam(item).schoolYear)
     )
   }
 
   withAssessmentType(getAssessment: (item: any) => Assessment) {
     return this.withColumn(
-      this.translateHeader('assessment-type'),
+      this.translateService.instant('labels.export.cols.assessment-type'),
       (item) => AssessmentType[ getAssessment(item).type ]
     )
   }
 
   withAssessmentName(getAssessment: (item: any) => Assessment) {
     return this.withColumn(
-      this.translateHeader('assessment-name'),
+      this.translateService.instant('labels.export.cols.assessment-name'),
       (item) => getAssessment(item).label
     )
   }
 
   withAssessmentSubject(getAssessment: (item: any) => Assessment) {
     return this.withColumn(
-      this.translateHeader('subject'),
+      this.translateService.instant('labels.export.cols.subject'),
       (item) => getAssessment(item).subject
     )
   }
 
   withExamGrade(getExam: (item: any) => Exam) {
     return this.withColumn(
-      this.translateHeader('enrolled-grade'),
+      this.translateService.instant('labels.export.cols.enrolled-grade'),
       (item) => {
         let gradeCode: string = getExam(item).enrolledGrade;
         return this.translateService.instant(`labels.grades.${gradeCode}.enrolled-name`)
@@ -185,7 +185,7 @@ export class CsvBuilder {
 
   withAchievementLevel(getExam: (item: any) => Exam) {
     return this.withColumn(
-      this.translateHeader('achievement-level'),
+      this.translateService.instant('labels.export.cols.achievement-level'),
       (item) => {
         let exam: Exam = getExam(item);
         if (!exam || !exam.level) return "";
@@ -197,7 +197,7 @@ export class CsvBuilder {
 
   withAccommodationCodes(getExam: (item: any) => Exam) {
     return this.withColumn(
-      this.translateHeader('accommodation-codes'),
+      this.translateService.instant('labels.export.cols.accommodation-codes'),
       (item) => {
         let exam: Exam = getExam(item);
         if (!exam || !exam.accommodationCodes) return "";
@@ -222,7 +222,7 @@ export class CsvBuilder {
 
   withScaleScore(getExam: (item: any) => Exam) {
     return this.withColumn(
-      this.translateHeader('scale-score'),
+      this.translateService.instant('labels.export.cols.scale-score'),
       (item) => {
         let score = getExam(item).score;
         return !score ? '' : score;
@@ -232,7 +232,7 @@ export class CsvBuilder {
 
   withErrorBandMin(getExam: (item: any) => Exam) {
     return this.withColumn(
-      this.translateHeader('error-band-min'),
+      this.translateService.instant('labels.export.cols.error-band-min'),
       (item) => {
         let exam: Exam = getExam(item);
         return !exam.score ? '' : exam.score - exam.standardError;
@@ -242,7 +242,7 @@ export class CsvBuilder {
 
   withErrorBandMax(getExam: (item: any) => Exam) {
     return this.withColumn(
-      this.translateHeader('error-band-max'),
+      this.translateService.instant('labels.export.cols.error-band-max'),
       (item) => {
         let exam: Exam = getExam(item);
         return !exam.score ? '' : exam.score + exam.standardError;
@@ -276,14 +276,14 @@ export class CsvBuilder {
 
   withGender(getStudent: (item: any) => Student) {
     return this.withColumn(
-      this.translateHeader('gender'),
+      this.translateService.instant('labels.export.cols.gender'),
       (item) => this.translateService.instant(`enum.gender.${getStudent(item).genderCode}`)
     )
   }
 
   withMigrantStatus(getExam: (item: any) => Exam) {
     return this.withColumn(
-      this.translateHeader('migrant-status'),
+      this.translateService.instant('labels.export.cols.migrant-status'),
       (item) => {
         let polarEnum = getExam(item).migrantStatus ? 1 : 2;
         return this.translateService.instant(`enum.polar.${polarEnum}`);
@@ -293,7 +293,7 @@ export class CsvBuilder {
 
   with504Plan(getExam: (item: any) => Exam) {
     return this.withColumn(
-      this.translateHeader('504-plan'),
+      this.translateService.instant('labels.export.cols.504-plan'),
       (item) => {
         let polarEnum = getExam(item).plan504 ? 1 : 2;
         return this.translateService.instant(`enum.polar.${polarEnum}`);
@@ -303,7 +303,7 @@ export class CsvBuilder {
 
   withIep(getExam: (item: any) => Exam) {
     return this.withColumn(
-      this.translateHeader('iep'),
+      this.translateService.instant('labels.export.cols.iep'),
       (item) => {
         let polarEnum = getExam(item).iep ? 1 : 2;
         return this.translateService.instant(`enum.polar.${polarEnum}`);
@@ -313,7 +313,7 @@ export class CsvBuilder {
 
   withEconomicDisadvantage(getExam: (item: any) => Exam) {
     return this.withColumn(
-      this.translateHeader('economic-disadvantage'),
+      this.translateService.instant('labels.export.cols.economic-disadvantage'),
       (item) => {
         let polarEnum = getExam(item).economicDisadvantage ? 1 : 2;
         return this.translateService.instant(`enum.polar.${polarEnum}`);
@@ -323,7 +323,7 @@ export class CsvBuilder {
 
   withLimitedEnglish(getExam: (item: any) => Exam) {
     return this.withColumn(
-      this.translateHeader('limited-english'),
+      this.translateService.instant('labels.export.cols.limited-english'),
       (item) => {
         let polarEnum = getExam(item).limitedEnglishProficiency ? 1 : 2;
         return this.translateService.instant(`enum.polar.${polarEnum}`);
@@ -353,14 +353,14 @@ export class CsvBuilder {
 
   withClaim(getAssessmentItem: (item: any) => AssessmentItem) {
     return this.withColumn(
-      this.translateHeader('claim'),
+      this.translateService.instant('labels.export.cols.claim'),
       (item) => this.translateService.instant(`definition.claim.${getAssessmentItem(item).claim}.name`)
     );
   }
 
   withTarget(getAssessmentItem: (item: any) => AssessmentItem) {
     return this.withColumn(
-      this.translateHeader('target'),
+      this.translateService.instant('labels.export.cols.target'),
       (item) => this.translateService.instant('labels.groups.results.assessment.items.target', getAssessmentItem(item))
     );
   }
@@ -503,9 +503,5 @@ export class CsvBuilder {
   private numberAsString(value: Number, showAsPercent: boolean) {
     return this.numberPipe.transform(value, '1.0-0') +
       (showAsPercent ? "%" : "");
-  }
-
-  private translateHeader(header: string): string {
-    return this.translateService.instant("labels.export.cols." + header);
   }
 }

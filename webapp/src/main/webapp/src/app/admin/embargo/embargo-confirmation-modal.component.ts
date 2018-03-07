@@ -33,11 +33,6 @@ import { OrganizationType } from "./organization-type.enum";
 export class EmbargoConfirmationModal {
 
   /**
-   * Translation code namespace
-   */
-  private translateContext: string = 'labels.embargo.modal';
-
-  /**
    * The event that triggered the modal
    */
   private _event: EmbargoToggleEvent;
@@ -87,11 +82,11 @@ export class EmbargoConfirmationModal {
       : [ event.overridingEmbargo, event.overridingEmbargoEnabled ];
 
     return {
-      header: `${this.translateContext}.header.${event.scope}`,
-      stateDescription: `${this.translateContext}.state-description.${event.scope}.${stateEnabled}`,
-      commandDescription: `${this.translateContext}.command-description.${event.embargo.organization.type}.${event.scope}.${event.value}`,
-      accept: `${this.translateContext}.accept.${event.value}`,
-      decline: `${this.translateContext}.decline`,
+      header: `labels.embargo.modal.header.${event.scope}`,
+      stateDescription: `labels.embargo.modal.state-description.${event.scope}.${stateEnabled}`,
+      commandDescription: `labels.embargo.modal.command-description.${event.embargo.organization.type}.${event.scope}.${event.value}`,
+      accept: `labels.embargo.modal.accept.${event.value}`,
+      decline: `labels.embargo.modal.decline`,
       parameters: {
         stateName: stateEmbargo.organization.name,
         organizationName: event.embargo.organization.name,

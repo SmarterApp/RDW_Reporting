@@ -41,8 +41,4 @@ export class AdvFiltersComponent implements OnInit {
         this.showTransferAccess = user.configuration.transferAccess;
       });
   }
-
-  get translateRoot() {
-    return "labels.filters.";
-  }
 }

@@ -85,10 +85,6 @@ export class ItemTabComponent implements OnInit {
    */
   loadInfo: boolean = false;
 
-  get translateRoot(){
-    return 'labels.assessments.items.tabs.';
-  }
-
   private _position: number = -1;
 
   constructor(private angulartics2: Angulartics2) { }

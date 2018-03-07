@@ -2,7 +2,7 @@
 <p-dataTable #datatable [value]="scores" tableStyleClass="table table-striped table-hover" [tableStyle]="{'table-layout':'auto'}" sortField="student.lastName" expandableRows="true" rowExpandMode="single">
   <p-column sortField="student.lastName" header="{{'labels.groups.results.assessment.exams.cols.name' | translate}}" [sortable]="true">
     <ng-template let-row="rowData" let-score="rowData" pTemplate="body">
-      <datatable-row-expander [datatable]="datatable" [row]="row" [text]="'labels.personName' | translate:score.student"></datatable-row-expander>
+      <datatable-row-expander [datatable]="datatable" [row]="row" [text]="'labels.person-name' | translate:score.student"></datatable-row-expander>
     </ng-template>
   </p-column>
   <p-column field="date" header="{{'labels.groups.results.assessment.exams.cols.date' | translate}}" [sortable]="true">

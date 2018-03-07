@@ -1,10 +1,4 @@
 {
-  "application": {
-    "title": "Reporting System"
-  },
-  "home": {
-    "aggregate-reports-link": "Create Aggregate Report"
-  },
   "embargo-admin-alert": {
     "message": "Summative test results in your region of administration are not yet released. These results may be viewed online but not downloaded.",
     "export": {
@@ -43,7 +37,6 @@
     "column-order": "Column Order",
     "column-order-info": "Change your result column order to easily compare your results broken down in different ways.",
     "empty": "There are no available test results matching your report query. Please modify your query and generate a new report.",
-    "heading": "Aggregate Report",
     "form-link": "View Query",
     "processing": "Your report is being generated. This may take several minutes. ",
     "download-data": "Download Data",
@@ -70,11 +63,6 @@
     "preview": "This table does not contain actual data and is for preview purposes only.",
     "access-denied-error": "Your user account is not permitted to create aggregate reports by the system. If you believe you have reached this page in error, please contact your building administrator.",
     "export-name": "{{label}}_{{subject}}_view",
-    "confirmation-modal": {
-      "body": "The requested report will contain {{formattedRowCount}} rows and is too large to display in the browser. Would you like to generate this report for download as a spreadsheet?",
-      "accept": "Generate",
-      "decline": "Cancel"
-    },
     "row-count-label": "Row count: ",
     "estimated-row-count": {
       "loading": "Estimating row count",
@@ -83,9 +71,6 @@
     },
     "results": {
       "empty-message": "No Results Found",
-      "performance-group-prompt": "Show performance as",
-      "performance-grouped": "Grouped",
-      "performance-separated": "All",
       "cols": {
         "achievement-comparison": "Achievement Comparison",
         "assessment-grade": "Assessment Grade",
@@ -169,10 +154,6 @@
           "error-file-name": "The name cannot contain these special characters: <>:;,?\"*|\\/"
         }
       },
-      "organizations": {
-        "heading": "Schools and Districts",
-        "subheading": "Select the attributes to include in the report. Then click \"Generate Report.\""
-      },
       "section": {
         "organization": {
           "heading": "Schools and Districts",
@@ -232,7 +213,6 @@
     "placeholder": "Enter name",
     "no-matches": "There are no unselected organizations matching your search."
   },
-  "collapse": "Collapse",
   "common": {
     "collection-selection": {
       "all": "All",
@@ -301,7 +281,6 @@
     },
     "assessment-type": {
       "ica": {
-        "name": "Interim Comprehensive Assessment",
         "short-name": "ICA",
         "performance-level": {
           "1": {
@@ -323,7 +302,6 @@
         }
       },
       "iab": {
-        "name": "Interim Assessment Blocks",
         "short-name": "IAB",
         "performance-level": {
           "1": {
@@ -341,7 +319,6 @@
         }
       },
       "sum": {
-        "name": "Summative",
         "short-name": "Summative",
         "performance-level": {
           "1": {
@@ -379,11 +356,9 @@
     },
     "subject": {
       "ELA": {
-        "name": "English Language Arts",
         "short-name": "ELA"
       },
       "Math": {
-        "name": "Mathematics",
         "short-name": "Math"
       }
     },
@@ -411,123 +386,63 @@
     },
     "grade": {
       "01": {
-        "enrolled-name": "G1",
-        "long-name": "Grade 1",
-        "short-name": "G1",
         "form-name": "1"
       },
       "02": {
-        "enrolled-name": "G2",
-        "long-name": "Grade 2",
-        "short-name": "G2",
         "form-name": "2"
       },
       "03": {
-        "enrolled-name": "G3",
-        "long-name": "Grade 3",
-        "short-name": "G3",
         "form-name": "3"
       },
       "04": {
-        "enrolled-name": "G4",
-        "long-name": "Grade 4",
-        "short-name": "G4",
         "form-name": "4"
       },
       "05": {
-        "enrolled-name": "G5",
-        "long-name": "Grade 5",
-        "short-name": "G5",
         "form-name": "5"
       },
       "06": {
-        "enrolled-name": "G6",
-        "long-name": "Grade 6",
-        "short-name": "G6",
         "form-name": "6"
       },
       "07": {
-        "enrolled-name": "G7",
-        "long-name": "Grade 7",
-        "short-name": "G7",
         "form-name": "7"
       },
       "08": {
-        "enrolled-name": "G8",
-        "long-name": "Grade 8",
-        "short-name": "G8",
         "form-name": "8"
       },
       "09": {
-        "enrolled-name": "G9",
-        "long-name": "High School",
-        "short-name": "HS",
         "form-name": "HS"
       },
       "10": {
-        "enrolled-name": "G10",
-        "long-name": "High School",
-        "short-name": "HS",
         "form-name": "HS"
       },
       "11": {
-        "enrolled-name": "G11",
-        "long-name": "High School",
-        "short-name": "HS",
         "form-name": "HS"
       },
       "12": {
-        "enrolled-name": "G12",
-        "long-name": "High School",
-        "short-name": "HS",
         "form-name": "HS"
       },
       "13": {
-        "enrolled-name": "G13",
-        "long-name": "Grade 13",
-        "short-name": "G13",
         "form-name": "13"
       },
       "IT": {
-        "enrolled-name": "IT",
-        "long-name": "Infant/Toddler",
-        "short-name": "IT",
         "form-name": "IT"
       },
       "KG": {
-        "enrolled-name": "KG",
-        "long-name": "Kindergarten",
-        "short-name": "KG",
         "form-name": "KG"
       },
       "PK": {
-        "enrolled-name": "PK",
-        "long-name": "Prekindergarten",
-        "short-name": "PK",
         "form-name": "PK"
       },
       "PR": {
-        "enrolled-name": "PR",
-        "long-name": "Preschool",
-        "short-name": "PR",
         "form-name": "PR"
       },
       "PS": {
-        "enrolled-name": "PS",
-        "long-name": "Postsecondary",
-        "short-name": "PS",
         "form-name": "PS"
       },
       "TK": {
-        "enrolled-name": "TK",
-        "long-name": "Transitional Kindergarten",
-        "short-name": "TK",
         "form-name": "TK"
       },
       "UG": {
-        "enrolled-name": "UG",
-        "long-name": "Ungraded",
-        "short-name": "UG",
         "form-name": "UG"
       }
     }
@@ -740,10 +655,6 @@
       "1": "Yes",
       "2": "No"
     },
-    "show-value-as": {
-      "1": "Percent",
-      "2": "Number"
-    },
     "results-view-state": {
       "ByItem": "Results By Item",
       "ByStudent": "Results By Student",
@@ -791,9 +702,6 @@
     "system-news": ""
   },
   "labels": {
-    "admin": {
-      "title": "Application Administration"
-    },
     "admin-groups": {
       "cols": {
         "delete": "Delete",
@@ -835,14 +743,10 @@
             "file": "groups.csv"
           }
         },
-        "hide-errors": "Hide Errors",
         "link": "Upload Groups",
-        "message": "Message",
         "replacement-instruct": "To make changes to an existing group, please upload a replacement file.",
-        "results": "Upload Results",
         "sending": "Uploading...",
         "title": "Upload New or Revised Groups",
-        "view-errors": "View Errors",
         "warning-html": "<p><strong class=\"mr-xs\">WARNING:</strong> Groups in the uploaded file will replace existing groups if they have the same school ID, school year and group name.</p><p>All other groups will not be deleted or changed.</p>"
       },
       "no-results": "No groups found matching the given filter criteria.",
@@ -923,29 +827,6 @@
         "SchoolGroup": "{{organizationName}} Instructional Resource"
       }
     },
-    "assessmentGrades": {
-      "03": "3",
-      "04": "4",
-      "05": "5",
-      "06": "6",
-      "07": "7",
-      "08": "8",
-      "11": "HS"
-    },
-    "assessmentTypes": {
-      "1": {
-        "name": "Interim Comprehensive Assessment",
-        "short-name": "ICA"
-      },
-      "2": {
-        "name": "Interim Assessment Blocks",
-        "short-name": "IAB"
-      },
-      "3": {
-        "name": "Summative",
-        "short-name": "SUMMATIVE"
-      }
-    },
     "embargo": {
       "district": {
         "table": {
@@ -1024,13 +905,10 @@
         "504-plan": "Section504Status",
         "accommodation-codes": "AssignedAccommodationList",
         "achievement-level": "ScaleScoreAchievementLevel",
-        "administration-condition": "AdministrationCondition",
         "assessment-name": "AssessmentName",
         "assessment-session-id": "TestSessionId",
-        "assessment-subtype": "AssessmentSubType",
         "assessment-type": "AssessmentType",
         "claim": "Claim",
-        "completeness": "Completeness",
         "economic-disadvantage": "EconomicDisadvantageStatus",
         "enrolled-grade": "GradeLevelWhenAssessed",
         "error-band-max": "Error Band Max",
@@ -1041,7 +919,7 @@
         "migrant-status": "MigrantStatus",
         "scale-score": "ScaleScore",
         "school": "SchoolName",
-        "schoolYear": "SchoolYear",
+        "school-year": "SchoolYear",
         "student-first-name": "FirstName",
         "student-id": "StudentIdentifier",
         "student-last-name": "LastOrSurname",
@@ -1206,9 +1084,6 @@
       "results": {
         "add-assessment-filters": "Add Assessment Filters",
         "assessment": {
-          "button-exams": "Results By Student",
-          "button-items": "Results By Item",
-          "exam-results": "Results By Student",
           "exams": {
             "cols": {
               "date": "Date",
@@ -1229,8 +1104,7 @@
               "status": "Status",
               "status-info": "Refers to whether an assessment has been flagged as standardized/nonstandardized, complete/partial, and valid/invalid."
             },
-            "empty-message": "No test results are available for the sessions and advanced filters selected.",
-            "title": "Results By Student"
+            "empty-message": "No test results are available for the sessions and advanced filters selected."
           },
           "instruct": "Instructional Resources",
           "instruct-button": "Instructional Resources for {{level}}",
@@ -1257,8 +1131,7 @@
               },
               "x-points": "{{id}}"
             },
-            "target": "Target {{target}}",
-            "title": "Results By Item"
+            "target": "Target {{target}}"
           },
           "no-instruct-found": "Resources not yet available",
           "select-view": "Select View",
@@ -1268,15 +1141,11 @@
         "expand-all": "Expand All",
         "filter-type-custom": "Select Assessments",
         "filter-type-recent": "Most Recent",
-        "grade": "Grade {{id}}",
-        "grade-prefix": "G",
-        "high-school": "High School",
         "null-group": "This group is unavailable.  Contact your building administrator if you think you should have access to this group.",
         "select-assessments": {
           "instruct": "Click an assessment to add or remove it from your list of selections above."
         },
         "select-group": "Group",
-        "select-year": "School Year",
         "selected-assessments-instruct": "Click an assessment to remove it from the list",
         "selected-assessments-title": "Selected Assessments",
         "session-unknown": "[Unknown]",
@@ -1302,13 +1171,6 @@
       }
     },
     "instructional-resource": {
-      "link": {
-        "District": "{{organizationName}} Instructional Resource",
-        "DistrictGroup": "{{organizationName}} Instructional Resource",
-        "SchoolGroup": "{{organizationName}} Instructional Resource",
-        "State": "{{organizationName}} Instructional Resource",
-        "System": "Smarter Balanced Instructional Resource"
-      },
       "assessments": {
         "no-results": "No assessments found.",
         "performance-levels": {
@@ -1344,7 +1206,6 @@
       "create": {
         "duplicate": "An Instructional Resource for this assessment, organization, and performance level already exists.",
         "error": "Unable to create an Instructional Resource.",
-        "link": "Create",
         "title": "Create Instructional Resource"
       },
       "delete": {
@@ -1391,9 +1252,7 @@
     },
     "menu": "Menu",
     "menus": {
-      "print-report": "Print Report",
       "resources": "Instructional Resources",
-      "resources-disabled-message": "Instructional resources are not yet available for this assessment.",
       "responses": "{{firstName}}'s Responses",
       "student-report": {
         "iab": "Print {{firstName}}'s Full IAB Report",
@@ -1413,7 +1272,6 @@
         "organization": {
           "add": "Add",
           "label": "Search for an Organization",
-          "placeholder": "Start typing an organization name",
           "select-all": "Select All",
           "type": {
             "District": "Districts",
@@ -1423,9 +1281,6 @@
           }
         },
         "default-report-name": "District and School Exam Data",
-        "school-year": {
-          "label": "School Year"
-        },
         "submit": {
           "failure": "Error creating export. Please try again.",
           "label": "Export Results",
@@ -1440,7 +1295,7 @@
       "subheader-empty": "No organizations selected",
       "subheader-not-empty": "Click an item to remove it from the list"
     },
-    "personName": "{{lastName}}, {{firstName}}",
+    "person-name": "{{lastName}}, {{firstName}}",
     "reports": {
       "all": "All",
       "button-label": {
@@ -1501,10 +1356,6 @@
       "heading": "My Reports",
       "link": "My Reports",
       "messages": {
-        "coming-soon": {
-          "report-regeneration": "Report regeneration is coming soon."
-        },
-        "download-failed": "There was an unexpected error while getting this report. Please try again.",
         "get-reports-error": "There was an unexpected error while getting your reports. Please click the button below to reload the page and try again.",
         "submission-failed": {
           "html": "Error creating report. See <a href=\"/reports\">status</a>."
@@ -1519,7 +1370,7 @@
         "1": "Student SSID"
       },
       "reload": "Reload",
-      "reportType": {
+      "report-type": {
         "AggregateReportRequest": "Aggregate Report",
         "ExamExport": "District / School Export",
         "Group": "Group Report",
@@ -1566,10 +1417,8 @@
         }
       },
       "school-name": {
-        "label": "Search by School Name",
-        "prompt": "Start typing the school name"
-      },
-      "title": "Search by School & Grade"
+        "label": "Search by School Name"
+      }
     },
     "select-year": "School Year",
     "student": {
@@ -1585,9 +1434,7 @@
           "correctness": "Correctness",
           "correctness-info": "A value for the degree of correctness in a student's response to a test question. The correctness value is calculated by dividing the student's score on a particular question by the maximum score for that question.",
           "max-points": "Max Points",
-          "standard": "Standard",
-          "student-points": "Student Points",
-          "writing-trait": "Writing Trait"
+          "student-points": "Student Points"
         },
         "crumb": "Student Responses",
         "title": "Student's Responses",
@@ -1609,16 +1456,6 @@
       },
       "title": "Search by Student ID"
     },
-    "subjects": {
-      "1": {
-        "name": "Mathematics",
-        "short-name": "MATH"
-      },
-      "2": {
-        "name": "ELA/Literacy",
-        "short-name": "ELA"
-      }
-    },
     "type": "Type",
     "writing-trait-scores": {
       "aggregate-header": "Points Breakdown"
@@ -1626,13 +1463,10 @@
   },
   "messages": {
     "no-grades-available": "No test results are available for the selected school.",
-    "no-results": "No results.",
-    "null-school": "This school is unavailable.  Contact your building administrator if you think you should have access to this school.",
     "access-denied": {
       "message": "Your user account is not permitted to access this reporting system. If you believe you have reached this page in error, please contact your building administrator.",
       "title": "Access Denied"
     },
-    "coming-soon": "{{featureName}} is coming soon.",
     "loading": "Loading",
     "logout": "Logout",
     "no-distractor-analysis": "Key / Distractor Analysis is not available for assessments administered prior to 2017-18 school year.",
@@ -1643,10 +1477,7 @@
     "no-writing-trait-scores": "Writing trait scores are not available for assessments administered prior to 2017-18 school year.",
     "no-writing-trait-scores-for-summative-ica-exams": "Writing trait scores are currently available for only ELA Performance Task IABs.",
     "no-responses-for-summative-exams": "Summative assessment responses are not made available by this system.",
-    "noExams": "There are no exams associated with your account.",
-    "noExamsMatchingCriteria": "There are no exams matching this criteria.",
-    "noExamsSelected": "Please select from the assessments above",
-    "notApplicable": "-",
+    "no-exams-matching-criteria": "There are no exams matching this criteria.",
     "unknown-error": "An unknown error has occurred. You can try the same action again or click the button below to go to the home page.  If this problem persists, please contact your building administrator.",
     "upload-in-progress": "Files are still uploading, are you sure you want to leave?"
   },
