@@ -306,6 +306,8 @@ export class AggregateReportTableComponent implements OnInit {
    * Given a column field, return a Comparator used to sort on the given field.
    * NOTE: This assumes any non-tree column is a *number* value.  If we add a non-tree non-number
    * column, this will need some additional Comparator complexity.
+   * NOTE: Rows with 0 students tested should always be sorted at the bottom, regarldess
+   * of whether the user is sorting in ascending or descending order.
    *
    * @param {string} field  A data field/property
    * @param {number} order  The sort order (1 for asc, -1 for desc)
