@@ -4,11 +4,12 @@ import { UserMapper } from "./user.mapper";
 import { RequestOptionsArgs } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { CachingDataService } from "../shared/data/caching-data.service";
+import { of } from 'rxjs/observable/of';
 
 let userStub: any = {};
 let mockDataService = {
   get(url: string, options?: RequestOptionsArgs): Observable<any> {
-    return Observable.of(userStub);
+    return of(userStub);
   }
 };
 

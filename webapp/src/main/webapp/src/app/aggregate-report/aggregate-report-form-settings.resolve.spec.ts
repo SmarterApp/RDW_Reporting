@@ -7,6 +7,7 @@ import { AggregateReportOptionsMapper } from "./aggregate-report-options.mapper"
 import { Observable } from "rxjs/Observable";
 import Spy = jasmine.Spy;
 import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
+import { of } from 'rxjs/observable/of';
 
 describe('AggregateReportFormSettingsResolve', () => {
   let reportService: AggregateReportService;
@@ -30,8 +31,8 @@ describe('AggregateReportFormSettingsResolve', () => {
     const reportSettings: AggregateReportFormSettings = <any>{ name: 'A' };
     const report: any = {};
     (optionMapper.toDefaultSettings as Spy).and.callFake(() => defaultSettings);
-    (reportService.getReportById as Spy).and.callFake(() => Observable.of(report));
-    (requestMapper.toSettings as Spy).and.callFake(() => Observable.of(reportSettings));
+    (reportService.getReportById as Spy).and.callFake(() => of(report));
+    (requestMapper.toSettings as Spy).and.callFake(() => of(reportSettings));
 
     fixture.resolve(routeWithReport(reportId), <any>{}).subscribe(settings => {
       expect(settings).toEqual(<any>{

@@ -1,7 +1,7 @@
 import Spy = jasmine.Spy;
-import { Observable } from "rxjs/Observable";
-import { TranslationChangeEvent, LangChangeEvent, DefaultLangChangeEvent } from "@ngx-translate/core";
+import { DefaultLangChangeEvent, LangChangeEvent, TranslationChangeEvent } from "@ngx-translate/core";
 import { EventEmitter } from "@angular/core";
+import { of } from 'rxjs/observable/of';
 
 export class MockTranslateService {
   instant: Spy = jasmine.createSpy("instant");
@@ -12,6 +12,6 @@ export class MockTranslateService {
 
   constructor() {
     this.instant.and.callFake((key: string | Array<string>) => key);
-    this.get.and.callFake((key: string | Array<string>) => Observable.of(key));
+    this.get.and.callFake((key: string | Array<string>) => of(key));
   }
 }

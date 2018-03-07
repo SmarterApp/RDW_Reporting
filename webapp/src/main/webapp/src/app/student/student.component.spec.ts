@@ -11,6 +11,7 @@ import { Observable } from "rxjs/Observable";
 import Spy = jasmine.Spy;
 import { Router } from "@angular/router";
 import { MockRouter } from "../../test/mock.router";
+import { of } from 'rxjs/observable/of';
 
 describe('StudentComponent', () => {
   let component: StudentComponent;
@@ -58,7 +59,7 @@ describe('StudentComponent', () => {
     let textInput: AbstractControl = component.searchForm.controls['ssid'];
     textInput.setValue("test-ssid");
 
-    service.existsBySsid.and.returnValue(Observable.of({id: 123}));
+    service.existsBySsid.and.returnValue(of({id: 123}));
     component.performSearch();
 
     expect(service.existsBySsid.calls.first().args[0]).toBe("test-ssid");
@@ -70,7 +71,7 @@ describe('StudentComponent', () => {
     let textInput: AbstractControl = component.searchForm.controls['ssid'];
     textInput.setValue("test-ssid");
 
-    service.existsBySsid.and.returnValue(Observable.of(false));
+    service.existsBySsid.and.returnValue(of(false));
     component.performSearch();
 
     expect(component.studentNotFound).toBe(true);

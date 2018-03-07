@@ -3,23 +3,24 @@ import { ItemExemplarComponent } from "./item-exemplar.component";
 import { ItemScoringService } from "./item-scoring.service";
 import { ItemScoringGuideMapper } from "./item-scoring-guide.mapper";
 import { CommonModule } from "../../../shared/common.module";
-import { Observable } from "rxjs/Observable";
 import { ItemScoringGuide } from "./model/item-scoring-guide.model";
 import { MockDataService } from "../../../../test/mock.data.service";
 import { CachingDataService } from "../../../shared/data/caching-data.service";
 import { DataService } from "../../../shared/data/data.service";
 import { AssessmentItem } from "../../model/assessment-item.model";
 import { Component } from "@angular/core";
-
-let mockItemScoringGuide = { itemScoringGuide: new ItemScoringGuide() };
+import { of } from 'rxjs/observable/of';
 
 describe('ItemExemplarComponent', () => {
   let component: ItemExemplarComponent;
   let fixture: ComponentFixture<TestComponentWrapper>;
+  let mockItemScoringGuide = {
+    itemScoringGuide: new ItemScoringGuide()
+  };
   let mockItemScoringService = {
     getGuide(item: string) {
-      return Observable.of(mockItemScoringGuide.itemScoringGuide)
-    },
+      return of(mockItemScoringGuide.itemScoringGuide)
+    }
   };
 
   beforeEach(async(() => {
@@ -32,8 +33,7 @@ describe('ItemExemplarComponent', () => {
         { provide: ItemScoringService, useValue: mockItemScoringService },
         { provide: CachingDataService, useClass: MockDataService },
         { provide: DataService, useClass: MockDataService } ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

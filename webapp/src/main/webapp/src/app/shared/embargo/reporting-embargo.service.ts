@@ -27,10 +27,12 @@ export class ReportingEmbargoService {
           if (!embargoRead) {
             return of(false);
           }
-
           return this.dataService.get(`${ReportingServiceRoute}/organizations/embargoed`)
-            .pipe(catchError(response => of(false)))
-        }));
+            .pipe(
+              catchError(response => of(false))
+            )
+        })
+      );
   }
 
 }

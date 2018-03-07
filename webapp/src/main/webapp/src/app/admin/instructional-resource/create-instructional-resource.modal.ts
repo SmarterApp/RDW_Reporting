@@ -13,6 +13,7 @@ import { OrganizationQuery } from "./model/organization-query.model";
 import { ValidationErrors } from "@angular/forms";
 import { Subscription } from "rxjs/Subscription";
 import { NavigationStart, Router } from "@angular/router";
+import { filter, mergeMap } from 'rxjs/operators';
 
 /**
  * This modal component displays an instructional resource creation form.
@@ -55,13 +56,19 @@ export class CreateInstructionalResourceModal implements OnDestroy {
 
     this.assessmentSource = Observable.create((observer: any) => {
       observer.next(this.assessmentSearch);
-    }).mergeMap((token: string) => this.findAssessments(token));
+    }).pipe(
+      mergeMap((token: string) => this.findAssessments(token))
+    );
 
     this.organizationSource = Observable.create((observer: any) => {
       observer.next(this.organizationSearch);
-    }).mergeMap((token: string) => this.findOrganizations(token));
+    }).pipe(
+      mergeMap((token: string) => this.findOrganizations(token))
+    );
 
-    this._subscription = router.events.filter(e => e instanceof NavigationStart).subscribe(() => {
+    this._subscription = router.events.pipe(
+      filter(e => e instanceof NavigationStart)
+    ).subscribe(() => {
       this.cancel();
     });
   }
@@ -107,7 +114,7 @@ export class CreateInstructionalResourceModal implements OnDestroy {
 
   findOrganizations(search: string): Observable<Organization[]> {
     let query: OrganizationQuery = new OrganizationQuery();
-    query.types = ['State', 'DistrictGroup', 'District', 'SchoolGroup'];
+    query.types = [ 'State', 'DistrictGroup', 'District', 'SchoolGroup' ];
     query.name = search;
 
     return this.organizationService.find(query);
@@ -156,6 +163,6 @@ export class CreateInstructionalResourceModal implements OnDestroy {
   }
 
   private getPerformanceLevels(assessmentType: string): number[] {
-    return assessmentType == "IAB" ? [1, 2, 3] : [1, 2, 3, 4];
+    return assessmentType == "IAB" ? [ 1, 2, 3 ] : [ 1, 2, 3, 4 ];
   }
 }

@@ -135,16 +135,11 @@ export class SchoolResultsComponent implements OnInit {
         this.gradesAreUnavailable = this.availableGrades.length == 0;
         this.currentGrade = this.availableGrades.find(grade => grade.id == this.route.snapshot.params[ "gradeId" ]);
       });
-
     this.updateAssessment(this.route.snapshot.data[ "assessment" ]);
   }
 
   updateAssessment(latestAssessment: AssessmentExam): void {
-    this.assessmentExams = [];
-
-    if (latestAssessment) {
-      this.assessmentExams.push(latestAssessment);
-    }
+    this.assessmentExams = latestAssessment ? [latestAssessment] : [];
   }
 
   schoolSelectChanged(school: School): void {

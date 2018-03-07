@@ -175,13 +175,14 @@ export class AggregateReportTableComponent implements OnInit {
     return this._columnOrdering;
   }
 
-  get performanceLevels(): number[] {
-    return this.performanceLevelDisplayType === 'Separate'
-      ? this.table.assessmentDefinition.performanceLevels
-      : [
+  get performanceLevelsByDisplayType(): any {
+    return {
+      Separate: this.table.assessmentDefinition.performanceLevels,
+      Grouped: [
         this.table.assessmentDefinition.performanceLevelGroupingCutPoint - 1,
         this.table.assessmentDefinition.performanceLevelGroupingCutPoint
-      ];
+      ]
+    }
   }
 
   get paginationEnabled(): boolean {
@@ -276,6 +277,17 @@ export class AggregateReportTableComponent implements OnInit {
     this.exportService.exportTable(this.table.rows, options);
   }
 
+  public getOrganizationTypeColor(type: OrganizationType): string {
+    let i: number = 0;
+    for (let value in OrganizationType) {
+      if (value === type) {
+        return this.colorService.getColor(i);
+      }
+      i++;
+    }
+    return this.colorService.getColor(0);
+  }
+
   private renderWithPreviousRowSorting(): void {
     this.sort(this._previousSortEvent);
   }
@@ -295,17 +307,23 @@ export class AggregateReportTableComponent implements OnInit {
    * Given a column field, return a Comparator used to sort on the given field.
    * NOTE: This assumes any non-tree column is a *number* value.  If we add a non-tree non-number
    * column, this will need some additional Comparator complexity.
+   * NOTE: Rows with 0 students tested should always be sorted at the bottom, regarldess
+   * of whether the user is sorting in ascending or descending order.
    *
    * @param {string} field  A data field/property
    * @param {number} order  The sort order (1 for asc, -1 for desc)
    * @returns {Comparator<AggregateReportItem>} A Comparator for ordering results by the given field
    */
   private getComparator(field: string, order: number): Comparator<AggregateReportItem> {
+    let ascending: boolean = order >= 0;
     let rowOrdering: Ordering<AggregateReportItem> = this._orderingByColumnField[ field ];
     if (!rowOrdering) {
-      rowOrdering = ordering(byNumber).on(item => _.get(item, field, 0));
+      const defaultValue: number = ascending ? Number.MAX_SAFE_INTEGER : Number.MIN_SAFE_INTEGER;
+      rowOrdering = ordering(byNumber).on(item => {
+        return item.studentsTested === 0 ? defaultValue : _.get(item, field, defaultValue);
+      });
     }
-    return order < 0 ? rowOrdering.reverse().compare : rowOrdering.compare;
+    return ascending ?  rowOrdering.compare : rowOrdering.reverse().compare;
   }
 
   /**
@@ -341,22 +359,30 @@ export class AggregateReportTableComponent implements OnInit {
   }
 
   /**
-   * Gets the index of the first column of a row holding a value that the previous row did not
+   * Gets the index of the first column of a row holding a value that does not
+   * match the previous row's value.
    * This only traverses the leading re-orderable columns.
    *
-   * @param previewItem
-   * @param currentItem
-   * @returns {number}
+   * @param previousItem  The previous row model
+   * @param currentItem   The current row
+   * @returns {number}  The differentiating column of the currentItem
    */
-  private indexOfFirstUniqueColumnValue(previousItem: any, currentItem: any): number {
+  private indexOfFirstUniqueColumnValue(previousItem: AggregateReportItem, currentItem: AggregateReportItem): number {
     let index: number;
     for (index = 0; index < this.columnOrdering.length - 1; index++) {
-      let column: Column = this.resultsTable.columns[ index ];
-      let previousValue = _.get(previousItem, column.field); // TODO would be nice if this was based on "sortField" as opposed to field
-      let currentValue = _.get(currentItem, column.field);
-      if (previousValue != currentValue) {
-        break;
+      const column: Column = this.resultsTable.columns[ index ];
+      if (column.colId === "organization") {
+        const previousOrg = previousItem.organization;
+        const currentOrg = currentItem.organization;
+        if (!previousOrg.equals(currentOrg)) {
+          break;
+        }
       } else {
+        const previousValue = _.get(previousItem, column.field); // TODO would be nice if this was based on "sortField" as opposed to field
+        const currentValue = _.get(currentItem, column.field);
+        if (previousValue != currentValue) {
+          break;
+        }
       }
     }
     return index;

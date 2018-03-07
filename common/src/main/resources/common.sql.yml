@@ -6,14 +6,6 @@ sql:
       where namespace=:namespace
       and language_code=:language_code
 
-  group:
-    membership:
-      findAllForUsername: >-
-        select sg.id, sg.subject_id, sg.school_id
-        from user_student_group usg
-          join student_group sg on sg.id = usg.student_group_id
-        where user_login=:user_login
-
   organization:
     reporting:
       findAll: >-

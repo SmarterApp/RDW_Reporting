@@ -3,6 +3,7 @@ import { DataService } from "../shared/data/data.service";
 import { Observable } from "rxjs/Observable";
 import { Organization, OrganizationType } from "../shared/organization/organization";
 import { OrganizationMapper } from "../shared/organization/organization.mapper";
+import { map } from 'rxjs/operators';
 
 const ServiceRoute = '/aggregate-service';
 
@@ -19,16 +20,16 @@ export class AggregateReportOrganizationService {
   getOrganizationsMatchingName(nameSearch: string): Observable<Organization[]> {
     return this.dataService
       .get(`${ServiceRoute}/organizations`, { params: { name: nameSearch } })
-      .map(organizations => organizations
-        .map(organization => this.organizationMapper.map(organization))
+      .pipe(
+        map(organizations => organizations.map(organization => this.organizationMapper.map(organization)))
       );
   }
 
   getOrganizationsByIdAndType(type: OrganizationType, ids: number[]): Observable<Organization[]> {
     return this.dataService
       .get(`${ServiceRoute}/organizations`, { params: { types: type, id: ids } })
-      .map(organizations => organizations
-        .map(organization => this.organizationMapper.map(organization))
+      .pipe(
+        map(organizations => organizations.map(organization => this.organizationMapper.map(organization)))
       );
   }
 

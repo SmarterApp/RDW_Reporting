@@ -1,29 +1,31 @@
 import { Observable } from "rxjs/Observable";
 import { Observer } from "rxjs/Observer";
+import { share } from 'rxjs/operators';
 
 export class ObservableObject {
   get onChanges(): Observable<any> {
     return this._onChanges;
   }
 
-  private _onChanges : Observable<any>;
-  private onChangesObserver : Observer<string>;
-  private oldObject : any = {};
+  private _onChanges: Observable<any>;
+  private onChangesObserver: Observer<string>;
+  private oldObject: any = {};
 
   constructor() {
-    this._onChanges = new Observable<any>(observer => this.onChangesObserver = observer).share();
+    this._onChanges = new Observable<any>(observer => this.onChangesObserver = observer).pipe(share());
     Object.assign(this.oldObject, this);
   }
 
-  protected notifyChange(property){
+  protected notifyChange(property) {
     // If a tree falls in a forest with no one around,
     // does it make a sound?  In this case, we won't.
-    if(!this.onChangesObserver)
+    if (!this.onChangesObserver) {
       return;
+    }
 
-    if(this[property] !== this.oldObject[property]){
+    if (this[ property ] !== this.oldObject[ property ]) {
       this.onChangesObserver.next(property);
-      this.oldObject[property] = this[property];
+      this.oldObject[ property ] = this[ property ];
     }
   }
 }

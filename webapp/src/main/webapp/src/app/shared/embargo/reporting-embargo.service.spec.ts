@@ -6,6 +6,7 @@ import { User } from "../../user/model/user.model";
 import { inject, TestBed } from "@angular/core/testing";
 import { CachingDataService } from "../data/caching-data.service";
 import { UserService } from "../../user/user.service";
+import { of } from 'rxjs/observable/of';
 
 describe('ReportingEmbargoService', () => {
   let service: ReportingEmbargoService;
@@ -15,11 +16,11 @@ describe('ReportingEmbargoService', () => {
 
   beforeEach(() => {
     dataService = new MockDataService();
-    dataService.get.and.returnValue(Observable.of(true));
+    dataService.get.and.returnValue(of(true));
 
     user = new User();
     userService = new MockUserService();
-    userService.getCurrentUser.and.callFake(() => Observable.of(user));
+    userService.getCurrentUser.and.callFake(() => of(user));
 
     TestBed.configureTestingModule({
       providers: [
@@ -61,7 +62,7 @@ describe('ReportingEmbargoService', () => {
 
   it('should not return embargoed if embargo is disabled', (done) => {
     user.permissions.push("EMBARGO_READ");
-    dataService.get.and.returnValue(Observable.of(false));
+    dataService.get.and.returnValue(of(false));
 
     service.isEmbargoed().subscribe(
       embargoed => {

@@ -9,6 +9,8 @@ import { AggregateReportRequestMapper } from "./aggregate-report-request.mapper"
 import { AggregateReportOptions } from "./aggregate-report-options";
 import { TranslateService } from "@ngx-translate/core";
 import { Utils } from "../shared/support/support";
+import { of } from 'rxjs/observable/of';
+import { map } from 'rxjs/operators';
 
 /**
  * This resolver is responsible for fetching an aggregate report based upon
@@ -29,11 +31,13 @@ export class AggregateReportFormSettingsResolve implements Resolve<AggregateRepo
     if (reportId) {
       return this.service.getReportById(Number.parseInt(reportId))
         .flatMap(report => this.requestMapper.toSettings(<AggregateReportRequest>report.request, options))
-        .map(settings => Object.assign(settings, {
-          name: Utils.appendOrIncrementFileNameSuffix(settings.name)
-        }));
+        .pipe(
+          map(settings => Object.assign(settings, {
+            name: Utils.appendOrIncrementFileNameSuffix(settings.name)
+          }))
+        );
     }
-    return Observable.of(this.optionMapper.toDefaultSettings(options));
+    return of(this.optionMapper.toDefaultSettings(options));
   }
 
 }

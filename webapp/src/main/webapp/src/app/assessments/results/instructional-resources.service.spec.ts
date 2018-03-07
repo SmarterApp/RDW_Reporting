@@ -3,6 +3,8 @@ import { MockDataService } from "../../../test/mock.data.service";
 import { Observable } from "rxjs/Observable";
 import { InstructionalResource, InstructionalResources } from "../model/instructional-resources.model";
 import { URLSearchParams } from '@angular/http';
+import { of } from 'rxjs/observable/of';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 describe('InstructionalResourcesService', () => {
 
@@ -15,7 +17,7 @@ describe('InstructionalResourcesService', () => {
   });
 
   it('should map api instructional resources to model instances', (done) => {
-    mockDataService.get.and.returnValue(Observable.of([
+    mockDataService.get.and.returnValue(of([
       resource("district-a", 0),
       resource("district-a", 1),
       resource("district-b", 0)
@@ -45,19 +47,19 @@ describe('InstructionalResourcesService', () => {
   });
 
   it('should cache api responses', (done) => {
-    mockDataService.get.and.returnValue(Observable.of([
+    mockDataService.get.and.returnValue(of([
       resource("district-a", 0),
       resource("district-a", 1),
       resource("district-b", 0)
     ]));
     let result1_2: Observable<InstructionalResources> = service.getInstructionalResources(1, 2);
     let result3_4: Observable<InstructionalResources> = service.getInstructionalResources(3, 4);
-    Observable.forkJoin(result1_2, result3_4).subscribe((value) => {
+    forkJoin(result1_2, result3_4).subscribe((value) => {
       expect(mockDataService.get.calls.all().length).toBe(2);
 
       let cachedResult1_2: Observable<InstructionalResources> = service.getInstructionalResources(1, 2);
       let cachedResult3_4: Observable<InstructionalResources> = service.getInstructionalResources(3, 4);
-      Observable.forkJoin(cachedResult1_2, cachedResult3_4)
+      forkJoin(cachedResult1_2, cachedResult3_4)
         .subscribe(() => {
           //Expect no additional calls to the dataservice
           expect(mockDataService.get.calls.all().length).toBe(2);

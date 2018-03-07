@@ -16,6 +16,7 @@ import { Download } from "../shared/data/download.model";
 import { AggregateReportRequest } from "./aggregate-report-request";
 import { AggregateReportRow } from "./aggregate-report";
 import { Utils } from "../shared/support/support";
+import { catchError, map } from 'rxjs/operators';
 
 const ServiceRoute = '/report-processor';
 
@@ -33,8 +34,10 @@ export class ReportService {
    */
   public getReports(): Observable<Report[]> {
     return this.dataService.get(`${ServiceRoute}/reports`)
-      .map(reports => reports.map(this.toReport))
-      .catch(ResponseUtils.throwError);
+      .pipe(
+        map(reports => reports.map(this.toReport)),
+        catchError(ResponseUtils.throwError)
+      );
   }
 
   /**
@@ -44,7 +47,9 @@ export class ReportService {
    */
   public getReportById(id: number): Observable<Report> {
     return this.getReportsById([ id ])
-      .map(reports => reports[ 0 ]);
+      .pipe(
+        map(reports => reports[ 0 ])
+      );
   }
 
   /**
@@ -54,8 +59,10 @@ export class ReportService {
    */
   public getReportsById(ids: number[]): Observable<Report[]> {
     return this.dataService.get(`${ServiceRoute}/reports`, { params: { id: ids } })
-      .map(reports => reports.map(this.toReport))
-      .catch(ResponseUtils.throwError);
+      .pipe(
+        map(reports => reports.map(this.toReport)),
+        catchError(ResponseUtils.throwError)
+      );
   }
 
   /**
@@ -101,9 +108,10 @@ export class ReportService {
   public createAggregateReport(request: AggregateReportRequest): Observable<Report> {
     return this.dataService.post(`${ServiceRoute}/aggregate`, request, {
       headers: new Headers({ 'Content-Type': 'application/json' })
-    })
-      .map(this.toReport)
-      .catch(ResponseUtils.throwError);
+    }).pipe(
+      map(this.toReport),
+      catchError(ResponseUtils.throwError)
+    );
   }
 
   /**
@@ -115,10 +123,12 @@ export class ReportService {
   public getReportContent(reportId: number): Observable<Download> {
     return this.dataService.get(`${ServiceRoute}/reports/${reportId}`, {
       headers: new Headers({
-        'Accept': '*/*',
+        'Accept': '*/*'
       }),
       responseType: ResponseContentType.Blob
-    }).catch(ResponseUtils.throwError);
+    }).pipe(
+  catchError(ResponseUtils.throwError)
+    );
   }
 
   /**
@@ -139,9 +149,11 @@ export class ReportService {
   public getAggregateReport(reportId: number): Observable<AggregateReportRow[]> {
     return this.dataService.get(`${ServiceRoute}/reports/${reportId}`, {
       headers: new Headers({
-        'Accept': 'application/json',
+        'Accept': 'application/json'
       })
-    }).catch(ResponseUtils.throwError);
+    }).pipe(
+      catchError(ResponseUtils.throwError)
+    );
   }
 
   /**
@@ -155,9 +167,10 @@ export class ReportService {
     return this.dataService
       .post(url, this.toReportRequestParameters(options), {
         headers: new Headers({ 'Content-Type': 'application/json' })
-      })
-      .map(this.toReport)
-      .catch(ResponseUtils.throwError);
+      }).pipe(
+        map(this.toReport),
+        catchError(ResponseUtils.throwError)
+      );
   }
 
   /**
@@ -183,32 +196,32 @@ export class ReportService {
   /**
    * Maps a API report model to a local report model
    *
-   * @param remote the API model
+   * @param serverReport the API model
    * @returns {Report} the local model
    */
-  private toReport(remote: any): Report {
-    const local: Report = new Report();
-    local.id = remote.id;
-    local.label = remote.label;
-    local.status = remote.status;
-    local.created = remote.created;
-    local.reportType = remote.reportType;
-    local.assessmentType = AssessmentType[ remote.assessmentType as string ];
+  private toReport(serverReport: any): Report {
+    const report: Report = new Report();
+    report.id = serverReport.id;
+    report.label = serverReport.label;
+    report.status = serverReport.status;
+    report.created = serverReport.created;
+    report.reportType = serverReport.reportType;
+    report.assessmentType = AssessmentType[ serverReport.assessmentType as string ];
 
     // HOTFIX for aggreagte report assessment type display
     // unable to use ExamReportAssessmentType enum because it does not support summatives
-    if (remote.reportType === 'AggregateReportRequest') {
-      local.assessmentTypeCode = (<AggregateReportRequest>remote.request).reportQuery.assessmentTypeCode;
+    if (serverReport.reportType === 'AggregateReportRequest') {
+      report.assessmentTypeCode = (<AggregateReportRequest>serverReport.request).reportQuery.assessmentTypeCode;
     } else {
-      local.assessmentTypeCode = remote.assessmentTypeCode;
+      report.assessmentTypeCode = serverReport.assessmentTypeCode;
     }
 
-    local.subjectId = AssessmentSubjectType[ remote.subject as string ] || 0;
-    local.subjectCode = remote.subjectCode;
-    local.schoolYear = remote.schoolYear;
-    local.metadata = remote.metadata || {};
-    local.request = remote.request;
-    return local;
+    report.subjectId = AssessmentSubjectType[ serverReport.subject as string ] || 0;
+    report.subjectCode = serverReport.subjectCode;
+    report.schoolYear = serverReport.schoolYear;
+    report.metadata = serverReport.metadata || {};
+    report.request = serverReport.request;
+    return report;
   }
 
 }

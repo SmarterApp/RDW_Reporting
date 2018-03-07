@@ -1,5 +1,5 @@
-import { Observable } from "rxjs/Observable";
 import { User } from "../app/user/model/user.model";
+import { of } from 'rxjs/observable/of';
 import Spy = jasmine.Spy;
 
 export class MockUserService {
@@ -8,8 +8,8 @@ export class MockUserService {
   doesCurrentUserHaveAtLeastOnePermission: Spy = jasmine.createSpy("doesCurrentUserHaveAtLeastOnePermission");
 
   constructor() {
-    this.getCurrentUser.and.returnValue(Observable.of(new User()));
-    this.doesCurrentUserHaveAtLeastOnePermission.and.returnValue(Observable.of(true));
+    this.getCurrentUser.and.returnValue(of(new User()));
+    this.doesCurrentUserHaveAtLeastOnePermission.and.returnValue(of(true));
   }
 
 }

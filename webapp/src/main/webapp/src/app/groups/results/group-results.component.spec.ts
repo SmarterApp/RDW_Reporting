@@ -14,9 +14,8 @@ import { UserModule } from "../../user/user.module";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { MockRouter } from "../../../test/mock.router";
 import { MockAuthorizeDirective } from "../../../test/mock.authorize.directive";
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/observable/of";
 import { GroupAssessmentExportService } from "./group-assessment-export.service";
+import { of } from "rxjs/observable/of";
 
 let availableGrades = [];
 
@@ -95,6 +94,6 @@ describe('GroupResultsComponent', () => {
 
 class MockExamFilterOptionService {
   getExamFilterOptions() {
-    return Observable.of(new ExamFilterOptions());
+    return of(new ExamFilterOptions());
   }
 }

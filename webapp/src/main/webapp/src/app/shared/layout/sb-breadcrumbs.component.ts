@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, NavigationEnd, PRIMARY_OUTLET, Router } from "@angular/router";
-import "rxjs/add/operator/filter";
 import * as _ from "lodash";
 import { TranslateService } from "@ngx-translate/core";
 import { Utils } from "../support/support";
+import { filter } from 'rxjs/operators';
 
 export const BreadCrumbsRouteDataKey = 'breadcrumb';
 export const BreadCrumbsTitleDelimiter = ' < ';
@@ -73,11 +73,11 @@ export class SbBreadcrumbs implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router.events
-      .filter(event => event instanceof NavigationEnd)
-      .subscribe(() => {
-        this.breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root);
-      });
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root);
+    });
   }
 
   get breadcrumbs(): Breadcrumb[] {

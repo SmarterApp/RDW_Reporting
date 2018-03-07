@@ -3,6 +3,7 @@ import { Observable } from "rxjs/Observable";
 import { Assessment } from "./model/assessment.model";
 import { AssessmentQuery } from "./model/assessment-query.model";
 import { MockDataService } from "../../../test/mock.data.service";
+import { of } from 'rxjs/observable/of';
 
 describe("Assessment Service", () => {
   let dataService: MockDataService;
@@ -14,7 +15,7 @@ describe("Assessment Service", () => {
   });
 
   it("should find assessments", (done) => {
-    dataService.get.and.returnValue(Observable.of([apiAssessment(1), apiAssessment(2)]));
+    dataService.get.and.returnValue(of([apiAssessment(1), apiAssessment(2)]));
 
     let query: AssessmentQuery = new AssessmentQuery();
     query.limit = 123;

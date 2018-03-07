@@ -9,6 +9,7 @@ import { ItemScoringGuide } from "../item-exemplar/model/item-scoring-guide.mode
 import { ItemScoringGuideMapper } from "../item-exemplar/item-scoring-guide.mapper";
 import { Component } from "@angular/core";
 import { AssessmentItem } from "../../model/assessment-item.model";
+import { of } from 'rxjs/observable/of';
 
 describe('ItemViewerComponent', () => {
   let component: ItemViewerComponent;
@@ -40,7 +41,7 @@ describe('ItemViewerComponent', () => {
 
 class MockItemScoringService extends ItemScoringService {
   getGuide(item: string) {
-    return Observable.of(new ItemScoringGuide());
+    return of(new ItemScoringGuide());
   }
 }
 

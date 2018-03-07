@@ -1,7 +1,9 @@
 import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { NotFoundError } from "./not-found.error";
-import "rxjs/add/observable/of";
+import { of } from 'rxjs/observable/of';
+import { _throw } from 'rxjs/observable/throw';
+import { empty } from 'rxjs/observable/empty';
 
 /**
  * This class holds common response handling utility methods.
@@ -20,9 +22,9 @@ export class ResponseUtils {
    */
   static badResponseToNull(response: Response): Observable<Response> {
     if ([ 400, 403, 404 ].indexOf(response.status) !== -1) {
-      return Observable.of(null);
+      return of(null);
     }
-    return Observable.throw(response);
+    return _throw(response);
   }
 
   /**
@@ -34,10 +36,10 @@ export class ResponseUtils {
    */
   static throwError(response: Response): Observable<any> {
     if (response.status === 401) {
-      return Observable.empty();
+      return empty();
     }
-    let message: string = `${response.status} ${response.statusText}`;
-    let error:Error = response.status == 404
+    const message: string = `${response.status} ${response.statusText}`;
+    const error:Error = response.status == 404
       ? new NotFoundError(message)
       : new Error(message);
     throw error;

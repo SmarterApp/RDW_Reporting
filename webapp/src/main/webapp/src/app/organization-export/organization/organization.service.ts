@@ -3,8 +3,9 @@ import { Observable } from "rxjs/Observable";
 import { UserOrganizations } from "./user-organizations";
 import { OrganizationMapper } from "./organization.mapper";
 import { UserService } from "../../user/user.service";
-import "rxjs/add/observable/forkJoin";
 import { CachingDataService } from "../../shared/data/caching-data.service";
+import { map } from 'rxjs/operators';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 const ServiceRoute = '/reporting-service';
 
@@ -22,14 +23,15 @@ export class OrganizationService {
    * @returns {Observable<UserOrganizations>}
    */
   getUserOrganizations(): Observable<UserOrganizations> {
-    return Observable.forkJoin(
+    return forkJoin(
       this.userService.getCurrentUser(),
       this.getSchoolGroups(),
       this.getDistricts()
-    ).map(response => {
-      let [ user, schoolGroups, districts ] = response;
-      return this.mapper.createUserOrganizations(user.schools, schoolGroups, districts);
-    });
+    ).pipe(
+      map(([ user, schoolGroups, districts ]) => {
+        return this.mapper.createUserOrganizations(user.schools, schoolGroups, districts);
+      })
+    );
   }
 
   private getSchoolGroups(): Observable<any[]> {

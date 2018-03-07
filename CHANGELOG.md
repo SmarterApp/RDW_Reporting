@@ -1,5 +1,17 @@
 ## Change Log
 
+#### 1.1.2 - 2018-03
+
+* Subject "All" not displaying in print dialog (DWR-1546).
+* Aggregate report column order reset when all/group toggle selected (DWR-1547).
+* Improve sorting of empty rows in aggregate reports (DWR-1548).
+* Districts and Schools with same name get visually merged in aggregate reports (DWR-1540).
+* Console error for missing WER items (DWR-1551).
+* Misleading stack traces in error log (DWR-1541).
+* Misleading error for MC/MS items, "The Rubric and Exemplar are not available" (DWR-1550).
+* Remove District/School export button from student history page (DWR-1528).
+* Change printed student report for ICA to better fit on one page (DWR-1414).
+
 #### 1.1.1 - 2018-03-01
 
 * Add app-level flag to disable Percentiles feature in UI (DWR-1535).

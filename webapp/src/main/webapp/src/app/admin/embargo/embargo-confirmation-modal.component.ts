@@ -4,6 +4,7 @@ import { EmbargoService } from "./embargo.service";
 import { EmbargoToggleEvent } from "./embargo-toggle-event";
 import { EmbargoScope } from "./embargo-scope.enum";
 import { OrganizationType } from "./organization-type.enum";
+import { finalize } from 'rxjs/operators';
 
 /**
  * Confirmation modal displayed to confirm whether the user wants to make an embargo setting change or not
@@ -60,9 +61,11 @@ export class EmbargoConfirmationModal {
 
     // apply desired embargo setting via the API
     this.embargoService.update(embargo, scope, value)
-      .finally(() => {
-        this.modal.hide();
-      })
+      .pipe(
+        finalize(() => {
+          this.modal.hide();
+        })
+      )
       .subscribe(() => {
 
         // reflect new embargo setting in the UI

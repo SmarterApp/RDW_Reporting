@@ -3,6 +3,7 @@ import { Observable } from "rxjs/Observable";
 import { OrganizationQuery } from "./model/organization-query.model";
 import { Organization } from "./model/organization.model";
 import { MockDataService } from "../../../test/mock.data.service";
+import { of } from 'rxjs/observable/of';
 
 describe("Organization Service", () => {
   let dataService: MockDataService;
@@ -14,7 +15,7 @@ describe("Organization Service", () => {
   });
 
   it("should find organizations", (done) => {
-    dataService.get.and.returnValue(Observable.of([apiOrganization(1), apiOrganization(2)]));
+    dataService.get.and.returnValue(of([apiOrganization(1), apiOrganization(2)]));
 
     let query: OrganizationQuery = new OrganizationQuery();
     query.types = ["type 1", "type 2"];

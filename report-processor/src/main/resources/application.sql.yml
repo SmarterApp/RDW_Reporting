@@ -215,7 +215,7 @@ sql:
         AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
 
     hasExams: >-
-      SELECT 1
+      SELECT EXISTS (SELECT 1
       FROM exam e
         JOIN student st ON st.id = e.student_id
         JOIN asmt a ON e.asmt_id = a.id
@@ -227,6 +227,7 @@ sql:
       where
         ${sql.reportProcessor.snippet.exportExamsFilter}
         AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
+      )
 
   student:
     findByExamQueryParamsUnknownPermissions: >-

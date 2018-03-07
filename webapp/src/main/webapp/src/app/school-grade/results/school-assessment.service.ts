@@ -7,6 +7,12 @@ import { ResponseUtils } from "../../shared/response-utils";
 import { Grade } from "../grade.model";
 import { DataService } from "../../shared/data/data.service";
 import { Utils } from "../../shared/support/support";
+import { catchError, map, mergeMap } from 'rxjs/operators';
+import { AssessmentExam } from '../../assessments/model/assessment-exam.model';
+import { Observable } from 'rxjs/Observable';
+import { Assessment } from '../../assessments/model/assessment.model';
+import { Exam } from '../../assessments/model/exam.model';
+import { AssessmentItem } from '../../assessments/model/assessment-item.model';
 
 const ServiceRoute = '/reporting-service';
 
@@ -23,61 +29,66 @@ export class SchoolAssessmentService implements AssessmentProvider {
               private mapper: AssessmentExamMapper) {
   }
 
-  getMostRecentAssessment(schoolId: number, gradeId :number, schoolYear?: number) {
+  getMostRecentAssessment(schoolId: number, gradeId: number, schoolYear?: number): Observable<AssessmentExam> {
     if (Utils.isNullOrUndefined(schoolYear)) {
-      return this.filterOptionService.getExamFilterOptions().mergeMap(options => {
-        return this.getRecentAssessmentBySchoolYear(schoolId, gradeId, options.schoolYears[ 0 ]);
-      });
+      return this.filterOptionService.getExamFilterOptions()
+        .pipe(
+          mergeMap(options => this.getRecentAssessmentBySchoolYear(schoolId, gradeId, options.schoolYears[ 0 ]))
+        );
     }
     return this.getRecentAssessmentBySchoolYear(schoolId, gradeId, schoolYear);
   }
 
-  getAvailableAssessments() {
-    return this.dataService.get(`${ServiceRoute}/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments`, { search: this.getSchoolYearParams(this.schoolYear) })
-      .catch(ResponseUtils.badResponseToNull)
-      .map(x => {
-        return this.mapper.mapAssessmentsFromApi(x);
-      });
+  getAvailableAssessments(): Observable<Assessment[]> {
+    return this.dataService.get(`${ServiceRoute}/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments`, {
+      search: this.getSchoolYearParams(this.schoolYear)
+    }).pipe(
+      catchError(ResponseUtils.badResponseToNull),
+      map(serverAssessments => this.mapper.mapAssessmentsFromApi(serverAssessments))
+    );
   }
 
-  getExams(assessmentId: number) {
-    return this.dataService.get(`${ServiceRoute}/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments/${assessmentId}/exams`, { search: this.getSchoolYearParams(this.schoolYear) })
-      .catch(ResponseUtils.badResponseToNull)
-      .map(x => {
-        return this.mapper.mapExamsFromApi(x);
-      });
+  getExams(assessmentId: number): Observable<Exam[]> {
+    return this.dataService.get(`${ServiceRoute}/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments/${assessmentId}/exams`, {
+      search: this.getSchoolYearParams(this.schoolYear)
+    }).pipe(
+      catchError(ResponseUtils.badResponseToNull),
+      map(serverExams => this.mapper.mapExamsFromApi(serverExams))
+    );
   }
 
   getSchoolId() {
     return this.schoolId;
   }
 
-  getAssessmentItems(assessmentId: number, itemTypes?: string[]) {
-      return this.dataService.get(`${ServiceRoute}/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments/${assessmentId}/examitems`, {
-          params: {
-            types: itemTypes,
-            schoolYear: this.schoolYear.toString()
-          }
-        })
-        .catch(ResponseUtils.badResponseToNull)
-        .map(x => {
-          return this.mapper.mapAssessmentItemsFromApi(x);
-        });
+  getAssessmentItems(assessmentId: number, itemTypes?: string[]): Observable<AssessmentItem[]> {
+    return this.dataService.get(`${ServiceRoute}/schools/${this.schoolId}/assessmentGrades/${this.grade.id}/assessments/${assessmentId}/examitems`, {
+      params: {
+        types: itemTypes,
+        schoolYear: this.schoolYear.toString()
+      }
+    }).pipe(
+      catchError(ResponseUtils.badResponseToNull),
+      map(serverAssessments => this.mapper.mapAssessmentItemsFromApi(serverAssessments))
+    );
   }
 
-  private getRecentAssessmentBySchoolYear(schoolId: number, gradeId: number, schoolYear: number) {
-    return this.dataService.get(`${ServiceRoute}/schools/${schoolId}/assessmentGrades/${gradeId}/latestassessment`, { search: this.getSchoolYearParams(schoolYear) })
-      .catch(ResponseUtils.badResponseToNull)
-      .map(x => {
-        if (x == null) {
-          return x;
+  private getRecentAssessmentBySchoolYear(schoolId: number, gradeId: number, schoolYear: number): Observable<AssessmentExam> {
+    return this.dataService.get(`${ServiceRoute}/schools/${schoolId}/assessmentGrades/${gradeId}/latestassessment`, {
+      search: this.getSchoolYearParams(schoolYear)
+    }).pipe(
+      catchError(ResponseUtils.badResponseToNull),
+      map(serverAssessment => {
+        if (serverAssessment == null) {
+          return null;
         }
-        return this.mapper.mapFromApi(x);
-      });
+        return this.mapper.mapFromApi(serverAssessment)
+      })
+    );
   }
 
   private getSchoolYearParams(schoolYear: number): URLSearchParams {
-    let params: URLSearchParams = new URLSearchParams();
+    const params: URLSearchParams = new URLSearchParams();
     params.set('schoolYear', schoolYear.toString());
     return params;
   }

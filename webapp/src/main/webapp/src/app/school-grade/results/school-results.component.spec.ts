@@ -24,6 +24,7 @@ import { MockTranslateService } from "../../../test/mock.translate.service";
 import { TranslateService } from "@ngx-translate/core";
 import { DataService } from "../../shared/data/data.service";
 import { SchoolAssessmentExportService } from "./school-assessment-export.service";
+import { of } from 'rxjs/observable/of';
 
 let availableGrades = [];
 
@@ -157,7 +158,7 @@ describe('SchoolResultsComponent', () => {
 
 class MockSchoolService {
   findGradesWithAssessmentsForSchool(school: School) {
-    return Observable.of(availableGrades);
+    return of(availableGrades);
   }
 }
 
@@ -167,12 +168,12 @@ class MockOrganizationService {
   }
 
   getSchoolsWithDistricts(): Observable<School[]> {
-    return Observable.of(this.schools);
+    return of(this.schools);
   }
 }
 
 class MockExamFilterOptionService {
   getExamFilterOptions() {
-    return Observable.of(new ExamFilterOptions());
+    return of(new ExamFilterOptions());
   }
 }

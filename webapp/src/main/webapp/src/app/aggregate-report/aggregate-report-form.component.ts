@@ -20,11 +20,9 @@ import { AggregateReportRequestMapper } from "./aggregate-report-request.mapper"
 import { AggregateReportColumnOrderItemProvider } from "./aggregate-report-column-order-item.provider";
 import { OrderableItem } from "../shared/order-selector/order-selector.component";
 import { AggregateReportRequestSummary } from "./aggregate-report-summary.component";
-import "rxjs/add/observable/interval";
-import "rxjs/add/operator/switchMap";
 import { Subscription } from "rxjs/Subscription";
 import { Utils } from "../shared/support/support";
-import { debounceTime } from "rxjs/operators";
+import { debounceTime, finalize, map, mergeMap } from "rxjs/operators";
 import { Observer } from "rxjs/Observer";
 
 const DefaultRenderDebounceMilliseconds = 500;
@@ -56,7 +54,7 @@ const OrganizationComparator = (a: Organization, b: Organization) => a.name.loca
  */
 @Component({
   selector: 'aggregate-report-form',
-  templateUrl: './aggregate-report-form.component.html',
+  templateUrl: './aggregate-report-form.component.html'
 })
 export class AggregateReportFormComponent {
 
@@ -163,8 +161,9 @@ export class AggregateReportFormComponent {
 
     this.organizationTypeaheadOptions = Observable.create(observer => {
       observer.next(this.organizationTypeahead.value);
-    }).mergeMap(search => this.organizationService.getOrganizationsMatchingName(search)
-      .map(organizations => organizations.filter(
+    }).pipe(
+      mergeMap((search: string) => this.organizationService.getOrganizationsMatchingName(search)),
+      map((organizations: Organization[]) => organizations.filter(
         organization => this.organizations.findIndex(x => organization.equals(x)) === -1
       ))
     );
@@ -335,10 +334,12 @@ export class AggregateReportFormComponent {
   onGenerateButtonClick(): void {
     this.validate(this.formGroup, () => {
       this.submissionSubscription = this.reportService.createReport(this.createReportRequest())
-        .finally(() => {
-          this.submissionSubscription.unsubscribe();
-          this.submissionSubscription = undefined;
-        })
+        .pipe(
+          finalize(() => {
+            this.submissionSubscription.unsubscribe();
+            this.submissionSubscription = undefined;
+          })
+        )
         .subscribe(
           resource => {
             this.router.navigate([ resource.id ], { relativeTo: this.route });

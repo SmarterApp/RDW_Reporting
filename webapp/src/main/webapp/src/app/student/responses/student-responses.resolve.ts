@@ -1,5 +1,5 @@
 import { Observable } from "rxjs/Observable";
-import { RouterStateSnapshot, ActivatedRouteSnapshot, Resolve } from "@angular/router";
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { Injectable } from "@angular/core";
 import { StudentResponsesService } from "./student-responses.service";
 import { AssessmentItem } from "../../assessments/model/assessment-item.model";
@@ -10,11 +10,12 @@ import { AssessmentItem } from "../../assessments/model/assessment-item.model";
 @Injectable()
 export class StudentResponsesResolve implements Resolve<AssessmentItem[]> {
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<AssessmentItem[]> {
-    return this.service.findItemsByStudentAndExam(route.params[ "studentId" ], route.params["examId"]);
+  constructor(private service: StudentResponsesService) {
   }
 
-  constructor(private service: StudentResponsesService) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<AssessmentItem[]> {
+    const { studentId, examId } = route.params;
+    return this.service.findItemsByStudentAndExam(studentId, examId);
   }
 
 }

@@ -7,6 +7,7 @@ import { AssessmentExamMapper } from "../../assessments/assessment-exam.mapper";
 import { AssessmentItem } from "../../assessments/model/assessment-item.model";
 import { Observable } from "rxjs/Observable";
 import { DataService } from "../../shared/data/data.service";
+import { of } from 'rxjs/observable/of';
 
 const ServiceRoute = '/reporting-service';
 
@@ -32,7 +33,7 @@ describe('StudentResponsesService', () => {
 
     dataService.get.and.callFake((url) => {
       expect(url).toBe(`${ServiceRoute}/students/123/exams/456/examitems`);
-      return Observable.of({ id: 123 });
+      return of({ id: 123 });
     });
 
     service.findItemsByStudentAndExam(123, 456).subscribe((response) => {

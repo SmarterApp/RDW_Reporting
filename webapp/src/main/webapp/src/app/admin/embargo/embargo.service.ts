@@ -5,6 +5,7 @@ import { EmbargoScope } from "./embargo-scope.enum";
 import { OrganizationType } from "./organization-type.enum";
 import { DataService } from "../../shared/data/data.service";
 import { ResponseContentType } from "@angular/http";
+import { map } from 'rxjs/operators';
 
 const ResourceContext = '/admin-service/embargoes';
 
@@ -24,15 +25,17 @@ export class EmbargoService {
    */
   getEmbargoesByOrganizationType(): Observable<Map<OrganizationType, Embargo[]>> {
     return this.dataService.get(`${ResourceContext}`)
-      .map((sourceEmbargoes: any[]) => {
-        return sourceEmbargoes.reduce((embargoesByOrganizationType, sourceEmbargo) => {
-          const embargo = this.toEmbargo(sourceEmbargo),
-            type = embargo.organization.type;
+      .pipe(
+        map((sourceEmbargoes: any[]) => {
+          return sourceEmbargoes.reduce((embargoesByOrganizationType, sourceEmbargo) => {
+            const embargo = this.toEmbargo(sourceEmbargo),
+              type = embargo.organization.type;
 
-          embargoesByOrganizationType.set(type, (embargoesByOrganizationType.get(type) || []).concat(embargo));
-          return embargoesByOrganizationType;
-        }, new Map());
-      });
+            embargoesByOrganizationType.set(type, (embargoesByOrganizationType.get(type) || []).concat(embargo));
+            return embargoesByOrganizationType;
+          }, new Map());
+        })
+      );
   }
 
   /**

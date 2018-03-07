@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ReportService } from "../../report/report.service";
 import { Report } from "../../report/report.model";
 import { AggregateReportTable, SupportedRowCount } from "./aggregate-report-table.component";
-import { Observable } from "rxjs/Observable";
 import { AggregateReportOptions } from "../aggregate-report-options";
 import { AggregateReportItemMapper } from "./aggregate-report-item.mapper";
 import { AssessmentDefinition } from "../assessment/assessment-definition";
@@ -17,11 +16,13 @@ import { DisplayOptionService } from "../../shared/display-options/display-optio
 import { TranslateService } from "@ngx-translate/core";
 import { AggregateReportRequestMapper } from "../aggregate-report-request.mapper";
 import { SpinnerModal } from "../../shared/loading/spinner.modal";
-import "rxjs/add/operator/finally";
 import { OrderableItem } from "../../shared/order-selector/order-selector.component";
 import { AggregateReportColumnOrderItemProvider } from "../aggregate-report-column-order-item.provider";
 import { DefaultColumnOrder } from "../aggregate-report-options.mapper";
 import { AggregateReportRequestSummary } from "../aggregate-report-summary.component";
+import { interval } from 'rxjs/observable/interval';
+import { switchMap } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
 const PollingInterval = 4000;
 
@@ -190,8 +191,10 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   }
 
   private pollReport(): void {
-    this._pollingSubscription = Observable.interval(PollingInterval)
-      .switchMap(() => this.reportService.getReportById(this.report.id))
+    this._pollingSubscription = interval(PollingInterval)
+      .pipe(
+        switchMap(() => this.reportService.getReportById(this.report.id))
+      )
       .subscribe(report => {
         this.report = report;
         this.updateViewState();
@@ -207,9 +210,11 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   private loadReport(): void {
     this.spinnerModal.loading = true;
     this.reportService.getAggregateReport(this.report.id)
-      .finally(() => {
-        this.spinnerModal.loading = false;
-      })
+      .pipe(
+        finalize(() => {
+          this.spinnerModal.loading = false;
+        })
+      )
       .subscribe(rows => this.initializeReportTables(rows));
   }
 

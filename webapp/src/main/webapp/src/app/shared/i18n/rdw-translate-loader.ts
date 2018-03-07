@@ -5,10 +5,11 @@ import { TranslateLoader } from "@ngx-translate/core";
 import { Observable } from "rxjs/Observable";
 import { EmbeddedLanguages } from "./language-settings";
 import { HttpClient } from "@angular/common/http";
-import "rxjs/add/observable/of";
-import "rxjs/add/observable/forkJoin";
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { catchError, map } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
 
-const EmptyObservable = Observable.of({});
+const EmptyObservable = of({});
 
 @Injectable()
 export class RdwTranslateLoader implements TranslateLoader {
@@ -22,13 +23,14 @@ export class RdwTranslateLoader implements TranslateLoader {
   }
 
   getTranslation(languageCode: string): Observable<any> {
-    return Observable.forkJoin(
+    return forkJoin(
       this.getClientTranslations(languageCode),
       this.getServerTranslations(languageCode)
-    ).map(responses => {
-      let [ clientTranslations, serverTranslations ] = responses;
-      return _.merge(clientTranslations, serverTranslations);
-    });
+    ).pipe(
+      map(([ clientTranslations, serverTranslations ]) => {
+        return _.merge(clientTranslations, serverTranslations);
+      })
+    );
   };
 
   private getClientTranslations(languageCode: string): Observable<any> {
@@ -39,7 +41,9 @@ export class RdwTranslateLoader implements TranslateLoader {
 
   private getServerTranslations(languageCode: string): Observable<any> {
     return this.serverTranslationsLoader.getTranslation(languageCode)
-      .catch(() => EmptyObservable);
+      .pipe(
+        catchError(() => EmptyObservable)
+      );
   }
 
 }

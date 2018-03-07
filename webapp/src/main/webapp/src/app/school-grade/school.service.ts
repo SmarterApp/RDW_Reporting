@@ -4,6 +4,7 @@ import { Grade } from "./grade.model";
 import { ResponseUtils } from "../shared/response-utils";
 import { DataService } from "../shared/data/data.service";
 import { Utils } from "../shared/support/support";
+import { catchError, map } from 'rxjs/operators';
 
 const ServiceRoute = '/reporting-service';
 
@@ -25,26 +26,28 @@ export class SchoolService {
   findGradesWithAssessmentsForSchool(schoolId: number): Observable<Grade[]> {
     return this.dataService
       .get(`${ServiceRoute}/schools/${schoolId}/assessmentGrades`)
-      .catch(ResponseUtils.badResponseToNull)
-      .map(apiGrades => this.mapGradesFromApi(apiGrades));
+      .pipe(
+        catchError(ResponseUtils.badResponseToNull),
+        map(apiGrades => this.mapGradesFromApi(apiGrades))
+      );
   }
 
-  private mapGradesFromApi(apiGrades: any[]): Grade[] {
-    return apiGrades
-      .filter(apiGrade => this.isValidGrade(apiGrade))
-      .map(apiGrade => this.mapGradeFromApi(apiGrade));
+  private mapGradesFromApi(serverGrades: any[]): Grade[] {
+    return serverGrades
+      .filter(serverGrade => this.isValidGrade(serverGrade))
+      .map(serverGrade => this.mapGradeFromApi(serverGrade));
   }
 
-  private isValidGrade(apiModel: any): boolean {
-    return !Utils.isNullOrUndefined(apiModel)
-      && !Utils.isNullOrUndefined(apiModel.code);
+  private isValidGrade(serverGrade: any): boolean {
+    return !Utils.isNullOrUndefined(serverGrade)
+      && !Utils.isNullOrUndefined(serverGrade.code);
   }
 
-  private mapGradeFromApi(apiModel: any): Grade {
-    let uiModel = new Grade();
-    uiModel.id = apiModel.id;
-    uiModel.code = apiModel.code;
-    return uiModel;
+  private mapGradeFromApi(serverGrade: any): Grade {
+    const grade = new Grade();
+    grade.id = serverGrade.id;
+    grade.code = serverGrade.code;
+    return grade;
   }
 
 }

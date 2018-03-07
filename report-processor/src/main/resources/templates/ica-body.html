@@ -12,7 +12,7 @@
             <div class="row">
                 <div th:if="${scored}"
                      class="col-xs-4">
-                    <h2 class="gray-darker mt-xs text-center"
+                    <h2 class="mt-xs"
                         th:text="#{report.ica.section.scale-score.header}"></h2>
                     <div class="well pad-small" th:if="${scored}">
                         <div class="row text-center mb-xs">
@@ -51,7 +51,7 @@
                                           th:classappend="#{'report.ica.level.' + ${report.exam.scaleScore.level} + '.color'}"
                                           th:text="${report.exam.scaleScore.value}"></span>
                                     <span class="error-band">&plusmn;
-                                        <span th:text="${support.round(report.exam.scaleScore.standardError)}"
+                                        <span th:text="${support.round(report.exam.scaleScore.standardError) + '*'}"
                                               th:remove="tag"></span>
                                     </span>
                                 </span>
@@ -76,7 +76,8 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="mt-sm">
+                        <p class="mt-lg small">
+                            <strong>*</strong>
                             <strong th:text="#{report.scale-score.error-band}"></strong><br />
                             <span th:text="#{report.scale-score.description}" th:remove="tag"></span>
                         </p>

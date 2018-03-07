@@ -5,8 +5,8 @@ import { FormsModule } from "@angular/forms";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { BsModalService } from "ngx-bootstrap";
 import { InstructionalResourceService } from "./instructional-resource.service";
-import { Observable } from "rxjs/Observable";
 import { CommonModule } from "../../shared/common.module";
+import { of } from 'rxjs/observable/of';
 import Spy = jasmine.Spy;
 
 describe('InstructionalResourceComponent', () => {
@@ -16,10 +16,10 @@ describe('InstructionalResourceComponent', () => {
   let resourceService: InstructionalResourceService;
 
   beforeEach(async(() => {
-    modalService = jasmine.createSpyObj("BsModalService", ["show"]);
-    resourceService = jasmine.createSpyObj("InstructionalResourceService", ["findAll"]);
+    modalService = jasmine.createSpyObj("BsModalService", [ "show" ]);
+    resourceService = jasmine.createSpyObj("InstructionalResourceService", [ "findAll" ]);
     let findAll: Spy = resourceService.findAll as Spy;
-    findAll.and.returnValue(Observable.of([]));
+    findAll.and.returnValue(of([]));
 
     TestBed.configureTestingModule({
       declarations: [ InstructionalResourceComponent ],

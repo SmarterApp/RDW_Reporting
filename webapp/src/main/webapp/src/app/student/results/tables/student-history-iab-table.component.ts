@@ -3,12 +3,10 @@ import { StudentHistoryExamWrapper } from "../../model/student-history-exam-wrap
 import { Student } from "../../model/student.model";
 import { MenuActionBuilder } from "../../../assessments/menu/menu-action.builder";
 import { InstructionalResourcesService } from "../../../assessments/results/instructional-resources.service";
-import {
-  InstructionalResource,
-  InstructionalResources
-} from "../../../assessments/model/instructional-resources.model";
+import { InstructionalResource } from "../../../assessments/model/instructional-resources.model";
 import { Observable } from "rxjs/Observable";
 import { PopupMenuAction } from "../../../shared/menu/popup-menu-action.model";
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'student-history-iab-table',
@@ -56,16 +54,18 @@ export class StudentHistoryIABTableComponent implements OnInit {
   }
 
   loadInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): void {
-    let exam = studentHistoryExam.exam;
+    const exam = studentHistoryExam.exam;
     this.instructionalResourcesProvider = () => this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id)
-      .map(resources => resources.getResourcesByPerformance(exam.level));
+      .pipe(
+        map(resources => resources.getResourcesByPerformance(exam.level))
+      );
   }
 
   loadAssessmentInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): Observable<InstructionalResource[]> {
-    let exam = studentHistoryExam.exam;
+    const exam = studentHistoryExam.exam;
     return this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id)
-      .map((resources: InstructionalResources) => {
-        return resources.getResourcesByPerformance(0);
-      });
+      .pipe(
+        map(resources => resources.getResourcesByPerformance(0))
+      );
   }
 }

@@ -1,6 +1,6 @@
 import { NotFoundError } from "./not-found.error";
 import { Observable } from "rxjs/Observable";
-import "rxjs/add/observable/of";
+import { of } from 'rxjs/observable/of';
 
 export class Resolution<T> {
 
@@ -9,13 +9,13 @@ export class Resolution<T> {
   }
 
   static error(error: Error): Resolution<any> {
-    let resolution: Resolution<any> = new Resolution(null);
+    const resolution: Resolution<any> = new Resolution(null);
     resolution.error = error;
     return resolution;
   }
 
   static errorObservable(error: Error): Observable<Resolution<any>> {
-    return Observable.of(Resolution.error(error));
+    return of(Resolution.error(error));
   }
 
   public data: T;

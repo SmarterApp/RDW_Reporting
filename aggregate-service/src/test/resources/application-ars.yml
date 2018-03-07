@@ -1,0 +1,4 @@
+app:
+  aggregate-reports:
+    assessment-types: iab,ica,sum
+    statewide-user-assessment-types: none

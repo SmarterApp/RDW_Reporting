@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 import { of } from "rxjs/observable/of";
 import { _throw } from "rxjs/observable/throw";
 import { AuthenticationService } from "./authentication.service";
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class AuthenticatedHttpService extends Http {
@@ -26,13 +27,15 @@ export class AuthenticatedHttpService extends Http {
    */
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
     return super.request(url, options)
-      .catch(error => {
-        if (error.status === 401) {
-          this.service.navigateToAuthenticationExpiredRoute();
-          return of();
-        }
-        return _throw(error);
-      });
+      .pipe(
+        catchError(error => {
+          if (error.status === 401) {
+            this.service.navigateToAuthenticationExpiredRoute();
+            return of();
+          }
+          return _throw(error);
+        })
+      );
   }
 
 }

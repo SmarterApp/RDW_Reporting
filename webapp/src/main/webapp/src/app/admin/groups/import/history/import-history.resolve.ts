@@ -6,10 +6,12 @@ import { GroupImportService } from "../group-import.service";
 
 @Injectable()
 export class ImportHistoryResolve implements Resolve<ImportResult[]> {
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ImportResult[]>|Promise<ImportResult[]>|ImportResult[] {
-    return this.service.findStudentGroupBatches();
-  }
 
   constructor(private service: GroupImportService) {
   }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ImportResult[]> {
+    return this.service.findStudentGroupBatches();
+  }
+
 }

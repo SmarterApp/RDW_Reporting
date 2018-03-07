@@ -3,6 +3,7 @@ import { Assessment } from "./model/assessment.model";
 import { Observable } from "rxjs/Observable";
 import { AssessmentQuery } from "./model/assessment-query.model";
 import { DataService } from "../../shared/data/data.service";
+import { map } from 'rxjs/operators';
 
 const ServiceRoute = '/admin-service';
 
@@ -17,23 +18,25 @@ export class AssessmentService {
 
   find(query: AssessmentQuery): Observable<Assessment[]> {
     return this.dataService.get(`${ServiceRoute}/assessments`, {params: query})
-      .map(AssessmentService.mapAssessmentsFromApi);
+      .pipe(
+        map(AssessmentService.mapAssessmentsFromApi)
+      );
   }
 
-  private static mapAssessmentsFromApi(apiModels): Assessment[] {
-    return apiModels.map(x => AssessmentService.mapAssessmentFromApi(x));
+  private static mapAssessmentsFromApi(serverAssessments: any[]): Assessment[] {
+    return serverAssessments.map(serverAssessment => AssessmentService.mapAssessmentFromApi(serverAssessment));
   }
 
-  private static mapAssessmentFromApi(apiModel: any): Assessment {
-    let uiModel = new Assessment();
-
-    uiModel.id = apiModel.id;
-    uiModel.label = apiModel.label;
-    uiModel.name = apiModel.name;
-    uiModel.grade = apiModel.gradeCode;
-    uiModel.type = apiModel.type;
-    uiModel.subject = apiModel.subject;
-    uiModel.claimCodes = apiModel.claimCodes || [];
-    return uiModel;
+  private static mapAssessmentFromApi(serverAssessment: any): Assessment {
+    const assessment = new Assessment();
+    assessment.id = serverAssessment.id;
+    assessment.label = serverAssessment.label;
+    assessment.name = serverAssessment.name;
+    assessment.grade = serverAssessment.gradeCode;
+    assessment.type = serverAssessment.type;
+    assessment.subject = serverAssessment.subject;
+    assessment.claimCodes = serverAssessment.claimCodes || [];
+    return assessment;
   }
+
 }

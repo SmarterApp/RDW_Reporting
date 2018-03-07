@@ -1,9 +1,8 @@
 import { Inject, Injectable, InjectionToken } from "@angular/core";
 import { Http, RequestOptionsArgs, Response, ResponseContentType } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/catch";
 import { Download } from "./download.model";
+import { map } from 'rxjs/operators';
 
 export const DATA_CONTEXT_URL = new InjectionToken<string>('CONTEXT_URL');
 
@@ -25,9 +24,10 @@ export class DataService {
    * @returns {Observable<R>}
    */
   get(url: string, options?: RequestOptionsArgs): Observable<any> {
-    return this.http
-      .get(`${this.contextUrl}${url}`, options)
-      .map(this.getMapper(options));
+    return this.http.get(`${this.contextUrl}${url}`, options)
+      .pipe(
+        map(this.getMapper(options))
+      );
   }
 
   /**
@@ -39,9 +39,10 @@ export class DataService {
    * @returns {Observable<R>}
    */
   post(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
-    return this.http
-      .post(`${this.contextUrl}${url}`, body, options)
-      .map(this.getMapper(options));
+    return this.http.post(`${this.contextUrl}${url}`, body, options)
+      .pipe(
+        map(this.getMapper(options))
+      );
   }
 
   /**
@@ -53,9 +54,10 @@ export class DataService {
    * @returns {Observable<R>}
    */
   put(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
-    return this.http
-      .put(`${this.contextUrl}${url}`, body, options)
-      .map(this.getMapper(options));
+    return this.http.put(`${this.contextUrl}${url}`, body, options)
+      .pipe(
+        map(this.getMapper(options))
+      );
   }
 
   /**
@@ -66,9 +68,10 @@ export class DataService {
    * @returns {Observable<any>}
    */
   delete(url: string, options?: RequestOptionsArgs): Observable<any> {
-    return this.http
-      .delete(`${this.contextUrl}${url}`, options)
-      .map(this.getMapper(options));
+    return this.http.delete(`${this.contextUrl}${url}`, options)
+      .pipe(
+        map(this.getMapper(options))
+      );
   }
 
   /**
@@ -90,8 +93,9 @@ export class DataService {
       const contentLength = response.headers.get("content-length");
       // content-length is 0 when there is no response body and is optional otherwise
       // response.json() throws an exception when content-length is 0
-      if (contentLength == null || Number.parseInt(contentLength) > 0)
+      if (contentLength == null || Number.parseInt(contentLength) > 0) {
         return response.json();
+      }
       return null;
     }
   }
@@ -114,7 +118,7 @@ export class DataService {
    * @returns {string} the file name
    */
   private getFileNameFromResponse(response: Response): string {
-    let header: string = response.headers.get('Content-Disposition');
+    const header: string = response.headers.get('Content-Disposition');
     return header == null ? null : this.decodeHeaderFieldValue(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/g.exec(header)[ 1 ]);
   }
 
@@ -128,7 +132,7 @@ export class DataService {
     if (value == null) {
       return null;
     }
-    let utf8Prefix: string = "UTF-8''";
+    const utf8Prefix: string = "UTF-8''";
     if (value.toUpperCase().startsWith(utf8Prefix)) {
       return decodeURIComponent(value.substring(utf8Prefix.length));
     }
@@ -142,7 +146,7 @@ export class DataService {
    * @returns {string} the content type
    */
   private getContentType(response: Response): string {
-    let header: string = response.headers.get('Content-Type');
+    const header: string = response.headers.get('Content-Type');
     return header == null ? null : header.trim();
   }
 

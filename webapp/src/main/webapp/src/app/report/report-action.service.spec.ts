@@ -7,6 +7,7 @@ import { ActionType, AggregateReportType, ReportAction, ReportActionService } fr
 import { Report } from "./report.model";
 import { Observable } from "rxjs/Observable";
 import Spy = jasmine.Spy;
+import { empty } from 'rxjs/observable/empty';
 
 describe('ReportActionService', () => {
   let reportService: ReportService;
@@ -22,7 +23,7 @@ describe('ReportActionService', () => {
       "ReportService",
       ["getReportContent", "downloadReportContent"]
     );
-    (reportService.getReportContent as Spy).and.callFake(() => Observable.empty());
+    (reportService.getReportContent as Spy).and.callFake(() => empty());
 
     notificationService = jasmine.createSpyObj(
       "NotificationService",

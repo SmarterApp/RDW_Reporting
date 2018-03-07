@@ -4,6 +4,8 @@ import { Observable } from "rxjs/Observable";
 import { User } from "./model/user.model";
 import { CachingDataService } from "../shared/data/caching-data.service";
 import { Utils } from "../shared/support/support";
+import { of } from 'rxjs/observable/of';
+import { catchError, map, share } from 'rxjs/operators';
 
 const ServiceRoute = '/reporting-service';
 
@@ -20,22 +22,21 @@ export class UserService {
   getCurrentUser(): Observable<User> {
     // currentUser has already been populated, return that.
     if(!Utils.isNullOrUndefined(this.currentUser)) {
-      return Observable.of(this.currentUser);
+      return of(this.currentUser);
     }
     // currentUser is not populated and a request is not in progress.
     if(Utils.isNullOrUndefined(this.currentUserObservable)) {
-      this.currentUserObservable = this._dataService
-        .get(`${ServiceRoute}/user`)
-        .catch(res => {
-          return Observable.of(null);
-        })
-        .share()
-        .map(user => {
-          if(Utils.isNullOrUndefined(user)) {
-            return null;
-          }
-          return this._mapper.mapFromApi(user)
-        });
+      this.currentUserObservable = this._dataService.get(`${ServiceRoute}/user`)
+        .pipe(
+          catchError(() => of(null)),
+          share(),
+          map(user => {
+            if(Utils.isNullOrUndefined(user)) {
+              return null;
+            }
+            return this._mapper.mapFromApi(user)
+          })
+        );
 
       this.currentUserObservable.subscribe(user => this.currentUser = user);
     }
@@ -67,9 +68,9 @@ export class UserService {
   }
 
   private doesAtLeastOneExist(permissions: string[], userPermissions) {
-    return userPermissions.some(x =>
-      permissions.some(y =>
-        x.toUpperCase() == y.toUpperCase()
+    return userPermissions.some(userPermission =>
+      permissions.some(permission =>
+        userPermission.toUpperCase() == permission.toUpperCase()
       )
     );
   }

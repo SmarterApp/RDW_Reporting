@@ -3,6 +3,7 @@ import { Observable } from "rxjs/Observable";
 import { ImportResult } from "./import-result.model";
 import { DataService } from "../../../shared/data/data.service";
 import { Utils } from "../../../shared/support/support";
+import { map } from 'rxjs/operators';
 
 const ServiceRoute = '/admin-service';
 
@@ -18,27 +19,30 @@ export class GroupImportService {
   findStudentGroupBatches(): Observable<ImportResult[]> {
     return this.dataService
       .get(`${ServiceRoute}/studentGroupBatches`)
-      .map((apiStudentGroupBatch) => this.mapWarehouseImportsFromApi(apiStudentGroupBatch));
+      .pipe(
+        map(apiStudentGroupBatch => this.mapWarehouseImportsFromApi(apiStudentGroupBatch))
+      );
   }
 
-  mapImportResultFromApi(apiModel: any): ImportResult {
-    let uiModel = new ImportResult();
-    uiModel.id = apiModel.id;
-    uiModel.digest = apiModel.digest;
-    uiModel.message = apiModel.message;
-    uiModel.fileName = apiModel.filename;
-    uiModel.created = apiModel.created;
-    uiModel.updated = apiModel.updated;
-    uiModel.status = apiModel.status;
-    return uiModel;
+  mapImportResultFromApi(serverResult: any): ImportResult {
+    const result = new ImportResult();
+    result.id = serverResult.id;
+    result.digest = serverResult.digest;
+    result.message = serverResult.message;
+    result.fileName = serverResult.filename;
+    result.created = serverResult.created;
+    result.updated = serverResult.updated;
+    result.status = serverResult.status;
+    return result;
   }
 
-  private mapWarehouseImportsFromApi(apiStudentGroupBatch: any[]): ImportResult[] {
-    if (Utils.isNullOrUndefined(apiStudentGroupBatch)) {
+  private mapWarehouseImportsFromApi(serverResults: any[]): ImportResult[] {
+    if (Utils.isNullOrUndefined(serverResults)) {
       return [];
     }
-    return apiStudentGroupBatch
-      .filter(apiStudentGroupBatch => !Utils.isNullOrUndefined(apiStudentGroupBatch))
-      .map(apiStudentGroupBatch => this.mapImportResultFromApi(apiStudentGroupBatch));
+    return serverResults
+      .filter(serverResult => !Utils.isNullOrUndefined(serverResult))
+      .map(serverResult => this.mapImportResultFromApi(serverResult));
   }
+
 }

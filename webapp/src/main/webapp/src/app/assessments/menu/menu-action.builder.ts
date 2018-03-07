@@ -6,6 +6,7 @@ import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { InstructionalResource } from "../model/instructional-resources.model";
 import { Observable } from "rxjs/Observable";
 import { PopupMenuAction } from "../../shared/menu/popup-menu-action.model";
+import { map } from 'rxjs/operators';
 
 /**
  * This builder will create the menu actions used by the PopupMenuComponent.
@@ -101,15 +102,17 @@ export class MenuActionBuilder {
     let resourcesAction: PopupMenuAction = new PopupMenuAction();
     resourcesAction.getSubActions = ((actionable) => {
       return loadResources(actionable)
-        .map((resources: InstructionalResource[]) => {
-          if (!resources.length) {
-            let noResourcesAction = new PopupMenuAction();
-            noResourcesAction.isDisabled = () => true;
-            noResourcesAction.displayName = () => this.translateService.instant('labels.groups.results.assessment.no-instruct-found');
-            return [noResourcesAction];
-          }
-          return this.asInstructionalResourceActions.call(this, resources);
-        });
+        .pipe(
+          map((resources: InstructionalResource[]) => {
+            if (!resources.length) {
+              let noResourcesAction = new PopupMenuAction();
+              noResourcesAction.isDisabled = () => true;
+              noResourcesAction.displayName = () => this.translateService.instant('labels.groups.results.assessment.no-instruct-found');
+              return [noResourcesAction];
+            }
+            return this.asInstructionalResourceActions.call(this, resources);
+          })
+        );
     });
 
     resourcesAction.displayName = (() => resourcesLabel);

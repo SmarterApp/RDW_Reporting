@@ -46,8 +46,8 @@ export abstract class ReportDownloadComponent implements OnInit {
   @Output()
   onShow: EventEmitter<any> = new EventEmitter<any>();
 
-  assessmentTypes: string[] = [ null, 'ica', 'iab', 'sum' ];
-  subjectTypes: string[] = [ null, 'Math', 'ELA' ];
+  assessmentTypes: string[] = [ undefined, 'ica', 'iab', 'sum' ];
+  subjectTypes: string[] = [ undefined, 'Math', 'ELA' ];
   orders: ReportOrder[] = [ ReportOrder.STUDENT_NAME, ReportOrder.STUDENT_SSID ];
   options: ReportOptions;
   reportLanguages: string[] = [ 'en' ];

@@ -7,11 +7,12 @@ import { StudentExamHistoryService } from "../student-exam-history.service";
 @Injectable()
 export class StudentExamHistoryResolve implements Resolve<StudentExamHistory> {
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any>|Promise<any>|any {
-    return this.service.findOneById(route.params[ "studentId" ]);
+  constructor(private service: StudentExamHistoryService) {
   }
 
-  constructor(private service: StudentExamHistoryService) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+    const { studentId } = route.params;
+    return this.service.findOneById(studentId);
   }
 
 }

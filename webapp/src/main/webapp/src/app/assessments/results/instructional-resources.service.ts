@@ -4,64 +4,70 @@ import { Observable } from "rxjs/Observable";
 import { InstructionalResource, InstructionalResources } from "../model/instructional-resources.model";
 import { URLSearchParams } from '@angular/http';
 import { DataService } from "../../shared/data/data.service";
+import { of } from 'rxjs/observable/of';
+import { catchError, map } from 'rxjs/operators';
 
 const ServiceRoute = '/reporting-service';
 
 @Injectable()
 export class InstructionalResourcesService {
+
   private resourcesBySchoolAssessment: { [key: string]: any } = {};
 
   constructor(private dataService: DataService) {
   }
 
   getInstructionalResources(assessmentId: number, schoolId: number): Observable<InstructionalResources> {
-    let cacheKey: string = InstructionalResourcesService.getKey(assessmentId, schoolId);
+    const cacheKey: string = InstructionalResourcesService.getKey(assessmentId, schoolId);
 
     // Return cached value
     if (this.resourcesBySchoolAssessment.hasOwnProperty(cacheKey)) {
-      return Observable.of(this.resourcesBySchoolAssessment[cacheKey]);
+      return of(this.resourcesBySchoolAssessment[ cacheKey ]);
     }
 
-    let params: URLSearchParams = new URLSearchParams();
+    const params: URLSearchParams = new URLSearchParams();
     params.set('assessmentId', assessmentId.toString());
     params.set('schoolId', schoolId.toString());
 
     return this.dataService.get(`${ServiceRoute}/instructional-resources`, { params: params })
-      .catch(ResponseUtils.badResponseToNull)
-      .map(instructionalResources => {
-        let resources: InstructionalResources = (!instructionalResources || instructionalResources.length === 0)
-          ? new InstructionalResources(new Map())
-          : InstructionalResourcesService.mapInstructionalResourcesFromApi(instructionalResources);
+      .pipe(
+        catchError(ResponseUtils.badResponseToNull),
+        map(instructionalResources => {
+          const resources: InstructionalResources = (!instructionalResources || instructionalResources.length === 0)
+            ? new InstructionalResources(new Map())
+            : InstructionalResourcesService.mapInstructionalResourcesFromApi(instructionalResources);
 
-        //Cache response
-        this.resourcesBySchoolAssessment[cacheKey] = resources;
-        return resources;
-      });
+          //Cache response
+          this.resourcesBySchoolAssessment[ cacheKey ] = resources;
+          return resources;
+        })
+      );
   }
 
-  private static mapInstructionalResourcesFromApi(apiModel): InstructionalResources {
-    let uiModels = new Map<number, InstructionalResource[]>();
+  private static mapInstructionalResourcesFromApi(serverResources: any[]): InstructionalResources {
+    const resourcesById = new Map<number, InstructionalResource[]>();
 
-    for (let apiInstructionalResource of apiModel) {
-      if (!uiModels.has(apiInstructionalResource.performanceLevel)) {
-        uiModels.set(apiInstructionalResource.performanceLevel, []);
+    for (let serverResource of serverResources) {
+      if (!resourcesById.has(serverResource.performanceLevel)) {
+        resourcesById.set(serverResource.performanceLevel, []);
       }
-      uiModels.get(apiInstructionalResource.performanceLevel).push(InstructionalResourcesService.mapInstructionalResourceFromApi(apiInstructionalResource));
+      resourcesById.get(serverResource.performanceLevel).push(InstructionalResourcesService.mapInstructionalResourceFromApi(serverResource));
     }
 
-    return new InstructionalResources(uiModels);
+    return new InstructionalResources(resourcesById);
   }
 
-  private static mapInstructionalResourceFromApi(apiModel): InstructionalResource {
-    let instructionalResource = new InstructionalResource();
-    instructionalResource.organizationLevel = apiModel.organizationLevel;
-    instructionalResource.organizationName = apiModel.organizationName;
-    instructionalResource.performanceLevel = apiModel.performanceLevel.toString();
-    instructionalResource.url = apiModel.resource;
-    return instructionalResource;
+  private static mapInstructionalResourceFromApi(serverResource: any): InstructionalResource {
+    const resource = new InstructionalResource();
+    resource.organizationLevel = serverResource.organizationLevel;
+    resource.organizationName = serverResource.organizationName;
+    resource.performanceLevel = serverResource.performanceLevel.toString();
+    resource.url = serverResource.resource;
+    return resource;
   }
 
   private static getKey(assessmentId: number, schoolId: number): string {
-    return assessmentId + "|" + schoolId;
+    return `${assessmentId}|${schoolId}`;
   }
+
 }

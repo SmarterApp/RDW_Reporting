@@ -1,8 +1,8 @@
 import { InstructionalResourceService } from "./instructional-resource.service";
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/observable/empty";
 import { InstructionalResource } from "./model/instructional-resource.model";
 import { MockDataService } from "../../../test/mock.data.service";
+import { of } from 'rxjs/observable/of';
+import { empty } from 'rxjs/observable/empty';
 
 describe("Instructional Resource Service", () => {
   let dataService: MockDataService;
@@ -14,23 +14,23 @@ describe("Instructional Resource Service", () => {
   });
 
   it("should find instructional resources", (done) => {
-    dataService.get.and.returnValue(Observable.of([apiResource(1), apiResource(2)]));
+    dataService.get.and.returnValue(of([ apiResource(1), apiResource(2) ]));
 
     service.findAll()
       .subscribe((resources: InstructionalResource[]) => {
         let dataArgs: any[] = dataService.get.calls.first().args;
-        expect(dataArgs[0]).toEqual("/admin-service/instructional-resources");
+        expect(dataArgs[ 0 ]).toEqual("/admin-service/instructional-resources");
 
         expect(resources.length).toBe(2);
-        expect(resources[0].organizationId).toBe(1);
-        expect(resources[0].organizationName).toBe("org name 1");
-        expect(resources[0].organizationType).toBe("org type 1");
-        expect(resources[0].assessmentLabel).toBe("asmt label 1");
-        expect(resources[0].assessmentName).toBe("asmt name 1");
-        expect(resources[0].assessmentType).toBe("asmt type 1");
-        expect(resources[0].performanceLevel).toBe(1);
-        expect(resources[0].resource).toBe("resource 1");
-        expect(resources[1].organizationId).toBe(2);
+        expect(resources[ 0 ].organizationId).toBe(1);
+        expect(resources[ 0 ].organizationName).toBe("org name 1");
+        expect(resources[ 0 ].organizationType).toBe("org type 1");
+        expect(resources[ 0 ].assessmentLabel).toBe("asmt label 1");
+        expect(resources[ 0 ].assessmentName).toBe("asmt name 1");
+        expect(resources[ 0 ].assessmentType).toBe("asmt type 1");
+        expect(resources[ 0 ].performanceLevel).toBe(1);
+        expect(resources[ 0 ].resource).toBe("resource 1");
+        expect(resources[ 1 ].organizationId).toBe(2);
 
         done();
       });
@@ -38,15 +38,15 @@ describe("Instructional Resource Service", () => {
 
   it("should create an instructional resource", (done) => {
     dataService.post.and.callFake(() => {
-      return Observable.of(apiResource(1));
+      return of(apiResource(1));
     });
 
     let newResource: InstructionalResource = modelResource(1);
     service.create(newResource)
       .subscribe(response => {
         let dataArgs: any[] = dataService.post.calls.first().args;
-        expect(dataArgs[0]).toEqual("/admin-service/instructional-resources");
-        expect(dataArgs[1]).toBe(newResource);
+        expect(dataArgs[ 0 ]).toEqual("/admin-service/instructional-resources");
+        expect(dataArgs[ 1 ]).toBe(newResource);
 
         expect(response).toEqual(newResource);
         done();
@@ -55,15 +55,15 @@ describe("Instructional Resource Service", () => {
 
   it("should update an instructional resource", (done) => {
     dataService.put.and.callFake(() => {
-      return Observable.of(apiResource(1));
+      return of(apiResource(1));
     });
 
     let updatedResource: InstructionalResource = modelResource(1);
     service.update(updatedResource)
       .subscribe(response => {
         let dataArgs: any[] = dataService.put.calls.first().args;
-        expect(dataArgs[0]).toEqual("/admin-service/instructional-resources");
-        expect(dataArgs[1]).toBe(updatedResource);
+        expect(dataArgs[ 0 ]).toEqual("/admin-service/instructional-resources");
+        expect(dataArgs[ 1 ]).toBe(updatedResource);
 
         expect(response).toEqual(updatedResource);
         done();
@@ -72,7 +72,7 @@ describe("Instructional Resource Service", () => {
 
   it("should delete an instructional resource", (done) => {
     dataService.delete.and.callFake(() => {
-      return Observable.empty();
+      return empty();
     });
 
     let deletedResource: InstructionalResource = modelResource(1);
@@ -81,14 +81,14 @@ describe("Instructional Resource Service", () => {
       }, () => {
       }, () => {
         let dataArgs: any[] = dataService.delete.calls.first().args;
-        expect(dataArgs[0]).toEqual("/admin-service/instructional-resources");
-        expect(dataArgs[1]).toEqual({params: deletedResource});
+        expect(dataArgs[ 0 ]).toEqual("/admin-service/instructional-resources");
+        expect(dataArgs[ 1 ]).toEqual({ params: deletedResource });
 
         done();
       });
   });
 
-  let apiResource = function(id: number): any {
+  let apiResource = function (id: number): any {
     return {
       organizationId: id,
       organizationName: `org name ${id}`,
@@ -101,7 +101,7 @@ describe("Instructional Resource Service", () => {
     }
   };
 
-  let modelResource = function(id: number): InstructionalResource {
+  let modelResource = function (id: number): InstructionalResource {
     let resource: InstructionalResource = new InstructionalResource();
     resource.organizationId = id;
     resource.organizationName = `org name ${id}`;

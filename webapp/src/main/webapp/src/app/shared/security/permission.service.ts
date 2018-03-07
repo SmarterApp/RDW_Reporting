@@ -1,6 +1,6 @@
 import { Observable } from "rxjs/Observable";
 import { Injectable } from "@angular/core";
-import "rxjs/add/observable/of";
+import { of } from 'rxjs/observable/of';
 
 /**
  * Null permission service placeholder.
@@ -15,7 +15,7 @@ export class PermissionService {
    * @returns {Observable<string[]>} array of permission identifiers
    */
   getPermissions(): Observable<string[]> {
-    return Observable.of([]);
+    return of([]);
   };
 
 }

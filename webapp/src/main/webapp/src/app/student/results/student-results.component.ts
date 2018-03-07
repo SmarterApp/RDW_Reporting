@@ -31,7 +31,7 @@ export class StudentResultsComponent implements OnInit {
   hasResults: boolean;
   exportDisabled: boolean = true;
 
-  private typeDisplayOrder: AssessmentType[] = [AssessmentType.IAB, AssessmentType.ICA, AssessmentType.SUMMATIVE];
+  private typeDisplayOrder: AssessmentType[] = [ AssessmentType.IAB, AssessmentType.ICA, AssessmentType.SUMMATIVE ];
 
   get assessmentTypes(): AssessmentType[] {
     return Array.from(this.examsByTypeAndSubject.keys())
@@ -55,8 +55,8 @@ export class StudentResultsComponent implements OnInit {
   ngOnInit(): void {
     this.examHistory = this.route.snapshot.data[ "examHistory" ];
 
-    if(this.examHistory) {
-      this.initializeFilter(this.examHistory.exams,this.route.snapshot.params);
+    if (this.examHistory) {
+      this.initializeFilter(this.examHistory.exams, this.route.snapshot.params);
       this.applyFilter();
     }
 
@@ -86,7 +86,7 @@ export class StudentResultsComponent implements OnInit {
    * Handle a filter state change.
    */
   onFilterChange(): void {
-    if(this.hasBasicFilterChanged()) {
+    if (this.hasBasicFilterChanged()) {
       this.updateRoute();
     }
 
@@ -94,18 +94,18 @@ export class StudentResultsComponent implements OnInit {
   }
 
   hasBasicFilterChanged(): boolean {
-    let params:any = this.route.snapshot.params;
+    let params: any = this.route.snapshot.params;
 
     return this.filterState.schoolYear != params.schoolYear
       || this.filterState.subject != params.subject;
   }
 
   isCollapsed(assessmentType: AssessmentType, subject: string): boolean {
-    return this.displayState[assessmentType][subject].collapsed;
+    return this.displayState[ assessmentType ][ subject ].collapsed;
   }
 
   toggleCollapsed(assessmentType: AssessmentType, subject: string): void {
-    this.displayState[assessmentType][subject].collapsed = !this.displayState[assessmentType][subject].collapsed;
+    this.displayState[ assessmentType ][ subject ].collapsed = !this.displayState[ assessmentType ][ subject ].collapsed;
   }
 
   exportCsv(): void {
@@ -159,9 +159,9 @@ export class StudentResultsComponent implements OnInit {
       examsByTypeAndSubject.set(type, byType);
 
       // Initialize collapse state if it doesn't exist
-      this.displayState[type] = this.displayState[type] || {};
-      this.displayState[type][subject] = this.displayState[type][subject] || {};
-      this.displayState[type][subject].collapsed = this.displayState[type][subject].collapsed || false;
+      this.displayState[ type ] = this.displayState[ type ] || {};
+      this.displayState[ type ][ subject ] = this.displayState[ type ][ subject ] || {};
+      this.displayState[ type ][ subject ].collapsed = this.displayState[ type ][ subject ].collapsed || false;
 
       // check for at least one interim or summative while already going thru the exams
       if (wrapper.assessment.isSummative) {
@@ -216,7 +216,7 @@ export class StudentResultsComponent implements OnInit {
       ? { relativeTo: this.route.parent.parent }
       : undefined;
 
-    this.router.navigate(['students', this.examHistory.student.id, params], navigationExtras);
+    this.router.navigate([ 'students', this.examHistory.student.id, params ], navigationExtras);
   }
 
   /**
@@ -265,9 +265,9 @@ export class StudentResultsComponent implements OnInit {
     if (this.filterState.schoolYear != 0) {
       downloader.options.schoolYear = this.filterState.schoolYear;
     }
-    if (this.filterState.subject !== '') {
-      downloader.options.subject = Utils.toSubjectCode(AssessmentSubjectType[ this.filterState.subject ]);
-    }
+    downloader.options.subject = this.filterState.subject !== ''
+      ? Utils.toSubjectCode(AssessmentSubjectType[ this.filterState.subject ])
+      : undefined;
   }
 
 }

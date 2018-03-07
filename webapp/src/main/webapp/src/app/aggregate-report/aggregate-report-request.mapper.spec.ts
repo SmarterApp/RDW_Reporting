@@ -14,6 +14,7 @@ import { AggregateReportQuery, AggregateReportRequest } from "../report/aggregat
 import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
 import { DefaultColumnOrder } from "./aggregate-report-options.mapper";
 import Spy = jasmine.Spy;
+import { of } from 'rxjs/observable/of';
 
 describe('AggregateReportRequestMapper', () => {
 
@@ -35,10 +36,10 @@ describe('AggregateReportRequestMapper', () => {
     (organizationService.getOrganizationsByIdAndType as Spy).and
       .callFake((type: OrganizationType) => {
         if (type === OrganizationType.District) {
-          return Observable.of(districts);
+          return of(districts);
         }
         if (type === OrganizationType.School) {
-          return Observable.of(schools);
+          return of(schools);
         }
       });
 

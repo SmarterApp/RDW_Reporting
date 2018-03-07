@@ -7,6 +7,7 @@ import { Observable } from "rxjs/Observable";
 import { AssessmentType } from "../shared/enum/assessment-type.enum";
 import { AssessmentSubjectType } from "../shared/enum/assessment-subject-type.enum";
 import { DATA_CONTEXT_URL, DataService } from "../shared/data/data.service";
+import { of } from 'rxjs/observable/of';
 
 describe('ReportService', () => {
   let dataService: MockDataService;
@@ -40,7 +41,7 @@ describe('ReportService', () => {
     let reports: Report[] = [];
     reports.push(apiReport(1));
     reports.push(apiReportWithDetails(2, "ICA", "MATH"));
-    dataService.get.and.returnValue(Observable.of(reports));
+    dataService.get.and.returnValue(of(reports));
 
     service.getReports().subscribe((reports: Report[]) => {
       expect(reports.length).toBe(2);

@@ -2,6 +2,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import { Inject, Injectable, InjectionToken } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { PermissionService } from "./permission.service";
+import { map } from 'rxjs/operators';
 
 export const AccessDeniedRoute = new InjectionToken<string>('AccessDeniedRoute');
 
@@ -18,12 +19,14 @@ export class RoutingAuthorizationCanActivate implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.permissionService.getPermissions()
-      .map(permissions => {
-        const hasPermission: boolean = (permissions || []).length > 0;
-        if (!hasPermission) {
-          this.router.navigate([ this.accessDeniedRoute ]);
-        }
-        return hasPermission;
-      });
+      .pipe(
+        map(permissions => {
+          const hasPermission: boolean = (permissions || []).length > 0;
+          if (!hasPermission) {
+            this.router.navigate([ this.accessDeniedRoute ]);
+          }
+          return hasPermission;
+        })
+      );
   }
 }

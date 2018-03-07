@@ -16,7 +16,6 @@ sql:
         join school sc on sc.id = sg.school_id
         left join subject s on s.id = sg.subject_id
       where user_login=:user_login
-      and sg.id in (:group_ids)
 
   assessment:
     item:

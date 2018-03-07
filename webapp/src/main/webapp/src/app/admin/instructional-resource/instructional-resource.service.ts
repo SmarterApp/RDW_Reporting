@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { InstructionalResource } from "./model/instructional-resource.model";
 import { Observable } from "rxjs/Observable";
 import { DataService } from "../../shared/data/data.service";
+import { map } from 'rxjs/operators';
 
 const ServiceRoute = '/admin-service';
 
@@ -21,7 +22,9 @@ export class InstructionalResourceService {
    */
   findAll(): Observable<InstructionalResource[]> {
     return this.dataService.get(`${ServiceRoute}/instructional-resources`)
-      .map(InstructionalResourceService.mapResourcesFromApi);
+      .pipe(
+        map(InstructionalResourceService.mapResourcesFromApi)
+      );
   }
 
   /**
@@ -32,7 +35,9 @@ export class InstructionalResourceService {
    */
   create(resource: InstructionalResource): Observable<InstructionalResource> {
     return this.dataService.post(`${ServiceRoute}/instructional-resources`, resource)
-      .map(InstructionalResourceService.mapResourceFromApi);
+      .pipe(
+        map(InstructionalResourceService.mapResourceFromApi)
+      );
   }
 
   /**
@@ -43,7 +48,9 @@ export class InstructionalResourceService {
    */
   update(resource: InstructionalResource): Observable<InstructionalResource> {
     return this.dataService.put(`${ServiceRoute}/instructional-resources`, resource)
-      .map(InstructionalResourceService.mapResourceFromApi);
+      .pipe(
+        map(InstructionalResourceService.mapResourceFromApi)
+      );
   }
 
   /**
@@ -56,20 +63,20 @@ export class InstructionalResourceService {
     return this.dataService.delete(`${ServiceRoute}/instructional-resources`, {params: resource});
   }
 
-  private static mapResourcesFromApi(apiModels) {
-    return apiModels.map(apiModel => InstructionalResourceService.mapResourceFromApi(apiModel));
+  private static mapResourcesFromApi(serverResources) {
+    return serverResources.map(serverResource => InstructionalResourceService.mapResourceFromApi(serverResource));
   }
 
-  private static mapResourceFromApi(apiModel): InstructionalResource {
-    let uiModel: InstructionalResource = new InstructionalResource();
-    uiModel.organizationId = apiModel.organizationId;
-    uiModel.organizationName = apiModel.organizationName;
-    uiModel.organizationType = apiModel.organizationType;
-    uiModel.assessmentLabel = apiModel.assessmentLabel;
-    uiModel.assessmentName = apiModel.assessmentName;
-    uiModel.assessmentType = apiModel.assessmentType;
-    uiModel.resource = apiModel.resource;
-    uiModel.performanceLevel = apiModel.performanceLevel;
-    return uiModel;
+  private static mapResourceFromApi(serverResource): InstructionalResource {
+    const resource: InstructionalResource = new InstructionalResource();
+    resource.organizationId = serverResource.organizationId;
+    resource.organizationName = serverResource.organizationName;
+    resource.organizationType = serverResource.organizationType;
+    resource.assessmentLabel = serverResource.assessmentLabel;
+    resource.assessmentName = serverResource.assessmentName;
+    resource.assessmentType = serverResource.assessmentType;
+    resource.resource = serverResource.resource;
+    resource.performanceLevel = serverResource.performanceLevel;
+    return resource;
   }
 }

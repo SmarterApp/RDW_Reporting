@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { UserService } from "../../user/user.service";
 import { MockRouter } from "../../../test/mock.router";
 import { CommonModule } from "../../shared/common.module";
+import { of } from 'rxjs/observable/of';
 
 let mockFilterOptionsProvider = { options: new GroupFilterOptions() };
 
@@ -21,10 +22,10 @@ describe('GroupsComponent', () => {
   let fixture: ComponentFixture<GroupsComponent>;
   let mockGroupService = {
     getFilterOptions() {
-      return Observable.of(mockFilterOptionsProvider.options)
+      return of(mockFilterOptionsProvider.options)
     },
     getGroups: function () {
-      return Observable.of([])
+      return of([])
     }
   };
   let filterOptions: GroupFilterOptions;
@@ -135,7 +136,7 @@ describe('GroupsComponent', () => {
 class MockUserService {
 
   doesCurrentUserHaveAtLeastOnePermission(permissions: string[]): Observable<boolean> {
-    return Observable.of(true);
+    return of(true);
   }
 
 }

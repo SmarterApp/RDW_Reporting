@@ -8,10 +8,12 @@ import { TranslateService } from "@ngx-translate/core";
  */
 @Injectable()
 export class TranslateResolve implements Resolve<string> {
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string>|Promise<string>|string {
-    return this.service.get("welcome");
-  }
 
   constructor(private service: TranslateService) {
   }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> {
+    return this.service.get('welcome');
+  }
+
 }

@@ -3,7 +3,6 @@ import { Report } from "./report.model";
 import { ReportService } from "./report.service";
 import { Router } from "@angular/router";
 import { NotificationService } from "../shared/notification/notification.service";
-import "rxjs/add/observable/empty";
 
 export const AggregateReportType: string = "AggregateReportRequest";
 

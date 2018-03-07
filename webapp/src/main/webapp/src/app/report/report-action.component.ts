@@ -3,7 +3,6 @@ import { ReportAction, ReportActionService } from "./report-action.service";
 import { PopupMenuAction } from "../shared/menu/popup-menu-action.model";
 import { Report } from "./report.model";
 import { TranslateService } from "@ngx-translate/core";
-import 'rxjs/add/operator/finally';
 
 /**
  * Responsible for providing a UI displaying and performing an action

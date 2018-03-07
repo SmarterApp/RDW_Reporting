@@ -4,6 +4,8 @@ import { Observable } from "rxjs/Observable";
 import { Utils } from "./support/support";
 
 /**
+ * @deprecated use translate pipe directly
+ *
  * This pipe is responsible for transforming a grade codes into a
  * translated display value.
  */
@@ -22,10 +24,7 @@ export class GradeDisplayPipe implements PipeTransform {
    * @param format
    * @returns transformed grade
    */
-  transform(gradeCode: string, format: string): Observable<string> {
-    if (Utils.isNullOrUndefined(format)) {
-      format = "short-name";
-    }
+  transform(gradeCode: string, format: string = 'short-name'): Observable<string> {
     return this.translate.instant(`labels.grades.${gradeCode}.${format}`);
   }
 

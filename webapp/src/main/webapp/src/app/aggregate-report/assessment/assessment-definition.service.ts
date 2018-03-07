@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AssessmentDefinition } from "./assessment-definition";
 import { Observable } from "rxjs/Observable";
+import { of } from 'rxjs/observable/of';
 
 const Iab: AssessmentDefinition = {
   typeCode: 'iab',
@@ -41,7 +42,7 @@ export class AssessmentDefinitionService {
    * @returns {Observable<Map<string, AssessmentDefinition>>}
    */
   public getDefinitionsByAssessmentTypeCode(): Observable<Map<string, AssessmentDefinition>> {
-    return Observable.of(new Map([
+    return of(new Map([
       [ 'ica', Ica ],
       [ 'iab', Iab ],
       [ 'sum', Summative ]

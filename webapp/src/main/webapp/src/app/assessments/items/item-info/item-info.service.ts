@@ -4,6 +4,7 @@ import { Injectable } from "@angular/core";
 import { URLSearchParams } from "@angular/http";
 import { CachingDataService } from "../../../shared/data/caching-data.service";
 import { DataService } from "../../../shared/data/data.service";
+import { map } from 'rxjs/operators';
 
 const ServiceRoute = '/reporting-service';
 
@@ -16,27 +17,31 @@ export class ItemInfoService {
   }
 
   getInterpretiveGuide(): Observable<string> {
-    return this.userService
-      .getCurrentUser()
-      .map(user => user.configuration.interpretiveGuideUrl);
+    return this.userService.getCurrentUser()
+      .pipe(
+        map(user => user.configuration.interpretiveGuideUrl)
+      );
   }
 
   getTargetDescription(targetId): Observable<string> {
-    return this.cachingDataService
-      .get(`${ServiceRoute}/targets/${targetId}`)
-      .map(target => target.description);
+    return this.cachingDataService.get(`${ServiceRoute}/targets/${targetId}`)
+      .pipe(
+        map(target => target.description)
+      );
   }
 
+  // TODO should return typed interface/class
   getCommonCoreStandards(itemId): Observable<any[]> {
-    let params: URLSearchParams = new URLSearchParams();
+    const params: URLSearchParams = new URLSearchParams();
     params.set('itemId', itemId.toString());
 
-    return this.dataService
-      .get(`${ServiceRoute}/commonCoreStandards`, { search: params })
-      .map(standards => {
-        return standards.map(standard => {
-          return { code: standard.code, description: standard.description }
-        });
-      });
+    return this.dataService.get(`${ServiceRoute}/commonCoreStandards`, { search: params })
+      .pipe(
+        map(standards => standards.map(standard => <any>{
+          code: standard.code,
+          description: standard.description
+        }))
+      );
   }
+
 }

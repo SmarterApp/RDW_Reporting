@@ -1,6 +1,7 @@
 import { UserService } from "./user.service";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class UserPermissionService {
@@ -9,7 +10,10 @@ export class UserPermissionService {
   }
 
   getPermissions(): Observable<string[]> {
-    return this.userService.getCurrentUser().map(user =>  user ? user.permissions : []);
+    return this.userService.getCurrentUser()
+      .pipe(
+        map(user =>  user ? user.permissions : [])
+      );
   }
 
 }

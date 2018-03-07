@@ -11,8 +11,8 @@ import { Angulartics2, Angulartics2Module } from "angulartics2";
 import { PopoverModule } from "ngx-bootstrap";
 import { User } from "../../../user/model/user.model";
 import { Configuration } from "../../../user/model/configuration.model";
-import { Observable } from "rxjs/Observable";
 import { UserService } from "../../../user/user.service";
+import { of } from 'rxjs/observable/of';
 
 describe('AdvFiltersComponent', () => {
   let component: AdvFiltersComponent;
@@ -25,8 +25,8 @@ describe('AdvFiltersComponent', () => {
   config.transferAccess = false;
   let user: User = new User();
   user.configuration = config;
-  let mockUserService = jasmine.createSpyObj('UserService', ['getCurrentUser']);
-  mockUserService.getCurrentUser.and.callFake(() => Observable.of(user));
+  let mockUserService = jasmine.createSpyObj('UserService', [ 'getCurrentUser' ]);
+  mockUserService.getCurrentUser.and.callFake(() => of(user));
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

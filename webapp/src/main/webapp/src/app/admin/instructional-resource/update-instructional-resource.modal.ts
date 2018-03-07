@@ -5,6 +5,7 @@ import { InstructionalResourceService } from "./instructional-resource.service";
 import * as _ from "lodash";
 import { NavigationStart, Router } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
+import { filter } from 'rxjs/operators';
 
 /**
  * This modal component displays an instructional resource update form.
@@ -32,7 +33,9 @@ export class UpdateInstructionalResourceModal implements OnDestroy {
   constructor(private modal: BsModalRef,
               private resourceService: InstructionalResourceService,
               private router: Router) {
-    this._subscription = router.events.filter(e => e instanceof NavigationStart).subscribe(() => {
+    this._subscription = router.events.pipe(
+      filter(e => e instanceof NavigationStart)
+    ).subscribe(() => {
       this.cancel();
     });
   }
