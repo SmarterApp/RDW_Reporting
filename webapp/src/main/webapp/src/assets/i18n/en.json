@@ -41,7 +41,6 @@
     "processing": "Your report is being generated. This may take several minutes. ",
     "download-data": "Download Data",
     "display-report": "Display Report",
-    "reports-link": "My Reports",
     "error": {
       "unloadable": "The requested report cannot be loaded. Visit \"My Reports\" to see status.",
       "unsupported-size": "The requested report may be too large to view in the browser and may slow down or crash your browser if displayed. Would you like to download the report data as a spreadsheet instead?"
@@ -298,6 +297,10 @@
           "4": {
             "name": "Exceeded Standard",
             "short-name": "Exceeded"
+          },
+          "missing": {
+            "name": "-",
+            "short-name": "-"
           }
         }
       },
@@ -315,6 +318,10 @@
           "3": {
             "name": "Above Standard",
             "short-name": "Above Standard"
+          },
+          "missing": {
+            "name": "-",
+            "short-name": "-"
           }
         }
       },
@@ -336,6 +343,10 @@
           "4": {
             "name": "Exceeded Standard",
             "short-name": "Exceeded"
+          },
+          "missing": {
+            "name": "-",
+            "short-name": "-"
           }
         }
       }
@@ -660,24 +671,10 @@
   },
   "enum": {
     "achievement-level": {
-      "full": {
-        "1": "Did Not Meet Standard",
-        "2": "Nearly Met Standard",
-        "3": "Met Standard",
-        "4": "Exceeded Standard",
-        "missing": "-"
-      },
       "request-type": {
         "distractor-analysis": "DistractorAnalysis",
         "results-by-item": "ResultsByItems",
         "writing-trait-scores": "WritingTraitScores"
-      },
-      "short": {
-        "1": "Did Not Meet",
-        "2": "Nearly Met",
-        "3": "Met",
-        "4": "Exceeded",
-        "missing": "-"
       }
     },
     "administrative-condition": {
@@ -694,20 +691,6 @@
       "D": "Difficult",
       "E": "Easy",
       "M": "Moderate"
-    },
-    "iab-category": {
-      "full": {
-        "1": "Below Standard",
-        "2": "Near Standard",
-        "3": "Above Standard",
-        "missing": "-"
-      },
-      "short": {
-        "1": "Below Standard",
-        "2": "Near Standard",
-        "3": "Above Standard",
-        "missing": "-"
-      }
     },
     "off-grade": {
       "false": "Show",

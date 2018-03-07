@@ -42,14 +42,14 @@
       <div class="well">
         <div *ngFor="let performanceLevel of performanceLevels; let i = index" class="score-distribution-container">
           <div class="text-right gray-lighter grid-item">
-            {{ examLevelEnum + performanceLevel.id.toString() | translate }}
+            {{ examLevelTranslation(performanceLevel) }}
             <button *ngIf="assessmentExam.assessment.isIab"
                     class="btn btn-borderless btn-xs icon-only pull-right"
                     angulartics2On="click"
                     angularticsEvent="InstructionalResource"
                     angularticsCategory="AssessmentResults"
                     [popover]="buttonPopover"
-                    popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:((examLevelEnum + performanceLevel.id.toString()) | translate) } }}"
+                    popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:(examLevelTranslation(performanceLevel)) } }}"
                     container="body"
                     (click)="loadInstructionalResources(performanceLevel)"
                     [outsideClick]="true"><i

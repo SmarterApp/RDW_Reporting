@@ -190,7 +190,7 @@ export class CsvBuilder {
         let exam: Exam = getExam(item);
         if (!exam || !exam.level) return "";
 
-        return this.translateService.instant(`enum.achievement-level.full.${exam.level}`);
+        return this.translateService.instant(`common.assessment-type.ica.performance-level.${exam.level ? exam.level : 'missing'}.name`);
       }
     )
   }
@@ -215,7 +215,7 @@ export class CsvBuilder {
         let exam: Exam = getExam(item);
         if (!exam || !exam.level) return "";
 
-        return this.translateService.instant(`enum.iab-category.full.${exam.level}`);
+        return this.translateService.instant(`common.assessment-type.iab.performance-level.${exam.level ? exam.level : 'missing'}.name`);
       }
     )
   }
@@ -266,7 +266,7 @@ export class CsvBuilder {
           let exam: Exam = getExam(item);
           if (!exam || !exam.claimScores[ idx ].level) return "";
 
-          return this.translateService.instant(`enum.iab-category.full.${exam.claimScores[ idx ].level}`);
+          return this.translateService.instant(`common.assessment-type.iab.performance-level.${exam.claimScores[ idx ].level ? exam.claimScores[ idx ].level : 'missing'}.name`);
         }
       )
     });

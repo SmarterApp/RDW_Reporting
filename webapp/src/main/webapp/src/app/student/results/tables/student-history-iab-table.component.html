@@ -40,14 +40,14 @@
             content="{{'labels.groups.results.assessment.exams.cols.iab.performance-info' | translate}}"></span>
     </ng-template>
     <ng-template let-data="rowData" let-exam="rowData.exam" pTemplate="body">
-      {{ 'enum.iab-category.full.' + (exam.level ? exam.level.toString() : 'missing') | translate }}
+      {{ 'common.assessment-type.iab.performance-level.' + (exam.level ? exam.level.toString() : 'missing') + '.name' | translate }}
       <button class="btn btn-borderless btn-xs icon-only pull-right"
         angulartics2On="click"
         angularticsEvent="InstructionalResource"
         angularticsCategory="AssessmentResults"
         [disabled]="false"
         [popover]="buttonPopover"
-        popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:(('enum.iab-category.full.' + (exam.level ? exam.level.toString() : 'missing')) | translate) } }}"
+        popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:(('common.assessment-type.iab.performance-level.' + (exam.level ? exam.level.toString() : 'missing')) +'.name' | translate) } }}"
         container="body"
         (click)="loadInstructionalResources(data)"
         [outsideClick]="true"><i class="fa fa-book"></i></button>

@@ -65,7 +65,7 @@
             content="{{'labels.groups.results.assessment.exams.cols.ica.performance-info' | translate}}"></span>
     </ng-template>
     <ng-template let-data="rowData" let-exam="rowData.exam" pTemplate="body">
-      {{ 'enum.achievement-level.full.' + (exam.level ? exam.level.toString() : 'missing') | translate }}
+      {{ 'common.assessment-type.ica.performance-level.' + (exam.level ? exam.level.toString() : 'missing') + '.name' | translate }}
     </ng-template>
   </p-column>
   <p-column field="exam.score"
@@ -89,7 +89,7 @@
             sortable="true"
             [hidden]="displayState.table !== 'claim'">
     <ng-template let-exam="rowData.exam" pTemplate="body">
-      <span *ngIf="exam.claimScores[idx].level">{{ 'enum.iab-category.full.' + (exam.claimScores[idx] ? exam.claimScores[idx].level.toString() : 'missing') | translate }}</span>
+      <span *ngIf="exam.claimScores[idx].level">{{ 'common.assessment-type.iab.performance-level.' + (exam.claimScores[idx] ? exam.claimScores[idx].level.toString() : 'missing') + '.name' | translate }}</span>
       <span *ngIf="!exam.claimScores[idx].level">-</span>
     </ng-template>
   </p-column>

@@ -86,7 +86,7 @@
     </ng-template>
     <ng-template let-exam="rowData" pTemplate="body">
       <span class="pull-left">
-        {{ examLevelEnum + (exam.level ? exam.level : 'missing') | translate }}
+        {{ examLevelTranslation(exam) }}
       </span>
       <span class="pull-right" *ngIf="assessment.isIab">
         <button
@@ -95,7 +95,7 @@
           angularticsEvent="InstructionalResource"
           angularticsCategory="AssessmentResults"
           [popover]="buttonPopover"
-          popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:((examLevelEnum + (exam.level ? exam.level : 'missing')) | translate) } }}"
+          popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:(examLevelTranslation(exam)) } }}"
           container="body"
           (click)="loadInstructionalResources(exam)"
           [outsideClick]="true"><i class="fa fa-book"></i></button>
@@ -124,7 +124,7 @@
             sortable="true"
             [hidden]="!isClaimScoreSelected">
     <ng-template let-exam="rowData" pTemplate="body">
-      <span *ngIf="exam.claimScores[idx].level">{{ 'enum.iab-category.full.' + exam.claimScores[idx].level.toString() | translate }}</span>
+      <span *ngIf="exam.claimScores[idx].level">{{ 'common.assessment-type.iab.performance-level.' + exam.claimScores[idx].level.toString() + '.name' | translate }}</span>
       <span *ngIf="!exam.claimScores[idx].level">-</span>
     </ng-template>
   </p-column>
