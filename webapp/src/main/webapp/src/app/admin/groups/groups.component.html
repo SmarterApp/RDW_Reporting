@@ -26,7 +26,7 @@
     <div class="row">
       <!-- School Select -->
       <div class="col-md-6">
-        <label>{{'labels.admin-groups.select-school' | translate}}</label>
+        <label>{{'common.select.school' | translate}}</label>
         <p-dropdown id="select-school"
                     [options]="schoolDropdownOptions"
                     [(ngModel)]="query.school"
@@ -46,7 +46,7 @@
       </div>
       <!-- School Year Select -->
       <div class="col-md-2">
-        <label for="select-schoolyear">{{'labels.admin-groups.select-school-year' | translate}}</label>
+        <label for="select-schoolyear">{{'common.select.school-year' | translate}}</label>
         <select id="select-schoolyear" [(ngModel)]="query.schoolYear" class="form-control" (change)="updateRoute()">
           <option *ngFor="let schoolYear of filterOptions.schoolYears" [ngValue]="schoolYear">{{schoolYear | schoolYear
             }}
@@ -55,9 +55,9 @@
       </div>
       <!-- Subject Select -->
       <div class="col-md-2">
-        <label for="select-subject">{{'labels.admin-groups.select-subject' | translate}}</label>
+        <label for="select-subject">{{'common.select.subject' | translate}}</label>
         <select id="select-subject" [(ngModel)]="query.subject" class="form-control" (change)="updateRoute()">
-          <option *ngFor="let subject of filterOptions.subjects" [ngValue]="subject">{{'enum.subject.' + subject |
+          <option *ngFor="let subject of filterOptions.subjects" [ngValue]="subject">{{'common.subject.' + subject + '.short-name' |
             translate }}
           </option>
         </select>
@@ -84,7 +84,7 @@
         </p-column>
         <p-column field="subject" header="{{'labels.admin-groups.cols.subjects' | translate}}" [sortable]="true">
           <ng-template let-group="rowData" pTemplate="body">
-            {{ 'labels.admin-groups.subjects.' + (group.subject || 'ALL') | translate }}
+            {{ 'common.subject.' + (group.subject || 'ALL') + '.name' | translate }}
           </ng-template>
         </p-column>
         <p-column field="studentCount" header="{{'labels.admin-groups.cols.student-count' | translate}}"

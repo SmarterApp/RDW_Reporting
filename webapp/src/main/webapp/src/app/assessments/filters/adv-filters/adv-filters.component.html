@@ -96,7 +96,7 @@
                   title="{{ 'labels.filters.student.gender' | translate }}"
                   content="{{ 'labels.filters.student.gender-info' | translate }}"></span>
           </label>
-          <sb-radio-button-list [model]="filterBy" [values]="['Male','Female']" property="gender" enum="enum.gender"
+          <sb-radio-button-list [model]="filterBy" [values]="['Male','Female']" property="gender" enum="common.gender"
                                 label="{{ 'labels.filters.student.gender' | translate }}"
                                 analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
         </div>
@@ -168,7 +168,7 @@
                   title="{{ 'labels.filters.student.ethnicity' | translate }}"
                   content="{{ 'labels.filters.student.ethnicity-info' | translate }}"></span>
           </label>
-          <sb-checkbox-list [model]="filterBy" [values]="filterOptions.ethnicities" property="ethnicities" enum="enum.ethnicity"
+          <sb-checkbox-list [model]="filterBy" [values]="filterOptions.ethnicities" property="ethnicities" enum="common.ethnicity"
                             label="{{ 'labels.filters.student.ethnicity' | translate }}"
                             analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-checkbox-list>
         </div>

@@ -35,7 +35,7 @@
 
     <!-- School Select -->
     <div class="col-md-4">
-      <label for="school-search-name">{{'labels.school-grade.results.basic-filters.school' | translate}}</label>
+      <label for="school-search-name">{{'common.select.school' | translate}}</label>
       <sb-typeahead  inputId="school-search-name"
                      [options]="schoolOptions"
                      [value]="currentSchool"
@@ -45,7 +45,7 @@
 
     <!-- Current Grade -->
     <div class="col-md-2">
-      <label for="current-grade">{{'labels.school-grade.results.basic-filters.current-grade' | translate}}</label>
+      <label for="current-grade">{{'common.select.current-grade' | translate}}</label>
 
       <select *ngIf="gradesAreUnavailable" id="current-dsiabled-grade" class="form-control"
               [disabled]="true">
@@ -59,7 +59,7 @@
 
     <!-- School Year -->
     <div class="col-md-2">
-      <label for="school-year">{{'labels.school-grade.results.basic-filters.school-year' | translate}}</label>
+      <label for="school-year">{{'common.select.school-year' | translate}}</label>
       <select id="school-year" [disabled]="gradesAreUnavailable" [(ngModel)]="currentSchoolYear" (change)="updateRoute('Year')" class="form-control">
         <option *ngFor="let year of filterOptions.schoolYears" [ngValue]="year">{{year | schoolYear}}</option>
         <option *ngIf="gradesAreUnavailable" selected>{{'labels.school-grade.messages.no-results' | translate}}</option>

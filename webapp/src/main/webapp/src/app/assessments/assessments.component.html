@@ -133,7 +133,7 @@
   <ng-template #content>
     <ul class="list-unstyled list-inline">
       <li>
-        <label for="value-format">{{'labels.groups.results.value-as' | translate }}</label>
+        <label for="value-format">{{'common.value-display-type-input-label' | translate }}</label>
         <div id="value-format" class="btn-group btn-group-primary btn-group-xs ml-xs" role="group">
           <button type="radio"
                   (click)="showValuesAsPercent = true"
@@ -141,7 +141,7 @@
                   angulartics2On="click"
                   angularticsEvent="ShowAsPercent"
                   angularticsCategory="AssessmentResults"
-                  class="btn btn-default">{{'labels.groups.results.value-as-percent' | translate}}
+                  class="btn btn-default">{{'common.value-display-type.Percent' | translate}}
           </button>
           <button type="radio"
                   (click)="showValuesAsPercent = false"
@@ -149,7 +149,7 @@
                   angulartics2On="click"
                   angularticsEvent="ShowAsNumber"
                   angularticsCategory="AssessmentResults"
-                  class="btn btn-default">{{'labels.groups.results.value-as-number' | translate}}
+                  class="btn btn-default">{{'common.value-display-type.Number' | translate}}
           </button>
         </div>
       </li>

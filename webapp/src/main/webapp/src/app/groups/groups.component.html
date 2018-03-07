@@ -21,7 +21,7 @@
       <p-column field="schoolName" header="{{'labels.groups.cols.school' | translate}}" [sortable]="true"></p-column>
       <p-column field="subjectId" header="{{'labels.groups.cols.subject' | translate}}" [sortable]="true">
         <ng-template let-group="rowData" pTemplate="body">
-          {{ 'labels.groups.subjects.' + (group.subjectCode || 'ALL') | translate }}
+          {{ 'common.subject.' + (group.subjectCode || 'ALL') + '.name' | translate }}
         </ng-template>
       </p-column>
     </p-dataTable>

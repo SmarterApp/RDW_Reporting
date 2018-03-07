@@ -16,13 +16,13 @@ export class ExamFilterService {
     new ExamFilter('administration', this.root + 'status.administration', 'enum.administrative-condition', this.filterByAdministrativeCondition, x => x.isInterim),
     new ExamFilter('summativeStatus', this.root + 'status.summative', 'enum.administrative-condition', this.filterByAdministrativeCondition, x => x.isSummative),
     new ExamFilter('completion', 'common.completeness-form-control.label', 'common.completeness', this.filterByCompleteness),
-    new ExamFilter('gender', this.root + 'student.gender', 'enum.gender', this.filterByGender),
+    new ExamFilter('gender', this.root + 'student.gender', 'common.gender', this.filterByGender),
     new ExamFilter('migrantStatus', this.root + 'student.migrant-status', 'enum.polar', this.filterByMigrantStatus),
     new ExamFilter('plan504', this.root + 'student.504-plan', 'enum.polar', this.filterByplan504),
     new ExamFilter('iep', this.root + 'student.iep', 'enum.polar', this.filterByIep),
     new ExamFilter('economicDisadvantage', this.root + 'student.economic-disadvantage', 'enum.polar', this.filterByEconomicDisadvantage),
     new ExamFilter('limitedEnglishProficiency', this.root + 'student.limited-english-proficiency', 'enum.polar', this.filterByLimitedEnglishProficiency),
-    new ExamFilter('ethnicities', this.root + 'student.ethnicity', 'enum.ethnicity', this.filterByEthnicity)
+    new ExamFilter('ethnicities', this.root + 'student.ethnicity', 'common.ethnicity', this.filterByEthnicity)
   ];
 
   getFilterDefinitions(): ExamFilter[] {

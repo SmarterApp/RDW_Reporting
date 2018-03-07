@@ -277,7 +277,7 @@ export class CsvBuilder {
   withGender(getStudent: (item: any) => Student) {
     return this.withColumn(
       this.translateService.instant('labels.export.cols.gender'),
-      (item) => this.translateService.instant(`enum.gender.${getStudent(item).genderCode}`)
+      (item) => this.translateService.instant(`common.gender.${getStudent(item).genderCode}`)
     )
   }
 

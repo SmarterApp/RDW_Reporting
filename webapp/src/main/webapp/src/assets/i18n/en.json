@@ -354,11 +354,27 @@
       "Female": "Female",
       "Male": "Male"
     },
+    "select": {
+      "current-grade": "Assessment Grade",
+      "subject": "Subject",
+      "school": "School",
+      "school-year": "School Year"
+    },
     "subject": {
+      "ALL": {
+        "name": "Math, ELA",
+        "short-name": "All"
+      },
       "ELA": {
+        "name": "ELA",
         "short-name": "ELA"
       },
       "Math": {
+        "name": "Math",
+        "short-name": "Math"
+      },
+      "MATH": {
+        "name": "Math",
         "short-name": "Math"
       }
     },
@@ -619,20 +635,6 @@
       "E": "Easy",
       "M": "Moderate"
     },
-    "ethnicity": {
-      "AmericanIndianOrAlaskaNative": "American Indian or Alaska Native",
-      "Asian": "Asian",
-      "BlackOrAfricanAmerican": "Black or African American",
-      "DemographicRaceTwoOrMoreRaces": "Demographic Race of Two or More",
-      "Filipino": "Filipino",
-      "HispanicOrLatinoEthnicity": "Hispanic/Latino",
-      "NativeHawaiianOrOtherPacificIslander": "Native Hawaiian or Pacific Islander",
-      "White": "White"
-    },
-    "gender": {
-      "Female": "Female",
-      "Male": "Male"
-    },
     "iab-category": {
       "full": {
         "1": "Below Standard",
@@ -670,12 +672,6 @@
       "UNAUTHORIZED": "Unauthorized",
       "UNKNOWN_ASMT": "Unknown Assessment",
       "UNKNOWN_SCHOOL": "Unknown School"
-    },
-    "subject": {
-      "ALL": "All",
-      "ELA": "ELA",
-      "MATH": "Math",
-      "Math": "Math"
     },
     "subject-claim-code": {
       "1": "Concepts & Procedures",
@@ -752,14 +748,6 @@
       "no-results": "No groups found matching the given filter criteria.",
       "no-schools": "Your user account does not have access to view the groups of any schools.",
       "search-school": "Start typing a school name...",
-      "select-school": "School",
-      "select-school-year": "School Year",
-      "select-subject": "Subject",
-      "subjects": {
-        "ALL": "Math, ELA",
-        "ELA": "ELA",
-        "Math": "Math"
-      },
       "title": "Manage Student Groups"
     },
     "assessments": {
@@ -1149,17 +1137,9 @@
         "selected-assessments-instruct": "Click an assessment to remove it from the list",
         "selected-assessments-title": "Selected Assessments",
         "session-unknown": "[Unknown]",
-        "title": "Results",
-        "value-as": "Show value as",
-        "value-as-number": "Number",
-        "value-as-percent": "Percent"
+        "title": "Results"
       },
-      "search-label": "Search by My Groups",
-      "subjects": {
-        "ALL": "Math, ELA",
-        "ELA": "ELA",
-        "Math": "Math"
-      }
+      "search-label": "Search by My Groups"
     },
     "homepage": {
       "title": "Access Assessment Results",
@@ -1344,8 +1324,6 @@
         },
         "order": "Sort Order",
         "report-name": "Report Name",
-        "school-year": "School Year",
-        "subject": "Subject",
         "submit": "Create",
         "title": {
           "multiple": "Create {{name}} Student Reports",
@@ -1409,25 +1387,16 @@
         "no-grades-available": "No test results are available for the selected school.",
         "null-school": "This school is unavailable.  Contact your building administrator if you think you should have access to this school."
       },
-      "results": {
-        "basic-filters": {
-          "current-grade": "Assessment Grade",
-          "school": "School",
-          "school-year": "School Year"
-        }
-      },
       "school-name": {
         "label": "Search by School Name"
       }
     },
-    "select-year": "School Year",
     "student": {
       "messages": {
         "no-results": "Student does not exist or has no available test results.",
         "null-student": "This student is unavailable.  Contact your building administrator if you think you should have access to this student.",
         "empty-filtered-results": "No test results are available for the filters selected."
       },
-      "name": "{{lastName}}, {{firstName}}",
       "prompt": "Enter the Statewide Student Identifier (SSID)",
       "responses": {
         "cols": {
@@ -1449,9 +1418,6 @@
           "school-year": "School Year"
         },
         "crumb": "Student: {{lastName}}, {{firstName}}",
-        "labels": {
-          "select-subject": "Subject"
-        },
         "title": "Student Test History Report"
       },
       "title": "Search by Student ID"
