@@ -153,13 +153,15 @@ subprojects {
             label([maintainer: 'Fairway Technologies'])
             copyFile("${jar.archivePath.name}", "${jar.archivePath.name}")
             exposePort(8008, 8080)
+            runCommand("apk add --no-cache tini")
+            entryPoint("/sbin/tini", "--")
             ext.java_opts = ["-Xmx384m"]
-            entryPoint {
-                List<String> entryPointArgs = ["java"]
-                entryPointArgs.addAll(ext.java_opts)
-                entryPointArgs.add("-jar")
-                entryPointArgs.add("${jar.archivePath.name}")
-                entryPointArgs.toArray()
+            defaultCommand {
+                List<String> commandArgs = ["java"]
+                commandArgs.addAll(ext.java_opts)
+                commandArgs.add("-jar")
+                commandArgs.add("${jar.archivePath.name}")
+                commandArgs.toArray()
             }
         }
 
