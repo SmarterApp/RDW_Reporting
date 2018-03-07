@@ -25,7 +25,7 @@ export class GradeDisplayPipe implements PipeTransform {
    * @returns transformed grade
    */
   transform(gradeCode: string, format: string = 'short-name'): Observable<string> {
-    return this.translate.instant(`labels.grades.${gradeCode}.${format}`);
+    return this.translate.instant(`common.grade.${gradeCode}.${format}`);
   }
 
 }

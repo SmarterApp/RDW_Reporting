@@ -36,7 +36,7 @@ export class SchoolGradeDownloadComponent extends ReportDownloadComponent {
   }
 
   generateName(): string {
-    const gradeLabel: string = this.translate.instant(`labels.grades.${this.grade.code}.short-name`);
+    const gradeLabel: string = this.translate.instant(`common.grade.${this.grade.code}.short-name`);
     return `${this.school.name} ${gradeLabel}`;
   }
 
