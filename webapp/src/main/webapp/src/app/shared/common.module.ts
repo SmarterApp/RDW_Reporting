@@ -7,7 +7,6 @@ import { SBRadioButtonComponent } from "./sb-radio-button-list.component";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { SBCheckboxList } from "./sb-checkbox-list.component";
-import { GradeDisplayPipe } from "./grade-display.pipe";
 import { AssessmentTypePipe } from "./assessment-type.pipe";
 import { ColorService } from "./color.service";
 import { Angulartics2Module } from "angulartics2";
@@ -47,7 +46,6 @@ import { CommonEmbargoModule } from "./embargo/embargo.module";
 @NgModule({
   declarations: [
     AssessmentTypePipe,
-    GradeDisplayPipe,
     InformationButtonComponent,
     OptionalPipe,
     OrderSelectorComponent,
@@ -92,7 +90,6 @@ import { CommonEmbargoModule } from "./embargo/embargo.module";
   exports: [
     AssessmentTypePipe,
     CommonEmbargoModule,
-    GradeDisplayPipe,
     InformationButtonComponent,
     OptionalPipe,
     OrderSelectorComponent,

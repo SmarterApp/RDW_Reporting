@@ -26,7 +26,7 @@
     <div class="row">
       <!-- School Select -->
       <div class="col-md-6">
-        <label>{{'common.select.school' | translate}}</label>
+        <label>{{'common.school-typeahead-label' | translate}}</label>
         <p-dropdown id="select-school"
                     [options]="schoolDropdownOptions"
                     [(ngModel)]="query.school"
@@ -46,7 +46,7 @@
       </div>
       <!-- School Year Select -->
       <div class="col-md-2">
-        <label for="select-schoolyear">{{'common.select.school-year' | translate}}</label>
+        <label for="select-schoolyear">{{'common.school-year-typeahead-label' | translate}}</label>
         <select id="select-schoolyear" [(ngModel)]="query.schoolYear" class="form-control" (change)="updateRoute()">
           <option *ngFor="let schoolYear of filterOptions.schoolYears" [ngValue]="schoolYear">{{schoolYear | schoolYear
             }}
@@ -55,7 +55,7 @@
       </div>
       <!-- Subject Select -->
       <div class="col-md-2">
-        <label for="select-subject">{{'common.select.subject' | translate}}</label>
+        <label for="select-subject">{{'common.subject-typeahead-label' | translate}}</label>
         <select id="select-subject" [(ngModel)]="query.subject" class="form-control" (change)="updateRoute()">
           <option *ngFor="let subject of filterOptions.subjects" [ngValue]="subject">{{'common.subject.' + subject + '.short-name' |
             translate }}

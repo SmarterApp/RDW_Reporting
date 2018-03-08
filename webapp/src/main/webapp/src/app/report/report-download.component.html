@@ -96,7 +96,7 @@
           <div class="col-md-6">
 
             <div class="form-group">
-              <label for="school-year-select">{{'common.select.school-year' | translate}}</label>
+              <label for="school-year-select">{{'common.school-year-typeahead-label' | translate}}</label>
               <div *ngIf="lockSchoolYear && options.schoolYear">
                 <span>{{options.schoolYear | schoolYear}}</span>
               </div>
@@ -110,7 +110,7 @@
             </div>
 
             <div class="form-group">
-              <label for="subject-select">{{'common.select.subject' | translate}}</label>
+              <label for="subject-select">{{'common.subject-typeahead-label' | translate}}</label>
               <div *ngIf="lockSubject && options.subject">
                 <span>{{'common.subject.' + options.subject + '.short-name' | translate}}</span>
               </div>

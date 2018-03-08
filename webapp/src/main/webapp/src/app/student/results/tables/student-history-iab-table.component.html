@@ -21,7 +21,7 @@
   <p-column field="exam.enrolledGrade" header="{{'labels.student.results.cols.enrolled-grade' | translate}}"
             sortable="true">
     <ng-template let-exam="rowData.exam" pTemplate="body">
-      {{ exam.enrolledGrade | gradeDisplay:'enrolled-name' }}
+      {{ 'common.grade.' +  exam.enrolledGrade + '.enrolled-name' | translate}}
     </ng-template>
   </p-column>
   <p-column field="exam.administrativeCondition" sortable="true">
@@ -30,8 +30,8 @@
             content="{{'labels.groups.results.assessment.exams.cols.status-info' | translate}}"></span>
     </ng-template>
     <ng-template let-exam="rowData.exam" pTemplate="body">
-      <span class="label border-only maroon">{{ 'enum.administrative-condition.' + exam.administrativeCondition | translate }}</span>
-      <span *ngIf="exam.completeness == 'Partial'" class="label border-only maroon">{{ 'enum.completeness.Partial' | translate }}</span>
+      <span class="label border-only maroon">{{ 'common.administration-condition.' + exam.administrativeCondition | translate }}</span>
+      <span *ngIf="exam.completeness == 'Partial'" class="label border-only maroon">{{ 'common.completeness.Partial' | translate }}</span>
     </ng-template>
   </p-column>
   <p-column field="exam.level" sortable="true">

@@ -7,7 +7,6 @@ import { DataTableModule } from "primeng/components/datatable/datatable";
 import { InformationButtonComponent } from "../../../shared/button/information-button.component";
 import { MockRouter } from "../../../../test/mock.router";
 import { ActivatedRoute, Router } from "@angular/router";
-import { GradeDisplayPipe } from "../../../shared/grade-display.pipe";
 import { PopoverModule } from "ngx-bootstrap";
 import { InstructionalResourcesService } from "../../../assessments/results/instructional-resources.service";
 import { MockDataService } from "../../../../test/mock.data.service";
@@ -39,7 +38,6 @@ describe('StudentHistoryIABTableComponent', () => {
         TranslateModule.forRoot()
       ],
       declarations: [
-        GradeDisplayPipe,
         InformationButtonComponent,
         StudentHistoryIABTableComponent,
         InstructionalResourcePopoverComponent,

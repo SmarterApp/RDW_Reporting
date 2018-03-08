@@ -79,7 +79,7 @@
              angularticsCategory="AssessmentResults"
              [angularticsProperties]="{label: assessment.label}"
              class="tag tag-xs {{ colorService.getColor(getGradeIdx(assessment.grade)) }}">
-            <span class="label">{{assessment.grade | gradeDisplay}}</span>
+            <span class="label">{{'common.grade.' + assessment.grade + '.short-name' | translate}}</span>
             {{assessment.label}}
             <span class="icon" [hidden]="showOnlyMostRecent"><i class="fa fa-close"></i></span>
           </a>

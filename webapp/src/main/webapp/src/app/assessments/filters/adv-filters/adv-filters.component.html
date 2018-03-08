@@ -50,7 +50,7 @@
                 title="{{ 'labels.filters.status.administration' | translate }}"
                 content="{{ 'labels.filters.status.administration-info' | translate }}"></span>
         </label>
-        <sb-radio-button-list [model]="filterBy" [values]="['SD','NS']" property="administration" enum="enum.administrative-condition"
+        <sb-radio-button-list [model]="filterBy" [values]="['SD','NS']" property="administration" enum="common.administration-condition"
                               label="{{ 'labels.filters.status.label' | translate }}" [disabled]="!filterOptions.hasInterim"
                               analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
       </div>
@@ -61,7 +61,7 @@
                 title="{{ 'labels.filters.status.summative' | translate }}"
                 content="{{ 'labels.filters.status.summative-info' | translate }}"></span>
         </label>
-        <sb-radio-button-list [model]="filterBy" [values]="['Valid','IN']" property="summativeStatus" enum="enum.administrative-condition"
+        <sb-radio-button-list [model]="filterBy" [values]="['Valid','IN']" property="summativeStatus" enum="common.administration-condition"
                               label="{{ 'labels.filters.status.summative' | translate }}"
                               analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
       </div>

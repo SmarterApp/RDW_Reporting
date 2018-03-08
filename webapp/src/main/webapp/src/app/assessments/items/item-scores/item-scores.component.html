@@ -13,7 +13,7 @@
   <p-column field="session" header="{{'labels.groups.results.assessment.exams.cols.session' | translate}}" [sortable]="true"></p-column>
   <p-column field="enrolledGrade" header="{{'labels.groups.results.assessment.exams.cols.grade' | translate}}" [sortable]="true">
     <ng-template let-score="rowData" pTemplate="body">
-      {{ score.enrolledGrade | gradeDisplay:'enrolled-name' }}
+      {{ 'common.grade.' + score.enrolledGrade + '.enrolled-name' | translate }}
     </ng-template>
   </p-column>
   <p-column field="school.name" header="{{'labels.groups.results.assessment.exams.cols.school' | translate }}" [sortable]="true"></p-column>

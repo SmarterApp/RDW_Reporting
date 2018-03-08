@@ -10,7 +10,7 @@
   <div class="flex-children">
     <div class="flex-child grow">
       <span class="tag tag-lg {{colorService.getColor(getGradeIdx(assessmentExam.assessment.grade))}}">
-        <span class="label">{{assessmentExam.assessment.grade | gradeDisplay}}</span>
+        <span class="label">{{'common.grade.' + assessmentExam.assessment.grade + '.short-name' | translate}}</span>
         {{assessmentExam.assessment.label}}
       </span>
     </div>

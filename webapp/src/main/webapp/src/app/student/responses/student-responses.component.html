@@ -18,7 +18,7 @@
 <div *ngIf="student && assessment" class="well">
   <div class="mb-md">
     <span class="tag tag-md {{colorService.getColor(getGradeIndex(assessment.grade))}}">
-      <span class="label">{{assessment.grade | gradeDisplay}}</span>
+      <span class="label">{{'common.grade.' + assessment.grade + '.short-name' | translate }}</span>
           <span>{{assessment.label}}</span>
     </span>
     <span class="pull-right pt-sm">

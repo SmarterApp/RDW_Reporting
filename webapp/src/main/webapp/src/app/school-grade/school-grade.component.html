@@ -13,7 +13,7 @@
       <label for="grade-select">{{'labels.grade' | translate}}</label>
       <select id="rdw-school-grade-select-grade" name="grade" formControlName="grade" id="grade-select" class="form-control">
         <option disabled [ngValue]="undefined">{{'prompt.select' | translate}}</option>
-        <option *ngFor="let grade of gradeOptions" [ngValue]="grade">{{grade.code | gradeDisplay:'long-name'}}</option>
+        <option *ngFor="let grade of gradeOptions" [ngValue]="grade">{{'common.grade.' + grade.code + '.long-name' | translate}}</option>
       </select>
     </div>
     <div class="flex-child">

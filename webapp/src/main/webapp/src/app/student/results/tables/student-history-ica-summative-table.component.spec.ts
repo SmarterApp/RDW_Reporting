@@ -10,7 +10,6 @@ import { Assessment } from "../../../assessments/model/assessment.model";
 import { InformationButtonComponent } from "../../../shared/button/information-button.component";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MockRouter } from "../../../../test/mock.router";
-import { GradeDisplayPipe } from "../../../shared/grade-display.pipe";
 import { PopoverModule } from "ngx-bootstrap";
 import { InstructionalResourcesService } from "../../../assessments/results/instructional-resources.service";
 import { MockDataService } from "../../../../test/mock.data.service";
@@ -39,7 +38,6 @@ describe('StudentHistoryICASummativeTableComponent', () => {
         TranslateModule.forRoot()
       ],
       declarations: [
-        GradeDisplayPipe,
         InformationButtonComponent,
         InstructionalResourcePopoverComponent,
         StudentHistoryICASummativeTableComponent,

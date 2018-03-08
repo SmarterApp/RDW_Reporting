@@ -174,9 +174,9 @@ export class CsvBuilder {
       (item) => {
         let exam: Exam = getExam(item);
         let adminCondition: string = exam.administrativeCondition;
-        let status: string = this.translateService.instant(`enum.administrative-condition.${adminCondition}`);
+        let status: string = this.translateService.instant(`common.administration-condition.${adminCondition}`);
         if (exam.completeness === 'Partial') {
-          status += " " + this.translateService.instant('enum.completeness.Partial');
+          status += " " + this.translateService.instant('common.completeness.Partial');
         }
         return status;
       }

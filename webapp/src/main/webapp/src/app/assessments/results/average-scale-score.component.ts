@@ -83,9 +83,9 @@ export class AverageScaleScoreComponent {
   }
 
   examLevelTranslation(performanceLevel: ExamStatisticsLevel): string {
-    return this.assessmentExam.assessment.isIab ?
-      this.translate.instant(`common.assessment-type.iab.performance-level.${performanceLevel.id ? performanceLevel.id : 'missing'}.short-name`) :
-      this.translate.instant(`common.assessment-type.ica.performance-level.${performanceLevel.id ? performanceLevel.id : 'missing'}.short-name`);
+    return this.assessmentExam.assessment.isIab
+      ? this.translate.instant(`common.assessment-type.iab.performance-level.${performanceLevel.id ? performanceLevel.id : 'missing'}.short-name`)
+      : this.translate.instant(`common.assessment-type.ica.performance-level.${performanceLevel.id ? performanceLevel.id : 'missing'}.short-name`);
   }
 
   private levelCountPercent(levelCount: number): number {

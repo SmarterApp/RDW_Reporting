@@ -40,7 +40,7 @@
 
   <!-- School Year -->
   <div class="col-md-3">
-    <label for="school-year">{{'common.select.school-year' | translate}}</label>
+    <label for="school-year">{{'common.school-year-typeahead-label' | translate}}</label>
     <select id="school-year" [(ngModel)]="currentSchoolYear" (change)="updateRoute('Year')"
             class="form-control">
       <option *ngFor="let year of filterOptions.schoolYears" [ngValue]="year">{{year | schoolYear}}</option>

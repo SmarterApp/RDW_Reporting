@@ -93,9 +93,9 @@ export class ResultsByStudentComponent implements OnInit {
   }
 
   examLevelTranslation(exam: Exam): string {
-    return this.assessment.isIab ?
-      this.translate.instant(`common.assessment-type.iab.performance-level.${exam.level ? exam.level : 'missing'}.name`) :
-      this.translate.instant(`common.assessment-type.ica.performance-level.${exam.level ? exam.level : 'missing'}.name`);
+    return this.assessment.isIab
+      ? this.translate.instant(`common.assessment-type.iab.performance-level.${exam.level ? exam.level : 'missing'}.name`)
+      : this.translate.instant(`common.assessment-type.ica.performance-level.${exam.level ? exam.level : 'missing'}.name`);
   }
 
   private createActions(): PopupMenuAction[] {

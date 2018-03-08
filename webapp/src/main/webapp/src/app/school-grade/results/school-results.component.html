@@ -8,7 +8,7 @@
 
   <page-heading>
     <ng-template #heading>
-      <h2>{{currentSchool.name}}<span *ngIf="currentGrade"> - {{currentGrade.code | gradeDisplay:'long-name'}}</span></h2>
+      <h2>{{currentSchool.name}}<span *ngIf="currentGrade"> - {{'common.grade.' + currentGrade.code + '.long-name' | translate}}</span></h2>
     </ng-template>
     <ng-template #content>
       <ul class="list-unstyled list-inline">
@@ -35,7 +35,7 @@
 
     <!-- School Select -->
     <div class="col-md-4">
-      <label for="school-search-name">{{'common.select.school' | translate}}</label>
+      <label for="school-search-name">{{'common.school-typeahead-label' | translate}}</label>
       <sb-typeahead  inputId="school-search-name"
                      [options]="schoolOptions"
                      [value]="currentSchool"
@@ -45,7 +45,7 @@
 
     <!-- Current Grade -->
     <div class="col-md-2">
-      <label for="current-grade">{{'common.select.current-grade' | translate}}</label>
+      <label for="current-grade">{{'common.current-grade-typeahead-label' | translate}}</label>
 
       <select *ngIf="gradesAreUnavailable" id="current-dsiabled-grade" class="form-control"
               [disabled]="true">
@@ -53,13 +53,13 @@
       </select>
       <select *ngIf="!gradesAreUnavailable" id="current-grade" class="form-control"
               [(ngModel)]="currentGrade" (change)="updateRoute('Grade')">
-        <option *ngFor="let grade of availableGrades" [ngValue]="grade">{{grade.code | gradeDisplay:'long-name' }}</option>
+        <option *ngFor="let grade of availableGrades" [ngValue]="grade">{{'common.grade.' + grade.code + '.long-name' | translate }}</option>
       </select>
     </div>
 
     <!-- School Year -->
     <div class="col-md-2">
-      <label for="school-year">{{'common.select.school-year' | translate}}</label>
+      <label for="school-year">{{'common.school-year-typeahead-label' | translate}}</label>
       <select id="school-year" [disabled]="gradesAreUnavailable" [(ngModel)]="currentSchoolYear" (change)="updateRoute('Year')" class="form-control">
         <option *ngFor="let year of filterOptions.schoolYears" [ngValue]="year">{{year | schoolYear}}</option>
         <option *ngIf="gradesAreUnavailable" selected>{{'labels.school-grade.messages.no-results' | translate}}</option>
