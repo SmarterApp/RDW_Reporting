@@ -78,9 +78,14 @@
             <!-- Typeahead -->
             <div *ngIf="!hasDefaultSchoolOrganization">
               <label>{{'aggregate-reports.form.field.organization.label' | translate}}</label>
+              <span [hidden]="!organizationTypeahead.loading"><i class="fa fa-spinner fa-pulse"></i></span>
               <organization-typeahead #organizationTypeahead
                                       [options]="organizationTypeaheadOptions"
                                       (selected)="onOrganizationTypeaheadSelect($event)"></organization-typeahead>
+              <div>
+                <br [hidden]="organizationTypeahead.noResults">
+                <span [hidden]="!organizationTypeahead.noResults" class="small gray-darker">{{'organization-typeahead.no-matches' | translate}}</span>
+              </div>
               <div class="form-group">
                 <input type="hidden"
                        [(ngModel)]="organizations"

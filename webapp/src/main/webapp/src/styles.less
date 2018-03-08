@@ -914,3 +914,12 @@ distractor-analysis .ui-widget.ui-datatable table .ui-datatable-data td.green {
   color: contrast(@green, darken(@green, 100%), lighten(@green, 100%));
   background-color: @green;
 }
+
+// Bootstrap fix
+.form-control {
+  &.btn-primary {
+    color: @btn-primary-color;
+    background-color: @btn-primary-bg;
+    border-color: @btn-primary-border;
+  }
+}

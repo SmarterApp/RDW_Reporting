@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { User } from "./model/user.model";
-import { School } from "./model/school.model";
 import { Group } from "./model/group.model";
 import { ordering } from "@kourge/ordering";
 import { byString } from "@kourge/ordering/comparator";
@@ -15,32 +14,8 @@ export class UserMapper {
     uiModel.firstName = apiModel.firstName;
     uiModel.lastName = apiModel.lastName;
     uiModel.permissions = apiModel.permissions.concat();
-    uiModel.schools = this.mapSchoolsFromApi(apiModel.schools);
     uiModel.groups = this.mapGroupsFromApi(apiModel.groups);
     uiModel.configuration = this.mapConfigurationFromApi(apiModel.settings);
-    return uiModel;
-  }
-
-  private mapSchoolsFromApi(schools: any[]): School[] {
-    return Utils.isNullOrUndefined(schools)
-      ? []
-      : schools
-        .filter(school => this.isSchoolValid(school))
-        .map(school => this.mapSchoolFromApi(school))
-        .sort(ordering(byString).on<School>(school => school.name).compare); // TODO component logic
-  }
-
-  private isSchoolValid(school: any) {
-    return !Utils.isNullOrUndefined(school)
-      && !Utils.isNullOrUndefined(school.id)
-      && !Utils.isNullOrUndefined(school.name);
-  }
-
-  private mapSchoolFromApi(apiModel: any): School {
-    let uiModel: School = new School();
-    uiModel.id = apiModel.id;
-    uiModel.name = apiModel.name;
-    uiModel.districtId = apiModel.districtId;
     return uiModel;
   }
 

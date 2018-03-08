@@ -47,7 +47,6 @@ describe('SchoolResultsComponent', () => {
     school.districtName = 'Test District';
 
     const user = new User();
-    user.schools = [ school ];
 
     const mockRouteSnapshot: any = {};
     mockRouteSnapshot.data = { user: user };
@@ -88,7 +87,7 @@ describe('SchoolResultsComponent', () => {
         { provide: DataService, useClass: MockDataService },
         { provide: ExamFilterOptionsService, useClass: MockExamFilterOptionService },
         { provide: SchoolService, useClass: MockSchoolService },
-        { provide: OrganizationService, useValue: new MockOrganizationService(user.schools)},
+        { provide: OrganizationService, useValue: new MockOrganizationService([ school ])},
         { provide: ActivatedRoute, useValue: route },
         { provide: Angulartics2, useValue: mockAngulartics2 },
         { provide: CsvExportService, useValue: exportService },

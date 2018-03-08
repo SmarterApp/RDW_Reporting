@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { UserOrganizations } from "./user-organizations";
 import { OrganizationMapper } from "./organization.mapper";
-import { UserService } from "../../user/user.service";
 import { CachingDataService } from "../../shared/data/caching-data.service";
 import { map } from 'rxjs/operators';
 import { forkJoin } from 'rxjs/observable/forkJoin';
@@ -13,7 +12,6 @@ const ServiceRoute = '/reporting-service';
 export class OrganizationService {
 
   constructor(private dataService: CachingDataService,
-              private userService: UserService,
               private mapper: OrganizationMapper) {
   }
 
@@ -24,14 +22,19 @@ export class OrganizationService {
    */
   getUserOrganizations(): Observable<UserOrganizations> {
     return forkJoin(
-      this.userService.getCurrentUser(),
+      this.getSchools(),
       this.getSchoolGroups(),
       this.getDistricts()
     ).pipe(
-      map(([ user, schoolGroups, districts ]) => {
-        return this.mapper.createUserOrganizations(user.schools, schoolGroups, districts);
+      map(([ schools, schoolGroups, districts ]) => {
+        return this.mapper.createUserOrganizations(schools, schoolGroups, districts);
       })
     );
+  }
+
+  private getSchools(): Observable<any[]> {
+    // TODO cache - this is widely used
+    return this.dataService.get(`${ServiceRoute}/organizations/schools`);
   }
 
   private getSchoolGroups(): Observable<any[]> {

@@ -8,24 +8,20 @@ import { TypeaheadMatch } from "ngx-bootstrap";
   selector: 'organization-typeahead',
   template: `
     <input class="form-control"
-           id="organization-name"
-           name="organization-name"
+           id="{{name}}"
+           name="{{name}}"
+           [(ngModel)]="value"
            [disabled]="disabled"
            [typeahead]="options"
-           (typeaheadLoading)="loadingInternal = $event"
-           (typeaheadNoResults)="noResultsInternal = $event"
+           [typeaheadItemTemplate]="organizationTemplate"
+           (typeaheadLoading)="loading = $event"
+           (typeaheadNoResults)="noResults = $event"
            (typeaheadOnSelect)="onTypeaheadSelectInternal($event)"
            [typeaheadMinLength]="3"
-           typeaheadWaitMs="300"
-           [(ngModel)]="value"
-           [typeaheadItemTemplate]="organizationTemplate"
            typeaheadOptionField="name"
+           typeaheadWaitMs="300"
            placeholder="{{'organization-typeahead.placeholder' | translate}}">
-    <div>
-      <br [hidden]="loadingInternal || noResultsInternal">
-      <span [hidden]="!noResultsInternal" class="small gray-darker">{{'organization-typeahead.no-matches' | translate}}</span>
-      <span [hidden]="!loadingInternal"><i class="fa fa-spinner fa-pulse"></i></span>
-    </div>
+    
     <ng-template #organizationTemplate let-organization="item" let-index="index" let-query="query">
       <p class="mb-0">{{organization.name}}</p>
       <p class="h6"><span class="label label-default">{{'organization-typeahead.type-label' | translate}}</span> {{ ('common.organization.type.' + organization.type) | translate }}</p>
@@ -40,8 +36,8 @@ export class OrganizationTypeahead extends AbstractControlValueAccessor<string> 
   @Output()
   selected: EventEmitter<Organization> = new EventEmitter<Organization>();
 
-  loadingInternal: boolean = false;
-  noResultsInternal: boolean = false;
+  loading: boolean = false;
+  noResults: boolean = false;
 
   get value(): string {
     return this._value;
