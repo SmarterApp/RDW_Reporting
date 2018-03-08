@@ -5,7 +5,7 @@
   <div class="panel-grid">
     <div *ngFor="let byGrade of assessmentsByGrade" class="panel {{colorService.getColor(getGradeIdx(byGrade.grade))}}">
       <div class="panel-heading">
-        <span class="panel-title">{{'common.grade.' + byGrade.grade + '.long-name' | translate}}</span>
+        <span class="panel-title">{{'common.assessment-grade-label.' + byGrade.grade | translate}}</span>
       </div>
       <div class="panel-body">
         <div class="tag-menu">

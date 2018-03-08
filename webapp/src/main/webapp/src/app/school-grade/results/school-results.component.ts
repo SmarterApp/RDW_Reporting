@@ -199,7 +199,7 @@ export class SchoolResultsComponent implements OnInit {
 
   exportCsv(): void {
     let filename: string = this._currentSchool.name +
-      "-" + this.translate.instant(`common.grade.${this._currentGrade.code}.short-name`) +
+      "-" + this.translate.instant(`common.assessment-grade-short-label.${this._currentGrade.code}`) +
       "-" + new Date().toDateString();
 
     this.angulartics2.eventTrack.next({
@@ -241,7 +241,7 @@ export class SchoolResultsComponent implements OnInit {
    */
   initializeDownloader(downloader: SchoolGradeDownloadComponent): void {
     downloader.title = this.translate.instant('labels.reports.form.title.multiple', {
-      name: this._currentSchool.name + ' ' + this.translate.instant(`common.grade.${this._currentGrade.code}.short-name`)
+      name: this._currentSchool.name + ' ' + this.translate.instant(`common.assessment-grade-short-label.${this._currentGrade.code}`)
     });
     downloader.options.schoolYear = this.currentSchoolYear;
   }

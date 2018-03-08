@@ -35,7 +35,7 @@ export class AggregateReportOptionsMapper {
     return <AggregateReportFormOptions>{
       assessmentGrades: options.assessmentGrades
         .map(optionMapper(
-          value => translate(`common.grade.${value}.form-name`),
+          value => translate(`common.assessment-grade.${value}`),
           value => `Assessment Grade: ${value}`
         )),
       assessmentTypes: options.assessmentTypes

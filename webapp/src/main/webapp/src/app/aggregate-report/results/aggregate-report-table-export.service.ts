@@ -66,7 +66,7 @@ export class AggregateReportTableExportService {
       return builder
         .withColumn(
           this.translateService.instant('aggregate-reports.results.cols.assessment-grade'),
-          (item: AggregateReportItem) => this.translateService.instant(`common.grade.${item.assessmentGradeCode}.form-name`)
+          (item: AggregateReportItem) => this.translateService.instant(`common.assessment-grade.${item.assessmentGradeCode}`)
         );
     }
 

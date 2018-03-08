@@ -122,7 +122,7 @@ export class AggregateReportSummary {
       },
       {
         label: translate('aggregate-reports.form.field.assessment-grades.label'),
-        values: inline(orAll(options.assessmentGrades, settings.assessmentGrades, code => translate(`common.grade.${code}.form-name`)))
+        values: inline(orAll(options.assessmentGrades, settings.assessmentGrades, code => translate(`common.assessment-grade.${code}`)))
       },
       {
         label: translate('aggregate-reports.form.field.school-year.label'),

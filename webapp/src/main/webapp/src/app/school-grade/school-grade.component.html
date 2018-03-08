@@ -28,7 +28,7 @@
             <option disabled
                     [ngValue]="undefined">{{'prompt.select' | translate}}</option>
             <option *ngFor="let grade of gradeOptions"
-                    [ngValue]="grade">{{'common.grade.' + grade.code + '.long-name' | translate}}</option>
+                    [ngValue]="grade">{{'common.assessment-grade-label.' + grade.code | translate}}</option>
           </select>
         </div>
       </div>

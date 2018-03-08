@@ -8,7 +8,7 @@
 
   <page-heading>
     <ng-template #heading>
-      <h2>{{currentSchool.name}}<span *ngIf="currentGrade"> - {{'common.grade.' + currentGrade.code + '.long-name' | translate}}</span></h2>
+      <h2>{{currentSchool.name}}<span *ngIf="currentGrade"> - {{'common.assessment-grade-label.' + currentGrade.code | translate}}</span></h2>
     </ng-template>
     <ng-template #content>
       <ul class="list-unstyled list-inline">
@@ -53,7 +53,7 @@
       </select>
       <select *ngIf="!gradesAreUnavailable" id="current-grade" class="form-control"
               [(ngModel)]="currentGrade" (change)="updateRoute('Grade')">
-        <option *ngFor="let grade of availableGrades" [ngValue]="grade">{{'common.grade.' + grade.code + '.long-name' | translate }}</option>
+        <option *ngFor="let grade of availableGrades" [ngValue]="grade">{{'common.assessment-grade-label.' + grade.code | translate }}</option>
       </select>
     </div>
 

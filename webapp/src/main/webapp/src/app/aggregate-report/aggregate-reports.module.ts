@@ -4,7 +4,6 @@ import { CommonModule } from "../shared/common.module";
 import { DataTableModule } from "primeng/primeng";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MultiselectDropdownModule } from "angular-2-dropdown-multiselect";
 import { AggregateReportOptionsService } from "./aggregate-report-options.service";
 import { AggregateReportOptionsMapper } from "./aggregate-report-options.mapper";
 import { AggregateReportOrganizationService } from "./aggregate-report-organization.service";
@@ -46,7 +45,6 @@ import { AggregateReportColumnOrderItemProvider } from "./aggregate-report-colum
     DataTableModule,
     FormsModule,
     ModalModule,
-    MultiselectDropdownModule,
     PopoverModule.forRoot(),
     ReactiveFormsModule,
     ReportModule,

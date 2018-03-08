@@ -409,127 +409,93 @@
       "TK": "TK",
       "UG": "UG"
     },
-    "grade": {
-      "01": {
-        "enrolled-name": "G1",
-        "long-name": "Grade 1",
-        "short-name": "G1",
-        "form-name": "1"
-      },
-      "02": {
-        "enrolled-name": "G2",
-        "long-name": "Grade 2",
-        "short-name": "G2",
-        "form-name": "2"
-      },
-      "03": {
-        "enrolled-name": "G3",
-        "long-name": "Grade 3",
-        "short-name": "G3",
-        "form-name": "3"
-      },
-      "04": {
-        "enrolled-name": "G4",
-        "long-name": "Grade 4",
-        "short-name": "G4",
-        "form-name": "4"
-      },
-      "05": {
-        "enrolled-name": "G5",
-        "long-name": "Grade 5",
-        "short-name": "G5",
-        "form-name": "5"
-      },
-      "06": {
-        "enrolled-name": "G6",
-        "long-name": "Grade 6",
-        "short-name": "G6",
-        "form-name": "6"
-      },
-      "07": {
-        "enrolled-name": "G7",
-        "long-name": "Grade 7",
-        "short-name": "G7",
-        "form-name": "7"
-      },
-      "08": {
-        "enrolled-name": "G8",
-        "long-name": "Grade 8",
-        "short-name": "G8",
-        "form-name": "8"
-      },
-      "09": {
-        "enrolled-name": "G9",
-        "long-name": "High School",
-        "short-name": "HS",
-        "form-name": "HS"
-      },
-      "10": {
-        "enrolled-name": "G10",
-        "long-name": "High School",
-        "short-name": "HS",
-        "form-name": "HS"
-      },
-      "11": {
-        "enrolled-name": "G11",
-        "long-name": "High School",
-        "short-name": "HS",
-        "form-name": "HS"
-      },
-      "12": {
-        "enrolled-name": "G12",
-        "long-name": "High School",
-        "short-name": "HS",
-        "form-name": "HS"
-      },
-      "13": {
-        "enrolled-name": "G13",
-        "long-name": "Grade 13",
-        "short-name": "G13",
-        "form-name": "13"
-      },
-      "IT": {
-        "enrolled-name": "IT",
-        "long-name": "Infant/Toddler",
-        "short-name": "IT",
-        "form-name": "IT"
-      },
-      "KG": {
-        "enrolled-name": "KG",
-        "long-name": "Kindergarten",
-        "short-name": "KG",
-        "form-name": "KG"
-      },
-      "PK": {
-        "enrolled-name": "PK",
-        "long-name": "Prekindergarten",
-        "short-name": "PK",
-        "form-name": "PK"
-      },
-      "PR": {
-        "enrolled-name": "PR",
-        "long-name": "Preschool",
-        "short-name": "PR",
-        "form-name": "PR"
-      },
-      "PS": {
-        "enrolled-name": "PS",
-        "long-name": "Postsecondary",
-        "short-name": "PS",
-        "form-name": "PS"
-      },
-      "TK": {
-        "enrolled-name": "TK",
-        "long-name": "Transitional Kindergarten",
-        "short-name": "TK",
-        "form-name": "TK"
-      },
-      "UG": {
-        "enrolled-name": "UG",
-        "long-name": "Ungraded",
-        "short-name": "UG",
-        "form-name": "UG"
-      }
+    "assessment-grade": {
+      "01": "1",
+      "02": "2",
+      "03": "3",
+      "04": "4",
+      "05": "5",
+      "06": "6",
+      "07": "7",
+      "08": "8",
+      "09": "9",
+      "10": "10",
+      "11": "11",
+      "12": "12",
+      "13": "13",
+      "IT": "IT",
+      "KG": "KG",
+      "PK": "PK",
+      "PR": "PR",
+      "PS": "PS",
+      "TK": "TK",
+      "UG": "UG"
+    },
+    "enrolled-grade-name": {
+      "01": "G1",
+      "02": "G2",
+      "03": "G3",
+      "04": "G4",
+      "05": "G5",
+      "06": "G6",
+      "07": "G7",
+      "08": "G8",
+      "09": "G9",
+      "10": "G10",
+      "11": "G11",
+      "12": "G12",
+      "13": "G13",
+      "IT": "IT",
+      "KG": "KG",
+      "PK": "PK",
+      "PR": "PR",
+      "PS": "PS",
+      "TK": "TK",
+      "UG": "UG"
+    },
+    "assessment-grade-short-label": {
+      "01": "G1",
+      "02": "G2",
+      "03": "G3",
+      "04": "G4",
+      "05": "G5",
+      "06": "G6",
+      "07": "G7",
+      "08": "G8",
+      "09": "G9",
+      "10": "G10",
+      "11": "G11",
+      "12": "G12",
+      "13": "G13",
+      "IT": "IT",
+      "KG": "KG",
+      "PK": "PK",
+      "PR": "PR",
+      "PS": "PS",
+      "TK": "TK",
+      "UG": "UG"
+    },
+    "assessment-grade-label": {
+      "01": "Grade 1",
+      "02": "Grade 2",
+      "03": "Grade 3",
+      "04": "Grade 4",
+      "05": "Grade 5",
+      "06": "Grade 6",
+      "07": "Grade 7",
+      "08": "Grade 8",
+      "09": "High School",
+      "10": "High School",
+      "11": "High School",
+      "12": "High School",
+      "13": "Grade 13",
+      "IT": "Infant/Toddler",
+      "KG": "Kindergarten",
+      "PK": "Prekindergarten",
+      "PR": "Preschool",
+      "PS": "Postsecondary",
+      "TK": "Transitional Kindergarten",
+      "UG": "Ungraded"
     }
   },
   "common-ngx": {
