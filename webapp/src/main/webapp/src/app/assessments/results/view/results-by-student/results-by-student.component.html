@@ -57,7 +57,7 @@
             header="{{'labels.groups.results.assessment.exams.cols.grade' | translate}}"
             [sortable]="true" [hidden]="isClaimScoreSelected">
     <ng-template let-exam="rowData" pTemplate="body">
-      {{ 'common.enrolled-grade-name.' + exam.enrolledGrade | translate }}
+      {{ 'common.enrolled-grade-label.' + exam.enrolledGrade | translate }}
     </ng-template>
   </p-column>
   <p-column field="school.name"
