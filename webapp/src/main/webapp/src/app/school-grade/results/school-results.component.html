@@ -1,7 +1,7 @@
 <reporting-embargo-alert *hasPermission="'EMBARGO_READ'"></reporting-embargo-alert>
 
 <div *ngIf="!schoolIsAvailable" class="alert alert-danger">
-  {{'labels.school-grade.messages.null-school' | translate }}
+  {{'school-grade.messages.null-school' | translate }}
 </div>
 
 <div *ngIf="currentSchool">
@@ -49,7 +49,7 @@
 
       <select *ngIf="gradesAreUnavailable" id="current-dsiabled-grade" class="form-control"
               [disabled]="true">
-        <option selected>{{'labels.school-grade.messages.no-results' | translate}}</option>
+        <option selected>{{'school-grade.messages.no-results' | translate}}</option>
       </select>
       <select *ngIf="!gradesAreUnavailable" id="current-grade" class="form-control"
               [(ngModel)]="currentGrade" (change)="updateRoute('Grade')">
@@ -62,7 +62,7 @@
       <label for="school-year">{{'common.school-year-typeahead-label' | translate}}</label>
       <select id="school-year" [disabled]="gradesAreUnavailable" [(ngModel)]="currentSchoolYear" (change)="updateRoute('Year')" class="form-control">
         <option *ngFor="let year of filterOptions.schoolYears" [ngValue]="year">{{year | schoolYear}}</option>
-        <option *ngIf="gradesAreUnavailable" selected>{{'labels.school-grade.messages.no-results' | translate}}</option>
+        <option *ngIf="gradesAreUnavailable" selected>{{'school-grade.messages.no-results' | translate}}</option>
       </select>
     </div>
 

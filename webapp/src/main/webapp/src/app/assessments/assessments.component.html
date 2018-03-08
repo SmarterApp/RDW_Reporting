@@ -166,7 +166,7 @@
                 popover="{{'embargo-admin-alert.export.disabled' | translate}}"
                 [triggers]="exportDisabled ? 'mouseenter:mouseleave' : ''"
                 placement="left"
-                (click)="!exportDisabled && callExport()"><i class="fa fa-bold fa-table"></i> {{'labels.export.csv' | translate}}</button>
+                (click)="!exportDisabled && callExport()"><i class="fa fa-bold fa-table"></i> {{'common.export-csv' | translate}}</button>
       </li>
     </ul>
   </ng-template>
@@ -188,7 +188,7 @@
 
 <!-- No Results Error -->
 <div class="alert alert-info" *ngIf="assessmentExams.length == 0 || hideAssessments">
-  {{'messages.no-results-found' | translate}}
+  {{'assessments.no-results-found' | translate}}
 </div>
 
 <div class="fab">

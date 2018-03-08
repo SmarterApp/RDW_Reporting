@@ -8,7 +8,7 @@ export class GroupImportDeactivateGuard implements CanDeactivate<GroupImportComp
 
   canDeactivate(target: GroupImportComponent) {
     if(target.uploader.isUploading) {
-      return window.confirm(this.translate.instant('messages.upload-in-progress'));
+      return window.confirm(this.translate.instant('group-import.upload-in-progress'));
     }
 
     return true;
