@@ -17,6 +17,9 @@ export class OrganizationTreeComponent {
   @Input()
   disabled: boolean = false;
 
+  @Input()
+  hasSelectedSchools: boolean = false;
+
   onClick(organization: Organization): void {
     this.select.emit(organization);
   }

@@ -8,7 +8,7 @@
     <ul class="list-unstyled list-inline" *ngIf="currentGroup">
       <li *hasPermission="'INDIVIDUAL_PII_READ'">
         <a routerLink="/custom-export"
-           class="btn btn-sm btn-default"><i class="fa fa-table"></i> {{'labels.organization-export.title' | translate}}</a>
+           class="btn btn-sm btn-default"><i class="fa fa-table"></i> {{'organization-export.title' | translate}}</a>
       </li>
       <li>
         <button class="btn btn-default btn-sm"
@@ -43,7 +43,7 @@
 
       <!-- School Year -->
       <div class="col-md-3">
-        <label for="school-year">{{'common.school-year-typeahead-label' | translate}}</label>
+        <label for="school-year">{{'common.school-year-select-label' | translate}}</label>
         <select id="school-year" [(ngModel)]="currentSchoolYear" (change)="updateRoute('Year')"
                 class="form-control">
           <option *ngFor="let year of filterOptions.schoolYears" [ngValue]="year">{{year | schoolYear}}</option>

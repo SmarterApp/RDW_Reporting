@@ -1,4 +1,7 @@
 {
+  "admin-dropdown": {
+    "button": "Application Administration"
+  },
   "embargo-admin-alert": {
     "message": "Summative test results in your region of administration are not yet released. These results may be viewed online but not downloaded.",
     "export": {
@@ -11,7 +14,61 @@
     "logout": "Logout"
   },
   "assessments": {
-    "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above."
+    "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above.",
+    "average": {
+      "scale-score": "Average Scale Score and Error Band",
+      "scale-score-info": "Average scale score for the selected group of students and an error band based on the Standard Error of the Mean (SEM) associated with that score. Test scores are estimates of student achievement and come with a certain amount of measurement error. See the Interpretive Guide for additional information about scale scores and measurement error.",
+      "title": "Results Summary"
+    },
+    "items": {
+      "tabs": {
+        "exemplar": {
+          "answer-key": "Key: ",
+          "criterion": {
+            "description": "Description",
+            "points": "Points"
+          },
+          "errors": {
+            "not-found": "The rubric and exemplar are not available.",
+            "unknown": "Error trying to load rubrics and exemplars"
+          },
+          "exemplar": "Exemplar",
+          "rubric": "Rubric",
+          "title": "Rubric and Exemplar"
+        },
+        "item-info": {
+          "calculator": "Calculator: ",
+          "ccs": "Common Core Standard: ",
+          "claim": "Claim: ",
+          "difficulty": "Item Difficulty: ",
+          "docs": "Supporting Documentation: ",
+          "dok": "Depth of Knowledge: ",
+          "guide": "Interim Assessments Interpretive Guide",
+          "math": "Mathematical Practice Standard: ",
+          "title": "Item Information",
+          "view-ref": "View reference"
+        },
+        "item-viewer": "Item Viewer",
+        "item-viewer-response-included": "This is the view of the item as seen while taking the assessment, including the student's response.",
+        "item-viewer-response-not-included": "This is the view of the item as seen while taking the assessment.  This does not include student responses.",
+        "item-viewer-see-rubric": "See the Rubric and Exemplar tab to get more information on correct responses.",
+        "scores": {
+          "correctness": "Correctness",
+          "max": "Max Points",
+          "response": "Response",
+          "score": "Student Points"
+        },
+        "student-scores": "Student Scores and Responses",
+        "student-scores-intro-text": "Expand each student row to view their response to this item.",
+        "writing-trait-scores": "Writing Trait Scores"
+      }
+    },
+    "result": "Result",
+    "results": "Results",
+    "results-label": "Number of Test Results",
+    "student-score-distribution": {
+      "title": "Student Score Distribution"
+    }
   },
   "assessment-percentile-table": {
     "column": {
@@ -69,6 +126,12 @@
         "all-districts-of-schools": "Schools' Districts"
       }
     }
+  },
+  "report-action": {
+    "view-report": "View Report",
+    "view-query": "View Report Query",
+    "download-report": "Download Report Data",
+    "embargoed": "Reports with embargoed results may only be viewed online, they may not be downloaded."
   },
   "aggregate-reports": {
     "heading": "Aggregate Reports",
@@ -234,6 +297,40 @@
       "all": "All",
       "none": "None"
     },
+    "filters": {
+      "student": {
+        "504-plan": "504 Plan",
+        "504-plan-info": "Indicates that a student has an approved 504 plan.  These plans are for students with disabilities who may need accommodations but do not require specialized instruction.",
+        "economic-disadvantage": "Economic Disadvantage",
+        "economic-disadvantage-info": "Indicates that a student qualifies for free or reduced lunch or meets other state criteria for economic disadvantage.",
+        "ethnicity": "Race/Ethnicity",
+        "ethnicity-info": "Student race and ethnicity",
+        "gender": "Gender",
+        "gender-info": "Student's reported gender",
+        "iep": "IEP",
+        "iep-info": "Indicates that a student has an approved Individual Education Plan (IEP).  These plans are for students with disabilities who require specialized instruction.",
+        "label": "Student",
+        "limited-english-proficiency": "Limited English Proficiency",
+        "limited-english-proficiency-info": "Students who use a language other than English as their primary language and who have been assessed as not possessing the English language skills necessary to succeed in the regular instructional program.",
+        "migrant-status": "Migrant Status",
+        "migrant-status-info": "A child is considered \"migratory\" if the parent or guardian is a migratory worker in the agricultural, dairy, lumber, or fishing industries and the child's family has moved during the past three years. A young adult may also qualify if he or she has moved on his or her own for the same reasons."
+      },
+      "test": {
+        "label": "Test",
+        "off-grade-assessment": "Off-Grade Assessments",
+        "off-grade-assessment-info": "Schools may administer interim assessments for any grade.  This filter indicates that a student took an assessment for a grade other than their assigned grade.",
+        "transfer-assessment": "Transfer Assessments",
+        "transfer-assessment-info": "Indicates whether to show or hide assessments administered outside of the User's standard institutions."
+      },
+      "status": {
+        "administration": "Manner of Administration (Interim)",
+        "administration-info": "For interim assessments, a Standardized administration follows the same protocols and security procedures as a summative test administration. For a Non Standardized administration, the teacher may use the assessment during instruction and interact with students as they complete the assessment.",
+        "label": "Status",
+        "summative": "Valid/Invalid (Summative)",
+        "summative-info": "For summative assessments, a test is noted as invalid if an appeal is submitted  to invalidate the test due to a test irregularity or breach.  "
+      }
+    },
+    "person-name": "{{lastName}}, {{firstName}}",
     "completeness": {
       "Partial": "Partial",
       "Complete": "Complete"
@@ -383,10 +480,10 @@
       "Female": "Female",
       "Male": "Male"
     },
-    "current-grade-typeahead-label": "Assessment Grade",
-    "subject-typeahead-label": "Subject",
+    "current-grade-select-label": "Assessment Grade",
+    "subject-select-label": "Subject",
     "school-typeahead-label": "School",
-    "school-year-typeahead-label": "School Year",
+    "school-year-select-label": "School Year",
     "subject": {
       "ALL": {
         "name": "Math, ELA",
@@ -677,6 +774,34 @@
     "submit-date-time": "SubmitDateTime",
     "target": "Target"
   },
+  "organization-export": {
+    "form": {
+      "organization": {
+        "add": "Add",
+        "label": "Search for an Organization",
+        "select-all": "Select All",
+        "type": {
+          "District": "Districts",
+          "DistrictGroup": "Groups of Districts",
+          "School": "Schools",
+          "SchoolGroup": "Groups of Schools"
+        }
+      },
+      "default-report-name": "District and School Exam Data",
+      "submit": {
+        "failure": "Error creating export. Please try again.",
+        "label": "Export Results",
+        "success-html": "Creating export."
+      }
+    },
+    "title": "District / School Exports",
+    "tree": {
+      "header": "Selected Organizations",
+      "remove-district": "Remove District",
+      "subheader-empty": "No organizations selected",
+      "subheader-not-empty": "Click an item to remove it from the list"
+    }
+  },
   "enum": {
     "achievement-level": {
       "request-type": {
@@ -738,115 +863,65 @@
   "html": {
     "system-news": ""
   },
-  "labels": {
-    "admin-groups": {
-      "cols": {
-        "delete": "Delete",
-        "name": "Name",
-        "school": "School",
-        "school-year": "School Year",
-        "student-count": "Num. of Students",
-        "subjects": "Subjects"
-      },
-      "delete": {
-        "button-cancel": "No, keep this group.",
-        "button-save": "Yes, delete this group",
-        "content-html": "<p>When a group is deleted, it is no longer available to any users.  This action cannot be undone.</p><p>Are you sure you would like to continue?</p>",
-        "error": "Unable to delete this group.",
-        "title": "Delete {{name}}?"
-      },
-      "filter": "Search groups by name",
-      "history": {
-        "title": "View Uploads"
-      },
-      "import": {
-        "browse-instruct": "browse for files",
-        "cols": {
-          "created": "Date Created",
-          "file-name": "File Name",
-          "id": "Upload ID",
-          "status": "Upload Status"
-        },
-        "drag-instruct": "Drag and drop to upload or ",
-        "empty": "Upload results will be shown here.",
-        "file-format": {
-          "header": "CSV File Format",
-          "rules": {
-            "body-html": "<ol> <li class=\"mt-md\"> The CSV file must include the headers found in the template file provided below. </li><li class=\"mt-md\"> Every row must include a valid <code>school_natural_id</code>, <code>school_year</code>, and <code>group_name</code>. </li><li class=\"mt-md\"> Groups for a particular school must be listed together and must not be separated by lists of groups for other schools. </li><li class=\"mt-md\"> Groups must be listed together and not separated by rows of other groups. </li><li class=\"mt-md\"> A group's subject must be listed as <code>Math</code>, <code>ELA</code> or <code>All</code>. </li><li class=\"mt-md\"> There is a limit of <code>200</code> students that may be assigned to a single group. </li><li class=\"mt-md\"> A user must have the <code>GROUP_ADMIN</code> role for a school in order to upload groups. </li></ol>",
-            "header": "How to write the CSV"
-          },
-          "template": {
-            "button": "Template",
-            "file": "groups.csv"
-          }
-        },
-        "link": "Upload Groups",
-        "replacement-instruct": "To make changes to an existing group, please upload a replacement file.",
-        "sending": "Uploading...",
-        "title": "Upload New or Revised Groups",
-        "warning-html": "<p><strong class=\"mr-xs\">WARNING:</strong> Groups in the uploaded file will replace existing groups if they have the same school ID, school year and group name.</p><p>All other groups will not be deleted or changed.</p>"
-      },
-      "no-results": "No groups found matching the given filter criteria.",
-      "no-schools": "Your user account does not have access to view the groups of any schools.",
-      "search-school": "Start typing a school name...",
-      "title": "Manage Student Groups"
+  "admin-groups": {
+    "cols": {
+      "delete": "Delete",
+      "name": "Name",
+      "school": "School",
+      "school-year": "School Year",
+      "student-count": "Num. of Students",
+      "subjects": "Subjects"
     },
-    "assessments": {
-      "average": {
-        "scale-score": "Average Scale Score and Error Band",
-        "scale-score-info": "Average scale score for the selected group of students and an error band based on the Standard Error of the Mean (SEM) associated with that score. Test scores are estimates of student achievement and come with a certain amount of measurement error. See the Interpretive Guide for additional information about scale scores and measurement error.",
-        "title": "Results Summary"
+    "delete": {
+      "button-cancel": "No, keep this group.",
+      "button-save": "Yes, delete this group",
+      "content-html": "<p>When a group is deleted, it is no longer available to any users.  This action cannot be undone.</p><p>Are you sure you would like to continue?</p>",
+      "error": "Unable to delete this group.",
+      "title": "Delete {{name}}?"
+    },
+    "filter": "Search groups by name",
+    "history": {
+      "title": "View Uploads"
+    },
+    "import": {
+      "browse-instruct": "browse for files",
+      "cols": {
+        "created": "Date Created",
+        "file-name": "File Name",
+        "id": "Upload ID",
+        "status": "Upload Status"
       },
-      "items": {
-        "tabs": {
-          "exemplar": {
-            "answer-key": "Key: ",
-            "criterion": {
-              "description": "Description",
-              "points": "Points"
-            },
-            "errors": {
-              "not-found": "The rubric and exemplar are not available.",
-              "unknown": "Error trying to load rubrics and exemplars"
-            },
-            "exemplar": "Exemplar",
-            "rubric": "Rubric",
-            "title": "Rubric and Exemplar"
-          },
-          "item-info": {
-            "calculator": "Calculator: ",
-            "ccs": "Common Core Standard: ",
-            "claim": "Claim: ",
-            "difficulty": "Item Difficulty: ",
-            "docs": "Supporting Documentation: ",
-            "dok": "Depth of Knowledge: ",
-            "guide": "Interim Assessments Interpretive Guide",
-            "math": "Mathematical Practice Standard: ",
-            "title": "Item Information",
-            "view-ref": "View reference"
-          },
-          "item-viewer": "Item Viewer",
-          "item-viewer-response-included": "This is the view of the item as seen while taking the assessment, including the student's response.",
-          "item-viewer-response-not-included": "This is the view of the item as seen while taking the assessment.  This does not include student responses.",
-          "item-viewer-see-rubric": "See the Rubric and Exemplar tab to get more information on correct responses.",
-          "scores": {
-            "correctness": "Correctness",
-            "max": "Max Points",
-            "response": "Response",
-            "score": "Student Points"
-          },
-          "student-scores": "Student Scores and Responses",
-          "student-scores-intro-text": "Expand each student row to view their response to this item.",
-          "writing-trait-scores": "Writing Trait Scores"
+      "drag-instruct": "Drag and drop to upload or ",
+      "empty": "Upload results will be shown here.",
+      "file-format": {
+        "header": "CSV File Format",
+        "rules": {
+          "body-html": "<ol> <li class=\"mt-md\"> The CSV file must include the headers found in the template file provided below. </li><li class=\"mt-md\"> Every row must include a valid <code>school_natural_id</code>, <code>school_year</code>, and <code>group_name</code>. </li><li class=\"mt-md\"> Groups for a particular school must be listed together and must not be separated by lists of groups for other schools. </li><li class=\"mt-md\"> Groups must be listed together and not separated by rows of other groups. </li><li class=\"mt-md\"> A group's subject must be listed as <code>Math</code>, <code>ELA</code> or <code>All</code>. </li><li class=\"mt-md\"> There is a limit of <code>200</code> students that may be assigned to a single group. </li><li class=\"mt-md\"> A user must have the <code>GROUP_ADMIN</code> role for a school in order to upload groups. </li></ol>",
+          "header": "How to write the CSV"
+        },
+        "template": {
+          "button": "Template",
+          "file": "groups.csv"
         }
       },
-      "result": "Result",
-      "results": "Results",
-      "results-label": "Number of Test Results",
-      "student-score-distribution": {
-        "title": "Student Score Distribution"
-      }
+      "link": "Upload Groups",
+      "replacement-instruct": "To make changes to an existing group, please upload a replacement file.",
+      "sending": "Uploading...",
+      "title": "Upload New or Revised Groups",
+      "warning-html": "<p><strong class=\"mr-xs\">WARNING:</strong> Groups in the uploaded file will replace existing groups if they have the same school ID, school year and group name.</p><p>All other groups will not be deleted or changed.</p>"
     },
+    "no-results": "No groups found matching the given filter criteria.",
+    "no-schools": "Your user account does not have access to view the groups of any schools.",
+    "search-school": "Start typing a school name...",
+    "title": "Manage Student Groups"
+  },
+  "adv-filters": {
+    "floating-action-button": "Filter Results",
+    "instruct": "Click an item to add or remove it from your list of selections above.",
+    "label": "Advanced Filters",
+    "subhead": "Click an item to remove it from the list"
+  },
+  "labels": {
     "instructional-resources": {
       "link": {
         "System": "Smarter Balanced Instructional Resource",
@@ -929,46 +1004,8 @@
         "true": "Embargoed"
       }
     },
-    "filters": {
-      "floating-action-button": "Filter Results",
-      "instruct": "Click an item to add or remove it from your list of selections above.",
-      "label": "Advanced Filters",
-      "status": {
-        "administration": "Manner of Administration (Interim)",
-        "administration-info": "For interim assessments, a Standardized administration follows the same protocols and security procedures as a summative test administration. For a Non Standardized administration, the teacher may use the assessment during instruction and interact with students as they complete the assessment.",
-        "label": "Status",
-        "summative": "Valid/Invalid (Summative)",
-        "summative-info": "For summative assessments, a test is noted as invalid if an appeal is submitted  to invalidate the test due to a test irregularity or breach.  "
-      },
-      "student": {
-        "504-plan": "504 Plan",
-        "504-plan-info": "Indicates that a student has an approved 504 plan.  These plans are for students with disabilities who may need accommodations but do not require specialized instruction.",
-        "economic-disadvantage": "Economic Disadvantage",
-        "economic-disadvantage-info": "Indicates that a student qualifies for free or reduced lunch or meets other state criteria for economic disadvantage.",
-        "ethnicity": "Race/Ethnicity",
-        "ethnicity-info": "Student race and ethnicity",
-        "gender": "Gender",
-        "gender-info": "Student's reported gender",
-        "iep": "IEP",
-        "iep-info": "Indicates that a student has an approved Individual Education Plan (IEP).  These plans are for students with disabilities who require specialized instruction.",
-        "label": "Student",
-        "limited-english-proficiency": "Limited English Proficiency",
-        "limited-english-proficiency-info": "Students who use a language other than English as their primary language and who have been assessed as not possessing the English language skills necessary to succeed in the regular instructional program.",
-        "migrant-status": "Migrant Status",
-        "migrant-status-info": "A child is considered \"migratory\" if the parent or guardian is a migratory worker in the agricultural, dairy, lumber, or fishing industries and the child's family has moved during the past three years. A young adult may also qualify if he or she has moved on his or her own for the same reasons."
-      },
-      "subhead": "Click an item to remove it from the list",
-      "test": {
-        "label": "Test",
-        "off-grade-assessment": "Off-Grade Assessments",
-        "off-grade-assessment-info": "Schools may administer interim assessments for any grade.  This filter indicates that a student took an assessment for a grade other than their assigned grade.",
-        "transfer-assessment": "Transfer Assessments",
-        "transfer-assessment-info": "Indicates whether to show or hide assessments administered outside of the User's standard institutions."
-      }
-    },
     "grade": "Grade",
     "groups": {
-      "admin-button": "Application Administration",
       "cols": {
         "group": "Group Name",
         "school": "School",
@@ -1156,35 +1193,6 @@
       "interpretive-guide": "Interpretive Guide",
       "user-guide": "User Guide"
     },
-    "organization-export": {
-      "form": {
-        "organization": {
-          "add": "Add",
-          "label": "Search for an Organization",
-          "select-all": "Select All",
-          "type": {
-            "District": "Districts",
-            "DistrictGroup": "Groups of Districts",
-            "School": "Schools",
-            "SchoolGroup": "Groups of Schools"
-          }
-        },
-        "default-report-name": "District and School Exam Data",
-        "submit": {
-          "failure": "Error creating export. Please try again.",
-          "label": "Export Results",
-          "success-html": "Creating export."
-        }
-      },
-      "title": "District / School Exports"
-    },
-    "organization-tree": {
-      "header": "Selected Organizations",
-      "remove-district": "Remove District",
-      "subheader-empty": "No organizations selected",
-      "subheader-not-empty": "Click an item to remove it from the list"
-    },
-    "person-name": "{{lastName}}, {{firstName}}",
     "reports": {
       "all": "All",
       "button-label": {
@@ -1263,12 +1271,6 @@
         "Group": "Group Report",
         "SchoolGrade": "School / Grade Report",
         "Student": "Student Report"
-      },
-      "report-actions": {
-        "view-report": "View Report",
-        "view-query": "View Report Query",
-        "download-report": "Download Report Data",
-        "embargoed": "Reports with embargoed results may only be viewed online, they may not be downloaded."
       },
       "status": {
         "COMPLETED": "Completed",

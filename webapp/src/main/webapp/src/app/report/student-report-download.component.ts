@@ -33,7 +33,7 @@ export class StudentReportDownloadComponent extends ReportDownloadComponent {
   }
 
   generateName(): string {
-    return this.translate.instant('labels.person-name', this.student);
+    return this.translate.instant('common.person-name', this.student);
   }
 
 }

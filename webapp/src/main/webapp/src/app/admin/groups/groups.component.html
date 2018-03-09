@@ -1,14 +1,14 @@
 <page-heading>
   <ng-template #heading>
-    <h2>{{'labels.admin-groups.title' | translate}}</h2>
+    <h2>{{'admin-groups.title' | translate}}</h2>
   </ng-template>
   <ng-template #content>
     <ul class="list-unstyled list-inline">
       <li>
-        <span class="btn btn-primary btn-sm" [routerLink]="['import']"><i class="fa fa-cloud-upload"></i> {{'labels.admin-groups.import.link' | translate}}</span>
+        <span class="btn btn-primary btn-sm" [routerLink]="['import']"><i class="fa fa-cloud-upload"></i> {{'admin-groups.import.link' | translate}}</span>
       </li>
       <li>
-        <span class="btn btn-default btn-sm" [routerLink]="['history']"><i class="fa fa-history"></i> {{'labels.admin-groups.history.title' | translate}}</span>
+        <span class="btn btn-default btn-sm" [routerLink]="['history']"><i class="fa fa-history"></i> {{'admin-groups.history.title' | translate}}</span>
       </li>
     </ul>
   </ng-template>
@@ -16,7 +16,7 @@
 
 <ng-container *ngIf="filterOptions && filterOptions.schools.length == 0">
   <div class="alert alert-danger">
-    {{ 'labels.admin-groups.no-schools' | translate }}
+    {{ 'admin-groups.no-schools' | translate }}
   </div>
 </ng-container>
 
@@ -34,7 +34,7 @@
                     [filter]="true"
                     filterBy="label"
                     placeholder="{{'prompt.select' | translate}}"
-                    filterPlaceholder="{{'labels.admin-groups.search-school' | translate}}">
+                    filterPlaceholder="{{'admin-groups.search-school' | translate}}">
           <ng-template let-school pTemplate="item">
             <div class="ui-helper-clearfix">
               <div>{{school.name}}
@@ -46,7 +46,7 @@
       </div>
       <!-- School Year Select -->
       <div class="col-md-2">
-        <label for="select-schoolyear">{{'common.school-year-typeahead-label' | translate}}</label>
+        <label for="select-schoolyear">{{'common.school-year-select-label' | translate}}</label>
         <select id="select-schoolyear" [(ngModel)]="query.schoolYear" class="form-control" (change)="updateRoute()">
           <option *ngFor="let schoolYear of filterOptions.schoolYears" [ngValue]="schoolYear">{{schoolYear | schoolYear
             }}
@@ -55,7 +55,7 @@
       </div>
       <!-- Subject Select -->
       <div class="col-md-2">
-        <label for="select-subject">{{'common.subject-typeahead-label' | translate}}</label>
+        <label for="select-subject">{{'common.subject-select-label' | translate}}</label>
         <select id="select-subject" [(ngModel)]="query.subject" class="form-control" (change)="updateRoute()">
           <option *ngFor="let subject of filterOptions.subjects" [ngValue]="subject">{{'common.subject.' + subject + '.short-name' |
             translate }}
@@ -68,31 +68,31 @@
   <!-- Results Table -->
   <div class="well">
     <div class="table-search-form-container">
-      <label for="search" class="sr-only">{{'labels.admin-groups.filter' | translate}}</label>
+      <label for="search" class="sr-only">{{'admin-groups.filter' | translate}}</label>
       <input [(ngModel)]="searchTerm" class="search form-control" id="search" type="text"
-             placeholder="{{'labels.admin-groups.filter' | translate}}" autocomplete="off" (ngModelChange)="onSearchChange()">
+             placeholder="{{'admin-groups.filter' | translate}}" autocomplete="off" (ngModelChange)="onSearchChange()">
     </div>
     <div class="table-list-container">
-      <p-dataTable [value]="filteredGroups" emptyMessage="{{'labels.admin-groups.no-results' | translate}}" sortField="name"
+      <p-dataTable [value]="filteredGroups" emptyMessage="{{'admin-groups.no-results' | translate}}" sortField="name"
                    tableStyleClass="table table-striped table-hover overflow">
-        <p-column field="name" header="{{'labels.admin-groups.cols.name' | translate}}" [sortable]="true"></p-column>
-        <p-column field="schoolName" header="{{'labels.admin-groups.cols.school' | translate}}" [sortable]="true"></p-column>
-        <p-column field="schoolYear" header="{{'labels.admin-groups.cols.school-year' | translate}}" [sortable]="true">
+        <p-column field="name" header="{{'admin-groups.cols.name' | translate}}" [sortable]="true"></p-column>
+        <p-column field="schoolName" header="{{'admin-groups.cols.school' | translate}}" [sortable]="true"></p-column>
+        <p-column field="schoolYear" header="{{'admin-groups.cols.school-year' | translate}}" [sortable]="true">
           <ng-template let-group="rowData" pTemplate="body">
             {{ group.schoolYear | schoolYear }}
           </ng-template>
         </p-column>
-        <p-column field="subject" header="{{'labels.admin-groups.cols.subjects' | translate}}" [sortable]="true">
+        <p-column field="subject" header="{{'admin-groups.cols.subjects' | translate}}" [sortable]="true">
           <ng-template let-group="rowData" pTemplate="body">
             {{ 'common.subject.' + (group.subject || 'ALL') + '.name' | translate }}
           </ng-template>
         </p-column>
-        <p-column field="studentCount" header="{{'labels.admin-groups.cols.student-count' | translate}}"
+        <p-column field="studentCount" header="{{'admin-groups.cols.student-count' | translate}}"
                   [sortable]="true"></p-column>
         <p-column field="isDeleted">
           <ng-template let-group="rowData" pTemplate="body">
             <a href="javascript:void(0)" (click)="openDeleteGroupModal(group)">
-              <i class="fa fa-minus-square-o"></i> {{ 'labels.admin-groups.cols.delete' | translate }}
+              <i class="fa fa-minus-square-o"></i> {{ 'admin-groups.cols.delete' | translate }}
             </a>
           </ng-template>
         </p-column>

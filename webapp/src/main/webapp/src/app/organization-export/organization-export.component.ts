@@ -80,7 +80,7 @@ export class OrganizationExportComponent implements OnInit {
           organization.uuid,
           {
             label: organization.name,
-            group: this.translate.instant(`labels.organization-export.form.organization.type.${OrganizationType[ organization.type ]}`),
+            group: this.translate.instant(`organization-export.form.organization.type.${OrganizationType[ organization.type ]}`),
             value: organization
           }
         ]
@@ -185,15 +185,15 @@ export class OrganizationExportComponent implements OnInit {
   }
 
   submit(): void {
-    this.orgExport.name = this.orgExport.name || this.translate.instant('labels.organization-export.form.default-report-name');
+    this.orgExport.name = this.orgExport.name || this.translate.instant('organization-export.form.default-report-name');
 
     this.service.createExport(this.orgExport)
       .subscribe(
         () => {
-          this.notificationService.info({ id: 'labels.organization-export.form.submit.success-html', html: true });
+          this.notificationService.info({ id: 'organization-export.form.submit.success-html', html: true });
           this.router.navigate([ '/reports' ]);
         },
-        () => this.notificationService.error({ id: 'labels.organization-export.form.submit.failure' })
+        () => this.notificationService.error({ id: 'organization-export.form.submit.failure' })
       );
   }
 

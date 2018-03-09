@@ -52,7 +52,7 @@ const adminRoute = {
       pathMatch: 'prefix',
       data: {
         breadcrumb: {
-          translate: 'labels.admin-groups.title',
+          translate: 'admin-groups.title',
         },
         permissions: [ 'GROUP_WRITE' ],
         denyAccess: true
@@ -67,7 +67,7 @@ const adminRoute = {
         {
           path: 'import',
           data: {
-            breadcrumb: { translate: 'labels.admin-groups.import.title' },
+            breadcrumb: { translate: 'admin-groups.import.title' },
           },
           children: [
             {
@@ -80,7 +80,7 @@ const adminRoute = {
               path: 'fileformat',
               pathMatch: 'prefix',
               data: {
-                breadcrumb: { translate: 'labels.admin-groups.import.file-format.header' }
+                breadcrumb: { translate: 'admin-groups.import.file-format.header' }
               },
               children: [
                 {
@@ -101,7 +101,7 @@ const adminRoute = {
               pathMatch: 'prefix',
               component: ImportHistoryComponent,
               resolve: { imports: ImportHistoryResolve },
-              data: { breadcrumb: { translate: 'labels.admin-groups.history.title' } }
+              data: { breadcrumb: { translate: 'admin-groups.history.title' } }
             }
           ]
         }
@@ -320,7 +320,7 @@ export const routes: Routes = [
         path: 'custom-export',
         pathMatch: 'full',
         data: {
-          breadcrumb: { translate: 'labels.organization-export.title' },
+          breadcrumb: { translate: 'organization-export.title' },
           permissions: [ 'INDIVIDUAL_PII_READ' ]
         },
         canActivate: [ AuthorizationCanActivate ],

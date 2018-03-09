@@ -93,7 +93,7 @@
               </h3>
               <a class="btn btn-sm btn-default ml-sm with-pointer"
                  [ngClass]="{'disabled': isEmbargoed()}"
-                 popover="{{ (isEmbargoed() ? 'labels.reports.report-actions.embargoed' : '') | translate }}"
+                 popover="{{ (isEmbargoed() ? 'report-action.embargoed' : '') | translate }}"
                  triggers="{{ isEmbargoed() ? 'mouseenter:mouseleave': '' }}"
                  placement="top"
                  container="body"

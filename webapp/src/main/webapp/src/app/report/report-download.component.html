@@ -80,8 +80,8 @@
                  *ngIf="transferAccess">
               <label for="report-transfer-assessment-toggle">
                 <span info-button
-                      title="{{'labels.filters.test.transfer-assessment' | translate}}"
-                      content="{{'labels.filters.test.transfer-assessment-info' | translate}}"></span>
+                      title="{{'common.filters.test.transfer-assessment' | translate}}"
+                      content="{{'common.filters.test.transfer-assessment-info' | translate}}"></span>
               </label>
               <sb-radio-button-group id="report-transfer-assessment-toggle"
                          name="report-transfer-assessment-toggle"
@@ -96,7 +96,7 @@
           <div class="col-md-6">
 
             <div class="form-group">
-              <label for="school-year-select">{{'common.school-year-typeahead-label' | translate}}</label>
+              <label for="school-year-select">{{'common.school-year-select-label' | translate}}</label>
               <div *ngIf="lockSchoolYear && options.schoolYear">
                 <span>{{options.schoolYear | schoolYear}}</span>
               </div>
@@ -110,7 +110,7 @@
             </div>
 
             <div class="form-group">
-              <label for="subject-select">{{'common.subject-typeahead-label' | translate}}</label>
+              <label for="subject-select">{{'common.subject-select-label' | translate}}</label>
               <div *ngIf="lockSubject && options.subject">
                 <span>{{'common.subject.' + options.subject + '.short-name' | translate}}</span>
               </div>

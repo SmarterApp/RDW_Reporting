@@ -2,7 +2,7 @@
 
 <page-heading>
   <ng-template #heading>
-    <h2>{{'labels.organization-export.title' | translate}}</h2>
+    <h2>{{'organization-export.title' | translate}}</h2>
   </ng-template>
 </page-heading>
 
@@ -19,12 +19,12 @@
                    class="form-control"
                    maxlength="255"
                    [(ngModel)]="orgExport.name"
-                   placeholder="{{'labels.organization-export.form.default-report-name' | translate}}">
+                   placeholder="{{'organization-export.form.default-report-name' | translate}}">
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <label for="select-year">{{'common.school-year-typeahead-label' | translate}}</label>
+            <label for="select-year">{{'common.school-year-select-label' | translate}}</label>
             <select id="select-year" name="select-year" class="form-control" [(ngModel)]="orgExport.schoolYear">
               <option *ngFor="let year of schoolYearOptions" [ngValue]="year">{{year | schoolYear}}</option>
             </select>
@@ -35,8 +35,8 @@
             <div>
               <label>
                 <span info-button
-                      title="{{'labels.filters.test.transfer-assessment' | translate}}"
-                      content="{{'labels.filters.test.transfer-assessment-info' | translate}}"></span>
+                      title="{{'common.filters.test.transfer-assessment' | translate}}"
+                      content="{{'common.filters.test.transfer-assessment-info' | translate}}"></span>
               </label>
             </div>
             <sb-radio-button-group name="transfer-assessment-toggle"
@@ -53,27 +53,27 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group" *ngIf="!editingDisabled">
-            <label for="search">{{'labels.organization-export.form.organization.label' | translate}}</label>
+            <label for="search">{{'organization-export.form.organization.label' | translate}}</label>
             <span sb-button-typeahead
                   inputId="search"
                   [options]="organizationOptions"
                   (buttonClick)="add($event)"
                   placeholder="{{'prompt.select' | translate}}"
-                  buttonLabel="{{'labels.organization-export.form.organization.add' | translate}}">
+                  buttonLabel="{{'organization-export.form.organization.add' | translate}}">
             </span>
             <div class="ml-xs mt-xs">
               <a *ngIf="selectAllEnabled"
                  class="link-button aqua"
                  href="javascript:void(0)"
                  (click)="toggleSelectAll()"><i class="fa" [ngClass]="{'fa-check-square': selectedAll, 'fa-square-o': !selectedAll}"></i>
-                {{'labels.organization-export.form.organization.select-all' | translate}}
+                {{'organization-export.form.organization.select-all' | translate}}
               </a>
             </div>
           </div>
         </div>
         <div [ngClass]="{'col-md-6': !editingDisabled, 'col-md-12': editingDisabled}">
           <div class="text-right">
-            <button type="submit" class="btn btn-info aqua" [disabled]="selectedSchools.length == 0"><i class="fa fa-cloud-download"></i> {{'labels.organization-export.form.submit.label' | translate}}</button>
+            <button type="submit" class="btn btn-info aqua" [disabled]="selectedSchools.length == 0"><i class="fa fa-cloud-download"></i> {{'organization-export.form.submit.label' | translate}}</button>
           </div>
         </div>
       </div>
@@ -81,10 +81,7 @@
   </div>
 
   <div class="well gray-lightest">
-    <h3 class="gray-darkest mb-0"><i class="fa fa-list-alt"></i> {{'labels.organization-tree.header' | translate}}</h3>
-    <p class="small gray-darkest" [hidden]="selectedSchools.length != 0" [ngClass]="{invisible: editingDisabled}">{{'labels.organization-tree.subheader-empty' | translate}}</p>
-    <p class="small gray-darkest" [hidden]="selectedSchools.length == 0" [ngClass]="{invisible: editingDisabled}">{{'labels.organization-tree.subheader-not-empty' | translate}}</p>
-    <organization-tree [model]="organizationTree" (select)="remove($event)" [disabled]="editingDisabled"></organization-tree>
+    <organization-tree [model]="organizationTree" (select)="remove($event)" [disabled]="editingDisabled" [hasSelectedSchools]="selectedSchools.length != 0"></organization-tree>
   </div>
 
 </div>

@@ -4,15 +4,15 @@
 
   <a dropdownToggle
      class="btn btn-xs btn-info"
-     title="{{'labels.groups.admin-button' | translate}}">
-    {{'labels.groups.admin-button' | translate}} <i class="fa fa-chevron-down"></i></a>
+     title="{{'admin-dropdown.button' | translate}}">
+    {{'admin-dropdown.button' | translate}} <i class="fa fa-chevron-down"></i></a>
 
   <ul *dropdownMenu
       class="dropdown-menu dropdown-menu-right"
       role="menu">
 
     <li *hasPermission="'GROUP_WRITE'">
-      <a routerLink="/admin-groups">{{ 'labels.admin-groups.title' | translate}}</a>
+      <a routerLink="/admin-groups">{{ 'admin-groups.title' | translate}}</a>
     </li>
 
     <li *hasPermission="'INSTRUCTIONAL_RESOURCE_WRITE'">

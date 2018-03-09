@@ -1,15 +1,15 @@
 <page-heading>
   <ng-template #heading>
-    <h2>{{'labels.admin-groups.import.title' | translate}}</h2>
+    <h2>{{'admin-groups.import.title' | translate}}</h2>
   </ng-template>
   <ng-template #content>
-    <button [routerLink]="['fileformat']" class="btn btn-default btn-sm"><i class="fa fa-file-text"></i> {{'labels.admin-groups.import.file-format.header' | translate}}</button>
+    <button [routerLink]="['fileformat']" class="btn btn-default btn-sm"><i class="fa fa-file-text"></i> {{'admin-groups.import.file-format.header' | translate}}</button>
   </ng-template>
 </page-heading>
 
 <div class="well">
-  <p>{{ 'labels.admin-groups.import.replacement-instruct' | translate }}</p>
-  <div class="alert alert-warning" [innerHTML]="'labels.admin-groups.import.warning-html' | translate"></div>
+  <p>{{ 'admin-groups.import.replacement-instruct' | translate }}</p>
+  <div class="alert alert-warning" [innerHTML]="'admin-groups.import.warning-html' | translate"></div>
   <div ng2FileDrop
        *ngIf="!uploader.isUploading"
        class="my-drop-zone point"
@@ -19,7 +19,7 @@
     <div class="text-center pt-lg pb-lg">
       <span class="gray-darkest">
         <i class="fa fa-cloud-upload"></i>
-        {{ 'labels.admin-groups.import.drag-instruct' | translate }} <a href="javascript:void(0)" (click)="openFileDialog()">{{'labels.admin-groups.import.browse-instruct' | translate }}</a>
+        {{ 'admin-groups.import.drag-instruct' | translate }} <a href="javascript:void(0)" (click)="openFileDialog()">{{'admin-groups.import.browse-instruct' | translate }}</a>
       </span>
     </div>
   </div>
@@ -28,7 +28,7 @@
       <div class="text-center pt-lg pb-lg inner">
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
         <span class="text">
-          {{ 'labels.admin-groups.import.sending' | translate }} {{ uploader.queue.length - uploader.getNotUploadedItems().length }} / {{ uploader.queue.length }}
+          {{ 'admin-groups.import.sending' | translate }} {{ uploader.queue.length - uploader.getNotUploadedItems().length }} / {{ uploader.queue.length }}
         </span>
       </div>
     </div>

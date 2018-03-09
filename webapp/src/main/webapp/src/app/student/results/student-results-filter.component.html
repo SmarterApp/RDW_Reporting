@@ -3,7 +3,7 @@
     <div class="form-group row">
       <!-- School Grade -->
       <div class="col-md-2">
-        <label for="select-year">{{'common.school-year-typeahead-label' | translate}}</label>
+        <label for="select-year">{{'common.school-year-select-label' | translate}}</label>
         <select id="select-year"
                 name="select-year"
                 [(ngModel)]="filterState.schoolYear"
@@ -16,7 +16,7 @@
 
       <!-- Subject -->
       <div class="col-md-2">
-        <label for="select-subject">{{'common.subject-typeahead-label' | translate}}</label>
+        <label for="select-subject">{{'common.subject-select-label' | translate}}</label>
         <select id="select-subject"
                 name="select-subject"
                 class="form-control"
@@ -30,7 +30,7 @@
       <!-- Advanced Filters -->
       <div class="col-md-2 col-md-offset-6">
         <div class="pull-right text-right">
-          <label for="show-advanced-filters">{{'labels.filters.label' | translate}}</label>
+          <label for="show-advanced-filters">{{'adv-filters.label' | translate}}</label>
           <button id="show-advanced-filters"
                   class="btn btn-default form-control pull-right"
                   (click)="showAdvancedFilters = !showAdvancedFilters"
@@ -62,6 +62,6 @@
   </div>
 
   <div class="fab">
-    <button class="btn btn-primary btn-sm" (click)="openAndScrollToAdvancedFilters()"><i class="fa fa-filter"></i> {{'labels.filters.floating-action-button' | translate}}</button>
+    <button class="btn btn-primary btn-sm" (click)="openAndScrollToAdvancedFilters()"><i class="fa fa-filter"></i> {{'adv-filters.floating-action-button' | translate}}</button>
   </div>
 </div>
