@@ -71,15 +71,16 @@
     "results": {
       "empty-message": "No Results Found",
       "cols": {
-        "achievement-comparison": "Achievement Comparison",
-        "assessment-grade": "Assessment Grade",
-        "avg-scale-score": "Average Scale Score",
+        "achievementComparison": "Achievement Comparison",
+        "assessmentGrade": "Assessment Grade",
+        "avgScaleScore": "Average Scale Score",
         "dimension": "Subgroup",
-        "organization-name": "Organization",
+        "organization": "Organization",
         "organization-id": "Organization Natural Id",
-        "school-year": "Academic Year",
-        "students-tested": "Students Tested",
         "performance-level-suffix": "Standard",
+        "schoolYear": "Academic Year",
+        "studentsTested": "Students Tested",
+
         "grouped-performance-level-prefix": {
           "0": "Below",
           "1": "At or Above"

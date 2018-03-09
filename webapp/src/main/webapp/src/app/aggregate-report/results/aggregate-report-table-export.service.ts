@@ -35,11 +35,11 @@ export class AggregateReportTableExportService {
 
     builder
       .withColumn(
-        this.translateService.instant('aggregate-reports.results.cols.students-tested'),
+        this.translateService.instant('aggregate-reports.results.cols.studentsTested'),
         (item: AggregateReportItem) => item.studentsTested
       )
       .withColumn(
-        this.translateService.instant('aggregate-reports.results.cols.avg-scale-score'),
+        this.translateService.instant('aggregate-reports.results.cols.avgScaleScore'),
         (item: AggregateReportItem) => item.studentsTested
             ? `${item.avgScaleScore} ± ${item.avgStdErr}`
             : ''
@@ -53,7 +53,7 @@ export class AggregateReportTableExportService {
     if ('organization' === column) {
       return builder
         .withColumn(
-          this.translateService.instant('aggregate-reports.results.cols.organization-name'),
+          this.translateService.instant('aggregate-reports.results.cols.organization'),
           (item: AggregateReportItem) => item.organization.name
         )
         .withColumn(
@@ -65,7 +65,7 @@ export class AggregateReportTableExportService {
     if ('assessmentGrade' === column) {
       return builder
         .withColumn(
-          this.translateService.instant('aggregate-reports.results.cols.assessment-grade'),
+          this.translateService.instant('aggregate-reports.results.cols.assessmentGrade'),
           (item: AggregateReportItem) => this.translateService.instant(`common.assessment-grade.${item.assessmentGradeCode}`)
         );
     }
@@ -73,7 +73,7 @@ export class AggregateReportTableExportService {
     if ('schoolYear' === column) {
       return builder
         .withColumn(
-          this.translateService.instant('aggregate-reports.results.cols.school-year'),
+          this.translateService.instant('aggregate-reports.results.cols.schoolYear'),
           (item: AggregateReportItem) => {
             let valueAsString = item.schoolYear.toString();
             if (valueAsString.length !== 4) {
