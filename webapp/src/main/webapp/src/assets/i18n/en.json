@@ -5,6 +5,14 @@
       "disabled": "Embargoed results can be viewed online, but may not be exported."
     }
   },
+  "access-denied": {
+    "message": "Your user account is not permitted to access this reporting system. If you believe you have reached this page in error, please contact your building administrator.",
+    "title": "Access Denied",
+    "logout": "Logout"
+  },
+  "assessments": {
+    "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above."
+  },
   "assessment-percentile-table": {
     "column": {
       "effective-date": {
@@ -28,7 +36,13 @@
   "assessment-results": {
     "result-view-select": {
       "label": "Select a results view"
-    }
+    },
+    "no-distractor-analysis": "Key / Distractor Analysis is not available for assessments administered prior to 2017-18 school year.",
+    "no-distractor-analysis-for-summative-exams": "Key / Distractor Analysis is not available for summative assessments.",
+    "no-results-by-item": "Results by item is not available for assessments administered prior to 2017-18 school year.",
+    "no-results-by-item-for-summative-exams": "Results by item is not available for summative assessments.",
+    "no-writing-trait-scores": "Writing trait scores are not available for assessments administered prior to 2017-18 school year.",
+    "no-writing-trait-scores-for-summative-ica-exams": "Writing trait scores are currently available for only ELA Performance Task IABs."
   },
   "sample-aggregate-table-data-service": {
     "organization-name-format": "School / District {{id}}"
@@ -86,6 +100,9 @@
           "1": "At or Above"
         }
       }
+    },
+    "group-import": {
+      "upload-in-progress": "Files are still uploading, are you sure you want to leave?"
     },
     "form": {
       "heading": "Custom Aggregate Report",
@@ -227,6 +244,7 @@
       "info": "A test is considered complete when the student provides an answer for every question."
     },
     "export": "Export",
+    "export-csv": "Export CSV",
     "error": {
       "required": "* Required"
     },
@@ -634,6 +652,32 @@
       }
     }
   },
+  "csv-builder": {
+    "504-plan": "Section504Status",
+    "accommodation-codes": "AssignedAccommodationList",
+    "achievement-level": "ScaleScoreAchievementLevel",
+    "assessment-name": "AssessmentName",
+    "assessment-session-id": "TestSessionId",
+    "assessment-type": "AssessmentType",
+    "claim": "Claim",
+    "economic-disadvantage": "EconomicDisadvantageStatus",
+    "enrolled-grade": "GradeLevelWhenAssessed",
+    "error-band-max": "Error Band Max",
+    "error-band-min": "Error Band Min",
+    "gender": "Sex",
+    "iep": "IDEAIndicator",
+    "limited-english": "LEPStatus",
+    "migrant-status": "MigrantStatus",
+    "scale-score": "ScaleScore",
+    "school": "SchoolName",
+    "school-year": "SchoolYear",
+    "student-first-name": "FirstName",
+    "student-id": "StudentIdentifier",
+    "student-last-name": "LastOrSurname",
+    "subject": "Subject",
+    "submit-date-time": "SubmitDateTime",
+    "target": "Target"
+  },
   "enum": {
     "achievement-level": {
       "request-type": {
@@ -885,36 +929,6 @@
         "false": "Released",
         "true": "Embargoed"
       }
-    },
-    "export": {
-      "cols": {
-        "504-plan": "Section504Status",
-        "accommodation-codes": "AssignedAccommodationList",
-        "achievement-level": "ScaleScoreAchievementLevel",
-        "assessment-name": "AssessmentName",
-        "assessment-session-id": "TestSessionId",
-        "assessment-type": "AssessmentType",
-        "claim": "Claim",
-        "economic-disadvantage": "EconomicDisadvantageStatus",
-        "enrolled-grade": "GradeLevelWhenAssessed",
-        "error-band-max": "Error Band Max",
-        "error-band-min": "Error Band Min",
-        "gender": "Sex",
-        "iep": "IDEAIndicator",
-        "limited-english": "LEPStatus",
-        "migrant-status": "MigrantStatus",
-        "scale-score": "ScaleScore",
-        "school": "SchoolName",
-        "school-year": "SchoolYear",
-        "student-first-name": "FirstName",
-        "student-id": "StudentIdentifier",
-        "student-last-name": "LastOrSurname",
-        "subject": "Subject",
-        "submit-date-time": "SubmitDateTime",
-        "target": "Target"
-      },
-      "csv": "Export CSV",
-      "title": "Export"
     },
     "filters": {
       "floating-action-button": "Filter Results",
@@ -1277,16 +1291,6 @@
       "DistractorAnalysis": "",
       "WritingTraitScores": ""
     },
-    "school-grade": {
-      "messages": {
-        "no-results": "No results.",
-        "no-grades-available": "No test results are available for the selected school.",
-        "null-school": "This school is unavailable.  Contact your building administrator if you think you should have access to this school."
-      },
-      "school-name": {
-        "label": "Search by School Name"
-      }
-    },
     "student": {
       "messages": {
         "no-results": "Student does not exist or has no available test results.",
@@ -1323,25 +1327,21 @@
       "aggregate-header": "Points Breakdown"
     }
   },
-  "messages": {
-    "no-grades-available": "No test results are available for the selected school.",
-    "access-denied": {
-      "message": "Your user account is not permitted to access this reporting system. If you believe you have reached this page in error, please contact your building administrator.",
-      "title": "Access Denied"
+  "school-grade": {
+    "messages": {
+      "no-results": "No results.",
+      "no-grades-available": "No test results are available for the selected school.",
+      "null-school": "This school is unavailable.  Contact your building administrator if you think you should have access to this school."
     },
+    "school-name": {
+      "label": "Search by School Name"
+    }
+  },
+  "messages": {
     "loading": "Loading",
-    "logout": "Logout",
-    "no-distractor-analysis": "Key / Distractor Analysis is not available for assessments administered prior to 2017-18 school year.",
-    "no-distractor-analysis-for-summative-exams": "Key / Distractor Analysis is not available for summative assessments.",
-    "no-results-by-item": "Results by item is not available for assessments administered prior to 2017-18 school year.",
-    "no-results-by-item-for-summative-exams": "Results by item is not available for summative assessments.",
-    "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above.",
-    "no-writing-trait-scores": "Writing trait scores are not available for assessments administered prior to 2017-18 school year.",
-    "no-writing-trait-scores-for-summative-ica-exams": "Writing trait scores are currently available for only ELA Performance Task IABs.",
     "no-responses-for-summative-exams": "Summative assessment responses are not made available by this system.",
     "no-exams-matching-criteria": "There are no exams matching this criteria.",
-    "unknown-error": "An unknown error has occurred. You can try the same action again or click the button below to go to the home page.  If this problem persists, please contact your building administrator.",
-    "upload-in-progress": "Files are still uploading, are you sure you want to leave?"
+    "unknown-error": "An unknown error has occurred. You can try the same action again or click the button below to go to the home page.  If this problem persists, please contact your building administrator."
   },
   "prompt": {
     "cancel": "Cancel",

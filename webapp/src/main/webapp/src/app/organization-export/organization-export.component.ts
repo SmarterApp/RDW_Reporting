@@ -9,6 +9,8 @@ import { ExamFilterOptionsService } from "../assessments/filters/exam-filters/ex
 import { OrganizationExport, OrganizationExportService } from "./organization-export.service";
 import { NotificationService } from "../shared/notification/notification.service";
 import { Option } from "../shared/form/sb-typeahead.component";
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { ApplicationSettingsService } from '../app-settings.service';
 
 @Component({
   selector: 'organization-export',
@@ -53,6 +55,7 @@ export class OrganizationExportComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private translate: TranslateService,
+              private applicationSettingsService: ApplicationSettingsService,
               private service: OrganizationExportService,
               private mapper: OrganizationMapper,
               private filterOptionService: ExamFilterOptionsService,
@@ -90,20 +93,20 @@ export class OrganizationExportComponent implements OnInit {
       ? [ this.orgExport.organizations.schools[ 0 ] ]
       : [];
 
-    // get the available school years
-    this.filterOptionService.getExamFilterOptions()
-      .subscribe(options => {
-        let schoolYears = options.schoolYears;
+    forkJoin(
+      this.filterOptionService.getExamFilterOptions(),
+      this.applicationSettingsService.getSettings()
+    ).subscribe(([options, settings]) => {
+      const { schoolYears } = options;
 
-        // initialize selected school year based on options
-        this._schoolYearOptions = schoolYears;
-        if (schoolYears.length) {
-          this.orgExport.schoolYear = schoolYears[ 0 ];
-        }
-      });
+      // initialize selected school year based on options
+      this._schoolYearOptions = schoolYears;
+      if (schoolYears.length) {
+        this.orgExport.schoolYear = schoolYears[ 0 ];
+      }
 
-    //set transfer access
-    this.transferAccess = this.route.snapshot.data[ 'user' ].configuration.transferAccess;
+      this.transferAccess = settings.transferAccess;
+    });
   }
 
   get selectedSchools(): Organization[] {

@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { School } from "../user/model/school.model";
+import { School } from "../school-grade/school";
 import { SchoolService } from "./school.service";
 import { Grade } from "./grade.model";
 import { FormControl, FormGroup, Validators } from "@angular/forms";

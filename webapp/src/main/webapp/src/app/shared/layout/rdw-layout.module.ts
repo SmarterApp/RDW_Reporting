@@ -6,14 +6,12 @@ import { TranslateModule } from "@ngx-translate/core";
 import { RouterModule } from "@angular/router";
 import { BsDropdownModule } from "ngx-bootstrap";
 import { SbBreadcrumbs } from "./sb-breadcrumbs.component";
-import { SbHeader } from "./sb-header.component";
 import { SbFooter } from "./sb-footer.component";
 import { PageHeading } from "./page-heading.component";
 
 @NgModule({
   declarations: [
     SbBreadcrumbs,
-    SbHeader,
     SbFooter,
     PageHeading
   ],
@@ -27,7 +25,6 @@ import { PageHeading } from "./page-heading.component";
   ],
   exports: [
     SbBreadcrumbs,
-    SbHeader,
     SbFooter,
     PageHeading
   ]

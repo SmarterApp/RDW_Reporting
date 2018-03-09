@@ -45,7 +45,7 @@ export class GroupImportComponent implements OnInit {
 
   confirmNavigation(event) {
     if (this.uploader.isUploading) {
-      let dialogText = this.translate.instant('messages.upload-in-progress');
+      let dialogText = this.translate.instant('group-import.upload-in-progress');
       event.returnValue = dialogText;
       return dialogText;
     }

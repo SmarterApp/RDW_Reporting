@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ordering } from "@kourge/ordering";
 import { FilterBy } from "./model/filter-by.model";
@@ -10,10 +10,11 @@ import { byGradeThenByName } from "./assessment.comparator";
 import { AssessmentProvider } from "./assessment-provider.interface";
 import { GradeCode } from "../shared/enum/grade-code.enum";
 import { ColorService } from "../shared/color.service";
-import { UserService } from "../user/user.service";
 import { AssessmentExporter } from "./assessment-exporter.interface";
 import { ReportingEmbargoService } from "../shared/embargo/reporting-embargo.service";
 import { share } from 'rxjs/operators';
+import { ApplicationSettingsService } from '../app-settings.service';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 /**
  * This component encompasses all the functionality for displaying and filtering
@@ -23,9 +24,10 @@ import { share } from 'rxjs/operators';
  */
 @Component({
   selector: 'assessments',
-  templateUrl: './assessments.component.html',
+  templateUrl: './assessments.component.html'
 })
-export class AssessmentsComponent implements OnInit {
+export class AssessmentsComponent {
+
   /**
    * The array of asssessment exams to show.
    * @param value
@@ -161,28 +163,22 @@ export class AssessmentsComponent implements OnInit {
 
   constructor(public colorService: ColorService,
               private route: ActivatedRoute,
-              private filterOptionService: ExamFilterOptionsService,
-              private userService: UserService,
-              private embargoService: ReportingEmbargoService) {
-    this.clientFilterBy = new FilterBy()
-  }
+              applicationSettingsService: ApplicationSettingsService,
+              filterOptionService: ExamFilterOptionsService,
+              embargoService: ReportingEmbargoService) {
 
-  ngOnInit() {
-    this.filterOptionService.getExamFilterOptions().subscribe(filterOptions => {
+    this.clientFilterBy = new FilterBy();
+
+    forkJoin(
+      applicationSettingsService.getSettings(),
+      filterOptionService.getExamFilterOptions(),
+      embargoService.isEmbargoed()
+    ).subscribe(([settings, filterOptions, embargoed]) => {
+      this.minimumItemDataYear = settings.minItemDataYear;
       this.filterOptions = filterOptions;
-
       this.updateFilterOptions();
+      this.exportDisabled = embargoed;
     });
-
-    this.userService.getCurrentUser().subscribe(user => {
-      this.minimumItemDataYear = user.configuration.minItemDataYear;
-    });
-
-    this.embargoService.isEmbargoed().subscribe(
-      embargoed => {
-        this.exportDisabled = embargoed;
-      }
-    )
   }
 
   getGradeIdx(gradeCode: string): number {

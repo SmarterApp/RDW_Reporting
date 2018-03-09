@@ -4,7 +4,7 @@ import { AssessmentExamMapper } from "../../assessments/assessment-exam.mapper";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { AssessmentProvider } from "../../assessments/assessment-provider.interface";
 import { ResponseUtils } from "../../shared/response-utils";
-import { Group } from "../../user/model/group.model";
+import { Group } from "../../groups/group";
 import { DataService } from "../../shared/data/data.service";
 import { catchError, map, mergeMap } from 'rxjs/operators';
 

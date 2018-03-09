@@ -8,7 +8,7 @@
       <div class="flex-child grow">
         <div class="form-group">
           <label for="search-school-name">
-            {{'labels.school-grade.school-name.label' | translate}}
+            {{'school-grade.school-name.label' | translate}}
           </label>
           <sb-typeahead #schoolTypeahead
                         inputId="search-school-name"
@@ -44,7 +44,7 @@
     </div>
   </form>
   <div [hidden]="schoolHasGradesWithResults">
-    <span class="small gray-darker">{{'labels.school-grade.messages.no-grades-available' | translate}}</span>
+    <span class="small gray-darker">{{'school-grade.messages.no-grades-available' | translate}}</span>
   </div>
 </ng-template>
 
