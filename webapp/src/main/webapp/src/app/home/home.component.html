@@ -52,16 +52,15 @@
   <div class="col-md-3">
 
     <!-- Welcome Content -->
-    <div class="welcome-container well">
+    <div *ngIf="applicationSettings" class="welcome-container well">
       <p class="lead">{{'labels.homepage.welcome.title' | translate}}</p>
       <div class="mb-md">
-        <p [innerHTML]="'labels.homepage.welcome.user-guide-html' | translate:user.configuration"></p>
-        <a href="{{user.configuration.userGuideUrl}}" target="_blank" class="btn btn-primary">{{'labels.navigation.user-guide'
-          | translate}}</a>
+        <p [innerHTML]="'labels.homepage.welcome.user-guide-html' | translate:applicationSettings"></p>
+        <a href="{{applicationSettings.userGuideUrl}}" target="_blank" class="btn btn-primary">{{'labels.navigation.user-guide' | translate}}</a>
       </div>
       <div>
-        <p [innerHTML]="'labels.homepage.welcome.interpretive-guide-html' | translate:user.configuration"></p>
-        <a href="{{user.configuration.interpretiveGuideUrl}}" target="_blank" class="btn btn-success">
+        <p [innerHTML]="'labels.homepage.welcome.interpretive-guide-html' | translate:applicationSettings"></p>
+        <a href="{{applicationSettings.interpretiveGuideUrl}}" target="_blank" class="btn btn-success">
           <small>{{'labels.homepage.welcome.interpretive-guide-subtitle' | translate}}</small>
           <br>
           {{'labels.navigation.interpretive-guide' | translate}}

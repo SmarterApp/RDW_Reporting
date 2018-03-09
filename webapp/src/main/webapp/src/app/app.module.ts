@@ -21,6 +21,8 @@ import { OrganizationExportModule } from "./organization-export/organization-exp
 import { AggregateReportsModule } from "./aggregate-report/aggregate-reports.module";
 import { AdminModule } from "./admin/admin.module";
 import { AdminDropdownComponent } from "./home/admin-dropdown.component";
+import { ApplicationSettingsService } from './app-settings.service';
+import { ApplicationSettingsResolve } from './app-settings.resolve';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { AdminDropdownComponent } from "./home/admin-dropdown.component";
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
   ],
   providers: [
+    ApplicationSettingsService,
+    ApplicationSettingsResolve,
     TranslateResolve,
     { provide: RouteReuseStrategy, useClass: RdwRouteReuseStrategy }
   ],

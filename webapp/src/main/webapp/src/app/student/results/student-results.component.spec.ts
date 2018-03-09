@@ -13,11 +13,13 @@ import { ClaimScore } from "../../assessments/model/claim-score.model";
 import { MockRouter } from "../../../test/mock.router";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { Angulartics2 } from "angulartics2";
-import { UserService } from "../../user/user.service";
-import { MockUserService } from "../../../test/mock.user.service";
 import { MockActivatedRoute } from "../../../test/mock.activated-route";
 import { MockAuthorizeDirective } from "../../../test/mock.authorize.directive";
 import { ExamFilterService } from "../../assessments/filters/exam-filters/exam-filter.service";
+import { of } from 'rxjs/observable/of';
+import { ApplicationSettingsService } from '../../app-settings.service';
+import { UserService } from '../../user/user.service';
+import { MockUserService } from '../../../test/mock.user.service';
 
 describe('StudentResultsComponent', () => {
   let component: StudentResultsComponent;
@@ -39,9 +41,12 @@ describe('StudentResultsComponent', () => {
     let mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', [ 'eventTrack' ]);
     mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', [ 'next' ]);
 
-    router = new MockRouter();
+    const mockApplicationSettingsService = jasmine.createSpyObj('ApplicationSettingsService', ['getSettings']);
+    mockApplicationSettingsService.getSettings.and.callFake(() => of({minItemDataYear: 2016}));
 
-    let mockUserService: MockUserService = new MockUserService();
+    const mockUserService = new MockUserService();
+
+    router = new MockRouter();
 
     TestBed.configureTestingModule({
       imports: [
@@ -55,6 +60,7 @@ describe('StudentResultsComponent', () => {
         { provide: ActivatedRoute, useValue: route },
         { provide: CsvExportService, useValue: exportService },
         { provide: Angulartics2, useValue: mockAngulartics2 },
+        { provide: ApplicationSettingsService, useValue: mockApplicationSettingsService },
         { provide: UserService, useValue: mockUserService },
         { provide: Router, useValue: router },
         ExamFilterService

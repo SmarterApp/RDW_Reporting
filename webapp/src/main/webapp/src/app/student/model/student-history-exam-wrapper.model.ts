@@ -1,6 +1,6 @@
 
 import { Assessment } from "../../assessments/model/assessment.model";
-import { School } from "../../user/model/school.model";
+import { School } from "../../school-grade/school";
 import { Exam } from "../../assessments/model/exam.model";
 
 /**

@@ -3,21 +3,32 @@ import { ItemInfoComponent } from "./item-info.component";
 import { CommonModule } from "../../../shared/common.module";
 import { AssessmentItem } from "../../model/assessment-item.model";
 import { Component } from "@angular/core";
-import { MockUserService } from "../../../../test/mock.user.service";
-import { UserService } from "../../../user/user.service";
 import { ItemInfoService } from "./item-info.service";
+import { ApplicationSettingsService } from '../../../app-settings.service';
+import { of } from 'rxjs/observable/of';
 
 describe('ItemInfoComponent', () => {
   let component: ItemInfoComponent;
   let fixture: ComponentFixture<TestComponentWrapper>;
+  const mockApplicationSettingsService = {
+    getSettings: () => of({})
+  }
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ CommonModule ],
-      declarations: [ ItemInfoComponent, TestComponentWrapper ],
-      providers: [ { provide: UserService, useClass: MockUserService }, ItemInfoService ]
+      imports: [
+        CommonModule
+      ],
+      declarations: [
+        ItemInfoComponent,
+        TestComponentWrapper
+      ],
+      providers: [
+        { provide: ApplicationSettingsService, useValue: mockApplicationSettingsService },
+        ItemInfoService
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

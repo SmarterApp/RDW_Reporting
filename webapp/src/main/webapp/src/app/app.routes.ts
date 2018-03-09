@@ -38,6 +38,7 @@ import { AggregateReportResolve } from "./aggregate-report/results/aggregate-rep
 import { AggregateReportOptionsResolve } from "./aggregate-report/aggregate-report-options.resolve";
 import { AssessmentDefinitionResolve } from "./aggregate-report/assessment/assessment-definition.resolve";
 import { AggregateReportFormSettingsResolve } from "./aggregate-report/aggregate-report-form-settings.resolve";
+import { ApplicationSettingsResolve } from './app-settings.resolve';
 
 const adminRoute = {
   path: '',
@@ -190,7 +191,6 @@ export const routes: Routes = [
     path: '',
     canActivate: [ RoutingAuthorizationCanActivate ],
     resolve: {
-      user: UserResolve,
       translateComplete: TranslateResolve
     },
     children: [

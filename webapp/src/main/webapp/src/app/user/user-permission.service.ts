@@ -6,14 +6,13 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class UserPermissionService {
 
-  constructor(private userService: UserService){
+  constructor(private userService: UserService) {
   }
 
   getPermissions(): Observable<string[]> {
-    return this.userService.getCurrentUser()
-      .pipe(
-        map(user =>  user ? user.permissions : [])
-      );
+    return this.userService.getUser().pipe(
+      map(user => user.permissions)
+    );
   }
 
 }

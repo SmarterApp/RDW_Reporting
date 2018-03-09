@@ -8,7 +8,7 @@ import { Angulartics2 } from "angulartics2";
 import { AssessmentsComponent } from "../../assessments/assessments.component";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { GroupReportDownloadComponent } from "../../report/group-report-download.component";
-import { Group } from "../../user/model/group.model";
+import { Group } from "../../groups/group";
 import { GroupAssessmentExportService } from "./group-assessment-export.service";
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { GroupService } from '../group.service';

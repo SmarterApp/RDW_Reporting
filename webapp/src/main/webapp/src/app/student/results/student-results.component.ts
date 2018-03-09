@@ -10,11 +10,11 @@ import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.m
 import { Student } from "../model/student.model";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { Angulartics2 } from "angulartics2";
-import { UserService } from "../../user/user.service";
 import { StudentReportDownloadComponent } from "../../report/student-report-download.component";
 import { AssessmentSubjectType } from "../../shared/enum/assessment-subject-type.enum";
 import { Utils } from "../../shared/support/support";
 import { ReportingEmbargoService } from "../../shared/embargo/reporting-embargo.service";
+import { ApplicationSettingsService } from '../../app-settings.service';
 
 @Component({
   selector: 'student-results',
@@ -47,7 +47,7 @@ export class StudentResultsComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private angulartics2: Angulartics2,
-              private userService: UserService,
+              private applicationSettingsService: ApplicationSettingsService,
               private examFilterService: ExamFilterService,
               private embargoService: ReportingEmbargoService) {
   }
@@ -60,8 +60,8 @@ export class StudentResultsComponent implements OnInit {
       this.applyFilter();
     }
 
-    this.userService.getCurrentUser().subscribe(user => {
-      this.minimumItemDataYear = user.configuration.minItemDataYear;
+    this.applicationSettingsService.getSettings().subscribe(settings => {
+      this.minimumItemDataYear = settings.minItemDataYear;
     });
 
     this.embargoService.isEmbargoed().subscribe(

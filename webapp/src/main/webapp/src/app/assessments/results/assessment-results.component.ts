@@ -26,6 +26,8 @@ import { AssessmentPercentileRequest, AssessmentPercentileService } from "../per
 import { PercentileGroup } from "../percentile/assessment-percentile";
 import { Utils } from "../../shared/support/support";
 import { UserService } from "../../user/user.service";
+import { ActivatedRoute } from '@angular/router';
+import { ApplicationSettingsService } from '../../app-settings.service';
 
 enum ResultsViewState {
   ByStudent = 1,
@@ -214,18 +216,19 @@ export class AssessmentResultsComponent implements OnInit {
   private _assessmentExam: AssessmentExam;
   private _filterBySubscription: Subscription;
 
-  constructor(public colorService: ColorService,
+  constructor(private applicationSettingsService: ApplicationSettingsService,
+              public colorService: ColorService,
               private examCalculator: ExamStatisticsCalculator,
               private examFilterService: ExamFilterService,
               private instructionalResourcesService: InstructionalResourcesService,
-              private percentileService: AssessmentPercentileService,
-              private userService: UserService) {
-    this.userService.getCurrentUser().subscribe(user => {
-      this.percentileDisplayEnabled = user.configuration.percentileDisplayEnabled;
-    });
+              private percentileService: AssessmentPercentileService) {
   }
 
   ngOnInit(): void {
+    this.applicationSettingsService.getSettings().subscribe(settings => {
+      this.percentileDisplayEnabled = settings.percentileDisplayEnabled;
+    });
+
     this.initializeViews();
     this.setCurrentView(this.resultsByStudentView);
   }

@@ -5,7 +5,7 @@ import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.m
 import { Assessment } from "../../assessments/model/assessment.model";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { SchoolAssessmentService } from "./school-assessment.service";
-import { School } from "../../user/model/school.model";
+import { School } from "../../school-grade/school";
 import { SchoolService } from "../school.service";
 import { Grade } from "../grade.model";
 import { Angulartics2 } from "angulartics2";
@@ -17,6 +17,7 @@ import { OrganizationService } from "../organization.service";
 import { Option } from "../../shared/form/sb-typeahead.component";
 import { Utils } from "../../shared/support/support";
 import { SchoolAssessmentExportService } from "./school-assessment-export.service";
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Component({
   selector: 'app-group-results',
@@ -31,7 +32,6 @@ export class SchoolResultsComponent implements OnInit {
   @ViewChild(AssessmentsComponent)
   assessmentsComponent: AssessmentsComponent;
 
-  schools: School[];
   assessmentExams: AssessmentExam[] = [];
   availableAssessments: Assessment[] = [];
   schoolOptions: Option[] = [];
@@ -105,37 +105,35 @@ export class SchoolResultsComponent implements OnInit {
               private organizationService: OrganizationService) {
   }
 
-  ngOnInit() {
-    this.schools = this.route.snapshot.data[ "user" ].schools;
-    let schoolId = Number.parseInt(this.route.snapshot.params[ "schoolId" ]);
+  ngOnInit(): void {
+    const { schoolId, gradeId, schoolYear } = this.route.snapshot.params;
+    const schoolIdParam = Number.parseInt(schoolId);
+    const gradeIdParam = Number.parseInt(gradeId);
 
-    // get schools with districts
-    this.organizationService.getSchoolsWithDistricts()
-      .subscribe(schools => {
-        this.schoolOptions = schools.map(school => <Option>{
-          label: school.name,
-          group: school.districtName,
-          value: school
-        });
-        this.currentSchool = schools.find(x => x.id == schoolId);
-        this.schoolIsAvailable = this.currentSchool !== undefined;
-      });
+    forkJoin(
+      this.organizationService.getSchoolsWithDistricts(),
+      this.filterOptionService.getExamFilterOptions(),
+      this.schoolService.findGradesWithAssessmentsForSchool(schoolIdParam)
+    ).subscribe(([schools, filterOptions, grades]) => {
 
-    this.filterOptionService
-      .getExamFilterOptions()
-      .subscribe(filterOptions => {
-        this.filterOptions = filterOptions;
-        this.currentSchoolYear = this.mapParamsToSchoolYear(this.route.snapshot.params);
+      this.schoolOptions = schools.map(school => <Option>{
+        label: school.name,
+        group: school.districtName,
+        value: school
       });
+      this.currentSchool = schools.find(x => x.id === schoolIdParam);
+      this.schoolIsAvailable = this.currentSchool !== undefined;
 
-    this.schoolService
-      .findGradesWithAssessmentsForSchool(schoolId)
-      .subscribe(grades => {
-        this.availableGrades = grades;
-        this.gradesAreUnavailable = this.availableGrades.length == 0;
-        this.currentGrade = this.availableGrades.find(grade => grade.id == this.route.snapshot.params[ "gradeId" ]);
-      });
-    this.updateAssessment(this.route.snapshot.data[ "assessment" ]);
+      this.filterOptions = filterOptions;
+      this.currentSchoolYear = Number.parseInt(schoolYear) || this.filterOptions.schoolYears[ 0 ];
+
+      this.availableGrades = grades;
+      this.gradesAreUnavailable = this.availableGrades.length == 0;
+      this.currentGrade = this.availableGrades.find(grade => grade.id === gradeIdParam);
+    });
+
+    const { assessment } = this.route.snapshot.data;
+    this.updateAssessment(assessment);
   }
 
   updateAssessment(latestAssessment: AssessmentExam): void {
@@ -191,10 +189,6 @@ export class SchoolResultsComponent implements OnInit {
     });
 
     this.trackAnalyticsEvent(changedFilter);
-  }
-
-  mapParamsToSchoolYear(params): number {
-    return Number.parseInt(params[ "schoolYear" ]) || this.filterOptions.schoolYears[ 0 ];
   }
 
   exportCsv(): void {

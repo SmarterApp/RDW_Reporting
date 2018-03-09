@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { School } from "../user/model/school.model";
+import { School } from "../school-grade/school";
 import { Observable } from "rxjs/Observable";
 import { CachingDataService } from "../shared/data/caching-data.service";
 import { ReportingServiceRoute } from "../shared/service-route";

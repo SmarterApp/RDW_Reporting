@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs/Observable";
-import { School } from "../../user/model/school.model";
+import { School } from "../../school-grade/school";
 import { OrganizationService } from '../organization.service';
 import { map } from 'rxjs/operators';
 

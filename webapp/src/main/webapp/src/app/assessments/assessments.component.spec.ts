@@ -16,6 +16,7 @@ import { Angulartics2 } from 'angulartics2';
 import { UserService } from "../user/user.service";
 import { MockUserService } from "../../test/mock.user.service";
 import { of } from 'rxjs/observable/of';
+import { ApplicationSettingsService } from '../app-settings.service';
 
 let examObserver: Observer<Exam[]>;
 describe('AssessmentsComponent', () => {
@@ -25,6 +26,10 @@ describe('AssessmentsComponent', () => {
 
   let mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', [ 'eventTrack' ]);
   mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', [ 'next' ]);
+
+  const settings: any = {};
+  const mockApplicationSettingsService = jasmine.createSpyObj('ApplicationSettingsService', [ 'getSettings' ]);
+  mockApplicationSettingsService.getSettings.and.callFake(() => of(settings));
 
   beforeEach(async(() => {
 
@@ -42,7 +47,8 @@ describe('AssessmentsComponent', () => {
         { provide: ExamFilterOptionsService, useClass: MockExamFilterOptionsService },
         { provide: GroupAssessmentService, useClass: MockAssessmentService },
         { provide: Angulartics2, useValue: mockAngulartics2 },
-        { provide: UserService, useClass: MockUserService }
+        { provide: ApplicationSettingsService, useValue: mockApplicationSettingsService },
+        { provide: UserService, useValue: new MockUserService() }
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
@@ -135,21 +141,7 @@ describe('AssessmentsComponent', () => {
 
 function getRouteSnapshot() {
   return {
-    data: {
-      user: {
-        groups: [
-          {
-            id: 2,
-            name: "Anderson's 4th grade."
-          }
-        ],
-        assessments: [
-          {
-            label: "Measurements & Data"
-          }
-        ]
-      }
-    },
+    data: {},
     params: {
       groupId: 2
     }

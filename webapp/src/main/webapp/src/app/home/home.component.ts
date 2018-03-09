@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { User } from "../user/model/user.model";
+import { ApplicationSettings } from '../app-settings';
+import { ApplicationSettingsService } from '../app-settings.service';
 
 @Component({
   selector: 'home',
@@ -11,10 +11,15 @@ import { User } from "../user/model/user.model";
 })
 export class HomeComponent {
 
-  user: User;
+  applicationSettings: ApplicationSettings;
 
-  constructor(route: ActivatedRoute) {
-    this.user = route.snapshot.data[ 'user' ];
+  constructor(private applicationSettingsService: ApplicationSettingsService) {
+  }
+
+  ngOnInit(): void {
+    this.applicationSettingsService.getSettings().subscribe(settings => {
+      this.applicationSettings = settings;
+    });
   }
 
 }

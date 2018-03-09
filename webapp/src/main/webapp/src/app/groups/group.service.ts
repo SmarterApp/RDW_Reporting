@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CachingDataService } from '../shared/data/caching-data.service';
 import { ReportingServiceRoute } from '../shared/service-route';
 import { map } from 'rxjs/operators';
-import { Group } from '../user/model/group.model';
+import { Group } from '../groups/group';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()

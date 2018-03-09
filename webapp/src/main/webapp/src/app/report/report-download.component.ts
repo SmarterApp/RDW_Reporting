@@ -5,8 +5,7 @@ import { ReportOrder } from "./report-order.enum";
 import { ModalDirective } from "ngx-bootstrap";
 import { Observable } from "rxjs/Observable";
 import { Report } from "./report.model";
-import { UserService } from "../user/user.service";
-import { Utils } from "../shared/support/support";
+import { ApplicationSettingsService } from '../app-settings.service';
 
 /**
  * Abstract class used to carry the common logic between all exam report download components
@@ -54,7 +53,7 @@ export abstract class ReportDownloadComponent implements OnInit {
   transferAccess: boolean;
 
   constructor(protected notificationService: NotificationService,
-              protected userService: UserService) {
+              protected applicationSettingsService: ApplicationSettingsService) {
   }
 
   ngOnInit(): void {
@@ -69,11 +68,9 @@ export abstract class ReportDownloadComponent implements OnInit {
     defaultOptions.disableTransferAccess = false;
     this.options = defaultOptions;
 
-    this.userService.getCurrentUser().subscribe(user => {
-      if (!Utils.isNullOrUndefined(user)) {
-        this.reportLanguages = this.reportLanguages.concat(user.configuration.reportLanguages);
-        this.transferAccess = user.configuration.transferAccess;
-      }
+    this.applicationSettingsService.getSettings().subscribe(settings => {
+      this.reportLanguages = this.reportLanguages.concat(settings.reportLanguages);
+      this.transferAccess = settings.transferAccess;
     });
   }
 

@@ -2,38 +2,54 @@ import { Injectable } from "@angular/core";
 import { RequestOptionsArgs } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { DataService } from "./data.service";
+import { share, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
-import { _throw } from 'rxjs/observable/throw';
-import { share } from 'rxjs/operators';
 
+/**
+ * Caches HTTP get responses and makes sure that concurrent requests
+ * for the same resource not produce duplicate network calls
+ */
 @Injectable()
 export class CachingDataService {
 
-  private responseByUrl: { [key: string]: any } = {};
+  /**
+   * The in-progress http requests indexed by URL
+   *
+   * @type {Map<any, any>}
+   */
+  private requestsByUrl: Map<string, Observable<any>> = new Map();
+
+  /**
+   * The http responses indexed by URL
+   *
+   * @type {Map<any, any>}
+   */
+  private responsesByUrl: Map<string, any> = new Map();
 
   constructor(private dataService: DataService) {
   }
 
   public get(url: string, options?: RequestOptionsArgs): Observable<any> {
 
-    const previousResponse = this.responseByUrl[ url ];
-    if (previousResponse) {
-      return of(previousResponse);
+    const response = this.responsesByUrl.get(url);
+    if (response) {
+      return of(response);
     }
 
-    const observable = this.dataService
-      .get(url, options)
-      .pipe(
-        share()
-      );
+    const request = this.requestsByUrl.get(url);
+    if (request) {
+      return request;
+    }
 
-    observable.subscribe(
-      response => {
-        this.responseByUrl[ url ] = response;
-      },
-      error => _throw(error)
+    const observable = this.dataService.get(url, options).pipe(
+      tap(value => {
+        this.responsesByUrl.set(url, value);
+        this.requestsByUrl.delete(url);
+      }),
+      share()
     );
 
+    this.requestsByUrl.set(url, observable);
     return observable;
   }
 
