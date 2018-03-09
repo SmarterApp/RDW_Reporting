@@ -14,6 +14,7 @@ import { ReportModule } from "../report/report.module";
 import { PopoverModule } from "ngx-bootstrap";
 import { UserModule } from "../user/user.module";
 import { GroupAssessmentExportService } from "./results/group-assessment-export.service";
+import { GroupService } from './group.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { GroupAssessmentExportService } from "./results/group-assessment-export.
     GroupsComponent
   ],
   providers: [
+    GroupService,
     GroupAssessmentsResolve,
     GroupAssessmentService,
     GroupAssessmentExportService

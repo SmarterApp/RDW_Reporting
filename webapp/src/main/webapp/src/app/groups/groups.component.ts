@@ -1,28 +1,32 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { Group } from '../user/model/group.model';
+import { GroupService } from './group.service';
 
 @Component({
   selector: 'groups',
   templateUrl: 'groups.component.html'
 })
 export class GroupsComponent implements OnInit {
-  /**
-   * The array of groups that a user has access to.
-   */
-  @Input()
-  groups = [];
 
-  filteredGroups = [];
+  groups: Group[];
+  filteredGroups: Group[] = [];
   searchTerm : string;
 
-  constructor() {}
+  constructor(private groupService: GroupService) {
+    this.groupService.getGroups().subscribe(groups => {
+      const groupsCopy = groups.concat();
+      this.groups = groupsCopy;
+      this.filteredGroups = groupsCopy;
+    })
+  }
 
   ngOnInit() {
     this.filteredGroups = this.groups;
   }
 
   onSearchChange(event) {
-    this.filteredGroups = this.groups.filter( x => x.name.toUpperCase().indexOf(this.searchTerm.toUpperCase()) >= 0)
+    this.filteredGroups = this.groups.filter( group =>
+      group.name.toUpperCase().indexOf(this.searchTerm.toUpperCase()) >= 0);
   }
 
   /**
@@ -36,4 +40,5 @@ export class GroupsComponent implements OnInit {
       'labels.groups.empty-message' :
       'labels.groups.no-groups-message';
   }
+
 }

@@ -7,7 +7,9 @@ import { DataTableModule, SharedModule } from "primeng/primeng";
 import { HttpModule } from "@angular/http";
 import { APP_BASE_HREF } from "@angular/common";
 import { By } from "@angular/platform-browser";
-import { Component } from "@angular/core";
+import { Component, NO_ERRORS_SCHEMA } from "@angular/core";
+import { GroupService } from './group.service';
+import { of } from 'rxjs/observable/of';
 
 let mockGroups = [
   { name: "advanced mathematics" },
@@ -19,12 +21,26 @@ let mockGroups = [
 
 describe('GroupComponents', () => {
   var fixture, component;
+  let mockGroupService = {
+    getGroups: () => of(mockGroups)
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, TranslateModule.forRoot(), DataTableModule, SharedModule, RouterModule.forRoot([]), HttpModule ],
+      imports: [
+        FormsModule,
+        TranslateModule.forRoot(),
+        DataTableModule,
+        SharedModule,
+        RouterModule.forRoot([]),
+        HttpModule
+      ],
       declarations: [ GroupsComponent, TestComponentWrapper ],
-      providers: [ { provide: APP_BASE_HREF, useValue: '/' } ]
+      providers: [
+        { provide: APP_BASE_HREF, useValue: '/' },
+        { provide: GroupService, useValue: mockGroupService }
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     });
 
     fixture = TestBed.createComponent(TestComponentWrapper);
@@ -60,7 +76,7 @@ describe('GroupComponents', () => {
 
 @Component({
   selector: 'test-component-wrapper',
-  template: '<groups [groups]="groups"></groups>'
+  template: '<groups></groups>'
 })
 class TestComponentWrapper {
   groups = mockGroups;

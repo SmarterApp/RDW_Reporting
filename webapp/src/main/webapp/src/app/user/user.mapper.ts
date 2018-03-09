@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
 import { User } from "./model/user.model";
 import { Group } from "./model/group.model";
-import { ordering } from "@kourge/ordering";
-import { byString } from "@kourge/ordering/comparator";
 import { Configuration } from "./model/configuration.model";
 import { Utils } from "../shared/support/support";
 
@@ -14,33 +12,7 @@ export class UserMapper {
     uiModel.firstName = apiModel.firstName;
     uiModel.lastName = apiModel.lastName;
     uiModel.permissions = apiModel.permissions.concat();
-    uiModel.groups = this.mapGroupsFromApi(apiModel.groups);
     uiModel.configuration = this.mapConfigurationFromApi(apiModel.settings);
-    return uiModel;
-  }
-
-  private mapGroupsFromApi(groups: any[]): Group[] {
-    return Utils.isNullOrUndefined(groups)
-      ? []
-      : groups
-        .filter(group => this.isGroupValid(group))
-        .map(group => this.mapGroupFromApi(group))
-        .sort(ordering(byString).on<Group>(group => group.name).compare); // TODO component logic
-  }
-
-  private isGroupValid(group: any) {
-    return !Utils.isNullOrUndefined(group)
-      && !Utils.isNullOrUndefined(group.id)
-      && !Utils.isNullOrUndefined(group.name);
-  }
-
-  private mapGroupFromApi(apiModel: any): Group {
-    let uiModel: Group = new Group();
-    uiModel.id = apiModel.id;
-    uiModel.name = apiModel.name;
-    uiModel.schoolName = apiModel.schoolName;
-    uiModel.schoolId = apiModel.schoolId;
-    uiModel.subjectCode = apiModel.subjectCode;
     return uiModel;
   }
 

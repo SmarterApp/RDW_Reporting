@@ -10,10 +10,12 @@ import { CsvExportService } from "../../csv-export/csv-export.service";
 import { GroupReportDownloadComponent } from "../../report/group-report-download.component";
 import { Group } from "../../user/model/group.model";
 import { GroupAssessmentExportService } from "./group-assessment-export.service";
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { GroupService } from '../group.service';
 
 @Component({
   selector: 'app-group-results',
-  templateUrl: './group-results.component.html',
+  templateUrl: './group-results.component.html'
 })
 export class GroupResultsComponent implements OnInit {
 
@@ -30,7 +32,7 @@ export class GroupResultsComponent implements OnInit {
 
   set currentGroup(value: Group) {
     this._currentGroup = value;
-    if(this._currentGroup) {
+    if (this._currentGroup) {
       this.assessmentProvider.group = this._currentGroup;
       this.assessmentExporter.group = this._currentGroup;
     }
@@ -50,6 +52,7 @@ export class GroupResultsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private groupService: GroupService,
               private filterOptionService: ExamFilterOptionsService,
               private angulartics2: Angulartics2,
               private csvExportService: CsvExportService,
@@ -58,29 +61,31 @@ export class GroupResultsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.groups = this.route.snapshot.data[ "user" ].groups;
-    this.currentGroup = this.groups.find(x => x.id == this.route.snapshot.params[ "groupId" ]);
-
-    this.filterOptionService.getExamFilterOptions().subscribe(filterOptions => {
+    forkJoin(
+      this.groupService.getGroups(),
+      this.filterOptionService.getExamFilterOptions()
+    ).subscribe(([ groups, filterOptions ]) => {
+      this.groups = groups;
       this.filterOptions = filterOptions;
-      this.currentSchoolYear = this.mapParamsToSchoolYear(this.route.snapshot.params);
-    });
-
-    this.updateAssessment(this.route.snapshot.data[ "assessment" ]);
+      const { groupId, schoolYear } = this.route.snapshot.params;
+      this.currentGroup = this.groups.find(group => group.id == groupId);
+      this.currentSchoolYear = Number.parseInt(schoolYear) || this.filterOptions.schoolYears[ 0 ];
+      this.updateAssessment(this.route.snapshot.data[ 'assessment' ]);
+    })
   }
 
   updateAssessment(latestAssessment) {
     this.assessmentExams = [];
-
     if (latestAssessment) {
       this.assessmentExams.push(latestAssessment);
     }
   }
 
   updateRoute(changeSource: string) {
-    this.router.navigate([ 'groups', this._currentGroup.id, { schoolYear: this._currentSchoolYear, } ]).then(() => {
-      this.updateAssessment(this.route.snapshot.data[ "assessment" ]);
-    });
+    this.router.navigate([ 'groups', this._currentGroup.id, { schoolYear: this._currentSchoolYear } ])
+      .then(() => {
+        this.updateAssessment(this.route.snapshot.data[ "assessment" ]);
+      });
 
     // track change event since wiring select boxes on change as HTML attribute is not possible
     this.angulartics2.eventTrack.next({
@@ -92,13 +97,7 @@ export class GroupResultsComponent implements OnInit {
     });
   }
 
-  mapParamsToSchoolYear(params) {
-    return Number.parseInt(params[ "schoolYear" ]) || this.filterOptions.schoolYears[ 0 ];
-  }
-
   exportCsv(): void {
-    let filename: string = this.currentGroup.name +
-      "-" + new Date().toDateString();
 
     this.angulartics2.eventTrack.next({
       action: 'Export Group Results',
@@ -107,7 +106,12 @@ export class GroupResultsComponent implements OnInit {
       }
     });
 
-    this.csvExportService.exportAssessmentExams(this.assessmentsComponent.assessmentExams, this.assessmentsComponent.clientFilterBy, this.filterOptions.ethnicities, filename);
+    this.csvExportService.exportAssessmentExams(
+      this.assessmentsComponent.assessmentExams,
+      this.assessmentsComponent.clientFilterBy,
+      this.filterOptions.ethnicities,
+      `${this.currentGroup.name}-${Date.now().toString()}`
+    );
   }
 
   /**

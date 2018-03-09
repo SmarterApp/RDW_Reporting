@@ -16,6 +16,7 @@ import { MockRouter } from "../../../test/mock.router";
 import { MockAuthorizeDirective } from "../../../test/mock.authorize.directive";
 import { GroupAssessmentExportService } from "./group-assessment-export.service";
 import { of } from "rxjs/observable/of";
+import { GroupService } from '../group.service';
 
 let availableGrades = [];
 
@@ -27,7 +28,11 @@ describe('GroupResultsComponent', () => {
 
   beforeEach(async(() => {
     let user = new User();
-    user.groups = [ { name: "Group 1", id: 2, schoolName: '', schoolId: 123, subjectCode: 'ELA' } ];
+    let groups = [ { name: "Group 1", id: 2, schoolName: '', schoolId: 123, subjectCode: 'ELA' } ];
+
+    let mockGroupService = {
+      getGroups: () => of(groups)
+    };
 
     let mockRouteSnapshot: any = {};
     mockRouteSnapshot.data = { user: user };
@@ -61,6 +66,7 @@ describe('GroupResultsComponent', () => {
         { provide: APP_BASE_HREF, useValue: '/' },
         { provide: GroupAssessmentService, useValue: mockGroupAssessmentService },
         { provide: GroupAssessmentExportService, useValue: mockGroupAssessmentExportService },
+        { provide: GroupService, useValue: mockGroupService },
         { provide: ExamFilterOptionsService, useClass: MockExamFilterOptionService },
         { provide: ActivatedRoute, useValue: route },
         { provide: Angulartics2, useValue: mockAngulartics2 },
