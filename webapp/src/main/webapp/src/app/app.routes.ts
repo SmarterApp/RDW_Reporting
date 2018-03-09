@@ -2,7 +2,6 @@ import { HomeComponent } from "./home/home.component";
 import { Routes } from "@angular/router";
 import { GroupResultsComponent } from "./groups/results/group-results.component";
 import { GroupAssessmentsResolve } from "./groups/results/group-assessments.resolve";
-import { UserResolve } from "./user/user.resolve";
 import { SchoolAssessmentResolve } from "./school-grade/results/school-assessments.resolve";
 import { SchoolResultsComponent } from "./school-grade/results/school-results.component";
 import { CurrentSchoolResolve } from "./school-grade/results/current-school.resolve";
@@ -38,7 +37,6 @@ import { AggregateReportResolve } from "./aggregate-report/results/aggregate-rep
 import { AggregateReportOptionsResolve } from "./aggregate-report/aggregate-report-options.resolve";
 import { AssessmentDefinitionResolve } from "./aggregate-report/assessment/assessment-definition.resolve";
 import { AggregateReportFormSettingsResolve } from "./aggregate-report/aggregate-report-form-settings.resolve";
-import { ApplicationSettingsResolve } from './app-settings.resolve';
 
 const adminRoute = {
   path: '',
@@ -151,7 +149,7 @@ const studentTestHistoryChildRoute = {
   resolve: { examHistory: StudentExamHistoryResolve },
   data: {
     breadcrumb: {
-      translate: 'labels.student.results.crumb',
+      translate: 'student.results.crumb',
       translateResolve: 'examHistory.student'
     },
   },
@@ -173,7 +171,7 @@ const studentTestHistoryChildRoute = {
       },
       data: {
         breadcrumb: {
-          translate: 'labels.student.responses.crumb'
+          translate: 'student.responses.crumb'
         }
       },
       component: StudentResponsesComponent
@@ -245,7 +243,7 @@ export const routes: Routes = [
         resolve: { examHistory: StudentExamHistoryResolve },
         data: {
           breadcrumb: {
-            translate: 'labels.student.results.crumb',
+            translate: 'student.results.crumb',
             translateResolve: 'examHistory.student'
           },
           permissions: [ 'GROUP_PII_READ' ]
@@ -268,7 +266,7 @@ export const routes: Routes = [
               student: StudentHistoryResponsesStudentResolve
             },
             data: {
-              breadcrumb: { translate: 'labels.student.responses.crumb' }
+              breadcrumb: { translate: 'student.responses.crumb' }
             },
             component: StudentResponsesComponent
           }

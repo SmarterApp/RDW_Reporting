@@ -72,7 +72,7 @@
   </p-dataTable>
 
   <div *ngFor="let traitScoreSummary of traitScoreSummaries">
-    <h4 *ngIf="isWritingTraitItem" class="pt-md">{{'labels.writing-trait-scores.aggregate-header' | translate }}</h4>
+    <h4 *ngIf="isWritingTraitItem" class="pt-md">{{'assessments.writing-trait-scores.aggregate-header' | translate }}</h4>
 
     <p-dataTable *ngIf="isWritingTraitItem" #traitScoreTable [value]="traitScoreSummary.rows"
                  tableStyleClass="table table-striped table-hover" [tableStyle]="{'table-layout':'auto', 'min-width' : '65%'}">

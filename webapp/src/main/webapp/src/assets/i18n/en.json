@@ -13,6 +13,18 @@
     "title": "Access Denied",
     "logout": "Logout"
   },
+  "information-button": {
+    "more-info": "More Information"
+  },
+  "home": {
+    "title": "Access Assessment Results",
+    "welcome": {
+      "interpretive-guide-html": "<a href=\"{{interpretiveGuideUrl}}\" target=\"_blank\">The Interim Assessments Interpretive Guide</a> is designed to help educators, parents, and other stakeholders interpret interim assessments reports for the Smarter Balanced Reporting System.",
+      "interpretive-guide-subtitle": "Interim Assessments",
+      "title": "Welcome!",
+      "user-guide-html": "<a href=\"{{userGuideUrl}}\" target=\"_blank\">The User Guide</a> describes features of the Smarter Balanced Reporting System and instructions for using each feature."
+    }
+  },
   "assessments": {
     "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above.",
     "average": {
@@ -62,6 +74,9 @@
         "student-scores-intro-text": "Expand each student row to view their response to this item.",
         "writing-trait-scores": "Writing Trait Scores"
       }
+    },
+    "writing-trait-scores": {
+      "aggregate-header": "Points Breakdown"
     },
     "result": "Result",
     "results": "Results",
@@ -268,6 +283,7 @@
       "submit": "Generate Report"
     }
   },
+  "popup-menu": "Menu",
   "buttons": {
     "all": "All",
     "collapsible": {
@@ -293,6 +309,22 @@
     "no-matches": "There are no unselected organizations matching your search."
   },
   "common": {
+    "navigation": {
+      "interpretive-guide": "Interpretive Guide",
+      "user-guide": "User Guide"
+    },
+    "type": "Type",
+    "name": "Name",
+    "menus": {
+      "resources": "Instructional Resources",
+      "responses": "{{firstName}}'s Responses",
+      "student-report": {
+        "iab": "Print {{firstName}}'s Full IAB Report",
+        "ica": "Print {{firstName}}'s ICA Report",
+        "summative": "Print {{firstName}}'s Summative Report"
+      },
+      "test-history": "{{firstName}}'s Test History"
+    },
     "collection-selection": {
       "all": "All",
       "none": "None"
@@ -611,6 +643,15 @@
       "PS": "Postsecondary",
       "TK": "Transitional Kindergarten",
       "UG": "Ungraded"
+    },
+    "instructional-resources": {
+      "link": {
+        "System": "Smarter Balanced Instructional Resource",
+        "State": "{{organizationName}} Instructional Resource",
+        "DistrictGroup": "{{organizationName}} Instructional Resource",
+        "District": "{{organizationName}} Instructional Resource",
+        "SchoolGroup": "{{organizationName}} Instructional Resource"
+      }
     }
   },
   "common-ngx": {
@@ -922,15 +963,6 @@
     "subhead": "Click an item to remove it from the list"
   },
   "labels": {
-    "instructional-resources": {
-      "link": {
-        "System": "Smarter Balanced Instructional Resource",
-        "State": "{{organizationName}} Instructional Resource",
-        "DistrictGroup": "{{organizationName}} Instructional Resource",
-        "District": "{{organizationName}} Instructional Resource",
-        "SchoolGroup": "{{organizationName}} Instructional Resource"
-      }
-    },
     "embargo": {
       "district": {
         "table": {
@@ -1004,7 +1036,6 @@
         "true": "Embargoed"
       }
     },
-    "grade": "Grade",
     "groups": {
       "cols": {
         "group": "Group Name",
@@ -1087,15 +1118,6 @@
       },
       "search-label": "Search by My Groups"
     },
-    "homepage": {
-      "title": "Access Assessment Results",
-      "welcome": {
-        "interpretive-guide-html": "<a href=\"{{interpretiveGuideUrl}}\" target=\"_blank\">The Interim Assessments Interpretive Guide</a> is designed to help educators, parents, and other stakeholders interpret interim assessments reports for the Smarter Balanced Reporting System.",
-        "interpretive-guide-subtitle": "Interim Assessments",
-        "title": "Welcome!",
-        "user-guide-html": "<a href=\"{{userGuideUrl}}\" target=\"_blank\">The User Guide</a> describes features of the Smarter Balanced Reporting System and instructions for using each feature."
-      }
-    },
     "instructional-resource": {
       "assessments": {
         "no-results": "No assessments found.",
@@ -1175,23 +1197,6 @@
         "title": "Edit Instructional Resource",
         "link": "Edit"
       }
-    },
-    "menu": "Menu",
-    "menus": {
-      "resources": "Instructional Resources",
-      "responses": "{{firstName}}'s Responses",
-      "student-report": {
-        "iab": "Print {{firstName}}'s Full IAB Report",
-        "ica": "Print {{firstName}}'s ICA Report",
-        "summative": "Print {{firstName}}'s Summative Report"
-      },
-      "test-history": "{{firstName}}'s Test History"
-    },
-    "more-info": "More Information",
-    "name": "Name",
-    "navigation": {
-      "interpretive-guide": "Interpretive Guide",
-      "user-guide": "User Guide"
     },
     "reports": {
       "all": "All",
@@ -1285,48 +1290,38 @@
         "1": "Math",
         "2": "ELA"
       }
-    },
-    "results-view-state-intro": {
-      "ByItem": "",
-      "ByStudent": "",
-      "DistractorAnalysis": "",
-      "WritingTraitScores": ""
-    },
-    "student": {
-      "messages": {
-        "no-results": "Student does not exist or has no available test results.",
-        "null-student": "This student is unavailable.  Contact your building administrator if you think you should have access to this student.",
-        "empty-filtered-results": "No test results are available for the filters selected."
-      },
-      "prompt": "Enter the Statewide Student Identifier (SSID)",
-      "responses": {
-        "cols": {
-          "correctness": "Correctness",
-          "correctness-info": "A value for the degree of correctness in a student's response to a test question. The correctness value is calculated by dividing the student's score on a particular question by the maximum score for that question.",
-          "max-points": "Max Points",
-          "student-points": "Student Points"
-        },
-        "crumb": "Student Responses",
-        "title": "Student's Responses",
-        "writing-trait-purpose": "Writing Purpose: {{traitType}}"
-      },
-      "results": {
-        "cols": {
-          "assessment": "Assessment",
-          "date": "Date",
-          "enrolled-grade": "Enrolled Grade",
-          "school": "School",
-          "school-year": "School Year"
-        },
-        "crumb": "Student: {{lastName}}, {{firstName}}",
-        "title": "Student Test History Report"
-      },
-      "title": "Search by Student ID"
-    },
-    "type": "Type",
-    "writing-trait-scores": {
-      "aggregate-header": "Points Breakdown"
     }
+  },
+  "student": {
+    "messages": {
+      "no-results": "Student does not exist or has no available test results.",
+      "null-student": "This student is unavailable.  Contact your building administrator if you think you should have access to this student.",
+      "empty-filtered-results": "No test results are available for the filters selected."
+    },
+    "prompt": "Enter the Statewide Student Identifier (SSID)",
+    "responses": {
+      "cols": {
+        "correctness": "Correctness",
+        "correctness-info": "A value for the degree of correctness in a student's response to a test question. The correctness value is calculated by dividing the student's score on a particular question by the maximum score for that question.",
+        "max-points": "Max Points",
+        "student-points": "Student Points"
+      },
+      "crumb": "Student Responses",
+      "title": "Student's Responses",
+      "writing-trait-purpose": "Writing Purpose: {{traitType}}"
+    },
+    "results": {
+      "cols": {
+        "assessment": "Assessment",
+        "date": "Date",
+        "enrolled-grade": "Enrolled Grade",
+        "school": "School",
+        "school-year": "School Year"
+      },
+      "crumb": "Student: {{lastName}}, {{firstName}}",
+      "title": "Student Test History Report"
+    },
+    "title": "Search by Student ID"
   },
   "school-grade": {
     "messages": {
@@ -1336,7 +1331,8 @@
     },
     "school-name": {
       "label": "Search by School Name"
-    }
+    },
+    "grade": "Grade"
   },
   "messages": {
     "loading": "Loading",

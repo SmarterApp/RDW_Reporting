@@ -2,7 +2,7 @@
 
 <ng-container *ngIf="!examHistory; else hasExamHistory">
   <div *ngIf="!examHistory" class="alert alert-danger">
-    {{ 'labels.student.messages.null-student' | translate }}
+    {{ 'student.messages.null-student' | translate }}
   </div>
 </ng-container>
 
@@ -43,7 +43,7 @@
 
   <page-heading>
     <ng-template #heading>
-      <h3>{{'labels.student.results.title' | translate}}</h3>
+      <h3>{{'student.results.title' | translate}}</h3>
     </ng-template>
   </page-heading>
 
@@ -81,7 +81,7 @@
   </ng-container>
 
   <div *ngIf="!hasResults">
-    {{'labels.student.messages.empty-filtered-results' | translate}}
+    {{'student.messages.empty-filtered-results' | translate}}
   </div>
 
   <span student-report-download #reportDownloader

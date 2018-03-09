@@ -258,10 +258,6 @@ export class AssessmentResultsComponent implements OnInit {
     return GradeCode.getIndex(gradeCode);
   }
 
-  getCurrentViewIntroductionLabel(): string {
-    return 'labels.results-view-state-intro.' + ResultsViewState[ this.currentResultsView.value ];
-  }
-
   toggleSession(session): void {
     session.filter = !session.filter;
     this.updateExamSessions();

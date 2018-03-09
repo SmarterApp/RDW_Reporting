@@ -17,11 +17,11 @@
             <ul class="nav navbar-nav navbar-right">
 
               <li class="navbar-link">
-                <a href="{{applicationSettings ? applicationSettings.userGuideUrl : '#'}}" target="_blank">{{'labels.navigation.user-guide' | translate}}</a>
+                <a href="{{applicationSettings ? applicationSettings.userGuideUrl : '#'}}" target="_blank">{{'common.navigation.user-guide' | translate}}</a>
               </li>
               <li class="navbar-link">
                 <a href="{{applicationSettings ? applicationSettings.interpretiveGuideUrl : '#'}}" target="_blank" style="margin-top:-24px">
-                  <small>{{'labels.homepage.welcome.interpretive-guide-subtitle' | translate}}</small><br>{{'labels.navigation.interpretive-guide' | translate}}
+                  <small>{{'home.welcome.interpretive-guide-subtitle' | translate}}</small><br>{{'common.navigation.interpretive-guide' | translate}}
                 </a>
               </li>
               <li class="navbar-link" *hasPermission="'GROUP_PII_READ'">

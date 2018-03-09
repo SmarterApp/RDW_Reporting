@@ -1,6 +1,6 @@
 <page-heading>
   <ng-template #heading>
-    <h1>{{'labels.homepage.title' | translate}}</h1>
+    <h1>{{'home.title' | translate}}</h1>
   </ng-template>
   <ng-template #content>
     <ul class="list-unstyled list-inline">
@@ -53,17 +53,17 @@
 
     <!-- Welcome Content -->
     <div *ngIf="applicationSettings" class="welcome-container well">
-      <p class="lead">{{'labels.homepage.welcome.title' | translate}}</p>
+      <p class="lead">{{'home.welcome.title' | translate}}</p>
       <div class="mb-md">
-        <p [innerHTML]="'labels.homepage.welcome.user-guide-html' | translate:applicationSettings"></p>
-        <a href="{{applicationSettings.userGuideUrl}}" target="_blank" class="btn btn-primary">{{'labels.navigation.user-guide' | translate}}</a>
+        <p [innerHTML]="'home.welcome.user-guide-html' | translate:applicationSettings"></p>
+        <a href="{{applicationSettings.userGuideUrl}}" target="_blank" class="btn btn-primary">{{'common.navigation.user-guide' | translate}}</a>
       </div>
       <div>
-        <p [innerHTML]="'labels.homepage.welcome.interpretive-guide-html' | translate:applicationSettings"></p>
+        <p [innerHTML]="'home.welcome.interpretive-guide-html' | translate:applicationSettings"></p>
         <a href="{{applicationSettings.interpretiveGuideUrl}}" target="_blank" class="btn btn-success">
-          <small>{{'labels.homepage.welcome.interpretive-guide-subtitle' | translate}}</small>
+          <small>{{'home.welcome.interpretive-guide-subtitle' | translate}}</small>
           <br>
-          {{'labels.navigation.interpretive-guide' | translate}}
+          {{'common.navigation.interpretive-guide' | translate}}
         </a>
       </div>
     </div>

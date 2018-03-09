@@ -120,10 +120,10 @@
 
 <ng-template #assessmentTemplate let-assessment="item" let-index="index" let-query="query">
   <p class="mb-0">{{assessment.label}}</p>
-  <p class="h6"><span class="label label-default">{{'labels.name' | translate}}</span> {{assessment.name}}</p>
+  <p class="h6"><span class="label label-default">{{'common.name' | translate}}</span> {{assessment.name}}</p>
 </ng-template>
 
 <ng-template #organizationTemplate let-organization="item" let-index="index" let-query="query">
   <p class="mb-0">{{organization.name}}</p>
-  <p class="h6"><span class="label label-default">{{'labels.type' | translate}}</span> {{ ('labels.instructional-resource.organizations.type.' + organization.organizationType) | translate }}</p>
+  <p class="h6"><span class="label label-default">{{'common.type' | translate}}</span> {{ ('labels.instructional-resource.organizations.type.' + organization.organizationType) | translate }}</p>
 </ng-template>

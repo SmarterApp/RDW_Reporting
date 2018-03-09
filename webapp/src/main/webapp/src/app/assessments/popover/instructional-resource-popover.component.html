@@ -8,7 +8,7 @@
       <li *ngFor="let resource of resources; first as first; last as last"
           [ngClass]="{'border-bottom': resource.organizationLevel === 'System' && resources.length > 1, 'pt-sm': !first, 'pb-xs': last}">
         <a href="{{resource.url}}"
-          target="_blank">{{('labels.instructional-resources.link.' + resource.organizationLevel) | translate:resource}}</a>
+          target="_blank">{{('common.instructional-resources.link.' + resource.organizationLevel) | translate:resource}}</a>
       </li>
     </ul>
   </ng-container>
