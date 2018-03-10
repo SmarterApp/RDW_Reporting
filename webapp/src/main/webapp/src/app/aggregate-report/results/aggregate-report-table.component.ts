@@ -144,8 +144,6 @@ export class AggregateReportTableComponent implements OnInit {
       this._orderingByColumnField['schoolYear'] = SchoolYearOrdering;
       this._orderingByColumnField['dimension.id'] = this.createDimensionOrdering(options);
       this._table = table;
-
-      this.dataTable.value = this.table.rows;
     }
   }
 
