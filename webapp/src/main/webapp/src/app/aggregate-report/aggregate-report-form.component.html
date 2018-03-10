@@ -89,8 +89,7 @@
               <div class="form-group">
                 <input type="hidden"
                        [(ngModel)]="organizations"
-                       formControlName="organizations"
-                       (ngModelChange)="onSettingsChange()">
+                       formControlName="organizations">
                 <div *ngIf="showErrors(organizationsControl)">
                   <p *ngIf="organizationsControl.errors.invalid" class="help-block small red">{{organizationsControl.errors.invalid.messageId | translate}}</p>
                 </div>
@@ -122,7 +121,7 @@
                                [disabled]="summativeFieldsDisabled"
                                [(ngModel)]="includeStateResults"
                                [ngModelOptions]="{standalone: true}"
-                               (ngModelChange)="onIncludeStateResultsChange(); onSettingsChange()">
+                               (ngModelChange)="onIncludeStateResultsChange()">
                         <span class="ml-xs">{{'aggregate-reports.form.section.organization.include.state-results' | translate}}</span>
                       </label>
                     </div>
@@ -131,7 +130,7 @@
                         <input type="checkbox"
                                [(ngModel)]="settings.includeAllDistricts"
                                [ngModelOptions]="{standalone: true}"
-                               (ngModelChange)="onIncludeAllDistrictsChange(); onSettingsChange()">
+                               (ngModelChange)="onIncludeAllDistrictsChange()">
                         <span class="ml-xs">{{'aggregate-reports.form.section.organization.include.all-districts' | translate}}</span>
                       </label>
                     </div>
@@ -184,7 +183,7 @@
                            [options]="options.assessmentTypes"
                            [(ngModel)]="settings.assessmentType"
                            [ngModelOptions]="{standalone: true}"
-                           (change)="onIncludeStateResultsChange(); onSettingsChange()"></sb-radio-button-group>
+                           (change)="onIncludeStateResultsChange()"></sb-radio-button-group>
               </div>
             </div>
           </div>
