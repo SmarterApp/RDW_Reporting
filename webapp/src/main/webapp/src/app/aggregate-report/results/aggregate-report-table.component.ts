@@ -70,15 +70,7 @@ export class AggregateReportTableComponent implements OnInit {
   private dataTable: Table;
 
   public treeColumns: number[] = [];
-  public columns: Column[] = [
-    new Column({id: "organization", field: "organization.name"}),
-    new Column({id: "assessmentGrade", field: "assessmentGradeCode"}),
-    new Column({id: "schoolYear"}),
-    new Column({id: "dimension", field: "dimension.id"}),
-    new Column({id: "studentsTested"}),
-    new Column({id: "achievementComparison", sortable: false}),
-    new Column({id: "avgScaleScore"})
-  ];
+  public columns: Column[];
 
   @Input()
   public rowsPerPageOptions: number[] = DefaultRowsPerPageOptions;
@@ -96,7 +88,16 @@ export class AggregateReportTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.appendPerformanceLevelColumns();
+    this.columns = [
+      new Column({id: "organization", field: "organization.name"}),
+      new Column({id: "assessmentGrade", field: "assessmentGradeCode"}),
+      new Column({id: "schoolYear"}),
+      new Column({id: "dimension", field: "dimension.id"}),
+      new Column({id: "studentsTested"}),
+      new Column({id: "achievementComparison", sortable: false}),
+      new Column({id: "avgScaleScore"}),
+      ...this.getPerformanceLevelColumns()
+    ];
     this.updateColumnOrder();
   }
 
@@ -288,6 +289,10 @@ export class AggregateReportTableComponent implements OnInit {
    * {@link #columnOrdering}
    */
   private updateColumnOrder(): void {
+    if (!this.columns) {
+      return;
+    }
+
     // Assumes the ordered columns always start from the first column and extend to some terminal column
     const comparator = ordering(ranking(this.columnOrdering)).on((column: Column) => column.id).compare;
     const orderedColumns: Column[] = this.columns.slice(0, this.columnOrdering.length).sort(comparator);
@@ -391,30 +396,40 @@ export class AggregateReportTableComponent implements OnInit {
     return districtNamesById;
   }
 
-  private appendPerformanceLevelColumns(): void {
+  private getPerformanceLevelColumns(): Column[] {
+    const performanceColumns: Column[] = [];
     Object.keys(this.performanceLevelsByDisplayType)
       .forEach((displayType) => {
         this.performanceLevelsByDisplayType[displayType].forEach((level, index) => {
-          this.columns.push(new Column({
+          performanceColumns.push(new Column({
             id: "performanceLevel",
             displayType: displayType,
             level: level,
             visible: this.performanceLevelDisplayType === displayType,
             index: index,
-            field: `performanceLevelByDisplayTypes.${displayType}.${this.valueDisplayType}.${index}`
+            field: `performanceLevelByDisplayTypes.${displayType}.${this.valueDisplayType}.${index}`,
+            headerKey: this.getPerformanceLevelColumnHeaderTranslationCode(level, index),
+            headerColor: this.colorService.getPerformanceLevelColorsByAssessmentTypeCode(this.table.assessmentDefinition.typeCode, level)
           }));
         });
       });
+
+    return performanceColumns;
   }
 
   private updatePerformanceLevelColumns() {
+    if (!this.columns) {
+      return;
+    }
+
     this.columns.forEach((column) => {
       if (column.id !== "performanceLevel") {
         return;
       }
 
       column.visible = column.displayType === this.performanceLevelDisplayType;
-      column.field = `performanceLevelByDisplayTypes.${column.displayType}.${this.valueDisplayType}.${column.index}`
+      column.field = `performanceLevelByDisplayTypes.${column.displayType}.${this.valueDisplayType}.${column.index}`;
+      column.headerKey = this.getPerformanceLevelColumnHeaderTranslationCode(column.level, column.index);
     });
   }
 
@@ -509,6 +524,8 @@ class Column {
   displayType?: string;
   level?: number;
   index?: number;
+  headerKey?: string;
+  headerColor?: string;
 
   constructor({ id,
                 field = "",
@@ -516,7 +533,9 @@ class Column {
                 visible = true,
                 displayType = "",
                 level = -1,
-                index = -1}) {
+                index = -1,
+                headerKey = "",
+                headerColor = ""}) {
     this.id = id;
     this.field = field ? field : id;
     this.sortable = sortable;
@@ -532,6 +551,14 @@ class Column {
 
     if (index >= 0) {
       this.index = index;
+    }
+
+    if (headerKey) {
+      this.headerKey = headerKey;
+    }
+
+    if (headerColor) {
+      this.headerColor = headerColor;
     }
   }
 }

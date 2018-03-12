@@ -1,6 +1,6 @@
 <p-table #dataTable
          [columns]="columns"
-         [rows]="100"
+         [rows]="rowsPerPageOptions[0]"
          [value]="table.rows"
          [rowTrackBy]="rowTrackBy"
          [paginator]="true"
@@ -25,8 +25,8 @@
         <div *ngSwitchCase="'performanceLevel'"
              class="text-center">
           <div class="label"
-               [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode(table.assessmentDefinition.typeCode, column.level)">
-            {{ getPerformanceLevelColumnHeaderTranslationCode(column.level, column.index) | translate }}
+               [ngClass]="column.headerColor">
+            {{ column.headerKey | translate }}
           </div>
           <div>{{ 'aggregate-reports.results.cols.performance-level-suffix' | translate }}</div>
         </div>
@@ -81,6 +81,11 @@
             }}
           </div>
 
+          <div *ngSwitchCase="'studentsTested'"
+               class="text-right">
+            {{ rowData.studentsTested }}
+          </div>
+
           <div *ngSwitchCase="'achievementComparison'">
             <performance-level-distribution-chart [percentages]="rowData.performanceLevelByDisplayTypes.Separate.Percent"
                                                   [cutPoint]="table.assessmentDefinition.performanceLevelGroupingCutPoint"
@@ -110,10 +115,6 @@
             </span>
           </div>
 
-          <div *ngSwitchDefault
-               class="text-right">
-            {{ readField(rowData, column.field) }}
-          </div>
         </div>
       </td>
     </tr>
