@@ -105,7 +105,7 @@
     "no-writing-trait-scores": "Writing trait scores are not available for assessments administered prior to 2017-18 school year.",
     "no-writing-trait-scores-for-summative-ica-exams": "Writing trait scores are currently available for only ELA Performance Task IABs.",
     "result-view-select": "Select a results view",
-    "results-view-state": {
+    "view": {
       "ByItem": "Results By Item",
       "ByStudent": "Results By Student",
       "DistractorAnalysis": "Key / Distractor Analysis",
