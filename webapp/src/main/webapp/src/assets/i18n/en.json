@@ -105,15 +105,15 @@
     "no-writing-trait-scores": "Writing trait scores are not available for assessments administered prior to 2017-18 school year.",
     "no-writing-trait-scores-for-summative-ica-exams": "Writing trait scores are currently available for only ELA Performance Task IABs.",
     "result-view-select": "Select a results view",
+    "select-view": "Select View",
+    "session-unknown": "[Unknown]",
+    "sessions-title": "Sessions",
     "view": {
       "ByItem": "Results By Item",
       "ByStudent": "Results By Student",
       "DistractorAnalysis": "Key / Distractor Analysis",
       "WritingTraitScores": "Writing Trait Scores"
-    },
-    "select-view": "Select View",
-    "session-unknown": "[Unknown]",
-    "sessions-title": "Sessions"
+    }
   },
   "assessments": {
     "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above.",
@@ -443,6 +443,9 @@
         "transfer-assessment-info": "Indicates whether to show or hide assessments administered outside of the User's standard institutions."
       }
     },
+    "form-field-message": {
+      "required": "* Required"
+    },
     "gender": {
       "Female": "Female",
       "Male": "Male"
@@ -549,7 +552,6 @@
         }
       }
     },
-    "required": "* Required",
     "results": {
       "assessment": {
         "instruct": "Instructional Resources",
