@@ -89,11 +89,11 @@ cloud:
 archive:
   root: file:///tmp/
 
-app:
+jwt:
+  secret: ${rdw.reporting.jwt.secret:secret}
+
+reporting:
   school-year: 2018
   state:
     code: CA
     name: California
-
-jwt:
-  secret: ${rdw.reporting.jwt.secret:secret}

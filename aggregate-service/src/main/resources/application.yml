@@ -42,12 +42,6 @@ app:
       # every day at 2:00 am (GMT)
       refresh-cron: "0 0 2 * * *"
 
-  school-year: 2018
-  state:
-    code: CA
-    name: California
-
-
 spring:
   cache:
     type: SIMPLE
@@ -86,3 +80,9 @@ spring:
 
 jwt:
   secret: ${rdw.reporting.jwt.secret:secret}
+
+reporting:
+  school-year: 2018
+  state:
+    code: CA
+    name: California

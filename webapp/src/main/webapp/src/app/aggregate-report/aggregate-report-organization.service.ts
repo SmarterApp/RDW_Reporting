@@ -4,9 +4,9 @@ import { Observable } from "rxjs/Observable";
 import { Organization, OrganizationType } from "../shared/organization/organization";
 import { OrganizationMapper } from "../shared/organization/organization.mapper";
 import { map } from 'rxjs/operators';
-import { AdminServiceRoute } from '../shared/service-route';
+import { AggregateServiceRoute } from '../shared/service-route';
 
-const ServiceRoute = AdminServiceRoute;
+const ServiceRoute = AggregateServiceRoute;
 
 /**
  * Responsible for getting aggregate report organizations from the server

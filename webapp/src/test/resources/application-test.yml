@@ -1,11 +1,10 @@
 app:
   test-mode: true
 
+reporting:
   state:
     code: CA
-
-  iris:
-    url: http://my-iris.somewhere.org/iris/
+    name: California
 
 permissionservice:
   endpoint:

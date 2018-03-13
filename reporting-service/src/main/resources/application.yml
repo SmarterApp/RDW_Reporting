@@ -61,25 +61,11 @@ artifacts:
     directory: ${rdw.reporting.artifacts.exam.item.directory:local/items/Item-{0}/}
     file-name: item-{0}.xml
 
-app:
+jwt:
+  secret: ${rdw.reporting.jwt.secret:secret}
+
+reporting:
   school-year: 2018
   state:
     code: CA
     name: California
-
-  iris:
-    vendorId: ${rdw.reporting.iris.vendorId}
-
-  # google analytics configuration
-  analytics:
-    trackingId: ${rdw.reporting.analytics.trackingId:}
-
-  external-links:
-    interpretive-guide: https://portal.smarterbalanced.org/library/en/reporting-system-interpretive-guide.pdf
-    user-guide: https://portal.smarterbalanced.org/library/en/reporting-system-user-guide.pdf
-
-  min-item-data-year: 2016
-
-jwt:
-  secret: ${rdw.reporting.jwt.secret:secret}
-

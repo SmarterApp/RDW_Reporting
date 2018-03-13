@@ -41,7 +41,7 @@ sqlbuilder:
                      NULL AS organization_id
                 where: >-
                      3 <> :asmt_type_id
-                     OR fe.school_year < ${app.school-year}
+                     OR fe.school_year < ${reporting.school-year}
                      OR EXISTS (SELECT 1 FROM state_embargo WHERE aggregate = 0)
                      OR 1 = :state_embargo_admin
 
@@ -94,7 +94,7 @@ sqlbuilder:
             embargo:
               clauses:
                 where: >-
-                    fe.school_year < ${app.school-year}
+                    fe.school_year < ${reporting.school-year}
                     OR 3 <> :asmt_type_id
                     OR sch.embargo_enabled = 0
                     OR 1 = :state_embargo_admin

@@ -77,13 +77,6 @@ permissionservice:
   component: Reporting
   endpoint: ${rdw.permission.service}
 
-app:
-  state:
-    code: CA
-    name: California
-  iris:
-    url: ${rdw.reporting.iris.url}
-
 # Netflix zuul configuration.
 zuul:
   set-content-length: true
@@ -94,7 +87,7 @@ zuul:
   routes:
     iris:
       path: /iris/**
-      url: ${app.iris.url}
+      url: ${rdw.reporting.iris.url}
       stripPrefix: true
     admin-service:
       path: /api/admin-service/**
@@ -117,3 +110,14 @@ jwt:
   secret: ${rdw.reporting.jwt.secret:secret}
   producer: true
   routePaths: ${zuul.routes.admin-service.path},${zuul.routes.aggregate-service.path},${zuul.routes.report-processor.path},${zuul.routes.reporting-service.path}
+
+reporting:
+  analytics-tracking-id: ${rdw.reporting.analytics.trackingId:}
+  interpretive-guide-url: https://portal.smarterbalanced.org/library/en/reporting-system-interpretive-guide.pdf
+  iris-vendor-id: ${rdw.reporting.iris.vendorId}
+  min-item-data-year: 2016
+  school-year: 2018
+  state:
+    code: CA
+    name: California
+  user-guide-url: https://portal.smarterbalanced.org/library/en/reporting-system-user-guide.pdf

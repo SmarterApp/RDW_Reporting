@@ -120,10 +120,6 @@ cloud:
       instance-profile: false
 
 app:
-  school-year : 2018
-  state:
-    code: CA
-
   archive:
     root: file:///tmp/
 
@@ -145,3 +141,8 @@ task:
 jwt:
   secret: ${rdw.reporting.jwt.secret:secret}
 
+reporting:
+  school-year: 2018
+  state:
+    code: CA
+    name: California
