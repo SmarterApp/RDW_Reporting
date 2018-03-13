@@ -3,7 +3,6 @@ import { Observable } from "rxjs/Observable";
 import { User } from "./user";
 import { CachingDataService } from "../shared/data/caching-data.service";
 import { catchError, map } from 'rxjs/operators';
-import { ReportingServiceRoute } from '../shared/service-route';
 import { of } from 'rxjs/observable/of';
 
 const UnauthenticatedUser = of({
@@ -19,7 +18,7 @@ export class UserService {
   }
 
   getUser(): Observable<User> {
-    return this.dataService.get(`${ReportingServiceRoute}/user`).pipe(
+    return this.dataService.get('/user').pipe(
       map(serverUser => <User>{
         firstName: serverUser.firstName,
         lastName: serverUser.lastName,

@@ -4,11 +4,12 @@ import { AssessmentExamMapper } from "../../assessments/assessment-exam.mapper";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { AssessmentProvider } from "../../assessments/assessment-provider.interface";
 import { ResponseUtils } from "../../shared/response-utils";
-import { Group } from "../../groups/group";
+import { Group } from "../group";
 import { DataService } from "../../shared/data/data.service";
 import { catchError, map, mergeMap } from 'rxjs/operators';
+import { ReportingServiceRoute } from '../../shared/service-route';
 
-const ServiceRoute = '/reporting-service';
+const ServiceRoute = ReportingServiceRoute;
 
 @Injectable()
 export class GroupAssessmentService implements AssessmentProvider {

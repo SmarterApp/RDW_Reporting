@@ -9,8 +9,9 @@ import { URLSearchParams } from "@angular/http";
 import { Group } from "./model/group.model";
 import { DataService } from "../../shared/data/data.service";
 import { map } from 'rxjs/operators';
+import { AdminServiceRoute } from '../../shared/service-route';
 
-const ServiceRoute = '/admin-service';
+const ServiceRoute = AdminServiceRoute;
 const ALL = 'ALL';
 
 @Injectable()

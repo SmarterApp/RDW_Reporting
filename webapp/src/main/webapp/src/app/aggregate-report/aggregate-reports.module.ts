@@ -26,6 +26,7 @@ import { CsvModule } from "../csv-export/csv-export.module";
 import { AggregateReportTableExportService } from "./results/aggregate-report-table-export.service";
 import { AggregateReportSummary } from "./aggregate-report-summary.component";
 import { AggregateReportColumnOrderItemProvider } from "./aggregate-report-column-order-item.provider";
+import { TableModule } from "primeng/table";
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { AggregateReportColumnOrderItemProvider } from "./aggregate-report-colum
     PopoverModule.forRoot(),
     ReactiveFormsModule,
     ReportModule,
+    TableModule,
     TypeaheadModule
   ],
   exports: [

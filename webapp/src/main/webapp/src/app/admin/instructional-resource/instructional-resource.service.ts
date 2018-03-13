@@ -3,8 +3,9 @@ import { InstructionalResource } from "./model/instructional-resource.model";
 import { Observable } from "rxjs/Observable";
 import { DataService } from "../../shared/data/data.service";
 import { map } from 'rxjs/operators';
+import { AdminServiceRoute } from '../../shared/service-route';
 
-const ServiceRoute = '/admin-service';
+const ServiceRoute = AdminServiceRoute;
 
 /**
  * This service is responsible for interacting with instructional resources.

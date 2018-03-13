@@ -6,8 +6,9 @@ import { URLSearchParams } from '@angular/http';
 import { DataService } from "../../shared/data/data.service";
 import { of } from 'rxjs/observable/of';
 import { catchError, map } from 'rxjs/operators';
+import { ReportingServiceRoute } from '../../shared/service-route';
 
-const ServiceRoute = '/reporting-service';
+const ServiceRoute = ReportingServiceRoute;
 
 @Injectable()
 export class InstructionalResourcesService {

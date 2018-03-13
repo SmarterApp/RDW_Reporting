@@ -5,8 +5,9 @@ import { UserOrganizations } from "./organization/user-organizations";
 import { OrganizationExportOptions } from "./organization-export-options";
 import { OrganizationGroupingService } from "./organization-grouping.service";
 import { DataService } from "../shared/data/data.service";
+import { ReportProcessorServiceRoute } from '../shared/service-route';
 
-const ServiceRoute = '/report-processor';
+const ServiceRoute = ReportProcessorServiceRoute;
 
 @Injectable()
 export class OrganizationExportService {

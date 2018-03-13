@@ -25,9 +25,8 @@ import { AssessmentExporter } from "../assessment-exporter.interface";
 import { AssessmentPercentileRequest, AssessmentPercentileService } from "../percentile/assessment-percentile.service";
 import { PercentileGroup } from "../percentile/assessment-percentile";
 import { Utils } from "../../shared/support/support";
-import { UserService } from "../../user/user.service";
-import { ActivatedRoute } from '@angular/router';
 import { ApplicationSettingsService } from '../../app-settings.service';
+import { Angulartics2 } from "angulartics2";
 
 enum ResultsViewState {
   ByStudent = 1,
@@ -221,7 +220,8 @@ export class AssessmentResultsComponent implements OnInit {
               private examCalculator: ExamStatisticsCalculator,
               private examFilterService: ExamFilterService,
               private instructionalResourcesService: InstructionalResourcesService,
-              private percentileService: AssessmentPercentileService) {
+              private percentileService: AssessmentPercentileService,
+              private angulartics2: Angulartics2) {
   }
 
   ngOnInit(): void {
@@ -252,6 +252,14 @@ export class AssessmentResultsComponent implements OnInit {
 
   setCurrentView(view: ResultsView): void {
     this.currentResultsView = view;
+
+    this.angulartics2.eventTrack.next({
+      action: 'Assessment View Change',
+      properties: {
+        category: 'AssessmentResults',
+        label: ResultsViewState[ view.value ]
+      }
+    });
   }
 
   getGradeIdx(gradeCode: string): number {

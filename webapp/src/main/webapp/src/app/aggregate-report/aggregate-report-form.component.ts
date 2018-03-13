@@ -303,10 +303,12 @@ export class AggregateReportFormComponent {
 
   onIncludeStateResultsChange(): void {
     this.markOrganizationsControlTouched();
+    this.onSettingsChange();
   }
 
   onIncludeAllDistrictsChange(): void {
     this.markOrganizationsControlTouched();
+    this.onSettingsChange();
   }
 
   onAdvancedFiltersExpanderButtonClick(): void {
@@ -352,8 +354,9 @@ export class AggregateReportFormComponent {
   }
 
   private markOrganizationsControlTouched(): void {
+    this.organizationsControl.setValue(this.organizations);
     this.organizationsControl.markAsDirty();
-    this.organizations = this.organizations.concat();
+    this.organizationsControl.updateValueAndValidity();
   }
 
   /**
@@ -365,7 +368,6 @@ export class AggregateReportFormComponent {
     const finder = value => value.equals(organization);
     const index = this.organizations.findIndex(finder);
     if (index === -1) {
-      this.organizationsControl.markAsTouched();
       this.addOrganizationToSettings(organization);
     }
   }
@@ -379,6 +381,7 @@ export class AggregateReportFormComponent {
       this.settings.schools.push(<School>organization);
       this.settings.schools.sort(OrganizationComparator);
     }
+    this.markOrganizationsControlTouched();
   }
 
   /**
@@ -390,7 +393,6 @@ export class AggregateReportFormComponent {
     const finder = value => value.equals(organization);
     const index = this.organizations.findIndex(finder);
     if (index !== -1) {
-      this.organizationsControl.markAsTouched();
       this.removeOrganizationFromSettings(organization, finder);
     }
   }
@@ -402,6 +404,7 @@ export class AggregateReportFormComponent {
     } else if (organization.type === OrganizationType.School) {
       this.settings.schools.splice(this.settings.schools.findIndex(finder), 1);
     }
+    this.markOrganizationsControlTouched();
   }
 
   private applySettingsChange(): void {
@@ -437,6 +440,8 @@ export class AggregateReportFormComponent {
     // Mark form as dirty
     Forms.controls(this.formGroup)
       .forEach(control => control.markAsDirty());
+
+    this.formGroup.updateValueAndValidity();
 
     if (formGroup.valid) {
       // Execute callback if the form is valid

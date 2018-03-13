@@ -4,8 +4,9 @@ import { Organization } from "./model/organization.model";
 import { OrganizationQuery } from "./model/organization-query.model";
 import { DataService } from "../../shared/data/data.service";
 import { map } from 'rxjs/operators';
+import { AdminServiceRoute } from '../../shared/service-route';
 
-const ServiceRoute = '/admin-service';
+const ServiceRoute = AdminServiceRoute;
 
 /**
  * This service is responsible for interacting with organizations.
