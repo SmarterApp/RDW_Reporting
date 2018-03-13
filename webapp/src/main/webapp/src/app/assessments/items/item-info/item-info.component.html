@@ -1,7 +1,7 @@
 <div class="white-space-normal">
   <p>
     <b>{{ 'item-info.claim' | translate}}</b>
-    {{ 'definition.claim.description.' + item.claim | translate }}
+    {{ 'common.claim-description.' + item.claim | translate }}
   </p>
   <p>
     <b>{{ 'common.results.assessment-item-target' | translate:item}}: </b>
@@ -9,12 +9,12 @@
   </p>
   <p>
     <b>{{ 'item-info.dok-label' | translate}}</b>
-    {{ 'item-info.dok.description.' + item.depthOfKnowledge | translate }}
-    <a href="{{ 'item-info.dok.reference.' + item.depthOfKnowledge | translate }}" target="_blank">{{ 'item-info.view-ref' | translate}}</a>
+    {{ 'item-info.dok-description.' + item.depthOfKnowledge | translate }}
+    <a href="{{ 'item-info.dok-reference.' + item.depthOfKnowledge | translate }}" target="_blank">{{ 'item-info.view-ref' | translate}}</a>
   </p>
   <p>
     <b>{{ 'item-info.difficulty' | translate}}</b>
-    {{ 'common.enum.difficulty.' + item.difficulty | translate }}
+    {{ 'common.difficulty.' + item.difficulty | translate }}
   </p>
   <span *ngIf="commonCoreStandards">
     <p><b>{{ 'item-info.ccs' | translate}}</b></p>
@@ -28,7 +28,7 @@
   </p>
   <p *ngIf="item.allowCalculator">
     <b>{{ 'item-info.calculator' | translate}}</b>
-    {{ 'common.enum.polar.' + item.allowCalculator | translate }}
+    {{ 'common.polar.' + item.allowCalculator | translate }}
   </p>
   <p>
     <b>{{ 'item-info.docs' | translate}}</b>

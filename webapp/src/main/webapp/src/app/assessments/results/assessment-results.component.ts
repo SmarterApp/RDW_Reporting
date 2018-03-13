@@ -242,7 +242,7 @@ export class AssessmentResultsComponent implements OnInit {
 
   createResultViewState(viewState: ResultsViewState, enabled: boolean, canExport: boolean, display: boolean): ResultsView {
     return {
-      label: 'common.enum.results-view-state.' + ResultsViewState[ viewState ],
+      label: 'assessment-results.results-view-state.' + ResultsViewState[ viewState ],
       value: viewState,
       disabled: !enabled,
       display: display,

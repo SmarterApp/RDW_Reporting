@@ -53,7 +53,7 @@
                     content="{{'common.results.assessment-item-columns.difficulty-info' | translate}}"></span>
       </ng-template>
       <ng-template let-item="rowData.assessmentItem" pTemplate="body">
-        {{ 'common.enum.difficulty.' + item.difficulty | translate }}
+        {{ 'common.difficulty.' + item.difficulty | translate }}
       </ng-template>
     </p-column>
     <p-column field="assessmentItem.commonCoreStandardIds" sortable="true">

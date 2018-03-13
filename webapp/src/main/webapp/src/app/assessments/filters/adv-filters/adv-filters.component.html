@@ -18,8 +18,8 @@
         <sb-radio-button-group name="off-grade-assessment-toggle"
                    [(ngModel)]="filterBy.offGradeAssessment"
                    [options]="[
-                           {value: false, text: 'common.buttons.visibility.show' | translate, analyticsProperties: {label: 'Off-Grade: Show'}},
-                           {value: true, text: 'common.buttons.visibility.hide' | translate, analyticsProperties: {label: 'Off-Grade: Hide'}}
+                           {value: false, text: 'common.action.show' | translate, analyticsProperties: {label: 'Off-Grade: Show'}},
+                           {value: true, text: 'common.action.hide' | translate, analyticsProperties: {label: 'Off-Grade: Hide'}}
                          ]"></sb-radio-button-group>
       </div>
       <!-- Transfer Assessments -->
@@ -32,8 +32,8 @@
         <sb-radio-button-group name="transfer-assessment-toggle"
                    [(ngModel)]="filterBy.transferAssessment"
                    [options]="[
-                           {value: false, text: 'common.buttons.visibility.show' | translate, analyticsProperties: {label: 'Transfer-Assessment: Show'}},
-                           {value: true, text: 'common.buttons.visibility.hide' | translate, analyticsProperties: {label: 'Transfer-Assessment: Hide'}}
+                           {value: false, text: 'common.action.show' | translate, analyticsProperties: {label: 'Transfer-Assessment: Show'}},
+                           {value: true, text: 'common.action.hide' | translate, analyticsProperties: {label: 'Transfer-Assessment: Hide'}}
                          ]"></sb-radio-button-group>
       </div>
     </div>
@@ -107,7 +107,7 @@
                   title="{{ 'common.filters.student.migrant-status' | translate }}"
                   content="{{ 'common.filters.student.migrant-status-info' | translate }}"></span>
           </label>
-          <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="migrantStatus" enum="common.enum.polar"
+          <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="migrantStatus" enum="common.polar"
                                 label="{{ 'common.filters.student.migrant-status' | translate }}"
                                 analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
         </div>
@@ -118,7 +118,7 @@
                   title="{{ 'common.filters.student.504-plan' | translate }}"
                   content="{{ 'common.filters.student.504-plan-info' | translate }}"></span>
           </label>
-          <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="plan504" enum="common.enum.polar"
+          <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="plan504" enum="common.polar"
                                 label="{{ 'common.filters.student.504-plan' | translate }}"
                                 analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
         </div>
@@ -132,7 +132,7 @@
                   title="{{ 'common.filters.student.economic-disadvantage' | translate }}"
                   content="{{ 'common.filters.student.economic-disadvantage-info' | translate }}"></span>
           </label>
-          <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="economicDisadvantage" enum="common.enum.polar"
+          <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="economicDisadvantage" enum="common.polar"
                                 label="{{ 'common.filters.student.economic-disadvantage' | translate }}"
                                 analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
         </div>
@@ -143,7 +143,7 @@
                   title="{{ 'common.filters.student.limited-english-proficiency' | translate }}"
                   content="{{ 'common.filters.student.limited-english-proficiency-info' | translate }}"></span>
           </label>
-          <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="limitedEnglishProficiency" enum="common.enum.polar"
+          <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="limitedEnglishProficiency" enum="common.polar"
                                 label="{{ 'common.filters.student.limited-english-proficiency' | translate }}"
                                 analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
         </div>
@@ -154,7 +154,7 @@
                   title="{{ 'common.filters.student.iep' | translate }}"
                   content="{{ 'common.filters.student.iep-info' | translate }}"></span>
           </label>
-          <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="iep" enum="common.enum.polar"
+          <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="iep" enum="common.polar"
                                 label="{{ 'common.filters.student.iep' | translate }}"
                                 analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
         </div>

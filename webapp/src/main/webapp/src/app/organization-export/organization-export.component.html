@@ -43,8 +43,8 @@
                                    [(ngModel)]="orgExport.disableTransferAccess"
                                    buttonGroupStyles=""
                                    [options]="[
-                           {value: false, text: 'common.buttons.visibility.show' | translate},
-                           {value: true, text: 'common.buttons.visibility.hide' | translate}
+                           {value: false, text: 'common.action.show' | translate},
+                           {value: true, text: 'common.action.hide' | translate}
                          ]">
             </sb-radio-button-group>
           </div>
@@ -58,7 +58,7 @@
                   inputId="search"
                   [options]="organizationOptions"
                   (buttonClick)="add($event)"
-                  placeholder="{{'common.prompt.select' | translate}}"
+                  placeholder="{{'common.action.select' | translate}}"
                   buttonLabel="{{'organization-export.form.organization.add' | translate}}">
             </span>
             <div class="ml-xs mt-xs">

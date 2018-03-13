@@ -65,7 +65,7 @@ const adminRoute = {
         {
           path: 'import',
           data: {
-            breadcrumb: { translate: 'admin-groups.import.title' },
+            breadcrumb: { translate: 'group-import.title' },
           },
           children: [
             {
@@ -78,7 +78,7 @@ const adminRoute = {
               path: 'fileformat',
               pathMatch: 'prefix',
               data: {
-                breadcrumb: { translate: 'admin-groups.import.file-format.header' }
+                breadcrumb: { translate: 'file-format.header' }
               },
               children: [
                 {
@@ -99,7 +99,7 @@ const adminRoute = {
               pathMatch: 'prefix',
               component: ImportHistoryComponent,
               resolve: { imports: ImportHistoryResolve },
-              data: { breadcrumb: { translate: 'admin-groups.history.title' } }
+              data: { breadcrumb: { translate: 'import-history.title' } }
             }
           ]
         }

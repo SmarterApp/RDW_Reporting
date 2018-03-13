@@ -18,25 +18,25 @@
   </p-column>
   <p-column field="school.name" header="{{'common.results.assessment-exam-columns.school' | translate }}" [sortable]="true"></p-column>
   <p-column *ngIf="includeResponse" field="response" header="{{'item-scores.response' | translate}}" [sortable]="true"></p-column>
-  <p-column *ngIf="includeWritingTraitScores" field="writingTraitScores.evidence" header="{{'common.enum.writing-trait.evidence' | translate}}" [sortable]="true">
+  <p-column *ngIf="includeWritingTraitScores" field="writingTraitScores.evidence" header="{{'common.writing-trait.evidence' | translate}}" [sortable]="true">
     <ng-template let-score="rowData" pTemplate="body">
       <div class="text-center">{{ (score.writingTraitScores ? score.writingTraitScores.evidence : null) | optional }}</div>
     </ng-template>
   </p-column>
-  <p-column *ngIf="includeWritingTraitScores" field="writingTraitScores.organization" header="{{'common.enum.writing-trait.organization' | translate}}" [sortable]="true">
+  <p-column *ngIf="includeWritingTraitScores" field="writingTraitScores.organization" header="{{'common.writing-trait.organization' | translate}}" [sortable]="true">
     <ng-template let-score="rowData" pTemplate="body">
       <div class="text-center">{{ (score.writingTraitScores ? score.writingTraitScores.organization : null) | optional }}</div>
     </ng-template>
   </p-column>
-  <p-column *ngIf="includeWritingTraitScores" field="writingTraitScores.conventions" header="{{'common.enum.writing-trait.conventions' | translate}}" [sortable]="true">
+  <p-column *ngIf="includeWritingTraitScores" field="writingTraitScores.conventions" header="{{'common.writing-trait.conventions' | translate}}" [sortable]="true">
     <ng-template let-score="rowData" pTemplate="body">
       <div class="text-center">{{ (score.writingTraitScores ? score.writingTraitScores.conventions : null) | optional }}</div>
     </ng-template>
   </p-column>
-  <p-column field="score" header="{{(includeWritingTraitScores ? 'common.enum.writing-trait.total' : 'itemscores.score') | translate}}" [sortable]="true">
+  <p-column field="score" header="{{(includeWritingTraitScores ? 'common.writing-trait.total' : 'itemscores.score') | translate}}" [sortable]="true">
     <ng-template pTemplate="header">
-      <span *ngIf="includeWritingTraitScores" info-button title="{{'common.enum.writing-trait.total' | translate}}"
-            content="{{'common.enum.writing-trait.total-info' | translate}}"></span>
+      <span *ngIf="includeWritingTraitScores" info-button title="{{'common.writing-trait.total' | translate}}"
+            content="{{'common.writing-trait.total-info' | translate}}"></span>
       <span *ngIf="!includeWritingTraitScores">{{ 'item-scores.score' | translate}}</span>
     </ng-template>
     <ng-template let-score="rowData" pTemplate="body">

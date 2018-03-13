@@ -39,7 +39,7 @@
                   content="{{'common.results.assessment-item-columns.difficulty-info' | translate}}"></span>
       </ng-template>
       <ng-template let-item="rowData" pTemplate="body">
-        {{ 'common.enum.difficulty.' + item.difficulty | translate }}
+        {{ 'common.difficulty.' + item.difficulty | translate }}
       </ng-template>
     </p-column>
     <p-column field="commonCoreStandardIds">
@@ -78,9 +78,9 @@
                  tableStyleClass="table table-striped table-hover" [tableStyle]="{'table-layout':'auto', 'min-width' : '65%'}">
       <p-column header="{{'common.results.assessment-item-columns.category' | translate}}">
         <ng-template let-item="rowData" pTemplate="body">
-          <span *ngIf="item.trait.type != totalType">{{'common.enum.writing-trait.' + item.trait.type | translate}}</span>
-          <span *ngIf="item.trait.type == totalType" info-button title="{{'common.enum.writing-trait.total' | translate}}"
-                content="{{'common.enum.writing-trait.total-info' | translate}}"></span>
+          <span *ngIf="item.trait.type != totalType">{{'common.writing-trait.' + item.trait.type | translate}}</span>
+          <span *ngIf="item.trait.type == totalType" info-button title="{{'common.writing-trait.total' | translate}}"
+                content="{{'common.writing-trait.total-info' | translate}}"></span>
         </ng-template>
       </p-column>
 

@@ -21,7 +21,7 @@
     <div class="flex-child">
       <button class="form-control btn btn-default pull-right"
               (click)="onToggleRequestViewButtonClick()">
-        {{'common.buttons.visibility.' + (showRequest ? 'hide' : 'show') | translate}}
+        {{'common.action.' + (showRequest ? 'hide' : 'show') | translate}}
         <i class="fa ml-xs"
            [ngClass]="{'fa-caret-square-o-up': showRequest, 'fa-caret-square-o-down': !showRequest}"
            aria-hidden="true"></i>

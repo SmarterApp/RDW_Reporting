@@ -14,7 +14,7 @@
                         inputId="search-school-name"
                         [options]="schoolOptions"
                         (selected)="schoolChanged($event)"
-                        placeholder="{{'common.prompt.select' | translate}}"></sb-typeahead>
+                        placeholder="{{'common.action.select' | translate}}"></sb-typeahead>
         </div>
       </div>
       <div class="flex-child">
@@ -26,7 +26,7 @@
                   id="grade-select"
                   class="form-control">
             <option disabled
-                    [ngValue]="undefined">{{'common.prompt.select' | translate}}</option>
+                    [ngValue]="undefined">{{'common.action.select' | translate}}</option>
             <option *ngFor="let grade of gradeOptions"
                     [ngValue]="grade">{{'common.assessment-grade-label.' + grade.code | translate}}</option>
           </select>
@@ -38,7 +38,7 @@
           <button type="submit"
                   id="rdw-school-grade-submit"
                   [disabled]="!school || !grade"
-                  class="btn btn-primary form-control">{{'common.prompt.search' | translate}}</button>
+                  class="btn btn-primary form-control">{{'common.action.search' | translate}}</button>
         </div>
       </div>
     </div>

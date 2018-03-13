@@ -5,33 +5,33 @@
   expandableRows="true"
   rowExpandMode="single"
   [value]="imports"
-  emptyMessage="{{'admin-groups.import.empty' | translate }}"
+  emptyMessage="{{'import-table.empty-message' | translate }}"
   sortField="id"
   sortOrder="-1"
   tableStyleClass="table table-striped table-hover"
   [tableStyle]="{'table-layout':'auto'}" >
-  <p-column field="position" header="{{'admin-groups.import.columns.file-name' | translate }}" >
+  <p-column field="position" header="{{'group-import.columns.file-name' | translate }}" >
     <ng-template let-import="rowData" pTemplate="body">
       <datatable-row-expander [datatable]="dt" [row]="import" [text]="import.fileName"></datatable-row-expander>
     </ng-template>
   </p-column>
-  <p-column field="created" header="{{'admin-groups.import.columns.created' | translate }}" [sortable]="true">
+  <p-column field="created" header="{{'group-import.columns.created' | translate }}" [sortable]="true">
     <ng-template let-import="rowData" pTemplate="body">
       {{ import.created | date:'medium' }}
     </ng-template>
   </p-column>
-  <p-column field="status" header="{{'admin-groups.import.columns.status' | translate }}" [sortable]="true">
+  <p-column field="status" header="{{'group-import.columns.status' | translate }}" [sortable]="true">
     <ng-template let-import="rowData" pTemplate="body">
       <div class="label border-only" [ngClass]="{ 'green': import.isOk, 'red': !import.isOk }">
-        <i class="fa " [ngClass]="{ 'fa-check-circle': import.isOk, 'fa-exclamation-circle': !import.isOk }"></i> {{ 'common.enum.status.' + import.status | translate }}
+        <i class="fa " [ngClass]="{ 'fa-check-circle': import.isOk, 'fa-exclamation-circle': !import.isOk }"></i> {{ 'import-table.status.' + import.status | translate }}
       </div>
     </ng-template>
   </p-column>
-  <p-column field="id" header="{{'admin-groups.import.columns.id' | translate }}" [sortable]="true"></p-column>
+  <p-column field="id" header="{{'group-import.columns.id' | translate }}" [sortable]="true"></p-column>
   <ng-template let-import pTemplate="rowexpansion" class="white-space-normal">
     <div class="panel" [ngClass]="{ 'panel-success':import.isOk, 'panel-danger':!import.isOk }">
       <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa" [ngClass]="{ 'fa-check-circle':import.isOk, 'fa-exclamation-circle':!import.isOk }"></i> {{ 'common.enum.status.' + import.status | translate }}</h3>
+        <h3 class="panel-title"><i class="fa" [ngClass]="{ 'fa-check-circle':import.isOk, 'fa-exclamation-circle':!import.isOk }"></i> {{ 'import-table.status.' + import.status | translate }}</h3>
       </div>
       <div class="panel-body">
         <p class="white-space-preline">{{ import.message }}</p>

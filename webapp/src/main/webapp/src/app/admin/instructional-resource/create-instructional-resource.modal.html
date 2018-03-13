@@ -1,6 +1,6 @@
 <div class="modal-header">
   <h4 class="modal-title pull-left">{{ 'create-instructional-resource-modal.title' | translate }}</h4>
-  <button type="button" class="close pull-right" title="{{'common.prompt.close' | translate}}" (click)="cancel()">
+  <button type="button" class="close pull-right" title="{{'common.action.close' | translate}}" (click)="cancel()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -36,7 +36,7 @@
           <div>
             <span [hidden]="!assessmentNoResults"
                   class="text-info">
-              {{'common.instructional-resource-assessments.no-results' | translate}}
+              {{'create-instructional-resource-modal.no-assessments-found' | translate}}
             </span>
           </div>
         </div>
@@ -63,7 +63,7 @@
           <div>
             <span [hidden]="!organizationNoResults"
                   class="text-info">
-              {{'common.instructional-resource.organizations.no-results' | translate}}
+              {{'create-instructional-resource-modal.no-organizations-found' | translate}}
             </span>
           </div>
         </div>
@@ -79,7 +79,7 @@
                   [(ngModel)]="performanceLevel"
                   (change)="onPerformanceLevelSelect()"
                   [disabled]="!assessment" >
-            <option disabled [ngValue]="-1">{{'common.prompt.select' | translate}}</option>
+            <option disabled [ngValue]="-1">{{'common.action.select' | translate}}</option>
             <option *ngIf="assessment" [ngValue]="0">{{'common.instructional-resource.performance-levels.all' | translate}}</option>
             <option *ngFor="let performanceLevel of performanceLevels" [ngValue]="performanceLevel">{{ ('common.instructional-resource.performance-levels.' + assessment.type + '.' + performanceLevel) | translate }}</option>
           </select>
@@ -110,10 +110,10 @@
 <div class="modal-footer">
     <span>
       <button type="button" class="btn btn-default" (click)="cancel()">
-        {{ 'common.prompt.cancel' | translate }}
+        {{ 'common.action.cancel' | translate }}
       </button>
       <button class="btn btn-primary" [disabled]="!valid() || resource.errors" (click)="create()">
-        {{ 'common.prompt.create' | translate }}
+        {{ 'common.action.create' | translate }}
       </button>
     </span>
 </div>

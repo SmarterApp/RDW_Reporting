@@ -1,6 +1,6 @@
 <div class="modal-header">
   <h4 class="modal-title pull-left">{{ 'update-instructional-resource-modal.title' | translate }}</h4>
-  <button type="button" class="close pull-right" title="{{'common.prompt.close' | translate}}" (click)="cancel()">
+  <button type="button" class="close pull-right" title="{{'common.action.close' | translate}}" (click)="cancel()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -64,10 +64,10 @@
 <div class="modal-footer">
     <span>
       <button type="button" class="btn btn-default" (click)="cancel()">
-        {{ 'common.prompt.cancel' | translate }}
+        {{ 'common.action.cancel' | translate }}
       </button>
       <button class="btn btn-primary" [disabled]="resourceControl.invalid" (click)="update()">
-        {{ 'common.prompt.update' | translate }}
+        {{ 'common.action.update' | translate }}
       </button>
     </span>
 </div>

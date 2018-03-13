@@ -78,7 +78,7 @@ export abstract class ReportDownloadComponent implements OnInit {
     this.createReport()
       .subscribe(
         () => {
-          this.notificationService.info({ id: 'abstract-report-download.messages.submitted.html', html: true });
+          this.notificationService.info({ id: 'report-download.submitted-message', html: true });
         },
         () => {
           this.notificationService.error({ id: 'common.messages.submission-failed', html: true });

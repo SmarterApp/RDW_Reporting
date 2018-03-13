@@ -85,11 +85,11 @@ export class EmbargoConfirmationModal {
       : [ event.overridingEmbargo, event.overridingEmbargoEnabled ];
 
     return {
-      header: `embargo.modal.header.${event.scope}`,
-      stateDescription: `embargo.modal.state-description.${event.scope}.${stateEnabled}`,
-      commandDescription: `embargo.modal.command-description.${event.embargo.organization.type}.${event.scope}.${event.value}`,
-      accept: `embargo.modal.accept.${event.value}`,
-      decline: `embargo.modal.decline`,
+      header: `embargo-confirmation-modal.header.${event.scope}`,
+      stateDescription: `embargo-confirmation-modal.state-description.${event.scope}.${stateEnabled}`,
+      commandDescription: `embargo-confirmation-modal.command-description.${event.embargo.organization.type}.${event.scope}.${event.value}`,
+      accept: `embargo-confirmation-modal.accept.${event.value}`,
+      decline: `embargo-confirmation-modal.decline`,
       parameters: {
         stateName: stateEmbargo.organization.name,
         organizationName: event.embargo.organization.name,

@@ -38,7 +38,7 @@
             </div>
 
             <div class="form-group">
-              <label for="assessment-type-select">{{'abstract-report-download.form.assessment-type' | translate}}</label>
+              <label for="assessment-type-select">{{'report-download.form.assessment-type' | translate}}</label>
               <div *ngIf="lockAssessmentType && options.assessmentType">
                 <span>{{'common.assessment-type.' + options.assessmentType + '.short-name' | translate}}</span>
               </div>
@@ -53,26 +53,26 @@
             </div>
 
             <div class="form-group" *ngIf="displayOrder">
-              <label for="order-select">{{'abstract-report-download.form.order' | translate}}</label>
+              <label for="order-select">{{'report-download.form.order' | translate}}</label>
               <select id="order-select"
                       class="form-control input-sm"
                       name="order"
                       [(ngModel)]="options.order">
                 <option *ngFor="let order of orders"
-                        [ngValue]="order">{{'abstract-report-download.orders.' + order | translate}}
+                        [ngValue]="order">{{'report-download.orders.' + order | translate}}
                 </option>
               </select>
             </div>
 
             <div class="form-group"
                  *ngIf="reportLanguages.length > 1">
-              <label for="language-select">{{'abstract-report-download.form.language.header' | translate}}</label>
+              <label for="language-select">{{'report-download.form.language-header' | translate}}</label>
               <select id="language-select"
                       class="form-control input-sm"
                       name="language"
                       [(ngModel)]="options.language">
                 <option *ngFor="let language of reportLanguages"
-                        [ngValue]="language">{{'abstract-report-download.form.language.options.' + language | translate}}</option>
+                        [ngValue]="language">{{'report-download.form.language-option.' + language | translate}}</option>
               </select>
             </div>
 
@@ -87,8 +87,8 @@
                          name="report-transfer-assessment-toggle"
                          [(ngModel)]="options.disableTransferAccess"
                          [options]="[
-                           {value: false, text: 'common.buttons.visibility.show' | translate},
-                           {value: true, text: 'common.buttons.visibility.hide' | translate}
+                           {value: false, text: 'common.action.show' | translate},
+                           {value: true, text: 'common.action.hide' | translate}
                          ]"></sb-radio-button-group>
             </div>
 
@@ -127,15 +127,15 @@
             <div class="form-group">
               <label>
                 <span info-button
-                      title="{{'abstract-report-download.form.accommodations-title' | translate}}"
-                      content="{{'abstract-report-download.form.accommodations-info' | translate}}"></span>
+                      title="{{'report-download.form.accommodations-title' | translate}}"
+                      content="{{'report-download.form.accommodations-info' | translate}}"></span>
               </label>
               <sb-radio-button-group name="accommodations-toggle"
                          [(ngModel)]="options.accommodationsVisible"
                          [disabled]="options.assessmentType === 'iab'"
                          [options]="[
-                           {value: true, text: 'common.buttons.visibility.show' | translate},
-                           {value: false, text: 'common.buttons.visibility.hide' | translate}
+                           {value: true, text: 'common.action.show' | translate},
+                           {value: false, text: 'common.action.hide' | translate}
                          ]"></sb-radio-button-group>
             </div>
 
@@ -144,9 +144,9 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-primary" [disabled]="resourceControl.invalid"
-                (click)="modal.hide(); submit()">{{'abstract-report-download.form.submit' | translate}}</button>
+                (click)="modal.hide(); submit()">{{'report-download.form.submit' | translate}}</button>
         <button class="btn btn-default"
-                (click)="modal.hide()">{{'abstract-report-download.form.cancel' | translate}}</button>
+                (click)="modal.hide()">{{'report-download.form.cancel' | translate}}</button>
       </div>
     </div>
   </div>

@@ -1,34 +1,4 @@
 {
-  "abstract-report-download": {
-    "form": {
-      "accommodations-info": "This feature allows student reports that may be shared with colleges and universities or other external organizations to be printed without reference to accommodations made available to the student.",
-      "accommodations-title": "Student Accommodations",
-      "assessment-type": "Assessment Type",
-      "cancel": "Cancel",
-      "language": {
-        "header": "Report Language",
-        "options": {
-          "en": "English",
-          "es": "Spanish",
-          "vi": "Vietnamese"
-        }
-      },
-      "order": "Sort Order",
-      "submit": "Create"
-    },
-    "messages": {
-      "submission-failed": {
-        "html": "Error creating report. See <a href=\"/reports\">status</a>."
-      },
-      "submitted": {
-        "html": "Creating report. See <a href=\"/reports\">status</a>."
-      }
-    },
-    "orders": {
-      "0": "Student Name",
-      "1": "Student SSID"
-    }
-  },
   "access-denied": {
     "logout": "Logout",
     "message": "Your user account is not permitted to access this reporting system. If you believe you have reached this page in error, please contact your building administrator.",
@@ -46,44 +16,7 @@
       "student-count": "Num. of Students",
       "subjects": "Subjects"
     },
-    "delete": {
-      "button-cancel": "No, keep this group.",
-      "button-save": "Yes, delete this group",
-      "content-html": "<p>When a group is deleted, it is no longer available to any users.  This action cannot be undone.</p><p>Are you sure you would like to continue?</p>",
-      "error": "Unable to delete this group.",
-      "title": "Delete {{name}}?"
-    },
     "filter": "Search groups by name",
-    "history": {
-      "title": "View Uploads"
-    },
-    "import": {
-      "browse-instruct": "browse for files",
-      "columns": {
-        "created": "Date Created",
-        "file-name": "File Name",
-        "id": "Upload ID",
-        "status": "Upload Status"
-      },
-      "drag-instruct": "Drag and drop to upload or ",
-      "empty": "Upload results will be shown here.",
-      "file-format": {
-        "header": "CSV File Format",
-        "rules": {
-          "body-html": "<ol> <li class=\"mt-md\"> The CSV file must include the headers found in the template file provided below. </li><li class=\"mt-md\"> Every row must include a valid <code>school_natural_id</code>, <code>school_year</code>, and <code>group_name</code>. </li><li class=\"mt-md\"> Groups for a particular school must be listed together and must not be separated by lists of groups for other schools. </li><li class=\"mt-md\"> Groups must be listed together and not separated by rows of other groups. </li><li class=\"mt-md\"> A group's subject must be listed as <code>Math</code>, <code>ELA</code> or <code>All</code>. </li><li class=\"mt-md\"> There is a limit of <code>200</code> students that may be assigned to a single group. </li><li class=\"mt-md\"> A user must have the <code>GROUP_ADMIN</code> role for a school in order to upload groups. </li></ol>",
-          "header": "How to write the CSV"
-        },
-        "template": {
-          "button": "Template",
-          "file": "groups.csv"
-        }
-      },
-      "link": "Upload Groups",
-      "replacement-instruct": "To make changes to an existing group, please upload a replacement file.",
-      "sending": "Uploading...",
-      "title": "Upload New or Revised Groups",
-      "warning-html": "<p><strong class=\"mr-xs\">WARNING:</strong> Groups in the uploaded file will replace existing groups if they have the same school ID, school year and group name.</p><p>All other groups will not be deleted or changed.</p>"
-    },
     "no-results": "No groups found matching the given filter criteria.",
     "no-schools": "Your user account does not have access to view the groups of any schools.",
     "search-school": "Start typing a school name...",
@@ -172,6 +105,12 @@
     "no-writing-trait-scores": "Writing trait scores are not available for assessments administered prior to 2017-18 school year.",
     "no-writing-trait-scores-for-summative-ica-exams": "Writing trait scores are currently available for only ELA Performance Task IABs.",
     "result-view-select": "Select a results view",
+    "results-view-state": {
+      "ByItem": "Results By Item",
+      "ByStudent": "Results By Student",
+      "DistractorAnalysis": "Key / Distractor Analysis",
+      "WritingTraitScores": "Writing Trait Scores"
+    },
     "select-view": "Select View",
     "session-unknown": "[Unknown]",
     "sessions-title": "Sessions"
@@ -199,6 +138,20 @@
     "title": "Results Summary"
   },
   "common": {
+    "action": {
+      "cancel": "Cancel",
+      "close": "Close",
+      "collapse": "Collapse",
+      "create": "Create",
+      "delete": "Delete",
+      "expand": "Expand",
+      "go-home": "Go Home",
+      "hide": "Hide",
+      "search": "Search",
+      "select": "Select",
+      "show": "Show",
+      "update": "Update"
+    },
     "administration-condition": {
       "IN": "Invalid",
       "NS": "Nonstandardized",
@@ -343,18 +296,34 @@
     },
     "buttons": {
       "all": "All",
-      "collapsible": {
-        "collapse": "Collapse",
-        "expand": "Expand"
-      },
       "display-claim": "Claim Scores",
-      "display-overall": "Overall Scores",
-      "go-home": "Go Home",
-      "search": "Search",
-      "visibility": {
-        "hide": "Hide",
-        "show": "Show"
-      }
+      "display-overall": "Overall Scores"
+    },
+    "claim-description": {
+      "1": "Concepts and Procedures - Students can explain and apply mathematical concepts and interpret and carry out mathematical procedures with precision and fluency.",
+      "2": "Problem Solving - Students can solve a range of complex well-posed problems in pure and applied mathematics, making productive use of knowledge and problem solving strategies.",
+      "3": "Communicating Reasoning - Students can clearly and precisely construct viable arguments to support their own reasoning and to critique the reasoning of others.",
+      "4": "Modeling and Data Analysis - Students can analyze complex, real-world scenarios and can construct and use mathematical models to interpret and solve problems.",
+      "1-IT": "Read Analytically: Informational Text - Students can read closely and analytically to comprehend a range of increasingly complex literary and informational texts.",
+      "1-LT": "Read Analytically: Literary Text - Students can read closely and analytically to comprehend a range of increasingly complex literary and informational texts.",
+      "2-W": "Write Effectively - Students can produce effective and well-grounded writing for a range of purposes and audiences.",
+      "3-L": "Speak and Listen purposefully - Students can employ effective speaking and listening skills for a range of purposes and audiences.",
+      "3-S": "Speak and Listen purposefully - Students can employ effective speaking and listening skills for a range of purposes and audiences.",
+      "4-CR": "Conduct Research - Students can engage in research/ inquiry to investigate topics and to analyze, integrate, and present information.",
+      "NA": "NA"
+    },
+    "claim-name": {
+      "1": "Concepts and Procedures",
+      "2": "Problem Solving",
+      "3": "Communicating Reasoning",
+      "4": "Modeling and Data Analysis",
+      "1-IT": "Reading",
+      "1-LT": "Reading",
+      "2-W": "Writing",
+      "3-L": "Listening",
+      "3-S": "Listening",
+      "4-CR": "Research and Inquiry",
+      "NA": "NA"
     },
     "collection-selection": {
       "all": "All",
@@ -367,6 +336,11 @@
     "completeness-form-control": {
       "info": "A test is considered complete when the student provides an answer for every question.",
       "label": "Completeness"
+    },
+    "difficulty": {
+      "D": "Difficult",
+      "E": "Easy",
+      "M": "Moderate"
     },
     "dimension": {
       "EconomicDisadvantage": "Economic Disadvantage",
@@ -423,64 +397,6 @@
       "PS": "PS",
       "TK": "TK",
       "UG": "UG"
-    },
-    "enum": {
-      "achievement-level": {
-        "request-type": {
-          "distractor-analysis": "DistractorAnalysis",
-          "results-by-item": "ResultsByItems",
-          "writing-trait-scores": "WritingTraitScores"
-        }
-      },
-      "difficulty": {
-        "D": "Difficult",
-        "E": "Easy",
-        "M": "Moderate"
-      },
-      "off-grade": {
-        "false": "Show",
-        "true": "Hide"
-      },
-      "polar": {
-        "1": "Yes",
-        "2": "No"
-      },
-      "results-view-state": {
-        "ByItem": "Results By Item",
-        "ByStudent": "Results By Student",
-        "DistractorAnalysis": "Key / Distractor Analysis",
-        "WritingTraitScores": "Writing Trait Scores"
-      },
-      "status": {
-        "ACCEPTED": "Accepted",
-        "BAD_DATA": "Bad Data",
-        "BAD_FORMAT": "Bad Format",
-        "INVALID": "Invalid",
-        "PROCESSED": "Processed",
-        "UNAUTHORIZED": "Unauthorized",
-        "UNKNOWN_ASMT": "Unknown Assessment",
-        "UNKNOWN_SCHOOL": "Unknown School"
-      },
-      "subject-claim-code": {
-        "1": "Concepts & Procedures",
-        "3": "Communicating Reasoning",
-        "2-W": "Writing",
-        "4-CR": "Research & Inquiry",
-        "SOCK_2": "Problem Solving",
-        "SOCK_LS": "Listening",
-        "SOCK_R": "Reading"
-      },
-      "transfer": {
-        "false": "Show",
-        "true": "Hide"
-      },
-      "writing-trait": {
-        "conventions": "Conventions",
-        "evidence": "Evidence / Elaboration",
-        "organization": "Organization / Purpose",
-        "total": "Total Points",
-        "total-info": "To compute the total number of points earned, the scores for organization/purpose and evidence/elaboration are averaged and rounded up, and then added to the points earned for conventions. A student can earn a maximum of six points. For more information, see the Interpretive Guide."
-      }
     },
     "ethnicity": {
       "AmericanIndianOrAlaskaNative": "American Indian or Alaska Native",
@@ -542,7 +458,6 @@
         "resource": "URL"
       },
       "organizations": {
-        "no-results": "No organizations found.",
         "type": {
           "District": "District",
           "DistrictGroup": "Group of Districts",
@@ -622,14 +537,9 @@
     },
     "performance-level-display-type-input-label": "Show achievement levels",
     "person-name": "{{lastName}}, {{firstName}}",
-    "prompt": {
-      "cancel": "Cancel",
-      "close": "Close",
-      "create": "Create",
-      "delete": "Delete",
-      "search": "Search",
-      "select": "Select",
-      "update": "Update"
+    "polar": {
+      "1": "Yes",
+      "2": "No"
     },
     "reports": {
       "form": {
@@ -719,6 +629,15 @@
         "short-name": "Math"
       }
     },
+    "subject-claim-code": {
+      "1": "Concepts & Procedures",
+      "3": "Communicating Reasoning",
+      "2-W": "Writing",
+      "4-CR": "Research & Inquiry",
+      "SOCK_2": "Problem Solving",
+      "SOCK_LS": "Listening",
+      "SOCK_R": "Reading"
+    },
     "subject-select-label": "Subject",
     "value-display-type": {
       "Number": "Number",
@@ -728,7 +647,14 @@
       "Number": "{{value}}",
       "Percent": "{{value}}%"
     },
-    "value-display-type-input-label": "Show value as"
+    "value-display-type-input-label": "Show value as",
+    "writing-trait": {
+      "conventions": "Conventions",
+      "evidence": "Evidence / Elaboration",
+      "organization": "Organization / Purpose",
+      "total": "Total Points",
+      "total-info": "To compute the total number of points earned, the scores for organization/purpose and evidence/elaboration are averaged and rounded up, and then added to the points earned for conventions. A student can earn a maximum of six points. For more information, see the Interpretive Guide."
+    }
   },
   "common-ngx": {
     "breadcrumbs": {
@@ -763,6 +689,8 @@
     "duplicate": "An Instructional Resource for this assessment, organization, and performance level already exists.",
     "error": "Unable to create an Instructional Resource.",
     "name": "Name",
+    "no-assessments-found": "No assessments found.",
+    "no-organizations-found": "No organizations found.",
     "organization-name": "Search for a State, Group of Districts, District, or Group of Schools",
     "organization-placeholder": "Enter name",
     "title": "Create Instructional Resource",
@@ -794,35 +722,12 @@
     "submit-date-time": "SubmitDateTime",
     "target": "Target"
   },
-  "definition": {
-    "claim": {
-      "description": {
-        "1": "Concepts and Procedures - Students can explain and apply mathematical concepts and interpret and carry out mathematical procedures with precision and fluency.",
-        "2": "Problem Solving - Students can solve a range of complex well-posed problems in pure and applied mathematics, making productive use of knowledge and problem solving strategies.",
-        "3": "Communicating Reasoning - Students can clearly and precisely construct viable arguments to support their own reasoning and to critique the reasoning of others.",
-        "4": "Modeling and Data Analysis - Students can analyze complex, real-world scenarios and can construct and use mathematical models to interpret and solve problems.",
-        "1-IT": "Read Analytically: Informational Text - Students can read closely and analytically to comprehend a range of increasingly complex literary and informational texts.",
-        "1-LT": "Read Analytically: Literary Text - Students can read closely and analytically to comprehend a range of increasingly complex literary and informational texts.",
-        "2-W": "Write Effectively - Students can produce effective and well-grounded writing for a range of purposes and audiences.",
-        "3-L": "Speak and Listen purposefully - Students can employ effective speaking and listening skills for a range of purposes and audiences.",
-        "3-S": "Speak and Listen purposefully - Students can employ effective speaking and listening skills for a range of purposes and audiences.",
-        "4-CR": "Conduct Research - Students can engage in research/ inquiry to investigate topics and to analyze, integrate, and present information.",
-        "NA": "NA"
-      },
-      "name": {
-        "1": "Concepts and Procedures",
-        "2": "Problem Solving",
-        "3": "Communicating Reasoning",
-        "4": "Modeling and Data Analysis",
-        "1-IT": "Reading",
-        "1-LT": "Reading",
-        "2-W": "Writing",
-        "3-L": "Listening",
-        "3-S": "Listening",
-        "4-CR": "Research and Inquiry",
-        "NA": "NA"
-      }
-    }
+  "delete-group-modal": {
+    "button-cancel": "No, keep this group.",
+    "button-save": "Yes, delete this group",
+    "content-html": "<p>When a group is deleted, it is no longer available to any users.  This action cannot be undone.</p><p>Are you sure you would like to continue?</p>",
+    "error": "Unable to delete this group.",
+    "title": "Delete {{name}}?"
   },
   "delete-instructional-resource-modal": {
     "error": "Unable to delete instructional resource.",
@@ -842,50 +747,6 @@
         }
       }
     },
-    "modal": {
-      "accept": {
-        "false": "Release",
-        "true": "Embargo"
-      },
-      "command-description": {
-        "District": {
-          "Aggregate": {
-            "false": "Completing this action will allow users to view aggregate data for {{resultCount}} Summative test results for {{organizationName}}. Do you want to release before the state releases all aggregate Summative test results?",
-            "true": "Completing this action will prevent users from viewing aggregate data for {{resultCount}} Summative test results for {{organizationName}}. This setting will be overridden should the state release all aggregate Summative test results."
-          },
-          "Individual": {
-            "false": "Completing this action will allow users to view {{resultCount}} individual Summative test results for {{organizationName}}. Do you want to release before the state releases all individual Summative test results?",
-            "true": "Completing this action will prevent users from viewing {{resultCount}} individual Summative test results for {{organizationName}}. This setting will be overridden should the state release all individual Summative test results."
-          }
-        },
-        "State": {
-          "Aggregate": {
-            "false": "Completing this action will allow users to view aggregate data for {{resultCount}} Summative test results for {{organizationName}}. Aggregate data views however, will not be available until the state or all districts have released aggregate test results.",
-            "true": "Completing this action will prevent users from viewing aggregate data for {{resultCount}} Summative test results for {{organizationName}}. This setting can be overridden by individual districts however, aggregate data views will not be available until all districts have released aggregate test results."
-          },
-          "Individual": {
-            "false": "Completing this action will allow users to view {{resultCount}} individual Summative test results for {{organizationName}}.",
-            "true": "Completing this action will prevent users from viewing {{resultCount}} individual Summative test results for {{organizationName}}. This setting can be overridden by individual districts that release their results ahead of the state."
-          }
-        }
-      },
-      "decline": "Cancel",
-      "header": {
-        "Aggregate": "Aggregate Test Results for {{organizationName}}",
-        "Individual": "Individual Test Results for {{organizationName}}"
-      },
-      "state-description": {
-        "Aggregate": {
-          "false": "{{stateName}} aggregate Summative test results are currently released.",
-          "true": "{{stateName}} aggregate Summative test results are currently embargoed."
-        },
-        "Individual": {
-          "false": "{{stateName}} individual Summative test results are currently released.",
-          "true": "{{stateName}} individual Summative test results are currently embargoed."
-        }
-      }
-    },
-    "released-by-state": "Released by State",
     "state": {
       "table": {
         "headers": {
@@ -897,17 +758,93 @@
         }
       }
     },
-    "title": "Manage Embargo",
+    "title": "Manage Embargo"
+  },
+  "embargo-alert": {
+    "message": "Summative test results in your region of administration are not yet released. These results may be viewed online but not downloaded."
+  },
+  "embargo-confirmation-modal": {
+    "accept": {
+      "false": "Release",
+      "true": "Embargo"
+    },
+    "command-description": {
+      "District": {
+        "Aggregate": {
+          "false": "Completing this action will allow users to view aggregate data for {{resultCount}} Summative test results for {{organizationName}}. Do you want to release before the state releases all aggregate Summative test results?",
+          "true": "Completing this action will prevent users from viewing aggregate data for {{resultCount}} Summative test results for {{organizationName}}. This setting will be overridden should the state release all aggregate Summative test results."
+        },
+        "Individual": {
+          "false": "Completing this action will allow users to view {{resultCount}} individual Summative test results for {{organizationName}}. Do you want to release before the state releases all individual Summative test results?",
+          "true": "Completing this action will prevent users from viewing {{resultCount}} individual Summative test results for {{organizationName}}. This setting will be overridden should the state release all individual Summative test results."
+        }
+      },
+      "State": {
+        "Aggregate": {
+          "false": "Completing this action will allow users to view aggregate data for {{resultCount}} Summative test results for {{organizationName}}. Aggregate data views however, will not be available until the state or all districts have released aggregate test results.",
+          "true": "Completing this action will prevent users from viewing aggregate data for {{resultCount}} Summative test results for {{organizationName}}. This setting can be overridden by individual districts however, aggregate data views will not be available until all districts have released aggregate test results."
+        },
+        "Individual": {
+          "false": "Completing this action will allow users to view {{resultCount}} individual Summative test results for {{organizationName}}.",
+          "true": "Completing this action will prevent users from viewing {{resultCount}} individual Summative test results for {{organizationName}}. This setting can be overridden by individual districts that release their results ahead of the state."
+        }
+      }
+    },
+    "decline": "Cancel",
+    "header": {
+      "Aggregate": "Aggregate Test Results for {{organizationName}}",
+      "Individual": "Individual Test Results for {{organizationName}}"
+    },
+    "state-description": {
+      "Aggregate": {
+        "false": "{{stateName}} aggregate Summative test results are currently released.",
+        "true": "{{stateName}} aggregate Summative test results are currently embargoed."
+      },
+      "Individual": {
+        "false": "{{stateName}} individual Summative test results are currently released.",
+        "true": "{{stateName}} individual Summative test results are currently embargoed."
+      }
+    }
+  },
+  "embargo-table": {
+    "released-by-state": "Released by State",
     "toggle": {
       "false": "Released",
       "true": "Embargoed"
     }
   },
-  "embargo-alert": {
-    "message": "Summative test results in your region of administration are not yet released. These results may be viewed online but not downloaded."
+  "exam-filter": {
+    "off-grade": {
+      "false": "Show",
+      "true": "Hide"
+    },
+    "transfer": {
+      "false": "Show",
+      "true": "Hide"
+    }
+  },
+  "file-format": {
+    "header": "CSV File Format",
+    "rule-body-html": "<ol> <li class=\"mt-md\"> The CSV file must include the headers found in the template file provided below. </li><li class=\"mt-md\"> Every row must include a valid <code>school_natural_id</code>, <code>school_year</code>, and <code>group_name</code>. </li><li class=\"mt-md\"> Groups for a particular school must be listed together and must not be separated by lists of groups for other schools. </li><li class=\"mt-md\"> Groups must be listed together and not separated by rows of other groups. </li><li class=\"mt-md\"> A group's subject must be listed as <code>Math</code>, <code>ELA</code> or <code>All</code>. </li><li class=\"mt-md\"> There is a limit of <code>200</code> students that may be assigned to a single group. </li><li class=\"mt-md\"> A user must have the <code>GROUP_ADMIN</code> role for a school in order to upload groups. </li></ol>",
+    "rule-header": "How to write the CSV",
+    "template-button": "Template",
+    "template-file": "groups.csv"
   },
   "group-import": {
-    "upload-in-progress": "Files are still uploading, are you sure you want to leave?"
+    "browse-instruct": "browse for files",
+    "columns": {
+      "created": "Date Created",
+      "file-name": "File Name",
+      "id": "Upload ID",
+      "status": "Upload Status"
+    },
+    "drag-instruct": "Drag and drop to upload or ",
+    "link": "Upload Groups",
+    "replacement-instruct": "To make changes to an existing group, please upload a replacement file.",
+    "sending": "Uploading...",
+    "title": "Upload New or Revised Groups",
+    "upload-in-progress": "Files are still uploading, are you sure you want to leave?",
+    "warning-html": "<p><strong class=\"mr-xs\">WARNING:</strong> Groups in the uploaded file will replace existing groups if they have the same school ID, school year and group name.</p><p>All other groups will not be deleted or changed.</p>"
   },
   "group-results": {
     "group-button-label": "Student Reports",
@@ -927,15 +864,31 @@
     "search-label": "Search by My Groups"
   },
   "home": {
-    "html": {
-      "system-news": ""
-    },
     "title": "Access Assessment Results",
     "welcome": {
       "interpretive-guide-html": "<a href=\"{{interpretiveGuideUrl}}\" target=\"_blank\">The Interim Assessments Interpretive Guide</a> is designed to help educators, parents, and other stakeholders interpret interim assessments reports for the Smarter Balanced Reporting System.",
       "interpretive-guide-subtitle": "Interim Assessments",
       "title": "Welcome!",
       "user-guide-html": "<a href=\"{{userGuideUrl}}\" target=\"_blank\">The User Guide</a> describes features of the Smarter Balanced Reporting System and instructions for using each feature."
+    }
+  },
+  "html": {
+    "system-news": ""
+  },
+  "import-history": {
+    "title": "View Uploads"
+  },
+  "import-table": {
+    "empty-message": "Upload results will be shown here.",
+    "status": {
+      "ACCEPTED": "Accepted",
+      "BAD_DATA": "Bad Data",
+      "BAD_FORMAT": "Bad Format",
+      "INVALID": "Invalid",
+      "PROCESSED": "Processed",
+      "UNAUTHORIZED": "Unauthorized",
+      "UNKNOWN_ASMT": "Unknown Assessment",
+      "UNKNOWN_SCHOOL": "Unknown School"
     }
   },
   "info-button": {
@@ -962,29 +915,27 @@
     "claim": "Claim: ",
     "difficulty": "Item Difficulty: ",
     "docs": "Supporting Documentation: ",
-    "dok": {
-      "description": {
-        "1_1": "Recall and Reproduction",
-        "1_2": "Recall and Reproduction",
-        "2_1": "Basic Skills and Concepts",
-        "2_2": "Basic Skills and Concepts",
-        "3_1": "Strategic Thinking and Reasoning",
-        "3_2": "Strategic Thinking and Reasoning",
-        "4_1": "Extended Thinking",
-        "4_2": "Extended Thinking"
-      },
-      "reference": {
-        "1_1": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72",
-        "1_2": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54",
-        "2_1": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72",
-        "2_2": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54",
-        "3_1": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72",
-        "3_2": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54",
-        "4_1": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72",
-        "4_2": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
-      }
+    "dok-description": {
+      "1_1": "Recall and Reproduction",
+      "1_2": "Recall and Reproduction",
+      "2_1": "Basic Skills and Concepts",
+      "2_2": "Basic Skills and Concepts",
+      "3_1": "Strategic Thinking and Reasoning",
+      "3_2": "Strategic Thinking and Reasoning",
+      "4_1": "Extended Thinking",
+      "4_2": "Extended Thinking"
     },
     "dok-label": "Depth of Knowledge: ",
+    "dok-reference": {
+      "1_1": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72",
+      "1_2": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54",
+      "2_1": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72",
+      "2_2": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54",
+      "3_1": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72",
+      "3_2": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54",
+      "4_1": "https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf#page=72",
+      "4_2": "https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54"
+    },
     "guide": "Interim Assessments Interpretive Guide",
     "math": "Mathematical Practice Standard: ",
     "math-practice": {
@@ -1066,6 +1017,27 @@
     "embargoed": "Reports with embargoed results may only be viewed online, they may not be downloaded.",
     "view-query": "View Report Query",
     "view-report": "View Report"
+  },
+  "report-download": {
+    "form": {
+      "accommodations-info": "This feature allows student reports that may be shared with colleges and universities or other external organizations to be printed without reference to accommodations made available to the student.",
+      "accommodations-title": "Student Accommodations",
+      "assessment-type": "Assessment Type",
+      "cancel": "Cancel",
+      "language-header": "Report Language",
+      "language-option": {
+        "en": "English",
+        "es": "Spanish",
+        "vi": "Vietnamese"
+      },
+      "order": "Sort Order",
+      "submit": "Create"
+    },
+    "orders": {
+      "0": "Student Name",
+      "1": "Student SSID"
+    },
+    "submitted-message": "Creating report. See <a href=\"/reports\">status</a>."
   },
   "reports": {
     "all": "All",
