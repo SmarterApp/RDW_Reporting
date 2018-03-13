@@ -879,7 +879,8 @@
       "PROCESSED": "Processed",
       "UNAUTHORIZED": "Unauthorized",
       "UNKNOWN_ASMT": "Unknown Assessment",
-      "UNKNOWN_SCHOOL": "Unknown School"
+      "UNKNOWN_SCHOOL": "Unknown School",
+      "FAILED": "Failed"
     },
     "subject-claim-code": {
       "1": "Concepts & Procedures",
@@ -950,7 +951,8 @@
       "replacement-instruct": "To make changes to an existing group, please upload a replacement file.",
       "sending": "Uploading...",
       "title": "Upload New or Revised Groups",
-      "warning-html": "<p><strong class=\"mr-xs\">WARNING:</strong> Groups in the uploaded file will replace existing groups if they have the same school ID, school year and group name.</p><p>All other groups will not be deleted or changed.</p>"
+      "warning-html": "<p><strong class=\"mr-xs\">WARNING:</strong> Groups in the uploaded file will replace existing groups if they have the same school ID, school year and group name.</p><p>All other groups will not be deleted or changed.</p>",
+      "upload-failed": "Failed to upload groups to server."
     },
     "no-results": "No groups found matching the given filter criteria.",
     "no-schools": "Your user account does not have access to view the groups of any schools.",
