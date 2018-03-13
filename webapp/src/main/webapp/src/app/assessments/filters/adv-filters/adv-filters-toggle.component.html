@@ -7,7 +7,7 @@
     <button id="adv-filters-expand-collapse" class="btn btn-default btn-sm pull-right"
             (click)="displayOptions.expanded = !displayOptions.expanded"
             angulartics2On="click" angularticsEvent="ToggleExpandCollapse" angularticsCategory="AdvancedFilters">
-      {{'buttons.collapsible.' + (displayOptions.expanded ? 'collapse' : 'expand') | translate }}
+      {{'common.buttons.collapsible.' + (displayOptions.expanded ? 'collapse' : 'expand') | translate }}
       <i class="fa" [ngClass]="{'fa-caret-square-o-up': displayOptions.expanded, 'fa-caret-square-o-down': !displayOptions.expanded}"
          aria-hidden="true"></i>
     </button>

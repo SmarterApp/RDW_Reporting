@@ -1,37 +1,37 @@
 <div class="white-space-normal">
   <p>
-    <b>{{ 'assessments.items.tabs.item-info.claim' | translate}}</b>
-    {{ 'definition.claim.' + item.claim + '.description' | translate }}
+    <b>{{ 'item-info.claim' | translate}}</b>
+    {{ 'definition.claim.description.' + item.claim | translate }}
   </p>
   <p>
-    <b>{{ 'labels.groups.results.assessment.items.target' | translate:item}}: </b>
+    <b>{{ 'common.results.assessment-item-target' | translate:item}}: </b>
     {{ targetDescription }}
   </p>
   <p>
-    <b>{{ 'assessments.items.tabs.item-info.dok' | translate}}</b>
-    {{ 'definition.dok.' + item.depthOfKnowledge + '.description' | translate }}
-    <a href="{{ 'definition.dok.' + item.depthOfKnowledge + '.reference' | translate }}" target="_blank">{{ 'assessments.items.tabs.item-info.view-ref' | translate}}</a>
+    <b>{{ 'item-info.dok-label' | translate}}</b>
+    {{ 'item-info.dok.description.' + item.depthOfKnowledge | translate }}
+    <a href="{{ 'item-info.dok.reference.' + item.depthOfKnowledge | translate }}" target="_blank">{{ 'item-info.view-ref' | translate}}</a>
   </p>
   <p>
-    <b>{{ 'assessments.items.tabs.item-info.difficulty' | translate}}</b>
-    {{ 'enum.difficulty.' + item.difficulty | translate }}
+    <b>{{ 'item-info.difficulty' | translate}}</b>
+    {{ 'common.enum.difficulty.' + item.difficulty | translate }}
   </p>
   <span *ngIf="commonCoreStandards">
-    <p><b>{{ 'assessments.items.tabs.item-info.ccs' | translate}}</b></p>
+    <p><b>{{ 'item-info.ccs' | translate}}</b></p>
     <p *ngFor="let standard of commonCoreStandards; let i = index">
       <span class="label border-only blue mr-xs">{{ standard.code }}</span> {{ standard.description }}
     </p>
   </span>
   <p *ngIf="item.mathPractice">
-    <b>{{ 'assessments.items.tabs.item-info.math' | translate}}</b>
-    {{ 'definition.math-practice.' + item.mathPractice + '.description' | translate }}
+    <b>{{ 'item-info.math' | translate}}</b>
+    {{ 'item-info.math-practice.description.' + item.mathPractice | translate }}
   </p>
   <p *ngIf="item.allowCalculator">
-    <b>{{ 'assessments.items.tabs.item-info.calculator' | translate}}</b>
-    {{ 'enum.polar.' + item.allowCalculator | translate }}
+    <b>{{ 'item-info.calculator' | translate}}</b>
+    {{ 'common.enum.polar.' + item.allowCalculator | translate }}
   </p>
   <p>
-    <b>{{ 'assessments.items.tabs.item-info.docs' | translate}}</b>
-    <a href="{{interpretiveGuideUrl}}" target="_blank">{{ 'assessments.items.tabs.item-info.guide' | translate}}</a>
+    <b>{{ 'item-info.docs' | translate}}</b>
+    <a href="{{interpretiveGuideUrl}}" target="_blank">{{ 'item-info.guide' | translate}}</a>
   </p>
 </div>

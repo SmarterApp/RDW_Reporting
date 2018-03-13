@@ -173,17 +173,17 @@ export class AggregateReportFormComponent {
         return this.includeStateResults
         || this.settings.includeAllDistricts
         || control.value.length ? null : {
-          invalid: { messageId: 'aggregate-reports.form.field.organization.error-invalid' }
+          invalid: { messageId: 'aggregate-report-form.field.organization.error-invalid' }
         };
       }),
       assessmentGrades: new FormControl(this.settings.assessmentGrades, notEmpty(
-        { messageId: 'aggregate-reports.form.field.assessment-grades.error-empty' }
+        { messageId: 'aggregate-report-form.field.assessment-grades.error-empty' }
       )),
       schoolYears: new FormControl(this.settings.schoolYears, notEmpty(
-        { messageId: 'aggregate-reports.form.field.school-year.error-empty' }
+        { messageId: 'aggregate-report-form.field.school-year.error-empty' }
       )),
       reportName: new FormControl(this.settings.name, fileName(
-        { messageId: 'aggregate-reports.form.field.report-name.error-file-name' }
+        { messageId: 'aggregate-report-form.field.report-name.error-file-name' }
       ))
     });
 
@@ -345,7 +345,7 @@ export class AggregateReportFormComponent {
             this.router.navigate([ resource.id ], { relativeTo: this.route });
           },
           error => {
-            this.notificationService.error({ id: 'labels.reports.messages.submission-failed.html', html: true });
+            this.notificationService.error({ id: 'common.messages.submission-failed', html: true });
           }
         );
     });

@@ -31,11 +31,11 @@
     <ng-template let-embargo="rowData" pTemplate="body">
 
       <span *ngIf="overridingEmbargoReleasedIndividual" class="label border-only blue">
-        {{'labels.embargo.released-by-state' | translate}}
+        {{'embargo.released-by-state' | translate}}
       </span>
 
       <span *ngIf="!overridingEmbargoReleasedIndividual && embargo.readonly" class="label border-only blue">
-        {{('labels.embargo.toggle.' + embargo.individualEnabled) | translate}}
+        {{('embargo.toggle.' + embargo.individualEnabled) | translate}}
       </span>
 
       <toggle *ngIf="!overridingEmbargoReleasedIndividual && !embargo.readonly"
@@ -43,8 +43,8 @@
               (click)="toggleIndividual(toggle, embargo)"
               [value]="embargo.individualEnabled"
               [options]="[
-                { value: true, text: 'labels.embargo.toggle.true' | translate },
-                { value: false, text: 'labels.embargo.toggle.false' | translate }
+                { value: true, text: 'embargo.toggle.true' | translate },
+                { value: false, text: 'embargo.toggle.false' | translate }
               ]">
       </toggle>
     </ng-template>
@@ -59,11 +59,11 @@
     <ng-template let-embargo="rowData" pTemplate="body">
 
       <span *ngIf="overridingEmbargoReleasedAggregate" class="label border-only blue">
-        {{'labels.embargo.released-by-state' | translate}}
+        {{'embargo.released-by-state' | translate}}
       </span>
 
       <span *ngIf="!overridingEmbargoReleasedAggregate && embargo.readonly" class="label border-only blue">
-        {{('labels.embargo.toggle.' + embargo.aggregateEnabled) | translate}}
+        {{('embargo.toggle.' + embargo.aggregateEnabled) | translate}}
       </span>
 
       <toggle *ngIf="!overridingEmbargoReleasedAggregate && !embargo.readonly"
@@ -72,8 +72,8 @@
               [value]="embargo.aggregateEnabled"
               [disabled]="embargo.readonly"
               [options]="[
-                { value: true, text: 'labels.embargo.toggle.true' | translate },
-                { value: false, text: 'labels.embargo.toggle.false' | translate }
+                { value: true, text: 'embargo.toggle.true' | translate },
+                { value: false, text: 'embargo.toggle.false' | translate }
               ]">
       </toggle>
     </ng-template>

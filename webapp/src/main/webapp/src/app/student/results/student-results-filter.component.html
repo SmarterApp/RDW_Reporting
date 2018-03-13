@@ -9,7 +9,7 @@
                 [(ngModel)]="filterState.schoolYear"
                 (change)="onFilterChange('Year')"
                 class="form-control">
-          <option selected value="0">{{ 'buttons.all' | translate }}</option>
+          <option selected value="0">{{ 'common.buttons.all' | translate }}</option>
           <option *ngFor="let year of filterState.years" [ngValue]="year">{{year | schoolYear}}</option>
         </select>
       </div>
@@ -22,7 +22,7 @@
                 class="form-control"
                 [(ngModel)]="filterState.subject"
                 (change)="onFilterChange('Subject')">
-          <option selected value="">{{ 'buttons.all' | translate }}</option>
+          <option selected value="">{{ 'common.buttons.all' | translate }}</option>
           <option *ngFor="let subject of filterState.subjects" [ngValue]="subject">{{subject}}</option>
         </select>
       </div>
@@ -37,7 +37,7 @@
                   angulartics2On="click"
                   angularticsEvent="ToggleAdvancedFilters"
                   angularticsCategory="StudentHistoryAdvancedFilters">
-            {{'buttons.visibility.' + (showAdvancedFilters ? 'hide' : 'show') | translate}}
+            {{'common.buttons.visibility.' + (showAdvancedFilters ? 'hide' : 'show') | translate}}
             <i class="fa"
                aria-hidden="true"
                [ngClass]="{'fa-caret-square-o-up': showAdvancedFilters, 'fa-caret-square-o-down': !showAdvancedFilters}"></i>

@@ -84,7 +84,7 @@ describe('CsvBuilder', () => {
       let tabularData: string[][] = angular2Csv.export.calls.mostRecent().args[0];
 
       expect(tabularData.length).toBe(3);
-      expect(tabularData[0]).toEqual(["csv-builder.scale-score", "csv-builder.achievement-level", "labels.groups.results.assessment.exams.cols.iab.performance"]);
+      expect(tabularData[0]).toEqual(["csv-builder.scale-score", "csv-builder.achievement-level", "common.results.assessment.exams.columns.iab.performance"]);
       expect(tabularData[1]).toEqual(<any>[2580, "common.assessment-type.ica.performance-level.1.name", "common.assessment-type.iab.performance-level.1.name"]);
       expect(tabularData[2]).toEqual(["", "", ""]);
     }));
@@ -130,8 +130,8 @@ describe('CsvBuilder', () => {
 
       expect(tabularData.length).toBe(3);
       expect(tabularData[0]).toEqual(ethnicityOptions);
-      expect(tabularData[1]).toEqual(["enum.polar.1", "enum.polar.1", "enum.polar.1", "enum.polar.2", "enum.polar.2", "enum.polar.2", "enum.polar.2"]);
-      expect(tabularData[2]).toEqual(["enum.polar.2", "enum.polar.2", "enum.polar.2", "enum.polar.2", "enum.polar.2", "enum.polar.2", "enum.polar.1"]);
+      expect(tabularData[1]).toEqual(["common.enum.polar.1", "common.enum.polar.1", "common.enum.polar.1", "common.enum.polar.2", "common.enum.polar.2", "common.enum.polar.2", "common.enum.polar.2"]);
+      expect(tabularData[2]).toEqual(["common.enum.polar.2", "common.enum.polar.2", "common.enum.polar.2", "common.enum.polar.2", "common.enum.polar.2", "common.enum.polar.2", "common.enum.polar.1"]);
     }));
 });
 

@@ -47,7 +47,7 @@ const DefaultButtonStyles = 'btn-primary';
                angularticsEvent="{{analyticsEvent}}"
                angularticsCategory="{{analyticsCategory}}"
                [angularticsProperties]="allOptionAnalyticsProperties">
-        {{'buttons.all' | translate}}
+        {{'common.buttons.all' | translate}}
       </label>
       <div class="btn-group"
            [ngClass]="buttonGroupStyles">

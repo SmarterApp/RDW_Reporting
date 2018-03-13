@@ -1,12 +1,12 @@
 <div *ngIf="loading" class="loader">
   <div class="inner">
-    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">{{ 'messages.loading' | translate }}</span>
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">{{ 'common.messages.loading' | translate }}</span>
   </div>
 </div>
 <p-dataTable *ngIf="!loading" #datatable [value]="filteredMultipleChoiceItems" sortField="position"
              tableStyleClass="table table-striped table-hover" [tableStyle]="{'table-layout':'auto'}"
              expandableRows="true" rowExpandMode="single">
-  <p-column field="position" header="{{'labels.groups.results.assessment.items.cols.number' | translate}}"
+  <p-column field="position" header="{{'common.results.assessment-item-columns.number' | translate}}"
             sortable="true">
     <ng-template let-row="rowData" let-item="rowData" pTemplate="body">
       <datatable-row-expander [datatable]="datatable" [row]="row"
@@ -16,8 +16,8 @@
 
   <p-column field="claimTarget" [sortable]="true">
     <ng-template pTemplate="header">
-              <span info-button title="{{'labels.groups.results.assessment.items.cols.claim' | translate}}"
-                    content="{{'labels.groups.results.assessment.items.cols.claim-info-html' | translate}}"></span>
+              <span info-button title="{{'common.results.assessment-item-columns.claim' | translate}}"
+                    content="{{'common.results.assessment-item-columns.claim-info-html' | translate}}"></span>
     </ng-template>
     <ng-template let-item="rowData" pTemplate="body">
       <claim-target [item]="item"></claim-target>
@@ -25,17 +25,17 @@
   </p-column>
   <p-column field="difficulty" [sortable]="true" sortField="difficultySortOrder">
     <ng-template pTemplate="header">
-              <span info-button title="{{'labels.groups.results.assessment.items.cols.difficulty' | translate}}"
-                    content="{{'labels.groups.results.assessment.items.cols.difficulty-info' | translate}}"></span>
+              <span info-button title="{{'common.results.assessment-item-columns.difficulty' | translate}}"
+                    content="{{'common.results.assessment-item-columns.difficulty-info' | translate}}"></span>
     </ng-template>
     <ng-template let-item="rowData" pTemplate="body">
-      {{ 'enum.difficulty.' + item.difficulty | translate }}
+      {{ 'common.enum.difficulty.' + item.difficulty | translate }}
     </ng-template>
   </p-column>
   <p-column field="commonCoreStandardIds" sortable="true">
     <ng-template pTemplate="header">
-              <span info-button title="{{'labels.groups.results.assessment.items.cols.standard' | translate}}"
-                    content="{{'labels.groups.results.assessment.items.cols.standard-info-html.' + assessment.subject | translate}}"></span>
+              <span info-button title="{{'common.results.assessment-item-columns.standard' | translate}}"
+                    content="{{'common.results.assessment-item-columns.standard-info-html.' + assessment.subject | translate}}"></span>
     </ng-template>
     <ng-template let-standards="rowData.commonCoreStandardIds" pTemplate="body">
       <span *ngFor="let standard of standards" class="label border-only blue mr-xs">{{standard}}</span>
@@ -43,8 +43,8 @@
   </p-column>
   <p-column field="fullCredit" [sortable]="true" styleClass="level-up">
     <ng-template pTemplate="header">
-              <span info-button title="{{'labels.groups.results.assessment.items.cols.full-credit' | translate}}"
-                    content="{{'labels.groups.results.assessment.items.cols.full-credit-info' | translate}}"></span>
+              <span info-button title="{{'common.results.assessment-item-columns.full-credit' | translate}}"
+                    content="{{'common.results.assessment-item-columns.full-credit-info' | translate}}"></span>
     </ng-template>
     <ng-template let-item="rowData" pTemplate="body">
       <span [hidden]="showValuesAsPercent">{{ item.fullCredit }}</span>

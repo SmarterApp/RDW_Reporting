@@ -13,7 +13,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="report-name">{{'labels.reports.form.report-name' | translate}}</label>
+            <label for="report-name">{{'common.reports.form.report-name' | translate}}</label>
             <input id="report-name"
                    name="report-name"
                    class="form-control"
@@ -43,8 +43,8 @@
                                    [(ngModel)]="orgExport.disableTransferAccess"
                                    buttonGroupStyles=""
                                    [options]="[
-                           {value: false, text: 'buttons.visibility.show' | translate},
-                           {value: true, text: 'buttons.visibility.hide' | translate}
+                           {value: false, text: 'common.buttons.visibility.show' | translate},
+                           {value: true, text: 'common.buttons.visibility.hide' | translate}
                          ]">
             </sb-radio-button-group>
           </div>
@@ -58,7 +58,7 @@
                   inputId="search"
                   [options]="organizationOptions"
                   (buttonClick)="add($event)"
-                  placeholder="{{'prompt.select' | translate}}"
+                  placeholder="{{'common.prompt.select' | translate}}"
                   buttonLabel="{{'organization-export.form.organization.add' | translate}}">
             </span>
             <div class="ml-xs mt-xs">

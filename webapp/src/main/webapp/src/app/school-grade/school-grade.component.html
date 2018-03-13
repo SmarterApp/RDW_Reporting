@@ -8,13 +8,13 @@
       <div class="flex-child grow">
         <div class="form-group">
           <label for="search-school-name">
-            {{'school-grade.school-name.label' | translate}}
+            {{'school-grade.school-name-label' | translate}}
           </label>
           <sb-typeahead #schoolTypeahead
                         inputId="search-school-name"
                         [options]="schoolOptions"
                         (selected)="schoolChanged($event)"
-                        placeholder="{{'prompt.select' | translate}}"></sb-typeahead>
+                        placeholder="{{'common.prompt.select' | translate}}"></sb-typeahead>
         </div>
       </div>
       <div class="flex-child">
@@ -26,7 +26,7 @@
                   id="grade-select"
                   class="form-control">
             <option disabled
-                    [ngValue]="undefined">{{'prompt.select' | translate}}</option>
+                    [ngValue]="undefined">{{'common.prompt.select' | translate}}</option>
             <option *ngFor="let grade of gradeOptions"
                     [ngValue]="grade">{{'common.assessment-grade-label.' + grade.code | translate}}</option>
           </select>
@@ -38,13 +38,13 @@
           <button type="submit"
                   id="rdw-school-grade-submit"
                   [disabled]="!school || !grade"
-                  class="btn btn-primary form-control">{{'prompt.search' | translate}}</button>
+                  class="btn btn-primary form-control">{{'common.prompt.search' | translate}}</button>
         </div>
       </div>
     </div>
   </form>
   <div [hidden]="schoolHasGradesWithResults">
-    <span class="small gray-darker">{{'school-grade.messages.no-grades-available' | translate}}</span>
+    <span class="small gray-darker">{{'school-grade.no-grades-available' | translate}}</span>
   </div>
 </ng-template>
 

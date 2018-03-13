@@ -15,13 +15,13 @@
       </button>
     </div>
     <div *ngIf="reportView" class="flex-child text-muted pt-xs">
-      {{'aggregate-reports.row-count-label' | translate}} <span class="label gray-darker">{{report.metadata.totalCount | number}}</span>
+      {{'aggregate-report.row-count-label' | translate}} <span class="label gray-darker">{{report.metadata.totalCount | number}}</span>
     </div>
 
     <div class="flex-child">
       <button class="form-control btn btn-default pull-right"
               (click)="onToggleRequestViewButtonClick()">
-        {{'buttons.visibility.' + (showRequest ? 'hide' : 'show') | translate}}
+        {{'common.buttons.visibility.' + (showRequest ? 'hide' : 'show') | translate}}
         <i class="fa ml-xs"
            [ngClass]="{'fa-caret-square-o-up': showRequest, 'fa-caret-square-o-down': !showRequest}"
            aria-hidden="true"></i>
@@ -56,15 +56,15 @@
 
     <ng-container *ngIf="reportNotLoadable">
       <div class="well">
-        <p>{{'aggregate-report.error.unloadable' | translate}}</p>
-        <button class="btn btn-primary" [routerLink]="['/reports']">{{'labels.reports.link' | translate}}
+        <p>{{'aggregate-report.unloadable-error' | translate}}</p>
+        <button class="btn btn-primary" [routerLink]="['/reports']">{{'reports.link' | translate}}
         </button>
       </div>
     </ng-container>
 
     <ng-container *ngIf="reportSizeNotSupported">
       <div class="well">
-        <p>{{'aggregate-report.error.unsupported-size' | translate}}</p>
+        <p>{{'aggregate-report.unsupported-size-error' | translate}}</p>
         <ul class="list-unstyled list-inline">
           <li>
             <button class="btn btn-danger btn-sm"
@@ -105,8 +105,8 @@
             <div>
               <span class="pull-left flex-child">
                 <label class="mr-xs">
-                  <info-button title="{{'aggregate-report.column-order' | translate}}"
-                               content="{{'aggregate-report.column-order-info' | translate}}">
+                  <info-button title="{{'common.aggregate-report.column-order' | translate}}"
+                               content="{{'common.aggregate-report.column-order-info' | translate}}">
                   </info-button>
                 </label>
                 <order-selector [items]="table.columnOrderingItems"

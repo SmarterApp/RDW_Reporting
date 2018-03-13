@@ -1,6 +1,6 @@
 <tabset #itemTabs>
   <tab *ngIf="showStudentScores" (select)="selectTab('Student Scores')"
-       heading="{{ 'assessments.items.tabs.student-scores' | translate }}">
+       heading="{{ 'item-tab.student-scores' | translate }}">
     <div class="tab-content well">
       <item-scores [item]="item"
                    [exams]="exams"
@@ -10,13 +10,13 @@
     </div>
   </tab>
   <tab *ngIf="item.performanceTaskWritingType && responsesAssessmentItem" (select)="selectTab('Writing Trait Scores')"
-       heading="{{'assessments.items.tabs.writing-trait-scores' | translate }}">
+       heading="{{'item-tab.writing-trait-scores' | translate }}">
     <div class="tab-content well">
       <item-writing-trait-scores [responsesAssessmentItem]="responsesAssessmentItem"></item-writing-trait-scores>
     </div>
   </tab>
   <tab *ngIf="showItemDetails" (select)="selectTab('Item Viewer')"
-       heading="{{'assessments.items.tabs.item-viewer' | translate }}">
+       heading="{{'item-viewer.title' | translate }}">
     <div class="tab-content well">
       <item-viewer *ngIf="loadItemViewer"
                    [item]="item"
@@ -26,13 +26,13 @@
     </div>
   </tab>
   <tab *ngIf="showItemDetails" (select)="selectTab('Rubric Exemplar')"
-       heading="{{ 'assessments.items.tabs.exemplar.title' | translate }}">
+       heading="{{ 'item-exemplar.title' | translate }}">
     <div class="tab-content well">
       <item-exemplar *ngIf="loadExemplar" [item]="item"></item-exemplar>
     </div>
   </tab>
   <tab *ngIf="showItemDetails" (select)="selectTab('Item Information')"
-       heading="{{'assessments.items.tabs.item-info.title' | translate }}">
+       heading="{{'item-info.title' | translate }}">
     <div class="tab-content well">
       <item-info *ngIf="loadInfo" [item]="item"></item-info>
     </div>

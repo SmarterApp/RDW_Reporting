@@ -20,7 +20,7 @@ import { SchoolAssessmentExportService } from "./school-assessment-export.servic
 import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Component({
-  selector: 'app-group-results',
+  selector: 'school-results',
   templateUrl: './school-results.component.html',
 })
 /**
@@ -234,7 +234,7 @@ export class SchoolResultsComponent implements OnInit {
    * @param downloader
    */
   initializeDownloader(downloader: SchoolGradeDownloadComponent): void {
-    downloader.title = this.translate.instant('labels.reports.form.title.multiple', {
+    downloader.title = this.translate.instant('common.reports.form.title.multiple', {
       name: this._currentSchool.name + ' ' + this.translate.instant(`common.assessment-grade-short-label.${this._currentGrade.code}`)
     });
     downloader.options.schoolYear = this.currentSchoolYear;

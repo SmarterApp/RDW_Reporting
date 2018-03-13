@@ -1,13 +1,13 @@
 <a href="javascript:void(0)"
-   [popover]="'definition.claim.' + item.claim + '.description' | translate"
-   popoverTitle="{{'definition.claim.' + item.claim + '.name' | translate}}"
-   outsideClick="true">{{'definition.claim.' + item.claim + '.name' | translate}}</a>
+   [popover]="'definition.claim.description.' + item.claim | translate"
+   popoverTitle="{{'definition.claim.name.' + item.claim | translate}}"
+   outsideClick="true">{{'definition.claim.name.' + item.claim | translate}}</a>
 /
 <a href="javascript:void(0)"
    (click)="loadTargetDescription()"
    [popover]="targetPopover"
-   popoverTitle="{{'labels.groups.results.assessment.items.target' | translate:item}}"
-   outsideClick="true">{{'labels.groups.results.assessment.items.target' | translate:item}}</a>
+   popoverTitle="{{'common.results.assessment-item-target' | translate:item}}"
+   outsideClick="true">{{'common.results.assessment-item-target' | translate:item}}</a>
 
 <ng-template #targetPopover>
   <i *ngIf="!target" class="fa fa-spinner fa-pulse"></i>

@@ -170,7 +170,7 @@ export class CsvBuilder {
   // TODO - Split out -- ?
   withExamStatus(getExam: (item: any) => Exam) {
     return this.withColumn(
-      this.translateService.instant('labels.groups.results.assessment.exams.cols.status'),
+      this.translateService.instant('common.results.assessment-exam-columns.status'),
       (item) => {
         let exam: Exam = getExam(item);
         let adminCondition: string = exam.administrativeCondition;
@@ -190,7 +190,7 @@ export class CsvBuilder {
         let exam: Exam = getExam(item);
         if (!exam || !exam.level) return "";
 
-        return this.translateService.instant(`common.assessment-type.ica.performance-level.${exam.level ? exam.level : 'missing'}.name`);
+        return this.translateService.instant(exam.level ? `common.assessment-type.ica.performance-level.${exam.level}.name` : 'common.missing');
       }
     )
   }
@@ -210,7 +210,7 @@ export class CsvBuilder {
   // TODO - Is this different than AchievementLevel now -- ?
   withReportingCategory(getExam: (item: any) => Exam) {
     return this.withColumn(
-      this.translateService.instant('labels.groups.results.assessment.exams.cols.iab.performance'),
+      this.translateService.instant('common.results.assessment-exam-columns.iab.performance'),
       (item) => {
         let exam: Exam = getExam(item);
         if (!exam || !exam.level) return "";
@@ -261,12 +261,12 @@ export class CsvBuilder {
   withClaimScores(claims: string[], getExam: (item: any) => Exam) {
     claims.forEach((claim, idx) => {
       this.withColumn(
-        this.translateService.instant(`enum.subject-claim-code.${claim}`),
+        this.translateService.instant(`common.enum.subject-claim-code.${claim}`),
         (item) => {
           let exam: Exam = getExam(item);
           if (!exam || !exam.claimScores[ idx ].level) return "";
 
-          return this.translateService.instant(`common.assessment-type.iab.performance-level.${exam.claimScores[ idx ].level ? exam.claimScores[ idx ].level : 'missing'}.name`);
+          return this.translateService.instant(exam.claimScores[ idx ].level ? `common.assessment-type.iab.performance-level.${exam.claimScores[ idx ].level}}.name` : 'common.missing');
         }
       )
     });
@@ -286,7 +286,7 @@ export class CsvBuilder {
       this.translateService.instant('csv-builder.migrant-status'),
       (item) => {
         let polarEnum = getExam(item).migrantStatus ? 1 : 2;
-        return this.translateService.instant(`enum.polar.${polarEnum}`);
+        return this.getPolarTranslation(polarEnum);
       }
     )
   }
@@ -296,7 +296,7 @@ export class CsvBuilder {
       this.translateService.instant('csv-builder.504-plan'),
       (item) => {
         let polarEnum = getExam(item).plan504 ? 1 : 2;
-        return this.translateService.instant(`enum.polar.${polarEnum}`);
+        return this.getPolarTranslation(polarEnum);
       }
     )
   }
@@ -306,7 +306,7 @@ export class CsvBuilder {
       this.translateService.instant('csv-builder.iep'),
       (item) => {
         let polarEnum = getExam(item).iep ? 1 : 2;
-        return this.translateService.instant(`enum.polar.${polarEnum}`);
+        return this.getPolarTranslation(polarEnum);
       }
     )
   }
@@ -316,7 +316,7 @@ export class CsvBuilder {
       this.translateService.instant('csv-builder.economic-disadvantage'),
       (item) => {
         let polarEnum = getExam(item).economicDisadvantage ? 1 : 2;
-        return this.translateService.instant(`enum.polar.${polarEnum}`);
+        return this.getPolarTranslation(polarEnum);
       }
     )
   }
@@ -326,7 +326,7 @@ export class CsvBuilder {
       this.translateService.instant('csv-builder.limited-english'),
       (item) => {
         let polarEnum = getExam(item).limitedEnglishProficiency ? 1 : 2;
-        return this.translateService.instant(`enum.polar.${polarEnum}`);
+        return this.getPolarTranslation(polarEnum);
       }
     )
   }
@@ -337,7 +337,7 @@ export class CsvBuilder {
         ethnicity,
         (item) => {
           let polarEnum = getExam(item).student.ethnicityCodes.some(code => code == ethnicity) ? 1 : 2;
-          return this.translateService.instant(`enum.polar.${polarEnum}`);
+          return this.getPolarTranslation(polarEnum);
         });
     }
 
@@ -346,7 +346,7 @@ export class CsvBuilder {
 
   withItemNumber(getAssessmentItem: (item: any) => AssessmentItem) {
     return this.withColumn(
-      this.translateService.instant('labels.groups.results.assessment.items.cols.number'),
+      this.translateService.instant('common.results.assessment-item-columns.number'),
       (item) => getAssessmentItem(item).position
     );
   }
@@ -354,34 +354,34 @@ export class CsvBuilder {
   withClaim(getAssessmentItem: (item: any) => AssessmentItem) {
     return this.withColumn(
       this.translateService.instant('csv-builder.claim'),
-      (item) => this.translateService.instant(`definition.claim.${getAssessmentItem(item).claim}.name`)
+      (item) => this.translateService.instant(`definition.claim.name.${getAssessmentItem(item).claim}`)
     );
   }
 
   withTarget(getAssessmentItem: (item: any) => AssessmentItem) {
     return this.withColumn(
       this.translateService.instant('csv-builder.target'),
-      (item) => this.translateService.instant('labels.groups.results.assessment.items.target', getAssessmentItem(item))
+      (item) => this.translateService.instant('common.results.assessment-item-target', getAssessmentItem(item))
     );
   }
 
   withItemDifficulty(getAssessmentItem: (item: any) => AssessmentItem) {
     return this.withColumn(
-      this.translateService.instant('labels.groups.results.assessment.items.cols.difficulty'),
-      (item) => this.translateService.instant(`enum.difficulty.${getAssessmentItem(item).difficulty}`)
+      this.translateService.instant('common.results.assessment-item-columns.difficulty'),
+      (item) => this.translateService.instant(`common.enum.difficulty.${getAssessmentItem(item).difficulty}`)
     );
   }
 
   withItemAnswerKey(getAssessmentItem: (item: any) => AssessmentItem) {
     return this.withColumn(
-      this.translateService.instant('labels.groups.results.assessment.items.cols.answer-key'),
+      this.translateService.instant('common.results.assessment-item-columns.answer-key'),
       (item) => getAssessmentItem(item).answerKey
     );
   }
 
   withStandards(getAssessmentItem: (item: any) => AssessmentItem) {
     return this.withColumn(
-      this.translateService.instant('labels.groups.results.assessment.items.cols.standard'),
+      this.translateService.instant('common.results.assessment-item-columns.standard'),
       (item) => getAssessmentItem(item).commonCoreStandardIds.join(", ")
     );
   }
@@ -389,7 +389,7 @@ export class CsvBuilder {
   withFullCredit(getAssessmentItem: (item: any) => AssessmentItem,
                  showAsPercent: boolean) {
     return this.withColumn(
-      this.translateService.instant('labels.groups.results.assessment.items.cols.full-credit'),
+      this.translateService.instant('common.results.assessment-item-columns.full-credit'),
       (item) => {
         let assessmentItem: AssessmentItem = getAssessmentItem(item);
         let fullCredit: number = showAsPercent ? assessmentItem.fullCreditAsPercent : assessmentItem.fullCredit;
@@ -419,7 +419,7 @@ export class CsvBuilder {
 
   withPerformanceTaskWritingType(getAssessmentItem: (item: any) => AssessmentItem) {
     return this.withColumn(
-      this.translateService.instant('labels.groups.results.assessment.items.cols.purpose'),
+      this.translateService.instant('common.results.assessment-item-columns.purpose'),
       (item) => getAssessmentItem(item).performanceTaskWritingType
     );
   }
@@ -429,23 +429,23 @@ export class CsvBuilder {
                             showAsPercent: boolean) {
 
     this.withColumn(
-      this.translateService.instant('labels.groups.results.assessment.items.cols.category'),
-      (item) => this.translateService.instant('enum.writing-trait.' + getWritingTraitAggregate(item).trait.type)
+      this.translateService.instant('common.results.assessment-item-columns.category'),
+      (item) => this.translateService.instant('common.enum.writing-trait.' + getWritingTraitAggregate(item).trait.type)
     );
 
     this.withColumn(
-      this.translateService.instant('labels.groups.results.assessment.items.cols.average'),
+      this.translateService.instant('common.results.assessment-item-columns.average'),
       (item) => this.numberPipe.transform(getWritingTraitAggregate(item).average, '1.0-1')
     );
 
     this.withColumn(
-      this.translateService.instant('labels.groups.results.assessment.items.cols.max-points'),
+      this.translateService.instant('common.results.assessment-item-columns.max-points'),
       (item) => this.numberAsString(getWritingTraitAggregate(item).trait.maxPoints, false)
     );
 
     for (let i=0; i <= maxPoints; i++) {
       this.withColumn(
-        this.translateService.instant('labels.groups.results.assessment.items.cols.x-points', { id: i }),
+        this.translateService.instant('common.results.assessment-item-columns.x-points', { id: i }),
         (item) => {
           let value = showAsPercent ? getWritingTraitAggregate(item).percents[i] : getWritingTraitAggregate(item).numbers[i];
           return Utils.isNullOrUndefined(value) ? '' : this.numberAsString(value, showAsPercent);
@@ -503,5 +503,9 @@ export class CsvBuilder {
   private numberAsString(value: Number, showAsPercent: boolean) {
     return this.numberPipe.transform(value, '1.0-0') +
       (showAsPercent ? "%" : "");
+  }
+
+  private getPolarTranslation(polar: number): string {
+    return this.translateService.instant(`common.enum.polar.${polar}`);
   }
 }

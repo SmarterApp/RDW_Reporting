@@ -1,7 +1,7 @@
 <div *ngIf="group">
   <div class="modal-header">
     <h4 class="modal-title pull-left">{{ 'admin-groups.delete.title' | translate:group }}</h4>
-    <button type="button" class="close pull-right" title="{{'prompt.close' | translate}}" (click)="cancel()">
+    <button type="button" class="close pull-right" title="{{'common.prompt.close' | translate}}" (click)="cancel()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -13,7 +13,7 @@
   <div class="modal-footer">
     <span>
       <button type="button" class="btn btn-default" (click)="cancel()">
-        {{ (unableToDelete? 'prompt.close' : 'admin-groups.delete.button-cancel') | translate }}
+        {{ (unableToDelete? 'common.prompt.close' : 'admin-groups.delete.button-cancel') | translate }}
       </button>
       <button type="button" *ngIf="!unableToDelete" class="btn btn-danger" (click)="delete()">
         {{ 'admin-groups.delete.button-save' | translate }}

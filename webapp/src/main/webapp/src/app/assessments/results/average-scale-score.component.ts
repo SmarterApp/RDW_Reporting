@@ -83,7 +83,7 @@ export class AverageScaleScoreComponent {
   }
 
   examLevelTranslation(performanceLevel: ExamStatisticsLevel): string {
-    return this.translate.instant(`common.assessment-type.${this.assessmentExam.assessment.typeCode}.performance-level.${performanceLevel.id ? performanceLevel.id : 'missing'}.short-name`)
+    return this.translate.instant(performanceLevel.id ? `common.assessment-type.${this.assessmentExam.assessment.typeCode}.performance-level.${performanceLevel.id}.short-name` : 'common.missing')
   }
 
   private levelCountPercent(levelCount: number): number {

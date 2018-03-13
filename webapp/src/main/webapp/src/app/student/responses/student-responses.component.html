@@ -8,12 +8,12 @@
 
 <page-heading>
   <ng-template #heading>
-    <h3>{{'student.responses.title' | translate}}</h3>
+    <h3>{{'student-responses.title' | translate}}</h3>
   </ng-template>
 </page-heading>
 
 <div *ngIf="!student || !assessment" class="alert alert-danger">
-  {{ 'student.messages.null-student' | translate }}
+  {{ 'common.messages.null-student' | translate }}
 </div>
 <div *ngIf="student && assessment" class="well">
   <div class="mb-md">
@@ -28,20 +28,20 @@
   </div>
 
   <p-dataTable #datatable *ngIf="assessmentItems" [value]="assessmentItems"
-               emptyMessage="{{'messages.no-exams-matching-criteria' | translate}}"
+               emptyMessage="{{'common.messages.no-exams-matching-criteria' | translate}}"
                sortField="assessmentItem.position"
                tableStyleClass="table table-striped table-hover"
                rowExpandMode="single"
                expandableRows="true">
-    <p-column field="assessmentItem.position" header="{{'labels.groups.results.assessment.items.cols.number' | translate}}" sortable="true">
+    <p-column field="assessmentItem.position" header="{{'common.results.assessment-item-columns.number' | translate}}" sortable="true">
       <ng-template let-row="rowData" let-item="rowData.assessmentItem" pTemplate="body">
         <datatable-row-expander [datatable]="datatable" [row]="row" [text]="item.position"></datatable-row-expander>
       </ng-template>
     </p-column>
     <p-column field="assessmentItem.claimTarget" [sortable]="true">
       <ng-template pTemplate="header">
-              <span info-button title="{{'labels.groups.results.assessment.items.cols.claim' | translate}}"
-                    content="{{'labels.groups.results.assessment.items.cols.claim-info-html' | translate}}"></span>
+              <span info-button title="{{'common.results.assessment-item-columns.claim' | translate}}"
+                    content="{{'common.results.assessment-item-columns.claim-info-html' | translate}}"></span>
       </ng-template>
       <ng-template let-item="rowData.assessmentItem" pTemplate="body">
         <claim-target [item]="item"></claim-target>
@@ -49,32 +49,32 @@
     </p-column>
     <p-column field="assessmentItem.difficulty" [sortable]="true">
       <ng-template pTemplate="header">
-              <span info-button title="{{'labels.groups.results.assessment.items.cols.difficulty' | translate}}"
-                    content="{{'labels.groups.results.assessment.items.cols.difficulty-info' | translate}}"></span>
+              <span info-button title="{{'common.results.assessment-item-columns.difficulty' | translate}}"
+                    content="{{'common.results.assessment-item-columns.difficulty-info' | translate}}"></span>
       </ng-template>
       <ng-template let-item="rowData.assessmentItem" pTemplate="body">
-        {{ 'enum.difficulty.' + item.difficulty | translate }}
+        {{ 'common.enum.difficulty.' + item.difficulty | translate }}
       </ng-template>
     </p-column>
     <p-column field="assessmentItem.commonCoreStandardIds" sortable="true">
       <ng-template pTemplate="header">
-        <span info-button title="{{'labels.groups.results.assessment.items.cols.standard' | translate}}"
-              content="{{'labels.groups.results.assessment.items.cols.standard-info-html.' + assessment.subject | translate}}"></span>
+        <span info-button title="{{'common.results.assessment-item-columns.standard' | translate}}"
+              content="{{'common.results.assessment-item-columns.standard-info-html.' + assessment.subject | translate}}"></span>
       </ng-template>
       <ng-template let-standards="rowData.assessmentItem.commonCoreStandardIds" pTemplate="body">
         <span *ngFor="let standard of standards" class="label border-only blue mr-xs">{{standard}}</span>
       </ng-template>
     </p-column>
-    <p-column field="score" header="{{'student.responses.cols.student-points' | translate}}" sortable="true">
+    <p-column field="score" header="{{'common.student-response-columns.student-points' | translate}}" sortable="true">
       <ng-template let-score="rowData.score" pTemplate="body">
         {{ score | optional }}
       </ng-template>
     </p-column>
-    <p-column field="assessmentItem.maxPoints" header="{{'student.responses.cols.max-points' | translate}}" sortable="true"></p-column>
+    <p-column field="assessmentItem.maxPoints" header="{{'common.student-response-columns.max-points' | translate}}" sortable="true"></p-column>
     <p-column field="correctness" sortable="true">
       <ng-template pTemplate="header">
-        <span info-button title="{{'student.responses.cols.correctness' | translate}}"
-              content="{{'student.responses.cols.correctness-info' | translate}}"></span>
+        <span info-button title="{{'common.student-response-columns.correctness' | translate}}"
+              content="{{'common.student-response-columns.correctness-info' | translate}}"></span>
       </ng-template>
       <ng-template let-correctness="rowData.correctness" pTemplate="body">
         {{ correctness | optional:(correctness | number:'1.2-2') }}

@@ -2,7 +2,7 @@
 
 <ng-container *ngIf="!examHistory; else hasExamHistory">
   <div *ngIf="!examHistory" class="alert alert-danger">
-    {{ 'student.messages.null-student' | translate }}
+    {{ 'common.messages.null-student' | translate }}
   </div>
 </ng-container>
 
@@ -18,7 +18,7 @@
         <li>
           <button class="btn btn-default btn-sm"
                   [ngClass]="{disabled: exportDisabled}"
-                  popover="{{'embargo-admin-alert.export.disabled' | translate}}"
+                  popover="{{'common.embargo-export-disabled' | translate}}"
                   [triggers]="exportDisabled ? 'mouseenter:mouseleave' : ''"
                   placement="left"
                   (click)="!exportDisabled && exportCsv()">
@@ -28,7 +28,7 @@
         <li>
           <button class="btn btn-default btn-sm"
                   (click)="reportDownloader.modal.show()">
-            <i class="fa fa-cloud-download" aria-hidden="true"></i> {{'labels.reports.button-label.student' | translate}}
+            <i class="fa fa-cloud-download" aria-hidden="true"></i> {{'student-results.student-button-label' | translate}}
           </button>
         </li>
       </ul>
@@ -43,7 +43,7 @@
 
   <page-heading>
     <ng-template #heading>
-      <h3>{{'student.results.title' | translate}}</h3>
+      <h3>{{'student-results.title' | translate}}</h3>
     </ng-template>
   </page-heading>
 
@@ -59,7 +59,7 @@
                 angulartics2On="click"
                 angularticsEvent="ToggleCollapseResults"
                 angularticsCategory="StudentHistory">
-          <span class="sr-only">{{ 'buttons.collapsible.collapse' | translate }}</span>
+          <span class="sr-only">{{ 'common.buttons.collapsible.collapse' | translate }}</span>
           <i class="fa fa-bold {{ isCollapsed(assessmentType, subject) ? 'fa-caret-square-o-down' : 'fa-caret-square-o-up' }}"></i>
         </button>
 
@@ -81,11 +81,11 @@
   </ng-container>
 
   <div *ngIf="!hasResults">
-    {{'student.messages.empty-filtered-results' | translate}}
+    {{'student-results.empty-filtered-results-message' | translate}}
   </div>
 
   <span student-report-download #reportDownloader
-        [title]="'labels.reports.form.title.single' | translate:examHistory.student"
+        [title]="'student-results.create-report' | translate:examHistory.student"
         [student]="examHistory.student"
         [schoolYears]="filterState.years"
         (onShow)="initializeDownloader(reportDownloader)"></span>

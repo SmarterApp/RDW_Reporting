@@ -192,7 +192,7 @@ export class AggregateReportTableComponent implements OnInit {
   getPerformanceLevelColumnHeaderTranslationCode(level: number): string {
     return this.performanceLevelDisplayType === 'Separate'
       ? this.performanceLevelTranslationPrefix + String(level) + '.short-name'
-      : 'aggregate-reports.results.cols.grouped-performance-level-prefix.' + String(level - 2)
+      : 'aggregate-report-table.columns.grouped-performance-level-prefix.' + String(level - 2)
   }
 
   get rowSortingEnabled(): boolean | string {

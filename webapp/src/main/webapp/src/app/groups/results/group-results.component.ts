@@ -14,7 +14,7 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 import { GroupService } from '../group.service';
 
 @Component({
-  selector: 'app-group-results',
+  selector: 'group-results',
   templateUrl: './group-results.component.html'
 })
 export class GroupResultsComponent implements OnInit {

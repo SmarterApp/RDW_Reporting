@@ -1,12 +1,12 @@
 <page-heading>
   <ng-template #heading>
-    <h2>{{'labels.embargo.title' | translate}}</h2>
+    <h2>{{'embargo.title' | translate}}</h2>
   </ng-template>
 </page-heading>
 
 <div class="well" *ngIf="stateEmbargo">
   <div class="well-body mt-sm">
-    <embargo-table translateContext="labels.embargo.state.table"
+    <embargo-table translateContext="embargo.state.table"
                    [embargoes]="[stateEmbargo]"
                    (toggle)="confirmToggle($event)"></embargo-table>
   </div>
@@ -14,7 +14,7 @@
 
 <div class="well" *ngIf="districtEmbargoes">
   <div class="well-body mt-xsm">
-    <embargo-table translateContext="labels.embargo.district.table"
+    <embargo-table translateContext="embargo.district.table"
                    [embargoes]="districtEmbargoes"
                    [overridingEmbargo]="stateEmbargo"
                    (toggle)="confirmToggle($event)"></embargo-table>

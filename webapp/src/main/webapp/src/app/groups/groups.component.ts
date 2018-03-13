@@ -37,8 +37,8 @@ export class GroupsComponent implements OnInit {
    */
   get emptyMessageTranslateKey(): string {
     return this.groups && this.groups.length != 0 ?
-      'labels.groups.empty-message' :
-      'labels.groups.no-groups-message';
+      'groups.empty-message' :
+      'groups.no-groups-message';
   }
 
 }

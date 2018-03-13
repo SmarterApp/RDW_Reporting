@@ -8,7 +8,7 @@
         <a *hasPermission="'CUSTOM_AGGREGATE_READ'"
            routerLink="/aggregate-reports"
            class="btn btn-xs btn-default">
-          {{'aggregate-reports.form.heading' | translate}}
+          {{'aggregate-report-form.heading' | translate}}
         </a>
       </li>
       <li>
@@ -68,6 +68,6 @@
       </div>
     </div>
     <!-- Summary News Dynamic Content -->
-    <div [innerHTML]="'html.system-news' | translate"></div>
+    <div [innerHTML]="'home.html.system-news' | translate"></div>
   </div>
 </div>

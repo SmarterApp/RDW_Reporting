@@ -2,7 +2,7 @@
 
 <page-heading>
   <ng-template #heading>
-    <h2>{{'labels.groups.name' | translate}}</h2>
+    <h2>{{'groups.name' | translate}}</h2>
   </ng-template>
   <ng-template #content>
     <ul class="list-unstyled list-inline" *ngIf="currentGroup">
@@ -13,7 +13,7 @@
       <li>
         <button class="btn btn-default btn-sm"
                 (click)="reportDownloader.modal.show()">
-          <i class="fa fa-cloud-download" aria-hidden="true"></i> {{'labels.reports.button-label.group' | translate}}
+          <i class="fa fa-cloud-download" aria-hidden="true"></i> {{'group-results.group-button-label' | translate}}
         </button>
       </li>
     </ul>
@@ -34,7 +34,7 @@
 
       <!-- Group Select -->
       <div class="col-md-3">
-        <label for="select-group">{{'labels.groups.results.select-group' | translate}}</label>
+        <label for="select-group">{{'group-results.select-group' | translate}}</label>
         <!--TODO: type ahead? -->
         <select id="select-group" [(ngModel)]="currentGroup" (change)="updateRoute('Group')" class="form-control">
           <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
@@ -63,13 +63,13 @@
 
 <ng-template #groupNotFound>
   <div class="alert alert-info">
-    {{'labels.groups.results.null-group' | translate }}
+    {{'group-results.null-group' | translate }}
   </div>
 </ng-template>
 
 <span group-report-download
       #reportDownloader
-      [title]="'labels.reports.form.title.multiple' | translate:currentGroup"
+      [title]="'common.reports.form.title.multiple' | translate:currentGroup"
       [group]="currentGroup"
       [schoolYears]="filterOptions.schoolYears"
       [schoolYear]="currentSchoolYear"
