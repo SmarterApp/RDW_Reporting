@@ -67,7 +67,7 @@ sqlbuilder:
               clauses:
                 select: >-
                      'School' AS organization_type,
-                     sch.id AS organization_id
+                     fe.school_id AS organization_id
                 join: >-
                      JOIN school sch ON sch.id = fe.school_id
 
@@ -75,21 +75,21 @@ sqlbuilder:
                      sch.district_id in (:school_district_ids)
 
                 groupBy: >-
-                     sch.id
+                     fe.school_id
 
             schools:
               clauses:
                 select: >-
                      'School' AS organization_type,
-                     sch.id AS organization_id
+                     fe.school_id AS organization_id
                 join: >-
                      JOIN school sch ON sch.id = fe.school_id
 
                 where: >-
-                    sch.id in (:school_ids)
+                    fe.school_id in (:school_ids)
 
                 groupBy: >-
-                     sch.id
+                     fe.school_id
 
             embargo:
               clauses:
