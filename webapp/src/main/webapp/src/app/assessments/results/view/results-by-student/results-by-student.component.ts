@@ -63,7 +63,7 @@ export class ResultsByStudentComponent implements OnInit {
   }
 
   get performanceLevelHeader() {
-    return "labels.groups.results.assessment.exams.cols." +
+    return "common.results.assessment-exam-columns." +
       (this.assessment.isIab ? "iab" : "ica") + ".performance";
   }
 
@@ -101,7 +101,7 @@ export class ResultsByStudentComponent implements OnInit {
   }
 
   examLevelTranslation(exam: Exam): string {
-    return this.translate.instant(`common.assessment-type.${this.assessment.typeCode}.performance-level.${exam.level ? exam.level : 'missing'}.name`);
+    return this.translate.instant(exam.level ? `common.assessment-type.${this.assessment.typeCode}.performance-level.${exam.level}.name` : 'common.missing');
   }
 
   private getClaimColumns(): Column[] {
@@ -133,7 +133,7 @@ export class ResultsByStudentComponent implements OnInit {
           options.schoolYear = exam.schoolYear;
 
           downloader.student = exam.student;
-          downloader.title = this.translate.instant('labels.reports.form.title.single-prepopulated', {
+          downloader.title = this.translate.instant('results-by-student.create-single-prepopulated-report', {
             name: exam.student.firstName,
             schoolYear: exam.schoolYear,
             subject: this.translate.instant(`common.subject.${subject}.short-name`),

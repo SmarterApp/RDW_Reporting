@@ -35,11 +35,11 @@ export class AggregateReportTableExportService {
 
     builder
       .withColumn(
-        this.translateService.instant('aggregate-reports.results.cols.studentsTested'),
+        this.translateService.instant('aggregate-report-table.columns.students-tested'),
         (item: AggregateReportItem) => item.studentsTested
       )
       .withColumn(
-        this.translateService.instant('aggregate-reports.results.cols.avgScaleScore'),
+        this.translateService.instant('aggregate-report-table.columns.avg-scale-score'),
         (item: AggregateReportItem) => item.studentsTested
             ? `${item.avgScaleScore} ± ${item.avgStdErr}`
             : ''
@@ -53,11 +53,11 @@ export class AggregateReportTableExportService {
     if ('organization' === column) {
       return builder
         .withColumn(
-          this.translateService.instant('aggregate-reports.results.cols.organization'),
+          this.translateService.instant('aggregate-report-table.columns.organization'),
           (item: AggregateReportItem) => item.organization.name
         )
         .withColumn(
-          this.translateService.instant('aggregate-reports.results.cols.organization-id'),
+          this.translateService.instant('aggregate-report-table.columns.organization-id'),
           (item: AggregateReportItem) => (item.organization as any).naturalId ? (item.organization as any).naturalId : ''
         );
     }
@@ -65,7 +65,7 @@ export class AggregateReportTableExportService {
     if ('assessmentGrade' === column) {
       return builder
         .withColumn(
-          this.translateService.instant('aggregate-reports.results.cols.assessmentGrade'),
+          this.translateService.instant('aggregate-report-table.columns.assessment-grade'),
           (item: AggregateReportItem) => this.translateService.instant(`common.assessment-grade.${item.assessmentGradeCode}`)
         );
     }
@@ -73,7 +73,7 @@ export class AggregateReportTableExportService {
     if ('schoolYear' === column) {
       return builder
         .withColumn(
-          this.translateService.instant('aggregate-reports.results.cols.schoolYear'),
+          this.translateService.instant('aggregate-report-table.columns.school-year'),
           (item: AggregateReportItem) => {
             let valueAsString = item.schoolYear.toString();
             if (valueAsString.length !== 4) {
@@ -87,7 +87,7 @@ export class AggregateReportTableExportService {
     if ('dimension' === column) {
       return builder
         .withColumn(
-          this.translateService.instant('aggregate-reports.results.cols.dimension'),
+          this.translateService.instant('aggregate-report-table.columns.dimension'),
           (item: AggregateReportItem) => {
             return this.translateService.instant(`common.dimension.${item.dimension.type}`) +
               (item.dimension.code ? ': ' + this.translateService.instant(item.dimension.codeTranslationCode) : '')
@@ -115,11 +115,11 @@ export class AggregateReportTableExportService {
     const headerForPerformanceLevel = (level: number) => {
       let header: string;
       if (options.performanceLevelDisplayType === PerformanceLevelDisplayTypes.Grouped) {
-        header = this.translateService.instant(`aggregate-reports.results.cols.grouped-performance-level-prefix.${level}`);
+        header = this.translateService.instant(`aggregate-report-table.columns.grouped-performance-level-prefix.${level}`);
       } else {
         header = this.translateService.instant(`common.assessment-type.${options.assessmentDefinition.typeCode}.performance-level.${level}.short-name`)
       }
-      return header + " " + this.translateService.instant('aggregate-reports.results.cols.performance-level-suffix');
+      return header + " " + this.translateService.instant('aggregate-report-table.columns.performance-level-suffix');
     };
 
     const levels: number[] = options.performanceLevelDisplayType === PerformanceLevelDisplayTypes.Grouped

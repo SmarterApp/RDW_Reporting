@@ -107,7 +107,7 @@ export class MenuActionBuilder {
             if (!resources.length) {
               let noResourcesAction = new PopupMenuAction();
               noResourcesAction.isDisabled = () => true;
-              noResourcesAction.displayName = () => this.translateService.instant('labels.groups.results.assessment.no-instruct-found');
+              noResourcesAction.displayName = () => this.translateService.instant('common.results.assessment.no-instruct-found');
               return [noResourcesAction];
             }
             return this.asInstructionalResourceActions.call(this, resources);

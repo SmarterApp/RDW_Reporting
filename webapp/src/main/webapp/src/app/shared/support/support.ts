@@ -230,4 +230,14 @@ export class Utils {
       return `(${Number(a.replace(/[()]/g, '')) + 1})`;
     });
   }
+
+  /**
+   * Given a string "ThisString" this method will return "this-string"
+   *
+   * @param {string}
+   * @returns {string} the lowercase string with every non-initial capitalized letter separated by a dash
+   */
+  static camelCaseToDash(str: string): string {
+    return str.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
+  }
 }

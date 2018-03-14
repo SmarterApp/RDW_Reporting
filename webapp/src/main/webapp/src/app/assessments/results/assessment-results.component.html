@@ -20,11 +20,11 @@
               angulartics2On="click"
               angularticsEvent="ToggleCollapseResults"
               angularticsCategory="AssessmentResults">
-        {{'buttons.collapsible.' + (collapsed ? 'expand' : 'collapse') | translate}}
+        {{'common.action.' + (collapsed ? 'expand' : 'collapse') | translate}}
         <i class="fa"
            [ngClass]="{'fa-caret-square-o-up': !collapsed, 'fa-caret-square-o-down': collapsed}"
            aria-hidden="true"></i>
-        <span class="sr-only">{{'prompt.collapse' | translate}}</span>
+        <span class="sr-only">{{'common.action.collapse' | translate}}</span>
       </button>
     </div>
   </div>
@@ -32,7 +32,7 @@
   <div *ngIf="allowFilterBySessions" class="row mb-sm">
     <!-- Sessions -->
     <div class="col-md-12">
-      <strong>{{'labels.groups.results.assessment.sessions-title' | translate}}</strong>
+      <strong>{{'assessment-results.sessions-title' | translate}}</strong>
       <div class="flex-children">
         <a *ngFor="let session of sessions"
            class="reverse multi-line btn flex-child {{session.filter ? 'aqua' : 'gray-dark'}}"
@@ -42,7 +42,7 @@
            angularticsCategory="AssessmentResults">
           <span class="block-children">
               <strong>{{session.date | date }}</strong>
-              <small class="text-left">{{session.id || 'labels.groups.results.session-unknown' | translate }}</small>
+              <small class="text-left">{{session.id || 'assessment-results.session-unknown' | translate }}</small>
           </span>
         </a>
       </div>
@@ -74,10 +74,10 @@
         <!-- Result view selector -->
         <span class="z-index-over-data-table">
           <div>
-            <strong>{{'assessment-results.result-view-select.label' | translate}}</strong>
+            <strong>{{'assessment-results.result-view-select' | translate}}</strong>
           </div>
           <div class="select-menu-group mb-sm mt-xs">
-            <label class="sr-only">{{ 'labels.groups.results.assessment.select-view' | translate }}</label>
+            <label class="sr-only">{{ 'assessment-results.select-view' | translate }}</label>
             <div class="btn-group" dropdown>
               <button dropdownToggle
                       type="button"
@@ -150,11 +150,11 @@
                       angularticsCategory="AssessmentResults"
                       [angularticsProperties]="{label: assessmentExam.assessment.label}"
                       [popover]="buttonPopover"
-                      popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:assessmentExam.assessment.label } }}"
+                      popoverTitle="{{ 'common.results.assessment.instruct-button' | translate:{ level:assessmentExam.assessment.label } }}"
                       container="body"
                       (click)="loadInstructionalResources(assessmentExam.assessment, 0)"
                       [outsideClick]="true">
-                <i class="fa fa-book"></i> {{'labels.groups.results.assessment.instruct' | translate }}
+                <i class="fa fa-book"></i> {{'common.results.assessment.instruct' | translate }}
               </button>
             </li>
             <li *ngIf="percentileDisplayEnabled && assessmentExam.assessment.isIab">

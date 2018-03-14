@@ -2,10 +2,10 @@ import { Injectable } from "@angular/core";
 import { OrderableItem } from "../shared/order-selector/order-selector.component";
 
 const ColumnToLabel: {[key: string]: string} = {
-  organization: 'aggregate-reports.results.cols.organization',
-  assessmentGrade: 'aggregate-reports.results.cols.assessmentGrade',
-  schoolYear: 'aggregate-reports.results.cols.schoolYear',
-  dimension: 'aggregate-reports.results.cols.dimension'
+  organization: 'aggregate-report-table.columns.organization',
+  assessmentGrade: 'aggregate-report-table.columns.assessment-grade',
+  schoolYear: 'aggregate-report-table.columns.school-year',
+  dimension: 'aggregate-report-table.columns.dimension'
 };
 
 /**

@@ -1,31 +1,31 @@
 <div *ngIf="item.answerKey">
-  <strong>{{ 'assessments.items.tabs.exemplar.answer-key' | translate }}</strong>
+  <strong>{{ 'item-exemplar.answer-key' | translate }}</strong>
   {{ item.answerKey }}
 </div>
 
 <div *ngIf="!item.answerKey">
   <div *ngIf="loading" class="loader">
     <div class="inner">
-      <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">{{ 'messages.loading' | translate }}</span>
+      <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">{{ 'common.messages.loading' | translate }}</span>
     </div>
   </div>
   <!-- TODO: Remove custom style of white-space: normal once @asleeper's latest update
        TODO: updates the white-space:nowrap style implementation-->
   <div *ngIf="model" style="white-space: normal">
     <div *ngIf="model.answerKeyValue" class="pad-bottom-10">
-      <strong>{{ 'assessments.items.tabs.exemplar.answer-key' | translate }}</strong> {{model.answerKeyValue}}
+      <strong>{{ 'item-exemplar.answer-key' | translate }}</strong> {{model.answerKeyValue}}
     </div>
 
     <!-- rubrics -->
     <div *ngIf="model.rubrics.length ==1" [innerHtml]="model.rubrics[0].templateHtml"></div>
 
     <div *ngIf="model.rubrics.length > 1">
-      <h4>{{ 'assessments.items.tabs.exemplar.rubric' | translate }}</h4>
+      <h4>{{ 'item-exemplar.rubric' | translate }}</h4>
       <table class="table table-striped">
         <thead>
         <tr>
-          <th>{{ 'assessments.items.tabs.exemplar.criterion.points' | translate }}</th>
-          <th>{{ 'assessments.items.tabs.exemplar.criterion.description' | translate }}</th>
+          <th>{{ 'item-exemplar.points' | translate }}</th>
+          <th>{{ 'item-exemplar.description' | translate }}</th>
         </tr>
         </thead>
         <tbody>
@@ -41,12 +41,12 @@
     <div *ngIf="model.exemplars.length ==1" [innerHtml]="model.exemplars[0].templateHtml"></div>
 
     <div *ngIf="model.exemplars.length > 1">
-      <h4>{{ 'assessments.items.tabs.exemplar.exemplar' | translate }}</h4>
+      <h4>{{ 'item-exemplar.exemplar' | translate }}</h4>
       <table class="table table-striped">
         <thead>
         <tr>
-          <th>{{ 'assessments.items.tabs.exemplar.criterion.points' | translate }}</th>
-          <th>{{ 'assessments.items.tabs.exemplar.criterion.description' | translate }}</th>
+          <th>{{ 'item-exemplar.points' | translate }}</th>
+          <th>{{ 'item-exemplar.description' | translate }}</th>
         </tr>
         </thead>
         <tbody>
@@ -59,10 +59,10 @@
     </div>
   </div>
   <div *ngIf="notFound" class="alert alert-danger">
-    {{ 'assessments.items.tabs.exemplar.errors.not-found' | translate}}
+    {{ 'item-exemplar.not-found-error' | translate}}
   </div>
   <div *ngIf="errorLoading" class="alert alert-danger">
-    {{ 'assessments.items.tabs.exemplar.errors.unknown' | translate}}
+    {{ 'item-exemplar.unknown-error' | translate}}
   </div>
 </div>
 

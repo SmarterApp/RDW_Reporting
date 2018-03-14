@@ -183,7 +183,7 @@ export class AggregateReportTableComponent implements OnInit {
   getPerformanceLevelColumnHeaderTranslationCode(level: number, index: number): string {
     return this.performanceLevelDisplayType === 'Separate'
       ? `common.assessment-type.${this.table.assessmentDefinition.typeCode}.performance-level.${level}.short-name`
-      : `aggregate-reports.results.cols.grouped-performance-level-prefix.${index}`
+      : `aggregate-report-table.columns.grouped-performance-level-prefix.${index}`
   }
 
   /**
@@ -248,6 +248,9 @@ export class AggregateReportTableComponent implements OnInit {
     return _.get(item, field, "");
   }
 
+  public toDash(str: string): string {
+    return Utils.camelCaseToDash(str);
+  }
   /**
    * Export the current table contents in the currently-displayed format as a csv.
    */

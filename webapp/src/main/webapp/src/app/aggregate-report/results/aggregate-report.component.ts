@@ -135,7 +135,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
 
   getExportName(table: AggregateReportTableView): string {
     const subjectLabel: string = this.translateService.instant(`common.subject.${table.subjectCode}.short-name`);
-    return this.translateService.instant('aggregate-reports.export-name', {
+    return this.translateService.instant('aggregate-report.export-name', {
       label: this.report.label,
       subject: subjectLabel
     });

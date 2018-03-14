@@ -5,10 +5,10 @@
   <ng-template #content>
     <ul class="list-unstyled list-inline">
       <li>
-        <span class="btn btn-primary btn-sm" [routerLink]="['import']"><i class="fa fa-cloud-upload"></i> {{'admin-groups.import.link' | translate}}</span>
+        <span class="btn btn-primary btn-sm" [routerLink]="['import']"><i class="fa fa-cloud-upload"></i> {{'group-import.link' | translate}}</span>
       </li>
       <li>
-        <span class="btn btn-default btn-sm" [routerLink]="['history']"><i class="fa fa-history"></i> {{'admin-groups.history.title' | translate}}</span>
+        <span class="btn btn-default btn-sm" [routerLink]="['history']"><i class="fa fa-history"></i> {{'import-history.title' | translate}}</span>
       </li>
     </ul>
   </ng-template>
@@ -75,24 +75,24 @@
     <div class="table-list-container">
       <p-dataTable [value]="filteredGroups" emptyMessage="{{'admin-groups.no-results' | translate}}" sortField="name"
                    tableStyleClass="table table-striped table-hover overflow">
-        <p-column field="name" header="{{'admin-groups.cols.name' | translate}}" [sortable]="true"></p-column>
-        <p-column field="schoolName" header="{{'admin-groups.cols.school' | translate}}" [sortable]="true"></p-column>
-        <p-column field="schoolYear" header="{{'admin-groups.cols.school-year' | translate}}" [sortable]="true">
+        <p-column field="name" header="{{'admin-groups.columns.name' | translate}}" [sortable]="true"></p-column>
+        <p-column field="schoolName" header="{{'admin-groups.columns.school' | translate}}" [sortable]="true"></p-column>
+        <p-column field="schoolYear" header="{{'admin-groups.columns.school-year' | translate}}" [sortable]="true">
           <ng-template let-group="rowData" pTemplate="body">
             {{ group.schoolYear | schoolYear }}
           </ng-template>
         </p-column>
-        <p-column field="subject" header="{{'admin-groups.cols.subjects' | translate}}" [sortable]="true">
+        <p-column field="subject" header="{{'admin-groups.columns.subjects' | translate}}" [sortable]="true">
           <ng-template let-group="rowData" pTemplate="body">
             {{ 'common.subject.' + (group.subject || 'ALL') + '.name' | translate }}
           </ng-template>
         </p-column>
-        <p-column field="studentCount" header="{{'admin-groups.cols.student-count' | translate}}"
+        <p-column field="studentCount" header="{{'admin-groups.columns.student-count' | translate}}"
                   [sortable]="true"></p-column>
         <p-column field="isDeleted">
           <ng-template let-group="rowData" pTemplate="body">
             <a href="javascript:void(0)" (click)="openDeleteGroupModal(group)">
-              <i class="fa fa-minus-square-o"></i> {{ 'admin-groups.cols.delete' | translate }}
+              <i class="fa fa-minus-square-o"></i> {{ 'admin-groups.columns.delete' | translate }}
             </a>
           </ng-template>
         </p-column>

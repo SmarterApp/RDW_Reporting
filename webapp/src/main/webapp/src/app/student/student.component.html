@@ -11,11 +11,11 @@
                placeholder="{{'student.prompt' | translate}}">
       </div>
       <div class="flex-child">
-        <button type="submit" class="btn btn-primary" [disabled]="searchForm.invalid">{{'buttons.search' | translate}}</button>
+        <button type="submit" class="btn btn-primary" [disabled]="searchForm.invalid">{{'common.action.search' | translate}}</button>
       </div>
     </div>
   </div>
 </form>
 <div *ngIf="studentNotFound" class="alert alert-danger">
-  {{'student.messages.no-results' | translate}}
+  {{'student.no-results-message' | translate}}
 </div>

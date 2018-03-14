@@ -101,7 +101,7 @@ export class AggregateReportRequestMapper {
 
     const name = settings.name
       ? settings.name
-      : this.translate.instant('aggregate-reports.default-report-name');
+      : this.translate.instant('aggregate-report-form.default-report-name');
 
     return {
       name: name,

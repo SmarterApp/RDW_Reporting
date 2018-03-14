@@ -13,7 +13,7 @@
             angularticsEvent="ViewOverallScores"
             angularticsCategory="AssessmentResults"
             [ngClass]="{'active': !isClaimScoreSelected}">
-      {{'buttons.display-overall' | translate}}
+      {{'common.buttons.display-overall' | translate}}
     </button>
     <button (click)="setClaimScoreSelected()"
             class="btn btn-default z-index-over-data-table"
@@ -22,7 +22,7 @@
             angularticsCategory="AssessmentResults"
             [ngClass]="{'active': isClaimScoreSelected}">
       <i class="fa fa-bold fa-table"></i>
-      {{'buttons.display-claim' | translate}}
+      {{'common.buttons.display-claim' | translate}}
     </button>
   </div>
 </div>
@@ -48,17 +48,17 @@
         </span>
 
         <span *ngSwitchCase="'claim'">
-          {{('enum.subject-claim-code.' + column.claim) | translate}}
+          {{('common.subject-claim-code.' + column.claim) | translate}}
         </span>
 
         <span *ngSwitchDefault>
           <span *ngIf="!column.headerInfo">
-            {{('labels.groups.results.assessment.exams.cols.' + column.id) | translate}}
+            {{('common.results.assessment-exam-columns.' + column.id) | translate}}
           </span>
           <span *ngIf="column.headerInfo"
                 info-button
-                title="{{('labels.groups.results.assessment.exams.cols.' + column.id) | translate}}"
-                content="{{('labels.groups.results.assessment.exams.cols.' + column.id + '-info') | translate}}">
+                title="{{('common.results.assessment-exam-columns.' + column.id) | translate}}"
+                content="{{('common.results.assessment-exam-columns.' + column.id + '-info') | translate}}">
           </span>
         </span>
 
@@ -114,7 +114,7 @@
               angularticsEvent="InstructionalResource"
               angularticsCategory="AssessmentResults"
               [popover]="buttonPopover"
-              popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:(examLevelTranslation(exam)) } }}"
+              popoverTitle="{{ 'common.results.assessment.instruct-button' | translate:{ level:(examLevelTranslation(exam)) } }}"
               container="body"
               (click)="loadInstructionalResources(exam)"
               [outsideClick]="true"><i class="fa fa-book"></i></button>
@@ -137,7 +137,7 @@
   <ng-template pTemplate="emptyMessage" let-columns="columns">
     <tr>
       <td [attr.colspan]="columns.length">
-        {{'labels.groups.results.assessment.exams.empty-message' | translate}}
+        {{'results-by-student.assessment-exams-empty-message' | translate}}
       </td>
     </tr>
   </ng-template>

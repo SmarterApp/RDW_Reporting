@@ -28,11 +28,11 @@
                [ngClass]="column.headerColor">
             {{ column.headerKey | translate }}
           </div>
-          <div>{{ 'aggregate-reports.results.cols.performance-level-suffix' | translate }}</div>
+          <div>{{ 'aggregate-report-table.columns.performance-level-suffix' | translate }}</div>
         </div>
 
         <span *ngSwitchDefault>
-          {{('aggregate-reports.results.cols.' + column.id) | translate}}
+          {{('aggregate-report-table.columns.' + toDash(column.id)) | translate}}
         </span>
 
         <p-sortIcon *ngIf="rowSortingEnabled && column.sortable"
@@ -122,7 +122,7 @@
   <ng-template pTemplate="emptyMessage" let-row let-columns="columns">
     <tr>
       <td [attr.colspan]="columns.length">
-        {{'aggregate-reports.results.empty-message' | translate}}
+        {{'aggregate-report-table.empty-message' | translate}}
       </td>
     </tr>
   </ng-template>

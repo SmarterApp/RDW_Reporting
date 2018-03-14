@@ -1,6 +1,6 @@
 <div class="modal-header">
-  <h4 class="modal-title pull-left">{{ 'labels.instructional-resource.create.title' | translate }}</h4>
-  <button type="button" class="close pull-right" title="{{'prompt.close' | translate}}" (click)="cancel()">
+  <h4 class="modal-title pull-left">{{ 'create-instructional-resource-modal.title' | translate }}</h4>
+  <button type="button" class="close pull-right" title="{{'common.action.close' | translate}}" (click)="cancel()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -8,16 +8,16 @@
 <div class="modal-body">
   <div class="modal-body text-left">
     <div *ngIf="unableToCreate" class="alert alert-danger">
-      {{ 'labels.instructional-resource.create.error' | translate }}
+      {{ 'create-instructional-resource-modal.error' | translate }}
     </div>
     <div *ngIf="duplicateResource" class="alert alert-danger">
-      {{ 'labels.instructional-resource.create.duplicate' | translate }}
+      {{ 'create-instructional-resource-modal.duplicate' | translate }}
     </div>
     <form>
       <fieldset>
         <div class="form-group mb-xs">
           <label for="assessment-label" class="control-label">
-            {{'labels.instructional-resource.form.assessment-label' | translate}}
+            {{'create-instructional-resource-modal.assessment-label' | translate}}
           </label>
           <span [hidden]="!assessmentLoading"><i class="fa fa-spinner fa-pulse"></i></span>
           <input class="form-control"
@@ -32,20 +32,20 @@
                  [(ngModel)]="assessmentSearch"
                  [typeaheadItemTemplate]="assessmentTemplate"
                  typeaheadOptionField="label"
-                 placeholder="{{'labels.instructional-resource.form.field.assessment.placeholder' | translate}}">
+                 placeholder="{{'create-instructional-resource-modal.assessment-placeholder' | translate}}">
           <div>
             <span [hidden]="!assessmentNoResults"
                   class="text-info">
-              {{'labels.instructional-resource.assessments.no-results' | translate}}
+              {{'create-instructional-resource-modal.no-assessments-found' | translate}}
             </span>
           </div>
         </div>
         <div class="mb-xs" *ngIf="assessment">
-          <span class="label label-default">{{'labels.instructional-resource.cols.assessment-name' | translate}}</span>
+          <span class="label label-default">{{'common.instructional-resource.columns.assessment-name' | translate}}</span>
           <span class="text-overflow-ellipsis small" title="{{assessment.name}}">{{assessment.name}}</span>
         </div>
         <div class="form-group mb-xs">
-          <label for="organization-name" class="control-label">{{'labels.instructional-resource.form.organization-name' | translate}}</label>
+          <label for="organization-name" class="control-label">{{'create-instructional-resource-modal.organization-name' | translate}}</label>
           <span [hidden]="!organizationLoading"><i class="fa fa-spinner fa-pulse"></i></span>
           <input class="form-control"
                  id="organization-name"
@@ -59,47 +59,47 @@
                  [(ngModel)]="organizationSearch"
                  [typeaheadItemTemplate]="organizationTemplate"
                  typeaheadOptionField="name"
-                 placeholder="{{'labels.instructional-resource.form.field.organization.placeholder' | translate}}">
+                 placeholder="{{'create-instructional-resource-modal.organization-placeholder' | translate}}">
           <div>
             <span [hidden]="!organizationNoResults"
                   class="text-info">
-              {{'labels.instructional-resource.organizations.no-results' | translate}}
+              {{'create-instructional-resource-modal.no-organizations-found' | translate}}
             </span>
           </div>
         </div>
         <div class="mb-xs" *ngIf="organization">
-          <span class="label label-default">{{'labels.instructional-resource.cols.organization-type' | translate}}</span>
-          <span class="text-overflow-ellipsis small">{{ ('labels.instructional-resource.organizations.type.' + organization.organizationType) | translate }}</span>
+          <span class="label label-default">{{'common.instructional-resource.columns.organization-type' | translate}}</span>
+          <span class="text-overflow-ellipsis small">{{ ('common.instructional-resource.organizations.type.' + organization.organizationType) | translate }}</span>
         </div>
         <div class="form-group mb-xs">
-          <label for="performance-level" class="control-label">{{'labels.instructional-resource.cols.performance-level' | translate}}</label>
+          <label for="performance-level" class="control-label">{{'common.instructional-resource.columns.performance-level' | translate}}</label>
           <select id="performance-level"
                   name="performance-level"
                   class="form-control"
                   [(ngModel)]="performanceLevel"
                   (change)="onPerformanceLevelSelect()"
                   [disabled]="!assessment" >
-            <option disabled [ngValue]="-1">{{'prompt.select' | translate}}</option>
-            <option *ngIf="assessment" [ngValue]="0">{{'labels.instructional-resource.assessments.performance-levels.all' | translate}}</option>
-            <option *ngFor="let performanceLevel of performanceLevels" [ngValue]="performanceLevel">{{ ('labels.instructional-resource.assessments.performance-levels.' + assessment.type + '.' + performanceLevel) | translate }}</option>
+            <option disabled [ngValue]="-1">{{'common.action.select' | translate}}</option>
+            <option *ngIf="assessment" [ngValue]="0">{{'common.instructional-resource.performance-levels.all' | translate}}</option>
+            <option *ngFor="let performanceLevel of performanceLevels" [ngValue]="performanceLevel">{{ ('common.instructional-resource.performance-levels.' + assessment.type + '.' + performanceLevel) | translate }}</option>
           </select>
         </div>
         <div class="form-group"
              [ngClass]="{'has-error': resource.invalid && (resource.dirty || resource.touched)}">
-          <label for="resource" class="control-label">{{'labels.instructional-resource.cols.resource' | translate}}</label>
+          <label for="resource" class="control-label">{{'common.instructional-resource.columns.resource' | translate}}</label>
           <input id="resource"
                  name="resource"
                  class="form-control"
                  #resource="ngModel"
-                 placeholder="{{'labels.instructional-resource.form.field.resource.placeholder' | translate}}"
+                 placeholder="{{'common.instructional-resource-form.resource-placeholder' | translate}}"
                  [(ngModel)]="resourceUrl"
                  pattern="https?://.+"
                  required>
           <div *ngIf="resource.invalid && (resource.dirty || resource.touched)">
             <p *ngIf="resource.errors.pattern"
-               class="help-block small red">{{'labels.instructional-resource.form.field.resource.error.pattern' | translate}}</p>
+               class="help-block small red">{{'common.instructional-resource-form.resource-pattern-error' | translate}}</p>
             <p *ngIf="!resource.errors.pattern && resource.errors.required"
-               class="help-block small red">{{'common.error.required' | translate}}</p>
+               class="help-block small red">{{'common.form-field-message.required' | translate}}</p>
           </div>
         </div>
       </fieldset>
@@ -110,20 +110,20 @@
 <div class="modal-footer">
     <span>
       <button type="button" class="btn btn-default" (click)="cancel()">
-        {{ 'prompt.cancel' | translate }}
+        {{ 'common.action.cancel' | translate }}
       </button>
       <button class="btn btn-primary" [disabled]="!valid() || resource.errors" (click)="create()">
-        {{ 'prompt.create' | translate }}
+        {{ 'common.action.create' | translate }}
       </button>
     </span>
 </div>
 
 <ng-template #assessmentTemplate let-assessment="item" let-index="index" let-query="query">
   <p class="mb-0">{{assessment.label}}</p>
-  <p class="h6"><span class="label label-default">{{'common.name' | translate}}</span> {{assessment.name}}</p>
+  <p class="h6"><span class="label label-default">{{'create-instructional-resource-modal.name' | translate}}</span> {{assessment.name}}</p>
 </ng-template>
 
 <ng-template #organizationTemplate let-organization="item" let-index="index" let-query="query">
   <p class="mb-0">{{organization.name}}</p>
-  <p class="h6"><span class="label label-default">{{'common.type' | translate}}</span> {{ ('labels.instructional-resource.organizations.type.' + organization.organizationType) | translate }}</p>
+  <p class="h6"><span class="label label-default">{{'create-instructional-resource-modal.type' | translate}}</span> {{ ('common.instructional-resource.organizations.type.' + organization.organizationType) | translate }}</p>
 </ng-template>
