@@ -108,7 +108,14 @@ export class AssessmentResultsComponent implements OnInit {
    * If there are no exams that are after this school year, then disable the ability to go there and show proper message
    */
   @Input()
-  minimumItemDataYear: number;
+  set minimumItemDataYear(value: number) {
+    this._minimumItemDataYear = value;
+    this.initializeViews();
+  };
+
+  get minimumItemDataYear(): number {
+    return this._minimumItemDataYear;
+  }
 
   /**
    * Exam filters applied, if any.
@@ -214,6 +221,7 @@ export class AssessmentResultsComponent implements OnInit {
   private _filterBy: FilterBy;
   private _assessmentExam: AssessmentExam;
   private _filterBySubscription: Subscription;
+  private _minimumItemDataYear: number;
 
   constructor(private applicationSettingsService: ApplicationSettingsService,
               public colorService: ColorService,
@@ -238,16 +246,6 @@ export class AssessmentResultsComponent implements OnInit {
     this.resultsByItemView = this.createResultViewState(ResultsViewState.ByItem, this.displayItemLevelData, true, true);
     this.distractorAnalysisView = this.createResultViewState(ResultsViewState.DistractorAnalysis, this.displayItemLevelData, true, true);
     this.writingTraitScoresView = this.createResultViewState(ResultsViewState.WritingTraitScores, this.enableWritingTraitScores, true, this.displayWritingTraitScores);
-  }
-
-  createResultViewState(viewState: ResultsViewState, enabled: boolean, canExport: boolean, display: boolean): ResultsView {
-    return {
-      label: 'assessment-results.view.' + ResultsViewState[ viewState ],
-      value: viewState,
-      disabled: !enabled,
-      display: display,
-      canExport: canExport
-    }
   }
 
   setCurrentView(view: ResultsView): void {
@@ -293,6 +291,16 @@ export class AssessmentResultsComponent implements OnInit {
       };
       this.percentileService.getPercentilesGroupedByRank(request)
         .subscribe(percentileGroups => this.percentileGroups = percentileGroups);
+    }
+  }
+
+  private createResultViewState(viewState: ResultsViewState, enabled: boolean, canExport: boolean, display: boolean): ResultsView {
+    return {
+      label: 'assessment-results.view.' + ResultsViewState[ viewState ],
+      value: viewState,
+      disabled: !enabled,
+      display: display,
+      canExport: canExport
     }
   }
 
