@@ -63,12 +63,12 @@ export class ResultsByStudentComponent implements OnInit {
   }
 
   get performanceLevelHeader() {
-    return "common.results.assessment-exam-columns." +
-      (this.assessment.isIab ? "iab" : "ica") + ".performance";
+    return 'common.results.assessment-exam-columns.' +
+      (this.assessment.isIab ? 'iab' : 'ica') + '.performance';
   }
 
   get performanceLevelHeaderInfo() {
-    return this.performanceLevelHeader + "-info";
+    return this.performanceLevelHeader + '-info';
   }
 
   get showClaimToggle() {
@@ -82,14 +82,14 @@ export class ResultsByStudentComponent implements OnInit {
 
   ngOnInit() {
     this.columns = [
-      new Column({id: "name", field: "student.lastName"}),
-      new Column({id: "date"}),
-      new Column({id: "session"}),
-      new Column({id: "grade", field: "enrolledGrade", overall: true}),
-      new Column({id: "school", field: "school.name"}),
-      new Column({id: "status", headerInfo: true, overall: true}),
-      new Column({id: "level", overall: true}),
-      new Column({id: "score", headerInfo: true, overall: true}),
+      new Column({id: 'name', field: 'student.lastName'}),
+      new Column({id: 'date'}),
+      new Column({id: 'session'}),
+      new Column({id: 'grade', field: 'enrolledGrade', overall: true}),
+      new Column({id: 'school', field: 'school.name'}),
+      new Column({id: 'status', headerInfo: true, overall: true}),
+      new Column({id: 'level', overall: true}),
+      new Column({id: 'score', headerInfo: true, overall: true}),
       ...this.getClaimColumns()
     ];
     this.actions = this.createActions();
@@ -109,7 +109,7 @@ export class ResultsByStudentComponent implements OnInit {
       return [];
     }
     return this.assessment.claimCodes.map((code, index) =>
-      new Column({id: "claim", field: `claimScores.${index}.level`, index: index, claim: code}));
+      new Column({id: 'claim', field: `claimScores.${index}.level`, index: index, claim: code}));
   }
 
   private createActions(): PopupMenuAction[] {
@@ -162,11 +162,11 @@ class Column {
 
   constructor({
                 id,
-                field = "",
+                field = '',
                 headerInfo = false,
                 overall = false,
                 index = -1,
-                claim = ""
+                claim = ''
               }) {
     this.id = id;
     this.field = field ? field : id;

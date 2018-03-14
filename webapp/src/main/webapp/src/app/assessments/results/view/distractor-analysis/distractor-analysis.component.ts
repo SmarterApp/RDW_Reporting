@@ -62,7 +62,7 @@ export class DistractorAnalysisComponent implements OnInit, ExportResults {
   private _multipleChoiceItems: AssessmentItem[];
   private filteredMultipleChoiceItems: AssessmentItem[];
   private _exams: Exam[];
-  private _choiceColumns: DynamicItemField[];
+  private _choiceColumns: DynamicItemField[] = [];
 
   constructor(private examCalculator: ExamStatisticsCalculator) {
   }
@@ -82,15 +82,13 @@ export class DistractorAnalysisComponent implements OnInit, ExportResults {
       }
 
       this.columns = [
-        new Column({id: "number", field: "position"}),
-        new Column({id: "claim", field: "claimTarget", headerInfo: true}),
-        new Column({id: "difficulty", sortField: "difficultySortOrder", headerInfo: true}),
-        new Column({id: "standard", field: "commonCoreStandardIds", headerInfo: true}),
-        new Column({id: "full-credit", field: "fullCredit", styleClass: "level-up", headerInfo: true}),
+        new Column({id: 'number', field: 'position'}),
+        new Column({id: 'claim', field: 'claimTarget', headerInfo: true}),
+        new Column({id: 'difficulty', sortField: 'difficultySortOrder', headerInfo: true}),
+        new Column({id: 'standard', field: 'commonCoreStandardIds', headerInfo: true}),
+        new Column({id: 'full-credit', field: 'fullCredit', styleClass: 'level-up', headerInfo: true}),
+        ...this._choiceColumns.map(this.toColumn)
       ];
-      if (this._choiceColumns) {
-        this.columns.push(...this._choiceColumns.map(this.toColumn));
-      }
 
       this.loading = false
     });
@@ -129,7 +127,7 @@ export class DistractorAnalysisComponent implements OnInit, ExportResults {
 
   private toColumn(choice: DynamicItemField, index: number): Column {
     return new Column({
-      id: "choice",
+      id: 'choice',
       label: choice.label,
       field: choice.numberField,
       styleClass:  index == 0 ? 'level-down' : '',
@@ -153,13 +151,13 @@ class Column {
 
   constructor({
                 id,
-                field = "",
-                sortField = "",
+                field = '',
+                sortField = '',
                 headerInfo = false,
-                styleClass = "",
-                label = "",
-                numberField = "",
-                percentField = ""
+                styleClass = '',
+                label = '',
+                numberField = '',
+                percentField = ''
               }) {
     this.id = id;
     this.field = field ? field : id;

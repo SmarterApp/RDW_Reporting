@@ -8,7 +8,12 @@ import { Utils } from "../support/support";
 @Component({
   selector: 'table-row-expander',
   template: `
-    <button class="btn btn-info btn-xs btn-block text-left label-max-width" (click)="toggle()" title="{{text}}"><i class="fa" [ngClass]="{'fa-caret-square-o-down': !expanded, 'fa-caret-square-o-up': expanded, 'mr-xs': hasText}"></i> {{text}}</button>
+    <button class="btn btn-info btn-xs btn-block text-left label-max-width" 
+            (click)="toggle()" 
+            title="{{text}}">
+      <i class="fa" 
+         [ngClass]="{'fa-caret-square-o-down': !expanded, 'fa-caret-square-o-up': expanded, 'mr-xs': hasText}"></i> {{text}}
+    </button>
   `
 })
 export class TableRowExpander {
