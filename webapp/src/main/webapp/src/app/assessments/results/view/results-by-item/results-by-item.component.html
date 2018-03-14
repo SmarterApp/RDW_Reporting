@@ -17,7 +17,7 @@
   <p-column field="claimTarget" [sortable]="true">
     <ng-template pTemplate="header">
               <span info-button title="{{'common.results.assessment-item-columns.claim' | translate}}"
-                    content="{{'common.results.assessment-item-columns.claim-info-html' | translate}}"></span>
+                    content="{{'common.results.assessment-item-columns.claim-info' | translate}}"></span>
     </ng-template>
     <ng-template let-item="rowData" pTemplate="body">
       <claim-target [item]="item"></claim-target>
@@ -35,7 +35,7 @@
   <p-column field="commonCoreStandardIds" sortable="true">
     <ng-template pTemplate="header">
               <span info-button title="{{'common.results.assessment-item-columns.standard' | translate}}"
-                    content="{{'common.results.assessment-item-columns.standard-info-html.' + assessment.subject | translate}}"></span>
+                    content="{{'common.results.assessment-item-columns.standard-info.' + assessment.subject | translate}}"></span>
     </ng-template>
     <ng-template let-standards="rowData.commonCoreStandardIds" pTemplate="body">
       <span *ngFor="let standard of standards" class="label border-only blue mr-xs">{{standard}}</span>

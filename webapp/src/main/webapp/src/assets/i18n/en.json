@@ -639,7 +639,7 @@
         "average-max": "Average / Max",
         "category": "Category",
         "claim": "Claim/Target",
-        "claim-info-html": "Claims and targets are a way of classifying test content.  The claim is the major topic area.  For example, in English language arts, reading is a claim.  Within each claim, there are targets that describe the particular knowledge and skills that the test measures.  Each target may encompass one or more standards from the Common Core State Standards.  Within the Reading claim, for example, one of the targets is concerned with finding the central idea in a text.  For more information, see the <a href=\"http://www.smarterbalanced.org/assessments/development/\" target=\"_blank\">Smarter Balanced Content Specifications</a>.",
+        "claim-info": "Claims and targets are a way of classifying test content.  The claim is the major topic area.  For example, in English language arts, reading is a claim.  Within each claim, there are targets that describe the particular knowledge and skills that the test measures.  Each target may encompass one or more standards from the Common Core State Standards.  Within the Reading claim, for example, one of the targets is concerned with finding the central idea in a text.  For more information, see the <a href=\"http://www.smarterbalanced.org/assessments/development/\" target=\"_blank\">Smarter Balanced Content Specifications</a>.",
         "difficulty": "Item Difficulty",
         "difficulty-info": "Item difficulty (easy, moderate, difficult) is based on the difficulty of the item for students in a reference population.  See the Interpretive Guide for a description of the reference population and how the difficulty categories are derived.",
         "full-credit": "Full Credit",
@@ -649,7 +649,7 @@
         "purpose": "Writing Purpose",
         "purpose-info": "Students write extended responses that that have one of the following purposes: narrative, opinion, informational, explanatory, or argumentative. Writing purpose varies by grade of assessment. For more information, see the Interpretive Guide.",
         "standard": "Standard",
-        "standard-info-html": {
+        "standard-info": {
           "ELA": "This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  For example, a question that asks students to evaluate research sources may assess both reading and research skills.  For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf\" target=\"_blank\">English Language Arts Content Specifications</a>.",
           "MATH": "This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  Items that assess mathematical practices (problem solving, modeling and data analysis, and communicating reasoning) are also aligned to standards that describe the mathematical content with which students engage. For example, an item may ask students to communicate their reasoning when solving a problem about geometry or fractions. For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf\" target=\"_blank\">Mathematics Content Specifications</a>."
         },
