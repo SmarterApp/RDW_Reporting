@@ -75,6 +75,7 @@ export class AssessmentResultsComponent implements OnInit {
         this.toggleSession(this.sessions[ 0 ]);
       }
     }
+    this.updateViews();
   }
 
   /**
@@ -110,7 +111,7 @@ export class AssessmentResultsComponent implements OnInit {
   @Input()
   set minimumItemDataYear(value: number) {
     this._minimumItemDataYear = value;
-    this.initializeViews();
+    this.updateViews();
   };
 
   get minimumItemDataYear(): number {
@@ -237,11 +238,10 @@ export class AssessmentResultsComponent implements OnInit {
       this.percentileDisplayEnabled = settings.percentileDisplayEnabled;
     });
 
-    this.initializeViews();
     this.setCurrentView(this.resultsByStudentView);
   }
 
-  initializeViews(): void {
+  updateViews(): void {
     this.resultsByStudentView = this.createResultViewState(ResultsViewState.ByStudent, true, false, true);
     this.resultsByItemView = this.createResultViewState(ResultsViewState.ByItem, this.displayItemLevelData, true, true);
     this.distractorAnalysisView = this.createResultViewState(ResultsViewState.DistractorAnalysis, this.displayItemLevelData, true, true);
