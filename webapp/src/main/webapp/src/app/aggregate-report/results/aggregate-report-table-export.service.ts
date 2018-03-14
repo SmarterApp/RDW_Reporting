@@ -53,7 +53,7 @@ export class AggregateReportTableExportService {
     if ('organization' === column) {
       return builder
         .withColumn(
-          this.translateService.instant('aggregate-report-table.columns.organization-name'),
+          this.translateService.instant('aggregate-report-table.columns.organization'),
           (item: AggregateReportItem) => item.organization.name
         )
         .withColumn(

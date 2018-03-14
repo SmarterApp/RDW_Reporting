@@ -248,6 +248,9 @@ export class AggregateReportTableComponent implements OnInit {
     return _.get(item, field, "");
   }
 
+  public toDash(str: string): string {
+    return Utils.camelCaseToDash(str);
+  }
   /**
    * Export the current table contents in the currently-displayed format as a csv.
    */

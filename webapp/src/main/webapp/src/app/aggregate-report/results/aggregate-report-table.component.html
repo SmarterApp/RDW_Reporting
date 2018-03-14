@@ -32,7 +32,7 @@
         </div>
 
         <span *ngSwitchDefault>
-          {{('aggregate-report-table.columns.' + column.id) | translate}}
+          {{('aggregate-report-table.columns.' + toDash(column.id)) | translate}}
         </span>
 
         <p-sortIcon *ngIf="rowSortingEnabled && column.sortable"

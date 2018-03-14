@@ -173,17 +173,17 @@ export class AggregateReportFormComponent {
         return this.includeStateResults
         || this.settings.includeAllDistricts
         || control.value.length ? null : {
-          invalid: { messageId: 'aggregate-report-form.field.organization.error-invalid' }
+          invalid: { messageId: 'aggregate-report-form.field.organization-invalid-error' }
         };
       }),
       assessmentGrades: new FormControl(this.settings.assessmentGrades, notEmpty(
-        { messageId: 'aggregate-report-form.field.assessment-grades.error-empty' }
+        { messageId: 'aggregate-report-form.field.assessment-grades-empty-error' }
       )),
       schoolYears: new FormControl(this.settings.schoolYears, notEmpty(
-        { messageId: 'aggregate-report-form.field.school-year.error-empty' }
+        { messageId: 'aggregate-report-form.field.school-year-empty-error' }
       )),
       reportName: new FormControl(this.settings.name, fileName(
-        { messageId: 'aggregate-report-form.field.report-name.error-file-name' }
+        { messageId: 'aggregate-report-form.field.report-name-file-name-error' }
       ))
     });
 

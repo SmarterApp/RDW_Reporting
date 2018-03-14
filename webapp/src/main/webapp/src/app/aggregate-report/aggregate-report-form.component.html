@@ -27,23 +27,23 @@
       },
       {
         scrollTo: assessmentSection,
-        text: 'aggregate-report-form.section.assessment.heading' | translate
+        text: 'aggregate-report-form.section.assessment-heading' | translate
       },
       {
         scrollTo: subgroupSection,
-        text: 'aggregate-report-form.section.comparative-subgroups.heading' | translate
+        text: 'aggregate-report-form.section.comparative-subgroups-heading' | translate
       },
       {
         scrollTo: advancedFiltersSection,
-        text: 'aggregate-report-form.section.subgroup-filters.heading' | translate
+        text: 'aggregate-report-form.section.subgroup-filters-heading' | translate
       },
       {
         scrollTo: reviewSection,
-        text: 'aggregate-report-form.section.review.heading' | translate
+        text: 'aggregate-report-form.section.review-heading' | translate
       },
       {
         scrollTo: previewSection,
-        text: 'aggregate-report-form.section.preview.heading' | translate
+        text: 'aggregate-report-form.section.preview-heading' | translate
       }
       ]">
       <div class="ml-sm mt-xs">
@@ -77,7 +77,7 @@
 
             <!-- Typeahead -->
             <div *ngIf="!hasDefaultSchoolOrganization">
-              <label>{{'aggregate-report-form.field.organization.label' | translate}}</label>
+              <label>{{'aggregate-report-form.field.organization-label' | translate}}</label>
               <span [hidden]="!organizationTypeahead.loading"><i class="fa fa-spinner fa-pulse"></i></span>
               <organization-typeahead #organizationTypeahead
                                       [options]="organizationTypeaheadOptions"
@@ -169,28 +169,28 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="well-group">
           <div class="well">
-            <h3>{{'aggregate-report-form.section.assessment.heading' | translate}}</h3>
+            <h3>{{'aggregate-report-form.section.assessment-heading' | translate}}</h3>
           </div>
           <div class="well">
             <div class="row">
               <div class="col-md-6">
-                <label>{{'aggregate-report-form.field.assessment-type.label' | translate}}</label>
+                <label>{{'aggregate-report-form.field.assessment-type-label' | translate}}</label>
               </div>
               <div class="col-md-6">
                 <span class="gray-darker" *ngIf="options.assessmentTypes.length == 1">{{options.assessmentTypes[0].text}}</span>
                 <sb-radio-button-group *ngIf="options.assessmentTypes.length > 1"
-                           name="assessmentType"
-                           [options]="options.assessmentTypes"
-                           [(ngModel)]="settings.assessmentType"
-                           [ngModelOptions]="{standalone: true}"
-                           (change)="onIncludeStateResultsChange()"></sb-radio-button-group>
+                                       name="assessmentType"
+                                       [options]="options.assessmentTypes"
+                                       [(ngModel)]="settings.assessmentType"
+                                       [ngModelOptions]="{standalone: true}"
+                                       (change)="onIncludeStateResultsChange()"></sb-radio-button-group>
               </div>
             </div>
           </div>
           <div class="well">
             <div class="row">
               <div class="col-md-6">
-                <label>{{'aggregate-report-form.field.subjects.label' | translate}}</label>
+                <label>{{'aggregate-report-form.field.subjects-label' | translate}}</label>
               </div>
               <div class="col-md-6">
                 <sb-checkbox-group [horizontal]="true"
@@ -209,8 +209,8 @@
             <div class="row">
               <div class="col-md-6">
                 <label info-button
-                       title="{{'aggregate-report-form.field.assessment-grades.label' | translate}}"
-                       content="{{'aggregate-report-form.field.assessment-grades.info' | translate}}"></label>
+                       title="{{'aggregate-report-form.field.assessment-grades-label' | translate}}"
+                       content="{{'aggregate-report-form.field.assessment-grades-info' | translate}}"></label>
                 <p class="small mb-0"
                    [ngClass]="{'red': showErrors(assessmentGradesControl), 'gray-darker': !showErrors(assessmentGradesControl)}">
                   {{'common.form-field-message.required' | translate}}
@@ -238,7 +238,7 @@
           <div class="well">
             <div class="row">
               <div class="col-md-6">
-                <label>{{'aggregate-report-form.field.school-year.label' | translate}}</label>
+                <label>{{'aggregate-report-form.field.school-year-label' | translate}}</label>
                 <p class="small mb-0"
                    [ngClass]="{'red': showErrors(schoolYearsControl), 'gray-darker': !showErrors(schoolYearsControl)}">
                   {{'common.form-field-message.required' | translate}}
@@ -268,8 +268,8 @@
             <div class="row">
               <div class="col-md-6">
                 <label info-button
-                       title="{{'aggregate-report-form.field.interim-administration-condition.label' | translate}}"
-                       content="{{'aggregate-report-form.field.interim-administration-condition.info' | translate}}"></label>
+                       title="{{'aggregate-report-form.field.interim-administration-condition-label' | translate}}"
+                       content="{{'aggregate-report-form.field.interim-administration-condition-info' | translate}}"></label>
               </div>
               <div class="col-md-6">
                 <sb-checkbox-group [horizontal]="true"
@@ -288,8 +288,8 @@
             <div class="row">
               <div class="col-md-6">
                 <label info-button
-                       title="{{'aggregate-report-form.field.summative-administration-condition.label' | translate}}"
-                       content="{{'aggregate-report-form.field.summative-administration-condition.info' | translate}}"></label>
+                       title="{{'aggregate-report-form.field.summative-administration-condition-label' | translate}}"
+                       content="{{'aggregate-report-form.field.summative-administration-condition-info' | translate}}"></label>
               </div>
               <div class="col-md-6">
                 <sb-checkbox-group [horizontal]="true"
@@ -333,8 +333,8 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="well-group">
           <div class="well">
-            <h3>{{'aggregate-report-form.section.comparative-subgroups.heading' | translate}}</h3>
-            <p class="text-muted small">{{'aggregate-report-form.section.comparative-subgroups.subtext' | translate}}</p>
+            <h3>{{'aggregate-report-form.section.comparative-subgroups-heading' | translate}}</h3>
+            <p class="text-muted small">{{'aggregate-report-form.section.comparative-subgroups-subtext' | translate}}</p>
           </div>
           <div class="well">
             <div class="row">
@@ -364,8 +364,8 @@
           <div class="well">
             <div class="flex-children">
               <div class="flex-child grow">
-                <h3>{{'aggregate-report-form.section.subgroup-filters.heading' | translate}}</h3>
-                <p class="text-muted small">{{'aggregate-report-form.section.subgroup-filters.subtext' | translate}}</p>
+                <h3>{{'aggregate-report-form.section.subgroup-filters-heading' | translate}}</h3>
+                <p class="text-muted small">{{'aggregate-report-form.section.subgroup-filters-subtext' | translate}}</p>
               </div>
               <div class="flex-child">
                 <button class="form-control btn btn-sm btn-default pull-right"
@@ -383,8 +383,8 @@
               <div class="row">
                 <div class="col-md-6">
                   <label info-button
-                         title="{{'aggregate-report-form.field.gender.label' | translate}}"
-                         content="{{'aggregate-report-form.field.gender.info' | translate}}"></label>
+                         title="{{'aggregate-report-form.field.gender-label' | translate}}"
+                         content="{{'aggregate-report-form.field.gender-info' | translate}}"></label>
                 </div>
                 <div class="col-md-6">
                   <sb-checkbox-group [horizontal]="true"
@@ -403,8 +403,8 @@
               <div class="row">
                 <div class="col-md-6">
                   <label info-button
-                         title="{{'aggregate-report-form.field.ethnicity.label' | translate}}"
-                         content="{{'aggregate-report-form.field.ethnicity.info' | translate}}"></label>
+                         title="{{'aggregate-report-form.field.ethnicity-label' | translate}}"
+                         content="{{'aggregate-report-form.field.ethnicity-info' | translate}}"></label>
                 </div>
                 <div class="col-md-6">
                   <sb-checkbox-group [options]="options.ethnicities"
@@ -422,8 +422,8 @@
               <div class="row">
                 <div class="col-md-6">
                   <label info-button
-                         title="{{'aggregate-report-form.field.limited-english-proficiency.label' | translate}}"
-                         content="{{'aggregate-report-form.field.limited-english-proficiency.info' | translate}}"></label>
+                         title="{{'aggregate-report-form.field.limited-english-proficiency-label' | translate}}"
+                         content="{{'aggregate-report-form.field.limited-english-proficiency-info' | translate}}"></label>
                 </div>
                 <div class="col-md-6">
                   <sb-checkbox-group [horizontal]="true"
@@ -442,8 +442,8 @@
               <div class="row">
                 <div class="col-md-6">
                   <label info-button
-                         title="{{'aggregate-report-form.field.504.label' | translate}}"
-                         content="{{'aggregate-report-form.field.504.info' | translate}}"></label>
+                         title="{{'aggregate-report-form.field.504-label' | translate}}"
+                         content="{{'aggregate-report-form.field.504-info' | translate}}"></label>
                 </div>
                 <div class="col-md-6">
                   <sb-checkbox-group [horizontal]="true"
@@ -462,8 +462,8 @@
               <div class="row">
                 <div class="col-md-6">
                   <label info-button
-                         title="{{'aggregate-report-form.field.iep.label' | translate}}"
-                         content="{{'aggregate-report-form.field.iep.info' | translate}}"></label>
+                         title="{{'aggregate-report-form.field.iep-label' | translate}}"
+                         content="{{'aggregate-report-form.field.iep-info' | translate}}"></label>
                 </div>
                 <div class="col-md-6">
                   <sb-checkbox-group [horizontal]="true"
@@ -482,8 +482,8 @@
               <div class="row">
                 <div class="col-md-6">
                   <label info-button
-                         title="{{'aggregate-report-form.field.migrant-status.label' | translate}}"
-                         content="{{'aggregate-report-form.field.migrant-status.info' | translate}}"></label>
+                         title="{{'aggregate-report-form.field.migrant-status-label' | translate}}"
+                         content="{{'aggregate-report-form.field.migrant-status-info' | translate}}"></label>
                 </div>
                 <div class="col-md-6">
                   <sb-checkbox-group [horizontal]="true"
@@ -502,8 +502,8 @@
               <div class="row">
                 <div class="col-md-6">
                   <label info-button
-                         title="{{'aggregate-report-form.field.economic-disadvantage.label' | translate}}"
-                         content="{{'aggregate-report-form.field.economic-disadvantage.info' | translate}}"></label>
+                         title="{{'aggregate-report-form.field.economic-disadvantage-label' | translate}}"
+                         content="{{'aggregate-report-form.field.economic-disadvantage-info' | translate}}"></label>
                 </div>
                 <div class="col-md-6">
                   <sb-checkbox-group [horizontal]="true"
@@ -528,7 +528,7 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="well-group">
           <div class="well">
-            <h3>{{'aggregate-report-form.section.review.heading' | translate}}</h3>
+            <h3>{{'aggregate-report-form.section.review-heading' | translate}}</h3>
             <ng-container *ngIf="formGroup.valid">
               <ng-container *ngIf="estimatedRowCount != null; else estimatedRowCountSpinner">
                 <div class="flex-children">
@@ -557,7 +557,7 @@
                                       [summary]="summary"></aggregate-report-summary>
           </div>
           <div class="well">
-            <label>{{'aggregate-report-form.field.report-name.label' | translate}}</label>
+            <label>{{'aggregate-report-form.field.report-name-label' | translate}}</label>
             <div class="flex-children">
               <div class="flex-child grow form-group">
                 <input type="text"
@@ -589,7 +589,7 @@
     <div class="col-md-12 col-md-offset-2">
       <div class="well-group wide-content-container">
         <div class="well inline-headings">
-          <h3>{{'aggregate-report-form.section.preview.heading' | translate}}</h3>
+          <h3>{{'aggregate-report-form.section.preview-heading' | translate}}</h3>
           <ng-container *ngIf="estimatedRowCountIsLarge">
               <ng-container *ngTemplateOutlet="warning; context: {$implicit: ('aggregate-report-form.preview' | translate)}"></ng-container>
           </ng-container>

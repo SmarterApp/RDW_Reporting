@@ -84,7 +84,7 @@ describe('CsvBuilder', () => {
       let tabularData: string[][] = angular2Csv.export.calls.mostRecent().args[0];
 
       expect(tabularData.length).toBe(3);
-      expect(tabularData[0]).toEqual(["csv-builder.scale-score", "csv-builder.achievement-level", "common.results.assessment.exams.columns.iab.performance"]);
+      expect(tabularData[0]).toEqual(["csv-builder.scale-score", "csv-builder.achievement-level", "common.results.assessment-exam-columns.iab.performance"]);
       expect(tabularData[1]).toEqual(<any>[2580, "common.assessment-type.ica.performance-level.1.name", "common.assessment-type.iab.performance-level.1.name"]);
       expect(tabularData[2]).toEqual(["", "", ""]);
     }));

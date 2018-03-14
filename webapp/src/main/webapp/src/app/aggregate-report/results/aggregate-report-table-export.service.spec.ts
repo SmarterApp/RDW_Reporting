@@ -85,7 +85,7 @@ describe('AggregateReportTableExportService', () => {
 
     //organization
     expect(withColumnCalls[1].args).toEqual([
-      'aggregate-report-table.columns.organization-name',
+      'aggregate-report-table.columns.organization',
       jasmine.any(Function)
     ]);
     expect(withColumnCalls[2].args).toEqual([
@@ -95,7 +95,7 @@ describe('AggregateReportTableExportService', () => {
 
     //assessmentGrade
     expect(withColumnCalls[3].args).toEqual([
-      'aaggregate-report-table.columns.assessment-grade',
+      'aggregate-report-table.columns.assessment-grade',
       jasmine.any(Function)
     ]);
 
@@ -113,7 +113,7 @@ describe('AggregateReportTableExportService', () => {
     const withColumnCalls: CallInfo[] = (csvBuilder.withColumn as Spy).calls.all();
     const headerKeys: string[] = withColumnCalls.map(call => call.args[ 0 ]);
     expect(headerKeys).toEqual([
-      'aggregate-report-table.columns.organization-name',
+      'aggregate-report-table.columns.organization',
       'aggregate-report-table.columns.organization-id',
       'aggregate-report-table.columns.assessment-grade',
       'aggregate-report-table.columns.school-year',
@@ -135,7 +135,7 @@ describe('AggregateReportTableExportService', () => {
     const withColumnCalls: CallInfo[] = (csvBuilder.withColumn as Spy).calls.all();
     const headerKeys: string[] = withColumnCalls.map(call => call.args[0]);
     expect(headerKeys).toEqual([
-      'aggregate-report-table.columns.organization-name',
+      'aggregate-report-table.columns.organization',
       'aggregate-report-table.columns.organization-id',
       'aggregate-report-table.columns.assessment-grade',
       'aggregate-report-table.columns.school-year',
