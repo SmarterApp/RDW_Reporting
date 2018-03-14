@@ -6,9 +6,9 @@ import { ordering } from "@kourge/ordering";
 import { ranking } from "@kourge/ordering/comparator";
 import { OrganizationMapper } from "../shared/organization/organization.mapper";
 import { map } from 'rxjs/operators';
-import { AdminServiceRoute } from '../shared/service-route';
+import { AggregateServiceRoute } from '../shared/service-route';
 
-const ServiceRoute = AdminServiceRoute;
+const ServiceRoute = AggregateServiceRoute;
 
 // Used to hotfix natural order of completeness and strict booleans not being in "affirmative-first" order
 const booleanComparator = ordering(ranking([ 'yes', 'no', 'undefined' ])).compare;

@@ -7,8 +7,11 @@ spring:
 artifacts:
   root: "classpath:"
 
-permissionservice:
-  endpoint:
-
 app:
   test-mode: true
+
+reporting:
+  school-year: 2018
+  state:
+    code: CA
+    name: California
