@@ -266,7 +266,7 @@ export class CsvBuilder {
           let exam: Exam = getExam(item);
           if (!exam || !exam.claimScores[ idx ].level) return "";
 
-          return this.translateService.instant(exam.claimScores[ idx ].level ? `common.assessment-type.iab.performance-level.${exam.claimScores[ idx ].level}}.name` : 'common.missing');
+          return this.translateService.instant(exam.claimScores[ idx ].level ? `common.assessment-type.iab.performance-level.${exam.claimScores[ idx ].level}.name` : 'common.missing');
         }
       )
     });
