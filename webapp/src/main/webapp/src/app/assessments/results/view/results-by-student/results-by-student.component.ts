@@ -43,15 +43,12 @@ export class ResultsByStudentComponent implements OnInit {
   @ViewChild('menuReportDownloader')
   reportDownloader: StudentReportDownloadComponent;
 
+  columns: Column[];
   actions: PopupMenuAction[];
   instructionalResourcesProvider: () => Observable<InstructionalResource[]>;
   displayState: any = {
     showClaim: ScoreViewState.OVERALL
   };
-
-  get claimCodes() {
-    return this.assessment.claimCodes;
-  }
 
   get isClaimScoreSelected() {
     return this.displayState.table == ScoreViewState.CLAIM;
@@ -84,6 +81,17 @@ export class ResultsByStudentComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.columns = [
+      new Column({id: "name", field: "student.lastName"}),
+      new Column({id: "date"}),
+      new Column({id: "session"}),
+      new Column({id: "grade", field: "enrolledGrade", overall: true}),
+      new Column({id: "school", field: "school.name"}),
+      new Column({id: "status", headerInfo: true, overall: true}),
+      new Column({id: "level", overall: true}),
+      new Column({id: "score", headerInfo: true, overall: true}),
+      ...this.getClaimColumns()
+    ];
     this.actions = this.createActions();
   }
 
@@ -94,6 +102,11 @@ export class ResultsByStudentComponent implements OnInit {
 
   examLevelTranslation(exam: Exam): string {
     return this.translate.instant(`common.assessment-type.${this.assessment.typeCode}.performance-level.${exam.level ? exam.level : 'missing'}.name`);
+  }
+
+  private getClaimColumns(): Column[] {
+    return this.assessment.claimCodes.map((code, index) =>
+      new Column({id: "claim", field: `claimScores.${index}.level`, index: index, claim: code}));
   }
 
   private createActions(): PopupMenuAction[] {
@@ -131,5 +144,36 @@ export class ResultsByStudentComponent implements OnInit {
         }
       )
       .build();
+  }
+}
+
+class Column {
+  id: string;
+  field: string;
+  headerInfo: boolean;
+  overall: boolean;
+
+  //Claim properties
+  index?: number;
+  claim?: string;
+
+  constructor({
+                id,
+                field = "",
+                headerInfo = false,
+                overall = false,
+                index = -1,
+                claim = ""
+              }) {
+    this.id = id;
+    this.field = field ? field : id;
+    this.headerInfo = headerInfo;
+    this.overall = overall;
+    if (index >= 0) {
+      this.index = index;
+    }
+    if (claim) {
+      this.claim = claim;
+    }
   }
 }

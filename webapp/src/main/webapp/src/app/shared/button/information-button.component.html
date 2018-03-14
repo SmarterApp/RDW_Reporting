@@ -5,7 +5,8 @@
         popoverTitle="{{ title }}"
         [placement]="placement"
         container="body"
-        outsideClick="true">
+        outsideClick="true"
+        (click)="propagateClick($event)">
     <span class="sr-only">{{'information-button.more-info' | translate}}</span>
     <i class="fa fa-info-circle"></i>
 </button>
