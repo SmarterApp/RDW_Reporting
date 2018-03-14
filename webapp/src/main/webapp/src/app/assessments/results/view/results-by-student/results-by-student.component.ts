@@ -105,6 +105,9 @@ export class ResultsByStudentComponent implements OnInit {
   }
 
   private getClaimColumns(): Column[] {
+    if (!this.assessment.claimCodes) {
+      return [];
+    }
     return this.assessment.claimCodes.map((code, index) =>
       new Column({id: "claim", field: `claimScores.${index}.level`, index: index, claim: code}));
   }
