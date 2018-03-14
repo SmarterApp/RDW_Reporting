@@ -58,9 +58,9 @@ export class DistractorAnalysisComponent implements OnInit, ExportResults {
 
   loading: boolean = false;
   columns: Column[];
+  filteredMultipleChoiceItems: AssessmentItem[];
 
   private _multipleChoiceItems: AssessmentItem[];
-  private filteredMultipleChoiceItems: AssessmentItem[];
   private _exams: Exam[];
   private _choiceColumns: DynamicItemField[] = [];
 

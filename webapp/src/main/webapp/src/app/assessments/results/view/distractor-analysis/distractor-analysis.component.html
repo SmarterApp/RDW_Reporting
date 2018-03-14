@@ -3,10 +3,12 @@
     <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">{{ 'common.messages.loading' | translate }}</span>
   </div>
 </div>
-<p-table #distractorTable
+<p-table *ngIf="!loading"
+         #distractorTable
          [columns]="columns"
          [value]="filteredMultipleChoiceItems"
          [autoLayout]="true"
+         rowExpandMode="single"
          dataKey="position"
          sortField="position"
          styleClass="table table-striped table-hover">
@@ -39,7 +41,7 @@
           </span>
         </span>
 
-        <p-sortIcon [field]="column.field"></p-sortIcon>
+        <p-sortIcon [field]="column.sortField"></p-sortIcon>
       </th>
     </tr>
   </ng-template>
@@ -49,7 +51,7 @@
                let-i="rowIndex"
                let-columns="columns">
     <tr>
-      <td *ngFor="let column of columns; let columnIdx = index;"
+      <td *ngFor="let column of columns"
           [ngSwitch]="column.id"
           [ngClass]="{'green': column.id === 'choice' && isCorrect(item, column.label)}">
 
@@ -80,10 +82,6 @@
         <div *ngSwitchCase="'choice'">
           <span [hidden]="showValuesAsPercent" >{{ item[column.numberField] }}</span>
           <span [hidden]="!showValuesAsPercent || item[column.percentField] == null">{{ item[column.percentField] | number:'1.0-0' }}%</span>
-        </div>
-
-        <div *ngSwitchDefault>
-          {{ item[column.field] }}
         </div>
       </td>
     </tr>
