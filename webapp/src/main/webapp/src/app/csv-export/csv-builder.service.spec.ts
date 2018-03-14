@@ -3,10 +3,10 @@ import { CsvBuilder } from "./csv-builder.service";
 import { inject, TestBed } from "@angular/core/testing";
 import { DatePipe, DecimalPipe } from "@angular/common";
 import { Angular2CsvProvider } from "./angular-csv.provider";
-import Spy = jasmine.Spy;
-import {Exam} from "../assessments/model/exam.model";
+import { Exam } from "../assessments/model/exam.model";
 import { Student } from "../student/model/student.model";
 import { SchoolYearPipe } from "../shared/format/school-year.pipe";
+import Spy = jasmine.Spy;
 
 describe('CsvBuilder', () => {
   let datePipe: MockDatePipe;

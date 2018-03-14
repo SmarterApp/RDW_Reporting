@@ -21,8 +21,7 @@ import { AggregateReportColumnOrderItemProvider } from "../aggregate-report-colu
 import { DefaultColumnOrder } from "../aggregate-report-options.mapper";
 import { AggregateReportRequestSummary } from "../aggregate-report-summary.component";
 import { interval } from 'rxjs/observable/interval';
-import { switchMap } from 'rxjs/operators';
-import { finalize } from 'rxjs/operators';
+import { finalize, switchMap } from 'rxjs/operators';
 
 const PollingInterval = 4000;
 

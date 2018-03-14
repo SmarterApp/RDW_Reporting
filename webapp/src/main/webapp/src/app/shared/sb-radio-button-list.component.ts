@@ -1,4 +1,4 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, EventEmitter, Input, Output } from "@angular/core";
+import { AfterViewChecked, ChangeDetectorRef, Component, Input } from "@angular/core";
 import { Utils } from "./support/support";
 
 /**
