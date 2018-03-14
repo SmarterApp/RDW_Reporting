@@ -34,7 +34,6 @@ export class OrganizationService {
   }
 
   private getSchools(): Observable<any[]> {
-    // TODO cache - this is widely used
     return this.dataService.get(`${ServiceRoute}/organizations/schools`);
   }
 

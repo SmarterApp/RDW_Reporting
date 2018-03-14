@@ -10,9 +10,6 @@ import { Utils } from "../../shared/support/support";
 @Injectable()
 export class OrganizationMapper {
 
-  private readonly nullDistrict: Organization = this.createDistrict();
-  private readonly nullSchoolGroup: Organization = this.createSchoolGroup();
-
   createDistrict(value: any = {}): District {
     let district = new District();
     district.id = value.id;
@@ -91,17 +88,17 @@ export class OrganizationMapper {
 
   /**
    * Creates organization hierarchy for the given schools and master set of organizations.
-   * This method will add placeholder ancestor nodes to the school when then school group or createDistrict ID is undefined.
+   * This method will add placeholder ancestor nodes to the school when then school group or district ID is undefined.
    *
    * @param {Organization[]} schools the schools to create the hierarchy with
    * @param {UserOrganizations} organizations master set of organizations to draw into the tree when referenced by the school's ancestor IDs
    * @returns {Tree<Organization>}
    */
   createOrganizationTreeWithPlaceholders(schools: Organization[], organizations: UserOrganizations): Tree<Organization> {
-    let root = new Tree<Organization>();
+    const root = new Tree<Organization>();
     schools.forEach(school => root
-        .getOrCreate(x => x.id === school.districtId, this.or(organizations.districtsById.get(school.districtId), this.nullDistrict))
-        .getOrCreate(x => x.id === school.schoolGroupId, this.or(organizations.schoolGroupsById.get(school.schoolGroupId), this.nullSchoolGroup))
+        .getOrCreate(x => x.id === school.districtId, this.getOrCreateDistrict(organizations, school.districtId))
+        .getOrCreate(x => x.id === school.schoolGroupId, this.getOrCreateSchoolGroup(organizations, school.schoolGroupId))
         .create(school)
     );
     return root;
@@ -132,17 +129,15 @@ export class OrganizationMapper {
     return root;
   }
 
-  private or(a: any, b: any) {
-    return Utils.isUndefined(a) ? b : a;
-  }
-
   private getOrCreateDistrict(organizations: UserOrganizations, id: number): District {
     if (organizations.districtsById.has(id)) {
       return organizations.districtsById.get(id);
     }
 
     const district: District = new District();
-    district.id = id;
+    if (!Utils.isNullOrUndefined(id)) {
+      district.id = id;
+    }
     return district;
   }
 
@@ -152,7 +147,9 @@ export class OrganizationMapper {
     }
 
     const schoolGroup: SchoolGroup = new SchoolGroup();
-    schoolGroup.id = id;
+    if (!Utils.isNullOrUndefined(id)) {
+      schoolGroup.id = id;
+    }
     return schoolGroup;
   }
 

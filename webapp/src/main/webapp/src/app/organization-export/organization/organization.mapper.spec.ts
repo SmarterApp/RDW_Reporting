@@ -1,5 +1,5 @@
 import { OrganizationMapper } from "./organization.mapper";
-import { Organization } from "./organization";
+import { Organization, SchoolGroup } from "./organization";
 import { Tree } from "./tree";
 import { UserOrganizations } from "./user-organizations";
 import { Option } from "../../shared/form/sb-typeahead.component";
@@ -114,15 +114,15 @@ describe('OrganizationService', () => {
 
   it('createOrganizationTreeWithPlaceholders() should create a tree representative of the given organizations with placeholders when ancestors are absent', () => {
 
-    let organizations = fixture
+    const organizations = fixture
       .createUserOrganizations([ { id: 1, districtId: 2 }, { id: 3 } ], [], [ { id: 2 } ]);
 
-    let actual = fixture.createOrganizationTreeWithPlaceholders([ organizations.schools[ 0 ] ], organizations);
+    const actual = fixture.createOrganizationTreeWithPlaceholders([ organizations.schools[ 0 ] ], organizations);
 
-    let expected = new Tree<Organization>();
+    const expected = new Tree<Organization>();
     expected
       .create(organizations.districts[ 0 ])
-      .create(fixture.createSchoolGroup())
+      .create(new SchoolGroup())
       .create(organizations.schools[ 0 ]);
 
     expect(actual).toEqual(expected);
