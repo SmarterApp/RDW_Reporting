@@ -1,10 +1,9 @@
-import { Component, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AssessmentItem } from "../../../model/assessment-item.model";
 import { Exam } from "../../../model/exam.model";
 import { ExamStatisticsCalculator } from "../../exam-statistics-calculator";
 import { AssessmentProvider } from "../../../assessment-provider.interface";
 import { Assessment } from "../../../model/assessment.model";
-import { Angulartics2 } from "angulartics2";
 import { ExportResults } from "../../assessment-results.component";
 import { WritingTraitScoreSummary } from "../../../model/writing-trait-score-summary.model";
 import { ExportWritingTraitsRequest } from "../../../model/export-writing-trait-request.model";
@@ -57,16 +56,18 @@ export class WritingTraitScoresComponent implements OnInit, ExportResults {
     return this._exams;
   }
 
+  writingTraitColumns: Column[];
   loading: boolean = false;
   isWritingTraitItem: boolean = false;
   traitScoreSummaries: WritingTraitScoreSummary[];
   writingTraitType: string;
+  filteredItems: AssessmentItem[];
 
   private _writingTraitScoredItems: AssessmentItem[];
-  private filteredItems: AssessmentItem[];
   private _exams: Exam[];
+  private _columnsByTraitSummary: Map<WritingTraitScoreSummary, Column[]> = new Map();
 
-  constructor(private examCalculator: ExamStatisticsCalculator, private renderer: Renderer2, private angulartics2: Angulartics2) {
+  constructor(private examCalculator: ExamStatisticsCalculator) {
   }
 
   ngOnInit() {
@@ -78,12 +79,30 @@ export class WritingTraitScoresComponent implements OnInit, ExportResults {
 
         this.filteredItems = this.filterItems(assessmentItems);
         this.traitScoreSummaries = this.examCalculator.aggregateWritingTraitScores(assessmentItems);
+        this.traitScoreSummaries.forEach((summary) => {
+          const columns = [
+            new Column({id: 'category', sortable: false}),
+            new Column({id: 'average-max', sortable: false, styleClass: "level-up"}),
+            ...this.toTraitSummaryColumns(summary)
+          ];
+          this._columnsByTraitSummary.set(summary, columns);
+          console.log("columns", columns);
+        });
       }
 
       if (assessmentItems.length != 0) {
         this.isWritingTraitItem = true;
         this.writingTraitType = assessmentItems[0].performanceTaskWritingType;
       }
+
+      this.writingTraitColumns = [
+        new Column({id: 'number', field: 'position'}),
+        new Column({id: 'claim', field: 'claimTarget', headerInfo: true}),
+        new Column({id: 'purpose', field: 'writingTraitType', headerInfo: true}),
+        new Column({id: 'difficulty', sortField: 'difficultySortOrder', headerInfo: true}),
+        new Column({id: 'standard', field: 'commonCoreStandardIds', headerInfo: true}),
+        new Column({id: 'full-credit', field: 'fullCredit', headerInfo: true})
+      ];
 
       this.loading = false
     });
@@ -103,14 +122,27 @@ export class WritingTraitScoresComponent implements OnInit, ExportResults {
     this.assessmentExporter.exportWritingTraitScoresToCsv(exportRequest);
   }
 
-  getPointRowStyleClass(index: number) {
-    return index == 0
-      ? 'level-down'
-      : '';
+  getColumnsForSummary(summary: WritingTraitScoreSummary) {
+    if (!this._columnsByTraitSummary.has(summary)) {
+      return [];
+    }
+    return this._columnsByTraitSummary.get(summary);
   }
 
   get totalType(): string {
     return WritingTrait.total().type;
+  }
+
+  private toTraitSummaryColumns(summary: WritingTraitScoreSummary): Column[] {
+    return summary.total.numbers.map((points, index) => {
+      return new Column({
+        id: 'item-point',
+        points: points,
+        index: index,
+        styleClass: index == 0 ? 'level-down' : '',
+        sortable: false
+      });
+    });
   }
 
   private filterItems(items: AssessmentItem[]) {
@@ -125,3 +157,41 @@ export class WritingTraitScoresComponent implements OnInit, ExportResults {
     return filtered;
   }
 }
+
+class Column {
+  id: string;
+  field: string;
+  sortField: string;
+  headerInfo: boolean;
+  styleClass: string;
+  sortable: boolean;
+
+  // Writing trait item column properties
+  index?: number;
+  points?: number;
+
+  constructor({
+                id,
+                field = '',
+                sortField = '',
+                headerInfo = false,
+                styleClass = '',
+                sortable = true,
+                index = -1,
+                points = -1
+              }) {
+    this.id = id;
+    this.field = field ? field : id;
+    this.sortField = sortField ? sortField : this.field;
+    this.headerInfo = headerInfo;
+    this.styleClass = styleClass;
+    this.sortable = sortable;
+    if (index >= 0) {
+      this.index = index;
+    }
+    if (points >= 0) {
+      this.points = points;
+    }
+  }
+}
+
