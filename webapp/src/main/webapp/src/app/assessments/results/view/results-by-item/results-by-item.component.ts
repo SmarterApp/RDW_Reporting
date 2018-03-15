@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AssessmentItem } from "../../../model/assessment-item.model";
 import { ExportItemsRequest } from "../../../model/export-items-request.model";
-import { Angulartics2 } from "angulartics2";
 import { DynamicItemField } from "../../../model/item-point-field.model";
 import { AssessmentProvider } from "../../../assessment-provider.interface";
 import { ExamStatisticsCalculator } from "../../exam-statistics-calculator";
@@ -57,14 +56,15 @@ export class ResultsByItemComponent implements OnInit, ExportResults {
     return this._exams;
   }
 
+  columns: Column[];
   loading: boolean = false;
-  pointColumns: DynamicItemField[];
+  filteredAssessmentItems: AssessmentItem[];
 
   private _assessmentItems: AssessmentItem[];
-  private filteredAssessmentItems: AssessmentItem[];
   private _exams: Exam[];
+  private _pointColumns: DynamicItemField[] = [];
 
-  constructor(private angulartics2: Angulartics2, private examCalculator: ExamStatisticsCalculator) {
+  constructor(private examCalculator: ExamStatisticsCalculator) {
   }
 
   ngOnInit() {
@@ -75,14 +75,24 @@ export class ResultsByItemComponent implements OnInit, ExportResults {
 
       if (numOfScores != 0) {
         // todo: move?
-        this.pointColumns = this.examCalculator.getPointFields(assessmentItems);
+        this._pointColumns = this.examCalculator.getPointFields(assessmentItems);
 
         this._assessmentItems = assessmentItems;
         this.filteredAssessmentItems = this.filterAssessmentItems(assessmentItems);
 
         this.examCalculator.aggregateItemsByPoints(this.filteredAssessmentItems);
       }
-      this.loading = false
+
+      this.columns = [
+        new Column({id: 'number', field: 'position'}),
+        new Column({id: 'claim', field: 'claimTarget', headerInfo: true}),
+        new Column({id: 'difficulty', sortField: 'difficultySortOrder', headerInfo: true}),
+        new Column({id: 'standard', field: 'commonCoreStandardIds', headerInfo: true}),
+        new Column({id: 'full-credit', field: 'fullCredit', styleClass: 'level-up', headerInfo: true}),
+        ...this._pointColumns.map(this.toColumn)
+      ];
+
+      this.loading = false;
     });
   }
 
@@ -94,15 +104,11 @@ export class ResultsByItemComponent implements OnInit, ExportResults {
     let exportRequest = new ExportItemsRequest();
     exportRequest.assessment = this.assessment;
     exportRequest.assessmentItems = this.filteredAssessmentItems;
-    exportRequest.pointColumns = this.pointColumns;
+    exportRequest.pointColumns = this._pointColumns;
     exportRequest.showAsPercent = this.showValuesAsPercent;
     exportRequest.type = RequestType.ResultsByItems;
 
     this.assessmentExporter.exportItemsToCsv(exportRequest);
-  }
-
-  getPointRowStyleClass(index: number) {
-    return index == 0 ? 'level-down' : '';
   }
 
   private filterAssessmentItems(assessmentItems: AssessmentItem[]) {
@@ -115,5 +121,55 @@ export class ResultsByItemComponent implements OnInit, ExportResults {
     }
 
     return filtered;
+  }
+
+  private toColumn(pointColumn: DynamicItemField, index: number): Column {
+    return new Column({
+      id: 'point',
+      label: pointColumn.label,
+      field: pointColumn.numberField,
+      styleClass:  index == 0 ? 'level-down' : '',
+      numberField: pointColumn.numberField,
+      percentField: pointColumn.percentField
+    });
+  }
+}
+
+class Column {
+  id: string;
+  field: string;
+  sortField: string;
+  headerInfo: boolean;
+  styleClass: string;
+
+  //Point column properties
+  label?: string;
+  numberField?: string;
+  percentField?: string;
+
+  constructor({
+                id,
+                field = '',
+                sortField = '',
+                headerInfo = false,
+                styleClass = '',
+                label = '',
+                numberField = '',
+                percentField = ''
+              }) {
+    this.id = id;
+    this.field = field ? field : id;
+    this.sortField = sortField ? sortField : this.field;
+    this.headerInfo = headerInfo;
+    this.styleClass = styleClass;
+    if (label) {
+      this.label = label;
+    }
+    if (numberField) {
+      this.numberField = numberField;
+    }
+    if (percentField) {
+      this.percentField = percentField;
+    }
   }
 }

@@ -72,7 +72,7 @@
                let-i="rowIndex"
                let-columns="columns">
     <tr>
-      <td *ngFor="let column of columns; let columnIdx = index;"
+      <td *ngFor="let column of columns"
           [ngSwitch]="column.id"
           [hidden]="(isClaimScoreSelected && column.overall) || (!isClaimScoreSelected && column.claim)">
 
