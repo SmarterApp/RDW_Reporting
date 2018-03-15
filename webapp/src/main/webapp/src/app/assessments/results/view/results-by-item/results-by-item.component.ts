@@ -111,10 +111,6 @@ export class ResultsByItemComponent implements OnInit, ExportResults {
     this.assessmentExporter.exportItemsToCsv(exportRequest);
   }
 
-  getPointRowStyleClass(index: number) {
-    return index == 0 ? 'level-down' : '';
-  }
-
   private filterAssessmentItems(assessmentItems: AssessmentItem[]) {
     let filtered = [];
 
