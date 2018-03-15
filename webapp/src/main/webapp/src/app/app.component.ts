@@ -10,6 +10,7 @@ import { ApplicationSettingsService } from './app-settings.service';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { catchError } from 'rxjs/operators';
 import { _throw } from 'rxjs/observable/throw';
+import { Angulartics2GoogleAnalytics } from "angulartics2";
 
 @Component({
   selector: 'app-component',
@@ -32,7 +33,8 @@ export class AppComponent {
               private router: Router,
               private location: Location,
               private userService: UserService,
-              private applicationSettingsService: ApplicationSettingsService) {
+              private applicationSettingsService: ApplicationSettingsService,
+              private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
   }
 
   ngOnInit() {
