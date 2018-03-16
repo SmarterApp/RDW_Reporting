@@ -1,19 +1,17 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { GroupsComponent } from "./groups.component";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { GroupFilterOptions } from "./model/group-filter-options.model";
-import { GroupsModule } from "./groups.module";
 import { School } from "./model/school.model";
 import { GroupService } from "./groups.service";
 import { Observable } from "rxjs/Observable";
-import { Observer } from "rxjs/Observer";
 import { Group } from "./model/group.model";
-import { DropdownModule } from "primeng/components/dropdown/dropdown";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { UserService } from "../../user/user.service";
-import { MockRouter } from "../../../test/mock.router";
 import { CommonModule } from "../../shared/common.module";
 import { of } from 'rxjs/observable/of';
+import { EventEmitter, NO_ERRORS_SCHEMA } from "@angular/core";
+import { MockActivatedRoute } from "../../../test/mock.activated-route";
+import { BsModalService } from "ngx-bootstrap";
+import { TestModule } from "../../../test/test.module";
 
 let mockFilterOptionsProvider = { options: new GroupFilterOptions() };
 
@@ -22,19 +20,19 @@ describe('GroupsComponent', () => {
   let fixture: ComponentFixture<GroupsComponent>;
   let mockGroupService = {
     getFilterOptions() {
-      return of(mockFilterOptionsProvider.options)
+      return of(mockFilterOptionsProvider.options);
     },
     getGroups: function () {
-      return of([])
+      return of([]);
     }
   };
   let filterOptions: GroupFilterOptions;
-  let mockRouteSnapshot;
-  let paramsObserver: Observer<any>;
-  let mockParams = new Observable<any>(observer => paramsObserver = observer);
+  let mockActivatedRoute: MockActivatedRoute;
+  let mockModalService: any;
 
   beforeEach(async(() => {
-    mockParams = new Observable<{}>(observer => paramsObserver = observer);
+    mockModalService = jasmine.createSpyObj("BsModalService", ["show"]);
+    mockModalService.onHidden = new EventEmitter();
 
     filterOptions = new GroupFilterOptions();
 
@@ -44,26 +42,25 @@ describe('GroupsComponent', () => {
 
     mockFilterOptionsProvider.options = filterOptions;
 
-    mockRouteSnapshot = {
-      params: {}
-    };
-
     TestBed.configureTestingModule({
-      imports: [ CommonModule, GroupsModule, DropdownModule, BrowserAnimationsModule ],
+      declarations: [
+        GroupsComponent
+      ],
+      imports: [
+        CommonModule,
+        TestModule
+      ],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { snapshot: mockRouteSnapshot, params: mockParams }
-        },
-        { provide: GroupService, useValue: mockGroupService },
-        { provide: Router, useValue: MockRouter },
-        { provide: UserService, useClass: MockUserService }
-      ]
+        { provide: BsModalService, useValue: mockModalService },
+        { provide: GroupService, useValue: mockGroupService }
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
   }));
 
   function createComponent() {
     fixture = TestBed.createComponent(GroupsComponent);
+    mockActivatedRoute = TestBed.get(ActivatedRoute);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }
@@ -83,7 +80,7 @@ describe('GroupsComponent', () => {
 
     createComponent();
 
-    paramsObserver.next({
+    mockActivatedRoute.params.emit({
       schoolId: 1,
       subject: "MATH",
       schoolYear: 2017
@@ -97,7 +94,7 @@ describe('GroupsComponent', () => {
 
   it('should default to first when no params are set', () => {
     createComponent();
-    paramsObserver.next({});
+    mockActivatedRoute.params.emit({});
 
     fixture.detectChanges();
     expect(component.query.school).toBe(filterOptions.schools[ 0 ]);
@@ -107,7 +104,7 @@ describe('GroupsComponent', () => {
 
   it('should default to first when params are not found', () => {
     createComponent();
-    paramsObserver.next({
+    mockActivatedRoute.params.emit({
       schoolId: -1,
       subject: "INVALID_SUBJECT",
       schoolYear: 2099
