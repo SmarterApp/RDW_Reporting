@@ -86,7 +86,6 @@ export class WritingTraitScoresComponent implements OnInit, ExportResults {
             ...this.toTraitSummaryColumns(summary)
           ];
           this._columnsByTraitSummary.set(summary, columns);
-          console.log("columns", columns);
         });
       }
 
