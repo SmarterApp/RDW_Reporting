@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Embargo } from "./embargo";
 import { Toggle } from "./toggle.component";
 import { EmbargoToggleEvent } from "./embargo-toggle-event";
@@ -8,7 +8,7 @@ import { EmbargoScope } from "./embargo-scope.enum";
   selector: 'embargo-table',
   templateUrl: './embargo-table.component.html'
 })
-export class EmbargoTable {
+export class EmbargoTable implements OnInit {
 
   @Input()
   translateContext: string = '';
@@ -24,6 +24,7 @@ export class EmbargoTable {
 
   // TODO later this will be provided by a service and will be the actual subject codes: ELA, Math
   subjectCodes: string[] = [ 'ELA', 'MATH' ];
+  columns: Column[];
 
   get hasMultipleEmbargoes(): boolean {
     return this.embargoes.length > 1;
@@ -37,6 +38,15 @@ export class EmbargoTable {
     return this.overridingEmbargo && !this.overridingEmbargo.aggregateEnabled;
   }
 
+  ngOnInit(): void {
+    this.columns = [
+      new Column({id: 'name'}),
+      ...this.getSubjectColumns(),
+      new Column({id: 'individualEnabled'}),
+      new Column({id: 'aggregateEnabled'})
+    ]
+  }
+
   toggleIndividual(toggle: Toggle, embargo: Embargo): void {
     this.toggleInternal(toggle, embargo, EmbargoScope.Individual, embargo.individualEnabled,
       this.overridingEmbargo ? this.overridingEmbargo.individualEnabled : undefined);
@@ -45,6 +55,15 @@ export class EmbargoTable {
   toggleAggregate(toggle: Toggle, embargo: Embargo): void {
     this.toggleInternal(toggle, embargo, EmbargoScope.Aggregate, embargo.aggregateEnabled,
       this.overridingEmbargo ? this.overridingEmbargo.aggregateEnabled : undefined);
+  }
+
+  private getSubjectColumns(): Column[] {
+    return this.subjectCodes.map(code => {
+      return new Column({
+        id: 'subject',
+        code: code
+      });
+    })
   }
 
   private toggleInternal(toggle: Toggle, embargo: Embargo, scope: EmbargoScope, embargoEnabled: boolean, overridingEmbargoEnabled: boolean): void {
@@ -69,4 +88,19 @@ export class EmbargoTable {
     }
   }
 
+}
+
+class Column {
+  id: string;
+  code?: string;
+
+  constructor({
+                id,
+                code = ''
+  }) {
+    this.id = id;
+    if (code) {
+      this.code = code;
+    }
+  }
 }

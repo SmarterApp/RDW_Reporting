@@ -46,7 +46,6 @@
                let-columns="columns">
     <tr>
       <td *ngFor="let column of columns; let columnIdx = index;"
-          [ngSwitch]="column.id"
           [hidden]="!column.visible">
         <div [ngSwitch]="column.id"
              class="full-cell"
