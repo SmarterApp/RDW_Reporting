@@ -1,63 +1,133 @@
 <p>{{ 'item-scores.student-scores-intro-text' | translate }}</p>
-<p-dataTable #datatable [value]="scores" tableStyleClass="table table-striped table-hover" [tableStyle]="{'table-layout':'auto'}" sortField="student.lastName" expandableRows="true" rowExpandMode="single">
-  <p-column sortField="student.lastName" header="{{'common.results.assessment-exam-columns.name' | translate}}" [sortable]="true">
-    <ng-template let-row="rowData" let-score="rowData" pTemplate="body">
-      <datatable-row-expander [datatable]="datatable" [row]="row" [text]="'common.person-name' | translate:score.student"></datatable-row-expander>
-    </ng-template>
-  </p-column>
-  <p-column field="date" header="{{'common.results.assessment-exam-columns.date' | translate}}" [sortable]="true">
-    <ng-template let-score="rowData" pTemplate="body">
-      {{ score.date | date }}
-    </ng-template>
-  </p-column>
-  <p-column field="session" header="{{'common.results.assessment-exam-columns.session' | translate}}" [sortable]="true"></p-column>
-  <p-column field="enrolledGrade" header="{{'common.results.assessment-exam-columns.grade' | translate}}" [sortable]="true">
-    <ng-template let-score="rowData" pTemplate="body">
-      {{ 'common.enrolled-grade-label.' + score.enrolledGrade | translate }}
-    </ng-template>
-  </p-column>
-  <p-column field="school.name" header="{{'common.results.assessment-exam-columns.school' | translate }}" [sortable]="true"></p-column>
-  <p-column *ngIf="includeResponse" field="response" header="{{'item-scores.response' | translate}}" [sortable]="true"></p-column>
-  <p-column *ngIf="includeWritingTraitScores" field="writingTraitScores.evidence" header="{{'common.writing-trait.evidence' | translate}}" [sortable]="true">
-    <ng-template let-score="rowData" pTemplate="body">
-      <div class="text-center">{{ (score.writingTraitScores ? score.writingTraitScores.evidence : null) | optional }}</div>
-    </ng-template>
-  </p-column>
-  <p-column *ngIf="includeWritingTraitScores" field="writingTraitScores.organization" header="{{'common.writing-trait.organization' | translate}}" [sortable]="true">
-    <ng-template let-score="rowData" pTemplate="body">
-      <div class="text-center">{{ (score.writingTraitScores ? score.writingTraitScores.organization : null) | optional }}</div>
-    </ng-template>
-  </p-column>
-  <p-column *ngIf="includeWritingTraitScores" field="writingTraitScores.conventions" header="{{'common.writing-trait.conventions' | translate}}" [sortable]="true">
-    <ng-template let-score="rowData" pTemplate="body">
-      <div class="text-center">{{ (score.writingTraitScores ? score.writingTraitScores.conventions : null) | optional }}</div>
-    </ng-template>
-  </p-column>
-  <p-column field="score" header="{{(includeWritingTraitScores ? 'common.writing-trait.total' : 'itemscores.score') | translate}}" [sortable]="true">
-    <ng-template pTemplate="header">
-      <span *ngIf="includeWritingTraitScores" info-button title="{{'common.writing-trait.total' | translate}}"
-            content="{{'common.writing-trait.total-info' | translate}}"></span>
-      <span *ngIf="!includeWritingTraitScores">{{ 'item-scores.score' | translate}}</span>
-    </ng-template>
-    <ng-template let-score="rowData" pTemplate="body">
-      <div class="text-center">{{ score.score | optional }}</div>
-    </ng-template>
-  </p-column>
-  <p-column *ngIf="!includeWritingTraitScores" field="maxScore" header="{{'item-scores.max' | translate}}" [sortable]="true">
-    <ng-template let-score="rowData" pTemplate="body">
-      <div class="text-center">{{ score.maxScore }}</div>
-    </ng-template>
-  </p-column>
-  <p-column *ngIf="!includeWritingTraitScores" field="correctness" header="{{'item-scores.correctness' | translate}}" [sortable]="true">
-    <ng-template let-correctness="rowData.correctness" pTemplate="body">
-      <div class="text-center">{{ correctness | number:'1.2-2' }}</div>
-    </ng-template>
-  </p-column>
-  <ng-template let-score pTemplate="rowexpansion">
-    <div class="tab-content well">
-      <item-viewer [item]="item"
-                   [response]="score.response"
-                   [position]="item.position"></item-viewer>
-    </div>
+<p-table #itemScores
+         [columns]="columns"
+         [value]="scores"
+         [autoLayout]="true"
+         sortField="student.lastName"
+         dataKey="examId"
+         rowExpandMode="single"
+         styleClass="table table-striped table-hover">
+
+  <ng-template pTemplate="header"
+               let-columns>
+    <tr>
+      <th *ngFor="let column of columns"
+          [pSortableColumn]="column.field"
+          [hidden]="!column.visible"
+          [ngSwitch]="column.id">
+
+        <div *ngSwitchCase="'trait'">
+          <span *ngIf="column.score === 'total'"
+                info-button
+                title="{{ 'common.writing-trait.total' | translate }}"
+                content="{{ 'common.writing-trait.total-info' | translate }}">
+          </span>
+          <ng-container *ngIf="column.score !== 'total'">
+            {{ ('common.writing-trait.' + column.score) | translate }}
+          </ng-container>
+        </div>
+
+        <div *ngSwitchCase="'item-score'">
+          {{ ('item-scores.' + column.score) | translate }}
+        </div>
+
+        <div *ngSwitchDefault>
+          {{ ('common.results.assessment-exam-columns.' + column.id) | translate }}
+        </div>
+
+        <p-sortIcon [field]="column.field"></p-sortIcon>
+      </th>
+    </tr>
   </ng-template>
-</p-dataTable>
+
+  <ng-template pTemplate="body"
+               let-score
+               let-i="rowIndex"
+               let-columns="columns">
+    <tr>
+      <td *ngFor="let column of columns"
+          [ngSwitch]="column.id"
+          [hidden]="!column.visible">
+
+        <table-row-expander *ngSwitchCase="'name'"
+                            [table]="itemScores"
+                            [row]="score"
+                            [text]="'common.person-name' | translate:score.student">
+        </table-row-expander>
+
+        <div *ngSwitchCase="'date'">
+          {{ score.date | date }}
+        </div>
+
+        <div *ngSwitchCase="'session'">
+          {{ score.session }}
+        </div>
+
+        <div *ngSwitchCase="'grade'">
+          {{ 'common.enrolled-grade-label.' + score.enrolledGrade | translate }}
+        </div>
+
+        <div *ngSwitchCase="'school'">
+          {{ score.school.name }}
+        </div>
+
+        <div *ngSwitchCase="'item-score'"
+             [ngSwitch]="column.score">
+          <div *ngSwitchCase="'response'">
+            {{ score.response }}
+          </div>
+          <div *ngSwitchCase="'score'"
+               class="text-center">
+            {{ score.score | optional }}
+          </div>
+          <div *ngSwitchCase="'max'"
+               class="text-center">
+            {{ score.maxScore }}
+          </div>
+          <div *ngSwitchCase="'correctness'"
+               class="text-center">
+            {{ score.correctness | number:'1.2-2' }}
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'trait'"
+             [ngSwitch]="column.score"
+             class="text-center">
+          <div *ngSwitchCase="'evidence'">
+            {{ (score.writingTraitScores ? score.writingTraitScores.evidence : null) | optional }}
+          </div>
+          <div *ngSwitchCase="'organization'">
+            {{ (score.writingTraitScores ? score.writingTraitScores.organization : null) | optional }}
+          </div>
+          <div *ngSwitchCase="'conventions'">
+            {{ (score.writingTraitScores ? score.writingTraitScores.conventions : null) | optional }}
+          </div>
+          <div *ngSwitchCase="'total'">
+            {{ score.score | optional }}
+          </div>
+        </div>
+
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template let-score pTemplate="rowexpansion">
+    <tr>
+      <td [attr.colspan]="columns.length">
+        <div class="tab-content well">
+          <item-viewer [item]="item"
+                       [response]="score.response"
+                       [position]="item.position"></item-viewer>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage" let-columns>
+    <tr>
+      <td [attr.colspan]="columns.length">
+        {{'common.no-results' | translate}}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

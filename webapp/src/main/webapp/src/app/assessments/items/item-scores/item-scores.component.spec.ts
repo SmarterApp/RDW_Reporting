@@ -1,26 +1,34 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { ItemScoresComponent } from "./item-scores.component";
-import { ItemViewerComponent } from "../item-viewer/item-viewer.component";
-import { DataTableModule } from "primeng/components/datatable/datatable";
 import { StudentScoreService } from "./student-score.service";
-import { Component } from "@angular/core";
+import { Component, NO_ERRORS_SCHEMA } from "@angular/core";
 import { AssessmentItem } from "../../model/assessment-item.model";
 import { CommonModule } from "../../../shared/common.module";
 import { TestModule } from "../../../../test/test.module";
-import { PopoverModule } from "ngx-bootstrap";
 
 describe('ItemScoresComponent', () => {
+  let mockScoreService: any;
+
   let component: ItemScoresComponent;
   let fixture: ComponentFixture<TestComponentWrapper>;
 
   beforeEach(async(() => {
+    mockScoreService = jasmine.createSpyObj("StudentScoreService", ["getScores"]);
+    mockScoreService.getScores.and.returnValue([]);
 
     TestBed.configureTestingModule({
-      imports: [ DataTableModule, CommonModule, TestModule, PopoverModule.forRoot() ],
-      declarations: [ TestComponentWrapper, ItemScoresComponent, ItemViewerComponent ],
+      declarations: [
+        TestComponentWrapper,
+        ItemScoresComponent
+      ],
+      imports: [
+        CommonModule,
+        TestModule
+      ],
       providers: [
-        StudentScoreService
-      ]
+        { provide: StudentScoreService, useValue: mockScoreService}
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     })
       .compileComponents();
   }));
