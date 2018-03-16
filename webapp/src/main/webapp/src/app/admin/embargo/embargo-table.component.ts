@@ -97,7 +97,7 @@ class Column {
   constructor({
                 id,
                 code = ''
-  }) {
+              }) {
     this.id = id;
     if (code) {
       this.code = code;
