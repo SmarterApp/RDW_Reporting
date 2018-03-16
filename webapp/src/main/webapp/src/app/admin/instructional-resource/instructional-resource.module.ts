@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { InstructionalResourceComponent } from "./instructional-resource.component";
-import { DataTableModule } from "primeng/primeng";
 import { ModalModule, TypeaheadModule } from "ngx-bootstrap";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
@@ -12,6 +11,7 @@ import { UpdateInstructionalResourceModal } from "./update-instructional-resourc
 import { DeleteInstructionalResourceModal } from "./delete-instructional-resource.modal";
 import { CommonModule } from "../../shared/common.module";
 import { RdwMenuModule } from "../../shared/menu/rdw-menu.module";
+import { TableModule } from "primeng/table";
 
 @NgModule({
   declarations: [
@@ -28,10 +28,10 @@ import { RdwMenuModule } from "../../shared/menu/rdw-menu.module";
   imports: [
     BrowserModule,
     CommonModule,
-    DataTableModule,
     FormsModule,
     ModalModule.forRoot(),
     RdwMenuModule,
+    TableModule,
     TypeaheadModule.forRoot()
   ],
   exports: [

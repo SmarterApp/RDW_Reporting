@@ -23,9 +23,15 @@ export class InstructionalResourceComponent implements OnInit {
   searchTerm: string = '';
   filteredResources: InstructionalResource[] = [];
   actions: PopupMenuAction[];
-  private _loading: boolean = true;
+  columns: Column[] = [
+    new Column({id: 'assessment-label', field: 'assessmentLabel'}),
+    new Column({id: 'organization-type', field: 'organizationType'}),
+    new Column({id: 'organization-name', field: 'organizationName'}),
+    new Column({id: 'performance-level', field: 'performanceLevel'}),
+    new Column({id: 'resource', sortable: false})
+  ];
 
-  private _resources: InstructionalResource[];
+
   get resources(): InstructionalResource[] {
     return this._resources;
   }
@@ -38,6 +44,8 @@ export class InstructionalResourceComponent implements OnInit {
   get loading(): boolean {
     return Utils.isNullOrUndefined(this.resources);
   }
+
+  private _resources: InstructionalResource[];
 
   constructor(private modalService: BsModalService,
               private service: InstructionalResourceService,
@@ -110,4 +118,20 @@ export class InstructionalResourceComponent implements OnInit {
     return [ updateAction, deleteAction ];
   }
 
+}
+
+class Column {
+  id: string;
+  field: string;
+  sortable: boolean;
+
+  constructor({
+                id,
+                field = '',
+                sortable = true
+              }) {
+    this.id = id;
+    this.field = field ? field : id;
+    this.sortable = sortable;
+  }
 }
