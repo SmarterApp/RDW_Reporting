@@ -15,6 +15,14 @@ import { Subscription } from "rxjs/Subscription";
 })
 export class GroupsComponent implements OnInit, OnDestroy {
 
+  columns: Column[] = [
+    new Column({id: 'name'}),
+    new Column({id: 'school', field: 'schoolName'}),
+    new Column({id: 'school-year', field: 'schoolYear'}),
+    new Column({id: 'subjects', field: 'subject'}),
+    new Column({id: 'student-count', field: 'studentCount'}),
+    new Column({id: 'deleted', field: 'isDeleted', sortable: false})
+  ];
   filterOptions: GroupFilterOptions;
   query: GroupQuery;
   searchTerm: string = '';
@@ -112,4 +120,20 @@ export class GroupsComponent implements OnInit, OnDestroy {
     }));
   }
 
+}
+
+class Column {
+  id: string;
+  field: string;
+  sortable: boolean;
+
+  constructor({
+                id,
+                field = '',
+                sortable = true
+  }) {
+    this.id = id;
+    this.field = field ? field : id;
+    this.sortable = sortable;
+  }
 }

@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ImportTableComponent } from './import-table.component';
-import { DataTableModule } from "primeng/components/datatable/datatable";
 import { CommonModule } from "../../../../shared/common.module";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
 
 describe('ImportTableComponent', () => {
   let component: ImportTableComponent;
@@ -10,8 +9,13 @@ describe('ImportTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ CommonModule, DataTableModule ],
-      declarations: [ ImportTableComponent ]
+      declarations: [
+        ImportTableComponent
+      ],
+      imports: [
+        CommonModule
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     })
       .compileComponents();
   }));
