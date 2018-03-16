@@ -51,8 +51,9 @@
   <ng-container *ngFor="let assessmentType of assessmentTypes">
     <ng-container *ngFor="let subject of getSubjectsForType(assessmentType)">
       <div class="well wide-content-container">
-        <span class="h3 label-group {{ colorService.getColor(assessmentType) }}">
-          <span class="label">{{assessmentType | assessmentType}}</span><span class="label">{{subject}}</span>
+        <span class="h3 label-group"
+              [ngClass]="getAssessmentTypeColor(assessmentType)">
+          <span class="label">{{'common.assessment-type.' + assessmentType + '.short-name' | translate}}</span><span class="label">{{subject}}</span>
         </span>
         <button class="btn btn-default btn-sm icon-only pull-right"
                 (click)="toggleCollapsed(assessmentType, subject)"
@@ -63,18 +64,13 @@
           <i class="fa fa-bold {{ isCollapsed(assessmentType, subject) ? 'fa-caret-square-o-down' : 'fa-caret-square-o-up' }}"></i>
         </button>
 
-        <div class="mt-md" [hidden]="isCollapsed(assessmentType, subject)">
-          <student-history-iab-table
-            *ngIf="(assessmentType | assessmentType) === 'IAB'"
-            [student]="examHistory.student"
-            [minimumItemDataYear]="minimumItemDataYear"
-            [exams]="examsByTypeAndSubject.get(assessmentType).get(subject)"></student-history-iab-table>
-          <student-history-ica-summative-table
-            *ngIf="(assessmentType | assessmentType) !== 'IAB'"
-            [type]="assessmentType"
-            [student]="examHistory.student"
-            [minimumItemDataYear]="minimumItemDataYear"
-            [exams]="examsByTypeAndSubject.get(assessmentType).get(subject)"></student-history-ica-summative-table>
+        <div class="mt-md"
+             [hidden]="isCollapsed(assessmentType, subject)">
+          <student-history-table [assessmentType]="assessmentType"
+                                 [student]="examHistory.student"
+                                 [minimumItemDataYear]="minimumItemDataYear"
+                                 [exams]="examsByTypeAndSubject.get(assessmentType).get(subject)">
+          </student-history-table>
         </div>
       </div>
     </ng-container>

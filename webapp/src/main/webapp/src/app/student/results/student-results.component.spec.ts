@@ -1,7 +1,7 @@
 import { StudentResultsComponent } from "./student-results.component";
 import { ComponentFixture, inject, TestBed } from "@angular/core/testing";
 import { CommonModule } from "../../shared/common.module";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { StudentExamHistory } from "../model/student-exam-history.model";
 import { Student } from "../model/student.model";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
@@ -14,12 +14,12 @@ import { MockRouter } from "../../../test/mock.router";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { Angulartics2 } from "angulartics2";
 import { MockActivatedRoute } from "../../../test/mock.activated-route";
-import { MockAuthorizeDirective } from "../../../test/mock.authorize.directive";
 import { ExamFilterService } from "../../assessments/filters/exam-filters/exam-filter.service";
 import { of } from 'rxjs/observable/of';
 import { ApplicationSettingsService } from '../../app-settings.service';
-import { UserService } from '../../user/user.service';
 import { MockUserService } from '../../../test/mock.user.service';
+import { TestModule } from "../../../test/test.module";
+import { ReportingEmbargoService } from "../../shared/embargo/reporting-embargo.service";
 
 describe('StudentResultsComponent', () => {
   let component: StudentResultsComponent;
@@ -27,16 +27,17 @@ describe('StudentResultsComponent', () => {
   let route: MockActivatedRoute;
   let router: MockRouter;
   let exportService: any;
+  let embargoService: any;
 
   beforeEach(() => {
-    route = new MockActivatedRoute();
     exportService = {};
+    embargoService = jasmine.createSpyObj("ReportingEmbargoService", ["isEmbargoed"]);
+    embargoService.isEmbargoed.and.returnValue(of(false));
 
     let mockRouteSnapshot: any = {};
     mockRouteSnapshot.data = {};
     mockRouteSnapshot.data.examHistory = MockBuilder.history();
     mockRouteSnapshot.params = {};
-    route.snapshotResult.and.returnValue(mockRouteSnapshot);
 
     let mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', [ 'eventTrack' ]);
     mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', [ 'next' ]);
@@ -50,25 +51,26 @@ describe('StudentResultsComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        CommonModule
+        CommonModule,
+        TestModule
       ],
       declarations: [
-        StudentResultsComponent,
-        MockAuthorizeDirective
+        StudentResultsComponent
       ],
       providers: [
-        { provide: ActivatedRoute, useValue: route },
         { provide: CsvExportService, useValue: exportService },
         { provide: Angulartics2, useValue: mockAngulartics2 },
         { provide: ApplicationSettingsService, useValue: mockApplicationSettingsService },
-        { provide: UserService, useValue: mockUserService },
-        { provide: Router, useValue: router },
+        { provide: ReportingEmbargoService, useValue: embargoService },
         ExamFilterService
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(StudentResultsComponent);
+    route = TestBed.get(ActivatedRoute);
+    route.snapshotResult.and.returnValue(mockRouteSnapshot);
+
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -90,15 +92,15 @@ describe('StudentResultsComponent', () => {
 
   it('should retrieve sorted assessment types', () => {
     expect(component.assessmentTypes)
-      .toEqual([ AssessmentType.IAB, AssessmentType.ICA, AssessmentType.SUMMATIVE ]);
+      .toEqual([ "iab", "ica", "sum" ]);
   });
 
   it('should retrieve subjects by assessment type', () => {
-    expect(component.getSubjectsForType(AssessmentType.ICA))
+    expect(component.getSubjectsForType("ica"))
       .toEqual([ "ELA", "MATH" ]);
-    expect(component.getSubjectsForType(AssessmentType.IAB))
+    expect(component.getSubjectsForType("iab"))
       .toEqual([ "MATH" ]);
-    expect(component.getSubjectsForType(AssessmentType.SUMMATIVE))
+    expect(component.getSubjectsForType("sum"))
       .toEqual([ "ELA" ]);
   });
 

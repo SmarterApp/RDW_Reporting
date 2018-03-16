@@ -3,7 +3,6 @@ import { ActivatedRoute, Params, Router } from "@angular/router";
 import { StudentExamHistory } from "../model/student-exam-history.model";
 import { StudentResultsFilterState } from "./model/student-results-filter-state.model";
 import { StudentHistoryExamWrapper } from "../model/student-history-exam-wrapper.model";
-import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { ExamFilterService } from "../../assessments/filters/exam-filters/exam-filter.service";
 import { ColorService } from "../../shared/color.service";
 import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
@@ -15,6 +14,12 @@ import { AssessmentSubjectType } from "../../shared/enum/assessment-subject-type
 import { Utils } from "../../shared/support/support";
 import { ReportingEmbargoService } from "../../shared/embargo/reporting-embargo.service";
 import { ApplicationSettingsService } from '../../app-settings.service';
+import { Comparator, ranking } from "@kourge/ordering/comparator";
+import { AssessmentDefinition } from "../../aggregate-report/assessment/assessment-definition";
+
+const AssessmentTypes: string[] = [ "iab", "ica", "sum" ];
+const AssessmentTypeColorOrder: string[] = [ "ica", "iab", "sum"];
+const TypeDisplayOrder: Comparator<string> = ranking(AssessmentTypes);
 
 @Component({
   selector: 'student-results',
@@ -25,24 +30,20 @@ export class StudentResultsComponent implements OnInit {
   examHistory: StudentExamHistory;
   filterState: StudentResultsFilterState = new StudentResultsFilterState();
   filterOptions: ExamFilterOptions = new ExamFilterOptions();
-  examsByTypeAndSubject: Map<AssessmentType, Map<string, StudentHistoryExamWrapper[]>> = new Map();
+  examsByTypeAndSubject: Map<string, Map<string, StudentHistoryExamWrapper[]>> = new Map();
   displayState: any = {};
   minimumItemDataYear: number;
   hasResults: boolean;
   exportDisabled: boolean = true;
 
-  private typeDisplayOrder: AssessmentType[] = [ AssessmentType.IAB, AssessmentType.ICA, AssessmentType.SUMMATIVE ];
+  private _assessmentDefinitions: Map<string, AssessmentDefinition>;
 
-  get assessmentTypes(): AssessmentType[] {
+  get assessmentTypes(): string[] {
     return Array.from(this.examsByTypeAndSubject.keys())
-      .sort((a, b) => {
-        let aIdx = this.typeDisplayOrder.indexOf(a);
-        let bIdx = this.typeDisplayOrder.indexOf(b);
-        return aIdx - bIdx;
-      });
+      .sort(TypeDisplayOrder);
   }
 
-  constructor(public colorService: ColorService,
+  constructor(private colorService: ColorService,
               private csvExportService: CsvExportService,
               private route: ActivatedRoute,
               private router: Router,
@@ -53,7 +54,7 @@ export class StudentResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.examHistory = this.route.snapshot.data[ "examHistory" ];
+    this.examHistory = this.route.snapshot.data[ 'examHistory' ];
 
     if (this.examHistory) {
       this.initializeFilter(this.examHistory.exams, this.route.snapshot.params);
@@ -77,7 +78,7 @@ export class StudentResultsComponent implements OnInit {
    * @param type  An assessment type
    * @returns {Array<string>} The ordered list of subjects available
    */
-  getSubjectsForType(type: AssessmentType): string[] {
+  getSubjectsForType(type: string): string[] {
     return Array.from(this.examsByTypeAndSubject.get(type).keys())
       .sort((a, b) => a.localeCompare(b));
   }
@@ -100,11 +101,11 @@ export class StudentResultsComponent implements OnInit {
       || this.filterState.subject != params.subject;
   }
 
-  isCollapsed(assessmentType: AssessmentType, subject: string): boolean {
+  isCollapsed(assessmentType: string, subject: string): boolean {
     return this.displayState[ assessmentType ][ subject ].collapsed;
   }
 
-  toggleCollapsed(assessmentType: AssessmentType, subject: string): void {
+  toggleCollapsed(assessmentType: string, subject: string): void {
     this.displayState[ assessmentType ][ subject ].collapsed = !this.displayState[ assessmentType ][ subject ].collapsed;
   }
 
@@ -132,6 +133,17 @@ export class StudentResultsComponent implements OnInit {
     this.csvExportService.exportStudentHistory(sourceData, () => this.examHistory.student, filename);
   }
 
+  getAssessmentTypeColor(assessmentType: string) {
+    const idx = AssessmentTypeColorOrder.indexOf(assessmentType);
+    return this.colorService.getColor(idx >= 0 ? idx + 1 : AssessmentTypes.length);
+  }
+
+  getAssessmentDefinition(assessmentType: string): AssessmentDefinition {
+    if (this._assessmentDefinitions) {
+      return this._assessmentDefinitions.get(assessmentType);
+    }
+  }
+
   /**
    * Apply the current filter state to the exams.
    */
@@ -148,9 +160,9 @@ export class StudentResultsComponent implements OnInit {
 
     this.hasResults = filteredExams.length != 0;
 
-    let examsByTypeAndSubject: Map<AssessmentType, Map<string, StudentHistoryExamWrapper[]>> = new Map();
+    let examsByTypeAndSubject: Map<string, Map<string, StudentHistoryExamWrapper[]>> = new Map();
     filteredExams.forEach((wrapper) => {
-      let type: AssessmentType = wrapper.assessment.type;
+      let type: string = wrapper.assessment.typeCode;
       let subject: string = wrapper.assessment.subject;
       let byType: Map<string, StudentHistoryExamWrapper[]> = examsByTypeAndSubject.get(type) || new Map();
       let bySubject: StudentHistoryExamWrapper[] = byType.get(subject) || [];
