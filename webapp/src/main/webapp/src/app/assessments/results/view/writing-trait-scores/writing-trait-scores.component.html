@@ -1,10 +1,6 @@
-<div *ngIf="loading" class="loader">
-  <div class="inner">
-    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="text">{{ 'common.messages.loading' | translate }}</span>
-  </div>
-</div>
+<spinner *ngIf="loading" text="{{'common.messages.loading' | translate}}"></spinner>
 
-<div *ngIf="!loading" class="pt-sm writing-trait-scores">
+<ng-container *ngIf="!loading">
   <p-table #writingTraitTable
            [columns]="writingTraitColumns"
            [value]="filteredItems"
@@ -158,4 +154,4 @@
       </ng-template>
     </p-table>
   </div>
-</div>
+</ng-container>

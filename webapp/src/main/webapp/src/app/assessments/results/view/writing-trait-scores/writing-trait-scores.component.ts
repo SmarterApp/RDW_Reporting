@@ -123,10 +123,7 @@ export class WritingTraitScoresComponent implements OnInit, ExportResults {
   }
 
   getColumnsForSummary(summary: WritingTraitScoreSummary) {
-    if (!this._columnsByTraitSummary.has(summary)) {
-      return [];
-    }
-    return this._columnsByTraitSummary.get(summary);
+    return this._columnsByTraitSummary.get(summary) || [];
   }
 
   get totalType(): string {
