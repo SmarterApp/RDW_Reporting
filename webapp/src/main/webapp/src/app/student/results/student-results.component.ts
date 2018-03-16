@@ -15,10 +15,9 @@ import { Utils } from "../../shared/support/support";
 import { ReportingEmbargoService } from "../../shared/embargo/reporting-embargo.service";
 import { ApplicationSettingsService } from '../../app-settings.service';
 import { Comparator, ranking } from "@kourge/ordering/comparator";
-import { AssessmentDefinition } from "../../aggregate-report/assessment/assessment-definition";
 
-const AssessmentTypes: string[] = [ "iab", "ica", "sum" ];
-const AssessmentTypeColorOrder: string[] = [ "ica", "iab", "sum"];
+const AssessmentTypes: string[] = [ 'iab', 'ica', 'sum' ];
+const AssessmentTypeColorOrder: string[] = [ 'ica', 'iab', 'sum'];
 const TypeDisplayOrder: Comparator<string> = ranking(AssessmentTypes);
 
 @Component({
@@ -35,8 +34,6 @@ export class StudentResultsComponent implements OnInit {
   minimumItemDataYear: number;
   hasResults: boolean;
   exportDisabled: boolean = true;
-
-  private _assessmentDefinitions: Map<string, AssessmentDefinition>;
 
   get assessmentTypes(): string[] {
     return Array.from(this.examsByTypeAndSubject.keys())
@@ -112,9 +109,9 @@ export class StudentResultsComponent implements OnInit {
   exportCsv(): void {
     let student: Student = this.examHistory.student;
     let filename: string = student.lastName +
-      "-" + student.firstName +
-      "-" + student.ssid +
-      "-" + new Date().toDateString();
+      '-' + student.firstName +
+      '-' + student.ssid +
+      '-' + new Date().toDateString();
 
     let sourceData: StudentHistoryExamWrapper[] = [];
     Array.from(this.examsByTypeAndSubject.values()).forEach(bySubject => {
@@ -136,12 +133,6 @@ export class StudentResultsComponent implements OnInit {
   getAssessmentTypeColor(assessmentType: string) {
     const idx = AssessmentTypeColorOrder.indexOf(assessmentType);
     return this.colorService.getColor(idx >= 0 ? idx + 1 : AssessmentTypes.length);
-  }
-
-  getAssessmentDefinition(assessmentType: string): AssessmentDefinition {
-    if (this._assessmentDefinitions) {
-      return this._assessmentDefinitions.get(assessmentType);
-    }
   }
 
   /**
@@ -254,7 +245,7 @@ export class StudentResultsComponent implements OnInit {
       .sort((a: number, b: number) => b - a)
       .filter((year: number, idx: number, array: number[]) => idx == 0 || year != array[ idx - 1 ]);
 
-    if (params[ "schoolYear" ]) {
+    if (params[ 'schoolYear' ]) {
       this.filterState.schoolYear = parseInt(params[ 'schoolYear' ]);
     }
 
@@ -263,7 +254,7 @@ export class StudentResultsComponent implements OnInit {
       .sort((a: string, b: string) => a.localeCompare(b))
       .filter((subject: string, idx: number, array: string[]) => idx == 0 || subject != array[ idx - 1 ]);
 
-    if (params[ "subject" ]) {
+    if (params[ 'subject' ]) {
       this.filterState.subject = params[ 'subject' ];
     }
   }

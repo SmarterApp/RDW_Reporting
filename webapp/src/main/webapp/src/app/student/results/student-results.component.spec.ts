@@ -31,7 +31,7 @@ describe('StudentResultsComponent', () => {
 
   beforeEach(() => {
     exportService = {};
-    embargoService = jasmine.createSpyObj("ReportingEmbargoService", ["isEmbargoed"]);
+    embargoService = jasmine.createSpyObj('ReportingEmbargoService', ['isEmbargoed']);
     embargoService.isEmbargoed.and.returnValue(of(false));
 
     let mockRouteSnapshot: any = {};
@@ -92,16 +92,16 @@ describe('StudentResultsComponent', () => {
 
   it('should retrieve sorted assessment types', () => {
     expect(component.assessmentTypes)
-      .toEqual([ "iab", "ica", "sum" ]);
+      .toEqual([ 'iab', 'ica', 'sum' ]);
   });
 
   it('should retrieve subjects by assessment type', () => {
-    expect(component.getSubjectsForType("ica"))
-      .toEqual([ "ELA", "MATH" ]);
-    expect(component.getSubjectsForType("iab"))
-      .toEqual([ "MATH" ]);
-    expect(component.getSubjectsForType("sum"))
-      .toEqual([ "ELA" ]);
+    expect(component.getSubjectsForType('ica'))
+      .toEqual([ 'ELA', 'MATH' ]);
+    expect(component.getSubjectsForType('iab'))
+      .toEqual([ 'MATH' ]);
+    expect(component.getSubjectsForType('sum'))
+      .toEqual([ 'ELA' ]);
   });
 
   it('should filter by year on initialization', inject([ ActivatedRoute ], (route: MockActivatedRoute) => {
@@ -144,15 +144,15 @@ class MockBuilder {
 
     let student: Student = new Student();
     student.id = 123;
-    student.ssid = "ssid";
-    student.firstName = "first";
-    student.lastName = "last";
+    student.ssid = 'ssid';
+    student.firstName = 'first';
+    student.lastName = 'last';
 
     let exams: StudentHistoryExamWrapper[] = [];
-    exams.push(MockBuilder.examWrapper(AssessmentType.ICA, "MATH"));
-    exams.push(MockBuilder.examWrapper(AssessmentType.ICA, "ELA"));
-    exams.push(MockBuilder.examWrapper(AssessmentType.IAB, "MATH"));
-    exams.push(MockBuilder.examWrapper(AssessmentType.SUMMATIVE, "ELA"));
+    exams.push(MockBuilder.examWrapper(AssessmentType.ICA, 'MATH'));
+    exams.push(MockBuilder.examWrapper(AssessmentType.ICA, 'ELA'));
+    exams.push(MockBuilder.examWrapper(AssessmentType.IAB, 'MATH'));
+    exams.push(MockBuilder.examWrapper(AssessmentType.SUMMATIVE, 'ELA'));
 
     let history: StudentExamHistory = new StudentExamHistory();
     history.student = student;
@@ -179,7 +179,7 @@ class MockBuilder {
     exam.migrantStatus = false;
     exam.plan504 = false;
     exam.score = 2594;
-    exam.session = "PRI-6888";
+    exam.session = 'PRI-6888';
     exam.standardError = 52;
 
     //Give each exam an earlier year than the one before.
@@ -208,14 +208,14 @@ class MockBuilder {
     let assessment: Assessment = new Assessment();
     assessment.grade = '05';
     assessment.id = MockBuilder.assessmentIdx++;
-    assessment.label = "Grade 5 ELA";
+    assessment.label = 'Grade 5 ELA';
     assessment.subject = subject;
     assessment.type = type;
 
     assessment.claimCodes = [];
     if (type !== AssessmentType.IAB) {
-      assessment.claimCodes.push("1");
-      assessment.claimCodes.push("2-W");
+      assessment.claimCodes.push('1');
+      assessment.claimCodes.push('2-W');
     }
 
     return assessment;
