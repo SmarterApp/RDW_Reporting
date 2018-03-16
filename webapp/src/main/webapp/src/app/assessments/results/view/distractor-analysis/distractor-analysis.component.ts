@@ -89,7 +89,6 @@ export class DistractorAnalysisComponent implements OnInit, ExportResults {
         ...this._choiceColumns.map(this.toColumn)
       ];
 
-      console.log("items", this.filteredMultipleChoiceItems);
       this.loading = false
     });
   }
