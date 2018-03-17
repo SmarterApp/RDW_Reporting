@@ -23,6 +23,15 @@ export class StudentResponsesComponent implements OnInit {
   assessmentItems: StudentResponsesAssessmentItem[];
   exam: Exam;
   student: Student;
+  columns: Column[] = [
+    new Column({id: 'number', field: 'assessmentItem.position'}),
+    new Column({id: 'claim', field: 'assessmentItem.claimTarget', headerInfo: true}),
+    new Column({id: 'difficulty', field: 'assessmentItem.difficulty', headerInfo: true}),
+    new Column({id: 'standard', field: 'assessmentItem.commonCoreStandardIds'}),
+    new Column({id: 'student-points', field: 'score'}),
+    new Column({id: 'max-points', field: 'assessmentItem.maxPoints'}),
+    new Column({id: 'correctness', headerInfo: true})
+  ];
 
   constructor(public colorService: ColorService,
               private route: ActivatedRoute) {
@@ -61,5 +70,21 @@ export class StudentResponsesComponent implements OnInit {
     responseItem.writingTraitScores = score.writingTraitScores;
 
     return responseItem;
+  }
+}
+
+class Column {
+  id: string;
+  field: string;
+  headerInfo: boolean;
+
+  constructor({
+                id,
+                field = '',
+                headerInfo = false
+              }) {
+    this.id = id;
+    this.field = field ? field : id;
+    this.headerInfo = headerInfo;
   }
 }
