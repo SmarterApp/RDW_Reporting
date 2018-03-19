@@ -8,6 +8,13 @@ sql:
 
   organization:
     reporting:
+      findSchoolCount: >-
+        SELECT COUNT(*)
+        FROM school
+        WHERE
+          (1=:statewide OR school.district_group_id IN (:district_group_ids) OR school.district_id IN (:district_ids) OR school.school_group_id IN (:school_group_ids) OR school.id IN (:school_ids))
+        LIMIT :limit
+
       findAll: >-
         SELECT
           district_group.id,

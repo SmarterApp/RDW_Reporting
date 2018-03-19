@@ -5,10 +5,12 @@ import { TypeaheadModule } from "ngx-bootstrap";
 import { BrowserModule } from "@angular/platform-browser";
 import { TranslateModule } from "@ngx-translate/core";
 import { FormsModule } from "@angular/forms";
+import { SchoolTypeahead } from "./school-typeahead";
 
 @NgModule({
   declarations: [
-    OrganizationTypeahead
+    OrganizationTypeahead,
+    SchoolTypeahead
   ],
   imports: [
     BrowserModule,
@@ -17,7 +19,8 @@ import { FormsModule } from "@angular/forms";
     TypeaheadModule
   ],
   exports: [
-    OrganizationTypeahead
+    OrganizationTypeahead,
+    SchoolTypeahead
   ],
   providers: [
     OrganizationMapper

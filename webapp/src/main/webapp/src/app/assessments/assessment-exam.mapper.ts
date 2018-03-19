@@ -10,8 +10,8 @@ import { ordering } from "@kourge/ordering";
 import { byNumber } from "@kourge/ordering/comparator";
 import { ClaimScore } from "./model/claim-score.model";
 import { Student } from "../student/model/student.model";
-import { School } from "../school-grade/school";
 import { Utils } from "../shared/support/support";
+import { DefaultSchool } from "../shared/organization/organization";
 
 @Injectable()
 export class AssessmentExamMapper {
@@ -83,7 +83,7 @@ export class AssessmentExamMapper {
     uiModel.schoolYear = apiModel.schoolYear;
     uiModel.transfer = apiModel.transfer;
 
-    let school: School = new School();
+    let school: DefaultSchool = new DefaultSchool();
     school.name = apiModel.school.name;
     school.id = apiModel.school.id;
     uiModel.school = school;

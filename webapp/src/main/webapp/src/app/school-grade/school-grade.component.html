@@ -10,10 +10,23 @@
           <label for="search-school-name">
             {{'school-grade.school-name-label' | translate}}
           </label>
+
+          <div *ngIf="aboveLimit">
+            <school-typeahead #schoolTypeahead
+                              [options]="schoolOptions"
+                              (selected)="schoolChanged($event)"
+                              (input)="unSelectSchool($event)"></school-typeahead>
+            <div>
+              <br [hidden]="schoolTypeahead.noResults">
+              <span [hidden]="!schoolTypeahead.noResults" class="small gray-darker">{{'school-typeahead.no-matches' | translate}}</span>
+            </div>
+          </div>
           <sb-typeahead #schoolTypeahead
+                        *ngIf="!aboveLimit"
                         inputId="search-school-name"
                         [options]="schoolOptions"
                         (selected)="schoolChanged($event)"
+                        (input)="unSelectSchool($event)"
                         placeholder="{{'common.action.select' | translate}}"></sb-typeahead>
         </div>
       </div>
@@ -26,9 +39,11 @@
                   id="grade-select"
                   class="form-control">
             <option disabled
-                    [ngValue]="undefined">{{'common.action.select' | translate}}</option>
+                    [ngValue]="undefined">{{'common.action.select' | translate}}
+            </option>
             <option *ngFor="let grade of gradeOptions"
-                    [ngValue]="grade">{{'common.assessment-grade-label.' + grade.code | translate}}</option>
+                    [ngValue]="grade">{{'common.assessment-grade-label.' + grade.code | translate}}
+            </option>
           </select>
         </div>
       </div>
@@ -38,7 +53,8 @@
           <button type="submit"
                   id="rdw-school-grade-submit"
                   [disabled]="!school || !grade"
-                  class="btn btn-primary form-control">{{'common.action.search' | translate}}</button>
+                  class="btn btn-primary form-control">{{'common.action.search' | translate}}
+          </button>
         </div>
       </div>
     </div>

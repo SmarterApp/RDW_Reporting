@@ -31,26 +31,29 @@ export class CachingDataService {
 
   public get(url: string, options?: RequestOptionsArgs): Observable<any> {
 
-    const response = this.responsesByUrl.get(url);
+    const cacheKey = url + '|' + JSON.stringify(options);
+
+    const response = this.responsesByUrl.get(cacheKey);
     if (response) {
       return of(response);
     }
 
-    const request = this.requestsByUrl.get(url);
+    const request = this.requestsByUrl.get(cacheKey);
     if (request) {
       return request;
     }
 
     const observable = this.dataService.get(url, options).pipe(
       tap(value => {
-        this.responsesByUrl.set(url, value);
-        this.requestsByUrl.delete(url);
+        this.responsesByUrl.set(cacheKey, value);
+        this.requestsByUrl.delete(cacheKey);
       }),
       share()
     );
 
-    this.requestsByUrl.set(url, observable);
+    this.requestsByUrl.set(cacheKey, observable);
     return observable;
   }
 
 }
+

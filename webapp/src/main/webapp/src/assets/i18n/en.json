@@ -1183,6 +1183,11 @@
     "null-school": "This school is unavailable.  Contact your building administrator if you think you should have access to this school.",
     "school-grade-button-label": "Student Reports"
   },
+  "school-typeahead": {
+    "no-matches": "No schools found.",
+    "district-label": "District",
+    "placeholder": "Enter name"
+  },
   "select-assessments": {
     "instruct": "Click an assessment to add or remove it from your list of selections above."
   },

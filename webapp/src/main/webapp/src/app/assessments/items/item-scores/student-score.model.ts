@@ -1,6 +1,6 @@
 import { Student } from "../../../student/model/student.model";
-import { School } from "../../../school-grade/school";
 import { WritingTraitScores } from "../../model/writing-trait-scores.model";
+import { School } from "../../../shared/organization/organization";
 
 export class StudentScore {
   student: Student;

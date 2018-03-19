@@ -9,7 +9,6 @@ import { ReportOrder } from "./report-order.enum";
 import { ResponseUtils } from "../shared/response-utils";
 import { Student } from "../student/model/student.model";
 import { Group } from "../groups/group";
-import { School } from "../school-grade/school";
 import { Grade } from "../school-grade/grade.model";
 import { DATA_CONTEXT_URL, DataService } from "../shared/data/data.service";
 import { Download } from "../shared/data/download.model";
@@ -18,6 +17,7 @@ import { AggregateReportRow } from "./aggregate-report";
 import { Utils } from "../shared/support/support";
 import { catchError, map } from 'rxjs/operators';
 import { ReportProcessorServiceRoute } from '../shared/service-route';
+import { School } from "../shared/organization/organization";
 
 const ServiceRoute = ReportProcessorServiceRoute;
 
