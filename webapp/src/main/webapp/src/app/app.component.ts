@@ -1,12 +1,16 @@
-///<reference path="../../node_modules/@angular/router/src/events.d.ts"/>
 import { Component, ViewChild } from "@angular/core";
 import { UserService } from "./user/user.service";
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from "@angular/router";
 import { Location, PopStateEvent } from "@angular/common";
-import { User } from "./user/model/user.model";
+import { User } from "./user/user";
 import { LanguageStore } from "./shared/i18n/language.store";
-import { Utils } from "./shared/support/support";
 import { SpinnerModal } from "./shared/loading/spinner.modal";
+import { ApplicationSettings } from './app-settings';
+import { ApplicationSettingsService } from './app-settings.service';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { catchError } from 'rxjs/operators';
+import { _throw } from 'rxjs/observable/throw';
+import { Angulartics2GoogleAnalytics } from "angulartics2";
 
 @Component({
   selector: 'app-component',
@@ -18,31 +22,45 @@ export class AppComponent {
   spinnerModal: SpinnerModal;
 
   private _lastPoppedUrl: string;
-  private _user: User;
+  private _doNotDeleteThisAnalytics: Angulartics2GoogleAnalytics;
 
-  get user() {
-    return this._user;
-  }
+  user: User;
+  applicationSettings: ApplicationSettings;
 
-  /*
-   Even though the angulartics2GoogleAnalytics variable is not explicitly used, without it analytics data is not sent to the service
-   */
+
   constructor(public languageStore: LanguageStore,
-              private userService: UserService,
               private router: Router,
-              private location: Location) {
+              private location: Location,
+              private userService: UserService,
+              private applicationSettingsService: ApplicationSettingsService,
+              private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
+    /*
+      Even though the angulartics2GoogleAnalytics variable is not explicitly used,
+      without it analytics data is not sent to the service.  This private variable prevents
+      unintended removal by autoformatting
+    */
+    this._doNotDeleteThisAnalytics = angulartics2GoogleAnalytics;
   }
 
   ngOnInit() {
-    this.userService.getCurrentUser().subscribe(user => {
-      if (!Utils.isNullOrUndefined(user)) {
-        this._user = user;
-        this.languageStore.configuredLanguages = user.configuration.uiLanguages;
-        this.initializeAnalytics(user.configuration.analyticsTrackingId);
-      } else {
+
+    forkJoin(
+      this.userService.getUser(),
+      this.applicationSettingsService.getSettings()
+    ).pipe(
+      catchError((error, values) => {
         this.router.navigate([ 'error' ]);
-      }
+        return _throw(error);
+      })
+    ).subscribe(([ user, settings ]) => {
+
+      this.user = user;
+      this.applicationSettings = settings;
+
+      this.languageStore.configuredLanguages = settings.uiLanguages;
+      this.initializeAnalytics(settings.analyticsTrackingId);
     });
+
     this.initializeNavigationScrollReset();
     this.initializeNavigationLoadingSpinner();
   }

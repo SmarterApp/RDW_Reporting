@@ -13,8 +13,9 @@ import { Observable } from 'rxjs/Observable';
 import { Assessment } from '../../assessments/model/assessment.model';
 import { Exam } from '../../assessments/model/exam.model';
 import { AssessmentItem } from '../../assessments/model/assessment-item.model';
+import { ReportingServiceRoute } from '../../shared/service-route';
 
-const ServiceRoute = '/reporting-service';
+const ServiceRoute = ReportingServiceRoute;
 
 @Injectable()
 export class SchoolAssessmentService implements AssessmentProvider {

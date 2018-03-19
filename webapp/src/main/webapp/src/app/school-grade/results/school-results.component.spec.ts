@@ -6,8 +6,7 @@ import { SchoolResultsComponent } from "./school-results.component";
 import { CommonModule } from "../../shared/common.module";
 import { SchoolService } from "../school.service";
 import { SchoolAssessmentService } from "./school-assessment.service";
-import { User } from "../../user/model/user.model";
-import { School } from "../../user/model/school.model";
+import { School } from "../../school-grade/school";
 import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { Angulartics2 } from "angulartics2";
@@ -46,8 +45,11 @@ describe('SchoolResultsComponent', () => {
     school.districtId = 0;
     school.districtName = 'Test District';
 
-    const user = new User();
-    user.schools = [ school ];
+    const user = {
+      firstName: 'first',
+      lastName: 'last',
+      permissions: []
+    };
 
     const mockRouteSnapshot: any = {};
     mockRouteSnapshot.data = { user: user };
@@ -88,7 +90,7 @@ describe('SchoolResultsComponent', () => {
         { provide: DataService, useClass: MockDataService },
         { provide: ExamFilterOptionsService, useClass: MockExamFilterOptionService },
         { provide: SchoolService, useClass: MockSchoolService },
-        { provide: OrganizationService, useValue: new MockOrganizationService(user.schools)},
+        { provide: OrganizationService, useValue: new MockOrganizationService([ school ])},
         { provide: ActivatedRoute, useValue: route },
         { provide: Angulartics2, useValue: mockAngulartics2 },
         { provide: CsvExportService, useValue: exportService },

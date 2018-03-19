@@ -8,14 +8,14 @@
         <div class="col-md-2">
           <!-- Advanced Filters Toggle -->
           <div class="pull-right text-right">
-            <label for="advanced">{{'labels.filters.label' | translate}}</label>
+            <label for="advanced">{{'adv-filters.label' | translate}}</label>
             <button id="advanced"
                     class="form-control btn btn-default pull-right"
                     (click)="showAdvancedFilters = !showAdvancedFilters"
                     angulartics2On="click"
                     angularticsEvent="ToggleAdvancedFilters"
                     angularticsCategory="AssessmentResults">
-              {{'buttons.visibility.' + (showAdvancedFilters ? 'hide' : 'show') | translate}}
+              {{'common.action.' + (showAdvancedFilters ? 'hide' : 'show') | translate}}
               <i class="fa ml-xs"
                  [ngClass]="{'fa-caret-square-o-up': showAdvancedFilters, 'fa-caret-square-o-down': !showAdvancedFilters}"
                  aria-hidden="true"></i>
@@ -46,9 +46,9 @@
     <div class="row">
       <div class="col-md-6">
         <h2 class="h3 gray-darkest">
-          <i class="fa fa-list-alt"></i> {{'labels.groups.results.selected-assessments-title' | translate}}
+          <i class="fa fa-list-alt"></i> {{'assessments.results.selected-assessments-title' | translate}}
         </h2>
-        <p [hidden]="showOnlyMostRecent">{{'labels.groups.results.selected-assessments-instruct' | translate }}</p>
+        <p [hidden]="showOnlyMostRecent">{{'assessments.results.selected-assessments-instruct' | translate }}</p>
       </div>
       <div class="col-md-6">
         <div class="btn-group btn-group-xs pull-right mb-sm" role="group">
@@ -57,14 +57,14 @@
                   [ngClass]="{'active': showOnlyMostRecent}"
                   angulartics2On="click"
                   angularticsEvent="ShowOnlyMostRecent"
-                  angularticsCategory="AssessmentResults">{{'labels.groups.results.filter-type-recent' | translate}}</button>
+                  angularticsCategory="AssessmentResults">{{'assessments.results.filter-type-recent' | translate}}</button>
           <button type="radio"
                   (click)="showOnlyMostRecent = false"
                   class="btn btn-default"
                   [ngClass]="{'active': !showOnlyMostRecent}"
                   angulartics2On="click"
                   angularticsEvent="ShowCustomAssessmentSelection"
-                  angularticsCategory="AssessmentResults">{{'labels.groups.results.filter-type-custom' | translate}}</button>
+                  angularticsCategory="AssessmentResults">{{'assessments.results.filter-type-custom' | translate}}</button>
         </div>
       </div>
     </div>
@@ -79,7 +79,7 @@
              angularticsCategory="AssessmentResults"
              [angularticsProperties]="{label: assessment.label}"
              class="tag tag-xs {{ colorService.getColor(getGradeIdx(assessment.grade)) }}">
-            <span class="label">{{assessment.grade | gradeDisplay}}</span>
+            <span class="label">{{'common.assessment-grade-short-label.' + assessment.grade | translate}}</span>
             {{assessment.label}}
             <span class="icon" [hidden]="showOnlyMostRecent"><i class="fa fa-close"></i></span>
           </a>
@@ -91,7 +91,7 @@
                     angularticsEvent="ClickAssessmentPlus"
                     angularticsCategory="AssessmentResults">
               <i class="fa fa-plus"></i>
-              <span class="sr-only">{{'labels.groups.results.add-assessment-filters' | translate }}</span>
+              <span class="sr-only">{{'assessments.results.add-assessment-filters' | translate }}</span>
             </button>
           </div>
         </div>
@@ -128,12 +128,12 @@
 <!-- Results -->
 <page-heading>
   <ng-template #heading>
-    <h3>{{'labels.groups.results.title' | translate}}</h3>
+    <h3>{{'assessments.results.title' | translate}}</h3>
   </ng-template>
   <ng-template #content>
     <ul class="list-unstyled list-inline">
       <li>
-        <label for="value-format">{{'labels.groups.results.value-as' | translate }}</label>
+        <label for="value-format">{{'common.value-display-type-input-label' | translate }}</label>
         <div id="value-format" class="btn-group btn-group-primary btn-group-xs ml-xs" role="group">
           <button type="radio"
                   (click)="showValuesAsPercent = true"
@@ -141,7 +141,7 @@
                   angulartics2On="click"
                   angularticsEvent="ShowAsPercent"
                   angularticsCategory="AssessmentResults"
-                  class="btn btn-default">{{'labels.groups.results.value-as-percent' | translate}}
+                  class="btn btn-default">{{'common.value-display-type.Percent' | translate}}
           </button>
           <button type="radio"
                   (click)="showValuesAsPercent = false"
@@ -149,24 +149,24 @@
                   angulartics2On="click"
                   angularticsEvent="ShowAsNumber"
                   angularticsCategory="AssessmentResults"
-                  class="btn btn-default">{{'labels.groups.results.value-as-number' | translate}}
+                  class="btn btn-default">{{'common.value-display-type.Number' | translate}}
           </button>
         </div>
       </li>
       <li>
         <button class="btn btn-default btn-xs"
                 (click)="allCollapsed = !allCollapsed">
-          {{('labels.groups.results.' + (allCollapsed ? 'expand-all' : 'collapse-all')) | translate }}
+          {{('assessments.results.' + (allCollapsed ? 'expand-all' : 'collapse-all')) | translate }}
           <i class="fa" [ngClass]="{'fa-caret-square-o-down': allCollapsed, 'fa-caret-square-o-up': !allCollapsed}"></i>
         </button>
       </li>
       <li>
         <button class="btn btn-default btn-xs"
                 [ngClass]="{disabled: exportDisabled}"
-                popover="{{'embargo-admin-alert.export.disabled' | translate}}"
+                popover="{{'common.embargo-export-disabled' | translate}}"
                 [triggers]="exportDisabled ? 'mouseenter:mouseleave' : ''"
                 placement="left"
-                (click)="!exportDisabled && callExport()"><i class="fa fa-bold fa-table"></i> {{'labels.export.csv' | translate}}</button>
+                (click)="!exportDisabled && callExport()"><i class="fa fa-bold fa-table"></i> {{'common.export-csv' | translate}}</button>
       </li>
     </ul>
   </ng-template>
@@ -188,10 +188,10 @@
 
 <!-- No Results Error -->
 <div class="alert alert-info" *ngIf="assessmentExams.length == 0 || hideAssessments">
-  {{'messages.no-results-found' | translate}}
+  {{'assessments.no-results-found' | translate}}
 </div>
 
 <div class="fab">
   <button class="btn btn-primary btn-sm"
-          (click)="openAndScrollToAdvancedFilters()"><i class="fa fa-filter"></i> {{'labels.filters.floating-action-button' | translate}}</button>
+          (click)="openAndScrollToAdvancedFilters()"><i class="fa fa-filter"></i> {{'adv-filters.floating-action-button' | translate}}</button>
 </div>

@@ -4,25 +4,25 @@
     <div class="inner">
       <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
       <span class="text">
-        {{ 'messages.loading' | translate }}
+        {{ 'common.messages.loading' | translate }}
       </span>
     </div>
   </div>
 
   <div *ngIf="item.answerKey"
        class="mb-md">
-    <strong>{{ 'labels.assessments.items.tabs.exemplar.answer-key' | translate }}</strong> {{ item.answerKey }}
+    <strong>{{ 'item-viewer.answer-key' | translate }}</strong> {{ item.answerKey }}
   </div>
   <div *ngIf="!item.answerKey"
        class="mb-md">
-    {{ 'labels.assessments.items.tabs.item-viewer-see-rubric' | translate }}
+    {{ 'item-viewer.see-rubric' | translate }}
   </div>
   <p>
     {{ (showResponse ?
-    'labels.assessments.items.tabs.item-viewer-response-included' :
-    'labels.assessments.items.tabs.item-viewer-response-not-included' ) | translate}}
+    'item-viewer.response-included' :
+    'item-viewer.response-not-included' ) | translate}}
   </p>
-  <iframe title="{{'labels.assessments.items.tabs.item-viewer' | translate }}"
+  <iframe title="{{'item-viewer.title' | translate }}"
           class="center"
           #irisframe
           src="/iris/"

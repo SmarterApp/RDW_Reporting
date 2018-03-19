@@ -1,10 +1,13 @@
+<h3 class="gray-darkest mb-0"><i class="fa fa-list-alt"></i> {{'organization-tree.header' | translate}}</h3>
+<p class="small gray-darkest" [hidden]="hasSelectedSchools" [ngClass]="{invisible: disabled}">{{'organization-tree.subheader-empty' | translate}}</p>
+<p class="small gray-darkest" [hidden]="!hasSelectedSchools" [ngClass]="{invisible: disabled}">{{'organization-tree.subheader-not-empty' | translate}}</p>
 <div *ngFor="let districtTree of model.children" class="district-tree">
 
   <a *ngIf="districtTree.value.name && !disabled" class="link-button" (click)="onClick(districtTree.value)" href="javascript:void(0)">
     <h3>{{districtTree.value.name}}</h3>
   </a>
   <a *ngIf="districtTree.value.name && !disabled" class="tag tag-xs" (click)="onClick(districtTree.value)" href="javascript:void(0)">
-    <span class="pr-xs"></span> {{'labels.organization-tree.remove-district' | translate}}<span class="icon"><i class="fa fa-close"></i></span>
+    <span class="pr-xs"></span> {{'organization-tree.remove-district' | translate}}<span class="icon"><i class="fa fa-close"></i></span>
   </a>
   <h3 *ngIf="districtTree.value.name && disabled">{{districtTree.value.name}}</h3>
 

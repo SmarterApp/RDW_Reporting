@@ -1,61 +1,97 @@
 <page-heading>
   <ng-template #heading>
-    <h2>{{'labels.reports.heading' | translate}}</h2>
+    <h2>{{'reports.heading' | translate}}</h2>
   </ng-template>
 </page-heading>
 
 
 <div class="well wide-content-container" *ngIf="resolution.isOk()">
 
-  <p *ngIf="!reports.length" [innerHtml]="'labels.reports.no-reports-html' | translate"></p>
+  <p *ngIf="!reports.length" [innerHtml]="'reports.no-reports-html' | translate"></p>
+  <p-table *ngIf="reports.length"
+           [columns]="columns"
+           [value]="reports"
+           [autoLayout]="true"
+           sortField="created"
+           [sortOrder]="-1"
+           dataKey="id"
+           styleClass="table table-striped table-hover">
 
-  <p-dataTable *ngIf="reports.length"
-      [value]="reports"
-      sortField="created"
-      sortOrder="-1"
-      tableStyleClass="table table-striped table-hover">
+    <ng-template pTemplate="header"
+                 let-columns>
+      <tr>
+        <th *ngFor="let column of columns"
+            [pSortableColumn]="column.field"
+            [ngSwitch]="column.id">
 
-    <p-column field="label" header="{{'labels.reports.column.label.header' | translate}}" sortable="true">
-      <ng-template let-report="rowData" pTemplate="body">
-        <report-action [report]="report"></report-action>
-      </ng-template>
-    </p-column>
-    <p-column field="reportType" header="{{'labels.reports.column.report-type.header' | translate}}" sortable="true">
-      <ng-template let-report="rowData" pTemplate="body">
-        {{ 'labels.reports.report-type.' + report.reportType | translate }}
-      </ng-template>
-    </p-column>
-    <p-column field="assessmentType" header="{{'labels.reports.column.assessment-type.header' | translate}}" sortable="true">
-      <ng-template let-report="rowData" pTemplate="body">
-        <span *ngIf="!report.assessmentTypeCode">{{'labels.reports.all' | translate}}</span>
-        <span *ngIf="report.assessmentTypeCode">{{'common.assessment-type.' + report.assessmentTypeCode + '.short-name' | translate}}</span>
-      </ng-template>
-    </p-column>
-    <p-column field="subjectId" header="{{'labels.reports.column.subject.header' | translate}}" sortable="true">
-      <ng-template let-report="rowData" pTemplate="body">
-        {{ 'labels.reports.subjects.' + report.subjectId | translate }}
-      </ng-template>
-    </p-column>
-    <p-column field="schoolYear" header="{{'labels.reports.column.school-year.header' | translate}}" sortable="true">
-      <ng-template let-report="rowData" pTemplate="body">
-        {{ report.schoolYear | schoolYear }}
-      </ng-template>
-    </p-column>
-    <p-column field="status" sortable="true" header="{{'labels.reports.column.status.header' | translate}}">
-      <ng-template let-report="rowData" pTemplate="body">
-        <span class="label border-only {{report.statusColor}}">{{ 'labels.reports.status.' + report.status | translate }}</span>
-      </ng-template>
-    </p-column>
-    <p-column field="created" header="{{'labels.reports.column.created.header' | translate}}" sortable="true">
-      <ng-template let-report="rowData" pTemplate="body">{{ report.created | date:'medium' }}</ng-template>
-    </p-column>
-  </p-dataTable>
+          <div *ngSwitchDefault>
+            {{ ('reports.column.' + column.id) | translate }}
+          </div>
 
+          <p-sortIcon [field]="column.field"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body"
+                 let-report
+                 let-columns="columns">
+      <tr>
+        <td *ngFor="let column of columns"
+            [ngSwitch]="column.id">
+
+          <report-action *ngSwitchCase="'label-header'"
+                         [report]="report">
+          </report-action>
+
+          <ng-container *ngSwitchCase="'report-type-header'">
+            {{ 'reports.report-type.' + report.reportType | translate }}
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'assessment-type-header'">
+            <span *ngIf="!report.assessmentTypeCode">
+              {{'reports.all' | translate}}
+            </span>
+            <span *ngIf="report.assessmentTypeCode">
+              {{'common.assessment-type.' + report.assessmentTypeCode + '.short-name' | translate}}
+            </span>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'subject-header'">
+            {{ 'common.subject.' + report.subjectCode + '.name' | translate }}
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'school-year-header'">
+            {{ report.schoolYear | schoolYear }}
+          </ng-container>
+
+          <span *ngSwitchCase="'status-header'"
+                class="label border-only"
+                [ngClass]="report.statusColor">
+            {{ 'reports.status.' + report.status | translate }}
+          </span>
+
+          <ng-container *ngSwitchCase="'created-header'">
+            {{ report.created | date:'medium' }}
+          </ng-container>
+
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td [attr.colspan]="columns.length">
+          {{'common.no-results' | translate}}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>
 
 <div class="well" *ngIf="resolution.isError()">
-  <p>{{'labels.reports.messages.get-reports-error' | translate}}</p>
-  <button class="btn btn-primary" (click)="reload()"><i class="fa fa-refresh"></i> {{'labels.reports.reload' | translate}}</button>
+  <p>{{'reports.get-reports-error' | translate}}</p>
+  <button class="btn btn-primary" (click)="reload()"><i class="fa fa-refresh"></i> {{'reports.reload' | translate}}</button>
 </div>
 
 

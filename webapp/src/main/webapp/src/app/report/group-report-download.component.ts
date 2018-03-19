@@ -3,9 +3,9 @@ import { ReportService } from "./report.service";
 import { ReportDownloadComponent } from "./report-download.component";
 import { NotificationService } from "../shared/notification/notification.service";
 import { Report } from "./report.model";
-import { Group } from "../user/model/group.model";
+import { Group } from "../groups/group";
 import { Observable } from "rxjs/Observable";
-import { UserService } from "../user/user.service";
+import { ApplicationSettingsService } from '../app-settings.service';
 
 /**
  * Component used for single-student exam report download
@@ -20,9 +20,9 @@ export class GroupReportDownloadComponent extends ReportDownloadComponent {
   group: Group;
 
   constructor(notificationService: NotificationService,
-              userService: UserService,
+              applicationSettingsService: ApplicationSettingsService,
               private service: ReportService) {
-    super(notificationService, userService);
+    super(notificationService, applicationSettingsService);
   }
 
   createReport(): Observable<Report> {

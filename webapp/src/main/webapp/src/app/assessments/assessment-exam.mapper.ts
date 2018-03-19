@@ -10,7 +10,7 @@ import { ordering } from "@kourge/ordering";
 import { byNumber } from "@kourge/ordering/comparator";
 import { ClaimScore } from "./model/claim-score.model";
 import { Student } from "../student/model/student.model";
-import { School } from "../user/model/school.model";
+import { School } from "../school-grade/school";
 import { Utils } from "../shared/support/support";
 
 @Injectable()

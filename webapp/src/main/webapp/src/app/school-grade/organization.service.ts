@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import { UserService } from "../user/user.service";
-import { School } from "../user/model/school.model";
+import { School } from "../school-grade/school";
 import { Observable } from "rxjs/Observable";
 import { CachingDataService } from "../shared/data/caching-data.service";
 import { ReportingServiceRoute } from "../shared/service-route";
@@ -11,8 +10,7 @@ import { map, publishReplay, refCount } from "rxjs/operators";
 @Injectable()
 export class OrganizationService {
 
-  constructor(private userService: UserService,
-              private dataService: CachingDataService) {
+  constructor(private dataService: CachingDataService) {
   }
 
   /**
@@ -39,12 +37,7 @@ export class OrganizationService {
   }
 
   private getSchools(): Observable<School[]> {
-    // TODO use /reporting-service/organizations/schools instead of user payload to untie user from reporting-service
-    return this.userService.getCurrentUser().pipe(
-      map(user => user.schools),
-      publishReplay(1),
-      refCount()
-    );
+    return this.dataService.get(`${ReportingServiceRoute}/organizations/schools`);
   }
 
   private getDistricts(): Observable<any[]> {
@@ -53,7 +46,9 @@ export class OrganizationService {
 
   private getDistrictNamesById(): Observable<Map<number, string>> {
     return this.getDistricts().pipe(
-      map(districts => new Map<number, string>(districts.map(district => <any>[ district.id, district.name ])))
+      map(districts => new Map<number, string>(
+        districts.map(district => <any>[ district.id, district.name ])
+      ))
     );
   }
 

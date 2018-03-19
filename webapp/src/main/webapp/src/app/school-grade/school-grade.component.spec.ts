@@ -15,10 +15,15 @@ import { UserModule } from "../user/user.module";
 import { MockDataService } from "../../test/mock.data.service";
 import { DataService } from "../shared/data/data.service";
 import { CachingDataService } from "../shared/data/caching-data.service";
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { of } from 'rxjs/observable/of';
 
 describe('SchoolGradeComponent', () => {
   let component: SchoolGradeComponent;
   let fixture: ComponentFixture<SchoolGradeComponent>;
+  let mockOrganizationService = {
+    getSchoolsWithDistricts: () => of([])
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -36,18 +41,14 @@ describe('SchoolGradeComponent', () => {
       ],
       declarations: [ SchoolGradeComponent ],
       providers: [
-        OrganizationService,
+        { provide: OrganizationService, useValue: mockOrganizationService },
         { provide: APP_BASE_HREF, useValue: '/' },
-        SchoolService, {
-          provide: DataService,
-          useClass: MockDataService
-        }, {
-          provide: CachingDataService,
-          useClass: MockDataService
-        }
-      ]
-    })
-      .compileComponents();
+        SchoolService,
+        { provide: DataService, useClass: MockDataService },
+        { provide: CachingDataService, useClass: MockDataService }
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

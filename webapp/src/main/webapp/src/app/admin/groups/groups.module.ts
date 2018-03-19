@@ -3,11 +3,11 @@ import { GroupsComponent } from "./groups.component";
 import { GroupService } from "./groups.service";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
-import { DataTableModule } from "primeng/components/datatable/datatable";
 import { ModalModule } from "ngx-bootstrap";
 import { DeleteGroupModalComponent } from "./delete-group.modal";
 import { DropdownModule } from 'primeng/primeng';
 import { CommonModule } from "../../shared/common.module";
+import { TableModule } from "primeng/table";
 
 @NgModule({
   declarations: [
@@ -20,10 +20,10 @@ import { CommonModule } from "../../shared/common.module";
   imports: [
     BrowserModule,
     CommonModule,
-    DataTableModule,
     DropdownModule,
+    FormsModule,
     ModalModule.forRoot(),
-    FormsModule
+    TableModule
   ],
   exports: [
     GroupsComponent

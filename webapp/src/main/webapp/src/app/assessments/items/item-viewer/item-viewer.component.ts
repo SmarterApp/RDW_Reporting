@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
-import { UserService } from "../../../user/user.service";
 import { AssessmentItem } from "../../model/assessment-item.model";
+import { ApplicationSettingsService } from '../../../app-settings.service';
 
 /**
  * IRiS is the vendor client which allows us to integrate with the
@@ -46,13 +46,12 @@ export class ItemViewerComponent implements OnInit {
     }
   }
 
-  constructor(private userService: UserService) {
+  constructor(private applicationSettingsService: ApplicationSettingsService) {
   }
 
   ngOnInit() {
-    this.userService.getCurrentUser().subscribe(user => {
-      this.vendorId = user.configuration.irisVendorId;
-
+    this.applicationSettingsService.getSettings().subscribe(settings => {
+      this.vendorId = settings.irisVendorId;
       this._irisFrame.addEventListener('load', this.irisframeOnLoad.bind(this));
     });
   }

@@ -79,29 +79,29 @@ describe('AggregateReportTableExportService', () => {
 
     //dimension
     expect(withColumnCalls[0].args).toEqual([
-      'aggregate-reports.results.cols.dimension',
+      'aggregate-report-table.columns.dimension',
       jasmine.any(Function)
     ]);
 
     //organization
     expect(withColumnCalls[1].args).toEqual([
-      'aggregate-reports.results.cols.organization-name',
+      'aggregate-report-table.columns.organization',
       jasmine.any(Function)
     ]);
     expect(withColumnCalls[2].args).toEqual([
-      'aggregate-reports.results.cols.organization-id',
+      'aggregate-report-table.columns.organization-id',
       jasmine.any(Function)
     ]);
 
     //assessmentGrade
     expect(withColumnCalls[3].args).toEqual([
-      'aggregate-reports.results.cols.assessment-grade',
+      'aggregate-report-table.columns.assessment-grade',
       jasmine.any(Function)
     ]);
 
     //schoolYear
     expect(withColumnCalls[4].args).toEqual([
-      'aggregate-reports.results.cols.school-year',
+      'aggregate-report-table.columns.school-year',
       jasmine.any(Function)
     ]);
   });
@@ -113,17 +113,17 @@ describe('AggregateReportTableExportService', () => {
     const withColumnCalls: CallInfo[] = (csvBuilder.withColumn as Spy).calls.all();
     const headerKeys: string[] = withColumnCalls.map(call => call.args[ 0 ]);
     expect(headerKeys).toEqual([
-      'aggregate-reports.results.cols.organization-name',
-      'aggregate-reports.results.cols.organization-id',
-      'aggregate-reports.results.cols.assessment-grade',
-      'aggregate-reports.results.cols.school-year',
-      'aggregate-reports.results.cols.dimension',
-      'aggregate-reports.results.cols.students-tested',
-      'aggregate-reports.results.cols.avg-scale-score',
-      'common.assessment-type.ica.performance-level.1.short-name aggregate-reports.results.cols.performance-level-suffix',
-      'common.assessment-type.ica.performance-level.2.short-name aggregate-reports.results.cols.performance-level-suffix',
-      'common.assessment-type.ica.performance-level.3.short-name aggregate-reports.results.cols.performance-level-suffix',
-      'common.assessment-type.ica.performance-level.4.short-name aggregate-reports.results.cols.performance-level-suffix'
+      'aggregate-report-table.columns.organization',
+      'aggregate-report-table.columns.organization-id',
+      'aggregate-report-table.columns.assessment-grade',
+      'aggregate-report-table.columns.school-year',
+      'aggregate-report-table.columns.dimension',
+      'aggregate-report-table.columns.students-tested',
+      'aggregate-report-table.columns.avg-scale-score',
+      'common.assessment-type.ica.performance-level.1.short-name aggregate-report-table.columns.performance-level-suffix',
+      'common.assessment-type.ica.performance-level.2.short-name aggregate-report-table.columns.performance-level-suffix',
+      'common.assessment-type.ica.performance-level.3.short-name aggregate-report-table.columns.performance-level-suffix',
+      'common.assessment-type.ica.performance-level.4.short-name aggregate-report-table.columns.performance-level-suffix'
     ]);
   });
 
@@ -135,15 +135,15 @@ describe('AggregateReportTableExportService', () => {
     const withColumnCalls: CallInfo[] = (csvBuilder.withColumn as Spy).calls.all();
     const headerKeys: string[] = withColumnCalls.map(call => call.args[0]);
     expect(headerKeys).toEqual([
-      'aggregate-reports.results.cols.organization-name',
-      'aggregate-reports.results.cols.organization-id',
-      'aggregate-reports.results.cols.assessment-grade',
-      'aggregate-reports.results.cols.school-year',
-      'aggregate-reports.results.cols.dimension',
-      'aggregate-reports.results.cols.students-tested',
-      'aggregate-reports.results.cols.avg-scale-score',
-      'aggregate-reports.results.cols.grouped-performance-level-prefix.0 aggregate-reports.results.cols.performance-level-suffix',
-      'aggregate-reports.results.cols.grouped-performance-level-prefix.1 aggregate-reports.results.cols.performance-level-suffix'
+      'aggregate-report-table.columns.organization',
+      'aggregate-report-table.columns.organization-id',
+      'aggregate-report-table.columns.assessment-grade',
+      'aggregate-report-table.columns.school-year',
+      'aggregate-report-table.columns.dimension',
+      'aggregate-report-table.columns.students-tested',
+      'aggregate-report-table.columns.avg-scale-score',
+      'aggregate-report-table.columns.grouped-performance-level-prefix.0 aggregate-report-table.columns.performance-level-suffix',
+      'aggregate-report-table.columns.grouped-performance-level-prefix.1 aggregate-report-table.columns.performance-level-suffix'
     ]);
 
   });

@@ -46,7 +46,7 @@ export class AssessmentDefinitionService {
       [ 'ica', Ica ],
       [ 'iab', Iab ],
       [ 'sum', Summative ]
-    ]))
+    ]));
   }
 
 }

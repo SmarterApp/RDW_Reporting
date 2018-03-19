@@ -2,61 +2,77 @@
 
 <page-heading>
   <ng-template #heading>
-    <h2>{{'labels.groups.name' | translate}}</h2>
+    <h2>{{'groups.name' | translate}}</h2>
   </ng-template>
   <ng-template #content>
     <ul class="list-unstyled list-inline" *ngIf="currentGroup">
       <li *hasPermission="'INDIVIDUAL_PII_READ'">
         <a routerLink="/custom-export"
-           class="btn btn-sm btn-default"><i class="fa fa-table"></i> {{'labels.organization-export.title' | translate}}</a>
+           class="btn btn-sm btn-default"><i class="fa fa-table"></i> {{'organization-export.title' | translate}}</a>
       </li>
       <li>
         <button class="btn btn-default btn-sm"
                 (click)="reportDownloader.modal.show()">
-          <i class="fa fa-cloud-download" aria-hidden="true"></i> {{'labels.reports.button-label.group' | translate}}
+          <i class="fa fa-cloud-download" aria-hidden="true"></i> {{'group-results.group-button-label' | translate}}
         </button>
       </li>
     </ul>
   </ng-template>
 </page-heading>
 
-<div *ngIf="!currentGroup" class="alert alert-danger">
-  {{'labels.groups.results.null-group' | translate }}
-</div>
-<assessments [assessmentExams]="assessmentExams"
-             [assessmentProvider]="assessmentProvider"
-             [assessmentExporter]="assessmentExporter"
-             (export)="exportCsv()"
-             [allowFilterBySessions]="true">
+<ng-container *ngIf="!groups; else loaded">
+  <spinner></spinner>
+</ng-container>
 
-  <!-- Group Select -->
-  <div class="col-md-3">
-    <label for="select-group">{{'labels.groups.results.select-group' | translate}}</label>
-    <!--TODO: type ahead? -->
-    <select id="select-group" [(ngModel)]="currentGroup" (change)="updateRoute('Group')" class="form-control">
-      <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
-    </select>
+<ng-template #loaded>
+  <ng-container *ngIf="currentGroup; else groupNotFound">
+    <assessments [assessmentExams]="assessmentExams"
+                 [assessmentProvider]="assessmentProvider"
+                 [assessmentExporter]="assessmentExporter"
+                 (export)="exportCsv()"
+                 [allowFilterBySessions]="true">
+
+      <!-- Group Select -->
+      <div class="col-md-3">
+        <label for="select-group">{{'group-results.select-group' | translate}}</label>
+        <!--TODO: type ahead? -->
+        <select id="select-group" [(ngModel)]="currentGroup" (change)="updateRoute('Group')" class="form-control">
+          <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
+        </select>
+      </div>
+
+      <!-- School Year -->
+      <div class="col-md-3">
+        <label for="school-year">{{'common.school-year-select-label' | translate}}</label>
+        <select id="school-year" [(ngModel)]="currentSchoolYear" (change)="updateRoute('Year')"
+                class="form-control">
+          <option *ngFor="let year of filterOptions.schoolYears" [ngValue]="year">{{year | schoolYear}}</option>
+        </select>
+      </div>
+
+      <!-- TODO use flex group -->
+      <!-- spacer for pushing Advanced Filters to the right -->
+      <div class="col-md-4">
+        <!-- can't do it in the assessments.component because it depends on how many dropdowns there are here -->
+      </div>
+
+    </assessments>
+
+  </ng-container>
+</ng-template>
+
+<ng-template #groupNotFound>
+  <div class="alert alert-info">
+    {{'group-results.null-group' | translate }}
   </div>
+</ng-template>
 
-  <!-- School Year -->
-  <div class="col-md-3">
-    <label for="school-year">{{'labels.select-year' | translate}}</label>
-    <select id="school-year" [(ngModel)]="currentSchoolYear" (change)="updateRoute('Year')"
-            class="form-control">
-      <option *ngFor="let year of filterOptions.schoolYears" [ngValue]="year">{{year | schoolYear}}</option>
-    </select>
-  </div>
-
-  <!-- spacer for pushing Advanced Filters to the right -->
-  <div class="col-md-4">
-    <!-- can't do it in the assessments.component because it depends on how many dropdowns there are here -->
-  </div>
-
-</assessments>
-
-<span group-report-download #reportDownloader
-      [title]="'labels.reports.form.title.multiple' | translate:currentGroup"
+<span group-report-download
+      #reportDownloader
+      [title]="'common.reports.form.title.multiple' | translate:currentGroup"
       [group]="currentGroup"
       [schoolYears]="filterOptions.schoolYears"
       [schoolYear]="currentSchoolYear"
       (onShow)="initializeDownloader(reportDownloader)"></span>
+
+

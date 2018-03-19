@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { ActivatedRoute, Router } from "@angular/router";
 import { APP_BASE_HREF } from "@angular/common";
 import { CommonModule } from "../../shared/common.module";
-import { User } from "../../user/model/user.model";
 import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { Angulartics2 } from "angulartics2";
@@ -16,6 +15,9 @@ import { MockRouter } from "../../../test/mock.router";
 import { MockAuthorizeDirective } from "../../../test/mock.authorize.directive";
 import { GroupAssessmentExportService } from "./group-assessment-export.service";
 import { of } from "rxjs/observable/of";
+import { GroupService } from '../group.service';
+import { MockUserService } from '../../../test/mock.user.service';
+import { UserService } from '../../user/user.service';
 
 let availableGrades = [];
 
@@ -26,8 +28,16 @@ describe('GroupResultsComponent', () => {
   let route: MockActivatedRoute;
 
   beforeEach(async(() => {
-    let user = new User();
-    user.groups = [ { name: "Group 1", id: 2, schoolName: '', schoolId: 123, subjectCode: 'ELA' } ];
+    let user = {
+      firstName: 'first',
+      lastName: 'last',
+      permissions: []
+    };
+    let groups = [ { name: "Group 1", id: 2, schoolName: '', schoolId: 123, subjectCode: 'ELA' } ];
+
+    let mockGroupService = {
+      getGroups: () => of(groups)
+    };
 
     let mockRouteSnapshot: any = {};
     mockRouteSnapshot.data = { user: user };
@@ -46,6 +56,8 @@ describe('GroupResultsComponent', () => {
 
     let mockGroupAssessmentExportService = {};
 
+    let mockUserService = new MockUserService();
+
     let mockRouter = new MockRouter();
 
     TestBed.configureTestingModule({
@@ -59,8 +71,10 @@ describe('GroupResultsComponent', () => {
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
+        { provide: UserService, useValue: mockUserService },
         { provide: GroupAssessmentService, useValue: mockGroupAssessmentService },
         { provide: GroupAssessmentExportService, useValue: mockGroupAssessmentExportService },
+        { provide: GroupService, useValue: mockGroupService },
         { provide: ExamFilterOptionsService, useClass: MockExamFilterOptionService },
         { provide: ActivatedRoute, useValue: route },
         { provide: Angulartics2, useValue: mockAngulartics2 },

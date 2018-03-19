@@ -4,8 +4,9 @@ import { ImportResult } from "./import-result.model";
 import { DataService } from "../../../shared/data/data.service";
 import { Utils } from "../../../shared/support/support";
 import { map } from 'rxjs/operators';
+import { AdminServiceRoute } from '../../../shared/service-route';
 
-const ServiceRoute = '/admin-service';
+const ServiceRoute = AdminServiceRoute;
 
 /**
  * This service is responsible for retrieving student group batches

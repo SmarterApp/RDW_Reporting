@@ -1,7 +1,16 @@
 ## Change Log
 
-#### 1.1.2 - 2018-03
+#### 1.2.X
 
+* Improved architecture:
+    * Web application no longer requires reporting service to be running for basic functionality
+    * Organizes system level configuration more logically
+    * NOTE: this requires updating configuration files for each module
+
+#### 1.1.2 - 2018-03-07
+
+* Fix leaking connections to S3 when retrieving V1.0 PDF reports.
+* Allow for disabling summative assessments in aggregate reporting.
 * Subject "All" not displaying in print dialog (DWR-1546).
 * Aggregate report column order reset when all/group toggle selected (DWR-1547).
 * Improve sorting of empty rows in aggregate reports (DWR-1548).

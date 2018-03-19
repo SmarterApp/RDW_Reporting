@@ -3,7 +3,7 @@ import { DataTable } from "primeng/components/datatable/datatable";
 import { Utils } from "../support/support";
 
 /**
- * This component is responsible for displaying user notifications.
+ * @deprecated Remove once we no longer have DataTable implementations
  */
 @Component({
   selector: 'datatable-row-expander',

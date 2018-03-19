@@ -1,29 +1,50 @@
-<form [formGroup]="searchForm" (ngSubmit)="performSearch()" class="form-group">
-  <div class="flex-children">
-    <div class="flex-child grow">
-      <label for="search-school-name">
-        {{'labels.school-grade.school-name.label' | translate}}
-      </label>
-      <sb-typeahead inputId="search-school-name"
-                    [options]="schoolOptions"
-                    (select)="schoolChanged($event)"
-                    placeholder="{{'prompt.select' | translate}}"></sb-typeahead>
+<ng-container *ngIf="!schoolOptions; else loaded">
+  <span class="gray-darker"><i class="fa fa-spinner fa-pulse fa-2x"></i></span>
+</ng-container>
+<ng-template #loaded>
+  <form [formGroup]="formGroup"
+        (ngSubmit)="submit()">
+    <div class="flex-children">
+      <div class="flex-child grow">
+        <div class="form-group">
+          <label for="search-school-name">
+            {{'school-grade.school-name-label' | translate}}
+          </label>
+          <sb-typeahead #schoolTypeahead
+                        inputId="search-school-name"
+                        [options]="schoolOptions"
+                        (selected)="schoolChanged($event)"
+                        placeholder="{{'common.action.select' | translate}}"></sb-typeahead>
+        </div>
+      </div>
+      <div class="flex-child">
+        <div class="form-group">
+          <label for="grade-select">{{'school-grade.grade' | translate}}</label>
+          <select id="rdw-school-grade-select-grade"
+                  name="grade"
+                  formControlName="grade"
+                  id="grade-select"
+                  class="form-control">
+            <option disabled
+                    [ngValue]="undefined">{{'common.action.select' | translate}}</option>
+            <option *ngFor="let grade of gradeOptions"
+                    [ngValue]="grade">{{'common.assessment-grade-label.' + grade.code | translate}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex-child">
+        <div class="form-group">
+          <label class="invisible"><br></label>
+          <button type="submit"
+                  id="rdw-school-grade-submit"
+                  [disabled]="!school || !grade"
+                  class="btn btn-primary form-control">{{'common.action.search' | translate}}</button>
+        </div>
+      </div>
     </div>
-    <div class="flex-child">
-      <label for="grade-select">{{'labels.grade' | translate}}</label>
-      <select id="rdw-school-grade-select-grade" name="grade" formControlName="grade" id="grade-select" class="form-control">
-        <option disabled [ngValue]="undefined">{{'prompt.select' | translate}}</option>
-        <option *ngFor="let grade of gradeOptions" [ngValue]="grade">{{grade.code | gradeDisplay:'long-name'}}</option>
-      </select>
-    </div>
-    <div class="flex-child">
-      <button type="submit"
-        id="rdw-school-grade-submit"
-        [disabled]="searchForm.invalid || noGradeOptionResults"
-        class="btn btn-primary mt-md">{{'prompt.search' | translate}}</button>
-    </div>
+  </form>
+  <div [hidden]="schoolHasGradesWithResults">
+    <span class="small gray-darker">{{'school-grade.no-grades-available' | translate}}</span>
   </div>
-</form>
-<div *ngIf="noGradeOptionResults" class="alert alert-danger">
-  {{'labels.school-grade.messages.no-grades-available' | translate}}
-</div>
+</ng-template>
+

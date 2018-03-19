@@ -8,8 +8,9 @@ import { StudentHistoryExamWrapper } from "./model/student-history-exam-wrapper.
 import { ResponseUtils } from "../shared/response-utils";
 import { DataService } from "../shared/data/data.service";
 import { catchError, map } from 'rxjs/operators';
+import { ReportingServiceRoute } from '../shared/service-route';
 
-const ServiceRoute = '/reporting-service';
+const ServiceRoute = ReportingServiceRoute;
 
 @Injectable()
 export class StudentExamHistoryService {

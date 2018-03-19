@@ -4,8 +4,9 @@ import { ItemScoringGuide } from "./model/item-scoring-guide.model";
 import { Observable } from "rxjs/Observable";
 import { DataService } from "../../../shared/data/data.service";
 import { map } from 'rxjs/operators';
+import { ReportingServiceRoute } from '../../../shared/service-route';
 
-const ServiceRoute = '/reporting-service';
+const ServiceRoute = ReportingServiceRoute;
 
 @Injectable()
 export class ItemScoringService {

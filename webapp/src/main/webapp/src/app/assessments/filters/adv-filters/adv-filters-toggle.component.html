@@ -1,13 +1,13 @@
 <div class="row">
   <div class="col-md-12">
     <h2 class="h3 gray-darkest pull-left">
-      <i class="fa fa-tasks"></i> {{'labels.filters.label' | translate }}
+      <i class="fa fa-tasks"></i> {{'adv-filters.label' | translate }}
     </h2>
-    <p class="pull-left">{{'labels.filters.subhead' | translate }}</p>
+    <p class="pull-left">{{'adv-filters.subhead' | translate }}</p>
     <button id="adv-filters-expand-collapse" class="btn btn-default btn-sm pull-right"
             (click)="displayOptions.expanded = !displayOptions.expanded"
             angulartics2On="click" angularticsEvent="ToggleExpandCollapse" angularticsCategory="AdvancedFilters">
-      {{'buttons.collapsible.' + (displayOptions.expanded ? 'collapse' : 'expand') | translate }}
+      {{'common.action.' + (displayOptions.expanded ? 'collapse' : 'expand') | translate }}
       <i class="fa" [ngClass]="{'fa-caret-square-o-up': displayOptions.expanded, 'fa-caret-square-o-down': !displayOptions.expanded}"
          aria-hidden="true"></i>
     </button>

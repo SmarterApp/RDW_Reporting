@@ -23,9 +23,15 @@ export class InstructionalResourceComponent implements OnInit {
   searchTerm: string = '';
   filteredResources: InstructionalResource[] = [];
   actions: PopupMenuAction[];
-  private _loading: boolean = true;
+  columns: Column[] = [
+    new Column({id: 'assessment-label', field: 'assessmentLabel'}),
+    new Column({id: 'organization-type', field: 'organizationType'}),
+    new Column({id: 'organization-name', field: 'organizationName'}),
+    new Column({id: 'performance-level', field: 'performanceLevel'}),
+    new Column({id: 'resource', sortable: false})
+  ];
 
-  private _resources: InstructionalResource[];
+
   get resources(): InstructionalResource[] {
     return this._resources;
   }
@@ -38,6 +44,8 @@ export class InstructionalResourceComponent implements OnInit {
   get loading(): boolean {
     return Utils.isNullOrUndefined(this.resources);
   }
+
+  private _resources: InstructionalResource[];
 
   constructor(private modalService: BsModalService,
               private service: InstructionalResourceService,
@@ -100,14 +108,30 @@ export class InstructionalResourceComponent implements OnInit {
   private createActions(): PopupMenuAction[] {
 
     const updateAction: PopupMenuAction = new PopupMenuAction();
-    updateAction.displayName = () => this.translateService.instant("labels.instructional-resource.update.link");
+    updateAction.displayName = () => this.translateService.instant("update-instructional-resource-modal.link");
     updateAction.perform = (resource: InstructionalResource) => this.openUpdateResourceModal(resource);
 
     const deleteAction: PopupMenuAction = new PopupMenuAction();
-    deleteAction.displayName = () => this.translateService.instant("labels.instructional-resource.delete.link");
+    deleteAction.displayName = () => this.translateService.instant("delete-instructional-resource-modal.link");
     deleteAction.perform = (resource: InstructionalResource) => this.openDeleteResourceModal(resource);
 
     return [ updateAction, deleteAction ];
   }
 
+}
+
+class Column {
+  id: string;
+  field: string;
+  sortable: boolean;
+
+  constructor({
+                id,
+                field = '',
+                sortable = true
+              }) {
+    this.id = id;
+    this.field = field ? field : id;
+    this.sortable = sortable;
+  }
 }

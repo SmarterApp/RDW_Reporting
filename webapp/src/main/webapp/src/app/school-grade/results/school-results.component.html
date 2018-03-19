@@ -1,25 +1,25 @@
 <reporting-embargo-alert *hasPermission="'EMBARGO_READ'"></reporting-embargo-alert>
 
 <div *ngIf="!schoolIsAvailable" class="alert alert-danger">
-  {{'labels.school-grade.messages.null-school' | translate }}
+  {{'school-results.null-school' | translate }}
 </div>
 
 <div *ngIf="currentSchool">
 
   <page-heading>
     <ng-template #heading>
-      <h2>{{currentSchool.name}}<span *ngIf="currentGrade"> - {{currentGrade.code | gradeDisplay:'long-name'}}</span></h2>
+      <h2>{{currentSchool.name}}<span *ngIf="currentGrade"> - {{'common.assessment-grade-label.' + currentGrade.code | translate}}</span></h2>
     </ng-template>
     <ng-template #content>
       <ul class="list-unstyled list-inline">
         <li *hasPermission="'INDIVIDUAL_PII_READ'">
           <a routerLink="/custom-export"
-             class="btn btn-default btn-sm"><i class="fa fa-table"></i> {{'labels.organization-export.title' | translate}}</a>
+             class="btn btn-default btn-sm"><i class="fa fa-table"></i> {{'organization-export.title' | translate}}</a>
         </li>
         <li>
           <button class="btn btn-default btn-sm"
                   (click)="reportDownloader.modal.show()">
-            <i class="fa fa-cloud-download" aria-hidden="true"></i> {{'labels.reports.button-label.school-grade' | translate}}
+            <i class="fa fa-cloud-download" aria-hidden="true"></i> {{'school-results.school-grade-button-label' | translate}}
           </button>
         </li>
       </ul>
@@ -35,34 +35,34 @@
 
     <!-- School Select -->
     <div class="col-md-4">
-      <label for="school-search-name">{{'labels.school-grade.results.basic-filters.school' | translate}}</label>
+      <label for="school-search-name">{{'common.school-typeahead-label' | translate}}</label>
       <sb-typeahead  inputId="school-search-name"
                      [options]="schoolOptions"
                      [value]="currentSchool"
                      (select)="schoolSelectChanged($event)"
-                     placeholder="{{'prompt.select' | translate}}"></sb-typeahead>
+                     placeholder="{{'common.action.select' | translate}}"></sb-typeahead>
     </div>
 
     <!-- Current Grade -->
     <div class="col-md-2">
-      <label for="current-grade">{{'labels.school-grade.results.basic-filters.current-grade' | translate}}</label>
+      <label for="current-grade">{{'school-results.current-grade-select-label' | translate}}</label>
 
       <select *ngIf="gradesAreUnavailable" id="current-dsiabled-grade" class="form-control"
               [disabled]="true">
-        <option selected>{{'labels.school-grade.messages.no-results' | translate}}</option>
+        <option selected>{{'school-results.no-results' | translate}}</option>
       </select>
       <select *ngIf="!gradesAreUnavailable" id="current-grade" class="form-control"
               [(ngModel)]="currentGrade" (change)="updateRoute('Grade')">
-        <option *ngFor="let grade of availableGrades" [ngValue]="grade">{{grade.code | gradeDisplay:'long-name' }}</option>
+        <option *ngFor="let grade of availableGrades" [ngValue]="grade">{{'common.assessment-grade-label.' + grade.code | translate }}</option>
       </select>
     </div>
 
     <!-- School Year -->
     <div class="col-md-2">
-      <label for="school-year">{{'labels.school-grade.results.basic-filters.school-year' | translate}}</label>
+      <label for="school-year">{{'common.school-year-select-label' | translate}}</label>
       <select id="school-year" [disabled]="gradesAreUnavailable" [(ngModel)]="currentSchoolYear" (change)="updateRoute('Year')" class="form-control">
         <option *ngFor="let year of filterOptions.schoolYears" [ngValue]="year">{{year | schoolYear}}</option>
-        <option *ngIf="gradesAreUnavailable" selected>{{'labels.school-grade.messages.no-results' | translate}}</option>
+        <option *ngIf="gradesAreUnavailable" selected>{{'school-results.no-results' | translate}}</option>
       </select>
     </div>
 

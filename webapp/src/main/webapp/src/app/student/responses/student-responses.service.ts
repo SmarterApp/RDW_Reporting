@@ -5,8 +5,9 @@ import { AssessmentItem } from "../../assessments/model/assessment-item.model";
 import { ResponseUtils } from "../../shared/response-utils";
 import { DataService } from "../../shared/data/data.service";
 import { catchError, map } from 'rxjs/operators';
+import { ReportingServiceRoute } from '../../shared/service-route';
 
-const ServiceRoute = '/reporting-service';
+const ServiceRoute = ReportingServiceRoute;
 
 /**
  * This service is responsible for providing student response information.

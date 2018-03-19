@@ -39,6 +39,7 @@ import { InstructionalResourcesService } from "./results/instructional-resources
 import { InstructionalResourcePopoverComponent } from './popover/instructional-resource-popover.component';
 import { RdwMenuModule } from "../shared/menu/rdw-menu.module";
 import { AssessmentPercentileModule } from "./percentile/assessment-percentile.module";
+import { TableModule } from "primeng/table";
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { AssessmentPercentileModule } from "./percentile/assessment-percentile.m
     RdwMenuModule,
     ReportModule,
     SharedModule,
+    TableModule,
     TabsModule,
     AssessmentPercentileModule
   ],

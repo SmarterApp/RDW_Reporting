@@ -1,4 +1,4 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, EventEmitter, Input, Output } from "@angular/core";
+import { AfterViewChecked, ChangeDetectorRef, Component, Input } from "@angular/core";
 import { Utils } from "./support/support";
 
 /**
@@ -17,7 +17,7 @@ import { Utils } from "./support/support";
                [attr.disabled]="disabled?'disabled':null"
                angulartics2On="click" [angularticsEvent]="analyticsEvent"
                [angularticsCategory]="analyticsCategory"
-               [angularticsProperties]="{label: label + ': All'}">{{ 'buttons.all' | translate }}
+               [angularticsProperties]="{label: label + ': All'}">{{ 'common.buttons.all' | translate }}
       </label>
       <div class="btn-group">
         <label *ngFor="let value of values" class="btn btn-primary"

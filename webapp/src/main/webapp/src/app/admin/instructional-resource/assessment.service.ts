@@ -4,8 +4,9 @@ import { Observable } from "rxjs/Observable";
 import { AssessmentQuery } from "./model/assessment-query.model";
 import { DataService } from "../../shared/data/data.service";
 import { map } from 'rxjs/operators';
+import { AdminServiceRoute } from '../../shared/service-route';
 
-const ServiceRoute = '/admin-service';
+const ServiceRoute = AdminServiceRoute;
 
 /**
  * This service is responsible for interacting with assessments.

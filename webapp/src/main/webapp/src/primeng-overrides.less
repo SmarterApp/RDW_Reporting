@@ -19,12 +19,17 @@ body {
 // TODO Added .ui-table* to apply styles to primeng 5 turbo table.
 // TODO Once we move all tables to p-table we can remove the .ui-datatable* selectors here
 // Tables
+.ui-table-auto-layout > .ui-table-wrapper {
+  overflow: visible;
+}
+
 body .ui-widget.ui-datatable,
 body .ui-table {
   font-family: @font-family-serif;
   font-size: @font-size-small;
   table {
     border-collapse: separate;
+    border: none;
     width: auto;
     max-width: none;
     min-width: 100%;
@@ -34,6 +39,7 @@ body .ui-table {
     .ui-datatable-tfoot,
     .ui-table-tfoot,
     .ui-datatable-data,
+    .ui-table-tbody,
     .ui-table-data {
       > tr {
         > th,
@@ -42,6 +48,8 @@ body .ui-table {
           padding: @table-cell-padding;
           background-color: @table-bg;
           white-space: nowrap;
+          vertical-align: middle;
+          box-shadow: none;
           &:first-child {
             border-left: 1px solid @table-border-color;
           }
@@ -122,6 +130,7 @@ body .ui-table {
     }
     // body
     .ui-datatable-data,
+    .ui-table-tbody,
     .ui-table-data {
       > tr {
         > td {

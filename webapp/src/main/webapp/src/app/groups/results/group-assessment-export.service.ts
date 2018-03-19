@@ -7,7 +7,7 @@ import {Assessment} from "../../assessments/model/assessment.model";
 import {Angulartics2} from "angulartics2";
 import {CsvExportService} from "../../csv-export/csv-export.service";
 import {TranslateService} from "@ngx-translate/core";
-import {Group} from "../../user/model/group.model";
+import {Group} from "../../groups/group";
 
 @Injectable()
 export class GroupAssessmentExportService implements AssessmentExporter {

@@ -1,51 +1,98 @@
 <page-heading>
   <ng-template #heading>
-    <h2>{{'labels.instructional-resource.title' | translate}}</h2>
+    <h2>{{'instructional-resource.title' | translate}}</h2>
   </ng-template>
   <ng-template #content>
-    <span class="btn btn-primary btn-sm" (click)="openCreateResourceModal()"><i class="fa fa-plus fa-sm"></i> {{'prompt.create' | translate}}</span>
+    <span class="btn btn-primary btn-sm" (click)="openCreateResourceModal()"><i class="fa fa-plus fa-sm"></i> {{'common.action.create' | translate}}</span>
   </ng-template>
 </page-heading>
 
-<spinner *ngIf="loading" text="{{'messages.loading' | translate}}"></spinner>
+<spinner *ngIf="loading" text="{{'common.messages.loading' | translate}}"></spinner>
 
 <!-- Results Table -->
 <div class="well wide-content-container" *ngIf="!loading">
   <div class="table-search-form-container">
-    <label for="search" class="sr-only">{{'labels.instructional-resource.filter' | translate}}</label>
+    <label for="search" class="sr-only">{{'instructional-resource.filter' | translate}}</label>
     <input [(ngModel)]="searchTerm" class="search form-control" id="search" type="text"
-           placeholder="{{'labels.instructional-resource.filter' | translate}}" autocomplete="off" (ngModelChange)="onSearchChange()">
+           placeholder="{{'instructional-resource.filter' | translate}}" autocomplete="off" (ngModelChange)="onSearchChange()">
   </div>
   <div class="table-list-container">
-    <p-dataTable [value]="filteredResources" emptyMessage="{{'labels.instructional-resource.no-results' | translate}}" sortField="assessmentName"
-                 tableStyleClass="table table-striped table-hover overflow">
-      <p-column field="assessmentLabel" header="{{'labels.instructional-resource.cols.assessment-label' | translate}}" [sortable]="true">
-        <ng-template let-data="rowData" pTemplate="body">
-          <popup-menu [item]="data" [actions]="actions" [text]="data.assessmentLabel"></popup-menu>
-        </ng-template>
-      </p-column>
-      <p-column field="organizationType" header="{{'labels.instructional-resource.cols.organization-type' | translate}}" [sortable]="true">
-        <ng-template let-type="rowData.organizationType" pTemplate="body">
-          {{ ('labels.instructional-resource.organizations.type.' + type) | translate }}
-        </ng-template>
-      </p-column>
-      <p-column field="organizationName" [sortable]="true">
-        <ng-template pTemplate="header">
-          <info-button title="{{'labels.instructional-resource.cols.organization-name' | translate}}"
-                       content="{{'labels.instructional-resource.cols.organization-name-info' | translate}}"></info-button>
-        </ng-template>
-      </p-column>
-      <p-column field="performanceLevel" header="{{'labels.instructional-resource.cols.performance-level' | translate}}" [sortable]="true">
-        <ng-template let-assessmentType="rowData.assessmentType" let-performanceLevel="rowData.performanceLevel" pTemplate="body">
-          <span *ngIf="performanceLevel == 0">{{ 'labels.instructional-resource.assessments.performance-levels.all' | translate }}</span>
-          <span *ngIf="performanceLevel > 0">{{ ('labels.instructional-resource.assessments.performance-levels.' + assessmentType + '.' + performanceLevel) | translate }}</span>
-        </ng-template>
-      </p-column>
-      <p-column field="resource" header="{{'labels.instructional-resource.cols.resource' | translate}}">
-        <ng-template let-resource="rowData.resource" pTemplate="body">
-          <a href="{{resource}}" target="_blank">{{resource}}</a>
-        </ng-template>
-      </p-column>
-    </p-dataTable>
+    <p-table [columns]="columns"
+             [value]="filteredResources"
+             [autoLayout]="true"
+             sortField="assessmentName"
+             styleClass="table table-striped table-hover overflow">
+
+      <ng-template pTemplate="header"
+                   let-columns>
+        <tr>
+          <th *ngFor="let column of columns"
+              [pSortableColumn]="column.field"
+              [pSortableColumnDisabled]="!column.sortable"
+              [ngSwitch]="column.id">
+
+            <span *ngSwitchCase="'organization-name'"
+                  info-button
+                  title="{{'common.instructional-resource.columns.organization-name' | translate}}"
+                  content="{{'common.instructional-resource.columns.organization-name-info' | translate}}">
+            </span>
+
+            <div *ngSwitchDefault>
+              {{ ('common.instructional-resource.columns.' + column.id) | translate }}
+            </div>
+
+            <p-sortIcon *ngIf="column.sortable"
+                        [field]="column.field"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body"
+                   let-resource
+                   let-i="rowIndex"
+                   let-columns="columns">
+        <tr>
+          <td *ngFor="let column of columns"
+              [ngSwitch]="column.id">
+
+            <popup-menu *ngSwitchCase="'assessment-label'"
+                        [item]="resource"
+                        [actions]="actions"
+                        [text]="resource.assessmentLabel"></popup-menu>
+
+            <span *ngSwitchCase="'organization-type'">
+              {{ ('common.instructional-resource.organizations.type.' + resource.organizationType) | translate }}
+            </span>
+
+            <span *ngSwitchCase="'organization-name'">
+              {{ resource.organizationName }}
+            </span>
+
+            <div *ngSwitchCase="'performance-level'">
+              <span *ngIf="resource.performanceLevel == 0">
+                {{ 'common.instructional-resource.performance-levels.all' | translate }}
+              </span>
+              <span *ngIf="resource.performanceLevel > 0">
+                {{ ('common.instructional-resource.performance-levels.' + resource.assessmentType + '.' + resource.performanceLevel) | translate }}
+              </span>
+            </div>
+
+            <a *ngSwitchCase="'resource'"
+               href="{{resource.resource}}"
+               target="_blank">
+              {{resource.resource}}
+            </a>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="columns.length">
+            {{'instructional-resource.no-results' | translate}}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
   </div>
 </div>

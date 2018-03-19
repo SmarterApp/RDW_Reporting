@@ -10,7 +10,7 @@
   <div class="flex-children">
     <div class="flex-child grow">
       <span class="tag tag-lg {{colorService.getColor(getGradeIdx(assessmentExam.assessment.grade))}}">
-        <span class="label">{{assessmentExam.assessment.grade | gradeDisplay}}</span>
+        <span class="label">{{'common.assessment-grade-short-label.' + assessmentExam.assessment.grade | translate}}</span>
         {{assessmentExam.assessment.label}}
       </span>
     </div>
@@ -20,11 +20,11 @@
               angulartics2On="click"
               angularticsEvent="ToggleCollapseResults"
               angularticsCategory="AssessmentResults">
-        {{'buttons.collapsible.' + (collapsed ? 'expand' : 'collapse') | translate}}
+        {{'common.action.' + (collapsed ? 'expand' : 'collapse') | translate}}
         <i class="fa"
            [ngClass]="{'fa-caret-square-o-up': !collapsed, 'fa-caret-square-o-down': collapsed}"
            aria-hidden="true"></i>
-        <span class="sr-only">{{'prompt.collapse' | translate}}</span>
+        <span class="sr-only">{{'common.action.collapse' | translate}}</span>
       </button>
     </div>
   </div>
@@ -32,7 +32,7 @@
   <div *ngIf="allowFilterBySessions" class="row mb-sm">
     <!-- Sessions -->
     <div class="col-md-12">
-      <strong>{{'labels.groups.results.assessment.sessions-title' | translate}}</strong>
+      <strong>{{'assessment-results.sessions-title' | translate}}</strong>
       <div class="flex-children">
         <a *ngFor="let session of sessions"
            class="reverse multi-line btn flex-child {{session.filter ? 'aqua' : 'gray-dark'}}"
@@ -42,7 +42,7 @@
            angularticsCategory="AssessmentResults">
           <span class="block-children">
               <strong>{{session.date | date }}</strong>
-              <small class="text-left">{{session.id || 'labels.groups.results.session-unknown' | translate }}</small>
+              <small class="text-left">{{session.id || 'assessment-results.session-unknown' | translate }}</small>
           </span>
         </a>
       </div>
@@ -74,10 +74,10 @@
         <!-- Result view selector -->
         <span class="z-index-over-data-table">
           <div>
-            <strong>{{'assessment-results.result-view-select.label' | translate}}</strong>
+            <strong>{{'assessment-results.result-view-select' | translate}}</strong>
           </div>
           <div class="select-menu-group mb-sm mt-xs">
-            <label class="sr-only">{{ 'labels.groups.results.assessment.select-view' | translate }}</label>
+            <label class="sr-only">{{ 'assessment-results.select-view' | translate }}</label>
             <div class="btn-group" dropdown>
               <button dropdownToggle
                       type="button"
@@ -90,7 +90,7 @@
                 <li role="menuitem"
                     *ngIf="resultsByStudentView.display">
                   <a class="dropdown-item"
-                     popover="{{'messages.no-results-by-item' | translate }}"
+                     popover="{{'assessment-results.no-results-by-item' | translate }}"
                      triggers="{{ !resultsByStudentView.disabled ? '': 'mouseenter:mouseleave'}}"
                      placement="right"
                      container="body"
@@ -102,7 +102,7 @@
                 <li role="menuitem"
                     *ngIf="resultsByItemView.display">
                   <a class="dropdown-item"
-                     popover="{{ (assessmentExam.assessment.isSummative ? 'messages.no-results-by-item-for-summative-exams' : 'messages.no-results-by-item') | translate }}"
+                     popover="{{ (assessmentExam.assessment.isSummative ? 'assessment-results.no-results-by-item-for-summative-exams' : 'assessment-results.no-results-by-item') | translate }}"
                      triggers="{{ !resultsByItemView.disabled ? '': 'mouseenter:mouseleave'}}"
                      placement="right"
                      container="body"
@@ -114,7 +114,7 @@
                 <li role="menuitem"
                     *ngIf="distractorAnalysisView.display">
                   <a class="dropdown-item"
-                     popover="{{ (assessmentExam.assessment.isSummative ? 'messages.no-distractor-analysis-for-summative-exams' : 'messages.no-distractor-analysis') | translate }}"
+                     popover="{{ (assessmentExam.assessment.isSummative ? 'assessment-results.no-distractor-analysis-for-summative-exams' : 'assessment-results.no-distractor-analysis') | translate }}"
                      triggers="{{ !distractorAnalysisView.disabled ? '' : 'mouseenter:mouseleave'}}"
                      placement="right"
                      container="body"
@@ -126,7 +126,7 @@
                 <li role="menuitem"
                     *ngIf="writingTraitScoresView.display">
                   <a class="dropdown-item"
-                     popover="{{ (!assessmentExam.assessment.isIab ? 'messages.no-writing-trait-scores-for-summative-ica-exams' : 'messages.no-writing-trait-scores') | translate }}"
+                     popover="{{ (!assessmentExam.assessment.isIab ? 'assessment-results.no-writing-trait-scores-for-summative-ica-exams' : 'assessment-results.no-writing-trait-scores') | translate }}"
                      triggers="{{ !writingTraitScoresView.disabled ? '' : 'mouseenter:mouseleave'}}"
                      placement="right"
                      container="body"
@@ -150,11 +150,11 @@
                       angularticsCategory="AssessmentResults"
                       [angularticsProperties]="{label: assessmentExam.assessment.label}"
                       [popover]="buttonPopover"
-                      popoverTitle="{{ 'labels.groups.results.assessment.instruct-button' | translate:{ level:assessmentExam.assessment.label } }}"
+                      popoverTitle="{{ 'common.results.assessment.instruct-button' | translate:{ level:assessmentExam.assessment.label } }}"
                       container="body"
                       (click)="loadInstructionalResources(assessmentExam.assessment, 0)"
                       [outsideClick]="true">
-                <i class="fa fa-book"></i> {{'labels.groups.results.assessment.instruct' | translate }}
+                <i class="fa fa-book"></i> {{'common.results.assessment.instruct' | translate }}
               </button>
             </li>
             <li *ngIf="percentileDisplayEnabled && assessmentExam.assessment.isIab">
@@ -171,7 +171,7 @@
               <button class="btn btn-default btn-sm"
                       [disabled]="!currentExportResults || !currentExportResults.hasDataToExport()"
                       (click)="currentExportResults.exportToCsv()">
-                <i class="fa fa-cloud-download"></i> {{ 'labels.export.title' | translate }}
+                <i class="fa fa-cloud-download"></i> {{ 'common.export' | translate }}
               </button>
             </li>
           </ul>

@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ImportResult } from "../import-result.model";
 
 @Component({
   selector: 'import-table',
   templateUrl: './import-table.component.html'
 })
-export class ImportTableComponent implements OnInit {
+export class ImportTableComponent {
 
   /**
    * The imports array to display in the table
@@ -13,9 +13,24 @@ export class ImportTableComponent implements OnInit {
   @Input()
   public imports: ImportResult[] = [];
 
-  constructor() { }
+  columns: Column[] = [
+    new Column({id: 'file-name', field: 'fileName'}),
+    new Column({id: 'created'}),
+    new Column({id: 'status'}),
+    new Column({id: 'id'})
+  ];
 
-  ngOnInit() {
+}
+
+class Column {
+  id: string;
+  field: string;
+
+  constructor({
+                id,
+                field = ''
+  }) {
+    this.id = id;
+    this.field = field ? field : id;
   }
-
 }

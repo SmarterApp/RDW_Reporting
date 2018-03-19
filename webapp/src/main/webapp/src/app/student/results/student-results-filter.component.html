@@ -3,26 +3,26 @@
     <div class="form-group row">
       <!-- School Grade -->
       <div class="col-md-2">
-        <label for="select-year">{{'labels.select-year' | translate}}</label>
+        <label for="select-year">{{'common.school-year-select-label' | translate}}</label>
         <select id="select-year"
                 name="select-year"
                 [(ngModel)]="filterState.schoolYear"
                 (change)="onFilterChange('Year')"
                 class="form-control">
-          <option selected value="0">{{ 'buttons.all' | translate }}</option>
+          <option selected value="0">{{ 'common.buttons.all' | translate }}</option>
           <option *ngFor="let year of filterState.years" [ngValue]="year">{{year | schoolYear}}</option>
         </select>
       </div>
 
       <!-- Subject -->
       <div class="col-md-2">
-        <label for="select-subject">{{'labels.student.results.labels.select-subject' | translate}}</label>
+        <label for="select-subject">{{'common.subject-select-label' | translate}}</label>
         <select id="select-subject"
                 name="select-subject"
                 class="form-control"
                 [(ngModel)]="filterState.subject"
                 (change)="onFilterChange('Subject')">
-          <option selected value="">{{ 'buttons.all' | translate }}</option>
+          <option selected value="">{{ 'common.buttons.all' | translate }}</option>
           <option *ngFor="let subject of filterState.subjects" [ngValue]="subject">{{subject}}</option>
         </select>
       </div>
@@ -30,14 +30,14 @@
       <!-- Advanced Filters -->
       <div class="col-md-2 col-md-offset-6">
         <div class="pull-right text-right">
-          <label for="show-advanced-filters">{{'labels.filters.label' | translate}}</label>
+          <label for="show-advanced-filters">{{'adv-filters.label' | translate}}</label>
           <button id="show-advanced-filters"
                   class="btn btn-default form-control pull-right"
                   (click)="showAdvancedFilters = !showAdvancedFilters"
                   angulartics2On="click"
                   angularticsEvent="ToggleAdvancedFilters"
                   angularticsCategory="StudentHistoryAdvancedFilters">
-            {{'buttons.visibility.' + (showAdvancedFilters ? 'hide' : 'show') | translate}}
+            {{'common.action.' + (showAdvancedFilters ? 'hide' : 'show') | translate}}
             <i class="fa"
                aria-hidden="true"
                [ngClass]="{'fa-caret-square-o-up': showAdvancedFilters, 'fa-caret-square-o-down': !showAdvancedFilters}"></i>
@@ -62,6 +62,6 @@
   </div>
 
   <div class="fab">
-    <button class="btn btn-primary btn-sm" (click)="openAndScrollToAdvancedFilters()"><i class="fa fa-filter"></i> {{'labels.filters.floating-action-button' | translate}}</button>
+    <button class="btn btn-primary btn-sm" (click)="openAndScrollToAdvancedFilters()"><i class="fa fa-filter"></i> {{'adv-filters.floating-action-button' | translate}}</button>
   </div>
 </div>

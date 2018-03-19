@@ -1,28 +1,37 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { Group } from '../groups/group';
+import { GroupService } from './group.service';
 
 @Component({
   selector: 'groups',
   templateUrl: 'groups.component.html'
 })
 export class GroupsComponent implements OnInit {
-  /**
-   * The array of groups that a user has access to.
-   */
-  @Input()
-  groups = [];
 
-  filteredGroups = [];
+  groups: Group[];
+  filteredGroups: Group[] = [];
   searchTerm : string;
+  columns: Column[] = [
+    new Column({id: 'group', field: 'name'}),
+    new Column({id: 'school', field: 'schoolName'}),
+    new Column({id: 'subject', field: 'subjectCode'})
+  ];
 
-  constructor() {}
+  constructor(private groupService: GroupService) {
+    this.groupService.getGroups().subscribe(groups => {
+      const groupsCopy = groups.concat();
+      this.groups = groupsCopy;
+      this.filteredGroups = groupsCopy;
+    })
+  }
 
   ngOnInit() {
     this.filteredGroups = this.groups;
   }
 
   onSearchChange(event) {
-    this.filteredGroups = this.groups.filter( x => x.name.toUpperCase().indexOf(this.searchTerm.toUpperCase()) >= 0)
+    this.filteredGroups = this.groups.filter( group =>
+      group.name.toUpperCase().indexOf(this.searchTerm.toUpperCase()) >= 0);
   }
 
   /**
@@ -33,7 +42,21 @@ export class GroupsComponent implements OnInit {
    */
   get emptyMessageTranslateKey(): string {
     return this.groups && this.groups.length != 0 ?
-      'labels.groups.empty-message' :
-      'labels.groups.no-groups-message';
+      'groups.empty-message' :
+      'groups.no-groups-message';
+  }
+
+}
+
+class Column {
+  id: string;
+  field: string;
+
+  constructor({
+                id,
+                field
+  }) {
+    this.id = id;
+    this.field = field;
   }
 }

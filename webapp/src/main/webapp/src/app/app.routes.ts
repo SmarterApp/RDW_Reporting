@@ -2,7 +2,6 @@ import { HomeComponent } from "./home/home.component";
 import { Routes } from "@angular/router";
 import { GroupResultsComponent } from "./groups/results/group-results.component";
 import { GroupAssessmentsResolve } from "./groups/results/group-assessments.resolve";
-import { UserResolve } from "./user/user.resolve";
 import { SchoolAssessmentResolve } from "./school-grade/results/school-assessments.resolve";
 import { SchoolResultsComponent } from "./school-grade/results/school-results.component";
 import { CurrentSchoolResolve } from "./school-grade/results/current-school.resolve";
@@ -51,7 +50,7 @@ const adminRoute = {
       pathMatch: 'prefix',
       data: {
         breadcrumb: {
-          translate: 'labels.admin-groups.title',
+          translate: 'admin-groups.title',
         },
         permissions: [ 'GROUP_WRITE' ],
         denyAccess: true
@@ -66,7 +65,7 @@ const adminRoute = {
         {
           path: 'import',
           data: {
-            breadcrumb: { translate: 'labels.admin-groups.import.title' },
+            breadcrumb: { translate: 'group-import.title' },
           },
           children: [
             {
@@ -79,7 +78,7 @@ const adminRoute = {
               path: 'fileformat',
               pathMatch: 'prefix',
               data: {
-                breadcrumb: { translate: 'labels.admin-groups.import.file-format.header' }
+                breadcrumb: { translate: 'file-format.header' }
               },
               children: [
                 {
@@ -100,7 +99,7 @@ const adminRoute = {
               pathMatch: 'prefix',
               component: ImportHistoryComponent,
               resolve: { imports: ImportHistoryResolve },
-              data: { breadcrumb: { translate: 'labels.admin-groups.history.title' } }
+              data: { breadcrumb: { translate: 'import-history.title' } }
             }
           ]
         }
@@ -110,7 +109,7 @@ const adminRoute = {
       path: 'instructional-resource',
       pathMatch: 'prefix',
       data: {
-        breadcrumb: { translate: 'labels.instructional-resource.title' },
+        breadcrumb: { translate: 'instructional-resource.title' },
         permissions: [ 'INSTRUCTIONAL_RESOURCE_WRITE' ],
         denyAccess: true
       },
@@ -127,7 +126,7 @@ const adminRoute = {
       path: 'embargoes',
       pathMatch: 'prefix',
       data: {
-        breadcrumb: { translate: 'labels.embargo.title' },
+        breadcrumb: { translate: 'embargo.title' },
         permissions: [ 'EMBARGO_WRITE' ]
       },
       canActivate: [ AuthorizationCanActivate ],
@@ -150,7 +149,7 @@ const studentTestHistoryChildRoute = {
   resolve: { examHistory: StudentExamHistoryResolve },
   data: {
     breadcrumb: {
-      translate: 'labels.student.results.crumb',
+      translate: 'student-results.crumb',
       translateResolve: 'examHistory.student'
     },
   },
@@ -172,7 +171,7 @@ const studentTestHistoryChildRoute = {
       },
       data: {
         breadcrumb: {
-          translate: 'labels.student.responses.crumb'
+          translate: 'student-responses.crumb'
         }
       },
       component: StudentResponsesComponent
@@ -190,7 +189,6 @@ export const routes: Routes = [
     path: '',
     canActivate: [ RoutingAuthorizationCanActivate ],
     resolve: {
-      user: UserResolve,
       translateComplete: TranslateResolve
     },
     children: [
@@ -203,7 +201,7 @@ export const routes: Routes = [
       {
         path: 'groups/:groupId',
         data: {
-          breadcrumb: { translate: 'labels.groups.name' },
+          breadcrumb: { translate: 'groups.name' },
           permissions: [ 'GROUP_PII_READ' ]
         },
         canActivate: [ AuthorizationCanActivate ],
@@ -245,7 +243,7 @@ export const routes: Routes = [
         resolve: { examHistory: StudentExamHistoryResolve },
         data: {
           breadcrumb: {
-            translate: 'labels.student.results.crumb',
+            translate: 'student-results.crumb',
             translateResolve: 'examHistory.student'
           },
           permissions: [ 'GROUP_PII_READ' ]
@@ -268,7 +266,7 @@ export const routes: Routes = [
               student: StudentHistoryResponsesStudentResolve
             },
             data: {
-              breadcrumb: { translate: 'labels.student.responses.crumb' }
+              breadcrumb: { translate: 'student-responses.crumb' }
             },
             component: StudentResponsesComponent
           }
@@ -278,7 +276,7 @@ export const routes: Routes = [
         path: 'reports',
         pathMatch: 'full',
         data: {
-          breadcrumb: { translate: 'labels.reports.heading' },
+          breadcrumb: { translate: 'reports.heading' },
           permissions: [ 'GROUP_PII_READ' ]
         },
         canActivate: [ AuthorizationCanActivate ],
@@ -320,7 +318,7 @@ export const routes: Routes = [
         path: 'custom-export',
         pathMatch: 'full',
         data: {
-          breadcrumb: { translate: 'labels.organization-export.title' },
+          breadcrumb: { translate: 'organization-export.title' },
           permissions: [ 'INDIVIDUAL_PII_READ' ]
         },
         canActivate: [ AuthorizationCanActivate ],

@@ -16,6 +16,15 @@ export class ReportsComponent implements OnInit, OnDestroy {
 
   resolution: Resolution<Report[]>;
   reports: Report[];
+  columns: Column[] = [
+    new Column({id: 'label-header', field: 'label'}),
+    new Column({id: 'report-type-header', field: 'reportType'}),
+    new Column({id: 'assessment-type-header', field: 'assessmentType'}),
+    new Column({id: 'subject-header', field: 'subjectId'}),
+    new Column({id: 'school-year-header', field: 'schoolYear'}),
+    new Column({id: 'status-header', field: 'status'}),
+    new Column({id: 'created-header', field: 'created'})
+  ];
 
   private statusPollingInterval: number = 20000;
   private statusPollingTimer: Timer;
@@ -79,7 +88,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
 
           },
           error => {
-            console.error('Error polling report status');
+            console.error('Error polling report status', error);
           }
         );
       } else {
@@ -95,4 +104,17 @@ export class ReportsComponent implements OnInit, OnDestroy {
     }
   }
 
+}
+
+class Column {
+  id: string;
+  field: string;
+
+  constructor({
+                id,
+                field
+  }) {
+    this.id = id;
+    this.field = field;
+  }
 }

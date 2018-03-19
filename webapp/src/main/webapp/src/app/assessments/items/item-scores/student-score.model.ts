@@ -1,8 +1,9 @@
 import { Student } from "../../../student/model/student.model";
-import { School } from "../../../user/model/school.model";
+import { School } from "../../../school-grade/school";
 import { WritingTraitScores } from "../../model/writing-trait-scores.model";
 
 export class StudentScore {
+  examId: number;
   student: Student;
   date: Date;
   session: string;

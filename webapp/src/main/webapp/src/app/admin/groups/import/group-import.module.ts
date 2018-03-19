@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule } from "@angular/forms";
-import { DataTableModule, SharedModule } from "primeng/primeng";
+import { SharedModule } from "primeng/primeng";
 import { PopoverModule } from "ngx-bootstrap/popover";
 import { Angulartics2Module } from "angulartics2";
 import { GroupImportComponent } from "./group-import.component";
@@ -13,6 +13,7 @@ import { ImportHistoryResolve } from "./history/import-history.resolve";
 import { ImportTableComponent } from './import-table/import-table.component';
 import { GroupImportDeactivateGuard } from "./group-import.deactivate";
 import { CommonModule } from "../../../shared/common.module";
+import { TableModule } from "primeng/table";
 
 @NgModule({
   declarations: [
@@ -21,15 +22,15 @@ import { CommonModule } from "../../../shared/common.module";
     ImportTableComponent
   ],
   imports: [
-    CommonModule,
-    BrowserModule,
+    Angulartics2Module.forChild(),
     BrowserAnimationsModule,
-    FormsModule,
-    DataTableModule,
-    SharedModule,
-    PopoverModule,
+    BrowserModule,
+    CommonModule,
     FileUploadModule,
-    Angulartics2Module.forChild()
+    FormsModule,
+    PopoverModule,
+    SharedModule,
+    TableModule
   ],
   exports: [ GroupImportComponent ],
   providers: [ GroupImportService, ImportHistoryResolve, GroupImportDeactivateGuard ]

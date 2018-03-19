@@ -1,57 +1,57 @@
 <div class="modal-header">
-  <h4 class="modal-title pull-left">{{ 'labels.instructional-resource.delete.title' | translate }}</h4>
-  <button type="button" class="close pull-right" title="{{'prompt.close' | translate}}" (click)="cancel()">
+  <h4 class="modal-title pull-left">{{ 'delete-instructional-resource-modal.title' | translate }}</h4>
+  <button type="button" class="close pull-right" title="{{'common.action.close' | translate}}" (click)="cancel()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 
 <div class="modal-body">
   <div *ngIf="unableToDelete" class="alert alert-danger">
-    {{ 'labels.instructional-resource.delete.error' | translate }}
+    {{ 'delete-instructional-resource-modal.error' | translate }}
   </div>
   <div class="modal-body text-left">
     <form class="form-horizontal">
       <fieldset>
         <div class="form-group row">
-          <label class="col-xs-4 control-label">{{'labels.instructional-resource.cols.assessment-label' | translate}}</label>
+          <label class="col-xs-4 control-label">{{'common.instructional-resource.columns.assessment-label' | translate}}</label>
           <span class="col-xs-8 text-overflow-ellipsis" title="{{resource.assessmentLabel}}">{{resource.assessmentLabel}}</span>
         </div>
         <div class="form-group row">
-          <label class="col-xs-4 control-label">{{'labels.instructional-resource.cols.assessment-name' | translate}}</label>
+          <label class="col-xs-4 control-label">{{'common.instructional-resource.columns.assessment-name' | translate}}</label>
           <span class="col-xs-8 text-overflow-ellipsis" title="{{resource.assessmentName}}">{{resource.assessmentName}}</span>
         </div>
         <div class="form-group row">
-          <label class="col-xs-4 control-label">{{'labels.instructional-resource.cols.organization-name' | translate}}</label>
+          <label class="col-xs-4 control-label">{{'common.instructional-resource.columns.organization-name' | translate}}</label>
           <span class="col-xs-8 text-overflow-ellipsis" title="{{resource.organizationName}}">{{resource.organizationName}}</span>
         </div>
         <div class="form-group row">
-          <label class="col-xs-4 control-label">{{'labels.instructional-resource.cols.organization-type' | translate}}</label>
+          <label class="col-xs-4 control-label">{{'common.instructional-resource.columns.organization-type' | translate}}</label>
           <span class="col-xs-8 text-overflow-ellipsis" title="{{resource.organizationType}}">{{resource.organizationType}}</span>
         </div>
         <div class="form-group row">
-          <label class="col-xs-4 control-label">{{'labels.instructional-resource.cols.performance-level' | translate}}</label>
-          <span *ngIf="resource.performanceLevel == 0" class="col-xs-8 text-overflow-ellipsis">{{ 'labels.instructional-resource.assessments.performance-levels.all' | translate }}</span>
-          <span *ngIf="resource.performanceLevel > 0" class="col-xs-8 text-overflow-ellipsis">{{ ('labels.instructional-resource.assessments.performance-levels.' + resource.assessmentType + '.' + resource.performanceLevel) | translate }}</span>
+          <label class="col-xs-4 control-label">{{'common.instructional-resource.columns.performance-level' | translate}}</label>
+          <span *ngIf="resource.performanceLevel == 0" class="col-xs-8 text-overflow-ellipsis">{{ 'common.instructional-resource.performance-levels.all' | translate }}</span>
+          <span *ngIf="resource.performanceLevel > 0" class="col-xs-8 text-overflow-ellipsis">{{ ('common.instructional-resource.performance-levels.' + resource.assessmentType + '.' + resource.performanceLevel) | translate }}</span>
         </div>
         <div class="form-group row">
-          <label class="col-xs-4 control-label">{{'labels.instructional-resource.cols.resource' | translate}}</label>
+          <label class="col-xs-4 control-label">{{'common.instructional-resource.columns.resource' | translate}}</label>
           <span class="col-xs-8 text-overflow-ellipsis" title="{{resource.resource}}">{{resource.resource}}</span>
         </div>
       </fieldset>
     </form>
 
     <!-- Warning -->
-    <p class="text-danger text-right mt-md mb-0">{{'labels.instructional-resource.delete.warning' | translate}}</p>
+    <p class="text-danger text-right mt-md mb-0">{{'delete-instructional-resource-modal.warning' | translate}}</p>
   </div>
 </div>
 
 <div class="modal-footer">
     <span>
       <button type="button" class="btn btn-default" (click)="cancel()">
-        {{ (unableToDelete? 'prompt.close' : 'prompt.cancel') | translate }}
+        {{ (unableToDelete? 'common.action.close' : 'common.action.cancel') | translate }}
       </button>
       <button *ngIf="!unableToDelete" class="btn btn-danger" (click)="delete()">
-        {{ 'prompt.delete' | translate }}
+        {{ 'common.action.delete' | translate }}
       </button>
     </span>
 </div>

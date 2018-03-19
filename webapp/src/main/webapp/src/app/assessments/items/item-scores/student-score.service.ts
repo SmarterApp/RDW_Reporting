@@ -17,6 +17,7 @@ export class StudentScoreService {
   private getScore(itemScore: ExamItemScore, exam: Exam, maxPoints: number): StudentScore {
     let score = new StudentScore();
 
+    score.examId = exam.id;
     score.student = exam.student;
     score.date = exam.date;
     score.session = exam.session;

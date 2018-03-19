@@ -5,25 +5,16 @@ import { CommonModule } from "../../../../shared/common.module";
 import { MenuActionBuilder } from "../../../menu/menu-action.builder";
 import { TestModule } from "../../../../../test/test.module";
 import { TranslateModule } from "@ngx-translate/core";
-import { Angulartics2 } from "angulartics2";
 import { Component, NO_ERRORS_SCHEMA } from "@angular/core";
-import { MockDataService } from "../../../../../test/mock.data.service";
 import { Assessment } from "../../../model/assessment.model";
 import { InstructionalResourcesService } from "../../instructional-resources.service";
 import { CachingDataService } from "../../../../shared/data/caching-data.service";
-import { DataService } from "../../../../shared/data/data.service";
 
 describe('ResultsByStudentComponent', () => {
   let component: ResultsByStudentComponent;
   let fixture: ComponentFixture<TestComponentWrapper>;
 
-  let dataService: MockDataService;
-  let mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', [ 'eventTrack' ]);
-  mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', [ 'next' ]);
-
   beforeEach(async(() => {
-    dataService = new MockDataService();
-
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -35,8 +26,6 @@ describe('ResultsByStudentComponent', () => {
         TestComponentWrapper
       ],
       providers: [
-        { provide: Angulartics2, useValue: mockAngulartics2 },
-        { provide: DataService, useValue: dataService },
         MenuActionBuilder,
         InstructionalResourcesService,
         CachingDataService

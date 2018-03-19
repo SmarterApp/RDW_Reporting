@@ -168,7 +168,8 @@ h1 + p.pull-left, .h1 + p.pull-left, h2 + p.pull-left, .h2 + p.pull-left, h3 + p
   border: 1px solid @gray-lighter;
   border-radius: @border-radius-base @border-radius-base 0 0;
   padding: @padding-base-horizontal @padding-large-horizontal;
-  + .table-list-container .table > thead > tr {
+  + .table-list-container .table > thead > tr,
+  + .table-list-container > p-table > .table > .ui-table-wrapper > table > thead > tr {
     > th:first-child {
       border-top-left-radius: 0;
     }
@@ -556,6 +557,10 @@ body .select-menu-group {
 .full-cell {
   margin: -@table-cell-padding;
   padding: @table-cell-padding;
+
+  &.pt-0 {
+    padding-top: 0;
+  }
 }
 
 .table-row-size-fixed {
@@ -712,8 +717,9 @@ aggregate-report-form {
   }
 }
 
-.writing-trait-scores {
-  min-width: 60% !important;
+.writing-trait-scores > .ui-table-wrapper {
+    display: inline-block;
+    min-width: 65%;
 }
 
 .nav > li > button {
@@ -910,7 +916,24 @@ a.btn.disabled.with-pointer {
 }
 
 //TODO move to SBAC UI kit
-distractor-analysis .ui-widget.ui-datatable table .ui-datatable-data td.green {
+distractor-analysis .ui-widget.ui-datatable table .ui-datatable-data td.green,
+distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
   color: contrast(@green, darken(@green, 100%), lighten(@green, 100%));
   background-color: @green;
+}
+
+// TODO move to UI kit
+.form-control {
+  &.btn-primary {
+    color: @btn-primary-color;
+    background-color: @btn-primary-bg;
+    border-color: @btn-primary-border;
+  }
+}
+
+.modal-title {
+  max-width: 96%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }

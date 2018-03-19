@@ -51,7 +51,7 @@ export class SchoolAssessmentExportService implements AssessmentExporter {
   private getFilename(exportRequest: ExportRequest) {
     let assessment: Assessment = exportRequest.assessment;
     return this.schoolName +
-      "-" + this.translate.instant(`labels.grades.${this.grade.code}.short-name`) +
+      "-" + this.translate.instant(`common.assessment-grade-short-label.${this.grade.code}`) +
       "-" + assessment.label + "-" + this.translate.instant(exportRequest.type.toString()) + "-" + new Date().toDateString();
   }
 }

@@ -52,12 +52,14 @@ sql:
             JOIN exam e ON e.asmt_id = a.id
             JOIN student_group_membership sgm ON e.student_id = sgm.student_id
             JOIN student_group sg ON sg.id = sgm.student_group_id
+            JOIN user_student_group usg ON usg.student_group_id = sg.id
             JOIN school s ON e.school_id = s.id
             JOIN student st ON e.student_id = st.id
             JOIN school isch ON st.inferred_school_id = isch.id
           WHERE e.school_year = :school_year
             AND a.id = e.asmt_id
             AND sg.id = :group_id
+            AND usg.user_login = :user_login
             AND (sg.subject_id is null OR a.subject_id = sg.subject_id)
             AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
@@ -68,11 +70,13 @@ sql:
             JOIN asmt a ON e.asmt_id=a.id
             JOIN student_group_membership sgm ON e.student_id=sgm.student_id
             JOIN student_group sg ON sg.id = sgm.student_group_id
+            JOIN user_student_group usg ON usg.student_group_id = sg.id
             JOIN school s ON e.school_id=s.id
             JOIN student st ON e.student_id = st.id
             JOIN school isch ON st.inferred_school_id = isch.id
           WHERE e.school_year = :school_year
             AND sgm.student_group_id = :group_id
+            AND usg.user_login = :user_login
             AND (sg.subject_id is null OR a.subject_id = sg.subject_id)
             AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
           ORDER BY e.completed_at desc
@@ -89,9 +93,11 @@ sql:
           ${sql.snippet.exam}
         JOIN student_group_membership sgm ON e.student_id=sgm.student_id
         JOIN student_group sg ON sg.id = sgm.student_group_id
+        JOIN user_student_group usg ON usg.student_group_id = sg.id
         WHERE a.id = :assessment_id
           AND e.school_year = :school_year
           AND sg.id = :group_id
+          AND usg.user_login = :user_login
           AND (sg.subject_id is null OR a.subject_id = sg.subject_id)
           AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
@@ -100,9 +106,11 @@ sql:
           ${sql.reporting.snippet.selectFromExamItem}
             JOIN student_group_membership sgm ON e.student_id=sgm.student_id
             JOIN student_group sg ON sg.id = sgm.student_group_id
+            JOIN user_student_group usg ON usg.student_group_id = sg.id
           WHERE e.asmt_id = :assessment_id
             AND e.school_year = :school_year
             AND sg.id = :group_id
+            AND usg.user_login = :user_login
             AND (sg.subject_id is null OR a.subject_id = sg.subject_id)
             AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
@@ -221,7 +229,7 @@ sql:
           ${sql.snippet.studentExamPermissionWithoutEmbargo}
           AND
           (
-             e.school_year < ${app.school-year}
+             e.school_year < ${reporting.school-year}
              OR e.type_id <> 3
              OR s.embargo_enabled = 0
              OR 1 = :state_embargo_admin

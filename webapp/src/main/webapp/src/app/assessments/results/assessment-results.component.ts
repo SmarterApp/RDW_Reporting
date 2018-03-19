@@ -25,7 +25,8 @@ import { AssessmentExporter } from "../assessment-exporter.interface";
 import { AssessmentPercentileRequest, AssessmentPercentileService } from "../percentile/assessment-percentile.service";
 import { PercentileGroup } from "../percentile/assessment-percentile";
 import { Utils } from "../../shared/support/support";
-import { UserService } from "../../user/user.service";
+import { ApplicationSettingsService } from '../../app-settings.service';
+import { Angulartics2 } from "angulartics2";
 
 enum ResultsViewState {
   ByStudent = 1,
@@ -74,6 +75,7 @@ export class AssessmentResultsComponent implements OnInit {
         this.toggleSession(this.sessions[ 0 ]);
       }
     }
+    this.updateViews();
   }
 
   /**
@@ -107,7 +109,14 @@ export class AssessmentResultsComponent implements OnInit {
    * If there are no exams that are after this school year, then disable the ability to go there and show proper message
    */
   @Input()
-  minimumItemDataYear: number;
+  set minimumItemDataYear(value: number) {
+    this._minimumItemDataYear = value;
+    this.updateViews();
+  };
+
+  get minimumItemDataYear(): number {
+    return this._minimumItemDataYear;
+  }
 
   /**
    * Exam filters applied, if any.
@@ -213,50 +222,46 @@ export class AssessmentResultsComponent implements OnInit {
   private _filterBy: FilterBy;
   private _assessmentExam: AssessmentExam;
   private _filterBySubscription: Subscription;
+  private _minimumItemDataYear: number;
 
-  constructor(public colorService: ColorService,
+  constructor(private applicationSettingsService: ApplicationSettingsService,
+              public colorService: ColorService,
               private examCalculator: ExamStatisticsCalculator,
               private examFilterService: ExamFilterService,
               private instructionalResourcesService: InstructionalResourcesService,
               private percentileService: AssessmentPercentileService,
-              private userService: UserService) {
-    this.userService.getCurrentUser().subscribe(user => {
-      this.percentileDisplayEnabled = user.configuration.percentileDisplayEnabled;
-    });
+              private angulartics2: Angulartics2) {
   }
 
   ngOnInit(): void {
-    this.initializeViews();
+    this.applicationSettingsService.getSettings().subscribe(settings => {
+      this.percentileDisplayEnabled = settings.percentileDisplayEnabled;
+    });
+
     this.setCurrentView(this.resultsByStudentView);
   }
 
-  initializeViews(): void {
+  updateViews(): void {
     this.resultsByStudentView = this.createResultViewState(ResultsViewState.ByStudent, true, false, true);
     this.resultsByItemView = this.createResultViewState(ResultsViewState.ByItem, this.displayItemLevelData, true, true);
     this.distractorAnalysisView = this.createResultViewState(ResultsViewState.DistractorAnalysis, this.displayItemLevelData, true, true);
     this.writingTraitScoresView = this.createResultViewState(ResultsViewState.WritingTraitScores, this.enableWritingTraitScores, true, this.displayWritingTraitScores);
   }
 
-  createResultViewState(viewState: ResultsViewState, enabled: boolean, canExport: boolean, display: boolean): ResultsView {
-    return {
-      label: 'enum.results-view-state.' + ResultsViewState[ viewState ],
-      value: viewState,
-      disabled: !enabled,
-      display: display,
-      canExport: canExport
-    }
-  }
-
   setCurrentView(view: ResultsView): void {
     this.currentResultsView = view;
+
+    this.angulartics2.eventTrack.next({
+      action: 'Assessment View Change',
+      properties: {
+        category: 'AssessmentResults',
+        label: ResultsViewState[ view.value ]
+      }
+    });
   }
 
   getGradeIdx(gradeCode: string): number {
     return GradeCode.getIndex(gradeCode);
-  }
-
-  getCurrentViewIntroductionLabel(): string {
-    return 'labels.results-view-state-intro.' + ResultsViewState[ this.currentResultsView.value ];
   }
 
   toggleSession(session): void {
@@ -286,6 +291,16 @@ export class AssessmentResultsComponent implements OnInit {
       };
       this.percentileService.getPercentilesGroupedByRank(request)
         .subscribe(percentileGroups => this.percentileGroups = percentileGroups);
+    }
+  }
+
+  private createResultViewState(viewState: ResultsViewState, enabled: boolean, canExport: boolean, display: boolean): ResultsView {
+    return {
+      label: 'assessment-results.view.' + ResultsViewState[ viewState ],
+      value: viewState,
+      disabled: !enabled,
+      display: display,
+      canExport: canExport
     }
   }
 

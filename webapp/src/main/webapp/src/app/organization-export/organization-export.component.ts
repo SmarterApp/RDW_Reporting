@@ -9,6 +9,8 @@ import { ExamFilterOptionsService } from "../assessments/filters/exam-filters/ex
 import { OrganizationExport, OrganizationExportService } from "./organization-export.service";
 import { NotificationService } from "../shared/notification/notification.service";
 import { Option } from "../shared/form/sb-typeahead.component";
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { ApplicationSettingsService } from '../app-settings.service';
 
 @Component({
   selector: 'organization-export',
@@ -53,6 +55,7 @@ export class OrganizationExportComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private translate: TranslateService,
+              private applicationSettingsService: ApplicationSettingsService,
               private service: OrganizationExportService,
               private mapper: OrganizationMapper,
               private filterOptionService: ExamFilterOptionsService,
@@ -77,7 +80,7 @@ export class OrganizationExportComponent implements OnInit {
           organization.uuid,
           {
             label: organization.name,
-            group: this.translate.instant(`labels.organization-export.form.organization.type.${OrganizationType[ organization.type ]}`),
+            group: this.translate.instant(`organization-export.form.organization.type.${OrganizationType[ organization.type ]}`),
             value: organization
           }
         ]
@@ -90,20 +93,20 @@ export class OrganizationExportComponent implements OnInit {
       ? [ this.orgExport.organizations.schools[ 0 ] ]
       : [];
 
-    // get the available school years
-    this.filterOptionService.getExamFilterOptions()
-      .subscribe(options => {
-        let schoolYears = options.schoolYears;
+    forkJoin(
+      this.filterOptionService.getExamFilterOptions(),
+      this.applicationSettingsService.getSettings()
+    ).subscribe(([options, settings]) => {
+      const { schoolYears } = options;
 
-        // initialize selected school year based on options
-        this._schoolYearOptions = schoolYears;
-        if (schoolYears.length) {
-          this.orgExport.schoolYear = schoolYears[ 0 ];
-        }
-      });
+      // initialize selected school year based on options
+      this._schoolYearOptions = schoolYears;
+      if (schoolYears.length) {
+        this.orgExport.schoolYear = schoolYears[ 0 ];
+      }
 
-    //set transfer access
-    this.transferAccess = this.route.snapshot.data[ 'user' ].configuration.transferAccess;
+      this.transferAccess = settings.transferAccess;
+    });
   }
 
   get selectedSchools(): Organization[] {
@@ -182,15 +185,15 @@ export class OrganizationExportComponent implements OnInit {
   }
 
   submit(): void {
-    this.orgExport.name = this.orgExport.name || this.translate.instant('labels.organization-export.form.default-report-name');
+    this.orgExport.name = this.orgExport.name || this.translate.instant('organization-export.form.default-report-name');
 
     this.service.createExport(this.orgExport)
       .subscribe(
         () => {
-          this.notificationService.info({ id: 'labels.organization-export.form.submit.success-html', html: true });
+          this.notificationService.info({ id: 'organization-export.form.submit.success-html', html: true });
           this.router.navigate([ '/reports' ]);
         },
-        () => this.notificationService.error({ id: 'labels.organization-export.form.submit.failure' })
+        () => this.notificationService.error({ id: 'organization-export.form.submit.failure' })
       );
   }
 

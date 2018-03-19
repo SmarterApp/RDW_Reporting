@@ -8,8 +8,9 @@ import { AssessmentItem } from "../../assessments/model/assessment-item.model";
 import { Observable } from "rxjs/Observable";
 import { DataService } from "../../shared/data/data.service";
 import { of } from 'rxjs/observable/of';
+import { ReportingServiceRoute } from '../../shared/service-route';
 
-const ServiceRoute = '/reporting-service';
+const ServiceRoute = ReportingServiceRoute;
 
 describe('StudentResponsesService', () => {
   let dataService: MockDataService;

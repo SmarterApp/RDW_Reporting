@@ -5,8 +5,9 @@ import { ResponseUtils } from "../shared/response-utils";
 import { DataService } from "../shared/data/data.service";
 import { Utils } from "../shared/support/support";
 import { catchError, map } from 'rxjs/operators';
+import { ReportingServiceRoute } from '../shared/service-route';
 
-const ServiceRoute = '/reporting-service';
+const ServiceRoute = ReportingServiceRoute;
 
 /**
  * This service is responsible for retrieving schools.

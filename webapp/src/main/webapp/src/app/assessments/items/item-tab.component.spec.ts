@@ -1,21 +1,14 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { ItemTabComponent } from "./item-tab.component";
-import { TabsModule } from "ngx-bootstrap/tabs";
-import { ItemViewerComponent } from "./item-viewer/item-viewer.component";
 import { CommonModule } from "../../shared/common.module";
-import { PopoverModule, TabsetConfig } from "ngx-bootstrap";
+import { TabsetConfig } from "ngx-bootstrap";
 import { MockDataService } from "../../../test/mock.data.service";
-import { ItemExemplarComponent } from "./item-exemplar/item-exemplar.component";
-import { ItemScoresComponent } from "./item-scores/item-scores.component";
-import { DataTableModule } from "primeng/components/datatable/datatable";
 import { StudentScoreService } from "./item-scores/student-score.service";
-import { Component } from "@angular/core";
+import { Component, NO_ERRORS_SCHEMA } from "@angular/core";
 import { AssessmentItem } from "../model/assessment-item.model";
 import { TestModule } from "../../../test/test.module";
-import { ItemInfoComponent } from "./item-info/item-info.component";
-import { Angulartics2, Angulartics2Module } from "angulartics2";
+import { Angulartics2 } from "angulartics2";
 import { CachingDataService } from "../../shared/data/caching-data.service";
-import { ItemWritingTraitScoresComponent } from "./item-writing-trait-scores/item-writing-trait-scores.component";
 
 describe('ItemTabComponent', () => {
   let component: ItemTabComponent;
@@ -26,14 +19,21 @@ describe('ItemTabComponent', () => {
     mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', ['next']);
 
     TestBed.configureTestingModule({
-      imports: [ TabsModule, CommonModule, DataTableModule, TestModule, Angulartics2Module, PopoverModule.forRoot() ],
-      declarations: [ TestComponentWrapper, ItemTabComponent, ItemViewerComponent, ItemInfoComponent, ItemExemplarComponent, ItemScoresComponent, ItemWritingTraitScoresComponent ],
+      declarations: [
+        TestComponentWrapper,
+        ItemTabComponent
+      ],
+      imports: [
+        CommonModule,
+        TestModule
+      ],
       providers: [
         TabsetConfig,
         { provide: CachingDataService, useClass: MockDataService },
         StudentScoreService,
         { provide: Angulartics2, useValue: mockAngulartics2 }
-      ]
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
   }));
 

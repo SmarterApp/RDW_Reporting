@@ -6,6 +6,7 @@ import { InstructionalResourcesService } from "./instructional-resources.service
 import { ColorService } from "../../shared/color.service";
 import { AssessmentProvider } from "../assessment-provider.interface";
 import { Observable } from "rxjs/Observable";
+import { TranslateService } from "@ngx-translate/core";
 
 /**
  * This component is responsible for displaying the average scale score visualization
@@ -51,17 +52,12 @@ export class AverageScaleScoreComponent {
   private _totalCount: number;
 
   constructor(public colorService: ColorService,
-              private instructionalResourcesService: InstructionalResourcesService) {
+              private instructionalResourcesService: InstructionalResourcesService,
+              private translate: TranslateService) {
   }
 
   get hasAverageScore(): boolean {
     return !isNaN(this.statistics.average);
-  }
-
-  get examLevelEnum() {
-    return this.assessmentExam.assessment.isIab
-      ? "enum.iab-category.short."
-      : "enum.achievement-level.short.";
   }
 
   get performanceLevels(): ExamStatisticsLevel[] {
@@ -84,6 +80,10 @@ export class AverageScaleScoreComponent {
    */
   unfilledLevel(examStatisticsLevel: ExamStatisticsLevel): number {
     return 100 - this.filledLevel(examStatisticsLevel);
+  }
+
+  examLevelTranslation(performanceLevel: ExamStatisticsLevel): string {
+    return this.translate.instant(performanceLevel.id ? `common.assessment-type.${this.assessmentExam.assessment.typeCode}.performance-level.${performanceLevel.id}.short-name` : 'common.missing')
   }
 
   private levelCountPercent(levelCount: number): number {

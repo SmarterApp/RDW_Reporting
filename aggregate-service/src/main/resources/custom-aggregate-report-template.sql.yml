@@ -12,12 +12,8 @@ sqlbuilder:
               sum(CASE WHEN performance_level = 1 THEN 1 ELSE 0 END) AS level1,
               sum(CASE WHEN performance_level = 2 THEN 1 ELSE 0 END) AS level2,
               sum(CASE WHEN performance_level = 3 THEN 1 ELSE 0 END) AS level3,
-              sum(CASE WHEN performance_level = 4 THEN 1 ELSE 0 END) AS level4,
               fe.school_year,
               fe.asmt_id
-
-          from: >-
-              fact_student_exam fe
 
           join: >-
               JOIN asmt a ON a.id = fe.asmt_id
@@ -34,16 +30,23 @@ sqlbuilder:
 
       # ------------ organization parts -------------------------------------------------------------
         addons:
+            icaOrSummative:
+              clauses:
+                select: >-
+                  sum(CASE WHEN performance_level = 4 THEN 1 ELSE 0 END) AS level4
+                from: >-
+                   fact_student_exam fe
+
+            iab:
+              clauses:
+                from: >-
+                   fact_student_iab_exam fe
+
             state:
               clauses:
                 select: >-
                      'State' AS organization_type,
                      NULL AS organization_id
-                where: >-
-                     3 <> :asmt_type_id
-                     OR fe.school_year < ${app.school-year}
-                     OR EXISTS (SELECT 1 FROM state_embargo WHERE aggregate = 0)
-                     OR 1 = :state_embargo_admin
 
             allDistricts:
               clauses:
@@ -67,7 +70,7 @@ sqlbuilder:
               clauses:
                 select: >-
                      'School' AS organization_type,
-                     sch.id AS organization_id
+                     fe.school_id AS organization_id
                 join: >-
                      JOIN school sch ON sch.id = fe.school_id
 
@@ -75,30 +78,36 @@ sqlbuilder:
                      sch.district_id in (:school_district_ids)
 
                 groupBy: >-
-                     sch.id
+                     fe.school_id
 
             schools:
               clauses:
                 select: >-
                      'School' AS organization_type,
-                     sch.id AS organization_id
+                     fe.school_id AS organization_id
                 join: >-
                      JOIN school sch ON sch.id = fe.school_id
 
                 where: >-
-                    sch.id in (:school_ids)
+                    fe.school_id in (:school_ids)
 
                 groupBy: >-
-                     sch.id
+                     fe.school_id
 
-            embargo:
+            districtEmbargo:
               clauses:
                 where: >-
-                    fe.school_year < ${app.school-year}
-                    OR 3 <> :asmt_type_id
+                    fe.school_year < ${reporting.school-year}
                     OR sch.embargo_enabled = 0
                     OR 1 = :state_embargo_admin
                     OR sch.district_id IN (:district_embargo_admin_ids)
+
+            stateEmbargo:
+              clauses:
+                where: >-
+                     fe.school_year < ${reporting.school-year}
+                     OR EXISTS (SELECT 1 FROM state_embargo WHERE aggregate = 0)
+                     OR 1 = :state_embargo_admin
 
       # ---------- dimension parts -----------------------------------------------------------------------
             Overall:

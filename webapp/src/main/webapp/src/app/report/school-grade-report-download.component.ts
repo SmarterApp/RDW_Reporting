@@ -3,11 +3,11 @@ import { ReportService } from "./report.service";
 import { ReportDownloadComponent } from "./report-download.component";
 import { NotificationService } from "../shared/notification/notification.service";
 import { Report } from "./report.model";
-import { School } from "../user/model/school.model";
+import { School } from "../school-grade/school";
 import { Grade } from "../school-grade/grade.model";
 import { TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs/Observable";
-import { UserService } from "../user/user.service";
+import { ApplicationSettingsService } from '../app-settings.service';
 
 /**
  * Component used for single-student exam report download
@@ -25,10 +25,10 @@ export class SchoolGradeDownloadComponent extends ReportDownloadComponent {
   grade: Grade;
 
   constructor(notificationService: NotificationService,
-              userService: UserService,
+              applicationSettingsService: ApplicationSettingsService,
               private service: ReportService,
               private translate: TranslateService) {
-    super(notificationService, userService);
+    super(notificationService, applicationSettingsService);
   }
 
   createReport(): Observable<Report> {
@@ -36,7 +36,7 @@ export class SchoolGradeDownloadComponent extends ReportDownloadComponent {
   }
 
   generateName(): string {
-    const gradeLabel: string = this.translate.instant(`labels.grades.${this.grade.code}.short-name`);
+    const gradeLabel: string = this.translate.instant(`common.assessment-grade-short-label.${this.grade.code}`);
     return `${this.school.name} ${gradeLabel}`;
   }
 

@@ -8,8 +8,8 @@ import { Report } from "./report.model";
 import { ReportOrder } from "./report-order.enum";
 import { ResponseUtils } from "../shared/response-utils";
 import { Student } from "../student/model/student.model";
-import { Group } from "../user/model/group.model";
-import { School } from "../user/model/school.model";
+import { Group } from "../groups/group";
+import { School } from "../school-grade/school";
 import { Grade } from "../school-grade/grade.model";
 import { DATA_CONTEXT_URL, DataService } from "../shared/data/data.service";
 import { Download } from "../shared/data/download.model";
@@ -17,8 +17,9 @@ import { AggregateReportRequest } from "./aggregate-report-request";
 import { AggregateReportRow } from "./aggregate-report";
 import { Utils } from "../shared/support/support";
 import { catchError, map } from 'rxjs/operators';
+import { ReportProcessorServiceRoute } from '../shared/service-route';
 
-const ServiceRoute = '/report-processor';
+const ServiceRoute = ReportProcessorServiceRoute;
 
 @Injectable()
 export class ReportService {
@@ -217,7 +218,7 @@ export class ReportService {
     }
 
     report.subjectId = AssessmentSubjectType[ serverReport.subject as string ] || 0;
-    report.subjectCode = serverReport.subjectCode;
+    report.subjectCode = serverReport.subjectCode || 'ALL';
     report.schoolYear = serverReport.schoolYear;
     report.metadata = serverReport.metadata || {};
     report.request = serverReport.request;

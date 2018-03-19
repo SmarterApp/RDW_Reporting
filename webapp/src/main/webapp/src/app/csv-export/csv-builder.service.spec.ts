@@ -3,10 +3,10 @@ import { CsvBuilder } from "./csv-builder.service";
 import { inject, TestBed } from "@angular/core/testing";
 import { DatePipe, DecimalPipe } from "@angular/common";
 import { Angular2CsvProvider } from "./angular-csv.provider";
-import Spy = jasmine.Spy;
-import {Exam} from "../assessments/model/exam.model";
+import { Exam } from "../assessments/model/exam.model";
 import { Student } from "../student/model/student.model";
 import { SchoolYearPipe } from "../shared/format/school-year.pipe";
+import Spy = jasmine.Spy;
 
 describe('CsvBuilder', () => {
   let datePipe: MockDatePipe;
@@ -84,8 +84,8 @@ describe('CsvBuilder', () => {
       let tabularData: string[][] = angular2Csv.export.calls.mostRecent().args[0];
 
       expect(tabularData.length).toBe(3);
-      expect(tabularData[0]).toEqual(["labels.export.cols.scale-score", "labels.export.cols.achievement-level", "labels.groups.results.assessment.exams.cols.iab.performance"]);
-      expect(tabularData[1]).toEqual(<any>[2580, "enum.achievement-level.full.1", "enum.iab-category.full.1"]);
+      expect(tabularData[0]).toEqual(["csv-builder.scale-score", "csv-builder.achievement-level", "common.results.assessment-exam-columns.iab.performance"]);
+      expect(tabularData[1]).toEqual(<any>[2580, "common.assessment-type.ica.performance-level.1.name", "common.assessment-type.iab.performance-level.1.name"]);
       expect(tabularData[2]).toEqual(["", "", ""]);
     }));
 
@@ -105,7 +105,7 @@ describe('CsvBuilder', () => {
       let tabularData: string[][] = angular2Csv.export.calls.mostRecent().args[0];
 
       expect(tabularData.length).toBe(3);
-      expect(tabularData[0]).toEqual(["labels.export.cols.accommodation-codes"]);
+      expect(tabularData[0]).toEqual(["csv-builder.accommodation-codes"]);
       expect(tabularData[1]).toEqual(["ABC|ACE|ACDC"]);
       expect(tabularData[2]).toEqual(["123"]);
     }));
@@ -130,8 +130,8 @@ describe('CsvBuilder', () => {
 
       expect(tabularData.length).toBe(3);
       expect(tabularData[0]).toEqual(ethnicityOptions);
-      expect(tabularData[1]).toEqual(["enum.polar.1", "enum.polar.1", "enum.polar.1", "enum.polar.2", "enum.polar.2", "enum.polar.2", "enum.polar.2"]);
-      expect(tabularData[2]).toEqual(["enum.polar.2", "enum.polar.2", "enum.polar.2", "enum.polar.2", "enum.polar.2", "enum.polar.2", "enum.polar.1"]);
+      expect(tabularData[1]).toEqual(["common.polar.1", "common.polar.1", "common.polar.1", "common.polar.2", "common.polar.2", "common.polar.2", "common.polar.2"]);
+      expect(tabularData[2]).toEqual(["common.polar.2", "common.polar.2", "common.polar.2", "common.polar.2", "common.polar.2", "common.polar.2", "common.polar.1"]);
     }));
 });
 
