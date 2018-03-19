@@ -22,19 +22,24 @@ export class AppComponent {
   spinnerModal: SpinnerModal;
 
   private _lastPoppedUrl: string;
+  private _doNotDeleteThisAnalytics: Angulartics2GoogleAnalytics;
 
   user: User;
   applicationSettings: ApplicationSettings;
 
-  /*
-   Even though the angulartics2GoogleAnalytics variable is not explicitly used, without it analytics data is not sent to the service
-   */
+
   constructor(public languageStore: LanguageStore,
               private router: Router,
               private location: Location,
               private userService: UserService,
               private applicationSettingsService: ApplicationSettingsService,
               private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
+    /*
+      Even though the angulartics2GoogleAnalytics variable is not explicitly used,
+      without it analytics data is not sent to the service.  This private variable prevents
+      unintended removal by autoformatting
+    */
+    this._doNotDeleteThisAnalytics = angulartics2GoogleAnalytics;
   }
 
   ngOnInit() {

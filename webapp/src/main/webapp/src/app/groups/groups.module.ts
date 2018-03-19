@@ -4,7 +4,7 @@ import { GroupsComponent } from "./groups.component";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule } from "@angular/forms";
-import { DataTableModule, SharedModule } from "primeng/primeng";
+import { SharedModule } from "primeng/primeng";
 import { GroupResultsComponent } from "./results/group-results.component";
 import { AssessmentsModule } from "../assessments/assessments.module";
 import { GroupAssessmentService } from "./results/group-assessment.service";
@@ -15,6 +15,7 @@ import { PopoverModule } from "ngx-bootstrap";
 import { UserModule } from "../user/user.module";
 import { GroupAssessmentExportService } from "./results/group-assessment-export.service";
 import { GroupService } from './group.service';
+import { TableModule } from "primeng/table";
 
 @NgModule({
   declarations: [
@@ -22,17 +23,17 @@ import { GroupService } from './group.service';
     GroupResultsComponent
   ],
   imports: [
-    CommonModule,
-    UserModule,
+    Angulartics2Module.forChild(),
+    AssessmentsModule,
     BrowserModule,
     BrowserAnimationsModule,
-    AssessmentsModule,
+    CommonModule,
     FormsModule,
-    DataTableModule,
-    SharedModule,
     PopoverModule.forRoot(),
     ReportModule,
-    Angulartics2Module.forChild()
+    SharedModule,
+    TableModule,
+    UserModule
   ],
   exports: [
     GroupsComponent

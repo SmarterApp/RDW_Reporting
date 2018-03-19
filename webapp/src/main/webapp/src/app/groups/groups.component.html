@@ -22,36 +22,63 @@
 
   <!-- My Groups Search Results List -->
   <div class="table-list-container">
-    <p-dataTable [value]="filteredGroups"
-                 emptyMessage="{{ emptyMessageTranslateKey | translate}}"
-                 sortField="name"
-                 tableStyleClass="table table-striped table-hover">
+    <p-table [columns]="columns"
+             [value]="filteredGroups"
+             [autoLayout]="true"
+             sortField="name"
+             dataKey="id"
+             styleClass="table table-striped table-hover">
 
-      <p-column field="name"
-                header="{{'groups.columns.group' | translate}}"
-                [sortable]="true">
+      <ng-template pTemplate="header"
+                   let-columns>
+        <tr>
+          <th *ngFor="let column of columns"
+              [pSortableColumn]="column.field"
+              [ngSwitch]="column.id">
 
-        <ng-template let-group="rowData" pTemplate="body">
-          <div class="label-max-width">
-            <a routerLink="/groups/{{group.id}}"
-               title="{{group.name}}">{{group.name}}</a>
-          </div>
-        </ng-template>
-      </p-column>
+            <div *ngSwitchDefault>
+              {{ ('groups.columns.' + column.id) | translate }}
+            </div>
 
-      <p-column field="schoolName"
-                header="{{'groups.columns.school' | translate}}"
-                [sortable]="true"></p-column>
+            <p-sortIcon [field]="column.field"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
 
-      <p-column field="subjectId"
-                header="{{'groups.columns.subject' | translate}}"
-                [sortable]="true">
+      <ng-template pTemplate="body"
+                   let-group
+                   let-columns="columns">
+        <tr>
+          <td *ngFor="let column of columns"
+              [ngSwitch]="column.id">
 
-        <ng-template let-group="rowData" pTemplate="body">
-          {{ 'common.subject.' + (group.subjectCode || 'ALL') + '.name' | translate }}
-        </ng-template>
-      </p-column>
+            <div *ngSwitchCase="'group'"
+                 class="label-max-width">
+              <a routerLink="/groups/{{group.id}}"
+                 title="{{group.name}}">
+                {{group.name}}
+              </a>
+            </div>
 
-    </p-dataTable>
+            <ng-container *ngSwitchCase="'school'">
+              {{group.schoolName}}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'subject'">
+              {{ 'common.subject.' + group.subjectCode + '.name' | translate }}
+            </ng-container>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="columns.length">
+            {{emptyMessageTranslateKey | translate}}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
   </div>
 </ng-template>

@@ -3,7 +3,6 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { EmbargoService } from "./embargo.service";
 import { EmbargoComponent } from "./embargo.component";
-import { DataTableModule } from "primeng/primeng";
 import { ButtonsModule, ModalModule } from "ngx-bootstrap";
 import { Toggle } from "./toggle.component";
 import { EmbargoTable } from "./embargo-table.component";
@@ -11,6 +10,7 @@ import { EmbargoConfirmationModal } from "./embargo-confirmation-modal.component
 import { HttpClientModule } from "@angular/common/http";
 import { EmbargoResolve } from "./embargo.resolve";
 import { CommonModule } from "../../shared/common.module";
+import { TableModule } from "primeng/table";
 
 @NgModule({
   declarations: [
@@ -21,12 +21,12 @@ import { CommonModule } from "../../shared/common.module";
   ],
   imports: [
     BrowserModule,
+    ButtonsModule.forRoot(),
+    CommonModule,
     FormsModule,
     HttpClientModule,
-    CommonModule,
-    DataTableModule,
-    ButtonsModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    TableModule
   ],
   exports: [
     EmbargoComponent

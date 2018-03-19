@@ -581,6 +581,7 @@
       "interpretive-guide": "Interpretive Guide",
       "user-guide": "User Guide"
     },
+    "no-results": "No records found",
     "organization": {
       "type": {
         "District": "District",

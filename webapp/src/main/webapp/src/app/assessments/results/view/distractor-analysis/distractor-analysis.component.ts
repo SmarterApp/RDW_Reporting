@@ -46,7 +46,7 @@ export class DistractorAnalysisComponent implements OnInit, ExportResults {
   set exams(value: Exam[]) {
     this._exams = value;
 
-    if (this.filteredMultipleChoiceItems) {
+    if (!this.loading) {
       this.filteredMultipleChoiceItems = this.filterMultipleChoiceItems(this._multipleChoiceItems);
       this.examCalculator.aggregateItemsByResponse(this.filteredMultipleChoiceItems);
     }
@@ -56,9 +56,9 @@ export class DistractorAnalysisComponent implements OnInit, ExportResults {
     return this._exams;
   }
 
-  loading: boolean = false;
+  loading: boolean = true;
   columns: Column[];
-  filteredMultipleChoiceItems: AssessmentItem[];
+  filteredMultipleChoiceItems: AssessmentItem[] = [];
 
   private _multipleChoiceItems: AssessmentItem[];
   private _exams: Exam[];
@@ -68,7 +68,6 @@ export class DistractorAnalysisComponent implements OnInit, ExportResults {
   }
 
   ngOnInit() {
-    this.loading = true;
     this.assessmentProvider.getAssessmentItems(this.assessment.id, ['MC', 'MS']).subscribe(assessmentItems => {
 
       let numOfScores = assessmentItems.reduce((x, y) => x + y.scores.length, 0);

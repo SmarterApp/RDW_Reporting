@@ -1,82 +1,96 @@
-<p-dataTable #datatable
-             [value]="embargoes"
-             sortField="organization.name"
-             tableStyleClass="table table-striped table-hover"
-             [tableStyle]="{'table-layout':'auto'}">
+<p-table [columns]="columns"
+         [value]="embargoes"
+         [autoLayout]="true"
+         sortField="organization.name"
+         styleClass="table table-striped table-hover">
 
-  <p-column field="organization.name" header="{{translateContext + '.headers.name' | translate}}" [sortable]="hasMultipleEmbargoes">
+  <ng-template pTemplate="header"
+               let-columns>
+    <tr>
+      <th *ngFor="let column of columns"
+          [ngSwitch]="column.id">
 
-    <ng-template let-embargo="rowData" pTemplate="body">
-      {{embargo.organization.name}}
-    </ng-template>
-  </p-column>
+        <div *ngSwitchCase="'subject'"
+              class="text-right">
+          {{translateContext + '.headers.' + column.code | translate}}
+        </div>
 
-  <p-column *ngFor="let subjectCode of subjectCodes" field="examCountsBySubject.{{subjectCode}}" styleClass="text-right" [sortable]="hasMultipleEmbargoes">
+        <div *ngSwitchDefault
+              [ngClass]="{'text-right': column.id !== 'name'}">
+          {{(translateContext + '.headers.' + column.id) | translate}}
+        </div>
+      </th>
+    </tr>
+  </ng-template>
 
-    <ng-template pTemplate="header">
-      <span class="pull-right">{{translateContext + '.headers.' + subjectCode | translate}}</span>
-    </ng-template>
+  <ng-template pTemplate="body"
+               let-embargo
+               let-columns="columns">
+    <tr>
+      <td *ngFor="let column of columns"
+          [ngSwitch]="column.id">
 
-    <ng-template let-embargo="rowData" pTemplate="body">
-      {{embargo.examCountsBySubject[subjectCode] | number}}
-    </ng-template>
-  </p-column>
+        <div *ngSwitchCase="'name'">
+          {{embargo.organization.name}}
+        </div>
 
-  <p-column field="individualEnabled" styleClass="text-right" [sortable]="hasMultipleEmbargoes && !overridingEmbargoReleasedIndividual">
+        <div *ngSwitchCase="'subject'"
+             class="text-right">
+          {{embargo.examCountsBySubject[column.code] | number}}
+        </div>
 
-    <ng-template pTemplate="header" styleClass="pull-right">
-      <span class="pull-right">{{translateContext + '.headers.individualEnabled' | translate}}</span>
-    </ng-template>
+        <div *ngSwitchCase="'individualEnabled'"
+             class="text-right">
+          <span *ngIf="overridingEmbargoReleasedIndividual" class="label border-only blue">
+            {{'embargo-table.released-by-state' | translate}}
+          </span>
 
-    <ng-template let-embargo="rowData" pTemplate="body">
+          <span *ngIf="!overridingEmbargoReleasedIndividual && embargo.readonly" class="label border-only blue">
+            {{('embargo-table.toggle.' + embargo.individualEnabled) | translate}}
+          </span>
 
-      <span *ngIf="overridingEmbargoReleasedIndividual" class="label border-only blue">
-        {{'embargo-table.released-by-state' | translate}}
-      </span>
-
-      <span *ngIf="!overridingEmbargoReleasedIndividual && embargo.readonly" class="label border-only blue">
-        {{('embargo-table.toggle.' + embargo.individualEnabled) | translate}}
-      </span>
-
-      <toggle *ngIf="!overridingEmbargoReleasedIndividual && !embargo.readonly"
-              #toggle
-              (click)="toggleIndividual(toggle, embargo)"
-              [value]="embargo.individualEnabled"
-              [options]="[
+          <toggle *ngIf="!overridingEmbargoReleasedIndividual && !embargo.readonly"
+                  #toggle
+                  (click)="toggleIndividual(toggle, embargo)"
+                  [value]="embargo.individualEnabled"
+                  [options]="[
                 { value: true, text: 'embargo-table.toggle.true' | translate },
                 { value: false, text: 'embargo-table.toggle.false' | translate }
               ]">
-      </toggle>
-    </ng-template>
-  </p-column>
+          </toggle>
+        </div>
 
-  <p-column field="aggregateEnabled" styleClass="text-right" [sortable]="hasMultipleEmbargoes && !overridingEmbargoReleasedAggregate">
+        <div *ngSwitchCase="'aggregateEnabled'"
+             class="text-right">
+          <span *ngIf="overridingEmbargoReleasedAggregate" class="label border-only blue">
+            {{'embargo-table.released-by-state' | translate}}
+          </span>
 
-    <ng-template pTemplate="header">
-      <span class="pull-right">{{translateContext + '.headers.aggregateEnabled' | translate}}</span>
-    </ng-template>
+          <span *ngIf="!overridingEmbargoReleasedAggregate && embargo.readonly" class="label border-only blue">
+            {{('embargo-table.toggle.' + embargo.aggregateEnabled) | translate}}
+          </span>
 
-    <ng-template let-embargo="rowData" pTemplate="body">
-
-      <span *ngIf="overridingEmbargoReleasedAggregate" class="label border-only blue">
-        {{'embargo-table.released-by-state' | translate}}
-      </span>
-
-      <span *ngIf="!overridingEmbargoReleasedAggregate && embargo.readonly" class="label border-only blue">
-        {{('embargo-table.toggle.' + embargo.aggregateEnabled) | translate}}
-      </span>
-
-      <toggle *ngIf="!overridingEmbargoReleasedAggregate && !embargo.readonly"
-              #toggle
-              (click)="toggleAggregate(toggle, embargo)"
-              [value]="embargo.aggregateEnabled"
-              [disabled]="embargo.readonly"
-              [options]="[
+          <toggle *ngIf="!overridingEmbargoReleasedAggregate && !embargo.readonly"
+                  #toggle
+                  (click)="toggleAggregate(toggle, embargo)"
+                  [value]="embargo.aggregateEnabled"
+                  [disabled]="embargo.readonly"
+                  [options]="[
                 { value: true, text: 'embargo-table.toggle.true' | translate },
                 { value: false, text: 'embargo-table.toggle.false' | translate }
               ]">
-      </toggle>
-    </ng-template>
-  </p-column>
+          </toggle>
+        </div>
 
-</p-dataTable>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage" let-columns>
+    <tr>
+      <td [attr.colspan]="columns.length">
+        {{'common.no-results' | translate}}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

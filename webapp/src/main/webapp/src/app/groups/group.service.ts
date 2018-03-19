@@ -20,7 +20,7 @@ export class GroupService {
         group.name = serverGroup.name;
         group.schoolName = serverGroup.schoolName;
         group.schoolId = serverGroup.schoolId;
-        group.subjectCode = serverGroup.subjectCode;
+        group.subjectCode = serverGroup.subjectCode || 'ALL';
         return group;
       }))
     )

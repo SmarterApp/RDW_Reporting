@@ -10,12 +10,12 @@ import { CommonModule } from "../shared/common.module";
 import { StudentReportDownloadComponent } from "./student-report-download.component";
 import { ReportsResolve } from "./reports.resolve";
 import { ReportsComponent } from "./reports.component";
-import { DataTableModule } from "primeng/components/datatable/datatable";
 import { GroupReportDownloadComponent } from "./group-report-download.component";
 import { SchoolGradeDownloadComponent } from "./school-grade-report-download.component";
 import { ReportActionService } from "./report-action.service";
 import { ReportActionComponent } from "./report-action.component";
 import { RdwMenuModule } from "../shared/menu/rdw-menu.module";
+import { TableModule } from "primeng/table";
 
 @NgModule({
   declarations: [
@@ -26,16 +26,16 @@ import { RdwMenuModule } from "../shared/menu/rdw-menu.module";
     ReportActionComponent
   ],
   imports: [
+    Angulartics2Module.forChild(),
     BrowserAnimationsModule,
     BrowserModule,
+    CommonModule,
     FormsModule,
     ModalModule.forRoot(),
-    ReactiveFormsModule,
-    CommonModule,
-    SharedModule,
-    DataTableModule,
     RdwMenuModule,
-    Angulartics2Module.forChild()
+    ReactiveFormsModule,
+    SharedModule,
+    TableModule
   ],
   exports: [
     ReportsComponent,

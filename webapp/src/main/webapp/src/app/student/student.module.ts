@@ -11,8 +11,6 @@ import { StudentExamHistoryResolve } from "./results/student-exam-history.resolv
 import { AssessmentsModule } from "../assessments/assessments.module";
 import { StudentResultsFilterComponent } from "./results/student-results-filter.component";
 import { DataTableModule } from "primeng/components/datatable/datatable";
-import { StudentHistoryIABTableComponent } from "./results/tables/student-history-iab-table.component";
-import { StudentHistoryICASummativeTableComponent } from "./results/tables/student-history-ica-summative-table.component";
 import { Angulartics2Module } from "angulartics2";
 import { StudentResponsesComponent } from "./responses/student-responses.component";
 import { StudentResponsesService } from "./responses/student-responses.service";
@@ -25,6 +23,8 @@ import { ReportModule } from "../report/report.module";
 import { PopoverModule } from "ngx-bootstrap";
 import { UserModule } from "../user/user.module";
 import { RdwMenuModule } from "../shared/menu/rdw-menu.module";
+import { StudentHistoryTableComponent } from "./results/tables/student-history-table.component";
+import { TableModule } from "primeng/table";
 
 @NgModule({
   declarations: [
@@ -32,8 +32,7 @@ import { RdwMenuModule } from "../shared/menu/rdw-menu.module";
     StudentResponsesComponent,
     StudentResultsComponent,
     StudentResultsFilterComponent,
-    StudentHistoryIABTableComponent,
-    StudentHistoryICASummativeTableComponent
+    StudentHistoryTableComponent
   ],
   imports: [
     Angulartics2Module.forChild(),
@@ -49,6 +48,7 @@ import { RdwMenuModule } from "../shared/menu/rdw-menu.module";
     RdwMenuModule,
     ReportModule,
     SharedModule,
+    TableModule,
     UserModule
   ],
   exports: [

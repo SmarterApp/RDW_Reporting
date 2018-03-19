@@ -168,7 +168,8 @@ h1 + p.pull-left, .h1 + p.pull-left, h2 + p.pull-left, .h2 + p.pull-left, h3 + p
   border: 1px solid @gray-lighter;
   border-radius: @border-radius-base @border-radius-base 0 0;
   padding: @padding-base-horizontal @padding-large-horizontal;
-  + .table-list-container .table > thead > tr {
+  + .table-list-container .table > thead > tr,
+  + .table-list-container > p-table > .table > .ui-table-wrapper > table > thead > tr {
     > th:first-child {
       border-top-left-radius: 0;
     }
@@ -716,8 +717,9 @@ aggregate-report-form {
   }
 }
 
-.writing-trait-scores {
-  min-width: 60% !important;
+.writing-trait-scores > .ui-table-wrapper {
+    display: inline-block;
+    min-width: 65%;
 }
 
 .nav > li > button {

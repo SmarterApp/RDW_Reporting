@@ -218,7 +218,7 @@ export class ReportService {
     }
 
     report.subjectId = AssessmentSubjectType[ serverReport.subject as string ] || 0;
-    report.subjectCode = serverReport.subjectCode;
+    report.subjectCode = serverReport.subjectCode || 'ALL';
     report.schoolYear = serverReport.schoolYear;
     report.metadata = serverReport.metadata || {};
     report.request = serverReport.request;

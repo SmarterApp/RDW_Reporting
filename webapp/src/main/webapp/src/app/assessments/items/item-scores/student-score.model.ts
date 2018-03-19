@@ -3,6 +3,7 @@ import { WritingTraitScores } from "../../model/writing-trait-scores.model";
 import { School } from "../../../shared/organization/organization";
 
 export class StudentScore {
+  examId: number;
   student: Student;
   date: Date;
   session: string;
