@@ -88,7 +88,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
 
           },
           error => {
-            console.error('Error polling report status');
+            console.error('Error polling report status', error);
           }
         );
       } else {
@@ -112,7 +112,7 @@ class Column {
 
   constructor({
                 id,
-                field = ''
+                field
   }) {
     this.id = id;
     this.field = field;
