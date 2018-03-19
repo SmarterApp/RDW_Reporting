@@ -155,14 +155,8 @@ subprojects {
             exposePort(8008, 8080)
             runCommand("apk add --no-cache tini")
             entryPoint("/sbin/tini", "--")
-            ext.java_opts = ["-Xmx384m"]
-            defaultCommand {
-                List<String> commandArgs = ["java"]
-                commandArgs.addAll(ext.java_opts)
-                commandArgs.add("-jar")
-                commandArgs.add("${jar.archivePath.name}")
-                commandArgs.toArray()
-            }
+            environmentVariable("MAX_HEAP_SIZE", "-Xmx384m")
+            instruction('CMD exec java $MAX_HEAP_SIZE $JAVA_OPTS -jar ' + "${jar.archivePath.name}")
         }
 
         // task to build the docker image
