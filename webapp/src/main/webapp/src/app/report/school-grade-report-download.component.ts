@@ -3,11 +3,11 @@ import { ReportService } from "./report.service";
 import { ReportDownloadComponent } from "./report-download.component";
 import { NotificationService } from "../shared/notification/notification.service";
 import { Report } from "./report.model";
-import { School } from "../school-grade/school";
 import { Grade } from "../school-grade/grade.model";
 import { TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs/Observable";
 import { ApplicationSettingsService } from '../app-settings.service';
+import { School } from "../shared/organization/organization";
 
 /**
  * Component used for single-student exam report download

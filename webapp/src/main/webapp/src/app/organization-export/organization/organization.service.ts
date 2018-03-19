@@ -6,14 +6,16 @@ import { CachingDataService } from "../../shared/data/caching-data.service";
 import { map } from 'rxjs/operators';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { ReportingServiceRoute } from '../../shared/service-route';
+import { OrganizationService as ExtendOrganizationService } from "../../shared/organization/organization.service";
 
 const ServiceRoute = ReportingServiceRoute;
 
 @Injectable()
-export class OrganizationService {
+export class OrganizationService extends ExtendOrganizationService {
 
-  constructor(private dataService: CachingDataService,
+  constructor(protected dataService: CachingDataService,
               private mapper: OrganizationMapper) {
+    super(dataService);
   }
 
   /**
@@ -31,18 +33,6 @@ export class OrganizationService {
         return this.mapper.createUserOrganizations(schools, schoolGroups, districts);
       })
     );
-  }
-
-  private getSchools(): Observable<any[]> {
-    return this.dataService.get(`${ServiceRoute}/organizations/schools`);
-  }
-
-  private getSchoolGroups(): Observable<any[]> {
-    return this.dataService.get(`${ServiceRoute}/organizations/schoolGroups`);
-  }
-
-  private getDistricts(): Observable<any[]> {
-    return this.dataService.get(`${ServiceRoute}/organizations/districts`);
   }
 
 }

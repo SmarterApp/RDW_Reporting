@@ -5,7 +5,6 @@ import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.m
 import { Assessment } from "../../assessments/model/assessment.model";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { SchoolAssessmentService } from "./school-assessment.service";
-import { School } from "../../school-grade/school";
 import { SchoolService } from "../school.service";
 import { Grade } from "../grade.model";
 import { Angulartics2 } from "angulartics2";
@@ -18,6 +17,7 @@ import { Option } from "../../shared/form/sb-typeahead.component";
 import { Utils } from "../../shared/support/support";
 import { SchoolAssessmentExportService } from "./school-assessment-export.service";
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { School } from "../../shared/organization/organization";
 
 @Component({
   selector: 'school-results',

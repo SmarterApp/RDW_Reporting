@@ -14,8 +14,8 @@ import { Angulartics2Module } from "angulartics2";
 import { ReportModule } from "../report/report.module";
 import { TypeaheadModule } from "ngx-bootstrap";
 import { UserModule } from "../user/user.module";
-import { OrganizationService } from "./organization.service";
 import { SchoolAssessmentExportService } from "./results/school-assessment-export.service";
+import { OrganizationService } from "../shared/organization/organization.service";
 
 /**
  * This module contains a search component for finding assessments

@@ -1,12 +1,17 @@
-import { Component } from "@angular/core";
-import { School } from "../school-grade/school";
+import { Component, ViewChild } from "@angular/core";
 import { SchoolService } from "./school.service";
 import { Grade } from "./grade.model";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { OrganizationService } from "./organization.service";
 import { Option } from "../shared/form/sb-typeahead.component";
 import { Utils } from "../shared/support/support";
+import { School } from "../shared/organization/organization";
+import { Observable } from "rxjs/Observable";
+import { SchoolTypeahead } from "../shared/organization/school-typeahead";
+import { OrganizationService } from "../shared/organization/organization.service";
+import { mergeMap } from "rxjs/operators";
+
+const toggleLimit = 3;
 
 /**
  * This component is responsible for displaying a search widget allowing
@@ -19,10 +24,19 @@ import { Utils } from "../shared/support/support";
 export class SchoolGradeComponent {
 
   formGroup: FormGroup;
-  schoolOptions: Option[];
+  schoolOptions: Option[] | Observable<School[]>;
+  private schoolCount;
+  private _aboveLimit: boolean = false;
   schoolHasGradesWithResults: boolean = true;
 
+  /**
+   * The school typeahead
+   */
+  @ViewChild('schoolTypeahead')
+  schoolTypeahead: SchoolTypeahead;
+
   private _gradeOptions: Grade[] = [];
+  organizations: any[] = [];
 
   constructor(private schoolService: SchoolService,
               private organizationService: OrganizationService,
@@ -31,7 +45,19 @@ export class SchoolGradeComponent {
     this.formGroup = new FormGroup({
       school: new FormControl({ value: undefined }, Validators.required),
       grade: new FormControl({ value: undefined, disabled: true }, Validators.required)
-    })
+    });
+    this.schoolOptions = Observable.create(observer => {
+      observer.next(this.schoolTypeahead.value);
+    }).pipe(
+      mergeMap(
+        (search: string) =>
+          this.organizationService.searchSchoolsWithDistrictsBySchoolName(search)
+            .map(
+              (organizations: any[]) =>
+                organizations.filter(
+                  organization => this.organizations.findIndex(x => organization.equals(x)) === -1
+                ))
+      ));
   }
 
   ngOnInit(): void {
@@ -46,6 +72,14 @@ export class SchoolGradeComponent {
 
   schoolChanged(value: any) {
     this.school = value;
+  }
+
+  unSelectSchool(value: any) {
+    this.school = null;
+  }
+
+  get aboveLimit() {
+    return this.schoolCount > toggleLimit;
   }
 
   get school(): School {
@@ -100,14 +134,20 @@ export class SchoolGradeComponent {
   }
 
   private loadSchoolOptions(): void {
-    this.organizationService.getSchoolsWithDistricts()
-      .subscribe(schools => {
-        this.schoolOptions = schools.map(school => <Option>{
-          label: school.name,
-          group: school.districtName,
-          value: school
-        });
-      });
+    this.organizationService.getSchoolCount().subscribe(count => {
+      this.schoolCount = count;
+      if (!this.aboveLimit) {
+        this.organizationService.getSchoolsWithDistricts()
+          .subscribe(schools => {
+            this.schoolOptions = schools.map(school => <Option>{
+              label: school.name,
+              group: school.districtName,
+              value: school
+            });
+          });
+      }
+    });
+
   }
 
   private loadGradeOptions(school: School): void {

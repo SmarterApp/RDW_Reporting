@@ -6,7 +6,6 @@ import { SchoolResultsComponent } from "./school-results.component";
 import { CommonModule } from "../../shared/common.module";
 import { SchoolService } from "../school.service";
 import { SchoolAssessmentService } from "./school-assessment.service";
-import { School } from "../../school-grade/school";
 import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { Angulartics2 } from "angulartics2";
@@ -22,6 +21,7 @@ import { MockAuthorizeDirective } from "../../../test/mock.authorize.directive";
 import { MockTranslateService } from "../../../test/mock.translate.service";
 import { TranslateService } from "@ngx-translate/core";
 import { DataService } from "../../shared/data/data.service";
+import { DefaultSchool, School } from "../../shared/organization/organization";
 import { SchoolAssessmentExportService } from "./school-assessment-export.service";
 import { of } from 'rxjs/observable/of';
 
@@ -33,13 +33,13 @@ describe('SchoolResultsComponent', () => {
   let exportService: any;
   let mockRouter: MockRouter;
   let route: MockActivatedRoute;
-  let school = new School();
+  let school = new DefaultSchool();
   school.id = 1;
   let schoolYear: number = 2017;
 
   beforeEach(async(() => {
 
-    const school = new School();
+    const school = new DefaultSchool();
     school.id = 2;
     school.name = 'Ogden';
     school.districtId = 0;
