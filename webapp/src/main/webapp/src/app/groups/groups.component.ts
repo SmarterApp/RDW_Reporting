@@ -11,6 +11,11 @@ export class GroupsComponent implements OnInit {
   groups: Group[];
   filteredGroups: Group[] = [];
   searchTerm : string;
+  columns: Column[] = [
+    new Column({id: 'group', field: 'name'}),
+    new Column({id: 'school', field: 'schoolName'}),
+    new Column({id: 'subject', field: 'subjectCode'})
+  ];
 
   constructor(private groupService: GroupService) {
     this.groupService.getGroups().subscribe(groups => {
@@ -41,4 +46,17 @@ export class GroupsComponent implements OnInit {
       'groups.no-groups-message';
   }
 
+}
+
+class Column {
+  id: string;
+  field: string;
+
+  constructor({
+                id,
+                field
+  }) {
+    this.id = id;
+    this.field = field;
+  }
 }
