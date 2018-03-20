@@ -15,7 +15,7 @@ export class OrganizationService {
   getSchoolsWrapper(): Observable<SchoolsWrapper> {
     return this.dataService.get(`${ReportingServiceRoute}/organizations/schoolsWrapper`, {
       params: {
-        limit: 3
+        limit: 10
       }
     }).pipe(map((apiModel) => {
       let wrapper = new SchoolsWrapper();
