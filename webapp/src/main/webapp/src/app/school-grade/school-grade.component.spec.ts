@@ -10,19 +10,24 @@ import { AssessmentsModule } from "../assessments/assessments.module";
 import { RouterModule } from "@angular/router";
 import { APP_BASE_HREF } from "@angular/common";
 import { TypeaheadModule } from "ngx-bootstrap";
-import { OrganizationService } from "./organization.service";
 import { UserModule } from "../user/user.module";
 import { MockDataService } from "../../test/mock.data.service";
 import { DataService } from "../shared/data/data.service";
 import { CachingDataService } from "../shared/data/caching-data.service";
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs/observable/of';
+import { OrganizationService } from "../shared/organization/organization.service";
+import { DefaultSchool, SchoolsWrapper } from "../shared/organization/organization";
 
 describe('SchoolGradeComponent', () => {
   let component: SchoolGradeComponent;
   let fixture: ComponentFixture<SchoolGradeComponent>;
   let mockOrganizationService = {
-    getSchoolsWithDistricts: () => of([])
+    getSchoolsWithDistricts: () => {
+      let schools = new SchoolsWrapper();
+      schools.schools.push(new DefaultSchool());
+      return of(schools);
+    }
   };
 
   beforeEach(async(() => {

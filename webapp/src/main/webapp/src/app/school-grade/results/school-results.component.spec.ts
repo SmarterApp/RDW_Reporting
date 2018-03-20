@@ -13,7 +13,6 @@ import { CsvExportService } from "../../csv-export/csv-export.service";
 import { UserService } from "../../user/user.service";
 import { MockUserService } from "../../../test/mock.user.service";
 import { MockActivatedRoute } from "../../../test/mock.activated-route";
-import { OrganizationService } from "../organization.service";
 import { MockDataService } from "../../../test/mock.data.service";
 import { MockRouter } from "../../../test/mock.router";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
@@ -21,9 +20,10 @@ import { MockAuthorizeDirective } from "../../../test/mock.authorize.directive";
 import { MockTranslateService } from "../../../test/mock.translate.service";
 import { TranslateService } from "@ngx-translate/core";
 import { DataService } from "../../shared/data/data.service";
-import { DefaultSchool, School } from "../../shared/organization/organization";
+import { DefaultSchool, School, SchoolsWrapper } from "../../shared/organization/organization";
 import { SchoolAssessmentExportService } from "./school-assessment-export.service";
 import { of } from 'rxjs/observable/of';
+import { OrganizationService } from "../../shared/organization/organization.service";
 
 let availableGrades = [];
 
@@ -65,11 +65,11 @@ describe('SchoolResultsComponent', () => {
 
     const mockTranslate = new MockTranslateService();
 
-    const mockAssessmentService = jasmine.createSpyObj('SchoolAssessmentService', ['findGradesWithAssessmentsForSchool']);
+    const mockAssessmentService = jasmine.createSpyObj('SchoolAssessmentService', [ 'findGradesWithAssessmentsForSchool' ]);
 
-    const mockAssessmentExportService = jasmine.createSpyObj('SchoolAssessmentExportService', ['exportItemsToCsv', 'exportWritingTraitScoresToCsv']);
+    const mockAssessmentExportService = jasmine.createSpyObj('SchoolAssessmentExportService', [ 'exportItemsToCsv', 'exportWritingTraitScoresToCsv' ]);
 
-    const mockOrganizationService = jasmine.createSpyObj('OrganizationService', ['getSchoolsWithDistricts']);
+    const mockOrganizationService = jasmine.createSpyObj('OrganizationService', [ 'getSchoolsWithDistricts', 'getSchoolsWrapper' ]);
 
     availableGrades = [];
     exportService = {};
@@ -90,12 +90,12 @@ describe('SchoolResultsComponent', () => {
         { provide: DataService, useClass: MockDataService },
         { provide: ExamFilterOptionsService, useClass: MockExamFilterOptionService },
         { provide: SchoolService, useClass: MockSchoolService },
-        { provide: OrganizationService, useValue: new MockOrganizationService([ school ])},
+        { provide: OrganizationService, useValue: new MockOrganizationService([ school ]) },
         { provide: ActivatedRoute, useValue: route },
         { provide: Angulartics2, useValue: mockAngulartics2 },
         { provide: CsvExportService, useValue: exportService },
         { provide: UserService, useClass: MockUserService },
-        { provide: Router, useValue: mockRouter},
+        { provide: Router, useValue: mockRouter },
         { provide: TranslateService, useValue: mockTranslate }
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
@@ -129,7 +129,7 @@ describe('SchoolResultsComponent', () => {
 
     expect(component.currentGrade.id).toBe(4);
     expect(mockRouter.navigate).toHaveBeenCalledWith(
-      [ 'schools', school.id, {schoolYear: schoolYear, gradeId: 4} ]
+      [ 'schools', school.id, { schoolYear: schoolYear, gradeId: 4 } ]
     );
   });
 
@@ -141,7 +141,7 @@ describe('SchoolResultsComponent', () => {
 
     expect(component.currentGrade.id).toBe(3);
     expect(mockRouter.navigate).toHaveBeenCalledWith(
-      [ 'schools', school.id, {schoolYear: schoolYear, gradeId: 3} ]
+      [ 'schools', school.id, { schoolYear: schoolYear, gradeId: 3 } ]
     );
   });
 
@@ -166,12 +166,16 @@ class MockSchoolService {
 
 class MockOrganizationService {
 
-  constructor(private schools: School[]){
+  constructor(private schools: School[]) {
   }
 
-  getSchoolsWithDistricts(): Observable<School[]> {
-    return of(this.schools);
+  getSchoolsWithDistricts(): Observable<SchoolsWrapper> {
+    let schoolsWrapper = new SchoolsWrapper();
+    schoolsWrapper.schools = this.schools;
+    return of(schoolsWrapper);
   }
+
+
 }
 
 class MockExamFilterOptionService {

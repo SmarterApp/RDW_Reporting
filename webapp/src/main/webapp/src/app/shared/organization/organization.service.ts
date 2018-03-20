@@ -1,7 +1,7 @@
 import { Observable } from "rxjs/Observable";
-import { map, publishReplay, refCount } from "rxjs/operators";
+import { map, mergeMap, publishReplay, refCount } from "rxjs/operators";
 import { CachingDataService } from "../data/caching-data.service";
-import { DefaultSchool, OrganizationType, School } from "./organization";
+import { DefaultSchool, OrganizationType, School, SchoolsWrapper } from "./organization";
 import { ReportingServiceRoute } from "../service-route";
 import { forkJoin } from "rxjs/observable/forkJoin";
 import { Injectable } from "@angular/core";
@@ -12,8 +12,17 @@ export class OrganizationService {
   constructor(protected dataService: CachingDataService) {
   }
 
-  getSchoolCount(): Observable<number> {
-    return this.dataService.get(`${ReportingServiceRoute}/organizations/schoolCount`);
+  getSchoolsWrapper(): Observable<SchoolsWrapper> {
+    return this.dataService.get(`${ReportingServiceRoute}/organizations/schoolsWrapper`, {
+      params: {
+        limit: 3
+      }
+    }).pipe(map((apiModel) => {
+      let wrapper = new SchoolsWrapper();
+      wrapper.schools = apiModel.schools;
+      wrapper.hasMoreSchools = apiModel.hasMoreSchools;
+      return wrapper;
+    }));
   }
 
   searchSchoolsByName(nameSearch: string): Observable<School[]> {
@@ -73,16 +82,18 @@ export class OrganizationService {
    *
    * @returns {Observable<School[]>}
    */
-  getSchoolsWithDistricts(): Observable<School[]> {
+  getSchoolsWithDistricts(): Observable<SchoolsWrapper> {
     return forkJoin(
-      this.getSchools(),
+      this.getSchoolsWrapper(),
       this.getDistrictNamesById()
     ).pipe(
       map(([ schools, districtNamesById ]) => {
-        return schools.map((school: DefaultSchool) => {
+        let schoolWrapper = schools;
+        schoolWrapper.schools = schools.schools.map((school: DefaultSchool) => {
           school.districtName = districtNamesById.get(school.districtId);
           return school;
         });
+        return schoolWrapper;
       }),
       // when combined these operators act as a cache of the first valid result of the observable
       publishReplay(1),

@@ -92,3 +92,8 @@ export class DefaultSchool extends AbstractIdentifiableOrganization implements S
     return OrganizationType.School;
   }
 }
+
+export class SchoolsWrapper {
+  hasMoreSchools: boolean;
+  schools: School[] = [];
+}

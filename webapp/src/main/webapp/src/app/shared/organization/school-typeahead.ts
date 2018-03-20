@@ -45,7 +45,7 @@ export class SchoolTypeahead extends AbstractControlValueAccessor<string> {
   }
 
   set value(value: string) {
-    if (this._value !== value) {
+    if (this._value !== value && value.length) {
       this._value = value;
       this._onChangeCallback(value);
     }
