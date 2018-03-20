@@ -1,9 +1,5 @@
 apply plugin: 'org.springframework.boot'
 
-createDockerfile {
-    environmentVariable("MAX_HEAP_SIZE", "-Xmx768m")
-}
-
 dependencies {
     compile project(':rdw-reporting-common')
     compile project(':rdw-reporting-common-web')
