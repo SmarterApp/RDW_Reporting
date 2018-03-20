@@ -1,7 +1,6 @@
 import { Angulartics2Module } from "angulartics2";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "../shared/common.module";
-import { DataTableModule } from "primeng/primeng";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AggregateReportOptionsService } from "./aggregate-report-options.service";
@@ -43,7 +42,6 @@ import { TableModule } from "primeng/table";
     BrowserModule,
     CommonModule,
     CsvModule,
-    DataTableModule,
     FormsModule,
     ModalModule,
     PopoverModule.forRoot(),

@@ -8,11 +8,9 @@ import {
   OrganizationType,
   School
 } from "../shared/organization/organization";
-import { Observable } from "rxjs/Observable";
 import { AggregateReportOptions } from "./aggregate-report-options";
 import { AggregateReportQuery, AggregateReportRequest } from "../report/aggregate-report-request";
 import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
-import { DefaultColumnOrder } from "./aggregate-report-options.mapper";
 import Spy = jasmine.Spy;
 import { of } from 'rxjs/observable/of';
 
@@ -156,7 +154,7 @@ describe('AggregateReportRequestMapper', () => {
       subjects: query.subjectCodes,
       valueDisplayType: query.valueDisplayType,
       name: request.name,
-      columnOrder: DefaultColumnOrder
+      columnOrder: query.columnOrder
     };
 
     fixture.toSettings(request, options)

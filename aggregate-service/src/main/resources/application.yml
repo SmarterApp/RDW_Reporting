@@ -31,7 +31,7 @@ app:
     state-aggregate-assessment-types: sum
     custom-aggregate-report-repository:
       organization-partition-size: 10
-      jdbc-fetch-size: 200
+      jdbc-fetch-size: -1
     query-pool-size: 6
     api-enabled: false
 

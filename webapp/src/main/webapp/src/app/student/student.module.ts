@@ -10,7 +10,6 @@ import { StudentResultsComponent } from "./results/student-results.component";
 import { StudentExamHistoryResolve } from "./results/student-exam-history.resolve";
 import { AssessmentsModule } from "../assessments/assessments.module";
 import { StudentResultsFilterComponent } from "./results/student-results-filter.component";
-import { DataTableModule } from "primeng/components/datatable/datatable";
 import { Angulartics2Module } from "angulartics2";
 import { StudentResponsesComponent } from "./responses/student-responses.component";
 import { StudentResponsesService } from "./responses/student-responses.service";
@@ -41,7 +40,6 @@ import { TableModule } from "primeng/table";
     BrowserModule,
     CommonModule,
     CsvModule,
-    DataTableModule,
     FormsModule,
     PopoverModule.forRoot(),
     ReactiveFormsModule,

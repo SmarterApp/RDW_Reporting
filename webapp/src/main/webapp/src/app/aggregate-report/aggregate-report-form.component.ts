@@ -10,7 +10,10 @@ import { Observable } from "rxjs/Observable";
 import { OrganizationTypeahead } from "../shared/organization/organization-typeahead";
 import { AggregateReportOrganizationService } from "./aggregate-report-organization.service";
 import { AggregateReportService } from "./aggregate-report.service";
-import { AggregateReportTable, SupportedRowCount } from "./results/aggregate-report-table.component";
+import {
+  AggregateReportTable,
+  SupportedRowCount
+} from "./results/aggregate-report-table.component";
 import { AggregateReportRequest } from "../report/aggregate-report-request";
 import { AggregateReportOptionsMapper } from "./aggregate-report-options.mapper";
 import { AggregateReportTableDataService } from "./aggregate-report-table-data.service";
@@ -24,6 +27,8 @@ import { Subscription } from "rxjs/Subscription";
 import { Utils } from "../shared/support/support";
 import { debounceTime, finalize, map, mergeMap } from "rxjs/operators";
 import { Observer } from "rxjs/Observer";
+import { ranking } from '@kourge/ordering/comparator';
+import { ordering } from '@kourge/ordering';
 
 const DefaultRenderDebounceMilliseconds = 500;
 
@@ -315,6 +320,23 @@ export class AggregateReportFormComponent {
     this.showAdvancedFilters = !this.showAdvancedFilters;
   }
 
+  onAssessmentTypeChange(): void {
+
+    // Preserve column order between changing assessment types
+    const currentOrder = this.settings.columnOrder.concat();
+    if (!currentOrder.includes('assessmentLabel')) {
+      currentOrder.splice(currentOrder.indexOf('assessmentGrade') + 1, 0, 'assessmentLabel');
+    }
+    const order = this.currentAssessmentDefinition.aggregateReportIdentityColumns.concat()
+      .sort(ordering(ranking(currentOrder)).compare);
+
+    this.settings.columnOrder = order;
+    this.columnItems = this.columnOrderableItemProvider.toOrderableItems(order);
+
+    this.markOrganizationsControlTouched();
+    this.onSettingsChange();
+  }
+
   onColumnOrderChange(items: OrderableItem[]): void {
     this.settings.columnOrder = items.map(item => item.value);
   }
@@ -425,6 +447,7 @@ export class AggregateReportFormComponent {
       options: this.aggregateReportOptions,
       rows: this.tableDataService.createSampleData(this.currentAssessmentDefinition, this.settings)
     };
+
   }
 
   /**

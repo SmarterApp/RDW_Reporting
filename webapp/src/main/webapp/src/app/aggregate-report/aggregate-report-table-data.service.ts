@@ -3,15 +3,11 @@ import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
 import { DefaultSchool, Organization, School } from "../shared/organization/organization";
 import { AssessmentDefinition } from "./assessment/assessment-definition";
 import { AggregateReportItem, Dimension } from "./results/aggregate-report-item";
-import { Utils } from "../shared/support/support";
 import { TranslateService } from "@ngx-translate/core";
 import { DimensionConfigurationByType } from "./dimension-configuration";
-import { DefaultRowsPerPageOptions } from "./results/aggregate-report-table.component";
 
 const MaximumOrganizations = 2;
 const OverallDimension: Dimension = { id: 'Overall', type: 'Overall' };
-
-// when adding a new dimension type one needs to be defined here
 
 @Injectable()
 export class AggregateReportTableDataService {
@@ -48,6 +44,7 @@ export class AggregateReportTableDataService {
               itemId: ++uuid,
               organization: organization,
               assessmentId: undefined,
+              assessmentLabel: this.translate.instant('sample-aggregate-table-data-service.assessment-label'),
               assessmentGradeCode: assessmentGradeCode,
               subjectCode: undefined,
               schoolYear: schoolYear,
@@ -110,7 +107,7 @@ export class AggregateReportTableDataService {
   private createSampleOrganization(id: number): School {
     const school = new DefaultSchool();
     school.id = id;
-    school.name = this.translate.instant('sample-aggregate-table-data-service.organization-name-format', {id: id});
+    school.name = this.translate.instant('sample-aggregate-table-data-service.school-name', { id: id });
     school.districtId = id;
     return school;
   }

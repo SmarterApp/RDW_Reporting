@@ -153,14 +153,10 @@ subprojects {
             label([maintainer: 'Fairway Technologies'])
             copyFile("${jar.archivePath.name}", "${jar.archivePath.name}")
             exposePort(8008, 8080)
-            ext.java_opts = ["-Xmx384m"]
-            entryPoint {
-                List<String> entryPointArgs = ["java"]
-                entryPointArgs.addAll(ext.java_opts)
-                entryPointArgs.add("-jar")
-                entryPointArgs.add("${jar.archivePath.name}")
-                entryPointArgs.toArray()
-            }
+            runCommand("apk add --no-cache tini")
+            entryPoint("/sbin/tini", "--")
+            environmentVariable("MAX_HEAP_SIZE", "-Xmx384m")
+            instruction('CMD exec java $MAX_HEAP_SIZE $JAVA_OPTS -jar ' + "${jar.archivePath.name}")
         }
 
         // task to build the docker image

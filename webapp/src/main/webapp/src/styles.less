@@ -583,7 +583,7 @@ aggregate-report-table .label {
   .bar-container {
     display: flex;
     padding: 0.6em 0;
-    &:first-child {
+    &:nth-child(1) {
       justify-content: flex-end;
       .bar:first-child {
         border-top-left-radius: @border-radius-small;
@@ -593,7 +593,7 @@ aggregate-report-table .label {
         border-right: 1px solid #fff;
       }
     }
-    &:last-child {
+    &:nth-child(2) {
       border-left: 1px solid @gray-darkest;
       .bar:last-child {
         border-top-right-radius: @border-radius-small;
@@ -741,19 +741,6 @@ aggregate-report-organization-list {
   }
 }
 
-//Enable click-through on prime-ng data table headers
-//Workaround for https://github.com/primefaces/primeng/issues/4762
-//TODO convert from DataTable to the new TurboTable
-.ui-column-title > * {
-  pointer-events: none;
-  display: inline-block;
-
-  button {
-    pointer-events: auto;
-    position: relative;
-  }
-}
-
 :not(typeahead-container) > .dropdown-menu > li > a {
   color: #5b5e62;
   padding: @padding-large-vertical @padding-large-horizontal;
@@ -884,8 +871,6 @@ h6 {
 }
 
 // override prime override
-body .ui-widget.ui-datatable table .ui-datatable-thead > tr > th.level-down,
-body .ui-widget.ui-datatable table .ui-datatable-data > tr > td.level-down,
 .ui-table .ui-table-thead > tr > th.level-down,
 .ui-table .ui-table-tbody > tr > td.level-down {
   padding-left: @padding-base-horizontal;
@@ -916,7 +901,6 @@ a.btn.disabled.with-pointer {
 }
 
 //TODO move to SBAC UI kit
-distractor-analysis .ui-widget.ui-datatable table .ui-datatable-data td.green,
 distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
   color: contrast(@green, darken(@green, 100%), lighten(@green, 100%));
   background-color: @green;

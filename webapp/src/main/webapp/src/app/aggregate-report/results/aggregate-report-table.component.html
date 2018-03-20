@@ -52,7 +52,7 @@
              [ngClass]="{
               'pt-0': column.id === 'achievementComparison',
               'hidden': treeColumns[i] > columnIdx,
-              'border-top': treeColumns[i] <= columnIdx && treeColumns[i] < columnOrdering.length - 1
+              'border-top': treeColumns[i] <= columnIdx && treeColumns[i] < identityColumns.length - 1
              }">
 
           <div *ngSwitchCase="'organization'">
@@ -61,6 +61,10 @@
               {{('common.organization.type.' + rowData.organization.type) | translate}}
             </span>
             {{rowData.organization.name}}
+          </div>
+
+          <div *ngSwitchCase="'assessmentLabel'">
+            {{rowData.assessmentLabel}}
           </div>
 
           <div *ngSwitchCase="'assessmentGrade'"
@@ -90,7 +94,7 @@
                                                   [cutPoint]="table.assessmentDefinition.performanceLevelGroupingCutPoint"
                                                   [assessmentTypeCode]="table.assessmentDefinition.typeCode"
                                                   [displayType]="performanceLevelDisplayType"
-                                                  [center]="true"></performance-level-distribution-chart>
+                                                  [center]="table.assessmentDefinition.performanceLevelGroupingCutPoint != null"></performance-level-distribution-chart>
           </div>
 
           <div *ngSwitchCase="'avgScaleScore'"

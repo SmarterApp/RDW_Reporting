@@ -91,6 +91,14 @@
       </tr>
     </ng-template>
 
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td [attr.colspan]="columns.length">
+          {{'common.no-results' | translate}}
+        </td>
+      </tr>
+    </ng-template>
+
   </p-table>
 
   <div *ngFor="let traitScoreSummary of traitScoreSummaries">
@@ -149,6 +157,14 @@
               <span [hidden]="showValuesAsPercent">{{ item.numbers[column.index] }}</span>
               <span [hidden]="!showValuesAsPercent || item.percents[column.index] == null">{{ item.percents[column.index] | number:'1.0-0' }}%</span>
             </div>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="columns.length">
+            {{'common.no-results' | translate}}
           </td>
         </tr>
       </ng-template>

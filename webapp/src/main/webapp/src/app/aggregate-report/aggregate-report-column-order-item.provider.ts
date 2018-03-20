@@ -3,6 +3,7 @@ import { OrderableItem } from "../shared/order-selector/order-selector.component
 
 const ColumnToLabel: {[key: string]: string} = {
   organization: 'aggregate-report-table.columns.organization',
+  assessmentLabel: 'aggregate-report-table.columns.assessment-label',
   assessmentGrade: 'aggregate-report-table.columns.assessment-grade',
   schoolYear: 'aggregate-report-table.columns.school-year',
   dimension: 'aggregate-report-table.columns.dimension'

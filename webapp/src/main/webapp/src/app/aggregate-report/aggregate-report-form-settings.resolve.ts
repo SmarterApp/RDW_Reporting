@@ -21,8 +21,7 @@ export class AggregateReportFormSettingsResolve implements Resolve<AggregateRepo
 
   constructor(private service: AggregateReportService,
               private optionMapper: AggregateReportOptionsMapper,
-              private requestMapper: AggregateReportRequestMapper,
-              private translate: TranslateService) {
+              private requestMapper: AggregateReportRequestMapper) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<AggregateReportFormSettings> {
@@ -37,7 +36,7 @@ export class AggregateReportFormSettingsResolve implements Resolve<AggregateRepo
           }))
         );
     }
-    return of(this.optionMapper.toDefaultSettings(options));
+    return this.optionMapper.toDefaultSettings(options);
   }
 
 }

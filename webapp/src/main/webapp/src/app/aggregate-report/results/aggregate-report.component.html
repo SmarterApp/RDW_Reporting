@@ -121,7 +121,8 @@
                                        analyticsCategory="AggregateReportControl"
                                        analyticsEvent="Change"></sb-radio-button-group>
               </span>
-              <span class="pull-right flex-child ml-xs">
+              <span class="pull-right flex-child ml-xs"
+                    *ngIf="table.table.assessmentDefinition.performanceLevelDisplayTypes.length > 1">
                 <label class="mr-xs">{{'common.performance-level-display-type-input-label' | translate}}</label>
                 <sb-radio-button-group [options]="displayOptions.performanceLevelDisplayTypes"
                                        [(ngModel)]="table.performanceLevelDisplayType"
@@ -140,7 +141,7 @@
                                     [table]="table.table"
                                     [valueDisplayType]="table.valueDisplayType"
                                     [performanceLevelDisplayType]="table.performanceLevelDisplayType"
-                                    [columnOrdering]="table.columnOrdering"></aggregate-report-table>
+                                    [identityColumns]="table.columnOrdering"></aggregate-report-table>
           </div>
         </div>
       </div>

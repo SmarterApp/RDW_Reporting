@@ -23,6 +23,7 @@ export class AggregateReportItemMapper {
 
     item.itemId = uuid;
     item.assessmentId = row.assessment.id;
+    item.assessmentLabel = row.assessment.label;
     item.assessmentGradeCode = row.assessment.gradeCode;
     item.subjectCode = row.assessment.subjectCode;
     item.schoolYear = row.assessment.examSchoolYear;

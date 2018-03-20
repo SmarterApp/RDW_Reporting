@@ -18,7 +18,6 @@ import { AggregateReportRequestMapper } from "../aggregate-report-request.mapper
 import { SpinnerModal } from "../../shared/loading/spinner.modal";
 import { OrderableItem } from "../../shared/order-selector/order-selector.component";
 import { AggregateReportColumnOrderItemProvider } from "../aggregate-report-column-order-item.provider";
-import { DefaultColumnOrder } from "../aggregate-report-options.mapper";
 import { AggregateReportRequestSummary } from "../aggregate-report-summary.component";
 import { interval } from 'rxjs/observable/interval';
 import { finalize, switchMap } from 'rxjs/operators';
@@ -223,8 +222,9 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
       const subjectCode = row.assessment.subjectCode;
       const tableWrapper = tableWrappers.find(wrapper => wrapper.subjectCode == subjectCode);
       const columnOrder: string[] = Utils.isNullOrEmpty(this.report.request.reportQuery.columnOrder)
-        ? DefaultColumnOrder
+        ? this.assessmentDefinition.aggregateReportIdentityColumns.concat()
         : this.report.request.reportQuery.columnOrder;
+
       if (!tableWrapper) {
         tableWrappers.push({
           subjectCode: subjectCode,

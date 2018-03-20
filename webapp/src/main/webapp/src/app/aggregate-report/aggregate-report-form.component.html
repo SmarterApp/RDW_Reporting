@@ -122,7 +122,8 @@
                                [(ngModel)]="includeStateResults"
                                [ngModelOptions]="{standalone: true}"
                                (ngModelChange)="onIncludeStateResultsChange()">
-                        <span class="ml-xs">{{'aggregate-report-form.section.organization.include.state-results' | translate}}</span>
+                        <span class="ml-xs"
+                              [ngClass]="{'text-muted': summativeFieldsDisabled}">{{'aggregate-report-form.section.organization.include.state-results' | translate}}</span>
                       </label>
                     </div>
                     <div class="col-sm-6" *ngIf="options.statewideReporter">
@@ -183,7 +184,7 @@
                                        [options]="options.assessmentTypes"
                                        [(ngModel)]="settings.assessmentType"
                                        [ngModelOptions]="{standalone: true}"
-                                       (change)="onIncludeStateResultsChange()"></sb-radio-button-group>
+                                       (change)="onAssessmentTypeChange()"></sb-radio-button-group>
               </div>
             </div>
           </div>
@@ -615,7 +616,8 @@
                                        analyticsCategory="AggregateQueryBuilder"
                                        analyticsEvent="Change"></sb-radio-button-group>
               </span>
-              <span class="pull-right flex-child ml-xs">
+              <span class="pull-right flex-child ml-xs"
+                    *ngIf="currentAssessmentDefinition.performanceLevelDisplayTypes.length > 1">
                 <label class="mr-xs">{{'common.performance-level-display-type-input-label' | translate}}</label>
                 <sb-radio-button-group [options]="options.performanceLevelDisplayTypes"
                                        [(ngModel)]="settings.performanceLevelDisplayType"
@@ -632,8 +634,11 @@
                                     [preview]="true"
                                     [table]="previewTable"
                                     [valueDisplayType]="settings.valueDisplayType"
-                                    [performanceLevelDisplayType]="settings.performanceLevelDisplayType"
-                                    [columnOrdering]="settings.columnOrder"></aggregate-report-table>
+                                    [performanceLevelDisplayType]="
+                                      currentAssessmentDefinition.performanceLevelDisplayTypes.includes(settings.performanceLevelDisplayType)
+                                        ? settings.performanceLevelDisplayType
+                                        : currentAssessmentDefinition.performanceLevelDisplayTypes[0]"
+                                    [identityColumns]="settings.columnOrder"></aggregate-report-table>
           </div>
         </div>
       </div>

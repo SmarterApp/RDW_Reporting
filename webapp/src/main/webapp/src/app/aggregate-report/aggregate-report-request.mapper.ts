@@ -9,7 +9,6 @@ import { Observable } from "rxjs/Observable";
 import { District, OrganizationType, School } from "../shared/organization/organization";
 import { Utils } from "../shared/support/support";
 import { AggregateReportOrganizationService } from "./aggregate-report-organization.service";
-import { DefaultColumnOrder } from "./aggregate-report-options.mapper";
 import { ranking } from "@kourge/ordering/comparator";
 import { ordering } from "@kourge/ordering";
 import { forkJoin } from 'rxjs/observable/forkJoin';
@@ -194,10 +193,7 @@ export class AggregateReportRequestMapper {
             schools: schools,
             subjects: sort(query.subjectCodes, options.subjects),
             valueDisplayType: query.valueDisplayType,
-            columnOrder: or(
-              request.reportQuery.columnOrder,
-              DefaultColumnOrder
-            )
+            columnOrder: request.reportQuery.columnOrder
           };
         })
       );

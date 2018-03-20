@@ -7,9 +7,9 @@ import { DisplayOptionService } from "../shared/display-options/display-option.s
 import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
 import { ValueDisplayTypes } from "../shared/display-options/value-display-type";
 import { PerformanceLevelDisplayTypes } from "../shared/display-options/performance-level-display-type";
-
-
-export const DefaultColumnOrder: string[] = ['organization', 'assessmentGrade', 'schoolYear', 'dimension'];
+import { AssessmentDefinitionService } from './assessment/assessment-definition.service';
+import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 
 /**
  * Responsible for mapping server provided report options into option
@@ -20,7 +20,8 @@ export class AggregateReportOptionsMapper {
 
   constructor(private translateService: TranslateService,
               private schoolYearPipe: SchoolYearPipe,
-              private displayOptionService: DisplayOptionService) {
+              private displayOptionService: DisplayOptionService,
+              private assessmentDefinitionService: AssessmentDefinitionService) {
   }
 
   /**
@@ -120,33 +121,39 @@ export class AggregateReportOptionsMapper {
    * @param {AggregateReportFormOptions} options the options available for selection
    * @returns {AggregateReportFormSettings} the initial form state
    */
-  toDefaultSettings(options: AggregateReportOptions): AggregateReportFormSettings {
-    return <AggregateReportFormSettings>{
-      assessmentGrades: [],
-      assessmentType: options.assessmentTypes[0],
-      completenesses: [ options.completenesses[0] ],
-      ethnicities: options.ethnicities,
-      genders: options.genders,
-      interimAdministrationConditions: [ options.interimAdministrationConditions[0] ],
-      schoolYears: [ options.schoolYears[0] ],
-      subjects: options.subjects,
-      summativeAdministrationConditions: [ options.summativeAdministrationConditions[0] ],
-      migrantStatuses: options.migrantStatuses,
-      individualEducationPlans: options.individualEducationPlans,
-      section504s: options.section504s,
-      limitedEnglishProficiencies: options.limitedEnglishProficiencies,
-      economicDisadvantages: options.economicDisadvantages,
-      performanceLevelDisplayType: PerformanceLevelDisplayTypes.Separate,
-      valueDisplayType: ValueDisplayTypes.Percent,
-      columnOrder: DefaultColumnOrder,
-      dimensionTypes: [],
-      includeStateResults: true,
-      includeAllDistricts: false,
-      includeAllSchoolsOfSelectedDistricts: false,
-      includeAllDistrictsOfSelectedSchools: true,
-      districts: [],
-      schools: []
-    };
+  toDefaultSettings(options: AggregateReportOptions): Observable<AggregateReportFormSettings> {
+    return this.assessmentDefinitionService.getDefinitionsByAssessmentTypeCode().pipe(
+      map(definitions => {
+        const defaultAssessmentType = options.assessmentTypes[ 0 ];
+        const assessmentDefinition = definitions.get(defaultAssessmentType);
+        return <AggregateReportFormSettings>{
+          assessmentGrades: [],
+          assessmentType: defaultAssessmentType,
+          completenesses: [ options.completenesses[ 0 ] ],
+          ethnicities: options.ethnicities,
+          genders: options.genders,
+          interimAdministrationConditions: [ options.interimAdministrationConditions[ 0 ] ],
+          schoolYears: [ options.schoolYears[ 0 ] ],
+          subjects: options.subjects,
+          summativeAdministrationConditions: [ options.summativeAdministrationConditions[ 0 ] ],
+          migrantStatuses: options.migrantStatuses,
+          individualEducationPlans: options.individualEducationPlans,
+          section504s: options.section504s,
+          limitedEnglishProficiencies: options.limitedEnglishProficiencies,
+          economicDisadvantages: options.economicDisadvantages,
+          performanceLevelDisplayType: assessmentDefinition.performanceLevelDisplayTypes[ 0 ],
+          valueDisplayType: ValueDisplayTypes.Percent,
+          columnOrder: assessmentDefinition.aggregateReportIdentityColumns,
+          dimensionTypes: [],
+          includeStateResults: true,
+          includeAllDistricts: false,
+          includeAllSchoolsOfSelectedDistricts: false,
+          includeAllDistrictsOfSelectedSchools: true,
+          districts: [],
+          schools: []
+        }
+      })
+    );
   }
 
 }

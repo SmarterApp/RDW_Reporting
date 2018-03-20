@@ -5,7 +5,7 @@ plugins {
 apply plugin: 'org.springframework.boot'
 
 createDockerfile {
-    ext.java_opts = ["-Xmx768m"]
+    environmentVariable("MAX_HEAP_SIZE", "-Xmx768m")
 }
 
 dependencies {
