@@ -8,12 +8,6 @@ sql:
 
   organization:
     reporting:
-      findSchoolCount: >-
-        SELECT COUNT(*)
-        FROM school sc
-        WHERE
-          ${sql.snippet.basicPermission}
-
       findAll: >-
         SELECT
           district_group.id,
