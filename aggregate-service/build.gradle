@@ -1,5 +1,9 @@
 apply plugin: 'org.springframework.boot'
 
+createDockerfile {
+    environmentVariable("MAX_HEAP_SIZE", "-Xmx768m")
+}
+
 dependencies {
     optional 'org.springframework.boot:spring-boot-configuration-processor'
 
