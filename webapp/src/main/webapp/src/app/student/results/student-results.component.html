@@ -53,7 +53,7 @@
       <div class="well wide-content-container">
         <span class="h3 label-group"
               [ngClass]="getAssessmentTypeColor(assessmentType)">
-          <span class="label">{{'common.assessment-type.' + assessmentType + '.short-name' | translate}}</span><span class="label">{{subject}}</span>
+          <span class="label">{{'common.assessment-type.' + assessmentType + '.short-name' | translate}}</span><span class="label">{{'common.subject.' + subject + '.short-name' | translate}}</span>
         </span>
         <button class="btn btn-default btn-sm icon-only pull-right"
                 (click)="toggleCollapsed(assessmentType, subject)"
