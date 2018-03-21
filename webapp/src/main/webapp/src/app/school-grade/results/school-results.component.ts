@@ -5,7 +5,6 @@ import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.m
 import { Assessment } from "../../assessments/model/assessment.model";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { SchoolAssessmentService } from "./school-assessment.service";
-import { School } from "../../school-grade/school";
 import { SchoolService } from "../school.service";
 import { Grade } from "../grade.model";
 import { Angulartics2 } from "angulartics2";
@@ -13,11 +12,15 @@ import { AssessmentsComponent } from "../../assessments/assessments.component";
 import { TranslateService } from "@ngx-translate/core";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { SchoolGradeDownloadComponent } from "../../report/school-grade-report-download.component";
-import { OrganizationService } from "../organization.service";
 import { Option } from "../../shared/form/sb-typeahead.component";
 import { Utils } from "../../shared/support/support";
 import { SchoolAssessmentExportService } from "./school-assessment-export.service";
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { School, SchoolsWrapper } from "../../shared/organization/organization";
+import { OrganizationService } from "../../shared/organization/organization.service";
+import { Observable } from "rxjs/Observable";
+import { SchoolTypeahead } from "../../shared/organization/school-typeahead";
+import { mergeMap } from "rxjs/operators";
 
 @Component({
   selector: 'school-results',
@@ -34,16 +37,25 @@ export class SchoolResultsComponent implements OnInit {
 
   assessmentExams: AssessmentExam[] = [];
   availableAssessments: Assessment[] = [];
-  schoolOptions: Option[] = [];
+  schoolOptions: Option[] | Observable<School[]>;
   schoolIsAvailable: boolean = true;
+  aboveLimit: boolean = false;
 
   availableGrades: Grade[];
   filterOptions: ExamFilterOptions = new ExamFilterOptions();
   gradesAreUnavailable: boolean;
+  organizations: any[] = [];
 
   private _currentSchool: School;
   private _currentGrade: Grade;
   private _currentSchoolYear: number;
+
+  /**
+   * The school typeahead
+   */
+  @ViewChild('schoolTypeahead')
+  schoolTypeahead: SchoolTypeahead;
+
 
   /**
    * The currently selected school
@@ -110,34 +122,73 @@ export class SchoolResultsComponent implements OnInit {
     const schoolIdParam = Number.parseInt(schoolId);
     const gradeIdParam = Number.parseInt(gradeId);
 
-    forkJoin(
-      this.organizationService.getSchoolsWithDistricts(),
-      this.filterOptionService.getExamFilterOptions(),
-      this.schoolService.findGradesWithAssessmentsForSchool(schoolIdParam)
-    ).subscribe(([schools, filterOptions, grades]) => {
+    this.organizationService.getSchoolsWithDistricts().subscribe((schoolsWrapper: SchoolsWrapper) => {
+      if (!schoolsWrapper.hasMoreSchools) {
+        this.aboveLimit = false;
+        forkJoin(
+          this.filterOptionService.getExamFilterOptions(),
+          this.schoolService.findGradesWithAssessmentsForSchool(schoolIdParam)
+        ).subscribe(([ filterOptions, grades ]) => {
 
-      this.schoolOptions = schools.map(school => <Option>{
-        label: school.name,
-        group: school.districtName,
-        value: school
-      });
-      this.currentSchool = schools.find(x => x.id === schoolIdParam);
-      this.schoolIsAvailable = this.currentSchool !== undefined;
+          this.schoolOptions = schoolsWrapper.schools.map(school => <Option>{
+            label: school.name,
+            group: school.districtName,
+            value: school
+          });
+          this.currentSchool = schoolsWrapper.schools.find(x => x.id === schoolIdParam);
+          this.schoolIsAvailable = this.currentSchool !== undefined;
 
-      this.filterOptions = filterOptions;
-      this.currentSchoolYear = Number.parseInt(schoolYear) || this.filterOptions.schoolYears[ 0 ];
+          this.filterOptions = filterOptions;
+          this.currentSchoolYear = Number.parseInt(schoolYear) || this.filterOptions.schoolYears[ 0 ];
 
-      this.availableGrades = grades;
-      this.gradesAreUnavailable = this.availableGrades.length == 0;
-      this.currentGrade = this.availableGrades.find(grade => grade.id === gradeIdParam);
+          this.availableGrades = grades;
+          this.gradesAreUnavailable = this.availableGrades.length == 0;
+          this.currentGrade = this.availableGrades.find(grade => grade.id === gradeIdParam);
+        });
+      } else {
+        this.aboveLimit = true;
+        forkJoin(
+          this.organizationService.getSchool(schoolIdParam),
+          this.filterOptionService.getExamFilterOptions(),
+          this.schoolService.findGradesWithAssessmentsForSchool(schoolIdParam)
+        ).subscribe(([ school, filterOptions, grades ]) => {
+
+          this.schoolOptions = Observable.create(observer => {
+            observer.next(this.schoolTypeahead.value);
+          }).pipe(
+            mergeMap(
+              (search: string) =>
+                this.organizationService.searchSchoolsWithDistrictsBySchoolName(search)
+                  .map(
+                    (organizations: any[]) =>
+                      organizations.filter(
+                        organization => this.organizations.findIndex(x => organization.equals(x)) === -1
+                      ))
+            ));
+          this.currentSchool = school;
+          this.schoolIsAvailable = this.currentSchool !== undefined;
+
+          this.filterOptions = filterOptions;
+          this.currentSchoolYear = Number.parseInt(schoolYear) || this.filterOptions.schoolYears[ 0 ];
+
+          this.availableGrades = grades;
+          this.gradesAreUnavailable = this.availableGrades.length == 0;
+          this.currentGrade = this.availableGrades.find(grade => grade.id === gradeIdParam);
+        });
+      }
     });
+
 
     const { assessment } = this.route.snapshot.data;
     this.updateAssessment(assessment);
   }
 
+  deselectSchool(value: any) {
+    this.currentSchool = null;
+  }
+
   updateAssessment(latestAssessment: AssessmentExam): void {
-    this.assessmentExams = latestAssessment ? [latestAssessment] : [];
+    this.assessmentExams = latestAssessment ? [ latestAssessment ] : [];
   }
 
   schoolSelectChanged(school: School): void {

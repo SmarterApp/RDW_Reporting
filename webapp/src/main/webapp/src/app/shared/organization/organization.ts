@@ -50,6 +50,7 @@ export interface SchoolGroup extends IdentifiableOrganization {
 }
 
 export interface School extends IdentifiableOrganization {
+  readonly districtName?: string;
   readonly schoolGroupId?: number;
   readonly districtId?: number;
   readonly districtGroupId?: number;
@@ -86,7 +87,13 @@ export class DefaultSchool extends AbstractIdentifiableOrganization implements S
   schoolGroupId: number;
   districtId: number;
   districtGroupId: number;
+  districtName: string;
   get type(): OrganizationType {
     return OrganizationType.School;
   }
+}
+
+export class SchoolsWrapper {
+  hasMoreSchools: boolean;
+  schools: School[] = [];
 }

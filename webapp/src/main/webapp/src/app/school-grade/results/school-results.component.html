@@ -36,11 +36,24 @@
     <!-- School Select -->
     <div class="col-md-4">
       <label for="school-search-name">{{'common.school-typeahead-label' | translate}}</label>
+      <div *ngIf="aboveLimit">
+        <school-typeahead #schoolTypeahead
+                          [options]="schoolOptions"
+                          (selected)="schoolSelectChanged($event)"
+                          ></school-typeahead>
+        <div>
+          <span [hidden]="!schoolTypeahead.loading"><i class="fa fa-spinner fa-pulse"></i></span>
+          <br [hidden]="schoolTypeahead.noResults">
+          <span [hidden]="!schoolTypeahead.noResults" class="small gray-darker">{{'school-typeahead.no-matches' | translate}}</span>
+        </div>
+      </div>
       <sb-typeahead  inputId="school-search-name"
+                     *ngIf="!aboveLimit"
                      [options]="schoolOptions"
                      [value]="currentSchool"
-                     (select)="schoolSelectChanged($event)"
+                     (selected)="schoolSelectChanged($event)"
                      placeholder="{{'common.action.select' | translate}}"></sb-typeahead>
+
     </div>
 
     <!-- Current Grade -->

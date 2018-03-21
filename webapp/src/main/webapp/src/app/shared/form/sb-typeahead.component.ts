@@ -33,15 +33,6 @@ export class SBTypeahead implements OnInit {
   @Output()
   change: EventEmitter<any> = new EventEmitter<any>();
 
-  /**
-   * @deprecated use selected - this output name has issues because it shadows the dom event name
-   *
-   * Emits an option's value when an option is selected.
-   * This is different than change in that it will only emit when a user selects the value.
-   */
-  @Output()
-  select: EventEmitter<any> = new EventEmitter<any>();
-
   @Output()
   selected: EventEmitter<any> = new EventEmitter<any>();
 
@@ -103,7 +94,6 @@ export class SBTypeahead implements OnInit {
     const { value } = option;
     if (value) {
       this.value = value;
-      this.select.emit(value);
       this.selected.emit(value);
     }
   }

@@ -1,6 +1,6 @@
 import { ClaimScore } from "./claim-score.model";
 import { Student } from "../../student/model/student.model";
-import { School } from "../../school-grade/school";
+import { School } from "../../shared/organization/organization";
 
 export class Exam {
   id: number;
