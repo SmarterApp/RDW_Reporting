@@ -78,6 +78,9 @@ export class SbBreadcrumbs implements OnInit {
     ).subscribe(() => {
       this.breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root);
     });
+    this.translateService.onLangChange.subscribe( () => {
+      this.breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root);
+    })
   }
 
   get breadcrumbs(): Breadcrumb[] {

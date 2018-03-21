@@ -1042,7 +1042,8 @@
     "no-results": "No groups found matching the given filter criteria.",
     "no-schools": "Your user account does not have access to view the groups of any schools.",
     "search-school": "Start typing a school name...",
-    "title": "Manage Student Groups"
+    "title": "Manage Student Groups",
+    "view-ref": "View reference"
   },
   "item-scores": {
     "correctness": "Correctness",
