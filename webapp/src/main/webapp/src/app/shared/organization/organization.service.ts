@@ -1,7 +1,7 @@
 import { Observable } from "rxjs/Observable";
-import { map, mergeMap, publishReplay, refCount } from "rxjs/operators";
+import { map, publishReplay, refCount } from "rxjs/operators";
 import { CachingDataService } from "../data/caching-data.service";
-import { DefaultSchool, OrganizationType, School, SchoolsWrapper } from "./organization";
+import { DefaultSchool, OrganizationType, School } from "./organization";
 import { ReportingServiceRoute } from "../service-route";
 import { forkJoin } from "rxjs/observable/forkJoin";
 import { Injectable } from "@angular/core";
@@ -10,19 +10,6 @@ import { Injectable } from "@angular/core";
 export class OrganizationService {
 
   constructor(protected dataService: CachingDataService) {
-  }
-
-  getSchoolsWrapper(): Observable<SchoolsWrapper> {
-    return this.dataService.get(`${ReportingServiceRoute}/organizations/schoolsWrapper`, {
-      params: {
-        limit: 10
-      }
-    }).pipe(map((apiModel) => {
-      let wrapper = new SchoolsWrapper();
-      wrapper.schools = apiModel.schools;
-      wrapper.hasMoreSchools = apiModel.hasMoreSchools;
-      return wrapper;
-    }));
   }
 
   searchSchoolsByName(nameSearch: string): Observable<School[]> {
@@ -35,7 +22,7 @@ export class OrganizationService {
 
   }
 
-  getSchool(schoolId: number): Observable<School> {
+  getSchool(schoolId: number, limit?: number): Observable<School> {
     return this.dataService.get(`${ReportingServiceRoute}/organizations/school/${schoolId}`)
   }
 
@@ -43,8 +30,18 @@ export class OrganizationService {
     return this.dataService.get(`${ReportingServiceRoute}/organizations/schoolGroups`);
   }
 
-  protected getSchools(): Observable<School[]> {
-    return this.dataService.get(`${ReportingServiceRoute}/organizations/schools`);
+  protected getSchools(limit?: number): Observable<School[]> {
+    if (limit) {
+      return this.dataService.get(`${ReportingServiceRoute}/organizations/schools`, {
+        params: {
+          limit: limit
+        }
+      });
+    } else {
+      return this.dataService.get(`${ReportingServiceRoute}/organizations/schools`, {
+        params: {}
+      });
+    }
   }
 
   protected getDistricts(): Observable<any[]> {
@@ -82,18 +79,16 @@ export class OrganizationService {
    *
    * @returns {Observable<School[]>}
    */
-  getSchoolsWithDistricts(): Observable<SchoolsWrapper> {
+  getSchoolsWithDistricts(limit?: number): Observable<School[]> {
     return forkJoin(
-      this.getSchoolsWrapper(),
+      this.getSchools(limit),
       this.getDistrictNamesById()
     ).pipe(
       map(([ schools, districtNamesById ]) => {
-        let schoolWrapper = schools;
-        schoolWrapper.schools = schools.schools.map((school: DefaultSchool) => {
+        return schools.map((school: DefaultSchool) => {
           school.districtName = districtNamesById.get(school.districtId);
           return school;
         });
-        return schoolWrapper;
       }),
       // when combined these operators act as a cache of the first valid result of the observable
       publishReplay(1),

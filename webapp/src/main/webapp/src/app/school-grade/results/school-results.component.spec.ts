@@ -20,7 +20,7 @@ import { MockAuthorizeDirective } from "../../../test/mock.authorize.directive";
 import { MockTranslateService } from "../../../test/mock.translate.service";
 import { TranslateService } from "@ngx-translate/core";
 import { DataService } from "../../shared/data/data.service";
-import { DefaultSchool, School, SchoolsWrapper } from "../../shared/organization/organization";
+import { DefaultSchool, School } from "../../shared/organization/organization";
 import { SchoolAssessmentExportService } from "./school-assessment-export.service";
 import { of } from 'rxjs/observable/of';
 import { OrganizationService } from "../../shared/organization/organization.service";
@@ -90,7 +90,7 @@ describe('SchoolResultsComponent', () => {
         { provide: DataService, useClass: MockDataService },
         { provide: ExamFilterOptionsService, useClass: MockExamFilterOptionService },
         { provide: SchoolService, useClass: MockSchoolService },
-        { provide: OrganizationService, useValue: new MockOrganizationService([ school ]) },
+        { provide: OrganizationService, useValue: new MockOrganizationService() },
         { provide: ActivatedRoute, useValue: route },
         { provide: Angulartics2, useValue: mockAngulartics2 },
         { provide: CsvExportService, useValue: exportService },
@@ -165,17 +165,9 @@ class MockSchoolService {
 }
 
 class MockOrganizationService {
-
-  constructor(private schools: School[]) {
+  getSchoolsWithDistricts(): Observable<School[]> {
+    return of([]);
   }
-
-  getSchoolsWithDistricts(): Observable<SchoolsWrapper> {
-    let schoolsWrapper = new SchoolsWrapper();
-    schoolsWrapper.schools = this.schools;
-    return of(schoolsWrapper);
-  }
-
-
 }
 
 class MockExamFilterOptionService {

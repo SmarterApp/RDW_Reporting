@@ -5,11 +5,12 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Option } from "../shared/form/sb-typeahead.component";
 import { Utils } from "../shared/support/support";
-import { School, SchoolsWrapper } from "../shared/organization/organization";
+import { School } from "../shared/organization/organization";
 import { Observable } from "rxjs/Observable";
 import { SchoolTypeahead } from "../shared/organization/school-typeahead";
 import { OrganizationService } from "../shared/organization/organization.service";
 import { mergeMap } from "rxjs/operators";
+import { limit } from "./limit";
 
 
 /**
@@ -119,10 +120,10 @@ export class SchoolGradeComponent {
   }
 
   private loadSchoolOptions(): void {
-    this.organizationService.getSchoolsWithDistricts().subscribe((schoolsWrapper: SchoolsWrapper) => {
-      if (!schoolsWrapper.hasMoreSchools) {
+    this.organizationService.getSchoolsWithDistricts(limit + 1).subscribe((schools: School[]) => {
+      if (schools.length <= limit) {
         this.aboveLimit = false;
-        this.schoolOptions = schoolsWrapper.schools.map(school => <Option>{
+        this.schoolOptions = schools.map(school => <Option>{
           label: school.name,
           group: school.districtName,
           value: school

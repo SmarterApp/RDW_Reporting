@@ -17,16 +17,13 @@ import { CachingDataService } from "../shared/data/caching-data.service";
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs/observable/of';
 import { OrganizationService } from "../shared/organization/organization.service";
-import { DefaultSchool, SchoolsWrapper } from "../shared/organization/organization";
 
 describe('SchoolGradeComponent', () => {
   let component: SchoolGradeComponent;
   let fixture: ComponentFixture<SchoolGradeComponent>;
   let mockOrganizationService = {
     getSchoolsWithDistricts: () => {
-      let schools = new SchoolsWrapper();
-      schools.schools.push(new DefaultSchool());
-      return of(schools);
+      return of([]);
     }
   };
 
