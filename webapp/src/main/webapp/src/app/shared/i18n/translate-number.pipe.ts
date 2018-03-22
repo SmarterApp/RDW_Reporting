@@ -60,14 +60,13 @@ export class TranslateNumberPipe implements PipeTransform, OnDestroy {
     this.currentNumber = value;
     this.currentFormat = format;
 
-    let ngPipe: DecimalPipe;
     try {
-      ngPipe = new DecimalPipe(this.translate.currentLang);
-      this.numberDisplay = ngPipe.transform(value, format);
+      this.numberDisplay = new DecimalPipe(this.translate.currentLang)
+        .transform(value, format);
     } catch (error) {
       //Locale not available, fall back to the embedded locale
-      ngPipe = new DecimalPipe(EmbeddedLanguage);
-      this.numberDisplay = ngPipe.transform(value, format);
+      this.numberDisplay = new DecimalPipe(EmbeddedLanguage)
+        .transform(value, format);
     }
   }
 
