@@ -1,8 +1,9 @@
-import { EventEmitter, OnDestroy, Pipe, PipeTransform } from "@angular/core";
-import { LangChangeEvent, TranslateService } from "@ngx-translate/core";
+import { OnDestroy, Pipe, PipeTransform } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 import { DecimalPipe } from "@angular/common";
 import { EmbeddedLanguage } from "./language-settings";
 import { isNullOrUndefined } from "util";
+import { Subscription } from "rxjs/Subscription";
 
 /**
  * This number pipe proxies requests to the Angular DecimalPipe
@@ -15,21 +16,21 @@ import { isNullOrUndefined } from "util";
 export class TranslateNumberPipe implements PipeTransform, OnDestroy {
 
   private numberDisplay: string = '';
-  private lastNumber: any;
-  private lastFormat: string;
+  private currentNumber: any;
+  private currentFormat: string;
 
-  private onLangChange: EventEmitter<LangChangeEvent>;
+  private onLangChange: Subscription;
 
   constructor(private translate: TranslateService) {
   }
 
   public transform(value: any, format: string): any {
-    if(isNullOrUndefined(value)) {
+    if (isNullOrUndefined(value)) {
       return '';
     }
 
     // if we ask another time for the same date, return the last value
-    if(value === this.lastNumber && format === this.lastFormat) {
+    if (value === this.currentNumber && format === this.currentFormat) {
       return this.numberDisplay;
     }
 
@@ -42,8 +43,8 @@ export class TranslateNumberPipe implements PipeTransform, OnDestroy {
     // subscribe to onLangChange event, in case the language changes
     if (!this.onLangChange) {
       this.onLangChange = this.translate.onLangChange.subscribe(() => {
-        if (!isNullOrUndefined(this.lastNumber)) {
-          this.updateValue(this.lastNumber, this.lastFormat);
+        if (!isNullOrUndefined(this.currentNumber)) {
+          this.updateValue(this.currentNumber, this.currentFormat);
         }
       });
     }
@@ -56,8 +57,8 @@ export class TranslateNumberPipe implements PipeTransform, OnDestroy {
   }
 
   private updateValue(value: any, format: string): void {
-    this.lastNumber = value;
-    this.lastFormat = format;
+    this.currentNumber = value;
+    this.currentFormat = format;
 
     let ngPipe: DecimalPipe;
     try {

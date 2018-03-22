@@ -1,14 +1,14 @@
-import { EventEmitter, Injectable, OnDestroy, Pipe, PipeTransform } from "@angular/core";
-import { LangChangeEvent, TranslateService } from "@ngx-translate/core";
+import { OnDestroy, Pipe, PipeTransform } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 import { DatePipe } from "@angular/common";
 import { EmbeddedLanguage } from "./language-settings";
 import { isNullOrUndefined } from "util";
+import { Subscription } from "rxjs/Subscription";
 
 /**
  * This date pipe proxies requests to the Angular DatePipe
  * using the currently-selected locale.
  */
-@Injectable()
 @Pipe({
   name: 'date',
   pure: false //Required to update value on translation change
@@ -16,21 +16,21 @@ import { isNullOrUndefined } from "util";
 export class TranslateDatePipe implements PipeTransform, OnDestroy {
 
   private dateDisplay: string = '';
-  private lastDate: any;
-  private lastPattern: string;
+  private currentDate: any;
+  private currentPattern: string;
 
-  private onLangChange: EventEmitter<LangChangeEvent>;
+  private onLangChange: Subscription;
 
   constructor(private translate: TranslateService) {
   }
 
   public transform(date: any, pattern: string = 'mediumDate'): any {
-    if(!date) {
+    if (!date) {
       return '';
     }
 
     // if we ask another time for the same date, return the last value
-    if(date === this.lastDate && pattern === this.lastPattern) {
+    if (date === this.currentDate && pattern === this.currentPattern) {
       return this.dateDisplay;
     }
 
@@ -43,8 +43,8 @@ export class TranslateDatePipe implements PipeTransform, OnDestroy {
     // subscribe to onLangChange event, in case the language changes
     if (!this.onLangChange) {
       this.onLangChange = this.translate.onLangChange.subscribe(() => {
-        if (this.lastDate) {
-          this.updateValue(this.lastDate, this.lastPattern);
+        if (this.currentDate) {
+          this.updateValue(this.currentDate, this.currentPattern);
         }
       });
     }
@@ -57,17 +57,16 @@ export class TranslateDatePipe implements PipeTransform, OnDestroy {
   }
 
   private updateValue(date: any, pattern: string): void {
-    this.lastDate = date;
-    this.lastPattern = pattern;
+    this.currentDate = date;
+    this.currentPattern = pattern;
 
-    let ngPipe: DatePipe;
     try {
-      ngPipe = new DatePipe(this.translate.currentLang);
-      this.dateDisplay = ngPipe.transform(date, pattern);
+      this.dateDisplay = new DatePipe(this.translate.currentLang)
+        .transform(date, pattern);
     } catch (error) {
       //Locale not available, fall back to the embedded locale
-      ngPipe = new DatePipe(EmbeddedLanguage);
-      this.dateDisplay = ngPipe.transform(date, pattern);
+      this.dateDisplay = new DatePipe(EmbeddedLanguage)
+        .transform(date, pattern);
     }
   }
 
