@@ -3,7 +3,6 @@ import { TranslateService } from "@ngx-translate/core";
 import { CsvColumn } from "./csv-column.model";
 import { Student } from "../student/model/student.model";
 import { Exam } from "../assessments/model/exam.model";
-import { DatePipe, DecimalPipe } from "@angular/common";
 import { Assessment } from "../assessments/model/assessment.model";
 import { AssessmentType } from "../shared/enum/assessment-type.enum";
 import { Angular2CsvProvider } from "./angular-csv.provider";
@@ -12,6 +11,8 @@ import { DynamicItemField } from "../assessments/model/item-point-field.model";
 import { SchoolYearPipe } from "../shared/format/school-year.pipe";
 import { Utils } from "../shared/support/support";
 import { WritingTraitAggregate } from "../assessments/model/writing-trait-aggregate.model";
+import { TranslateDatePipe } from "../shared/i18n/translate-date.pipe";
+import { TranslateNumberPipe } from "../shared/i18n/translate-number.pipe";
 
 @Injectable()
 export class CsvBuilder {
@@ -20,9 +21,9 @@ export class CsvBuilder {
 
   constructor(private angular2csv: Angular2CsvProvider,
               private translateService: TranslateService,
-              private datePipe: DatePipe,
+              private datePipe: TranslateDatePipe,
               private schoolYearPipe: SchoolYearPipe,
-              private numberPipe: DecimalPipe) {
+              private numberPipe: TranslateNumberPipe) {
   }
 
   /**

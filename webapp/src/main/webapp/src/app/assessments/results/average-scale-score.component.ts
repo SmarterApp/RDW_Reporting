@@ -29,8 +29,15 @@ export class AverageScaleScoreComponent {
     value.percents = value.percents.reverse();
     value.levels = value.levels.reverse();
     this._statistics = value;
+    if (!value) {
+      return;
+    }
 
-    if (value && value.levels) {
+    if (!isNaN(value.average)) {
+      this.averageScore = Math.round(value.average);
+    }
+
+    if (value.levels) {
       this._totalCount = value.levels
         .map(examStatisticsLevel => examStatisticsLevel.value)
         .reduce((total, levelCount) => {
@@ -48,6 +55,8 @@ export class AverageScaleScoreComponent {
 
   instructionalResourcesProvider: () => Observable<InstructionalResource[]>;
 
+  averageScore: number;
+
   private _statistics: ExamStatistics;
   private _totalCount: number;
 
@@ -57,7 +66,7 @@ export class AverageScaleScoreComponent {
   }
 
   get hasAverageScore(): boolean {
-    return !isNaN(this.statistics.average);
+    return !isNaN(this.averageScore);
   }
 
   get performanceLevels(): ExamStatisticsLevel[] {

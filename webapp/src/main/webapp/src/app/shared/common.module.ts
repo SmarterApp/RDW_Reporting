@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { HttpModule } from "@angular/http";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { RouterModule } from "@angular/router";
-import { RemoveCommaPipe } from "./remove-comma.pipe";
 import { SBRadioButtonComponent } from "./sb-radio-button-list.component";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
@@ -13,7 +12,6 @@ import { Angulartics2Module } from "angulartics2";
 import { NotificationComponent } from "./notification/notification.component";
 import { NotificationService } from "./notification/notification.service";
 import { AlertModule, PopoverModule } from "ngx-bootstrap";
-import { DatePipe, DecimalPipe } from "@angular/common";
 import { RdwLoadingModule } from "./loading/rdw-loading.module";
 import { SBToggleComponent } from "./sb-toggle.component";
 import { InformationButtonComponent } from "./button/information-button.component";
@@ -51,7 +49,6 @@ import { CommonEmbargoModule } from "./embargo/embargo.module";
     OrderSelectorComponent,
     ScrollNavComponent,
     NotificationComponent,
-    RemoveCommaPipe,
     SBCheckboxList,
     SBRadioButtonComponent,
     SBToggleComponent,
@@ -96,7 +93,6 @@ import { CommonEmbargoModule } from "./embargo/embargo.module";
     NotificationComponent,
     ScrollNavComponent,
     OrganizationModule,
-    RemoveCommaPipe,
     RouterModule,
     RdwAssessmentModule,
     RdwCoreModule,
@@ -119,8 +115,6 @@ import { CommonEmbargoModule } from "./embargo/embargo.module";
     { provide: AuthenticationServiceAuthenticationExpiredRoute, useValue: 'session-expired' },
     { provide: AuthenticationServiceDefaultAuthenticationRoute, useValue: 'home' },
     ColorService,
-    DatePipe,
-    DecimalPipe,
     NotificationService
   ]
 })
