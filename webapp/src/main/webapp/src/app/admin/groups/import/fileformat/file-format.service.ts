@@ -16,7 +16,7 @@ export class FileFormatService {
     return this.http.get('/assets/template/groups-template.csv')
       .pipe(
         map(response => new Download(
-          this.translate.instant('file-format.template-file'),
+          `${this.translate.instant('file-format.template-file')}.csv`,
           new Blob([ response.text() ], { type: 'text/csv; charset=utf-8' })
         ))
       );

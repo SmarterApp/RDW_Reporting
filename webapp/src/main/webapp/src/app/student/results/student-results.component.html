@@ -55,11 +55,12 @@
               [ngClass]="getAssessmentTypeColor(assessmentType)">
           <span class="label">{{'common.assessment-type.' + assessmentType + '.short-name' | translate}}</span><span class="label">{{'common.subject.' + subject + '.short-name' | translate}}</span>
         </span>
-        <button class="btn btn-default btn-sm icon-only pull-right"
+        <button class="btn btn-default pull-right"
                 (click)="toggleCollapsed(assessmentType, subject)"
                 angulartics2On="click"
                 angularticsEvent="ToggleCollapseResults"
                 angularticsCategory="StudentHistory">
+          {{'common.action.' + (isCollapsed(assessmentType, subject) ? 'expand' : 'collapse') | translate}}
           <span class="sr-only">{{ 'common.action.collapse' | translate }}</span>
           <i class="fa fa-bold {{ isCollapsed(assessmentType, subject) ? 'fa-caret-square-o-down' : 'fa-caret-square-o-up' }}"></i>
         </button>

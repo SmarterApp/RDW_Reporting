@@ -62,6 +62,14 @@ export class AggregateReportTableExportService {
         );
     }
 
+    if ('assessmentLabel' === column) {
+      return builder
+        .withColumn(
+          this.translateService.instant('aggregate-report-table.columns.assessment-label'),
+          (item: AggregateReportItem) => item.assessmentLabel
+        );
+    }
+
     if ('assessmentGrade' === column) {
       return builder
         .withColumn(
