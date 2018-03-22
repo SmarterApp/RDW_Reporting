@@ -7,7 +7,7 @@ import { Option } from "../shared/form/sb-typeahead.component";
 import { Utils } from "../shared/support/support";
 import { School } from "../shared/organization/organization";
 import { Observable } from "rxjs/Observable";
-import { SchoolTypeahead } from "../shared/organization/school-typeahead";
+import { SchoolTypeahead } from "../shared/school/school-typeahead";
 import { OrganizationService } from "../shared/organization/organization.service";
 import { mergeMap } from "rxjs/operators";
 import { limit } from "./limit";

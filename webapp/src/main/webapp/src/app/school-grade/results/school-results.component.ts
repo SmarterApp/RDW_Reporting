@@ -18,8 +18,9 @@ import { SchoolAssessmentExportService } from "./school-assessment-export.servic
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { School } from "../../shared/organization/organization";
 import { OrganizationService } from "../../shared/organization/organization.service";
+import { SchoolService as CommonSchoolService } from "../../shared/school/school.service";
 import { Observable } from "rxjs/Observable";
-import { SchoolTypeahead } from "../../shared/organization/school-typeahead";
+import { SchoolTypeahead } from "../../shared/school/school-typeahead";
 import { map, mergeMap } from "rxjs/operators";
 import { limit } from "../limit";
 
@@ -115,7 +116,8 @@ export class SchoolResultsComponent implements OnInit {
               private translate: TranslateService,
               public assessmentProvider: SchoolAssessmentService,
               public assessmentExporter: SchoolAssessmentExportService,
-              private organizationService: OrganizationService) {
+              private organizationService: OrganizationService,
+              private commonSchoolService: CommonSchoolService) {
   }
 
   ngOnInit(): void {
@@ -142,7 +144,7 @@ export class SchoolResultsComponent implements OnInit {
       } else {
         this.aboveLimit = true;
         forkJoin(
-          this.organizationService.getSchool(schoolIdParam),
+          this.commonSchoolService.getSchool(schoolIdParam),
           this.filterOptionService.getExamFilterOptions(),
           this.schoolService.findGradesWithAssessmentsForSchool(schoolIdParam)
         ).subscribe(([ school, filterOptions, grades ]) => {
@@ -158,7 +160,7 @@ export class SchoolResultsComponent implements OnInit {
                       organizations.filter(
                         organization => this.organizations.findIndex(x => organization.equals(x)) === -1
                       ))
-            )));
+                  )));
           this.currentSchool = school;
           this.initFilterOptionsSchoolYearGrades(filterOptions, schoolYear, grades, gradeIdParam);
         });

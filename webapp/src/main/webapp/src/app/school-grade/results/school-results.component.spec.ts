@@ -5,6 +5,7 @@ import { APP_BASE_HREF } from "@angular/common";
 import { SchoolResultsComponent } from "./school-results.component";
 import { CommonModule } from "../../shared/common.module";
 import { SchoolService } from "../school.service";
+import { SchoolService as CommonSchoolService } from "../../shared/school/school.service";
 import { SchoolAssessmentService } from "./school-assessment.service";
 import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
@@ -26,6 +27,7 @@ import { of } from 'rxjs/observable/of';
 import { OrganizationService } from "../../shared/organization/organization.service";
 
 let availableGrades = [];
+let schools = [];
 
 describe('SchoolResultsComponent', () => {
   let component: SchoolResultsComponent;
@@ -69,7 +71,7 @@ describe('SchoolResultsComponent', () => {
 
     const mockAssessmentExportService = jasmine.createSpyObj('SchoolAssessmentExportService', [ 'exportItemsToCsv', 'exportWritingTraitScoresToCsv' ]);
 
-    const mockOrganizationService = jasmine.createSpyObj('OrganizationService', [ 'getSchoolsWithDistricts', 'getSchoolsWrapper' ]);
+    const mockOrganizationService = jasmine.createSpyObj('OrganizationService', [ 'getSchoolsWithDistricts' ]);
 
     availableGrades = [];
     exportService = {};
@@ -90,6 +92,7 @@ describe('SchoolResultsComponent', () => {
         { provide: DataService, useClass: MockDataService },
         { provide: ExamFilterOptionsService, useClass: MockExamFilterOptionService },
         { provide: SchoolService, useClass: MockSchoolService },
+        { provide: CommonSchoolService, useClass: MockCommonSchoolService },
         { provide: OrganizationService, useValue: new MockOrganizationService() },
         { provide: ActivatedRoute, useValue: route },
         { provide: Angulartics2, useValue: mockAngulartics2 },
@@ -161,6 +164,12 @@ describe('SchoolResultsComponent', () => {
 class MockSchoolService {
   findGradesWithAssessmentsForSchool(school: School) {
     return of(availableGrades);
+  }
+}
+
+class MockCommonSchoolService {
+  getSchool(schoolId: number, limit?: number) {
+    return of(schools)
   }
 }
 

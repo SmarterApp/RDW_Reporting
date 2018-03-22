@@ -41,6 +41,7 @@ import { RdwAssessmentModule } from "./assessment/rdw-assessment.module";
 import { OrderSelectorComponent } from "./order-selector/order-selector.component";
 import { NgxDnDModule } from "@swimlane/ngx-dnd";
 import { CommonEmbargoModule } from "./embargo/embargo.module";
+import { SchoolModule } from "./school/school.module";
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { CommonEmbargoModule } from "./embargo/embargo.module";
     HttpModule,
     NgxDnDModule,
     OrganizationModule,
+    SchoolModule,
     PopoverModule.forRoot(),
     RdwAssessmentModule,
     RdwCoreModule,
@@ -96,6 +98,7 @@ import { CommonEmbargoModule } from "./embargo/embargo.module";
     NotificationComponent,
     ScrollNavComponent,
     OrganizationModule,
+    SchoolModule,
     RemoveCommaPipe,
     RouterModule,
     RdwAssessmentModule,

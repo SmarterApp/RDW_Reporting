@@ -16,6 +16,7 @@ import { TypeaheadModule } from "ngx-bootstrap";
 import { UserModule } from "../user/user.module";
 import { SchoolAssessmentExportService } from "./results/school-assessment-export.service";
 import { OrganizationService } from "../shared/organization/organization.service";
+import { SchoolService as CommonSchoolService } from "../shared/school/school.service";
 
 /**
  * This module contains a search component for finding assessments
@@ -46,6 +47,7 @@ import { OrganizationService } from "../shared/organization/organization.service
   providers: [
     CurrentSchoolResolve,
     OrganizationService,
+    CommonSchoolService,
     SchoolAssessmentResolve,
     SchoolAssessmentService,
     SchoolAssessmentExportService,
