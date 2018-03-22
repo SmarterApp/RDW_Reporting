@@ -57,7 +57,11 @@ export class CachingDataService {
   }
 
   private createKey(url: string, options?: RequestOptionsArgs): string {
-    return url + '?' + Object.entries(options || {})
+    if (options == null) {
+      return url;
+    }
+    const parameters = options.params || options.search || {};
+    return url + '?' + Object.entries(parameters)
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([key, value]) => key + '=' + value)
       .join('&');
