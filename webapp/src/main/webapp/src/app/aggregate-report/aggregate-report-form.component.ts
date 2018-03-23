@@ -295,6 +295,7 @@ export class AggregateReportFormComponent {
   onOrganizationTypeaheadSelect(organization: any): void {
     this.organizationTypeahead.value = '';
     this.addOrganization(organization);
+    this.markOrganizationsControlTouched();
   }
 
   /**
@@ -403,7 +404,6 @@ export class AggregateReportFormComponent {
       this.settings.schools.push(<School>organization);
       this.settings.schools.sort(OrganizationComparator);
     }
-    this.markOrganizationsControlTouched();
   }
 
   /**

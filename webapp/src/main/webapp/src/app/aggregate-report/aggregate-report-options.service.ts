@@ -11,6 +11,7 @@ import { AggregateServiceRoute } from '../shared/service-route';
 const ServiceRoute = AggregateServiceRoute;
 
 // Used to hotfix natural order of completeness and strict booleans not being in "affirmative-first" order
+const assessmentTypeComparator = ordering(ranking([ 'sum', 'ica', 'iab' ])).compare;
 const booleanComparator = ordering(ranking([ 'yes', 'no', 'undefined' ])).compare;
 const completenessComparator = ordering(ranking([ 'Complete', 'Partial' ])).compare;
 
@@ -29,7 +30,7 @@ export class AggregateReportOptionsService {
       .pipe(
         map(options => <AggregateReportOptions>{
           assessmentGrades: options.assessmentGrades,
-          assessmentTypes: options.assessmentTypes,
+          assessmentTypes: options.assessmentTypes.sort(assessmentTypeComparator),
           completenesses: options.completenesses.sort(completenessComparator),
           defaultOrganization: options.defaultOrganization
             ? this.organizationMapper.map(options.defaultOrganization)

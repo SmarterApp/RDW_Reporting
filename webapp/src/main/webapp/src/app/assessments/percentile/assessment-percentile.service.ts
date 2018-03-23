@@ -2,10 +2,10 @@ import { Injectable } from "@angular/core";
 import { DataService } from "../../shared/data/data.service";
 import { Observable } from "rxjs/Observable";
 import { Percentile, PercentileGroup } from "./assessment-percentile";
-import { DatePipe } from "@angular/common";
 import { map } from "rxjs/operators";
 import * as _ from "lodash";
 import { ReportingServiceRoute } from "../../shared/service-route";
+import { TranslateDatePipe } from "../../shared/i18n/translate-date.pipe";
 
 /**
  * Service responsible for retrieving assessment percentile information
@@ -14,7 +14,7 @@ import { ReportingServiceRoute } from "../../shared/service-route";
 export class AssessmentPercentileService {
 
   constructor(private dataService: DataService,
-              private datePipe: DatePipe) {
+              private datePipe: TranslateDatePipe) {
   }
 
   /**

@@ -9,10 +9,14 @@ import { TranslateModule } from "@ngx-translate/core";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
+import { TranslateDatePipe } from "./translate-date.pipe";
+import { TranslateNumberPipe } from "./translate-number.pipe";
 
 @NgModule({
   declarations: [
-    LanguageSelect
+    LanguageSelect,
+    TranslateDatePipe,
+    TranslateNumberPipe
   ],
   imports: [
     BrowserModule,
@@ -25,11 +29,16 @@ import { HttpClientModule } from "@angular/common/http";
     TranslateModule.forRoot()
   ],
   exports: [
-    LanguageSelect
+    BrowserModule,
+    LanguageSelect,
+    TranslateDatePipe,
+    TranslateNumberPipe
   ],
   providers: [
     RdwTranslateLoader,
-    LanguageStore
+    LanguageStore,
+    TranslateDatePipe,
+    TranslateNumberPipe
   ]
 })
 export class RdwI18nModule {

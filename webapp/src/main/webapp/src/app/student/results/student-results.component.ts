@@ -16,7 +16,7 @@ import { ReportingEmbargoService } from "../../shared/embargo/reporting-embargo.
 import { ApplicationSettingsService } from '../../app-settings.service';
 import { Comparator, ranking } from "@kourge/ordering/comparator";
 
-const AssessmentTypes: string[] = [ 'iab', 'ica', 'sum' ];
+const AssessmentTypes: string[] = [ 'sum', 'ica', 'iab' ];
 const AssessmentTypeColorOrder: string[] = [ 'ica', 'iab', 'sum'];
 const TypeDisplayOrder: Comparator<string> = ranking(AssessmentTypes);
 

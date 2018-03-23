@@ -90,11 +90,6 @@ describe('StudentResultsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should retrieve sorted assessment types', () => {
-    expect(component.assessmentTypes)
-      .toEqual([ 'iab', 'ica', 'sum' ]);
-  });
-
   it('should retrieve subjects by assessment type', () => {
     expect(component.getSubjectsForType('ica'))
       .toEqual([ 'ELA', 'MATH' ]);

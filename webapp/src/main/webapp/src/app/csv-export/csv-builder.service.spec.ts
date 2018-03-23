@@ -1,11 +1,12 @@
 import { TestModule } from "../../test/test.module";
 import { CsvBuilder } from "./csv-builder.service";
 import { inject, TestBed } from "@angular/core/testing";
-import { DatePipe, DecimalPipe } from "@angular/common";
 import { Angular2CsvProvider } from "./angular-csv.provider";
 import { Exam } from "../assessments/model/exam.model";
 import { Student } from "../student/model/student.model";
 import { SchoolYearPipe } from "../shared/format/school-year.pipe";
+import { TranslateDatePipe } from "../shared/i18n/translate-date.pipe";
+import { TranslateNumberPipe } from "../shared/i18n/translate-number.pipe";
 import Spy = jasmine.Spy;
 
 describe('CsvBuilder', () => {
@@ -25,9 +26,9 @@ describe('CsvBuilder', () => {
       ],
       providers: [
         CsvBuilder,
-        { provide: DatePipe, useValue: datePipe },
+        { provide: TranslateDatePipe, useValue: datePipe },
         { provide: Angular2CsvProvider, useValue: angular2Csv },
-        { provide: DecimalPipe, useValue: MockDecimalPipe },
+        { provide: TranslateNumberPipe, useValue: MockDecimalPipe },
         { provide: SchoolYearPipe, useValue: schoolYearPipe }
       ]
     });
