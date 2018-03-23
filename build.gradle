@@ -23,11 +23,6 @@ plugins {
     id 'com.jfrog.artifactory' version '4.4.18'
 }
 
-// fixes spring boot 1.5 auto configuration from thymeleaf 2 to 3
-ext['thymeleaf.version'] = '3.0.6.RELEASE'
-ext['thymeleaf-layout-dialect.version'] = '2.1.1'
-
-
 apply plugin: 'io.spring.dependency-management'
 
 // Set version dependencies. This allows the cli to force version, e.g. `-Pcommon=1.1.0-SNAPSHOT`

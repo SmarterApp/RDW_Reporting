@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                             <div class="col-xs-3 bottom-right-aligned text-right">
-                                <div class="date" th:text="${#dates.format(exam.dateTime, 'MM-dd-yyyy')}"></div>
+                                <div class="date" th:text="${#instants.formatDate(exam.dateTime)}"></div>
                                 <div class="performance-level"
                                      th:if="${exam.scaleScore != null}"
                                      th:text="#{'report.iab.level.' + ${exam.scaleScore.level} + '.label'}"></div>
@@ -102,7 +102,7 @@
                         <ul class="previous-results">
                             <li th:with="assessment=${entry.key}" th:each="exam : ${entry.value}"><span
                                     th:if="${examStat.index} > 0"><span class="previous-result"><span class="date"
-                                                                                                      th:text="${#dates.format(exam.dateTime, 'MM-dd-yyyy')}"></span> <span
+                                                                                                      th:text="${#instants.formatDate(exam.dateTime)}"></span> <span
                                     th:if="${exam.scaleScore != null}" class="scale-score"><span
                                     th:text="${exam.scaleScore.value}" th:remove="tag"></span> <span class="error-band">&plusmn;
                                 <span th:text="${support.round(exam.scaleScore.standardError)}"

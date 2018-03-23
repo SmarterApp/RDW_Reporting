@@ -1,5 +1,9 @@
 apply plugin: 'org.springframework.boot'
 
+// fixes spring boot 1.5 auto configuration from thymeleaf 2 to 3
+ext['thymeleaf.version'] = '3.0.6.RELEASE'
+ext['thymeleaf-layout-dialect.version'] = '2.1.1'
+
 dependencies {
     compile project(':rdw-reporting-common')
     compile project(':rdw-reporting-common-web')
@@ -19,6 +23,7 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-cache'
     compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'org.springframework.boot:spring-boot-starter-jdbc'
+    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.cloud:spring-cloud-starter-aws'
     compile 'org.springframework.cloud:spring-cloud-starter-config'
