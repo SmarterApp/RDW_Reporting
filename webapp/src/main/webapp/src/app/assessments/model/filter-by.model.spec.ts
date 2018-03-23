@@ -177,10 +177,10 @@ describe('FilterBy model', () =>{
   it('should return only selected genders', () =>{
     let fixture = new FilterBy();
     fixture.genders['Female'] = true;
-    fixture.genders['Unknown'] = true;
+    fixture.genders['Nonbinary'] = true;
 
     expect(fixture.filteredGenders.length).toBe(2);
     expect(fixture.filteredGenders).toContain('Female');
-    expect(fixture.filteredGenders).toContain('Unknown');
+    expect(fixture.filteredGenders).toContain('Nonbinary');
   });
 });

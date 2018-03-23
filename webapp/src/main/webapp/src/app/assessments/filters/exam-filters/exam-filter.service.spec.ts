@@ -168,12 +168,12 @@ describe('ExamFilterService', () => {
   it('should filter exams by gender', () => {
     filterBy.genders["Male"] = false;
     filterBy.genders["Female"] = true;
-    filterBy.genders["Unknown"] = true;
+    filterBy.genders["Nonbinary"] = true;
 
     assessmentExam.exams[ 0 ].student.genderCode = 'Female';
     assessmentExam.exams[ 1 ].student.genderCode = 'Male';
     assessmentExam.exams[ 2 ].student.genderCode = 'Female';
-    assessmentExam.exams[ 3 ].student.genderCode = 'Unknown';
+    assessmentExam.exams[ 3 ].student.genderCode = 'Nonbinary';
 
     let actual = fixture.filterExams(assessmentExam, filterBy);
 

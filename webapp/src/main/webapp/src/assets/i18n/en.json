@@ -506,7 +506,7 @@
     "gender": {
       "Female": "Female",
       "Male": "Male",
-      "Unknown": "Unknown"
+      "Nonbinary": "Nonbinary"
     },
     "instructional-resource": {
       "columns": {
