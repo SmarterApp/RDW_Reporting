@@ -486,7 +486,6 @@ export class CsvBuilder {
       .withMigrantStatus(getExam)
       .with504Plan(getExam)
       .withIep(getExam)
-      .withEconomicDisadvantage(getExam)
       .withLimitedEnglish(getExam)
       .withEthnicity(getExam, ethnicities);
   }
