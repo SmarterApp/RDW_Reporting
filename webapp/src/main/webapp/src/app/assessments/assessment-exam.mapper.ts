@@ -96,7 +96,6 @@ export class AssessmentExamMapper {
       uiModel.migrantStatus = apiModel.studentContext.migrantStatus;
       uiModel.plan504 = apiModel.studentContext.section504;
       uiModel.iep = apiModel.studentContext.iep;
-      uiModel.economicDisadvantage = apiModel.studentContext.economicDisadvantage;
       uiModel.limitedEnglishProficiency = apiModel.studentContext.lep;
     }
 

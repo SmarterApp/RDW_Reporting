@@ -14,7 +14,6 @@ sql:
         e.iep,
         e.lep,
         e.section504,
-        e.economic_disadvantage,
         e.migrant_status,
         ${sql.snippet.claimColumns},
         ${sql.snippet.exam}
@@ -87,7 +86,6 @@ sql:
           e.iep,
           e.lep,
           e.section504,
-          e.economic_disadvantage,
           e.migrant_status,
           ${sql.snippet.claimColumns},
           ${sql.snippet.exam}
