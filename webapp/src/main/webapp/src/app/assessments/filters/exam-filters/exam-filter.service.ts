@@ -15,7 +15,7 @@ export class ExamFilterService {
     new ExamFilter('administration', 'common.filters.status.administration', 'common.administration-condition', this.filterByAdministrativeCondition, x => x.isInterim),
     new ExamFilter('summativeStatus', 'common.filters.status.summative', 'common.administration-condition', this.filterByAdministrativeCondition, x => x.isSummative),
     new ExamFilter('completion', 'common.completeness-form-control.label', 'common.completeness', this.filterByCompleteness),
-    new ExamFilter('gender', 'common.filters.student.gender', 'common.gender', this.filterByGender),
+    new ExamFilter('genders', 'common.filters.student.gender', 'common.gender', this.filterByGender),
     new ExamFilter('migrantStatus', 'common.filters.student.migrant-status', 'common.polar', this.filterByMigrantStatus),
     new ExamFilter('plan504', 'common.filters.student.504-plan', 'common.polar', this.filterByplan504),
     new ExamFilter('iep', 'common.filters.student.iep', 'common.polar', this.filterByIep),
@@ -56,6 +56,8 @@ export class ExamFilterService {
           filterValue = assessmentExam.assessment.grade;
         else if(filter == 'ethnicities')
           filterValue = filterBy.filteredEthnicities;
+        else if(filter == 'genders' )
+          filterValue = filterBy.filteredGenders;
 
         exams = exams.filter(exam => filterDefinition.apply(exam, filterValue));
       }
@@ -101,6 +103,8 @@ export class ExamFilterService {
           }
           else if(filter == 'ethnicities') {
             filterValue = filterBy.filteredEthnicities;
+          } else if(filter == 'genders') {
+            filterValue = filterBy.filteredGenders;
           }
 
           return filterDefinition.apply(exam, filterValue);
@@ -113,10 +117,16 @@ export class ExamFilterService {
   private getFilters(filterBy : FilterBy): string[] {
     let filters = filterBy.all;
     if(filters.some(x => x.indexOf('ethnicities') > -1)){
-      // remove individual 'ethnicities.code' and add just one ethnicities
+      // remove individual 'ethnicity.code' and add just one ethnicity
       // as ethnicities need to be evaluated all at once.
       filters = filters.filter(x => x.indexOf('ethnicities') == -1);
       filters.push('ethnicities');
+    }
+    if(filters.some(x => x.indexOf('genders') > -1)){
+      // remove individual 'gender.code' and add just one gender
+      // as genders need to be evaluated all at once.
+      filters = filters.filter(x => x.indexOf('genders') == -1);
+      filters.push('genders');
     }
 
     return filters;
@@ -135,7 +145,7 @@ export class ExamFilterService {
   }
 
   private filterByGender(exam: Exam, filterValue: any): boolean {
-    return exam.student && exam.student.genderCode === filterValue;
+    return exam.student && !filterValue.length || filterValue.some(gender => gender == exam.student.genderCode);
   }
 
   private filterByMigrantStatus(exam: Exam, filterValue: any): boolean {

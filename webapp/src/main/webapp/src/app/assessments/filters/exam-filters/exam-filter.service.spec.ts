@@ -166,17 +166,19 @@ describe('ExamFilterService', () => {
   });
 
   it('should filter exams by gender', () => {
-    filterBy.gender = 'Male';
+    filterBy.genders["Male"] = false;
+    filterBy.genders["Female"] = true;
+    filterBy.genders["Nonbinary"] = true;
 
     assessmentExam.exams[ 0 ].student.genderCode = 'Female';
     assessmentExam.exams[ 1 ].student.genderCode = 'Male';
     assessmentExam.exams[ 2 ].student.genderCode = 'Female';
-    assessmentExam.exams[ 3 ].student.genderCode = 'Male';
+    assessmentExam.exams[ 3 ].student.genderCode = 'Nonbinary';
 
     let actual = fixture.filterExams(assessmentExam, filterBy);
 
-    expect(actual.length).toBe(2);
-    expect(actual.some(x => x.student.genderCode == 'Female')).toBeFalsy();
+    expect(actual.length).toBe(3);
+    expect(actual.some(x => x.student.genderCode == 'Male')).toBeFalsy();
   });
 
   it('should filter exams by migrant status as Yes', () => {

@@ -75,6 +75,11 @@ sql:
         join ethnicity e on se.ethnicity_id=e.id
       where se.student_id=:student_id
 
+  gender:
+    findAll: >-
+      select id, code
+      from gender
+
   status:
     readTest: >-
       SELECT code FROM asmt_type

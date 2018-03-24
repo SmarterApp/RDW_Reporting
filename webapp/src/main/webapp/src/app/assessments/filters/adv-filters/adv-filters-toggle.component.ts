@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FilterBy } from "../../model/filter-by.model";
 import { ExamFilterService } from "../exam-filters/exam-filter.service";
 
@@ -22,7 +22,8 @@ export class AdvFiltersToggleComponent implements OnInit {
 
   filters: any = {};
 
-  constructor(private examFilterService: ExamFilterService) {}
+  constructor(private examFilterService: ExamFilterService) {
+  }
 
   ngOnInit(): void {
     this.examFilterService.getFilterDefinitions().forEach(filter => {

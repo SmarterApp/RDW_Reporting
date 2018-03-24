@@ -1,5 +1,5 @@
 import { AdvFiltersToggleComponent } from "./adv-filters-toggle.component";
-import { ComponentFixture, async, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { TranslateModule } from "@ngx-translate/core";
 import { HttpModule } from "@angular/http";
 import { SharedModule } from "primeng/components/common/shared";
@@ -18,10 +18,10 @@ describe('AdvFiltersToggleComponent', () => {
     TestBed.configureTestingModule({
       imports: [ TranslateModule.forRoot(), HttpModule, SharedModule ],
       declarations: [ AdvFiltersToggleComponent ],
-      providers: [{
+      providers: [ {
         provide: ExamFilterService,
         useValue: filterService
-      }]
+      } ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AdvFiltersToggleComponent);
@@ -37,15 +37,15 @@ describe('AdvFiltersToggleComponent', () => {
 
   it('should retrieve and parse filters', () => {
     filterService.getFilterDefinitions.and.returnValue([
-      {name: 'filter A'},
-      {name: 'filter B'}
+      { name: 'filter A' },
+      { name: 'filter B' }
     ]);
 
     component.ngOnInit();
 
     expect(Object.keys(component.filters).length).toBe(2);
-    expect(component.filters['filter A'].name).toBe('filter A');
-    expect(component.filters['filter B'].name).toBe('filter B');
+    expect(component.filters[ 'filter A' ].name).toBe('filter A');
+    expect(component.filters[ 'filter B' ].name).toBe('filter B');
   });
 
 });

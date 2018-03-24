@@ -1,7 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { FilterBy } from "../../model/filter-by.model";
 import { ExamFilterOptions } from "../../model/exam-filter-options.model";
-import { ActivatedRoute } from '@angular/router';
 import { ApplicationSettingsService } from '../../../app-settings.service';
 
 /*

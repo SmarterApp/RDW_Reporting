@@ -505,7 +505,8 @@
     },
     "gender": {
       "Female": "Female",
-      "Male": "Male"
+      "Male": "Male",
+      "Nonbinary": "Nonbinary"
     },
     "instructional-resource": {
       "columns": {

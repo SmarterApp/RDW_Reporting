@@ -8,7 +8,8 @@
             (click)="displayOptions.expanded = !displayOptions.expanded"
             angulartics2On="click" angularticsEvent="ToggleExpandCollapse" angularticsCategory="AdvancedFilters">
       {{'common.action.' + (displayOptions.expanded ? 'collapse' : 'expand') | translate }}
-      <i class="fa" [ngClass]="{'fa-caret-square-o-up': displayOptions.expanded, 'fa-caret-square-o-down': !displayOptions.expanded}"
+      <i class="fa"
+         [ngClass]="{'fa-caret-square-o-up': displayOptions.expanded, 'fa-caret-square-o-down': !displayOptions.expanded}"
          aria-hidden="true"></i>
     </button>
   </div>
@@ -21,11 +22,14 @@
       <div *ngFor="let property of filterBy.all">
         <a class="tag tag-xs aqua reverse" (click)="removed.emit(property)"
            angulartics2On="click" angularticsEvent="RemoveFilter" angularticsCategory="AdvancedFilters">
-                <span *ngIf="property.indexOf('ethnicities') == -1">
-                  <strong>{{ filters[property].enumValue + '.' + filterBy[property] | translate}}</strong> {{ filters[property].label | translate }}
-                </span>
           <span *ngIf="property.indexOf('ethnicities') != -1">
                   <strong>{{ filters['ethnicities'].enumValue + property.substring(property.indexOf('.')) | translate}}</strong> {{ filters['ethnicities'].label | translate }}
+                </span>
+          <span *ngIf="property.indexOf('genders') != -1">
+                  <strong>{{ filters['genders'].enumValue + property.substring(property.indexOf('.')) | translate}}</strong> {{ filters['genders'].label | translate }}
+                </span>
+          <span *ngIf="property.indexOf('ethnicities') == -1 && property.indexOf('genders') == -1">
+                  <strong>{{ filters[property].enumValue + '.' + filterBy[property] | translate}}</strong> {{ filters[property].label | translate }}
                 </span>
           <span class="icon"><i class="fa fa-close"></i></span>
         </a>
