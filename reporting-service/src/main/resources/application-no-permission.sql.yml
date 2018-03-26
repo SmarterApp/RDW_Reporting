@@ -77,8 +77,8 @@ sql:
 
   gender:
     findAll: >-
-      select id, code
-      from gender
+      select code
+      from gender order by id;
 
   status:
     readTest: >-
