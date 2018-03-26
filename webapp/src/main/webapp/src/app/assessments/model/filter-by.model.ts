@@ -23,27 +23,22 @@ export class FilterBy extends ObservableObject {
     'plan504', 'iep', 'economicDisadvantage', 'limitedEnglishProficiency', 'ethnicities' ];
 
   get filteredEthnicities(): any[] {
-    const ethnicities: any[] = [];
-
-    for (let i in this._ethnicities) {
-      if (this._ethnicities.hasOwnProperty(i) && i != "0" && this._ethnicities[ i ]) {
-        ethnicities.push(i);
-      }
-    }
-
-    return ethnicities;
+    return this.filterArray(this._ethnicities);
   }
 
   get filteredGenders(): any[] {
-    const genders: any[] = [];
+    return this.filterArray(this._genders);
+  }
 
-    for (let i in this._genders) {
-      if (this._genders.hasOwnProperty(i) && i != "0" && this._genders[ i ]) {
-        genders.push(i);
+  private filterArray(array: any[]): any[] {
+    const returnArray: any[] = [];
+    for (let i in array) {
+      if (array.hasOwnProperty(i) && i != "0" && array[ i ]) {
+        returnArray.push(i);
       }
     }
 
-    return genders;
+    return returnArray;
   }
 
   get all(): string[] {
@@ -52,13 +47,13 @@ export class FilterBy extends ObservableObject {
     for (let property of this._filters) {
       if (property == "ethnicities") {
         const filteredEthnicities = this.filteredEthnicities;
-        for (let i of filteredEthnicities) {
-          all.push(property + "." + i);
+        for (let filteredEthnicity of filteredEthnicities) {
+          all.push(property + "." + filteredEthnicity);
         }
       } else if (property == "genders") {
         const filteredGenders = this.filteredGenders;
-        for (let i of filteredGenders) {
-          all.push(property + "." + i);
+        for (let filteredGender of filteredGenders) {
+          all.push(property + "." + filteredGender);
         }
       } else if (this.isFilterEnabled(property)) {
         all.push(property);

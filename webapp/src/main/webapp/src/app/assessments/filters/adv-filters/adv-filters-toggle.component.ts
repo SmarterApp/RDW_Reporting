@@ -31,4 +31,19 @@ export class AdvFiltersToggleComponent implements OnInit {
     });
   }
 
+  selectedFilter(property: string): string {
+    if (property.indexOf('.') != -1) {
+      const filter = property.split('.')[ 0 ];
+      return this.filters[ filter ].enumValue + property.substring(property.indexOf('.'));
+    }
+    return this.filters[ property ].enumValue + '.' + this.filterBy[ property ];
+  }
+
+  filterIndex(property: string): string {
+    if (property.indexOf('.') != -1) {
+      return property.split('.')[ 0 ];
+    }
+    return property;
+  }
+
 }

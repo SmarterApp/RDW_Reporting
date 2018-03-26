@@ -185,13 +185,22 @@ export class AssessmentsComponent {
     return GradeCode.getIndex(gradeCode);
   }
 
-  removeFilterFromArray(arr: boolean[], filterArr: any[], gender: string) {
-    arr[ gender ] = false;
-    if (filterArr.length == 0) {
-      arr[ 0 ] = true; // None are selected, set all to true.
+  removeEthnicity(ethnicity) {
+    this.clientFilterBy.ethnicities[ ethnicity ] = false;
+    if (this.clientFilterBy.filteredEthnicities.length == 0) {
+      this.clientFilterBy.ethnicities[ 0 ] = true; // None are selected, set all to true.
     }
 
-    arr = Object.assign({}, arr);
+    this.clientFilterBy.ethnicities = Object.assign({}, this.clientFilterBy.ethnicities);
+  }
+
+  removeGender(gender) {
+    this.clientFilterBy.genders[ gender ] = false;
+    if (this.clientFilterBy.filteredGenders.length == 0) {
+      this.clientFilterBy.genders[ 0 ] = true; // None are selected, set all to true.
+    }
+
+    this.clientFilterBy.genders = Object.assign({}, this.clientFilterBy.genders);
   }
 
   removeFilter(property) {
@@ -202,9 +211,9 @@ export class AssessmentsComponent {
       this.clientFilterBy[ property ] = false;
     }
     else if (property.indexOf('ethnicities') > -1) {
-      this.removeFilterFromArray(this.clientFilterBy.ethnicities, this.clientFilterBy.filteredEthnicities, property.substring(property.indexOf('.') + 1));
+      this.removeEthnicity(property.substring(property.indexOf('.') + 1));
     } else if (property.indexOf('genders') > -1) {
-      this.removeFilterFromArray(this.clientFilterBy.genders, this.clientFilterBy.filteredGenders, property.substring(property.indexOf('.') + 1));
+      this.removeGender(property.substring(property.indexOf('.') + 1));
     }
     else {
       this.clientFilterBy[ property ] = -1;
