@@ -1,0 +1,64 @@
+{
+  "schoolYear": 2018,
+  "name": "Custom Aggregate Report",
+  "accommodationsVisible": false,
+  "disableTransferAccess": false,
+  "reportQuery": {
+    "assessmentTypeCode": "sum",
+    "subjectCodes": [
+      "ELA",
+      "Math"
+    ],
+    "schoolYears": [
+      2018
+    ],
+    "assessmentGradeCodes": [
+      "06"
+    ],
+    "includeState": true,
+    "includeAllDistricts": false,
+    "includeAllSchoolsOfDistricts": false,
+    "includeAllDistrictsOfSchools": true,
+    "districtIds": [],
+    "schoolIds": [],
+    "dimensionTypes": [
+      "Gender",
+      "Ethnicity"
+    ],
+    "valueDisplayType": "Percent",
+    "achievementLevelDisplayType": "Separate",
+    "columnOrder": [
+      "organization",
+      "assessmentGrade",
+      "schoolYear",
+      "dimension"
+    ],
+    "completenessCodes": [
+      "Complete"
+    ],
+    "administrativeConditionCodes": [
+      "Valid"
+    ],
+    "genderCodes": [
+      "Male"
+    ],
+    "ethnicityCodes": [
+      "White",
+      "Asian"
+    ],
+    "lepCodes": [],
+    "migrantStatusCodes": [
+      "yes"
+    ],
+    "section504Codes": [
+      "yes"
+    ],
+    "iepCodes": [
+      "no"
+    ],
+    "economicDisadvantageCodes": [
+      "no"
+    ]
+  },
+  "reportType": "AggregateReportRequest"
+}
