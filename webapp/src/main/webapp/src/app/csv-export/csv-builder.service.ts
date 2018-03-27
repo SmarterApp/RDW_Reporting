@@ -312,16 +312,6 @@ export class CsvBuilder {
     )
   }
 
-  withEconomicDisadvantage(getExam: (item: any) => Exam) {
-    return this.withColumn(
-      this.translateService.instant('csv-builder.economic-disadvantage'),
-      (item) => {
-        let polarEnum = getExam(item).economicDisadvantage ? 1 : 2;
-        return this.getPolarTranslation(polarEnum);
-      }
-    )
-  }
-
   withLimitedEnglish(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.limited-english'),
@@ -496,7 +486,6 @@ export class CsvBuilder {
       .withMigrantStatus(getExam)
       .with504Plan(getExam)
       .withIep(getExam)
-      .withEconomicDisadvantage(getExam)
       .withLimitedEnglish(getExam)
       .withEthnicity(getExam, ethnicities);
   }

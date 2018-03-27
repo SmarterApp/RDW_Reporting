@@ -30,7 +30,8 @@
                      class="form-control input-sm"
                      type="text"
                      maxlength="255"
-                     [(ngModel)]="options.name" required>
+                     [(ngModel)]="options.name"
+                     required>
             </div>
             <div *ngIf="resourceControl.invalid && (resourceControl.dirty || resourceControl.touched)">
               <p *ngIf="resourceControl.errors.required"

@@ -40,7 +40,6 @@ export class AppComponent {
       unintended removal by autoformatting
     */
     this._doNotDeleteThisAnalytics = angulartics2GoogleAnalytics;
-
     this.registerLocales();
   }
 

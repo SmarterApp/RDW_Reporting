@@ -16,7 +16,6 @@ export class Exam {
   migrantStatus: boolean;
   plan504: boolean;
   iep: boolean;
-  economicDisadvantage: boolean;
   limitedEnglishProficiency: boolean;
   schoolYear: number;
   claimScores: ClaimScore[];

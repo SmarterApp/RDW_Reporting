@@ -386,18 +386,18 @@ body .select-menu-group {
 }
 
 /**
- * TODO candidate for moving to UI kit
+ * TODO move to UI Kit
  */
-.nested-btn-group.vertical .btn-group .btn:last-child {
-  margin-bottom: 0;
-}
-
-/**
- * Minor style fixes for vertical checkbox group.
- * The default btn-group style is margin-left: -1px
- */
-.nested-btn-group.vertical .btn-group .btn + .btn {
-  margin-left: 0;
+.nested-btn-group.vertical {
+  .btn-group .btn {
+    margin-right: 0;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    + .btn {
+      margin-left: 0;
+    }
+  }
 }
 
 /**

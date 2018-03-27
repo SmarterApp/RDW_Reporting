@@ -243,21 +243,6 @@ describe('ExamFilterService', () => {
     expect(actual.some(x => x.iep === false)).toBeFalsy();
   });
 
-  it('should filter exams by Economic Disadvantage', () => {
-    filterBy.economicDisadvantage = 1;
-
-    assessmentExam.exams[ 0 ].economicDisadvantage = true;
-    assessmentExam.exams[ 1 ].economicDisadvantage = false;
-    assessmentExam.exams[ 2 ].economicDisadvantage = false;
-    assessmentExam.exams[ 3 ].economicDisadvantage = false;
-
-    let actual = fixture.filterExams(assessmentExam, filterBy);
-
-    expect(actual.length).toBe(1);
-    expect(actual.some(x => x.economicDisadvantage === true)).toBeTruthy();
-    expect(actual.some(x => x.economicDisadvantage === false)).toBeFalsy();
-  });
-
   it('should filter exams by Limited English Proficiency', () => {
     filterBy.limitedEnglishProficiency = 2;
 

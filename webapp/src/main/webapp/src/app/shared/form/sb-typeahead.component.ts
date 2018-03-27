@@ -11,7 +11,7 @@ import { byString, join } from "@kourge/ordering/comparator";
   selector: 'sb-typeahead,[sb-typeahead]',
   template: `
     <input class="form-control"
-           [id]="inputId"
+           id="{{inputId}}"
            [disabled]="disabledInternal"
            [typeahead]="options"
            [typeaheadMinLength]="0"
