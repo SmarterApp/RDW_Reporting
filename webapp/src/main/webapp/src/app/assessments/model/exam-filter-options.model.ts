@@ -3,4 +3,6 @@ export class ExamFilterOptions {
   ethnicities: string[] = [];
   hasSummative: boolean = false;
   hasInterim: boolean = false;
+  hasLep: boolean  = false;
+  hasElas: boolean = false;
 }

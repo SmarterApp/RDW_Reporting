@@ -17,10 +17,11 @@ export class FilterBy extends ObservableObject {
   private _iep: number = -1;
   private _economicDisadvantage: number = -1;
   private _limitedEnglishProficiency: number = -1;
+  private _englishLanguageAcquisitionStatus: number = -1;
   private _ethnicities: boolean[] = [ true ];
 
   private _filters = ['offGradeAssessment', 'transferAssessment', 'administration', 'summativeStatus', 'completion', 'gender', 'migrantStatus',
-                      'plan504', 'iep', 'economicDisadvantage', 'limitedEnglishProficiency', 'ethnicities'];
+                      'plan504', 'iep', 'economicDisadvantage', 'englishLanguageAcquisitionStatus', 'limitedEnglishProficiency', 'ethnicities'];
 
   get filteredEthnicities() {
     let ethnicities = [];
@@ -158,6 +159,15 @@ export class FilterBy extends ObservableObject {
   set limitedEnglishProficiency(value: number) {
     this._limitedEnglishProficiency = value;
     this.notifyChange('limitedEnglishProficiency');
+  }
+
+  get englishLanguageAcquisitionStatus(): number {
+    return this._englishLanguageAcquisitionStatus;
+  }
+
+  set englishLanguageAcquisitionStatus(value: number) {
+    this._englishLanguageAcquisitionStatus = value;
+    this.notifyChange('englishLanguageAcquisitionStatus');
   }
 
   private isFilterEnabled(property) {

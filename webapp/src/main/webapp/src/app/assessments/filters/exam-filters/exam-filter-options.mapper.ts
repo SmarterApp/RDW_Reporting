@@ -8,6 +8,8 @@ export class ExamFilterOptionsMapper {
     const options: ExamFilterOptions = new ExamFilterOptions();
     options.schoolYears = serverOptions.schoolYears.concat();
     options.ethnicities = serverOptions.ethnicities.concat();
+    options.hasElas = serverOptions.elas;
+    options.hasLep = serverOptions.lep;
     return options;
   }
 
