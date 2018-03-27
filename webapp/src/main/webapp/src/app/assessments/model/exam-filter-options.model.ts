@@ -5,4 +5,5 @@ export class ExamFilterOptions {
   hasInterim: boolean = false;
   hasLep: boolean  = false;
   hasElas: boolean = false;
+  elasOptions: string[] = [];
 }
