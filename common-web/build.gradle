@@ -10,7 +10,6 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-security'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-guava'
     compile 'io.jsonwebtoken:jjwt'
     provided 'org.springframework:spring-messaging'
 

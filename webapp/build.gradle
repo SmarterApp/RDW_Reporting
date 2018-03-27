@@ -27,7 +27,6 @@ dependencies {
     compile 'org.springframework.security.extensions:spring-security-saml2-core'
     compile 'org.springframework.session:spring-session'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-guava'
     compile 'com.google.guava:guava'
     compile 'mysql:mysql-connector-java'
     compile 'commons-io:commons-io'
