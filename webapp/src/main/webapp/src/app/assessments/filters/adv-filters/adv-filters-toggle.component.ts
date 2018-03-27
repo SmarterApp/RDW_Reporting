@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FilterBy } from "../../model/filter-by.model";
 import { ExamFilterService } from "../exam-filters/exam-filter.service";
 
@@ -22,12 +22,28 @@ export class AdvFiltersToggleComponent implements OnInit {
 
   filters: any = {};
 
-  constructor(private examFilterService: ExamFilterService) {}
+  constructor(private examFilterService: ExamFilterService) {
+  }
 
   ngOnInit(): void {
     this.examFilterService.getFilterDefinitions().forEach(filter => {
       this.filters[ filter.name ] = filter;
     });
+  }
+
+  selectedFilter(property: string): string {
+    if (property.indexOf('.') != -1) {
+      const filter = property.split('.')[ 0 ];
+      return this.filters[ filter ].enumValue + property.substring(property.indexOf('.'));
+    }
+    return this.filters[ property ].enumValue + '.' + this.filterBy[ property ];
+  }
+
+  filterIndex(property: string): string {
+    if (property.indexOf('.') != -1) {
+      return property.split('.')[ 0 ];
+    }
+    return property;
   }
 
 }

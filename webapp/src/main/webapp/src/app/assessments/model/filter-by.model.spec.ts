@@ -50,15 +50,15 @@ describe('FilterBy model', () =>{
     expect(actual).toBeTruthy();
   });
 
-  it('should detect changes to gender', () =>{
+  it('should detect changes to genders', () =>{
     let fixture = new FilterBy();
     let actual = false;
     fixture.onChanges.subscribe(property => {
-      expect(property).toBe('gender');
+      expect(property).toBe('genders');
       actual = true;
     });
 
-    fixture.gender = 1;
+    fixture.genders = [ true ];
     expect(actual).toBeTruthy();
   });
 
@@ -98,18 +98,6 @@ describe('FilterBy model', () =>{
     expect(actual).toBeTruthy();
   });
 
-  it('should detect changes to economicDisadvantage', () =>{
-    let fixture = new FilterBy();
-    let actual = false;
-    fixture.onChanges.subscribe(property => {
-      expect(property).toBe('economicDisadvantage');
-      actual = true;
-    });
-
-    fixture.economicDisadvantage = 1;
-    expect(actual).toBeTruthy();
-  });
-
   it('should detect changes to limitedEnglishProficiency', () =>{
     let fixture = new FilterBy();
     let actual = false;
@@ -126,12 +114,12 @@ describe('FilterBy model', () =>{
     let fixture = new FilterBy();
     fixture.administration = 1;
     fixture.plan504 = 1;
-    fixture.gender = 1;
+    fixture.genders[2] = true;
 
     expect(fixture.all.length).toBe(3);
     expect(fixture.all).toContain('administration');
     expect(fixture.all).toContain('plan504');
-    expect(fixture.all).toContain('gender');
+    expect(fixture.all).toContain('genders.2');
   });
 
   it('should return all selected filters', () => {
@@ -140,24 +128,22 @@ describe('FilterBy model', () =>{
     fixture.administration = 1;
     fixture.summativeStatus = 1;
     fixture.completion = 2;
-    fixture.gender = 1;
+    fixture.genders[2] = true;
     fixture.migrantStatus = 1;
     fixture.plan504 = 2;
     fixture.iep = 1;
-    fixture.economicDisadvantage = 1;
     fixture.limitedEnglishProficiency = 2;
     fixture.ethnicities[3] = true;
 
-    expect(fixture.all.length).toBe(11);
+    expect(fixture.all.length).toBe(10);
     expect(fixture.all).toContain('offGradeAssessment');
     expect(fixture.all).toContain('administration');
     expect(fixture.all).toContain('summativeStatus');
     expect(fixture.all).toContain('completion');
-    expect(fixture.all).toContain('gender');
+    expect(fixture.all).toContain('genders.2');
     expect(fixture.all).toContain('migrantStatus');
     expect(fixture.all).toContain('plan504');
     expect(fixture.all).toContain('iep');
-    expect(fixture.all).toContain('economicDisadvantage');
     expect(fixture.all).toContain('limitedEnglishProficiency');
     expect(fixture.all).toContain('ethnicities.3');
   });
@@ -172,5 +158,15 @@ describe('FilterBy model', () =>{
     expect(fixture.filteredEthnicities).toContain('Asian');
     expect(fixture.filteredEthnicities).toContain('White');
     expect(fixture.filteredEthnicities).toContain('Filipino');
-  })
+  });
+
+  it('should return only selected genders', () =>{
+    let fixture = new FilterBy();
+    fixture.genders['Female'] = true;
+    fixture.genders['Nonbinary'] = true;
+
+    expect(fixture.filteredGenders.length).toBe(2);
+    expect(fixture.filteredGenders).toContain('Female');
+    expect(fixture.filteredGenders).toContain('Nonbinary');
+  });
 });

@@ -16,8 +16,8 @@
                   content="{{ 'common.filters.test.off-grade-assessment-info' | translate }}"></span>
         </label>
         <sb-radio-button-group name="off-grade-assessment-toggle"
-                   [(ngModel)]="filterBy.offGradeAssessment"
-                   [options]="[
+                               [(ngModel)]="filterBy.offGradeAssessment"
+                               [options]="[
                            {value: false, text: 'common.action.show' | translate, analyticsProperties: {label: 'Off-Grade: Show'}},
                            {value: true, text: 'common.action.hide' | translate, analyticsProperties: {label: 'Off-Grade: Hide'}}
                          ]"></sb-radio-button-group>
@@ -30,8 +30,8 @@
                   content="{{ 'common.filters.test.transfer-assessment-info' | translate }}"></span>
         </label>
         <sb-radio-button-group name="transfer-assessment-toggle"
-                   [(ngModel)]="filterBy.transferAssessment"
-                   [options]="[
+                               [(ngModel)]="filterBy.transferAssessment"
+                               [options]="[
                            {value: false, text: 'common.action.show' | translate, analyticsProperties: {label: 'Transfer-Assessment: Show'}},
                            {value: true, text: 'common.action.hide' | translate, analyticsProperties: {label: 'Transfer-Assessment: Hide'}}
                          ]"></sb-radio-button-group>
@@ -50,8 +50,10 @@
                 title="{{ 'common.filters.status.administration' | translate }}"
                 content="{{ 'common.filters.status.administration-info' | translate }}"></span>
         </label>
-        <sb-radio-button-list [model]="filterBy" [values]="['SD','NS']" property="administration" enum="common.administration-condition"
-                              label="{{ 'common.filters.status.label' | translate }}" [disabled]="!filterOptions.hasInterim"
+        <sb-radio-button-list [model]="filterBy" [values]="['SD','NS']" property="administration"
+                              enum="common.administration-condition"
+                              label="{{ 'common.filters.status.label' | translate }}"
+                              [disabled]="!filterOptions.hasInterim"
                               analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
       </div>
       <!-- Summative Status -->
@@ -61,7 +63,8 @@
                 title="{{ 'common.filters.status.summative' | translate }}"
                 content="{{ 'common.filters.status.summative-info' | translate }}"></span>
         </label>
-        <sb-radio-button-list [model]="filterBy" [values]="['Valid','IN']" property="summativeStatus" enum="common.administration-condition"
+        <sb-radio-button-list [model]="filterBy" [values]="['Valid','IN']" property="summativeStatus"
+                              enum="common.administration-condition"
                               label="{{ 'common.filters.status.summative' | translate }}"
                               analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
       </div>
@@ -88,7 +91,7 @@
     <p class="border-bottom">{{ 'common.filters.student.label' | translate }}</p>
     <div class="flex-children">
       <!-- Column 1 -->
-      <div class="flex-child col1 no-margin">
+      <div class="flex-child col1 grow">
         <!-- Gender -->
         <div class="block-children">
           <label>
@@ -96,9 +99,9 @@
                   title="{{ 'common.filters.student.gender' | translate }}"
                   content="{{ 'common.filters.student.gender-info' | translate }}"></span>
           </label>
-          <sb-radio-button-list [model]="filterBy" [values]="['Male','Female']" property="gender" enum="common.gender"
-                                label="{{ 'common.filters.student.gender' | translate }}"
-                                analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
+          <sb-checkbox-list [model]="filterBy" [values]="filterOptions.genders" property="genders" enum="common.gender"
+                            label="{{ 'common.filters.student.gender' | translate }}"
+                            analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-checkbox-list>
         </div>
         <!-- Migrant Status -->
         <div class="block-children">
@@ -125,17 +128,7 @@
       </div>
       <!-- Column 2 -->
       <div class="flex-child col2 no-margin">
-        <!-- Economic Disadvantage -->
-        <div class="block-children">
-          <label>
-            <span info-button
-                  title="{{ 'common.filters.student.economic-disadvantage' | translate }}"
-                  content="{{ 'common.filters.student.economic-disadvantage-info' | translate }}"></span>
-          </label>
-          <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="economicDisadvantage" enum="common.polar"
-                                label="{{ 'common.filters.student.economic-disadvantage' | translate }}"
-                                analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
-        </div>
+
         <!-- Limited English Proficiency -->
         <div class="block-children" *ngIf="filterOptions.hasLep">
           <label>
@@ -143,7 +136,8 @@
                   title="{{ 'common.filters.student.limited-english-proficiency' | translate }}"
                   content="{{ 'common.filters.student.limited-english-proficiency-info' | translate }}"></span>
           </label>
-          <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="limitedEnglishProficiency" enum="common.polar"
+          <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="limitedEnglishProficiency"
+                                enum="common.polar"
                                 label="{{ 'common.filters.student.limited-english-proficiency' | translate }}"
                                 analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
         </div>
@@ -179,7 +173,8 @@
                   title="{{ 'common.filters.student.ethnicity' | translate }}"
                   content="{{ 'common.filters.student.ethnicity-info' | translate }}"></span>
           </label>
-          <sb-checkbox-list [model]="filterBy" [values]="filterOptions.ethnicities" property="ethnicities" enum="common.ethnicity"
+          <sb-checkbox-list [model]="filterBy" [values]="filterOptions.ethnicities" property="ethnicities"
+                            enum="common.ethnicity"
                             label="{{ 'common.filters.student.ethnicity' | translate }}"
                             analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-checkbox-list>
         </div>

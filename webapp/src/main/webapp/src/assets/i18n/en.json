@@ -485,10 +485,8 @@
       "student": {
         "504-plan": "504 Plan",
         "504-plan-info": "Indicates that a student has an approved 504 plan.  These plans are for students with disabilities who may need accommodations but do not require specialized instruction.",
-        "economic-disadvantage": "Economic Disadvantage",
-        "economic-disadvantage-info": "Indicates that a student qualifies for free or reduced lunch or meets other state criteria for economic disadvantage.",
         "elas": "English Language Acquisition Status",
-        "elas-info": "elas-info",
+        "elas-info": "elas-info"
         "ethnicity": "Race/Ethnicity",
         "ethnicity-info": "Student race and ethnicity",
         "gender": "Gender",
@@ -514,7 +512,8 @@
     },
     "gender": {
       "Female": "Female",
-      "Male": "Male"
+      "Male": "Male",
+      "Nonbinary": "Nonbinary"
     },
     "instructional-resource": {
       "columns": {
@@ -773,7 +772,6 @@
     "assessment-session-id": "TestSessionId",
     "assessment-type": "AssessmentType",
     "claim": "Claim",
-    "economic-disadvantage": "EconomicDisadvantageStatus",
     "enrolled-grade": "GradeLevelWhenAssessed",
     "error-band-max": "Error Band Max",
     "error-band-min": "Error Band Min",

@@ -194,6 +194,15 @@ export class AssessmentsComponent {
     this.clientFilterBy.ethnicities = Object.assign({}, this.clientFilterBy.ethnicities);
   }
 
+  removeGender(gender) {
+    this.clientFilterBy.genders[ gender ] = false;
+    if (this.clientFilterBy.filteredGenders.length == 0) {
+      this.clientFilterBy.genders[ 0 ] = true; // None are selected, set all to true.
+    }
+
+    this.clientFilterBy.genders = Object.assign({}, this.clientFilterBy.genders);
+  }
+
   removeFilter(property) {
     if (property == 'offGradeAssessment') {
       this.clientFilterBy[ property ] = false;
@@ -203,6 +212,8 @@ export class AssessmentsComponent {
     }
     else if (property.indexOf('ethnicities') > -1) {
       this.removeEthnicity(property.substring(property.indexOf('.') + 1));
+    } else if (property.indexOf('genders') > -1) {
+      this.removeGender(property.substring(property.indexOf('.') + 1));
     }
     else {
       this.clientFilterBy[ property ] = -1;

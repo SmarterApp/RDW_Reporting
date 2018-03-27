@@ -33,7 +33,7 @@ export class AppComponent {
               private location: Location,
               private userService: UserService,
               private applicationSettingsService: ApplicationSettingsService,
-              private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
+              angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
     /*
       Even though the angulartics2GoogleAnalytics variable is not explicitly used,
       without it analytics data is not sent to the service.  This private variable prevents
