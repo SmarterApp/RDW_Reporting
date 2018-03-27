@@ -98,18 +98,6 @@ describe('FilterBy model', () =>{
     expect(actual).toBeTruthy();
   });
 
-  it('should detect changes to economicDisadvantage', () =>{
-    let fixture = new FilterBy();
-    let actual = false;
-    fixture.onChanges.subscribe(property => {
-      expect(property).toBe('economicDisadvantage');
-      actual = true;
-    });
-
-    fixture.economicDisadvantage = 1;
-    expect(actual).toBeTruthy();
-  });
-
   it('should detect changes to limitedEnglishProficiency', () =>{
     let fixture = new FilterBy();
     let actual = false;
@@ -144,11 +132,10 @@ describe('FilterBy model', () =>{
     fixture.migrantStatus = 1;
     fixture.plan504 = 2;
     fixture.iep = 1;
-    fixture.economicDisadvantage = 1;
     fixture.limitedEnglishProficiency = 2;
     fixture.ethnicities[3] = true;
 
-    expect(fixture.all.length).toBe(11);
+    expect(fixture.all.length).toBe(10);
     expect(fixture.all).toContain('offGradeAssessment');
     expect(fixture.all).toContain('administration');
     expect(fixture.all).toContain('summativeStatus');
@@ -157,7 +144,6 @@ describe('FilterBy model', () =>{
     expect(fixture.all).toContain('migrantStatus');
     expect(fixture.all).toContain('plan504');
     expect(fixture.all).toContain('iep');
-    expect(fixture.all).toContain('economicDisadvantage');
     expect(fixture.all).toContain('limitedEnglishProficiency');
     expect(fixture.all).toContain('ethnicities.3');
   });

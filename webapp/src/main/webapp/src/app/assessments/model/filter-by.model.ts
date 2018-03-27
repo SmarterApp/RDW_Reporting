@@ -15,12 +15,11 @@ export class FilterBy extends ObservableObject {
   private _migrantStatus: number = -1;
   private _plan504: number = -1;
   private _iep: number = -1;
-  private _economicDisadvantage: number = -1;
   private _limitedEnglishProficiency: number = -1;
   private _ethnicities: boolean[] = [ true ];
 
   private _filters = ['offGradeAssessment', 'transferAssessment', 'administration', 'summativeStatus', 'completion', 'gender', 'migrantStatus',
-                      'plan504', 'iep', 'economicDisadvantage', 'limitedEnglishProficiency', 'ethnicities'];
+                      'plan504', 'iep', 'limitedEnglishProficiency', 'ethnicities'];
 
   get filteredEthnicities() {
     let ethnicities = [];
@@ -140,15 +139,6 @@ export class FilterBy extends ObservableObject {
   set iep(value: number) {
     this._iep = value;
     this.notifyChange('iep');
-  }
-
-  get economicDisadvantage(): number {
-    return this._economicDisadvantage;
-  }
-
-  set economicDisadvantage(value: number) {
-    this._economicDisadvantage = value;
-    this.notifyChange('economicDisadvantage');
   }
 
   get limitedEnglishProficiency(): number {

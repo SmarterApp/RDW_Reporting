@@ -170,7 +170,6 @@ class MockBuilder {
   private static exam(type: AssessmentType): Exam {
     let exam: Exam = new Exam();
     exam.date = new Date();
-    exam.economicDisadvantage = false;
     exam.id = MockBuilder.examIdx++;
     exam.iep = false;
     exam.level = 3;

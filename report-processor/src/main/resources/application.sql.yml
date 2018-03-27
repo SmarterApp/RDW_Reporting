@@ -137,7 +137,6 @@ sql:
         'MigrantStatus',
         'Section504Status',
         'IDEAIndicator',
-        'EconomicDisadvantageStatus',
         'LEPStatus',
 
         'HispanicOrLatinoEthnicity',
@@ -190,7 +189,6 @@ sql:
         (CASE WHEN e.migrant_status = 1 THEN 'Yes' when e.migrant_status = 0 THEN 'No' ELSE '' END),
         (CASE WHEN e.section504 = 1 THEN 'Yes' when e.section504 = 0 THEN 'No' ELSE '' END),
         (CASE WHEN e.iep THEN 'Yes' ELSE 'No' END),
-        (CASE WHEN e.economic_disadvantage THEN 'Yes' ELSE 'No' END),
         (CASE WHEN e.lep THEN 'Yes' ELSE 'No' END),
 
         (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'HispanicOrLatinoEthnicity') THEN 'Yes' ELSE 'No' END ),
