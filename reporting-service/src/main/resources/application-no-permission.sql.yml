@@ -55,6 +55,11 @@ sql:
       where s.id=:studentId
        and exists (select 1 from exam e where e.student_id = s.id)
 
+  elas:
+    findAll: >-
+      select code
+      from elas order by id;
+
   ethnicity:
     findAll: >-
       select id, code

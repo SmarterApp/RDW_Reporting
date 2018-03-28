@@ -8,6 +8,7 @@ DELETE FROM school WHERE id  < 0;
 DELETE FROM district WHERE id  < 0;
 
 DELETE FROM grade WHERE id  < 0;
+DELETE FROM elas WHERE id  < 0;
 DELETE FROM completeness WHERE id  < 0;
 DELETE FROM administration_condition WHERE id  < 0;
 DELETE FROM ethnicity WHERE id  < 0;

@@ -63,22 +63,22 @@ INSERT INTO percentile_score (percentile_id, percentile_rank, score, min_inclusi
   (2, 95, 2358, 2338, 4444);
 
 insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, opportunity, iep, lep, section504, economic_disadvantage,
-  school_year, asmt_id, asmt_version, completeness_id, completeness_code, administration_condition_id, administration_condition_code, session_id,
+  school_year, asmt_id, asmt_version, completeness_code, administration_condition_code, session_id,
   scale_score, scale_score_std_err, performance_level, completed_at,
   claim1_category, claim1_scale_score, claim1_scale_score_std_err,
   claim2_category, claim2_scale_score, claim2_scale_score_std_err,
   claim3_category, claim3_scale_score, claim3_scale_score_std_err,
   claim4_category, claim4_scale_score, claim4_scale_score_std_err,
   update_import_id, updated, migrate_id) values
-  (-1, 1, -1, 'g1', -1, -10, 0, 0, 0, 0, 0, 1997, -1, 'v1', 2, 'Complete', 1, 'Valid', 'session1', 2000, 20, 1, '1997-01-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, -1, '1997-07-18 20:14:34.000000', -1),
-  (-2, 2, -2, 'g2', -1, -10, 1, 0, 0, 0, 0, 1997, -2, 'v1', 2, 'Complete', 1, 'Valid', 'session2', 2100, 21, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
-  (-3, 3, -3, 'g3', -1, -20, 2, 0, 0, 0, 0, 1997, -3, 'v1', 2, 'Complete', 1, 'Valid', 'session3', 2200, 22, 3, '1997-01-01 00:00:00.000000', 1, 1000, 100, 2, 2000, 200, 3, 3000, 300, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
-  (-4, 3, -1, 'g1', -1, -30, 3, 0, 0, 0, 0, 1997, -3, 'v1', 2, 'Complete', 1, 'Valid', 'session4', 2300, 23, 1, '1997-01-02 00:00:00.000000', 1, 1100, 110, 2, 2100, 210, 3, 3100, 310, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
-  (-5, 3, -1, 'g1', -1, -30, 4, 0, 0, 0, 0, 1997, -3, 'v1', 2, 'Complete', 1, 'Valid', 'session5', 2400, 24, 2, '1997-01-05 00:00:00.000000', 1, 1200, 120, 2, 2200, 220, 3, 3200, 320, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
-  (-6, 3, -1, 'g1', -1, -30, null, 1, 1, 1, 1, 1997, -3, 'v1', 1, 'Partial', 2, 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
-  (-7, 3, -1, 'g1', -2, -30, null, 1, 1, 1, 1, 1997, -4, 'v1', 1, 'Partial', 2, 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
-  (-17, 3, -1, 'g1', -2, -30, null, 1, 1, 1, 1, 1997, -1, 'v1', 1, 'Partial', 2, 'Standardized', 'session6', null, null, null, '1997-01-04 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
-  (-8, 3, -1, 'g1', -1, -30, null, 1, 1, 1, 1, 1997, -4, 'v1', 1, 'Partial', 2, 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1);
+  (-1, 1, -1, 'g1', -1, -10, 0, 0, 0, 0, 0, 1997, -1, 'v1', 'Complete', 'Valid', 'session1', 2000, 20, 1, '1997-01-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, -1, '1997-07-18 20:14:34.000000', -1),
+  (-2, 2, -2, 'g2', -1, -10, 1, 0, 0, 0, 0, 1997, -2, 'v1', 'Complete', 'Valid', 'session2', 2100, 21, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-3, 3, -3, 'g3', -1, -20, 2, 0, 0, 0, 0, 1997, -3, 'v1', 'Complete', 'Valid', 'session3', 2200, 22, 3, '1997-01-01 00:00:00.000000', 1, 1000, 100, 2, 2000, 200, 3, 3000, 300, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
+  (-4, 3, -1, 'g1', -1, -30, 3, 0, 0, 0, 0, 1997, -3, 'v1', 'Complete', 'Valid', 'session4', 2300, 23, 1, '1997-01-02 00:00:00.000000', 1, 1100, 110, 2, 2100, 210, 3, 3100, 310, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
+  (-5, 3, -1, 'g1', -1, -30, 4, 0, 0, 0, 0, 1997, -3, 'v1', 'Complete', 'Valid', 'session5', 2400, 24, 2, '1997-01-05 00:00:00.000000', 1, 1200, 120, 2, 2200, 220, 3, 3200, 320, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
+  (-6, 3, -1, 'g1', -1, -30, null, 1, 1, 1, 1, 1997, -3, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
+  (-7, 3, -1, 'g1', -2, -30, null, 1, 1, 1, 1, 1997, -4, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
+  (-17, 3, -1, 'g1', -2, -30, null, 1, 1, 1, 1, 1997, -1, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-04 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
+  (-8, 3, -1, 'g1', -1, -30, null, 1, 1, 1, 1, 1997, -4, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1);
 
 -- items
 
@@ -147,15 +147,15 @@ insert into student (id, ssid, last_or_surname, first_name, gender_id, gender_co
   (-100, 'transfer_1', 'from_school3', 'to_school4', -1, 'g1', '1997-01-01 00:00:00.000000', -40, -1, '1997-07-18 20:14:34.000000', -1);
 
 insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, opportunity, iep, lep, section504, economic_disadvantage,
-                  school_year, asmt_id, asmt_version, completeness_id, completeness_code, administration_condition_id, administration_condition_code, session_id,
+                  school_year, asmt_id, asmt_version, completeness_code, administration_condition_code, session_id,
                   scale_score, scale_score_std_err, performance_level, completed_at,
                   claim1_category, claim1_scale_score, claim1_scale_score_std_err,
                   claim2_category, claim2_scale_score, claim2_scale_score_std_err,
                   claim3_category, claim3_scale_score, claim3_scale_score_std_err,
                   claim4_category, claim4_scale_score, claim4_scale_score_std_err,
                   update_import_id, updated, migrate_id) values
-  (-100, 1, -1, 'g1', -100, -30, 0, 0, 0, 0, 0, 1998, -1, 'v1', 2, 'Complete', 1, 'Valid', 'session1', 2000, 20, 1, '1998-10-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, -1, '1997-07-18 20:14:34.000000', -1),
-  (-101, 2, -1, 'g2', -100, -40, 1, 0, 0, 0, 0, 1998, -2, 'v1', 2, 'Complete', 1, 'Valid', 'session1', 2100, 21, 2, '1999-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1);
+  (-100, 1, -1, 'g1', -100, -30, 0, 0, 0, 0, 0, 1998, -1, 'v1', 'Complete', 'Valid', 'session1', 2000, 20, 1, '1998-10-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, -1, '1997-07-18 20:14:34.000000', -1),
+  (-101, 2, -1, 'g2', -100, -40, 1, 0, 0, 0, 0, 1998, -2, 'v1', 'Complete', 'Valid', 'session1', 2100, 21, 2, '1999-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1);
 
 insert into exam_item (id, exam_id, item_id, score, position, response, trait_evidence_elaboration_score, trait_organization_purpose_score, trait_conventions_score) values
   (-100, -100, -1, 0, 1, 'A', null, null, null),
