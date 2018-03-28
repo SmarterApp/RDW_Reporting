@@ -32,7 +32,7 @@ export class CachingDataService {
 
   public get(url: string, options?: RequestOptionsArgs): Observable<any> {
 
-    const cacheKey = this.createKey(url, options ? options.params || {} : {});
+    const cacheKey = this.createKey(url, options);
 
     const response = this.responsesByUrl.get(cacheKey);
     if (response) {
