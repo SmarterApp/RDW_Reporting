@@ -35,17 +35,14 @@ describe('CachingDataService', () => {
   it('should handle null options', () => {
     let url = "/user";
     dataService.get.and.callFake((url, options) => {
-      expect(url).toBe(`/user`);
       return of({ url });
     });
 
     service.get(url, null).subscribe((value) => {
       expect(dataService.get).toHaveBeenCalledWith(url, null);
-      expect(dataService.get).toHaveBeenCalled();
       expect(value).toEqual({ url: url });
     });
     service.get(url, null).subscribe((value) => {
-      expect(dataService.get).toHaveBeenCalledWith(url, null);
       expect(dataService.get).toHaveBeenCalledTimes(1);
       expect(value).toEqual({ url: url });
     });
@@ -59,7 +56,6 @@ describe('CachingDataService', () => {
       }
     };
     dataService.get.and.callFake((url, options) => {
-      expect(url).toBe(passedUrl);
       return of({
         url: passedUrl,
         params: options.params
@@ -68,11 +64,9 @@ describe('CachingDataService', () => {
 
     service.get(passedUrl, options).subscribe((value) => {
       expect(dataService.get).toHaveBeenCalledWith(passedUrl, options);
-      expect(dataService.get).toHaveBeenCalled();
       expect(value).toEqual({ url: passedUrl, params: options.params });
     });
     service.get(passedUrl, options).subscribe((value) => {
-      expect(dataService.get).toHaveBeenCalledWith(passedUrl, options);
       expect(dataService.get).toHaveBeenCalledTimes(1);
       expect(value).toEqual({ url: passedUrl, params: options.params });
     });
@@ -92,7 +86,6 @@ describe('CachingDataService', () => {
       }
     };
     dataService.get.and.callFake((url, options) => {
-      expect(url).toBe(passedUrl);
       return of({
         url: passedUrl,
         params: options.params
@@ -101,12 +94,10 @@ describe('CachingDataService', () => {
 
     service.get(passedUrl, options1).subscribe((value) => {
       expect(dataService.get).toHaveBeenCalledWith(passedUrl, options1);
-      expect(dataService.get).toHaveBeenCalled();
       expect(value).toEqual({ url: passedUrl, params: options1.params });
     });
     service.get(passedUrl, options2).subscribe((value) => {
       expect(dataService.get).toHaveBeenCalledWith(passedUrl, options2);
-      expect(dataService.get).toHaveBeenCalledTimes(2);
       expect(value).toEqual({ url: passedUrl, params: options2.params });
     });
   });
