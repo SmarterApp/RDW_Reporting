@@ -9,5 +9,7 @@ export interface ApplicationSettings {
   readonly uiLanguages: string[];
   readonly transferAccess: boolean;
   readonly percentileDisplayEnabled: boolean;
+  readonly lepEnabled: boolean;
+  readonly elasEnabled: boolean;
 
 }

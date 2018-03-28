@@ -130,7 +130,7 @@
       <div class="flex-child col2 no-margin">
 
         <!-- Limited English Proficiency -->
-        <div class="block-children" *ngIf="filterOptions.hasLep">
+        <div class="block-children" *ngIf="showLep">
           <label>
             <span info-button
                   title="{{ 'common.filters.student.limited-english-proficiency' | translate }}"
@@ -142,14 +142,14 @@
                                 analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
         </div>
         <!-- English Language Acquisition Status -->
-        <div class="block-children" *ngIf="filterOptions.hasElas">
+        <div class="block-children" *ngIf="showElas">
           <label>
             <span info-button
                   title="{{ 'common.filters.student.elas' | translate }}"
                   content="{{ 'common.filters.student.elas-info' | translate }}"></span>
           </label>
-          <sb-checkbox-list [model]="filterBy" [values]="filterOptions.ethnicities" property="ethnicities" enum="common.ethnicity"
-                            label="{{ 'common.filters.student.ethnicity' | translate }}"
+          <sb-checkbox-list [model]="filterBy" [values]="elasValues" property="elas" enum="common.elas"
+                            label="{{ 'common.filters.student.elas' | translate }}"
                             analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-checkbox-list>
         </div>
         <!-- IEP -->

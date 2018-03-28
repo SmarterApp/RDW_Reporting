@@ -17,8 +17,10 @@ export class ApplicationSettingsService {
     return this.dataService.get('/settings').pipe(
       map(serverSettings => <ApplicationSettings>{
         analyticsTrackingId: serverSettings.analyticsTrackingId,
+        elasEnabled: serverSettings.elasEnabled,
         interpretiveGuideUrl: serverSettings.interpretiveGuideUrl,
         irisVendorId: serverSettings.irisVendorId,
+        lepEnabled: serverSettings.lepEnabled,
         minItemDataYear: serverSettings.minItemDataYear,
         percentileDisplayEnabled: serverSettings.percentileDisplayEnabled,
         reportLanguages: serverSettings.reportLanguages,
