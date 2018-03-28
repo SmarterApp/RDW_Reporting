@@ -1,33 +1,39 @@
 /**
- * Represents an aggregate report request
+ * Represents a basic aggregate report request
  */
-export interface AggregateReportRequest {
+export interface BasicAggregateReportRequest {
   readonly name: string;
-  readonly reportQuery: AggregateReportQuery
+  readonly query: BasicAggregateReportQuery
 }
 
-export interface AggregateReportQuery {
+export interface BasicAggregateReportQuery {
+
   readonly achievementLevelDisplayType: string;
   readonly administrativeConditionCodes?: string[];
   readonly assessmentGradeCodes: string[];
   readonly assessmentTypeCode: string;
   readonly completenessCodes?: string[];
-  readonly economicDisadvantageCodes?: string[];
-  readonly ethnicityCodes?: string[];
   readonly dimensionTypes?: string[];
   readonly districtIds?: number[];
-  readonly genderCodes?: string[];
-  readonly iepCodes?: string[];
   readonly includeAllDistricts: boolean;
   readonly includeAllDistrictsOfSchools: boolean;
   readonly includeAllSchoolsOfDistricts: boolean;
   readonly includeState: boolean;
-  readonly lepCodes?: string[];
-  readonly migrantStatusCodes?: string[];
-  readonly section504Codes?: string[];
+  readonly queryType: string;
   readonly schoolIds?: number[];
   readonly schoolYears: number[];
+  readonly studentFilters: StudentFilters;
   readonly subjectCodes?: string[];
   readonly valueDisplayType: string;
   readonly columnOrder?: string[];
+}
+
+export interface StudentFilters {
+  readonly economicDisadvantageCodes?: string[];
+  readonly ethnicityCodes?: string[];
+  readonly genderCodes?: string[];
+  readonly iepCodes?: string[];
+  readonly lepCodes?: string[];
+  readonly migrantStatusCodes?: string[];
+  readonly section504Codes?: string[];
 }

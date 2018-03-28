@@ -1,5 +1,9 @@
 import { Injectable } from "@angular/core";
-import { AggregateReportQuery, AggregateReportRequest } from "../report/aggregate-report-request";
+import {
+  BasicAggregateReportQuery,
+  BasicAggregateReportRequest,
+  StudentFilters
+} from "../report/basic-aggregate-report-request";
 import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
 import { AggregateReportFormOptions } from "./aggregate-report-form-options";
 import { TranslateService } from "@ngx-translate/core";
@@ -36,25 +40,29 @@ export class AggregateReportRequestMapper {
    * @param {AggregateReportFormOptions} options the available report options
    * @param {AggregateReportFormSettings} settings the aggregate report form state
    * @param {AssessmentDefinition} assessmentDefinition
-   * @returns {AggregateReportRequest}
+   * @returns {BasicAggregateReportRequest}
    */
   map(options: AggregateReportFormOptions,
       settings: AggregateReportFormSettings,
-      assessmentDefinition: AssessmentDefinition): AggregateReportRequest {
+      assessmentDefinition: AssessmentDefinition): BasicAggregateReportRequest {
 
-    const query: any = <AggregateReportQuery>{
+    const filters: any = {};
+
+    const query: any = <BasicAggregateReportQuery>{
       achievementLevelDisplayType: settings.performanceLevelDisplayType,
       assessmentTypeCode: settings.assessmentType,
       assessmentGradeCodes: settings.assessmentGrades,
+      dimensionTypes: settings.dimensionTypes,
       includeAllDistricts: settings.includeAllDistricts,
       includeAllDistrictsOfSchools: settings.includeAllDistrictsOfSelectedSchools,
       includeAllSchoolsOfDistricts: settings.includeAllSchoolsOfSelectedDistricts,
       includeState: settings.includeStateResults && settings.assessmentType == "sum",
+      queryType: 'Basic',
       schoolYears: settings.schoolYears,
       subjectCodes: settings.subjects,
-      dimensionTypes: settings.dimensionTypes,
       valueDisplayType: settings.valueDisplayType,
-      columnOrder: settings.columnOrder
+      columnOrder: settings.columnOrder,
+      studentFilters: filters
     };
 
     if (assessmentDefinition.interim) {
@@ -71,28 +79,28 @@ export class AggregateReportRequestMapper {
       query.completenessCodes = settings.completenesses;
     }
     if (!equalSize(settings.economicDisadvantages, options.economicDisadvantages)) {
-      query.economicDisadvantageCodes = settings.economicDisadvantages;
+      filters.economicDisadvantageCodes = settings.economicDisadvantages;
     }
     if (!equalSize(settings.ethnicities, options.ethnicities)) {
-      query.ethnicityCodes = settings.ethnicities;
+      filters.ethnicityCodes = settings.ethnicities;
     }
     if (settings.districts.length) {
       query.districtIds = idsOf(settings.districts)
     }
     if (!equalSize(settings.genders, options.genders)) {
-      query.genderCodes = settings.genders;
+      filters.genderCodes = settings.genders;
     }
     if (!equalSize(settings.individualEducationPlans, options.individualEducationPlans)) {
-      query.iepCodes = settings.individualEducationPlans;
+      filters.iepCodes = settings.individualEducationPlans;
     }
     if (!equalSize(settings.limitedEnglishProficiencies, options.limitedEnglishProficiencies)) {
-      query.lepCodes = settings.limitedEnglishProficiencies;
+      filters.lepCodes = settings.limitedEnglishProficiencies;
     }
     if (!equalSize(settings.migrantStatuses, options.migrantStatuses)) {
-      query.migrantStatusCodes = settings.migrantStatuses;
+      filters.migrantStatusCodes = settings.migrantStatuses;
     }
     if (!equalSize(settings.section504s, options.section504s)) {
-      query.section504Codes = settings.section504s;
+      filters.section504Codes = settings.section504s;
     }
     if (settings.schools.length) {
       query.schoolIds = idsOf(settings.schools)
@@ -104,13 +112,14 @@ export class AggregateReportRequestMapper {
 
     return {
       name: name,
-      reportQuery: query
+      query: query
     }
   }
 
-  toSettings(request: AggregateReportRequest, options: AggregateReportOptions): Observable<AggregateReportFormSettings> {
+  toSettings(request: BasicAggregateReportRequest, options: AggregateReportOptions): Observable<AggregateReportFormSettings> {
 
-    const query: AggregateReportQuery = request.reportQuery;
+    const query: BasicAggregateReportQuery = request.query;
+    const filters: StudentFilters = query.studentFilters || {};
 
     const queryInterimAdministrationConditions = (query.administrativeConditionCodes || [])
       .filter(code => hasOption(options.interimAdministrationConditions, code));
@@ -118,12 +127,12 @@ export class AggregateReportRequestMapper {
     const querySummativeAdministrationConditions = (query.administrativeConditionCodes || [])
       .filter(code => hasOption(options.summativeAdministrationConditions, code));
 
-    const schoolIds: number[] = request.reportQuery.schoolIds;
+    const schoolIds: number[] = request.query.schoolIds;
     const schools: Observable<School[]> = !Utils.isNullOrEmpty(schoolIds)
       ? this.organizationService.getOrganizationsByIdAndType(OrganizationType.School, schoolIds)
       : of([]);
 
-    const districtIds: number[] = request.reportQuery.districtIds;
+    const districtIds: number[] = request.query.districtIds;
     const districts: Observable<District[]> = !Utils.isNullOrEmpty(districtIds)
       ? this.organizationService.getOrganizationsByIdAndType(OrganizationType.District, districtIds)
       : of([]);
@@ -150,15 +159,15 @@ export class AggregateReportRequestMapper {
             ),
             districts: districts,
             economicDisadvantages: or(
-              sort(query.economicDisadvantageCodes, options.economicDisadvantages),
+              sort(filters.economicDisadvantageCodes, options.economicDisadvantages),
               options.economicDisadvantages
             ),
             ethnicities: or(
-              sort(query.ethnicityCodes, options.ethnicities),
+              sort(filters.ethnicityCodes, options.ethnicities),
               options.ethnicities
             ),
             genders: or(
-              sort(query.genderCodes, options.genders),
+              sort(filters.genderCodes, options.genders),
               options.genders
             ),
             includeAllDistricts: query.includeAllDistricts,
@@ -166,24 +175,24 @@ export class AggregateReportRequestMapper {
             includeAllSchoolsOfSelectedDistricts: query.includeAllSchoolsOfDistricts,
             includeStateResults: query.includeState,
             individualEducationPlans: or(
-              sort(query.iepCodes, options.individualEducationPlans),
+              sort(filters.iepCodes, options.individualEducationPlans),
               options.individualEducationPlans
             ),
             interimAdministrationConditions: !queryInterimAdministrationConditions.length
               ? options.interimAdministrationConditions
               : queryInterimAdministrationConditions,
             limitedEnglishProficiencies: or(
-              sort(query.lepCodes, options.individualEducationPlans),
+              sort(filters.lepCodes, options.individualEducationPlans),
               options.individualEducationPlans
             ),
             migrantStatuses: or(
-              sort(query.migrantStatusCodes, options.migrantStatuses),
+              sort(filters.migrantStatusCodes, options.migrantStatuses),
               options.migrantStatuses
             ),
             name: request.name,
             performanceLevelDisplayType: query.achievementLevelDisplayType,
             section504s: or(
-              sort(query.section504Codes, options.section504s),
+              sort(filters.section504Codes, options.section504s),
               options.section504s
             ),
             summativeAdministrationConditions: !querySummativeAdministrationConditions.length
@@ -193,7 +202,7 @@ export class AggregateReportRequestMapper {
             schools: schools,
             subjects: sort(query.subjectCodes, options.subjects),
             valueDisplayType: query.valueDisplayType,
-            columnOrder: request.reportQuery.columnOrder
+            columnOrder: query.columnOrder
           };
         })
       );

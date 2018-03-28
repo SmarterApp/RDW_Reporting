@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { Report } from "./report.model";
 import { ReportService } from "./report.service";
 import { Router } from "@angular/router";
-import { NotificationService } from "../shared/notification/notification.service";
 
 export const AggregateReportType: string = "AggregateReportRequest";
 
@@ -19,8 +18,7 @@ export class ReportActionService {
   ];
 
   constructor(private reportService: ReportService,
-              private router: Router,
-              private notificationService: NotificationService) {
+              private router: Router) {
   }
 
   /**

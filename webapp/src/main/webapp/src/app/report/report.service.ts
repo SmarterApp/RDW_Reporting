@@ -12,7 +12,7 @@ import { Group } from "../groups/group";
 import { Grade } from "../school-grade/grade.model";
 import { DATA_CONTEXT_URL, DataService } from "../shared/data/data.service";
 import { Download } from "../shared/data/download.model";
-import { AggregateReportRequest } from "./aggregate-report-request";
+import { BasicAggregateReportRequest } from "./basic-aggregate-report-request";
 import { AggregateReportRow } from "./aggregate-report";
 import { Utils } from "../shared/support/support";
 import { catchError, map } from 'rxjs/operators';
@@ -106,7 +106,7 @@ export class ReportService {
    * @param request the parameters to create the report with
    * @returns {Observable<Report>} the handle used the get status on the download
    */
-  public createAggregateReport(request: AggregateReportRequest): Observable<Report> {
+  public createAggregateReport(request: BasicAggregateReportRequest): Observable<Report> {
     return this.dataService.post(`${ServiceRoute}/aggregate`, request, {
       headers: new Headers({ 'Content-Type': 'application/json' })
     }).pipe(
@@ -211,8 +211,8 @@ export class ReportService {
 
     // HOTFIX for aggreagte report assessment type display
     // unable to use ExamReportAssessmentType enum because it does not support summatives
-    if (serverReport.reportType === 'AggregateReportRequest') {
-      report.assessmentTypeCode = (<AggregateReportRequest>serverReport.request).reportQuery.assessmentTypeCode;
+    if (serverReport.reportType === 'BasicAggregateReportRequest') {
+      report.assessmentTypeCode = (<BasicAggregateReportRequest>serverReport.request).query.assessmentTypeCode;
     } else {
       report.assessmentTypeCode = serverReport.assessmentTypeCode;
     }

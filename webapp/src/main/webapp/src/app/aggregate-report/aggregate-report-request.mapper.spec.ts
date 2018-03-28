@@ -9,10 +9,14 @@ import {
   School
 } from "../shared/organization/organization";
 import { AggregateReportOptions } from "./aggregate-report-options";
-import { AggregateReportQuery, AggregateReportRequest } from "../report/aggregate-report-request";
+import {
+  BasicAggregateReportQuery,
+  BasicAggregateReportRequest,
+  StudentFilters
+} from "../report/basic-aggregate-report-request";
 import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
-import Spy = jasmine.Spy;
 import { of } from 'rxjs/observable/of';
+import Spy = jasmine.Spy;
 
 describe('AggregateReportRequestMapper', () => {
 
@@ -41,35 +45,40 @@ describe('AggregateReportRequestMapper', () => {
         }
       });
 
-    const query: AggregateReportQuery = {
+    const studentFilters: StudentFilters = {
+      economicDisadvantageCodes: [ 'yes' ],
+      ethnicityCodes: [ 'Asian', 'White' ],
+      genderCodes: [ "Female" ],
+      iepCodes: [ 'yes' ],
+      lepCodes: [ 'yes' ],
+      migrantStatusCodes: [ 'yes' ],
+      section504Codes: [ 'yes' ],
+    };
+
+    const query: BasicAggregateReportQuery = {
       achievementLevelDisplayType: 'Separate',
       administrativeConditionCodes: [ 'Valid', 'SD' ],
       assessmentGradeCodes: [ '03', '04' ],
       assessmentTypeCode: 'ica',
       completenessCodes: [ 'Complete' ],
-      economicDisadvantageCodes: [ 'yes' ],
-      ethnicityCodes: [ 'Asian', 'White' ],
       dimensionTypes: [ 'Gender' ],
       districtIds: [ 1 ],
-      genderCodes: [ "Female" ],
-      iepCodes: [ 'yes' ],
       includeAllDistricts: false,
       includeAllDistrictsOfSchools: true,
       includeAllSchoolsOfDistricts: true,
       includeState: true,
-      lepCodes: [ 'yes' ],
-      migrantStatusCodes: [ 'yes' ],
-      section504Codes: [ 'yes' ],
+      queryType: 'Basic',
       schoolIds: [ 2 ],
       schoolYears: [ 2000 ],
+      studentFilters: studentFilters,
       subjectCodes: [ 'Math' ],
       valueDisplayType: 'Number',
       columnOrder: ['columnA', 'columnB']
     };
 
-    const request: AggregateReportRequest = {
+    const request: BasicAggregateReportRequest = {
       name: 'Report Name',
-      reportQuery: query
+      query: query
     };
 
     const expected: AggregateReportFormSettings = {
@@ -79,19 +88,19 @@ describe('AggregateReportRequestMapper', () => {
       assessmentGrades: query.assessmentGradeCodes,
       assessmentType: query.assessmentTypeCode,
       completenesses: query.completenessCodes,
-      economicDisadvantages: query.economicDisadvantageCodes,
-      ethnicities: query.ethnicityCodes,
+      economicDisadvantages: studentFilters.economicDisadvantageCodes,
+      ethnicities: studentFilters.ethnicityCodes,
       dimensionTypes: query.dimensionTypes,
       districts: districts,
-      genders: query.genderCodes,
-      individualEducationPlans: query.iepCodes,
+      genders: studentFilters.genderCodes,
+      individualEducationPlans: studentFilters.iepCodes,
       includeAllDistricts: query.includeAllDistricts,
       includeAllDistrictsOfSelectedSchools: query.includeAllDistrictsOfSchools,
       includeAllSchoolsOfSelectedDistricts: query.includeAllSchoolsOfDistricts,
       includeStateResults: query.includeState,
-      limitedEnglishProficiencies: query.lepCodes,
-      migrantStatuses: query.migrantStatusCodes,
-      section504s: query.section504Codes,
+      limitedEnglishProficiencies: studentFilters.lepCodes,
+      migrantStatuses: studentFilters.migrantStatusCodes,
+      section504s: studentFilters.section504Codes,
       schools: schools,
       schoolYears: query.schoolYears,
       subjects: query.subjectCodes,
@@ -111,7 +120,7 @@ describe('AggregateReportRequestMapper', () => {
 
     const options = mockOptions();
 
-    const query: AggregateReportQuery = {
+    const query: BasicAggregateReportQuery = {
       achievementLevelDisplayType: 'Separate',
       assessmentGradeCodes: [ '03' ],
       assessmentTypeCode: 'iab',
@@ -119,14 +128,16 @@ describe('AggregateReportRequestMapper', () => {
       includeAllDistrictsOfSchools: true,
       includeAllSchoolsOfDistricts: true,
       includeState: true,
+      queryType: 'Basic',
       schoolYears: [ 2000 ],
+      studentFilters: {},
       subjectCodes: [ 'Math' ],
-      valueDisplayType: 'Percent'
+      valueDisplayType: 'Percent',
     };
 
-    const request: AggregateReportRequest = {
+    const request: BasicAggregateReportRequest = {
       name: 'Report Name',
-      reportQuery: query
+      query: query
     };
 
     const expected: AggregateReportFormSettings = {

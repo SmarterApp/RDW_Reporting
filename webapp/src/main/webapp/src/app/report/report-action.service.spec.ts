@@ -5,9 +5,8 @@ import { NotificationService } from "../shared/notification/notification.service
 import { Router } from "@angular/router";
 import { ActionType, AggregateReportType, ReportAction, ReportActionService } from "./report-action.service";
 import { Report } from "./report.model";
-import { Observable } from "rxjs/Observable";
-import Spy = jasmine.Spy;
 import { empty } from 'rxjs/observable/empty';
+import Spy = jasmine.Spy;
 
 describe('ReportActionService', () => {
   let reportService: ReportService;
@@ -73,7 +72,7 @@ describe('ReportActionService', () => {
     expect(reportService.downloadReportContent).toHaveBeenCalledWith(report.id);
   });
 
-  it('should provide multiple actions for a completed AggregateReportRequest', () => {
+  it('should provide multiple actions for a completed BasicAggregateReportRequest', () => {
     const report: Report = createReport();
     report.status = "COMPLETED";
     report.reportType = AggregateReportType;
@@ -98,7 +97,7 @@ describe('ReportActionService', () => {
 
   });
 
-  it('should disable the download action for an embargoed AggregateReportRequest', () => {
+  it('should disable the download action for an embargoed BasicAggregateReportRequest', () => {
     const report: Report = createReport();
     report.status = "COMPLETED";
     report.reportType = AggregateReportType;

@@ -11,7 +11,7 @@ import { Subscription } from "rxjs/Subscription";
 import { Utils } from "../../shared/support/support";
 import { Comparator, ranking } from "@kourge/ordering/comparator";
 import { ordering } from "@kourge/ordering";
-import { AggregateReportQuery } from "../../report/aggregate-report-request";
+import { BasicAggregateReportQuery } from "../../report/basic-aggregate-report-request";
 import { DisplayOptionService } from "../../shared/display-options/display-option.service";
 import { TranslateService } from "@ngx-translate/core";
 import { AggregateReportRequestMapper } from "../aggregate-report-request.mapper";
@@ -62,7 +62,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     this.options = this.route.snapshot.data[ 'options' ];
     this.report = this.route.snapshot.data[ 'report' ];
     this.assessmentDefinition = this.route.snapshot.data[ 'assessmentDefinitionsByAssessmentTypeCode' ]
-      .get(this.report.request.reportQuery.assessmentTypeCode);
+      .get(this.report.request.query.assessmentTypeCode);
     this._tableViewComparator = ordering(ranking(this.options.subjects))
       .on((wrapper: AggregateReportTableView) => wrapper.subjectCode).compare;
     this._displayOptions = {
@@ -81,8 +81,8 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     return this._displayOptions;
   }
 
-  get query(): AggregateReportQuery {
-    return this.report.request.reportQuery;
+  get query(): BasicAggregateReportQuery {
+    return this.report.request.query;
   }
 
   get reportProcessing(): boolean {
@@ -221,9 +221,9 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
       const item = this.itemMapper.map(this.assessmentDefinition, row, index);
       const subjectCode = row.assessment.subjectCode;
       const tableWrapper = tableWrappers.find(wrapper => wrapper.subjectCode == subjectCode);
-      const columnOrder: string[] = Utils.isNullOrEmpty(this.report.request.reportQuery.columnOrder)
+      const columnOrder: string[] = Utils.isNullOrEmpty(this.report.request.query.columnOrder)
         ? this.assessmentDefinition.aggregateReportIdentityColumns.concat()
-        : this.report.request.reportQuery.columnOrder;
+        : this.report.request.query.columnOrder;
 
       if (!tableWrapper) {
         tableWrappers.push({

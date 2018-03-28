@@ -10,11 +10,8 @@ import { Observable } from "rxjs/Observable";
 import { OrganizationTypeahead } from "../shared/organization/organization-typeahead";
 import { AggregateReportOrganizationService } from "./aggregate-report-organization.service";
 import { AggregateReportService } from "./aggregate-report.service";
-import {
-  AggregateReportTable,
-  SupportedRowCount
-} from "./results/aggregate-report-table.component";
-import { AggregateReportRequest } from "../report/aggregate-report-request";
+import { AggregateReportTable, SupportedRowCount } from "./results/aggregate-report-table.component";
+import { BasicAggregateReportRequest } from "../report/basic-aggregate-report-request";
 import { AggregateReportOptionsMapper } from "./aggregate-report-options.mapper";
 import { AggregateReportTableDataService } from "./aggregate-report-table-data.service";
 import { AssessmentDefinition } from "./assessment/assessment-definition";
@@ -431,7 +428,7 @@ export class AggregateReportFormComponent {
 
   private applySettingsChange(): void {
     if (this.formGroup.valid) {
-      this.reportService.getEstimatedRowCount(this.createReportRequest().reportQuery)
+      this.reportService.getEstimatedRowCount(this.createReportRequest().query)
         .subscribe(count => this.estimatedRowCount = count);
     }
 
@@ -480,9 +477,9 @@ export class AggregateReportFormComponent {
   /**
    * Creates an aggregate report request from a
    *
-   * @returns {AggregateReportRequest} the created request
+   * @returns {BasicAggregateReportRequest} the created request
    */
-  private createReportRequest(): AggregateReportRequest {
+  private createReportRequest(): BasicAggregateReportRequest {
     return this.requestMapper.map(this.options, this.settings, this.currentAssessmentDefinition);
   }
 
