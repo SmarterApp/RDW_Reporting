@@ -50,15 +50,15 @@ export class ExamFilterService {
       let filterDefinition = this.getFilterDefinitionFor(filter);
 
       if (filterDefinition.precondition(assessmentExam.assessment)) {
-        let filterValue = filterBy[filter];
+        let filterValue = filterBy[ filter ];
 
-        if(filter == 'offGradeAssessment')
+        if (filter == 'offGradeAssessment')
           filterValue = assessmentExam.assessment.grade;
-        else if(filter == 'ethnicities')
+        else if (filter == 'ethnicities')
           filterValue = filterBy.filteredEthnicities;
-        else if(filter == 'genders' )
+        else if (filter == 'genders')
           filterValue = filterBy.filteredGenders;
-        else if(filter == 'elasCodes')
+        else if (filter == 'elasCodes')
           filterValue = filterBy.filteredElasCodes;
 
         exams = exams.filter(exam => filterDefinition.apply(exam, filterValue));
@@ -98,42 +98,42 @@ export class ExamFilterService {
           if (!filterDefinition.precondition(assessment)) return true;
 
           let exam: Exam = examProvider(item);
-          let filterValue = filterBy[filter];
+          let filterValue = filterBy[ filter ];
 
-          if(filter == 'offGradeAssessment') {
+          if (filter == 'offGradeAssessment') {
             filterValue = assessment.grade;
           }
-          else if(filter == 'ethnicities') {
+          else if (filter == 'ethnicities') {
             filterValue = filterBy.filteredEthnicities;
-          } else if(filter == 'genders') {
+          } else if (filter == 'genders') {
             filterValue = filterBy.filteredGenders;
-          } else if(filter == 'elasCodes') {
+          } else if (filter == 'elasCodes') {
             filterValue = filterBy.filteredElasCodes;
           }
 
           return filterDefinition.apply(exam, filterValue);
-      });
+        });
     }
 
     return results;
   }
 
-  private getFilters(filterBy : FilterBy): string[] {
+  private getFilters(filterBy: FilterBy): string[] {
     let filters = filterBy.all;
-    if(filters.some(x => x.indexOf('ethnicities') > -1)){
+    if (filters.some(x => x.indexOf('ethnicities') > -1)) {
       // remove individual 'ethnicity.code' and add just one ethnicity
       // as ethnicities need to be evaluated all at once.
       filters = filters.filter(x => x.indexOf('ethnicities') == -1);
       filters.push('ethnicities');
     }
-    if(filters.some(x => x.indexOf('genders') > -1)){
+    if (filters.some(x => x.indexOf('genders') > -1)) {
       // remove individual 'gender.code' and add just one gender
       // as genders need to be evaluated all at once.
       filters = filters.filter(x => x.indexOf('genders') == -1);
       filters.push('genders');
     }
-    if(filters.some(x => x.indexOf('elasCodes') > -1)){
-      // remove individual 'gender.code' and add just one gender
+    if (filters.some(x => x.indexOf('elasCodes') > -1)) {
+      // remove individual 'elas.code' and add just one elas
       // as elas need to be evaluated all at once.
       filters = filters.filter(x => x.indexOf('elasCodes') == -1);
       filters.push('elasCodes');
@@ -159,12 +159,7 @@ export class ExamFilterService {
   }
 
   private filterByElasCode(exam: Exam, filterValue: any): boolean {
-    return exam.student
-      && !filterValue.length ||
-       filterValue.some(
-        elasCode =>
-          elasCode == exam.elasCode
-      );
+    return exam.student && !filterValue.length || filterValue.some(elasCode => elasCode == exam.elasCode);
   }
 
   private filterByMigrantStatus(exam: Exam, filterValue: any): boolean {
