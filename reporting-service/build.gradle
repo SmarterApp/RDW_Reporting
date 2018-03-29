@@ -16,7 +16,6 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-guava'
     compile 'com.google.guava:guava'
     compile 'mysql:mysql-connector-java'
     compile 'commons-io:commons-io'

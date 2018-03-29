@@ -42,8 +42,12 @@ export class AggregateReportRequestMapper {
       settings: AggregateReportFormSettings,
       assessmentDefinition: AssessmentDefinition): AggregateReportRequest {
 
+    const performanceLevelDisplayType = assessmentDefinition.performanceLevelDisplayTypes.includes(settings.performanceLevelDisplayType)
+      ? settings.performanceLevelDisplayType
+      : assessmentDefinition.performanceLevelDisplayTypes[0];
+
     const query: any = <AggregateReportQuery>{
-      achievementLevelDisplayType: settings.performanceLevelDisplayType,
+      achievementLevelDisplayType: performanceLevelDisplayType,
       assessmentTypeCode: settings.assessmentType,
       assessmentGradeCodes: settings.assessmentGrades,
       includeAllDistricts: settings.includeAllDistricts,
