@@ -2,8 +2,6 @@ import { Inject, Injectable } from "@angular/core";
 import { Headers, ResponseContentType } from "@angular/http";
 import { ReportOptions } from "./report-options.model";
 import { Observable } from "rxjs/Observable";
-import { AssessmentType } from "../shared/enum/assessment-type.enum";
-import { AssessmentSubjectType } from "../shared/enum/assessment-subject-type.enum";
 import { Report } from "./report.model";
 import { ReportOrder } from "./report-order.enum";
 import { ResponseUtils } from "../shared/response-utils";
@@ -207,7 +205,7 @@ export class ReportService {
     report.status = serverReport.status;
     report.created = serverReport.created;
     report.reportType = serverReport.reportType;
-    report.assessmentType = AssessmentType[ serverReport.assessmentType as string ];
+    report.assessmentTypeCode = serverReport.assessmentTypeCode;
 
     // HOTFIX for aggreagte report assessment type display
     // unable to use ExamReportAssessmentType enum because it does not support summatives
@@ -217,9 +215,11 @@ export class ReportService {
       report.assessmentTypeCode = serverReport.assessmentTypeCode;
     }
 
-    report.subjectId = AssessmentSubjectType[ serverReport.subject as string ] || 0;
-    report.subjectCode = serverReport.subjectCode || 'ALL';
-    report.schoolYear = serverReport.schoolYear;
+    if (serverReport.subjectCodes.length == 0) {
+      console.log("empty as falsy", !!serverReport.subjectCodes);
+    }
+    report.subjectCodes = serverReport.subjectCodes || [];
+    report.schoolYears = serverReport.schoolYears || [];
     report.metadata = serverReport.metadata || {};
     report.request = serverReport.request;
     return report;

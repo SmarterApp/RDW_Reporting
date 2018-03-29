@@ -58,11 +58,18 @@
           </ng-container>
 
           <ng-container *ngSwitchCase="'subject-header'">
-            {{ 'common.subject.' + report.subjectCode + '.name' | translate }}
+            <ng-container *ngIf="!report.subjectCodes.length">
+              {{ 'common.subject.ALL.name' | translate }}
+            </ng-container>
+            <ng-container *ngFor="let subjectCode of report.subjectCodes; let last = last">
+              {{ 'common.subject.' + subjectCode + '.name' | translate }}<ng-container *ngIf="!last">, </ng-container>
+            </ng-container>
           </ng-container>
 
           <ng-container *ngSwitchCase="'school-year-header'">
-            {{ report.schoolYear | schoolYear }}
+            <ng-container *ngFor="let schoolYear of report.schoolYears; let last = last">
+              {{ schoolYear | schoolYear }}<ng-container *ngIf="!last">, </ng-container>
+            </ng-container>
           </ng-container>
 
           <span *ngSwitchCase="'status-header'"

@@ -20,8 +20,8 @@ export class ReportsComponent implements OnInit, OnDestroy {
     new Column({id: 'label-header', field: 'label'}),
     new Column({id: 'report-type-header', field: 'reportType'}),
     new Column({id: 'assessment-type-header', field: 'assessmentType'}),
-    new Column({id: 'subject-header', field: 'subjectId'}),
-    new Column({id: 'school-year-header', field: 'schoolYear'}),
+    new Column({id: 'subject-header', field: 'subjectCodes'}),
+    new Column({id: 'school-year-header', field: 'schoolYears'}),
     new Column({id: 'status-header', field: 'status'}),
     new Column({id: 'created-header', field: 'created'})
   ];

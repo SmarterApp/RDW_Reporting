@@ -3,9 +3,6 @@ import { inject, TestBed } from "@angular/core/testing";
 import { ReportService } from "./report.service";
 import { Student } from "../student/model/student.model";
 import { Report } from "./report.model";
-import { Observable } from "rxjs/Observable";
-import { AssessmentType } from "../shared/enum/assessment-type.enum";
-import { AssessmentSubjectType } from "../shared/enum/assessment-subject-type.enum";
 import { DATA_CONTEXT_URL, DataService } from "../shared/data/data.service";
 import { of } from 'rxjs/observable/of';
 
@@ -40,7 +37,7 @@ describe('ReportService', () => {
   it('should retrieve reports for a user', (done) => {
     let reports: Report[] = [];
     reports.push(apiReport(1));
-    reports.push(apiReportWithDetails(2, "ICA", "MATH"));
+    reports.push(apiReportWithDetails(2, "ica", ["Math"]));
     dataService.get.and.returnValue(of(reports));
 
     service.getReports().subscribe((reports: Report[]) => {
@@ -49,13 +46,13 @@ describe('ReportService', () => {
       expect(reports[0].label).toBe("label: 1");
       expect(reports[0].reportType).toBe("Student");
       expect(reports[0].status).toBe("PENDING");
-      expect(reports[0].schoolYear).toBe(1234);
+      expect(reports[0].schoolYears).toEqual([1234]);
       expect(reports[0].created.getTime()).toBeLessThanOrEqual(new Date().getTime());
-      expect(reports[0].assessmentType).toBeUndefined();
-      expect(reports[0].subjectId).toBe(0);
+      expect(reports[0].assessmentTypeCode).toBeUndefined();
+      expect(reports[0].subjectCodes.length).toBe(0);
 
-      expect(reports[1].assessmentType).toBe(AssessmentType.ICA);
-      expect(reports[1].subjectId).toBe(AssessmentSubjectType.MATH);
+      expect(reports[1].assessmentTypeCode).toBe("ica");
+      expect(reports[1].subjectCodes).toEqual(["Math"]);
       done();
     });
   });
@@ -64,20 +61,20 @@ describe('ReportService', () => {
     return apiReportWithDetails(id, null, null);
   }
 
-  function apiReportWithDetails(id: number, asmtType: string, subject: string) {
+  function apiReportWithDetails(id: number, asmtType: string, subjects: string[]) {
     let apiObj: any =  {
       id: id,
       label: `label: ${id}`,
       status: 'PENDING',
       reportType: 'Student',
-      schoolYear: 1234,
+      schoolYears: [1234],
       created: new Date()
     };
     if (asmtType) {
       apiObj.assessmentType = asmtType;
     }
-    if (subject) {
-      apiObj.subject = subject;
+    if (subjects) {
+      apiObj.subjectCodes = subjects;
     }
     return apiObj;
   }

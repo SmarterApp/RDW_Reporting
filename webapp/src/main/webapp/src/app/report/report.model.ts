@@ -3,7 +3,6 @@
  * This model serves as a handle on a persisted report that can be downloaded,
  * or report request that can be reissued to regenerate a historic report for download again
  */
-import { AssessmentType } from "../shared/enum/assessment-type.enum";
 
 export class Report {
 
@@ -11,11 +10,9 @@ export class Report {
   label: string;
   status: string;
   reportType: string;
-  /** @deprecated */ assessmentType: AssessmentType;
   assessmentTypeCode: string;
-  /** @deprecated */ subjectId: number;
-  subjectCode: string;
-  schoolYear: number;
+  subjectCodes: string[];
+  schoolYears: number[];
   created: Date;
   request: any;
   metadata: {[key: string]: string};

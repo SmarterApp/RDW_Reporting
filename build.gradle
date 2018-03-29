@@ -84,7 +84,7 @@ subprojects {
 
             // commonly used test libraries
             dependency 'org.assertj:assertj-core:3.6.2'
-            dependency 'org.mockito:mockito-all:1.10.19'
+            dependency 'org.mockito:mockito-core:2.16.0'
             dependency 'junit:junit:4.12'
 
             // jwt
@@ -105,7 +105,7 @@ subprojects {
 
         testCompile 'junit:junit'
         testCompile 'org.assertj:assertj-core'
-        testCompile 'org.mockito:mockito-all'
+        testCompile 'org.mockito:mockito-core'
     }
 
     // task to generate build-info.properties with build.version, build.timestamp
