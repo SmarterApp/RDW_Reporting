@@ -206,18 +206,6 @@ export class ReportService {
     report.created = serverReport.created;
     report.reportType = serverReport.reportType;
     report.assessmentTypeCode = serverReport.assessmentTypeCode;
-
-    // HOTFIX for aggreagte report assessment type display
-    // unable to use ExamReportAssessmentType enum because it does not support summatives
-    if (serverReport.reportType === 'BasicAggregateReportRequest') {
-      report.assessmentTypeCode = (<BasicAggregateReportRequest>serverReport.request).query.assessmentTypeCode;
-    } else {
-      report.assessmentTypeCode = serverReport.assessmentTypeCode;
-    }
-
-    if (serverReport.subjectCodes.length == 0) {
-      console.log("empty as falsy", !!serverReport.subjectCodes);
-    }
     report.subjectCodes = serverReport.subjectCodes || [];
     report.schoolYears = serverReport.schoolYears || [];
     report.metadata = serverReport.metadata || {};

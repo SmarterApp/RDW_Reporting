@@ -39,7 +39,6 @@ describe('ReportService', () => {
     reports.push(apiReport(1));
     reports.push(apiReportWithDetails(2, "ica", ["Math"]));
     dataService.get.and.returnValue(of(reports));
-
     service.getReports().subscribe((reports: Report[]) => {
       expect(reports.length).toBe(2);
       expect(reports[0].id).toBe(1);
@@ -54,7 +53,7 @@ describe('ReportService', () => {
       expect(reports[1].assessmentTypeCode).toBe("ica");
       expect(reports[1].subjectCodes).toEqual(["Math"]);
       done();
-    });
+    }, (err) => { console.log(err); });
   });
 
   function apiReport(id: number): any {
@@ -71,7 +70,7 @@ describe('ReportService', () => {
       created: new Date()
     };
     if (asmtType) {
-      apiObj.assessmentType = asmtType;
+      apiObj.assessmentTypeCode = asmtType;
     }
     if (subjects) {
       apiObj.subjectCodes = subjects;
