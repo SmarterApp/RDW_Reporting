@@ -48,8 +48,12 @@ export class AggregateReportRequestMapper {
 
     const filters: any = {};
 
+    const performanceLevelDisplayType = assessmentDefinition.performanceLevelDisplayTypes.includes(settings.performanceLevelDisplayType)
+      ? settings.performanceLevelDisplayType
+      : assessmentDefinition.performanceLevelDisplayTypes[0];
+
     const query: any = <BasicAggregateReportQuery>{
-      achievementLevelDisplayType: settings.performanceLevelDisplayType,
+      achievementLevelDisplayType: performanceLevelDisplayType,
       assessmentTypeCode: settings.assessmentType,
       assessmentGradeCodes: settings.assessmentGrades,
       dimensionTypes: settings.dimensionTypes,

@@ -2,10 +2,7 @@ sql:
 
   administrationCondition:
     findAll: >-
-      SELECT id,
-        code
-      FROM administration_condition
-      ORDER BY id
+      SELECT id, code FROM administration_condition ORDER BY id
 
   assessmentGrade:
     findAll: >-
@@ -18,30 +15,25 @@ sql:
 
   assessmentType:
     findAll: >-
-      SELECT id,
-        code
-      FROM asmt_type
-      ORDER BY id
+      SELECT id, code FROM asmt_type ORDER BY id
 
   completeness:
     findAll: >-
-      SELECT id,
-        code
-      FROM completeness
-      ORDER BY id
+      SELECT id, code FROM completeness ORDER BY id
+
+  elas:
+    findAll: >-
+      SELECT id, code FROM elas ORDER BY id
 
   gender:
     findAll: >-
-      SELECT id,
-        code
-      FROM gender
-      ORDER BY id
+      SELECT id, code FROM gender ORDER BY id
 
   boolean:
-    findAll: select id, code from boolean order by id
+    findAll: SELECT id, code FROM boolean ORDER BY id
 
   strictBoolean:
-    findAll: select id, code from strict_boolean order by id
+    findAll: SELECT id, code FROM strict_boolean ORDER BY id
 
   embargo:
     isStateEmbargoed: >-

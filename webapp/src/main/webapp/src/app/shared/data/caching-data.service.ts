@@ -5,7 +5,6 @@ import { DataService } from "./data.service";
 import { share, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 
-const empty = 'empty-call-found';
 /**
  * Caches HTTP get responses and makes sure that concurrent requests
  * for the same resource not produce duplicate network calls
@@ -32,7 +31,7 @@ export class CachingDataService {
 
   public get(url: string, options?: RequestOptionsArgs): Observable<any> {
 
-    const cacheKey = this.createKey(url, options ? options.params || {} : {});
+    const cacheKey = this.createKey(url, options);
 
     const response = this.responsesByUrl.get(cacheKey);
     if (response) {
@@ -62,8 +61,8 @@ export class CachingDataService {
     }
     const parameters = options.params || options.search || {};
     return url + '?' + Object.entries(parameters)
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([key, value]) => key + '=' + value)
+      .sort(([ a ], [ b ]) => a.localeCompare(b))
+      .map(([ key, value ]) => key + '=' + value)
       .join('&');
   }
 
