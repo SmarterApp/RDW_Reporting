@@ -25,16 +25,12 @@ export class AdvFiltersComponent {
   showTransferAccess: boolean = false;
   showElas: boolean = false;
   showLep: boolean = false;
-  elasValues: string[] = [];
 
   constructor(private applicationSettingsService: ApplicationSettingsService) {
     applicationSettingsService.getSettings().subscribe(settings => {
       this.showTransferAccess = settings.transferAccess;
       this.showElas = settings.elasEnabled;
       this.showLep = settings.lepEnabled;
-      if (this.showElas) {
-        this.elasValues.push('EO', 'EL', 'IFEP', 'RFEP', 'TBD');
-      }
     })
   }
 

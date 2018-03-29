@@ -148,7 +148,7 @@
                   title="{{ 'common.filters.student.elas' | translate }}"
                   content="{{ 'common.filters.student.elas-info' | translate }}"></span>
           </label>
-          <sb-checkbox-list [model]="filterBy" [values]="elasValues" property="elas" enum="common.elas"
+          <sb-checkbox-list [model]="filterBy" [values]="filterOptions.elasCodes" property="elas" enum="common.elas"
                             label="{{ 'common.filters.student.elas' | translate }}"
                             analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-checkbox-list>
         </div>
