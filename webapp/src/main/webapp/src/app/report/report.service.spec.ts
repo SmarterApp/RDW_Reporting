@@ -53,7 +53,7 @@ describe('ReportService', () => {
       expect(reports[1].assessmentTypeCode).toBe("ica");
       expect(reports[1].subjectCodes).toEqual(["Math"]);
       done();
-    }, (err) => { console.log(err); });
+    });
   });
 
   function apiReport(id: number): any {
