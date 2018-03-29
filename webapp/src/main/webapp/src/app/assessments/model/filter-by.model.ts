@@ -17,10 +17,10 @@ export class FilterBy extends ObservableObject {
   private _iep: number = -1;
   private _limitedEnglishProficiency: number = -1;
   private _ethnicities: boolean[] = [ true ];
-  private _elas: boolean[] = [ true ];
+  private _elasCodes: boolean[] = [ true ];
 
   private _filters = ['offGradeAssessment', 'transferAssessment', 'administration', 'summativeStatus', 'completion', 'genders', 'migrantStatus',
-                      'plan504', 'iep', 'limitedEnglishProficiency', 'elas', 'ethnicities'];
+                      'plan504', 'iep', 'limitedEnglishProficiency', 'elasCodes', 'ethnicities'];
 
   get filteredEthnicities(): any[] {
     return this.filterArray(this._ethnicities);
@@ -30,8 +30,8 @@ export class FilterBy extends ObservableObject {
     return this.filterArray(this._genders);
   }
 
-  get filteredElas(): any[] {
-    return this.filterArray(this._elas);
+  get filteredElasCodes(): any[] {
+    return this.filterArray(this._elasCodes);
   }
 
   private filterArray(array: any[]): any[] {
@@ -59,9 +59,9 @@ export class FilterBy extends ObservableObject {
         for (let filteredGender of filteredGenders) {
           all.push(property + "." + filteredGender);
         }
-      } else if (property == "elas") {
-        const filteredElas = this.filteredElas;
-        for (let i of filteredElas) {
+      } else if (property == "elasCodes") {
+        const filteredElasCodes = this.filteredElasCodes;
+        for (let i of filteredElasCodes) {
           all.push(property + "." + i);
         }
       } else if (this.isFilterEnabled(property)) {
@@ -81,13 +81,13 @@ export class FilterBy extends ObservableObject {
     this.notifyChange('ethnicities');
   }
 
-  get elas(): boolean[] {
-    return this._elas;
+  get elasCodes(): boolean[] {
+    return this._elasCodes;
   }
 
-  set elas(value: boolean[]) {
-    this._elas = value;
-    this.notifyChange('elas');
+  set elasCodes(value: boolean[]) {
+    this._elasCodes = value;
+    this.notifyChange('elasCodes');
   }
 
   get offGradeAssessment(): boolean {

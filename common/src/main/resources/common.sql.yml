@@ -194,6 +194,7 @@ sql:
         e.performance_level,
         e.asmt_id,
         e.available_accommodation_codes,
+        e.elas_code,
         a.id as asmt_id,
         a.label as asmt_label,
         a.grade_code as asmt_grade_code,

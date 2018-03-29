@@ -5,7 +5,7 @@
 <div class="flex-children">
 
   <!-- Test Filters -->
-  <div id="filter-by-test" class="flex-child">
+  <div id="filter-by-test" class="flex-child no-margin">
     <p class="border-bottom">{{ 'common.filters.test.label' | translate }}</p>
     <div class="block-children">
       <!-- Off-Grade Assessments -->
@@ -40,7 +40,7 @@
   </div>
 
   <!-- Status Filters -->
-  <div id="filter-by-status" class="flex-child">
+  <div id="filter-by-status" class="flex-child no-margin">
     <p class="border-bottom">{{ 'common.filters.status.label' | translate }}</p>
     <div class="block-children">
       <!-- Manner of Administration -->
@@ -87,11 +87,11 @@
   </div>
 
   <!-- Student Filters -->
-  <div *ngIf="showStudentFilter" id="filter-by-student" class="flex-child grow">
+  <div *ngIf="showStudentFilter" id="filter-by-student" class="flex-child grow no-margin">
     <p class="border-bottom">{{ 'common.filters.student.label' | translate }}</p>
     <div class="flex-children">
       <!-- Column 1 -->
-      <div class="flex-child col1 grow">
+      <div class="flex-child col1 no-margin">
         <!-- Gender -->
         <div class="block-children">
           <label>
@@ -148,7 +148,7 @@
                   title="{{ 'common.filters.student.elas' | translate }}"
                   content="{{ 'common.filters.student.elas-info' | translate }}"></span>
           </label>
-          <sb-checkbox-list [model]="filterBy" [values]="filterOptions.elasCodes" property="elas" enum="common.elas"
+          <sb-checkbox-list [model]="filterBy" [values]="filterOptions.elasCodes" property="elasCodes" enum="common.elas"
                             label="{{ 'common.filters.student.elas' | translate }}"
                             analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-checkbox-list>
         </div>

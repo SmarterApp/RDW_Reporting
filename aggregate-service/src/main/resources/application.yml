@@ -88,5 +88,5 @@ reporting:
     code: CA
     name: California
 
-  # english-learners should be LEP or ELAS
+  # english-learners should be lep or elas
   english-learners: lep

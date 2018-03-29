@@ -22,4 +22,5 @@ export class Exam {
   accommodationCodes: string[];
   school: School;
   transfer: boolean;
+  elasCode: string;
 }

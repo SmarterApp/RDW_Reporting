@@ -126,5 +126,5 @@ reporting:
     code: CA
     name: California
   user-guide-url: https://portal.smarterbalanced.org/library/en/reporting-system-user-guide.pdf
-  # english-learners should be LEP or ELAS
+  # english-learners should be lep or elas
   english-learners: lep

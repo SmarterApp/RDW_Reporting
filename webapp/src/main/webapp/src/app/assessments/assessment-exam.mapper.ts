@@ -97,6 +97,7 @@ export class AssessmentExamMapper {
       uiModel.plan504 = apiModel.studentContext.section504;
       uiModel.iep = apiModel.studentContext.iep;
       uiModel.limitedEnglishProficiency = apiModel.studentContext.lep;
+      uiModel.elasCode = apiModel.studentContext.elasCode;
     }
 
     if (apiModel.student) {

@@ -20,7 +20,7 @@ export class ExamFilterService {
     new ExamFilter('plan504', 'common.filters.student.504-plan', 'common.polar', this.filterByplan504),
     new ExamFilter('iep', 'common.filters.student.iep', 'common.polar', this.filterByIep),
     new ExamFilter('limitedEnglishProficiency', 'common.filters.student.limited-english-proficiency', 'common.polar', this.filterByLimitedEnglishProficiency),
-    new ExamFilter('elas', 'common.filters.student.elas', 'common.elas', this.filterByElas),
+    new ExamFilter('elasCodes', 'common.filters.student.elas', 'common.elas', this.filterByElasCode),
     new ExamFilter('ethnicities', 'common.filters.student.ethnicity', 'common.ethnicity', this.filterByEthnicity)
   ];
 
@@ -58,6 +58,8 @@ export class ExamFilterService {
           filterValue = filterBy.filteredEthnicities;
         else if(filter == 'genders' )
           filterValue = filterBy.filteredGenders;
+        else if(filter == 'elasCodes')
+          filterValue = filterBy.filteredElasCodes;
 
         exams = exams.filter(exam => filterDefinition.apply(exam, filterValue));
       }
@@ -105,8 +107,8 @@ export class ExamFilterService {
             filterValue = filterBy.filteredEthnicities;
           } else if(filter == 'genders') {
             filterValue = filterBy.filteredGenders;
-          } else if(filter == 'elas') {
-            filterValue = filterBy.filteredElas;
+          } else if(filter == 'elasCodes') {
+            filterValue = filterBy.filteredElasCodes;
           }
 
           return filterDefinition.apply(exam, filterValue);
@@ -130,11 +132,11 @@ export class ExamFilterService {
       filters = filters.filter(x => x.indexOf('genders') == -1);
       filters.push('genders');
     }
-    if(filters.some(x => x.indexOf('elas') > -1)){
+    if(filters.some(x => x.indexOf('elasCodes') > -1)){
       // remove individual 'gender.code' and add just one gender
       // as elas need to be evaluated all at once.
-      filters = filters.filter(x => x.indexOf('elas') == -1);
-      filters.push('elas');
+      filters = filters.filter(x => x.indexOf('elasCodes') == -1);
+      filters.push('elasCodes');
     }
 
     return filters;
@@ -156,8 +158,13 @@ export class ExamFilterService {
     return exam.student && !filterValue.length || filterValue.some(gender => gender == exam.student.genderCode);
   }
 
-  private filterByElas(exam: Exam, filterValue: any): boolean {
-    return exam.student && !filterValue.length || filterValue.some(elas => true);
+  private filterByElasCode(exam: Exam, filterValue: any): boolean {
+    return exam.student
+      && !filterValue.length ||
+       filterValue.some(
+        elasCode =>
+          elasCode == exam.elasCode
+      );
   }
 
   private filterByMigrantStatus(exam: Exam, filterValue: any): boolean {
