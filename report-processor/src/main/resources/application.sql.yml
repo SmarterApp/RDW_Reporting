@@ -138,7 +138,7 @@ sql:
         'Section504Status',
         'IDEAIndicator',
         'LEPStatus',
-        'ELAS',
+        'EnglishLanguageAcquisitionStatus',
 
         'HispanicOrLatinoEthnicity',
         'AmericanIndianOrAlaskaNative',
@@ -191,12 +191,7 @@ sql:
         (CASE WHEN e.section504 = 1 THEN 'Yes' when e.section504 = 0 THEN 'No' ELSE '' END),
         (CASE WHEN e.iep THEN 'Yes' ELSE 'No' END),
         (CASE WHEN e.lep THEN 'Yes' ELSE 'No' END),
-        (CASE WHEN e.elas_code = 'EO' THEN 'English Only'
-          WHEN e.elas_code = 'EL' THEN 'English Learner'
-          WHEN e.elas_code = 'IFEP' THEN 'Initial Fluent English Proficient'
-          WHEN e.elas_code = 'RFEP' THEN 'Reclassified Fluent English Proficient'
-          WHEN e.elas_code = 'TBD' THEN 'To Be Determined'
-          ELSE '' END),
+        COALESCE(e.elas_code, ''),
 
         (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'HispanicOrLatinoEthnicity') THEN 'Yes' ELSE 'No' END ),
         (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'AmericanIndianOrAlaskaNative') THEN 'Yes' ELSE 'No' END ),
