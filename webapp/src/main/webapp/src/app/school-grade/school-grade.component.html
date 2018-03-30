@@ -14,7 +14,7 @@
           <div *ngIf="aboveLimit">
             <school-typeahead #schoolTypeahead
                               [options]="schoolOptions"
-                              (selected)="schoolChanged($event)"
+                              (schoolChange)="schoolChanged($event)"
                               (input)="deselectSchool($event)"></school-typeahead>
             <div>
               <span [hidden]="!schoolTypeahead.loading"><i class="fa fa-spinner fa-pulse"></i></span>
@@ -22,8 +22,7 @@
               <span [hidden]="!schoolTypeahead.noResults" class="small gray-darker">{{'school-typeahead.no-matches' | translate}}</span>
             </div>
           </div>
-          <sb-typeahead #schoolTypeahead
-                        *ngIf="!aboveLimit"
+          <sb-typeahead *ngIf="!aboveLimit"
                         inputId="search-school-name"
                         [options]="schoolOptions"
                         (selected)="schoolChanged($event)"
