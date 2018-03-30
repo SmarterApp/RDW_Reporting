@@ -148,4 +148,4 @@ reporting:
     name: California
   # english-learners should be lep or elas
   english-learners:
-    - lep
+    - elas
