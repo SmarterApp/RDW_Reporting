@@ -149,7 +149,6 @@ export class SchoolResultsComponent implements OnInit {
           this.schoolService.findGradesWithAssessmentsForSchool(schoolIdParam)
         ).subscribe(([ school, filterOptions, grades ]) => {
           this.schoolOptions = Observable.create(observer => {
-            console.log("typeahead", this.schoolTypeahead);
             observer.next(this.schoolTypeahead.value);
           }).pipe(
             mergeMap(
