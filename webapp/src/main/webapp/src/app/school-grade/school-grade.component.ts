@@ -9,10 +9,8 @@ import { School } from "../shared/organization/organization";
 import { Observable } from "rxjs/Observable";
 import { SchoolTypeahead } from "../shared/school/school-typeahead";
 import { OrganizationService } from "../shared/organization/organization.service";
-import { mergeMap } from "rxjs/operators";
+import { map, mergeMap } from "rxjs/operators";
 import { limit } from "./limit";
-import { ordering } from "@kourge/ordering";
-import { byNumber } from "@kourge/ordering/comparator";
 
 
 /**
@@ -138,12 +136,11 @@ export class SchoolGradeComponent {
           mergeMap(
             (search: string) =>
               this.organizationService.searchSchoolsWithDistrictsBySchoolName(search)
-                .map(
+                .pipe(map(
                   (schools: School[]) =>
                     schools.filter(
                       (school: School) => this.organizations.findIndex(x => school.equals(x)) === -1
-                    ).sort(ordering(byNumber).on<School>(s => s.name.length).compare)
-                )
+                    )))
           ));
       }
     });
