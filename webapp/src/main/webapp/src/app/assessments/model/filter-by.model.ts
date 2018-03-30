@@ -36,7 +36,7 @@ export class FilterBy extends ObservableObject {
 
   private filterArray(array: any[]): any[] {
     const returnArray: any[] = [];
-    for (let i in array) {
+    for (const i in array) {
       if (array.hasOwnProperty(i) && i != "0" && array[ i ]) {
         returnArray.push(i);
       }
@@ -48,21 +48,21 @@ export class FilterBy extends ObservableObject {
   get all(): string[] {
     const all = [];
 
-    for (let property of this._filters) {
+    for (const property of this._filters) {
       if (property == "ethnicities") {
         const filteredEthnicities = this.filteredEthnicities;
-        for (let filteredEthnicity of filteredEthnicities) {
+        for (const filteredEthnicity of filteredEthnicities) {
           all.push(property + "." + filteredEthnicity);
         }
       } else if (property == "genders") {
         const filteredGenders = this.filteredGenders;
-        for (let filteredGender of filteredGenders) {
+        for (const filteredGender of filteredGenders) {
           all.push(property + "." + filteredGender);
         }
       } else if (property == "elasCodes") {
         const filteredElasCodes = this.filteredElasCodes;
-        for (let i of filteredElasCodes) {
-          all.push(property + "." + i);
+        for (const filteredElasCode of filteredElasCodes) {
+          all.push(property + "." + filteredElasCode);
         }
       } else if (this.isFilterEnabled(property)) {
         all.push(property);
