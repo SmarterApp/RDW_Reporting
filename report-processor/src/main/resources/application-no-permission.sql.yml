@@ -2,9 +2,9 @@ sql:
   report:
     create: >-
       insert into user_report
-        (user_login, status, report_resource_uri, label, report_request, created)
+        (user_login, status, report_resource_uri, label, report_request, report_type, created)
         values
-        (:user_login, :status, :report_resource_uri, :label, :report_request, :created)
+        (:user_login, :status, :report_resource_uri, :label, :report_request, :report_type, :created)
 
     update: >-
       update user_report
