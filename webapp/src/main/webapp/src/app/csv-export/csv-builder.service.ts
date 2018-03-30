@@ -504,10 +504,12 @@ export class CsvBuilder {
       .withMigrantStatus(getExam)
       .with504Plan(getExam)
       .withIep(getExam);
-    if (this.showLep)
+    if (this.showLep) {
       studentContext = studentContext.withLimitedEnglish(getExam);
-    if (this.showElas)
-      studentContext = studentContext.withElas(getExam)
+    }
+    if (this.showElas) {
+      studentContext = studentContext.withElas(getExam);
+    }
 
     studentContext = studentContext.withEthnicity(getExam, ethnicities);
     return studentContext;
