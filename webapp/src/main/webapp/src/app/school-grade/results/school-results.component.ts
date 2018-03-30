@@ -23,6 +23,8 @@ import { Observable } from "rxjs/Observable";
 import { SchoolTypeahead } from "../../shared/school/school-typeahead";
 import { map, mergeMap } from "rxjs/operators";
 import { limit } from "../limit";
+import { ordering } from "@kourge/ordering";
+import { byNumber } from "@kourge/ordering/comparator";
 
 @Component({
   selector: 'school-results',
@@ -155,10 +157,10 @@ export class SchoolResultsComponent implements OnInit {
               (search: string) =>
                 this.organizationService.searchSchoolsWithDistrictsBySchoolName(search)
                   .pipe(map(
-                    (organizations: any[]) =>
-                      organizations.filter(
-                        organization => this.organizations.findIndex(x => organization.equals(x)) === -1
-                      ))
+                    (schools: School[]) =>
+                      schools.filter(
+                        (school: School) => this.organizations.findIndex(x => school.equals(x)) === -1
+                      ).sort(ordering(byNumber).on<School>(s => s.name.length).compare))
                   )));
           this.currentSchool = school;
           this.initFilterOptionsSchoolYearGrades(filterOptions, schoolYear, grades, gradeIdParam);

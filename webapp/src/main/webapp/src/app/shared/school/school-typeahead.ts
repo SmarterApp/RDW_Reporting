@@ -32,7 +32,7 @@ import { TypeaheadMatch } from "ngx-bootstrap";
 export class SchoolTypeahead extends AbstractControlValueAccessor<string> {
 
   @Input()
-  options: Observable<School[]> | School[];
+  options: Observable<School[]>;
 
   @Output()
   schoolChange: EventEmitter<School> = new EventEmitter<School>();
