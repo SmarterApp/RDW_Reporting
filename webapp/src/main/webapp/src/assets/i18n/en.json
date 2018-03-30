@@ -772,6 +772,7 @@
     "assessment-session-id": "TestSessionId",
     "assessment-type": "AssessmentType",
     "claim": "Claim",
+    "elas": "ELAS",
     "enrolled-grade": "GradeLevelWhenAssessed",
     "error-band-max": "Error Band Max",
     "error-band-min": "Error Band Min",
