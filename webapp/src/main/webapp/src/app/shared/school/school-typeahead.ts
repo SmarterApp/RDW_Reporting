@@ -32,27 +32,28 @@ import { TypeaheadMatch } from "ngx-bootstrap";
 export class SchoolTypeahead extends AbstractControlValueAccessor<string> {
 
   @Input()
-  options: Observable<School[]> | School[];
+  options: Observable<School[]>;
 
   @Output()
-  selected: EventEmitter<School> = new EventEmitter<School>();
+  schoolChange: EventEmitter<School> = new EventEmitter<School>();
+
+  @Input()
+  set school(school: School) {
+    this._school = school;
+    this._value = school ? school.name : undefined;
+  }
+
+  get school(): School {
+    return this._school;
+  }
 
   loading: boolean = false;
   noResults: boolean = false;
-
-  get value(): string {
-    return this._value;
-  }
-
-  set value(value: string) {
-    if (this._value !== value && value.length) {
-      this._value = value;
-      this._onChangeCallback(value);
-    }
-  }
+  private _school: School;
 
   onTypeaheadSelectInternal(event: TypeaheadMatch): void {
-    event.item && this.selected.emit(event.item);
+    this.school = event.item;
+    this.schoolChange.emit(event.item);
   }
 
 }

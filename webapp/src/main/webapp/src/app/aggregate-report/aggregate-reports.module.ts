@@ -6,8 +6,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AggregateReportOptionsService } from "./aggregate-report-options.service";
 import { AggregateReportOptionsMapper } from "./aggregate-report-options.mapper";
 import { AggregateReportOrganizationService } from "./aggregate-report-organization.service";
-import { ModalModule, PopoverModule, TypeaheadModule } from "ngx-bootstrap";
-import { AggregateReportOrganizationList } from "./aggregate-report-organization-list.component";
+import { ModalModule, PopoverModule, TabsModule, TypeaheadModule } from "ngx-bootstrap";
 import { AggregateReportService } from "./aggregate-report.service";
 import { ReportModule } from "../report/report.module";
 import { AggregateReportFormComponent } from "./aggregate-report-form.component";
@@ -26,15 +25,21 @@ import { AggregateReportTableExportService } from "./results/aggregate-report-ta
 import { AggregateReportSummary } from "./aggregate-report-summary.component";
 import { AggregateReportColumnOrderItemProvider } from "./aggregate-report-column-order-item.provider";
 import { TableModule } from "primeng/table";
+import { SubgroupFiltersComponent } from "./subgroup-filters.component";
+import { ListGroupComponent } from "./list-group.component";
+import { SubgroupMapper } from "./subgroup.mapper";
+import { EditableListGroupComponent } from './editable-list-group.component';
 
 @NgModule({
   declarations: [
     AggregateReportFormComponent,
     AggregateReportComponent,
     AggregateReportTableComponent,
-    AggregateReportOrganizationList,
     AggregateReportSummary,
-    StickyDirective
+    EditableListGroupComponent,
+    ListGroupComponent,
+    StickyDirective,
+    SubgroupFiltersComponent
   ],
   imports: [
     AssessmentModule,
@@ -48,6 +53,7 @@ import { TableModule } from "primeng/table";
     ReactiveFormsModule,
     ReportModule,
     TableModule,
+    TabsModule.forRoot(),
     TypeaheadModule
   ],
   exports: [
@@ -66,7 +72,8 @@ import { TableModule } from "primeng/table";
     AggregateReportOrganizationService,
     AggregateReportItemMapper,
     AggregateReportFormSettingsResolve,
-    AggregateReportColumnOrderItemProvider
+    AggregateReportColumnOrderItemProvider,
+    SubgroupMapper
   ]
 })
 export class AggregateReportsModule {

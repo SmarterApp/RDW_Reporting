@@ -78,15 +78,12 @@
           </div>
 
           <div *ngSwitchCase="'dimension'">
-            {{
-            (('common.dimension.' + rowData.dimension.type) | translate)
-            + (rowData.dimension.code ? ': ' + (rowData.dimension.codeTranslationCode | translate) : '')
-            }}
+            {{rowData.dimension ? rowData.dimension.name : rowData.subgroup.name}}
           </div>
 
           <div *ngSwitchCase="'studentsTested'"
                class="text-right">
-            {{ rowData.studentsTested }}
+            {{rowData.studentsTested}}
           </div>
 
           <div *ngSwitchCase="'achievementComparison'">

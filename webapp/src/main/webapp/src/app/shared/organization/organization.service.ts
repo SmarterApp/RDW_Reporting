@@ -27,17 +27,11 @@ export class OrganizationService {
   }
 
   protected getSchools(limit?: number): Observable<School[]> {
-    if (limit) {
-      return this.dataService.get(`${ReportingServiceRoute}/organizations/schools`, {
-        params: {
-          limit: limit
-        }
-      });
-    } else {
-      return this.dataService.get(`${ReportingServiceRoute}/organizations/schools`, {
-        params: {}
-      });
-    }
+    return this.dataService.get(`${ReportingServiceRoute}/organizations/schools`, {
+      params: {
+        limit: limit
+      }
+    });
   }
 
   protected getDistricts(): Observable<any[]> {

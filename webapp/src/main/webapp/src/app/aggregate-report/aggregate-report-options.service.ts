@@ -33,18 +33,21 @@ export class AggregateReportOptionsService {
             ? this.organizationMapper.map(options.defaultOrganization)
             : undefined,
           dimensionTypes: options.dimensionTypes,
-          economicDisadvantages: options.economicDisadvantages.sort(booleanComparator),
-          ethnicities: options.ethnicities,
-          genders: options.genders,
-          individualEducationPlans: options.individualEducationPlans.sort(booleanComparator),
           interimAdministrationConditions: options.interimAdministrationConditions,
-          limitedEnglishProficiencies: options.limitedEnglishProficiencies.sort(booleanComparator),
-          migrantStatuses: options.migrantStatuses.sort(booleanComparator),
-          section504s: options.section504s.sort(booleanComparator),
+          queryTypes: ['Basic', 'FilteredSubgroup'],
           schoolYears: options.schoolYears,
           statewideReporter: options.statewideReporter,
           subjects: options.subjects,
-          summativeAdministrationConditions: options.summativeAdministrationConditions
+          summativeAdministrationConditions: options.summativeAdministrationConditions,
+          studentFilters: {
+            economicDisadvantages: options.economicDisadvantages.sort(booleanComparator),
+            ethnicities: options.ethnicities,
+            genders: options.genders,
+            individualEducationPlans: options.individualEducationPlans.sort(booleanComparator),
+            limitedEnglishProficiencies: options.limitedEnglishProficiencies.sort(booleanComparator),
+            migrantStatuses: options.migrantStatuses.sort(booleanComparator),
+            section504s: options.section504s.sort(booleanComparator)
+          }
         })
       );
   }

@@ -5,12 +5,22 @@ import { AggregateReportOptions } from "./aggregate-report-options";
 import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
 import { AssessmentDefinition } from "./assessment/assessment-definition";
 import { Utils } from "../shared/support/support";
+import { SubgroupMapper } from './subgroup.mapper';
 
-const NarrowColumnProvider: ColumnProvider = (organization, assessment, subgroup, filter) =>
-  [ [ organization, assessment ], [ subgroup, filter ] ];
+const createColumnProvider = (columnCount: number = Number.MAX_VALUE): ColumnProvider => {
+  return (...sections) => {
+    const parentColumns = [];
+    sections.forEach((section, index) => {
+      const parentColumnIndex = Math.floor(index / columnCount);
+      const columns = parentColumns[parentColumnIndex] = parentColumns[parentColumnIndex] || [];
+      columns.push(section);
+    });
+    return parentColumns;
+  };
+};
 
-const WideColumnProvider: ColumnProvider = (organization, assessment, subgroup, filter) =>
-  [ [ organization ], [ assessment ], [ subgroup ], [ filter ] ];
+const NarrowColumnProvider: ColumnProvider = createColumnProvider(2);
+const WideColumnProvider: ColumnProvider = createColumnProvider();
 
 @Component({
   selector: 'aggregate-report-summary',
@@ -27,7 +37,8 @@ export class AggregateReportSummary {
   private _columnProvider: ColumnProvider = WideColumnProvider;
 
   constructor(private translate: TranslateService,
-              private schoolYearPipe: SchoolYearPipe) {
+              private schoolYearPipe: SchoolYearPipe,
+              private subgroupMapper: SubgroupMapper) {
   }
 
   get narrow(): any {
@@ -145,56 +156,117 @@ export class AggregateReportSummary {
       }
     ];
 
-    const filterRows = [];
-    if (!equalSize(options.genders, settings.genders)) {
-      filterRows.push({
-        label: translate('aggregate-report-form.field.gender-label'),
-        values: inline(orAll(options.genders, settings.genders, code => translate(`common.gender.${code}`)))
-      });
-    }
-    if (!equalSize(options.ethnicities, settings.ethnicities)) {
-      filterRows.push({
-        label: translate('aggregate-report-form.field.ethnicity-label'),
-        values: orAll(options.ethnicities, settings.ethnicities, code => translate(`common.ethnicity.${code}`))
-      });
-    }
-    if (!equalSize(options.limitedEnglishProficiencies, settings.limitedEnglishProficiencies)) {
-      filterRows.push({
-        label: translate('aggregate-report-form.field.limited-english-proficiency-label'),
-        values: inline(orAll(options.limitedEnglishProficiencies, settings.limitedEnglishProficiencies, code => translate(`common.boolean.${code}`)))
-      });
-    }
-    if (!equalSize(options.section504s, settings.section504s)) {
-      filterRows.push({
-        label: translate('aggregate-report-form.field.504-label'),
-        values: inline(orAll(options.section504s, settings.section504s, code => translate(`common.boolean.${code}`)))
-      });
-    }
-    if (!equalSize(options.individualEducationPlans, settings.individualEducationPlans)) {
-      filterRows.push({
-        label: translate('aggregate-report-form.field.iep-label'),
-        values: inline(orAll(options.individualEducationPlans, settings.individualEducationPlans, code => translate(`common.strict-boolean.${code}`)))
-      });
-    }
-    if (!equalSize(options.migrantStatuses, settings.migrantStatuses)) {
-      filterRows.push({
-        label: translate('aggregate-report-form.field.migrant-status-label'),
-        values: inline(orAll(options.migrantStatuses, settings.migrantStatuses, code => translate(`common.boolean.${code}`)))
-      });
-    }
-    if (!equalSize(options.economicDisadvantages, settings.economicDisadvantages)) {
-      filterRows.push({
-        label: translate('aggregate-report-form.field.economic-disadvantage-label'),
-        values: inline(orAll(options.economicDisadvantages, settings.economicDisadvantages, code => translate(`common.boolean.${code}`)))
-      });
-    }
+    let variableSections: Section[];
 
-    const subgroupRows = [
-      {
-        label: translate('aggregate-report-form.field.comparative-subgroup-label'),
-        values: orAll(options.dimensionTypes, settings.dimensionTypes, code => translate(`common.dimension.${code}`))
+    if (settings.queryType === 'Basic') {
+
+      const subgroupRows = [
+        {
+          label: translate('aggregate-report-form.field.comparative-subgroup-label'),
+          values: orAll(options.dimensionTypes, settings.dimensionTypes, code => translate(`common.dimension.${code}`))
+        }
+      ];
+
+      const filterRows = [];
+      const settingFilters = settings.studentFilters;
+      const optionFilters = options.studentFilters;
+      if (!equalSize(optionFilters.genders, settingFilters.genders)) {
+        filterRows.push({
+          label: translate('aggregate-report-form.field.gender-label'),
+          values: inline(orAll(
+            optionFilters.genders,
+            settingFilters.genders,
+            code => translate(`common.gender.${code}`)
+          ))
+        });
       }
-    ];
+      if (!equalSize(optionFilters.ethnicities, settingFilters.ethnicities)) {
+        filterRows.push({
+          label: translate('aggregate-report-form.field.ethnicity-label'),
+          values: orAll(
+            optionFilters.ethnicities,
+            settingFilters.ethnicities,
+            code => translate(`common.ethnicity.${code}`)
+          )
+        });
+      }
+      if (!equalSize(optionFilters.limitedEnglishProficiencies, settingFilters.limitedEnglishProficiencies)) {
+        filterRows.push({
+          label: translate('aggregate-report-form.field.limited-english-proficiency-label'),
+          values: inline(orAll(
+            optionFilters.limitedEnglishProficiencies,
+            settingFilters.limitedEnglishProficiencies,
+            code => translate(`common.boolean.${code}`)
+          ))
+        });
+      }
+      if (!equalSize(optionFilters.section504s, settingFilters.section504s)) {
+        filterRows.push({
+          label: translate('aggregate-report-form.field.504-label'),
+          values: inline(orAll(
+            optionFilters.section504s,
+            settingFilters.section504s,
+            code => translate(`common.boolean.${code}`)
+          ))
+        });
+      }
+      if (!equalSize(optionFilters.individualEducationPlans, settingFilters.individualEducationPlans)) {
+        filterRows.push({
+          label: translate('aggregate-report-form.field.iep-label'),
+          values: inline(orAll(
+            optionFilters.individualEducationPlans,
+            settingFilters.individualEducationPlans,
+            code => translate(`common.strict-boolean.${code}`)
+          ))
+        });
+      }
+      if (!equalSize(optionFilters.migrantStatuses, settingFilters.migrantStatuses)) {
+        filterRows.push({
+          label: translate('aggregate-report-form.field.migrant-status-label'),
+          values: inline(orAll(
+            optionFilters.migrantStatuses,
+            settingFilters.migrantStatuses,
+            code => translate(`common.boolean.${code}`)
+          ))
+        });
+      }
+      if (!equalSize(optionFilters.economicDisadvantages, settingFilters.economicDisadvantages)) {
+        filterRows.push({
+          label: translate('aggregate-report-form.field.economic-disadvantage-label'),
+          values: inline(orAll(
+            optionFilters.economicDisadvantages,
+            settingFilters.economicDisadvantages,
+            code => translate(`common.boolean.${code}`)
+          ))
+        });
+      }
+
+      variableSections = [
+        {
+          label: translate('aggregate-report-form.section.comparative-subgroups-heading'),
+          rows: subgroupRows
+        },
+        {
+          label: translate('aggregate-report-form.section.subgroup-filters-heading'),
+          rows: filterRows
+        }
+      ];
+
+    } else if (settings.queryType === 'FilteredSubgroup') {
+
+      variableSections = [
+        {
+          label: translate('aggregate-report-form.section.comparative-subgroups-heading'),
+          rows: [
+            {
+              label: translate('aggregate-report-form.section.comparative-subgroups-heading'),
+              values: settings.subgroups.map(subgroup => this.subgroupMapper.createSubgroupFiltersListItem(subgroup).name)
+            }
+          ]
+        }
+      ];
+
+    }
 
     this.columns = this._columnProvider(
       {
@@ -205,17 +277,10 @@ export class AggregateReportSummary {
         label: translate('aggregate-report-form.section.assessment-heading'),
         rows: assessmentRows
       },
-      {
-        label: translate('aggregate-report-form.section.comparative-subgroups-heading'),
-        rows: subgroupRows
-      },
-      {
-        label: translate('aggregate-report-form.section.subgroup-filters-heading'),
-        rows: filterRows
-      }
+      ...variableSections
     )
     // removes empty columns
-      .filter(holder => holder.reduce((totalRows, column) => totalRows + column.rows.length, 0) > 0);
+    .filter(holder => holder.reduce((totalRows, column) => totalRows + column.rows.length, 0) > 0);
   }
 
 }
@@ -230,9 +295,7 @@ interface Row {
   readonly values: string[];
 }
 
-interface ColumnProvider {
-  (organization: Section, assessment: Section, subgroup: Section, filter: Section): Section[][];
-}
+type ColumnProvider = (...sections: Section[]) => Section[][];
 
 export interface AggregateReportRequestSummary {
   readonly assessmentDefinition: AssessmentDefinition;

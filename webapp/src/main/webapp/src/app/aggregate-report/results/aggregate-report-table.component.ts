@@ -490,18 +490,18 @@ export class AggregateReportTableComponent implements OnInit {
 
   private createDimensionOrdering(options: AggregateReportOptions): Ordering<AggregateReportItem> {
     const dimensionOptionsByDimensionType = {
-      Gender: options.genders,
-      Ethnicity: options.ethnicities,
-      LEP: options.limitedEnglishProficiencies,
-      MigrantStatus: options.migrantStatuses,
-      Section504: options.migrantStatuses,
-      IEP: options.individualEducationPlans,
-      EconomicDisadvantage: options.economicDisadvantages
+      Gender: options.studentFilters.genders,
+      Ethnicity: options.studentFilters.ethnicities,
+      LEP: options.studentFilters.limitedEnglishProficiencies,
+      MigrantStatus: options.studentFilters.migrantStatuses,
+      Section504: options.studentFilters.migrantStatuses,
+      IEP: options.studentFilters.individualEducationPlans,
+      EconomicDisadvantage: options.studentFilters.economicDisadvantages
     };
 
     const dimensionTypeAndCodeRankingValues = options.dimensionTypes.reduce((ranking, dimensionType) => {
       return ranking.concat(
-        (dimensionOptionsByDimensionType[ dimensionType ] || []).map(dimensionCode => `${dimensionType}.${dimensionCode}`)
+        (dimensionOptionsByDimensionType[ dimensionType ] || []).map(dimensionCode => `${dimensionType}:${dimensionCode}`)
       );
     }, []);
 
@@ -516,7 +516,7 @@ export class AggregateReportTableComponent implements OnInit {
     // TODO we should have a specific ordering for all grade codes, although the system only currently uses "03" - "12"
     const enrolledGradeComparator: Comparator<AggregateReportItem> = ordering(byNumber)
       .on((item: AggregateReportItem) => {
-        if (item.dimension.type != 'StudentEnrolledGrade') {
+        if (item.dimension.type !== 'StudentEnrolledGrade') {
           return -1;
         }
         try {

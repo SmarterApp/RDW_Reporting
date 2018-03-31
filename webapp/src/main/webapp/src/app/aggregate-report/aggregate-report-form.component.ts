@@ -21,11 +21,13 @@ import { AggregateReportColumnOrderItemProvider } from "./aggregate-report-colum
 import { OrderableItem } from "../shared/order-selector/order-selector.component";
 import { AggregateReportRequestSummary } from "./aggregate-report-summary.component";
 import { Subscription } from "rxjs/Subscription";
-import { Utils } from "../shared/support/support";
 import { debounceTime, finalize, map, mergeMap } from "rxjs/operators";
 import { Observer } from "rxjs/Observer";
 import { ranking } from '@kourge/ordering/comparator';
 import { ordering } from '@kourge/ordering';
+import { SubgroupFilters, SubgroupFilterSupport } from "./subgroup-filters";
+import { SubgroupMapper } from "./subgroup.mapper";
+import { SubgroupFiltersListItem } from './subgroup-filters-list-item';
 
 const DefaultRenderDebounceMilliseconds = 500;
 
@@ -126,6 +128,9 @@ export class AggregateReportFormComponent {
    */
   showAdvancedFilters: boolean = false;
 
+  /**
+   * Handle on the request submission
+   */
   submissionSubscription: Subscription;
 
   /**
@@ -135,6 +140,16 @@ export class AggregateReportFormComponent {
    */
   settingsChangedObserver: Observer<void>;
 
+  /**
+   * Holds the custom subgroup form state
+   */
+  customSubgroup: SubgroupFilters;
+
+  /**
+   * Custom subgroup display items
+   */
+  subgroupItems: SubgroupFiltersListItem[] = [];
+
   constructor(private router: Router,
               private route: ActivatedRoute,
               private optionMapper: AggregateReportOptionsMapper,
@@ -143,17 +158,23 @@ export class AggregateReportFormComponent {
               private organizationService: AggregateReportOrganizationService,
               private reportService: AggregateReportService,
               private tableDataService: AggregateReportTableDataService,
-              private columnOrderableItemProvider: AggregateReportColumnOrderItemProvider) {
+              private columnOrderableItemProvider: AggregateReportColumnOrderItemProvider,
+              private subgroupMapper: SubgroupMapper) {
 
     this.assessmentDefinitionsByTypeCode = route.snapshot.data[ 'assessmentDefinitionsByAssessmentTypeCode' ];
     this.aggregateReportOptions = route.snapshot.data[ 'options' ];
     this.settings = route.snapshot.data[ 'settings' ];
-    this.showAdvancedFilters = this.hasExplicitAdvancedFilters(this.settings, this.aggregateReportOptions);
+
+    this.customSubgroup = SubgroupFilterSupport.copy(this.aggregateReportOptions.studentFilters);
+    this.subgroupItems = this.settings.subgroups
+      .map(subgroup => this.subgroupMapper.createSubgroupFiltersListItem(subgroup));
+
+    this.showAdvancedFilters = !SubgroupFilterSupport.equals(this.settings.studentFilters, this.aggregateReportOptions.studentFilters);
 
     this.organizations = this.organizations.concat(this.settings.districts, this.settings.schools);
 
     const defaultOrganization = this.defaultOrganization;
-    if (this.organizations.length == 0 && defaultOrganization) {
+    if (this.organizations.length === 0 && defaultOrganization) {
       this.addOrganizationToSettings(defaultOrganization);
     }
 
@@ -284,6 +305,37 @@ export class AggregateReportFormComponent {
     this.settings.includeStateResults = value;
   }
 
+  get createCustomSubgroupButtonDisabled(): boolean {
+    return SubgroupFilterSupport.equals(this.customSubgroup, this.aggregateReportOptions.studentFilters)
+      || this.settings.subgroups.some(subgroup => SubgroupFilterSupport.equals(
+        subgroup,
+        SubgroupFilterSupport.leftDifference(this.customSubgroup, this.aggregateReportOptions.studentFilters)
+      ));
+  }
+
+  onTabChange(queryType: 'Basic' | 'FilteredSubgroup'): void {
+    this.settings.queryType = queryType;
+    this.onSettingsChange();
+  }
+
+  onCreateCustomSubgroupButtonClick(): void {
+    this.settings.subgroups = this.settings.subgroups.concat([
+      SubgroupFilterSupport.leftDifference(this.customSubgroup, this.aggregateReportOptions.studentFilters)
+    ]);
+    this.subgroupItems = this.settings.subgroups
+      .map(subgroup => this.subgroupMapper.createSubgroupFiltersListItem(subgroup));
+
+    this.onSettingsChange();
+  }
+
+  onCustomSubgroupItemRemoveButtonClick(item: SubgroupFiltersListItem): void {
+    this.settings.subgroups = this.settings.subgroups
+      .filter(subgroup => subgroup !== item.value);
+    this.subgroupItems = this.subgroupItems
+      .filter(subgroupItem => subgroupItem !== item);
+    this.onSettingsChange();
+  }
+
   /**
    * Organization typeahead select handler
    *
@@ -293,6 +345,7 @@ export class AggregateReportFormComponent {
     this.organizationTypeahead.value = '';
     this.addOrganization(organization);
     this.markOrganizationsControlTouched();
+    this.onSettingsChange();
   }
 
   /**
@@ -302,6 +355,7 @@ export class AggregateReportFormComponent {
    */
   onOrganizationListItemClose(organization: any): void {
     this.removeOrganization(organization);
+    this.onSettingsChange();
   }
 
   onIncludeStateResultsChange(): void {
@@ -395,11 +449,13 @@ export class AggregateReportFormComponent {
   private addOrganizationToSettings(organization: Organization): void {
     this.organizations = this.organizations.concat(organization);
     if (organization.type === OrganizationType.District) {
-      this.settings.districts.push(<District>organization);
-      this.settings.districts.sort(OrganizationComparator);
+      this.settings.districts = this.settings.districts
+        .concat(<District>organization)
+        .sort(OrganizationComparator);
     } else if (organization.type === OrganizationType.School) {
-      this.settings.schools.push(<School>organization);
-      this.settings.schools.sort(OrganizationComparator);
+      this.settings.schools = this.settings.schools
+        .concat(<School>organization)
+        .sort(OrganizationComparator);
     }
   }
 
@@ -412,16 +468,18 @@ export class AggregateReportFormComponent {
     const finder = value => value.equals(organization);
     const index = this.organizations.findIndex(finder);
     if (index !== -1) {
-      this.removeOrganizationFromSettings(organization, finder);
+      this.removeOrganizationFromSettings(organization);
     }
   }
 
-  private removeOrganizationFromSettings(organization: Organization, finder: any): void {
+  private removeOrganizationFromSettings(organization: Organization): void {
     this.organizations = this.organizations.filter(value => !organization.equals(value));
     if (organization.type === OrganizationType.District) {
-      this.settings.districts.splice(this.settings.districts.findIndex(finder), 1);
+      this.settings.districts = this.settings.districts
+        .filter(district => !organization.equals(district));
     } else if (organization.type === OrganizationType.School) {
-      this.settings.schools.splice(this.settings.schools.findIndex(finder), 1);
+      this.settings.schools = this.settings.schools
+        .filter(school => !organization.equals(school));
     }
     this.markOrganizationsControlTouched();
   }
@@ -481,22 +539,6 @@ export class AggregateReportFormComponent {
    */
   private createReportRequest(): BasicAggregateReportRequest {
     return this.requestMapper.map(this.options, this.settings, this.currentAssessmentDefinition);
-  }
-
-  /**
-   * @param {AggregateReportFormSettings} settings
-   * @param {AggregateReportOptions} options
-   * @returns {boolean} True if the provided settings have explicitly set advanced filters that deviate from the defaults
-   */
-  private hasExplicitAdvancedFilters(settings: AggregateReportFormSettings, options: AggregateReportOptions): boolean {
-    const hasDifferentLength = (a: any[], b: any[]) => !Utils.hasEqualLength(a, b);
-    return hasDifferentLength(settings.genders, options.genders)
-      || hasDifferentLength(settings.ethnicities, options.ethnicities)
-      || hasDifferentLength(settings.migrantStatuses, options.migrantStatuses)
-      || hasDifferentLength(settings.individualEducationPlans, options.individualEducationPlans)
-      || hasDifferentLength(settings.section504s, options.section504s)
-      || hasDifferentLength(settings.limitedEnglishProficiencies, options.limitedEnglishProficiencies)
-      || hasDifferentLength(settings.economicDisadvantages, options.economicDisadvantages);
   }
 
 }

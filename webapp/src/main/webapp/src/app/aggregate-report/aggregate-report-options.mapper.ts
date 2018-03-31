@@ -6,7 +6,6 @@ import { SchoolYearPipe } from "../shared/format/school-year.pipe";
 import { DisplayOptionService } from "../shared/display-options/display-option.service";
 import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
 import { ValueDisplayTypes } from "../shared/display-options/value-display-type";
-import { PerformanceLevelDisplayTypes } from "../shared/display-options/performance-level-display-type";
 import { AssessmentDefinitionService } from './assessment/assessment-definition.service';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
@@ -49,16 +48,6 @@ export class AggregateReportOptionsMapper {
           value => translate(`common.completeness.${value}`),
           value => `Completeness: ${value}`
         )),
-      ethnicities: options.ethnicities
-        .map(optionMapper(
-          value => translate(`common.ethnicity.${value}`),
-          value => `Ethnicity: ${value}`
-        )),
-      genders: options.genders
-        .map(optionMapper(
-          value => translate(`common.gender.${value}`),
-          value => `Gender: ${value}`
-        )),
       interimAdministrationConditions: options.interimAdministrationConditions
         .map(optionMapper(
           value => translate(`common.administration-condition.${value}`),
@@ -79,31 +68,6 @@ export class AggregateReportOptionsMapper {
           value => translate(`common.administration-condition.${value}`),
           value => `Validity: ${value}`
         )),
-      migrantStatuses: options.migrantStatuses
-        .map(optionMapper(
-          value => translate(`common.boolean.${value}`),
-          value => `Migrant Status: ${value}`
-        )),
-      individualEducationPlans: options.individualEducationPlans
-        .map(optionMapper(
-          value => translate(`common.strict-boolean.${value}`),
-          value => `Individual Education Plan: ${value}`
-        )),
-      section504s: options.section504s
-        .map(optionMapper(
-          value => translate(`common.boolean.${value}`),
-          value => `Section 504: ${value}`
-        )),
-      limitedEnglishProficiencies: options.limitedEnglishProficiencies
-        .map(optionMapper(
-          value => translate(`common.strict-boolean.${value}`),
-          value => `Limited English Proficiency: ${value}`
-        )),
-      economicDisadvantages: options.economicDisadvantages
-        .map(optionMapper(
-          value => translate(`common.strict-boolean.${value}`),
-          value => `Economic Disadvantage: ${value}`
-        )),
       performanceLevelDisplayTypes: this.displayOptionService.getPerformanceLevelDisplayTypeOptions(),
       valueDisplayTypes: this.displayOptionService.getValueDisplayTypeOptions(),
       dimensionTypes: options.dimensionTypes
@@ -111,7 +75,44 @@ export class AggregateReportOptionsMapper {
           value => translate(`common.dimension.${value}`),
           value => `Comparative Subgroup: ${value}`
         )),
-      statewideReporter: options.statewideReporter // TODO move to user context?
+      statewideReporter: options.statewideReporter, // TODO move to user context?
+      studentFilters: {
+        economicDisadvantages: options.studentFilters.economicDisadvantages
+          .map(optionMapper(
+            value => translate(`common.strict-boolean.${value}`),
+            value => `Economic Disadvantage: ${value}`
+          )),
+        ethnicities: options.studentFilters.ethnicities
+          .map(optionMapper(
+            value => translate(`common.ethnicity.${value}`),
+            value => `Ethnicity: ${value}`
+          )),
+        genders: options.studentFilters.genders
+          .map(optionMapper(
+            value => translate(`common.gender.${value}`),
+            value => `Gender: ${value}`
+          )),
+        individualEducationPlans: options.studentFilters.individualEducationPlans
+          .map(optionMapper(
+            value => translate(`common.strict-boolean.${value}`),
+            value => `Individual Education Plan: ${value}`
+          )),
+        limitedEnglishProficiencies: options.studentFilters.limitedEnglishProficiencies
+          .map(optionMapper(
+            value => translate(`common.strict-boolean.${value}`),
+            value => `Limited English Proficiency: ${value}`
+          )),
+        migrantStatuses: options.studentFilters.migrantStatuses
+          .map(optionMapper(
+            value => translate(`common.boolean.${value}`),
+            value => `Migrant Status: ${value}`
+          )),
+        section504s: options.studentFilters.section504s
+          .map(optionMapper(
+            value => translate(`common.boolean.${value}`),
+            value => `Section 504: ${value}`
+          ))
+      }
     };
   }
 
@@ -129,29 +130,33 @@ export class AggregateReportOptionsMapper {
         return <AggregateReportFormSettings>{
           assessmentGrades: [],
           assessmentType: defaultAssessmentType,
-          completenesses: [ options.completenesses[ 0 ] ],
-          ethnicities: options.ethnicities,
-          genders: options.genders,
-          interimAdministrationConditions: [ options.interimAdministrationConditions[ 0 ] ],
-          schoolYears: [ options.schoolYears[ 0 ] ],
-          subjects: options.subjects,
-          summativeAdministrationConditions: [ options.summativeAdministrationConditions[ 0 ] ],
-          migrantStatuses: options.migrantStatuses,
-          individualEducationPlans: options.individualEducationPlans,
-          section504s: options.section504s,
-          limitedEnglishProficiencies: options.limitedEnglishProficiencies,
-          economicDisadvantages: options.economicDisadvantages,
-          performanceLevelDisplayType: assessmentDefinition.performanceLevelDisplayTypes[ 0 ],
-          valueDisplayType: ValueDisplayTypes.Percent,
           columnOrder: assessmentDefinition.aggregateReportIdentityColumns,
+          completenesses: [ options.completenesses[ 0 ] ],
           dimensionTypes: [],
+          districts: [],
           includeStateResults: true,
           includeAllDistricts: false,
           includeAllSchoolsOfSelectedDistricts: false,
           includeAllDistrictsOfSelectedSchools: true,
-          districts: [],
-          schools: []
-        }
+          interimAdministrationConditions: [ options.interimAdministrationConditions[ 0 ] ],
+          performanceLevelDisplayType: assessmentDefinition.performanceLevelDisplayTypes[ 0 ],
+          queryType: options.queryTypes[ 0 ],
+          summativeAdministrationConditions: [ options.summativeAdministrationConditions[ 0 ] ],
+          schools: [],
+          schoolYears: [ options.schoolYears[ 0 ] ],
+          studentFilters: {
+            economicDisadvantages: options.studentFilters.economicDisadvantages,
+            ethnicities: options.studentFilters.ethnicities,
+            genders: options.studentFilters.genders,
+            individualEducationPlans: options.studentFilters.individualEducationPlans,
+            limitedEnglishProficiencies: options.studentFilters.limitedEnglishProficiencies,
+            migrantStatuses: options.studentFilters.migrantStatuses,
+            section504s: options.studentFilters.section504s
+          },
+          subjects: options.subjects,
+          subgroups: [],
+          valueDisplayType: ValueDisplayTypes.Percent
+        };
       })
     );
   }

@@ -102,9 +102,19 @@
       "comparative-subgroups-heading": "Subgroups",
       "comparative-subgroups-subtext": "The report will break down results by the subgroups you select.",
       "review-heading": "Report Review",
-      "preview-heading": "Report Preview"
+      "preview-heading": "Report Preview",
+      "custom-subgroup": {
+        "heading": "Custom Subgroups",
+        "description": "You can create multiple custom subgroups by selecting the combination of attributes below and clicking \"Create Subgroup.\" Each custom subgroup will represent a row in the results table. See the preview table below to see how it will look.",
+        "add-button": "Create Subgroup",
+        "list-label": "Custom Subgroups"
+      }
     },
-    "submit": "Generate Report"
+    "submit": "Generate Report",
+    "tab": {
+      "subgroup-and-filter": "Subgroup and Filter",
+      "custom-subgroup": "Customize Subgroups"
+    }
   },
   "aggregate-report-table": {
     "columns": {

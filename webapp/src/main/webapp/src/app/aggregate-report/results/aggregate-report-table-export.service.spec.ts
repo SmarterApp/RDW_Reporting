@@ -20,15 +20,15 @@ describe('AggregateReportTableExportService', () => {
     options = {
       valueDisplayType: ValueDisplayTypes.Percent,
       performanceLevelDisplayType: PerformanceLevelDisplayTypes.Separate,
-      columnOrdering: ['organization', 'assessmentGrade', 'schoolYear', 'dimension'],
+      columnOrdering: [ 'organization', 'assessmentGrade', 'schoolYear', 'dimension' ],
       assessmentDefinition: {
         typeCode: 'ica',
         interim: true,
-        performanceLevels: [1, 2, 3, 4],
+        performanceLevels: [ 1, 2, 3, 4 ],
         performanceLevelCount: 4,
         performanceLevelDisplayTypes: [],
         performanceLevelGroupingCutPoint: 3,
-        aggregateReportIdentityColumns: ['columnA']
+        aggregateReportIdentityColumns: [ 'columnA' ]
       },
       name: "my_export"
     };
@@ -66,43 +66,43 @@ describe('AggregateReportTableExportService', () => {
 
   it('should set the export filename', () => {
     const item: AggregateReportItem = mockItem();
-    service.exportTable([item], options);
+    service.exportTable([ item ], options);
 
     expect(csvBuilder.withFilename).toHaveBeenCalledWith(options.name);
   });
 
   it('should append user-ordered columns in the specified order', () => {
-    (options as any).columnOrdering = ['dimension', 'organization', 'assessmentGrade', 'schoolYear'];
+    (options as any).columnOrdering = [ 'dimension', 'organization', 'assessmentGrade', 'schoolYear' ];
 
     const item: AggregateReportItem = mockItem();
-    service.exportTable([item], options);
+    service.exportTable([ item ], options);
 
     const withColumnCalls: CallInfo[] = (csvBuilder.withColumn as Spy).calls.all();
 
     //dimension
-    expect(withColumnCalls[0].args).toEqual([
+    expect(withColumnCalls[ 0 ].args).toEqual([
       'aggregate-report-table.columns.dimension',
       jasmine.any(Function)
     ]);
 
     //organization
-    expect(withColumnCalls[1].args).toEqual([
+    expect(withColumnCalls[ 1 ].args).toEqual([
       'aggregate-report-table.columns.organization',
       jasmine.any(Function)
     ]);
-    expect(withColumnCalls[2].args).toEqual([
+    expect(withColumnCalls[ 2 ].args).toEqual([
       'aggregate-report-table.columns.organization-id',
       jasmine.any(Function)
     ]);
 
     //assessmentGrade
-    expect(withColumnCalls[3].args).toEqual([
+    expect(withColumnCalls[ 3 ].args).toEqual([
       'aggregate-report-table.columns.assessment-grade',
       jasmine.any(Function)
     ]);
 
     //schoolYear
-    expect(withColumnCalls[4].args).toEqual([
+    expect(withColumnCalls[ 4 ].args).toEqual([
       'aggregate-report-table.columns.school-year',
       jasmine.any(Function)
     ]);
@@ -132,10 +132,10 @@ describe('AggregateReportTableExportService', () => {
   it('should set export headers for separate grouped levels', () => {
     (options as any).performanceLevelDisplayType = PerformanceLevelDisplayTypes.Grouped;
     const item: AggregateReportItem = mockItem();
-    service.exportTable([item], options);
+    service.exportTable([ item ], options);
 
     const withColumnCalls: CallInfo[] = (csvBuilder.withColumn as Spy).calls.all();
-    const headerKeys: string[] = withColumnCalls.map(call => call.args[0]);
+    const headerKeys: string[] = withColumnCalls.map(call => call.args[ 0 ]);
     expect(headerKeys).toEqual([
       'aggregate-report-table.columns.organization',
       'aggregate-report-table.columns.organization-id',
@@ -162,12 +162,12 @@ describe('AggregateReportTableExportService', () => {
     item.studentsTested = 100;
     item.performanceLevelByDisplayTypes = {
       Separate: {
-        Number: [10, 20, 30, 40],
-        Percent: [11, 21, 31, 41]
+        Number: [ 10, 20, 30, 40 ],
+        Percent: [ 11, 21, 31, 41 ]
       },
       Grouped: {
-        Number: [30, 70],
-        Percent: [31, 71]
+        Number: [ 30, 70 ],
+        Percent: [ 31, 71 ]
       }
     };
 
@@ -178,10 +178,10 @@ describe('AggregateReportTableExportService', () => {
     item.organization = org;
 
     item.dimension = {
-      id: "Gender",
+      id: "Gender:Male",
       type: "Gender",
       code: "Male",
-      codeTranslationCode: "common.gender.Male"
+      name: "Gender: Male"
     };
 
     return item;

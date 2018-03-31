@@ -66,6 +66,7 @@ sql:
         WHERE 1=:allow_school
           AND (:name_query IS NULL OR school.name LIKE concat('%', :name_query, '%'))
           AND (1=:statewide OR school.district_group_id IN (:district_group_ids) OR school.district_id IN (:district_ids) OR school.school_group_id IN (:school_group_ids) OR school.id IN (:school_ids))
+        ORDER BY LENGTH(name)
         LIMIT :limit
 
       findOne: >-

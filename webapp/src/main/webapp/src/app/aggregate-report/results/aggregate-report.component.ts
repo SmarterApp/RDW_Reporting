@@ -128,7 +128,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
 
   onDownloadDataButtonClick(): void {
     this.reportService.downloadReportContent(this.report.id);
-    this.router.navigateByUrl("/reports");
+    this.router.navigateByUrl('/reports');
   }
 
   getExportName(table: AggregateReportTableView): string {
@@ -144,11 +144,11 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   }
 
   isEmbargoed(): boolean {
-    return this.report.metadata.createdWhileDataEmbargoed === "true";
+    return this.report.metadata.createdWhileDataEmbargoed === 'true';
   }
 
   private updateViewState(): void {
-    let targetViewState: ViewState = this.getTargetViewState();
+    const targetViewState = this.getTargetViewState();
     this.onViewStateChange(this._viewState, targetViewState);
     this._viewState = targetViewState;
   }
@@ -173,17 +173,17 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   }
 
   private onViewStateChange(oldState: ViewState, newState: ViewState) {
-    if (oldState == newState) {
+    if (oldState === newState) {
       return;
     }
 
-    if (oldState == ViewState.ReportProcessing) {
+    if (oldState === ViewState.ReportProcessing) {
       this.unsubscribe();
     }
-    if (newState == ViewState.ReportProcessing) {
+    if (newState === ViewState.ReportProcessing) {
       this.pollReport();
     }
-    if (newState == ViewState.ReportView) {
+    if (newState === ViewState.ReportView) {
       this.loadReport();
     }
   }
@@ -213,14 +213,14 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
           this.spinnerModal.loading = false;
         })
       )
-      .subscribe(rows => this.initializeReportTables(rows));
+      .subscribe(rows => this.initializeReportTables(this.report.request.query, rows));
   }
 
-  private initializeReportTables(rows: AggregateReportRow[]): void {
+  private initializeReportTables(query: BasicAggregateReportQuery, rows: AggregateReportRow[]): void {
     this.reportTables = rows.reduce((tableWrappers, row, index) => {
-      const item = this.itemMapper.map(this.assessmentDefinition, row, index);
+      const item = this.itemMapper.createRow(query, this.assessmentDefinition, row, index);
       const subjectCode = row.assessment.subjectCode;
-      const tableWrapper = tableWrappers.find(wrapper => wrapper.subjectCode == subjectCode);
+      const tableWrapper = tableWrappers.find(wrapper => wrapper.subjectCode === subjectCode);
       const columnOrder: string[] = Utils.isNullOrEmpty(this.report.request.query.columnOrder)
         ? this.assessmentDefinition.aggregateReportIdentityColumns.concat()
         : this.report.request.query.columnOrder;

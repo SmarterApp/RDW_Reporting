@@ -3,7 +3,7 @@
  */
 export interface BasicAggregateReportRequest {
   readonly name: string;
-  readonly query: BasicAggregateReportQuery
+  readonly query: BasicAggregateReportQuery;
 }
 
 export interface BasicAggregateReportQuery {
@@ -22,8 +22,9 @@ export interface BasicAggregateReportQuery {
   readonly queryType: 'Basic' | 'FilteredSubgroup'; // See AggregateQueryType for possible values
   readonly schoolIds?: number[];
   readonly schoolYears: number[];
-  readonly studentFilters: StudentFilters;
+  readonly studentFilters?: StudentFilters; // Basic only
   readonly subjectCodes?: string[];
+  readonly subgroups?: {[key: string]: StudentFilters}; // FilteredSubgroup only
   readonly valueDisplayType: string;
   readonly columnOrder?: string[];
 }

@@ -1,4 +1,5 @@
 import { District, School } from "../shared/organization/organization";
+import {SubgroupFilters} from "./subgroup-filters";
 
 /**
  * Client side representation of a report request.
@@ -22,29 +23,9 @@ export interface AggregateReportFormSettings {
   completenesses: string[];
 
   /**
-   * Economic disadvantage result filter
-   */
-  economicDisadvantages: string[];
-
-  /**
-   * Race / Ethnicity result filter
-   */
-  ethnicities: string[];
-
-  /**
    * The comparative subgroups to compare on the report
    */
   dimensionTypes: string[];
-
-  /**
-   * Gender result filter
-   */
-  genders: string[];
-
-  /**
-   * Individual education plans result filter
-   */
-  individualEducationPlans: string[];
 
   /**
    * Interim administration condition result filter
@@ -52,24 +33,9 @@ export interface AggregateReportFormSettings {
   interimAdministrationConditions: string[];
 
   /**
-   * English learners result filter
-   */
-  limitedEnglishProficiencies: string[];
-
-  /**
-   * Migrant status result filter
-   */
-  migrantStatuses: string[];
-
-  /**
    * The achievement level graph display type
    */
   performanceLevelDisplayType: string;
-
-  /**
-   * Plan 504 result filter
-   */
-  section504s: string[];
 
   /**
    * The school years to be covered on the report
@@ -130,5 +96,20 @@ export interface AggregateReportFormSettings {
    * The report name
    */
   name?: string;
+
+  /**
+   * The type of report
+   */
+  queryType: 'Basic' | 'FilteredSubgroup';
+
+  /**
+   * The advanced filters applied to basic reports
+   */
+  studentFilters: SubgroupFilters;
+
+  /**
+   * The custom subgroups applied to subgroup filter reports
+   */
+  subgroups: SubgroupFilters[];
 
 }

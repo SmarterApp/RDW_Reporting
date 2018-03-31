@@ -45,7 +45,7 @@ export class AggregateReportTableExportService {
             : ''
       );
 
-    builder = this.addPerformanceLevelColumns(builder, options);
+    this.addPerformanceLevelColumns(builder, options);
     builder.build(rows);
   }
 
@@ -83,7 +83,7 @@ export class AggregateReportTableExportService {
         .withColumn(
           this.translateService.instant('aggregate-report-table.columns.school-year'),
           (item: AggregateReportItem) => {
-            let valueAsString = item.schoolYear.toString();
+            const valueAsString = item.schoolYear.toString();
             if (valueAsString.length !== 4) {
               return item.schoolYear;
             }
@@ -96,11 +96,7 @@ export class AggregateReportTableExportService {
       return builder
         .withColumn(
           this.translateService.instant('aggregate-report-table.columns.dimension'),
-          (item: AggregateReportItem) => {
-            return this.translateService.instant(`common.dimension.${item.dimension.type}`) +
-              (item.dimension.code ? ': ' + this.translateService.instant(item.dimension.codeTranslationCode) : '')
-          }
-        );
+          (item: AggregateReportItem) => item.dimension.name);
     }
   }
 
@@ -125,9 +121,9 @@ export class AggregateReportTableExportService {
       if (options.performanceLevelDisplayType === PerformanceLevelDisplayTypes.Grouped) {
         header = this.translateService.instant(`aggregate-report-table.columns.grouped-performance-level-prefix.${level}`);
       } else {
-        header = this.translateService.instant(`common.assessment-type.${options.assessmentDefinition.typeCode}.performance-level.${level}.short-name`)
+        header = this.translateService.instant(`common.assessment-type.${options.assessmentDefinition.typeCode}.performance-level.${level}.short-name`);
       }
-      return header + " " + this.translateService.instant('aggregate-report-table.columns.performance-level-suffix');
+      return header + ' ' + this.translateService.instant('aggregate-report-table.columns.performance-level-suffix');
     };
 
     const levels: number[] = options.performanceLevelDisplayType === PerformanceLevelDisplayTypes.Grouped
@@ -139,7 +135,7 @@ export class AggregateReportTableExportService {
         .withColumn(
           headerForPerformanceLevel(levels[levelIndex]),
           dataProviderForPerformanceLevel(levelIndex)
-        )
+        );
     }
 
     return builder;

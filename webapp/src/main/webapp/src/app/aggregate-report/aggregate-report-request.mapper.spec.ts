@@ -88,25 +88,29 @@ describe('AggregateReportRequestMapper', () => {
       assessmentGrades: query.assessmentGradeCodes,
       assessmentType: query.assessmentTypeCode,
       completenesses: query.completenessCodes,
-      economicDisadvantages: studentFilters.economicDisadvantageCodes,
-      ethnicities: studentFilters.ethnicityCodes,
       dimensionTypes: query.dimensionTypes,
       districts: districts,
-      genders: studentFilters.genderCodes,
-      individualEducationPlans: studentFilters.iepCodes,
       includeAllDistricts: query.includeAllDistricts,
       includeAllDistrictsOfSelectedSchools: query.includeAllDistrictsOfSchools,
       includeAllSchoolsOfSelectedDistricts: query.includeAllSchoolsOfDistricts,
       includeStateResults: query.includeState,
-      limitedEnglishProficiencies: studentFilters.lepCodes,
-      migrantStatuses: studentFilters.migrantStatusCodes,
-      section504s: studentFilters.section504Codes,
+      queryType: query.queryType,
       schools: schools,
       schoolYears: query.schoolYears,
       subjects: query.subjectCodes,
+      subgroups: [],
       valueDisplayType: query.valueDisplayType,
       name: request.name,
-      columnOrder: ['columnA', 'columnB']
+      columnOrder: ['columnA', 'columnB'],
+      studentFilters: {
+        economicDisadvantages: studentFilters.economicDisadvantageCodes,
+        ethnicities: studentFilters.ethnicityCodes,
+        genders: studentFilters.genderCodes,
+        individualEducationPlans: studentFilters.iepCodes,
+        limitedEnglishProficiencies: studentFilters.lepCodes,
+        migrantStatuses: studentFilters.migrantStatusCodes,
+        section504s: studentFilters.section504Codes
+      }
     };
 
     fixture.toSettings(request, mockOptions())
@@ -147,25 +151,29 @@ describe('AggregateReportRequestMapper', () => {
       assessmentGrades: query.assessmentGradeCodes,
       assessmentType: query.assessmentTypeCode,
       completenesses: options.completenesses,
-      economicDisadvantages: options.economicDisadvantages,
-      ethnicities: options.ethnicities,
       dimensionTypes: [],
       districts: [],
-      genders: options.genders,
-      individualEducationPlans: options.individualEducationPlans,
       includeAllDistricts: query.includeAllDistricts,
       includeAllDistrictsOfSelectedSchools: query.includeAllDistrictsOfSchools,
       includeAllSchoolsOfSelectedDistricts: query.includeAllSchoolsOfDistricts,
       includeStateResults: query.includeState,
-      limitedEnglishProficiencies: options.limitedEnglishProficiencies,
-      migrantStatuses: options.migrantStatuses,
-      section504s: options.section504s,
+      queryType: query.queryType,
       schools: [],
       schoolYears: query.schoolYears,
       subjects: query.subjectCodes,
+      subgroups: [],
       valueDisplayType: query.valueDisplayType,
       name: request.name,
-      columnOrder: query.columnOrder
+      columnOrder: query.columnOrder,
+      studentFilters: {
+        economicDisadvantages: options.studentFilters.economicDisadvantages,
+        ethnicities: options.studentFilters.ethnicities,
+        genders: options.studentFilters.genders,
+        individualEducationPlans: options.studentFilters.individualEducationPlans,
+        limitedEnglishProficiencies: options.studentFilters.limitedEnglishProficiencies,
+        migrantStatuses: options.studentFilters.migrantStatuses,
+        section504s: options.studentFilters.section504s
+      }
     };
 
     fixture.toSettings(request, options)
@@ -183,18 +191,21 @@ describe('AggregateReportRequestMapper', () => {
       assessmentTypes: [ 'ica', 'iab', 'sum' ],
       completenesses: [ 'Complete', 'Partial' ],
       dimensionTypes: [ 'Gender', 'Ethnicity' ],
-      economicDisadvantages: strictBooleans,
-      ethnicities: [ 'Asian', 'White' ],
-      genders: [ 'Male', 'Female' ],
-      individualEducationPlans: strictBooleans,
       interimAdministrationConditions: [ 'SD', 'NS' ],
-      limitedEnglishProficiencies: strictBooleans,
-      migrantStatuses: booleans,
-      section504s: booleans,
+      queryTypes: [ 'Basic', 'FilteredSubgroup' ],
       schoolYears: [ 2000, 1999 ],
       statewideReporter: false,
       subjects: [ 'Math', 'ELA' ],
-      summativeAdministrationConditions: [ 'Valid', 'IN' ]
+      summativeAdministrationConditions: [ 'Valid', 'IN' ],
+      studentFilters: {
+        economicDisadvantages: strictBooleans,
+        ethnicities: [ 'Asian', 'White' ],
+        genders: [ 'Male', 'Female' ],
+        individualEducationPlans: strictBooleans,
+        limitedEnglishProficiencies: strictBooleans,
+        migrantStatuses: booleans,
+        section504s: booleans
+      }
     }
   }
 

@@ -2,7 +2,13 @@
  * Represents server aggregate report model interface
  */
 export interface AggregateReportRow {
-  readonly dimension: AggregateReportRowDimension;
+
+  // Present on Basic query
+  readonly dimension?: AggregateReportRowDimension;
+
+  // Present on FilteredSubgroup query
+  readonly subgroupKey?: string;
+
   readonly organization: any;
   readonly assessment: AggregateReportRowAssessment;
   readonly measures: AggregateReportRowMeasure;
@@ -15,11 +21,7 @@ export interface AggregateReportRowDimension {
 
 export interface AggregateReportRowAssessment {
   readonly id: number;
-  /**
-   * @deprecated
-   */
-  readonly gradeId?: number;
-  readonly gradeCode: string; // TODO add to backend
+  readonly gradeCode: string;
   readonly subjectCode: string;
   readonly label: string;
   readonly examSchoolYear: number;
