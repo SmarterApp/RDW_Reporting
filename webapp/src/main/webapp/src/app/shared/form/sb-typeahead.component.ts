@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { ordering } from "@kourge/ordering";
-import { byNumber, byString, join } from "@kourge/ordering/comparator";
 
 /**
  * This typeahead decorates the ngx-bootstrap typeahead directive
@@ -64,13 +62,6 @@ export class SBTypeahead implements OnInit {
   set options(options: Option[]) {
     if (this._options !== options) {
       this._options = options
-        ? options
-          .sort(
-            join(
-              ordering(byString).on<Option>(o => o.group === undefined ? '' : o.group).compare,
-              ordering(byNumber).on<Option>(o => o.label.length).compare
-            ))
-        : [];
     }
   }
 
