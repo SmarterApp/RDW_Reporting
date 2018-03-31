@@ -18,8 +18,8 @@ import { ApplicationSettingsService } from "../app-settings.service";
 export class CsvBuilder {
   private columns: CsvColumn[] = [];
   private filename = 'export';
- private showElas: boolean = false;
- private showLep: boolean = false;
+  private showElas: boolean = false;
+  private showLep: boolean = false;
 
   constructor(private angular2csv: Angular2CsvProvider,
               private translateService: TranslateService,
@@ -45,7 +45,7 @@ export class CsvBuilder {
       this.datePipe,
       this.schoolYearPipe,
       this.numberPipe,
-   this.applicationSettingsService
+      this.applicationSettingsService
     );
   }
 
@@ -457,7 +457,7 @@ export class CsvBuilder {
       this.withColumn(
         this.translateService.instant('common.results.assessment-item-columns.x-points', { id: i }),
         (item) => {
-          const value = showAsPercent ? getWritingTraitAggregate(item).percents[i] : getWritingTraitAggregate(item).numbers[i];
+          const value = showAsPercent ? getWritingTraitAggregate(item).percents[ i ] : getWritingTraitAggregate(item).numbers[ i ];
           return Utils.isNullOrUndefined(value) ? '' : this.numberAsString(value, showAsPercent);
         }
       );

@@ -8,6 +8,8 @@ import { SchoolYearPipe } from "../shared/format/school-year.pipe";
 import { TranslateDatePipe } from "../shared/i18n/translate-date.pipe";
 import { TranslateNumberPipe } from "../shared/i18n/translate-number.pipe";
 import Spy = jasmine.Spy;
+import { ApplicationSettingsService } from "../app-settings.service";
+import { of } from "rxjs/observable/of";
 
 describe('CsvBuilder', () => {
   let datePipe: MockDatePipe;
@@ -20,6 +22,10 @@ describe('CsvBuilder', () => {
       export: jasmine.createSpy("export")
     };
 
+    const settings: any = {};
+    const mockApplicationSettingsService = jasmine.createSpyObj('ApplicationSettingsService', [ 'getSettings' ]);
+    mockApplicationSettingsService.getSettings.and.callFake(() => of(settings));
+
     TestBed.configureTestingModule({
       imports: [
         TestModule
@@ -29,7 +35,8 @@ describe('CsvBuilder', () => {
         { provide: TranslateDatePipe, useValue: datePipe },
         { provide: Angular2CsvProvider, useValue: angular2Csv },
         { provide: TranslateNumberPipe, useValue: MockDecimalPipe },
-        { provide: SchoolYearPipe, useValue: schoolYearPipe }
+        { provide: SchoolYearPipe, useValue: schoolYearPipe },
+        { provide: ApplicationSettingsService, useValue: mockApplicationSettingsService }
       ]
     });
   });
