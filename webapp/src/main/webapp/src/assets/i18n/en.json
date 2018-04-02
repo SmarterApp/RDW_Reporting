@@ -1029,38 +1029,7 @@
         "8": "Look for and express regularity in repeated reasoning"
       }
     },
-    "import": {
-      "browse-instruct": "browse for files",
-      "cols": {
-        "created": "Date Created",
-        "file-name": "File Name",
-        "id": "Upload ID",
-        "status": "Upload Status"
-      },
-      "drag-instruct": "Drag and drop to upload or ",
-      "empty": "Upload results will be shown here.",
-      "file-format": {
-        "header": "CSV File Format",
-        "rules": {
-          "body-html": "<ol> <li class=\"mt-md\"> The CSV file must include the headers found in the template file provided below. </li><li class=\"mt-md\"> Every row must include a valid <code>school_natural_id</code>, <code>school_year</code>, and <code>group_name</code>. </li><li class=\"mt-md\"> Groups for a particular school must be listed together and must not be separated by lists of groups for other schools. </li><li class=\"mt-md\"> Groups must be listed together and not separated by rows of other groups. </li><li class=\"mt-md\"> A group's subject must be listed as <code>Math</code>, <code>ELA</code> or <code>All</code>. </li><li class=\"mt-md\"> There is a limit of <code>200</code> students that may be assigned to a single group. </li><li class=\"mt-md\"> A user must have the <code>GROUP_ADMIN</code> role for a school in order to upload groups. </li></ol>",
-          "header": "How to write the CSV"
-        },
-        "template": {
-          "button": "Template",
-          "file": "groups.csv"
-        }
-      },
-      "link": "Upload Groups",
-      "replacement-instruct": "To make changes to an existing group, please upload a replacement file.",
-      "sending": "Uploading...",
-      "title": "Upload New or Revised Groups",
-      "warning-html": "<p><strong class=\"mr-xs\">WARNING:</strong> Groups in the uploaded file will replace existing groups if they have the same school ID, school year and group name.</p><p>All other groups will not be deleted or changed.</p>",
-      "upload-failed": "Failed to upload groups to server."
-    },
-    "no-results": "No groups found matching the given filter criteria.",
-    "no-schools": "Your user account does not have access to view the groups of any schools.",
-    "search-school": "Start typing a school name...",
-    "title": "Manage Student Groups",
+    "title": "Item Information",
     "view-ref": "View reference"
   },
   "item-scores": {
