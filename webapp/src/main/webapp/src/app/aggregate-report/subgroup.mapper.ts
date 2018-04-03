@@ -1,7 +1,7 @@
-import { SubgroupFilters } from "./subgroup-filters";
-import { Utils } from "../shared/support/support";
-import { Injectable } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
+import { SubgroupFilters } from './subgroup-filters';
+import { Utils } from '../shared/support/support';
+import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { SubgroupFiltersListItem } from './subgroup-filters-list-item';
 
 @Injectable()
@@ -89,6 +89,11 @@ const DimensionConfigurations: DimensionConfiguration[] = [
     getTranslationCode: value => `common.strict-boolean.${value}`
   },
   {
+    type: 'ELAS',
+    getDimensionValueCodes: settings => settings.englishLanguageAcquisitionStatuses,
+    getTranslationCode: value => `common.elas.${value}`
+  },
+  {
     type: 'MigrantStatus',
     getDimensionValueCodes: settings => settings.migrantStatuses,
     getTranslationCode: value => `common.boolean.${value}`
@@ -120,7 +125,7 @@ const DimensionConfigurations: DimensionConfiguration[] = [
  * Dimension type code to configuration mappings.
  * These configurations help mapping backend-provided and form-provided dimension data into {Dimension}s
  */
-const DimensionConfigurationByType: { [dimensionType: string]: DimensionConfiguration } = DimensionConfigurations
+const DimensionConfigurationByType: { [ dimensionType: string ]: DimensionConfiguration } = DimensionConfigurations
   .reduce((byType, dimension) => {
     byType[ dimension.type ] = dimension;
     return byType;

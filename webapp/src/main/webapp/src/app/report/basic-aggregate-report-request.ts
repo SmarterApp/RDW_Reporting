@@ -35,6 +35,7 @@ export interface StudentFilters {
   readonly genderCodes?: string[];
   readonly iepCodes?: string[];
   readonly lepCodes?: string[];
+  readonly elasCodes?: string[];
   readonly migrantStatusCodes?: string[];
   readonly section504Codes?: string[];
 }

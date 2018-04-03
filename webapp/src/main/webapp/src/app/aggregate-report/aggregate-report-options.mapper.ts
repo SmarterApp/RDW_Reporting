@@ -1,11 +1,11 @@
-import { AggregateReportOptions } from "./aggregate-report-options";
-import { AggregateReportFormOptions } from "./aggregate-report-form-options";
-import { Injectable } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
-import { SchoolYearPipe } from "../shared/format/school-year.pipe";
-import { DisplayOptionService } from "../shared/display-options/display-option.service";
-import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
-import { ValueDisplayTypes } from "../shared/display-options/value-display-type";
+import { AggregateReportOptions } from './aggregate-report-options';
+import { AggregateReportFormOptions } from './aggregate-report-form-options';
+import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { SchoolYearPipe } from '../shared/format/school-year.pipe';
+import { DisplayOptionService } from '../shared/display-options/display-option.service';
+import { AggregateReportFormSettings } from './aggregate-report-form-settings';
+import { ValueDisplayTypes } from '../shared/display-options/value-display-type';
 import { AssessmentDefinitionService } from './assessment/assessment-definition.service';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
@@ -102,6 +102,11 @@ export class AggregateReportOptionsMapper {
             value => translate(`common.strict-boolean.${value}`),
             value => `Limited English Proficiency: ${value}`
           )),
+        englishLanguageAcquisitionStatuses: options.studentFilters.englishLanguageAcquisitionStatuses
+          .map(optionMapper(
+            value => translate(`common.elas.${value}`),
+            value => `English Language Acquisition Status: ${value}`
+          )),
         migrantStatuses: options.studentFilters.migrantStatuses
           .map(optionMapper(
             value => translate(`common.boolean.${value}`),
@@ -150,6 +155,7 @@ export class AggregateReportOptionsMapper {
             genders: options.studentFilters.genders,
             individualEducationPlans: options.studentFilters.individualEducationPlans,
             limitedEnglishProficiencies: options.studentFilters.limitedEnglishProficiencies,
+            englishLanguageAcquisitionStatuses: options.studentFilters.englishLanguageAcquisitionStatuses,
             migrantStatuses: options.studentFilters.migrantStatuses,
             section504s: options.studentFilters.section504s
           },

@@ -1,10 +1,10 @@
-import { Component, Input } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
-import { SchoolYearPipe } from "../shared/format/school-year.pipe";
-import { AggregateReportOptions } from "./aggregate-report-options";
-import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
-import { AssessmentDefinition } from "./assessment/assessment-definition";
-import { Utils } from "../shared/support/support";
+import { Component, Input } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { SchoolYearPipe } from '../shared/format/school-year.pipe';
+import { AggregateReportOptions } from './aggregate-report-options';
+import { AggregateReportFormSettings } from './aggregate-report-form-settings';
+import { AssessmentDefinition } from './assessment/assessment-definition';
+import { Utils } from '../shared/support/support';
 import { SubgroupMapper } from './subgroup.mapper';
 
 const createColumnProvider = (columnCount: number = Number.MAX_VALUE): ColumnProvider => {
@@ -12,7 +12,7 @@ const createColumnProvider = (columnCount: number = Number.MAX_VALUE): ColumnPro
     const parentColumns = [];
     sections.forEach((section, index) => {
       const parentColumnIndex = Math.floor(index / columnCount);
-      const columns = parentColumns[parentColumnIndex] = parentColumns[parentColumnIndex] || [];
+      const columns = parentColumns[ parentColumnIndex ] = parentColumns[ parentColumnIndex ] || [];
       columns.push(section);
     });
     return parentColumns;
@@ -200,6 +200,16 @@ export class AggregateReportSummary {
           ))
         });
       }
+      if (!equalSize(optionFilters.englishLanguageAcquisitionStatuses, settingFilters.englishLanguageAcquisitionStatuses)) {
+        filterRows.push({
+          label: translate('aggregate-report-form.field.elas-label'),
+          values: orAll(
+            optionFilters.englishLanguageAcquisitionStatuses,
+            settingFilters.englishLanguageAcquisitionStatuses,
+            code => translate(`common.elas.${code}`)
+          )
+        });
+      }
       if (!equalSize(optionFilters.section504s, settingFilters.section504s)) {
         filterRows.push({
           label: translate('aggregate-report-form.field.504-label'),
@@ -280,7 +290,7 @@ export class AggregateReportSummary {
       ...variableSections
     )
     // removes empty columns
-    .filter(holder => holder.reduce((totalRows, column) => totalRows + column.rows.length, 0) > 0);
+      .filter(holder => holder.reduce((totalRows, column) => totalRows + column.rows.length, 0) > 0);
   }
 
 }

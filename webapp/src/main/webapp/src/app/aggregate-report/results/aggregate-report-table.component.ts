@@ -1,17 +1,17 @@
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
-import { Ordering, ordering } from "@kourge/ordering";
-import { AggregateReportItem } from "./aggregate-report-item";
-import { byNumber, byString, Comparator, join, ranking } from "@kourge/ordering/comparator";
-import { ColorService } from "../../shared/color.service";
-import { AssessmentDefinition } from "../assessment/assessment-definition";
-import { District, OrganizationType, School } from "../../shared/organization/organization";
-import { Utils } from "../../shared/support/support";
-import { AggregateReportOptions } from "../aggregate-report-options";
-import { PerformanceLevelDisplayTypes } from "../../shared/display-options/performance-level-display-type";
-import { ValueDisplayTypes } from "../../shared/display-options/value-display-type";
-import { AggregateReportTableExportService, ExportOptions } from "./aggregate-report-table-export.service";
-import { Table } from "primeng/table";
-import { SortEvent } from "primeng/api";
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Ordering, ordering } from '@kourge/ordering';
+import { AggregateReportItem } from './aggregate-report-item';
+import { byNumber, byString, Comparator, join, ranking } from '@kourge/ordering/comparator';
+import { ColorService } from '../../shared/color.service';
+import { AssessmentDefinition } from '../assessment/assessment-definition';
+import { District, OrganizationType, School } from '../../shared/organization/organization';
+import { Utils } from '../../shared/support/support';
+import { AggregateReportOptions } from '../aggregate-report-options';
+import { PerformanceLevelDisplayTypes } from '../../shared/display-options/performance-level-display-type';
+import { ValueDisplayTypes } from '../../shared/display-options/value-display-type';
+import { AggregateReportTableExportService, ExportOptions } from './aggregate-report-table-export.service';
+import { Table } from 'primeng/table';
+import { SortEvent } from 'primeng/api';
 import * as _ from 'lodash';
 
 export const SupportedRowCount = 10000;
@@ -76,7 +76,7 @@ export class AggregateReportTableComponent implements OnInit {
   @Input()
   public preview: boolean = false;
 
-  @ViewChild("dataTable")
+  @ViewChild('dataTable')
   private dataTable: Table;
 
   public treeColumns: number[] = [];
@@ -89,7 +89,7 @@ export class AggregateReportTableComponent implements OnInit {
   private _table: AggregateReportTable;
   private _identityColumns: string[] = IdentityColumnOptions.concat();
   private _districtNamesById: Map<number, string> = new Map();
-  private _orderingByColumnField: { [key: string]: Ordering<AggregateReportItem> } = {};
+  private _orderingByColumnField: { [ key: string ]: Ordering<AggregateReportItem> } = {};
   private _valueDisplayType: string = ValueDisplayTypes.Percent;
   private _performanceLevelDisplayType: string = PerformanceLevelDisplayTypes.Separate;
 
@@ -286,19 +286,19 @@ export class AggregateReportTableComponent implements OnInit {
     };
 
     const IdentityColumns: Column[] = [
-      new Column({ id: "organization", field: "organization.name" }),
-      new Column({ id: "assessmentGrade", field: "assessmentGradeCode" }),
+      new Column({ id: 'organization', field: 'organization.name' }),
+      new Column({ id: 'assessmentGrade', field: 'assessmentGradeCode' }),
       new Column({ id: 'assessmentLabel' }),
-      new Column({ id: "schoolYear" }),
-      new Column({ id: "dimension", field: "dimension.id" }),
+      new Column({ id: 'schoolYear' }),
+      new Column({ id: 'dimension', field: 'dimension.id' }),
     ];
 
     this.columns = [
       ...this.identityColumns
         .map(columnId => IdentityColumns.find(column => column.id === columnId)),
-      new Column({ id: "studentsTested" }),
-      new Column({ id: "achievementComparison", sortable: false }),
-      new Column({ id: "avgScaleScore" }),
+      new Column({ id: 'studentsTested' }),
+      new Column({ id: 'achievementComparison', sortable: false }),
+      new Column({ id: 'avgScaleScore' }),
       ...this.createPerformanceLevelColumns(performanceLevelsByDisplayType, assessmentDefinition)
     ];
 
@@ -400,7 +400,7 @@ export class AggregateReportTableComponent implements OnInit {
     let index: number;
     for (index = 0; index < this.identityColumns.length - 1; index++) {
       const column: Column = this.columns[ index ];
-      if (column.id === "organization") {
+      if (column.id === 'organization') {
         const previousOrg = previousItem.organization;
         const currentOrg = currentItem.organization;
         if (!previousOrg.equals(currentOrg)) {
@@ -493,6 +493,7 @@ export class AggregateReportTableComponent implements OnInit {
       Gender: options.studentFilters.genders,
       Ethnicity: options.studentFilters.ethnicities,
       LEP: options.studentFilters.limitedEnglishProficiencies,
+      ELAS: options.studentFilters.englishLanguageAcquisitionStatuses,
       MigrantStatus: options.studentFilters.migrantStatuses,
       Section504: options.studentFilters.migrantStatuses,
       IEP: options.studentFilters.individualEducationPlans,
@@ -561,14 +562,14 @@ class Column {
 
   constructor({
                 id,
-                field = "",
+                field = '',
                 sortable = true,
                 visible = true,
-                displayType = "",
+                displayType = '',
                 level = -1,
                 index = -1,
-                headerKey = "",
-                headerColor = ""
+                headerKey = '',
+                headerColor = ''
               }) {
     this.id = id;
     this.field = field ? field : id;

@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {SubgroupFilters} from "./subgroup-filters";
-import {SubgroupFilterFormOptions} from "./subgroup-filter-form-options";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { SubgroupFilters } from './subgroup-filters';
+import { SubgroupFilterFormOptions } from './subgroup-filter-form-options';
+import { ApplicationSettingsService } from '../app-settings.service';
 
 
 @Component({
@@ -18,7 +19,14 @@ export class SubgroupFiltersComponent {
   @Output()
   changed: EventEmitter<any> = new EventEmitter();
 
-  constructor() {
+  showElas = false;
+  showLep = false;
+
+  constructor(private applicationSettingsService: ApplicationSettingsService) {
+    applicationSettingsService.getSettings().subscribe(settings => {
+      this.showElas = settings.elasEnabled;
+      this.showLep = settings.lepEnabled;
+    });
 
   }
 
