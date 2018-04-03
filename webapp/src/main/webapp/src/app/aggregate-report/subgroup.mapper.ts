@@ -10,6 +10,14 @@ export class SubgroupMapper {
   constructor(private translate: TranslateService) {
   }
 
+  createOverallSubgroupFiltersListItem(): SubgroupFiltersListItem {
+    return {
+      id: '',
+      name: this.translate.instant('common.dimension.Overall'),
+      value: undefined
+    };
+  }
+
   createSubgroupFiltersListItem(value: SubgroupFilters): SubgroupFiltersListItem {
     const dimensions = this.createDimensions(value);
     return {

@@ -1,15 +1,14 @@
-import { Injectable } from "@angular/core";
-import { AggregateReportItem } from "./aggregate-report-item";
-import { AggregateReportRow } from "../../report/aggregate-report";
-import { AssessmentDefinition } from "../assessment/assessment-definition";
-import { OrganizationMapper } from "../../shared/organization/organization.mapper";
-import {SubgroupMapper} from "../subgroup.mapper";
-import { SubgroupFilters } from '../subgroup-filters';
+import { Injectable } from '@angular/core';
+import { AggregateReportItem } from './aggregate-report-item';
+import { AggregateReportRow } from '../../report/aggregate-report';
+import { AssessmentDefinition } from '../assessment/assessment-definition';
+import { OrganizationMapper } from '../../shared/organization/organization.mapper';
+import { SubgroupMapper } from '../subgroup.mapper';
 import {
-  BasicAggregateReportQuery, BasicAggregateReportRequest,
-  StudentFilters
+  BasicAggregateReportQuery, StudentFilters
 } from '../../report/basic-aggregate-report-request';
 import { AggregateReportRequestMapper } from '../aggregate-report-request.mapper';
+import { SubgroupFiltersListItem } from '../subgroup-filters-list-item';
 
 /**
  * Maps server modeled aggregate report rows into client friendly table rows
@@ -31,7 +30,8 @@ export class AggregateReportItemMapper {
       return this.createBasicRow(assessmentDefinition, row, uuid);
     }
     if (query.queryType === 'FilteredSubgroup') {
-      return this.createFilteredSubgroupRow(assessmentDefinition, row, uuid, query.subgroups);
+      const overall = this.subgroupMapper.createOverallSubgroupFiltersListItem();
+      return this.createFilteredSubgroupRow(assessmentDefinition, row, uuid, query.subgroups, overall);
     }
     throw new Error(`Unsupported query type "${query.queryType}"`);
   }
@@ -48,12 +48,14 @@ export class AggregateReportItemMapper {
   createFilteredSubgroupRow(assessmentDefinition: AssessmentDefinition,
                             row: AggregateReportRow,
                             uuid: number,
-                            subgroups: {[key: string]: StudentFilters}): AggregateReportItem {
+                            subgroups: { [ key: string ]: StudentFilters },
+                            overall: SubgroupFiltersListItem): AggregateReportItem {
 
     const item = this.createRowInternal(assessmentDefinition, row, uuid);
-    item.subgroup = this.subgroupMapper.createSubgroupFiltersListItem(
-      this.requestMapper.createSubgroupFilters(subgroups[row.subgroupKey])
-    );
+    const serverSubgroup = subgroups[ row.subgroupKey ];
+    item.dimension = serverSubgroup
+      ? this.subgroupMapper.createSubgroupFiltersListItem(this.requestMapper.createSubgroupFilters(serverSubgroup))
+      : overall;
     return item;
   }
 

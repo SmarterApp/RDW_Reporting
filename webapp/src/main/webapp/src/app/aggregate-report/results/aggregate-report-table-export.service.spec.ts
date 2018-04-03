@@ -1,11 +1,11 @@
-import { AggregateReportTableExportService, ExportOptions } from "./aggregate-report-table-export.service";
-import { CsvBuilder } from "../../csv-export/csv-builder.service";
-import { TranslateService } from "@ngx-translate/core";
-import { inject, TestBed } from "@angular/core/testing";
-import { AggregateReportItem } from "./aggregate-report-item";
-import { DefaultSchool } from "../../shared/organization/organization";
-import { ValueDisplayTypes } from "../../shared/display-options/value-display-type";
-import { PerformanceLevelDisplayTypes } from "../../shared/display-options/performance-level-display-type";
+import { AggregateReportTableExportService, ExportOptions } from './aggregate-report-table-export.service';
+import { CsvBuilder } from '../../csv-export/csv-builder.service';
+import { TranslateService } from '@ngx-translate/core';
+import { inject, TestBed } from '@angular/core/testing';
+import { AggregateReportItem } from './aggregate-report-item';
+import { DefaultSchool } from '../../shared/organization/organization';
+import { ValueDisplayTypes } from '../../shared/display-options/value-display-type';
+import { PerformanceLevelDisplayTypes } from '../../shared/display-options/performance-level-display-type';
 import Spy = jasmine.Spy;
 import CallInfo = jasmine.CallInfo;
 
@@ -30,20 +30,20 @@ describe('AggregateReportTableExportService', () => {
         performanceLevelGroupingCutPoint: 3,
         aggregateReportIdentityColumns: [ 'columnA' ]
       },
-      name: "my_export"
+      name: 'my_export'
     };
 
     csvBuilder = jasmine.createSpyObj(
-      "CsvBuilder",
-      [ "newBuilder", "withFilename", "withColumn", "build" ]
+      'CsvBuilder',
+      [ 'newBuilder', 'withFilename', 'withColumn', 'build' ]
     );
     (csvBuilder.withFilename as Spy).and.callFake(() => csvBuilder);
     (csvBuilder.newBuilder as Spy).and.callFake(() => csvBuilder);
     (csvBuilder.withColumn as Spy).and.callFake(() => csvBuilder);
 
     translateService = jasmine.createSpyObj(
-      "TranslateService",
-      [ "instant" ]
+      'TranslateService',
+      [ 'instant' ]
     );
     (translateService.instant as Spy).and.callFake((key) => key);
 
@@ -79,13 +79,13 @@ describe('AggregateReportTableExportService', () => {
 
     const withColumnCalls: CallInfo[] = (csvBuilder.withColumn as Spy).calls.all();
 
-    //dimension
+    // dimension
     expect(withColumnCalls[ 0 ].args).toEqual([
       'aggregate-report-table.columns.dimension',
       jasmine.any(Function)
     ]);
 
-    //organization
+    // organization
     expect(withColumnCalls[ 1 ].args).toEqual([
       'aggregate-report-table.columns.organization',
       jasmine.any(Function)
@@ -95,13 +95,13 @@ describe('AggregateReportTableExportService', () => {
       jasmine.any(Function)
     ]);
 
-    //assessmentGrade
+    // assessmentGrade
     expect(withColumnCalls[ 3 ].args).toEqual([
       'aggregate-report-table.columns.assessment-grade',
       jasmine.any(Function)
     ]);
 
-    //schoolYear
+    // schoolYear
     expect(withColumnCalls[ 4 ].args).toEqual([
       'aggregate-report-table.columns.school-year',
       jasmine.any(Function)
@@ -154,8 +154,8 @@ describe('AggregateReportTableExportService', () => {
     const item: AggregateReportItem = new AggregateReportItem();
     item.itemId = itemIdx++;
     item.assessmentId = 123;
-    item.assessmentGradeCode = "03";
-    item.subjectCode = "ELA";
+    item.assessmentGradeCode = '03';
+    item.subjectCode = 'ELA';
     item.schoolYear = 1999;
     item.avgScaleScore = 2500;
     item.avgStdErr = 50;
@@ -173,15 +173,15 @@ describe('AggregateReportTableExportService', () => {
 
     const org: DefaultSchool = new DefaultSchool();
     org.id = 123;
-    org.name = "School A";
-    org.naturalId = "school_a";
+    org.name = 'School A';
+    org.naturalId = 'school_a';
     item.organization = org;
 
-    item.dimension = {
-      id: "Gender:Male",
-      type: "Gender",
-      code: "Male",
-      name: "Gender: Male"
+    item.dimension = <any>{
+      id: 'Gender:Male',
+      type: 'Gender',
+      code: 'Male',
+      name: 'Gender: Male'
     };
 
     return item;

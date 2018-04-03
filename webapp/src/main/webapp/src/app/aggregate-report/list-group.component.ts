@@ -30,7 +30,6 @@ export class ListGroupComponent {
   @Input()
   set items(items: any[]) {
     this._items = items ? items.concat() : [];
-    console.log('set', this._items);
   }
 
 }

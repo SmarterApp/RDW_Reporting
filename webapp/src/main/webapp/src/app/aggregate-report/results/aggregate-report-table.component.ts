@@ -205,7 +205,7 @@ export class AggregateReportTableComponent implements OnInit {
     const ordering: Comparator<AggregateReportItem>[] = this.getidentityColumns();
 
     if (!event.field) {
-      //We're not sorting on a field.  Just apply the default column ordering
+      // We're not sorting on a field.  Just apply the default column ordering
       event.data.sort(join(...ordering));
       this.calculateTreeColumns();
       return;
@@ -213,18 +213,18 @@ export class AggregateReportTableComponent implements OnInit {
 
     if (!this._previousSortEvent ||
       event === this._previousSortEvent ||
-      event.order != 1 ||
-      event.field != this._previousSortEvent.field) {
+      event.order !== 1 ||
+      event.field !== this._previousSortEvent.field) {
       // Standard column sort.  Sort on the selected column first, then default sorting.
       ordering.unshift(this.getComparator(event.field, event.order));
       this._previousSortEvent = event;
     } else {
-      //This is the third time sorting on the same column, reset to default sorting
+      // This is the third time sorting on the same column, reset to default sorting
       delete this._previousSortEvent;
       this.dataTable.reset();
     }
 
-    //Sort the data based upon the ordered list of Comparators
+    // Sort the data based upon the ordered list of Comparators
     event.data.sort(join(...ordering));
     this.calculateTreeColumns();
   }
@@ -290,7 +290,7 @@ export class AggregateReportTableComponent implements OnInit {
       new Column({ id: 'assessmentGrade', field: 'assessmentGradeCode' }),
       new Column({ id: 'assessmentLabel' }),
       new Column({ id: 'schoolYear' }),
-      new Column({ id: 'dimension', field: 'dimension.id' }),
+      new Column({ id: 'dimension', field: 'dimension.id' })
     ];
 
     this.columns = [
@@ -307,10 +307,10 @@ export class AggregateReportTableComponent implements OnInit {
 
   private renderWithPreviousRowSorting(): void {
     if (!this._previousSortEvent) {
-      //re-apply default sorting
+      // re-apply default sorting
       this.dataTable.sortSingle();
     } else {
-      //re-apply the last sort
+      // re-apply the last sort
       this.sort(this._previousSortEvent);
     }
   }
@@ -344,7 +344,7 @@ export class AggregateReportTableComponent implements OnInit {
    * @returns {Comparator<AggregateReportItem>} A Comparator for ordering results by the given field
    */
   private getComparator(field: string, order: number): Comparator<AggregateReportItem> {
-    let ascending: boolean = order >= 0;
+    const ascending: boolean = order >= 0;
     let rowOrdering: Ordering<AggregateReportItem> = this._orderingByColumnField[ field ];
     if (!rowOrdering) {
       const defaultValue: number = ascending ? Number.MAX_SAFE_INTEGER : Number.MIN_SAFE_INTEGER;
@@ -409,7 +409,7 @@ export class AggregateReportTableComponent implements OnInit {
       } else {
         const previousValue = _.get(previousItem, column.field); // TODO would be nice if this was based on "sortField" as opposed to field
         const currentValue = _.get(currentItem, column.field);
-        if (previousValue != currentValue) {
+        if (previousValue !== currentValue) {
           break;
         }
       }
@@ -452,7 +452,7 @@ export class AggregateReportTableComponent implements OnInit {
   private updatePerformanceLevelColumns() {
     (this.columns || [])
       .filter(column => column.id === 'performanceLevel')
-      .forEach(column => {
+      .forEach((column: Column) => {
         column.visible = column.displayType === this.performanceLevelDisplayType;
         column.field = `performanceLevelByDisplayTypes.${column.displayType}.${this.valueDisplayType}.${column.index}`;
         column.headerKey = this.getPerformanceLevelColumnHeaderTranslationCode(column.displayType, column.level, column.index);
@@ -508,8 +508,8 @@ export class AggregateReportTableComponent implements OnInit {
 
     const dimensionTypeAndCodeComparator: Comparator<AggregateReportItem> = ordering(ranking(
       [ OverallDimensionType, ...dimensionTypeAndCodeRankingValues ]
-    ))
-      .on((item: AggregateReportItem) => `${item.dimension.type}.${item.dimension.code}`)
+      ))
+      .on((item: AggregateReportItem) => item.dimension.id)
       .compare;
 
     // Attempt to sort based upon the enrolled grade code as a number ("01", "02", "KG", "UG", etc)
@@ -517,11 +517,12 @@ export class AggregateReportTableComponent implements OnInit {
     // TODO we should have a specific ordering for all grade codes, although the system only currently uses "03" - "12"
     const enrolledGradeComparator: Comparator<AggregateReportItem> = ordering(byNumber)
       .on((item: AggregateReportItem) => {
-        if (item.dimension.type !== 'StudentEnrolledGrade') {
+        const { type, code } = <any>item.dimension;
+        if (type == null || type !== 'StudentEnrolledGrade') {
           return -1;
         }
         try {
-          return parseInt(item.dimension.code);
+          return parseInt(code);
         } catch (error) {
           return 1;
         }
@@ -530,7 +531,9 @@ export class AggregateReportTableComponent implements OnInit {
 
     return ordering(join(
       dimensionTypeAndCodeComparator,
-      enrolledGradeComparator));
+      enrolledGradeComparator,
+      ordering(byString).on(({ dimension }) => dimension.id).compare
+    ));
   }
 }
 
@@ -541,19 +544,19 @@ export interface AggregateReportTable {
 }
 
 class Column {
-  //The column id/type
+  // The column id/type
   id: string;
 
-  //The sort/display field for a row item (defaults to id)
+  // The sort/display field for a row item (defaults to id)
   field: string;
 
-  //True if the column is sortable (default true)
+  // True if the column is sortable (default true)
   sortable: boolean;
 
-  //True if the column is displayed (default true)
+  // True if the column is displayed (default true)
   visible: boolean;
 
-  //The following properties are only used by performance level columns
+  // The following properties are only used by performance level columns
   displayType?: string;
   level?: number;
   index?: number;

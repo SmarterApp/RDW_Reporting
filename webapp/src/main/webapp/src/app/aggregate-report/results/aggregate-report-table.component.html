@@ -77,8 +77,10 @@
             {{rowData.schoolYear | schoolYear}}
           </div>
 
-          <div *ngSwitchCase="'dimension'">
-            {{rowData.dimension ? rowData.dimension.name : rowData.subgroup.name}}
+          <div *ngSwitchCase="'dimension'"
+               class="label-max-width"
+               title="{{rowData.dimension.name}}">
+            {{rowData.dimension.name}}
           </div>
 
           <div *ngSwitchCase="'studentsTested'"

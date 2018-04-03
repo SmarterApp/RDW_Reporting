@@ -34,14 +34,14 @@ export class AggregateReportTableDataService {
     const groupedPerformanceLevelCount = studentsTested * 0.5;
     const groupedPerformanceLevelCounts = [ groupedPerformanceLevelCount, groupedPerformanceLevelCount ];
 
-    const createRows = (values: any[], setter: (row: AggregateReportItem, value: any) => void): AggregateReportItem[] => {
+    const createRows = (values: {id: string, name: string}[]): AggregateReportItem[] => {
       let uuid = 0;
       const rows: AggregateReportItem[] = [];
       for (const organization of organizations) {
         for (const assessmentGradeCode of assessmentGradeCodes) {
           for (const schoolYear of schoolYears) {
             for (const value of values) {
-              const row = {
+              const row: any = {
                 itemId: ++uuid,
                 organization: organization,
                 assessmentId: undefined,
@@ -61,9 +61,9 @@ export class AggregateReportTableDataService {
                     Number: groupedPerformanceLevelCounts,
                     Percent: groupedPerformanceLevelCounts
                   }
-                }
+                },
+                dimension: value
               };
-              setter(row, value);
               rows.push(row);
             }
           }
@@ -77,14 +77,14 @@ export class AggregateReportTableDataService {
         settings.studentFilters,
         ['Overall', ...settings.dimensionTypes]
       );
-      return createRows(dimensions, (item, value) => item.dimension = value);
+      return createRows(dimensions);
     } else if (settings.queryType === 'FilteredSubgroup') {
-      const subgroups = [{
-        name: 'Overall'
-      }].concat(
+      const subgroups = [
+        this.subgroupMapper.createOverallSubgroupFiltersListItem()
+      ].concat(
         settings.subgroups.map(subgroup => this.subgroupMapper.createSubgroupFiltersListItem(subgroup))
       );
-      return createRows(subgroups, (item, value) => item.subgroup = value);
+      return createRows(subgroups);
     }
     throw new Error(`Unsupported query type "${settings.queryType}"`);
   }
