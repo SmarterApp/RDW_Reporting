@@ -131,11 +131,8 @@ export class AggregateReportOptionsMapper {
   }
 
   private filterElasOrLep(dimensionType: string): boolean {
-    if (dimensionType === 'LEP' && this.showLep === false ||
-      dimensionType === 'ELAS' && this.showElas === false) {
-      return false;
-    }
-    return true;
+    return (dimensionType !== 'LEP' || this.showLep)
+      && (dimensionType !== 'ELAS' || this.showElas);
   }
 
   /**
