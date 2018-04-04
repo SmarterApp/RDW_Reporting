@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { ActivatedRoute } from "@angular/router";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
-import { AssessmentTypePipe } from "../../shared/assessment-type.pipe";
 import { ColorService } from "../../shared/color.service";
 import { AssessmentItem } from "../../assessments/model/assessment-item.model";
 import { Exam } from "../../assessments/model/exam.model";
@@ -42,7 +41,6 @@ describe('StudentResponsesComponent', () => {
       ],
       declarations: [
         AuthorizationDirective,
-        AssessmentTypePipe,
         OptionalPipe,
         StudentResponsesComponent
       ],

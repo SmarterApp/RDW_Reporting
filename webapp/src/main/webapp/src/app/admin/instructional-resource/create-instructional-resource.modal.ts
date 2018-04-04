@@ -82,7 +82,7 @@ export class CreateInstructionalResourceModal implements OnDestroy {
   }
 
   create() {
-    let resource: InstructionalResource = new InstructionalResource();
+    const resource: InstructionalResource = new InstructionalResource();
     resource.performanceLevel = this.performanceLevel;
     resource.organizationType = this.organization.organizationType;
     resource.assessmentName = this.assessment.name;
@@ -99,7 +99,7 @@ export class CreateInstructionalResourceModal implements OnDestroy {
   }
 
   findAssessments(search: string): Observable<Assessment[]> {
-    let query: AssessmentQuery = new AssessmentQuery();
+    const query: AssessmentQuery = new AssessmentQuery();
     query.label = search;
 
     return this.assessmentService.find(query)
@@ -113,10 +113,9 @@ export class CreateInstructionalResourceModal implements OnDestroy {
   }
 
   findOrganizations(search: string): Observable<Organization[]> {
-    let query: OrganizationQuery = new OrganizationQuery();
+    const query: OrganizationQuery = new OrganizationQuery();
     query.types = [ 'State', 'DistrictGroup', 'District', 'SchoolGroup' ];
     query.name = search;
-
     return this.organizationService.find(query);
   }
 
@@ -139,30 +138,30 @@ export class CreateInstructionalResourceModal implements OnDestroy {
   private validateExisting(): ValidationErrors | null {
     if (!this.organization || !this.assessment || this.performanceLevel < 0) {
       this.duplicateResource = false;
-      return
+      return;
     }
 
-    let existingResource = this.existingResources.find((existingResource: InstructionalResource) => {
-      return existingResource.assessmentName == this.assessment.name &&
-        existingResource.organizationType == this.organization.organizationType &&
-        existingResource.organizationId == this.organization.id &&
-        existingResource.performanceLevel == this.performanceLevel;
+    const existingResource = this.existingResources.find((resource: InstructionalResource) => {
+      return resource.assessmentName === this.assessment.name &&
+        resource.organizationType === this.organization.organizationType &&
+        resource.organizationId === this.organization.id &&
+        resource.performanceLevel === this.performanceLevel;
     });
     this.duplicateResource = (existingResource != null);
   }
 
   private removeDuplicateNames(assessments: Assessment[]): Assessment[] {
-    let assessmentNames = [];
+    const assessmentNames = [];
     return assessments.filter(assessment => {
       if (assessmentNames.indexOf(assessment.name) >= 0) {
         return false;
       }
       assessmentNames.push(assessment.name);
       return true;
-    })
+    });
   }
 
   private getPerformanceLevels(assessmentType: string): number[] {
-    return assessmentType == "IAB" ? [ 1, 2, 3 ] : [ 1, 2, 3, 4 ];
+    return assessmentType === 'iab' ? [ 1, 2, 3 ] : [ 1, 2, 3, 4 ];
   }
 }

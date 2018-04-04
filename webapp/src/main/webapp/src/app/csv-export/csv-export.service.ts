@@ -85,7 +85,7 @@ export class CsvExportService {
     let getAssessment = (wrapper: StudentHistoryExamWrapper) => wrapper.assessment;
     let getIABExam = (wrapper: StudentHistoryExamWrapper) => wrapper.assessment.isIab ? wrapper.exam : null;
     let getNonIABExam = (wrapper: StudentHistoryExamWrapper) => wrapper.assessment.isIab ? null: wrapper.exam;
-    let getNonIABMathExam = (wrapper: StudentHistoryExamWrapper) => !wrapper.assessment.isIab && wrapper.assessment.subject === 'MATH' ? wrapper.exam : null;
+    let getNonIABMathExam = (wrapper: StudentHistoryExamWrapper) => !wrapper.assessment.isIab && wrapper.assessment.subject === 'Math' ? wrapper.exam : null;
     let getNonIABElaExam = (wrapper: StudentHistoryExamWrapper) => !wrapper.assessment.isIab && wrapper.assessment.subject === 'ELA' ? wrapper.exam : null;
 
     this.csvBuilder

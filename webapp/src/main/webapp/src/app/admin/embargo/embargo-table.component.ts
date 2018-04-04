@@ -23,7 +23,7 @@ export class EmbargoTable implements OnInit {
   toggle: EventEmitter<EmbargoToggleEvent> = new EventEmitter<EmbargoToggleEvent>();
 
   // TODO later this will be provided by a service and will be the actual subject codes: ELA, Math
-  subjectCodes: string[] = [ 'ELA', 'MATH' ];
+  subjectCodes: string[] = [ 'ELA', 'Math' ];
   columns: Column[];
 
   get hasMultipleEmbargoes(): boolean {
@@ -44,7 +44,7 @@ export class EmbargoTable implements OnInit {
       ...this.getSubjectColumns(),
       new Column({id: 'individualEnabled'}),
       new Column({id: 'aggregateEnabled'})
-    ]
+    ];
   }
 
   toggleIndividual(toggle: Toggle, embargo: Embargo): void {
@@ -63,7 +63,7 @@ export class EmbargoTable implements OnInit {
         id: 'subject',
         code: code
       });
-    })
+    });
   }
 
   private toggleInternal(toggle: Toggle, embargo: Embargo, scope: EmbargoScope, embargoEnabled: boolean, overridingEmbargoEnabled: boolean): void {

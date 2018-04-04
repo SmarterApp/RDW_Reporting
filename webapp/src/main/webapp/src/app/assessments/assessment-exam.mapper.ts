@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { AssessmentExam } from "./model/assessment-exam.model";
 import { Assessment } from "./model/assessment.model";
 import { Exam } from "./model/exam.model";
-import { AssessmentType } from "../shared/enum/assessment-type.enum";
 import { AssessmentItem } from "./model/assessment-item.model";
 import { ExamItemScore } from "./model/exam-item-score.model";
 import { byGradeThenByName } from "./assessment.comparator";
@@ -11,138 +10,111 @@ import { byNumber } from "@kourge/ordering/comparator";
 import { ClaimScore } from "./model/claim-score.model";
 import { Student } from "../student/model/student.model";
 import { Utils } from "../shared/support/support";
-import { DefaultSchool } from "../shared/organization/organization";
+import { DefaultSchool, School } from '../shared/organization/organization';
 
 @Injectable()
 export class AssessmentExamMapper {
 
-  mapFromApi(apiModel): AssessmentExam {
-    let uiModel = new AssessmentExam();
-
-    uiModel.assessment = this.mapAssessmentFromApi(apiModel.assessment);
-    uiModel.exams = [];
-
-    apiModel.exams.forEach(x =>
-      uiModel.exams.push(this.mapExamFromApi(x))
-    );
-
-    return uiModel;
+  mapFromApi(serverAssessmentExam: any): AssessmentExam {
+    const assessmentExam = new AssessmentExam();
+    assessmentExam.assessment = this.mapAssessmentFromApi(serverAssessmentExam.assessment);
+    assessmentExam.exams = serverAssessmentExam.exams.map(serverExam => this.mapExamFromApi(serverExam));
+    return assessmentExam;
   }
 
-  mapAssessmentsFromApi(apiModels): Assessment[] {
-    let uiModels = apiModels.map(x => this.mapAssessmentFromApi(x));
-    uiModels.sort(byGradeThenByName);
-    return uiModels;
+  mapAssessmentsFromApi(serverAssessments: any[]): Assessment[] {
+    return serverAssessments
+      .map(serverAssessment => this.mapAssessmentFromApi(serverAssessment))
+      .sort(byGradeThenByName); // TODO move to backend or make view specific
   }
 
-  mapExamsFromApi(apiModels): Exam[] {
-    return apiModels.map(x => this.mapExamFromApi(x));
+  mapExamsFromApi(serverExams: any[]): Exam[] {
+    return serverExams.map(serverExam => this.mapExamFromApi(serverExam));
   }
 
-  mapAssessmentItemsFromApi(apiModel) {
-    let uiModels: AssessmentItem[] = [];
-
-    for (let apiAssessment of apiModel.assessmentItems) {
-      let assessmentItem = this.mapAssessmentItemFromApi(apiAssessment);
-
-      for (let apiExamItem of apiModel.examItems.filter(x => x.itemId == assessmentItem.id)) {
-        assessmentItem.scores.push(this.mapExamItemFromApi(apiExamItem));
-      }
-
-      uiModels.push(assessmentItem);
-    }
-
-    uiModels.sort(ordering(byNumber).on<AssessmentItem>(ai => ai.position).compare);
-    return uiModels;
+  mapAssessmentItemsFromApi(serverAssessmentExamItems: any): AssessmentItem[] {
+    return serverAssessmentExamItems.assessmentItems
+      .map(serverAssessmentItem => {
+        const item = this.mapAssessmentItemFromApi(serverAssessmentItem);
+        item.scores = serverAssessmentExamItems.examItems
+          .filter(serverExamItem => serverExamItem.itemId === serverAssessmentItem.id)
+          .map(serverExamItem => this.mapExamItemFromApi(serverExamItem));
+        return item;
+      })
+      .sort(ordering(byNumber).on<AssessmentItem>(ai => ai.position).compare);
   }
 
-  mapAssessmentFromApi(apiModel: any): Assessment {
-    let uiModel = new Assessment();
-
-    uiModel.id = apiModel.id;
-    uiModel.label = apiModel.label;
-    uiModel.grade = apiModel.gradeCode;
-    uiModel.type = AssessmentType[ apiModel.type as string ];
-    uiModel.subject = apiModel.subject;
-    uiModel.claimCodes = apiModel.claimCodes || [];
-    uiModel.cutPoints = apiModel.cutPoints || [];
-    uiModel.resourceUrl = apiModel.resourceUrl;
-
-    return uiModel;
+  mapAssessmentFromApi(serverAssessment: any): Assessment {
+    const assessment = new Assessment();
+    assessment.id = serverAssessment.id;
+    assessment.label = serverAssessment.label;
+    assessment.grade = serverAssessment.gradeCode;
+    assessment.type = serverAssessment.typeCode;
+    assessment.subject = serverAssessment.subjectCode;
+    assessment.claimCodes = serverAssessment.claimCodes || [];
+    assessment.cutPoints = serverAssessment.cutPoints || [];
+    assessment.resourceUrl = serverAssessment.resourceUrl;
+    return assessment;
   }
 
-  mapExamFromApi(apiModel): Exam {
-    let uiModel: Exam = new Exam();
+  mapExamFromApi(serverExam: any): Exam {
+    const exam: Exam = new Exam();
+    exam.id = serverExam.id;
+    exam.date = serverExam.dateTime;
+    exam.session = serverExam.sessionId;
+    exam.enrolledGrade = serverExam.gradeCode;
+    exam.administrativeCondition = serverExam.administrativeConditionCode;
+    exam.completeness = serverExam.completenessCode;
+    exam.schoolYear = serverExam.schoolYear;
+    exam.transfer = serverExam.transfer;
+    exam.school = this.createSchool(serverExam.school);
+    exam.claimScores = (serverExam.claimScaleScores || [])
+      .map(serverScaleScore => this.mapClaimScaleScoreFromApi(serverScaleScore));
 
-    uiModel.id = apiModel.id;
-    uiModel.date = apiModel.dateTime;
-    uiModel.session = apiModel.sessionId;
-    uiModel.enrolledGrade = apiModel.gradeCode;
-    uiModel.administrativeCondition = apiModel.administrativeConditionCode;
-    uiModel.completeness = apiModel.completenessCode;
-    uiModel.schoolYear = apiModel.schoolYear;
-    uiModel.transfer = apiModel.transfer;
-
-    let school: DefaultSchool = new DefaultSchool();
-    school.name = apiModel.school.name;
-    school.id = apiModel.school.id;
-    uiModel.school = school;
-
-    if (apiModel.claimScaleScores) {
-      uiModel.claimScores = this.mapClaimScaleScoresFromApi(apiModel.claimScaleScores);
+    if (serverExam.studentContext) {
+      const { migrantStatus, section504, iep, lep, elasCode } = serverExam.studentContext;
+      exam.migrantStatus = migrantStatus;
+      exam.plan504 = section504;
+      exam.iep = iep;
+      exam.limitedEnglishProficiency = lep;
+      exam.elasCode = elasCode;
     }
 
-    if (apiModel.studentContext) {
-      uiModel.migrantStatus = apiModel.studentContext.migrantStatus;
-      uiModel.plan504 = apiModel.studentContext.section504;
-      uiModel.iep = apiModel.studentContext.iep;
-      uiModel.limitedEnglishProficiency = apiModel.studentContext.lep;
-      uiModel.elasCode = apiModel.studentContext.elasCode;
+    if (serverExam.student) {
+      exam.student = this.mapStudentFromApi(serverExam.student);
     }
 
-    if (apiModel.student) {
-      uiModel.student = this.mapStudentFromApi(apiModel.student);
+    if (serverExam.scaleScore) {
+      const { value, level, standardError } = serverExam.scaleScore;
+      exam.score = value;
+      exam.level = level;
+      exam.standardError = standardError;
     }
 
-    if (apiModel.scaleScore) {
-      uiModel.score = apiModel.scaleScore.value;
-      uiModel.level = apiModel.scaleScore.level;
-      uiModel.standardError = apiModel.scaleScore.standardError;
-    }
+    exam.accommodationCodes = serverExam.accommodationCodes;
 
-    uiModel.accommodationCodes = [];
-    if (apiModel.accommodationCodes) {
-      apiModel.accommodationCodes.forEach(code => uiModel.accommodationCodes.push(code));
-    }
-
-    return uiModel;
+    return exam;
   }
 
-  mapStudentFromApi(apiModel): Student {
-    let uiModel: Student = new Student();
-    uiModel.id = apiModel.id;
-    uiModel.ssid = apiModel.ssid;
-    uiModel.firstName = apiModel.firstName;
-    uiModel.lastName = apiModel.lastName;
-    uiModel.genderCode = apiModel.genderCode;
-    uiModel.ethnicityCodes = [];
-    if (apiModel.ethnicityCodes) {
-      apiModel.ethnicityCodes.forEach(code => uiModel.ethnicityCodes.push(code));
-    }
-
-    return uiModel;
+  mapStudentFromApi(serverStudent: any): Student {
+    const student: Student = new Student();
+    student.id = serverStudent.id;
+    student.ssid = serverStudent.ssid;
+    student.firstName = serverStudent.firstName;
+    student.lastName = serverStudent.lastName;
+    student.genderCode = serverStudent.genderCode;
+    student.ethnicityCodes = serverStudent.ethnicityCodes;
+    return student;
   }
 
-  private mapExamItemFromApi(apiModel): ExamItemScore {
-    let uiModel: ExamItemScore = new ExamItemScore();
-
-    uiModel.examId = apiModel.examId;
-    uiModel.points = apiModel.points;
-    uiModel.position = apiModel.position;
-    uiModel.response = apiModel.response;
-    uiModel.writingTraitScores = apiModel.writingTraitScores;
-
-    return uiModel;
+  private mapExamItemFromApi(serverExamItem: any): ExamItemScore {
+    const examItem: ExamItemScore = new ExamItemScore();
+    examItem.examId = serverExamItem.examId;
+    examItem.points = serverExamItem.points;
+    examItem.position = serverExamItem.position;
+    examItem.response = serverExamItem.response;
+    examItem.writingTraitScores = serverExamItem.writingTraitScores;
+    return examItem;
   }
 
   private mapAssessmentItemFromApi(apiModel): AssessmentItem {
@@ -178,13 +150,6 @@ export class AssessmentExamMapper {
       : target.substring(0, dashIndex);
   }
 
-  private mapClaimScaleScoresFromApi(apiScaleScores: any[]): ClaimScore[] {
-    if (!Array.isArray(apiScaleScores)) return [];
-
-    return apiScaleScores
-      .map(apiScore => this.mapClaimScaleScoreFromApi(apiScore));
-  }
-
   private mapClaimScaleScoreFromApi(apiScaleScore: any): ClaimScore {
     let uiModel: ClaimScore = new ClaimScore();
 
@@ -196,5 +161,14 @@ export class AssessmentExamMapper {
 
     return uiModel;
   }
+
+  private createSchool(serverExamSchool: any): School {
+    const school: DefaultSchool = new DefaultSchool();
+    school.name = serverExamSchool.name;
+    school.id = serverExamSchool.id;
+    return school;
+  }
+
+
 }
 

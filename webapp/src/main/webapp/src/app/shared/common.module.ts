@@ -6,7 +6,6 @@ import { SBRadioButtonComponent } from "./sb-radio-button-list.component";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { SBCheckboxList } from "./sb-checkbox-list.component";
-import { AssessmentTypePipe } from "./assessment-type.pipe";
 import { ColorService } from "./color.service";
 import { Angulartics2Module } from "angulartics2";
 import { NotificationComponent } from "./notification/notification.component";
@@ -44,7 +43,6 @@ import { SchoolModule } from "./school/school.module";
 
 @NgModule({
   declarations: [
-    AssessmentTypePipe,
     InformationButtonComponent,
     OptionalPipe,
     OrderSelectorComponent,
@@ -87,7 +85,6 @@ import { SchoolModule } from "./school/school.module";
     })
   ],
   exports: [
-    AssessmentTypePipe,
     CommonEmbargoModule,
     InformationButtonComponent,
     OptionalPipe,

@@ -8,7 +8,6 @@ import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { StudentHistoryExamWrapper } from "../model/student-history-exam-wrapper.model";
 import { Exam } from "../../assessments/model/exam.model";
 import { Assessment } from "../../assessments/model/assessment.model";
-import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { ClaimScore } from "../../assessments/model/claim-score.model";
 import { MockRouter } from "../../../test/mock.router";
 import { CsvExportService } from "../../csv-export/csv-export.service";
@@ -103,10 +102,10 @@ describe('StudentResultsComponent', () => {
     }, []);
 
     const totalAssessmentTypes = filteredExams.reduce(
-      (collection, exam) => collection.add(exam.assessment.typeCode), new Set()).size;
+      (collection, exam) => collection.add(exam.assessment.type), new Set()).size;
 
     const totalSubjects = filteredExams.reduce(
-      (collection, exam) => collection.add(exam.assessment.subjectCode), new Set()).size;
+      (collection, exam) => collection.add(exam.assessment.subject), new Set()).size;
 
     expect(totalAssessmentTypes).toBe(1);
     expect(totalSubjects).toBe(1);
@@ -125,7 +124,7 @@ describe('StudentResultsComponent', () => {
     }, []);
 
     filteredExams.forEach(exam => {
-      expect(exam.assessment.subjectCode).toBe('MATH');
+      expect(exam.assessment.subject).toBe('MATH');
     });
   }));
 
@@ -148,10 +147,10 @@ class MockBuilder {
     student.lastName = 'last';
 
     let exams: StudentHistoryExamWrapper[] = [];
-    exams.push(MockBuilder.examWrapper(AssessmentType.ICA, 'MATH'));
-    exams.push(MockBuilder.examWrapper(AssessmentType.ICA, 'ELA'));
-    exams.push(MockBuilder.examWrapper(AssessmentType.IAB, 'MATH'));
-    exams.push(MockBuilder.examWrapper(AssessmentType.SUMMATIVE, 'ELA'));
+    exams.push(MockBuilder.examWrapper('ica', 'MATH'));
+    exams.push(MockBuilder.examWrapper('ica', 'ELA'));
+    exams.push(MockBuilder.examWrapper('iab', 'MATH'));
+    exams.push(MockBuilder.examWrapper('sum', 'ELA'));
 
     let history: StudentExamHistory = new StudentExamHistory();
     history.student = student;
@@ -159,7 +158,7 @@ class MockBuilder {
     return history;
   }
 
-  private static examWrapper(assessmentType: AssessmentType, subject: string): StudentHistoryExamWrapper {
+  private static examWrapper(assessmentType: string, subject: string): StudentHistoryExamWrapper {
     let wrapper: StudentHistoryExamWrapper = new StudentHistoryExamWrapper();
     wrapper.exam = MockBuilder.exam(assessmentType);
     wrapper.assessment = MockBuilder.assessment(assessmentType, subject);
@@ -167,7 +166,7 @@ class MockBuilder {
     return wrapper;
   }
 
-  private static exam(type: AssessmentType): Exam {
+  private static exam(type: string): Exam {
     let exam: Exam = new Exam();
     exam.date = new Date();
     exam.id = MockBuilder.examIdx++;
@@ -192,17 +191,17 @@ class MockBuilder {
     MockBuilder.oddExam = !MockBuilder.oddExam;
 
     exam.claimScores = [];
-    if (type !== AssessmentType.IAB) {
+    if (type !== 'iab') {
       exam.claimScores.push(MockBuilder.claimScore(1));
       exam.claimScores.push(MockBuilder.claimScore(2));
     }
 
-    exam.administrativeCondition = type === AssessmentType.SUMMATIVE ? 'Valid' : 'NS';
+    exam.administrativeCondition = type === 'sum' ? 'Valid' : 'NS';
 
     return exam;
   }
 
-  private static assessment(type: AssessmentType, subject: string): Assessment {
+  private static assessment(type: string, subject: string): Assessment {
     let assessment: Assessment = new Assessment();
     assessment.grade = '05';
     assessment.id = MockBuilder.assessmentIdx++;
@@ -211,7 +210,7 @@ class MockBuilder {
     assessment.type = type;
 
     assessment.claimCodes = [];
-    if (type !== AssessmentType.IAB) {
+    if (type !== 'iab') {
       assessment.claimCodes.push('1');
       assessment.claimCodes.push('2-W');
     }

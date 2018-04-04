@@ -548,18 +548,18 @@
       },
       "performance-levels": {
         "all": "All Levels",
-        "IAB": {
+        "iab": {
           "1": "Below Standard",
           "2": "Near Standard",
           "3": "Above Standard"
         },
-        "ICA": {
+        "ica": {
           "1": "Standard Not Met",
           "2": "Standard Nearly Met",
           "3": "Standard Met",
           "4": "Standard Exceeded"
         },
-        "SUMMATIVE": {
+        "sum": {
           "1": "Standard Not Met",
           "2": "Standard Nearly Met",
           "3": "Standard Met",
@@ -674,7 +674,7 @@
         "standard": "Standard",
         "standard-info": {
           "ELA": "This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  For example, a question that asks students to evaluate research sources may assess both reading and research skills.  For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf\" target=\"_blank\">English Language Arts Content Specifications</a>.",
-          "MATH": "This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  Items that assess mathematical practices (problem solving, modeling and data analysis, and communicating reasoning) are also aligned to standards that describe the mathematical content with which students engage. For example, an item may ask students to communicate their reasoning when solving a problem about geometry or fractions. For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf\" target=\"_blank\">Mathematics Content Specifications</a>."
+          "Math": "This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  Items that assess mathematical practices (problem solving, modeling and data analysis, and communicating reasoning) are also aligned to standards that describe the mathematical content with which students engage. For example, an item may ask students to communicate their reasoning when solving a problem about geometry or fractions. For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf\" target=\"_blank\">Mathematics Content Specifications</a>."
         },
         "x-points": "{{id}}"
       },
@@ -702,10 +702,6 @@
         "short-name": "ELA"
       },
       "Math": {
-        "name": "Math",
-        "short-name": "Math"
-      },
-      "MATH": {
         "name": "Math",
         "short-name": "Math"
       }
@@ -821,9 +817,7 @@
       "table": {
         "headers": {
           "aggregateEnabled": "Aggregate Test Results",
-          "ELA": "ELA",
           "individualEnabled": "Individual Test Results",
-          "MATH": "Math",
           "name": "District"
         }
       }
@@ -832,9 +826,7 @@
       "table": {
         "headers": {
           "aggregateEnabled": "Aggregate Test Results",
-          "ELA": "ELA",
           "individualEnabled": "Individual Test Results",
-          "MATH": "Math",
           "name": "State"
         }
       }
@@ -1151,11 +1143,6 @@
       "NO_RESULTS": "No Results",
       "PENDING": "Pending",
       "RUNNING": "Running"
-    },
-    "subjects": {
-      "0": "Math, ELA",
-      "1": "Math",
-      "2": "ELA"
     }
   },
   "results-by-student": {

@@ -181,8 +181,8 @@ export class ReportService {
   private toReportRequestParameters(options: ReportOptions): Object {
     return {
       name: options.name,
-      assessmentType: Utils.toServerAssessmentTypeEnum(options.assessmentType),
-      subject: Utils.toServerSubjectEnum(options.subject),
+      assessmentType: this.toServerAssessmentTypeEnum(options.assessmentType),
+      subject: this.toServerSubjectEnum(options.subject),
       schoolYear: options.schoolYear,
       language: options.language,
       grayscale: options.grayscale,
@@ -211,6 +211,16 @@ export class ReportService {
     report.metadata = serverReport.metadata || {};
     report.request = serverReport.request;
     return report;
+  }
+
+
+  // TODO stop using subject/assessment type enums. use codes instead.
+  private toServerSubjectEnum(code: string): string {
+    return { 'Math': 'MATH', 'ELA': 'ELA' }[ code ];
+  }
+
+  private toServerAssessmentTypeEnum(code: string): string {
+    return { 'ica': 'ICA', 'iab': 'IAB', 'sum': 'SUMMATIVE' }[ code ];
   }
 
 }

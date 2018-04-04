@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { InstructionalResource } from "./model/instructional-resource.model";
-import { Observable } from "rxjs/Observable";
-import { DataService } from "../../shared/data/data.service";
+import { Injectable } from '@angular/core';
+import { InstructionalResource } from './model/instructional-resource.model';
+import { Observable } from 'rxjs/Observable';
+import { DataService } from '../../shared/data/data.service';
 import { map } from 'rxjs/operators';
 import { AdminServiceRoute } from '../../shared/service-route';
 
@@ -22,10 +22,9 @@ export class InstructionalResourceService {
    * @returns {Observable<InstructionalResource[]>} The user's instructional resources
    */
   findAll(): Observable<InstructionalResource[]> {
-    return this.dataService.get(`${ServiceRoute}/instructional-resources`)
-      .pipe(
-        map(InstructionalResourceService.mapResourcesFromApi)
-      );
+    return this.dataService.get(`${ServiceRoute}/instructional-resources`).pipe(
+      map(InstructionalResourceService.mapResourcesFromApi)
+    );
   }
 
   /**
@@ -35,10 +34,9 @@ export class InstructionalResourceService {
    * @returns {Observable<InstructionalResource>} The created instructional resource
    */
   create(resource: InstructionalResource): Observable<InstructionalResource> {
-    return this.dataService.post(`${ServiceRoute}/instructional-resources`, resource)
-      .pipe(
-        map(InstructionalResourceService.mapResourceFromApi)
-      );
+    return this.dataService.post(`${ServiceRoute}/instructional-resources`, resource).pipe(
+      map(InstructionalResourceService.mapResourceFromApi)
+    );
   }
 
   /**
@@ -48,10 +46,9 @@ export class InstructionalResourceService {
    * @returns {Observable<InstructionalResource>} The updated instructional resource
    */
   update(resource: InstructionalResource): Observable<InstructionalResource> {
-    return this.dataService.put(`${ServiceRoute}/instructional-resources`, resource)
-      .pipe(
-        map(InstructionalResourceService.mapResourceFromApi)
-      );
+    return this.dataService.put(`${ServiceRoute}/instructional-resources`, resource).pipe(
+      map(InstructionalResourceService.mapResourceFromApi)
+    );
   }
 
   /**
@@ -61,7 +58,7 @@ export class InstructionalResourceService {
    * @returns {Observable<any>} Empty if the action was successful
    */
   delete(resource: InstructionalResource): Observable<any> {
-    return this.dataService.delete(`${ServiceRoute}/instructional-resources`, {params: resource});
+    return this.dataService.delete(`${ServiceRoute}/instructional-resources`, { params: <any>resource });
   }
 
   private static mapResourcesFromApi(serverResources) {
@@ -75,7 +72,7 @@ export class InstructionalResourceService {
     resource.organizationType = serverResource.organizationType;
     resource.assessmentLabel = serverResource.assessmentLabel;
     resource.assessmentName = serverResource.assessmentName;
-    resource.assessmentType = serverResource.assessmentType;
+    resource.assessmentType = serverResource.assessmentTypeCode;
     resource.resource = serverResource.resource;
     resource.performanceLevel = serverResource.performanceLevel;
     return resource;

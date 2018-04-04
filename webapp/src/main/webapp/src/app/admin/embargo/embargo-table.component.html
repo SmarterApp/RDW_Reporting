@@ -12,7 +12,7 @@
 
         <div *ngSwitchCase="'subject'"
               class="text-right">
-          {{translateContext + '.headers.' + column.code | translate}}
+          {{'common.subject.' + column.code + '.short-name' | translate}}
         </div>
 
         <div *ngSwitchDefault

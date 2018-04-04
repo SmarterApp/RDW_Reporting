@@ -101,7 +101,7 @@ export class ResultsByStudentComponent implements OnInit {
   }
 
   examLevelTranslation(exam: Exam): string {
-    return this.translate.instant(exam.level ? `common.assessment-type.${this.assessment.typeCode}.performance-level.${exam.level}.name` : 'common.missing');
+    return this.translate.instant(exam.level ? `common.assessment-type.${this.assessment.type}.performance-level.${exam.level}.name` : 'common.missing');
   }
 
   private getClaimColumns(): Column[] {
@@ -128,8 +128,8 @@ export class ResultsByStudentComponent implements OnInit {
 
           const downloader: StudentReportDownloadComponent = this.reportDownloader;
           const options: ReportOptions = downloader.options;
-          const subject = Utils.toSubjectCode(this.assessment.assessmentSubjectType);
-          const assessmentType = Utils.toAssessmentTypeCode(this.assessment.type);
+          const subject = this.assessment.subject;
+          const assessmentType = this.assessment.type;
 
           options.assessmentType = assessmentType;
           options.subject = subject;
