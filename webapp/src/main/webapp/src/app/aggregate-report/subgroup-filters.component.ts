@@ -3,7 +3,6 @@ import { SubgroupFilters } from './subgroup-filters';
 import { SubgroupFilterFormOptions } from './subgroup-filter-form-options';
 import { ApplicationSettingsService } from '../app-settings.service';
 
-
 @Component({
   selector: 'subgroup-filters',
   templateUrl: 'subgroup-filters.component.html'
@@ -19,14 +18,10 @@ export class SubgroupFiltersComponent {
   @Output()
   changed: EventEmitter<any> = new EventEmitter();
 
-  showElas = false;
-  showLep = false;
+  appSettings: {elasEnabled: boolean, lepEnabled: boolean};
 
   constructor(private applicationSettingsService: ApplicationSettingsService) {
-    applicationSettingsService.getSettings().subscribe(settings => {
-      this.showElas = settings.elasEnabled;
-      this.showLep = settings.lepEnabled;
-    });
+    applicationSettingsService.getSettings().subscribe(settings => this.appSettings = settings);
 
   }
 

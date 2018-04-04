@@ -37,7 +37,7 @@
     </div>
   </div>
 </div>
-<div *ngIf="showLep" class="well">
+<div *ngIf="appSettings.lepEnabled" class="well">
   <div class="row">
     <div class="col-md-6">
       <label info-button
@@ -57,7 +57,7 @@
     </div>
   </div>
 </div>
-<div *ngIf="showElas" class="well">
+<div *ngIf="appSettings.elasEnabled" class="well">
   <div class="row">
     <div class="col-md-6">
       <label info-button
