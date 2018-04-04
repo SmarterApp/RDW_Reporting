@@ -2,7 +2,7 @@ spring:
   reporting_datasource:
     url-schema: reporting_test
   warehouse_datasource:
-    url-schema: warehouse_test
+    url-schema: warehouse
 
 artifacts:
   root: "classpath:"
