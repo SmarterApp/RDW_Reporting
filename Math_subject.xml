@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <Subject code="Math" name="Math">
   <CommonCoreStandardDescription><![CDATA[This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  Items that assess mathematical practices (problem solving, modeling and data analysis, and communicating reasoning) are also aligned to standards that describe the mathematical content with which students engage. For example, an item may ask students to communicate their reasoning when solving a problem about geometry or fractions. For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf\" target=\"_blank\">Mathematics Content Specifications</a>.]]></CommonCoreStandardDescription>
   <AssessmentTypes>
@@ -159,42 +158,42 @@
             <TertiaryScore code="G-CO|O" name="Geometry: Prove geometric theorems."/>
             <TertiaryScore code="G-SRT|O" name="Geometry: Define trigonometric ratios and solve problems involving right triangles."/>
             <TertiaryScore code="S-ID|P" name="Statistics and Probability: Summarize, represent, and interpret data on a single count or measurement variable."/>
-            <TertiaryScore code="G-MG|X" name="Geometry: Apply geometric concepts in modeling situations."/>
-            <TertiaryScore code="N-VM|X" name="Number and Quantities: Represent and model with vector quantities."/>
             <TertiaryScore code="A-REI|X" name="Algebra: Solve systems of equations."/>
             <TertiaryScore code="S-CP|X" name="Statistics and Probability: Understand independence and conditional probability and use them to interpret data."/>
             <TertiaryScore code="G-GMD|X" name="Geometry: Explain volume formulas and use them to solve problems."/>
-            <TertiaryScore code="A-APR|X" name="Algebra: Understand the relationship between zeros and factors of polynomials."/>
+            <TertiaryScore code="G-MG|X" name="Geometry: Apply geometric concepts in modeling situations."/>
+            <TertiaryScore code="N-VM|X" name="Number and Quantities: Represent and model with vector quantities."/>
             <TertiaryScore code="S-ID|X" name="Statistics and Probability: Summarize, represent, and interpret data on two categorical and quantitative variables."/>
             <TertiaryScore code="F-TF|X" name="Functions: Extend the domain of trigonometric functions using the unit circle."/>
             <TertiaryScore code="G-CO|X" name="Geometry: Experiment with transformations in the place."/>
+            <TertiaryScore code="A-APR|X" name="Algebra: Understand the relationship between zeros and factors of polynomials."/>
+            <TertiaryScore code="S-IC|X" name="Statistics and Probability: Understand and evaluate random processes underlying statistical experiments."/>
+            <TertiaryScore code="G-C|X" name="Geometry: Understand and apply theorems about circles."/>
             <TertiaryScore code="N-CN|X" name="Number and Quantities: Perform arithmetic operations with complex numbers."/>
             <TertiaryScore code="G-GPE|X" name="Geometry: Translate between the geometric description and the equation for a conic section."/>
             <TertiaryScore code="G-SRT|X" name="Geometry: Understand similarity in terms of similarity transformations."/>
-            <TertiaryScore code="S-IC|X" name="Statistics and Probability: Understand and evaluate random processes underlying statistical experiments."/>
-            <TertiaryScore code="G-C|X" name="Geometry: Understand and apply theorems about circles."/>
             <TertiaryScore code="S-MD|X" name="Statistics and Probability: Calculate expected values and use them to solve problems."/>
             <TertiaryScore code="F-BF|X" name="Functions: Build new functions from existing functions."/>
             <TertiaryScore code="F-LE|X" name="Functions: Construct and compare linear and exponential models and solve problems."/>
             <TertiaryScore code="S-MD|XX" name="Statistics and Probability: Use probability to evaluate outcomes of decisions."/>
             <TertiaryScore code="F-LE|XX" name="Functions: Interpret expressions for functions in terms of the situation they model."/>
-            <TertiaryScore code="G-GMD|XX" name="Geometry: Visualize relationships between two-dimensional and three-dimensional objects."/>
             <TertiaryScore code="N-VM|XX" name="Number and Quantities: Perform operations on vectors."/>
             <TertiaryScore code="S-CP|XX" name="Statistics and Probability: Use the rules of probability to compute probabilities of compound events in a uniform probability model."/>
-            <TertiaryScore code="A-APR|XX" name="Algebra: Use polynomial identities to solve problems."/>
+            <TertiaryScore code="G-GMD|XX" name="Geometry: Visualize relationships between two-dimensional and three-dimensional objects."/>
             <TertiaryScore code="S-ID|XX" name="Statistics and Probability: Interpret linear models."/>
             <TertiaryScore code="F-TF|XX" name="Functions: Model periodic phenomena with trigonometric functions."/>
             <TertiaryScore code="G-CO|XX" name="Geometry: Understand congruence in terms of rigid motions."/>
+            <TertiaryScore code="A-APR|XX" name="Algebra: Use polynomial identities to solve problems."/>
+            <TertiaryScore code="S-IC|XX" name="Statistics and Probability: Make inferences and justify conclusions from sample surveys, experiments, and observational studies."/>
+            <TertiaryScore code="G-C|XX" name="Geometry: Find arc lengths and areas of sectors of circles."/>
             <TertiaryScore code="N-CN|XX" name="Number and Quantities: Represent complex numbers and their operations on the complex plane."/>
             <TertiaryScore code="G-GPE|XX" name="Geometry: Use coordinates to prove simple geometric theorems algebraically."/>
             <TertiaryScore code="G-SRT|XX" name="Geometry: Prove theorems involving similarity."/>
-            <TertiaryScore code="S-IC|XX" name="Statistics and Probability: Make inferences and justify conclusions from sample surveys, experiments, and observational studies."/>
-            <TertiaryScore code="G-C|XX" name="Geometry: Find arc lengths and areas of sectors of circles."/>
             <TertiaryScore code="N-CN|XXX" name="Number and Quantities: Use complex numbers in polynomial identities and equations."/>
             <TertiaryScore code="N-VM|XXX" name="Number and Quantities: Perform operations on matrices and use matrices in applications."/>
-            <TertiaryScore code="A-APR|XXX" name="Algebra: Rewrite rational expressions."/>
             <TertiaryScore code="F-TF|XXX" name="Functions: Prove and apply trigonometric identities."/>
             <TertiaryScore code="G-CO|XXX" name="Geometry: Make geometric constructions."/>
+            <TertiaryScore code="A-APR|XXX" name="Algebra: Rewrite rational expressions."/>
             <TertiaryScore code="G-SRT|XXXX" name="Geometry: Apply trigonometry to general triangles."/>
           </TertiaryScores>
         </SubScore>
@@ -444,592 +443,445 @@
     <ItemClaim code="1" name="Concepts and Procedures">
       <Description>Concepts and Procedures - Students can explain and apply mathematical concepts and interpret and carry out mathematical procedures with precision and fluency.</Description>
       <Targets>
-        <Target code="A">
-          <id>N-RN|A</id>
+        <Target code="A" id="N-RN|A">
           <Description>Number and Quantities: Extend the properties of exponents to rational exponents.</Description>
         </Target>
-        <Target code="A-1">
-          <id>OA|A-1</id>
+        <Target code="A-1" id="OA|A-1">
           <Description>Represent and solve problems involving addition and subtraction.</Description>
         </Target>
-        <Target code="A-2">
-          <id>OA|A-2</id>
+        <Target code="A-2" id="OA|A-2">
           <Description>Represent and solve problems involving addition and subtraction.</Description>
         </Target>
-        <Target code="A-3">
-          <id>OA|A-3</id>
+        <Target code="A-3" id="OA|A-3">
           <Description>Represent and solve problems involving multiplication and division.</Description>
         </Target>
-        <Target code="A-4">
-          <id>OA|A-4</id>
+        <Target code="A-4" id="OA|A-4">
           <Description>Use the four operations with whole numbers to solve problems.</Description>
         </Target>
-        <Target code="A-5">
-          <id>OA|A-5</id>
+        <Target code="A-5" id="OA|A-5">
           <Description>Write and interpret numerical expressions.</Description>
         </Target>
-        <Target code="A-6">
-          <id>RP|A-6</id>
+        <Target code="A-6" id="RP|A-6">
           <Description>Understand ration concepts and use ratio reasoning to solve problems.</Description>
         </Target>
-        <Target code="A-7">
-          <id>RP|A-7</id>
+        <Target code="A-7" id="RP|A-7">
           <Description>Analyze proportional relationships and use them to solve real-world and mathematical problems.</Description>
         </Target>
-        <Target code="A-8">
-          <id>NS|A-8</id>
+        <Target code="A-8" id="NS|A-8">
           <Description>Know that there are numbers that are not rational, and approximate them by rational numbers.</Description>
         </Target>
-        <Target code="A-KG">
-          <id>CC|A-KG</id>
+        <Target code="A-KG" id="CC|A-KG">
           <Description>Know number names and the count sequence</Description>
         </Target>
-        <Target code="B">
-          <id>N-RN|B</id>
+        <Target code="B" id="N-RN|B">
           <Description>Number and Quantities: Use properties of rational and irrational numbers.</Description>
         </Target>
-        <Target code="B-1">
-          <id>OA|B-1</id>
+        <Target code="B-1" id="OA|B-1">
           <Description>Understand and apply properties of operations and the relationship between addition and subtraction.</Description>
         </Target>
-        <Target code="B-2">
-          <id>OA|B-2</id>
+        <Target code="B-2" id="OA|B-2">
           <Description>Add and subtract within 20.</Description>
         </Target>
-        <Target code="B-3">
-          <id>OA|B-3</id>
+        <Target code="B-3" id="OA|B-3">
           <Description>Understand properties of multiplication and the relationship between multiplication and division.</Description>
         </Target>
-        <Target code="B-4">
-          <id>OA|B-4</id>
+        <Target code="B-4" id="OA|B-4">
           <Description>Get familiarity with factors and multiples.</Description>
         </Target>
-        <Target code="B-5">
-          <id>OA|B-5</id>
+        <Target code="B-5" id="OA|B-5">
           <Description>Analyze patterns and relationships.</Description>
         </Target>
-        <Target code="B-6">
-          <id>NS|B-6</id>
+        <Target code="B-6" id="NS|B-6">
           <Description>Apply and extend previous understandings of multiplication and division to divide fractions by fractions.</Description>
         </Target>
-        <Target code="B-7">
-          <id>NS|B-7</id>
+        <Target code="B-7" id="NS|B-7">
           <Description>Apply and extend previous understandings of operations with fractions to add, subtract, multiply, and divide rational numbers.</Description>
         </Target>
-        <Target code="B-8">
-          <id>EE|B-8</id>
+        <Target code="B-8" id="EE|B-8">
           <Description>Work with radicals and integer exponents.</Description>
         </Target>
-        <Target code="B-KG">
-          <id>CC|B-KG</id>
+        <Target code="B-KG" id="CC|B-KG">
           <Description>Count to tell the number of objects.</Description>
         </Target>
-        <Target code="C">
-          <id>N-Q|C</id>
+        <Target code="C" id="N-Q|C">
           <Description>Number and Quantities: Reason quantitatively and use units to solve problems.</Description>
         </Target>
-        <Target code="C-1">
-          <id>OA|C-1</id>
+        <Target code="C-1" id="OA|C-1">
           <Description>Add and subtract within 20.</Description>
         </Target>
-        <Target code="C-2">
-          <id>OA|C-2</id>
+        <Target code="C-2" id="OA|C-2">
           <Description>Work with equal groups of objects to gain foundations for multiplication.</Description>
         </Target>
-        <Target code="C-3">
-          <id>OA|C-3</id>
+        <Target code="C-3" id="OA|C-3">
           <Description>Multiply and divide within 100.</Description>
         </Target>
-        <Target code="C-4">
-          <id>OA|C-4</id>
+        <Target code="C-4" id="OA|C-4">
           <Description>Generate and analyze patterns.</Description>
         </Target>
-        <Target code="C-5">
-          <id>NBT|C-5</id>
+        <Target code="C-5" id="NBT|C-5">
           <Description>Understand the place value system.</Description>
         </Target>
-        <Target code="C-6">
-          <id>NS|C-6</id>
+        <Target code="C-6" id="NS|C-6">
           <Description>Compute fluently with muti-digit numbers and find common factors and multiples.</Description>
         </Target>
-        <Target code="C-7">
-          <id>EE|C-7</id>
+        <Target code="C-7" id="EE|C-7">
           <Description>Use properties of operations to generate equivalent expressions.</Description>
         </Target>
-        <Target code="C-8">
-          <id>EE|C-8</id>
+        <Target code="C-8" id="EE|C-8">
           <Description>Understand the connections between proportional relationships, lines, and linear equations.</Description>
         </Target>
-        <Target code="C-KG">
-          <id>CC|C-KG</id>
+        <Target code="C-KG" id="CC|C-KG">
           <Description>Compare Numbers</Description>
         </Target>
-        <Target code="D">
-          <id>A-SSE|D</id>
+        <Target code="D" id="A-SSE|D">
           <Description>Algebra: Interpret the structure of expressions.</Description>
         </Target>
-        <Target code="D-1">
-          <id>OA|D-1</id>
+        <Target code="D-1" id="OA|D-1">
           <Description>Work with addition and subtraction equations.</Description>
         </Target>
-        <Target code="D-2">
-          <id>NBT|D-2</id>
+        <Target code="D-2" id="NBT|D-2">
           <Description>Understand place  value.</Description>
         </Target>
-        <Target code="D-3">
-          <id>OA|D-3</id>
+        <Target code="D-3" id="OA|D-3">
           <Description>Solve problems involving the four operations, and identify and explain patterns in arithmetic.</Description>
         </Target>
-        <Target code="D-4">
-          <id>NBT|D-4</id>
+        <Target code="D-4" id="NBT|D-4">
           <Description>Generalize place value understanding for multi-digit whole numbers.</Description>
         </Target>
-        <Target code="D-5">
-          <id>NBT|D-5</id>
+        <Target code="D-5" id="NBT|D-5">
           <Description>Perform operations with multi-digit whole numbers and with decimals to hundredths.</Description>
         </Target>
-        <Target code="D-6">
-          <id>NS|D-6</id>
+        <Target code="D-6" id="NS|D-6">
           <Description>Apply and extend previous understandings of numbers to the system of rational numbers.</Description>
         </Target>
-        <Target code="D-7">
-          <id>EE|D-7</id>
+        <Target code="D-7" id="EE|D-7">
           <Description>Solve real-life and mathematical problems using numerical and algebraic expressions and equations.</Description>
         </Target>
-        <Target code="D-8">
-          <id>EE|D-8</id>
+        <Target code="D-8" id="EE|D-8">
           <Description>Analyze and solve linear equations and pairs of simultaneous linear equations.</Description>
         </Target>
-        <Target code="D-KG">
-          <id>OA|D-KG</id>
+        <Target code="D-KG" id="OA|D-KG">
           <Description>Understand addition as putting together and adding to, and understand subtraction as taking apart and taking from.</Description>
         </Target>
-        <Target code="E">
-          <id>A-SSE|E</id>
+        <Target code="E" id="A-SSE|E">
           <Description>Algebra: Write expressions in equivalent forms to solve problems.</Description>
         </Target>
-        <Target code="E-1">
-          <id>NBT|E-1</id>
+        <Target code="E-1" id="NBT|E-1">
           <Description>Extend the counting sequence.</Description>
         </Target>
-        <Target code="E-2">
-          <id>NBT|E-2</id>
+        <Target code="E-2" id="NBT|E-2">
           <Description>Use place value understanding and properties of operations to add and subtract.</Description>
         </Target>
-        <Target code="E-3">
-          <id>NBT|E-3</id>
+        <Target code="E-3" id="NBT|E-3">
           <Description>Use place value understanding and properties of operations to perform multi-digit arithmetic.</Description>
         </Target>
-        <Target code="E-4">
-          <id>NBT|E-4</id>
+        <Target code="E-4" id="NBT|E-4">
           <Description>Use place value understanding and properties of operations to perform multi-digit arithmetic.</Description>
         </Target>
-        <Target code="E-5">
-          <id>NF|E-5</id>
+        <Target code="E-5" id="NF|E-5">
           <Description>Use equivalent fractions as a strategy to add and subtract fractions.</Description>
         </Target>
-        <Target code="E-6">
-          <id>EE|E-6</id>
+        <Target code="E-6" id="EE|E-6">
           <Description>Apply and extend previous understandings of arithmetic to algebraic expressions.</Description>
         </Target>
-        <Target code="E-7">
-          <id>G|E-7</id>
+        <Target code="E-7" id="G|E-7">
           <Description>Draw, construct, and describe geometrical figures and describe the relationship between them.</Description>
         </Target>
-        <Target code="E-8">
-          <id>F|E-8</id>
+        <Target code="E-8" id="F|E-8">
           <Description>Define, evaluate, and compare functions.</Description>
         </Target>
-        <Target code="E-KG">
-          <id>NBT|E-KG</id>
+        <Target code="E-KG" id="NBT|E-KG">
           <Description>Work with numbers 11-19 to gain foundations for place value.</Description>
         </Target>
-        <Target code="F">
-          <id>A-APR|F</id>
+        <Target code="F" id="A-APR|F">
           <Description>Algebra: Perform arithmetic operations on polynomials.</Description>
         </Target>
-        <Target code="F-1">
-          <id>NBT|F-1</id>
+        <Target code="F-1" id="NBT|F-1">
           <Description>Understand place value.</Description>
         </Target>
-        <Target code="F-2">
-          <id>MD|F-2</id>
+        <Target code="F-2" id="MD|F-2">
           <Description>Measure and estimate lengths in standard units.</Description>
         </Target>
-        <Target code="F-3">
-          <id>NF|F-3</id>
+        <Target code="F-3" id="NF|F-3">
           <Description>Develop understanding of fractions as numbers.</Description>
         </Target>
-        <Target code="F-4">
-          <id>NF|F-4</id>
+        <Target code="F-4" id="NF|F-4">
           <Description>Extend understanding of fractions equivalence and ordering.</Description>
         </Target>
-        <Target code="F-5">
-          <id>NF|F-5</id>
+        <Target code="F-5" id="NF|F-5">
           <Description>Apply and extend previous understandings of multiplication and division to multiply and divide fractions.</Description>
         </Target>
-        <Target code="F-6">
-          <id>EE|F-6</id>
+        <Target code="F-6" id="EE|F-6">
           <Description>Reason about and solve one-variable equations and inequalities.</Description>
         </Target>
-        <Target code="F-7">
-          <id>G|F-7</id>
+        <Target code="F-7" id="G|F-7">
           <Description>Solve real-life and mathematical problems involving angle measure, area, surface area, and volume.</Description>
         </Target>
-        <Target code="F-8">
-          <id>F|F-8</id>
+        <Target code="F-8" id="F|F-8">
           <Description>Use functions to model relationships between quantities.</Description>
         </Target>
-        <Target code="F-KG">
-          <id>MD|F-KG</id>
+        <Target code="F-KG" id="MD|F-KG">
           <Description>Describe and compare measurable attributes.</Description>
         </Target>
-        <Target code="G">
-          <id>A-CED|G</id>
+        <Target code="G" id="A-CED|G">
           <Description>Algebra: Create equations that describe numbers or relationships</Description>
         </Target>
-        <Target code="G-1">
-          <id>NBT|G-1</id>
+        <Target code="G-1" id="NBT|G-1">
           <Description>Use place value understanding and properties of operations to add and subtract.</Description>
         </Target>
-        <Target code="G-2">
-          <id>MD|G-2</id>
+        <Target code="G-2" id="MD|G-2">
           <Description>Relate addition and subtraction to length.</Description>
         </Target>
-        <Target code="G-3">
-          <id>MD|G-3</id>
+        <Target code="G-3" id="MD|G-3">
           <Description>Solve problems involving measurement and estimation of intervals of time, liquid volumes, and masses of objects.</Description>
         </Target>
-        <Target code="G-4">
-          <id>NF|G-4</id>
+        <Target code="G-4" id="NF|G-4">
           <Description>Build fractions from unit fractions by applying and extending previous understandings of operations on whole numbers.</Description>
         </Target>
-        <Target code="G-5">
-          <id>MD|G-5</id>
+        <Target code="G-5" id="MD|G-5">
           <Description>Convert like measurement units within a given measurement system.</Description>
         </Target>
-        <Target code="G-6">
-          <id>EE|G-6</id>
+        <Target code="G-6" id="EE|G-6">
           <Description>Represent and analyze quantitative relationships between dependent and independent variables.</Description>
         </Target>
-        <Target code="G-7">
-          <id>SP|G-7</id>
+        <Target code="G-7" id="SP|G-7">
           <Description>Use random sampling to draw inferences about a population.</Description>
         </Target>
-        <Target code="G-8">
-          <id>G|G-8</id>
+        <Target code="G-8" id="G|G-8">
           <Description>Understand congruence and similarity using physical models, transparencies, or geometry software.</Description>
         </Target>
-        <Target code="G-KG">
-          <id>MD|G-KG</id>
+        <Target code="G-KG" id="MD|G-KG">
           <Description>Classify objects and count the number of objects in each category.</Description>
         </Target>
-        <Target code="H">
-          <id>A-REI|H</id>
+        <Target code="H" id="A-REI|H">
           <Description>Algebra: Understand solving equations as a process of reasoning and explain the reasoning.</Description>
         </Target>
-        <Target code="H-1">
-          <id>MD|H-1</id>
+        <Target code="H-1" id="MD|H-1">
           <Description>Measure lengths indirectly and by iterating length units.</Description>
         </Target>
-        <Target code="H-2">
-          <id>MD|H-2</id>
+        <Target code="H-2" id="MD|H-2">
           <Description>Work with time and money.</Description>
         </Target>
-        <Target code="H-3">
-          <id>MD|H-3</id>
+        <Target code="H-3" id="MD|H-3">
           <Description>Represent and interpret data.</Description>
         </Target>
-        <Target code="H-4">
-          <id>NF|H-4</id>
+        <Target code="H-4" id="NF|H-4">
           <Description>Understand decimal notation for fractions, and compare decimal fractions.</Description>
         </Target>
-        <Target code="H-5">
-          <id>MD|H-5</id>
+        <Target code="H-5" id="MD|H-5">
           <Description>Represent and interpret data.</Description>
         </Target>
-        <Target code="H-6">
-          <id>G|H-6</id>
+        <Target code="H-6" id="G|H-6">
           <Description>Solve real-world and mathematical problems involving area, surface area, and volume.</Description>
         </Target>
-        <Target code="H-7">
-          <id>SP|H-7</id>
+        <Target code="H-7" id="SP|H-7">
           <Description>Draw informal comparative inferences about two populations</Description>
         </Target>
-        <Target code="H-8">
-          <id>G|H-8</id>
+        <Target code="H-8" id="G|H-8">
           <Description>Understand and apply the Pythagorean Theorem.</Description>
         </Target>
-        <Target code="H-KG">
-          <id>G|H-KG</id>
+        <Target code="H-KG" id="G|H-KG">
           <Description>Identify and describe shapes (squares, circles, triangles, rectangles, hexagons, cubes, cones, cylinders, and spheres).</Description>
         </Target>
-        <Target code="I">
-          <id>A-REI|I</id>
+        <Target code="I" id="A-REI|I">
           <Description>Algebra: Solve equations and inequalities in one variable.</Description>
         </Target>
-        <Target code="I-1">
-          <id>MD|I-1</id>
+        <Target code="I-1" id="MD|I-1">
           <Description>Tell and write time.</Description>
         </Target>
-        <Target code="I-2">
-          <id>MD|I-2</id>
+        <Target code="I-2" id="MD|I-2">
           <Description>Represent and interpret data.</Description>
         </Target>
-        <Target code="I-3">
-          <id>MD|I-3</id>
+        <Target code="I-3" id="MD|I-3">
           <Description>Geometric measurement: understand concepts of area and relate area to multiplication and to addition.</Description>
         </Target>
-        <Target code="I-4">
-          <id>MD|I-4</id>
+        <Target code="I-4" id="MD|I-4">
           <Description>Solve problems involving measurement and conversion of measurement from a larger unit to a smaller unit.</Description>
         </Target>
-        <Target code="I-5">
-          <id>MD|I-5</id>
+        <Target code="I-5" id="MD|I-5">
           <Description>Geometric measurement: understand concepts of volume and relate volume to multiplication and to addition.</Description>
         </Target>
-        <Target code="I-6">
-          <id>SP|I-6</id>
+        <Target code="I-6" id="SP|I-6">
           <Description>Develop understanding of statistical variability.</Description>
         </Target>
-        <Target code="I-7">
-          <id>SP|I-7</id>
+        <Target code="I-7" id="SP|I-7">
           <Description>Investigate chance processes and develop, use, and evaluate probability models.</Description>
         </Target>
-        <Target code="I-8">
-          <id>G|I-8</id>
+        <Target code="I-8" id="G|I-8">
           <Description>Solve real-world and mathematical problems involving volume of cylinders, cones, and spheres.</Description>
         </Target>
-        <Target code="I-KG">
-          <id>G|I-KG</id>
+        <Target code="I-KG" id="G|I-KG">
           <Description>Analyze, compare, create, and compose shapes.</Description>
         </Target>
-        <Target code="J">
-          <id>A-REI|J</id>
+        <Target code="J" id="A-REI|J">
           <Description>Algebra: Represent and solve equations and inequalities graphically.</Description>
         </Target>
-        <Target code="J-1">
-          <id>MD|J-1</id>
+        <Target code="J-1" id="MD|J-1">
           <Description>Represent and interpret data.</Description>
         </Target>
-        <Target code="J-2">
-          <id>G|J-2</id>
+        <Target code="J-2" id="G|J-2">
           <Description>Reason with shapes and their attributes.</Description>
         </Target>
-        <Target code="J-3">
-          <id>MD|J-3</id>
+        <Target code="J-3" id="MD|J-3">
           <Description>Geometric measurement: recognize perimeter as an attribute of plane figures and distinguish between linear and area measures.</Description>
         </Target>
-        <Target code="J-4">
-          <id>MD|J-4</id>
+        <Target code="J-4" id="MD|J-4">
           <Description>Represent and interpret data.</Description>
         </Target>
-        <Target code="J-5">
-          <id>G|J-5</id>
+        <Target code="J-5" id="G|J-5">
           <Description>Graph points on the coordinate plane to solve real-world and mathematical problems.</Description>
         </Target>
-        <Target code="J-6">
-          <id>SP|J-6</id>
+        <Target code="J-6" id="SP|J-6">
           <Description>Summarize and describe distributions.</Description>
         </Target>
-        <Target code="J-8">
-          <id>SP|J-8</id>
+        <Target code="J-8" id="SP|J-8">
           <Description>Investigate patterns of association in bivariate data.</Description>
         </Target>
-        <Target code="K">
-          <id>F-IF|K</id>
+        <Target code="K" id="F-IF|K">
           <Description>Functions: Understand the concept of a function and use function notation.</Description>
         </Target>
-        <Target code="K-1">
-          <id>G|K-1</id>
+        <Target code="K-1" id="G|K-1">
           <Description>Reason with shapes and their attributes.</Description>
         </Target>
-        <Target code="K-3">
-          <id>G|K-3</id>
+        <Target code="K-3" id="G|K-3">
           <Description>Reason with shapes and their attributes.</Description>
         </Target>
-        <Target code="K-4">
-          <id>MD|K-4</id>
+        <Target code="K-4" id="MD|K-4">
           <Description>Geometric measurement: understand concepts of angle and measure angles.</Description>
         </Target>
-        <Target code="K-5">
-          <id>G|K-5</id>
+        <Target code="K-5" id="G|K-5">
           <Description>Classify two-dimensional figures into categories based on their properties.</Description>
         </Target>
-        <Target code="L">
-          <id>F-IF|L</id>
+        <Target code="L" id="F-IF|L">
           <Description>Functions: Interpret functions that arise in applications in terms of the context.</Description>
         </Target>
-        <Target code="L-4">
-          <id>G|L-4</id>
+        <Target code="L-4" id="G|L-4">
           <Description>Draw and identify lines and angles, and classify shapes by properties of their lines and angles.</Description>
         </Target>
-        <Target code="M">
-          <id>F-IF|M</id>
+        <Target code="M" id="F-IF|M">
           <Description>Functions: Analyze functions using different representations.</Description>
         </Target>
-        <Target code="N">
-          <id>F-BF|N</id>
+        <Target code="N" id="F-BF|N">
           <Description>Functions: Build a function that models a relationship between two quantities.</Description>
         </Target>
-        <Target code="O">
-          <id>G-CO|O</id>
+        <Target code="O" id="G-CO|O">
           <Description>Geometry: Prove geometric theorems.</Description>
         </Target>
-        <Target code="O">
-          <id>G-SRT|O</id>
+        <Target code="O" id="G-SRT|O">
           <Description>Geometry: Define trigonometric ratios and solve problems involving right triangles.</Description>
         </Target>
-        <Target code="P">
-          <id>S-ID|P</id>
+        <Target code="P" id="S-ID|P">
           <Description>Statistics and Probability: Summarize, represent, and interpret data on a single count or measurement variable.</Description>
         </Target>
-        <Target code="X">
-          <id>A-APR|X</id>
+        <Target code="X" id="A-APR|X">
           <Description>Algebra: Understand the relationship between zeros and factors of polynomials.</Description>
         </Target>
-        <Target code="X">
-          <id>A-REI|X</id>
+        <Target code="X" id="A-REI|X">
           <Description>Algebra: Solve systems of equations.</Description>
         </Target>
-        <Target code="X">
-          <id>F-BF|X</id>
+        <Target code="X" id="F-BF|X">
           <Description>Functions: Build new functions from existing functions.</Description>
         </Target>
-        <Target code="X">
-          <id>F-LE|X</id>
+        <Target code="X" id="F-LE|X">
           <Description>Functions: Construct and compare linear and exponential models and solve problems.</Description>
         </Target>
-        <Target code="X">
-          <id>F-TF|X</id>
+        <Target code="X" id="F-TF|X">
           <Description>Functions: Extend the domain of trigonometric functions using the unit circle.</Description>
         </Target>
-        <Target code="X">
-          <id>G-C|X</id>
+        <Target code="X" id="G-C|X">
           <Description>Geometry: Understand and apply theorems about circles.</Description>
         </Target>
-        <Target code="X">
-          <id>G-CO|X</id>
+        <Target code="X" id="G-CO|X">
           <Description>Geometry: Experiment with transformations in the place.</Description>
         </Target>
-        <Target code="X">
-          <id>G-GMD|X</id>
+        <Target code="X" id="G-GMD|X">
           <Description>Geometry: Explain volume formulas and use them to solve problems.</Description>
         </Target>
-        <Target code="X">
-          <id>G-GPE|X</id>
+        <Target code="X" id="G-GPE|X">
           <Description>Geometry: Translate between the geometric description and the equation for a conic section.</Description>
         </Target>
-        <Target code="X">
-          <id>G-MG|X</id>
+        <Target code="X" id="G-MG|X">
           <Description>Geometry: Apply geometric concepts in modeling situations.</Description>
         </Target>
-        <Target code="X">
-          <id>G-SRT|X</id>
+        <Target code="X" id="G-SRT|X">
           <Description>Geometry: Understand similarity in terms of similarity transformations.</Description>
         </Target>
-        <Target code="X">
-          <id>N-CN|X</id>
+        <Target code="X" id="N-CN|X">
           <Description>Number and Quantities: Perform arithmetic operations with complex numbers.</Description>
         </Target>
-        <Target code="X">
-          <id>N-VM|X</id>
+        <Target code="X" id="N-VM|X">
           <Description>Number and Quantities: Represent and model with vector quantities.</Description>
         </Target>
-        <Target code="X">
-          <id>S-CP|X</id>
+        <Target code="X" id="S-CP|X">
           <Description>Statistics and Probability: Understand independence and conditional probability and use them to interpret data.</Description>
         </Target>
-        <Target code="X">
-          <id>S-IC|X</id>
+        <Target code="X" id="S-IC|X">
           <Description>Statistics and Probability: Understand and evaluate random processes underlying statistical experiments.</Description>
         </Target>
-        <Target code="X">
-          <id>S-ID|X</id>
+        <Target code="X" id="S-ID|X">
           <Description>Statistics and Probability: Summarize, represent, and interpret data on two categorical and quantitative variables.</Description>
         </Target>
-        <Target code="X">
-          <id>S-MD|X</id>
+        <Target code="X" id="S-MD|X">
           <Description>Statistics and Probability: Calculate expected values and use them to solve problems.</Description>
         </Target>
-        <Target code="XX">
-          <id>A-APR|XX</id>
+        <Target code="XX" id="A-APR|XX">
           <Description>Algebra: Use polynomial identities to solve problems.</Description>
         </Target>
-        <Target code="XX">
-          <id>F-LE|XX</id>
+        <Target code="XX" id="F-LE|XX">
           <Description>Functions: Interpret expressions for functions in terms of the situation they model.</Description>
         </Target>
-        <Target code="XX">
-          <id>F-TF|XX</id>
+        <Target code="XX" id="F-TF|XX">
           <Description>Functions: Model periodic phenomena with trigonometric functions.</Description>
         </Target>
-        <Target code="XX">
-          <id>G-C|XX</id>
+        <Target code="XX" id="G-C|XX">
           <Description>Geometry: Find arc lengths and areas of sectors of circles.</Description>
         </Target>
-        <Target code="XX">
-          <id>G-CO|XX</id>
+        <Target code="XX" id="G-CO|XX">
           <Description>Geometry: Understand congruence in terms of rigid motions.</Description>
         </Target>
-        <Target code="XX">
-          <id>G-GMD|XX</id>
+        <Target code="XX" id="G-GMD|XX">
           <Description>Geometry: Visualize relationships between two-dimensional and three-dimensional objects.</Description>
         </Target>
-        <Target code="XX">
-          <id>G-GPE|XX</id>
+        <Target code="XX" id="G-GPE|XX">
           <Description>Geometry: Use coordinates to prove simple geometric theorems algebraically.</Description>
         </Target>
-        <Target code="XX">
-          <id>G-SRT|XX</id>
+        <Target code="XX" id="G-SRT|XX">
           <Description>Geometry: Prove theorems involving similarity.</Description>
         </Target>
-        <Target code="XX">
-          <id>N-CN|XX</id>
+        <Target code="XX" id="N-CN|XX">
           <Description>Number and Quantities: Represent complex numbers and their operations on the complex plane.</Description>
         </Target>
-        <Target code="XX">
-          <id>N-VM|XX</id>
+        <Target code="XX" id="N-VM|XX">
           <Description>Number and Quantities: Perform operations on vectors.</Description>
         </Target>
-        <Target code="XX">
-          <id>S-CP|XX</id>
+        <Target code="XX" id="S-CP|XX">
           <Description>Statistics and Probability: Use the rules of probability to compute probabilities of compound events in a uniform probability model.</Description>
         </Target>
-        <Target code="XX">
-          <id>S-IC|XX</id>
+        <Target code="XX" id="S-IC|XX">
           <Description>Statistics and Probability: Make inferences and justify conclusions from sample surveys, experiments, and observational studies.</Description>
         </Target>
-        <Target code="XX">
-          <id>S-ID|XX</id>
+        <Target code="XX" id="S-ID|XX">
           <Description>Statistics and Probability: Interpret linear models.</Description>
         </Target>
-        <Target code="XX">
-          <id>S-MD|XX</id>
+        <Target code="XX" id="S-MD|XX">
           <Description>Statistics and Probability: Use probability to evaluate outcomes of decisions.</Description>
         </Target>
-        <Target code="XXX">
-          <id>A-APR|XXX</id>
+        <Target code="XXX" id="A-APR|XXX">
           <Description>Algebra: Rewrite rational expressions.</Description>
         </Target>
-        <Target code="XXX">
-          <id>F-TF|XXX</id>
+        <Target code="XXX" id="F-TF|XXX">
           <Description>Functions: Prove and apply trigonometric identities.</Description>
         </Target>
-        <Target code="XXX">
-          <id>G-CO|XXX</id>
+        <Target code="XXX" id="G-CO|XXX">
           <Description>Geometry: Make geometric constructions.</Description>
         </Target>
-        <Target code="XXX">
-          <id>N-CN|XXX</id>
+        <Target code="XXX" id="N-CN|XXX">
           <Description>Number and Quantities: Use complex numbers in polynomial identities and equations.</Description>
         </Target>
-        <Target code="XXX">
-          <id>N-VM|XXX</id>
+        <Target code="XXX" id="N-VM|XXX">
           <Description>Number and Quantities: Perform operations on matrices and use matrices in applications.</Description>
         </Target>
-        <Target code="XXXX">
-          <id>G-SRT|XXXX</id>
+        <Target code="XXXX" id="G-SRT|XXXX">
           <Description>Geometry: Apply trigonometry to general triangles.</Description>
         </Target>
       </Targets>
@@ -1037,532 +889,400 @@
     <ItemClaim code="2" name="Problem Solving">
       <Description>Problem Solving - Students can solve a range of complex well-posed problems in pure and applied mathematics, making productive use of knowledge and problem solving strategies.</Description>
       <Targets>
-        <Target code="A">
-          <id>RP|A</id>
+        <Target code="A" id="RP|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>S-CP|A</id>
+        <Target code="A" id="S-CP|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>S-IC|A</id>
+        <Target code="A" id="S-IC|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>S-ID|A</id>
+        <Target code="A" id="S-ID|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>S-MD|A</id>
+        <Target code="A" id="S-MD|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>SP|A</id>
+        <Target code="A" id="SP|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>A-APR|A</id>
+        <Target code="A" id="A-APR|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>A-CED|A</id>
+        <Target code="A" id="A-CED|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>A-REI|A</id>
+        <Target code="A" id="A-REI|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>A-SSE|A</id>
+        <Target code="A" id="A-SSE|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>CC|A</id>
+        <Target code="A" id="CC|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>EE|A</id>
+        <Target code="A" id="EE|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>F-BF|A</id>
+        <Target code="A" id="F-BF|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>F-IF|A</id>
+        <Target code="A" id="F-IF|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>F-LE|A</id>
+        <Target code="A" id="F-LE|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>F-TF|A</id>
+        <Target code="A" id="F-TF|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>F|A</id>
+        <Target code="A" id="F|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>G-C|A</id>
+        <Target code="A" id="G-C|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>G-CO|A</id>
+        <Target code="A" id="G-CO|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>G-GMD|A</id>
+        <Target code="A" id="G-GMD|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>G-GPE|A</id>
+        <Target code="A" id="G-GPE|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>G-MG|A</id>
+        <Target code="A" id="G-MG|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>G-SRT|A</id>
+        <Target code="A" id="G-SRT|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>G|A</id>
+        <Target code="A" id="G|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>MD|A</id>
+        <Target code="A" id="MD|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>N-CN|A</id>
+        <Target code="A" id="N-CN|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>N-Q|A</id>
+        <Target code="A" id="N-Q|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>N-RN|A</id>
+        <Target code="A" id="N-RN|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>N-VM|A</id>
+        <Target code="A" id="N-VM|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>NBT|A</id>
+        <Target code="A" id="NBT|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>NF|A</id>
+        <Target code="A" id="NF|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>NS|A</id>
+        <Target code="A" id="NS|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>OA|A</id>
+        <Target code="A" id="OA|A">
           <Description>Apply mathematics to solve well-posed problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="B">
-          <id>RP|B</id>
+        <Target code="B" id="RP|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>S-CP|B</id>
+        <Target code="B" id="S-CP|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>S-IC|B</id>
+        <Target code="B" id="S-IC|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>S-ID|B</id>
+        <Target code="B" id="S-ID|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>S-MD|B</id>
+        <Target code="B" id="S-MD|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>SP|B</id>
+        <Target code="B" id="SP|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>A-APR|B</id>
+        <Target code="B" id="A-APR|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>A-CED|B</id>
+        <Target code="B" id="A-CED|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>A-REI|B</id>
+        <Target code="B" id="A-REI|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>A-SSE|B</id>
+        <Target code="B" id="A-SSE|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>CC|B</id>
+        <Target code="B" id="CC|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>EE|B</id>
+        <Target code="B" id="EE|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>F-BF|B</id>
+        <Target code="B" id="F-BF|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>F-IF|B</id>
+        <Target code="B" id="F-IF|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>F-LE|B</id>
+        <Target code="B" id="F-LE|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>F-TF|B</id>
+        <Target code="B" id="F-TF|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>F|B</id>
+        <Target code="B" id="F|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>G-C|B</id>
+        <Target code="B" id="G-C|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>G-CO|B</id>
+        <Target code="B" id="G-CO|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>G-GMD|B</id>
+        <Target code="B" id="G-GMD|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>G-GPE|B</id>
+        <Target code="B" id="G-GPE|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>G-MG|B</id>
+        <Target code="B" id="G-MG|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>G-SRT|B</id>
+        <Target code="B" id="G-SRT|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>G|B</id>
+        <Target code="B" id="G|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>MD|B</id>
+        <Target code="B" id="MD|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>N-CN|B</id>
+        <Target code="B" id="N-CN|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>N-Q|B</id>
+        <Target code="B" id="N-Q|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>N-RN|B</id>
+        <Target code="B" id="N-RN|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>N-VM|B</id>
+        <Target code="B" id="N-VM|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>NBT|B</id>
+        <Target code="B" id="NBT|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>NF|B</id>
+        <Target code="B" id="NF|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>NS|B</id>
+        <Target code="B" id="NS|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="B">
-          <id>OA|B</id>
+        <Target code="B" id="OA|B">
           <Description>Select and use appropriate tools strategically.</Description>
         </Target>
-        <Target code="C">
-          <id>RP|C</id>
+        <Target code="C" id="RP|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>S-CP|C</id>
+        <Target code="C" id="S-CP|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>S-IC|C</id>
+        <Target code="C" id="S-IC|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>S-ID|C</id>
+        <Target code="C" id="S-ID|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>S-MD|C</id>
+        <Target code="C" id="S-MD|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>SP|C</id>
+        <Target code="C" id="SP|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>A-APR|C</id>
+        <Target code="C" id="A-APR|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>A-CED|C</id>
+        <Target code="C" id="A-CED|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>A-REI|C</id>
+        <Target code="C" id="A-REI|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>A-SSE|C</id>
+        <Target code="C" id="A-SSE|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>CC|C</id>
+        <Target code="C" id="CC|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>EE|C</id>
+        <Target code="C" id="EE|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>F-BF|C</id>
+        <Target code="C" id="F-BF|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>F-IF|C</id>
+        <Target code="C" id="F-IF|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>F-LE|C</id>
+        <Target code="C" id="F-LE|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>F-TF|C</id>
+        <Target code="C" id="F-TF|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>F|C</id>
+        <Target code="C" id="F|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>G-C|C</id>
+        <Target code="C" id="G-C|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>G-CO|C</id>
+        <Target code="C" id="G-CO|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>G-GMD|C</id>
+        <Target code="C" id="G-GMD|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>G-GPE|C</id>
+        <Target code="C" id="G-GPE|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>G-MG|C</id>
+        <Target code="C" id="G-MG|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>G-SRT|C</id>
+        <Target code="C" id="G-SRT|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>G|C</id>
+        <Target code="C" id="G|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>MD|C</id>
+        <Target code="C" id="MD|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>N-CN|C</id>
+        <Target code="C" id="N-CN|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>N-Q|C</id>
+        <Target code="C" id="N-Q|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>N-RN|C</id>
+        <Target code="C" id="N-RN|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>N-VM|C</id>
+        <Target code="C" id="N-VM|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>NBT|C</id>
+        <Target code="C" id="NBT|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>NF|C</id>
+        <Target code="C" id="NF|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>NS|C</id>
+        <Target code="C" id="NS|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="C">
-          <id>OA|C</id>
+        <Target code="C" id="OA|C">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>RP|D</id>
+        <Target code="D" id="RP|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>S-CP|D</id>
+        <Target code="D" id="S-CP|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>S-IC|D</id>
+        <Target code="D" id="S-IC|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>S-ID|D</id>
+        <Target code="D" id="S-ID|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>S-MD|D</id>
+        <Target code="D" id="S-MD|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>SP|D</id>
+        <Target code="D" id="SP|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>A-APR|D</id>
+        <Target code="D" id="A-APR|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>A-CED|D</id>
+        <Target code="D" id="A-CED|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>A-REI|D</id>
+        <Target code="D" id="A-REI|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>A-SSE|D</id>
+        <Target code="D" id="A-SSE|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>CC|D</id>
+        <Target code="D" id="CC|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>EE|D</id>
+        <Target code="D" id="EE|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>F-BF|D</id>
+        <Target code="D" id="F-BF|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>F-IF|D</id>
+        <Target code="D" id="F-IF|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>F-LE|D</id>
+        <Target code="D" id="F-LE|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>F-TF|D</id>
+        <Target code="D" id="F-TF|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>F|D</id>
+        <Target code="D" id="F|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>G-C|D</id>
+        <Target code="D" id="G-C|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>G-CO|D</id>
+        <Target code="D" id="G-CO|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>G-GMD|D</id>
+        <Target code="D" id="G-GMD|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>G-GPE|D</id>
+        <Target code="D" id="G-GPE|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>G-MG|D</id>
+        <Target code="D" id="G-MG|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>G-SRT|D</id>
+        <Target code="D" id="G-SRT|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>G|D</id>
+        <Target code="D" id="G|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>MD|D</id>
+        <Target code="D" id="MD|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>N-CN|D</id>
+        <Target code="D" id="N-CN|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>N-Q|D</id>
+        <Target code="D" id="N-Q|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>N-RN|D</id>
+        <Target code="D" id="N-RN|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>N-VM|D</id>
+        <Target code="D" id="N-VM|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>NBT|D</id>
+        <Target code="D" id="NBT|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>NF|D</id>
+        <Target code="D" id="NF|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>NS|D</id>
+        <Target code="D" id="NS|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
-        <Target code="D">
-          <id>OA|D</id>
+        <Target code="D" id="OA|D">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas). (DOK 1, 2, 3)</Description>
         </Target>
       </Targets>
@@ -1570,928 +1290,697 @@
     <ItemClaim code="3" name="Communicating Reasoning">
       <Description>Communicating Reasoning - Students can clearly and precisely construct viable arguments to support their own reasoning and to critique the reasoning of others.</Description>
       <Targets>
-        <Target code="A">
-          <id>A-APR|A</id>
+        <Target code="A" id="A-APR|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>A-CED|A</id>
+        <Target code="A" id="A-CED|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>A-REI|A</id>
+        <Target code="A" id="A-REI|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>A-SSE|A</id>
+        <Target code="A" id="A-SSE|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>CC|A</id>
+        <Target code="A" id="CC|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>EE|A</id>
+        <Target code="A" id="EE|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>F-BF|A</id>
+        <Target code="A" id="F-BF|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>F-IF|A</id>
+        <Target code="A" id="F-IF|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>F-LE|A</id>
+        <Target code="A" id="F-LE|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>F-TF|A</id>
+        <Target code="A" id="F-TF|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>F|A</id>
+        <Target code="A" id="F|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>G-C|A</id>
+        <Target code="A" id="G-C|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>G-CO|A</id>
+        <Target code="A" id="G-CO|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>G-GMD|A</id>
+        <Target code="A" id="G-GMD|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>G-GPE|A</id>
+        <Target code="A" id="G-GPE|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>G-MG|A</id>
+        <Target code="A" id="G-MG|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>G-SRT|A</id>
+        <Target code="A" id="G-SRT|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>G|A</id>
+        <Target code="A" id="G|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>MD|A</id>
+        <Target code="A" id="MD|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>N-CN|A</id>
+        <Target code="A" id="N-CN|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>N-Q|A</id>
+        <Target code="A" id="N-Q|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>N-RN|A</id>
+        <Target code="A" id="N-RN|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>N-VM|A</id>
+        <Target code="A" id="N-VM|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>NBT|A</id>
+        <Target code="A" id="NBT|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>NF|A</id>
+        <Target code="A" id="NF|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>NS|A</id>
+        <Target code="A" id="NS|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>OA|A</id>
+        <Target code="A" id="OA|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>RP|A</id>
+        <Target code="A" id="RP|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>S-CP|A</id>
+        <Target code="A" id="S-CP|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>S-IC|A</id>
+        <Target code="A" id="S-IC|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>S-ID|A</id>
+        <Target code="A" id="S-ID|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>S-MD|A</id>
+        <Target code="A" id="S-MD|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="A">
-          <id>SP|A</id>
+        <Target code="A" id="SP|A">
           <Description>Test propositions or conjectures with specific examples.</Description>
         </Target>
-        <Target code="B">
-          <id>A-APR|B</id>
+        <Target code="B" id="A-APR|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>A-CED|B</id>
+        <Target code="B" id="A-CED|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>A-REI|B</id>
+        <Target code="B" id="A-REI|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>A-SSE|B</id>
+        <Target code="B" id="A-SSE|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>CC|B</id>
+        <Target code="B" id="CC|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>EE|B</id>
+        <Target code="B" id="EE|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>F-BF|B</id>
+        <Target code="B" id="F-BF|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>F-IF|B</id>
+        <Target code="B" id="F-IF|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>F-LE|B</id>
+        <Target code="B" id="F-LE|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>F-TF|B</id>
+        <Target code="B" id="F-TF|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>F|B</id>
+        <Target code="B" id="F|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>G-C|B</id>
+        <Target code="B" id="G-C|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>G-CO|B</id>
+        <Target code="B" id="G-CO|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>G-GMD|B</id>
+        <Target code="B" id="G-GMD|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>G-GPE|B</id>
+        <Target code="B" id="G-GPE|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>G-MG|B</id>
+        <Target code="B" id="G-MG|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>G-SRT|B</id>
+        <Target code="B" id="G-SRT|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>G|B</id>
+        <Target code="B" id="G|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>MD|B</id>
+        <Target code="B" id="MD|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>N-CN|B</id>
+        <Target code="B" id="N-CN|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>N-Q|B</id>
+        <Target code="B" id="N-Q|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>N-RN|B</id>
+        <Target code="B" id="N-RN|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>N-VM|B</id>
+        <Target code="B" id="N-VM|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>NBT|B</id>
+        <Target code="B" id="NBT|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>NF|B</id>
+        <Target code="B" id="NF|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>NS|B</id>
+        <Target code="B" id="NS|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>OA|B</id>
+        <Target code="B" id="OA|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>RP|B</id>
+        <Target code="B" id="RP|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>S-CP|B</id>
+        <Target code="B" id="S-CP|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>S-IC|B</id>
+        <Target code="B" id="S-IC|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>S-ID|B</id>
+        <Target code="B" id="S-ID|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>S-MD|B</id>
+        <Target code="B" id="S-MD|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="B">
-          <id>SP|B</id>
+        <Target code="B" id="SP|B">
           <Description>Construct, autonomously, chains of reasoning that will justify or refute propositions or conjectures.</Description>
         </Target>
-        <Target code="C">
-          <id>A-APR|C</id>
+        <Target code="C" id="A-APR|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>A-CED|C</id>
+        <Target code="C" id="A-CED|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>A-REI|C</id>
+        <Target code="C" id="A-REI|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>A-SSE|C</id>
+        <Target code="C" id="A-SSE|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>CC|C</id>
+        <Target code="C" id="CC|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>EE|C</id>
+        <Target code="C" id="EE|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>F-BF|C</id>
+        <Target code="C" id="F-BF|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>F-IF|C</id>
+        <Target code="C" id="F-IF|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>F-LE|C</id>
+        <Target code="C" id="F-LE|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>F-TF|C</id>
+        <Target code="C" id="F-TF|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>F|C</id>
+        <Target code="C" id="F|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>G-C|C</id>
+        <Target code="C" id="G-C|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>G-CO|C</id>
+        <Target code="C" id="G-CO|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>G-GMD|C</id>
+        <Target code="C" id="G-GMD|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>G-GPE|C</id>
+        <Target code="C" id="G-GPE|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>G-MG|C</id>
+        <Target code="C" id="G-MG|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>G-SRT|C</id>
+        <Target code="C" id="G-SRT|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>G|C</id>
+        <Target code="C" id="G|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>MD|C</id>
+        <Target code="C" id="MD|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>N-CN|C</id>
+        <Target code="C" id="N-CN|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>N-Q|C</id>
+        <Target code="C" id="N-Q|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>N-RN|C</id>
+        <Target code="C" id="N-RN|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>N-VM|C</id>
+        <Target code="C" id="N-VM|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>NBT|C</id>
+        <Target code="C" id="NBT|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>NF|C</id>
+        <Target code="C" id="NF|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>NS|C</id>
+        <Target code="C" id="NS|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>OA|C</id>
+        <Target code="C" id="OA|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>RP|C</id>
+        <Target code="C" id="RP|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>S-CP|C</id>
+        <Target code="C" id="S-CP|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>S-IC|C</id>
+        <Target code="C" id="S-IC|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>S-ID|C</id>
+        <Target code="C" id="S-ID|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>S-MD|C</id>
+        <Target code="C" id="S-MD|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>SP|C</id>
+        <Target code="C" id="SP|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="D">
-          <id>A-APR|D</id>
+        <Target code="D" id="A-APR|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>A-CED|D</id>
+        <Target code="D" id="A-CED|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>A-REI|D</id>
+        <Target code="D" id="A-REI|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>A-SSE|D</id>
+        <Target code="D" id="A-SSE|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>CC|D</id>
+        <Target code="D" id="CC|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>EE|D</id>
+        <Target code="D" id="EE|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>F-BF|D</id>
+        <Target code="D" id="F-BF|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>F-IF|D</id>
+        <Target code="D" id="F-IF|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>F-LE|D</id>
+        <Target code="D" id="F-LE|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>F-TF|D</id>
+        <Target code="D" id="F-TF|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>F|D</id>
+        <Target code="D" id="F|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>G-C|D</id>
+        <Target code="D" id="G-C|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>G-CO|D</id>
+        <Target code="D" id="G-CO|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>G-GMD|D</id>
+        <Target code="D" id="G-GMD|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>G-GPE|D</id>
+        <Target code="D" id="G-GPE|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>G-MG|D</id>
+        <Target code="D" id="G-MG|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>G-SRT|D</id>
+        <Target code="D" id="G-SRT|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>G|D</id>
+        <Target code="D" id="G|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>MD|D</id>
+        <Target code="D" id="MD|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>N-CN|D</id>
+        <Target code="D" id="N-CN|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>N-Q|D</id>
+        <Target code="D" id="N-Q|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>N-RN|D</id>
+        <Target code="D" id="N-RN|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>N-VM|D</id>
+        <Target code="D" id="N-VM|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>NBT|D</id>
+        <Target code="D" id="NBT|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>NF|D</id>
+        <Target code="D" id="NF|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>NS|D</id>
+        <Target code="D" id="NS|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>OA|D</id>
+        <Target code="D" id="OA|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>RP|D</id>
+        <Target code="D" id="RP|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>S-CP|D</id>
+        <Target code="D" id="S-CP|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>S-IC|D</id>
+        <Target code="D" id="S-IC|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>S-ID|D</id>
+        <Target code="D" id="S-ID|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>S-MD|D</id>
+        <Target code="D" id="S-MD|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="D">
-          <id>SP|D</id>
+        <Target code="D" id="SP|D">
           <Description>Use the technique of breaking an argument into cases.</Description>
         </Target>
-        <Target code="E">
-          <id>A-APR|E</id>
+        <Target code="E" id="A-APR|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>A-CED|E</id>
+        <Target code="E" id="A-CED|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>A-REI|E</id>
+        <Target code="E" id="A-REI|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>A-SSE|E</id>
+        <Target code="E" id="A-SSE|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>CC|E</id>
+        <Target code="E" id="CC|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>EE|E</id>
+        <Target code="E" id="EE|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>F-BF|E</id>
+        <Target code="E" id="F-BF|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>F-IF|E</id>
+        <Target code="E" id="F-IF|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>F-LE|E</id>
+        <Target code="E" id="F-LE|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>F-TF|E</id>
+        <Target code="E" id="F-TF|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>F|E</id>
+        <Target code="E" id="F|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>G-C|E</id>
+        <Target code="E" id="G-C|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>G-CO|E</id>
+        <Target code="E" id="G-CO|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>G-GMD|E</id>
+        <Target code="E" id="G-GMD|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>G-GPE|E</id>
+        <Target code="E" id="G-GPE|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>G-MG|E</id>
+        <Target code="E" id="G-MG|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>G-SRT|E</id>
+        <Target code="E" id="G-SRT|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>G|E</id>
+        <Target code="E" id="G|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>MD|E</id>
+        <Target code="E" id="MD|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>N-CN|E</id>
+        <Target code="E" id="N-CN|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>N-Q|E</id>
+        <Target code="E" id="N-Q|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>N-RN|E</id>
+        <Target code="E" id="N-RN|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>N-VM|E</id>
+        <Target code="E" id="N-VM|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>NBT|E</id>
+        <Target code="E" id="NBT|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>NF|E</id>
+        <Target code="E" id="NF|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>NS|E</id>
+        <Target code="E" id="NS|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>OA|E</id>
+        <Target code="E" id="OA|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>RP|E</id>
+        <Target code="E" id="RP|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>S-CP|E</id>
+        <Target code="E" id="S-CP|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>S-IC|E</id>
+        <Target code="E" id="S-IC|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>S-ID|E</id>
+        <Target code="E" id="S-ID|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>S-MD|E</id>
+        <Target code="E" id="S-MD|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="E">
-          <id>SP|E</id>
+        <Target code="E" id="SP|E">
           <Description>Distinguish correct logic or reasoning from that which is flawed, and—if there is a flaw in the argument—explain what it is.</Description>
         </Target>
-        <Target code="F">
-          <id>A-APR|F</id>
+        <Target code="F" id="A-APR|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>A-CED|F</id>
+        <Target code="F" id="A-CED|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>A-REI|F</id>
+        <Target code="F" id="A-REI|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>A-SSE|F</id>
+        <Target code="F" id="A-SSE|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>CC|F</id>
+        <Target code="F" id="CC|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>EE|F</id>
+        <Target code="F" id="EE|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>F-BF|F</id>
+        <Target code="F" id="F-BF|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>F-IF|F</id>
+        <Target code="F" id="F-IF|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>F-LE|F</id>
+        <Target code="F" id="F-LE|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>F-TF|F</id>
+        <Target code="F" id="F-TF|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>F|F</id>
+        <Target code="F" id="F|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>G-C|F</id>
+        <Target code="F" id="G-C|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>G-CO|F</id>
+        <Target code="F" id="G-CO|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>G-GMD|F</id>
+        <Target code="F" id="G-GMD|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>G-GPE|F</id>
+        <Target code="F" id="G-GPE|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>G-MG|F</id>
+        <Target code="F" id="G-MG|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>G-SRT|F</id>
+        <Target code="F" id="G-SRT|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>G|F</id>
+        <Target code="F" id="G|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>MD|F</id>
+        <Target code="F" id="MD|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>N-CN|F</id>
+        <Target code="F" id="N-CN|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>N-Q|F</id>
+        <Target code="F" id="N-Q|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>N-RN|F</id>
+        <Target code="F" id="N-RN|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>N-VM|F</id>
+        <Target code="F" id="N-VM|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>NBT|F</id>
+        <Target code="F" id="NBT|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>NF|F</id>
+        <Target code="F" id="NF|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>NS|F</id>
+        <Target code="F" id="NS|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>OA|F</id>
+        <Target code="F" id="OA|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>RP|F</id>
+        <Target code="F" id="RP|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>S-CP|F</id>
+        <Target code="F" id="S-CP|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>S-IC|F</id>
+        <Target code="F" id="S-IC|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>S-ID|F</id>
+        <Target code="F" id="S-ID|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>S-MD|F</id>
+        <Target code="F" id="S-MD|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="F">
-          <id>SP|F</id>
+        <Target code="F" id="SP|F">
           <Description>Base arguments on concrete referents such as objects, drawings, diagrams, and actions.</Description>
         </Target>
-        <Target code="G">
-          <id>A-APR|G</id>
+        <Target code="G" id="A-APR|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>A-CED|G</id>
+        <Target code="G" id="A-CED|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>A-REI|G</id>
+        <Target code="G" id="A-REI|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>A-SSE|G</id>
+        <Target code="G" id="A-SSE|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>CC|G</id>
+        <Target code="G" id="CC|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>EE|G</id>
+        <Target code="G" id="EE|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>F-BF|G</id>
+        <Target code="G" id="F-BF|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>F-IF|G</id>
+        <Target code="G" id="F-IF|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>F-LE|G</id>
+        <Target code="G" id="F-LE|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>F-TF|G</id>
+        <Target code="G" id="F-TF|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>F|G</id>
+        <Target code="G" id="F|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>G-C|G</id>
+        <Target code="G" id="G-C|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>G-CO|G</id>
+        <Target code="G" id="G-CO|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>G-GMD|G</id>
+        <Target code="G" id="G-GMD|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>G-GPE|G</id>
+        <Target code="G" id="G-GPE|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>G-MG|G</id>
+        <Target code="G" id="G-MG|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>G-SRT|G</id>
+        <Target code="G" id="G-SRT|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>G|G</id>
+        <Target code="G" id="G|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>MD|G</id>
+        <Target code="G" id="MD|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>N-CN|G</id>
+        <Target code="G" id="N-CN|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>N-Q|G</id>
+        <Target code="G" id="N-Q|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>N-RN|G</id>
+        <Target code="G" id="N-RN|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>N-VM|G</id>
+        <Target code="G" id="N-VM|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>NBT|G</id>
+        <Target code="G" id="NBT|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>NF|G</id>
+        <Target code="G" id="NF|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>NS|G</id>
+        <Target code="G" id="NS|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>OA|G</id>
+        <Target code="G" id="OA|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>RP|G</id>
+        <Target code="G" id="RP|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>S-CP|G</id>
+        <Target code="G" id="S-CP|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>S-IC|G</id>
+        <Target code="G" id="S-IC|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>S-ID|G</id>
+        <Target code="G" id="S-ID|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>S-MD|G</id>
+        <Target code="G" id="S-MD|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
-        <Target code="G">
-          <id>SP|G</id>
+        <Target code="G" id="SP|G">
           <Description>At later grades, determine conditions under which an argument does and does not apply. (For example, area increases with perimeter for squares, but not for all plane figures.)</Description>
         </Target>
       </Targets>
@@ -2499,928 +1988,697 @@
     <ItemClaim code="4" name="Modeling and Data Analysis">
       <Description>Modeling and Data Analysis - Students can analyze complex, real-world scenarios and can construct and use mathematical models to interpret and solve problems.</Description>
       <Targets>
-        <Target code="A">
-          <id>A-CED|A</id>
+        <Target code="A" id="A-CED|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>A-REI|A</id>
+        <Target code="A" id="A-REI|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>A-SSE|A</id>
+        <Target code="A" id="A-SSE|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>CC|A</id>
+        <Target code="A" id="CC|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>EE|A</id>
+        <Target code="A" id="EE|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>F-BF|A</id>
+        <Target code="A" id="F-BF|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>F-IF|A</id>
+        <Target code="A" id="F-IF|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>F-LE|A</id>
+        <Target code="A" id="F-LE|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>F-TF|A</id>
+        <Target code="A" id="F-TF|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>F|A</id>
+        <Target code="A" id="F|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>G-C|A</id>
+        <Target code="A" id="G-C|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>G-CO|A</id>
+        <Target code="A" id="G-CO|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>G-GMD|A</id>
+        <Target code="A" id="G-GMD|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>G-GPE|A</id>
+        <Target code="A" id="G-GPE|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>G-MG|A</id>
+        <Target code="A" id="G-MG|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>G-SRT|A</id>
+        <Target code="A" id="G-SRT|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>G|A</id>
+        <Target code="A" id="G|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>MD|A</id>
+        <Target code="A" id="MD|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>N-CN|A</id>
+        <Target code="A" id="N-CN|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>N-Q|A</id>
+        <Target code="A" id="N-Q|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>N-RN|A</id>
+        <Target code="A" id="N-RN|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>N-VM|A</id>
+        <Target code="A" id="N-VM|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>NBT|A</id>
+        <Target code="A" id="NBT|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>NF|A</id>
+        <Target code="A" id="NF|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>NS|A</id>
+        <Target code="A" id="NS|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>OA|A</id>
+        <Target code="A" id="OA|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>RP|A</id>
+        <Target code="A" id="RP|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>S-CP|A</id>
+        <Target code="A" id="S-CP|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>S-IC|A</id>
+        <Target code="A" id="S-IC|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>S-ID|A</id>
+        <Target code="A" id="S-ID|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>S-MD|A</id>
+        <Target code="A" id="S-MD|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>SP|A</id>
+        <Target code="A" id="SP|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="A">
-          <id>A-APR|A</id>
+        <Target code="A" id="A-APR|A">
           <Description>Apply mathematics to solve problems arising in everyday life, society, and the workplace.</Description>
         </Target>
-        <Target code="B">
-          <id>A-APR|B</id>
+        <Target code="B" id="A-APR|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>A-CED|B</id>
+        <Target code="B" id="A-CED|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>A-REI|B</id>
+        <Target code="B" id="A-REI|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>A-SSE|B</id>
+        <Target code="B" id="A-SSE|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>CC|B</id>
+        <Target code="B" id="CC|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>EE|B</id>
+        <Target code="B" id="EE|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>F-BF|B</id>
+        <Target code="B" id="F-BF|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>F-IF|B</id>
+        <Target code="B" id="F-IF|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>F-LE|B</id>
+        <Target code="B" id="F-LE|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>F-TF|B</id>
+        <Target code="B" id="F-TF|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>F|B</id>
+        <Target code="B" id="F|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>G-C|B</id>
+        <Target code="B" id="G-C|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>G-CO|B</id>
+        <Target code="B" id="G-CO|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>G-GMD|B</id>
+        <Target code="B" id="G-GMD|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>G-GPE|B</id>
+        <Target code="B" id="G-GPE|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>G-MG|B</id>
+        <Target code="B" id="G-MG|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>G-SRT|B</id>
+        <Target code="B" id="G-SRT|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>G|B</id>
+        <Target code="B" id="G|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>MD|B</id>
+        <Target code="B" id="MD|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>N-CN|B</id>
+        <Target code="B" id="N-CN|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>N-Q|B</id>
+        <Target code="B" id="N-Q|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>N-RN|B</id>
+        <Target code="B" id="N-RN|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>N-VM|B</id>
+        <Target code="B" id="N-VM|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>NBT|B</id>
+        <Target code="B" id="NBT|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>NF|B</id>
+        <Target code="B" id="NF|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>NS|B</id>
+        <Target code="B" id="NS|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>OA|B</id>
+        <Target code="B" id="OA|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>RP|B</id>
+        <Target code="B" id="RP|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>S-CP|B</id>
+        <Target code="B" id="S-CP|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>S-IC|B</id>
+        <Target code="B" id="S-IC|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>S-ID|B</id>
+        <Target code="B" id="S-ID|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>S-MD|B</id>
+        <Target code="B" id="S-MD|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="B">
-          <id>SP|B</id>
+        <Target code="B" id="SP|B">
           <Description>Construct, autonomously, chains of reasoning to justify mathematical models used, interpretations made, and solutions proposed for a complex problem.</Description>
         </Target>
-        <Target code="C">
-          <id>A-APR|C</id>
+        <Target code="C" id="A-APR|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>A-CED|C</id>
+        <Target code="C" id="A-CED|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>A-REI|C</id>
+        <Target code="C" id="A-REI|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>A-SSE|C</id>
+        <Target code="C" id="A-SSE|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>CC|C</id>
+        <Target code="C" id="CC|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>EE|C</id>
+        <Target code="C" id="EE|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>F-BF|C</id>
+        <Target code="C" id="F-BF|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>F-IF|C</id>
+        <Target code="C" id="F-IF|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>F-LE|C</id>
+        <Target code="C" id="F-LE|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>F-TF|C</id>
+        <Target code="C" id="F-TF|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>F|C</id>
+        <Target code="C" id="F|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>G-C|C</id>
+        <Target code="C" id="G-C|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>G-CO|C</id>
+        <Target code="C" id="G-CO|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>G-GMD|C</id>
+        <Target code="C" id="G-GMD|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>G-GPE|C</id>
+        <Target code="C" id="G-GPE|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>G-MG|C</id>
+        <Target code="C" id="G-MG|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>G-SRT|C</id>
+        <Target code="C" id="G-SRT|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>G|C</id>
+        <Target code="C" id="G|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>MD|C</id>
+        <Target code="C" id="MD|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>N-CN|C</id>
+        <Target code="C" id="N-CN|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>N-Q|C</id>
+        <Target code="C" id="N-Q|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>N-RN|C</id>
+        <Target code="C" id="N-RN|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>N-VM|C</id>
+        <Target code="C" id="N-VM|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>NBT|C</id>
+        <Target code="C" id="NBT|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>NF|C</id>
+        <Target code="C" id="NF|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>NS|C</id>
+        <Target code="C" id="NS|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>OA|C</id>
+        <Target code="C" id="OA|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>RP|C</id>
+        <Target code="C" id="RP|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>S-CP|C</id>
+        <Target code="C" id="S-CP|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>S-IC|C</id>
+        <Target code="C" id="S-IC|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>S-ID|C</id>
+        <Target code="C" id="S-ID|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>S-MD|C</id>
+        <Target code="C" id="S-MD|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="C">
-          <id>SP|C</id>
+        <Target code="C" id="SP|C">
           <Description>State logical assumptions being used.</Description>
         </Target>
-        <Target code="D">
-          <id>A-APR|D</id>
+        <Target code="D" id="A-APR|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>A-CED|D</id>
+        <Target code="D" id="A-CED|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>A-REI|D</id>
+        <Target code="D" id="A-REI|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>A-SSE|D</id>
+        <Target code="D" id="A-SSE|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>CC|D</id>
+        <Target code="D" id="CC|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>EE|D</id>
+        <Target code="D" id="EE|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>F-BF|D</id>
+        <Target code="D" id="F-BF|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>F-IF|D</id>
+        <Target code="D" id="F-IF|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>F-LE|D</id>
+        <Target code="D" id="F-LE|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>F-TF|D</id>
+        <Target code="D" id="F-TF|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>F|D</id>
+        <Target code="D" id="F|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>G-C|D</id>
+        <Target code="D" id="G-C|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>G-CO|D</id>
+        <Target code="D" id="G-CO|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>G-GMD|D</id>
+        <Target code="D" id="G-GMD|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>G-GPE|D</id>
+        <Target code="D" id="G-GPE|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>G-MG|D</id>
+        <Target code="D" id="G-MG|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>G-SRT|D</id>
+        <Target code="D" id="G-SRT|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>G|D</id>
+        <Target code="D" id="G|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>MD|D</id>
+        <Target code="D" id="MD|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>N-CN|D</id>
+        <Target code="D" id="N-CN|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>N-Q|D</id>
+        <Target code="D" id="N-Q|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>N-RN|D</id>
+        <Target code="D" id="N-RN|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>N-VM|D</id>
+        <Target code="D" id="N-VM|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>NBT|D</id>
+        <Target code="D" id="NBT|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>NF|D</id>
+        <Target code="D" id="NF|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>NS|D</id>
+        <Target code="D" id="NS|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>OA|D</id>
+        <Target code="D" id="OA|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>RP|D</id>
+        <Target code="D" id="RP|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>S-CP|D</id>
+        <Target code="D" id="S-CP|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>S-IC|D</id>
+        <Target code="D" id="S-IC|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>S-ID|D</id>
+        <Target code="D" id="S-ID|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>S-MD|D</id>
+        <Target code="D" id="S-MD|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="D">
-          <id>SP|D</id>
+        <Target code="D" id="SP|D">
           <Description>Interpret results in the context of a situation.</Description>
         </Target>
-        <Target code="E">
-          <id>A-APR|E</id>
+        <Target code="E" id="A-APR|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>A-CED|E</id>
+        <Target code="E" id="A-CED|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>A-REI|E</id>
+        <Target code="E" id="A-REI|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>A-SSE|E</id>
+        <Target code="E" id="A-SSE|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>CC|E</id>
+        <Target code="E" id="CC|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>EE|E</id>
+        <Target code="E" id="EE|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>F-BF|E</id>
+        <Target code="E" id="F-BF|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>F-IF|E</id>
+        <Target code="E" id="F-IF|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>F-LE|E</id>
+        <Target code="E" id="F-LE|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>F-TF|E</id>
+        <Target code="E" id="F-TF|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>F|E</id>
+        <Target code="E" id="F|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>G-C|E</id>
+        <Target code="E" id="G-C|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>G-CO|E</id>
+        <Target code="E" id="G-CO|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>G-GMD|E</id>
+        <Target code="E" id="G-GMD|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>G-GPE|E</id>
+        <Target code="E" id="G-GPE|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>G-MG|E</id>
+        <Target code="E" id="G-MG|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>G-SRT|E</id>
+        <Target code="E" id="G-SRT|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>G|E</id>
+        <Target code="E" id="G|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>MD|E</id>
+        <Target code="E" id="MD|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>N-CN|E</id>
+        <Target code="E" id="N-CN|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>N-Q|E</id>
+        <Target code="E" id="N-Q|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>N-RN|E</id>
+        <Target code="E" id="N-RN|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>N-VM|E</id>
+        <Target code="E" id="N-VM|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>NBT|E</id>
+        <Target code="E" id="NBT|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>NF|E</id>
+        <Target code="E" id="NF|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>NS|E</id>
+        <Target code="E" id="NS|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>OA|E</id>
+        <Target code="E" id="OA|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>RP|E</id>
+        <Target code="E" id="RP|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>S-CP|E</id>
+        <Target code="E" id="S-CP|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>S-IC|E</id>
+        <Target code="E" id="S-IC|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>S-ID|E</id>
+        <Target code="E" id="S-ID|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>S-MD|E</id>
+        <Target code="E" id="S-MD|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="E">
-          <id>SP|E</id>
+        <Target code="E" id="SP|E">
           <Description>Analyze the adequacy of and make improvements to an existing model or develop a mathematical model of a real phenomenon.</Description>
         </Target>
-        <Target code="F">
-          <id>A-APR|F</id>
+        <Target code="F" id="A-APR|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>A-CED|F</id>
+        <Target code="F" id="A-CED|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>A-REI|F</id>
+        <Target code="F" id="A-REI|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>A-SSE|F</id>
+        <Target code="F" id="A-SSE|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>CC|F</id>
+        <Target code="F" id="CC|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>EE|F</id>
+        <Target code="F" id="EE|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>F-BF|F</id>
+        <Target code="F" id="F-BF|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>F-IF|F</id>
+        <Target code="F" id="F-IF|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>F-LE|F</id>
+        <Target code="F" id="F-LE|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>F-TF|F</id>
+        <Target code="F" id="F-TF|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>F|F</id>
+        <Target code="F" id="F|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>G-C|F</id>
+        <Target code="F" id="G-C|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>G-CO|F</id>
+        <Target code="F" id="G-CO|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>G-GMD|F</id>
+        <Target code="F" id="G-GMD|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>G-GPE|F</id>
+        <Target code="F" id="G-GPE|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>G-MG|F</id>
+        <Target code="F" id="G-MG|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>G-SRT|F</id>
+        <Target code="F" id="G-SRT|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>G|F</id>
+        <Target code="F" id="G|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>MD|F</id>
+        <Target code="F" id="MD|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>N-CN|F</id>
+        <Target code="F" id="N-CN|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>N-Q|F</id>
+        <Target code="F" id="N-Q|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>N-RN|F</id>
+        <Target code="F" id="N-RN|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>N-VM|F</id>
+        <Target code="F" id="N-VM|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>NBT|F</id>
+        <Target code="F" id="NBT|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>NF|F</id>
+        <Target code="F" id="NF|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>NS|F</id>
+        <Target code="F" id="NS|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>OA|F</id>
+        <Target code="F" id="OA|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>RP|F</id>
+        <Target code="F" id="RP|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>S-CP|F</id>
+        <Target code="F" id="S-CP|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>S-IC|F</id>
+        <Target code="F" id="S-IC|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>S-ID|F</id>
+        <Target code="F" id="S-ID|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>S-MD|F</id>
+        <Target code="F" id="S-MD|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="F">
-          <id>SP|F</id>
+        <Target code="F" id="SP|F">
           <Description>Identify important quantities in a practical situation and map their relationships (e.g., using diagrams, two-way tables, graphs, flowcharts, or formulas).</Description>
         </Target>
-        <Target code="G">
-          <id>A-APR|G</id>
+        <Target code="G" id="A-APR|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>A-CED|G</id>
+        <Target code="G" id="A-CED|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>A-REI|G</id>
+        <Target code="G" id="A-REI|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>A-SSE|G</id>
+        <Target code="G" id="A-SSE|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>CC|G</id>
+        <Target code="G" id="CC|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>EE|G</id>
+        <Target code="G" id="EE|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>F-BF|G</id>
+        <Target code="G" id="F-BF|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>F-IF|G</id>
+        <Target code="G" id="F-IF|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>F-LE|G</id>
+        <Target code="G" id="F-LE|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>F-TF|G</id>
+        <Target code="G" id="F-TF|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>F|G</id>
+        <Target code="G" id="F|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>G-C|G</id>
+        <Target code="G" id="G-C|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>G-CO|G</id>
+        <Target code="G" id="G-CO|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>G-GMD|G</id>
+        <Target code="G" id="G-GMD|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>G-GPE|G</id>
+        <Target code="G" id="G-GPE|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>G-MG|G</id>
+        <Target code="G" id="G-MG|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>G-SRT|G</id>
+        <Target code="G" id="G-SRT|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>G|G</id>
+        <Target code="G" id="G|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>MD|G</id>
+        <Target code="G" id="MD|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>N-CN|G</id>
+        <Target code="G" id="N-CN|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>N-Q|G</id>
+        <Target code="G" id="N-Q|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>N-RN|G</id>
+        <Target code="G" id="N-RN|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>N-VM|G</id>
+        <Target code="G" id="N-VM|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>NBT|G</id>
+        <Target code="G" id="NBT|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>NF|G</id>
+        <Target code="G" id="NF|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>NS|G</id>
+        <Target code="G" id="NS|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>OA|G</id>
+        <Target code="G" id="OA|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>RP|G</id>
+        <Target code="G" id="RP|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>S-CP|G</id>
+        <Target code="G" id="S-CP|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>S-IC|G</id>
+        <Target code="G" id="S-IC|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>S-ID|G</id>
+        <Target code="G" id="S-ID|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>S-MD|G</id>
+        <Target code="G" id="S-MD|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
-        <Target code="G">
-          <id>SP|G</id>
+        <Target code="G" id="SP|G">
           <Description>Identify, analyze and synthesize relevant external resources to pose or solve problems.</Description>
         </Target>
       </Targets>
