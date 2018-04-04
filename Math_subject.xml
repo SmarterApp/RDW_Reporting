@@ -158,42 +158,42 @@
             <TertiaryScore code="G-CO|O" name="Geometry: Prove geometric theorems."/>
             <TertiaryScore code="G-SRT|O" name="Geometry: Define trigonometric ratios and solve problems involving right triangles."/>
             <TertiaryScore code="S-ID|P" name="Statistics and Probability: Summarize, represent, and interpret data on a single count or measurement variable."/>
-            <TertiaryScore code="A-REI|X" name="Algebra: Solve systems of equations."/>
-            <TertiaryScore code="S-CP|X" name="Statistics and Probability: Understand independence and conditional probability and use them to interpret data."/>
             <TertiaryScore code="G-GMD|X" name="Geometry: Explain volume formulas and use them to solve problems."/>
             <TertiaryScore code="G-MG|X" name="Geometry: Apply geometric concepts in modeling situations."/>
             <TertiaryScore code="N-VM|X" name="Number and Quantities: Represent and model with vector quantities."/>
+            <TertiaryScore code="A-REI|X" name="Algebra: Solve systems of equations."/>
+            <TertiaryScore code="S-CP|X" name="Statistics and Probability: Understand independence and conditional probability and use them to interpret data."/>
+            <TertiaryScore code="A-APR|X" name="Algebra: Understand the relationship between zeros and factors of polynomials."/>
             <TertiaryScore code="S-ID|X" name="Statistics and Probability: Summarize, represent, and interpret data on two categorical and quantitative variables."/>
             <TertiaryScore code="F-TF|X" name="Functions: Extend the domain of trigonometric functions using the unit circle."/>
             <TertiaryScore code="G-CO|X" name="Geometry: Experiment with transformations in the place."/>
-            <TertiaryScore code="A-APR|X" name="Algebra: Understand the relationship between zeros and factors of polynomials."/>
-            <TertiaryScore code="S-IC|X" name="Statistics and Probability: Understand and evaluate random processes underlying statistical experiments."/>
-            <TertiaryScore code="G-C|X" name="Geometry: Understand and apply theorems about circles."/>
             <TertiaryScore code="N-CN|X" name="Number and Quantities: Perform arithmetic operations with complex numbers."/>
             <TertiaryScore code="G-GPE|X" name="Geometry: Translate between the geometric description and the equation for a conic section."/>
             <TertiaryScore code="G-SRT|X" name="Geometry: Understand similarity in terms of similarity transformations."/>
+            <TertiaryScore code="S-IC|X" name="Statistics and Probability: Understand and evaluate random processes underlying statistical experiments."/>
+            <TertiaryScore code="G-C|X" name="Geometry: Understand and apply theorems about circles."/>
             <TertiaryScore code="S-MD|X" name="Statistics and Probability: Calculate expected values and use them to solve problems."/>
             <TertiaryScore code="F-BF|X" name="Functions: Build new functions from existing functions."/>
             <TertiaryScore code="F-LE|X" name="Functions: Construct and compare linear and exponential models and solve problems."/>
             <TertiaryScore code="S-MD|XX" name="Statistics and Probability: Use probability to evaluate outcomes of decisions."/>
             <TertiaryScore code="F-LE|XX" name="Functions: Interpret expressions for functions in terms of the situation they model."/>
+            <TertiaryScore code="G-GMD|XX" name="Geometry: Visualize relationships between two-dimensional and three-dimensional objects."/>
             <TertiaryScore code="N-VM|XX" name="Number and Quantities: Perform operations on vectors."/>
             <TertiaryScore code="S-CP|XX" name="Statistics and Probability: Use the rules of probability to compute probabilities of compound events in a uniform probability model."/>
-            <TertiaryScore code="G-GMD|XX" name="Geometry: Visualize relationships between two-dimensional and three-dimensional objects."/>
+            <TertiaryScore code="A-APR|XX" name="Algebra: Use polynomial identities to solve problems."/>
             <TertiaryScore code="S-ID|XX" name="Statistics and Probability: Interpret linear models."/>
             <TertiaryScore code="F-TF|XX" name="Functions: Model periodic phenomena with trigonometric functions."/>
             <TertiaryScore code="G-CO|XX" name="Geometry: Understand congruence in terms of rigid motions."/>
-            <TertiaryScore code="A-APR|XX" name="Algebra: Use polynomial identities to solve problems."/>
-            <TertiaryScore code="S-IC|XX" name="Statistics and Probability: Make inferences and justify conclusions from sample surveys, experiments, and observational studies."/>
-            <TertiaryScore code="G-C|XX" name="Geometry: Find arc lengths and areas of sectors of circles."/>
             <TertiaryScore code="N-CN|XX" name="Number and Quantities: Represent complex numbers and their operations on the complex plane."/>
             <TertiaryScore code="G-GPE|XX" name="Geometry: Use coordinates to prove simple geometric theorems algebraically."/>
             <TertiaryScore code="G-SRT|XX" name="Geometry: Prove theorems involving similarity."/>
+            <TertiaryScore code="S-IC|XX" name="Statistics and Probability: Make inferences and justify conclusions from sample surveys, experiments, and observational studies."/>
+            <TertiaryScore code="G-C|XX" name="Geometry: Find arc lengths and areas of sectors of circles."/>
             <TertiaryScore code="N-CN|XXX" name="Number and Quantities: Use complex numbers in polynomial identities and equations."/>
             <TertiaryScore code="N-VM|XXX" name="Number and Quantities: Perform operations on matrices and use matrices in applications."/>
-            <TertiaryScore code="F-TF|XXX" name="Functions: Prove and apply trigonometric identities."/>
             <TertiaryScore code="G-CO|XXX" name="Geometry: Make geometric constructions."/>
             <TertiaryScore code="A-APR|XXX" name="Algebra: Rewrite rational expressions."/>
+            <TertiaryScore code="F-TF|XXX" name="Functions: Prove and apply trigonometric identities."/>
             <TertiaryScore code="G-SRT|XXXX" name="Geometry: Apply trigonometry to general triangles."/>
           </TertiaryScores>
         </SubScore>
@@ -218,25 +218,25 @@
       </ReportPerformanceLevels>
       <ReportClaims>
         <ReportClaim code="1">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to explain and apply mathematical concepts, or the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to consistently explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
         <ReportClaim code="3">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to put together valid arguments to support his or her own mathematical thinking or to critique the reasoning of others.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
         <ReportClaim code="SOCK_2">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to solve a variety of mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} does not yet demonstrate the ability to analyze real-world problems, or build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to solve well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates some ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to consistently solve a variety of well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates a strong ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
       </ReportClaims>
     </ReportGrade>
@@ -251,25 +251,25 @@
       </ReportPerformanceLevels>
       <ReportClaims>
         <ReportClaim code="1">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to explain and apply mathematical concepts, or the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to consistently explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
         <ReportClaim code="3">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to put together valid arguments to support his or her own mathematical thinking or to critique the reasoning of others.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
         <ReportClaim code="SOCK_2">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to solve a variety of mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} does not yet demonstrate the ability to analyze real-world problems, or build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to solve well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates some ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to consistently solve a variety of well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates a strong ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
       </ReportClaims>
     </ReportGrade>
@@ -284,25 +284,25 @@
       </ReportPerformanceLevels>
       <ReportClaims>
         <ReportClaim code="1">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to explain and apply mathematical concepts, or the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to consistently explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
         <ReportClaim code="3">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to put together valid arguments to support his or her own mathematical thinking or to critique the reasoning of others.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
         <ReportClaim code="SOCK_2">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to solve a variety of mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} does not yet demonstrate the ability to analyze real-world problems, or build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to solve well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates some ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to consistently solve a variety of well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates a strong ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
       </ReportClaims>
     </ReportGrade>
@@ -317,25 +317,25 @@
       </ReportPerformanceLevels>
       <ReportClaims>
         <ReportClaim code="1">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to explain and apply mathematical concepts, or the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to consistently explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
         <ReportClaim code="3">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to put together valid arguments to support his or her own mathematical thinking or to critique the reasoning of others.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
         <ReportClaim code="SOCK_2">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to solve a variety of mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} does not yet demonstrate the ability to analyze real-world problems, or build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to solve well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates some ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to consistently solve a variety of well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates a strong ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
       </ReportClaims>
     </ReportGrade>
@@ -350,25 +350,25 @@
       </ReportPerformanceLevels>
       <ReportClaims>
         <ReportClaim code="1">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to explain and apply mathematical concepts, or the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to consistently explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
         <ReportClaim code="3">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to put together valid arguments to support his or her own mathematical thinking or to critique the reasoning of others.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
         <ReportClaim code="SOCK_2">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to solve a variety of mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} does not yet demonstrate the ability to analyze real-world problems, or build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to solve well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates some ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to consistently solve a variety of well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates a strong ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
       </ReportClaims>
     </ReportGrade>
@@ -383,25 +383,25 @@
       </ReportPerformanceLevels>
       <ReportClaims>
         <ReportClaim code="1">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to explain and apply mathematical concepts, or the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to consistently explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
         <ReportClaim code="3">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to put together valid arguments to support his or her own mathematical thinking or to critique the reasoning of others.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
         <ReportClaim code="SOCK_2">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to solve a variety of mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} does not yet demonstrate the ability to analyze real-world problems, or build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to solve well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates some ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to consistently solve a variety of well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates a strong ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
       </ReportClaims>
     </ReportGrade>
@@ -416,25 +416,25 @@
       </ReportPerformanceLevels>
       <ReportClaims>
         <ReportClaim code="1">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to explain and apply mathematical concepts, or the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to consistently explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
         <ReportClaim code="3">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to put together valid arguments to support his or her own mathematical thinking or to critique the reasoning of others.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
         <ReportClaim code="SOCK_2">
-          <ReportPerformanceLevel>
+          <ReportPerformanceLevels>
             <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to solve a variety of mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} does not yet demonstrate the ability to analyze real-world problems, or build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="2">{0} demonstrates some ability to solve well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates some ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
             <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to consistently solve a variety of well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates a strong ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
-          </ReportPerformanceLevel>
+          </ReportPerformanceLevels>
         </ReportClaim>
       </ReportClaims>
     </ReportGrade>
