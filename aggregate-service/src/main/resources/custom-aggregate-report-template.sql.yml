@@ -147,7 +147,6 @@ sqlbuilder:
                      se.ethnicity_id,
                      e.code
 
-            # If a student has multiple ethnicities, we are double-counting it - by design
             ELAS:
               clauses:
                 select: >-
