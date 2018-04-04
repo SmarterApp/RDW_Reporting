@@ -100,6 +100,7 @@ export class SubgroupFilterSupport {
       && equalSets(a.individualEducationPlans, b.individualEducationPlans)
       && equalSets(a.section504s, b.section504s)
       && equalSets(a.limitedEnglishProficiencies, b.limitedEnglishProficiencies)
+      && equalSets(a.englishLanguageAcquisitionStatuses, b.englishLanguageAcquisitionStatuses)
       && equalSets(a.economicDisadvantages, b.economicDisadvantages);
   }
 
@@ -110,6 +111,7 @@ export class SubgroupFilterSupport {
       genders: input.genders.concat(),
       individualEducationPlans: input.individualEducationPlans.concat(),
       limitedEnglishProficiencies: input.limitedEnglishProficiencies.concat(),
+      englishLanguageAcquisitionStatuses: input.englishLanguageAcquisitionStatuses.concat(),
       migrantStatuses: input.migrantStatuses.concat(),
       section504s: input.section504s.concat()
     };

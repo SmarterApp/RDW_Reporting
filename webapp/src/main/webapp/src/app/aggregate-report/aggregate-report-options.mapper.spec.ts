@@ -4,6 +4,8 @@ import { ValueDisplayTypes } from '../shared/display-options/value-display-type'
 import { of } from 'rxjs/observable/of';
 import { AggregateReportFormSettings } from './aggregate-report-form-settings';
 import Spy = jasmine.Spy;
+import { ApplicationSettings } from '../app-settings';
+import { Observable } from 'rxjs/Observable';
 
 describe('AggregateReportOptionsMapper', () => {
 
@@ -12,6 +14,7 @@ describe('AggregateReportOptionsMapper', () => {
   let schoolYearPipe;
   let displayOptionService;
   let assessmentDefinitionService;
+  let applicationSettingService;
 
   beforeEach(() => {
     translateService = jasmine.createSpyObj('TranslateService', [
@@ -28,11 +31,13 @@ describe('AggregateReportOptionsMapper', () => {
     assessmentDefinitionService = jasmine.createSpyObj('AssessmentDefinitionService', [
       'getDefinitionsByAssessmentTypeCode'
     ]);
+    applicationSettingService = new MockApplicationSettingsService();
     fixture = new AggregateReportOptionsMapper(
       translateService,
       schoolYearPipe,
       displayOptionService,
-      assessmentDefinitionService
+      assessmentDefinitionService,
+      applicationSettingService
     );
   });
 
@@ -110,4 +115,11 @@ describe('AggregateReportOptionsMapper', () => {
 
   });
 
+  class MockApplicationSettingsService {
+    getSettings(): Observable<any> {
+      return of([]);
+    }
+
+  }
 });
+

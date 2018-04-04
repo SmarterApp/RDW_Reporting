@@ -9,6 +9,7 @@ import { ValueDisplayTypes } from '../shared/display-options/value-display-type'
 import { AssessmentDefinitionService } from './assessment/assessment-definition.service';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
+import { ApplicationSettingsService } from '../app-settings.service';
 
 /**
  * Responsible for mapping server provided report options into option
@@ -17,10 +18,18 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class AggregateReportOptionsMapper {
 
+  private showElas = false;
+  private showLep = false;
+
   constructor(private translateService: TranslateService,
               private schoolYearPipe: SchoolYearPipe,
               private displayOptionService: DisplayOptionService,
-              private assessmentDefinitionService: AssessmentDefinitionService) {
+              private assessmentDefinitionService: AssessmentDefinitionService,
+              private applicationSettingsService: ApplicationSettingsService) {
+    applicationSettingsService.getSettings().subscribe(settings => {
+      this.showElas = settings.elasEnabled;
+      this.showLep = settings.lepEnabled;
+    });
   }
 
   /**
@@ -70,7 +79,7 @@ export class AggregateReportOptionsMapper {
         )),
       performanceLevelDisplayTypes: this.displayOptionService.getPerformanceLevelDisplayTypeOptions(),
       valueDisplayTypes: this.displayOptionService.getValueDisplayTypeOptions(),
-      dimensionTypes: options.dimensionTypes
+      dimensionTypes: options.dimensionTypes.filter((dimensionType) => this.filterElasOrLep(dimensionType))
         .map(optionMapper(
           value => translate(`common.dimension.${value}`),
           value => `Comparative Subgroup: ${value}`
@@ -119,6 +128,14 @@ export class AggregateReportOptionsMapper {
           ))
       }
     };
+  }
+
+  private filterElasOrLep(dimensionType: string): boolean {
+    if (dimensionType === 'LEP' && this.showLep === false ||
+      dimensionType === 'ELAS' && this.showElas === false) {
+      return false;
+    }
+    return true;
   }
 
   /**
