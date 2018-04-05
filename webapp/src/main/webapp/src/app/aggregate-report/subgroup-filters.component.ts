@@ -22,7 +22,6 @@ export class SubgroupFiltersComponent {
 
   constructor(private applicationSettingsService: ApplicationSettingsService) {
     applicationSettingsService.getSettings().subscribe(settings => this.appSettings = settings);
-
   }
 
   onSettingChangeInternal(): void {

@@ -247,6 +247,11 @@ sqlbuilder:
                  where: >-
                     s.gender_id in (:gender_ids)
 
+            ELAS_filter:
+              clauses:
+                where: >-
+                  fe.elas_id in (:elas_ids)
+
             Ethnicity_filter:
                clauses:
                  where: >-
