@@ -7,13 +7,17 @@ import { AssessmentDefinition } from './assessment/assessment-definition';
 import { Utils } from '../shared/support/support';
 import { SubgroupMapper } from './subgroup.mapper';
 
-const createColumnProvider = (columnCount: number = Number.MAX_VALUE): ColumnProvider => {
+const createColumnProvider = (columnCount: number = 20): ColumnProvider => {
   return (...sections) => {
     const parentColumns = [];
+    const length = sections.length / columnCount;
     sections.forEach((section, index) => {
-      const parentColumnIndex = Math.floor(index / columnCount);
-      const columns = parentColumns[ parentColumnIndex ] = parentColumns[ parentColumnIndex ] || [];
-      columns.push(section);
+      if (parentColumns.length < columnCount - 1) {
+        parentColumns.push(sections.slice(index, Math.ceil(index + length)));
+      } else {
+        parentColumns.push(sections.slice(index + 1));
+        return;
+      }
     });
     return parentColumns;
   };
