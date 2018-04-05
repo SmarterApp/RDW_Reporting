@@ -425,7 +425,7 @@
     },
     "dimension-prefix": {
       "EconomicDisadvantage": "Economic Disadvantage",
-      "Ethnicity": "Race / Ethnicity",
+      "Ethnicity": "Ethnicity",
       "Gender": "Gender",
       "IEP": "IEP",
       "LEP": "English Learners",
@@ -433,7 +433,7 @@
       "MigrantStatus": "Migrant Status",
       "Overall": "Overall",
       "Section504": "504",
-      "StudentEnrolledGrade": "Student Enrolled Grade"
+      "StudentEnrolledGrade": "Enrolled Grade"
     },
     "elas": {
       "EO": "English Only",
