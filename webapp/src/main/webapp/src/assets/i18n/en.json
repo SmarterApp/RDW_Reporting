@@ -423,7 +423,7 @@
       "Section504": "504",
       "StudentEnrolledGrade": "Student Enrolled Grade"
     },
-    "dimension-prefix": {
+    "dimension-short-name": {
       "EconomicDisadvantage": "Economic Disadvantage",
       "Ethnicity": "Ethnicity",
       "Gender": "Gender",
