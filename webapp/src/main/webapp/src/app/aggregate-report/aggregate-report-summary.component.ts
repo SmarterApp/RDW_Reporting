@@ -11,14 +11,14 @@ const createColumnProvider = (columnCount: number = 20): ColumnProvider => {
   return (...sections) => {
     const parentColumns = [];
     const length = sections.length / columnCount;
-    for (let i = 0; i < sections.length; i++) {
+    sections.forEach((section, index) => {
       if (parentColumns.length < columnCount - 1) {
-        parentColumns.push(sections.slice(i, Math.ceil(i + length)));
+        parentColumns.push(sections.slice(index, Math.ceil(index + length)));
       } else {
-        parentColumns.push(sections.slice(i));
-        break;
+        parentColumns.push(sections.slice(index + 1));
+        return;
       }
-    }
+    });
     return parentColumns;
   };
 };
