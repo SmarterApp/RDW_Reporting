@@ -1,4 +1,10 @@
 sql:
+  assessment-type:
+    findAll: SELECT id, code FROM asmt_type ORDER BY id;
+
+  subject:
+    findAll: SELECT id, code FROM subject ORDER BY id;
+
   translation:
     findAllForNamespaceAndLanguage:
       select label_code, label
