@@ -7,24 +7,10 @@ import { AssessmentDefinition } from './assessment/assessment-definition';
 import { Utils } from '../shared/support/support';
 import { SubgroupMapper } from './subgroup.mapper';
 
-const createColumnProvider = (columnCount: number = 20): ColumnProvider => {
-  return (...sections) => {
-    const parentColumns = [];
-    const length = sections.length / columnCount;
-    sections.forEach((section, index) => {
-      if (parentColumns.length < columnCount - 1) {
-        parentColumns.push(sections.slice(index, Math.ceil(index + length)));
-      } else {
-        parentColumns.push(sections.slice(index + 1));
-        return;
-      }
-    });
-    return parentColumns;
-  };
-};
-
-const NarrowColumnProvider: ColumnProvider = createColumnProvider(2);
-const WideColumnProvider: ColumnProvider = createColumnProvider();
+const NarrowColumnProvider: ColumnProvider = (organization, assessment, subgroup, filter) =>
+  [ [ organization, assessment ], [ subgroup, filter ] ];
+const WideColumnProvider: ColumnProvider = (organization, assessment, subgroup, filter) =>
+  [ [ organization ], [ assessment ], [ subgroup ], [ filter ] ];
 
 @Component({
   selector: 'aggregate-report-summary',
