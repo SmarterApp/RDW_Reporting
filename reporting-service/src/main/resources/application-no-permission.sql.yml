@@ -63,11 +63,11 @@ sql:
   ethnicity:
     findAll: >-
       select id, code
-      from ethnicity
+      from ethnicity order by id
 
     findAllCodes: >-
       select code
-      from ethnicity
+      from ethnicity order by id
 
     findEthnicityCodesByStudentIds: >-
       select student_id, ethnicity_code
