@@ -7,10 +7,10 @@ import { AssessmentDefinition } from './assessment/assessment-definition';
 import { Utils } from '../shared/support/support';
 import { SubgroupMapper } from './subgroup.mapper';
 
-const NarrowColumnProvider: ColumnProvider = (organization, assessment, subgroup, filter) =>
-  [ [ organization, assessment ], [ subgroup, filter ] ];
-const WideColumnProvider: ColumnProvider = (organization, assessment, subgroup, filter) =>
-  [ [ organization ], [ assessment ], [ subgroup ], [ filter ] ];
+const NarrowColumnProvider: ColumnProvider = (...sections) =>
+  [ [ sections[ 0 ], sections[ 1 ] ], [ sections[ 2 ], sections[ 3 ] ] ];
+const WideColumnProvider: ColumnProvider = (...sections) =>
+  [ [ sections[ 0 ] ], [ sections[ 1 ] ], [ sections[ 2 ] ], [ sections[ 3 ] ] ];
 
 @Component({
   selector: 'aggregate-report-summary',
