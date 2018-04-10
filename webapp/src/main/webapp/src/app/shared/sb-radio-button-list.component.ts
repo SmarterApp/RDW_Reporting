@@ -2,7 +2,7 @@ import { AfterViewChecked, ChangeDetectorRef, Component, Input } from "@angular/
 import { Utils } from "./support/support";
 
 /**
- * @deprecated use sb-radio-group or sb-checkbox-group
+ * @deprecated use <sb-button-group type="radio">
  *
  * A generic component which builds and binds a radio button list.
  * It is most typically used as:

@@ -7,6 +7,8 @@ const DefaultButtonGroupStyles = 'btn-group-sm';
 const DefaultButtonStyles = 'btn-primary';
 
 /**
+ * @deprecated use <sb-button-group type="radio">
+ *
  * A two state switch component that can be used in place of a checkbox
  * @example <code><sb-radio-button-group [options]="[{value: true, text: 'On'}, {value: false, text: 'Off'}]" [(ngModel)]="myModel"></sb-radio-button-group></code>
  */

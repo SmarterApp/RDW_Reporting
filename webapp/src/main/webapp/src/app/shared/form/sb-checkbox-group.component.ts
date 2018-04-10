@@ -8,6 +8,8 @@ const DefaultButtonGroupStyles = 'btn-group-sm';
 const DefaultButtonStyles = 'btn-primary';
 
 /**
+ * @deprecated use <sb-button-group type="checkbox">
+ *
  * A checkbox group with an optional select all button for convenience
  *
  * Vertical Display:
