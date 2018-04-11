@@ -318,6 +318,10 @@ export class AggregateReportFormComponent {
     this.onSettingsChange();
   }
 
+  isAdvancedFiltersHidden(): boolean {
+    return this.settings.queryType === 'FilteredSubgroup';
+  }
+
   onCreateCustomSubgroupButtonClick(): void {
     this.settings.subgroups = this.settings.subgroups.concat([
       SubgroupFilterSupport.leftDifference(this.customSubgroup, this.aggregateReportOptions.studentFilters)

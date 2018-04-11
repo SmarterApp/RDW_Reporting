@@ -1,7 +1,7 @@
-import { Component, HostListener, Inject, Input } from "@angular/core";
-import { DOCUMENT } from "@angular/common";
-import { WindowRefService } from "../core/window-ref.service";
-import { Utils } from "../support/support";
+import { Component, HostListener, Inject, Input } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { WindowRefService } from '../core/window-ref.service';
+import { Utils } from '../support/support';
 
 @Component({
   selector: 'scroll-nav',
@@ -26,7 +26,11 @@ export class ScrollNavComponent {
   @Input()
   set items(items: ScrollNavItem[]) {
     if (this._items !== items) {
-      this._items = Utils.isNullOrEmpty(items) ? [] : items.concat();
+      this._items = Utils.isNullOrEmpty(items) ? [] : items.filter((item) => {
+        if (Utils.isNullOrUndefined(item.hidden) || item.hidden === false) {
+          return item;
+        }
+      }).concat();
     }
   }
 
@@ -55,7 +59,7 @@ export class ScrollNavComponent {
     }
   }
 
-  @HostListener("window:scroll", [])
+  @HostListener('window:scroll', [])
   onWindowScroll(): void {
     this._enabled && this.updateActiveLink();
   }
@@ -110,4 +114,5 @@ export interface ScrollNavItem {
   readonly text: string;
   readonly classes?: string;
   readonly iconClasses?: string;
+  readonly hidden?: boolean;
 }
