@@ -39,6 +39,7 @@ import { OrderSelectorComponent } from "./order-selector/order-selector.componen
 import { NgxDnDModule } from "@swimlane/ngx-dnd";
 import { CommonEmbargoModule } from "./embargo/embargo.module";
 import { SchoolModule } from "./school/school.module";
+import { InViewDirective } from './nav/in-view.directive';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { SchoolModule } from "./school/school.module";
     SBCheckboxList,
     SBRadioButtonComponent,
     SBToggleComponent,
-    ScaleScoreComponent
+    ScaleScoreComponent,
+    InViewDirective
   ],
   imports: [
     AlertModule,
@@ -92,7 +94,7 @@ import { SchoolModule } from "./school/school.module";
     NotificationComponent,
     ScrollNavComponent,
     OrganizationModule,
-  SchoolModule,
+    SchoolModule,
     RouterModule,
     RdwAssessmentModule,
     RdwCoreModule,
@@ -109,7 +111,8 @@ import { SchoolModule } from "./school/school.module";
     SBRadioButtonComponent,
     SBToggleComponent,
     ScaleScoreComponent,
-    TranslateModule
+    TranslateModule,
+    InViewDirective
   ],
   providers: [
     { provide: AuthenticationServiceAuthenticationExpiredRoute, useValue: 'session-expired' },

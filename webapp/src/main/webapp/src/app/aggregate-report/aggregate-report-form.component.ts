@@ -1,9 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AggregateReportFormOptions } from './aggregate-report-form-options';
 import { AggregateReportFormSettings } from './aggregate-report-form-settings';
 import { NotificationService } from '../shared/notification/notification.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 import { Forms } from '../shared/form/forms';
 import { District, Organization, OrganizationType, School } from '../shared/organization/organization';
 import { Observable } from 'rxjs/Observable';
@@ -21,35 +21,14 @@ import { AggregateReportColumnOrderItemProvider } from './aggregate-report-colum
 import { OrderableItem } from '../shared/order-selector/order-selector.component';
 import { AggregateReportRequestSummary } from './aggregate-report-summary.component';
 import { Subscription } from 'rxjs/Subscription';
-import { debounceTime, finalize, map, mergeMap } from 'rxjs/operators';
+import { finalize, map, mergeMap } from 'rxjs/operators';
 import { Observer } from 'rxjs/Observer';
 import { ranking } from '@kourge/ordering/comparator';
 import { ordering } from '@kourge/ordering';
 import { SubgroupFilters, SubgroupFilterSupport } from './subgroup-filters';
 import { SubgroupMapper } from './subgroup.mapper';
 import { SubgroupFiltersListItem } from './subgroup-filters-list-item';
-
-const DefaultRenderDebounceMilliseconds = 500;
-
-/**
- * Form control validator that makes sure the control value is not an empty array
- *
- * @param properties the properties to propagate when the control value is invalid
- * @return {null|{notEmpty: any}}}
- */
-const notEmpty = properties => control => {
-  return control.value.length ? null : { notEmpty: properties };
-};
-
-/**
- * Form control validator that makes sure the control value is a valid filename
- *
- * @param properties the properties to propagate when the control value is invalid
- * @return {null|{fileName: any}}}
- */
-const fileName = (properties: any) => control => {
-  return /^[^\\<>:;,?"*|/]*$/.test((control.value || '').trim()) ? null : { fileName: properties };
-};
+import { fileName, notEmpty } from '../shared/form/validators';
 
 const OrganizationComparator = (a: Organization, b: Organization) => a.name.localeCompare(b.name);
 
@@ -134,13 +113,6 @@ export class AggregateReportFormComponent {
   submissionSubscription: Subscription;
 
   /**
-   * This observer's next() method is to be invoked when a change happens to the form inputs
-   * This is then piped through a debounce operator in order to make the form more responsive when the user makes
-   * quick successive changes
-   */
-  settingsChangedObserver: Observer<void>;
-
-  /**
    * Holds the custom subgroup form state
    */
   customSubgroup: SubgroupFilters;
@@ -150,7 +122,17 @@ export class AggregateReportFormComponent {
    */
   subgroupItems: SubgroupFiltersListItem[] = [];
 
-  constructor(private router: Router,
+  /**
+   * Controls for view invalidation
+   */
+  reviewSectionInvalid: Observer<void>;
+  reviewSectionViewInvalidator: Observable<void> = Observable.create(observer => this.reviewSectionInvalid = observer);
+
+  previewSectionInvalid: Observer<void>;
+  previewSectionViewInvalidator: Observable<void> = Observable.create(observer => this.previewSectionInvalid = observer);
+
+  constructor(@Inject(FormBuilder) formBuilder: FormBuilder,
+              private router: Router,
               private route: ActivatedRoute,
               private optionMapper: AggregateReportOptionsMapper,
               private requestMapper: AggregateReportRequestMapper,
@@ -173,7 +155,7 @@ export class AggregateReportFormComponent {
 
     this.organizations = this.organizations.concat(this.settings.districts, this.settings.schools);
 
-    const defaultOrganization = this.defaultOrganization;
+    const defaultOrganization = this.aggregateReportOptions.defaultOrganization;
     if (this.organizations.length === 0 && defaultOrganization) {
       this.addOrganizationToSettings(defaultOrganization);
     }
@@ -191,32 +173,49 @@ export class AggregateReportFormComponent {
       ))
     );
 
-    this.formGroup = new FormGroup({
-      organizations: new FormControl(this.organizations, control => {
-        return this.includeStateResults
-        || this.settings.includeAllDistricts
-        || control.value.length ? null : {
-          invalid: { messageId: 'aggregate-report-form.field.organization-invalid-error' }
-        };
-      }),
-      assessmentGrades: new FormControl(this.settings.assessmentGrades, notEmpty(
-        { messageId: 'aggregate-report-form.field.assessment-grades-empty-error' }
-      )),
-      schoolYears: new FormControl(this.settings.schoolYears, notEmpty(
-        { messageId: 'aggregate-report-form.field.school-year-empty-error' }
-      )),
-      reportName: new FormControl(this.settings.name, fileName(
-        { messageId: 'aggregate-report-form.field.report-name-file-name-error' }
-      ))
+    this.formGroup = formBuilder.group({
+      organizations: [
+        this.organizations,
+        control => {
+          return this.includeStateResults
+          || this.settings.includeAllDistricts
+          || control.value.length
+            ? null
+            : { invalid: { messageId: 'aggregate-report-form.field.organization-invalid-error' } };
+        }
+      ],
+      reportName: [
+        this.settings.name,
+        fileName({ messageId: 'aggregate-report-form.field.report-name-file-name-error' })
+      ],
+      assessmentGrades: [ this.settings.generalPopulation.assessmentGrades ],
+      schoolYears: [ this.settings.generalPopulation.schoolYears ],
+      assessmentGradeRange: [ this.settings.longitudinalCohort.assessmentGrades ],
+      toSchoolYear: [ this.settings.longitudinalCohort.toSchoolYear ],
     });
-
-    Observable.create((observer) => this.settingsChangedObserver = observer)
-      .pipe(debounceTime(DefaultRenderDebounceMilliseconds))
-      .subscribe(() => this.applySettingsChange());
   }
 
-  ngOnInit(): void {
-    this.onSettingsChange();
+  private updateValidators(): void {
+    const setValidators = (control: FormControl, validators: ValidatorFn | ValidatorFn[] | null): void => {
+      control.setValidators(validators);
+      control.updateValueAndValidity();
+    };
+
+    if (this.settings.reportType === 'GeneralPopulation') {
+      setValidators(this.assessmentGradesControl, [
+        notEmpty({ messageId: 'aggregate-report-form.field.assessment-grades-empty-error' })
+      ]);
+      setValidators(this.schoolYearsControl, [
+        notEmpty({ messageId: 'aggregate-report-form.field.school-year-empty-error' })
+      ]);
+      setValidators(this.assessmentGradeRangeControl, null);
+    } else {
+      setValidators(this.assessmentGradesControl, null);
+      setValidators(this.schoolYearsControl, null);
+      setValidators(this.assessmentGradeRangeControl, [
+        notEmpty({ messageId: 'aggregate-report-form.field.assessment-grades-empty-error' })
+      ]);
+    }
   }
 
   /**
@@ -240,32 +239,28 @@ export class AggregateReportFormComponent {
     return this.aggregateReportOptions.assessmentTypes.length === 0;
   }
 
-  /**
-   * @returns {FormControl} The organizations form control
-   */
   get organizationsControl(): FormControl {
     return <FormControl>this.formGroup.get('organizations');
   }
 
-  /**
-   * @returns {FormControl} The assessment grades form control
-   */
   get assessmentGradesControl(): FormControl {
     return <FormControl>this.formGroup.get('assessmentGrades');
   }
 
-  /**
-   * @returns {FormControl} The school years form control
-   */
   get schoolYearsControl(): FormControl {
     return <FormControl>this.formGroup.get('schoolYears');
   }
 
-  /**
-   * @returns {FormControl} The report name form control
-   */
   get reportNameControl(): FormControl {
     return <FormControl>this.formGroup.get('reportName');
+  }
+
+  get assessmentGradeRangeControl(): FormControl {
+    return <FormControl>this.formGroup.get('assessmentGradeRange');
+  }
+
+  get toSchoolYearControl(): FormControl {
+    return <FormControl>this.formGroup.get('toSchoolYear');
   }
 
   /**
@@ -311,6 +306,11 @@ export class AggregateReportFormComponent {
         subgroup,
         SubgroupFilterSupport.leftDifference(this.customSubgroup, this.aggregateReportOptions.studentFilters)
       ));
+  }
+
+  onReportTypeChange(): void {
+    this.updateValidators();
+    this.onSettingsChange();
   }
 
   onTabChange(queryType: 'Basic' | 'FilteredSubgroup'): void {
@@ -393,15 +393,41 @@ export class AggregateReportFormComponent {
     this.settings.columnOrder = items.map(item => item.value);
   }
 
+  onReviewSectionInView(): void {
+    // compute and render estimated row count
+    if (this.formGroup.valid) {
+      this.reportService.getEstimatedRowCount(this.createReportRequest().query)
+        .subscribe(count => this.estimatedRowCount = count);
+    }
+    // compute and render summary data
+    this.summary = {
+      assessmentDefinition: this.currentAssessmentDefinition,
+      options: this.aggregateReportOptions,
+      settings: this.settings
+    };
+  }
+
+  onPreviewSectionInView(): void {
+    // compute and render preview table
+    this.previewTable = {
+      assessmentDefinition: this.currentAssessmentDefinition,
+      options: this.aggregateReportOptions,
+      rows: this.tableDataService.createSampleData(this.currentAssessmentDefinition, this.settings)
+    };
+  }
+
   /**
    * Reloads the report preview based on current form state
    */
   onSettingsChange(): void {
-    // informs the view that it should display a loader
+    // invalidate all setting-dependent views
     this.estimatedRowCount = undefined;
-
-    // informs the debounced observable that the view has changed
-    this.settingsChangedObserver.next(undefined);
+    if (this.reviewSectionInvalid) {
+      this.reviewSectionInvalid.next(undefined);
+    }
+    if (this.previewSectionInvalid) {
+      this.previewSectionInvalid.next(undefined);
+    }
   }
 
   /**
@@ -484,27 +510,6 @@ export class AggregateReportFormComponent {
     this.markOrganizationsControlTouched();
   }
 
-  private applySettingsChange(): void {
-    if (this.formGroup.valid) {
-      this.reportService.getEstimatedRowCount(this.createReportRequest().query)
-        .subscribe(count => this.estimatedRowCount = count);
-    }
-
-    this.summary = {
-      assessmentDefinition: this.currentAssessmentDefinition,
-      options: this.aggregateReportOptions,
-      settings: this.settings
-    };
-
-    // TODO this table should be lazily updated when it is scrolled into view. There is serious lag when changing settings above
-    this.previewTable = {
-      assessmentDefinition: this.currentAssessmentDefinition,
-      options: this.aggregateReportOptions,
-      rows: this.tableDataService.createSampleData(this.currentAssessmentDefinition, this.settings)
-    };
-
-  }
-
   /**
    * Validates the given form group and marks the controls as dirty.
    * If the form is valid the onValid callback will be called
@@ -542,3 +547,5 @@ export class AggregateReportFormComponent {
   }
 
 }
+
+

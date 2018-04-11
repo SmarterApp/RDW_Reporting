@@ -32,6 +32,7 @@ describe('AggregateReportRequestMapper', () => {
 
   it('toSettings should map a request to settings', () => {
 
+    const options = mockOptions();
     const schools = [ mockSchool() ];
     const districts = [ mockDistrict() ];
 
@@ -69,6 +70,7 @@ describe('AggregateReportRequestMapper', () => {
       includeAllSchoolsOfDistricts: true,
       includeState: true,
       queryType: 'Basic',
+      reportType: 'GeneralPopulation',
       schoolIds: [ 2 ],
       schoolYears: [ 2000 ],
       studentFilters: studentFilters,
@@ -86,7 +88,6 @@ describe('AggregateReportRequestMapper', () => {
       performanceLevelDisplayType: query.achievementLevelDisplayType,
       interimAdministrationConditions: [ 'SD' ],
       summativeAdministrationConditions: [ 'Valid' ],
-      assessmentGrades: query.assessmentGradeCodes,
       assessmentType: query.assessmentTypeCode,
       completenesses: query.completenessCodes,
       dimensionTypes: query.dimensionTypes,
@@ -96,8 +97,8 @@ describe('AggregateReportRequestMapper', () => {
       includeAllSchoolsOfSelectedDistricts: query.includeAllSchoolsOfDistricts,
       includeStateResults: query.includeState,
       queryType: query.queryType,
+      reportType: query.reportType,
       schools: schools,
-      schoolYears: query.schoolYears,
       subjects: query.subjectCodes,
       subgroups: [],
       valueDisplayType: query.valueDisplayType,
@@ -112,10 +113,18 @@ describe('AggregateReportRequestMapper', () => {
         englishLanguageAcquisitionStatuses: studentFilters.elasCodes,
         migrantStatuses: studentFilters.migrantStatusCodes,
         section504s: studentFilters.section504Codes
+      },
+      generalPopulation: {
+        assessmentGrades: query.assessmentGradeCodes,
+        schoolYears: query.schoolYears,
+      },
+      longitudinalCohort: {
+        assessmentGrades: [],
+        toSchoolYear: options.schoolYears[0]
       }
     };
 
-    fixture.toSettings(request, mockOptions())
+    fixture.toSettings(request, options)
       .subscribe(actual => {
         expect(actual).toEqual(expected);
       });
@@ -135,6 +144,7 @@ describe('AggregateReportRequestMapper', () => {
       includeAllSchoolsOfDistricts: true,
       includeState: true,
       queryType: 'Basic',
+      reportType: 'GeneralPopulation',
       schoolYears: [ 2000 ],
       studentFilters: {},
       subjectCodes: [ 'Math' ],
@@ -150,7 +160,6 @@ describe('AggregateReportRequestMapper', () => {
       performanceLevelDisplayType: query.achievementLevelDisplayType,
       interimAdministrationConditions: options.interimAdministrationConditions,
       summativeAdministrationConditions: options.summativeAdministrationConditions,
-      assessmentGrades: query.assessmentGradeCodes,
       assessmentType: query.assessmentTypeCode,
       completenesses: options.completenesses,
       dimensionTypes: [],
@@ -160,8 +169,8 @@ describe('AggregateReportRequestMapper', () => {
       includeAllSchoolsOfSelectedDistricts: query.includeAllSchoolsOfDistricts,
       includeStateResults: query.includeState,
       queryType: query.queryType,
+      reportType: query.reportType,
       schools: [],
-      schoolYears: query.schoolYears,
       subjects: query.subjectCodes,
       subgroups: [],
       valueDisplayType: query.valueDisplayType,
@@ -176,6 +185,14 @@ describe('AggregateReportRequestMapper', () => {
         limitedEnglishProficiencies: options.studentFilters.limitedEnglishProficiencies,
         migrantStatuses: options.studentFilters.migrantStatuses,
         section504s: options.studentFilters.section504s
+      },
+      generalPopulation: {
+        assessmentGrades: query.assessmentGradeCodes,
+        schoolYears: query.schoolYears,
+      },
+      longitudinalCohort: {
+        assessmentGrades: [],
+        toSchoolYear: options.schoolYears[0]
       }
     };
 
@@ -196,6 +213,7 @@ describe('AggregateReportRequestMapper', () => {
       dimensionTypes: [ 'Gender', 'Ethnicity' ],
       interimAdministrationConditions: [ 'SD', 'NS' ],
       queryTypes: [ 'Basic', 'FilteredSubgroup' ],
+      reportTypes: [ 'GeneralPopulation', 'LongitudinalCohort' ],
       schoolYears: [ 2000, 1999 ],
       statewideReporter: false,
       subjects: [ 'Math', 'ELA' ],

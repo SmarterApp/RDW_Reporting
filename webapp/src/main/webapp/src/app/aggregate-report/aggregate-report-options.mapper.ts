@@ -84,6 +84,11 @@ export class AggregateReportOptionsMapper {
           value => translate(`common.dimension.${value}`),
           value => `Comparative Subgroup: ${value}`
         )),
+      reportTypes: options.reportTypes
+        .map(optionMapper(
+          value => translate(`common.aggregate-report-type.${value}`),
+          value => `Aggregate Report Type: ${value}`
+        )),
       statewideReporter: options.statewideReporter, // TODO move to user context?
       studentFilters: {
         economicDisadvantages: options.studentFilters.economicDisadvantages
@@ -147,7 +152,6 @@ export class AggregateReportOptionsMapper {
         const defaultAssessmentType = options.assessmentTypes[ 0 ];
         const assessmentDefinition = definitions.get(defaultAssessmentType);
         return <AggregateReportFormSettings>{
-          assessmentGrades: [],
           assessmentType: defaultAssessmentType,
           columnOrder: assessmentDefinition.aggregateReportIdentityColumns,
           completenesses: [ options.completenesses[ 0 ] ],
@@ -160,9 +164,17 @@ export class AggregateReportOptionsMapper {
           interimAdministrationConditions: [ options.interimAdministrationConditions[ 0 ] ],
           performanceLevelDisplayType: assessmentDefinition.performanceLevelDisplayTypes[ 0 ],
           queryType: options.queryTypes[ 0 ],
+          reportType: options.reportTypes[ 0 ],
           summativeAdministrationConditions: [ options.summativeAdministrationConditions[ 0 ] ],
           schools: [],
-          schoolYears: [ options.schoolYears[ 0 ] ],
+          generalPopulation: {
+            assessmentGrades: [],
+            schoolYears: [ options.schoolYears[ 0 ] ]
+          },
+          longitudinalCohort: {
+            assessmentGrades: [],
+            toSchoolYear: options.schoolYears[ 0 ]
+          },
           studentFilters: {
             economicDisadvantages: options.studentFilters.economicDisadvantages,
             ethnicities: options.studentFilters.ethnicities,

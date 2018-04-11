@@ -13,6 +13,7 @@ export interface AggregateReportFormOptions {
   dimensionTypes: SbCheckboxGroupOption[];
   interimAdministrationConditions: SbCheckboxGroupOption[];
   performanceLevelDisplayTypes: SbToggleOption[];
+  reportTypes: SbCheckboxGroupOption[];
   schoolYears: SbCheckboxGroupOption[];
   statewideReporter: boolean;
   subjects: SbCheckboxGroupOption[];

@@ -4,7 +4,6 @@ import { ValueDisplayTypes } from '../shared/display-options/value-display-type'
 import { of } from 'rxjs/observable/of';
 import { AggregateReportFormSettings } from './aggregate-report-form-settings';
 import Spy = jasmine.Spy;
-import { ApplicationSettings } from '../app-settings';
 import { Observable } from 'rxjs/Observable';
 
 describe('AggregateReportOptionsMapper', () => {
@@ -77,14 +76,14 @@ describe('AggregateReportOptionsMapper', () => {
         limitedEnglishProficiencies: [ '1', '2' ],
         migrantStatuses: [ '1', '2' ],
         section504s: [ '1', '2' ]
-      }
+      },
+      reportTypes: [ '1', '2' ]
     };
     fixture.toDefaultSettings(options).subscribe(settings => {
       expect(settings).toEqual(<AggregateReportFormSettings>{
         performanceLevelDisplayType: 'displayTypeA',
         interimAdministrationConditions: [ options.interimAdministrationConditions[ 0 ] ],
         summativeAdministrationConditions: [ options.summativeAdministrationConditions[ 0 ] ],
-        assessmentGrades: [],
         assessmentType: options.assessmentTypes[ 0 ],
         completenesses: [ options.completenesses[ 0 ] ],
         dimensionTypes: [],
@@ -94,8 +93,8 @@ describe('AggregateReportOptionsMapper', () => {
         includeAllSchoolsOfSelectedDistricts: false,
         includeStateResults: true,
         queryType: options.queryTypes[ 0 ],
+        reportType: options.reportTypes[ 0 ],
         schools: [],
-        schoolYears: [ options.schoolYears[ 0 ] ],
         subjects: options.subjects,
         subgroups: [],
         valueDisplayType: ValueDisplayTypes.Percent,
@@ -109,6 +108,14 @@ describe('AggregateReportOptionsMapper', () => {
           limitedEnglishProficiencies: options.studentFilters.limitedEnglishProficiencies,
           migrantStatuses: options.studentFilters.migrantStatuses,
           section504s: options.studentFilters.section504s
+        },
+        generalPopulation: {
+          assessmentGrades: [],
+          schoolYears: [ options.schoolYears[ 0 ] ]
+        },
+        longitudinalCohort: {
+          assessmentGrades: [],
+          toSchoolYear: options.schoolYears[ 0 ]
         }
       });
     });

@@ -150,6 +150,24 @@ export class Utils {
   }
 
   /**
+   * True if the provided element is visible in the provided window
+   *
+   * @param {Element} element
+   * @param {Window} window
+   * @returns {boolean}
+   */
+  static inView(element: Element, window: Window): boolean {
+    if (element == null || window == null) {
+      return false;
+    }
+    const bounds = element.getBoundingClientRect();
+    return bounds.bottom > 0
+      && bounds.right > 0
+      && bounds.left < (window.innerWidth || document.documentElement.clientWidth)
+      && bounds.top < (window.innerHeight || document.documentElement.clientHeight);
+  }
+
+  /**
    * Takes a string or number and returns it's integer value
    *
    * @param stringOrNumber the input

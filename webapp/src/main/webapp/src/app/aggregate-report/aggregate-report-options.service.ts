@@ -26,7 +26,7 @@ export class AggregateReportOptionsService {
     return this.dataService.get(`${ServiceRoute}/reportOptions`)
       .pipe(
         map(options => <AggregateReportOptions>{
-          assessmentGrades: options.assessmentGrades,
+          assessmentGrades: options.assessmentGrades.reverse(),
           assessmentTypes: options.assessmentTypes.sort(assessmentTypeComparator),
           completenesses: options.completenesses.sort(completenessComparator),
           defaultOrganization: options.defaultOrganization
@@ -35,6 +35,7 @@ export class AggregateReportOptionsService {
           dimensionTypes: options.dimensionTypes,
           interimAdministrationConditions: options.interimAdministrationConditions,
           queryTypes: [ 'Basic', 'FilteredSubgroup' ],
+          reportTypes: [ 'GeneralPopulation', 'LongitudinalCohort' ],
           schoolYears: options.schoolYears,
           statewideReporter: options.statewideReporter,
           subjects: options.subjects,

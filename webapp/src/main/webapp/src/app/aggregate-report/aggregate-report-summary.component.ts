@@ -6,6 +6,7 @@ import { AggregateReportFormSettings } from './aggregate-report-form-settings';
 import { AssessmentDefinition } from './assessment/assessment-definition';
 import { Utils } from '../shared/support/support';
 import { SubgroupMapper } from './subgroup.mapper';
+import { computeEffectiveYears } from './support';
 
 
 const createColumnProvider = (columnCount: number = Number.MAX_VALUE): ColumnProvider => {
@@ -134,14 +135,28 @@ export class AggregateReportSummary {
         label: translate('aggregate-report-form.field.subjects-label'),
         values: orAll(options.subjects, settings.subjects, code => translate(`common.subject.${code}.short-name`))
       },
-      {
-        label: translate('aggregate-report-form.field.assessment-grades-label'),
-        values: inline(orAll(options.assessmentGrades, settings.assessmentGrades, code => translate(`common.assessment-grade.${code}`)))
-      },
-      {
-        label: translate('aggregate-report-form.field.school-year-label'),
-        values: settings.schoolYears.map(value => this.schoolYearPipe.transform(value))
-      },
+
+      ...(settings.reportType === 'GeneralPopulation'
+        ? [
+            {
+              label: translate('aggregate-report-form.field.assessment-grades-label'),
+              values: inline(orAll(options.assessmentGrades, settings.generalPopulation.assessmentGrades, code => translate(`common.assessment-grade.${code}`)))
+            },
+            {
+              label: translate('aggregate-report-form.field.school-year-label'),
+              values: settings.generalPopulation.schoolYears.map(value => this.schoolYearPipe.transform(value))
+            }
+          ]
+        : [
+            {
+              label: translate('aggregate-report-form.field.assessment-grades-label'),
+              values: inline(orAll(options.assessmentGrades, settings.longitudinalCohort.assessmentGrades, code => translate(`common.assessment-grade.${code}`)))
+            },
+            {
+              label: translate('aggregate-report-form.field.school-year-label'),
+              values: computeEffectiveYears(settings.longitudinalCohort.toSchoolYear, settings.longitudinalCohort.assessmentGrades).map(value => this.schoolYearPipe.transform(value))
+            }
+        ]),
       ...[
         assessmentDefinition.interim
           ? {
