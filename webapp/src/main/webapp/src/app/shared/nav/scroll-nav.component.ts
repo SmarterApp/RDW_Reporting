@@ -26,11 +26,7 @@ export class ScrollNavComponent {
   @Input()
   set items(items: ScrollNavItem[]) {
     if (this._items !== items) {
-      this._items = Utils.isNullOrEmpty(items) ? [] : items.filter((item) => {
-        if (Utils.isNullOrUndefined(item.hidden) || item.hidden === false) {
-          return item;
-        }
-      }).concat();
+      this._items = Utils.isNullOrEmpty(items) ? [] : items.concat();
     }
   }
 
