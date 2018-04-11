@@ -110,5 +110,4 @@ export interface ScrollNavItem {
   readonly text: string;
   readonly classes?: string;
   readonly iconClasses?: string;
-  readonly hidden?: boolean;
 }
