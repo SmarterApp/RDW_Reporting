@@ -110,14 +110,14 @@
       "preview-heading": "Report Preview",
       "custom-subgroup": {
         "heading": "Custom Subgroups",
-        "description": "You can create multiple custom subgroups by selecting the combination of attributes below and clicking \"Create Subgroup.\" Each custom subgroup will represent a row in the results table. See the preview table below to see how it will look.",
+        "description": "Create multiple custom subgroups by selecting a combination of attributes below and clicking \"Create Subgroup.\" Each custom subgroup will represent a row in your report. The Report Preview section below shows how it will look.",
         "add-button": "Create Subgroup",
         "list-label": "Custom Subgroups"
       }
     },
     "submit": "Generate Report",
     "tab": {
-      "subgroup-and-filter": "Subgroup and Filter",
+      "subgroup-and-filter": "Subgroups and Advanced Filters",
       "custom-subgroup": "Customize Subgroups"
     }
   },
