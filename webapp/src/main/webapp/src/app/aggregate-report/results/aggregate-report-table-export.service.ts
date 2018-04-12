@@ -121,7 +121,7 @@ export class AggregateReportTableExportService {
       if (options.performanceLevelDisplayType === PerformanceLevelDisplayTypes.Grouped) {
         header = this.translateService.instant(`aggregate-report-table.columns.grouped-performance-level-prefix.${level}`);
       } else {
-        header = this.translateService.instant(`common.assessment-type.${options.assessmentDefinition.typeCode}.performance-level.${level}.short-name`);
+        header = this.translateService.instant(`common.assessment-type.${options.assessmentDefinition.typeCode}.performance-level.${level}.name-prefix`);
       }
       return header + ' ' + this.translateService.instant('aggregate-report-table.columns.performance-level-suffix');
     };

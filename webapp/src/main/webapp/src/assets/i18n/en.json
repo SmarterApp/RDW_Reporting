@@ -310,14 +310,17 @@
         "performance-level": {
           "1": {
             "name": "Below Standard",
+            "name-prefix": "Below",
             "short-name": "Below Standard"
           },
           "2": {
             "name": "Near Standard",
+            "name-prefix": "Near",
             "short-name": "Near Standard"
           },
           "3": {
             "name": "Above Standard",
+            "name-prefix": "Above",
             "short-name": "Above Standard"
           }
         },
@@ -327,18 +330,22 @@
         "performance-level": {
           "1": {
             "name": "Did Not Meet Standard",
+            "name-prefix": "Did Not Meet",
             "short-name": "Did Not Meet"
           },
           "2": {
             "name": "Nearly Met Standard",
+            "name-prefix": "Nearly Met",
             "short-name": "Nearly Met"
           },
           "3": {
             "name": "Met Standard",
+            "short-name": "Met",
             "short-name": "Met"
           },
           "4": {
             "name": "Exceeded Standard",
+            "name-prefix": "Exceeded",
             "short-name": "Exceeded"
           }
         },
@@ -348,18 +355,22 @@
         "performance-level": {
           "1": {
             "name": "Did Not Meet Standard",
+            "name-prefix": "Did Not Meet",
             "short-name": "Did Not Meet"
           },
           "2": {
             "name": "Nearly Met Standard",
+            "name-prefix": "Nearly Met",
             "short-name": "Nearly Met"
           },
           "3": {
             "name": "Met Standard",
+            "name-prefix": "Met",
             "short-name": "Met"
           },
           "4": {
             "name": "Exceeded Standard",
+            "name-prefix": "Exceeded",
             "short-name": "Exceeded"
           }
         },
