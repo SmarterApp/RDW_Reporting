@@ -22,6 +22,11 @@
           [pSortableColumnDisabled]="!column.sortable"
           [ngSwitch]="column.id">
 
+        <div *ngSwitchCase="'avgScaleScore'" class="text-center">
+          <div>{{'aggregate-report-table.columns.avg-scale-score' | translate}}</div>
+          <div>{{'aggregate-report-table.columns.avg-scale-score-suffix' | translate}}</div>
+        </div>
+
         <div *ngSwitchCase="'performanceLevel'"
              class="text-center">
           <div class="label"
@@ -89,11 +94,12 @@
           </div>
 
           <div *ngSwitchCase="'achievementComparison'">
-            <performance-level-distribution-chart [percentages]="rowData.performanceLevelByDisplayTypes.Separate.Percent"
-                                                  [cutPoint]="table.assessmentDefinition.performanceLevelGroupingCutPoint"
-                                                  [assessmentTypeCode]="table.assessmentDefinition.typeCode"
-                                                  [displayType]="performanceLevelDisplayType"
-                                                  [center]="table.assessmentDefinition.performanceLevelGroupingCutPoint != null"></performance-level-distribution-chart>
+            <performance-level-distribution-chart
+              [percentages]="rowData.performanceLevelByDisplayTypes.Separate.Percent"
+              [cutPoint]="table.assessmentDefinition.performanceLevelGroupingCutPoint"
+              [assessmentTypeCode]="table.assessmentDefinition.typeCode"
+              [displayType]="performanceLevelDisplayType"
+              [center]="table.assessmentDefinition.performanceLevelGroupingCutPoint != null"></performance-level-distribution-chart>
           </div>
 
           <div *ngSwitchCase="'avgScaleScore'"

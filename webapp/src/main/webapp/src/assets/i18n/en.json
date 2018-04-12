@@ -127,6 +127,7 @@
       "assessment-label": "Assessment",
       "assessment-grade": "Assessment Grade",
       "avg-scale-score": "Average Scale Score",
+      "avg-scale-score-suffix": "± Error Band",
       "dimension": "Subgroup",
       "grouped-performance-level-prefix": {
         "0": "Below",
