@@ -123,10 +123,10 @@ describe('AggregateReportTableExportService', () => {
       'aggregate-report-table.columns.dimension',
       'aggregate-report-table.columns.students-tested',
       'aggregate-report-table.columns.avg-scale-score',
-      'common.assessment-type.ica.performance-level.1.short-name aggregate-report-table.columns.performance-level-suffix',
-      'common.assessment-type.ica.performance-level.2.short-name aggregate-report-table.columns.performance-level-suffix',
-      'common.assessment-type.ica.performance-level.3.short-name aggregate-report-table.columns.performance-level-suffix',
-      'common.assessment-type.ica.performance-level.4.short-name aggregate-report-table.columns.performance-level-suffix'
+      'common.assessment-type.ica.performance-level.1.name-prefix aggregate-report-table.columns.performance-level-suffix',
+      'common.assessment-type.ica.performance-level.2.name-prefix aggregate-report-table.columns.performance-level-suffix',
+      'common.assessment-type.ica.performance-level.3.name-prefix aggregate-report-table.columns.performance-level-suffix',
+      'common.assessment-type.ica.performance-level.4.name-prefix aggregate-report-table.columns.performance-level-suffix'
     ]);
   });
 
