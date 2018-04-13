@@ -10,12 +10,32 @@ sql:
         sg.name,
         sc.name as school_name,
         sc.id as school_id,
-        s.code as subject_code
+        s.code as subject_code,
+        count(sgm.student_id) as students
       from user_student_group usg
         join student_group sg on sg.id = usg.student_group_id
         join school sc on sc.id = sg.school_id
+        join student_group_membership sgm on sgm.student_group_id = usg.student_group_id
         left join subject s on s.id = sg.subject_id
       where user_login=:user_login
+      group by sg.id;
+
+    findOneById: >-
+      select
+        sg.id,
+        sg.name,
+        sc.name as school_name,
+        sc.id as school_id,
+        s.code as subject_code,
+        count(sgm.student_id) as students
+      from user_student_group usg
+        join student_group sg on sg.id = usg.student_group_id
+        join school sc on sc.id = sg.school_id
+        join student_group_membership sgm on sgm.student_group_id = usg.student_group_id
+        left join subject s on s.id = sg.subject_id
+      where user_login=:user_login
+        and sg.id=:group_id
+      group by sg.id;
 
   assessment:
     item:
