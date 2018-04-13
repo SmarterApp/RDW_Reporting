@@ -99,7 +99,7 @@ sql:
           AND (sg.subject_id is null OR a.subject_id = sg.subject_id)
           AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
-    measuredassessment:
+    measuredAssessment:
       findAll: >-
         SELECT
           count(*) as tested,

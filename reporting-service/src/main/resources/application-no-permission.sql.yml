@@ -17,7 +17,7 @@ sql:
         left join subject s on s.id = sg.subject_id
       where user_login=:user_login
 
-    findOneById: >-
+    findOneByUsernameAndId: >-
       select
         sg.id,
         sg.name,
