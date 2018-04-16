@@ -461,7 +461,7 @@ export class AggregateReportTableComponent implements OnInit {
 
   private getPerformanceLevelColumnHeaderTranslationCode(displayType: string, level: number, index: number) {
     return displayType === 'Separate'
-      ? `common.assessment-type.${this.table.assessmentDefinition.typeCode}.performance-level.${level}.short-name`
+      ? `common.assessment-type.${this.table.assessmentDefinition.typeCode}.performance-level.${level}.name-prefix`
       : `aggregate-report-table.columns.grouped-performance-level-prefix.${index}`;
   }
 
