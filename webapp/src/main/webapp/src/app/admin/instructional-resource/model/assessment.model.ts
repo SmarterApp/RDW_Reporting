@@ -1,3 +1,6 @@
+/**
+ * TODO could just be an interface
+ */
 export class Assessment {
   id: number;
   label: string;

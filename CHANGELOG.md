@@ -7,6 +7,11 @@
     * Organizes system level configuration more logically
     * NOTE: this requires updating configuration files for each module
 
+#### 1.1.4 - 2018-04-06
+
+* Tweak organization search to be scrollable so all matches may be viewed.
+* Change SAML integration to use "mail" instead of "NameID".
+
 #### 1.1.3 - 2018-03-26
 
 * Remove individual student economic disadvantage from UI and reports (DWR-1633).

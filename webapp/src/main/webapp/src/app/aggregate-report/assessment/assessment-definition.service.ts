@@ -11,7 +11,8 @@ const Iab: AssessmentDefinition = {
   performanceLevels: [1, 2, 3],
   performanceLevelCount: 3,
   performanceLevelDisplayTypes: [ PerformanceLevelDisplayTypes.Separate ],
-  aggregateReportIdentityColumns: IdentityColumnOptions.concat()
+  aggregateReportIdentityColumns: IdentityColumnOptions.concat(),
+  aggregateReportStateResultsEnabled: false
 };
 
 const Ica: AssessmentDefinition = {
@@ -22,7 +23,8 @@ const Ica: AssessmentDefinition = {
   performanceLevelDisplayTypes: PerformanceLevelDisplayTypes.values(),
   performanceLevelGroupingCutPoint: 3,
   aggregateReportIdentityColumns: IdentityColumnOptions
-    .filter(option => option !== 'assessmentLabel')
+    .filter(option => option !== 'assessmentLabel'),
+  aggregateReportStateResultsEnabled: false
 };
 
 const Summative: AssessmentDefinition = {
@@ -33,7 +35,8 @@ const Summative: AssessmentDefinition = {
   performanceLevelDisplayTypes: PerformanceLevelDisplayTypes.values(),
   performanceLevelGroupingCutPoint: 3,
   aggregateReportIdentityColumns: IdentityColumnOptions
-    .filter(option => option !== 'assessmentLabel')
+    .filter(option => option !== 'assessmentLabel'),
+  aggregateReportStateResultsEnabled: true
 };
 
 /**

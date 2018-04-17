@@ -5,7 +5,7 @@ export class InstructionalResources {
     return this.resourcesByPerformanceLevel.get(performanceLevel) || [];
   }
 
-  constructor(instructionalResourcesMap: Map<number, InstructionalResource[]>) {
+  constructor(instructionalResourcesMap: Map<number, InstructionalResource[]> = new Map()) {
     this.resourcesByPerformanceLevel = instructionalResourcesMap;
   }
 }

@@ -139,7 +139,7 @@ export class CsvBuilder {
   withAssessmentType(getAssessment: (item: any) => Assessment) {
     return this.withColumn(
       this.translateService.instant('csv-builder.assessment-type'),
-      (item) => this.translateService.instant(`common.assessment-type.${getAssessment(item).typeCode}.short-name`)
+      (item) => this.translateService.instant(`common.assessment-type.${getAssessment(item).type}.short-name`)
     );
   }
 
@@ -153,7 +153,7 @@ export class CsvBuilder {
   withAssessmentSubject(getAssessment: (item: any) => Assessment) {
     return this.withColumn(
       this.translateService.instant('csv-builder.subject'),
-      (item) => this.translateService.instant(`common.subject.${getAssessment(item).subjectCode}.short-name`)
+      (item) => this.translateService.instant(`common.subject.${getAssessment(item).subject}.short-name`)
     );
   }
 

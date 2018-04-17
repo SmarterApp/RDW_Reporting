@@ -8,5 +8,6 @@ spring:
     username: ci
     password:
 
+app:
   aggregate-reports:
     query-pool-size: 2

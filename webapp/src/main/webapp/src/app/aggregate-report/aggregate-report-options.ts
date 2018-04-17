@@ -13,9 +13,11 @@ export interface AggregateReportOptions {
   readonly dimensionTypes?: string[];
   readonly interimAdministrationConditions: string[];
   readonly queryTypes: string[];
+  readonly reportTypes: string[];
   readonly schoolYears: number[];
   readonly statewideReporter: boolean;
   readonly subjects: string[];
   readonly summativeAdministrationConditions: string[];
   readonly studentFilters: SubgroupFilterOptions;
+
 }

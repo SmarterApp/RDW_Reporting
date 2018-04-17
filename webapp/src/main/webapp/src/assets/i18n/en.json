@@ -51,12 +51,17 @@
     "preview": "This table does not contain actual data and is for preview purposes only.",
     "subheading": "Select the attributes to include in the report. Then click \"Generate Report.\"",
     "field": {
+      "report-type-label": "Target",
+      "assessment-grade-range-label": "Assessment Grades",
+      "to-school-year-label": "Final Academic Year",
       "organization-label": "Search a School or District",
       "organization-invalid-error": "Please select a school, district or include state results.",
       "assessment-grades-label": "Assessment Grades",
       "assessment-grades-info": "The grade of the assessment that was administered",
       "assessment-grades-empty-error": "Please select an assessment grade.",
       "assessment-type-label": "Assessment Type",
+      "elas-label": "English Language Acquisition Status",
+      "elas-info": "Students who use a language other than English as their primary language and who have been assessed as not possessing the English language skills necessary to succeed in the regular instructional program.",
       "interim-administration-condition-label": "Manner of Administration",
       "interim-administration-condition-info": "For interim assessments, a Standardized administration follows the same protocols and security procedures as a summative test administration. For a Non Standardized administration, the teacher may use the assessment during instruction and interact with students as they complete the assessment.",
       "school-year-label": "Academic Years",
@@ -105,14 +110,14 @@
       "preview-heading": "Report Preview",
       "custom-subgroup": {
         "heading": "Custom Subgroups",
-        "description": "You can create multiple custom subgroups by selecting the combination of attributes below and clicking \"Create Subgroup.\" Each custom subgroup will represent a row in the results table. See the preview table below to see how it will look.",
+        "description": "Create multiple custom subgroups by selecting a combination of attributes below and clicking \"Create Subgroup.\" Each custom subgroup will represent a row in your report. The Report Preview section below shows how it will look.",
         "add-button": "Create Subgroup",
         "list-label": "Custom Subgroups"
       }
     },
     "submit": "Generate Report",
     "tab": {
-      "subgroup-and-filter": "Subgroup and Filter",
+      "subgroup-and-filter": "Subgroups and Advanced Filters",
       "custom-subgroup": "Customize Subgroups"
     }
   },
@@ -122,6 +127,7 @@
       "assessment-label": "Assessment",
       "assessment-grade": "Assessment Grade",
       "avg-scale-score": "Average Scale Score",
+      "avg-scale-score-suffix": "± Error Band",
       "dimension": "Subgroup",
       "grouped-performance-level-prefix": {
         "0": "Below",
@@ -170,7 +176,7 @@
     "no-results-by-item": "Results by item is not available for assessments administered prior to 2017-18 school year.",
     "no-results-by-item-for-summative-exams": "Results by item is not available for summative assessments.",
     "no-writing-trait-scores": "Writing trait scores are not available for assessments administered prior to 2017-18 school year.",
-    "no-writing-trait-scores-for-summative-ica-exams": "Writing trait scores are currently available for only ELA Performance Task IABs.",
+    "writing-trait-scores-disabled": "Writing trait scores are currently available for only ELA Performance Task for interim assessments..",
     "result-view-select": "Select a results view",
     "select-view": "Select View",
     "session-unknown": "[Unknown]",
@@ -228,6 +234,10 @@
     "aggregate-report": {
       "column-order": "Column Order",
       "column-order-info": "Change your result column order to easily compare your results broken down in different ways."
+    },
+    "aggregate-report-type": {
+      "GeneralPopulation": "General Population",
+      "LongitudinalCohort": "Longitudinal Cohort"
     },
     "assessment-grade": {
       "10": "HS",
@@ -300,14 +310,17 @@
         "performance-level": {
           "1": {
             "name": "Below Standard",
+            "name-prefix": "Below",
             "short-name": "Below Standard"
           },
           "2": {
             "name": "Near Standard",
+            "name-prefix": "Near",
             "short-name": "Near Standard"
           },
           "3": {
             "name": "Above Standard",
+            "name-prefix": "Above",
             "short-name": "Above Standard"
           }
         },
@@ -317,18 +330,22 @@
         "performance-level": {
           "1": {
             "name": "Did Not Meet Standard",
+            "name-prefix": "Did Not Meet",
             "short-name": "Did Not Meet"
           },
           "2": {
             "name": "Nearly Met Standard",
+            "name-prefix": "Nearly Met",
             "short-name": "Nearly Met"
           },
           "3": {
             "name": "Met Standard",
+            "short-name": "Met",
             "short-name": "Met"
           },
           "4": {
             "name": "Exceeded Standard",
+            "name-prefix": "Exceeded",
             "short-name": "Exceeded"
           }
         },
@@ -338,18 +355,22 @@
         "performance-level": {
           "1": {
             "name": "Did Not Meet Standard",
+            "name-prefix": "Did Not Meet",
             "short-name": "Did Not Meet"
           },
           "2": {
             "name": "Nearly Met Standard",
+            "name-prefix": "Nearly Met",
             "short-name": "Nearly Met"
           },
           "3": {
             "name": "Met Standard",
+            "name-prefix": "Met",
             "short-name": "Met"
           },
           "4": {
             "name": "Exceeded Standard",
+            "name-prefix": "Exceeded",
             "short-name": "Exceeded"
           }
         },
@@ -415,10 +436,23 @@
       "Gender": "Gender",
       "IEP": "IEP",
       "LEP": "English Learners",
+      "ELAS": "English Language Acquisition Status",
       "MigrantStatus": "Migrant Status",
       "Overall": "Overall",
       "Section504": "504",
       "StudentEnrolledGrade": "Student Enrolled Grade"
+    },
+    "dimension-short-name": {
+      "EconomicDisadvantage": "Economic Disadvantage",
+      "Ethnicity": "Ethnicity",
+      "Gender": "Gender",
+      "IEP": "IEP",
+      "LEP": "English Learners",
+      "ELAS": "ELAS",
+      "MigrantStatus": "Migrant Status",
+      "Overall": "Overall",
+      "Section504": "504",
+      "StudentEnrolledGrade": "Enrolled Grade"
     },
     "elas": {
       "EO": "English Only",
@@ -545,18 +579,18 @@
       },
       "performance-levels": {
         "all": "All Levels",
-        "IAB": {
+        "iab": {
           "1": "Below Standard",
           "2": "Near Standard",
           "3": "Above Standard"
         },
-        "ICA": {
+        "ica": {
           "1": "Standard Not Met",
           "2": "Standard Nearly Met",
           "3": "Standard Met",
           "4": "Standard Exceeded"
         },
-        "SUMMATIVE": {
+        "sum": {
           "1": "Standard Not Met",
           "2": "Standard Nearly Met",
           "3": "Standard Met",
@@ -671,7 +705,7 @@
         "standard": "Standard",
         "standard-info": {
           "ELA": "This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  For example, a question that asks students to evaluate research sources may assess both reading and research skills.  For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf\" target=\"_blank\">English Language Arts Content Specifications</a>.",
-          "MATH": "This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  Items that assess mathematical practices (problem solving, modeling and data analysis, and communicating reasoning) are also aligned to standards that describe the mathematical content with which students engage. For example, an item may ask students to communicate their reasoning when solving a problem about geometry or fractions. For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf\" target=\"_blank\">Mathematics Content Specifications</a>."
+          "Math": "This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  Items that assess mathematical practices (problem solving, modeling and data analysis, and communicating reasoning) are also aligned to standards that describe the mathematical content with which students engage. For example, an item may ask students to communicate their reasoning when solving a problem about geometry or fractions. For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf\" target=\"_blank\">Mathematics Content Specifications</a>."
         },
         "x-points": "{{id}}"
       },
@@ -699,10 +733,6 @@
         "short-name": "ELA"
       },
       "Math": {
-        "name": "Math",
-        "short-name": "Math"
-      },
-      "MATH": {
         "name": "Math",
         "short-name": "Math"
       }
@@ -818,9 +848,7 @@
       "table": {
         "headers": {
           "aggregateEnabled": "Aggregate Test Results",
-          "ELA": "ELA",
           "individualEnabled": "Individual Test Results",
-          "MATH": "Math",
           "name": "District"
         }
       }
@@ -829,9 +857,7 @@
       "table": {
         "headers": {
           "aggregateEnabled": "Aggregate Test Results",
-          "ELA": "ELA",
           "individualEnabled": "Individual Test Results",
-          "MATH": "Math",
           "name": "State"
         }
       }
@@ -1148,11 +1174,6 @@
       "NO_RESULTS": "No Results",
       "PENDING": "Pending",
       "RUNNING": "Running"
-    },
-    "subjects": {
-      "0": "Math, ELA",
-      "1": "Math",
-      "2": "ELA"
     }
   },
   "results-by-student": {
@@ -1161,6 +1182,8 @@
   },
   "sample-aggregate-table-data-service": {
     "assessment-label": "Assessment 1",
+    "state-name": "State",
+    "district-name": "District {{id}}",
     "school-name": "School {{id}}"
   },
   "school-grade": {

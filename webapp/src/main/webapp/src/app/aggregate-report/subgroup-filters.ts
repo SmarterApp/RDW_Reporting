@@ -28,6 +28,11 @@ export interface SubgroupFilters {
   limitedEnglishProficiencies: string[];
 
   /**
+   * English language acquisition statuses result filter
+   */
+  englishLanguageAcquisitionStatuses: string[];
+
+  /**
    * Migrant status result filter
    */
   migrantStatuses: string[];
@@ -50,10 +55,10 @@ const equalSets = (a: any[], b: any[]) => {
     );
 };
 
-const leftDifference = (a: {[key: string]: any}, b: {[key: string]: any}): {[key: string]: any} => {
-  return Object.entries(a).reduce((difference, [key, value]) => {
-    if (!equalSets(value, b[key])) {
-      difference[key] = value;
+const leftDifference = (a: { [ key: string ]: any }, b: { [ key: string ]: any }): { [ key: string ]: any } => {
+  return Object.entries(a).reduce((difference, [ key, value ]) => {
+    if (!equalSets(value, b[ key ])) {
+      difference[ key ] = value;
     }
     return difference;
   }, {});
@@ -68,15 +73,16 @@ export class SubgroupFilterSupport {
       genders: [],
       individualEducationPlans: [],
       limitedEnglishProficiencies: [],
+      englishLanguageAcquisitionStatuses: [],
       migrantStatuses: [],
       section504s: []
     };
   }
 
   static prune(input: SubgroupFilters): SubgroupFilters {
-    return Object.entries(input).reduce((pruned, [key, value]) => {
+    return Object.entries(input).reduce((pruned, [ key, value ]) => {
       if (value.length !== 0) {
-        pruned[key] = value;
+        pruned[ key ] = value;
       }
       return pruned;
     }, {}) as SubgroupFilters;
@@ -94,6 +100,7 @@ export class SubgroupFilterSupport {
       && equalSets(a.individualEducationPlans, b.individualEducationPlans)
       && equalSets(a.section504s, b.section504s)
       && equalSets(a.limitedEnglishProficiencies, b.limitedEnglishProficiencies)
+      && equalSets(a.englishLanguageAcquisitionStatuses, b.englishLanguageAcquisitionStatuses)
       && equalSets(a.economicDisadvantages, b.economicDisadvantages);
   }
 
@@ -104,6 +111,7 @@ export class SubgroupFilterSupport {
       genders: input.genders.concat(),
       individualEducationPlans: input.individualEducationPlans.concat(),
       limitedEnglishProficiencies: input.limitedEnglishProficiencies.concat(),
+      englishLanguageAcquisitionStatuses: input.englishLanguageAcquisitionStatuses.concat(),
       migrantStatuses: input.migrantStatuses.concat(),
       section504s: input.section504s.concat()
     };

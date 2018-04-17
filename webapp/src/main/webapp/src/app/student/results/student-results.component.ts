@@ -111,7 +111,7 @@ export class StudentResultsComponent implements OnInit {
       .filter(wrapper => {
         const { schoolYear, subject } = this.filterState;
         return (schoolYear == null || schoolYear === wrapper.exam.schoolYear)
-          && (subject == null || subject === wrapper.assessment.subjectCode)
+          && (subject == null || subject === wrapper.assessment.subject)
       });
 
     const filteredExams = this.examFilterService.filterItems(
@@ -121,10 +121,10 @@ export class StudentResultsComponent implements OnInit {
       this.advancedFilters
     );
 
-    this.hasResults = filteredExams.length != 0;
+    this.hasResults = filteredExams.length !== 0;
     this.sections.forEach(section => {
       section.filteredExams = section.exams.filter(exam => filteredExams.find(x => x.exam.id === exam.exam.id));
-    })
+    });
   }
 
   /**
@@ -150,15 +150,15 @@ export class StudentResultsComponent implements OnInit {
 
   private createSections(exams: StudentHistoryExamWrapper[]): Section[] {
     return exams.reduce((sections, wrapper) => {
-      const { typeCode, subjectCode } = wrapper.assessment;
-      const section = sections.find(section => section.assessmentTypeCode === typeCode && section.subjectCode === subjectCode);
+      const { type, subject } = wrapper.assessment;
+      const section = sections.find(section => section.assessmentTypeCode === type && section.subjectCode === subject);
       if (section) {
         section.exams.push(wrapper);
       } else {
         sections.push({
-          assessmentTypeCode: typeCode,
-          assessmentTypeColor: this.getAssessmentTypeColor(typeCode),
-          subjectCode: subjectCode,
+          assessmentTypeCode: type,
+          assessmentTypeColor: this.getAssessmentTypeColor(type),
+          subjectCode: subject,
           exams: [ wrapper ],
           filteredExams: [],
           collapsed: false
@@ -184,9 +184,9 @@ export class StudentResultsComponent implements OnInit {
         if (filterState.schoolYears.indexOf(schoolYear) === -1) {
           filterState.schoolYears.push(schoolYear);
         }
-        const { subjectCode } = wrapper.assessment;
-        if (filterState.subjects.indexOf(subjectCode) === -1) {
-          filterState.subjects.push(subjectCode);
+        const { subject } = wrapper.assessment;
+        if (filterState.subjects.indexOf(subject) === -1) {
+          filterState.subjects.push(subject);
         }
         return filterState;
       },

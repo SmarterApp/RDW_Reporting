@@ -1,21 +1,20 @@
-import { Inject, Injectable } from "@angular/core";
-import { Headers, ResponseContentType } from "@angular/http";
-import { ReportOptions } from "./report-options.model";
-import { Observable } from "rxjs/Observable";
-import { Report } from "./report.model";
-import { ReportOrder } from "./report-order.enum";
-import { ResponseUtils } from "../shared/response-utils";
-import { Student } from "../student/model/student.model";
-import { Group } from "../groups/group";
-import { Grade } from "../school-grade/grade.model";
-import { DATA_CONTEXT_URL, DataService } from "../shared/data/data.service";
-import { Download } from "../shared/data/download.model";
-import { BasicAggregateReportRequest } from "./basic-aggregate-report-request";
-import { AggregateReportRow } from "./aggregate-report";
-import { Utils } from "../shared/support/support";
+import { Inject, Injectable } from '@angular/core';
+import { Headers, ResponseContentType } from '@angular/http';
+import { ReportOptions } from './report-options.model';
+import { Observable } from 'rxjs/Observable';
+import { Report } from './report.model';
+import { ReportOrder } from './report-order.enum';
+import { ResponseUtils } from '../shared/response-utils';
+import { Student } from '../student/model/student.model';
+import { Group } from '../groups/group';
+import { Grade } from '../school-grade/grade.model';
+import { DATA_CONTEXT_URL, DataService } from '../shared/data/data.service';
+import { Download } from '../shared/data/download.model';
+import { BasicAggregateReportRequest } from './basic-aggregate-report-request';
+import { AggregateReportRow } from './aggregate-report';
 import { catchError, map } from 'rxjs/operators';
 import { ReportProcessorServiceRoute } from '../shared/service-route';
-import { School } from "../shared/organization/organization";
+import { School } from '../shared/organization/organization';
 
 const ServiceRoute = ReportProcessorServiceRoute;
 
@@ -32,11 +31,10 @@ export class ReportService {
    * @returns {Observable<Report[]>}
    */
   public getReports(): Observable<Report[]> {
-    return this.dataService.get(`${ServiceRoute}/reports`)
-      .pipe(
-        map(reports => reports.map(this.toReport)),
-        catchError(ResponseUtils.throwError)
-      );
+    return this.dataService.get(`${ServiceRoute}/reports`).pipe(
+      map(reports => reports.map(this.toReport)),
+      catchError(ResponseUtils.throwError)
+    );
   }
 
   /**
@@ -45,10 +43,9 @@ export class ReportService {
    * @returns {Observable<Report[]>}
    */
   public getReportById(id: number): Observable<Report> {
-    return this.getReportsById([ id ])
-      .pipe(
-        map(reports => reports[ 0 ])
-      );
+    return this.getReportsById([ id ]).pipe(
+      map(reports => reports[ 0 ])
+    );
   }
 
   /**
@@ -57,11 +54,10 @@ export class ReportService {
    * @returns {Observable<Report[]>}
    */
   public getReportsById(ids: number[]): Observable<Report[]> {
-    return this.dataService.get(`${ServiceRoute}/reports`, { params: { id: ids } })
-      .pipe(
-        map(reports => reports.map(this.toReport)),
-        catchError(ResponseUtils.throwError)
-      );
+    return this.dataService.get(`${ServiceRoute}/reports`, { params: { id: ids } }).pipe(
+      map(reports => reports.map(this.toReport)),
+      catchError(ResponseUtils.throwError)
+    );
   }
 
   /**
@@ -126,7 +122,7 @@ export class ReportService {
       }),
       responseType: ResponseContentType.Blob
     }).pipe(
-  catchError(ResponseUtils.throwError)
+      catchError(ResponseUtils.throwError)
     );
   }
 
@@ -181,8 +177,8 @@ export class ReportService {
   private toReportRequestParameters(options: ReportOptions): Object {
     return {
       name: options.name,
-      assessmentType: Utils.toServerAssessmentTypeEnum(options.assessmentType),
-      subject: Utils.toServerSubjectEnum(options.subject),
+      assessmentTypeCode: options.assessmentType,
+      subjectCode: options.subject,
       schoolYear: options.schoolYear,
       language: options.language,
       grayscale: options.grayscale,

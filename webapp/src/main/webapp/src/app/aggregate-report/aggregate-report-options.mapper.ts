@@ -1,14 +1,15 @@
-import { AggregateReportOptions } from "./aggregate-report-options";
-import { AggregateReportFormOptions } from "./aggregate-report-form-options";
-import { Injectable } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
-import { SchoolYearPipe } from "../shared/format/school-year.pipe";
-import { DisplayOptionService } from "../shared/display-options/display-option.service";
-import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
-import { ValueDisplayTypes } from "../shared/display-options/value-display-type";
+import { AggregateReportOptions } from './aggregate-report-options';
+import { AggregateReportFormOptions } from './aggregate-report-form-options';
+import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { SchoolYearPipe } from '../shared/format/school-year.pipe';
+import { DisplayOptionService } from '../shared/display-options/display-option.service';
+import { AggregateReportFormSettings } from './aggregate-report-form-settings';
+import { ValueDisplayTypes } from '../shared/display-options/value-display-type';
 import { AssessmentDefinitionService } from './assessment/assessment-definition.service';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
+import { ApplicationSettingsService } from '../app-settings.service';
 
 /**
  * Responsible for mapping server provided report options into option
@@ -17,10 +18,18 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class AggregateReportOptionsMapper {
 
+  private showElas = false;
+  private showLep = false;
+
   constructor(private translateService: TranslateService,
               private schoolYearPipe: SchoolYearPipe,
               private displayOptionService: DisplayOptionService,
-              private assessmentDefinitionService: AssessmentDefinitionService) {
+              private assessmentDefinitionService: AssessmentDefinitionService,
+              private applicationSettingsService: ApplicationSettingsService) {
+    applicationSettingsService.getSettings().subscribe(settings => {
+      this.showElas = settings.elasEnabled;
+      this.showLep = settings.lepEnabled;
+    });
   }
 
   /**
@@ -70,10 +79,15 @@ export class AggregateReportOptionsMapper {
         )),
       performanceLevelDisplayTypes: this.displayOptionService.getPerformanceLevelDisplayTypeOptions(),
       valueDisplayTypes: this.displayOptionService.getValueDisplayTypeOptions(),
-      dimensionTypes: options.dimensionTypes
+      dimensionTypes: options.dimensionTypes.filter((dimensionType) => this.filterElasOrLep(dimensionType))
         .map(optionMapper(
           value => translate(`common.dimension.${value}`),
           value => `Comparative Subgroup: ${value}`
+        )),
+      reportTypes: options.reportTypes
+        .map(optionMapper(
+          value => translate(`common.aggregate-report-type.${value}`),
+          value => `Aggregate Report Type: ${value}`
         )),
       statewideReporter: options.statewideReporter, // TODO move to user context?
       studentFilters: {
@@ -102,6 +116,11 @@ export class AggregateReportOptionsMapper {
             value => translate(`common.strict-boolean.${value}`),
             value => `Limited English Proficiency: ${value}`
           )),
+        englishLanguageAcquisitionStatuses: options.studentFilters.englishLanguageAcquisitionStatuses
+          .map(optionMapper(
+            value => translate(`common.elas.${value}`),
+            value => `English Language Acquisition Status: ${value}`
+          )),
         migrantStatuses: options.studentFilters.migrantStatuses
           .map(optionMapper(
             value => translate(`common.boolean.${value}`),
@@ -116,6 +135,11 @@ export class AggregateReportOptionsMapper {
     };
   }
 
+  private filterElasOrLep(dimensionType: string): boolean {
+    return (dimensionType !== 'LEP' || this.showLep)
+      && (dimensionType !== 'ELAS' || this.showElas);
+  }
+
   /**
    * Creates the default/initial state of the aggregate report form based on the available options
    *
@@ -128,7 +152,6 @@ export class AggregateReportOptionsMapper {
         const defaultAssessmentType = options.assessmentTypes[ 0 ];
         const assessmentDefinition = definitions.get(defaultAssessmentType);
         return <AggregateReportFormSettings>{
-          assessmentGrades: [],
           assessmentType: defaultAssessmentType,
           columnOrder: assessmentDefinition.aggregateReportIdentityColumns,
           completenesses: [ options.completenesses[ 0 ] ],
@@ -141,15 +164,24 @@ export class AggregateReportOptionsMapper {
           interimAdministrationConditions: [ options.interimAdministrationConditions[ 0 ] ],
           performanceLevelDisplayType: assessmentDefinition.performanceLevelDisplayTypes[ 0 ],
           queryType: options.queryTypes[ 0 ],
+          reportType: options.reportTypes[ 0 ],
           summativeAdministrationConditions: [ options.summativeAdministrationConditions[ 0 ] ],
           schools: [],
-          schoolYears: [ options.schoolYears[ 0 ] ],
+          generalPopulation: {
+            assessmentGrades: [],
+            schoolYears: [ options.schoolYears[ 0 ] ]
+          },
+          longitudinalCohort: {
+            assessmentGrades: [],
+            toSchoolYear: options.schoolYears[ 0 ]
+          },
           studentFilters: {
             economicDisadvantages: options.studentFilters.economicDisadvantages,
             ethnicities: options.studentFilters.ethnicities,
             genders: options.studentFilters.genders,
             individualEducationPlans: options.studentFilters.individualEducationPlans,
             limitedEnglishProficiencies: options.studentFilters.limitedEnglishProficiencies,
+            englishLanguageAcquisitionStatuses: options.studentFilters.englishLanguageAcquisitionStatuses,
             migrantStatuses: options.studentFilters.migrantStatuses,
             section504s: options.studentFilters.section504s
           },

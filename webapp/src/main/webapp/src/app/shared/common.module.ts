@@ -6,7 +6,6 @@ import { SBRadioButtonComponent } from "./sb-radio-button-list.component";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { SBCheckboxList } from "./sb-checkbox-list.component";
-import { AssessmentTypePipe } from "./assessment-type.pipe";
 import { ColorService } from "./color.service";
 import { Angulartics2Module } from "angulartics2";
 import { NotificationComponent } from "./notification/notification.component";
@@ -40,11 +39,11 @@ import { OrderSelectorComponent } from "./order-selector/order-selector.componen
 import { NgxDnDModule } from "@swimlane/ngx-dnd";
 import { CommonEmbargoModule } from "./embargo/embargo.module";
 import { SchoolModule } from "./school/school.module";
+import { InViewDirective } from './nav/in-view.directive';
 
 
 @NgModule({
   declarations: [
-    AssessmentTypePipe,
     InformationButtonComponent,
     OptionalPipe,
     OrderSelectorComponent,
@@ -53,7 +52,8 @@ import { SchoolModule } from "./school/school.module";
     SBCheckboxList,
     SBRadioButtonComponent,
     SBToggleComponent,
-    ScaleScoreComponent
+    ScaleScoreComponent,
+    InViewDirective
   ],
   imports: [
     AlertModule,
@@ -87,7 +87,6 @@ import { SchoolModule } from "./school/school.module";
     })
   ],
   exports: [
-    AssessmentTypePipe,
     CommonEmbargoModule,
     InformationButtonComponent,
     OptionalPipe,
@@ -95,7 +94,7 @@ import { SchoolModule } from "./school/school.module";
     NotificationComponent,
     ScrollNavComponent,
     OrganizationModule,
-  SchoolModule,
+    SchoolModule,
     RouterModule,
     RdwAssessmentModule,
     RdwCoreModule,
@@ -112,7 +111,8 @@ import { SchoolModule } from "./school/school.module";
     SBRadioButtonComponent,
     SBToggleComponent,
     ScaleScoreComponent,
-    TranslateModule
+    TranslateModule,
+    InViewDirective
   ],
   providers: [
     { provide: AuthenticationServiceAuthenticationExpiredRoute, useValue: 'session-expired' },

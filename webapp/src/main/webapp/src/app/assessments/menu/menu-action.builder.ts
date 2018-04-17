@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Student } from "../../student/model/student.model";
-import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { InstructionalResource } from "../model/instructional-resources.model";
 import { Observable } from "rxjs/Observable";
 import { PopupMenuAction } from "../../shared/menu/popup-menu-action.model";
@@ -122,13 +121,13 @@ export class MenuActionBuilder {
     return this;
   }
 
-  withStudentReport(getAssessmentType: (x:any) => AssessmentType, getStudent: (x:any) => Student, submitReport: (x:any) => void): MenuActionBuilder {
-    let action: PopupMenuAction = new PopupMenuAction();
+  withStudentReport(getAssessmentType: (x: any) => string, getStudent: (x: any) => Student, submitReport: (x: any) => void): MenuActionBuilder {
+    const action: PopupMenuAction = new PopupMenuAction();
 
     action.displayName = ((actionable: any) => {
-      let assessmentType = getAssessmentType(actionable);
-      return this.translateService.instant('common.menus.student-report.' + AssessmentType[assessmentType].toLowerCase(), getStudent(actionable));
+      return this.translateService.instant(`common.menus.student-report.${getAssessmentType(actionable)}`, getStudent(actionable));
     }).bind(this);
+
     action.perform = ((actionable: any) => {
       submitReport(actionable);
     }).bind(this);

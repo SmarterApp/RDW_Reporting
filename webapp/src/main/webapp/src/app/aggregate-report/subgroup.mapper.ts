@@ -1,13 +1,21 @@
-import { SubgroupFilters } from "./subgroup-filters";
-import { Utils } from "../shared/support/support";
-import { Injectable } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
+import { SubgroupFilters } from './subgroup-filters';
+import { Utils } from '../shared/support/support';
+import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { SubgroupFiltersListItem } from './subgroup-filters-list-item';
 
 @Injectable()
 export class SubgroupMapper {
 
   constructor(private translate: TranslateService) {
+  }
+
+  createOverallSubgroupFiltersListItem(): SubgroupFiltersListItem {
+    return {
+      id: '',
+      name: this.translate.instant('common.dimension-short-name.Overall'),
+      value: undefined
+    };
   }
 
   createSubgroupFiltersListItem(value: SubgroupFilters): SubgroupFiltersListItem {
@@ -24,7 +32,7 @@ export class SubgroupMapper {
       const type = dimension.type;
       const valueCodes = dimension.getDimensionValueCodes(settings) || [];
       for (const value of valueCodes) {
-        subgroups.push(this.createDimension(type, value, dimension));
+        subgroups.push(this.createDimensionInternal(type, value, dimension));
       }
       return subgroups;
     }, []);
@@ -37,21 +45,25 @@ export class SubgroupMapper {
       if (dimension) {
         const values = dimension.getDimensionValueCodes(settings);
         for (const value of values) {
-          subgroups.push(this.createDimension(type, value, dimension));
+          subgroups.push(this.createDimensionInternal(type, value, dimension));
         }
       } else {
-        subgroups.push(this.createDimension(type));
+        subgroups.push(this.createDimensionInternal(type));
       }
     }
     return subgroups;
   }
 
-  createDimension(type: string, value?: any, dimension?: DimensionConfiguration): Dimension {
+  createDimension(type: string, value?: any): Dimension {
+    return this.createDimensionInternal(type, value, DimensionConfigurationByType[ type ]);
+  }
+
+  private createDimensionInternal(type: string, value?: any, dimension?: DimensionConfiguration): Dimension {
     const translate = (code) => this.translate.instant(code);
     const suffix = value && dimension ? `: ${translate(dimension.getTranslationCode(value))}` : '';
     return {
       id: `${type}:${value}`,
-      name: `${translate(`common.dimension.${type}`)}${suffix}`,
+      name: `${translate(`common.dimension-short-name.${type}`)}${suffix}`,
       type: type,
       code: value
     };
@@ -89,6 +101,11 @@ const DimensionConfigurations: DimensionConfiguration[] = [
     getTranslationCode: value => `common.strict-boolean.${value}`
   },
   {
+    type: 'ELAS',
+    getDimensionValueCodes: settings => settings.englishLanguageAcquisitionStatuses,
+    getTranslationCode: value => `common.elas.${value}`
+  },
+  {
     type: 'MigrantStatus',
     getDimensionValueCodes: settings => settings.migrantStatuses,
     getTranslationCode: value => `common.boolean.${value}`
@@ -120,7 +137,7 @@ const DimensionConfigurations: DimensionConfiguration[] = [
  * Dimension type code to configuration mappings.
  * These configurations help mapping backend-provided and form-provided dimension data into {Dimension}s
  */
-const DimensionConfigurationByType: { [dimensionType: string]: DimensionConfiguration } = DimensionConfigurations
+const DimensionConfigurationByType: { [ dimensionType: string ]: DimensionConfiguration } = DimensionConfigurations
   .reduce((byType, dimension) => {
     byType[ dimension.type ] = dimension;
     return byType;

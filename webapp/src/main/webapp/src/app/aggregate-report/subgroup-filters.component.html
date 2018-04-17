@@ -37,7 +37,7 @@
     </div>
   </div>
 </div>
-<div class="well">
+<div *ngIf="appSettings.lepEnabled" class="well">
   <div class="row">
     <div class="col-md-6">
       <label info-button
@@ -53,6 +53,25 @@
                          analyticsEvent="FilterClick"
                          analyticsCategory="AggregateQueryBuilder"
                          [allOptionAnalyticsProperties]="{label: 'Limited English Proficiency: All'}"
+                         (change)="onSettingChangeInternal()"></sb-checkbox-group>
+    </div>
+  </div>
+</div>
+<div *ngIf="appSettings.elasEnabled" class="well">
+  <div class="row">
+    <div class="col-md-6">
+      <label info-button
+             title="{{'aggregate-report-form.field.elas-label' | translate}}"
+             content="{{'aggregate-report-form.field.elas-info' | translate}}"></label>
+    </div>
+    <div class="col-md-6">
+      <sb-checkbox-group [options]="options.englishLanguageAcquisitionStatuses"
+                         [(ngModel)]="settings.englishLanguageAcquisitionStatuses"
+                         [ngModelOptions]="{standalone: true}"
+                         name="englishLanguageAcquisitionStatuses"
+                         analyticsEvent="FilterClick"
+                         analyticsCategory="AggregateQueryBuilder"
+                         [allOptionAnalyticsProperties]="{label: 'English Language Acquisition Status: All'}"
                          (change)="onSettingChangeInternal()"></sb-checkbox-group>
     </div>
   </div>

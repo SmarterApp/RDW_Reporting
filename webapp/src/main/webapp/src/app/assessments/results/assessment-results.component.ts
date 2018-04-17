@@ -159,7 +159,7 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   get enableWritingTraitScores(): boolean {
-    return this._assessmentExam.assessment.isIab && this.displayItemLevelData;
+    return this.displayItemLevelData;
   }
 
   get showStudentResults(): boolean {

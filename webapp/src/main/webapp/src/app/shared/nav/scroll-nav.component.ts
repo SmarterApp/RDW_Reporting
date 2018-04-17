@@ -1,7 +1,7 @@
-import { Component, HostListener, Inject, Input } from "@angular/core";
-import { DOCUMENT } from "@angular/common";
-import { WindowRefService } from "../core/window-ref.service";
-import { Utils } from "../support/support";
+import { Component, HostListener, Inject, Input } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { WindowRefService } from '../core/window-ref.service';
+import { Utils } from '../support/support';
 
 @Component({
   selector: 'scroll-nav',
@@ -55,7 +55,7 @@ export class ScrollNavComponent {
     }
   }
 
-  @HostListener("window:scroll", [])
+  @HostListener('window:scroll', [])
   onWindowScroll(): void {
     this._enabled && this.updateActiveLink();
   }

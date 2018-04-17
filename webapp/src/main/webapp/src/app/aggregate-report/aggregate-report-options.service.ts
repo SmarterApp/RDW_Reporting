@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { AggregateReportOptions } from "./aggregate-report-options";
-import { CachingDataService } from "../shared/data/caching-data.service";
-import { OrganizationMapper } from "../shared/organization/organization.mapper";
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { AggregateReportOptions } from './aggregate-report-options';
+import { CachingDataService } from '../shared/data/caching-data.service';
+import { OrganizationMapper } from '../shared/organization/organization.mapper';
 import { map } from 'rxjs/operators';
 import { AggregateServiceRoute } from '../shared/service-route';
 import { AssessmentTypeOrdering, BooleanOrdering, CompletenessOrdering } from '../shared/ordering/orderings';
@@ -26,7 +26,7 @@ export class AggregateReportOptionsService {
     return this.dataService.get(`${ServiceRoute}/reportOptions`)
       .pipe(
         map(options => <AggregateReportOptions>{
-          assessmentGrades: options.assessmentGrades,
+          assessmentGrades: options.assessmentGrades.reverse(),
           assessmentTypes: options.assessmentTypes.sort(assessmentTypeComparator),
           completenesses: options.completenesses.sort(completenessComparator),
           defaultOrganization: options.defaultOrganization
@@ -34,7 +34,8 @@ export class AggregateReportOptionsService {
             : undefined,
           dimensionTypes: options.dimensionTypes,
           interimAdministrationConditions: options.interimAdministrationConditions,
-          queryTypes: ['Basic', 'FilteredSubgroup'],
+          queryTypes: [ 'Basic', 'FilteredSubgroup' ],
+          reportTypes: [ 'GeneralPopulation', 'LongitudinalCohort' ],
           schoolYears: options.schoolYears,
           statewideReporter: options.statewideReporter,
           subjects: options.subjects,
@@ -45,6 +46,7 @@ export class AggregateReportOptionsService {
             genders: options.genders,
             individualEducationPlans: options.individualEducationPlans.sort(booleanComparator),
             limitedEnglishProficiencies: options.limitedEnglishProficiencies.sort(booleanComparator),
+            englishLanguageAcquisitionStatuses: options.englishLanguageAcquisitionStatuses,
             migrantStatuses: options.migrantStatuses.sort(booleanComparator),
             section504s: options.section504s.sort(booleanComparator)
           }

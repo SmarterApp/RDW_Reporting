@@ -1,0 +1,13 @@
+{
+  "assessmentType": "ICA",
+  "subject": "MATH",
+  "schoolYear": 2018,
+  "language": "en",
+  "name": "SchoolGradeExamReportRequest v1.2.X",
+  "accommodationsVisible": false,
+  "disableTransferAccess": false,
+  "order": "STUDENT_NAME",
+  "schoolId": 7,
+  "gradeId": 3,
+  "reportType": "SchoolGrade"
+}

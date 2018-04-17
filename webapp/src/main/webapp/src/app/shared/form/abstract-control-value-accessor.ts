@@ -39,7 +39,7 @@ export abstract class AbstractControlValueAccessor<T> implements ControlValueAcc
    */
   writeValue(value: any): void {
     this.value = value;
-  };
+  }
 
   /**
    * @override

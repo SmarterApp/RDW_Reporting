@@ -63,8 +63,19 @@ sqlbuilder:
 
             districts:
               clauses:
+                select: >-
+                     'District' AS organization_type,
+                     d.id AS organization_id
+
+                join: >-
+                    JOIN school sch ON sch.id = fe.school_id
+                    JOIN district d ON d.id = sch.district_id
+
                 where: >-
                     d.id in (:district_ids)
+
+                groupBy: >-
+                     d.id
 
             allSchoolsInDistricts:
               clauses:
@@ -146,6 +157,20 @@ sqlbuilder:
                 groupBy: >-
                      se.ethnicity_id,
                      e.code
+
+            ELAS:
+              clauses:
+                select: >-
+                     'ELAS' AS dimension,
+                     fe.elas_id AS dimension_id,
+                     el.code AS dimension_code
+                join: >-
+                     JOIN elas el ON el.id = fe.elas_id
+                where: >-
+                    ( true = :all_elas OR fe.elas_id in (:elas_ids) )
+                groupBy: >-
+                     fe.elas_id,
+                     el.code
 
             IEP:
               clauses:
@@ -232,6 +257,11 @@ sqlbuilder:
                      JOIN student s ON fe.student_id = s.id
                  where: >-
                     s.gender_id in (:gender_ids)
+
+            ELAS_filter:
+              clauses:
+                where: >-
+                  fe.elas_id in (:elas_ids)
 
             Ethnicity_filter:
                clauses:

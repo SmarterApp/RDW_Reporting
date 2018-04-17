@@ -1,5 +1,4 @@
 import { Assessment } from "../model/assessment.model";
-import { AssessmentType } from "../../shared/enum/assessment-type.enum";
 import { inject, TestBed } from "@angular/core/testing";
 import { ScaleScoreService } from "./scale-score.service";
 import { ExamStatisticsLevel } from "../model/exam-statistics.model";
@@ -18,7 +17,7 @@ describe('ScaleScoreService', () => {
     inject([ScaleScoreService], (service: ScaleScoreService) => {
 
     let asmt = new Assessment();
-    asmt.type = AssessmentType.ICA;
+    asmt.type = 'ica';
     asmt.cutPoints = [1000, 1100, 1200, 1300, 1400];
 
     let actual = service.calculateLevelNumber(asmt, 20, 1.0);
@@ -29,7 +28,7 @@ describe('ScaleScoreService', () => {
     inject([ScaleScoreService], (service: ScaleScoreService) => {
 
     let asmt = new Assessment();
-    asmt.type = AssessmentType.ICA;
+    asmt.type = 'ica';
     asmt.cutPoints = [1000, 1100, 1200, 1300, 1400];
 
     let actual = service.calculateLevelNumber(asmt, 9000, 1.0);
@@ -40,7 +39,7 @@ describe('ScaleScoreService', () => {
     inject([ScaleScoreService], (service: ScaleScoreService) => {
 
     let asmt = new Assessment();
-    asmt.type = AssessmentType.ICA;
+    asmt.type = 'ica';
     asmt.cutPoints = [1000, 1100, 1200, 1300, 1400];
 
     let actual = service.calculateLevelNumber(asmt, 1150, 1.0);
@@ -51,7 +50,7 @@ describe('ScaleScoreService', () => {
     inject([ScaleScoreService], (service: ScaleScoreService) => {
 
     let asmt = new Assessment();
-    asmt.type = AssessmentType.IAB;
+    asmt.type = 'iab';
     asmt.cutPoints = [1000, 1100, 1200, 1300, 1400];
 
     let actual = service.calculateLevelNumber(asmt, 1049, 100.0);
@@ -62,7 +61,7 @@ describe('ScaleScoreService', () => {
     inject([ScaleScoreService], (service: ScaleScoreService) => {
 
     let asmt = new Assessment();
-    asmt.type = AssessmentType.IAB;
+    asmt.type = 'iab';
     asmt.cutPoints = [1000, 1100, 1200, 1300, 1400];
 
     let actual = service.calculateLevelNumber(asmt, 1351, 100);
@@ -73,7 +72,7 @@ describe('ScaleScoreService', () => {
     inject([ScaleScoreService], (service: ScaleScoreService) => {
 
     let asmt = new Assessment();
-    asmt.type = AssessmentType.IAB;
+    asmt.type = 'iab';
     asmt.cutPoints = [1000, 1100, 1200, 1300, 1400];
 
     let actual = service.calculateLevelNumber(asmt, 1150, 100.0);

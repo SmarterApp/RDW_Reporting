@@ -1,20 +1,20 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   BasicAggregateReportQuery,
   BasicAggregateReportRequest,
   StudentFilters
-} from "../report/basic-aggregate-report-request";
-import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
-import { AggregateReportFormOptions } from "./aggregate-report-form-options";
-import { TranslateService } from "@ngx-translate/core";
-import { AssessmentDefinition } from "./assessment/assessment-definition";
-import { AggregateReportOptions } from "./aggregate-report-options";
-import { Observable } from "rxjs/Observable";
-import { District, OrganizationType, School } from "../shared/organization/organization";
-import { Utils } from "../shared/support/support";
-import { AggregateReportOrganizationService } from "./aggregate-report-organization.service";
-import { ranking } from "@kourge/ordering/comparator";
-import { ordering } from "@kourge/ordering";
+} from '../report/basic-aggregate-report-request';
+import { AggregateReportFormSettings } from './aggregate-report-form-settings';
+import { AggregateReportFormOptions } from './aggregate-report-form-options';
+import { TranslateService } from '@ngx-translate/core';
+import { AssessmentDefinition } from './assessment/assessment-definition';
+import { AggregateReportOptions } from './aggregate-report-options';
+import { Observable } from 'rxjs/Observable';
+import { District, OrganizationType, School } from '../shared/organization/organization';
+import { Utils } from '../shared/support/support';
+import { AggregateReportOrganizationService } from './aggregate-report-organization.service';
+import { ranking } from '@kourge/ordering/comparator';
+import { ordering } from '@kourge/ordering';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { map } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
@@ -32,7 +32,7 @@ const notNullOrEmpty = (value) => !Utils.isNullOrEmpty(value);
 export class AggregateReportRequestMapper {
 
   constructor(private translate: TranslateService,
-              private organizationService: AggregateReportOrganizationService){
+              private organizationService: AggregateReportOrganizationService) {
   }
 
   /**
@@ -49,19 +49,17 @@ export class AggregateReportRequestMapper {
 
     const performanceLevelDisplayType = assessmentDefinition.performanceLevelDisplayTypes.includes(settings.performanceLevelDisplayType)
       ? settings.performanceLevelDisplayType
-      : assessmentDefinition.performanceLevelDisplayTypes[0];
+      : assessmentDefinition.performanceLevelDisplayTypes[ 0 ];
 
-    const query: any = <BasicAggregateReportQuery>{
+    const query: any = {
       achievementLevelDisplayType: performanceLevelDisplayType,
       assessmentTypeCode: settings.assessmentType,
-      assessmentGradeCodes: settings.assessmentGrades,
       dimensionTypes: settings.dimensionTypes,
       includeAllDistricts: settings.includeAllDistricts,
       includeAllDistrictsOfSchools: settings.includeAllDistrictsOfSelectedSchools,
       includeAllSchoolsOfDistricts: settings.includeAllSchoolsOfSelectedDistricts,
-      includeState: settings.includeStateResults && settings.assessmentType === 'sum',
+      includeState: settings.includeStateResults && assessmentDefinition.aggregateReportStateResultsEnabled,
       queryType: settings.queryType,
-      schoolYears: settings.schoolYears,
       subjectCodes: settings.subjects,
       valueDisplayType: settings.valueDisplayType,
       columnOrder: settings.columnOrder
@@ -89,11 +87,20 @@ export class AggregateReportRequestMapper {
       query.schoolIds = idsOf(settings.schools);
     }
 
-    // Set type-specific parameters
+    // Set query type specific parameters
     if (settings.queryType === 'Basic') {
       query.studentFilters = this.createStudentFilters(settings.studentFilters, options.studentFilters);
     } else if (settings.queryType === 'FilteredSubgroup') {
       query.subgroups = this.createSubgroups(settings.subgroups);
+    }
+
+    // Set report type specific parameters
+    if (settings.reportType === 'GeneralPopulation') {
+      query.assessmentGradeCodes = settings.generalPopulation.assessmentGrades;
+      query.schoolYears = settings.generalPopulation.schoolYears;
+    } else if (settings.reportType === 'LongitudinalCohort') {
+      query.assessmentGradeCodes = settings.longitudinalCohort.assessmentGrades;
+      query.toSchoolYear = settings.longitudinalCohort.toSchoolYear;
     }
 
     const name = settings.name
@@ -155,6 +162,10 @@ export class AggregateReportRequestMapper {
           sort(filters.lepCodes, options.studentFilters.individualEducationPlans),
           options.studentFilters.individualEducationPlans
         ),
+        englishLanguageAcquisitionStatuses: or(
+          sort(filters.elasCodes, options.studentFilters.englishLanguageAcquisitionStatuses),
+          options.studentFilters.englishLanguageAcquisitionStatuses
+        ),
         migrantStatuses: or(
           sort(filters.migrantStatusCodes, options.studentFilters.migrantStatuses),
           options.studentFilters.migrantStatuses
@@ -170,12 +181,36 @@ export class AggregateReportRequestMapper {
       ? this.createSubgroupFiltersFromSubgroups(query.subgroups)
       : [];
 
+    const defaultGeneralPopulation = {
+      assessmentGrades: [],
+      schoolYears: [ options.schoolYears[0] ]
+    };
+
+    const defaultLongitudinalCohort = {
+      assessmentGrades: [],
+      toSchoolYear: options.schoolYears[0]
+    };
+
+    let generalPopulation = defaultGeneralPopulation,
+      longitudinalCohort = defaultLongitudinalCohort;
+
+    if (query.reportType === 'GeneralPopulation') {
+      generalPopulation = {
+        assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
+        schoolYears: query.schoolYears.sort((a, b) => b - a),
+      };
+    } else if (query.reportType === 'LongitudinalCohort') {
+      longitudinalCohort = {
+        assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
+        toSchoolYear: query.toSchoolYear
+      };
+    }
+
     return forkJoin(schools, districts)
       .pipe(
         map(([ schools, districts ]) => {
           return <AggregateReportFormSettings>{
             assessmentType: query.assessmentTypeCode,
-            assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
             columnOrder: query.columnOrder,
             completenesses: or(
               sort(query.completenessCodes, options.completenesses),
@@ -196,7 +231,7 @@ export class AggregateReportRequestMapper {
             name: request.name,
             performanceLevelDisplayType: query.achievementLevelDisplayType,
             queryType: query.queryType,
-            schoolYears: query.schoolYears.sort((a, b) => b - a),
+            reportType: query.reportType,
             schools: schools,
             studentFilters: studentFilters,
             subjects: sort(query.subjectCodes, options.subjects),
@@ -204,7 +239,9 @@ export class AggregateReportRequestMapper {
             summativeAdministrationConditions: !querySummativeAdministrationConditions.length
               ? options.summativeAdministrationConditions
               : querySummativeAdministrationConditions,
-            valueDisplayType: query.valueDisplayType
+            valueDisplayType: query.valueDisplayType,
+            generalPopulation: generalPopulation,
+            longitudinalCohort: longitudinalCohort
           };
         })
       );
@@ -226,6 +263,9 @@ export class AggregateReportRequestMapper {
     }
     if (!equalSize(settingFilters.limitedEnglishProficiencies, optionFilters.limitedEnglishProficiencies)) {
       queryFilters.lepCodes = settingFilters.limitedEnglishProficiencies;
+    }
+    if (!equalSize(settingFilters.englishLanguageAcquisitionStatuses, optionFilters.englishLanguageAcquisitionStatuses)) {
+      queryFilters.elasCodes = settingFilters.englishLanguageAcquisitionStatuses;
     }
     if (!equalSize(settingFilters.migrantStatuses, optionFilters.migrantStatuses)) {
       queryFilters.migrantStatusCodes = settingFilters.migrantStatuses;
@@ -254,6 +294,9 @@ export class AggregateReportRequestMapper {
     if (notNullOrEmpty(settingFilters.limitedEnglishProficiencies)) {
       queryFilters.lepCodes = settingFilters.limitedEnglishProficiencies;
     }
+    if (notNullOrEmpty(settingFilters.englishLanguageAcquisitionStatuses)) {
+      queryFilters.elasCodes = settingFilters.englishLanguageAcquisitionStatuses;
+    }
     if (notNullOrEmpty(settingFilters.migrantStatuses)) {
       queryFilters.migrantStatusCodes = settingFilters.migrantStatuses;
     }
@@ -263,14 +306,14 @@ export class AggregateReportRequestMapper {
     return queryFilters;
   }
 
-  private createSubgroups(settingFilters: SubgroupFilters[]): {[key: string]: StudentFilters} {
+  private createSubgroups(settingFilters: SubgroupFilters[]): { [ key: string ]: StudentFilters } {
     return settingFilters.reduce((subgroups, filters, index) => {
-      subgroups[(index + 1).toString()] = this.createStudentFiltersFromSubgroup(filters);
+      subgroups[ (index + 1).toString() ] = this.createStudentFiltersFromSubgroup(filters);
       return subgroups;
     }, {});
   }
 
-  private createSubgroupFiltersFromSubgroups(querySubgroups: {[key: string]: StudentFilters}): SubgroupFilters[] {
+  private createSubgroupFiltersFromSubgroups(querySubgroups: { [ key: string ]: StudentFilters }): SubgroupFilters[] {
     return Object.values(querySubgroups) // This ignores the keys as we do not use them at the moment
       .map(subgroup => this.createSubgroupFilters(subgroup));
   }
@@ -291,6 +334,9 @@ export class AggregateReportRequestMapper {
     }
     if (notNullOrEmpty(subgroup.lepCodes)) {
       subgroupFilters.limitedEnglishProficiencies = subgroup.lepCodes;
+    }
+    if (notNullOrEmpty(subgroup.elasCodes)) {
+      subgroupFilters.englishLanguageAcquisitionStatuses = subgroup.elasCodes;
     }
     if (notNullOrEmpty(subgroup.migrantStatusCodes)) {
       subgroupFilters.migrantStatuses = subgroup.migrantStatusCodes;

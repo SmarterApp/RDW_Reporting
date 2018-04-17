@@ -1,16 +1,13 @@
 import { District, School } from "../shared/organization/organization";
 import {SubgroupFilters} from "./subgroup-filters";
+import { AggregateReportType } from './aggregate-report-type';
+import { AggregateReportQueryType } from './aggregate-report-query-type';
 
 /**
  * Client side representation of a report request.
  * This object must be mapped into a format that the server supports
  */
 export interface AggregateReportFormSettings {
-
-  /**
-   * Assessment grades to be covered on the report
-   */
-  assessmentGrades: string[];
 
   /**
    * Assessment type of the report
@@ -36,11 +33,6 @@ export interface AggregateReportFormSettings {
    * The achievement level graph display type
    */
   performanceLevelDisplayType: string;
-
-  /**
-   * The school years to be covered on the report
-   */
-  schoolYears: number[];
 
   /**
    * Subject result filter
@@ -103,6 +95,11 @@ export interface AggregateReportFormSettings {
   queryType: 'Basic' | 'FilteredSubgroup';
 
   /**
+   * Defines the report type (standard or longitudinal)
+   */
+  reportType: 'GeneralPopulation' | 'LongitudinalCohort';
+
+  /**
    * The advanced filters applied to basic reports
    */
   studentFilters: SubgroupFilters;
@@ -111,5 +108,39 @@ export interface AggregateReportFormSettings {
    * The custom subgroups applied to subgroup filter reports
    */
   subgroups: SubgroupFilters[];
+
+  /**
+   * Standard report assessment settings
+   */
+  generalPopulation: {
+
+    /**
+     * Assessment grades to be covered on the report
+     */
+    assessmentGrades: string[];
+
+    /**
+     * The school years to be covered on the report
+     */
+    schoolYears: number[];
+
+  };
+
+  /**
+   * Longitudinal report settings
+   */
+  longitudinalCohort: {
+
+    /**
+     * Assessment grades to be covered on the report
+     */
+    assessmentGrades: string[];
+
+    /**
+     * The school years to be covered on the report
+     */
+    toSchoolYear: number;
+
+  };
 
 }

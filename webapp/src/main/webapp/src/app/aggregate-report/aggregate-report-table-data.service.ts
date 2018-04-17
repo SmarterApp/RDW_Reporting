@@ -1,12 +1,21 @@
-import { Injectable } from "@angular/core";
-import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
-import { DefaultSchool, Organization, School } from "../shared/organization/organization";
-import { AssessmentDefinition } from "./assessment/assessment-definition";
-import { AggregateReportItem } from "./results/aggregate-report-item";
-import { TranslateService } from "@ngx-translate/core";
-import {SubgroupMapper} from "./subgroup.mapper";
+import { Injectable } from '@angular/core';
+import { AggregateReportFormSettings } from './aggregate-report-form-settings';
+import {
+  DefaultDistrict,
+  DefaultSchool,
+  DefaultState,
+  District,
+  Organization,
+  School,
+  State
+} from '../shared/organization/organization';
+import { AssessmentDefinition } from './assessment/assessment-definition';
+import { AggregateReportItem } from './results/aggregate-report-item';
+import { TranslateService } from '@ngx-translate/core';
+import { SubgroupMapper } from './subgroup.mapper';
+import { computeEffectiveYears } from './support';
 
-const MaximumOrganizations = 2;
+const MaximumOrganizations = 3;
 
 @Injectable()
 export class AggregateReportTableDataService {
@@ -16,9 +25,22 @@ export class AggregateReportTableDataService {
   }
 
   createSampleData(assessmentDefinition: AssessmentDefinition, settings: AggregateReportFormSettings): AggregateReportItem[] {
-    const organizations = this.createSampleOrganizations(settings);
-    const assessmentGradeCodes = settings.assessmentGrades;
-    const schoolYears = settings.schoolYears;
+    const organizations = this.createSampleOrganizations(settings, assessmentDefinition);
+
+    const gradesAndYears: { grade: string, year: number }[] = [];
+    if (settings.reportType === 'GeneralPopulation') {
+      for (const grade of settings.generalPopulation.assessmentGrades) {
+        for (const year of settings.generalPopulation.schoolYears) {
+          gradesAndYears.push({ grade, year });
+        }
+      }
+    } else if (settings.reportType === 'LongitudinalCohort') {
+      const assessmentGrades = settings.longitudinalCohort.assessmentGrades;
+      const schoolYears = computeEffectiveYears(settings.longitudinalCohort.toSchoolYear, assessmentGrades);
+      for (let i = 0; i < assessmentGrades.length; i++) {
+        gradesAndYears.push({ grade: assessmentGrades[ i ], year: schoolYears[ i ] });
+      }
+    }
 
     const studentsTested = 100;
     const averageScaleScore = 2500;
@@ -34,38 +56,36 @@ export class AggregateReportTableDataService {
     const groupedPerformanceLevelCount = studentsTested * 0.5;
     const groupedPerformanceLevelCounts = [ groupedPerformanceLevelCount, groupedPerformanceLevelCount ];
 
-    const createRows = (values: any[], setter: (row: AggregateReportItem, value: any) => void): AggregateReportItem[] => {
+    const createRows = (values: { id: string, name: string }[]): AggregateReportItem[] => {
       let uuid = 0;
       const rows: AggregateReportItem[] = [];
       for (const organization of organizations) {
-        for (const assessmentGradeCode of assessmentGradeCodes) {
-          for (const schoolYear of schoolYears) {
-            for (const value of values) {
-              const row = {
-                itemId: ++uuid,
-                organization: organization,
-                assessmentId: undefined,
-                assessmentLabel: this.translate.instant('sample-aggregate-table-data-service.assessment-label'),
-                assessmentGradeCode: assessmentGradeCode,
-                subjectCode: undefined,
-                schoolYear: schoolYear,
-                avgScaleScore: averageScaleScore,
-                avgStdErr: averageStandardError,
-                studentsTested: studentsTested,
-                performanceLevelByDisplayTypes: {
-                  Separate: {
-                    Number: performanceLevelCounts,
-                    Percent: performanceLevelPercents
-                  },
-                  Grouped: {
-                    Number: groupedPerformanceLevelCounts,
-                    Percent: groupedPerformanceLevelCounts
-                  }
+        for (const { grade, year } of gradesAndYears) {
+          for (const value of values) {
+            const row: any = {
+              itemId: ++uuid,
+              organization: organization,
+              assessmentId: undefined,
+              assessmentLabel: this.translate.instant('sample-aggregate-table-data-service.assessment-label'),
+              assessmentGradeCode: grade,
+              subjectCode: undefined,
+              schoolYear: year,
+              avgScaleScore: averageScaleScore,
+              avgStdErr: averageStandardError,
+              studentsTested: studentsTested,
+              performanceLevelByDisplayTypes: {
+                Separate: {
+                  Number: performanceLevelCounts,
+                  Percent: performanceLevelPercents
+                },
+                Grouped: {
+                  Number: groupedPerformanceLevelCounts,
+                  Percent: groupedPerformanceLevelCounts
                 }
-              };
-              setter(row, value);
-              rows.push(row);
-            }
+              },
+              dimension: value
+            };
+            rows.push(row);
           }
         }
       }
@@ -75,34 +95,61 @@ export class AggregateReportTableDataService {
     if (settings.queryType === 'Basic') {
       const dimensions = this.subgroupMapper.createDimensionPermutations(
         settings.studentFilters,
-        ['Overall', ...settings.dimensionTypes]
+        [ 'Overall', ...settings.dimensionTypes ]
       );
-      return createRows(dimensions, (item, value) => item.dimension = value);
+      return createRows(dimensions);
     } else if (settings.queryType === 'FilteredSubgroup') {
-      const subgroups = [{
-        name: 'Overall'
-      }].concat(
+      const subgroups = [
+        this.subgroupMapper.createOverallSubgroupFiltersListItem()
+      ].concat(
         settings.subgroups.map(subgroup => this.subgroupMapper.createSubgroupFiltersListItem(subgroup))
       );
-      return createRows(subgroups, (item, value) => item.subgroup = value);
+      return createRows(subgroups);
     }
     throw new Error(`Unsupported query type "${settings.queryType}"`);
   }
 
-  private createSampleOrganizations(settings: AggregateReportFormSettings): Organization[] {
-
-    const organizationCount = (settings.includeStateResults ? 1 : 0)
-      + (settings.includeAllDistricts ? MaximumOrganizations : 0)
-      + [ ...settings.districts, ...settings.schools ].length;
+  private createSampleOrganizations(settings: AggregateReportFormSettings, definition: AssessmentDefinition): Organization[] {
 
     const organizations: Organization[] = [];
-    for (let i = 0; i < organizationCount && i < MaximumOrganizations; i++) {
-      organizations.push(this.createSampleOrganization(i + 1));
+
+    if (settings.includeStateResults && definition.aggregateReportStateResultsEnabled) {
+      organizations.push(this.createSampleState());
     }
+
+    let schoolId = 1,
+      districtId = 1;
+
+    for (let i = 0; i < MaximumOrganizations && organizations.length < MaximumOrganizations; i++) {
+      if (settings.districts.length >= districtId
+        || settings.includeAllDistricts
+        || (settings.schools.length && settings.includeAllDistrictsOfSelectedSchools)) {
+        organizations.push(this.createSampleDistrict(districtId++));
+      }
+
+      if (settings.schools.length >= schoolId
+        || ((settings.districts.length || settings.includeAllDistricts) && settings.includeAllSchoolsOfSelectedDistricts)) {
+        organizations.push(this.createSampleSchool(schoolId++));
+      }
+    }
+
     return organizations;
   }
 
-  private createSampleOrganization(id: number): School {
+  private createSampleState(): State {
+    const state = new DefaultState();
+    state.name = this.translate.instant('sample-aggregate-table-data-service.state-name');
+    return state;
+  }
+
+  private createSampleDistrict(id: number): District {
+    const district = new DefaultDistrict();
+    district.id = id;
+    district.name = this.translate.instant('sample-aggregate-table-data-service.district-name', { id: id });
+    return district;
+  }
+
+  private createSampleSchool(id: number): School {
     const school = new DefaultSchool();
     school.id = id;
     school.name = this.translate.instant('sample-aggregate-table-data-service.school-name', { id: id });

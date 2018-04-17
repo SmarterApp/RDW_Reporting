@@ -1,6 +1,3 @@
-import { AssessmentSubjectType } from "../enum/assessment-subject-type.enum";
-import { AssessmentType } from "../enum/assessment-type.enum";
-
 export class Utils {
 
   static getPropertyValue(propertyPath: string, object: any): any {
@@ -90,7 +87,7 @@ export class Utils {
   static toNgClassObject(value: any): any {
     switch (typeof value) {
       case 'string':
-        return value.split(/s+/g).reduce((object, key) => {
+        return value.split(/\s+/g).reduce((object, key) => {
           object[ key ] = true;
           return object;
         }, {});
@@ -153,6 +150,24 @@ export class Utils {
   }
 
   /**
+   * True if the provided element is visible in the provided window
+   *
+   * @param {Element} element
+   * @param {Window} window
+   * @returns {boolean}
+   */
+  static inView(element: Element, window: Window): boolean {
+    if (element == null || window == null) {
+      return false;
+    }
+    const bounds = element.getBoundingClientRect();
+    return bounds.bottom > 0
+      && bounds.right > 0
+      && bounds.left < (window.innerWidth || document.documentElement.clientWidth)
+      && bounds.top < (window.innerHeight || document.documentElement.clientHeight);
+  }
+
+  /**
    * Takes a string or number and returns it's integer value
    *
    * @param stringOrNumber the input
@@ -195,24 +210,6 @@ export class Utils {
     return a != null
       && b != null
       && a.length === b.length;
-  }
-
-  // TODO stop using subject/assessment type enums. use codes instead.
-
-  static toServerSubjectEnum(code: string): string {
-    return { 'Math': 'MATH', 'ELA': 'ELA' }[ code ];
-  }
-
-  static toSubjectCode(subject: AssessmentSubjectType): string {
-    return [ undefined, 'Math', 'ELA' ][ subject ];
-  }
-
-  static toServerAssessmentTypeEnum(code: string): string {
-    return { 'ica': 'ICA', 'iab': 'IAB', 'sum': 'SUMMATIVE' }[ code ];
-  }
-
-  static toAssessmentTypeCode(assessmentType: AssessmentType): string {
-    return [ undefined, 'ica', 'iab', 'sum' ][ assessmentType ];
   }
 
   /**

@@ -39,4 +39,9 @@ export interface AssessmentDefinition {
    */
   readonly aggregateReportIdentityColumns: string[];
 
+  /**
+   * True if the definition supports state results
+   */
+  readonly aggregateReportStateResultsEnabled: boolean;
+
 }
