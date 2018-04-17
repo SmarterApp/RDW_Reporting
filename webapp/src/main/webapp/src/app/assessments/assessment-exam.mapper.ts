@@ -11,7 +11,6 @@ import { ClaimScore } from "./model/claim-score.model";
 import { Student } from "../student/model/student.model";
 import { Utils } from "../shared/support/support";
 import { DefaultSchool, School } from '../shared/organization/organization';
-import { MeasuredAssessment } from './model/measured-assessment.model';
 
 @Injectable()
 export class AssessmentExamMapper {
@@ -26,12 +25,6 @@ export class AssessmentExamMapper {
   mapAssessmentsFromApi(serverAssessments: any[]): Assessment[] {
     return serverAssessments
       .map(serverAssessment => this.mapAssessmentFromApi(serverAssessment))
-      .sort(byGradeThenByName); // TODO move to backend or make view specific
-  }
-
-  mapMeasuredAssessmentsFromApi(serverAssessments: any[]): Assessment[] {
-    return serverAssessments
-      .map(serverAssessment => this.mapMeasuredAssessmentFromApi(serverAssessment).assessment)
       .sort(byGradeThenByName); // TODO move to backend or make view specific
   }
 
@@ -62,19 +55,6 @@ export class AssessmentExamMapper {
     assessment.cutPoints = serverAssessment.cutPoints || [];
     assessment.resourceUrl = serverAssessment.resourceUrl;
     return assessment;
-  }
-
-  mapMeasuredAssessmentFromApi(serverAssessment: any): MeasuredAssessment {
-    const measuredAssessment = new MeasuredAssessment();
-    measuredAssessment.assessment = this.mapAssessmentFromApi(serverAssessment.assessment);
-    measuredAssessment.level1Count = serverAssessment.measures.level1Count;
-    measuredAssessment.level2Count = serverAssessment.measures.level2Count;
-    measuredAssessment.level3Count = serverAssessment.measures.level3Count;
-    measuredAssessment.avgScaleScore = serverAssessment.measures.avgScaleScore;
-    measuredAssessment.avgStdErr = serverAssessment.measures.avgStdErr;
-    measuredAssessment.studentsTested = serverAssessment.studentsTested;
-    measuredAssessment.completedAt = serverAssessment.completedAt;
-    return measuredAssessment;
   }
 
   mapExamFromApi(serverExam: any): Exam {

@@ -1,22 +1,26 @@
 insert into school_group (id, natural_id, name) values
   (-10, 'schoolGroup1', 'schoolGroup1'),
-  (-40, 'schoolGroup4', 'schoolGroup4');
+  (-40, 'schoolGroup4', 'schoolGroup4'),
+  (-50, 'schoolGroup5', 'schoolGroup5');
 
 insert into district_group (id, natural_id, name) values
   (-10, 'districtGroup1', 'districtGroup1'),
   (-20, 'districtGroup2', 'districtGroup2'),
-  (-40, 'districtGroup4', 'districtGroup4');
+  (-40, 'districtGroup4', 'districtGroup4'),
+  (-50, 'districtGroup5', 'districtGroup5');
 
 insert into district (id, natural_id, name) values
   (-10, 'districtNat1', 'district1'),
   (-20, 'districtNat2', 'district2'),
-  (-30, 'districtNat3', 'district3');
+  (-30, 'districtNat3', 'district3'),
+  (-50, 'districtNat5', 'district5');
 
 insert into school (id, district_id, natural_id, name, embargo_enabled, update_import_id, updated, migrate_id, school_group_id, district_group_id, external_id) VALUES
   (-10, -10, 'schoolNat1', 'school1', 1, -1, '1997-07-18 20:14:34.000000', -1, null, -40, 'externalId1'),
   (-20, -10, 'schoolNat2', 'school2', 1, -1, '1997-07-18 20:14:34.000000', -1, -10, -10, 'externalId2'),
   (-30, -20, 'schoolNat3', 'school3', 1, -1, '1997-07-18 20:14:34.000000', -1, null, -20, 'externalId3'),
-  (-40, -30, 'schoolNat4', 'school4', 1, -1, '1997-07-18 20:14:34.000000', -1, -40, -40, 'externalId4');
+  (-40, -30, 'schoolNat4', 'school4', 1, -1, '1997-07-18 20:14:34.000000', -1, -40, -40, 'externalId4'),
+  (-50, -50, 'schoolNat5', 'school5', 1, -1, '1997-07-18 20:14:34.000000', -1, -50, -50, 'externalId5');
 
 insert into grade (id, code, name) values
   (-1, 'g1', 'grade1'),
@@ -35,7 +39,10 @@ insert into student (id, ssid, last_or_surname, first_name, gender_id, gender_co
   (-1, 'student1_ssid', 'student1_lastName', 'student1_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -10, -1, '1997-07-18 20:14:34.000000', -1),
   (-2, 'student2_ssid', 'student2_lastName', 'student2_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -20, -1, '1997-07-18 20:14:34.000000', -1),
   (-3, 'student3_ssid', 'student3_lastName', 'student3_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -10, -1, '1997-07-18 20:14:34.000000', -1),
-  (-4, 'student4_ssid', 'student4_lastName', 'student4_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -10, -1, '1997-07-18 20:14:34.000000', -1);
+  (-4, 'student4_ssid', 'student4_lastName', 'student4_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -10, -1, '1997-07-18 20:14:34.000000', -1),
+  (-5, 'student5_ssid', 'student5_lastName', 'student5_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -50, -1, '1997-07-18 20:14:34.000000', -1),
+  (-6, 'student6_ssid', 'student6_lastName', 'student6_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -50, -1, '1997-07-18 20:14:34.000000', -1),
+  (-7, 'student7_ssid', 'student7_lastName', 'student7_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -50, -1, '1997-07-18 20:14:34.000000', -1);
 
 insert into asmt (id, type_id, natural_id, grade_id, grade_code, subject_id, school_year, name, label, version,
   claim1_score_code, claim2_score_code, claim3_score_code, claim4_score_code,
@@ -45,7 +52,9 @@ insert into asmt (id, type_id, natural_id, grade_id, grade_code, subject_id, sch
   (-3, 3, 'sum1', -1, 'g1', 1, 1997, 'sum1', 'sum1', 'v1', 'sum_claim1', 'sum_claim2', 'sum_claim3', null, 1000, 2000, 3000, 4000, 5000, -1, '1997-07-18 20:14:34.000000', -1),
   (-4, 3, 'sum2', -1, 'g1', 2, 1997, 'sum2', 'sum2', 'v1', 'sum_claim1', 'sum_claim2', 'sum_claim3', null, 1000, 2000, 3000, 4000, 5000, -1, '1997-07-18 20:14:34.000000', -1),
   (-6, 2, 'iab4', -1, 'g1', 2, 1997, 'iab2', 'iab4', 'v1', null, null, null, null, 1, null, 2, null, 3, -1, '1997-07-18 20:14:34.000000', -1),
-  (-7, 2, 'iab5', -1, 'g1', 2, 1997, 'iab3', 'iab5', 'v1', null, null, null, null, 1, null, 2, null, 3, -1, '1997-07-18 20:14:34.000000', -1);
+  (-7, 2, 'iab5', -1, 'g1', 2, 1997, 'iab3', 'iab5', 'v1', null, null, null, null, 1, null, 2, null, 3, -1, '1997-07-18 20:14:34.000000', -1),
+  (-8, 2, 'iab8', -1, 'g1', 1, 1997, 'iab8', 'iab8', 'v1', null, null, null, null, 1, null, 2, null, 3, -1, '1997-07-18 20:14:34.000000', -1),
+  (-9, 2, 'iab9', -1, 'g1', 1, 1997, 'iab9', 'iab9', 'v1', null, null, null, null, 1, null, 2, null, 3, -1, '1997-07-18 20:14:34.000000', -1);
 
 INSERT INTO percentile (id, asmt_id, start_date, end_date, count, mean, standard_deviation, min_score, max_score, update_import_id, updated, migrate_id) VALUES
   (1, -2, '1996-01-01', '1997-01-07', 11, 2410.1, 88.9, 1, 1, -1, '1997-07-18 20:14:34.000000', -1),
@@ -81,7 +90,12 @@ insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, oppo
   (-17, 3, -1, 'g1', -2, -30, null, 1, 1, 1, 1, 1997, -1, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-04 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
   (-8, 3, -1, 'g1', -1, -30, null, 1, 1, 1, 1, 1997, -4, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
   (-20, 2, -2, 'g2', -4, -10, 1, 0, 0, 0, 0, 1997, -2, 'v1', 'Complete', 'Valid', 'session2', 2500, 25, 2, '1996-12-31 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
-  (-21, 2, -2, 'g2', -4, -10, 1, 0, 0, 0, 0, 1998, -2, 'v1', 'Complete', 'Valid', 'session2', 2500, 25, 2, '1998-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1998-07-18 20:14:34.000000', -1);
+  (-21, 2, -2, 'g2', -4, -10, 1, 0, 0, 0, 0, 1998, -2, 'v1', 'Complete', 'Valid', 'session2', 2500, 25, 2, '1998-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1998-07-18 20:14:34.000000', -1),
+  (-22, 2, -2, 'g2', -5, -50, 1, 0, 0, 0, 0, 1997, -8, 'v1', 'Complete', 'Valid', 'session2', 2555, 25, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-23, 2, -2, 'g2', -5, -50, 1, 0, 0, 0, 0, 1997, -8, 'v1', 'Complete', 'Valid', 'session2', null, null, null, '1997-01-01 00:00:00.000000', 1, 1000, 100, 2, 2000, 200, 3, 3000, 300, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-24, 2, -2, 'g2', -6, -50, 1, 0, 0, 0, 0, 1997, -9, 'v1', 'Complete', 'Valid', 'session2', 2050, 25, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-25, 2, -2, 'g2', -6, -50, 1, 0, 0, 0, 0, 1997, -9, 'v1', 'Partial', 'Valid', 'session2', null, null, null, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-26, 2, -2, 'g2', -5, -50, 1, 0, 0, 0, 0, 1997, -9, 'v1', 'Complete', 'Valid', 'session2', 2150, 28, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1);
 
 -- items
 
@@ -132,17 +146,34 @@ insert into item_common_core_standard (item_id, common_core_standard_id) values
 insert into student_group (id, name, school_id, school_year, subject_id, update_import_id, updated, migrate_id) values
   (-10, 'group1', -10, 1997, 1, -1, '1997-07-18 20:14:34.000000', -1),
   (-20, 'group_ela', -10, 1997, 2, -1, '1997-07-18 20:14:34.000000', -1),
-  (-30, 'group_all', -10, 1997, null, -1, '1997-07-18 20:14:34.000000', -1);
+  (-30, 'group_all', -10, 1997, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-40, 'group4', -10, 1997, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-50, 'group5', -50, 1997, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-60, 'group6', -50, 1997, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-70, 'group7', -50, 1997, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-80, 'group8', -50, 1997, null, -1, '1997-07-18 20:14:34.000000', -1);
 
 insert into student_group_membership (student_group_id, student_id) values
   (-10, -1),
   (-20, -2),
-  (-30, -2);
+  (-30, -2),
+  (-40, -4),
+  (-50, -5),
+  (-60, -6),
+  (-70, -5),
+  (-70, -6),
+  (-80, -6),
+  (-80, -7);
 
 insert into user_student_group(student_group_id, user_login) values
    (-10, 'someone-10@somewhere.com'),
    (-30, 'someone-10@somewhere.com'),
-   (-20, 'someone-20@somewhere.com');
+   (-20, 'someone-20@somewhere.com'),
+   (-40, 'someone-10@somewhere.com'),
+   (-50, 'someone-10@somewhere.com'),
+   (-60, 'someone-10@somewhere.com'),
+   (-70, 'someone-10@somewhere.com'),
+   (-80, 'someone-10@somewhere.com');
 
 -- transfer student test data
 insert into student (id, ssid, last_or_surname, first_name, gender_id, gender_code,
