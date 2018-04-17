@@ -33,11 +33,11 @@ export class GroupAssessmentService implements AssessmentProvider {
   }
 
   getAvailableAssessments() {
-    return this.dataService.get(`${ServiceRoute}/groups/${this.group.id}/assessments`, {
+    return this.dataService.get(`${ServiceRoute}/groups/${this.group.id}/measuredassessments`, {
       search: this.getSchoolYearParams(this.schoolYear)
     }).pipe(
       catchError(ResponseUtils.badResponseToNull),
-      map(serverAssessments => this.mapper.mapAssessmentsFromApi(serverAssessments))
+      map(serverAssessments => this.mapper.mapMeasuredAssessmentsFromApi(serverAssessments))
     );
   }
 
