@@ -152,7 +152,7 @@ sql:
                  AND ( e1.completed_at < e2.completed_at OR (e1.completed_at = e2.completed_at AND e1.id < e2.id))
           WHERE e2.student_id IS NULL
         )
-        AND ${sql.snippet.studentExamPermissionWithoutEmbargo} -- this is for IAB only, embargo is not applicable to IABs
+        AND ${sql.snippet.studentExamPermissionWithoutEmbargo}
         GROUP BY asmt_id;
 
     examItem:
