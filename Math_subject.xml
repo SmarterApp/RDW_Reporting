@@ -8,22 +8,24 @@
         <PerformanceLevel level="3" name="Met Standard" rollup="true"/>
         <PerformanceLevel level="4" name="Exceeded Standard"/>
       </PerformanceLevels>
-      <SubScorePerformanceLevels>
-        <SubScorePerformanceLevel level="1" name="Below Standard"/>
-        <SubScorePerformanceLevel level="2" name="Near Standard"/>
-        <SubScorePerformanceLevel level="3" name="Above Standard"/>
-      </SubScorePerformanceLevels>
-      <SubScores>
-        <SubScore code="1" name="Concepts">
-          <Icon>fa-book</Icon>
-        </SubScore>
-        <SubScore code="3" name="Reasoning">
-          <Icon>fa-question</Icon>
-        </SubScore>
-        <SubScore code="SOCK_2" name="PSMDA (Problem Solving and Modeling &amp; Data Analysis)">
-          <Icon>fa-edit</Icon>
-        </SubScore>
-      </SubScores>
+      <SubScoring>
+        <SubScorePerformanceLevels>
+          <SubScorePerformanceLevel level="1" name="Below Standard"/>
+          <SubScorePerformanceLevel level="2" name="Near Standard"/>
+          <SubScorePerformanceLevel level="3" name="Above Standard"/>
+        </SubScorePerformanceLevels>
+        <SubScores>
+          <SubScore code="1" name="Concepts">
+            <Icon>fa-book</Icon>
+          </SubScore>
+          <SubScore code="3" name="Reasoning">
+            <Icon>fa-question</Icon>
+          </SubScore>
+          <SubScore code="SOCK_2" name="PSMDA (Problem Solving and Modeling &amp; Data Analysis)">
+            <Icon>fa-edit</Icon>
+          </SubScore>
+        </SubScores>
+      </SubScoring>
     </AssessmentType>
     <AssessmentType code="iab">
       <PerformanceLevels>
@@ -31,6 +33,7 @@
         <PerformanceLevel level="2" name="Near Standard"/>
         <PerformanceLevel level="3" name="Above Standard"/>
       </PerformanceLevels>
+      <SubScoring/>
     </AssessmentType>
     <AssessmentType code="sum">
       <PerformanceLevels>
@@ -39,465 +42,467 @@
         <PerformanceLevel level="3" name="Met Standard" rollup="true"/>
         <PerformanceLevel level="4" name="Exceeded Standard"/>
       </PerformanceLevels>
-      <SubScorePerformanceLevels>
-        <SubScorePerformanceLevel level="1" name="Below Standard"/>
-        <SubScorePerformanceLevel level="2" name="Near Standard"/>
-        <SubScorePerformanceLevel level="3" name="Above Standard"/>
-      </SubScorePerformanceLevels>
-      <SubScores>
-        <SubScore code="1" name="Concepts">
-          <Icon>fa-book</Icon>
-          <TertiaryScores>
-            <TertiaryScore code="N-RN|A" name="A">
-              <Description>Number and Quantities: Extend the properties of exponents to rational exponents.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="OA|A-1" name="A-1">
-              <Description>Represent and solve problems involving addition and subtraction.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="OA|A-2" name="A-2">
-              <Description>Represent and solve problems involving addition and subtraction.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="OA|A-3" name="A-3">
-              <Description>Represent and solve problems involving multiplication and division.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="OA|A-4" name="A-4">
-              <Description>Use the four operations with whole numbers to solve problems.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="OA|A-5" name="A-5">
-              <Description>Write and interpret numerical expressions.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="RP|A-6" name="A-6">
-              <Description>Understand ration concepts and use ratio reasoning to solve problems.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="RP|A-7" name="A-7">
-              <Description>Analyze proportional relationships and use them to solve real-world and mathematical problems.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NS|A-8" name="A-8">
-              <Description>Know that there are numbers that are not rational, and approximate them by rational numbers.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="CC|A-KG" name="A-KG">
-              <Description>Know number names and the count sequence</Description>
-            </TertiaryScore>
-            <TertiaryScore code="N-RN|B" name="B">
-              <Description>Number and Quantities: Use properties of rational and irrational numbers.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="OA|B-1" name="B-1">
-              <Description>Understand and apply properties of operations and the relationship between addition and subtraction.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="OA|B-2" name="B-2">
-              <Description>Add and subtract within 20.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="OA|B-3" name="B-3">
-              <Description>Understand properties of multiplication and the relationship between multiplication and division.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="OA|B-4" name="B-4">
-              <Description>Get familiarity with factors and multiples.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="OA|B-5" name="B-5">
-              <Description>Analyze patterns and relationships.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NS|B-6" name="B-6">
-              <Description>Apply and extend previous understandings of multiplication and division to divide fractions by fractions.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NS|B-7" name="B-7">
-              <Description>Apply and extend previous understandings of operations with fractions to add, subtract, multiply, and divide rational numbers.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="EE|B-8" name="B-8">
-              <Description>Work with radicals and integer exponents.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="CC|B-KG" name="B-KG">
-              <Description>Count to tell the number of objects.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="N-Q|C" name="C">
-              <Description>Number and Quantities: Reason quantitatively and use units to solve problems.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="OA|C-1" name="C-1">
-              <Description>Add and subtract within 20.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="OA|C-2" name="C-2">
-              <Description>Work with equal groups of objects to gain foundations for multiplication.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="OA|C-3" name="C-3">
-              <Description>Multiply and divide within 100.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="OA|C-4" name="C-4">
-              <Description>Generate and analyze patterns.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NBT|C-5" name="C-5">
-              <Description>Understand the place value system.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NS|C-6" name="C-6">
-              <Description>Compute fluently with muti-digit numbers and find common factors and multiples.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="EE|C-7" name="C-7">
-              <Description>Use properties of operations to generate equivalent expressions.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="EE|C-8" name="C-8">
-              <Description>Understand the connections between proportional relationships, lines, and linear equations.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="CC|C-KG" name="C-KG">
-              <Description>Compare Numbers</Description>
-            </TertiaryScore>
-            <TertiaryScore code="A-SSE|D" name="D">
-              <Description>Algebra: Interpret the structure of expressions.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="OA|D-1" name="D-1">
-              <Description>Work with addition and subtraction equations.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NBT|D-2" name="D-2">
-              <Description>Understand place  value.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="OA|D-3" name="D-3">
-              <Description>Solve problems involving the four operations, and identify and explain patterns in arithmetic.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NBT|D-4" name="D-4">
-              <Description>Generalize place value understanding for multi-digit whole numbers.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NBT|D-5" name="D-5">
-              <Description>Perform operations with multi-digit whole numbers and with decimals to hundredths.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NS|D-6" name="D-6">
-              <Description>Apply and extend previous understandings of numbers to the system of rational numbers.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="EE|D-7" name="D-7">
-              <Description>Solve real-life and mathematical problems using numerical and algebraic expressions and equations.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="EE|D-8" name="D-8">
-              <Description>Analyze and solve linear equations and pairs of simultaneous linear equations.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="OA|D-KG" name="D-KG">
-              <Description>Understand addition as putting together and adding to, and understand subtraction as taking apart and taking from.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="A-SSE|E" name="E">
-              <Description>Algebra: Write expressions in equivalent forms to solve problems.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NBT|E-1" name="E-1">
-              <Description>Extend the counting sequence.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NBT|E-2" name="E-2">
-              <Description>Use place value understanding and properties of operations to add and subtract.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NBT|E-3" name="E-3">
-              <Description>Use place value understanding and properties of operations to perform multi-digit arithmetic.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NBT|E-4" name="E-4">
-              <Description>Use place value understanding and properties of operations to perform multi-digit arithmetic.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NF|E-5" name="E-5">
-              <Description>Use equivalent fractions as a strategy to add and subtract fractions.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="EE|E-6" name="E-6">
-              <Description>Apply and extend previous understandings of arithmetic to algebraic expressions.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G|E-7" name="E-7">
-              <Description>Draw, construct, and describe geometrical figures and describe the relationship between them.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="F|E-8" name="E-8">
-              <Description>Define, evaluate, and compare functions.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NBT|E-KG" name="E-KG">
-              <Description>Work with numbers 11-19 to gain foundations for place value.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="A-APR|F" name="F">
-              <Description>Algebra: Perform arithmetic operations on polynomials.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NBT|F-1" name="F-1">
-              <Description>Understand place value.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|F-2" name="F-2">
-              <Description>Measure and estimate lengths in standard units.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NF|F-3" name="F-3">
-              <Description>Develop understanding of fractions as numbers.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NF|F-4" name="F-4">
-              <Description>Extend understanding of fractions equivalence and ordering.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NF|F-5" name="F-5">
-              <Description>Apply and extend previous understandings of multiplication and division to multiply and divide fractions.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="EE|F-6" name="F-6">
-              <Description>Reason about and solve one-variable equations and inequalities.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G|F-7" name="F-7">
-              <Description>Solve real-life and mathematical problems involving angle measure, area, surface area, and volume.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="F|F-8" name="F-8">
-              <Description>Use functions to model relationships between quantities.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|F-KG" name="F-KG">
-              <Description>Describe and compare measurable attributes.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="A-CED|G" name="G">
-              <Description>Algebra: Create equations that describe numbers or relationships</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NBT|G-1" name="G-1">
-              <Description>Use place value understanding and properties of operations to add and subtract.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|G-2" name="G-2">
-              <Description>Relate addition and subtraction to length.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|G-3" name="G-3">
-              <Description>Solve problems involving measurement and estimation of intervals of time, liquid volumes, and masses of objects.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NF|G-4" name="G-4">
-              <Description>Build fractions from unit fractions by applying and extending previous understandings of operations on whole numbers.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|G-5" name="G-5">
-              <Description>Convert like measurement units within a given measurement system.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="EE|G-6" name="G-6">
-              <Description>Represent and analyze quantitative relationships between dependent and independent variables.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="SP|G-7" name="G-7">
-              <Description>Use random sampling to draw inferences about a population.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G|G-8" name="G-8">
-              <Description>Understand congruence and similarity using physical models, transparencies, or geometry software.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|G-KG" name="G-KG">
-              <Description>Classify objects and count the number of objects in each category.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="A-REI|H" name="H">
-              <Description>Algebra: Understand solving equations as a process of reasoning and explain the reasoning.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|H-1" name="H-1">
-              <Description>Measure lengths indirectly and by iterating length units.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|H-2" name="H-2">
-              <Description>Work with time and money.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|H-3" name="H-3">
-              <Description>Represent and interpret data.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="NF|H-4" name="H-4">
-              <Description>Understand decimal notation for fractions, and compare decimal fractions.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|H-5" name="H-5">
-              <Description>Represent and interpret data.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G|H-6" name="H-6">
-              <Description>Solve real-world and mathematical problems involving area, surface area, and volume.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="SP|H-7" name="H-7">
-              <Description>Draw informal comparative inferences about two populations</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G|H-8" name="H-8">
-              <Description>Understand and apply the Pythagorean Theorem.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G|H-KG" name="H-KG">
-              <Description>Identify and describe shapes (squares, circles, triangles, rectangles, hexagons, cubes, cones, cylinders, and spheres).</Description>
-            </TertiaryScore>
-            <TertiaryScore code="A-REI|I" name="I">
-              <Description>Algebra: Solve equations and inequalities in one variable.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|I-1" name="I-1">
-              <Description>Tell and write time.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|I-2" name="I-2">
-              <Description>Represent and interpret data.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|I-3" name="I-3">
-              <Description>Geometric measurement: understand concepts of area and relate area to multiplication and to addition.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|I-4" name="I-4">
-              <Description>Solve problems involving measurement and conversion of measurement from a larger unit to a smaller unit.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|I-5" name="I-5">
-              <Description>Geometric measurement: understand concepts of volume and relate volume to multiplication and to addition.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="SP|I-6" name="I-6">
-              <Description>Develop understanding of statistical variability.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="SP|I-7" name="I-7">
-              <Description>Investigate chance processes and develop, use, and evaluate probability models.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G|I-8" name="I-8">
-              <Description>Solve real-world and mathematical problems involving volume of cylinders, cones, and spheres.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G|I-KG" name="I-KG">
-              <Description>Analyze, compare, create, and compose shapes.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="A-REI|J" name="J">
-              <Description>Algebra: Represent and solve equations and inequalities graphically.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|J-1" name="J-1">
-              <Description>Represent and interpret data.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G|J-2" name="J-2">
-              <Description>Reason with shapes and their attributes.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|J-3" name="J-3">
-              <Description>Geometric measurement: recognize perimeter as an attribute of plane figures and distinguish between linear and area measures.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|J-4" name="J-4">
-              <Description>Represent and interpret data.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G|J-5" name="J-5">
-              <Description>Graph points on the coordinate plane to solve real-world and mathematical problems.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="SP|J-6" name="J-6">
-              <Description>Summarize and describe distributions.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="SP|J-8" name="J-8">
-              <Description>Investigate patterns of association in bivariate data.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="F-IF|K" name="K">
-              <Description>Functions: Understand the concept of a function and use function notation.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G|K-1" name="K-1">
-              <Description>Reason with shapes and their attributes.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G|K-3" name="K-3">
-              <Description>Reason with shapes and their attributes.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="MD|K-4" name="K-4">
-              <Description>Geometric measurement: understand concepts of angle and measure angles.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G|K-5" name="K-5">
-              <Description>Classify two-dimensional figures into categories based on their properties.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="F-IF|L" name="L">
-              <Description>Functions: Interpret functions that arise in applications in terms of the context.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G|L-4" name="L-4">
-              <Description>Draw and identify lines and angles, and classify shapes by properties of their lines and angles.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="F-IF|M" name="M">
-              <Description>Functions: Analyze functions using different representations.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="F-BF|N" name="N">
-              <Description>Functions: Build a function that models a relationship between two quantities.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G-CO|O" name="O">
-              <Description>Geometry: Prove geometric theorems.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G-SRT|O" name="O">
-              <Description>Geometry: Define trigonometric ratios and solve problems involving right triangles.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="S-ID|P" name="P">
-              <Description>Statistics and Probability: Summarize, represent, and interpret data on a single count or measurement variable.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="N-VM|X" name="X">
-              <Description>Number and Quantities: Represent and model with vector quantities.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G-GMD|X" name="X">
-              <Description>Geometry: Explain volume formulas and use them to solve problems.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="S-CP|X" name="X">
-              <Description>Statistics and Probability: Understand independence and conditional probability and use them to interpret data.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G-MG|X" name="X">
-              <Description>Geometry: Apply geometric concepts in modeling situations.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="A-REI|X" name="X">
-              <Description>Algebra: Solve systems of equations.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="F-TF|X" name="X">
-              <Description>Functions: Extend the domain of trigonometric functions using the unit circle.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G-CO|X" name="X">
-              <Description>Geometry: Experiment with transformations in the place.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="A-APR|X" name="X">
-              <Description>Algebra: Understand the relationship between zeros and factors of polynomials.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="S-ID|X" name="X">
-              <Description>Statistics and Probability: Summarize, represent, and interpret data on two categorical and quantitative variables.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="N-CN|X" name="X">
-              <Description>Number and Quantities: Perform arithmetic operations with complex numbers.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G-C|X" name="X">
-              <Description>Geometry: Understand and apply theorems about circles.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G-GPE|X" name="X">
-              <Description>Geometry: Translate between the geometric description and the equation for a conic section.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="S-IC|X" name="X">
-              <Description>Statistics and Probability: Understand and evaluate random processes underlying statistical experiments.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G-SRT|X" name="X">
-              <Description>Geometry: Understand similarity in terms of similarity transformations.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="F-BF|X" name="X">
-              <Description>Functions: Build new functions from existing functions.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="F-LE|X" name="X">
-              <Description>Functions: Construct and compare linear and exponential models and solve problems.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="S-MD|X" name="X">
-              <Description>Statistics and Probability: Calculate expected values and use them to solve problems.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="F-LE|XX" name="XX">
-              <Description>Functions: Interpret expressions for functions in terms of the situation they model.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="S-MD|XX" name="XX">
-              <Description>Statistics and Probability: Use probability to evaluate outcomes of decisions.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="N-VM|XX" name="XX">
-              <Description>Number and Quantities: Perform operations on vectors.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G-GMD|XX" name="XX">
-              <Description>Geometry: Visualize relationships between two-dimensional and three-dimensional objects.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="S-CP|XX" name="XX">
-              <Description>Statistics and Probability: Use the rules of probability to compute probabilities of compound events in a uniform probability model.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="F-TF|XX" name="XX">
-              <Description>Functions: Model periodic phenomena with trigonometric functions.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G-CO|XX" name="XX">
-              <Description>Geometry: Understand congruence in terms of rigid motions.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="A-APR|XX" name="XX">
-              <Description>Algebra: Use polynomial identities to solve problems.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="S-ID|XX" name="XX">
-              <Description>Statistics and Probability: Interpret linear models.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="N-CN|XX" name="XX">
-              <Description>Number and Quantities: Represent complex numbers and their operations on the complex plane.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G-C|XX" name="XX">
-              <Description>Geometry: Find arc lengths and areas of sectors of circles.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G-GPE|XX" name="XX">
-              <Description>Geometry: Use coordinates to prove simple geometric theorems algebraically.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="S-IC|XX" name="XX">
-              <Description>Statistics and Probability: Make inferences and justify conclusions from sample surveys, experiments, and observational studies.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G-SRT|XX" name="XX">
-              <Description>Geometry: Prove theorems involving similarity.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="N-CN|XXX" name="XXX">
-              <Description>Number and Quantities: Use complex numbers in polynomial identities and equations.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="N-VM|XXX" name="XXX">
-              <Description>Number and Quantities: Perform operations on matrices and use matrices in applications.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="F-TF|XXX" name="XXX">
-              <Description>Functions: Prove and apply trigonometric identities.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G-CO|XXX" name="XXX">
-              <Description>Geometry: Make geometric constructions.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="A-APR|XXX" name="XXX">
-              <Description>Algebra: Rewrite rational expressions.</Description>
-            </TertiaryScore>
-            <TertiaryScore code="G-SRT|XXXX" name="XXXX">
-              <Description>Geometry: Apply trigonometry to general triangles.</Description>
-            </TertiaryScore>
-          </TertiaryScores>
-        </SubScore>
-        <SubScore code="3" name="Reasoning">
-          <Icon>fa-question</Icon>
-        </SubScore>
-        <SubScore code="SOCK_2" name="PSMDA (Problem Solving and Modeling &amp; Data Analysis)">
-          <Icon>fa-edit</Icon>
-        </SubScore>
-      </SubScores>
+      <SubScoring>
+        <SubScorePerformanceLevels>
+          <SubScorePerformanceLevel level="1" name="Below Standard"/>
+          <SubScorePerformanceLevel level="2" name="Near Standard"/>
+          <SubScorePerformanceLevel level="3" name="Above Standard"/>
+        </SubScorePerformanceLevels>
+        <SubScores>
+          <SubScore code="1" name="Concepts">
+            <Icon>fa-book</Icon>
+            <TertiaryScores>
+              <TertiaryScore code="N-RN|A" name="A">
+                <Description>Number and Quantities: Extend the properties of exponents to rational exponents.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="OA|A-1" name="A-1">
+                <Description>Represent and solve problems involving addition and subtraction.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="OA|A-2" name="A-2">
+                <Description>Represent and solve problems involving addition and subtraction.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="OA|A-3" name="A-3">
+                <Description>Represent and solve problems involving multiplication and division.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="OA|A-4" name="A-4">
+                <Description>Use the four operations with whole numbers to solve problems.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="OA|A-5" name="A-5">
+                <Description>Write and interpret numerical expressions.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="RP|A-6" name="A-6">
+                <Description>Understand ration concepts and use ratio reasoning to solve problems.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="RP|A-7" name="A-7">
+                <Description>Analyze proportional relationships and use them to solve real-world and mathematical problems.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NS|A-8" name="A-8">
+                <Description>Know that there are numbers that are not rational, and approximate them by rational numbers.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="CC|A-KG" name="A-KG">
+                <Description>Know number names and the count sequence</Description>
+              </TertiaryScore>
+              <TertiaryScore code="N-RN|B" name="B">
+                <Description>Number and Quantities: Use properties of rational and irrational numbers.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="OA|B-1" name="B-1">
+                <Description>Understand and apply properties of operations and the relationship between addition and subtraction.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="OA|B-2" name="B-2">
+                <Description>Add and subtract within 20.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="OA|B-3" name="B-3">
+                <Description>Understand properties of multiplication and the relationship between multiplication and division.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="OA|B-4" name="B-4">
+                <Description>Get familiarity with factors and multiples.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="OA|B-5" name="B-5">
+                <Description>Analyze patterns and relationships.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NS|B-6" name="B-6">
+                <Description>Apply and extend previous understandings of multiplication and division to divide fractions by fractions.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NS|B-7" name="B-7">
+                <Description>Apply and extend previous understandings of operations with fractions to add, subtract, multiply, and divide rational numbers.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="EE|B-8" name="B-8">
+                <Description>Work with radicals and integer exponents.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="CC|B-KG" name="B-KG">
+                <Description>Count to tell the number of objects.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="N-Q|C" name="C">
+                <Description>Number and Quantities: Reason quantitatively and use units to solve problems.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="OA|C-1" name="C-1">
+                <Description>Add and subtract within 20.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="OA|C-2" name="C-2">
+                <Description>Work with equal groups of objects to gain foundations for multiplication.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="OA|C-3" name="C-3">
+                <Description>Multiply and divide within 100.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="OA|C-4" name="C-4">
+                <Description>Generate and analyze patterns.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NBT|C-5" name="C-5">
+                <Description>Understand the place value system.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NS|C-6" name="C-6">
+                <Description>Compute fluently with muti-digit numbers and find common factors and multiples.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="EE|C-7" name="C-7">
+                <Description>Use properties of operations to generate equivalent expressions.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="EE|C-8" name="C-8">
+                <Description>Understand the connections between proportional relationships, lines, and linear equations.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="CC|C-KG" name="C-KG">
+                <Description>Compare Numbers</Description>
+              </TertiaryScore>
+              <TertiaryScore code="A-SSE|D" name="D">
+                <Description>Algebra: Interpret the structure of expressions.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="OA|D-1" name="D-1">
+                <Description>Work with addition and subtraction equations.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NBT|D-2" name="D-2">
+                <Description>Understand place  value.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="OA|D-3" name="D-3">
+                <Description>Solve problems involving the four operations, and identify and explain patterns in arithmetic.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NBT|D-4" name="D-4">
+                <Description>Generalize place value understanding for multi-digit whole numbers.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NBT|D-5" name="D-5">
+                <Description>Perform operations with multi-digit whole numbers and with decimals to hundredths.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NS|D-6" name="D-6">
+                <Description>Apply and extend previous understandings of numbers to the system of rational numbers.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="EE|D-7" name="D-7">
+                <Description>Solve real-life and mathematical problems using numerical and algebraic expressions and equations.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="EE|D-8" name="D-8">
+                <Description>Analyze and solve linear equations and pairs of simultaneous linear equations.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="OA|D-KG" name="D-KG">
+                <Description>Understand addition as putting together and adding to, and understand subtraction as taking apart and taking from.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="A-SSE|E" name="E">
+                <Description>Algebra: Write expressions in equivalent forms to solve problems.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NBT|E-1" name="E-1">
+                <Description>Extend the counting sequence.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NBT|E-2" name="E-2">
+                <Description>Use place value understanding and properties of operations to add and subtract.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NBT|E-3" name="E-3">
+                <Description>Use place value understanding and properties of operations to perform multi-digit arithmetic.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NBT|E-4" name="E-4">
+                <Description>Use place value understanding and properties of operations to perform multi-digit arithmetic.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NF|E-5" name="E-5">
+                <Description>Use equivalent fractions as a strategy to add and subtract fractions.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="EE|E-6" name="E-6">
+                <Description>Apply and extend previous understandings of arithmetic to algebraic expressions.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G|E-7" name="E-7">
+                <Description>Draw, construct, and describe geometrical figures and describe the relationship between them.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="F|E-8" name="E-8">
+                <Description>Define, evaluate, and compare functions.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NBT|E-KG" name="E-KG">
+                <Description>Work with numbers 11-19 to gain foundations for place value.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="A-APR|F" name="F">
+                <Description>Algebra: Perform arithmetic operations on polynomials.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NBT|F-1" name="F-1">
+                <Description>Understand place value.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|F-2" name="F-2">
+                <Description>Measure and estimate lengths in standard units.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NF|F-3" name="F-3">
+                <Description>Develop understanding of fractions as numbers.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NF|F-4" name="F-4">
+                <Description>Extend understanding of fractions equivalence and ordering.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NF|F-5" name="F-5">
+                <Description>Apply and extend previous understandings of multiplication and division to multiply and divide fractions.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="EE|F-6" name="F-6">
+                <Description>Reason about and solve one-variable equations and inequalities.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G|F-7" name="F-7">
+                <Description>Solve real-life and mathematical problems involving angle measure, area, surface area, and volume.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="F|F-8" name="F-8">
+                <Description>Use functions to model relationships between quantities.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|F-KG" name="F-KG">
+                <Description>Describe and compare measurable attributes.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="A-CED|G" name="G">
+                <Description>Algebra: Create equations that describe numbers or relationships</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NBT|G-1" name="G-1">
+                <Description>Use place value understanding and properties of operations to add and subtract.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|G-2" name="G-2">
+                <Description>Relate addition and subtraction to length.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|G-3" name="G-3">
+                <Description>Solve problems involving measurement and estimation of intervals of time, liquid volumes, and masses of objects.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NF|G-4" name="G-4">
+                <Description>Build fractions from unit fractions by applying and extending previous understandings of operations on whole numbers.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|G-5" name="G-5">
+                <Description>Convert like measurement units within a given measurement system.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="EE|G-6" name="G-6">
+                <Description>Represent and analyze quantitative relationships between dependent and independent variables.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="SP|G-7" name="G-7">
+                <Description>Use random sampling to draw inferences about a population.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G|G-8" name="G-8">
+                <Description>Understand congruence and similarity using physical models, transparencies, or geometry software.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|G-KG" name="G-KG">
+                <Description>Classify objects and count the number of objects in each category.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="A-REI|H" name="H">
+                <Description>Algebra: Understand solving equations as a process of reasoning and explain the reasoning.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|H-1" name="H-1">
+                <Description>Measure lengths indirectly and by iterating length units.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|H-2" name="H-2">
+                <Description>Work with time and money.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|H-3" name="H-3">
+                <Description>Represent and interpret data.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="NF|H-4" name="H-4">
+                <Description>Understand decimal notation for fractions, and compare decimal fractions.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|H-5" name="H-5">
+                <Description>Represent and interpret data.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G|H-6" name="H-6">
+                <Description>Solve real-world and mathematical problems involving area, surface area, and volume.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="SP|H-7" name="H-7">
+                <Description>Draw informal comparative inferences about two populations</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G|H-8" name="H-8">
+                <Description>Understand and apply the Pythagorean Theorem.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G|H-KG" name="H-KG">
+                <Description>Identify and describe shapes (squares, circles, triangles, rectangles, hexagons, cubes, cones, cylinders, and spheres).</Description>
+              </TertiaryScore>
+              <TertiaryScore code="A-REI|I" name="I">
+                <Description>Algebra: Solve equations and inequalities in one variable.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|I-1" name="I-1">
+                <Description>Tell and write time.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|I-2" name="I-2">
+                <Description>Represent and interpret data.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|I-3" name="I-3">
+                <Description>Geometric measurement: understand concepts of area and relate area to multiplication and to addition.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|I-4" name="I-4">
+                <Description>Solve problems involving measurement and conversion of measurement from a larger unit to a smaller unit.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|I-5" name="I-5">
+                <Description>Geometric measurement: understand concepts of volume and relate volume to multiplication and to addition.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="SP|I-6" name="I-6">
+                <Description>Develop understanding of statistical variability.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="SP|I-7" name="I-7">
+                <Description>Investigate chance processes and develop, use, and evaluate probability models.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G|I-8" name="I-8">
+                <Description>Solve real-world and mathematical problems involving volume of cylinders, cones, and spheres.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G|I-KG" name="I-KG">
+                <Description>Analyze, compare, create, and compose shapes.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="A-REI|J" name="J">
+                <Description>Algebra: Represent and solve equations and inequalities graphically.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|J-1" name="J-1">
+                <Description>Represent and interpret data.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G|J-2" name="J-2">
+                <Description>Reason with shapes and their attributes.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|J-3" name="J-3">
+                <Description>Geometric measurement: recognize perimeter as an attribute of plane figures and distinguish between linear and area measures.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|J-4" name="J-4">
+                <Description>Represent and interpret data.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G|J-5" name="J-5">
+                <Description>Graph points on the coordinate plane to solve real-world and mathematical problems.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="SP|J-6" name="J-6">
+                <Description>Summarize and describe distributions.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="SP|J-8" name="J-8">
+                <Description>Investigate patterns of association in bivariate data.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="F-IF|K" name="K">
+                <Description>Functions: Understand the concept of a function and use function notation.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G|K-1" name="K-1">
+                <Description>Reason with shapes and their attributes.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G|K-3" name="K-3">
+                <Description>Reason with shapes and their attributes.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="MD|K-4" name="K-4">
+                <Description>Geometric measurement: understand concepts of angle and measure angles.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G|K-5" name="K-5">
+                <Description>Classify two-dimensional figures into categories based on their properties.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="F-IF|L" name="L">
+                <Description>Functions: Interpret functions that arise in applications in terms of the context.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G|L-4" name="L-4">
+                <Description>Draw and identify lines and angles, and classify shapes by properties of their lines and angles.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="F-IF|M" name="M">
+                <Description>Functions: Analyze functions using different representations.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="F-BF|N" name="N">
+                <Description>Functions: Build a function that models a relationship between two quantities.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G-CO|O" name="O">
+                <Description>Geometry: Prove geometric theorems.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G-SRT|O" name="O">
+                <Description>Geometry: Define trigonometric ratios and solve problems involving right triangles.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="S-ID|P" name="P">
+                <Description>Statistics and Probability: Summarize, represent, and interpret data on a single count or measurement variable.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="N-VM|X" name="X">
+                <Description>Number and Quantities: Represent and model with vector quantities.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="A-REI|X" name="X">
+                <Description>Algebra: Solve systems of equations.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="S-CP|X" name="X">
+                <Description>Statistics and Probability: Understand independence and conditional probability and use them to interpret data.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G-GMD|X" name="X">
+                <Description>Geometry: Explain volume formulas and use them to solve problems.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G-MG|X" name="X">
+                <Description>Geometry: Apply geometric concepts in modeling situations.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="S-ID|X" name="X">
+                <Description>Statistics and Probability: Summarize, represent, and interpret data on two categorical and quantitative variables.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="F-TF|X" name="X">
+                <Description>Functions: Extend the domain of trigonometric functions using the unit circle.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G-CO|X" name="X">
+                <Description>Geometry: Experiment with transformations in the place.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="A-APR|X" name="X">
+                <Description>Algebra: Understand the relationship between zeros and factors of polynomials.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="S-IC|X" name="X">
+                <Description>Statistics and Probability: Understand and evaluate random processes underlying statistical experiments.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G-C|X" name="X">
+                <Description>Geometry: Understand and apply theorems about circles.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="N-CN|X" name="X">
+                <Description>Number and Quantities: Perform arithmetic operations with complex numbers.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G-GPE|X" name="X">
+                <Description>Geometry: Translate between the geometric description and the equation for a conic section.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G-SRT|X" name="X">
+                <Description>Geometry: Understand similarity in terms of similarity transformations.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="S-MD|X" name="X">
+                <Description>Statistics and Probability: Calculate expected values and use them to solve problems.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="F-BF|X" name="X">
+                <Description>Functions: Build new functions from existing functions.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="F-LE|X" name="X">
+                <Description>Functions: Construct and compare linear and exponential models and solve problems.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="S-MD|XX" name="XX">
+                <Description>Statistics and Probability: Use probability to evaluate outcomes of decisions.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="F-LE|XX" name="XX">
+                <Description>Functions: Interpret expressions for functions in terms of the situation they model.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="N-VM|XX" name="XX">
+                <Description>Number and Quantities: Perform operations on vectors.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="S-CP|XX" name="XX">
+                <Description>Statistics and Probability: Use the rules of probability to compute probabilities of compound events in a uniform probability model.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G-GMD|XX" name="XX">
+                <Description>Geometry: Visualize relationships between two-dimensional and three-dimensional objects.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="S-ID|XX" name="XX">
+                <Description>Statistics and Probability: Interpret linear models.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="F-TF|XX" name="XX">
+                <Description>Functions: Model periodic phenomena with trigonometric functions.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G-CO|XX" name="XX">
+                <Description>Geometry: Understand congruence in terms of rigid motions.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="A-APR|XX" name="XX">
+                <Description>Algebra: Use polynomial identities to solve problems.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G-SRT|XX" name="XX">
+                <Description>Geometry: Prove theorems involving similarity.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="S-IC|XX" name="XX">
+                <Description>Statistics and Probability: Make inferences and justify conclusions from sample surveys, experiments, and observational studies.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G-C|XX" name="XX">
+                <Description>Geometry: Find arc lengths and areas of sectors of circles.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="N-CN|XX" name="XX">
+                <Description>Number and Quantities: Represent complex numbers and their operations on the complex plane.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G-GPE|XX" name="XX">
+                <Description>Geometry: Use coordinates to prove simple geometric theorems algebraically.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="N-CN|XXX" name="XXX">
+                <Description>Number and Quantities: Use complex numbers in polynomial identities and equations.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="N-VM|XXX" name="XXX">
+                <Description>Number and Quantities: Perform operations on matrices and use matrices in applications.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="F-TF|XXX" name="XXX">
+                <Description>Functions: Prove and apply trigonometric identities.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G-CO|XXX" name="XXX">
+                <Description>Geometry: Make geometric constructions.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="A-APR|XXX" name="XXX">
+                <Description>Algebra: Rewrite rational expressions.</Description>
+              </TertiaryScore>
+              <TertiaryScore code="G-SRT|XXXX" name="XXXX">
+                <Description>Geometry: Apply trigonometry to general triangles.</Description>
+              </TertiaryScore>
+            </TertiaryScores>
+          </SubScore>
+          <SubScore code="3" name="Reasoning">
+            <Icon>fa-question</Icon>
+          </SubScore>
+          <SubScore code="SOCK_2" name="PSMDA (Problem Solving and Modeling &amp; Data Analysis)">
+            <Icon>fa-edit</Icon>
+          </SubScore>
+        </SubScores>
+      </SubScoring>
     </AssessmentType>
   </AssessmentTypes>
   <ReportGrades>
