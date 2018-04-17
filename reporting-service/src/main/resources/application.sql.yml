@@ -46,7 +46,7 @@ sql:
     assessment:
       findAll: >-
           SELECT distinct
-           ${sql.reporting.snippet.assessmentColumns}
+            ${sql.reporting.snippet.assessmentColumns}
           FROM asmt a
             JOIN exam e ON e.asmt_id = a.id
             JOIN student_group_membership sgm ON e.student_id = sgm.student_id
@@ -98,6 +98,62 @@ sql:
           AND usg.user_login = :user_login
           AND (sg.subject_id is null OR a.subject_id = sg.subject_id)
           AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
+
+    measuredAssessment:
+      findAll: >-
+        SELECT
+          count(*) as tested,
+          a.label as asmt_label,
+          a.subject_id as asmt_subject_id,
+          a.type_id as asmt_type_id,
+          a.school_year as asmt_school_year,
+          g.code as asmt_grade_code,
+          e.asmt_id as asmt_id,
+          max(e.completed_at) as completed_at,
+          round(avg(e.scale_score)) AS score,
+          round(stddev_samp(e.scale_score)/sqrt(count(*))) as std_err,
+          sum(CASE WHEN e.performance_level = 1 THEN 1 ELSE 0 END) AS level1,
+          sum(CASE WHEN e.performance_level = 2 THEN 1 ELSE 0 END) AS level2,
+          sum(CASE WHEN e.performance_level = 3 THEN 1 ELSE 0 END) AS level3
+        FROM exam e
+          JOIN asmt a ON a.id = e.asmt_id
+          JOIN grade g ON g.id = a.grade_id
+          JOIN school s ON e.school_id=s.id
+          JOIN student st ON st.id=e.student_id
+          JOIN school isch ON st.inferred_school_id = isch.id
+        WHERE e.id in (
+          -- latest scored IAB exam per student, assessment and exam school year
+          SELECT
+            e1.id
+          FROM (
+                 SELECT ex1.id, ex1.student_id, ex1.asmt_id, ex1.school_year, ex1.completed_at from exam ex1
+                   JOIN student_group_membership gm on gm.student_id = ex1.student_id
+                   JOIN user_student_group usg ON usg.student_group_id = gm.student_group_id
+                 WHERE ex1.type_id = 2
+                       AND ex1.school_year = :school_year
+                       AND ex1.scale_score IS NOT NULL
+                       AND ex1.scale_score_std_err IS NOT NULL
+                       AND ex1.performance_level IS NOT NULL
+                       AND gm.student_group_id = :group_id
+                       AND usg.user_login = :user_login
+               ) AS e1 LEFT OUTER JOIN
+            ( SELECT ex2.id, ex2.student_id, ex2.asmt_id, ex2.school_year, ex2.completed_at from exam ex2
+              JOIN student_group_membership gm on gm.student_id = ex2.student_id
+              JOIN user_student_group usg ON usg.student_group_id = gm.student_group_id
+            WHERE ex2.type_id = 2
+                  AND ex2.school_year = :school_year
+                  AND ex2.scale_score IS NOT NULL
+                  AND ex2.scale_score_std_err IS NOT NULL
+                  AND ex2.performance_level IS NOT NULL
+                  AND gm.student_group_id = :group_id
+                  AND usg.user_login = :user_login
+            ) AS e2
+              ON e1.student_id = e2.student_id  AND e1.asmt_id = e2.asmt_id AND e1.school_year = e2.school_year
+                 AND ( e1.completed_at < e2.completed_at OR (e1.completed_at = e2.completed_at AND e1.id < e2.id))
+          WHERE e2.student_id IS NULL
+        )
+        AND ${sql.snippet.studentExamPermissionWithoutEmbargo} -- this is for IAB only, embargo is not applicable to IABs
+        GROUP BY asmt_id;
 
     examItem:
         findAllExamItemScoresForAssessment:
