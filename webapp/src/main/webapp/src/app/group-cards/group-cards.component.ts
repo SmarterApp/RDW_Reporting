@@ -7,6 +7,7 @@ import { GroupCardService } from './group-card.service';
 import { ExamFilterOptionsService } from '../assessments/filters/exam-filters/exam-filter-options.service';
 import { ExamFilterOptions } from '../assessments/model/exam-filter-options.model';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { IabEvent } from './iab-card.component';
 
 @Component({
   selector: 'group-card',
@@ -21,6 +22,8 @@ export class GroupCardsComponent implements OnInit {
   filterOptions: ExamFilterOptions = new ExamFilterOptions();
   currentSchoolYear: number;
   _currentSubject: string;
+  disableView = true;
+  private selectedIabs: number[] = [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -109,4 +112,17 @@ export class GroupCardsComponent implements OnInit {
     this.filterOptions.subjects.push('ALL');
     this.filterOptions.subjects.sort((a, b) => a.localeCompare(b));
   }
+
+  addIab(event: IabEvent) {
+    if (event.selected) {
+      this.selectedIabs.push(event.id);
+      this.disableView = false;
+    } else {
+      this.selectedIabs = this.selectedIabs.filter(id => id !== event.id);
+      if (this.selectedIabs.length === 0) {
+        this.disableView = true;
+      }
+    }
+  }
+
 }

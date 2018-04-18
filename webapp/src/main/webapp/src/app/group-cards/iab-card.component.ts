@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Group } from '../groups/group';
 import { MeasuredAssessment } from './measured-assessment';
 
@@ -13,11 +12,13 @@ export class IabCardComponent {
   measuredAssessment: MeasuredAssessment;
   selected = false;
 
+  @Output()
+  selectedIab: EventEmitter<IabEvent> = new EventEmitter();
+
   @Input()
   group: Group;
 
-  constructor(private route: ActivatedRoute) {
-    // this.group = this.route.snapshot.data[ 'group' ];
+  constructor() {
   }
 
   get studentCountFill(): number {
@@ -30,5 +31,14 @@ export class IabCardComponent {
 
   selectCard(): void {
     this.selected = !this.selected;
+    this.selectedIab.emit(<IabEvent>{
+      id: this.measuredAssessment.assessment.id,
+      selected: this.selected
+    });
   }
+}
+
+export interface IabEvent {
+  readonly id: number;
+  readonly selected: boolean;
 }
