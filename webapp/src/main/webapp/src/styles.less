@@ -921,3 +921,134 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
   overflow: hidden;
   white-space: nowrap;
 }
+
+@spacer: 17px;
+// Animation Variables
+// Transition Durations
+// Entry
+@duration-entry-short: 0.149s;
+@duration-entry: 0.225s;
+@duration-entry-long: 0.375s;
+// Exit
+@duration-exit-short: 0.129s;
+@duration-exit: 0.195s;
+@duration-exit-long: 0.324s;
+// Easing Curves
+@easing-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+@easing-decel: cubic-bezier(0.0, 0.0, 0.2, 1);
+@easing-accel: cubic-bezier(0.4, 0.0, 1, 1);
+@easing-sharp: cubic-bezier(0.4, 0.0, 0.6, 1);
+
+// copy below CSS
+.card-grid {
+  display: grid;
+  grid-gap: @spacer;
+  grid-template-columns: repeat(auto-fit, @spacer * 18);
+}
+
+.card {
+  position: relative;
+  border-width: @spacer / 4;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: @spacer / 4;
+  transform-origin: center center;
+  transition-property: transform, border-color;
+  will-change: transform, border-color;
+  transition-duration: @duration-exit;
+  transition-timing-function: @easing-decel;
+  .check {
+    position: absolute;
+    top: @spacer / 2;
+    right: @spacer / 2;
+    display: flex;
+    width: @spacer * 2;
+    height: @spacer * 2;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border-color: @gray;
+    border-style: solid;
+    border-width: 4px;
+    color: transparent;
+    border-radius: 50%;
+    transform-origin: center center;
+    transition-property: transform, border-color;
+    will-change: transform, border-color;
+    transition-duration: @duration-exit;
+    transition-timing-function: @easing-decel;
+  }
+  &:hover {
+    border-color: @gray;
+    cursor: pointer;
+    transform: scale(1.05) translatey(@spacer * -0.5);
+    transition-duration: @duration-entry;
+    transition-timing-function: @easing-accel;
+  }
+  &.selected {
+    border-color: @aqua;
+    .check {
+      background-color: @aqua;
+      border-color: @aqua;
+      color: white;
+      transform: translatey(@spacer * -1.25) translatex(@spacer * 1.25);
+      transition-duration: @duration-entry;
+      transition-timing-function: @easing-accel;
+    }
+  }
+}
+
+.assessment-aggregate {
+  padding: (@spacer * 1.7);
+  font-family: PT Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+  color: #353538;
+  box-shadow: 0 3px 6px rgba(0,0,0,.16);
+  > .label {
+    display: inline-block;
+    margin-bottom: @spacer / 2;
+  }
+  > .title, > .date, > .students { display: block; }
+  > .title {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21px;
+    margin-bottom: @spacer / 4;
+  }
+  > .date {
+    font-size: 16px;
+    line-height: 18px;
+    color: #64666A;
+    font-style: italic;
+  }
+  > .students {
+    margin-top: 1.5em;
+    font-size: 12.8px;
+    .caption {
+      display: inline-block;
+      margin-bottom: @spacer / 4;
+    }
+  }
+  .scale-score-graph {
+    .bar-container {
+      padding-top: @spacer * 3;
+      padding-bottom: 0;
+      .bar .percentage {
+        top: @spacer * -1;
+      }
+    }
+  }
+}
+
+.scale-score-graph {
+  &.small {
+    .bar-container {
+      padding-top: 0;
+    }
+    .bar {
+      height: 8px;
+    }
+  }
+  .remainder {
+    opacity: 0.08;
+  }
+}

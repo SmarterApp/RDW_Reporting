@@ -979,6 +979,9 @@
   "html": {
     "system-news": ""
   },
+  "iab-card": {
+    "student-count": "<strong>{{ studentsTested }}</strong> of {{ groupCount }} students"
+  },
   "import-history": {
     "title": "View Uploads"
   },
