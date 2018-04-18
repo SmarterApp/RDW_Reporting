@@ -71,14 +71,7 @@ export class GroupCardsComponent implements OnInit {
         });
       });
 
-      // track change event since wiring select boxes on change as HTML attribute is not possible
-      // this.angulartics2.eventTrack.next({
-      //   action: 'Change' + changeSource,
-      //   properties: {
-      //     category: 'AssessmentResults',
-      //     label: changeSource === 'Group' ? this._currentGroup.id : this._currentSchoolYear
-      //   }
-      // });
+      // TODO analytics
     });
   }
 
