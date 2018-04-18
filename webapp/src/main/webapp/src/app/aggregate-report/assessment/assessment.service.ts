@@ -11,17 +11,30 @@ export class AssessmentService {
   constructor(private dataService: DataService) {
   }
 
-  getCutPoints(request: GradeYearSearch): Observable<AssessmentGradeYearCutPoints> {
+  getCutPointsBySubject(request: GradeYearSearch): Observable<Map<string, AssessmentGradeYearCutPoints>> {
     return this.dataService.get(`${AggregateServiceRoute}/assessmentCutPoints`, {
       params: <any>request
     }).pipe(
-      map(response => response.map(serverPoints => <AssessmentGradeYearCutPoints>{
-        gradeYear: {
-          grade: serverPoints.gradeYear.gradeCode,
-          year: serverPoints.gradeYear.schoolYear
-        },
-        cutPoints: serverPoints.cutPoints
-      }))
+      map((response: ServerAssessmentGradeYearCutPoints[]) => {
+        const pointsBySubject = new Map();
+        response.forEach((serverPoints: ServerAssessmentGradeYearCutPoints) => {
+          const gradeYearPoints = {
+            gradeYear: {
+              grade: serverPoints.gradeYear.gradeCode,
+              year: serverPoints.gradeYear.schoolYear
+            },
+            cutPoints: serverPoints.cutPoints
+          };
+
+          const points = pointsBySubject.get(serverPoints.subjectCode);
+          if (points != null) {
+            points.push(gradeYearPoints);
+          } else {
+            pointsBySubject.set(serverPoints.subjectCode, [ gradeYearPoints ]);
+          }
+        });
+        return pointsBySubject;
+      })
     );
   }
 
@@ -34,5 +47,16 @@ export interface GradeYearSearch {
 
 export interface AssessmentGradeYearCutPoints {
   readonly gradeYear: GradeYear;
+  readonly cutPoints: number[];
+}
+
+interface ServerGradeYear {
+  readonly gradeCode: string;
+  readonly schoolYear: number;
+}
+
+interface ServerAssessmentGradeYearCutPoints {
+  readonly gradeYear: ServerGradeYear;
+  readonly subjectCode: string;
   readonly cutPoints: number[];
 }
