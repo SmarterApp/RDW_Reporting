@@ -14,16 +14,30 @@ export class GroupService {
   getGroups(): Observable<Group[]> {
     return this.dataService.get(`${ReportingServiceRoute}/groups`).pipe(
       map(serverGroups => serverGroups.map(serverGroup => {
-        // TODO make Group an interface
-        const group: Group = new Group();
-        group.id = serverGroup.id;
-        group.name = serverGroup.name;
-        group.schoolName = serverGroup.schoolName;
-        group.schoolId = serverGroup.schoolId;
-        group.subjectCode = serverGroup.subjectCode || 'ALL';
-        return group;
+        return <Group>{
+          id: serverGroup.id,
+          name: serverGroup.name,
+          schoolName: serverGroup.schoolName,
+          schoolId: serverGroup.schoolId,
+          subjectCode: serverGroup.subjectCode || 'ALL'
+        };
       }))
-    )
+    );
+  }
+
+  getGroup(groupId: number): Observable<Group> {
+    return this.dataService.get(`${ReportingServiceRoute}/groups/${groupId}`).pipe(
+      map(serverGroup => {
+        return <Group>{
+          id: serverGroup.id,
+          name: serverGroup.name,
+          schoolName: serverGroup.schoolName,
+          schoolId: serverGroup.schoolId,
+          subjectCode: serverGroup.subjectCode || 'ALL',
+          totalStudentCount: serverGroup.studentCount
+        };
+      })
+    );
   }
 
 }

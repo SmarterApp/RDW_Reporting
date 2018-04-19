@@ -102,6 +102,11 @@ sql:
       select code
       from gender order by id;
 
+  subject:
+    findAll: >-
+      select code
+      from subject order by id;
+
   status:
     readTest: >-
       SELECT code FROM asmt_type

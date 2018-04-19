@@ -10,6 +10,7 @@ export class ExamFilterOptionsMapper {
     options.ethnicities = serverOptions.ethnicities.concat();
     options.genders = serverOptions.genders.concat();
     options.elasCodes = serverOptions.elasCodes.concat();
+    options.subjects = serverOptions.subjects.concat();
     return options;
   }
 
