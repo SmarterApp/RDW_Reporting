@@ -74,8 +74,17 @@
 </ng-template>
 
 
-<div class="col-md-12 card-grid mt-md">
-  <div *ngFor="let measuredAssessment of measuredAssessments">
-    <assessment-card (selectedAssessment)="onCardSelection($event)" [group]="group" [measuredAssessment]="measuredAssessment"></assessment-card>
+<div class="col-md-12 mt-md">
+  <div class="card-grid">
+    <div *ngFor="let measuredAssessment of measuredAssessments">
+      <assessment-card (selectedAssessment)="onCardSelection($event)" [group]="group"
+                       [measuredAssessment]="measuredAssessment"></assessment-card>
+    </div>
+  </div>
+  <!-- No Results Error -->
+  <div class="alert alert-info" *ngIf="measuredAssessments.length == 0">
+    {{'common.assessments.no-results-found' | translate}}
   </div>
 </div>
+
+
