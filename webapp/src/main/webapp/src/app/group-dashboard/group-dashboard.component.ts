@@ -1,34 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MeasuredAssessment } from './measured-assessment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Group } from '../groups/group';
 import { GroupService } from '../groups/group.service';
-import { GroupCardService } from './group-card.service';
+import { GroupDashboardService } from './group-dashboard.service';
 import { ExamFilterOptionsService } from '../assessments/filters/exam-filters/exam-filter-options.service';
 import { ExamFilterOptions } from '../assessments/model/exam-filter-options.model';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { IabEvent } from './iab-card.component';
+import { AssessmentCardEvent } from './assessment-card.component';
 
 @Component({
-  selector: 'group-card',
-  templateUrl: './group-cards.component.html'
+  selector: 'group-dashboard',
+  templateUrl: './group-dashboard.component.html'
 })
-export class GroupCardsComponent implements OnInit {
+export class GroupDashboardComponent implements OnInit {
 
   measuredAssessments: MeasuredAssessment[] = [];
   group: Group;
   groups: Group[];
-  _currentGroup: Group;
   filterOptions: ExamFilterOptions = new ExamFilterOptions();
   currentSchoolYear: number;
-  _currentSubject: string;
-  disableView = true;
-  private selectedIabs: number[] = [];
+  currentGroup: Group;
+  private _currentSubject: string;
+  private selectedAssessments: number[] = [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private groupService: GroupService,
-              private groupCardService: GroupCardService,
+              private groupDashboardService: GroupDashboardService,
               private filterOptionsService: ExamFilterOptionsService) {
   }
 
@@ -39,29 +38,32 @@ export class GroupCardsComponent implements OnInit {
       this.groupService.getGroups(),
       this.filterOptionsService.getExamFilterOptions()
     ).subscribe(([ group, groups, filterOptions ]) => {
-      this.group = this.groupCardService.group = group;
+      this.group = group;
       this.groups = groups;
       const { schoolYear } = this.route.snapshot.params;
       this.filterOptions = filterOptions;
       this.updateFilterOptions();
       this.currentSchoolYear = Number.parseInt(schoolYear) || filterOptions.schoolYears[ 0 ];
-      this.groupCardService.schoolYear = this.currentSchoolYear;
-      this.groupCardService.getAvailableMeasuredAssessments().subscribe(measuredAssessments => {
+      this.groupDashboardService.getAvailableMeasuredAssessments(group, this.currentSchoolYear).subscribe(measuredAssessments => {
         this.measuredAssessments = measuredAssessments;
       });
     });
 
   }
 
+  get cardViewEnabled() {
+    return this.selectedAssessments.length !== 0;
+  }
+
   updateRoute(changeSource: string): void {
-    this.router.navigate([ 'group-cards', this.currentGroup.id, {
+    this.selectedAssessments = [];
+    this.router.navigate([ 'group-dashboard', this.currentGroup.id, {
       schoolYear: this.currentSchoolYear,
       subject: this.currentSubject
     } ]).then(() => {
       this.groupService.getGroup(this.currentGroup.id).subscribe((group) => {
-        this.groupCardService.schoolYear = this.currentSchoolYear;
         this.group = group;
-        this.groupCardService.getAvailableMeasuredAssessments().subscribe(measuredAssessments => {
+        this.groupDashboardService.getAvailableMeasuredAssessments(group, this.currentSchoolYear).subscribe(measuredAssessments => {
           if (this.currentSubject === 'ALL') {
             this.measuredAssessments = measuredAssessments;
           } else {
@@ -70,20 +72,8 @@ export class GroupCardsComponent implements OnInit {
           }
         });
       });
-
       // TODO analytics
     });
-  }
-
-  get currentGroup(): Group {
-    return this._currentGroup;
-  }
-
-  set currentGroup(value: Group) {
-    this._currentGroup = value;
-    if (this._currentGroup) {
-      this.groupCardService.group = this._currentGroup;
-    }
   }
 
   get currentSubject(): string {
@@ -93,28 +83,24 @@ export class GroupCardsComponent implements OnInit {
     return this._currentSubject;
   }
 
+  @Input()
   set currentSubject(value: string) {
     this._currentSubject = value;
-    if (this._currentSubject !== 'ALL') {
+    if (!this._currentSubject) {
       this.measuredAssessments = this.measuredAssessments.filter(
         measuredAssessment => measuredAssessment.assessment.subject === this._currentSubject);
     }
   }
 
   private updateFilterOptions(): void {
-    this.filterOptions.subjects.push('ALL');
-    this.filterOptions.subjects.sort((a, b) => a.localeCompare(b));
+    this.filterOptions.subjects.unshift('ALL');
   }
 
-  addIab(event: IabEvent) {
+  onCardSelection(event: AssessmentCardEvent) {
     if (event.selected) {
-      this.selectedIabs.push(event.id);
-      this.disableView = false;
+      this.selectedAssessments.push(event.measuredAssessment.assessment.id);
     } else {
-      this.selectedIabs = this.selectedIabs.filter(id => id !== event.id);
-      if (this.selectedIabs.length === 0) {
-        this.disableView = true;
-      }
+      this.selectedAssessments = this.selectedAssessments.filter(id => id !== event.measuredAssessment.assessment.id);
     }
   }
 

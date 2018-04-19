@@ -967,7 +967,7 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    border-color: @gray;
+    border-color: @gray-light;
     border-style: solid;
     border-width: 4px;
     color: transparent;
@@ -979,11 +979,13 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
     transition-timing-function: @easing-decel;
   }
   &:hover {
-    border-color: @gray;
+    border-color: @gray-light;
     cursor: pointer;
-    transform: scale(1.05) translatey(@spacer * -0.5);
-    transition-duration: @duration-entry;
-    transition-timing-function: @easing-accel;
+    .check {
+      border-color: @aqua;
+      transition-duration: @duration-entry;
+      transition-timing-function: @easing-accel;
+    }
   }
   &.selected {
     border-color: @aqua;
@@ -1028,10 +1030,36 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
       margin-bottom: @spacer / 4;
     }
   }
+  .perc-container {
+    display: grid;
+    grid-gap: @spacer / 4;
+    grid-template-columns: repeat(3, 1fr);
+    padding-top: @spacer * 2;
+    .bar {
+      display: flex;
+      align-items: center;
+      font-size: 12.8px;
+      &:nth-child(1) { justify-self: left; }
+      &:nth-child(2) { justify-self: center; }
+      &:nth-child(3) { justify-self: right; }
+    }
+    .square {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      margin-right: 0.25em;
+      background-color: currentcolor;
+      border-radius: 3px;
+      &.blue-dark.aqua {
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAOklEQVQoU2M0m/bs/631dQwgoBbYBKaR+YwgBeiCyHxGAdeU/9h0whSBFeAyHiRO2ASCbiDoC0JuAABdtDutSFLMdAAAAABJRU5ErkJggg==) repeat;
+      }
+    }
+  }
   .scale-score-graph {
     .bar-container {
-      padding-top: @spacer * 3;
-      padding-bottom: 0;
+      padding: 0;
+      font-size: 14px;
+      &:first-child .bar { height: 1em; }
       .bar .percentage {
         top: @spacer * -1;
       }

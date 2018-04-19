@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { IabCardComponent } from './iab-card.component';
-import { GroupCardsComponent } from './group-cards.component';
+import { AssessmentCardComponent } from './assessment-card.component';
+import { GroupDashboardComponent } from './group-dashboard.component';
 import { ReportModule } from '../report/report.module';
 import { Angulartics2Module } from 'angulartics2';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,12 +12,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '../shared/common.module';
 import { TableModule } from 'primeng/table';
 import { SharedModule } from 'primeng/primeng';
-import { GroupCardService } from './group-card.service';
+import { GroupDashboardService } from './group-dashboard.service';
 
 @NgModule({
   declarations: [
-    GroupCardsComponent,
-    IabCardComponent
+    GroupDashboardComponent,
+    AssessmentCardComponent
   ],
   imports: [
     Angulartics2Module.forChild(),
@@ -33,8 +33,8 @@ import { GroupCardService } from './group-card.service';
     UserModule
   ],
   providers: [
-    GroupCardService
+    GroupDashboardService
   ]
 })
-export class GroupCardsModule {
+export class GroupDashboardModule {
 }

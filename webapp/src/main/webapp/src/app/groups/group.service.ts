@@ -34,7 +34,7 @@ export class GroupService {
           schoolName: serverGroup.schoolName,
           schoolId: serverGroup.schoolId,
           subjectCode: serverGroup.subjectCode || 'ALL',
-          totalStudentCount: serverGroup.studentCount
+          totalStudents: serverGroup.studentCount
         };
       })
     );

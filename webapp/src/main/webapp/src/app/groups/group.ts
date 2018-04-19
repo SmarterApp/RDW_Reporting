@@ -4,5 +4,5 @@ export interface Group {
   readonly schoolName: string;
   readonly schoolId: number;
   readonly subjectCode: string;
-  readonly totalStudentCount?: number;
+  readonly totalStudents?: number;
 }

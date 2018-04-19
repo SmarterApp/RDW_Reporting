@@ -7,22 +7,21 @@ import { DataService } from '../shared/data/data.service';
 import { URLSearchParams } from '@angular/http';
 import { Group } from '../groups/group';
 import { AssessmentExamMapper } from '../assessments/assessment-exam.mapper';
-import { MeasuredAssessment } from './measured-assessment';
+import { DetailsByPerformanceLevel, MeasuredAssessment } from './measured-assessment';
+import { DetachedRouteHandle } from '@angular/router';
 
 const ServiceRoute = ReportingServiceRoute;
 
 @Injectable()
-export class GroupCardService {
-  group: Group;
-  schoolYear: number;
+export class GroupDashboardService {
 
   constructor(private dataService: DataService,
               private assessmentExamMapper: AssessmentExamMapper) {
   }
 
-  getAvailableMeasuredAssessments(): Observable<MeasuredAssessment[]> {
-    return this.dataService.get(`${ServiceRoute}/groups/${this.group.id}/measuredassessments`, {
-      search: this.getSchoolYearParams(this.schoolYear)
+  getAvailableMeasuredAssessments(group: Group, schoolYear: number): Observable<MeasuredAssessment[]> {
+    return this.dataService.get(`${ServiceRoute}/groups/${group.id}/measuredassessments`, {
+      search: this.getSchoolYearParams(schoolYear)
     }).pipe(
       catchError(ResponseUtils.badResponseToNull),
       map(serverAssessments => this.mapMeasuredAssessmentsFromApi(serverAssessments))
@@ -48,9 +47,18 @@ export class GroupCardService {
       date: serverAssessment.completedAt,
       studentsTested: serverAssessment.studentsTested,
       studentCountByPerformanceLevel: [
-        serverAssessment.measures.level1Count,
-        serverAssessment.measures.level2Count,
-        serverAssessment.measures.level3Count
+        <DetailsByPerformanceLevel>{
+          studentCount: serverAssessment.measures.level1Count,
+          percent: (serverAssessment.measures.level1Count / serverAssessment.studentsTested) * 100
+        },
+        <DetailsByPerformanceLevel>{
+          studentCount: serverAssessment.measures.level2Count,
+          percent: (serverAssessment.measures.level2Count / serverAssessment.studentsTested) * 100
+        },
+        <DetailsByPerformanceLevel>{
+          studentCount: serverAssessment.measures.level3Count,
+          percent: (serverAssessment.measures.level3Count / serverAssessment.studentsTested) * 100
+        }
       ]
     };
   }

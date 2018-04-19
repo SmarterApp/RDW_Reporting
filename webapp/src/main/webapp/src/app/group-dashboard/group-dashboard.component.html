@@ -58,7 +58,8 @@
         </select>
       </div>
       <div class="col-md-6">
-        <a href="javascript:void()" [ngClass]="{'disabled': disableView}" class="col-btn btn btn-primary">{{ 'iab-card.view-assessments' | translate }}<i class="ml-xs fa fa-angle-right"></i></a>
+        <a href="javascript:void(0)" [ngClass]="{'disabled': !cardViewEnabled}" class="col-btn btn btn-primary">{{
+          'assessment-card.view-assessments' | translate }}<i class="ml-xs fa fa-angle-right"></i></a>
       </div>
     </div>
 
@@ -75,6 +76,6 @@
 
 <div class="col-md-12 card-grid mt-md">
   <div *ngFor="let measuredAssessment of measuredAssessments">
-    <iab-card (selectedIab)="addIab($event)" [group]="group" [measuredAssessment]="measuredAssessment"></iab-card>
+    <assessment-card (selectedAssessment)="onCardSelection($event)" [group]="group" [measuredAssessment]="measuredAssessment"></assessment-card>
   </div>
 </div>

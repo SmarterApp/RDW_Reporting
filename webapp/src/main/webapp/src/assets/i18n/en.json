@@ -159,6 +159,10 @@
     "heading-info": "The percentile tables show the points at which a score is greater than X% of other student results. The effective date range, number (N), mean, and standard deviation (SD) of the data are included for reference. The numbered columns on the right hand side of the table denote the percentile rank for the listed scores.",
     "no-results": "There are currently no consortium percentiles uploaded for this assessment."
   },
+  "assessment-card": {
+    "student-count": "<strong>{{ studentsTested }}</strong> of {{ groupCount }} students",
+    "view-assessments": "View Assessments"
+  },
   "assessment-percentile-table": {
     "column": {
       "count": "N",
@@ -978,10 +982,6 @@
   },
   "html": {
     "system-news": ""
-  },
-  "iab-card": {
-    "student-count": "<strong>{{ studentsTested }}</strong> of {{ groupCount }} students",
-    "view-assessments": "View Assessments"
   },
   "import-history": {
     "title": "View Uploads"
