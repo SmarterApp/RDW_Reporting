@@ -221,7 +221,7 @@ export const routes: Routes = [
       {
         path: 'group-dashboard/:groupId',
         data: {
-          breadcrumb: { translate: 'groups.name' },
+          breadcrumb: { translate: 'group-dashboard.name' },
           permissions: [ 'GROUP_PII_READ' ]
         },
         canActivate: [ AuthorizationCanActivate ],

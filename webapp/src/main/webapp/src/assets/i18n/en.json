@@ -940,6 +940,9 @@
     "template-button": "Template",
     "template-file": "groups"
   },
+  "group-dashboard": {
+    "name": "Assessment Reports"
+  },
   "group-import": {
     "browse-instruct": "browse for files",
     "columns": {
