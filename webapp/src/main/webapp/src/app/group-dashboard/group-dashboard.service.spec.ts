@@ -2,8 +2,8 @@ import { TestModule } from '../../test/test.module';
 import { inject, TestBed } from '@angular/core/testing';
 import { MockDataService } from '../../test/mock.data.service';
 import { GroupDashboardService } from './group-dashboard.service';
-import { AssessmentExamMapper } from '../assessments/assessment-exam.mapper';
 import { DataService } from '../shared/data/data.service';
+import { MeasuredAssessmentMapper } from './measured-assessment.mapper';
 
 describe('GroupDashboardService', () => {
 
@@ -15,7 +15,7 @@ describe('GroupDashboardService', () => {
       providers: [
         GroupDashboardService,
         { provide: DataService, useClass: MockDataService },
-        { provide: AssessmentExamMapper, useClass: MockAssessmentExamMapper },
+        { provide: MeasuredAssessmentMapper, useClass: MockMeasuredAssessmentMapper },
       ]
     });
   });
@@ -26,6 +26,6 @@ describe('GroupDashboardService', () => {
     }));
 });
 
-class MockAssessmentExamMapper {
+class MockMeasuredAssessmentMapper {
 
 }
