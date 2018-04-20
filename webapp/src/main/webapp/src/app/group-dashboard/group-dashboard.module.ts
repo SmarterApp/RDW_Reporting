@@ -13,6 +13,7 @@ import { CommonModule } from '../shared/common.module';
 import { TableModule } from 'primeng/table';
 import { SharedModule } from 'primeng/primeng';
 import { GroupDashboardService } from './group-dashboard.service';
+import { MeasuredAssessmentMapper } from './measured-assessment.mapper';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { GroupDashboardService } from './group-dashboard.service';
     UserModule
   ],
   providers: [
-    GroupDashboardService
+    GroupDashboardService,
+    MeasuredAssessmentMapper
   ]
 })
 export class GroupDashboardModule {

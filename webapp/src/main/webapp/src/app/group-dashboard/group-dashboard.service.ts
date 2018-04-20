@@ -6,8 +6,8 @@ import { ReportingServiceRoute } from '../shared/service-route';
 import { DataService } from '../shared/data/data.service';
 import { URLSearchParams } from '@angular/http';
 import { Group } from '../groups/group';
-import { AssessmentExamMapper } from '../assessments/assessment-exam.mapper';
-import { DetailsByPerformanceLevel, MeasuredAssessment } from './measured-assessment';
+import { MeasuredAssessment } from './measured-assessment';
+import { MeasuredAssessmentMapper } from './measured-assessment.mapper';
 
 const ServiceRoute = ReportingServiceRoute;
 
@@ -15,7 +15,7 @@ const ServiceRoute = ReportingServiceRoute;
 export class GroupDashboardService {
 
   constructor(private dataService: DataService,
-              private assessmentExamMapper: AssessmentExamMapper) {
+              private measuredAssessmentMapper: MeasuredAssessmentMapper) {
   }
 
   getAvailableMeasuredAssessments(group: Group, schoolYear: number): Observable<MeasuredAssessment[]> {
@@ -23,7 +23,7 @@ export class GroupDashboardService {
       search: this.getSchoolYearParams(schoolYear)
     }).pipe(
       catchError(ResponseUtils.badResponseToNull),
-      map(serverAssessments => this.mapMeasuredAssessmentsFromApi(serverAssessments))
+      map(serverAssessments => this.measuredAssessmentMapper.mapMeasuredAssessmentsFromApi(serverAssessments))
     );
   }
 
@@ -31,35 +31,6 @@ export class GroupDashboardService {
     const params: URLSearchParams = new URLSearchParams();
     params.set('schoolYear', schoolYear.toString());
     return params;
-  }
-
-  mapMeasuredAssessmentsFromApi(serverAssessments: any[]): MeasuredAssessment[] {
-    return serverAssessments
-      .map(serverAssessment => this.mapMeasuredAssessmentFromApi(serverAssessment));
-  }
-
-  mapMeasuredAssessmentFromApi(serverAssessment: any): MeasuredAssessment {
-    return <MeasuredAssessment>{
-      assessment: this.assessmentExamMapper.mapAssessmentFromApi(serverAssessment.assessment),
-      averageScaleScore: serverAssessment.measures.avgScaleScore,
-      averageStandardError: serverAssessment.measures.avgStdErr,
-      date: serverAssessment.completedAt,
-      studentsTested: serverAssessment.studentsTested,
-      studentCountByPerformanceLevel: [
-        <DetailsByPerformanceLevel>{
-          studentCount: serverAssessment.measures.level1Count,
-          percent: (serverAssessment.measures.level1Count / serverAssessment.studentsTested) * 100
-        },
-        <DetailsByPerformanceLevel>{
-          studentCount: serverAssessment.measures.level2Count,
-          percent: (serverAssessment.measures.level2Count / serverAssessment.studentsTested) * 100
-        },
-        <DetailsByPerformanceLevel>{
-          studentCount: serverAssessment.measures.level3Count,
-          percent: (serverAssessment.measures.level3Count / serverAssessment.studentsTested) * 100
-        }
-      ]
-    };
   }
 
 
