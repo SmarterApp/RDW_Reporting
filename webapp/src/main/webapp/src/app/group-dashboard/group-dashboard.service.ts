@@ -8,7 +8,6 @@ import { URLSearchParams } from '@angular/http';
 import { Group } from '../groups/group';
 import { AssessmentExamMapper } from '../assessments/assessment-exam.mapper';
 import { DetailsByPerformanceLevel, MeasuredAssessment } from './measured-assessment';
-import { DetachedRouteHandle } from '@angular/router';
 
 const ServiceRoute = ReportingServiceRoute;
 

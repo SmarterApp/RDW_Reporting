@@ -1,10 +1,10 @@
 import { NgModule } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MockRouter } from "./mock.router";
-import { MockActivatedRoute } from "./mock.activated-route";
 import { MockTranslateService } from "./mock.translate.service";
 import { TranslateService } from "@ngx-translate/core";
 import { MockAuthorizeDirective } from "./mock.authorize.directive";
+import { MockActivatedRoute } from '../app/shared/test/mock.activated-route';
 
 @NgModule({
   declarations: [

@@ -12,13 +12,13 @@ import { ClaimScore } from "../../assessments/model/claim-score.model";
 import { MockRouter } from "../../../test/mock.router";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { Angulartics2 } from "angulartics2";
-import { MockActivatedRoute } from "../../../test/mock.activated-route";
 import { ExamFilterService } from "../../assessments/filters/exam-filters/exam-filter.service";
 import { of } from 'rxjs/observable/of';
 import { ApplicationSettingsService } from '../../app-settings.service';
 import { MockUserService } from '../../../test/mock.user.service';
 import { TestModule } from "../../../test/test.module";
 import { ReportingEmbargoService } from "../../shared/embargo/reporting-embargo.service";
+import { MockActivatedRoute } from '../../shared/test/mock.activated-route';
 
 describe('StudentResultsComponent', () => {
   let component: StudentResultsComponent;

@@ -9,9 +9,9 @@ import { Group } from "./model/group.model";
 import { CommonModule } from "../../shared/common.module";
 import { of } from 'rxjs/observable/of';
 import { EventEmitter, NO_ERRORS_SCHEMA } from "@angular/core";
-import { MockActivatedRoute } from "../../../test/mock.activated-route";
 import { BsModalService } from "ngx-bootstrap";
 import { TestModule } from "../../../test/test.module";
+import { MockActivatedRoute } from '../../shared/test/mock.activated-route';
 
 let mockFilterOptionsProvider = { options: new GroupFilterOptions() };
 

@@ -13,12 +13,11 @@ export class AssessmentCardComponent implements OnInit {
   group: Group;
   @Input()
   measuredAssessment: MeasuredAssessment;
+  @Output()
+  selectedAssessment: EventEmitter<AssessmentCardEvent> = new EventEmitter();
 
   percents: number[] = [];
   dataWidths: number[] = [];
-
-  @Output()
-  selectedAssessment: EventEmitter<AssessmentCardEvent> = new EventEmitter();
 
   private selected = false;
 
@@ -31,16 +30,13 @@ export class AssessmentCardComponent implements OnInit {
       Math.round(this.measuredAssessment.studentCountByPerformanceLevel[ 1 ].percent),
       Math.round(this.measuredAssessment.studentCountByPerformanceLevel[ 2 ].percent)
     ];
+    // data widths must sum to 100. This avoids issues where the result is 99 or 101
     this.dataWidths = this.percents.concat();
-    this.dataWidths[2] = 100 - (this.dataWidths[0] + this.dataWidths[1]);
+    this.dataWidths[ 2 ] = 100 - (this.dataWidths[ 0 ] + this.dataWidths[ 1 ]);
   }
 
   get studentCountFill(): number {
     return Math.min(Math.round((this.measuredAssessment.studentsTested / this.group.totalStudents) * 100), 100);
-  }
-
-  percentFill(index: number): number {
-    return this.measuredAssessment.studentCountByPerformanceLevel[ index ].percent;
   }
 
   selectCard(): void {
