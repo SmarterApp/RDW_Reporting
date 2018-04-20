@@ -1,5 +1,5 @@
 <Subject code="ELA" name="ELA">
-  <CommonCoreStandardDescription><![CDATA[This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  For example, a question that asks students to evaluate research sources may assess both reading and research skills.  For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf\" target=\"_blank\">English Language Arts Content Specifications</a>.]]></CommonCoreStandardDescription>
+  <StandardsDescription><![CDATA[This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  For example, a question that asks students to evaluate research sources may assess both reading and research skills.  For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf\" target=\"_blank\">English Language Arts Content Specifications</a>.]]></StandardsDescription>
   <AssessmentTypes>
     <AssessmentType code="ica">
       <PerformanceLevels>
