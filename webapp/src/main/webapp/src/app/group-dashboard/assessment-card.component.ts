@@ -32,6 +32,7 @@ export class AssessmentCardComponent implements OnInit {
     ];
     // data widths must sum to 100. This avoids issues where the result is 99 or 101
     this.dataWidths = this.percents.concat();
+    this.dataWidths[ 1 ] = this.dataWidths[ 0 ] + this.dataWidths[ 1 ] > 100 ? this.dataWidths[ 1 ] - 1 : this.dataWidths[ 1 ];
     this.dataWidths[ 2 ] = 100 - (this.dataWidths[ 0 ] + this.dataWidths[ 1 ]);
   }
 

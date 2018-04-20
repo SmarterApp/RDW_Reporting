@@ -38,7 +38,7 @@ export class GroupDashboardComponent implements OnInit {
       this.groupService.getGroups(),
       this.filterOptionsService.getExamFilterOptions()
     ).subscribe(([ group, groups, filterOptions ]) => {
-      this.group = group;
+      this.group = this.currentGroup = group;
       this.groups = groups;
       const { schoolYear } = this.route.snapshot.params;
       this.filterOptions = filterOptions;
@@ -49,6 +49,10 @@ export class GroupDashboardComponent implements OnInit {
       });
     });
 
+  }
+
+  compareGroups(g1: Group, g2: Group): boolean {
+    return g1 && g2 ? g1.id === g2.id : g1 === g2;
   }
 
   get cardViewEnabled() {
