@@ -5,7 +5,9 @@
       <PerformanceLevels>
         <PerformanceLevel level="1" name="Did Not Meet Standard"/>
         <PerformanceLevel level="2" name="Nearly Met Standard"/>
-        <PerformanceLevel level="3" name="Met Standard" rollup="true"/>
+        <PerformanceLevel level="3" name="Met Standard">
+          <GroupingCutpoint>true</GroupingCutpoint>
+        </PerformanceLevel>
         <PerformanceLevel level="4" name="Exceeded Standard"/>
       </PerformanceLevels>
       <SubScoring>
@@ -27,7 +29,9 @@
       <PerformanceLevels>
         <PerformanceLevel level="1" name="Did Not Meet Standard"/>
         <PerformanceLevel level="2" name="Nearly Met Standard"/>
-        <PerformanceLevel level="3" name="Met Standard" rollup="true"/>
+        <PerformanceLevel level="3" name="Met Standard">
+          <GroupingCutpoint>true</GroupingCutpoint>
+        </PerformanceLevel>
         <PerformanceLevel level="4" name="Exceeded Standard"/>
       </PerformanceLevels>
       <SubScoring>
