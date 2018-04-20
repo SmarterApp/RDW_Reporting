@@ -90,10 +90,8 @@ export class GroupDashboardComponent implements OnInit {
   @Input()
   set currentSubject(value: string) {
     this._currentSubject = value;
-    if (!this._currentSubject) {
-      this.measuredAssessments = this.measuredAssessments.filter(
-        measuredAssessment => measuredAssessment.assessment.subject === this._currentSubject);
-    }
+    this.measuredAssessments = this.measuredAssessments.filter(
+      measuredAssessment => measuredAssessment.assessment.subject === this._currentSubject);
   }
 
   private updateFilterOptions(): void {
