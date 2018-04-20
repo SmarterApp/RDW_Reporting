@@ -26,8 +26,8 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 
 // Set version dependencies. This allows the cli to force version, e.g. `-Pcommon=1.1.0-SNAPSHOT`
-String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "1.2.0-69"
-String rdwSchemaVersion = project.hasProperty("schema") ? project.property("schema") : "1.2.0-333"
+String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "1.2.0-70"
+String rdwSchemaVersion = project.hasProperty("schema") ? project.property("schema") : "1.2.0-337"
 String dockerPrefix = "smarterbalanced"
 
 allprojects {
@@ -148,7 +148,7 @@ subprojects {
             label([maintainer: 'Fairway Technologies'])
             copyFile("${jar.archivePath.name}", "${jar.archivePath.name}")
             exposePort(8008, 8080)
-            runCommand("apk add --no-cache tini")
+            runCommand("apk add --no-cache tini curl jq")
             entryPoint("/sbin/tini", "--")
             environmentVariable("MAX_HEAP_SIZE", "-Xmx384m")
             instruction('CMD exec java $MAX_HEAP_SIZE $JAVA_OPTS -jar ' + "${jar.archivePath.name}")

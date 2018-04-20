@@ -274,7 +274,7 @@ export class AggregateReportTableComponent implements OnInit {
     this._orderingByColumnField[ 'organization.name' ] = this.createOrganizationOrdering();
     this._orderingByColumnField[ 'assessmentGradeCode' ] = assessmentGradeOrdering;
     this._orderingByColumnField[ 'schoolYear' ] = SchoolYearOrdering;
-    this._orderingByColumnField[ 'dimension.id' ] = this.createDimensionOrdering(options);
+    this._orderingByColumnField[ 'subgroup.id' ] = this.createDimensionOrdering(options);
 
     // create columns
     const performanceLevelsByDisplayType = {
@@ -290,7 +290,7 @@ export class AggregateReportTableComponent implements OnInit {
       new Column({ id: 'assessmentGrade', field: 'assessmentGradeCode' }),
       new Column({ id: 'assessmentLabel' }),
       new Column({ id: 'schoolYear' }),
-      new Column({ id: 'dimension', field: 'dimension.id' })
+      new Column({ id: 'dimension', field: 'subgroup.id' })
     ];
 
     this.columns = [
@@ -509,7 +509,7 @@ export class AggregateReportTableComponent implements OnInit {
     const dimensionTypeAndCodeComparator: Comparator<AggregateReportItem> = ordering(ranking(
       [ OverallDimensionType, ...dimensionTypeAndCodeRankingValues ]
       ))
-      .on((item: AggregateReportItem) => item.dimension.id)
+      .on((item: AggregateReportItem) => item.subgroup.id)
       .compare;
 
     // Attempt to sort based upon the enrolled grade code as a number ("01", "02", "KG", "UG", etc)
@@ -517,12 +517,13 @@ export class AggregateReportTableComponent implements OnInit {
     // TODO we should have a specific ordering for all grade codes, although the system only currently uses "03" - "12"
     const enrolledGradeComparator: Comparator<AggregateReportItem> = ordering(byNumber)
       .on((item: AggregateReportItem) => {
-        const { type, code } = <any>item.dimension;
+        const { type, codes } = <any>item.subgroup;
+        const [code] = codes;
         if (type == null || type !== 'StudentEnrolledGrade') {
           return -1;
         }
         try {
-          return parseInt(code);
+          return Number.parseInt(code);
         } catch (error) {
           return 1;
         }
@@ -532,7 +533,7 @@ export class AggregateReportTableComponent implements OnInit {
     return ordering(join(
       dimensionTypeAndCodeComparator,
       enrolledGradeComparator,
-      ordering(byString).on(({ dimension }) => dimension.id).compare
+      ordering(byString).on(({ subgroup }) => subgroup.id).compare
     ));
   }
 }

@@ -207,7 +207,7 @@
             </div>
           </div>
 
-          <div class="well">
+          <div class="well" [hidden]="!currentAssessmentDefinition.aggregateReportLongitudinalCohortEnabled">
             <div class="row">
               <div class="col-md-6">
                 <label>{{'aggregate-report-form.field.report-type-label' | translate}}</label>
@@ -222,7 +222,7 @@
             </div>
           </div>
 
-          <div [hidden]="settings.reportType !== 'GeneralPopulation'">
+          <div [hidden]="settings.reportType !== 'GeneralPopulation' && currentAssessmentDefinition.aggregateReportLongitudinalCohortEnabled">
 
             <div class="well">
               <div class="row">
@@ -281,7 +281,7 @@
             </div>
           </div>
 
-          <div [hidden]="settings.reportType !== 'LongitudinalCohort'">
+          <div [hidden]="settings.reportType !== 'LongitudinalCohort' || !currentAssessmentDefinition.aggregateReportStateResultsEnabled">
 
             <div class="well">
               <div class="row">
@@ -475,7 +475,7 @@
                                        [itemTemplate]="subgroupListItemTemplate"
                                        (itemRemoveButtonClick)="onCustomSubgroupItemRemoveButtonClick($event)"></editable-list-group>
                   <ng-template #subgroupListItemTemplate let-item>
-                    {{item.name}}
+                    <subgroup [subgroup]="item.subgroup"></subgroup>
                   </ng-template>
                 </ng-container>
               </div>

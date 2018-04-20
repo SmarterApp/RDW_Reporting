@@ -1,4 +1,4 @@
-import { Option } from '../shared/form/sb-checkbox-group.component';
+import { Option } from '../../shared/form/sb-checkbox-group.component';
 
 export interface SubgroupFilterFormOptions {
 

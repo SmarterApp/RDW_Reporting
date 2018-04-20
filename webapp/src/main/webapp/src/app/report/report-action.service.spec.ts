@@ -72,7 +72,7 @@ describe('ReportActionService', () => {
     expect(reportService.downloadReportContent).toHaveBeenCalledWith(report.id);
   });
 
-  it('should provide multiple actions for a completed BasicAggregateReportRequest', () => {
+  it('should provide multiple actions for a completed AggregateReportRequest', () => {
     const report: Report = createReport();
     report.status = "COMPLETED";
     report.reportType = AggregateReportType;
@@ -97,7 +97,7 @@ describe('ReportActionService', () => {
 
   });
 
-  it('should disable the download action for an embargoed BasicAggregateReportRequest', () => {
+  it('should disable the download action for an embargoed AggregateReportRequest', () => {
     const report: Report = createReport();
     report.status = "COMPLETED";
     report.reportType = AggregateReportType;

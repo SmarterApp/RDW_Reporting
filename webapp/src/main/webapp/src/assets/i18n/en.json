@@ -61,7 +61,7 @@
       "assessment-grades-empty-error": "Please select an assessment grade.",
       "assessment-type-label": "Assessment Type",
       "elas-label": "English Language Acquisition Status",
-      "elas-info": "Students who use a language other than English as their primary language and who have been assessed as not possessing the English language skills necessary to succeed in the regular instructional program.",
+      "elas-info": "Status determined by the Home Language Survey and the Initial ELPAC.",
       "interim-administration-condition-label": "Manner of Administration",
       "interim-administration-condition-info": "For interim assessments, a Standardized administration follows the same protocols and security procedures as a summative test administration. For a Non Standardized administration, the teacher may use the assessment during instruction and interact with students as they complete the assessment.",
       "school-year-label": "Academic Years",
@@ -1078,6 +1078,12 @@
   },
   "item-writing-trait-score": {
     "writing-trait-purpose": "Writing Purpose: {{traitType}}"
+  },
+  "longitudinal-cohort-chart": {
+    "area-description": {
+      "text": "Achievement Level",
+      "subtext": "relative to standard"
+    }
   },
   "order-selector": {
     "move-left": "Move Left",

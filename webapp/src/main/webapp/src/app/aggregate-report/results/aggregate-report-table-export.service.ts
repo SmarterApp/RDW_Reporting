@@ -96,7 +96,7 @@ export class AggregateReportTableExportService {
       return builder
         .withColumn(
           this.translateService.instant('aggregate-report-table.columns.dimension'),
-          (item: AggregateReportItem) => item.dimension.name);
+          (item: AggregateReportItem) => item.subgroup.name);
     }
   }
 

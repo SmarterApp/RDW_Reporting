@@ -84,8 +84,8 @@
 
           <div *ngSwitchCase="'dimension'"
                class="label-max-width"
-               title="{{rowData.dimension.name}}">
-            {{rowData.dimension.name}}
+               title="{{rowData.subgroup.name}}">
+            <subgroup [subgroup]="rowData.subgroup"></subgroup>
           </div>
 
           <div *ngSwitchCase="'studentsTested'"

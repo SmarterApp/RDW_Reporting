@@ -12,8 +12,10 @@ import {
 import { AssessmentDefinition } from './assessment/assessment-definition';
 import { AggregateReportItem } from './results/aggregate-report-item';
 import { TranslateService } from '@ngx-translate/core';
-import { SubgroupMapper } from './subgroup.mapper';
+import { SubgroupMapper } from './subgroup/subgroup.mapper';
 import { computeEffectiveYears } from './support';
+import { AggregateReportOptions } from './aggregate-report-options';
+import { Subgroup } from './subgroup/subgroup';
 
 const MaximumOrganizations = 3;
 
@@ -24,17 +26,20 @@ export class AggregateReportTableDataService {
               private subgroupMapper: SubgroupMapper) {
   }
 
-  createSampleData(assessmentDefinition: AssessmentDefinition, settings: AggregateReportFormSettings): AggregateReportItem[] {
+  createSampleData(assessmentDefinition: AssessmentDefinition,
+                   settings: AggregateReportFormSettings,
+                   options: AggregateReportOptions): AggregateReportItem[] {
+
     const organizations = this.createSampleOrganizations(settings, assessmentDefinition);
 
     const gradesAndYears: { grade: string, year: number }[] = [];
-    if (settings.reportType === 'GeneralPopulation') {
+    if (settings.reportType === 'GeneralPopulation' || !assessmentDefinition.aggregateReportLongitudinalCohortEnabled) {
       for (const grade of settings.generalPopulation.assessmentGrades) {
         for (const year of settings.generalPopulation.schoolYears) {
           gradesAndYears.push({ grade, year });
         }
       }
-    } else if (settings.reportType === 'LongitudinalCohort') {
+    } else if (settings.reportType === 'LongitudinalCohort' && assessmentDefinition.aggregateReportLongitudinalCohortEnabled) {
       const assessmentGrades = settings.longitudinalCohort.assessmentGrades;
       const schoolYears = computeEffectiveYears(settings.longitudinalCohort.toSchoolYear, assessmentGrades);
       for (let i = 0; i < assessmentGrades.length; i++) {
@@ -56,12 +61,12 @@ export class AggregateReportTableDataService {
     const groupedPerformanceLevelCount = studentsTested * 0.5;
     const groupedPerformanceLevelCounts = [ groupedPerformanceLevelCount, groupedPerformanceLevelCount ];
 
-    const createRows = (values: { id: string, name: string }[]): AggregateReportItem[] => {
+    const createRows = (subgroups: Subgroup[]): AggregateReportItem[] => {
       let uuid = 0;
       const rows: AggregateReportItem[] = [];
       for (const organization of organizations) {
         for (const { grade, year } of gradesAndYears) {
-          for (const value of values) {
+          for (const subgroup of subgroups) {
             const row: any = {
               itemId: ++uuid,
               organization: organization,
@@ -83,7 +88,7 @@ export class AggregateReportTableDataService {
                   Percent: groupedPerformanceLevelCounts
                 }
               },
-              dimension: value
+              subgroup: subgroup
             };
             rows.push(row);
           }
@@ -93,17 +98,16 @@ export class AggregateReportTableDataService {
     };
 
     if (settings.queryType === 'Basic') {
-      const dimensions = this.subgroupMapper.createDimensionPermutations(
-        settings.studentFilters,
-        [ 'Overall', ...settings.dimensionTypes ]
-      );
-      return createRows(dimensions);
+      const subgroups = [
+        this.subgroupMapper.createOverall(),
+        ...this.subgroupMapper.createPermutationsFromFilters(settings.studentFilters, settings.dimensionTypes)
+      ];
+      return createRows(subgroups);
     } else if (settings.queryType === 'FilteredSubgroup') {
       const subgroups = [
-        this.subgroupMapper.createOverallSubgroupFiltersListItem()
-      ].concat(
-        settings.subgroups.map(subgroup => this.subgroupMapper.createSubgroupFiltersListItem(subgroup))
-      );
+        this.subgroupMapper.createOverall(),
+        ...settings.subgroups.map(subgroup => this.subgroupMapper.fromFilters(subgroup, options.dimensionTypes))
+      ];
       return createRows(subgroups);
     }
     throw new Error(`Unsupported query type "${settings.queryType}"`);

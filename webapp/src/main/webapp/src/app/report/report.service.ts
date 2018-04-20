@@ -10,7 +10,7 @@ import { Group } from '../groups/group';
 import { Grade } from '../school-grade/grade.model';
 import { DATA_CONTEXT_URL, DataService } from '../shared/data/data.service';
 import { Download } from '../shared/data/download.model';
-import { BasicAggregateReportRequest } from './basic-aggregate-report-request';
+import { AggregateReportRequest } from './aggregate-report-request';
 import { AggregateReportRow } from './aggregate-report';
 import { catchError, map } from 'rxjs/operators';
 import { ReportProcessorServiceRoute } from '../shared/service-route';
@@ -100,7 +100,7 @@ export class ReportService {
    * @param request the parameters to create the report with
    * @returns {Observable<Report>} the handle used the get status on the download
    */
-  public createAggregateReport(request: BasicAggregateReportRequest): Observable<Report> {
+  public createAggregateReport(request: AggregateReportRequest): Observable<Report> {
     return this.dataService.post(`${ServiceRoute}/aggregate`, request, {
       headers: new Headers({ 'Content-Type': 'application/json' })
     }).pipe(

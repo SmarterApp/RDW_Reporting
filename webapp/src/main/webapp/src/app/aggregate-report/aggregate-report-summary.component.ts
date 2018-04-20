@@ -5,7 +5,7 @@ import { AggregateReportOptions } from './aggregate-report-options';
 import { AggregateReportFormSettings } from './aggregate-report-form-settings';
 import { AssessmentDefinition } from './assessment/assessment-definition';
 import { Utils } from '../shared/support/support';
-import { SubgroupMapper } from './subgroup.mapper';
+import { SubgroupMapper } from './subgroup/subgroup.mapper';
 import { computeEffectiveYears } from './support';
 
 
@@ -136,7 +136,7 @@ export class AggregateReportSummary {
         values: orAll(options.subjects, settings.subjects, code => translate(`common.subject.${code}.short-name`))
       },
 
-      ...(settings.reportType === 'GeneralPopulation'
+      ...(settings.reportType === 'GeneralPopulation' || !assessmentDefinition.aggregateReportLongitudinalCohortEnabled
         ? [
             {
               label: translate('aggregate-report-form.field.assessment-grades-label'),
@@ -282,13 +282,20 @@ export class AggregateReportSummary {
 
     } else if (settings.queryType === 'FilteredSubgroup') {
 
+      const subgroups = settings.subgroups;
       variableSections = [
         {
           label: translate('aggregate-report-form.section.comparative-subgroups-heading'),
           rows: [
             {
               label: translate('aggregate-report-form.section.comparative-subgroups-heading'),
-              values: settings.subgroups.map(subgroup => this.subgroupMapper.createSubgroupFiltersListItem(subgroup).name)
+              values: [
+                subgroups.length === 0
+                  ? None
+                  : subgroups.length === 1
+                  ? this.subgroupMapper.fromFilters(subgroups[0], options.dimensionTypes).name
+                  : subgroups.length
+              ]
             }
           ]
         }

@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Observable";
 import { AggregateServiceRoute } from "../shared/service-route";
 import { ReportService } from "../report/report.service";
 import { Report } from "../report/report.model";
-import { BasicAggregateReportQuery, BasicAggregateReportRequest } from "../report/basic-aggregate-report-request";
+import { AggregateReportQuery, AggregateReportRequest } from "../report/aggregate-report-request";
 
 /**
  * Responsible for interfacing with aggregate report server
@@ -19,20 +19,20 @@ export class AggregateReportService {
   /**
    * Gets the estimated report row count for the provided report request
    *
-   * @param {BasicAggregateReportRequest} request the report parameters
+   * @param {AggregateReportQuery} query the report parameters
    * @returns {Observable<number>} the row count
    */
-  getEstimatedRowCount(query: BasicAggregateReportQuery): Observable<number> {
+  getEstimatedRowCount(query: AggregateReportQuery): Observable<number> {
     return this.dataService.post(`${AggregateServiceRoute}/aggregate/estimatedRowCount`, query);
   }
 
   /**
    * Creates an aggregate report
    *
-   * @param {BasicAggregateReportRequest} request the report parameters
+   * @param {AggregateReportRequest} request the report parameters
    * @returns {Observable<Report>} the report resource handle
    */
-  createReport(request: BasicAggregateReportRequest): Observable<Report> {
+  createReport(request: AggregateReportRequest): Observable<Report> {
     return this.reportService.createAggregateReport(request);
   }
 

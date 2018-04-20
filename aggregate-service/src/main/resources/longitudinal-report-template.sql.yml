@@ -1,20 +1,3 @@
-sql:
-  # Redshift is caching a query execution plan much better when SQL statements have the same pattern.
-  # Because of this we are including all supported grades into the SQL and filling in missing school years with invalid values
-  # Java code is driven by the DB to fill in the data for the asmt_grade_ids.
-  # NOTE: If more assessment grades are added, this SQL needs to include them
-  schoolYearGradePairsSnippet: >-
-       AND
-       (
-            (school_year = :school_year_grade_11 AND asmt_grade_id = 11)
-         OR (school_year = :school_year_grade_08 AND asmt_grade_id = 8)
-         OR (school_year = :school_year_grade_07 AND asmt_grade_id = 7)
-         OR (school_year = :school_year_grade_06 AND asmt_grade_id = 6)
-         OR (school_year = :school_year_grade_05 AND asmt_grade_id = 5)
-         OR (school_year = :school_year_grade_04 AND asmt_grade_id = 4)
-         OR (school_year = :school_year_grade_03 AND asmt_grade_id = 3)
-       )
-
 sqlbuilder:
   templates:
       # This represents the parts of the SQL query that generates measures based on the available data.
@@ -24,12 +7,10 @@ sqlbuilder:
       longitudinal:
         clauses:
           select: >-
-              SUM(CASE WHEN fe.years_in_one_org = :cohort_years THEN 1 ELSE 0 END) AS cohort_count,
-              count(*) as count,
               round(avg(CASE WHEN fe.years_in_one_org = :cohort_years THEN fe.scale_score ELSE NULL END)) AS cohort_score,
               round(avg(fe.scale_score)) AS score,
-              round(stddev_samp(CASE WHEN fe.years_in_one_org = :cohort_years THEN fe.scale_score ELSE NULL END)) AS cohort_stdev,
-              round(stddev_samp(fe.scale_score)) AS stdev,
+              round(stddev_samp(CASE WHEN fe.years_in_one_org = :cohort_years THEN fe.scale_score ELSE NULL END)/sqrt(sum(CASE WHEN fe.years_in_one_org = :cohort_years THEN 1 ELSE 0 END))) AS cohort_std_err,
+              round(stddev_samp(fe.scale_score)/sqrt(count(*))) AS std_err,
               sum(CASE WHEN fe.performance_level = 1 THEN 1 ELSE 0 END) AS level1,
               sum(CASE WHEN fe.performance_level = 2 THEN 1 ELSE 0 END) AS level2,
               sum(CASE WHEN fe.performance_level = 3 THEN 1 ELSE 0 END) AS level3,
@@ -61,10 +42,8 @@ sqlbuilder:
                          f.*,
                          count(*) OVER (PARTITION BY f.student_id ) AS years_in_one_org
                        FROM fact_student_exam_longitudinal f
-                        JOIN grade g on g.id = f.asmt_grade_id
                        WHERE
-                         f.subject_id = :subject_id
-                         ${sql.schoolYearGradePairsSnippet}
+                         f.subject_id = :subject_id AND school_year_asmt_grade_code IN (:yearGradePairs)
                     ) fe
 
             allDistricts:
@@ -78,13 +57,12 @@ sqlbuilder:
                       SELECT
                         f.*,
                         sch.district_id,
+                        sch.embargo_enabled,
                         count(*) OVER (PARTITION BY f.student_id, sch.district_id ) AS years_in_one_org
                       FROM fact_student_exam_longitudinal f
                        JOIN school sch ON sch.id = f.school_id
-                       JOIN grade g on g.id = fe.asmt_grade_id
                       WHERE
-                        f.subject_id = :subject_id
-                        ${sql.schoolYearGradePairsSnippet}
+                        f.subject_id = :subject_id AND school_year_asmt_grade_code IN (:yearGradePairs)
                    ) fe
 
                 groupBy: >-
@@ -101,13 +79,12 @@ sqlbuilder:
                       SELECT
                         f.*,
                         sch.district_id,
+                        sch.embargo_enabled,
                         count(*) OVER (PARTITION BY f.student_id, sch.district_id ) AS years_in_one_org
                       FROM fact_student_exam_longitudinal f
                        JOIN school sch ON sch.id = f.school_id
-                       JOIN grade g on g.id = f.asmt_grade_id
                       WHERE
-                        f.subject_id = :subject_id
-                        ${sql.schoolYearGradePairsSnippet}
+                        f.subject_id = :subject_id AND school_year_asmt_grade_code IN (:yearGradePairs)
                       AND sch.district_id in (:district_ids)
                    ) fe
 
@@ -125,13 +102,12 @@ sqlbuilder:
                        SELECT
                          f.*,
                          sch.district_id,
+                         sch.embargo_enabled,
                          count(*) OVER (PARTITION BY f.student_id, f.school_id ) AS years_in_one_org
                        FROM fact_student_exam_longitudinal f
                         JOIN school sch ON sch.id = f.school_id
-                        JOIN grade g on g.id = f.asmt_grade_id
                        WHERE
-                         f.subject_id = :subject_id
-                         ${sql.schoolYearGradePairsSnippet}
+                         f.subject_id = :subject_id AND school_year_asmt_grade_code IN (:yearGradePairs)
                        AND sch.district_id in (:school_district_ids)
                     ) fe
 
@@ -149,13 +125,12 @@ sqlbuilder:
                        SELECT
                          f.*,
                          sch.district_id,
+                         sch.embargo_enabled,
                          count(*) OVER (PARTITION BY f.student_id, f.school_id ) AS years_in_one_org
                        FROM fact_student_exam_longitudinal f
                         JOIN school sch ON sch.id = f.school_id
-                        JOIN grade g on g.id = f.asmt_grade_id
                        WHERE
-                         subject_id = :subject_id
-                         ${sql.schoolYearGradePairsSnippet}
+                         subject_id = :subject_id AND school_year_asmt_grade_code IN (:yearGradePairs)
                         AND f.school_id in (:school_ids)
                     ) fe
 
@@ -166,7 +141,7 @@ sqlbuilder:
               clauses:
                 where: >-
                     fe.school_year < ${reporting.school-year}
-                    OR sch.embargo_enabled = 0
+                    OR fe.embargo_enabled = 0
                     OR 1 = :state_embargo_admin
                     OR fe.district_id IN (:district_embargo_admin_ids)
 

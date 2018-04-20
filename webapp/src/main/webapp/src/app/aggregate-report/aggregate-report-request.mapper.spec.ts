@@ -10,10 +10,10 @@ import {
 } from '../shared/organization/organization';
 import { AggregateReportOptions } from './aggregate-report-options';
 import {
-  BasicAggregateReportQuery,
-  BasicAggregateReportRequest,
+  AggregateReportQuery,
+  AggregateReportRequest,
   StudentFilters
-} from '../report/basic-aggregate-report-request';
+} from '../report/aggregate-report-request';
 import { AggregateReportFormSettings } from './aggregate-report-form-settings';
 import { of } from 'rxjs/observable/of';
 import Spy = jasmine.Spy;
@@ -57,7 +57,7 @@ describe('AggregateReportRequestMapper', () => {
       section504Codes: [ 'yes' ],
     };
 
-    const query: BasicAggregateReportQuery = {
+    const query: AggregateReportQuery = {
       achievementLevelDisplayType: 'Separate',
       administrativeConditionCodes: [ 'Valid', 'SD' ],
       assessmentGradeCodes: [ '03', '04' ],
@@ -79,7 +79,7 @@ describe('AggregateReportRequestMapper', () => {
       columnOrder: [ 'columnA', 'columnB' ]
     };
 
-    const request: BasicAggregateReportRequest = {
+    const request: AggregateReportRequest = {
       name: 'Report Name',
       query: query
     };
@@ -135,7 +135,7 @@ describe('AggregateReportRequestMapper', () => {
 
     const options = mockOptions();
 
-    const query: BasicAggregateReportQuery = {
+    const query: AggregateReportQuery = {
       achievementLevelDisplayType: 'Separate',
       assessmentGradeCodes: [ '03' ],
       assessmentTypeCode: 'iab',
@@ -151,7 +151,7 @@ describe('AggregateReportRequestMapper', () => {
       valueDisplayType: 'Percent',
     };
 
-    const request: BasicAggregateReportRequest = {
+    const request: AggregateReportRequest = {
       name: 'Report Name',
       query: query
     };

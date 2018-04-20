@@ -1,0 +1,30 @@
+<div class="flex-children">
+  <div class="flex-child">
+
+    <div class="chart-series-legend pallet-a">
+      <ul class="list-unstyled">
+        <li *ngFor="let series of organizationPerformanceSeries; let index = index"
+            class="mb-xs">
+          <button class="btn chart-series color-{{index}} text-left"
+                  [ngClass]="{'chart-series-hidden': !series.visible}"
+                  (click)="toggleSeries(series)">
+            <div>
+              {{series.data.organization.name}}
+            </div>
+            <div class="small">
+              {{'common.organization.type.' + series.data.organization.type | translate}}
+            </div>
+          </button>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="flex-child grow">
+
+    <svg #chartContainer
+         class="longitudinal-cohort-chart"
+         width="100%"></svg>
+
+  </div>
+</div>

@@ -11,7 +11,7 @@ import { Subscription } from "rxjs/Subscription";
 import { Utils } from "../../shared/support/support";
 import { Comparator, ranking } from "@kourge/ordering/comparator";
 import { ordering } from "@kourge/ordering";
-import { BasicAggregateReportQuery } from "../../report/basic-aggregate-report-request";
+import { AggregateReportQuery } from "../../report/aggregate-report-request";
 import { DisplayOptionService } from "../../shared/display-options/display-option.service";
 import { TranslateService } from "@ngx-translate/core";
 import { AggregateReportRequestMapper } from "../aggregate-report-request.mapper";
@@ -81,7 +81,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     return this._displayOptions;
   }
 
-  get query(): BasicAggregateReportQuery {
+  get query(): AggregateReportQuery {
     return this.report.request.query;
   }
 
@@ -216,7 +216,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
       .subscribe(rows => this.initializeReportTables(this.report.request.query, rows));
   }
 
-  private initializeReportTables(query: BasicAggregateReportQuery, rows: AggregateReportRow[]): void {
+  private initializeReportTables(query: AggregateReportQuery, rows: AggregateReportRow[]): void {
     this.reportTables = rows.reduce((tableWrappers, row, index) => {
       const item = this.itemMapper.createRow(query, this.assessmentDefinition, row, index);
       const subjectCode = row.assessment.subjectCode;
