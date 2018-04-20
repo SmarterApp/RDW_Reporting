@@ -24,14 +24,23 @@
       </SubScorePerformanceLevels>
       <SubScores>
         <SubScore code="1" name="Concepts &amp; Procedures">
-          <ClaimId>1</ClaimId>
+          <Bindings>
+            <Binding claimCode="1"></Binding>
+          </Bindings>
           <!-- Optional? -->
           <Icon>fa-book</Icon>
         </SubScore>
-        <SubScore code="SOCK_2" name="Problem Solving &amp; Modeling / Data Analysis" claimIds="2,4">
+        <SubScore code="SOCK_2" name="Problem Solving &amp; Modeling / Data Analysis">
+          <Bindings>
+            <Binding claimCode="2"></Binding>
+            <Binding claimCode="4"></Binding>
+          </Bindings>
           <Icon>fa-edit</Icon>
         </SubScore>
         <SubScore code="3" name="Communicating Reasoning">
+          <Bindings>
+            <Binding claimCode="3"></Binding>
+          </Bindings>
           <Icon>fa-question</Icon>
         </SubScore>
       </SubScores>
