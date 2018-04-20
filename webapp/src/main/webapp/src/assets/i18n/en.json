@@ -941,6 +941,7 @@
     "template-file": "groups"
   },
   "group-dashboard": {
+    "heading-name": "Student Groups",
     "name": "Assessment Reports"
   },
   "group-import": {
