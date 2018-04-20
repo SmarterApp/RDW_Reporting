@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Group } from '../groups/group';
 import { MeasuredAssessment } from './measured-assessment';
 import { ColorService } from '../shared/color.service';
+import { GradeCode } from '../shared/enum/grade-code.enum';
 
 @Component({
   selector: 'assessment-card',
@@ -45,6 +46,10 @@ export class AssessmentCardComponent implements OnInit {
       measuredAssessment: this.measuredAssessment,
       selected: this.selected
     });
+  }
+
+  getGradeColor(): string {
+    return this.colorService.getColor(GradeCode.getIndex(this.measuredAssessment.assessment.grade));
   }
 }
 

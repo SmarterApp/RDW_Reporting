@@ -2,7 +2,7 @@
 
   <span class="check"><i class="fa fa-check"></i></span>
   <span
-    class="label green">{{ 'common.assessment-grade-short-label.' + measuredAssessment.assessment.grade | translate}}</span>
+    class="label" [ngClass]="getGradeColor()">{{ 'common.assessment-grade-short-label.' + measuredAssessment.assessment.grade | translate}}</span>
   <span class="title">{{ measuredAssessment.assessment.label }}</span>
   <span class="date">{{ measuredAssessment.date | date }}</span>
   <div class="students">
