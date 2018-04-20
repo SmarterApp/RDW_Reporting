@@ -23,35 +23,34 @@ export class AggregateReportOptionsService {
   }
 
   getReportOptions(): Observable<AggregateReportOptions> {
-    return this.dataService.get(`${ServiceRoute}/reportOptions`)
-      .pipe(
-        map(options => <AggregateReportOptions>{
-          assessmentGrades: options.assessmentGrades.reverse(),
-          assessmentTypes: options.assessmentTypes.sort(assessmentTypeComparator),
-          completenesses: options.completenesses.sort(completenessComparator),
-          defaultOrganization: options.defaultOrganization
-            ? this.organizationMapper.map(options.defaultOrganization)
-            : undefined,
-          dimensionTypes: options.dimensionTypes,
-          interimAdministrationConditions: options.interimAdministrationConditions,
-          queryTypes: [ 'Basic', 'FilteredSubgroup' ],
-          reportTypes: [ 'GeneralPopulation', 'LongitudinalCohort' ],
-          schoolYears: options.schoolYears,
-          statewideReporter: options.statewideReporter,
-          subjects: options.subjects,
-          summativeAdministrationConditions: options.summativeAdministrationConditions,
-          studentFilters: {
-            economicDisadvantages: options.economicDisadvantages.sort(booleanComparator),
-            ethnicities: options.ethnicities,
-            genders: options.genders,
-            individualEducationPlans: options.individualEducationPlans.sort(booleanComparator),
-            limitedEnglishProficiencies: options.limitedEnglishProficiencies.sort(booleanComparator),
-            englishLanguageAcquisitionStatuses: options.englishLanguageAcquisitionStatuses,
-            migrantStatuses: options.migrantStatuses.sort(booleanComparator),
-            section504s: options.section504s.sort(booleanComparator)
-          }
-        })
-      );
+    return this.dataService.get(`${ServiceRoute}/reportOptions`).pipe(
+      map(serverOptions => <AggregateReportOptions>{
+        assessmentGrades: serverOptions.assessmentGrades.concat().reverse(),
+        assessmentTypes: serverOptions.assessmentTypes.concat().sort(assessmentTypeComparator),
+        completenesses: serverOptions.completenesses.concat().sort(completenessComparator),
+        defaultOrganization: serverOptions.defaultOrganization
+          ? this.organizationMapper.map(serverOptions.defaultOrganization)
+          : undefined,
+        dimensionTypes: serverOptions.dimensionTypes.concat(),
+        interimAdministrationConditions: serverOptions.interimAdministrationConditions.concat(),
+        queryTypes: [ 'Basic', 'FilteredSubgroup' ],
+        reportTypes: [ 'GeneralPopulation', 'LongitudinalCohort' ],
+        schoolYears: serverOptions.schoolYears.concat(),
+        statewideReporter: serverOptions.statewideReporter,
+        subjects: serverOptions.subjects.concat(),
+        summativeAdministrationConditions: serverOptions.summativeAdministrationConditions.concat(),
+        studentFilters: {
+          economicDisadvantages: serverOptions.economicDisadvantages.concat().sort(booleanComparator),
+          ethnicities: serverOptions.ethnicities.concat(),
+          genders: serverOptions.genders.concat(),
+          individualEducationPlans: serverOptions.individualEducationPlans.concat().sort(booleanComparator),
+          limitedEnglishProficiencies: serverOptions.limitedEnglishProficiencies.concat().sort(booleanComparator),
+          englishLanguageAcquisitionStatuses: serverOptions.englishLanguageAcquisitionStatuses.concat(),
+          migrantStatuses: serverOptions.migrantStatuses.concat().sort(booleanComparator),
+          section504s: serverOptions.section504s.concat().sort(booleanComparator)
+        }
+      })
+    );
   }
 
 }

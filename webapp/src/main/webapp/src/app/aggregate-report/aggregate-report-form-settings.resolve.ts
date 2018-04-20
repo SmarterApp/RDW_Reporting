@@ -3,7 +3,7 @@ import { AggregateReportService } from "./aggregate-report.service";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import { AggregateReportFormSettings } from "./aggregate-report-form-settings";
-import { BasicAggregateReportRequest } from "../report/basic-aggregate-report-request";
+import { AggregateReportRequest } from "../report/aggregate-report-request";
 import { AggregateReportOptionsMapper } from "./aggregate-report-options.mapper";
 import { AggregateReportRequestMapper } from "./aggregate-report-request.mapper";
 import { AggregateReportOptions } from "./aggregate-report-options";
@@ -27,7 +27,7 @@ export class AggregateReportFormSettingsResolve implements Resolve<AggregateRepo
     const reportId: string = route.queryParamMap.get('src');
     if (reportId) {
       return this.service.getReportById(Number.parseInt(reportId))
-        .flatMap(report => this.requestMapper.toSettings(<BasicAggregateReportRequest>report.request, options))
+        .flatMap(report => this.requestMapper.toSettings(<AggregateReportRequest>report.request, options))
         .pipe(
           map(settings => Object.assign(settings, {
             name: Utils.appendOrIncrementFileNameSuffix(settings.name)

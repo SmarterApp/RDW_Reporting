@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SubgroupFilters } from './subgroup-filters';
 import { SubgroupFilterFormOptions } from './subgroup-filter-form-options';
-import { ApplicationSettingsService } from '../app-settings.service';
+import { ApplicationSettingsService } from '../../app-settings.service';
 
 @Component({
   selector: 'subgroup-filters',
-  templateUrl: 'subgroup-filters.component.html'
+  templateUrl: './subgroup-filters.component.html'
 })
 export class SubgroupFiltersComponent {
 

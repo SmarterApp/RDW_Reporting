@@ -18,8 +18,7 @@ export class AssessmentCardComponent implements OnInit {
 
   percents: number[] = [];
   dataWidths: number[] = [];
-
-  private selected = false;
+  selected = false;
 
   constructor(public colorService: ColorService) {
   }

@@ -37,6 +37,7 @@ import { AggregateReportResolve } from './aggregate-report/results/aggregate-rep
 import { AggregateReportOptionsResolve } from './aggregate-report/aggregate-report-options.resolve';
 import { AssessmentDefinitionResolve } from './aggregate-report/assessment/assessment-definition.resolve';
 import { AggregateReportFormSettingsResolve } from './aggregate-report/aggregate-report-form-settings.resolve';
+import { LongitudinalPlaygroundComponent } from './aggregate-report/results/longitudinal-playground.component';
 import { GroupDashboardComponent } from './group-dashboard/group-dashboard.component';
 
 const adminRoute = {
@@ -351,6 +352,11 @@ export const routes: Routes = [
         path: 'error',
         pathMatch: 'full',
         component: ErrorComponent
+      },
+      // temporary TODO remove
+      {
+        path: 'longitudinal-playground',
+        component: LongitudinalPlaygroundComponent
       }
     ]
   },

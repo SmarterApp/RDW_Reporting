@@ -1,12 +1,15 @@
 /**
  * Represents a basic aggregate report request
  */
-export interface BasicAggregateReportRequest {
+export interface AggregateReportRequest {
   readonly name: string;
-  readonly query: BasicAggregateReportQuery;
+  readonly query: AggregateReportQuery;
 }
 
-export interface BasicAggregateReportQuery {
+/**
+ * This is amorphous to support any combination of "queryType" and "reportType"
+ */
+export interface AggregateReportQuery {
 
   // Common params
   readonly achievementLevelDisplayType: string;

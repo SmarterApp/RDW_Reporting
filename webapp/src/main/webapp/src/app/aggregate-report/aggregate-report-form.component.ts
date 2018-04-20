@@ -11,7 +11,7 @@ import { OrganizationTypeahead } from '../shared/organization/organization-typea
 import { AggregateReportOrganizationService } from './aggregate-report-organization.service';
 import { AggregateReportService } from './aggregate-report.service';
 import { AggregateReportTable, SupportedRowCount } from './results/aggregate-report-table.component';
-import { BasicAggregateReportRequest } from '../report/basic-aggregate-report-request';
+import { AggregateReportRequest } from '../report/aggregate-report-request';
 import { AggregateReportOptionsMapper } from './aggregate-report-options.mapper';
 import { AggregateReportTableDataService } from './aggregate-report-table-data.service';
 import { AssessmentDefinition } from './assessment/assessment-definition';
@@ -25,10 +25,10 @@ import { finalize, map, mergeMap } from 'rxjs/operators';
 import { Observer } from 'rxjs/Observer';
 import { ranking } from '@kourge/ordering/comparator';
 import { ordering } from '@kourge/ordering';
-import { SubgroupFilters, SubgroupFilterSupport } from './subgroup-filters';
-import { SubgroupMapper } from './subgroup.mapper';
-import { SubgroupFiltersListItem } from './subgroup-filters-list-item';
+import { SubgroupFilters, SubgroupFilterSupport } from './subgroup/subgroup-filters';
+import { SubgroupMapper } from './subgroup/subgroup.mapper';
 import { fileName, notEmpty } from '../shared/form/validators';
+import { SubgroupItem } from './subgroup/subgroup-item';
 
 const OrganizationComparator = (a: Organization, b: Organization) => a.name.localeCompare(b.name);
 
@@ -120,7 +120,7 @@ export class AggregateReportFormComponent {
   /**
    * Custom subgroup display items
    */
-  subgroupItems: SubgroupFiltersListItem[] = [];
+  subgroupItems: SubgroupItem[] = [];
 
   /**
    * Controls for view invalidation
@@ -149,7 +149,7 @@ export class AggregateReportFormComponent {
 
     this.customSubgroup = SubgroupFilterSupport.copy(this.aggregateReportOptions.studentFilters);
     this.subgroupItems = this.settings.subgroups
-      .map(subgroup => this.subgroupMapper.createSubgroupFiltersListItem(subgroup));
+      .map(subgroup => this.subgroupMapper.createItemsFromFilters(subgroup, this.aggregateReportOptions.dimensionTypes));
 
     this.showAdvancedFilters = !SubgroupFilterSupport.equals(this.settings.studentFilters, this.aggregateReportOptions.studentFilters);
 
@@ -201,7 +201,7 @@ export class AggregateReportFormComponent {
       control.updateValueAndValidity();
     };
 
-    if (this.settings.reportType === 'GeneralPopulation') {
+    if (this.settings.reportType === 'GeneralPopulation' || !this.currentAssessmentDefinition.aggregateReportLongitudinalCohortEnabled) {
       setValidators(this.assessmentGradesControl, [
         notEmpty({ messageId: 'aggregate-report-form.field.assessment-grades-empty-error' })
       ]);
@@ -209,7 +209,7 @@ export class AggregateReportFormComponent {
         notEmpty({ messageId: 'aggregate-report-form.field.school-year-empty-error' })
       ]);
       setValidators(this.assessmentGradeRangeControl, null);
-    } else {
+    } else if (this.settings.reportType === 'LongitudinalCohort' && this.currentAssessmentDefinition.aggregateReportLongitudinalCohortEnabled) {
       setValidators(this.assessmentGradesControl, null);
       setValidators(this.schoolYearsControl, null);
       setValidators(this.assessmentGradeRangeControl, [
@@ -309,7 +309,6 @@ export class AggregateReportFormComponent {
   }
 
   onReportTypeChange(): void {
-    this.updateValidators();
     this.onSettingsChange();
   }
 
@@ -319,20 +318,23 @@ export class AggregateReportFormComponent {
   }
 
   onCreateCustomSubgroupButtonClick(): void {
-    this.settings.subgroups = this.settings.subgroups.concat([
-      SubgroupFilterSupport.leftDifference(this.customSubgroup, this.aggregateReportOptions.studentFilters)
-    ]);
-    this.subgroupItems = this.settings.subgroups
-      .map(subgroup => this.subgroupMapper.createSubgroupFiltersListItem(subgroup));
+    const created = SubgroupFilterSupport
+      .leftDifference(this.customSubgroup, this.aggregateReportOptions.studentFilters);
+
+    const createdItem = this.subgroupMapper
+      .createItemsFromFilters(created, this.aggregateReportOptions.dimensionTypes);
+
+    this.settings.subgroups = this.settings.subgroups.concat(created);
+    this.subgroupItems = this.subgroupItems.concat(createdItem);
 
     this.onSettingsChange();
   }
 
-  onCustomSubgroupItemRemoveButtonClick(item: SubgroupFiltersListItem): void {
+  onCustomSubgroupItemRemoveButtonClick(item: SubgroupItem): void {
     this.settings.subgroups = this.settings.subgroups
-      .filter(subgroup => subgroup !== item.value);
+      .filter(subgroup => subgroup !== item.source);
     this.subgroupItems = this.subgroupItems
-      .filter(subgroupItem => subgroupItem !== item);
+      .filter(subgroup => subgroup !== item);
     this.onSettingsChange();
   }
 
@@ -412,7 +414,11 @@ export class AggregateReportFormComponent {
     this.previewTable = {
       assessmentDefinition: this.currentAssessmentDefinition,
       options: this.aggregateReportOptions,
-      rows: this.tableDataService.createSampleData(this.currentAssessmentDefinition, this.settings)
+      rows: this.tableDataService.createSampleData(
+        this.currentAssessmentDefinition,
+        this.settings,
+        this.aggregateReportOptions
+      )
     };
   }
 
@@ -420,6 +426,8 @@ export class AggregateReportFormComponent {
    * Reloads the report preview based on current form state
    */
   onSettingsChange(): void {
+    this.updateValidators();
+
     // invalidate all setting-dependent views
     this.estimatedRowCount = undefined;
     if (this.reviewSectionInvalid) {
@@ -540,9 +548,9 @@ export class AggregateReportFormComponent {
   /**
    * Creates an aggregate report request from a
    *
-   * @returns {BasicAggregateReportRequest} the created request
+   * @returns {AggregateReportRequest} the created request
    */
-  private createReportRequest(): BasicAggregateReportRequest {
+  private createReportRequest(): AggregateReportRequest {
     return this.requestMapper.map(this.options, this.settings, this.currentAssessmentDefinition);
   }
 

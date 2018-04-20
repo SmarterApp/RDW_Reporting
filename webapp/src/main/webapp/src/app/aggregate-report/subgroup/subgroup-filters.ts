@@ -50,8 +50,7 @@ const equalSets = (a: any[], b: any[]) => {
       a != null
       && b != null
       && a.length === b.length
-      && _.isEqual(a.sort(), b.sort()
-      )
+      && _.isEqual(a.concat().sort(), b.concat().sort())
     );
 };
 

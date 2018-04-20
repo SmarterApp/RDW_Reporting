@@ -44,4 +44,9 @@ export interface AssessmentDefinition {
    */
   readonly aggregateReportStateResultsEnabled: boolean;
 
+  /**
+   * True if the definition supports longitudinal cohort reports
+   */
+  readonly aggregateReportLongitudinalCohortEnabled: boolean;
+
 }

@@ -1,5 +1,5 @@
 import { District, School } from "../shared/organization/organization";
-import {SubgroupFilters} from "./subgroup-filters";
+import {SubgroupFilters} from "./subgroup/subgroup-filters";
 import { AggregateReportType } from './aggregate-report-type';
 import { AggregateReportQueryType } from './aggregate-report-query-type';
 

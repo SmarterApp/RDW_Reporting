@@ -922,6 +922,189 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
   white-space: nowrap;
 }
 
+/**
+ * Longitudinal Cohort Chart
+ */
+
+@opacity-softest: 0.09;
+@opacity-softer: 0.18;
+@opacity-soft: 0.45;
+@opacity-softened: 0.66;
+
+.chart-series-legend {
+
+  &.pallet-a {
+    .chart-series {
+      &.color-0 { background-color: @gray-darkest; }
+      &.color-1 { background-color: @aqua; }
+      &.color-2 { background-color: @green; }
+    }
+  }
+
+  .chart-series {
+    color: #fff;
+    font-size: 80%;
+    padding: @padding-xs-vertical @padding-xs-horizontal;
+    border-radius: @border-radius-base;
+    outline: none;
+    &:active,&:focus {
+      outline: none;
+    }
+    &.chart-series-hidden {
+      opacity: @opacity-softer;
+    }
+  }
+}
+
+.longitudinal-cohort-chart {
+
+  min-width: 800px;
+  height: 520px;
+
+  @stroke-width-1: 3px;
+  @stroke-width-2: 4px;
+
+  font-size: 10px;
+
+  path {
+    fill: none;
+  }
+
+  text {
+    fill: #000;
+  }
+
+  .axis {
+
+    .domain {
+      stroke: none;
+    }
+
+    path,
+    line {
+      shape-rendering: crispEdges;
+    }
+
+    .tick line {
+      stroke: #000;
+    }
+
+    &.x .tick {
+      line {
+        opacity: @opacity-softer;
+      }
+      text {
+        opacity: @opacity-softened;
+      }
+    }
+    &.y .tick {
+      &:nth-child(odd) {
+        line {
+          opacity: @opacity-softest;
+        }
+        text {
+          opacity: @opacity-soft;
+        }
+      }
+      &:nth-child(even) {
+        line {
+          opacity: @opacity-softer;
+        }
+        text {
+          opacity: @opacity-softened;
+        }
+      }
+    }
+
+    .grade {
+      font-weight: bold;
+      font-size: 90%;
+      transform: translate(0, 28px);
+    }
+
+  }
+
+  .scale-score-lines {
+    .scale-score-line {
+      .line {
+        stroke-width: @stroke-width-2;
+      }
+      .point {
+        stroke-width: @stroke-width-1;
+        fill: #fff;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .scale-score-areas {
+    .scale-score-area {
+      fill-opacity: @opacity-softer;
+    }
+    .scale-score-area:last-child .scale-score-area-divider {
+      display: none;
+    }
+    .scale-score-area-divider {
+      stroke: #fff;
+      stroke-width: @stroke-width-1;
+    }
+  }
+
+  .scale-score-area-labels {
+    .scale-score-area-labels-description {
+      .strong {
+        font-weight: bold;
+      }
+    }
+    .scale-score-area-label {
+      .bracket {
+        stroke-width: @stroke-width-1;
+      }
+      .label-text {
+        fill: #fff;
+      }
+    }
+  }
+
+  .pallet-a {
+    .color-0 {
+      .color-stroke { stroke: @gray-darkest; }
+      .color-fill { fill: @gray-darkest; }
+    }
+    .color-1 {
+      .color-stroke { stroke: @aqua; }
+      .color-fill { fill: @aqua; }
+    }
+    .color-2 {
+      .color-stroke { stroke: @green; }
+      .color-fill { fill: @green; }
+    }
+  }
+
+  .pallet-b {
+    .color-0 {
+      .color-stroke { stroke: @maroon; }
+      .color-fill { fill: @maroon; }
+    }
+    .color-1 {
+      .color-stroke { stroke: @gray-darkest; }
+      .color-fill { fill: @gray-darkest; }
+    }
+    .color-2 {
+      .color-stroke { stroke: @green-dark; }
+      .color-fill { fill: @green-dark; }
+    }
+    .color-3 {
+      .color-stroke { stroke: @blue-dark; }
+      .color-fill { fill: @blue-dark; }
+    }
+  }
+}
+
+
+/**
+ * IAB Dashboards
+ */
 @spacer: 17px;
 // Animation Variables
 // Transition Durations
@@ -1085,3 +1268,4 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
 .col-btn {
   margin-top: 25px;
 }
+

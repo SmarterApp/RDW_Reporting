@@ -1,4 +1,5 @@
 import { Organization } from "../../shared/organization/organization";
+import { Subgroup } from '../subgroup/subgroup';
 
 /**
  * This model represents an aggregate report data table row result.
@@ -29,6 +30,6 @@ export class AggregateReportItem {
     }
   };
   organization: Organization;
-  dimension: {id: string, name: string};
+  subgroup: Subgroup;
 }
 

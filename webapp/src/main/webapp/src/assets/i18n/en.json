@@ -1085,6 +1085,12 @@
   "item-writing-trait-score": {
     "writing-trait-purpose": "Writing Purpose: {{traitType}}"
   },
+  "longitudinal-cohort-chart": {
+    "area-description": {
+      "text": "Achievement Level",
+      "subtext": "relative to standard"
+    }
+  },
   "order-selector": {
     "move-left": "Move Left",
     "move-right": "Move Right"
