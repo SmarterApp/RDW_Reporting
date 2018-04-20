@@ -1,6 +1,6 @@
 <page-heading>
   <ng-template #heading>
-    <h2>{{'group-dashboard.heading-name' | translate}}</h2>
+    <h2>{{'group-dashboard.heading' | translate}}</h2>
   </ng-template>
   <ng-template #content>
     <ul class="list-unstyled list-inline" *ngIf="group">
@@ -50,6 +50,7 @@
                 [(ngModel)]="currentSubject"
                 class="form-control"
                 (change)="updateRoute()">
+          <option selected [ngValue]="undefined">{{'common.subject.ALL.short-name' | translate}}</option>
           <option *ngFor="let subject of filterOptions.subjects"
                   [ngValue]="subject">{{'common.subject.' + subject + '.short-name' | translate}}
           </option>
@@ -60,8 +61,6 @@
           'assessment-card.view-assessments' | translate }}<i class="ml-xs fa fa-angle-right"></i></a>
       </div>
     </div>
-
-
   </ng-container>
 </ng-template>
 

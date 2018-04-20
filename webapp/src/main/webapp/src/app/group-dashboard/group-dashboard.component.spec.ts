@@ -31,9 +31,9 @@ describe('GroupDashboardComponent', () => {
       expect(builder).toBeTruthy();
     }));
 
-  it('should return "ALL" subject by default',
+  it('should return undefined subject by default',
     inject([ GroupDashboardComponent ], (builder: GroupDashboardComponent) => {
-      expect(builder.currentSubject).toEqual('ALL');
+      expect(builder.currentSubject).toBeUndefined();
     }));
 
   it('should respect card view enabled property',

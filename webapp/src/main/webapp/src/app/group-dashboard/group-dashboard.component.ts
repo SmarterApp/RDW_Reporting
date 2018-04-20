@@ -22,7 +22,7 @@ export class GroupDashboardComponent implements OnInit {
   currentSchoolYear: number;
   currentGroup: Group;
   private _currentSubject: string;
-  private selectedAssessments: number[] = [];
+  private selectedAssessments: MeasuredAssessment[] = [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -42,13 +42,11 @@ export class GroupDashboardComponent implements OnInit {
       this.groups = groups;
       const { schoolYear } = this.route.snapshot.params;
       this.filterOptions = filterOptions;
-      this.updateFilterOptions();
       this.currentSchoolYear = Number.parseInt(schoolYear) || filterOptions.schoolYears[ 0 ];
       this.groupDashboardService.getAvailableMeasuredAssessments(group, this.currentSchoolYear).subscribe(measuredAssessments => {
         this.measuredAssessments = measuredAssessments;
       });
     });
-
   }
 
   compareGroups(g1: Group, g2: Group): boolean {
@@ -62,13 +60,12 @@ export class GroupDashboardComponent implements OnInit {
   updateRoute(changeSource: string): void {
     this.selectedAssessments = [];
     this.router.navigate([ 'group-dashboard', this.currentGroup.id, {
-      schoolYear: this.currentSchoolYear,
-      subject: this.currentSubject
+      schoolYear: this.currentSchoolYear
     } ]).then(() => {
       this.groupService.getGroup(this.currentGroup.id).subscribe((group) => {
         this.group = group;
         this.groupDashboardService.getAvailableMeasuredAssessments(group, this.currentSchoolYear).subscribe(measuredAssessments => {
-          if (this.currentSubject === 'ALL') {
+          if (!this.currentSubject) {
             this.measuredAssessments = measuredAssessments;
           } else {
             this.measuredAssessments = measuredAssessments.filter(
@@ -76,14 +73,10 @@ export class GroupDashboardComponent implements OnInit {
           }
         });
       });
-      // TODO analytics
     });
   }
 
   get currentSubject(): string {
-    if (!this._currentSubject) {
-      return 'ALL';
-    }
     return this._currentSubject;
   }
 
@@ -94,16 +87,10 @@ export class GroupDashboardComponent implements OnInit {
       measuredAssessment => measuredAssessment.assessment.subject === this._currentSubject);
   }
 
-  private updateFilterOptions(): void {
-    this.filterOptions.subjects.unshift('ALL');
-  }
-
   onCardSelection(event: AssessmentCardEvent) {
-    if (event.selected) {
-      this.selectedAssessments.push(event.measuredAssessment.assessment.id);
-    } else {
-      this.selectedAssessments = this.selectedAssessments.filter(id => id !== event.measuredAssessment.assessment.id);
-    }
+    this.selectedAssessments = event.selected ? this.selectedAssessments.concat(event.measuredAssessment)
+      : this.selectedAssessments.filter(measuredAssessment =>
+        measuredAssessment.assessment.id !== event.measuredAssessment.assessment.id);
   }
 
 }
