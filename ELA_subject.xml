@@ -2,12 +2,10 @@
   <StandardsDescription><![CDATA[This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  For example, a question that asks students to evaluate research sources may assess both reading and research skills.  For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf\" target=\"_blank\">English Language Arts Content Specifications</a>.]]></StandardsDescription>
   <AssessmentTypes>
     <AssessmentType code="ica">
-      <PerformanceLevels>
+      <PerformanceLevels standardCutoff="3">
         <PerformanceLevel level="1" name="Did Not Meet Standard"/>
         <PerformanceLevel level="2" name="Nearly Met Standard"/>
-        <PerformanceLevel level="3" name="Met Standard">
-          <GroupingCutpoint>true</GroupingCutpoint>
-        </PerformanceLevel>
+        <PerformanceLevel level="3" name="Met Standard"/>
         <PerformanceLevel level="4" name="Exceeded Standard"/>
       </PerformanceLevels>
       <ItemDifficulties>
@@ -44,12 +42,10 @@
       </ItemDifficulties>
     </AssessmentType>
     <AssessmentType code="sum">
-      <PerformanceLevels>
+      <PerformanceLevels standardCutoff="3">
         <PerformanceLevel level="1" name="Did Not Meet Standard"/>
         <PerformanceLevel level="2" name="Nearly Met Standard"/>
-        <PerformanceLevel level="3" name="Met Standard">
-          <GroupingCutpoint>true</GroupingCutpoint>
-        </PerformanceLevel>
+        <PerformanceLevel level="3" name="Met Standard"/>
         <PerformanceLevel level="4" name="Exceeded Standard"/>
       </PerformanceLevels>
       <SubScoring>
