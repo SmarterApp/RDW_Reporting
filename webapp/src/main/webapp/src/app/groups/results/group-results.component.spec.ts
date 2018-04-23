@@ -6,7 +6,6 @@ import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.m
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { Angulartics2 } from "angulartics2";
 import { CsvExportService } from "../../csv-export/csv-export.service";
-import { MockActivatedRoute } from "../../../test/mock.activated-route";
 import { GroupResultsComponent } from "./group-results.component";
 import { GroupAssessmentService } from "./group-assessment.service";
 import { UserModule } from "../../user/user.module";
@@ -18,6 +17,7 @@ import { of } from "rxjs/observable/of";
 import { GroupService } from '../group.service';
 import { MockUserService } from '../../../test/mock.user.service';
 import { UserService } from '../../user/user.service';
+import { MockActivatedRoute } from '../../shared/test/mock.activated-route';
 
 let availableGrades = [];
 

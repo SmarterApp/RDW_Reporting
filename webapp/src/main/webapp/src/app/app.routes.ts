@@ -1,43 +1,44 @@
-import { HomeComponent } from "./home/home.component";
-import { Routes } from "@angular/router";
-import { GroupResultsComponent } from "./groups/results/group-results.component";
-import { GroupAssessmentsResolve } from "./groups/results/group-assessments.resolve";
-import { SchoolAssessmentResolve } from "./school-grade/results/school-assessments.resolve";
-import { SchoolResultsComponent } from "./school-grade/results/school-results.component";
-import { CurrentSchoolResolve } from "./school-grade/results/current-school.resolve";
-import { StudentResultsComponent } from "./student/results/student-results.component";
-import { StudentExamHistoryResolve } from "./student/results/student-exam-history.resolve";
-import { StudentResponsesResolve } from "./student/responses/student-responses.resolve";
-import { StudentResponsesComponent } from "./student/responses/student-responses.component";
-import { TranslateResolve } from "./home/translate.resolve";
-import { StudentHistoryResponsesExamResolve } from "./student/responses/student-history-responses-exam.resolve";
-import { StudentHistoryResponsesAssessmentResolve } from "./student/responses/student-history-responses-assessment.resolve";
-import { StudentHistoryResponsesStudentResolve } from "./student/responses/student-history-responses-student.resolve";
-import { ReportsResolve } from "./report/reports.resolve";
-import { ReportsComponent } from "./report/reports.component";
-import { ErrorComponent } from "./error/error.component";
-import { AccessDeniedComponent } from "./error/access-denied/access-denied.component";
-import { OrganizationExportComponent } from "./organization-export/organization-export.component";
-import { UserOrganizationsResolve } from "./organization-export/organization/user-organizations.resolve";
-import { InstructionalResourceComponent } from "./admin/instructional-resource/instructional-resource.component";
-import { EmbargoComponent } from "./admin/embargo/embargo.component";
-import { EmbargoResolve } from "./admin/embargo/embargo.resolve";
-import { ImportHistoryComponent } from "./admin/groups/import/history/import-history.component";
-import { FileFormatComponent } from "./admin/groups/import/fileformat/file-format.component";
-import { ImportHistoryResolve } from "./admin/groups/import/history/import-history.resolve";
-import { GroupImportComponent } from "./admin/groups/import/group-import.component";
-import { GroupImportDeactivateGuard } from "./admin/groups/import/group-import.deactivate";
-import { GroupsComponent } from "./admin/groups/groups.component";
-import { SessionExpiredComponent } from "./shared/security/session-expired.component";
-import { AuthorizationCanActivate } from "./shared/security/authorization.can-activate";
-import { RoutingAuthorizationCanActivate } from "./shared/security/routing-authorization.can-activate";
-import { AggregateReportComponent } from "./aggregate-report/results/aggregate-report.component";
-import { AggregateReportFormComponent } from "./aggregate-report/aggregate-report-form.component";
-import { AggregateReportResolve } from "./aggregate-report/results/aggregate-report.resolve";
-import { AggregateReportOptionsResolve } from "./aggregate-report/aggregate-report-options.resolve";
-import { AssessmentDefinitionResolve } from "./aggregate-report/assessment/assessment-definition.resolve";
-import { AggregateReportFormSettingsResolve } from "./aggregate-report/aggregate-report-form-settings.resolve";
+import { HomeComponent } from './home/home.component';
+import { Routes } from '@angular/router';
+import { GroupResultsComponent } from './groups/results/group-results.component';
+import { GroupAssessmentsResolve } from './groups/results/group-assessments.resolve';
+import { SchoolAssessmentResolve } from './school-grade/results/school-assessments.resolve';
+import { SchoolResultsComponent } from './school-grade/results/school-results.component';
+import { CurrentSchoolResolve } from './school-grade/results/current-school.resolve';
+import { StudentResultsComponent } from './student/results/student-results.component';
+import { StudentExamHistoryResolve } from './student/results/student-exam-history.resolve';
+import { StudentResponsesResolve } from './student/responses/student-responses.resolve';
+import { StudentResponsesComponent } from './student/responses/student-responses.component';
+import { TranslateResolve } from './home/translate.resolve';
+import { StudentHistoryResponsesExamResolve } from './student/responses/student-history-responses-exam.resolve';
+import { StudentHistoryResponsesAssessmentResolve } from './student/responses/student-history-responses-assessment.resolve';
+import { StudentHistoryResponsesStudentResolve } from './student/responses/student-history-responses-student.resolve';
+import { ReportsResolve } from './report/reports.resolve';
+import { ReportsComponent } from './report/reports.component';
+import { ErrorComponent } from './error/error.component';
+import { AccessDeniedComponent } from './error/access-denied/access-denied.component';
+import { OrganizationExportComponent } from './organization-export/organization-export.component';
+import { UserOrganizationsResolve } from './organization-export/organization/user-organizations.resolve';
+import { InstructionalResourceComponent } from './admin/instructional-resource/instructional-resource.component';
+import { EmbargoComponent } from './admin/embargo/embargo.component';
+import { EmbargoResolve } from './admin/embargo/embargo.resolve';
+import { ImportHistoryComponent } from './admin/groups/import/history/import-history.component';
+import { FileFormatComponent } from './admin/groups/import/fileformat/file-format.component';
+import { ImportHistoryResolve } from './admin/groups/import/history/import-history.resolve';
+import { GroupImportComponent } from './admin/groups/import/group-import.component';
+import { GroupImportDeactivateGuard } from './admin/groups/import/group-import.deactivate';
+import { GroupsComponent } from './admin/groups/groups.component';
+import { SessionExpiredComponent } from './shared/security/session-expired.component';
+import { AuthorizationCanActivate } from './shared/security/authorization.can-activate';
+import { RoutingAuthorizationCanActivate } from './shared/security/routing-authorization.can-activate';
+import { AggregateReportComponent } from './aggregate-report/results/aggregate-report.component';
+import { AggregateReportFormComponent } from './aggregate-report/aggregate-report-form.component';
+import { AggregateReportResolve } from './aggregate-report/results/aggregate-report.resolve';
+import { AggregateReportOptionsResolve } from './aggregate-report/aggregate-report-options.resolve';
+import { AssessmentDefinitionResolve } from './aggregate-report/assessment/assessment-definition.resolve';
+import { AggregateReportFormSettingsResolve } from './aggregate-report/aggregate-report-form-settings.resolve';
 import { LongitudinalPlaygroundComponent } from './aggregate-report/results/longitudinal-playground.component';
+import { GroupDashboardComponent } from './group-dashboard/group-dashboard.component';
 
 const adminRoute = {
   path: '',
@@ -215,6 +216,22 @@ export const routes: Routes = [
             component: GroupResultsComponent
           },
           studentTestHistoryChildRoute
+        ]
+      },
+      {
+        path: 'group-dashboard/:groupId',
+        data: {
+          breadcrumb: { translate: 'group-dashboard.name' },
+          permissions: [ 'GROUP_PII_READ' ]
+        },
+        canActivate: [ AuthorizationCanActivate ],
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            data: { canReuse: true },
+            component: GroupDashboardComponent
+          }
         ]
       },
       {

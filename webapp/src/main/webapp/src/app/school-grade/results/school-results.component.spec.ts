@@ -13,7 +13,6 @@ import { Angulartics2 } from "angulartics2";
 import { CsvExportService } from "../../csv-export/csv-export.service";
 import { UserService } from "../../user/user.service";
 import { MockUserService } from "../../../test/mock.user.service";
-import { MockActivatedRoute } from "../../../test/mock.activated-route";
 import { MockDataService } from "../../../test/mock.data.service";
 import { MockRouter } from "../../../test/mock.router";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
@@ -25,6 +24,7 @@ import { DefaultSchool, School } from "../../shared/organization/organization";
 import { SchoolAssessmentExportService } from "./school-assessment-export.service";
 import { of } from 'rxjs/observable/of';
 import { OrganizationService } from "../../shared/organization/organization.service";
+import { MockActivatedRoute } from '../../shared/test/mock.activated-route';
 
 let availableGrades = [];
 let schools = [];

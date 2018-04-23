@@ -3,6 +3,7 @@ export class ExamFilterOptions {
   ethnicities: string[] = [];
   genders: string[] = [];
   elasCodes: string[] = [];
+  subjects: string[] = [];
   hasSummative: boolean = false;
   hasInterim: boolean = false;
 }

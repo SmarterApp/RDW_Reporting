@@ -6,6 +6,11 @@ sqlbuilder:
       # Optionally, filter could be added on too.
       longitudinal:
         clauses:
+          # Just to explain why it could have more than one assessment id in a single aggregate and why we need a 'singleAsmtInAggregate' flag:
+          # For this report we are migrating the latest Summative exam taken by a student and only when an asmt grade is equal to a student enrolled grade.
+          # In a very unlikely case when different school/districts administer different assessments in the same school year we may end up with
+          # multiple assessments in one aggregate. This introduces a challenge of what assessment to return and what cut points to use for the report visualization.
+          # This approach does not solve the problem, but gives enough data to warn the user about this use case.
           select: >-
               round(avg(CASE WHEN fe.years_in_one_org = :cohort_years THEN fe.scale_score ELSE NULL END)) AS cohort_score,
               round(avg(fe.scale_score)) AS score,
@@ -21,7 +26,9 @@ sqlbuilder:
               sum(CASE WHEN (fe.performance_level = 4 AND fe.years_in_one_org = :cohort_years) THEN 1 ELSE 0 END) AS cohort_level4,
               fe.school_year,
               fe.subject_id,
-              fe.asmt_grade_id
+              fe.asmt_grade_id,
+              max(fe.asmt_id) as asmt_id,
+              CASE WHEN max(fe.asmt_id) = min(fe.asmt_id) THEN true ELSE false END AS singleAsmtInAggregate
 
           groupBy: >-
               fe.school_year,
