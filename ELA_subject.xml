@@ -3,10 +3,10 @@
   <AssessmentTypes>
     <AssessmentType code="ica">
       <PerformanceLevels standardCutoff="3">
-        <PerformanceLevel level="1" name="Did Not Meet Standard"/>
-        <PerformanceLevel level="2" name="Nearly Met Standard"/>
-        <PerformanceLevel level="3" name="Met Standard"/>
-        <PerformanceLevel level="4" name="Exceeded Standard"/>
+        <PerformanceLevel level="1" name="Did Not Meet Standard" color="maroon"/>
+        <PerformanceLevel level="2" name="Nearly Met Standard" color="gray-darkest"/>
+        <PerformanceLevel level="3" name="Met Standard" color="green-dark"/>
+        <PerformanceLevel level="4" name="Exceeded Standard" color="blue-dark"/>
       </PerformanceLevels>
       <ItemDifficulties>
         <ItemDifficulty gradeCode="03" moderateLowEnd="-1.93882" difficultLowEnd="-0.43906"/>
@@ -18,18 +18,18 @@
         <ItemDifficulty gradeCode="11" moderateLowEnd="-0.38186" difficultLowEnd="1.5479"/>
       </ItemDifficulties>
       <SubScoring>
-        <SubScorePerformanceLevels>
-          <SubScorePerformanceLevel level="1" name="Below Standard"/>
-          <SubScorePerformanceLevel level="2" name="Near Standard"/>
-          <SubScorePerformanceLevel level="3" name="Above Standard"/>
-        </SubScorePerformanceLevels>
+        <PerformanceLevels>
+          <PerformanceLevel level="1" name="Below Standard" color="aqua"/>
+          <PerformanceLevel level="2" name="Near Standard" color="textured-blue"/>
+          <PerformanceLevel level="3" name="Above Standard" color="blue-dark"/>
+        </PerformanceLevels>
       </SubScoring>
     </AssessmentType>
     <AssessmentType code="iab">
       <PerformanceLevels>
-        <PerformanceLevel level="1" name="Below Standard"/>
-        <PerformanceLevel level="2" name="Near Standard"/>
-        <PerformanceLevel level="3" name="Above Standard"/>
+        <PerformanceLevel level="1" name="Below Standard" color="aqua"/>
+        <PerformanceLevel level="2" name="Near Standard" color="textured-blue"/>
+        <PerformanceLevel level="3" name="Above Standard" color="blue-dark"/>
       </PerformanceLevels>
       <ItemDifficulties>
         <ItemDifficulty gradeCode="03" moderateLowEnd="-1.93882" difficultLowEnd="-0.43906"/>
@@ -43,17 +43,17 @@
     </AssessmentType>
     <AssessmentType code="sum">
       <PerformanceLevels standardCutoff="3">
-        <PerformanceLevel level="1" name="Did Not Meet Standard"/>
-        <PerformanceLevel level="2" name="Nearly Met Standard"/>
-        <PerformanceLevel level="3" name="Met Standard"/>
-        <PerformanceLevel level="4" name="Exceeded Standard"/>
+        <PerformanceLevel level="1" name="Did Not Meet Standard" color="maroon"/>
+        <PerformanceLevel level="2" name="Nearly Met Standard" color="gray-darkest"/>
+        <PerformanceLevel level="3" name="Met Standard" color="green-dark"/>
+        <PerformanceLevel level="4" name="Exceeded Standard" color="blue-dark"/>
       </PerformanceLevels>
       <SubScoring>
-        <SubScorePerformanceLevels>
-          <SubScorePerformanceLevel level="1" name="Below Standard"/>
-          <SubScorePerformanceLevel level="2" name="Near Standard"/>
-          <SubScorePerformanceLevel level="3" name="Above Standard"/>
-        </SubScorePerformanceLevels>
+        <PerformanceLevels>
+          <PerformanceLevel level="1" name="Below Standard" color="aqua"/>
+          <PerformanceLevel level="2" name="Near Standard" color="textured-blue"/>
+          <PerformanceLevel level="3" name="Above Standard" color="blue-dark"/>
+        </PerformanceLevels>
       </SubScoring>
     </AssessmentType>
   </AssessmentTypes>
