@@ -10,7 +10,7 @@
   <xs:element name="Subject">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="StandardsDescription"/>
+        <xs:element ref="Messages"/>
         <xs:element ref="AssessmentTypes"/>
         <xs:element ref="DepthsOfKnowledge"/>
         <xs:element ref="ReportGrades"/>
@@ -25,10 +25,28 @@
   </xs:element>
 
   <!--
-    This is additional informational text displayed to users that describes
-    the values found in the "Standards" column of result tables.
+    This is additional unstructured text displayed to users that is scoped
+    to the subject.
   -->
-  <xs:element name="StandardsDescription" type="xs:string"/>
+  <xs:element name="Messages">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Message"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Message">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <!--
+            The unique message key
+          -->
+          <xs:attribute name="key" use="required" type="xs:string"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
 
   <!--
     AssessmentType elements define the behavior of assessments for this subject
