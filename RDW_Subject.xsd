@@ -5,7 +5,7 @@
            targetNamespace="http://www.smarterbalanced.org/RDW_Subject">
 
   <!--
-    This defines the root Subject element that is defined by the subject payload.
+    This defines the root Subject element contains the subject definition.
   -->
   <xs:element name="Subject">
     <xs:complexType>
