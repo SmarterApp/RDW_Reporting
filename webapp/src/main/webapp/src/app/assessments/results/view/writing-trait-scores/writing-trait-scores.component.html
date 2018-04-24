@@ -1,7 +1,7 @@
 <spinner *ngIf="loading" text="{{'common.messages.loading' | translate}}"></spinner>
 
 <ng-container *ngIf="!loading">
-  <p-table #writingTraitTable
+  <p-table #writingTraitTable *ngIf="!assessment.isSummative"
            [columns]="writingTraitColumns"
            [value]="filteredItems"
            rowExpandMode="single"

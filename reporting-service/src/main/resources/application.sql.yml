@@ -267,7 +267,7 @@ sql:
               ei.item_id,
               ei.score,
               ei.position,
-              ei.response,
+              CASE WHEN a.type_id = 3 THEN NULL ELSE ei.response END as response,
               ei.trait_evidence_elaboration_score,
               ei.trait_organization_purpose_score,
               ei.trait_conventions_score
