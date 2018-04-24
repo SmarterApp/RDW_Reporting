@@ -377,13 +377,19 @@
   <!-- The assessment grades available within the RDW system -->
   <xs:simpleType name="GradeCode">
     <xs:restriction base="xs:string">
+      <xs:enumeration value="KG"/>
+      <xs:enumeration value="01"/>
+      <xs:enumeration value="02"/>
       <xs:enumeration value="03"/>
       <xs:enumeration value="04"/>
       <xs:enumeration value="05"/>
       <xs:enumeration value="06"/>
       <xs:enumeration value="07"/>
       <xs:enumeration value="08"/>
+      <xs:enumeration value="09"/>
+      <xs:enumeration value="10"/>
       <xs:enumeration value="11"/>
+      <xs:enumeration value="12"/>
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>
