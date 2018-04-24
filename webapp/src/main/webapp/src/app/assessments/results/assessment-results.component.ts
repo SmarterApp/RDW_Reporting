@@ -151,7 +151,7 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   get displayItemLevelData(): boolean {
-    return !this._assessmentExam.assessment.isSummative && this.hasExamsAfterMinimumItemYear();
+    return !this._assessmentExam.assessment.isSummative && this.hasExamsAfterMinimumItemYear;
   }
 
   get displayWritingTraitScores(): boolean {
@@ -159,7 +159,7 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   get enableWritingTraitScores(): boolean {
-    return this.hasExamsAfterMinimumItemYear();
+    return this.hasExamsAfterMinimumItemYear;
   }
 
   get showStudentResults(): boolean {
@@ -194,7 +194,7 @@ export class AssessmentResultsComponent implements OnInit {
     return undefined;
   }
 
-  private hasExamsAfterMinimumItemYear(): boolean {
+  private get hasExamsAfterMinimumItemYear(): boolean {
     return this._assessmentExam.exams.some(x => x.schoolYear > this.minimumItemDataYear);
   }
 
