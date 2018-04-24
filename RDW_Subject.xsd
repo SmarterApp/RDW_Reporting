@@ -17,7 +17,7 @@
         <xs:element ref="Categories"/>
         <xs:element ref="Standards"/>
       </xs:sequence>
-      <!-- The subject code must be unique for each subject. -->
+      <!-- The subject code must be unique across the entire system and all vendors. -->
       <xs:attribute name="code" use="required" type="String10"/>
       <!-- This is the display name for the subject. -->
       <xs:attribute name="name" use="required" type="xs:string"/>
@@ -25,8 +25,10 @@
   </xs:element>
 
   <!--
-    This is additional unstructured text displayed to users that is scoped
-    to the subject.
+    Message elements define unstructured subject-scoped text that is displayed to users.
+    For example, the "standards-description" message is displayed to the users as an
+    informational popover describing the contents of a "Standards" column within an
+    assessment item display table.
   -->
   <xs:element name="Messages">
     <xs:complexType>
@@ -39,9 +41,7 @@
     <xs:complexType>
       <xs:simpleContent>
         <xs:extension base="xs:string">
-          <!--
-            The unique message key
-          -->
+          <!-- The message key must be unique for this Subject. -->
           <xs:attribute name="key" use="required" type="xs:string"/>
         </xs:extension>
       </xs:simpleContent>
@@ -51,6 +51,8 @@
   <!--
     AssessmentType elements define the behavior of assessments for this subject
     within the context of a specific assessment type.
+    A subject may have up to 3 assessment types defined, one each for
+    summative, ICA, and IAB.
   -->
   <xs:element name="AssessmentTypes">
     <xs:complexType>
@@ -69,7 +71,7 @@
         <!-- Subscore definitions for assessments of this type -->
         <xs:element ref="SubScoring" minOccurs="0"/>
       </xs:sequence>
-      <!-- The assessment type being defined. -->
+      <!-- The assessment type being defined. Must be "ica," "iab," or "sum." -->
       <xs:attribute name="code" use="required" type="AssessmentTypeCode"/>
     </xs:complexType>
   </xs:element>
@@ -86,7 +88,9 @@
       </xs:sequence>
       <!--
         This optional attribute defines the performance level at which a student
-        has achieved a "successful" level of performance.
+        has achieved a "successful" level of performance and is used in the
+        reporting application to group the data visualization into "below" and
+        "at or above" performance level groups.
       -->
       <xs:attribute name="standardCutoff" type="LevelOfPerformance"/>
     </xs:complexType>
@@ -127,6 +131,8 @@
   <!--
     This element controls the performance levels at which sub scores for the
     parent assessment type are reported.
+    NOTE that for SBAC assessments, this represents the performance levels
+    of Claim and Target-level scores.
   -->
   <xs:element name="SubScoring">
     <xs:complexType>
@@ -165,7 +171,9 @@
     ReportGrade elements define the detailed display messages describing a student's
     performance in generated PDF reports.
     Each ReportGrade contains messages for each assessment type
-    report. ("ica" and "sum", "iab" reports do not contain subject-scoped messages)
+    report.
+    ReportGrades are used only for "ica" and "sum" assessment types,
+    the "iab" reports do not contain subject-scoped messages.
   -->
   <xs:element name="ReportGrades">
     <xs:complexType>
@@ -296,13 +304,13 @@
         across the entire subject.
       -->
       <xs:attribute name="code" use="required" type="String10"/>
+      <!-- The display name for this category. -->
+      <xs:attribute name="name" use="required" type="xs:string"/>
       <!--
         Optional attribute declaring display order when displaying
         categories.  Categories will be displayed in ascending order.
       -->
       <xs:attribute name="displayOrder" type="xs:integer"/>
-      <!-- The display name for this category. -->
-      <xs:attribute name="name" use="required" type="xs:string"/>
     </xs:complexType>
   </xs:element>
 
