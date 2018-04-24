@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.smarterbalanced.org/RDW_Subject"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           targetNamespace="http://www.smarterbalanced.org/RDW_Subject">
+
+  <xs:element name="Subject">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="StandardsDescription"/>
+        <xs:element ref="AssessmentTypes"/>
+        <xs:element ref="DepthsOfKnowledge"/>
+        <xs:element ref="ReportGrades"/>
+        <xs:element ref="Categories"/>
+        <xs:element ref="Standards"/>
+      </xs:sequence>
+      <xs:attribute name="code" use="required" type="String10"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="StandardsDescription" type="xs:string"/>
+
+  <xs:element name="AssessmentTypes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="3" ref="AssessmentType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="AssessmentType">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="PerformanceLevels"/>
+        <xs:element ref="ItemDifficulties" minOccurs="0"/>
+        <xs:element ref="SubScoring" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="code" use="required" type="AssessmentTypeCode"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="PerformanceLevels">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="6" ref="PerformanceLevel"/>
+      </xs:sequence>
+      <xs:attribute name="standardCutoff" type="LevelOfPerformance"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="PerformanceLevel">
+    <xs:complexType>
+      <xs:attribute name="color" use="required" type="Color"/>
+      <xs:attribute name="level" use="required" type="LevelOfPerformance"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ItemDifficulties">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="ItemDifficulty"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ItemDifficulty">
+    <xs:complexType>
+      <xs:attribute name="gradeCode" use="required" type="GradeCode"/>
+      <xs:attribute name="moderateLowEnd" use="required" type="xs:decimal"/>
+      <xs:attribute name="difficultLowEnd" use="required" type="xs:decimal"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SubScoring">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="PerformanceLevels"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="DepthsOfKnowledge">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="DepthOfKnowledge"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="DepthOfKnowledge">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Reference" type="xs:anyURI"/>
+      </xs:sequence>
+      <xs:attribute name="level" use="required" type="xs:integer"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ReportGrades">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="ReportGrade"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ReportGrade">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ReportAssessmentTypes" maxOccurs="3"/>
+      </xs:sequence>
+      <xs:attribute name="code" use="required" type="GradeCode"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ReportAssessmentTypes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="ReportAssessmentType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ReportAssessmentType">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="OverallAchievementMessage" type="xs:string"/>
+        <xs:element name="ClaimAchievementMessage" type="xs:string"/>
+        <xs:element ref="ReportPerformanceLevels"/>
+        <xs:element ref="ReportCategories"/>
+      </xs:sequence>
+      <xs:attribute name="code" use="required" type="AssessmentTypeCode"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ReportPerformanceLevels">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="ReportPerformanceLevel"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ReportPerformanceLevel">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="level" use="required" type="LevelOfPerformance"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ReportCategories">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="ReportCategory"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ReportCategory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ReportPerformanceLevels"/>
+      </xs:sequence>
+      <xs:attribute name="code" use="required" type="String10"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Categories">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Category"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Category">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Icon" type="xs:string"/>
+        <xs:element minOccurs="0" name="Description" type="xs:string"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="Categories"/>
+      </xs:sequence>
+      <xs:attribute name="code" use="required" type="String10"/>
+      <xs:attribute name="displayOrder" type="xs:integer"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Standards">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Standard"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Standard">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Description" type="xs:string"/>
+      </xs:sequence>
+      <xs:attribute name="code" use="required" type="String20"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="AssessmentTypeCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="iab"/>
+      <xs:enumeration value="ica"/>
+      <xs:enumeration value="sum"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="String10">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="10"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="String20">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="20"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Color">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="blue"/>
+      <xs:enumeration value="blue-dark"/>
+      <xs:enumeration value="teal"/>
+      <xs:enumeration value="aqua"/>
+      <xs:enumeration value="green"/>
+      <xs:enumeration value="green-dark"/>
+      <xs:enumeration value="orange"/>
+      <xs:enumeration value="red"/>
+      <xs:enumeration value="red-dark"/>
+      <xs:enumeration value="maroon"/>
+      <xs:enumeration value="black"/>
+      <xs:enumeration value="gray-darkest"/>
+      <xs:enumeration value="gray-darker"/>
+      <xs:enumeration value="gray-dark"/>
+      <xs:enumeration value="gray"/>
+      <xs:enumeration value="gray-light"/>
+      <xs:enumeration value="gray-lighter"/>
+      <xs:enumeration value="gray-lightest"/>
+      <xs:enumeration value="white"/>
+      <xs:enumeration value="textured-blue"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LevelOfPerformance">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="6"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="GradeCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="03"/>
+      <xs:enumeration value="04"/>
+      <xs:enumeration value="05"/>
+      <xs:enumeration value="06"/>
+      <xs:enumeration value="07"/>
+      <xs:enumeration value="08"/>
+      <xs:enumeration value="11"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

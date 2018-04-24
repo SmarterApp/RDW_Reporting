@@ -1,4 +1,9 @@
-<Subject code="ELA" name="ELA">
+<?xml version="1.0" encoding="UTF-8"?>
+<Subject xmlns="http://www.smarterbalanced.org/RDW_Subject"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.smarterbalanced.org/RDW_Subject RDW_Subject.xsd"
+         code="ELA"
+         name="ELA">
   <StandardsDescription><![CDATA[This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  For example, a question that asks students to evaluate research sources may assess both reading and research skills.  For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf\" target=\"_blank\">English Language Arts Content Specifications</a>.]]></StandardsDescription>
   <AssessmentTypes>
     <AssessmentType code="ica">
@@ -57,286 +62,608 @@
       </SubScoring>
     </AssessmentType>
   </AssessmentTypes>
+  <DepthsOfKnowledge>
+    <DepthOfKnowledge level="1" name="Recall and Reproduction">
+      <Reference><![CDATA[https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54]]></Reference>
+    </DepthOfKnowledge>
+    <DepthOfKnowledge level="2" name="Basic Skills and Concepts">
+      <Reference><![CDATA[https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54]]></Reference>
+    </DepthOfKnowledge>
+    <DepthOfKnowledge level="3" name="Strategic Thinking and Reasoning">
+      <Reference><![CDATA[https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54]]></Reference>
+    </DepthOfKnowledge>
+    <DepthOfKnowledge level="4" name="Extended Thinking">
+      <Reference><![CDATA[https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54]]></Reference>
+    </DepthOfKnowledge>
+  </DepthsOfKnowledge>
   <ReportGrades>
     <ReportGrade code="03">
-      <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade three California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
-      <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade three. If the student received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area. To view a description of the student''s achievement level claim (i.e., area), select either [Above Standard], [Near Standard], or [Below Standard] from the student-level selections available in the table below.]]></ClaimAchievementMessage>
-      <ReportPerformanceLevels>
-        <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade three standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="2"><![CDATA[English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="3"><![CDATA[{0} has made progress and met the grade three standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="4"><![CDATA[{0} has made progress and exceeded the grade three standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
-      </ReportPerformanceLevels>
-      <ReportCategories>
-        <ReportCategory code="4-CR">
+      <ReportAssessmentTypes>
+        <ReportAssessmentType code="ica">
+          <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade three California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
+          <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade three. If the student received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area. To view a description of the student''s achievement level claim (i.e., area), select either [Above Standard], [Near Standard], or [Below Standard] from the student-level selections available in the table below.]]></ClaimAchievementMessage>
           <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade three standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="2"><![CDATA[English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="3"><![CDATA[{0} has made progress and met the grade three standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="4"><![CDATA[{0} has made progress and exceeded the grade three standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
           </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="SOCK_LS">
+          <ReportCategories>
+            <ReportCategory code="4-CR">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_LS">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_R">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of high complexity.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="2-W">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+          </ReportCategories>
+        </ReportAssessmentType>
+        <ReportAssessmentType code="sum">
+          <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade three California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
+          <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade three. If the student received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area. To view a description of the student''s achievement level claim (i.e., area), select either [Above Standard], [Near Standard], or [Below Standard] from the student-level selections available in the table below.]]></ClaimAchievementMessage>
           <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade three standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="2"><![CDATA[English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="3"><![CDATA[{0} has made progress and met the grade three standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="4"><![CDATA[{0} has made progress and exceeded the grade three standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
           </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="SOCK_R">
-          <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of high complexity.]]></ReportPerformanceLevel>
-          </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="2-W">
-          <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
-          </ReportPerformanceLevels>
-        </ReportCategory>
-      </ReportCategories>
+          <ReportCategories>
+            <ReportCategory code="4-CR">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_LS">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_R">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of high complexity.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="2-W">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+          </ReportCategories>
+        </ReportAssessmentType>
+      </ReportAssessmentTypes>
     </ReportGrade>
     <ReportGrade code="04">
-      <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade four California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
-      <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade four. If {0} received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area.]]></ClaimAchievementMessage>
-      <ReportPerformanceLevels>
-        <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade four standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="2"><![CDATA[{0} nearly met the grade four standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="3"><![CDATA[{0} has made progress and met the grade four standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="4"><![CDATA[{0} has made progress and exceeded the grade four standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
-      </ReportPerformanceLevels>
-      <ReportCategories>
-        <ReportCategory code="4-CR">
+      <ReportAssessmentTypes>
+        <ReportAssessmentType code="ica">
+          <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade four California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
+          <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade four. If {0} received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area.]]></ClaimAchievementMessage>
           <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade four standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="2"><![CDATA[{0} nearly met the grade four standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="3"><![CDATA[{0} has made progress and met the grade four standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="4"><![CDATA[{0} has made progress and exceeded the grade four standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
           </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="SOCK_LS">
+          <ReportCategories>
+            <ReportCategory code="4-CR">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_LS">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_R">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of high complexity.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="2-W">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+          </ReportCategories>
+        </ReportAssessmentType>
+        <ReportAssessmentType code="sum">
+          <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade four California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
+          <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade four. If {0} received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area.]]></ClaimAchievementMessage>
           <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade four standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="2"><![CDATA[{0} nearly met the grade four standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="3"><![CDATA[{0} has made progress and met the grade four standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="4"><![CDATA[{0} has made progress and exceeded the grade four standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
           </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="SOCK_R">
-          <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of high complexity.]]></ReportPerformanceLevel>
-          </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="2-W">
-          <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
-          </ReportPerformanceLevels>
-        </ReportCategory>
-      </ReportCategories>
+          <ReportCategories>
+            <ReportCategory code="4-CR">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_LS">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_R">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of high complexity.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="2-W">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+          </ReportCategories>
+        </ReportAssessmentType>
+      </ReportAssessmentTypes>
     </ReportGrade>
     <ReportGrade code="05">
-      <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade five California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
-      <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims (i.e., areas) are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade five. If {0} received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area.]]></ClaimAchievementMessage>
-      <ReportPerformanceLevels>
-        <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade five standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="2"><![CDATA[{0} nearly met the grade five standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="3"><![CDATA[{0} has made progress and met the grade five standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="4"><![CDATA[{0} has made progress and exceeded the grade five standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
-      </ReportPerformanceLevels>
-      <ReportCategories>
-        <ReportCategory code="4-CR">
+      <ReportAssessmentTypes>
+        <ReportAssessmentType code="ica">
+          <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade five California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
+          <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims (i.e., areas) are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade five. If {0} received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area.]]></ClaimAchievementMessage>
           <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade five standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="2"><![CDATA[{0} nearly met the grade five standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="3"><![CDATA[{0} has made progress and met the grade five standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="4"><![CDATA[{0} has made progress and exceeded the grade five standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
           </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="SOCK_LS">
+          <ReportCategories>
+            <ReportCategory code="4-CR">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_LS">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_R">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of high complexity.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="2-W">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+          </ReportCategories>
+        </ReportAssessmentType>
+        <ReportAssessmentType code="sum">
+          <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade five California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
+          <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims (i.e., areas) are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade five. If {0} received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area.]]></ClaimAchievementMessage>
           <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade five standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="2"><![CDATA[{0} nearly met the grade five standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="3"><![CDATA[{0} has made progress and met the grade five standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="4"><![CDATA[{0} has made progress and exceeded the grade five standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
           </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="SOCK_R">
-          <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of high complexity.]]></ReportPerformanceLevel>
-          </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="2-W">
-          <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
-          </ReportPerformanceLevels>
-        </ReportCategory>
-      </ReportCategories>
+          <ReportCategories>
+            <ReportCategory code="4-CR">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_LS">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_R">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of high complexity.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="2-W">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+          </ReportCategories>
+        </ReportAssessmentType>
+      </ReportAssessmentTypes>
     </ReportGrade>
     <ReportGrade code="06">
-      <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade six California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
-      <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade six. If {0} received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area.]]></ClaimAchievementMessage>
-      <ReportPerformanceLevels>
-        <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade six standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="2"><![CDATA[{0} nearly met the grade six standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="3"><![CDATA[{0} has made progress and met the grade six standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="4"><![CDATA[{0} has made progress and exceeded the grade six standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
-      </ReportPerformanceLevels>
-      <ReportCategories>
-        <ReportCategory code="4-CR">
+      <ReportAssessmentTypes>
+        <ReportAssessmentType code="ica">
+          <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade six California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
+          <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade six. If {0} received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area.]]></ClaimAchievementMessage>
           <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade six standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="2"><![CDATA[{0} nearly met the grade six standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="3"><![CDATA[{0} has made progress and met the grade six standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="4"><![CDATA[{0} has made progress and exceeded the grade six standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
           </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="SOCK_LS">
+          <ReportCategories>
+            <ReportCategory code="4-CR">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_LS">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_R">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of high complexity.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="2-W">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+          </ReportCategories>
+        </ReportAssessmentType>
+        <ReportAssessmentType code="sum">
+          <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade six California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
+          <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade six. If {0} received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area.]]></ClaimAchievementMessage>
           <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade six standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="2"><![CDATA[{0} nearly met the grade six standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="3"><![CDATA[{0} has made progress and met the grade six standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="4"><![CDATA[{0} has made progress and exceeded the grade six standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
           </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="SOCK_R">
-          <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of high complexity.]]></ReportPerformanceLevel>
-          </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="2-W">
-          <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
-          </ReportPerformanceLevels>
-        </ReportCategory>
-      </ReportCategories>
+          <ReportCategories>
+            <ReportCategory code="4-CR">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_LS">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_R">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of high complexity.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="2-W">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+          </ReportCategories>
+        </ReportAssessmentType>
+      </ReportAssessmentTypes>
     </ReportGrade>
     <ReportGrade code="07">
-      <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade seven California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
-      <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade seven. If {0} received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area.]]></ClaimAchievementMessage>
-      <ReportPerformanceLevels>
-        <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade seven standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="2"><![CDATA[{0} nearly met the grade seven standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="3"><![CDATA[{0} has made progress and met the grade seven standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="4"><![CDATA[{0} has made progress and exceeded the grade seven standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
-      </ReportPerformanceLevels>
-      <ReportCategories>
-        <ReportCategory code="4-CR">
+      <ReportAssessmentTypes>
+        <ReportAssessmentType code="ica">
+          <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade seven California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
+          <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade seven. If {0} received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area.]]></ClaimAchievementMessage>
           <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade seven standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="2"><![CDATA[{0} nearly met the grade seven standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="3"><![CDATA[{0} has made progress and met the grade seven standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="4"><![CDATA[{0} has made progress and exceeded the grade seven standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
           </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="SOCK_LS">
+          <ReportCategories>
+            <ReportCategory code="4-CR">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_LS">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_R">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of high complexity.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="2-W">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+          </ReportCategories>
+        </ReportAssessmentType>
+        <ReportAssessmentType code="sum">
+          <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade seven California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
+          <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade seven. If {0} received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area.]]></ClaimAchievementMessage>
           <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade seven standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="2"><![CDATA[{0} nearly met the grade seven standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="3"><![CDATA[{0} has made progress and met the grade seven standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="4"><![CDATA[{0} has made progress and exceeded the grade seven standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
           </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="SOCK_R">
-          <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of high complexity.]]></ReportPerformanceLevel>
-          </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="2-W">
-          <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
-          </ReportPerformanceLevels>
-        </ReportCategory>
-      </ReportCategories>
+          <ReportCategories>
+            <ReportCategory code="4-CR">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_LS">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_R">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of high complexity.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="2-W">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+          </ReportCategories>
+        </ReportAssessmentType>
+      </ReportAssessmentTypes>
     </ReportGrade>
     <ReportGrade code="08">
-      <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade eight California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
-      <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade eight. If {0} received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area.]]></ClaimAchievementMessage>
-      <ReportPerformanceLevels>
-        <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade eight standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="2"><![CDATA[{0} nearly met the grade eight standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="3"><![CDATA[{0} has made progress and met the grade eight standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="4"><![CDATA[{0} has made progress and exceeded the grade eight standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
-      </ReportPerformanceLevels>
-      <ReportCategories>
-        <ReportCategory code="4-CR">
+      <ReportAssessmentTypes>
+        <ReportAssessmentType code="ica">
+          <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade eight California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
+          <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade eight. If {0} received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area.]]></ClaimAchievementMessage>
           <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade eight standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="2"><![CDATA[{0} nearly met the grade eight standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="3"><![CDATA[{0} has made progress and met the grade eight standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="4"><![CDATA[{0} has made progress and exceeded the grade eight standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
           </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="SOCK_LS">
+          <ReportCategories>
+            <ReportCategory code="4-CR">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_LS">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_R">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of high complexity.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="2-W">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+          </ReportCategories>
+        </ReportAssessmentType>
+        <ReportAssessmentType code="sum">
+          <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade eight California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
+          <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade eight. If {0} received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area.]]></ClaimAchievementMessage>
           <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade eight standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="2"><![CDATA[{0} nearly met the grade eight standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="3"><![CDATA[{0} has made progress and met the grade eight standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="4"><![CDATA[{0} has made progress and exceeded the grade eight standard for English language arts/literacy. {0} appears ready for future coursework.]]></ReportPerformanceLevel>
           </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="SOCK_R">
-          <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of high complexity.]]></ReportPerformanceLevel>
-          </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="2-W">
-          <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
-          </ReportPerformanceLevels>
-        </ReportCategory>
-      </ReportCategories>
+          <ReportCategories>
+            <ReportCategory code="4-CR">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_LS">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_R">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of high complexity.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="2-W">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+          </ReportCategories>
+        </ReportAssessmentType>
+      </ReportAssessmentTypes>
     </ReportGrade>
     <ReportGrade code="11">
-      <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade eleven California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
-      <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade eleven. If {0} received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area.]]></ClaimAchievementMessage>
-      <ReportPerformanceLevels>
-        <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade eleven standard for English language arts/literacy and did not demonstrate readiness for future coursework. Please discuss with {0}''s teacher(s) steps to help {0} improve.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="2"><![CDATA[{0} nearly met the grade eleven standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) steps to help {0} improve.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="3"><![CDATA[{0} met the grade eleven standard for English language arts/literacy and appears ready for future coursework.]]></ReportPerformanceLevel>
-        <ReportPerformanceLevel level="4"><![CDATA[{0} exceeded the grade eleven standard for English language arts/literacy and is ready for future coursework.]]></ReportPerformanceLevel>
-      </ReportPerformanceLevels>
-      <ReportCategories>
-        <ReportCategory code="4-CR">
+      <ReportAssessmentTypes>
+        <ReportAssessmentType code="ica">
+          <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade eleven California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
+          <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade eleven. If {0} received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area.]]></ClaimAchievementMessage>
           <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade eleven standard for English language arts/literacy and did not demonstrate readiness for future coursework. Please discuss with {0}''s teacher(s) steps to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="2"><![CDATA[{0} nearly met the grade eleven standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) steps to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="3"><![CDATA[{0} met the grade eleven standard for English language arts/literacy and appears ready for future coursework.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="4"><![CDATA[{0} exceeded the grade eleven standard for English language arts/literacy and is ready for future coursework.]]></ReportPerformanceLevel>
           </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="SOCK_LS">
+          <ReportCategories>
+            <ReportCategory code="4-CR">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_LS">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_R">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories; plays; poems; drama, nonfiction; and eighteenth, nineteenth, and early twentieth century works of American literature) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories; plays; poems; drama; nonfiction; and eighteenth, nineteenth, and early twentieth century works of American literature) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories; plays; poems; drama; nonfiction; and eighteenth, nineteenth, and early twentieth century works of American literature) of high complexity.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="2-W">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+          </ReportCategories>
+        </ReportAssessmentType>
+        <ReportAssessmentType code="sum">
+          <OverallAchievementMessage><![CDATA[{0} took a Smarter Balanced assessment based on the grade eleven California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.]]></OverallAchievementMessage>
+          <ClaimAchievementMessage><![CDATA[{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade eleven. If {0} received a score of "No Score Available" for any claim, this means he or she did not complete enough items to receive a score in that area.]]></ClaimAchievementMessage>
           <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="1"><![CDATA[{0} did not meet the grade eleven standard for English language arts/literacy and did not demonstrate readiness for future coursework. Please discuss with {0}''s teacher(s) steps to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="2"><![CDATA[{0} nearly met the grade eleven standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) steps to help {0} improve.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="3"><![CDATA[{0} met the grade eleven standard for English language arts/literacy and appears ready for future coursework.]]></ReportPerformanceLevel>
+            <ReportPerformanceLevel level="4"><![CDATA[{0} exceeded the grade eleven standard for English language arts/literacy and is ready for future coursework.]]></ReportPerformanceLevel>
           </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="SOCK_R">
-          <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories; plays; poems; drama, nonfiction; and eighteenth, nineteenth, and early twentieth century works of American literature) of moderate complexity.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories; plays; poems; drama; nonfiction; and eighteenth, nineteenth, and early twentieth century works of American literature) of moderate complexity.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories; plays; poems; drama; nonfiction; and eighteenth, nineteenth, and early twentieth century works of American literature) of high complexity.]]></ReportPerformanceLevel>
-          </ReportPerformanceLevels>
-        </ReportCategory>
-        <ReportCategory code="2-W">
-          <ReportPerformanceLevels>
-            <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
-            <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
-          </ReportPerformanceLevels>
-        </ReportCategory>
-      </ReportCategories>
+          <ReportCategories>
+            <ReportCategory code="4-CR">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_LS">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate the ability to use effective listening skills.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="SOCK_R">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories; plays; poems; drama, nonfiction; and eighteenth, nineteenth, and early twentieth century works of American literature) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories; plays; poems; drama; nonfiction; and eighteenth, nineteenth, and early twentieth century works of American literature) of moderate complexity.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories; plays; poems; drama; nonfiction; and eighteenth, nineteenth, and early twentieth century works of American literature) of high complexity.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+            <ReportCategory code="2-W">
+              <ReportPerformanceLevels>
+                <ReportPerformanceLevel level="1"><![CDATA[{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="2"><![CDATA[{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+                <ReportPerformanceLevel level="3"><![CDATA[{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.]]></ReportPerformanceLevel>
+              </ReportPerformanceLevels>
+            </ReportCategory>
+          </ReportCategories>
+        </ReportAssessmentType>
+      </ReportAssessmentTypes>
     </ReportGrade>
   </ReportGrades>
   <Categories>
@@ -3454,18 +3781,4 @@
       <Description><![CDATA[Analyze a case in which two or more texts provide conflicting information on the same topic and identify where the texts disagree on matters of fact or interpretation.]]></Description>
     </Standard>
   </Standards>
-  <DepthsOfKnowledge>
-    <DepthOfKnowledge level="1" name="Recall and Reproduction">
-      <Reference><![CDATA[https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54]]></Reference>
-    </DepthOfKnowledge>
-    <DepthOfKnowledge level="2" name="Basic Skills and Concepts">
-      <Reference><![CDATA[https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54]]></Reference>
-    </DepthOfKnowledge>
-    <DepthOfKnowledge level="3" name="Strategic Thinking and Reasoning">
-      <Reference><![CDATA[https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54]]></Reference>
-    </DepthOfKnowledge>
-    <DepthOfKnowledge level="4" name="Extended Thinking">
-      <Reference><![CDATA[https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf#page=54]]></Reference>
-    </DepthOfKnowledge>
-  </DepthsOfKnowledge>
 </Subject>
