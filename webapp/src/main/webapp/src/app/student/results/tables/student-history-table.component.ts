@@ -86,7 +86,9 @@ export class StudentHistoryTableComponent implements OnInit {
     event.selected = !prevSelected;
     this._exams = Array.from(this.originalExams);
     this._exams = this.exams.filter(exam =>
-      exam.assessment.label.indexOf(event.assessment.label.replace(`Grade ${event.assessment.grade} ${event.assessment.subject}`, '')) > 0);
+      exam.assessment.label.indexOf(event.assessment.label
+        .replace(`Grade ${event.assessment.grade} ${event.assessment.subject}`, '')
+        .replace(`High School ${event.assessment.subject}`, '')) > 0);
   }
 
   loadInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): void {
@@ -113,7 +115,9 @@ export class StudentHistoryTableComponent implements OnInit {
     });
     const returnExams = [];
     // replace titles to not differentiate between grades for "same" subject
-    const assessmentTitles = new Set(iabs.map(exam => exam.assessment.label.replace(`Grade ${exam.assessment.grade} ${exam.assessment.subject}`, ''));
+    const assessmentTitles = new Set(iabs.map(exam => exam.assessment.label
+      .replace(`Grade ${exam.assessment.grade} ${exam.assessment.subject}`, '')
+      .replace(`High School ${exam.assessment.subject}`, '')));
     assessmentTitles.forEach((title) => {
       // get the most recent exam
       const iabsByTitle = iabs.filter((iab: StudentHistoryExamWrapper) =>
