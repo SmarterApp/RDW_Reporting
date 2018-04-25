@@ -1,15 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AssessmentCardComponent } from './assessment-card.component';
+import { StudentAssessmentCardComponent } from './student-assessment-card.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '../shared/common.module';
 import { DetailsByPerformanceLevel, MeasuredAssessment } from './measured-assessment';
 import { Assessment } from '../assessments/model/assessment.model';
 import { Group } from '../groups/group';
 
-describe('AssessmentCardComponent', () => {
+describe('GroupAssessmentCardComponent', () => {
 
-  let component: AssessmentCardComponent;
-  let fixture: ComponentFixture<AssessmentCardComponent>;
+  let component: StudentAssessmentCardComponent;
+  let fixture: ComponentFixture<StudentAssessmentCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -17,14 +17,14 @@ describe('AssessmentCardComponent', () => {
         CommonModule
       ],
       declarations: [
-        AssessmentCardComponent
+        StudentAssessmentCardComponent
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
   }));
 
   function createComponent() {
-    fixture = TestBed.createComponent(AssessmentCardComponent);
+    fixture = TestBed.createComponent(StudentAssessmentCardComponent);
     component = fixture.componentInstance;
   }
 

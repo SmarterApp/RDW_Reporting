@@ -111,7 +111,7 @@ export class StudentResultsComponent implements OnInit {
       .filter(wrapper => {
         const { schoolYear, subject } = this.filterState;
         return (schoolYear == null || schoolYear === wrapper.exam.schoolYear)
-          && (subject == null || subject === wrapper.assessment.subject)
+          && (subject == null || subject === wrapper.assessment.subject);
       });
 
     const filteredExams = this.examFilterService.filterItems(

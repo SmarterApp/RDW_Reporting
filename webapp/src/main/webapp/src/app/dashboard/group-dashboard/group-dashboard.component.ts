@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MeasuredAssessment } from './measured-assessment';
+import { MeasuredAssessment } from '../measured-assessment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Group } from '../groups/group';
-import { GroupService } from '../groups/group.service';
+import { Group } from '../../groups/group';
+import { GroupService } from '../../groups/group.service';
 import { GroupDashboardService } from './group-dashboard.service';
-import { ExamFilterOptionsService } from '../assessments/filters/exam-filters/exam-filter-options.service';
-import { ExamFilterOptions } from '../assessments/model/exam-filter-options.model';
+import { ExamFilterOptionsService } from '../../assessments/filters/exam-filters/exam-filter-options.service';
+import { ExamFilterOptions } from '../../assessments/model/exam-filter-options.model';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { AssessmentCardEvent } from './assessment-card.component';
+import { AssessmentCardEvent } from './group-assessment-card.component';
 
 @Component({
   selector: 'group-dashboard',

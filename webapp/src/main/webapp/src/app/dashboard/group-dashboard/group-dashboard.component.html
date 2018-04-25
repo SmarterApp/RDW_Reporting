@@ -28,7 +28,8 @@
     <div class="col-md-3">
       <label for="select-group">{{'group-results.select-group' | translate}}</label>
       <!--TODO: type ahead? -->
-      <select id="select-group" [(ngModel)]="currentGroup" [compareWith]="compareGroups" class="form-control" (change)="updateRoute('Group')">
+      <select id="select-group" [(ngModel)]="currentGroup" [compareWith]="compareGroups" class="form-control"
+              (change)="updateRoute('Group')">
         <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
       </select>
     </div>
@@ -74,8 +75,9 @@
 <div class="col-md-12 mt-md">
   <div class="card-grid">
     <div *ngFor="let measuredAssessment of measuredAssessments">
-      <assessment-card (selectedAssessment)="onCardSelection($event)" [group]="group"
-                       [measuredAssessment]="measuredAssessment"></assessment-card>
+      <group-assessment-card (selectedAssessment)="onCardSelection($event)"
+                       [group]="group"
+                       [assessment]="measuredAssessment"></group-assessment-card>
     </div>
   </div>
   <!-- No Results Error -->

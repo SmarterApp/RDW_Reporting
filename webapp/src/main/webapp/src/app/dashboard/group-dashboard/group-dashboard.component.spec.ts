@@ -1,14 +1,14 @@
-import { TestModule } from '../../test/test.module';
+import { TestModule } from '../../../test/test.module';
 import { inject, TestBed } from '@angular/core/testing';
 import { GroupDashboardService } from './group-dashboard.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GroupService } from '../groups/group.service';
-import { ExamFilterOptionsService } from '../assessments/filters/exam-filters/exam-filter-options.service';
-import { MockActivatedRoute } from '../shared/test/mock.activated-route';
+import { GroupService } from '../../groups/group.service';
+import { ExamFilterOptionsService } from '../../assessments/filters/exam-filters/exam-filter-options.service';
+import { MockActivatedRoute } from '../../shared/test/mock.activated-route';
 import { GroupDashboardComponent } from './group-dashboard.component';
-import { MockRouter } from '../shared/test/mock.router';
+import { MockRouter } from '../../shared/test/mock.router';
 
-describe('GroupDashboardComponent', () => {
+describe('StudentDashboardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({

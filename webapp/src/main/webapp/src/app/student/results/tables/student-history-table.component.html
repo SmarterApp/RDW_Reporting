@@ -18,21 +18,37 @@
 
 <div class="mb-sm clearfix"></div>
 
-<p-table [columns]="columns"
-         [value]="exams"
-         [autoLayout]="true"
-         dataKey="exam.id"
-         sortField="exam.date"
-         [sortOrder]="-1"
-         styleClass="table table-striped table-hover">
+<div *ngIf="iabs.length !== 0" class="card-grid">
+  <div *ngFor="let iab of iabs; let i = index">
+    <student-assessment-card *ngIf="iab.exam"
+                             [assessment]="iab"
+                             (selectedAssessment)="onCardSelection($event)"></student-assessment-card>
+    <div *ngIf="i % 3 === 0">
+      <ng-container
+        *ngTemplateOutlet="tableTemplate; context:{ $implicit: hideTableForIndex(i) }"></ng-container>
+    </div>
+  </div>
+</div>
 
-  <ng-template pTemplate="header"
-               let-columns>
-    <tr>
-      <th *ngFor="let column of columns; let columnIdx = index;"
-          [pSortableColumn]="column.field"
-          [hidden]="(viewState !== 'overall' && column.overall) || (viewState !== 'claim' && column.claim)"
-          [ngSwitch]="column.id">
+<ng-container *ngTemplateOutlet="tableTemplate; context:{ $implicit: iabs.length !== 0 }"></ng-container>
+
+<ng-template #tableTemplate let-hide>
+  <p-table [hidden]="hide"
+           [columns]="columns"
+           [value]="exams"
+           [autoLayout]="true"
+           dataKey="exam.id"
+           sortField="exam.date"
+           [sortOrder]="-1"
+           styleClass="table table-striped table-hover">
+
+    <ng-template pTemplate="header"
+                 let-columns>
+      <tr>
+        <th *ngFor="let column of columns; let columnIdx = index;"
+            [pSortableColumn]="column.field"
+            [hidden]="(viewState !== 'overall' && column.overall) || (viewState !== 'claim' && column.claim)"
+            [ngSwitch]="column.id">
 
         <span *ngSwitchCase="'performance'"
               info-button
@@ -40,18 +56,18 @@
               content="{{('common.results.assessment-exam-columns.' + assessmentType + '.performance-info') | translate}}">
         </span>
 
-        <span *ngSwitchCase="'claim'">
+          <span *ngSwitchCase="'claim'">
           {{ 'common.subject-claim-code.' + column.claim | translate }}
         </span>
 
-        <span *ngSwitchCase="'score'"
-              info-button
-              title="{{('common.results.assessment-exam-columns.' + column.id) | translate}}"
-              content="{{('common.results.assessment-exam-columns.' + column.id + '-info') | translate}}"
-              placement="left">
+          <span *ngSwitchCase="'score'"
+                info-button
+                title="{{('common.results.assessment-exam-columns.' + column.id) | translate}}"
+                content="{{('common.results.assessment-exam-columns.' + column.id + '-info') | translate}}"
+                placement="left">
         </span>
 
-        <span *ngSwitchDefault>
+          <span *ngSwitchDefault>
           <span *ngIf="!column.commonHeader">
             {{('student-exam-history-table.columns.' + column.id) | translate}}
           </span>
@@ -62,82 +78,85 @@
           </span>
         </span>
 
-        <p-sortIcon [field]="column.field"></p-sortIcon>
-      </th>
-    </tr>
-  </ng-template>
+          <p-sortIcon [field]="column.field"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
 
-  <ng-template pTemplate="body"
-               let-rowData
-               let-i="rowIndex"
-               let-columns="columns">
-    <tr>
-      <td *ngFor="let column of columns"
-          [hidden]="(viewState !== 'overall' && column.overall) || (viewState !== 'claim' && column.claim)"
-          [ngSwitch]="column.id">
+    <ng-template pTemplate="body"
+                 let-rowData
+                 let-i="rowIndex"
+                 let-columns="columns">
+      <tr>
+        <td *ngFor="let column of columns"
+            [hidden]="(viewState !== 'overall' && column.overall) || (viewState !== 'claim' && column.claim)"
+            [ngSwitch]="column.id">
 
-        <popup-menu *ngSwitchCase="'date'"
-                    [item]="rowData"
-                    [actions]="actions"
-                    [text]="rowData.exam.date | date"></popup-menu>
+          <popup-menu *ngSwitchCase="'date'"
+                      [item]="rowData"
+                      [actions]="actions"
+                      [text]="rowData.exam.date | date"></popup-menu>
 
-        <div *ngSwitchCase="'assessment'">
-          {{ rowData.assessment.label }}
-        </div>
+          <div *ngSwitchCase="'assessment'">
+            {{ rowData.assessment.label }}
+          </div>
 
-        <div *ngSwitchCase="'school-year'">
-          {{ rowData.exam.schoolYear | schoolYear }}
-        </div>
+          <div *ngSwitchCase="'school-year'">
+            {{ rowData.exam.schoolYear | schoolYear }}
+          </div>
 
-        <div *ngSwitchCase="'school'">
-          {{ rowData.exam.school.name }}
-        </div>
+          <div *ngSwitchCase="'school'">
+            {{ rowData.exam.school.name }}
+          </div>
 
-        <div *ngSwitchCase="'enrolled-grade'">
-          {{ 'common.enrolled-grade-label.' +  rowData.exam.enrolledGrade | translate}}
-        </div>
+          <div *ngSwitchCase="'enrolled-grade'">
+            {{ 'common.enrolled-grade-label.' + rowData.exam.enrolledGrade | translate}}
+          </div>
 
-        <div *ngSwitchCase="'status'">
-          <span class="label border-only maroon">{{ 'common.administration-condition.' + rowData.exam.administrativeCondition | translate }}</span>
-          <span *ngIf="rowData.exam.completeness == 'Partial'" class="label border-only maroon">{{ 'common.completeness.Partial' | translate }}</span>
-        </div>
+          <div *ngSwitchCase="'status'">
+            <span class="label border-only maroon">{{ 'common.administration-condition.' + rowData.exam.administrativeCondition | translate }}</span>
+            <span *ngIf="rowData.exam.completeness == 'Partial'" class="label border-only maroon">{{ 'common.completeness.Partial' | translate }}</span>
+          </div>
 
-        <div *ngSwitchCase="'performance'">
-          {{ 'common.assessment-type.' + assessmentType + '.performance-level.' + (rowData.exam.level ? rowData.exam.level.toString() : 'missing') + '.name' | translate }}
-          <button *ngIf="assessmentType === 'iab'"
-                  class="btn btn-borderless btn-xs icon-only pull-right"
-                  angulartics2On="click"
-                  angularticsEvent="InstructionalResource"
-                  angularticsCategory="AssessmentResults"
-                  [disabled]="false"
-                  [popover]="buttonPopover"
-                  popoverTitle="{{ 'common.results.assessment.instruct-button' | translate:{ level:(('common.assessment-type.iab.performance-level.' + (rowData.exam.level ? rowData.exam.level.toString() : 'missing')) +'.name' | translate) } }}"
-                  container="body"
-                  (click)="loadInstructionalResources(rowData)"
-                  [outsideClick]="true"><i class="fa fa-book"></i></button>
-        </div>
+          <div *ngSwitchCase="'performance'">
+            {{ 'common.assessment-type.' + assessmentType + '.performance-level.' + (rowData.exam.level ?
+            rowData.exam.level.toString() : 'missing') + '.name' | translate }}
+            <button *ngIf="assessmentType === 'iab'"
+                    class="btn btn-borderless btn-xs icon-only pull-right"
+                    angulartics2On="click"
+                    angularticsEvent="InstructionalResource"
+                    angularticsCategory="AssessmentResults"
+                    [disabled]="false"
+                    [popover]="buttonPopover"
+                    popoverTitle="{{ 'common.results.assessment.instruct-button' | translate:{ level:(('common.assessment-type.iab.performance-level.' + (rowData.exam.level ? rowData.exam.level.toString() : 'missing')) +'.name' | translate) } }}"
+                    container="body"
+                    (click)="loadInstructionalResources(rowData)"
+                    [outsideClick]="true"><i class="fa fa-book"></i></button>
+          </div>
 
-        <scale-score *ngSwitchCase="'score'"
-                     [score]="rowData.exam.score"
-                     [standardError]="rowData.exam.standardError"></scale-score>
+          <scale-score *ngSwitchCase="'score'"
+                       [score]="rowData.exam.score"
+                       [standardError]="rowData.exam.standardError"></scale-score>
 
-        <div *ngSwitchCase="'claim'">
-          <span *ngIf="rowData.exam.claimScores[column.index].level">{{ 'common.assessment-type.iab.performance-level.' + (rowData.exam.claimScores[column.index] ? rowData.exam.claimScores[column.index].level.toString() : 'missing') + '.name' | translate }}</span>
-          <span *ngIf="!rowData.exam.claimScores[column.index].level">-</span>
-        </div>
+          <div *ngSwitchCase="'claim'">
+            <span *ngIf="rowData.exam.claimScores[column.index].level">{{ 'common.assessment-type.iab.performance-level.' + (rowData.exam.claimScores[column.index] ? rowData.exam.claimScores[column.index].level.toString() : 'missing') + '.name' | translate }}</span>
+            <span *ngIf="!rowData.exam.claimScores[column.index].level">-</span>
+          </div>
 
-      </td>
-    </tr>
-  </ng-template>
+        </td>
+      </tr>
+    </ng-template>
 
-  <ng-template pTemplate="emptymessage" let-columns>
-    <tr>
-      <td [attr.colspan]="columns.length">
-        {{'common.messages.no-exams-matching-criteria' | translate}}
-      </td>
-    </tr>
-  </ng-template>
-</p-table>
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td [attr.colspan]="columns.length">
+          {{'common.messages.no-exams-matching-criteria' | translate}}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</ng-template>
 <ng-template #buttonPopover>
   <instructional-resource-popover [provider]="instructionalResourcesProvider"></instructional-resource-popover>
 </ng-template>

@@ -1,13 +1,13 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { MenuActionBuilder } from "../../../assessments/menu/menu-action.builder";
-import { StudentHistoryExamWrapper } from "../../model/student-history-exam-wrapper.model";
-import { Student } from "../../model/student.model";
-import { PopupMenuAction } from "../../../shared/menu/popup-menu-action.model";
-import { Observable } from "rxjs/Observable";
-import { InstructionalResourcesService } from "../../../assessments/results/instructional-resources.service";
-import { InstructionalResource } from "../../../assessments/model/instructional-resources.model";
+import { Component, Input, OnInit } from '@angular/core';
+import { MenuActionBuilder } from '../../../assessments/menu/menu-action.builder';
+import { StudentHistoryExamWrapper } from '../../model/student-history-exam-wrapper.model';
+import { Student } from '../../model/student.model';
+import { PopupMenuAction } from '../../../shared/menu/popup-menu-action.model';
+import { Observable } from 'rxjs/Observable';
+import { InstructionalResourcesService } from '../../../assessments/results/instructional-resources.service';
+import { InstructionalResource } from '../../../assessments/model/instructional-resources.model';
 import { map } from 'rxjs/operators';
-import { TranslateService } from "@ngx-translate/core";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'student-history-table',
@@ -16,8 +16,7 @@ import { TranslateService } from "@ngx-translate/core";
 })
 export class StudentHistoryTableComponent implements OnInit {
 
-  @Input()
-  exams: StudentHistoryExamWrapper[] = [];
+  private _exams: StudentHistoryExamWrapper[] = [];
 
   @Input()
   student: Student;
@@ -25,6 +24,7 @@ export class StudentHistoryTableComponent implements OnInit {
   @Input()
   assessmentType: string;
 
+  iabs: StudentHistoryExamWrapper[] = [];
   /**
    * Represents the cutoff year for when there is no item level response data available.
    * If there are no exams that are after this school year, then disable the ability to go there and show proper message
@@ -32,7 +32,9 @@ export class StudentHistoryTableComponent implements OnInit {
   @Input()
   minimumItemDataYear: number;
 
-  viewState: string = 'overall' // ['overall' | 'claim']
+
+  private originalExams: StudentHistoryExamWrapper[] = [];
+  viewState = 'overall'; // ['overall' | 'claim']
   actions: PopupMenuAction[];
   instructionalResourcesProvider: () => Observable<InstructionalResource[]>;
   columns: Column[];
@@ -46,24 +48,55 @@ export class StudentHistoryTableComponent implements OnInit {
     this.actions = this.createActions();
 
     this.columns = [
-      new Column({id: 'date', field: 'exam.date'}),
-      new Column({id: 'assessment', field: 'assessment.label'}),
-      new Column({id: 'school-year', field: 'exam.schoolYear'}),
-      new Column({id: 'school', field: 'exam.school.name'}),
-      new Column({id: 'enrolled-grade', field: 'exam.enrolledGrade'}),
-      new Column({id: 'status', commonHeader: true, field: 'exam.administrativeCondition', overall: true}),
-      new Column({id: 'performance', field: 'exam.level', overall: true}),
-      new Column({id: 'score', commonHeader: true, field: 'exam.score', overall: true}),
+      new Column({ id: 'date', field: 'exam.date' }),
+      new Column({ id: 'assessment', field: 'assessment.label' }),
+      new Column({ id: 'school-year', field: 'exam.schoolYear' }),
+      new Column({ id: 'school', field: 'exam.school.name' }),
+      new Column({ id: 'enrolled-grade', field: 'exam.enrolledGrade' }),
+      new Column({ id: 'status', commonHeader: true, field: 'exam.administrativeCondition', overall: true }),
+      new Column({ id: 'performance', field: 'exam.level', overall: true }),
+      new Column({ id: 'score', commonHeader: true, field: 'exam.score', overall: true }),
       ...this.getClaimColumns()
-    ]
+    ];
+  }
+
+  get exams(): StudentHistoryExamWrapper[] {
+    return this._exams;
+  }
+
+  @Input()
+  set exams(exams: StudentHistoryExamWrapper[]) {
+    this._exams = exams;
+    this.originalExams = Array.from(exams);
+    this.iabs = this.getLatestIabAssessments();
+  }
+
+  hideTableForIndex(index: number): boolean {
+    const selectedIndex = this.selectedIndex();
+    return selectedIndex === -1 || !(selectedIndex < index + 3 && selectedIndex >= index);
+  }
+
+  private selectedIndex(): number {
+    return this.iabs.indexOf(this.iabs.find(iab => iab.selected));
+  }
+
+  onCardSelection(event: StudentHistoryExamWrapper) {
+    const prevSelected = event.selected;
+    this.iabs.forEach(iab => iab.selected = false);
+    event.selected = !prevSelected;
+    this._exams = Array.from(this.originalExams);
+    this._exams = this.exams.filter(exam =>
+      exam.assessment.label.indexOf(event.assessment.label.replace(`Grade ${event.assessment.grade} ${event.assessment.subject}`, '')) > 0);
   }
 
   loadInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): void {
     const exam = studentHistoryExam.exam;
-    this.instructionalResourcesProvider = () => this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id)
-      .pipe(
-        map(resources => resources.getResourcesByPerformance(exam.level))
-      );
+    this.instructionalResourcesProvider = () =>
+      this.instructionalResourcesService.getInstructionalResources(
+        studentHistoryExam.assessment.id, exam.school.id)
+        .pipe(
+          map(resources => resources.getResourcesByPerformance(exam.level))
+        );
   }
 
   loadAssessmentInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): Observable<InstructionalResource[]> {
@@ -74,12 +107,31 @@ export class StudentHistoryTableComponent implements OnInit {
       );
   }
 
+  getLatestIabAssessments(): StudentHistoryExamWrapper[] {
+    const iabs = this.exams.filter(exam => {
+      return exam.assessment.type === 'iab';
+    });
+    const returnExams = [];
+    // replace titles to not differentiate between grades for "same" subject
+    const assessmentTitles = new Set(iabs.map(exam => exam.assessment.label.replace(`Grade ${exam.assessment.grade} ${exam.assessment.subject}`, ''));
+    assessmentTitles.forEach((title) => {
+      // get the most recent exam
+      const iabsByTitle = iabs.filter((iab: StudentHistoryExamWrapper) =>
+        iab.assessment.label.indexOf(title) > 0 && iab.exam.date)
+        .sort((a, b) => a.exam.date >= b.exam.date ? -1 : 1)[ 0 ];
+      returnExams.push(iabsByTitle);
+    });
+    // set all to not selected
+    returnExams.forEach(iab => iab.selected = false);
+    return returnExams;
+  }
+
   private getClaimColumns(): Column[] {
-    if (!this.exams || !this.exams.length || !this.exams[0].assessment.claimCodes) {
+    if (!this.exams || !this.exams.length || !this.exams[ 0 ].assessment.claimCodes) {
       return [];
     }
 
-    return this.exams[0].assessment.claimCodes.map((claim: string, index: number) => {
+    return this.exams[ 0 ].assessment.claimCodes.map((claim: string, index: number) => {
       return new Column({
         id: 'claim',
         field: 'exam.claimScores.' + index + '.level',
