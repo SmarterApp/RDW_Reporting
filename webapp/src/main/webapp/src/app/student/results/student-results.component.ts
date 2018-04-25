@@ -1,15 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params, Router } from "@angular/router";
-import { StudentExamHistory } from "../model/student-exam-history.model";
-import { StudentResultsFilterState } from "./model/student-results-filter-state.model";
-import { StudentHistoryExamWrapper } from "../model/student-history-exam-wrapper.model";
-import { ExamFilterService } from "../../assessments/filters/exam-filters/exam-filter.service";
-import { ColorService } from "../../shared/color.service";
-import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
-import { CsvExportService } from "../../csv-export/csv-export.service";
-import { Angulartics2 } from "angulartics2";
-import { StudentReportDownloadComponent } from "../../report/student-report-download.component";
-import { ReportingEmbargoService } from "../../shared/embargo/reporting-embargo.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { StudentExamHistory } from '../model/student-exam-history.model';
+import { StudentResultsFilterState } from './model/student-results-filter-state.model';
+import { StudentHistoryExamWrapper } from '../model/student-history-exam-wrapper.model';
+import { ExamFilterService } from '../../assessments/filters/exam-filters/exam-filter.service';
+import { ColorService } from '../../shared/color.service';
+import { ExamFilterOptions } from '../../assessments/model/exam-filter-options.model';
+import { CsvExportService } from '../../csv-export/csv-export.service';
+import { Angulartics2 } from 'angulartics2';
+import { StudentReportDownloadComponent } from '../../report/student-report-download.component';
+import { ReportingEmbargoService } from '../../shared/embargo/reporting-embargo.service';
 import { ApplicationSettingsService } from '../../app-settings.service';
 import { AssessmentTypeOrdering, SubjectOrdering } from '../../shared/ordering/orderings';
 import { join } from '@kourge/ordering/comparator';
@@ -109,9 +109,10 @@ export class StudentResultsComponent implements OnInit {
   private applyFilter(): void {
     const examsFilteredByYearAndSubject = this.examHistory.exams
       .filter(wrapper => {
-        const { schoolYear, subject } = this.filterState;
+        const { schoolYear, subject, assessmentType } = this.filterState;
         return (schoolYear == null || schoolYear === wrapper.exam.schoolYear)
-          && (subject == null || subject === wrapper.assessment.subject);
+          && (subject == null || subject === wrapper.assessment.subject)
+          && (assessmentType == null || assessmentType === wrapper.assessment.type);
       });
 
     const filteredExams = this.examFilterService.filterItems(
@@ -138,6 +139,9 @@ export class StudentResultsComponent implements OnInit {
     if (this.filterState.subject) {
       parameters.subject = this.filterState.subject;
     }
+    if (this.filterState.assessmentType) {
+      parameters.assessmentType = this.filterState.assessmentType;
+    }
 
     this.router.navigate([
       'students',
@@ -151,7 +155,7 @@ export class StudentResultsComponent implements OnInit {
   private createSections(exams: StudentHistoryExamWrapper[]): Section[] {
     return exams.reduce((sections, wrapper) => {
       const { type, subject } = wrapper.assessment;
-      const section = sections.find(section => section.assessmentTypeCode === type && section.subjectCode === subject);
+      const section = sections.find(section => section.subjectCode === subject);
       if (section) {
         section.exams.push(wrapper);
       } else {
@@ -184,27 +188,35 @@ export class StudentResultsComponent implements OnInit {
         if (filterState.schoolYears.indexOf(schoolYear) === -1) {
           filterState.schoolYears.push(schoolYear);
         }
-        const { subject } = wrapper.assessment;
+        const { subject, type } = wrapper.assessment;
         if (filterState.subjects.indexOf(subject) === -1) {
           filterState.subjects.push(subject);
+        }
+        if (filterState.assessmentTypes.indexOf(type) === -1) {
+          filterState.assessmentTypes.push(type);
         }
         return filterState;
       },
       {
         schoolYears: [],
-        subjects: []
+        subjects: [],
+        assessmentTypes: []
       }
     );
 
     filterState.schoolYears.sort((a, b) => b - a);
     filterState.subjects.sort(SubjectOrdering.compare);
+    filterState.assessmentTypes.sort(AssessmentTypeOrdering.compare);
 
-    const { schoolYear, subject } = parameters;
+    const { schoolYear, subject, assessmentType } = parameters;
     if (schoolYear) {
       filterState.schoolYear = parseInt(schoolYear);
     }
     if (subject) {
       filterState.subject = subject;
+    }
+    if (assessmentType) {
+      filterState.assessmentType = assessmentType;
     }
 
     return filterState;
@@ -218,8 +230,9 @@ export class StudentResultsComponent implements OnInit {
   initializeDownloader(downloader: StudentReportDownloadComponent): void {
     downloader.options.schoolYear = this.filterState.schoolYear
       ? this.filterState.schoolYear
-      : this.filterState.schoolYears[0];
+      : this.filterState.schoolYears[ 0 ];
     downloader.options.subject = this.filterState.subject;
+    downloader.options.assessmentType = this.filterState.assessmentType;
   }
 
 }

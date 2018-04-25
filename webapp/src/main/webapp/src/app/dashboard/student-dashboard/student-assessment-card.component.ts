@@ -11,18 +11,26 @@ export class StudentAssessmentCardComponent implements OnInit {
 
   @Input()
   assessment: StudentHistoryExamWrapper;
+  @Input()
+  exams: StudentHistoryExamWrapper[];
   @Output()
   selectedAssessment: EventEmitter<any> = new EventEmitter();
+  @Output()
+  viewStateEmitter: EventEmitter<any> = new EventEmitter();
   @Input()
   selected = false;
 
   level: number;
+  resultCount: number;
+  viewState: string;
 
   constructor(public colorService: ColorService) {
   }
 
   ngOnInit() {
     this.initStudent();
+    this.resultCount = this.exams.filter(exam =>
+      exam.assessment.label === this.assessment.assessment.label).length;
   }
 
   getGradeColor(): string {
@@ -39,6 +47,20 @@ export class StudentAssessmentCardComponent implements OnInit {
 
   selectCard(): void {
     this.selectedAssessment.emit(this.assessment);
+  }
+
+  selectViewState(event, viewState: string): void {
+    event.stopPropagation();
+    if (this.viewState === viewState && this.assessment.selected) {
+      this.viewState = null;
+      this.selectCard();
+      return;
+    }
+    if (!this.assessment.selected) {
+      this.selectCard();
+    }
+    this.viewStateEmitter.emit(viewState);
+    this.viewState = viewState;
   }
 
 }

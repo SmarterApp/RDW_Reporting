@@ -24,7 +24,7 @@ export class StudentHistoryTableComponent implements OnInit {
   @Input()
   assessmentType: string;
 
-  iabs: StudentHistoryExamWrapper[] = [];
+  studentHistoryCards: StudentHistoryExamWrapper[] = [];
   /**
    * Represents the cutoff year for when there is no item level response data available.
    * If there are no exams that are after this school year, then disable the ability to go there and show proper message
@@ -68,7 +68,7 @@ export class StudentHistoryTableComponent implements OnInit {
   set exams(exams: StudentHistoryExamWrapper[]) {
     this._exams = exams;
     this.originalExams = Array.from(exams);
-    this.iabs = this.getLatestIabAssessments();
+    this.studentHistoryCards = this.getLatestStudentHistoryCards();
   }
 
   hideTableForIndex(index: number): boolean {
@@ -77,18 +77,20 @@ export class StudentHistoryTableComponent implements OnInit {
   }
 
   private selectedIndex(): number {
-    return this.iabs.indexOf(this.iabs.find(iab => iab.selected));
+    return this.studentHistoryCards.indexOf(this.studentHistoryCards.find(studentHistoryCard => studentHistoryCard.selected));
+  }
+
+  onViewStateSelection(event: string) {
+    this.viewState = event;
   }
 
   onCardSelection(event: StudentHistoryExamWrapper) {
     const prevSelected = event.selected;
-    this.iabs.forEach(iab => iab.selected = false);
+    this.studentHistoryCards.forEach(studentHistoryCard => studentHistoryCard.selected = false);
     event.selected = !prevSelected;
     this._exams = Array.from(this.originalExams);
     this._exams = this.exams.filter(exam =>
-      exam.assessment.label.indexOf(event.assessment.label
-        .replace(`Grade ${event.assessment.grade} ${event.assessment.subject}`, '')
-        .replace(`High School ${event.assessment.subject}`, '')) > 0);
+      exam.assessment.label === event.assessment.label);
   }
 
   loadInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): void {
@@ -109,24 +111,19 @@ export class StudentHistoryTableComponent implements OnInit {
       );
   }
 
-  getLatestIabAssessments(): StudentHistoryExamWrapper[] {
-    const iabs = this.exams.filter(exam => {
-      return exam.assessment.type === 'iab';
-    });
+  getLatestStudentHistoryCards(): StudentHistoryExamWrapper[] {
     const returnExams = [];
     // replace titles to not differentiate between grades for "same" subject
-    const assessmentTitles = new Set(iabs.map(exam => exam.assessment.label
-      .replace(`Grade ${exam.assessment.grade} ${exam.assessment.subject}`, '')
-      .replace(`High School ${exam.assessment.subject}`, '')));
+    const assessmentTitles = new Set(this.exams.map(exam => exam.assessment.label));
     assessmentTitles.forEach((title) => {
       // get the most recent exam
-      const iabsByTitle = iabs.filter((iab: StudentHistoryExamWrapper) =>
-        iab.assessment.label.indexOf(title) > 0 && iab.exam.date)
+      const examsByTitle = this.exams.filter((exam: StudentHistoryExamWrapper) =>
+        exam.assessment.label === title && exam.exam.date)
         .sort((a, b) => a.exam.date >= b.exam.date ? -1 : 1)[ 0 ];
-      returnExams.push(iabsByTitle);
+      returnExams.push(examsByTitle);
     });
     // set all to not selected
-    returnExams.forEach(iab => iab.selected = false);
+    returnExams.forEach(exam => exam.selected = false);
     return returnExams;
   }
 
@@ -168,7 +165,7 @@ export class StudentHistoryTableComponent implements OnInit {
     let builder: MenuActionBuilder = this.actionBuilder
       .newActions()
       .withResponses(x => x.exam.id, () => this.student, x => x.exam.schoolYear > this.minimumItemDataYear);
-    if (this.assessmentType === 'iab') {
+    if (this.assessmentType === 'studentHistoryCard') {
       builder = builder.withShowResources(this.loadAssessmentInstructionalResources.bind(this));
     }
     return builder.build();

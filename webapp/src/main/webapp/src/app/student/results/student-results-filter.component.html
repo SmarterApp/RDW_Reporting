@@ -27,8 +27,21 @@
         </select>
       </div>
 
+      <!-- Subject -->
+      <div class="col-md-2">
+        <label for="select-assessmentType">{{'common.assessment-type-select-label' | translate}}</label>
+        <select id="select-assessmentType"
+                name="select-subject"
+                class="form-control"
+                [(ngModel)]="filterState.assessmentType"
+                (change)="onFilterChange('AssessmentType')">
+          <option selected [ngValue]="undefined">{{'common.buttons.all' | translate}}</option>
+          <option *ngFor="let assessmentType of filterState.assessmentTypes" [ngValue]="assessmentType">{{'common.assessment-type.' + assessmentType + '.short-name' | translate}}</option>
+        </select>
+      </div>
+
       <!-- Advanced Filters -->
-      <div class="col-md-2 col-md-offset-6">
+      <div class="col-md-2 col-md-offset-4">
         <div class="pull-right text-right">
           <label for="show-advanced-filters">{{'adv-filters.label' | translate}}</label>
           <button id="show-advanced-filters"

@@ -380,6 +380,7 @@
         "short-name": "Summative"
       }
     },
+    "assessment-type-select-label": "Assessment Type",
     "assessments": {
       "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above."
     },
