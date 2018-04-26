@@ -13,7 +13,7 @@ export class GroupAssessmentCardComponent implements OnInit {
   @Input()
   group: Group;
   @Input()
-  assessment: MeasuredAssessment;
+  measuredAssessment: MeasuredAssessment;
   @Output()
   selectedAssessment: EventEmitter<AssessmentCardEvent> = new EventEmitter();
 
@@ -25,41 +25,37 @@ export class GroupAssessmentCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initGroup();
-  }
-
-  get date(): Date {
-    return this.assessment.date;
-  }
-
-  get studentCountFill(): number {
-    return Math.min(Math.round((this.assessment.studentsTested / this.group.totalStudents) * 100), 100);
-  }
-
-  selectCard(): void {
-    this.selected = !this.selected;
-    this.selectedAssessment.emit(<AssessmentCardEvent>{
-      measuredAssessment: this.assessment,
-      selected: this.selected
-    });
-  }
-
-  getGradeColor(): string {
-    return this.colorService.getColor(GradeCode.getIndex(this.assessment.assessment.grade));
-  }
-
-
-  private initGroup(): void {
     this.percents = [
-      Math.round(this.assessment.studentCountByPerformanceLevel[ 0 ].percent),
-      Math.round(this.assessment.studentCountByPerformanceLevel[ 1 ].percent),
-      Math.round(this.assessment.studentCountByPerformanceLevel[ 2 ].percent)
+      Math.round(this.measuredAssessment.studentCountByPerformanceLevel[ 0 ].percent),
+      Math.round(this.measuredAssessment.studentCountByPerformanceLevel[ 1 ].percent),
+      Math.round(this.measuredAssessment.studentCountByPerformanceLevel[ 2 ].percent)
     ];
     // data widths must sum to 100. This avoids issues where the result is 99 or 101
     this.dataWidths = this.percents.concat();
     this.dataWidths[ 1 ] = this.dataWidths[ 0 ] + this.dataWidths[ 1 ] > 100 ? this.dataWidths[ 1 ] - 1 : this.dataWidths[ 1 ];
     this.dataWidths[ 2 ] = 100 - (this.dataWidths[ 0 ] + this.dataWidths[ 1 ]);
   }
+
+  get date(): Date {
+    return this.measuredAssessment.date;
+  }
+
+  get studentCountFill(): number {
+    return Math.min(Math.round((this.measuredAssessment.studentsTested / this.group.totalStudents) * 100), 100);
+  }
+
+  selectCard(): void {
+    this.selected = !this.selected;
+    this.selectedAssessment.emit(<AssessmentCardEvent>{
+      measuredAssessment: this.measuredAssessment,
+      selected: this.selected
+    });
+  }
+
+  getGradeColor(): string {
+    return this.colorService.getColor(GradeCode.getIndex(this.measuredAssessment.assessment.grade));
+  }
+
 }
 
 export interface AssessmentCardEvent {

@@ -2,9 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StudentAssessmentCardComponent } from './student-assessment-card.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '../../shared/common.module';
-import { Group } from '../../groups/group';
 import { Assessment } from '../../assessments/model/assessment.model';
-import { DetailsByPerformanceLevel, MeasuredAssessment } from '../measured-assessment';
+import { StudentHistoryExamWrapper } from '../../student/model/student-history-exam-wrapper.model';
+import { Exam } from '../../assessments/model/exam.model';
 
 describe('StudentAssessmentCardComponent', () => {
 
@@ -28,105 +28,56 @@ describe('StudentAssessmentCardComponent', () => {
     component = fixture.componentInstance;
   }
 
-  it('should create', () => {
+  it('should be able to find a match', () => {
     createComponent();
-    const studentCountByPerformanceLevel: DetailsByPerformanceLevel[] = [ <DetailsByPerformanceLevel> {
-      percent: 20,
-      studentCount: 2
-    },
-      <DetailsByPerformanceLevel> {
-        percent: 30,
-        studentCount: 3
-      },
-      <DetailsByPerformanceLevel> {
-        percent: 50,
-        studentCount: 5
-      } ];
-    const measuredAssessment = getMeasuredAssessment(studentCountByPerformanceLevel);
-    component.assessment = measuredAssessment;
-    component.group = <Group>{
-      id: 1,
-      name: 'name',
-      schoolId: 123,
-      totalStudents: 10
-    };
+    const latestExam = getStudentHistoryExamWrapper('iab', 'find this', 2, new Date(10));
+    const exams = [ getStudentHistoryExamWrapper('iab', 'something else', 3, new Date(15)), getStudentHistoryExamWrapper('iab', 'find this', 1, new Date(10)) ];
+    component.latestExam = latestExam;
+    component.exams = exams;
     fixture.detectChanges();
-    expect(component.dataWidths).toBeTruthy();
-    expect(component.dataWidths).toEqual([ 20, 30, 50 ]);
+    expect(component).toBeTruthy();
+    expect(component.latestExam).toEqual(latestExam);
+    expect(component.resultCount).toEqual(1);
+    expect(component.date).toEqual(new Date(10));
   });
 
-  it('should have percents of 33.33 have a data width sum to 100', () => {
+  it('should be able to find 2 matches', () => {
     createComponent();
-    const studentCountByPerformanceLevel: DetailsByPerformanceLevel[] = [ <DetailsByPerformanceLevel> {
-      percent: (1 / 3) * 100,
-      studentCount: 1
-    },
-      <DetailsByPerformanceLevel> {
-        percent: (1 / 3) * 100,
-        studentCount: 1
-      },
-      <DetailsByPerformanceLevel> {
-        percent: (1 / 3) * 100,
-        studentCount: 1
-      } ];
-    const measuredAssessment = getMeasuredAssessment(studentCountByPerformanceLevel);
-    component.assessment = measuredAssessment;
-    component.group = <Group>{
-      id: 1,
-      name: 'name',
-      schoolId: 123,
-      totalStudents: 3
-    };
+    const latestExam = getStudentHistoryExamWrapper('iab', 'find this', 2, new Date(10));
+    const exams = [ getStudentHistoryExamWrapper('iab', 'find this', 2, new Date(10)), getStudentHistoryExamWrapper('ica', 'something else', 2, new Date(15)), getStudentHistoryExamWrapper('iab', 'find this', 3, new Date(2)) ];
+    component.latestExam = latestExam;
+    component.exams = exams;
     fixture.detectChanges();
-    expect(component.percents).toEqual(([ 33, 33, 33 ]));
-    expect(component.dataWidths).toEqual([ 33, 33, 34 ]);
-  });
-
-  it('should have rounded percents sum of 101 and a data width sum to 100', () => {
-    createComponent();
-    const studentCountByPerformanceLevel = [ <DetailsByPerformanceLevel> {
-      percent: (2 / 7) * 100,
-      studentCount: 2
-    },
-      <DetailsByPerformanceLevel> {
-        percent: (3 / 7) * 100,
-        studentCount: 3
-      },
-      <DetailsByPerformanceLevel> {
-        percent: (2 / 7) * 100,
-        studentCount: 2
-      } ];
-    const measuredAssessment = getMeasuredAssessment(studentCountByPerformanceLevel);
-    component.assessment = measuredAssessment;
-    component.group = <Group>{
-      id: 1,
-      name: 'name',
-      schoolId: 123,
-      totalStudents: 7
-    };
-    fixture.detectChanges();
-    expect(component.percents).toEqual(([ 29, 43, 29 ]));
-    expect(component.dataWidths).toEqual([ 29, 43, 28 ]);
+    expect(component).toBeTruthy();
+    expect(component.latestExam).toEqual(latestExam);
+    expect(component.resultCount).toEqual(2);
+    expect(component.date).toEqual(new Date(10));
   });
 
 
 });
 
-function getAssessment(): Assessment {
+function getAssessment(type: string, label: string): Assessment {
   const assessment = new Assessment();
   assessment.grade = '03';
-  assessment.type = 'iab';
+  assessment.type = type;
+  assessment.label = label;
   return assessment;
 }
 
-function getMeasuredAssessment(studentCountByPerformanceLevel: DetailsByPerformanceLevel[]): MeasuredAssessment {
-  return <MeasuredAssessment>{
-    assessment: getAssessment(),
-    studentCountByPerformanceLevel: studentCountByPerformanceLevel,
-    studentsTested: 10,
-    date: new Date(),
-    averageStandardError: 0,
-    averageScaleScore: 0
+function getExam(level: number, date: Date): Exam {
+  const exam = new Exam();
+  exam.date = date;
+  exam.level = level;
+  return exam;
+}
+
+function getStudentHistoryExamWrapper(type: string, label: string, level: number, date: Date): StudentHistoryExamWrapper {
+  return {
+    assessment: getAssessment(type, label),
+    exam: getExam(level, date),
+    school: null,
+    selected: false
   };
 }
 

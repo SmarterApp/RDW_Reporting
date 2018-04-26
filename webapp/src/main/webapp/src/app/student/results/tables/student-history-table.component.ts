@@ -139,7 +139,6 @@ export class StudentHistoryTableComponent implements OnInit {
 
   getLatestStudentHistoryCards(): StudentHistoryExamWrapper[] {
     const returnExams = [];
-    // replace titles to not differentiate between grades for "same" subject
     const assessmentTitles = new Set(this.exams.map(exam => exam.assessment.label));
     assessmentTitles.forEach((title) => {
       // get the most recent exam
@@ -149,7 +148,7 @@ export class StudentHistoryTableComponent implements OnInit {
       returnExams.push(examsByTitle);
     });
     // set all to not selected
-    returnExams.forEach(exam => exam.selected = false);
+    returnExams.forEach((exam: StudentHistoryExamWrapper) => exam.selected = false);
     return returnExams;
   }
 

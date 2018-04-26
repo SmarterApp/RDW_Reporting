@@ -2,12 +2,12 @@
 
   <span class="check"><i class="fa fa-check"></i></span>
   <span
-    class="label" [ngClass]="getGradeColor()">{{ 'common.assessment-grade-short-label.' + assessment.assessment.grade | translate}}</span>
-  <span class="title">{{ assessment.assessment.label }}</span>
+    class="label" [ngClass]="getGradeColor()">{{ 'common.assessment-grade-short-label.' + measuredAssessment.assessment.grade | translate}}</span>
+  <span class="title">{{ measuredAssessment.assessment.label }}</span>
   <span class="date">{{ date | date }}</span>
   <div class="students">
       <span class="caption"
-            [innerHTML]="'assessment-card.student-count' | translate: {studentsTested: this.assessment.studentsTested, groupCount: group.totalStudents }"></span>
+            [innerHTML]="'assessment-card.student-count' | translate: {studentsTested: measuredAssessment.studentsTested, groupCount: group.totalStudents }"></span>
     <div class="scale-score-graph rounded small">
       <div class="bar-container">
         <div class="bar green" [attr.data-width]="studentCountFill"></div>

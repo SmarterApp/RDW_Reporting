@@ -77,7 +77,7 @@
     <div *ngFor="let measuredAssessment of measuredAssessments">
       <group-assessment-card (selectedAssessment)="onCardSelection($event)"
                        [group]="group"
-                       [assessment]="measuredAssessment"></group-assessment-card>
+                       [measuredAssessment]="measuredAssessment"></group-assessment-card>
     </div>
   </div>
   <!-- No Results Error -->

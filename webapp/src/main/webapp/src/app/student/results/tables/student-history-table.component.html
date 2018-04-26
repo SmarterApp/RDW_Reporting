@@ -15,12 +15,13 @@
              let-event="event">
 
   <student-assessment-card *ngIf="studentHistoryCard.exam"
-                           [assessment]="studentHistoryCard"
+                           [latestExam]="studentHistoryCard"
                            [exams]="exams"
                            (selectedAssessment)="onCardSelection($event)"></student-assessment-card>
-  
+
+  <p class="mb-lg" *ngIf="!hide"></p>
   <div *ngIf="assessmentType !== 'iab' && !hide"
-       class="btn-group btn-group-xs pull-right"
+       class="btn-group btn-group-md"
        role="group">
     <button (click)="viewState = 'overall'"
             class="btn btn-default"
