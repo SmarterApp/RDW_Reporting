@@ -12,8 +12,8 @@ import { StudentReportDownloadComponent } from '../../report/student-report-down
 import { ReportingEmbargoService } from '../../shared/embargo/reporting-embargo.service';
 import { ApplicationSettingsService } from '../../app-settings.service';
 import { AssessmentTypeOrdering, SubjectOrdering } from '../../shared/ordering/orderings';
-import { join } from '@kourge/ordering/comparator';
 import { FilterBy } from '../../assessments/model/filter-by.model';
+import { Utils } from '../../shared/support/support';
 
 @Component({
   selector: 'student-results',
@@ -169,10 +169,7 @@ export class StudentResultsComponent implements OnInit {
         });
       }
       return sections;
-    }, []).sort(join(
-      AssessmentTypeOrdering.on<Section>(section => section.assessmentTypeCode).compare,
-      SubjectOrdering.on<Section>(section => section.subjectCode).compare
-    ));
+    }, []).sort(SubjectOrdering.on<Section>(section => section.subjectCode).compare);
   }
 
   /**
@@ -185,16 +182,10 @@ export class StudentResultsComponent implements OnInit {
 
     const filterState: StudentResultsFilterState = exams.reduce((filterState, wrapper: StudentHistoryExamWrapper) => {
         const { schoolYear } = wrapper.exam;
-        if (filterState.schoolYears.indexOf(schoolYear) === -1) {
-          filterState.schoolYears.push(schoolYear);
-        }
+        Utils.insertIfNotPresent(filterState.schoolYears, schoolYear);
         const { subject, type } = wrapper.assessment;
-        if (filterState.subjects.indexOf(subject) === -1) {
-          filterState.subjects.push(subject);
-        }
-        if (filterState.assessmentTypes.indexOf(type) === -1) {
-          filterState.assessmentTypes.push(type);
-        }
+        Utils.insertIfNotPresent(filterState.subjects, subject);
+        Utils.insertIfNotPresent(filterState.assessmentTypes, type);
         return filterState;
       },
       {

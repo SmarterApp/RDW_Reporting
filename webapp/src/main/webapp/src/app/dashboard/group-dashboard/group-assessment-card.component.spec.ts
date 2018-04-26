@@ -43,7 +43,7 @@ describe('GroupAssessmentCardComponent', () => {
         studentCount: 5
       } ];
     const measuredAssessment = getMeasuredAssessment(studentCountByPerformanceLevel);
-    component.measuredAssessment = measuredAssessment;
+    component.assessment = measuredAssessment;
     component.group = <Group>{
       id: 1,
       name: 'name',
@@ -70,7 +70,7 @@ describe('GroupAssessmentCardComponent', () => {
         studentCount: 1
       } ];
     const measuredAssessment = getMeasuredAssessment(studentCountByPerformanceLevel);
-    component.measuredAssessment = measuredAssessment;
+    component.assessment = measuredAssessment;
     component.group = <Group>{
       id: 1,
       name: 'name',
@@ -97,7 +97,7 @@ describe('GroupAssessmentCardComponent', () => {
         studentCount: 2
       } ];
     const measuredAssessment = getMeasuredAssessment(studentCountByPerformanceLevel);
-    component.measuredAssessment = measuredAssessment;
+    component.assessment = measuredAssessment;
     component.group = <Group>{
       id: 1,
       name: 'name',

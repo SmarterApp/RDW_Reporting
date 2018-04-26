@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StudentAssessmentCardComponent } from './student-assessment-card.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { CommonModule } from '../shared/common.module';
-import { DetailsByPerformanceLevel, MeasuredAssessment } from './measured-assessment';
-import { Assessment } from '../assessments/model/assessment.model';
-import { Group } from '../groups/group';
+import { CommonModule } from '../../shared/common.module';
+import { Group } from '../../groups/group';
+import { Assessment } from '../../assessments/model/assessment.model';
+import { DetailsByPerformanceLevel, MeasuredAssessment } from '../measured-assessment';
 
-describe('GroupAssessmentCardComponent', () => {
+describe('StudentAssessmentCardComponent', () => {
 
   let component: StudentAssessmentCardComponent;
   let fixture: ComponentFixture<StudentAssessmentCardComponent>;
@@ -43,7 +43,7 @@ describe('GroupAssessmentCardComponent', () => {
         studentCount: 5
       } ];
     const measuredAssessment = getMeasuredAssessment(studentCountByPerformanceLevel);
-    component.measuredAssessment = measuredAssessment;
+    component.assessment = measuredAssessment;
     component.group = <Group>{
       id: 1,
       name: 'name',
@@ -70,7 +70,7 @@ describe('GroupAssessmentCardComponent', () => {
         studentCount: 1
       } ];
     const measuredAssessment = getMeasuredAssessment(studentCountByPerformanceLevel);
-    component.measuredAssessment = measuredAssessment;
+    component.assessment = measuredAssessment;
     component.group = <Group>{
       id: 1,
       name: 'name',
@@ -97,7 +97,7 @@ describe('GroupAssessmentCardComponent', () => {
         studentCount: 2
       } ];
     const measuredAssessment = getMeasuredAssessment(studentCountByPerformanceLevel);
-    component.measuredAssessment = measuredAssessment;
+    component.assessment = measuredAssessment;
     component.group = <Group>{
       id: 1,
       name: 'name',

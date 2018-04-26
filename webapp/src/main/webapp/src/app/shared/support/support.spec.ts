@@ -1,4 +1,4 @@
-import { Utils } from "./support";
+import { Utils } from './support';
 
 describe('Utils', () => {
 
@@ -26,4 +26,15 @@ describe('Utils', () => {
     expect(Utils.appendOrIncrementFileNameSuffix('an aggregateReport')).toEqual('an aggregateReport (1)');
     expect(Utils.appendOrIncrementFileNameSuffix('an aggregateReport (1)')).toEqual('an aggregateReport (2)');
   });
+
+  it('should pass insertIfNotPresent', () => {
+      const array = [ 'a', 'b', 'c' ];
+      const array1 = Array.from(array);
+      Utils.insertIfNotPresent(array, 'b');
+      expect(array1).toEqual(array);
+
+      Utils.insertIfNotPresent(array, 'd');
+      expect(array).toEqual([ 'a', 'b', 'c', 'd' ]);
+    }
+  );
 });
