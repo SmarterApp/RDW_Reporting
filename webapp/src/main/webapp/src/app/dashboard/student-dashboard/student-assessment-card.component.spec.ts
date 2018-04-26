@@ -38,7 +38,6 @@ describe('StudentAssessmentCardComponent', () => {
     expect(component).toBeTruthy();
     expect(component.latestExam).toEqual(latestExam);
     expect(component.resultCount).toEqual(1);
-    expect(component.date).toEqual(new Date(10));
   });
 
   it('should be able to find 2 matches', () => {
@@ -51,7 +50,6 @@ describe('StudentAssessmentCardComponent', () => {
     expect(component).toBeTruthy();
     expect(component.latestExam).toEqual(latestExam);
     expect(component.resultCount).toEqual(2);
-    expect(component.date).toEqual(new Date(10));
   });
 
 

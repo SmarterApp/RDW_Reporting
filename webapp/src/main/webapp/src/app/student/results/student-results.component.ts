@@ -13,7 +13,7 @@ import { ReportingEmbargoService } from '../../shared/embargo/reporting-embargo.
 import { ApplicationSettingsService } from '../../app-settings.service';
 import { AssessmentTypeOrdering, SubjectOrdering } from '../../shared/ordering/orderings';
 import { FilterBy } from '../../assessments/model/filter-by.model';
-import { Utils } from '../../shared/support/support';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'student-results',
@@ -182,10 +182,10 @@ export class StudentResultsComponent implements OnInit {
 
     const filterState: StudentResultsFilterState = exams.reduce((filterState, wrapper: StudentHistoryExamWrapper) => {
         const { schoolYear } = wrapper.exam;
-        Utils.insertIfNotPresent(filterState.schoolYears, schoolYear);
+        filterState.schoolYears = _.union(filterState.schoolYears, [ schoolYear ]);
         const { subject, type } = wrapper.assessment;
-        Utils.insertIfNotPresent(filterState.subjects, subject);
-        Utils.insertIfNotPresent(filterState.assessmentTypes, type);
+        filterState.subjects = _.union(filterState.subjects, [ subject ]);
+        filterState.assessmentTypes = _.union(filterState.assessmentTypes, [ type ]);
         return filterState;
       },
       {

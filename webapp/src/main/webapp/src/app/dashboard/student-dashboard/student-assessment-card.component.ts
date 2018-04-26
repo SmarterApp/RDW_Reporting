@@ -32,10 +32,6 @@ export class StudentAssessmentCardComponent implements OnInit {
     return this.colorService.getColor(GradeCode.getIndex(this.latestExam.assessment.grade));
   }
 
-  get date(): Date {
-    return this.latestExam.exam.date;
-  }
-
   selectCard(): void {
     this.selectedAssessment.emit(this.latestExam);
   }

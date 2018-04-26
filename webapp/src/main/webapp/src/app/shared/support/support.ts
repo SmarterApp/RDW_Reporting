@@ -238,15 +238,4 @@ export class Utils {
     return str.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
   }
 
-  /**
-   * Insert a value into an array if the array does not contain that value
-   *
-   * @param {any[]} array the array we are potentially inserting into
-   * @param value the value we wish to possibly insert
-   */
-  static insertIfNotPresent(array: any[], value: any): void {
-    if (array.indexOf(value) === -1) {
-      array.push(value);
-    }
-  }
 }
