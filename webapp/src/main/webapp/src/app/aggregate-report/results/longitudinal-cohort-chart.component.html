@@ -1,30 +1,81 @@
 <div class="flex-children">
   <div class="flex-child">
 
-    <div class="chart-series-legend pallet-a">
+    <div *ngIf="chart"
+         class="chart-series-legend pallet-a">
       <ul class="list-unstyled">
-        <li *ngFor="let series of organizationPerformanceSeries; let index = index"
+        <li *ngFor="let series of chart.organizationPerformances; let index = index"
             class="mb-xs">
           <button class="btn chart-series color-{{index}} text-left"
                   [ngClass]="{'chart-series-hidden': !series.visible}"
                   (click)="toggleSeries(series)">
             <div>
-              {{series.data.organization.name}}
+              {{series.data.data.name}}
             </div>
             <div class="small">
-              {{'common.organization.type.' + series.data.organization.type | translate}}
+              {{'common.organization.type.' + series.data.data.type | translate}}
             </div>
           </button>
         </li>
       </ul>
     </div>
-
   </div>
   <div class="flex-child grow">
 
     <svg #chartContainer
          class="longitudinal-cohort-chart"
-         width="100%"></svg>
+         [attr.width]="displayConfiguration.outerWidth"
+         [attr.height]="displayConfiguration.outerHeight">
 
+      <g [attr.transform]="'translate(' + displayConfiguration.padding.left + ', ' + displayConfiguration.padding.top + ')'">
+
+        <g *ngIf="chart"
+           class="scale-score-areas"
+           [ngClass]="areaPallet">
+
+          <g *ngFor="let area of chart.assessmentPerformances"
+             [ngClass]="area.styles">
+
+            <path class="color-fill"
+                  [attr.d]="d3area(area.points)"></path>
+
+            <path class="scale-score-area-divider"
+                  [attr.d]="d3line(area.points)"></path>
+          </g>
+        </g>
+
+        <g class="axes-container"></g>
+
+        <g *ngIf="chart"
+           class="scale-score-lines"
+           [ngClass]="linePallet">
+
+          <g *ngFor="let series of chart.organizationPerformances; let i = index"
+             [ngClass]="series.styles + (series.visible ? '' : ' hidden')">
+
+            <g [ngClass]="series.data.styles">
+
+              <path class="line color-stroke"
+                    [attr.d]="d3line(series.data.points)"></path>
+
+              <circle *ngFor="let point of series.data.points; let j = index"
+                      [ngClass]="point.styles"
+                      r="5"
+                      [attr.cx]="xScale(point.x)"
+                      [attr.cy]="yScale(point.y)"
+                      [popover]="dataPointPopoverTemplate"
+                      [popoverContext]="{$implicit: point.data}"
+                      placement="top"
+                      container="body"
+                      triggers="mouseenter:mouseleave"></circle>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
   </div>
 </div>
+
+<ng-template #dataPointPopoverTemplate let-scores>
+  {{scores.scaleScore}}
+</ng-template>

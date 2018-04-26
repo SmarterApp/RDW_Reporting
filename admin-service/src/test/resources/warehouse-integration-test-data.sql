@@ -18,10 +18,10 @@ insert into school (id, district_group_id, district_id, school_group_id, natural
   (-30, null, -20, null, 'school3', 'school3', -1, -1),
   (-40, null, -30, null, 'school4', 'school4', -1, -1);
 
-insert into grade (id, code, name) values
-  (-1, 'g1', 'grade1'),
-  (-2, 'g2', 'grade2'),
-  (-3, 'g3', 'grade3');
+insert into grade (id, code, name, sequence) values
+  (-1, 'g1', 'grade1', 1),
+  (-2, 'g2', 'grade2', 2),
+  (-3, 'g3', 'grade3', 3);
 
 insert into gender (id, code) values
   (-1, 'g1');

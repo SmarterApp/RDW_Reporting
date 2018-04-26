@@ -18,10 +18,10 @@ insert into school (id, district_id, natural_id, name, embargo_enabled, update_i
   (-30, -20, 'schoolNat3', 'school3', 1, -1, '1997-07-18 20:14:34.000000', -1, null, -20, 'externalId3'),
   (-40, -30, 'schoolNat4', 'school4', 1, -1, '1997-07-18 20:14:34.000000', -1, -40, -40, 'externalId4');
 
-insert into grade (id, code, name) values
-  (-1, 'g1', 'grade1'),
-  (-2, 'g2', 'grade2'),
-  (-3, 'g3', 'grade3');
+insert into grade (id, code, name, sequence) values
+  (-1, 'g1', 'grade1', 1),
+  (-2, 'g2', 'grade2', 2),
+  (-3, 'g3', 'grade3', 3);
 
 insert into gender (id, code) values
   (-1, 'g1');

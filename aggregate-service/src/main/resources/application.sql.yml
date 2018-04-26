@@ -8,7 +8,8 @@ sql:
     findAll: >-
       SELECT DISTINCT
         g.id,
-        g.code
+        g.code,
+        g.sequence
       FROM asmt a
         JOIN grade g ON g.id = a.grade_id
       ORDER BY id

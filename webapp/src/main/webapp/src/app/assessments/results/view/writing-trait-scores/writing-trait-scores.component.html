@@ -2,6 +2,7 @@
 
 <ng-container *ngIf="!loading">
   <p-table #writingTraitTable
+           *ngIf="!assessment.isSummative"
            [columns]="writingTraitColumns"
            [value]="filteredItems"
            rowExpandMode="single"

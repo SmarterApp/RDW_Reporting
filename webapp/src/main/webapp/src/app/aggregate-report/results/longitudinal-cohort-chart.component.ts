@@ -1,11 +1,13 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { DefaultSchool, Organization } from '../../shared/organization/organization';
 import { SchoolYearPipe } from '../../shared/format/school-year.pipe';
-import { select } from 'd3-selection';
-import { area, line } from 'd3-shape';
-import { axisBottom, axisLeft } from 'd3-axis';
-import { scaleLinear } from 'd3-scale';
+import * as d3 from 'd3';
 
 interface YearGrade {
   // TODO make this string code when data comes from backend
@@ -45,8 +47,46 @@ interface AssessmentPerformance {
 
 interface Series<T> {
   readonly data: T;
+  readonly styles?: any;
   readonly selector: string;
   visible: boolean;
+}
+
+interface ChartArea<T, U> {
+  readonly points: ChartAreaPoint<U>[];
+  readonly data: T;
+  readonly styles?: any;
+}
+
+interface ChartAreaPoint<T> {
+  readonly x: number;
+  readonly y0: number;
+  readonly y1: number;
+}
+
+interface ChartPoint<T> {
+  readonly x: number;
+  readonly y: number;
+  readonly data: T;
+  readonly styles?: any;
+}
+
+interface ChartLine<T, U> {
+  readonly points: ChartPoint<U>[];
+  readonly data?: T;
+  readonly styles?: any;
+}
+
+interface DataPoint {
+  readonly scaleScoreRange: Range<number>;
+  readonly scaleScore: number;
+}
+
+interface LongitudinalCohortChart {
+  readonly scaleScoreRange: Range<number>;
+  readonly yearGrades: YearGrade[];
+  readonly assessmentPerformances: ChartArea<PerformanceLevel, void>[];
+  readonly organizationPerformances: Series<ChartLine<Organization, DataPoint>>[];
 }
 
 function createYearsAndGrades(first: YearGrade, count: number, step: number = 1, initialGap: number = 0) {
@@ -65,17 +105,19 @@ function computeBands(areas: AssessmentPerformance[], xScale: (x: number) => num
   // gets the rightmost entries of each area
     .map(area => area.gradeYearScaleScoreRanges[ area.gradeYearScaleScoreRanges.length - 1 ])
     .map(area => {
-      const h = yScale(area.scaleScoreRange.maximum) - yScale(area.scaleScoreRange.minimum);
+      const height = yScale(area.scaleScoreRange.maximum) - yScale(area.scaleScoreRange.minimum);
       // const h = Math.abs( yScale(area.scaleScoreRange.maximum) - yScale(area.scaleScoreRange.minimum) );
-      const m = { x: 5, y: -2 };
+      const margin = { left: 5, top: -2, right: 0, bottom: 2 };
 
       return Object.assign({
         bracket: {
+          y: area.scaleScoreRange.minimum,
+          height: height,
           path: [
-            { x: 0, y: m.y },
-            { x: m.x, y: m.y },
-            { x: m.x, y: h - m.y },
-            { x: 0, y: h - m.y }
+            { x: 0, y: margin.top },
+            { x: margin.left, y: margin.top },
+            { x: margin.left, y: height + margin.bottom },
+            { x: 0, y: height + margin.bottom }
           ]
         }
       }, area);
@@ -129,7 +171,7 @@ function createLines(count: number, yearsAndGrades: YearGrade[], scaleScoreRange
 
       line.push({
         gradeYear: gradeYear,
-        scaleScore: previous + 50 + 25 * Math.random()
+        scaleScore: Math.floor(previous + 50 + 25 * Math.random())
       });
 
     }
@@ -165,23 +207,36 @@ export class LongitudinalCohortChartComponent implements OnInit {
   @Input()
   assessmentTypeCode: string = 'sum';
 
-  organizationPerformanceSeries: Series<OrganizationPerformance>[];
+  displayConfiguration = {
+    outerWidth: 960,
+    outerHeight: 480,
+    margin: { top: 0, right: 0, bottom: 0, left: 0 },
+    padding: { top: 0, right: 200, bottom: 40, left: 40 },
+    domainMargin: { top: 25, right: 0.25, bottom: 25, left: 0.25 },
+    tickPadding: 10
+  };
 
-  @ViewChild('chartContainer')
-  private chartContainer: ElementRef;
+  chart: LongitudinalCohortChart;
 
-  constructor(private translate: TranslateService,
+  // used to render areas, lines and points
+  d3area: any;
+  d3line: any;
+  xScale: (value: number) => number;
+  yScale: (value: number) => number;
+
+  constructor(private elementReference: ElementRef,
+              private translate: TranslateService,
               private schoolYearPipe: SchoolYearPipe) {
   }
 
-  get root(): any {
-    return (<any>select(this.chartContainer.nativeElement));
+  private get axesContainer(): any {
+    return <any>d3.select(
+      this.elementReference.nativeElement.querySelector('.axes-container')
+    );
   }
 
   toggleSeries<T>(series: Series<T>): void {
     series.visible = !series.visible;
-    this.root.selectAll(series.selector)
-      .classed('hidden', !series.visible);
   }
 
   ngOnInit(): void {
@@ -192,135 +247,97 @@ export class LongitudinalCohortChartComponent implements OnInit {
     const areas = createAreas(4, yearsAndGrades, scaleScoreRange);
     const lines = createLines(3, yearsAndGrades, scaleScoreRange);
 
-    // set lines
-    this.organizationPerformanceSeries = lines.map((line, index) => <any>{
-      selector: `.series-${index}`,
-      visible: true,
-      data: line
-    });
+    const {
+      outerWidth,
+      outerHeight,
+      tickPadding,
+      margin,
+      padding,
+      domainMargin
+    } = this.displayConfiguration;
 
-    const bounds = this.root.node().getBoundingClientRect(),
-      outerWidth = bounds.width,
-      outerHeight = bounds.height,
-      tickPadding = 10,
-      margin = { top: 0, right: 0, bottom: 0, left: 0 },
-      padding = { top: 0, right: 200, bottom: 40, left: 40 },
+    const
       innerWidth = outerWidth - margin.left - margin.right,
       innerHeight = outerHeight - margin.top - margin.bottom,
       width = innerWidth - padding.left - padding.right - tickPadding,
-      height = innerHeight - padding.top - padding.bottom - tickPadding,
-      domainMargin = { top: 25, right: 0.25, bottom: 25, left: 0.25 };
+      height = innerHeight - padding.top - padding.bottom - tickPadding;
 
-    const d3line = line<any>()
-      .x(({ x }) => xScale(x))
-      .y(({ y }) => yScale(y));
+    const xScale = this.xScale = d3.scaleLinear()
+      .range([ 0, width ])
+      .domain([ 0 - domainMargin.left, yearsAndGrades.length - 1 + domainMargin.right ]);
 
-    const d3area = area<any>()
+    const yScale = this.yScale = d3.scaleLinear()
+      .range([ height, 0 ])
+      .domain([ scaleScoreRange[ 0 ] - domainMargin.bottom, scaleScoreRange[ 1 ] + domainMargin.top ]);
+
+    this.chart = <LongitudinalCohortChart>{
+      scaleScoreRange: <Range<number>>{
+        minimum: scaleScoreRange[ 0 ],
+        maximum: scaleScoreRange[ 1 ]
+      },
+      yearGrades: yearsAndGrades,
+      assessmentPerformances: areas.map((area, i) => <ChartArea<PerformanceLevel, void>>{
+        points: area.gradeYearScaleScoreRanges.map((interval, j) => <ChartAreaPoint<void>>{
+          x: j,
+          y0: interval.scaleScoreRange.minimum,
+          y1: interval.scaleScoreRange.maximum
+        }),
+        data: area.level,
+        styles: `scale-score-area color-${i}`
+      }),
+      organizationPerformances: lines.map((line, i) => <any>{
+        selector: `.series-${i}`,
+        styles: `series-${i}`,
+        visible: true,
+        data: <ChartLine<Organization, DataPoint>>{
+          data: line.organization,
+          points: line.gradeYearScaleScores.map((scores, j) => <ChartPoint<DataPoint>>{
+            x: j,
+            y: scores.scaleScore,
+            data: <DataPoint>{
+              scaleScoreRange: null /* TODO */,
+              scaleScore: scores.scaleScore
+            },
+            styles: `point color-stroke`
+          }),
+          styles: `scale-score-line color-${i}`
+        }
+      })
+    };
+
+    this.d3area = d3.area<any>()
       .x(({ x }) => xScale(x))
       .y0(({ y0 }) => yScale(y0))
       .y1(({ y1 }) => yScale(y1));
 
-    const xScale = scaleLinear()
-      .range([ 0, width ])
-      .domain([ 0 - domainMargin.left, yearsAndGrades.length - 1 + domainMargin.right ]);
+    this.d3line = d3.line<any>()
+      .x(({ x }) => xScale(x))
+      .y(({ y, y0 }) => yScale(y != null ? y : y0));
 
-    const yScale = scaleLinear()
-      .range([ height, 0 ])
-      .domain([ scaleScoreRange[ 0 ] - domainMargin.bottom, scaleScoreRange[ 1 ] + domainMargin.top ]);
-
-    const xAxis = axisBottom(xScale)
+    const xAxis = d3.axisBottom(xScale)
       .tickSize(-height)
       .tickPadding(tickPadding)
       .ticks(yearsAndGrades.length)
       .tickValues(yearsAndGrades.map((d, i) => i))
       .tickFormat((d, i) => this.schoolYearPipe.transform(yearsAndGrades[ i ].year));
 
-    const yAxis = axisLeft(yScale)
+    const yAxis = d3.axisLeft(yScale)
       .tickSize(-width)
-      .tickPadding(tickPadding);
+      .tickPadding(tickPadding)
+      .tickFormat(d => d);
 
-    const svg = this.root
-      .attr('height', outerHeight)
-      .attr('transform', `translate(${margin.left}, ${margin.top})`)
-      .append('g')
-      .attr('transform', `translate(${padding.left}, ${padding.top})`);
-
-    svg.append('g')
+    const xAxisContainer = this.axesContainer.append('g')
       .classed('x axis', true)
       .attr('transform', `translate(0, ${height})`)
       .call(xAxis);
 
-    svg.append('g')
+    const yAxisContainer = this.axesContainer.append('g')
       .classed('y axis', true)
       .call(yAxis);
 
-    // Draw areas
-
-    const performanceLevelArea = svg.append('g')
-      .classed(`scale-score-areas ${this.areaPallet}`, true)
-      .selectAll('.scale-score-area')
-      .data(areas)
-      .enter()
-      .append('g')
-      .attr('class', (d, i) => `scale-score-area color-${i}`);
-
-    performanceLevelArea.append('path')
-      .classed('color-fill', true)
-      .attr('d', d => d3area(d.gradeYearScaleScoreRanges.map(a => <any>{
-        x: yearsAndGrades.indexOf(a.gradeYear),
-        y0: a.scaleScoreRange.minimum,
-        y1: a.scaleScoreRange.maximum
-      })));
-
-    performanceLevelArea.append('path')
-      .classed('scale-score-area-divider', true)
-      .attr('d', d => d3line(d.gradeYearScaleScoreRanges.map(a => <any>{
-        x: yearsAndGrades.indexOf(a.gradeYear),
-        y: a.scaleScoreRange.maximum
-      })));
-
-    // Draw lines
-
-    const performanceLevelTrend = svg.append('g')
-      .classed(`scale-score-lines ${this.linePallet}`, true)
-      .selectAll('.scale-score-line')
-      .data(lines)
-      .enter()
-      .append('g')
-      .attr('class', (d, i) => `scale-score-line series-${i} color-${i}`);
-
-    performanceLevelTrend.append('path')
-      .classed('line color-stroke', true)
-      .attr('d', d => d3line(d.gradeYearScaleScores.map(a => <any>{
-        x: yearsAndGrades.indexOf(a.gradeYear),
-        y: a.scaleScore
-      })));
-
-    // Draw dots
-
-    performanceLevelTrend.selectAll('circle')
-      .data(d => d.gradeYearScaleScores)
-      .enter()
-      .append('circle')
-      .classed('point color-stroke', true)
-      .attr('r', 5)
-      .attr('cx', d => xScale(yearsAndGrades.indexOf(d.gradeYear)))
-      .attr('cy', d => yScale(d.scaleScore))
-      .on('mouseover', (d, i, circles) => {
-        select(circles[ i ])
-          .attr('r', 8);
-      })
-      .on('mouseout', (d, i, circles) => {
-        select(circles[ i ])
-          .attr('r', 5);
-      })
-      .on('click', (d, i, circles) => {
-
-      });
-
     // Correct x axis tick labels
 
-    svg.selectAll('.axis.x .tick')
+    this.axesContainer.selectAll('.axis.x .tick')
       .append('text')
       .text((d, i) => {
         const grade = yearsAndGrades[ i ].grade.toString();
@@ -334,11 +351,11 @@ export class LongitudinalCohortChartComponent implements OnInit {
     // Draw area labels
 
     // shouldn't need this...
-    const d3lineNoScale = line<any>()
+    const d3lineNoScale = d3.line<any>()
       .x(({ x }) => x)
       .y(({ y }) => y);
 
-    const bands = svg.append('g')
+    const bands = this.axesContainer.append('g')
       .classed(`scale-score-area-labels ${this.areaPallet}`, true)
       .attr('transform', `translate(${width}, 0)`);
 
@@ -348,7 +365,7 @@ export class LongitudinalCohortChartComponent implements OnInit {
       .data(bandData)
       .enter()
       .append('g')
-      .attr('transform', d => `translate(0, ${yScale(d.scaleScoreRange.minimum)})`)
+      .attr('transform', d => `translate(0, ${yScale(d.bracket.y)})`)
       .attr('class', (d, i) => `scale-score-area-label color-${i}`);
 
     const bandTitle = band
@@ -368,7 +385,7 @@ export class LongitudinalCohortChartComponent implements OnInit {
 
     const bandTitleBounds = bandTitle.node().getBBox();
     // 0.33 is a magic number, should be 0 with alignment-baseline hanging...
-    bandTitle.attr('transform', d => `translate(10, ${(yScale(d.scaleScoreRange.maximum) - yScale(d.scaleScoreRange.minimum)) + bandTitleBounds.height * 0.33})`);
+    bandTitle.attr('transform', d => `translate(10, ${d.bracket.height + bandTitleBounds.height * 0.33})`);
 
     band.append('path')
       .classed('bracket color-stroke', true)
@@ -376,7 +393,7 @@ export class LongitudinalCohortChartComponent implements OnInit {
 
     const label = band.append('g')
       .classed('label-container', true)
-      .attr('transform', d => `translate(5, ${(yScale(d.scaleScoreRange.maximum) - yScale(d.scaleScoreRange.minimum)) * 0.5})`);
+      .attr('transform', d => `translate(5, ${d.bracket.height * 0.5})`);
 
     const labelPadding = { top: 3, right: 5, bottom: 3, left: 3 };
     const labelBorderRadius = (labelPadding.top + labelPadding.left) * 0.25; // proportional to height and width
