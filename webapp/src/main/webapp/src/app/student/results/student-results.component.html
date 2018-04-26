@@ -67,8 +67,7 @@
 
       <div class="mt-md"
            [hidden]="section.collapsed">
-        <student-history-table [assessmentType]="section.assessmentTypeCode"
-                               [student]="examHistory.student"
+        <student-history-table [student]="examHistory.student"
                                [minimumItemDataYear]="minimumItemDataYear"
                                [exams]="section.filteredExams">
         </student-history-table>

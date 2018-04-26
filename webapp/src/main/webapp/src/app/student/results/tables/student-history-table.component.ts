@@ -21,7 +21,6 @@ export class StudentHistoryTableComponent implements OnInit {
   @Input()
   student: Student;
 
-  @Input()
   assessmentType: string;
 
   studentHistoryCards: StudentHistoryExamWrapper[] = [];
@@ -34,10 +33,8 @@ export class StudentHistoryTableComponent implements OnInit {
 
 
   private originalExams: StudentHistoryExamWrapper[] = [];
-  viewState = 'overall'; // ['overall' | 'claim']
-  actions: PopupMenuAction[];
+  viewState: 'overall' | 'claim' = 'overall';
   instructionalResourcesProvider: () => Observable<InstructionalResource[]>;
-  columns: Column[];
 
   constructor(private actionBuilder: MenuActionBuilder,
               private instructionalResourcesService: InstructionalResourcesService,
@@ -45,9 +42,43 @@ export class StudentHistoryTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.actions = this.createActions();
+  }
 
-    this.columns = [
+  get exams(): StudentHistoryExamWrapper[] {
+    return this._exams;
+  }
+
+  /**
+   * Get table row menu actions.
+   *
+   * @returns {PopupMenuAction[]} The table row menu actions
+   */
+  get actions(): PopupMenuAction[] {
+    if (this.assessmentType === 'sum') {
+      const menuAction: PopupMenuAction = new PopupMenuAction();
+      menuAction.displayName = () => {
+        return this.translateService.instant('common.menus.responses', this.student);
+      };
+      menuAction.tooltip = () => {
+        return this.translateService.instant('common.messages.no-responses-for-summative-exams');
+      };
+      menuAction.isDisabled = () => {
+        return true;
+      };
+      return [ menuAction ];
+    }
+
+    let builder: MenuActionBuilder = this.actionBuilder
+      .newActions()
+      .withResponses(x => x.exam.id, () => this.student, x => x.exam.schoolYear > this.minimumItemDataYear);
+    if (this.assessmentType === 'iab') {
+      builder = builder.withShowResources(this.loadAssessmentInstructionalResources.bind(this));
+    }
+    return builder.build();
+  }
+
+  get columns(): Column[] {
+    return [
       new Column({ id: 'date', field: 'exam.date' }),
       new Column({ id: 'assessment', field: 'assessment.label' }),
       new Column({ id: 'school-year', field: 'exam.schoolYear' }),
@@ -58,10 +89,6 @@ export class StudentHistoryTableComponent implements OnInit {
       new Column({ id: 'score', commonHeader: true, field: 'exam.score', overall: true }),
       ...this.getClaimColumns()
     ];
-  }
-
-  get exams(): StudentHistoryExamWrapper[] {
-    return this._exams;
   }
 
   @Input()
@@ -80,14 +107,13 @@ export class StudentHistoryTableComponent implements OnInit {
     return this.studentHistoryCards.indexOf(this.studentHistoryCards.find(studentHistoryCard => studentHistoryCard.selected));
   }
 
-  onViewStateSelection(event: string) {
-    this.viewState = event;
-  }
-
   onCardSelection(event: StudentHistoryExamWrapper) {
     const prevSelected = event.selected;
+    this.assessmentType = event.assessment.type;
     this.studentHistoryCards.forEach(studentHistoryCard => studentHistoryCard.selected = false);
     event.selected = !prevSelected;
+    this.viewState = 'overall';
+
     this._exams = Array.from(this.originalExams);
     this._exams = this.exams.filter(exam =>
       exam.assessment.label === event.assessment.label);
@@ -142,34 +168,6 @@ export class StudentHistoryTableComponent implements OnInit {
     });
   }
 
-  /**
-   * Create table row menu actions.
-   *
-   * @returns {PopupMenuAction[]} The table row menu actions
-   */
-  private createActions(): PopupMenuAction[] {
-    if (this.assessmentType === 'sum') {
-      const menuAction: PopupMenuAction = new PopupMenuAction();
-      menuAction.displayName = () => {
-        return this.translateService.instant('common.menus.responses', this.student);
-      };
-      menuAction.tooltip = () => {
-        return this.translateService.instant('common.messages.no-responses-for-summative-exams');
-      };
-      menuAction.isDisabled = () => {
-        return true;
-      };
-      return [ menuAction ];
-    }
-
-    let builder: MenuActionBuilder = this.actionBuilder
-      .newActions()
-      .withResponses(x => x.exam.id, () => this.student, x => x.exam.schoolYear > this.minimumItemDataYear);
-    if (this.assessmentType === 'studentHistoryCard') {
-      builder = builder.withShowResources(this.loadAssessmentInstructionalResources.bind(this));
-    }
-    return builder.build();
-  }
 }
 
 class Column {

@@ -8,21 +8,4 @@
   <p></p>
   <span class="distribution" [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode('iab', level)">{{ 'common.assessment-type.iab.performance-level.' + level + '.name' | translate }}</span>
   <span class="center-block mt-md" style="text-align: center; font-weight: 600">{{ resultCount }} results</span>
-
-  <div *ngIf="assessment.assessment.type !== 'iab'"
-       class="btn-group btn-group-xs pull-right"
-       role="group">
-    <button (click)="selectViewState($event, 'overall')"
-            class="btn btn-default"
-            angulartics2On="click" angularticsEvent="ViewOverallScores" angularticsCategory="StudentHistory"
-            [ngClass]="{'active': viewState === 'overall'}">
-      {{'common.buttons.display-overall' | translate}}
-    </button>
-    <button (click)="selectViewState($event, 'claim')"
-            class="btn btn-default"
-            angulartics2On="click" angularticsEvent="ViewClaimScores" angularticsCategory="StudentHistory"
-            [ngClass]="{'active': viewState === 'claim'}">
-      {{'common.buttons.display-claim' | translate}}
-    </button>
-  </div>
 </div>

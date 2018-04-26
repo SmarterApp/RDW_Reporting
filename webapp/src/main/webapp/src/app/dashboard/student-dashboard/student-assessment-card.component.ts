@@ -15,8 +15,6 @@ export class StudentAssessmentCardComponent implements OnInit {
   exams: StudentHistoryExamWrapper[];
   @Output()
   selectedAssessment: EventEmitter<any> = new EventEmitter();
-  @Output()
-  viewStateEmitter: EventEmitter<any> = new EventEmitter();
   @Input()
   selected = false;
 
@@ -47,20 +45,6 @@ export class StudentAssessmentCardComponent implements OnInit {
 
   selectCard(): void {
     this.selectedAssessment.emit(this.assessment);
-  }
-
-  selectViewState(event, viewState: string): void {
-    event.stopPropagation();
-    if (this.viewState === viewState && this.assessment.selected) {
-      this.viewState = null;
-      this.selectCard();
-      return;
-    }
-    if (!this.assessment.selected) {
-      this.selectCard();
-    }
-    this.viewStateEmitter.emit(viewState);
-    this.viewState = viewState;
   }
 
 }
