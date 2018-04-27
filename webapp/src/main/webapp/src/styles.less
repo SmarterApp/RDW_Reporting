@@ -1122,15 +1122,14 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
 @easing-accel: cubic-bezier(0.4, 0.0, 1, 1);
 @easing-sharp: cubic-bezier(0.4, 0.0, 0.6, 1);
 
+// cards per row
+@cards-per-row: 3;
+
 // copy below CSS
 .card-grid {
   display: grid;
   grid-gap: @spacer;
-  grid-template-columns: repeat(auto-fit, @spacer * 18);
-}
-
-.card-container.selected {
-  grid-column: 1;
+  grid-template-columns: repeat(@cards-per-row, @spacer * 18);
 }
 
 .card {
