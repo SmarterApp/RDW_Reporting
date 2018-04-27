@@ -10,15 +10,13 @@
                              (selectedAssessment)="onCardSelection($event)"></student-assessment-card>
     <div *ngIf="i % 3 === 0">
       <ng-container
-        *ngTemplateOutlet="tableTemplate; context:{ hide: hideTableForIndex(i), studentHistoryCard: studentHistoryCard, exams: exams, event: event }"></ng-container>
+        *ngTemplateOutlet="tableTemplate; context:{ hide: hideTableForIndex(i) }"></ng-container>
     </div>
   </div>
 </div>
 
 
-<ng-template #tableTemplate let-hide="hide" let-studentHistoryCard="studentHistoryCard" let-exams="exams"
-             let-event="event">
-
+<ng-template #tableTemplate let-hide="hide">
 
   <div [ngClass]="{'mt-lg': !hide}">
     <div *ngIf="assessmentType !== 'iab' && !hide"
