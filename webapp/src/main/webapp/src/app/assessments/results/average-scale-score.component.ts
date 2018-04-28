@@ -7,6 +7,7 @@ import { ColorService } from "../../shared/color.service";
 import { AssessmentProvider } from "../assessment-provider.interface";
 import { Observable } from "rxjs/Observable";
 import { TranslateService } from "@ngx-translate/core";
+import { ClaimStatistics } from '../model/claim-score.model';
 
 /**
  * This component is responsible for displaying the average scale score visualization
@@ -25,6 +26,8 @@ export class AverageScaleScoreComponent {
 
   @Input()
   set statistics(value: ExamStatistics) {
+    console.log('claimCodes', this.assessmentExam.assessment.claimCodes);
+
     // reverse percents and levels so scale score statistics appear in descending order ("good" statistics levels comes before "bad")
     value.percents = value.percents.reverse();
     value.levels = value.levels.reverse();
@@ -51,6 +54,14 @@ export class AverageScaleScoreComponent {
 
   get statistics(): ExamStatistics {
     return this._statistics;
+  }
+
+  get claimCodes(): string[] {
+    return this.assessmentExam.assessment.claimCodes;
+  }
+
+  getClaimRoundedPercent(claimStats: ClaimStatistics, i: number) {
+    return Math.floor(claimStats.percents[i].value);
   }
 
   instructionalResourcesProvider: () => Observable<InstructionalResource[]>;

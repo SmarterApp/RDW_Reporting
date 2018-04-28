@@ -25,6 +25,7 @@ export class GroupAssessmentCardComponent implements OnInit {
   }
 
   ngOnInit() {
+    // TODO: make this dynamic for configurable subjects
     this.percents = [
       Math.round(this.measuredAssessment.studentCountByPerformanceLevel[ 0 ].percent),
       Math.round(this.measuredAssessment.studentCountByPerformanceLevel[ 1 ].percent),
