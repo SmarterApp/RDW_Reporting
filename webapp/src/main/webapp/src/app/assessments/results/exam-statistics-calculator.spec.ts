@@ -1,7 +1,9 @@
-import { ExamStatisticsCalculator } from "./exam-statistics-calculator";
-import { Exam } from "../model/exam.model";
-import { AssessmentItem } from "../model/assessment-item.model";
-import { ExamItemScore } from "../model/exam-item-score.model";
+import { ExamStatisticsCalculator } from './exam-statistics-calculator';
+import { Exam } from '../model/exam.model';
+import { AssessmentItem } from '../model/assessment-item.model';
+import { ExamItemScore } from '../model/exam-item-score.model';
+import { ClaimScore, ClaimStatistics } from '../model/claim-score.model';
+import { ExamStatisticsLevel } from '../model/exam-statistics.model';
 
 describe('Exam Calculator', () => {
 
@@ -353,5 +355,135 @@ describe('Exam Calculator', () => {
       expect(actual[i].numberField).toBe("number-point_" + potentialResponses[i]);
       expect(actual[i].percentField).toBe("percent-point_" + potentialResponses[i]);
     }
+  });
+
+  it('should aggregate by claims and levels', () => {
+    let exams = [
+      <Exam>{
+        claimScores: [
+          <ClaimScore>{ level: 1 },
+          <ClaimScore>{ level: 2 },
+          <ClaimScore>{ level: 3 },
+          <ClaimScore>{ level: 1 },
+        ]
+      },
+      <Exam>{
+        claimScores: [
+          <ClaimScore>{ level: 1 },
+          <ClaimScore>{ level: 2 },
+          <ClaimScore>{ level: 1 },
+          <ClaimScore>{ level: 2 }
+        ]
+      }
+    ];
+
+    let fixture = new ExamStatisticsCalculator();
+    let actual = fixture.calculateClaimStatistics(exams, 3);
+
+
+    expect(actual).toEqual([
+      <ClaimStatistics>{ id: 0, levels: [
+          <ExamStatisticsLevel>{ id: 1, value: 2 },
+          <ExamStatisticsLevel>{ id: 2, value: 0 },
+          <ExamStatisticsLevel>{ id: 3, value: 0 }
+        ],
+        percents: [
+          <ExamStatisticsLevel>{ id: 1, value: 100.0, suffix: '%' },
+          <ExamStatisticsLevel>{ id: 2, value: 0, suffix: '%' },
+          <ExamStatisticsLevel>{ id: 3, value: 0, suffix: '%' }
+        ]},
+      <ClaimStatistics>{ id: 1, levels: [
+          <ExamStatisticsLevel>{ id: 1, value: 0 },
+          <ExamStatisticsLevel>{ id: 2, value: 2 },
+          <ExamStatisticsLevel>{ id: 3, value: 0 }
+        ],
+        percents: [
+          <ExamStatisticsLevel>{ id: 1, value: 0, suffix: '%' },
+          <ExamStatisticsLevel>{ id: 2, value: 100.0, suffix: '%' },
+          <ExamStatisticsLevel>{ id: 3, value: 0, suffix: '%' }
+        ]},
+      <ClaimStatistics>{ id: 2, levels: [
+          <ExamStatisticsLevel>{ id: 1, value: 1 },
+          <ExamStatisticsLevel>{ id: 2, value: 0 },
+          <ExamStatisticsLevel>{ id: 3, value: 1 }
+        ],
+        percents: [
+          <ExamStatisticsLevel>{ id: 1, value: 50.0, suffix: '%' },
+          <ExamStatisticsLevel>{ id: 2, value: 0, suffix: '%' },
+          <ExamStatisticsLevel>{ id: 3, value: 50.0, suffix: '%' }
+        ]},
+      <ClaimStatistics>{ id: 3, levels: [
+          <ExamStatisticsLevel>{ id: 1, value: 1 },
+          <ExamStatisticsLevel>{ id: 2, value: 1 },
+          <ExamStatisticsLevel>{ id: 3, value: 0 }
+        ],
+        percents: [
+          <ExamStatisticsLevel>{ id: 1, value: 50.0, suffix: '%' },
+          <ExamStatisticsLevel>{ id: 2, value: 50.0, suffix: '%' },
+          <ExamStatisticsLevel>{ id: 3, value: 0, suffix: '%' }
+        ]}
+    ]);
+  });
+
+  it('should ignore bad claim levels when aggregating', () => {
+    let fixture = new ExamStatisticsCalculator();
+    let actual = fixture.calculateClaimStatistics([], 3);
+
+    expect(actual).toEqual([]);
+  });
+
+  it('should aggregate by empty exams', () => {
+    let exams = [
+      <Exam>{
+        claimScores: [
+          <ClaimScore>{ level: 1 },
+          <ClaimScore>{ level: 1 },
+          <ClaimScore>{ level: 1 },
+        ]
+      },
+      <Exam>{
+        claimScores: [
+          <ClaimScore>{ level: 2 },
+          <ClaimScore>{ level: 6 },
+          <ClaimScore>{ level: -2 }
+        ]
+      }
+    ];
+
+    let fixture = new ExamStatisticsCalculator();
+    let actual = fixture.calculateClaimStatistics(exams, 3);
+
+    expect(actual).toEqual([
+      <ClaimStatistics>{ id: 0, levels: [
+          <ExamStatisticsLevel>{ id: 1, value: 1 },
+          <ExamStatisticsLevel>{ id: 2, value: 1 },
+          <ExamStatisticsLevel>{ id: 3, value: 0 }
+        ],
+        percents: [
+          <ExamStatisticsLevel>{ id: 1, value: 50.0, suffix: '%' },
+          <ExamStatisticsLevel>{ id: 2, value: 50.0, suffix: '%' },
+          <ExamStatisticsLevel>{ id: 3, value: 0, suffix: '%' }
+        ]},
+      <ClaimStatistics>{ id: 1, levels: [
+          <ExamStatisticsLevel>{ id: 1, value: 1 },
+          <ExamStatisticsLevel>{ id: 2, value: 0 },
+          <ExamStatisticsLevel>{ id: 3, value: 0 }
+        ],
+        percents: [
+          <ExamStatisticsLevel>{ id: 1, value: 100.0, suffix: '%' },
+          <ExamStatisticsLevel>{ id: 2, value: 0, suffix: '%' },
+          <ExamStatisticsLevel>{ id: 3, value: 0, suffix: '%' }
+        ]},
+      <ClaimStatistics>{ id: 2, levels: [
+          <ExamStatisticsLevel>{ id: 1, value: 1 },
+          <ExamStatisticsLevel>{ id: 2, value: 0 },
+          <ExamStatisticsLevel>{ id: 3, value: 0 }
+        ],
+        percents: [
+          <ExamStatisticsLevel>{ id: 1, value: 100.0, suffix: '%' },
+          <ExamStatisticsLevel>{ id: 2, value: 0, suffix: '%' },
+          <ExamStatisticsLevel>{ id: 3, value: 0, suffix: '%' }
+        ]}
+    ]);
   });
 });

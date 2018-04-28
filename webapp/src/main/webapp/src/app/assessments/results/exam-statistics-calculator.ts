@@ -1,10 +1,11 @@
-import { Injectable } from "@angular/core";
-import { AssessmentItem } from "../model/assessment-item.model";
-import { ExamStatisticsLevel } from "../model/exam-statistics.model";
-import { Exam } from "../model/exam.model";
-import { DynamicItemField } from "../model/item-point-field.model";
-import * as math from "mathjs";
-import {WritingTraitScoreSummary} from "../model/writing-trait-score-summary.model";
+import { Injectable } from '@angular/core';
+import { AssessmentItem } from '../model/assessment-item.model';
+import { ExamStatisticsLevel } from '../model/exam-statistics.model';
+import { Exam } from '../model/exam.model';
+import { DynamicItemField } from '../model/item-point-field.model';
+import * as math from 'mathjs';
+import { WritingTraitScoreSummary } from '../model/writing-trait-score-summary.model';
+import { ClaimStatistics } from '../model/claim-score.model';
 
 @Injectable()
 export class ExamStatisticsCalculator {
@@ -13,7 +14,7 @@ export class ExamStatisticsCalculator {
 
   private readonly potentialResponses = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-  calculateAverage(exams: Exam[]) {
+  calculateAverage(exams: Exam[]): number {
     let scoredExams = this.getOnlyScoredExams(exams);
     return scoredExams.reduce((x, y) => x + y.score, 0)
       / scoredExams.length;
@@ -26,7 +27,7 @@ export class ExamStatisticsCalculator {
    * @param exams
    * @returns {number}
    */
-  calculateStandardErrorOfTheMean(exams: Exam[]) {
+  calculateStandardErrorOfTheMean(exams: Exam[]): number {
     let scoredExams = this.getOnlyScoredExams(exams);
     let scores = scoredExams.map(x => x.score);
 
@@ -37,11 +38,30 @@ export class ExamStatisticsCalculator {
     return math.std(scores) / math.sqrt(scores.length);
   }
 
+  calculateClaimStatistics(exams: Exam[], numberOfLevels: number): ClaimStatistics[] {
+    if (exams == null || exams.length == 0) return [];
+
+    let stats = [];
+
+    for (let i = 0; i < exams[0].claimScores.length; i++) {
+      let claimStats = <ClaimStatistics>{
+        id: i,
+        levels: this.groupLevels(exams.map(ex => ex.claimScores[i]), numberOfLevels)
+      };
+
+      claimStats.percents = this.mapGroupLevelsToPercents(claimStats.levels);
+
+      stats.push(claimStats);
+    }
+
+    return stats;
+  }
+
   getOnlyScoredExams(exams: Exam[]): Exam[] {
     return exams.filter(x => x && x.score);
   }
 
-  groupLevels(exams, numberOfLevels): ExamStatisticsLevel[] {
+  groupLevels(exams, numberOfLevels: number): ExamStatisticsLevel[] {
     let levels = [];
 
     for (let i = 0; i < numberOfLevels; i++) {
@@ -94,7 +114,7 @@ export class ExamStatisticsCalculator {
     return pointFields;
   }
 
-  aggregateWritingTraitScores(assessmentItems: AssessmentItem[]) : WritingTraitScoreSummary[] {
+  aggregateWritingTraitScores(assessmentItems: AssessmentItem[]): WritingTraitScoreSummary[] {
     let summaries: WritingTraitScoreSummary[] = [];
 
     assessmentItems.forEach(assessmentItem => {
@@ -103,10 +123,10 @@ export class ExamStatisticsCalculator {
       let totalAnswers = itemsWithTraitScores.length;
 
       itemsWithTraitScores.forEach((score, index) => {
-        summary.evidence.numbers[score.writingTraitScores.evidence]++;
-        summary.organization.numbers[score.writingTraitScores.organization]++;
-        summary.conventions.numbers[score.writingTraitScores.conventions]++;
-        summary.total.numbers[score.points]++;
+        summary.evidence.numbers[ score.writingTraitScores.evidence ]++;
+        summary.organization.numbers[ score.writingTraitScores.organization ]++;
+        summary.conventions.numbers[ score.writingTraitScores.conventions ]++;
+        summary.total.numbers[ score.points ]++;
       });
 
       // calculate the averages and the percents based on the raw numbers
@@ -118,7 +138,7 @@ export class ExamStatisticsCalculator {
           total += num * index;
           count += num;
 
-          aggregate.percents[index] = totalAnswers == 0 ? 0 : num / totalAnswers * 100;
+          aggregate.percents[ index ] = totalAnswers == 0 ? 0 : num / totalAnswers * 100;
         });
 
         aggregate.average = count == 0 ? 0 : total / count;
@@ -172,7 +192,7 @@ export class ExamStatisticsCalculator {
     return pointFields;
   }
 
-  assertNumberOfChoicesIsValid(numberOfChoices) {
+  assertNumberOfChoicesIsValid(numberOfChoices: number) {
     // Assert we have a defined potential response for the given number of choices.
     if (numberOfChoices >= this.potentialResponses.length) {
       throw Error("Undefined potential response for given number of choices.");
