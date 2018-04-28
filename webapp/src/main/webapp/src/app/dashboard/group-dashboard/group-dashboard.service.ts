@@ -1,13 +1,13 @@
 import { catchError, map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { ResponseUtils } from '../shared/response-utils';
+import { ResponseUtils } from '../../shared/response-utils';
 import { Injectable } from '@angular/core';
-import { ReportingServiceRoute } from '../shared/service-route';
-import { DataService } from '../shared/data/data.service';
+import { ReportingServiceRoute } from '../../shared/service-route';
+import { DataService } from '../../shared/data/data.service';
 import { URLSearchParams } from '@angular/http';
-import { Group } from '../groups/group';
-import { MeasuredAssessment } from './measured-assessment';
-import { MeasuredAssessmentMapper } from './measured-assessment.mapper';
+import { Group } from '../../groups/group';
+import { MeasuredAssessment } from '../measured-assessment';
+import { MeasuredAssessmentMapper } from '../measured-assessment.mapper';
 
 const ServiceRoute = ReportingServiceRoute;
 

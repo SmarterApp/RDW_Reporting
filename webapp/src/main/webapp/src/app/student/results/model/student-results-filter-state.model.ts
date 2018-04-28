@@ -4,5 +4,7 @@ export interface StudentResultsFilterState {
   schoolYear?: number;
   subjects: string[];
   subject?: string;
+  assessmentTypes: string[];
+  assessmentType?: string;
 
 }

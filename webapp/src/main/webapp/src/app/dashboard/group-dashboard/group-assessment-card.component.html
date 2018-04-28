@@ -4,10 +4,10 @@
   <span
     class="label" [ngClass]="getGradeColor()">{{ 'common.assessment-grade-short-label.' + measuredAssessment.assessment.grade | translate}}</span>
   <span class="title">{{ measuredAssessment.assessment.label }}</span>
-  <span class="date">{{ measuredAssessment.date | date }}</span>
+  <span class="date">{{ date | date }}</span>
   <div class="students">
-    <span class="caption"
-          [innerHTML]="'assessment-card.student-count' | translate: {studentsTested: this.measuredAssessment.studentsTested, groupCount: group.totalStudents }"></span>
+      <span class="caption"
+            [innerHTML]="'assessment-card.student-count' | translate: {studentsTested: measuredAssessment.studentsTested, groupCount: group.totalStudents }"></span>
     <div class="scale-score-graph rounded small">
       <div class="bar-container">
         <div class="bar green" [attr.data-width]="studentCountFill"></div>
@@ -23,7 +23,8 @@
         <span class="square"
               [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode('iab', i + 1)"></span>
         {{ 'common.value-display-type-format.Percent' | translate: { value: percents[i] } }}
-        <span class="sr-only">{{ 'common.assessment-type.iab.performance-level.' + i + 1 + '.name' | translate }}</span>
+        <span
+          class="sr-only">{{ 'common.assessment-type.iab.performance-level.' + i + 1 + '.name' | translate }}</span>
       </div>
     </div>
 

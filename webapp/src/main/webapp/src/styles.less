@@ -1122,11 +1122,14 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
 @easing-accel: cubic-bezier(0.4, 0.0, 1, 1);
 @easing-sharp: cubic-bezier(0.4, 0.0, 0.6, 1);
 
+// cards per row
+@cards-per-row: 3;
+
 // copy below CSS
 .card-grid {
   display: grid;
   grid-gap: @spacer;
-  grid-template-columns: repeat(auto-fit, @spacer * 18);
+  grid-template-columns: repeat(@cards-per-row, @spacer * 18);
 }
 
 .card {
@@ -1134,7 +1137,7 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
   background-color: @white;
   border-width: @spacer / 4;
   border-style: solid;
-  border-color: transparent;
+  border-color: @gray-lightest;
   border-radius: @spacer / 4;
   transform-origin: center center;
   transition-property: transform, border-color;
@@ -1182,6 +1185,10 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
       transition-timing-function: @easing-accel;
     }
   }
+  .result-count {
+    text-align: center;
+    font-weight: 600
+  }
 }
 
 .assessment-aggregate {
@@ -1214,6 +1221,23 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
       margin-bottom: @spacer / 4;
     }
   }
+
+  .distribution {
+    .btn;
+    width: 100%;
+    pointer-events: none;
+    color: @white;
+    &.blue-dark.aqua {
+      .textured-blue;
+    }
+    &.blue-dark {
+      background-color: @blue-dark;
+    }
+    &.aqua {
+      background-color: @aqua;
+    }
+  }
+
   .perc-container {
     display: grid;
     grid-gap: @spacer / 4;
@@ -1235,7 +1259,7 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
       background-color: currentcolor;
       border-radius: 3px;
       &.blue-dark.aqua {
-        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAOklEQVQoU2M0m/bs/631dQwgoBbYBKaR+YwgBeiCyHxGAdeU/9h0whSBFeAyHiRO2ASCbiDoC0JuAABdtDutSFLMdAAAAABJRU5ErkJggg==) repeat;
+        .textured-blue;
       }
     }
   }
@@ -1269,3 +1293,6 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
   margin-top: 25px;
 }
 
+.label.label-lg {
+  font-size: 100%;
+}

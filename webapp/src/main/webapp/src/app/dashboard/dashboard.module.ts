@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { AssessmentCardComponent } from './assessment-card.component';
-import { GroupDashboardComponent } from './group-dashboard.component';
+import { GroupAssessmentCardComponent } from './group-dashboard/group-assessment-card.component';
+import { GroupDashboardComponent } from './group-dashboard/group-dashboard.component';
 import { ReportModule } from '../report/report.module';
 import { Angulartics2Module } from 'angulartics2';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,13 +12,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '../shared/common.module';
 import { TableModule } from 'primeng/table';
 import { SharedModule } from 'primeng/primeng';
-import { GroupDashboardService } from './group-dashboard.service';
+import { GroupDashboardService } from './group-dashboard/group-dashboard.service';
 import { MeasuredAssessmentMapper } from './measured-assessment.mapper';
+import { StudentAssessmentCardComponent } from './student-dashboard/student-assessment-card.component';
 
 @NgModule({
   declarations: [
     GroupDashboardComponent,
-    AssessmentCardComponent
+    GroupAssessmentCardComponent,
+    StudentAssessmentCardComponent,
   ],
   imports: [
     Angulartics2Module.forChild(),
@@ -33,10 +35,14 @@ import { MeasuredAssessmentMapper } from './measured-assessment.mapper';
     TableModule,
     UserModule
   ],
+  exports: [
+    GroupAssessmentCardComponent,
+    StudentAssessmentCardComponent
+  ],
   providers: [
     GroupDashboardService,
     MeasuredAssessmentMapper
   ]
 })
-export class GroupDashboardModule {
+export class DashboardModule {
 }

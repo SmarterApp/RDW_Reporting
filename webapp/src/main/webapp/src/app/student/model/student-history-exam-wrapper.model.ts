@@ -12,5 +12,6 @@ export class StudentHistoryExamWrapper {
   public assessment: Assessment;
   public exam: Exam;
   public school: School;
+  public selected = false;
 
 }

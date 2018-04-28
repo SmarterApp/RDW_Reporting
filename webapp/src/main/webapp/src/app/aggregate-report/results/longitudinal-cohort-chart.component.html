@@ -1,19 +1,19 @@
 <div class="flex-children">
   <div class="flex-child">
 
-    <div *ngIf="chart"
+    <div *ngIf="chartView"
          class="chart-series-legend pallet-a">
       <ul class="list-unstyled">
-        <li *ngFor="let series of chart.organizationPerformances; let index = index"
+        <li *ngFor="let performancePath of chartView.performancePaths; let index = index"
             class="mb-xs">
           <button class="btn chart-series color-{{index}} text-left"
-                  [ngClass]="{'chart-series-hidden': !series.visible}"
-                  (click)="toggleSeries(series)">
+                  [ngClass]="{'chart-series-hidden': !performancePath.visible}"
+                  (click)="performancePath.visible = !performancePath.visible">
             <div>
-              {{series.data.data.name}}
+              {{performancePath.organization.name}}
             </div>
             <div class="small">
-              {{'common.organization.type.' + series.data.data.type | translate}}
+              {{'common.organization.type.' + performancePath.organization.type | translate}}
             </div>
           </button>
         </li>
@@ -24,50 +24,51 @@
 
     <svg #chartContainer
          class="longitudinal-cohort-chart"
-         [attr.width]="displayConfiguration.outerWidth"
-         [attr.height]="displayConfiguration.outerHeight">
+         [attr.width]="display.outerWidth"
+         [attr.height]="display.outerHeight">
 
-      <g [attr.transform]="'translate(' + displayConfiguration.padding.left + ', ' + displayConfiguration.padding.top + ')'">
+      <g [attr.transform]="'translate(' + display.padding.left + ', ' + display.padding.top + ')'">
 
-        <g *ngIf="chart"
+        <g *ngIf="chartView"
            class="scale-score-areas"
            [ngClass]="areaPallet">
 
-          <g *ngFor="let area of chart.assessmentPerformances"
-             [ngClass]="area.styles">
+          <g *ngFor="let levelPath of chartView.performanceLevelPaths"
+             [ngClass]="levelPath.styles">
 
             <path class="color-fill"
-                  [attr.d]="d3area(area.points)"></path>
+                  [attr.d]="levelPath.pathData"></path>
 
             <path class="scale-score-area-divider"
-                  [attr.d]="d3line(area.points)"></path>
+                  [attr.d]="levelPath.dividerPathData"></path>
           </g>
         </g>
 
         <g class="axes-container"></g>
 
-        <g *ngIf="chart"
+        <g *ngIf="chartView"
            class="scale-score-lines"
            [ngClass]="linePallet">
 
-          <g *ngFor="let series of chart.organizationPerformances; let i = index"
-             [ngClass]="series.styles + (series.visible ? '' : ' hidden')">
+          <g *ngFor="let performancePath of chartView.performancePaths; let i = index"
+             [ngClass]="performancePath.visible ? '' : ' hidden'">
 
-            <g [ngClass]="series.data.styles">
+            <g [ngClass]="performancePath.styles">
 
               <path class="line color-stroke"
-                    [attr.d]="d3line(series.data.points)"></path>
+                    [attr.d]="performancePath.pathData"></path>
 
-              <circle *ngFor="let point of series.data.points; let j = index"
+              <circle *ngFor="let point of performancePath.points"
                       [ngClass]="point.styles"
                       r="5"
-                      [attr.cx]="xScale(point.x)"
-                      [attr.cy]="yScale(point.y)"
+                      [attr.cx]="point.x"
+                      [attr.cy]="point.y"
                       [popover]="dataPointPopoverTemplate"
-                      [popoverContext]="{$implicit: point.data}"
+                      [popoverContext]="{$implicit: point}"
                       placement="top"
                       container="body"
-                      triggers="mouseenter:mouseleave"></circle>
+                      outsideClick="true"
+                      triggers="click"></circle>
             </g>
           </g>
         </g>
@@ -76,6 +77,8 @@
   </div>
 </div>
 
-<ng-template #dataPointPopoverTemplate let-scores>
-  {{scores.scaleScore}}
+<ng-template #dataPointPopoverTemplate let-point>
+  <span class="small mr-xs">{{point.levelRange.scaleScoreRange.minimum}}</span>
+  <span class="label label-lg {{point.levelRange.level.color}}">{{point.scaleScore}}</span>
+  <span class="small ml-xs">{{point.levelRange.scaleScoreRange.maximum}}</span>
 </ng-template>

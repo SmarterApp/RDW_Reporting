@@ -1,0 +1,10 @@
+<div class="card assessment-aggregate" [ngClass]="{'selected': latestExam.selected}" (click)="selectCard()">
+
+  <div class="check"><i class="fa fa-check"></i></div>
+  <div
+    class="label" [ngClass]="getGradeColor()">{{ 'common.assessment-grade-short-label.' + latestExam.assessment.grade | translate}}</div>
+  <div class="title">{{ latestExam.assessment.label }}</div>
+  <div class="date">{{ latestExam.exam.date | date }}</div>
+  <div class="distribution mt-sm" [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode('iab', level)">{{ 'common.assessment-type.iab.performance-level.' + level + '.name' | translate }}</div>
+  <div class="result-count center-block mt-md">{{'student-assessment-card.results' | translate:{resultCount: resultCount} }}</div>
+</div>

@@ -30,6 +30,7 @@ import { EditableListGroupComponent } from './editable-list-group.component';
 import { LongitudinalCohortChartComponent } from './results/longitudinal-cohort-chart.component';
 import { LongitudinalPlaygroundComponent } from './results/longitudinal-playground.component';
 import { SubgroupModule } from './subgroup/subgroup.module';
+import { LongitudinalCohortChartMapper } from './results/longitudinal-cohort-chart.mapper';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { SubgroupModule } from './subgroup/subgroup.module';
     AggregateReportItemMapper,
     AggregateReportFormSettingsResolve,
     AggregateReportColumnOrderItemProvider,
-    LongitudinalPlaygroundComponent
+    LongitudinalPlaygroundComponent,
+    LongitudinalCohortChartMapper
   ]
 })
 export class AggregateReportsModule {

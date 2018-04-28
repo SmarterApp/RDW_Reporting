@@ -1,15 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AssessmentCardComponent } from './assessment-card.component';
+import { GroupAssessmentCardComponent } from './group-assessment-card.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { CommonModule } from '../shared/common.module';
-import { DetailsByPerformanceLevel, MeasuredAssessment } from './measured-assessment';
-import { Assessment } from '../assessments/model/assessment.model';
-import { Group } from '../groups/group';
+import { CommonModule } from '../../shared/common.module';
+import { DetailsByPerformanceLevel, MeasuredAssessment } from '../measured-assessment';
+import { Assessment } from '../../assessments/model/assessment.model';
+import { Group } from '../../groups/group';
 
-describe('AssessmentCardComponent', () => {
+describe('GroupAssessmentCardComponent', () => {
 
-  let component: AssessmentCardComponent;
-  let fixture: ComponentFixture<AssessmentCardComponent>;
+  let component: GroupAssessmentCardComponent;
+  let fixture: ComponentFixture<GroupAssessmentCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -17,14 +17,14 @@ describe('AssessmentCardComponent', () => {
         CommonModule
       ],
       declarations: [
-        AssessmentCardComponent
+        GroupAssessmentCardComponent
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
   }));
 
   function createComponent() {
-    fixture = TestBed.createComponent(AssessmentCardComponent);
+    fixture = TestBed.createComponent(GroupAssessmentCardComponent);
     component = fixture.componentInstance;
   }
 

@@ -228,7 +228,7 @@ sql:
   assessment:
     grade:
       findAllForSchool: >-
-        SELECT id, code
+        SELECT id, code, sequence
         FROM grade g WHERE EXISTS (
             SELECT a.grade_id
             FROM exam e

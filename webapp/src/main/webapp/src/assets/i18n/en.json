@@ -380,6 +380,7 @@
         "short-name": "Summative"
       }
     },
+    "assessment-type-select-label": "Assessment Type",
     "assessments": {
       "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above."
     },
@@ -1225,6 +1226,9 @@
     "no-results-message": "Student does not exist or has no available test results.",
     "prompt": "Enter the Statewide Student Identifier (SSID)",
     "title": "Search by Student ID"
+  },
+  "student-assessment-card": {
+    "results": "{{resultCount}} results"
   },
   "student-exam-history-table": {
     "columns": {

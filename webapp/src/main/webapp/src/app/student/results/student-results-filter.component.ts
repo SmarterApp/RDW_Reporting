@@ -1,7 +1,7 @@
-import { Component, Input, EventEmitter, Output } from "@angular/core";
-import { StudentResultsFilterState } from "./model/student-results-filter-state.model";
-import { Angulartics2 } from "angulartics2";
-import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { StudentResultsFilterState } from './model/student-results-filter-state.model';
+import { Angulartics2 } from 'angulartics2';
+import { ExamFilterOptions } from '../../assessments/model/exam-filter-options.model';
 import { FilterBy } from '../../assessments/model/filter-by.model';
 
 @Component({
@@ -11,7 +11,7 @@ import { FilterBy } from '../../assessments/model/filter-by.model';
 export class StudentResultsFilterComponent {
 
   @Input()
-  filterState: StudentResultsFilterState = { schoolYears: [], subjects: [] };
+  filterState: StudentResultsFilterState = { schoolYears: [], subjects: [], assessmentTypes: [] };
 
   @Input()
   filterOptions: ExamFilterOptions = new ExamFilterOptions();
@@ -57,7 +57,7 @@ export class StudentResultsFilterComponent {
   }
 
   public removeFilter(property: string) {
-    if (property == 'offGradeAssessment') {
+    if (property === 'offGradeAssessment') {
       this.advancedFilters[ property ] = false;
     } else {
       this.advancedFilters[ property ] = -1;
