@@ -58,7 +58,7 @@
         </select>
       </div>
       <div class="col-md-6">
-        <a href="javascript:void(0)" [ngClass]="{'disabled': !cardViewEnabled}" class="col-btn btn btn-primary">{{
+        <a (click)="viewAssessments()" [ngClass]="{'disabled': !cardViewEnabled}" class="col-btn btn btn-primary">{{
           'assessment-card.view-assessments' | translate }}<i class="ml-xs fa fa-angle-right"></i></a>
       </div>
     </div>

@@ -1,17 +1,17 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { ordering } from "@kourge/ordering";
-import { FilterBy } from "./model/filter-by.model";
-import { AssessmentExam } from "./model/assessment-exam.model";
-import { ExamFilterOptions } from "./model/exam-filter-options.model";
-import { Assessment } from "./model/assessment.model";
-import { ExamFilterOptionsService } from "./filters/exam-filters/exam-filter-options.service";
-import { byGradeThenByName } from "./assessment.comparator";
-import { AssessmentProvider } from "./assessment-provider.interface";
-import { GradeCode } from "../shared/enum/grade-code.enum";
-import { ColorService } from "../shared/color.service";
-import { AssessmentExporter } from "./assessment-exporter.interface";
-import { ReportingEmbargoService } from "../shared/embargo/reporting-embargo.service";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ordering } from '@kourge/ordering';
+import { FilterBy } from './model/filter-by.model';
+import { AssessmentExam } from './model/assessment-exam.model';
+import { ExamFilterOptions } from './model/exam-filter-options.model';
+import { Assessment } from './model/assessment.model';
+import { ExamFilterOptionsService } from './filters/exam-filters/exam-filter-options.service';
+import { byGradeThenByName } from './assessment.comparator';
+import { AssessmentProvider } from './assessment-provider.interface';
+import { GradeCode } from '../shared/enum/grade-code.enum';
+import { ColorService } from '../shared/color.service';
+import { AssessmentExporter } from './assessment-exporter.interface';
+import { ReportingEmbargoService } from '../shared/embargo/reporting-embargo.service';
 import { share } from 'rxjs/operators';
 import { ApplicationSettingsService } from '../app-settings.service';
 import { forkJoin } from 'rxjs/observable/forkJoin';
@@ -26,7 +26,7 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
   selector: 'assessments',
   templateUrl: './assessments.component.html'
 })
-export class AssessmentsComponent {
+export class AssessmentsComponent implements OnInit {
 
   /**
    * The array of asssessment exams to show.
@@ -61,22 +61,23 @@ export class AssessmentsComponent {
    * by default.  Otherwise, they won't be displayed and all results will be shown.
    */
   @Input()
-  allowFilterBySessions: boolean = true;
+  allowFilterBySessions = true;
 
   @Output()
   export: EventEmitter<any> = new EventEmitter<any>();
 
-  showValuesAsPercent: boolean = true;
+  showValuesAsPercent = true;
   filterDisplayOptions: any = {
     expanded: true
   };
   clientFilterBy: FilterBy;
+  disableMostRecentButton = false;
 
   filterOptions: ExamFilterOptions = new ExamFilterOptions();
   availableAssessments: Assessment[] = [];
   assessmentsLoading: any[] = [];
   minimumItemDataYear: number;
-  exportDisabled: boolean = true;
+  exportDisabled = true;
 
   get assessmentExams(): AssessmentExam[] {
     return this._assessmentExams;
@@ -117,7 +118,7 @@ export class AssessmentsComponent {
 
     if (value) {
       this.availableAssessments = [];
-      this.updateAssessment(this.route.snapshot.data[ "assessment" ]);
+      this.updateAssessment(this.route.snapshot.data[ 'assessment' ]);
     }
   }
 
@@ -138,7 +139,7 @@ export class AssessmentsComponent {
    * @param allCollapsed True if all assessment exams should be collapsed
    */
   set allCollapsed(allCollapsed: boolean) {
-    for (let assessmentExam of this._assessmentExams) {
+    for (const assessmentExam of this._assessmentExams) {
       assessmentExam.collapsed = allCollapsed;
     }
   }
@@ -154,12 +155,12 @@ export class AssessmentsComponent {
     return this._isAllSelected;
   }
 
-  private _showAdvancedFilters: boolean = false;
-  private _expandAssessments: boolean = false;
-  private _hasInitialAssessment: boolean = false;
-  private _showOnlyMostRecent: boolean = true;
+  private _showAdvancedFilters = false;
+  private _expandAssessments = false;
+  private _hasInitialAssessment = false;
+  private _showOnlyMostRecent = true;
   private _assessmentExams: AssessmentExam[];
-  private _isAllSelected: boolean = false;
+  private _isAllSelected = false;
 
   constructor(public colorService: ColorService,
               private route: ActivatedRoute,
@@ -173,12 +174,29 @@ export class AssessmentsComponent {
       applicationSettingsService.getSettings(),
       filterOptionService.getExamFilterOptions(),
       embargoService.isEmbargoed()
-    ).subscribe(([settings, filterOptions, embargoed]) => {
+    ).subscribe(([ settings, filterOptions, embargoed ]) => {
       this.minimumItemDataYear = settings.minItemDataYear;
       this.filterOptions = filterOptions;
       this.updateFilterOptions();
       this.exportDisabled = embargoed;
     });
+  }
+
+  ngOnInit() {
+    const { assessmentIds } = this.route.snapshot.params;
+    if (assessmentIds) {
+      this.assessmentProvider.getAvailableAssessments().subscribe((value) => {
+        const selectedAssessments = value.filter((assessment) => assessmentIds.split(',').indexOf(assessment.id.toString()) >= 0);
+        selectedAssessments.forEach((assessment) => {
+          assessment.selected = true;
+          this.selectedAssessmentsChanged(assessment);
+        });
+        this.showOnlyMostRecent = false;
+        this.expandAssessments = true;
+        this.disableMostRecentButton = true;
+        this.updateFilterOptions();
+      });
+    }
   }
 
   getGradeIdx(gradeCode: string): number {
@@ -213,25 +231,22 @@ export class AssessmentsComponent {
   }
 
   removeFilter(property) {
-    if (property == 'offGradeAssessment') {
+    if (property === 'offGradeAssessment') {
       this.clientFilterBy[ property ] = false;
-    }
-    else if (property == 'transferAssessment') {
+    } else if (property === 'transferAssessment') {
       this.clientFilterBy[ property ] = false;
-    }
-    else if (property.indexOf('ethnicities') > -1) {
+    } else if (property.indexOf('ethnicities') > -1) {
       this.removeEthnicity(property.substring(property.indexOf('.') + 1));
     } else if (property.indexOf('genders') > -1) {
       this.removeGender(property.substring(property.indexOf('.') + 1));
     } else if (property.indexOf('elasCodes') > -1) {
       this.removeElasCode(property.substring(property.indexOf('.') + 1));
-    }
-    else {
+    } else {
       this.clientFilterBy[ property ] = -1;
     }
   }
 
-  updateAssessment(latestAssessment) {
+  updateAssessment(latestAssessment: AssessmentExam) {
     this._assessmentExams = [];
     if (latestAssessment) {
       this._assessmentExams.push(latestAssessment);
@@ -250,8 +265,7 @@ export class AssessmentsComponent {
   selectedAssessmentsChanged(assessment: Assessment) {
     if (assessment.selected) {
       this.loadAssessmentExam(assessment);
-    }
-    else {
+    } else {
       this.removeUnselectedAssessmentExams();
     }
 
@@ -278,10 +292,10 @@ export class AssessmentsComponent {
   }
 
   private loadAssessmentExam(assessment: Assessment) {
-    let subscription = this.assessmentProvider.getExams(assessment.id)
+    const subscription = this.assessmentProvider.getExams(assessment.id)
       .subscribe(exams => {
-        let assessmentLoaded = this.assessmentsLoading.splice(this.assessmentsLoading.findIndex(al => al.assessment.id == assessment.id), 1);
-        let assessmentExam = new AssessmentExam();
+        const assessmentLoaded = this.assessmentsLoading.splice(this.assessmentsLoading.findIndex(al => al.assessment.id == assessment.id), 1);
+        const assessmentExam = new AssessmentExam();
         assessmentExam.assessment = assessmentLoaded[ 0 ].assessment;
         assessmentExam.exams = exams;
 
@@ -297,10 +311,10 @@ export class AssessmentsComponent {
   private removeUnselectedAssessmentExams() {
     this._assessmentExams = this._assessmentExams.filter(loaded => this.selectedAssessments.some(selected => loaded.assessment.id == selected.id));
 
-    let assessmentsLoading = this.assessmentsLoading.filter(loading => !this.selectedAssessments.some(selected => loading.assessment.id == selected.id));
+    const assessmentsLoading = this.assessmentsLoading.filter(loading => !this.selectedAssessments.some(selected => loading.assessment.id == selected.id));
 
     // cancel api calls in flight.
-    for (let loading of assessmentsLoading) {
+    for (const loading of assessmentsLoading) {
       loading.subscription.unsubscribe();
     }
 

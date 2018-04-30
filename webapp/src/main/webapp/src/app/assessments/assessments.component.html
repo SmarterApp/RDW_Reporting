@@ -55,6 +55,7 @@
           <button type="radio" (click)="showOnlyMostRecent = true"
                   class="btn btn-default"
                   [ngClass]="{'active': showOnlyMostRecent}"
+                  [disabled]="disableMostRecentButton"
                   angulartics2On="click"
                   angularticsEvent="ShowOnlyMostRecent"
                   angularticsCategory="AssessmentResults">{{'assessments.results.filter-type-recent' | translate}}</button>
