@@ -1,8 +1,12 @@
 <div class="flex-children">
   <div class="flex-child grow">
-    <ng-container *ngTemplateOutlet="heading"></ng-container>
+    <div class="vertical-align-bottom">
+      <ng-container *ngTemplateOutlet="heading"></ng-container>
+    </div>
   </div>
   <div class="flex-child" *ngIf="content">
-    <ng-container *ngTemplateOutlet="content"></ng-container>
+    <div class="vertical-align-bottom">
+      <ng-container *ngTemplateOutlet="content"></ng-container>
+    </div>
   </div>
 </div>

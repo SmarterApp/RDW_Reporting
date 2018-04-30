@@ -74,7 +74,6 @@ export class GroupResultsComponent implements OnInit {
       }
       this.currentGroup = this.groups.find(group => group.id == groupId);
       this.currentSchoolYear = Number.parseInt(schoolYear) || this.filterOptions.schoolYears[ 0 ];
-      this.updateAssessment(this.route.snapshot.data[ 'assessment' ]);
     });
   }
 
@@ -87,7 +86,7 @@ export class GroupResultsComponent implements OnInit {
   updateAssessment(latestAssessment): void {
     this.assessmentExams = [];
     if (latestAssessment) {
-      this.assessmentExams.push(latestAssessment);
+      this.assessmentExams = [ latestAssessment ];
     }
   }
 

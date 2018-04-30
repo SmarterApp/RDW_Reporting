@@ -35,9 +35,14 @@ export class AssessmentsComponent implements OnInit {
   @Input()
   set assessmentExams(value: AssessmentExam[]) {
     this._assessmentExams = value;
-    this.showOnlyMostRecent = true;
-    this._hasInitialAssessment = (value != null && value.length != 0);
+    const { assessmentIds } = this.route.snapshot.params;
+    if (!assessmentIds) {
+      this.showOnlyMostRecent = true;
+    }
+    this._hasInitialAssessment = (this._assessmentExams != null && this._assessmentExams.length != 0);
   }
+
+  private _preselectedAssessments: Assessment[] = [];
 
   /**
    * The provider which implements the AssessmentProvider interface in order
@@ -71,7 +76,6 @@ export class AssessmentsComponent implements OnInit {
     expanded: true
   };
   clientFilterBy: FilterBy;
-  disableMostRecentButton = false;
 
   filterOptions: ExamFilterOptions = new ExamFilterOptions();
   availableAssessments: Assessment[] = [];
@@ -122,11 +126,12 @@ export class AssessmentsComponent implements OnInit {
     }
   }
 
-  get selectedAssessments() {
-    if (this.showOnlyMostRecent && this._assessmentExams) {
+  get selectedAssessments(): Assessment[] {
+    if (this._preselectedAssessments.length) {
+      return this._preselectedAssessments;
+    } else if (this.showOnlyMostRecent && this._assessmentExams) {
       return this._assessmentExams.map(x => x.assessment);
-    }
-    else if (this.availableAssessments) {
+    } else if (this.availableAssessments) {
       return this.availableAssessments.filter(x => x.selected);
     }
 
@@ -184,17 +189,20 @@ export class AssessmentsComponent implements OnInit {
 
   ngOnInit() {
     const { assessmentIds } = this.route.snapshot.params;
-    if (assessmentIds) {
+    if (!assessmentIds) {
+      this.showOnlyMostRecent = true;
+    } else {
       this.assessmentProvider.getAvailableAssessments().subscribe((value) => {
         const selectedAssessments = value.filter((assessment) => assessmentIds.split(',').indexOf(assessment.id.toString()) >= 0);
         selectedAssessments.forEach((assessment) => {
           assessment.selected = true;
-          this.selectedAssessmentsChanged(assessment);
+          this.loadAssessmentExam(assessment);
+          this._preselectedAssessments = this._preselectedAssessments.concat(assessment);
         });
-        this.showOnlyMostRecent = false;
-        this.expandAssessments = true;
-        this.disableMostRecentButton = true;
+        this._hasInitialAssessment = true;
         this.updateFilterOptions();
+        this.showOnlyMostRecent = false;
+        this.expandAssessments = false;
       });
     }
   }
@@ -249,7 +257,7 @@ export class AssessmentsComponent implements OnInit {
   updateAssessment(latestAssessment: AssessmentExam) {
     this._assessmentExams = [];
     if (latestAssessment) {
-      this._assessmentExams.push(latestAssessment);
+      this._assessmentExams = [ latestAssessment ];
     }
 
     this.updateFilterOptions();
