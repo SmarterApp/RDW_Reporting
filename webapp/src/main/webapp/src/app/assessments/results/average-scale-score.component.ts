@@ -67,6 +67,7 @@ export class AverageScaleScoreComponent {
   instructionalResourcesProvider: () => Observable<InstructionalResource[]>;
 
   averageScore: number;
+  tabSelected: number = 1;
 
   private _statistics: ExamStatistics;
   private _totalCount: number;

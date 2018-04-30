@@ -40,60 +40,75 @@
     <div class="col-md-7">
       <strong>{{ 'average-scale-score.student-score-distribution' | translate }}</strong>
       <div class="well">
-        <div *ngFor="let performanceLevel of performanceLevels; let i = index" class="score-distribution-container">
-          <div class="text-right gray-lighter grid-item">
-            {{ examLevelTranslation(performanceLevel) }}
-            <button *ngIf="assessmentExam.assessment.isIab"
-                    class="btn btn-borderless btn-xs icon-only pull-right"
-                    angulartics2On="click"
-                    angularticsEvent="InstructionalResource"
-                    angularticsCategory="AssessmentResults"
-                    [popover]="buttonPopover"
-                    popoverTitle="{{ 'common.results.assessment.instruct-button' | translate:{ level:(examLevelTranslation(performanceLevel)) } }}"
-                    container="body"
-                    (click)="loadInstructionalResources(performanceLevel)"
-                    [outsideClick]="true"><i
-              class="fa fa-book"></i></button>
-          </div>
-          <div class="level-down text-right gray-lightest grid-item">
-            <strong>{{ performanceLevel.value | number:'1.0-0' }}{{performanceLevel.suffix }}</strong>
-          </div>
-          <div class="level-down scale-score-graph rounded blend-middle gray-lightest grid-item">
-            <div class="bar-container">
-              <div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode(assessmentExam.assessment.type, performanceLevels.length - i)"
-                   [attr.data-width]="filledLevel(performanceLevel)"></div>
-              <div *ngIf="filledLevel(performanceLevel) < 100" class="bar gray"
-                   [attr.data-width]="unfilledLevel(performanceLevel)">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div *ngFor="let claimStats of statistics.claims; let i = index" class="aggregate-graph row">
-          <div class="col-md-4">
-            <strong>{{('common.subject-claim-code.' + claimCodes[i]) | translate}}</strong>
-          </div>
-          <!--<div class="perc-container">-->
-            <!--<div class="bar" *ngFor="let i of [0, 1, 2]">-->
-              <!--<span class="square"-->
-                    <!--[ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode('iab', i + 1)"></span>-->
-              <!--{{ 'common.value-display-type-format.Percent' | translate: { value: getClaimRoundedPercent(claimStats, i) } }}-->
-              <!--<span-->
-                <!--class="sr-only">{{ 'common.assessment-type.iab.performance-level.' + i + 1 + '.name' | translate }}</span>-->
+        <!--<tabset>-->
+          <!--<tab [heading]="'Overall'"-->
+               <!--[active]="tabSelected === 1"-->
+               <!--(select)="tabSelected = 1">-->
+            <!--<div *ngFor="let performanceLevel of performanceLevels; let i = index" class="score-distribution-container">-->
+              <!--<div class="text-right gray-lighter grid-item">-->
+                <!--{{ examLevelTranslation(performanceLevel) }}-->
+                <!--<button *ngIf="assessmentExam.assessment.isIab"-->
+                        <!--class="btn btn-borderless btn-xs icon-only pull-right"-->
+                        <!--angulartics2On="click"-->
+                        <!--angularticsEvent="InstructionalResource"-->
+                        <!--angularticsCategory="AssessmentResults"-->
+                        <!--[popover]="buttonPopover"-->
+                        <!--popoverTitle="{{ 'common.results.assessment.instruct-button' | translate:{ level:(examLevelTranslation(performanceLevel)) } }}"-->
+                        <!--container="body"-->
+                        <!--(click)="loadInstructionalResources(performanceLevel)"-->
+                        <!--[outsideClick]="true"><i-->
+                  <!--class="fa fa-book"></i></button>-->
+              <!--</div>-->
+              <!--<div class="level-down text-right gray-lightest grid-item">-->
+                <!--<strong>{{ performanceLevel.value | number:'1.0-0' }}{{performanceLevel.suffix }}</strong>-->
+              <!--</div>-->
+              <!--<div class="level-down scale-score-graph rounded blend-middle gray-lightest grid-item">-->
+                <!--<div class="bar-container">-->
+                  <!--<div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode(assessmentExam.assessment.type, performanceLevels.length - i)"-->
+                       <!--[attr.data-width]="filledLevel(performanceLevel)"></div>-->
+                  <!--<div *ngIf="filledLevel(performanceLevel) < 100" class="bar gray"-->
+                       <!--[attr.data-width]="unfilledLevel(performanceLevel)">-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
             <!--</div>-->
-          <!--</div>-->
+          <!--</tab>-->
+          <!--<tab *ngIf="statistics.claims && statistics.claims.length !== 0" [heading]="'Claims'"-->
+               <!--[active]="tabSelected === 2"-->
+               <!--(select)="tabSelected = 2"-->
+          <!--&gt;-->
+            <div class="row">
+              <ng-container *ngFor="let claimStats of statistics.claims; let i = index">
+                <div class="col-md-5">
+                  <strong>{{('common.subject-claim-code.' + claimCodes[i]) | translate}}</strong>
+                </div>
+                <div class="col-md-7 assessment-aggregate" style="padding: 14px 28px;">
 
-          <div class="col-md-8 scale-score-graph rounded blend-middle">
-            <div class="bar-container">
-              <div *ngFor="let i of [0, 1, 2]">
-                <div class="bar" *ngIf="claimStats.percents[i].value != 0"
-                     [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode('iab', i + 1)"
-                     [attr.data-width]="getClaimRoundedPercent(claimStats, i)"></div>
-              </div>
+
+                  <div class="perc-container" style="padding-top: 0px;">
+                    <div class="bar" *ngFor="let i of [0, 1, 2]">
+                  <span class="square"
+                        [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode('iab', i + 1)"></span>
+                      {{ 'common.value-display-type-format.Percent' | translate: { value: getClaimRoundedPercent(claimStats, i) } }}
+                      <span
+                        class="sr-only">{{ 'common.assessment-type.iab.performance-level.' + i + 1 + '.name' | translate }}</span>
+                    </div>
+                  </div>
+
+                  <div class="scale-score-graph rounded blend-middle">
+                    <div class="bar-container">
+                      <div *ngFor="let i of [0, 1, 2]">
+                        <div class="bar" *ngIf="claimStats.percents[i].value != 0"
+                             [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode('iab', i + 1)"
+                             [attr.data-width]="getClaimRoundedPercent(claimStats, i)"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
             </div>
-          </div>
-        </div>
-
+          <!--</tab>-->
+        <!--</tabset>-->
       </div>
     </div>
   </div>
