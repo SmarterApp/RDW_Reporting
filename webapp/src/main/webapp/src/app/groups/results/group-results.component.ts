@@ -1,15 +1,15 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { AssessmentExam } from "../../assessments/model/assessment-exam.model";
-import { ExamFilterOptions } from "../../assessments/model/exam-filter-options.model";
-import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
-import { GroupAssessmentService } from "./group-assessment.service";
-import { Angulartics2 } from "angulartics2";
-import { AssessmentsComponent } from "../../assessments/assessments.component";
-import { CsvExportService } from "../../csv-export/csv-export.service";
-import { GroupReportDownloadComponent } from "../../report/group-report-download.component";
-import { Group } from "../../groups/group";
-import { GroupAssessmentExportService } from "./group-assessment-export.service";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AssessmentExam } from '../../assessments/model/assessment-exam.model';
+import { ExamFilterOptions } from '../../assessments/model/exam-filter-options.model';
+import { ExamFilterOptionsService } from '../../assessments/filters/exam-filters/exam-filter-options.service';
+import { GroupAssessmentService } from './group-assessment.service';
+import { Angulartics2 } from 'angulartics2';
+import { AssessmentsComponent } from '../../assessments/assessments.component';
+import { CsvExportService } from '../../csv-export/csv-export.service';
+import { GroupReportDownloadComponent } from '../../report/group-report-download.component';
+import { Group } from '../../groups/group';
+import { GroupAssessmentExportService } from './group-assessment-export.service';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { GroupService } from '../group.service';
 
@@ -25,6 +25,7 @@ export class GroupResultsComponent implements OnInit {
   groups: Group[];
   assessmentExams: AssessmentExam[] = [];
   filterOptions: ExamFilterOptions = new ExamFilterOptions();
+  viewGroupDashboard = false;
 
   get currentGroup(): Group {
     return this._currentGroup;
@@ -38,17 +39,17 @@ export class GroupResultsComponent implements OnInit {
     }
   }
 
-  get currentSchoolYear() {
+  get currentSchoolYear(): number {
     return this._currentSchoolYear;
   }
 
-  set currentSchoolYear(value) {
+  set currentSchoolYear(value: number) {
     this._currentSchoolYear = value;
     this.assessmentProvider.schoolYear = value;
   }
 
   private _currentGroup;
-  private _currentSchoolYear;
+  private _currentSchoolYear: number;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -67,24 +68,33 @@ export class GroupResultsComponent implements OnInit {
     ).subscribe(([ groups, filterOptions ]) => {
       this.groups = groups;
       this.filterOptions = filterOptions;
-      const { groupId, schoolYear } = this.route.snapshot.params;
+      const { groupId, schoolYear, assessmentIds } = this.route.snapshot.params;
+      if (assessmentIds) {
+        this.viewGroupDashboard = true;
+      }
       this.currentGroup = this.groups.find(group => group.id == groupId);
       this.currentSchoolYear = Number.parseInt(schoolYear) || this.filterOptions.schoolYears[ 0 ];
       this.updateAssessment(this.route.snapshot.data[ 'assessment' ]);
-    })
+    });
   }
 
-  updateAssessment(latestAssessment) {
+  viewDashboard() {
+    this.router.navigate([ 'group-dashboard', this.currentGroup.id, {
+      schoolYear: this.currentSchoolYear
+    } ]);
+  }
+
+  updateAssessment(latestAssessment): void {
     this.assessmentExams = [];
     if (latestAssessment) {
       this.assessmentExams.push(latestAssessment);
     }
   }
 
-  updateRoute(changeSource: string) {
+  updateRoute(changeSource: string): void {
     this.router.navigate([ 'groups', this._currentGroup.id, { schoolYear: this._currentSchoolYear } ])
       .then(() => {
-        this.updateAssessment(this.route.snapshot.data[ "assessment" ]);
+        this.updateAssessment(this.route.snapshot.data[ 'assessment' ]);
       });
 
     // track change event since wiring select boxes on change as HTML attribute is not possible

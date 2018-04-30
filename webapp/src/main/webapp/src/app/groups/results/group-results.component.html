@@ -2,7 +2,12 @@
 
 <page-heading>
   <ng-template #heading>
-    <h2>{{'groups.name' | translate}}</h2>
+    <div class="col-md-12">
+    <button *ngIf="viewGroupDashboard" class="row btn btn-default btn-sm mb-sm" (click)="viewDashboard()">
+      <i class="fa fa-chevron-left mr-xs"></i>{{ 'group-results.view-dashboard' | translate}}
+    </button>
+    <h2 class="row">{{'groups.name' | translate}}</h2>
+    </div>
   </ng-template>
   <ng-template #content>
     <ul class="list-unstyled list-inline" *ngIf="currentGroup">

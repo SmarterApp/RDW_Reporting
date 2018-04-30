@@ -964,7 +964,8 @@
   "group-results": {
     "group-button-label": "Student Reports",
     "null-group": "This group is unavailable.  Contact your building administrator if you think you should have access to this group.",
-    "select-group": "Group"
+    "select-group": "Group",
+    "view-dashboard": "View Dashboard"
   },
   "groups": {
     "columns": {
