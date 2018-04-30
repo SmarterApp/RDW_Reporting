@@ -127,11 +127,13 @@ export class AssessmentsComponent implements OnInit {
   }
 
   get selectedAssessments(): Assessment[] {
-    if (this._preselectedAssessments.length) {
+    if (!this.showOnlyMostRecent && this._preselectedAssessments.length > 0) {
       return this._preselectedAssessments;
-    } else if (this.showOnlyMostRecent && this._assessmentExams) {
+    } else if (this.showOnlyMostRecent && this._assessmentExams.length > 0) {
+      this._preselectedAssessments = [];
       return this._assessmentExams.map(x => x.assessment);
-    } else if (this.availableAssessments) {
+    } else if (this.availableAssessments.length > 0) {
+      this._preselectedAssessments = [];
       return this.availableAssessments.filter(x => x.selected);
     }
 
@@ -182,7 +184,6 @@ export class AssessmentsComponent implements OnInit {
     ).subscribe(([ settings, filterOptions, embargoed ]) => {
       this.minimumItemDataYear = settings.minItemDataYear;
       this.filterOptions = filterOptions;
-      this.updateFilterOptions();
       this.exportDisabled = embargoed;
     });
   }
