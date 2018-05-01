@@ -8,18 +8,18 @@
                              [latestExam]="studentHistoryCard"
                              [exams]="exams"
                              (selectedAssessment)="onCardSelection($event)"></student-assessment-card>
-    <div *ngIf="i % 3 === 0">
+    <ng-container *ngIf="i % 3 === 0 && !hideTableForIndex(i)">
       <ng-container
-        *ngTemplateOutlet="tableTemplate; context:{ hide: hideTableForIndex(i) }"></ng-container>
-    </div>
+        *ngTemplateOutlet="tableTemplate"></ng-container>
+    </ng-container>
   </div>
 </div>
 
 
-<ng-template #tableTemplate let-hide="hide">
+<ng-template #tableTemplate>
 
-  <div [ngClass]="{'mt-lg': !hide}">
-    <div *ngIf="assessmentType !== 'iab' && !hide"
+  <div class="mt-lg">
+    <div *ngIf="assessmentType !== 'iab'"
          class="btn-group btn-group-md"
          role="group">
       <button (click)="viewState = 'overall'"
@@ -36,14 +36,14 @@
       </button>
     </div>
 
-    <p-table *ngIf="!hide"
-             [columns]="columns"
-             [value]="exams"
-             [autoLayout]="true"
-             dataKey="exam.id"
-             sortField="exam.date"
-             [sortOrder]="-1"
-             styleClass="table table-striped table-hover">
+    <p-table
+      [columns]="columns"
+      [value]="exams"
+      [autoLayout]="true"
+      dataKey="exam.id"
+      sortField="exam.date"
+      [sortOrder]="-1"
+      styleClass="table table-striped table-hover">
 
       <ng-template pTemplate="header"
                    let-columns>
@@ -142,8 +142,7 @@
                          [standardError]="rowData.exam.standardError"></scale-score>
 
             <div *ngSwitchCase="'claim'">
-              <span *ngIf="rowData.exam.claimScores[column.index].level">{{ 'common.assessment-type.iab.performance-level.' + (rowData.exam.claimScores[column.index] ? rowData.exam.claimScores[column.index].level.toString() : 'missing') + '.name' | translate }}</span>
-              <span *ngIf="!rowData.exam.claimScores[column.index].level">-</span>
+              <span>{{ 'common.assessment-type.iab.performance-level.' + (rowData.exam.claimScores[column.index] ? rowData.exam.claimScores[column.index].level.toString() : 'missing') + '.name' | translate }}</span>
             </div>
 
           </td>
