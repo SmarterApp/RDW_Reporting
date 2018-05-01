@@ -15,6 +15,7 @@ import { ReportingEmbargoService } from '../shared/embargo/reporting-embargo.ser
 import { share } from 'rxjs/operators';
 import { ApplicationSettingsService } from '../app-settings.service';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { Utils } from '../shared/support/support';
 
 /**
  * This component encompasses all the functionality for displaying and filtering
@@ -39,7 +40,7 @@ export class AssessmentsComponent implements OnInit {
     if (!assessmentIds) {
       this.showOnlyMostRecent = true;
     }
-    this._hasInitialAssessment = (this._assessmentExams != null && this._assessmentExams.length != 0);
+    this._hasInitialAssessment = !Utils.isNullOrEmpty(this._assessmentExams);
   }
 
   private _preselectedAssessments: Assessment[] = [];
