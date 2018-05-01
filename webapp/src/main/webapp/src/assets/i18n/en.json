@@ -180,7 +180,7 @@
     "no-results-by-item": "Results by item is not available for assessments administered prior to 2017-18 school year.",
     "no-results-by-item-for-summative-exams": "Results by item is not available for summative assessments.",
     "no-writing-trait-scores": "Writing trait scores are not available for assessments administered prior to 2017-18 school year.",
-    "writing-trait-scores-disabled": "Writing trait scores are currently available for only ELA Performance Task for interim assessments..",
+    "writing-trait-scores-disabled": "Writing trait scores are currently available for only ELA Performance Task assessments.",
     "result-view-select": "Select a results view",
     "select-view": "Select View",
     "session-unknown": "[Unknown]",
@@ -624,7 +624,7 @@
       "student-report": {
         "iab": "Print {{firstName}}'s Full IAB Report",
         "ica": "Print {{firstName}}'s ICA Report",
-        "summative": "Print {{firstName}}'s Summative Report"
+        "sum": "Print {{firstName}}'s Summative Report"
       },
       "test-history": "{{firstName}}'s Test History"
     },
@@ -683,6 +683,10 @@
           "performance-info": "Student scores on each Interim Assessment Block are assigned to one of three reporting categories (Below Standard, Near Standard, Above Standard).  The standard is based on the minimum scale score for the 'Met Standard' achievement level on the Interim Comprehensive and summative assessments (the score that separates Levels 2 and 3).  See the Interpretive Guide for more information on how placement into the reporting categories is determined."
         },
         "ica": {
+          "performance": "Achievement Level",
+          "performance-info": "Student scores on the Summative and Interim Comprehensive assessments are assigned to one of four achievement levels (Standard Not Met, Standard Nearly Met, Standard Met, and Standard Exceeded) based on the scale score."
+        },
+        "sum": {
           "performance": "Achievement Level",
           "performance-info": "Student scores on the Summative and Interim Comprehensive assessments are assigned to one of four achievement levels (Standard Not Met, Standard Nearly Met, Standard Met, and Standard Exceeded) based on the scale score."
         },

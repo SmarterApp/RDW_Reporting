@@ -54,6 +54,7 @@ export class AssessmentExamMapper {
     assessment.claimCodes = serverAssessment.claimCodes || [];
     assessment.cutPoints = serverAssessment.cutPoints || [];
     assessment.resourceUrl = serverAssessment.resourceUrl;
+    assessment.hasWerItem = serverAssessment.werItem;
     return assessment;
   }
 
