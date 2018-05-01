@@ -193,9 +193,9 @@ export class AssessmentsComponent implements OnInit {
     if (!assessmentIds) {
       this.showOnlyMostRecent = true;
     } else {
-      this.assessmentProvider.getAvailableAssessments().subscribe((value) => {
-        const selectedAssessments = value.filter((assessment) => assessmentIds.split(',').indexOf(assessment.id.toString()) >= 0);
-        selectedAssessments.forEach((assessment) => {
+      this.assessmentProvider.getAvailableAssessments().subscribe((availableAssessment) => {
+        const preselectedAssessments = availableAssessment.filter((assessment) => assessmentIds.split(',').indexOf(assessment.id.toString()) >= 0);
+        preselectedAssessments.forEach((assessment) => {
           assessment.selected = true;
           this.loadAssessmentExam(assessment);
           this._preselectedAssessments = this._preselectedAssessments.concat(assessment);
