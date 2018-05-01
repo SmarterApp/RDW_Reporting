@@ -1,0 +1,13 @@
+{
+  "child_A": {
+    "child_A": "Value A_A",
+    "child_B": "Value A_B"
+  },
+  "child_B": {
+    "child_A": "Value B_A"
+  },
+  "child_C": {
+    "01": "Value C_1",
+    "02": "Value C_2"
+  }
+}

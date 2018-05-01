@@ -1,0 +1,957 @@
+{
+  "report": {
+    "accommodations": {
+      "label": "The following accommodations were made available:"
+    },
+    "aggregate": {
+      "export": {
+        "header": {
+          "assessment": "AssessmentName",
+          "assessment-type": "AssessmentType",
+          "attributes": "Attributes",
+          "dimension": "Subgroup",
+          "dimension-code": "SubgroupValue",
+          "grade": "TestGrade",
+          "natural-id": "OrganizationId",
+          "organization": "OrganizationName",
+          "score": "ScaleScore",
+          "standard-deviation": "ScaleScoreStandardDeviation",
+          "student-count": "StudentsTested",
+          "subject": "Subject",
+          "year": "SchoolYear"
+        }
+      }
+    },
+    "claim": {
+      "1": {
+        "grade": {
+          "03": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to explain and apply mathematical concepts, or the ability to interpret and carry out mathematical procedures with ease and accuracy.",
+              "2": "{0} demonstrates some ability to explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.",
+              "3": "{0} demonstrates a thorough ability to consistently explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy."
+            }
+          },
+          "04": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to explain and apply mathematical concepts, or the ability to interpret and carry out mathematical procedures with ease and accuracy.",
+              "2": "{0} demonstrates some ability to explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.",
+              "3": "{0} demonstrates a thorough ability to consistently explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy."
+            }
+          },
+          "05": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to explain and apply mathematical concepts, or the ability to interpret and carry out mathematical procedures with ease and accuracy.",
+              "2": "{0} demonstrates some ability to explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.",
+              "3": "{0} demonstrates a thorough ability to consistently explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy."
+            }
+          },
+          "06": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to explain and apply mathematical concepts, or the ability to interpret and carry out mathematical procedures with ease and accuracy.",
+              "2": "{0} demonstrates some ability to explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.",
+              "3": "{0} demonstrates a thorough ability to consistently explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy."
+            }
+          },
+          "07": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to explain and apply mathematical concepts, or the ability to interpret and carry out mathematical procedures with ease and accuracy.",
+              "2": "{0} demonstrates some ability to explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.",
+              "3": "{0} demonstrates a thorough ability to consistently explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy."
+            }
+          },
+          "08": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to explain and apply mathematical concepts, or the ability to interpret and carry out mathematical procedures with ease and accuracy.",
+              "2": "{0} demonstrates some ability to explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.",
+              "3": "{0} demonstrates a thorough ability to consistently explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy."
+            }
+          },
+          "11": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to explain and apply mathematical concepts, or the ability to interpret and carry out mathematical procedures with ease and accuracy.",
+              "2": "{0} demonstrates some ability to explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.",
+              "3": "{0} demonstrates a thorough ability to consistently explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy."
+            }
+          }
+        },
+        "icon": "fa-book",
+        "name": "Concepts & Procedures"
+      },
+      "2-W": {
+        "grade": {
+          "03": {
+            "level": {
+              "1": "{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.",
+              "2": "{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.",
+              "3": "{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences."
+            }
+          },
+          "04": {
+            "level": {
+              "1": "{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.",
+              "2": "{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.",
+              "3": "{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences."
+            }
+          },
+          "05": {
+            "level": {
+              "1": "{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.",
+              "2": "{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences.",
+              "3": "{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and opinion) for different purposes and audiences."
+            }
+          },
+          "06": {
+            "level": {
+              "1": "{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.",
+              "2": "{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.",
+              "3": "{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences."
+            }
+          },
+          "07": {
+            "level": {
+              "1": "{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.",
+              "2": "{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.",
+              "3": "{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences."
+            }
+          },
+          "08": {
+            "level": {
+              "1": "{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.",
+              "2": "{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.",
+              "3": "{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences."
+            }
+          },
+          "11": {
+            "level": {
+              "1": "{0} does not yet demonstrate an ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.",
+              "2": "{0} demonstrates some ability to produce organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences.",
+              "3": "{0} demonstrates a thorough ability to produce well-organized, developed, and supported writing (e.g., narrative, informational, explanatory, and argumentative) for different purposes and audiences."
+            }
+          }
+        },
+        "icon": "fa-edit",
+        "name": "Writing"
+      },
+      "3": {
+        "grade": {
+          "03": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to put together valid arguments to support his or her own mathematical thinking or to critique the reasoning of others.",
+              "2": "{0} demonstrates some ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.",
+              "3": "{0} demonstrates a thorough ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others."
+            }
+          },
+          "04": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to put together valid arguments to support his or her own mathematical thinking or to critique the reasoning of others.",
+              "2": "{0} demonstrates some ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.",
+              "3": "{0} demonstrates a thorough ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others."
+            }
+          },
+          "05": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to put together valid arguments to support his or her own mathematical thinking or to critique the reasoning of others.",
+              "2": "{0} demonstrates some ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.",
+              "3": "{0} demonstrates a thorough ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others."
+            }
+          },
+          "06": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to put together valid arguments to support his or her own mathematical thinking or to critique the reasoning of others.",
+              "2": "{0} demonstrates some ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.",
+              "3": "{0} demonstrates a thorough ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others."
+            }
+          },
+          "07": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to put together valid arguments to support his or her own mathematical thinking or to critique the reasoning of others.",
+              "2": "{0} demonstrates some ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.",
+              "3": "{0} demonstrates a thorough ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others."
+            }
+          },
+          "08": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to put together valid arguments to support his or her own mathematical thinking or to critique the reasoning of others.",
+              "2": "{0} demonstrates some ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.",
+              "3": "{0} demonstrates a thorough ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others."
+            }
+          },
+          "11": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to put together valid arguments to support his or her own mathematical thinking or to critique the reasoning of others.",
+              "2": "{0} demonstrates some ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.",
+              "3": "{0} demonstrates a thorough ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others."
+            }
+          }
+        },
+        "icon": "fa-question",
+        "name": "Communicating Reasoning"
+      },
+      "4-CR": {
+        "grade": {
+          "03": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.",
+              "2": "{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.",
+              "3": "{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information."
+            }
+          },
+          "04": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.",
+              "2": "{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.",
+              "3": "{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information."
+            }
+          },
+          "05": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.",
+              "2": "{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.",
+              "3": "{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information."
+            }
+          },
+          "06": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.",
+              "2": "{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.",
+              "3": "{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information."
+            }
+          },
+          "07": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.",
+              "2": "{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.",
+              "3": "{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information."
+            }
+          },
+          "08": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.",
+              "2": "{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.",
+              "3": "{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information."
+            }
+          },
+          "11": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.",
+              "2": "{0} demonstrates some ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information.",
+              "3": "{0} demonstrates a thorough ability to engage in research and inquiry to investigate topics, and to analyze, integrate, and present information."
+            }
+          }
+        },
+        "icon": "fa-question",
+        "name": "Research & Inquiry"
+      },
+      "SOCK_2": {
+        "grade": {
+          "03": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to solve a variety of mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} does not yet demonstrate the ability to analyze real-world problems, or build and use mathematical models to interpret and solve problems.",
+              "2": "{0} demonstrates some ability to solve well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates some ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.",
+              "3": "{0} demonstrates a thorough ability to consistently solve a variety of well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates a strong ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems."
+            }
+          },
+          "04": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to solve a variety of mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} does not yet demonstrate the ability to analyze real-world problems, or build and use mathematical models to interpret and solve problems.",
+              "2": "{0} demonstrates some ability to solve well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates some ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.",
+              "3": "{0} demonstrates a thorough ability to consistently solve a variety of well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates a strong ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems."
+            }
+          },
+          "05": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to solve a variety of mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} does not yet demonstrate the ability to analyze real-world problems, or build and use mathematical models to interpret and solve problems.",
+              "2": "{0} demonstrates some ability to solve well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates some ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.",
+              "3": "{0} demonstrates a thorough ability to consistently solve a variety of well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates a strong ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems."
+            }
+          },
+          "06": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to solve a variety of mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} does not yet demonstrate the ability to analyze real-world problems, or build and use mathematical models to interpret and solve problems.",
+              "2": "{0} demonstrates some ability to solve well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates some ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.",
+              "3": "{0} demonstrates a thorough ability to consistently solve a variety of well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates a strong ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems."
+            }
+          },
+          "07": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to solve a variety of mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} does not yet demonstrate the ability to analyze real-world problems, or build and use mathematical models to interpret and solve problems.",
+              "2": "{0} demonstrates some ability to solve well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates some ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.",
+              "3": "{0} demonstrates a thorough ability to consistently solve a variety of well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates a strong ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems."
+            }
+          },
+          "08": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to solve a variety of mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} does not yet demonstrate the ability to analyze real-world problems, or build and use mathematical models to interpret and solve problems.",
+              "2": "{0} demonstrates some ability to solve well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates some ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.",
+              "3": "{0} demonstrates a thorough ability to consistently solve a variety of well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates a strong ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems."
+            }
+          },
+          "11": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to solve a variety of mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} does not yet demonstrate the ability to analyze real-world problems, or build and use mathematical models to interpret and solve problems.",
+              "2": "{0} demonstrates some ability to solve well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates some ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.",
+              "3": "{0} demonstrates a thorough ability to consistently solve a variety of well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates a strong ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems."
+            }
+          }
+        },
+        "icon": "fa-edit",
+        "name": "Problem Solving & Modeling / Data Analysis"
+      },
+      "SOCK_LS": {
+        "grade": {
+          "03": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to use effective listening skills.",
+              "2": "{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.",
+              "3": "{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences."
+            }
+          },
+          "04": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to use effective listening skills.",
+              "2": "{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.",
+              "3": "{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences."
+            }
+          },
+          "05": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to use effective listening skills.",
+              "2": "{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.",
+              "3": "{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences."
+            }
+          },
+          "06": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to use effective listening skills.",
+              "2": "{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.",
+              "3": "{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences."
+            }
+          },
+          "07": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to use effective listening skills.",
+              "2": "{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.",
+              "3": "{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences."
+            }
+          },
+          "08": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to use effective listening skills.",
+              "2": "{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.",
+              "3": "{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences."
+            }
+          },
+          "11": {
+            "level": {
+              "1": "{0} does not yet demonstrate the ability to use effective listening skills.",
+              "2": "{0} demonstrates some ability to use effective listening skills for a range of purposes and audiences.",
+              "3": "{0} demonstrates a thorough ability to use effective listening skills for a range of purposes and audiences."
+            }
+          }
+        },
+        "icon": "fa-lightbulb-o",
+        "name": "Listening"
+      },
+      "SOCK_R": {
+        "grade": {
+          "03": {
+            "level": {
+              "1": "{0} does not yet demonstrate an ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.",
+              "2": "{0} demonstrates some ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.",
+              "3": "{0} demonstrates a thorough ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of high complexity."
+            }
+          },
+          "04": {
+            "level": {
+              "1": "{0} does not yet demonstrate an ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.",
+              "2": "{0} demonstrates some ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.",
+              "3": "{0} demonstrates a thorough ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of high complexity."
+            }
+          },
+          "05": {
+            "level": {
+              "1": "{0} does not yet demonstrate an ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.",
+              "2": "{0} demonstrates some ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of moderate complexity.",
+              "3": "{0} demonstrates a thorough ability to read closely and analytically to understand a range of literary texts (e.g., stories, plays, and poems) and informational texts (e.g., articles and other writing covering disciplines like science and social studies) of high complexity."
+            }
+          },
+          "06": {
+            "level": {
+              "1": "{0} does not yet demonstrate an ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.",
+              "2": "{0} demonstrates some ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.",
+              "3": "{0} demonstrates a thorough ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of high complexity."
+            }
+          },
+          "07": {
+            "level": {
+              "1": "{0} does not yet demonstrate an ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.",
+              "2": "{0} demonstrates some ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.",
+              "3": "{0} demonstrates a thorough ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of high complexity."
+            }
+          },
+          "08": {
+            "level": {
+              "1": "{0} does not yet demonstrate an ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.",
+              "2": "{0} demonstrates some ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of moderate complexity.",
+              "3": "{0} demonstrates a thorough ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories, plays, poems, and science fiction) of high complexity."
+            }
+          },
+          "11": {
+            "level": {
+              "1": "{0} does not yet demonstrate an ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories; plays; poems; drama, nonfiction; and eighteenth, nineteenth, and early twentieth century works of American literature) of moderate complexity.",
+              "2": "{0} demonstrates some ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories; plays; poems; drama; nonfiction; and eighteenth, nineteenth, and early twentieth century works of American literature) of moderate complexity.",
+              "3": "{0} demonstrates a thorough ability to read closely and analytically to understand a range of informational texts (e.g., biographies; articles; and other writing covering disciplines like science, social studies, and technical topics) and literary texts (e.g., stories; plays; poems; drama; nonfiction; and eighteenth, nineteenth, and early twentieth century works of American literature) of high complexity."
+            }
+          }
+        },
+        "icon": "fa-book",
+        "name": "Reading"
+      },
+      "level": {
+        "1": {
+          "label": "Below Standard"
+        },
+        "2": {
+          "label": "Near Standard"
+        },
+        "3": {
+          "label": "Above Standard"
+        }
+      }
+    },
+    "copyright": "&copy; The Regents of the University of California - Smarter Balanced Assessment Consortium",
+    "date": {
+      "label": "Date Taken:"
+    },
+    "enrollment-grade": {
+      "01": "1",
+      "02": "2",
+      "03": "3",
+      "04": "4",
+      "05": "5",
+      "06": "6",
+      "07": "7",
+      "08": "8",
+      "09": "9",
+      "10": "10",
+      "11": "11",
+      "12": "12",
+      "13": "13",
+      "IT": "IT",
+      "KG": "KG",
+      "PK": "PK",
+      "PR": "PR",
+      "PS": "PS",
+      "TK": "TK",
+      "UG": "UG"
+    },
+    "faq": {
+      "header": "Frequently Asked Questions",
+      "p1": {
+        "html": "Where can I find more information about the Smarter Balanced Assessment System? Information about Smarter Balanced Assessment System is available at <a target=\"_blank\" href=\"http://www.smarterbalanced.org\">www.smarterbalanced.org</a>"
+      },
+      "p2": {
+        "header": "Take the Test:",
+        "html": "Gain familiarity with the types of questions and tools for students by taking a practice test: <a target=\"_blank\" href=\"http://www.smarterbalanced.org/assessments/practice-and-training-tests\">http://www.smarterbalanced.org/assessments/practice-and-training-tests</a>"
+      },
+      "p3": {
+        "html": "These results represent only one indicator of a student's performance. These results should be used along with other information, such as classwork and other tests when making educational decisions. Specific questions about individual student results should be directed to the student's teacher."
+      }
+    },
+    "grade": {
+      "03": {
+        "color": "blue-dark",
+        "label": "G3"
+      },
+      "04": {
+        "color": "maroon",
+        "label": "G4"
+      },
+      "05": {
+        "color": "green-dark",
+        "label": "G5"
+      },
+      "06": {
+        "color": "blue-dark",
+        "label": "G6"
+      },
+      "07": {
+        "color": "teal",
+        "label": "G7"
+      },
+      "08": {
+        "color": "green",
+        "label": "G8"
+      },
+      "11": {
+        "color": "maroon",
+        "label": "HS"
+      }
+    },
+    "iab": {
+      "grade": {
+        "title": {
+          "03": "Grade 3 Interim Assessment Blocks {0}-{1}",
+          "04": "Grade 4 Interim Assessment Blocks {0}-{1}",
+          "05": "Grade 5 Interim Assessment Blocks {0}-{1}",
+          "06": "Grade 6 Interim Assessment Blocks {0}-{1}",
+          "07": "Grade 7 Interim Assessment Blocks {0}-{1}",
+          "08": "Grade 8 Interim Assessment Blocks {0}-{1}",
+          "11": "High School Interim Assessment Blocks {0}-{1}"
+        }
+      },
+      "level": {
+        "1": {
+          "color": "blue-dark",
+          "label": "Below Standard"
+        },
+        "2": {
+          "color": "blue",
+          "label": "Near Standard"
+        },
+        "3": {
+          "color": "aqua",
+          "label": "Above Standard"
+        }
+      },
+      "result-category": {
+        "current": "Current Results",
+        "previous": "Previous Results"
+      },
+      "short-name": "IAB",
+      "title": "Interim Assessment Blocks Report"
+    },
+    "ica": {
+      "date": {
+        "label": "Date Taken:"
+      },
+      "grade": {
+        "title": {
+          "03": "Grade 3 Interim Comprehensive Assessment {0}-{1}",
+          "04": "Grade 4 Interim Comprehensive Assessment {0}-{1}",
+          "05": "Grade 5 Interim Comprehensive Assessment {0}-{1}",
+          "06": "Grade 6 Interim Comprehensive Assessment {0}-{1}",
+          "07": "Grade 7 Interim Comprehensive Assessment {0}-{1}",
+          "08": "Grade 8 Interim Comprehensive Assessment {0}-{1}",
+          "11": "High School Interim Comprehensive Assessment {0}-{1}"
+        }
+      },
+      "level": {
+        "1": {
+          "color": "maroon",
+          "description": "Did Not Meet Standard",
+          "label": "L1",
+          "name": "Standard Not Met (Level 1) {0}-{1}"
+        },
+        "2": {
+          "color": "gray-darkest",
+          "description": "Nearly Met Standard",
+          "label": "L2",
+          "name": "Standard Nearly Met (Level 2) {0}-{1}"
+        },
+        "3": {
+          "color": "green-dark",
+          "description": "Met Standard",
+          "label": "L3",
+          "name": "Standard Met (Level 3) {0}-{1}"
+        },
+        "4": {
+          "color": "blue-dark",
+          "description": "Exceeded Standard",
+          "label": "L4",
+          "name": "Standard Exceeded (Level 4) {0}-{1}"
+        }
+      },
+      "section": {
+        "claim": {
+          "header": "Student Achievement by Claim"
+        },
+        "scale-score": {
+          "header": "Overall Achievement"
+        }
+      },
+      "short-name": "ICA",
+      "title": "Interim Comprehensive Assessment Report"
+    },
+    "important-information": {
+      "header": "Important Information About Interim Assessments",
+      "item1": "Interim assessments may be scored by local teachers. This scoring is not subject to the rigorous controls used in summative assessment and local results may show some variations.",
+      "item2": "Exposure to, and familiarity with test questions may affect student performance and the accuracy of interim results."
+    },
+    "not-scored": "Not Scored",
+    "overall-achievement": {
+      "grade": {
+        "03": {
+          "subject": {
+            "ELA": {
+              "": "{0} took a Smarter Balanced assessment based on the grade three California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "level": {
+                "1": "{0} did not meet the grade three standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "2": "English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "3": "{0} has made progress and met the grade three standard for English language arts/literacy. {0} appears ready for future coursework.",
+                "4": "{0} has made progress and exceeded the grade three standard for English language arts/literacy. {0} appears ready for future coursework."
+              }
+            },
+            "MATH": {
+              "": "{0} took a Smarter Balanced assessment based on the grade three California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "level": {
+                "1": "{0} did not meet the grade three standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "2": "{0} nearly met the grade three standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "3": "{0} has made progress and met the grade three standard for mathematics. {0} appears ready for future coursework.",
+                "4": "{0} has made progress and exceeded the grade three standard for mathematics. {0} appears ready for future coursework."
+              }
+            }
+          }
+        },
+        "04": {
+          "subject": {
+            "ELA": {
+              "": "{0} took a Smarter Balanced assessment based on the grade four California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "level": {
+                "1": "{0} did not meet the grade four standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "2": "{0} nearly met the grade four standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "3": "{0} has made progress and met the grade four standard for English language arts/literacy. {0} appears ready for future coursework.",
+                "4": "{0} has made progress and exceeded the grade four standard for English language arts/literacy. {0} appears ready for future coursework."
+              }
+            },
+            "MATH": {
+              "": "{0} took a Smarter Balanced assessment based on the grade four California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "level": {
+                "1": "{0} did not meet the grade four standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "2": "{0} nearly met the grade four standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "3": "{0} has made progress and met the grade four standard for mathematics. {0} appears ready for future coursework.",
+                "4": "{0} has made progress and exceeded the grade four standard for mathematics. {0} appears ready for future coursework."
+              }
+            }
+          }
+        },
+        "05": {
+          "subject": {
+            "ELA": {
+              "": "{0} took a Smarter Balanced assessment based on the grade five California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "level": {
+                "1": "{0} did not meet the grade five standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "2": "{0} nearly met the grade five standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "3": "{0} has made progress and met the grade five standard for English language arts/literacy. {0} appears ready for future coursework.",
+                "4": "{0} has made progress and exceeded the grade five standard for English language arts/literacy. {0} appears ready for future coursework."
+              }
+            },
+            "MATH": {
+              "": "{0} took a Smarter Balanced assessment based on the grade five California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "level": {
+                "1": "{0} did not meet the grade five standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "2": "{0} nearly met the grade five standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "3": "{0} has made progress and met the grade five standard for mathematics. {0} appears ready for future coursework.",
+                "4": "{0} has made progress and exceeded the grade five standard for mathematics. {0} appears ready for future coursework."
+              }
+            }
+          }
+        },
+        "06": {
+          "subject": {
+            "ELA": {
+              "": "{0} took a Smarter Balanced assessment based on the grade six California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "level": {
+                "1": "{0} did not meet the grade six standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "2": "{0} nearly met the grade six standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "3": "{0} has made progress and met the grade six standard for English language arts/literacy. {0} appears ready for future coursework.",
+                "4": "{0} has made progress and exceeded the grade six standard for English language arts/literacy. {0} appears ready for future coursework."
+              }
+            },
+            "MATH": {
+              "": "{0} took a Smarter Balanced assessment based on the grade six California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "level": {
+                "1": "{0} did not meet the grade six standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "2": "{0} nearly met the grade six standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "3": "{0} has made progress and met the grade six standard for mathematics. {0} appears ready for future coursework.",
+                "4": "{0} has made progress and exceeded the grade six standard for mathematics. {0} appears ready for future coursework."
+              }
+            }
+          }
+        },
+        "07": {
+          "subject": {
+            "ELA": {
+              "": "{0} took a Smarter Balanced assessment based on the grade seven California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "level": {
+                "1": "{0} did not meet the grade seven standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "2": "{0} nearly met the grade seven standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "3": "{0} has made progress and met the grade seven standard for English language arts/literacy. {0} appears ready for future coursework.",
+                "4": "{0} has made progress and exceeded the grade seven standard for English language arts/literacy. {0} appears ready for future coursework."
+              }
+            },
+            "MATH": {
+              "": "{0} took a Smarter Balanced assessment based on the grade seven California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "level": {
+                "1": "{0} did not meet the grade seven standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "2": "{0} nearly met the grade seven standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "3": "{0} has made progress and met the grade seven standard for mathematics. {0} appears ready for future coursework.",
+                "4": "{0} has made progress and exceeded the grade seven standard for mathematics. {0} appears ready for future coursework."
+              }
+            }
+          }
+        },
+        "08": {
+          "subject": {
+            "ELA": {
+              "": "{0} took a Smarter Balanced assessment based on the grade eight California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "level": {
+                "1": "{0} did not meet the grade eight standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "2": "{0} nearly met the grade eight standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "3": "{0} has made progress and met the grade eight standard for English language arts/literacy. {0} appears ready for future coursework.",
+                "4": "{0} has made progress and exceeded the grade eight standard for English language arts/literacy. {0} appears ready for future coursework."
+              }
+            },
+            "MATH": {
+              "": "{0} took a Smarter Balanced assessment based on the grade eight California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "level": {
+                "1": "{0} did not meet the grade eight standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "2": "{0} nearly met the grade eight standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
+                "3": "{0} has made progress and met the grade eight standard for mathematics. {0} appears ready for future coursework.",
+                "4": "{0} has made progress and exceeded the grade eight standard for mathematics. {0} appears ready for future coursework."
+              }
+            }
+          }
+        },
+        "11": {
+          "subject": {
+            "ELA": {
+              "": "{0} took a Smarter Balanced assessment based on the grade eleven California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "level": {
+                "1": "{0} did not meet the grade eleven standard for English language arts/literacy and did not demonstrate readiness for future coursework. Please discuss with {0}''s teacher(s) steps to help {0} improve.",
+                "2": "{0} nearly met the grade eleven standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) steps to help {0} improve.",
+                "3": "{0} met the grade eleven standard for English language arts/literacy and appears ready for future coursework.",
+                "4": "{0} exceeded the grade eleven standard for English language arts/literacy and is ready for future coursework."
+              }
+            },
+            "MATH": {
+              "": "{0} took a Smarter Balanced assessment based on the grade eleven California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "level": {
+                "1": "{0} did not meet the grade eleven standard for mathematics and did not demonstrate readiness for future coursework. Please discuss with {0}''s teacher(s) steps to help {0} improve.",
+                "2": "{0} nearly met the grade eleven standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) steps to help {0} improve.",
+                "3": "{0} met the grade eleven standard for mathematics and appears ready for future coursework.",
+                "4": "{0} exceeded the grade eleven standard for mathematics and is ready for future coursework."
+              }
+            }
+          }
+        }
+      }
+    },
+    "percentile": {
+      "mean": "The average student score was {0}.",
+      "rank": "Score is higher than {0}% of students."
+    },
+    "scale-score": {
+      "description": "A student's test score can vary if the test is taken several times. If this student was tested again, it is likely that the scale score would fall within this range.",
+      "error-band": "Error Band"
+    },
+    "student": {
+      "district": {
+        "label": "District:"
+      },
+      "grade": {
+        "label": "Grade:"
+      },
+      "name": "{1}, {0}",
+      "school": {
+        "label": "School:"
+      },
+      "state": {
+        "label": "State:"
+      }
+    },
+    "student-achievement-by-claim": {
+      "grade": {
+        "03": {
+          "subject": {
+            "ELA": "{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade three. If the student received a score of \"No Score Available\" for any claim, this means he or she did not complete enough items to receive a score in that area. To view a description of the student''s achievement level claim (i.e., area), select either [Above Standard], [Near Standard], or [Below Standard] from the student-level selections available in the table below.",
+            "MATH": "{0}''s results are also reported out into the three claims (i.e., areas) that together make up mathematics: Concepts and Procedures, Problem Solving and Modeling/Data Analysis, and Communicating Reasoning. These three claims (i.e., areas) are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade three. If {0} received a score of \"No Score Available\" for any claim, this means he or she did not complete enough items to receive a score in that area."
+          }
+        },
+        "04": {
+          "subject": {
+            "ELA": "{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade four. If {0} received a score of \"No Score Available\" for any claim, this means he or she did not complete enough items to receive a score in that area.",
+            "MATH": "{0}''s results are also reported out into the three claims (i.e., areas) that together make up mathematics: Concepts and Procedures, Problem Solving and Modeling/Data Analysis, and Communicating Reasoning. These three claims (i.e., areas) are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade four. If {0} received a score of \"No Score Available\" for any claim, this means he or she did not complete enough items to receive a score in that area."
+          }
+        },
+        "05": {
+          "subject": {
+            "ELA": "{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims (i.e., areas) are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade five. If {0} received a score of \"No Score Available\" for any claim, this means he or she did not complete enough items to receive a score in that area.",
+            "MATH": "{0}''s results are also reported out into the three claims (i.e., areas) that together make up mathematics: Concepts and Procedures, Problem Solving and Modeling/Data Analysis, and Communicating Reasoning. These three claims (i.e., areas) are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade five. If {0} received a score of \"No Score Available\" for any claim, this means he or she did not complete enough items to receive a score in that area."
+          }
+        },
+        "06": {
+          "subject": {
+            "ELA": "{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade six. If {0} received a score of \"No Score Available\" for any claim, this means he or she did not complete enough items to receive a score in that area.",
+            "MATH": "{0}''s results are also reported out into the three claims (i.e., areas) that together make up mathematics: Concepts and Procedures, Problem Solving and Modeling/Data Analysis, and Communicating Reasoning. These three claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade six. If {0} received a score of \"No Score Available\" for any claim, this means he or she did not complete enough items to receive a score in that area."
+          }
+        },
+        "07": {
+          "subject": {
+            "ELA": "{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade seven. If {0} received a score of \"No Score Available\" for any claim, this means he or she did not complete enough items to receive a score in that area.",
+            "MATH": "{0}''s results are also reported out into the three claims (i.e., areas) that together make up mathematics: Concepts and Procedures, Problem Solving and Modeling/Data Analysis, and Communicating Reasoning. These three claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade seven. If {0} received a score of \"No Score Available\" for any claim, this means he or she did not complete enough items to receive a score in that area."
+          }
+        },
+        "08": {
+          "subject": {
+            "ELA": "{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade eight. If {0} received a score of \"No Score Available\" for any claim, this means he or she did not complete enough items to receive a score in that area.",
+            "MATH": "{0}''s results are also reported out into the three claims (i.e., areas) that together make up mathematics: Concepts and Procedures, Problem Solving and Modeling/Data Analysis, and Communicating Reasoning. These three claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade eight. If {0} received a score of \"No Score Available\" for any claim, this means he or she did not complete enough items to receive a score in that area."
+          }
+        },
+        "11": {
+          "subject": {
+            "ELA": "{0}''s results are also reported out into the four claims (i.e., areas) that together make up English language arts/literacy: Reading, Writing, Listening, and Research/Inquiry. These four claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade eleven. If {0} received a score of \"No Score Available\" for any claim, this means he or she did not complete enough items to receive a score in that area.",
+            "MATH": "{0}''s results are also reported out into the three claims (i.e., areas) that together make up mathematics: Concepts and Procedures, Problem Solving and Modeling/Data Analysis, and Communicating Reasoning. These three claims are based on California''s academic standards, which describe the knowledge and skills students are expected to learn in grade eleven. If {0} received a score of \"No Score Available\" for any claims/, this means he or she did not complete enough items to receive a score in that area."
+          }
+        }
+      }
+    },
+    "subject": {
+      "ELA": {
+        "name": "ELA/Literacy"
+      },
+      "MATH": {
+        "name": "Math"
+      },
+      "Math": {
+        "name": "Math"
+      }
+    },
+    "writing": {
+      "trait": {
+        "Argumentative": {
+          "Conventions": {
+            "0": "The response demonstrates little or no command of conventions.",
+            "1": "The response demonstrates a partial command of conventions.",
+            "2": "The response demonstrates an adequate command of conventions."
+          },
+          "Evidence": {
+            "0": "The evidence in the response is insufficient.",
+            "1": "The response provides minimal elaboration of the support/evidence for the claim and argument(s) that includes little or no use of source material. The response is vague, lacks clarity, or is confusing.",
+            "2": "The response provides uneven, cursory elaboration of the support/evidence for the claim and argument(s) that includes some reasoned analysis and partial or uneven use of source material. The response  develops ideas unevenly, using simplistic language.",
+            "3": "The response provides adequate elaboration of the support/evidence for the claim and argument(s) that includes reasoned analysis and the use of source material. The response adequately develops ideas,  employing a mix of precise with more general language.",
+            "4": "The response provides thorough and convincing elaboration of the support/evidence for the claim and argument(s) including reasoned, in depth analysis and the effective use of source material. The response clearly and effectively develops ideas, using precise language."
+          },
+          "Organization": {
+            "0": "The organization of the response is insufficient.",
+            "1": "The response has little or no discernible organizational structure. The response may be related to the claim but may provide little or no focus.",
+            "2": "The response has an inconsistent organizational structure. Some flaws are evident, and some ideas may be loosely connected. The organization is somewhat sustained between and within paragraphs. The response may have a minor drift in focus.",
+            "3": "The response has an evident organizational structure and a sense of completeness. Though there may be minor flaws, they do not interfere with the overall coherence. The organization is adequately  sustained between and within paragraphs. The response is generally focused.",
+            "4": "The response has a clear and effective organizational structure, creating a sense of unity and completeness. The organization is fully sustained between and within paragraphs. The response is consistently and purposefully focused."
+          }
+        },
+        "Conventions": "Conventions",
+        "Evidence": "Evidence / Elaboration",
+        "Explanatory": {
+          "Conventions": {
+            "0": "The response demonstrates little or no command of conventions.",
+            "1": "The response demonstrates a partial command of conventions.",
+            "2": "The response demonstrates an adequate command of conventions."
+          },
+          "Evidence": {
+            "0": "The evidence in the response is insufficient.",
+            "1": "The response provides minimal elaboration of the support/evidence for the thesis/controlling idea that includes little or no use of source material. The response is vague, lacks clarity, or is confusing.",
+            "2": "The response provides uneven, cursory elaboration of the support/evidence for the thesis/controlling idea that includes uneven or limited use of source material. The response develops ideas unevenly, using simplistic language.",
+            "3": "The response provides adequate elaboration of the support/evidence for the thesis/controlling idea that includes the use of source material. The response adequately develops ideas, employing a mix of precise and more general language.",
+            "4": "The response provides thorough elaboration of the support/evidence for the thesis/controlling idea that includes the effective use of source material. The response clearly and effectively develops ideas, using precise language."
+          },
+          "Organization": {
+            "0": "The organization of the response is insufficient.",
+            "1": "The response has little or no discernible organizational structure. The response may be related to the topic but may provide little or no focus.",
+            "2": "The response has an inconsistent organizational structure. Some flaws are evident, and some ideas may be loosely connected. The organization is somewhat sustained between and within paragraphs. The response may have a minor drift in focus.",
+            "3": "The response has an evident organizational structure and a sense of completeness. Though there may be minor flaws, they do not interfere with the overall coherence. The organization is adequately sustained between and within paragraphs. The response is generally focused.",
+            "4": "The response has a clear and effective organizational structure, creating a sense of unity and completeness. The organization is fully sustained between and within paragraphs. The response is consistently and purposefully focused."
+          }
+        },
+        "Informational": {
+          "Conventions": {
+            "0": "The response demonstrates little or no command of conventions.",
+            "1": "The response demonstrates a partial command of conventions.",
+            "2": "The response demonstrates an adequate command of conventions."
+          },
+          "Evidence": {
+            "0": "The evidence in the response is insufficient.",
+            "1": "The response provides minimal elaboration of the support/evidence for the controlling/main idea that includes little or no use of source material. The response is vague, lacks clarity, or is confusing.",
+            "2": "The response provides uneven, cursory elaboration of the support/evidence for the controlling/main idea that includes uneven or limited use of source material. The response develops ideas unevenly, using simplistic language.",
+            "3": "The response provides adequate elaboration of the support/evidence for the controlling/main idea that includes the use of source material. The response adequately develops ideas, employing a mix of precise and more general language.",
+            "4": "The response provides thorough elaboration of the support/evidence for the controlling/main idea that includes the effective use of source material. The response clearly and effectively develops ideas, using precise language."
+          },
+          "Organization": {
+            "0": "The organization of the response is insufficient.",
+            "1": "The response has little or no discernible organizational structure. The response may be related to the topic but may provide little or no focus.",
+            "2": "The response has an inconsistent organizational structure. Some flaws are evident, and some ideas may be loosely connected. The organization is somewhat sustained between and within paragraphs. The response may have a minor drift in focus.",
+            "3": "The response has an evident organizational structure and a sense of completeness. Though there may be minor flaws, they do not interfere with the overall coherence. The organization is adequately sustained between and within paragraphs. The response is generally focused.",
+            "4": "The response has a clear and effective organizational structure, creating a sense of unity and completeness. The organization is sustained between and within paragraphs. The response is consistently and purposefully focused."
+          }
+        },
+        "Narrative": {
+          "Conventions": {
+            "0": "The response demonstrates little or no command of conventions.",
+            "1": "The response demonstrates a partial command of conventions.",
+            "2": "The response demonstrates an adequate command of conventions."
+          },
+          "Evidence": {
+            "0": "The evidence in the narrative is insufficient.",
+            "1": "The narrative, real or imagined, provides minimal elaboration using few or no details, dialogue, and/or description.",
+            "2": "The narrative, real or imagined, provides uneven, cursory elaboration using partial and uneven details, dialogue, and/or description.",
+            "3": "The narrative, real or imagined, provides adequate elaboration using details, dialogue, and/or description.",
+            "4": "The narrative, real or imagined, provides thorough, effective elaboration using relevant details, dialogue, and/or description."
+          },
+          "Organization": {
+            "0": "The organization of the narrative is insufficient.",
+            "1": "The organization of the narrative, real or imagined, may be maintained but may provide little or no focus.",
+            "2": "The organization of the narrative, real or imagined, is somewhat sustained and may have an uneven focus.",
+            "3": "The organization of the narrative, real or imagined, is adequately sustained, and the focus is adequate and generally maintained.",
+            "4": "The organization of the narrative, real or imagined, is fully sustained and the focus is clear and maintained throughout:"
+          }
+        },
+        "Opinion": {
+          "Conventions": {
+            "0": "The response demonstrates little or no command of conventions.",
+            "1": "The response demonstrates a partial command of conventions.",
+            "2": "The response demonstrates an adequate command of conventions."
+          },
+          "Evidence": {
+            "0": "The evidence in the response is insufficient.",
+            "1": "The response provides minimal elaboration of the support/evidence for the opinion and supporting idea(s) that includes little or no use of source material. The response is vague, lacks clarity, or is confusing.",
+            "2": "The response provides uneven, cursory elaboration of the support/evidence for the opinion and supporting idea(s) that includes partial or uneven use of source material. The response develops ideas unevenly, using simplistic language.",
+            "3": "The response provides adequate elaboration of the support/evidence for the opinion and supporting idea(s) that includes the use of source material. The response adequately develops ideas, employing a mix of precise with more general language.",
+            "4": "The response provides thorough and convincing elaboration of the support/evidence for the opinion and supporting idea(s) that includes the effective use of source material. The response clearly and effectively develops ideas, using precise language."
+          },
+          "Organization": {
+            "0": "The organization of the response is insufficient.",
+            "1": "The response has little or no discernible organizational structure. The response may be related to the opinion but may provide little or no focus.",
+            "2": "The response has an inconsistent organizational structure. Some flaws are evident, and some ideas may be loosely connected. The organization is somewhat sustained between and within paragraphs. The response may have a minor drift in focus.",
+            "3": "The response has an evident organizational structure and a sense of completeness. Though there may be minor flaws, they do not interfere with the overall coherence. The organization is adequately sustained between and within paragraphs. The response is generally focused.",
+            "4": "The response has a clear and effective organizational structure, creating a sense of unity and completeness. The organization is sustained between and within paragraphs. The response is consistently and purposefully focused."
+          }
+        },
+        "Organization": "Organization / Purpose",
+        "Unknown": {
+          "Conventions": {
+            "0": "Unknown.Conventions.0",
+            "1": "Unknown.Conventions.1",
+            "2": "Unknown.Conventions.2"
+          },
+          "Evidence": {
+            "0": "The evidence in the response is insufficient.",
+            "1": "Unknown.Evidence/Elaboration.1",
+            "2": "Unknown.Evidence/Elaboration.2",
+            "3": "Unknown.Evidence/Elaboration.3",
+            "4": "Unknown.Evidence/Elaboration.4"
+          },
+          "Organization": {
+            "0": "The organization of the response is insufficient.",
+            "1": "Unknown.Organization/Purpose.1",
+            "2": "Unknown.Organization/Purpose.2",
+            "3": "Unknown.Organization/Purpose.3",
+            "4": "Unknown.Organization/Purpose.4"
+          }
+        },
+        "outof": "out of {0}",
+        "purpose": "Writing Purpose: {0}"
+      }
+    }
+  }
+}

@@ -11,7 +11,7 @@ spring:
       enabled: false
   cache:
     type: SIMPLE
-    cache-names: internalTranslationsByCode
+    cache-names: mergeTranslations
   cloud:
     stream:
       bindings:
