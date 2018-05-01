@@ -8,7 +8,7 @@
                              [latestExam]="studentHistoryCard"
                              [exams]="exams"
                              (selectedAssessment)="onCardSelection($event)"></student-assessment-card>
-    <ng-container *ngIf="i % 3 === 0 && !hideTableForIndex(i)">
+    <ng-container *ngIf="i % 3 === 0 && showTableForIndex(i)">
       <ng-container
         *ngTemplateOutlet="tableTemplate"></ng-container>
     </ng-container>
