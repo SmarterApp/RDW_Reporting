@@ -974,6 +974,7 @@
   "groups": {
     "columns": {
       "group": "Group Name",
+      "group-dashboard": "Dashboard",
       "school": "School",
       "subject": "Subjects"
     },
@@ -981,7 +982,8 @@
     "filter": "Search by Group Name",
     "name": "My Groups",
     "no-groups-message": "Contact your building administrator for access to group-level test results.",
-    "search-label": "Search by My Groups"
+    "search-label": "Search by My Groups",
+    "view-dashboard": "View Dashboard"
   },
   "home": {
     "title": "Access Assessment Results",

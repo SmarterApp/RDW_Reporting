@@ -60,6 +60,13 @@
               </a>
             </div>
 
+            <div *ngSwitchCase="'group-dashboard'">
+              <a routerLink="/group-dashboard/{{group.id}}"
+                 title="{{ 'groups.view-dashboard' | translate }}">
+                {{ 'groups.view-dashboard' | translate }}
+              </a>
+            </div>
+
             <ng-container *ngSwitchCase="'school'">
               {{group.schoolName}}
             </ng-container>
