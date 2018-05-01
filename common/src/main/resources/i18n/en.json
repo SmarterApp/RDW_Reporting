@@ -561,6 +561,20 @@
           "description": "Exceeded Standard",
           "label": "L4",
           "name": "Standard Exceeded (Level 4) {0}-{1}"
+        },
+        "cohort": {
+          "1": {
+            "description": "Cohort - Did Not Meet Standard"
+          },
+          "2": {
+            "description": "Cohort - Nearly Met Standard"
+          },
+          "3": {
+            "description": "Cohort - Met Standard"
+          },
+          "4": {
+            "description": "Cohort - Exceeded Standard"
+          }
         }
       },
       "section": {
