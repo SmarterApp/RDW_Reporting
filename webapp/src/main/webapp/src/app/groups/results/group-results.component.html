@@ -1,11 +1,11 @@
 <reporting-embargo-alert *hasPermission="'EMBARGO_READ'"></reporting-embargo-alert>
 
+<button *ngIf="viewGroupDashboard" class="btn btn-default btn-sm" (click)="viewDashboard()">
+  <i class="fa fa-chevron-left mr-xs"></i>{{ 'group-results.view-dashboard' | translate}}
+</button>
 <page-heading>
   <ng-template #heading>
-    <button *ngIf="viewGroupDashboard" class="btn btn-default btn-sm mb-sm" (click)="viewDashboard()">
-      <i class="fa fa-chevron-left mr-xs"></i>{{ 'group-results.view-dashboard' | translate}}
-    </button>
-    <h2 class="row">{{'groups.name' | translate}}</h2>
+    <h2>{{'groups.name' | translate}}</h2>
   </ng-template>
   <ng-template #content>
     <ul class="list-unstyled list-inline" *ngIf="currentGroup">
