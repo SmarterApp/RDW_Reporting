@@ -73,7 +73,7 @@ spring:
 
   cache:
     type: SIMPLE
-    cache-names: permissionsByRole, internalTranslationsByCode, mergeTranslations
+    cache-names: permissionsByRole, translations
 
 security:
   filter-dispatcher-types: FORWARD, INCLUDE, REQUEST, ASYNC, ERROR
