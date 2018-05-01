@@ -8,6 +8,7 @@ import { ExamFilterOptionsService } from '../../assessments/filters/exam-filters
 import { ExamFilterOptions } from '../../assessments/model/exam-filter-options.model';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { AssessmentCardEvent } from './group-assessment-card.component';
+import { GroupReportDownloadComponent } from '../../report/group-report-download.component';
 
 @Component({
   selector: 'group-dashboard',
@@ -113,6 +114,15 @@ export class GroupDashboardComponent implements OnInit {
     this.selectedAssessments = event.selected ? this.selectedAssessments.concat(event.measuredAssessment)
       : this.selectedAssessments.filter(measuredAssessment =>
         measuredAssessment.assessment.id !== event.measuredAssessment.assessment.id);
+  }
+
+  /**
+   * Initializes GroupReportDownloadComponent options with the currently selected filters
+   *
+   * @param downloader
+   */
+  initializeDownloader(downloader: GroupReportDownloadComponent): void {
+    downloader.options.schoolYear = this.currentSchoolYear;
   }
 
 }

@@ -5,6 +5,6 @@
     class="label" [ngClass]="getGradeColor()">{{ 'common.assessment-grade-short-label.' + latestExam.assessment.grade | translate}}</div>
   <div class="title">{{ latestExam.assessment.label }}</div>
   <div class="date">{{ latestExam.exam.date | date }}</div>
-  <div class="distribution mt-sm" [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode('iab', level)">{{ 'common.assessment-type.iab.performance-level.' + level + '.name' | translate }}</div>
+  <div class="distribution mt-sm" [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode(latestExam.assessment.type, level)">{{ 'common.assessment-type.'+ latestExam.assessment.type + '.performance-level.' + level + '.name' | translate }}</div>
   <div class="result-count center-block mt-md">{{'student-assessment-card.results' | translate:{resultCount: resultCount} }}</div>
 </div>

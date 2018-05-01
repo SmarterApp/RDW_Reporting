@@ -6,6 +6,7 @@ export class Assessment {
   subject: string;
   claimCodes: string[];
   cutPoints: number[];
+  hasWerItem: boolean;
 
   /** @deprecated TODO this does not belong here but in a UI wrapper */
   resourceUrl: string;

@@ -126,7 +126,7 @@
                 <li role="menuitem"
                     *ngIf="writingTraitScoresView.display">
                   <a class="dropdown-item"
-                     popover="{{ (writingTraitScoresView.disabled ? 'assessment-results.writing-trait-scores-disabled' : 'assessment-results.no-writing-trait-scores') | translate }}"
+                     popover="{{ (!hasExamsAfterMinimumItemYear ? 'assessment-results.no-writing-trait-scores' : 'assessment-results.writing-trait-scores-disabled') | translate }}"
                      triggers="{{ !writingTraitScoresView.disabled ? '' : 'mouseenter:mouseleave'}}"
                      placement="right"
                      container="body"
