@@ -25,7 +25,6 @@ export class GroupResultsComponent implements OnInit {
   groups: Group[];
   assessmentExams: AssessmentExam[] = [];
   filterOptions: ExamFilterOptions = new ExamFilterOptions();
-  viewGroupDashboard = false;
 
   get currentGroup(): Group {
     return this._currentGroup;
@@ -69,9 +68,6 @@ export class GroupResultsComponent implements OnInit {
       this.groups = groups;
       this.filterOptions = filterOptions;
       const { groupId, schoolYear, assessmentIds } = this.route.snapshot.params;
-      if (assessmentIds) {
-        this.viewGroupDashboard = true;
-      }
       this.currentGroup = this.groups.find(group => group.id == groupId);
       this.currentSchoolYear = Number.parseInt(schoolYear) || this.filterOptions.schoolYears[ 0 ];
     });
