@@ -6,6 +6,7 @@ export class Assessment {
   subject: string;
   claimCodes: string[];
   cutPoints: number[];
+  werItem: boolean;
 
   /** @deprecated TODO this does not belong here but in a UI wrapper */
   resourceUrl: string;
@@ -31,6 +32,10 @@ export class Assessment {
 
   get isEla(): boolean {
     return this.subject === 'ELA';
+  }
+
+  get hasWerItem(): boolean {
+    return this.werItem;
   }
 
 }
