@@ -287,9 +287,9 @@
       "UG": "Ungraded"
     },
     "assessment-grade-short-label": {
-      "10": "G10",
-      "11": "G11",
-      "12": "G12",
+      "10": "HS",
+      "11": "HS",
+      "12": "HS",
       "13": "G13",
       "01": "G1",
       "02": "G2",
@@ -299,7 +299,7 @@
       "06": "G6",
       "07": "G7",
       "08": "G8",
-      "09": "G9",
+      "09": "HS",
       "IT": "IT",
       "KG": "KG",
       "PK": "PK",
@@ -343,7 +343,7 @@
           },
           "3": {
             "name": "Met Standard",
-            "short-name": "Met",
+            "name-prefix": "Met",
             "short-name": "Met"
           },
           "4": {
@@ -968,12 +968,12 @@
   "group-results": {
     "group-button-label": "Student Reports",
     "null-group": "This group is unavailable.  Contact your building administrator if you think you should have access to this group.",
-    "select-group": "Group",
-    "view-dashboard": "View Dashboard"
+    "select-group": "Group"
   },
   "groups": {
     "columns": {
       "group": "Group Name",
+      "group-dashboard": "IAB Dashboard",
       "school": "School",
       "subject": "Subjects"
     },
@@ -981,7 +981,8 @@
     "filter": "Search by Group Name",
     "name": "My Groups",
     "no-groups-message": "Contact your building administrator for access to group-level test results.",
-    "search-label": "Search by My Groups"
+    "search-label": "Search by My Groups",
+    "view-dashboard": "View IAB Dashboard"
   },
   "home": {
     "title": "Access Assessment Results",

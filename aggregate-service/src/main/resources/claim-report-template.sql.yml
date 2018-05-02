@@ -4,36 +4,34 @@ sqlbuilder:
       # The query is assembled by combining the below clauses with 'organization' and 'dimension' parts.
       # One 'dimension' and at least one 'organization' part is required for a valid query.
       # Optionally, filter could be added on too.
-      longitudinal:
+      claimAggregate:
         clauses:
-          # Just to explain why it could have more than one assessment id in a single aggregate and why we need a 'singleAsmtInAggregate' flag:
-          # For this report we are migrating the latest Summative exam taken by a student and only when an asmt grade is equal to a student enrolled grade.
-          # In a very unlikely case when different school/districts administer different assessments in the same school year we may end up with
-          # multiple assessments in one aggregate. This introduces a challenge of what assessment to return and what cut points to use for the report visualization.
-          # This approach does not solve the problem, but gives enough data to warn the user about this use case.
           select: >-
-              round(avg(CASE WHEN fe.years_in_one_org = :cohort_years THEN fe.scale_score ELSE NULL END)) AS cohort_score,
-              round(avg(fe.scale_score)) AS score,
-              round(stddev_samp(CASE WHEN fe.years_in_one_org = :cohort_years THEN fe.scale_score ELSE NULL END)/sqrt(sum(CASE WHEN fe.years_in_one_org = :cohort_years THEN 1 ELSE 0 END))) AS cohort_std_err,
-              round(stddev_samp(fe.scale_score)/sqrt(count(*))) AS std_err,
-              sum(CASE WHEN fe.performance_level = 1 THEN 1 ELSE 0 END) AS level1,
-              sum(CASE WHEN fe.performance_level = 2 THEN 1 ELSE 0 END) AS level2,
-              sum(CASE WHEN fe.performance_level = 3 THEN 1 ELSE 0 END) AS level3,
-              sum(CASE WHEN fe.performance_level = 4 THEN 1 ELSE 0 END) AS level4,
-              sum(CASE WHEN (fe.performance_level = 1 AND fe.years_in_one_org = :cohort_years) THEN 1 ELSE 0 END) AS cohort_level1,
-              sum(CASE WHEN (fe.performance_level = 2 AND fe.years_in_one_org = :cohort_years) THEN 1 ELSE 0 END) AS cohort_level2,
-              sum(CASE WHEN (fe.performance_level = 3 AND fe.years_in_one_org = :cohort_years) THEN 1 ELSE 0 END) AS cohort_level3,
-              sum(CASE WHEN (fe.performance_level = 4 AND fe.years_in_one_org = :cohort_years) THEN 1 ELSE 0 END) AS cohort_level4,
+              sum(CASE WHEN category = 1 THEN 1 ELSE 0 END) AS level1,
+              sum(CASE WHEN category = 2 THEN 1 ELSE 0 END) AS level2,
+              sum(CASE WHEN category = 3 THEN 1 ELSE 0 END) AS level3,
+              sum(CASE WHEN category = 4 THEN 1 ELSE 0 END) AS level4,
               fe.school_year,
-              fe.subject_id,
-              fe.asmt_grade_id,
-              max(fe.asmt_id) as asmt_id,
-              CASE WHEN max(fe.asmt_id) = min(fe.asmt_id) THEN true ELSE false END AS singleAsmtInAggregate
+              fe.asmt_id,
+              fe.subject_claim_score_id
+
+          from: >-
+              fact_exam_claim_score fe
+
+          join: >-
+              JOIN asmt a ON a.id = fe.asmt_id
+
+          where: >-
+              fe.school_year IN (:school_years) AND
+              a.grade_id IN (:asmt_grade_ids) AND
+              a.subject_id in (:subject_ids) AND
+              a.type_id = :asmt_type_id AND
+              ( true = :all_claims OR fe.subject_claim_score_id in (:subject_claim_score_ids) )
 
           groupBy: >-
               fe.school_year,
-              fe.subject_id,
-              fe.asmt_grade_id
+              fe.asmt_id,
+              fe.subject_claim_score_id
 
       # ------------ organization parts -------------------------------------------------------------
         addons:
@@ -43,80 +41,45 @@ sqlbuilder:
                      'State' AS organization_type,
                      NULL AS organization_id
 
-                from: >-
-                    (
-                       SELECT
-                         f.*,
-                         count(*) OVER (PARTITION BY f.student_id ) AS years_in_one_org
-                       FROM fact_student_exam_longitudinal f
-                       WHERE
-                         f.subject_id = :subject_id AND school_year_asmt_grade_code IN (:yearGradePairs)
-                    ) fe
-
             allDistricts:
               clauses:
                 select: >-
-                   'District' AS organization_type,
-                   fe.district_id AS organization_id
+                     'District' AS organization_type,
+                     d.id AS organization_id
 
-                from: >-
-                   (
-                      SELECT
-                        f.*,
-                        sch.district_id,
-                        sch.embargo_enabled,
-                        count(*) OVER (PARTITION BY f.student_id, sch.district_id ) AS years_in_one_org
-                      FROM fact_student_exam_longitudinal f
-                       JOIN school sch ON sch.id = f.school_id
-                      WHERE
-                        f.subject_id = :subject_id AND school_year_asmt_grade_code IN (:yearGradePairs)
-                   ) fe
+                join: >-
+                    JOIN school sch ON sch.id = fe.school_id
+                    JOIN district d ON d.id = sch.district_id
 
                 groupBy: >-
-                  fe.district_id
+                     d.id
 
             districts:
               clauses:
                 select: >-
-                   'District' AS organization_type,
-                   fe.district_id AS organization_id
+                     'District' AS organization_type,
+                     d.id AS organization_id
 
-                from: >-
-                   (
-                      SELECT
-                        f.*,
-                        sch.district_id,
-                        sch.embargo_enabled,
-                        count(*) OVER (PARTITION BY f.student_id, sch.district_id ) AS years_in_one_org
-                      FROM fact_student_exam_longitudinal f
-                       JOIN school sch ON sch.id = f.school_id
-                      WHERE
-                        f.subject_id = :subject_id AND school_year_asmt_grade_code IN (:yearGradePairs)
-                      AND sch.district_id in (:district_ids)
-                   ) fe
+                join: >-
+                    JOIN school sch ON sch.id = fe.school_id
+                    JOIN district d ON d.id = sch.district_id
+
+                where: >-
+                    d.id in (:district_ids)
 
                 groupBy: >-
-                  fe.district_id
+                     d.id
 
             allSchoolsInDistricts:
               clauses:
                 select: >-
                      'School' AS organization_type,
                      fe.school_id AS organization_id
+                join: >-
+                     JOIN school sch ON sch.id = fe.school_id
 
-                from: >-
-                    (
-                       SELECT
-                         f.*,
-                         sch.district_id,
-                         sch.embargo_enabled,
-                         count(*) OVER (PARTITION BY f.student_id, f.school_id ) AS years_in_one_org
-                       FROM fact_student_exam_longitudinal f
-                        JOIN school sch ON sch.id = f.school_id
-                       WHERE
-                         f.subject_id = :subject_id AND school_year_asmt_grade_code IN (:yearGradePairs)
-                       AND sch.district_id in (:school_district_ids)
-                    ) fe
+                where: >-
+                     sch.district_id in (:school_district_ids)
 
                 groupBy: >-
                      fe.school_id
@@ -126,20 +89,11 @@ sqlbuilder:
                 select: >-
                      'School' AS organization_type,
                      fe.school_id AS organization_id
+                join: >-
+                     JOIN school sch ON sch.id = fe.school_id
 
-                from: >-
-                    (
-                       SELECT
-                         f.*,
-                         sch.district_id,
-                         sch.embargo_enabled,
-                         count(*) OVER (PARTITION BY f.student_id, f.school_id ) AS years_in_one_org
-                       FROM fact_student_exam_longitudinal f
-                        JOIN school sch ON sch.id = f.school_id
-                       WHERE
-                         subject_id = :subject_id AND school_year_asmt_grade_code IN (:yearGradePairs)
-                        AND f.school_id in (:school_ids)
-                    ) fe
+                where: >-
+                    fe.school_id in (:school_ids)
 
                 groupBy: >-
                      fe.school_id
@@ -148,9 +102,9 @@ sqlbuilder:
               clauses:
                 where: >-
                     fe.school_year < ${reporting.school-year}
-                    OR fe.embargo_enabled = 0
+                    OR sch.embargo_enabled = 0
                     OR 1 = :state_embargo_admin
-                    OR fe.district_id IN (:district_embargo_admin_ids)
+                    OR sch.district_id IN (:district_embargo_admin_ids)
 
             stateEmbargo:
               clauses:
@@ -280,8 +234,6 @@ sqlbuilder:
                       g.code
 
       # ------------ filters, must be added on when a dimension and filter do not overlap --------------------------------------------------
-      # Note that this adds all filters to the outer SQL. While logically it seems that adding filters to the inner SQL should perform better, testing
-      # it on Redshift showed opposite results.
             Completeness_filter:
                clauses:
                  where: >-

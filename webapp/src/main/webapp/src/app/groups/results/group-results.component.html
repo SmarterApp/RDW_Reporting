@@ -1,14 +1,15 @@
 <reporting-embargo-alert *hasPermission="'EMBARGO_READ'"></reporting-embargo-alert>
 
-<button *ngIf="viewGroupDashboard" class="btn btn-default btn-sm" (click)="viewDashboard()">
-  <i class="fa fa-chevron-left mr-xs"></i>{{ 'group-results.view-dashboard' | translate}}
-</button>
 <page-heading>
   <ng-template #heading>
     <h2>{{'groups.name' | translate}}</h2>
   </ng-template>
   <ng-template #content>
     <ul class="list-unstyled list-inline" *ngIf="currentGroup">
+      <li>
+        <a (click)="viewDashboard()"
+           class="btn btn-sm btn-default"><i class="fa fa-bars"></i> {{'groups.view-dashboard' | translate}}</a>
+      </li>
       <li *hasPermission="'INDIVIDUAL_PII_READ'">
         <a routerLink="/custom-export"
            class="btn btn-sm btn-default"><i class="fa fa-table"></i> {{'organization-export.title' | translate}}</a>
