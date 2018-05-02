@@ -343,7 +343,7 @@
           },
           "3": {
             "name": "Met Standard",
-            "short-name": "Met",
+            "name-prefix": "Met",
             "short-name": "Met"
           },
           "4": {
