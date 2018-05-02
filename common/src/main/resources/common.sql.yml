@@ -2,7 +2,7 @@ sql:
   translation:
     findAllForLanguage: >-
         select label_code, label
-        from translation
+        from accommodation_translation
         where language_code=:language_code
 
   organization:

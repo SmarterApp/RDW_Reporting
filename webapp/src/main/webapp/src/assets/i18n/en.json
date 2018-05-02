@@ -994,7 +994,7 @@
     }
   },
   "html": {
-    "system-news": ""
+    "system-news": "<h2 class=\"blue-dark h3 mb-md\">Note</h2><div class=\"summary-reports-container mb-md\"><p>Item level data and session IDs are not available for tests administered prior to the 2017-18 school year.</p></div>"
   },
   "import-history": {
     "title": "View Uploads"
