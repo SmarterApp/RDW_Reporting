@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { AssessmentExam } from "../model/assessment-exam.model";
 import { ExamStatistics, ExamStatisticsLevel } from "../model/exam-statistics.model";
 import { InstructionalResource } from "../model/instructional-resources.model";
@@ -56,6 +56,9 @@ export class AverageScaleScoreComponent {
   @Input()
   assessmentProvider: AssessmentProvider;
 
+  @Output()
+  onScoreViewToggle: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   get statistics(): ExamStatistics {
     return this._statistics;
   }
@@ -89,10 +92,12 @@ export class AverageScaleScoreComponent {
 
   public setClaimScoreSelected() {
     this.displayState.table = ScoreViewState.CLAIM;
+    this.onScoreViewToggle.emit(true);
   }
 
   public setOverallScoreSelected() {
     this.displayState.table = ScoreViewState.OVERALL;
+    this.onScoreViewToggle.emit(false);
   }
 
   get showClaimToggle() {
@@ -104,7 +109,7 @@ export class AverageScaleScoreComponent {
   }
 
   get performanceLevels(): ExamStatisticsLevel[] {
-    return this.showValuesAsPercent ? this.statistics.percents : this.statistics.levels;
+    return (this.showValuesAsPercent ? this.statistics.percents : this.statistics.levels);
   }
 
   /**

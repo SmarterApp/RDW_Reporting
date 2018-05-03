@@ -39,6 +39,9 @@ export class ResultsByStudentComponent implements OnInit {
   @Input()
   minimumItemDataYear: number;
 
+  @Input()
+  isClaimScoreSelected: boolean;
+
   @ViewChild('menuReportDownloader')
   reportDownloader: StudentReportDownloadComponent;
 
@@ -49,17 +52,17 @@ export class ResultsByStudentComponent implements OnInit {
     showClaim: ScoreViewState.OVERALL
   };
 
-  get isClaimScoreSelected() {
-    return this.displayState.table == ScoreViewState.CLAIM;
-  }
-
-  public setClaimScoreSelected() {
-    this.displayState.table = ScoreViewState.CLAIM;
-  }
-
-  public setOverallScoreSelected() {
-    this.displayState.table = ScoreViewState.OVERALL;
-  }
+  // get isClaimScoreSelected() {
+  //   return this.displayState.table == ScoreViewState.CLAIM;
+  // }
+  //
+  // public setClaimScoreSelected() {
+  //   this.displayState.table = ScoreViewState.CLAIM;
+  // }
+  //
+  // public setOverallScoreSelected() {
+  //   this.displayState.table = ScoreViewState.OVERALL;
+  // }
 
   get performanceLevelHeader() {
     return 'common.results.assessment-exam-columns.' +
