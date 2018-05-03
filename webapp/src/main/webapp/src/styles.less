@@ -1275,6 +1275,49 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
   }
 }
 
+.overall-assessment-aggregate {
+  padding: (@spacer * 1.7);
+  font-family: PT Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+  color: #353538;
+
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-5 { grid-template-columns: repeat(5, 1fr); }
+  .grid-6 { grid-template-columns: repeat(6, 1fr); }
+
+  .perc-container {
+    display: grid;
+    grid-gap: @spacer / 4;
+    padding-top: @spacer * 2;
+    .bar {
+      display: flex;
+      align-items: center;
+      font-size: 12.8px;
+      & { justify-self: center; }
+      &:first-child { justify-self: left; }
+      &:last-child { justify-self: right; }
+    }
+    .square {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      margin-right: 0.25em;
+      background-color: currentcolor;
+      border-radius: 3px;
+    }
+  }
+  .scale-score-graph {
+    .bar-container {
+      padding: 0;
+      font-size: 14px;
+      &:first-child .bar { height: 1em; }
+      .bar .percentage {
+        top: @spacer * -1;
+      }
+    }
+  }
+}
+
 .scale-score-graph {
   &.small {
     .bar-container {

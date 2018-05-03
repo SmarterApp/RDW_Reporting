@@ -9,6 +9,11 @@ import { Observable } from "rxjs/Observable";
 import { TranslateService } from "@ngx-translate/core";
 import { ClaimStatistics } from '../model/claim-score.model';
 
+enum ScoreViewState {
+  OVERALL = 1,
+  CLAIM = 2
+}
+
 /**
  * This component is responsible for displaying the average scale score visualization
  */
@@ -18,6 +23,7 @@ import { ClaimStatistics } from '../model/claim-score.model';
 })
 export class AverageScaleScoreComponent {
 
+
   @Input()
   showValuesAsPercent: boolean = true;
 
@@ -26,8 +32,6 @@ export class AverageScaleScoreComponent {
 
   @Input()
   set statistics(value: ExamStatistics) {
-    console.log('claimCodes', this.assessmentExam.assessment.claimCodes);
-
     // reverse percents and levels so scale score statistics appear in descending order ("good" statistics levels comes before "bad")
     value.percents = value.percents.reverse();
     value.levels = value.levels.reverse();
@@ -67,7 +71,9 @@ export class AverageScaleScoreComponent {
   instructionalResourcesProvider: () => Observable<InstructionalResource[]>;
 
   averageScore: number;
-  tabSelected: number = 1;
+  displayState: any = {
+    showClaim: ScoreViewState.OVERALL
+  };
 
   private _statistics: ExamStatistics;
   private _totalCount: number;
@@ -75,6 +81,22 @@ export class AverageScaleScoreComponent {
   constructor(public colorService: ColorService,
               private instructionalResourcesService: InstructionalResourcesService,
               private translate: TranslateService) {
+  }
+
+  get isClaimScoreSelected() {
+    return this.displayState.table == ScoreViewState.CLAIM;
+  }
+
+  public setClaimScoreSelected() {
+    this.displayState.table = ScoreViewState.CLAIM;
+  }
+
+  public setOverallScoreSelected() {
+    this.displayState.table = ScoreViewState.OVERALL;
+  }
+
+  get showClaimToggle() {
+    return !this.assessmentExam.assessment.isIab;
   }
 
   get hasAverageScore(): boolean {
@@ -114,6 +136,10 @@ export class AverageScaleScoreComponent {
   loadInstructionalResources(performanceLevel: ExamStatisticsLevel) {
     this.instructionalResourcesProvider = () => this.instructionalResourcesService.getInstructionalResources(this.assessmentExam.assessment.id, this.assessmentProvider.getSchoolId())
       .map(resources => resources.getResourcesByPerformance(performanceLevel.id));
+  }
+
+  getRoundedValue(value: number): number {
+    return Math.round(value);
   }
 
 }
