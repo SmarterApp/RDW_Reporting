@@ -155,11 +155,19 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   get displayWritingTraitScores(): boolean {
-    return this._assessmentExam.assessment.isEla;
+    return this._assessmentExam.assessment.hasWerItem;
   }
 
   get enableWritingTraitScores(): boolean {
-    return this._assessmentExam.assessment.hasWerItem && this.hasExamsAfterMinimumItemYear;
+    return this.hasExamsAfterMinimumItemYear;
+  }
+
+  get displayDistractorAnalysis() : boolean {
+    return !this._assessmentExam.assessment.isSummative;
+  }
+
+  get displayResultsByItem() : boolean {
+    return !this._assessmentExam.assessment.isSummative;
   }
 
   get showStudentResults(): boolean {
@@ -247,8 +255,8 @@ export class AssessmentResultsComponent implements OnInit {
 
   updateViews(): void {
     this.resultsByStudentView = this.createResultViewState(ResultsViewState.ByStudent, true, false, true);
-    this.resultsByItemView = this.createResultViewState(ResultsViewState.ByItem, this.displayItemLevelData, true, true);
-    this.distractorAnalysisView = this.createResultViewState(ResultsViewState.DistractorAnalysis, this.displayItemLevelData, true, true);
+    this.resultsByItemView = this.createResultViewState(ResultsViewState.ByItem, this.displayItemLevelData, true, this.displayResultsByItem);
+    this.distractorAnalysisView = this.createResultViewState(ResultsViewState.DistractorAnalysis, this.displayItemLevelData, true, this.displayDistractorAnalysis);
     this.writingTraitScoresView = this.createResultViewState(ResultsViewState.WritingTraitScores, this.enableWritingTraitScores, true, this.displayWritingTraitScores);
   }
 

@@ -102,7 +102,7 @@
                 <li role="menuitem"
                     *ngIf="resultsByItemView.display">
                   <a class="dropdown-item"
-                     popover="{{ (assessmentExam.assessment.isSummative ? 'assessment-results.no-results-by-item-for-summative-exams' : 'assessment-results.no-results-by-item') | translate }}"
+                     popover="{{ 'assessment-results.no-results-by-item' | translate }}"
                      triggers="{{ !resultsByItemView.disabled ? '': 'mouseenter:mouseleave'}}"
                      placement="right"
                      container="body"
@@ -114,7 +114,7 @@
                 <li role="menuitem"
                     *ngIf="distractorAnalysisView.display">
                   <a class="dropdown-item"
-                     popover="{{ (assessmentExam.assessment.isSummative ? 'assessment-results.no-distractor-analysis-for-summative-exams' : 'assessment-results.no-distractor-analysis') | translate }}"
+                     popover="{{ 'assessment-results.no-distractor-analysis' | translate }}"
                      triggers="{{ !distractorAnalysisView.disabled ? '' : 'mouseenter:mouseleave'}}"
                      placement="right"
                      container="body"
@@ -126,7 +126,7 @@
                 <li role="menuitem"
                     *ngIf="writingTraitScoresView.display">
                   <a class="dropdown-item"
-                     popover="{{ (!hasExamsAfterMinimumItemYear ? 'assessment-results.no-writing-trait-scores' : 'assessment-results.writing-trait-scores-disabled') | translate }}"
+                     popover="{{ 'assessment-results.no-writing-trait-scores' | translate }}"
                      triggers="{{ !writingTraitScoresView.disabled ? '' : 'mouseenter:mouseleave'}}"
                      placement="right"
                      container="body"
