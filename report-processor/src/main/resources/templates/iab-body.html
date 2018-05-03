@@ -19,7 +19,7 @@
                         </span>
                     </div>
                     <div class="h4"
-                         th:text="#{('report.iab.title.grade.' + ${assessment.gradeCode})(${#strings.toString(exam.schoolYear - 1)}, ${support.getLastTwoDigits(exam.schoolYear)})}"></div>
+                         th:text="#{('report.iab.grade.title.' + ${assessment.gradeCode})(${#strings.toString(exam.schoolYear - 1)}, ${support.getLastTwoDigits(exam.schoolYear)})}"></div>
                 </div>
                 <div class="col-xs-3 pr-0 text-right">
                     <div class="scale-score-legend"></div>

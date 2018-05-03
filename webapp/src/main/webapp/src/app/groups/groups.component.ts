@@ -13,6 +13,7 @@ export class GroupsComponent implements OnInit {
   searchTerm : string;
   columns: Column[] = [
     new Column({id: 'group', field: 'name'}),
+    new Column({id: 'group-dashboard'}),
     new Column({id: 'school', field: 'schoolName'}),
     new Column({id: 'subject', field: 'subjectCode'})
   ];
@@ -54,7 +55,7 @@ class Column {
 
   constructor({
                 id,
-                field
+                field = ''
   }) {
     this.id = id;
     this.field = field;

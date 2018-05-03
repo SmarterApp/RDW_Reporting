@@ -532,6 +532,16 @@ export class AggregateReportTableComponent implements OnInit {
     return ordering(join(
       dimensionTypeAndCodeComparator,
       enrolledGradeComparator,
+      // hotfix Overall order on FilteredSubgroup results
+      (a: AggregateReportItem, b: AggregateReportItem) => {
+        if (a.subgroup.id === 'Overall:') {
+          return -1;
+        }
+        if (b.subgroup.id === 'Overall:') {
+          return 1;
+        }
+        return 0;
+      },
       ordering(byString).on(({ subgroup }) => subgroup.id).compare
     ));
   }

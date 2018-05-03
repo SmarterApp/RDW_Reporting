@@ -1,0 +1,287 @@
+sqlbuilder:
+  templates:
+      # This represents the parts of the SQL query that generates measures based on the available data.
+      # The query is assembled by combining the below clauses with 'organization' and 'dimension' parts.
+      # One 'dimension' and at least one 'organization' part is required for a valid query.
+      # Optionally, filter could be added on too.
+      claimAggregate:
+        clauses:
+          select: >-
+              sum(CASE WHEN category = 1 THEN 1 ELSE 0 END) AS level1,
+              sum(CASE WHEN category = 2 THEN 1 ELSE 0 END) AS level2,
+              sum(CASE WHEN category = 3 THEN 1 ELSE 0 END) AS level3,
+              sum(CASE WHEN category = 4 THEN 1 ELSE 0 END) AS level4,
+              fe.school_year,
+              fe.asmt_id,
+              fe.subject_claim_score_id
+
+          from: >-
+              fact_exam_claim_score fe
+
+          join: >-
+              JOIN asmt a ON a.id = fe.asmt_id
+
+          where: >-
+              fe.school_year IN (:school_years) AND
+              a.grade_id IN (:asmt_grade_ids) AND
+              a.subject_id in (:subject_ids) AND
+              a.type_id = :asmt_type_id AND
+              ( true = :all_claims OR fe.subject_claim_score_id in (:subject_claim_score_ids) )
+
+          groupBy: >-
+              fe.school_year,
+              fe.asmt_id,
+              fe.subject_claim_score_id
+
+      # ------------ organization parts -------------------------------------------------------------
+        addons:
+            state:
+              clauses:
+                select: >-
+                     'State' AS organization_type,
+                     NULL AS organization_id
+
+            allDistricts:
+              clauses:
+                select: >-
+                     'District' AS organization_type,
+                     d.id AS organization_id
+
+                join: >-
+                    JOIN school sch ON sch.id = fe.school_id
+                    JOIN district d ON d.id = sch.district_id
+
+                groupBy: >-
+                     d.id
+
+            districts:
+              clauses:
+                select: >-
+                     'District' AS organization_type,
+                     d.id AS organization_id
+
+                join: >-
+                    JOIN school sch ON sch.id = fe.school_id
+                    JOIN district d ON d.id = sch.district_id
+
+                where: >-
+                    d.id in (:district_ids)
+
+                groupBy: >-
+                     d.id
+
+            allSchoolsInDistricts:
+              clauses:
+                select: >-
+                     'School' AS organization_type,
+                     fe.school_id AS organization_id
+                join: >-
+                     JOIN school sch ON sch.id = fe.school_id
+
+                where: >-
+                     sch.district_id in (:school_district_ids)
+
+                groupBy: >-
+                     fe.school_id
+
+            schools:
+              clauses:
+                select: >-
+                     'School' AS organization_type,
+                     fe.school_id AS organization_id
+                join: >-
+                     JOIN school sch ON sch.id = fe.school_id
+
+                where: >-
+                    fe.school_id in (:school_ids)
+
+                groupBy: >-
+                     fe.school_id
+
+            districtEmbargo:
+              clauses:
+                where: >-
+                    fe.school_year < ${reporting.school-year}
+                    OR sch.embargo_enabled = 0
+                    OR 1 = :state_embargo_admin
+                    OR sch.district_id IN (:district_embargo_admin_ids)
+
+            stateEmbargo:
+              clauses:
+                where: >-
+                     fe.school_year < ${reporting.school-year}
+                     OR EXISTS (SELECT 1 FROM state_embargo WHERE aggregate = 0)
+                     OR 1 = :state_embargo_admin
+
+      # ---------- dimension parts -----------------------------------------------------------------------
+            Overall:
+              clauses:
+                select: >-
+                    'Overall' AS dimension,
+                    null  AS dimension_id,
+                    null AS dimension_code
+            Gender:
+              clauses:
+                select: >-
+                     'Gender' AS dimension,
+                      s.gender_id  AS dimension_id,
+                      gn.code AS dimension_code
+                join: >-
+                     JOIN student s ON fe.student_id = s.id
+                     JOIN gender gn on gn.id = s.gender_id
+                where: >-
+                     ( true = :all_genders OR s.gender_id in (:gender_ids) )
+                groupBy: >-
+                     s.gender_id,
+                     gn.code
+
+            # If a student has multiple ethnicities, we are double-counting it - by design
+            Ethnicity:
+              clauses:
+                select: >-
+                     'Ethnicity' AS dimension,
+                     se.ethnicity_id AS dimension_id,
+                     e.code AS dimension_code
+                join: >-
+                     JOIN student_ethnicity se ON se.student_id = fe.student_id
+                     JOIN ethnicity e ON e.id = se.ethnicity_id
+                where: >-
+                    ( true = :all_ethnicities OR se.ethnicity_id in (:ethnicity_ids) )
+                groupBy: >-
+                     se.ethnicity_id,
+                     e.code
+
+            ELAS:
+              clauses:
+                select: >-
+                     'ELAS' AS dimension,
+                     fe.elas_id AS dimension_id,
+                     el.code AS dimension_code
+                join: >-
+                     JOIN elas el ON el.id = fe.elas_id
+                where: >-
+                    ( true = :all_elas OR fe.elas_id in (:elas_ids) )
+                groupBy: >-
+                     fe.elas_id,
+                     el.code
+
+            IEP:
+              clauses:
+                select: >-
+                     'IEP' AS dimension,
+                     fe.iep AS dimension_id,
+                     CASE WHEN fe.iep = 1 THEN 'yes' ELSE 'no' END AS dimension_code
+                where: >-
+                     ( true = :all_ieps OR fe.iep in (:iep_ids) )
+                groupBy: >-
+                     fe.iep
+
+            LEP:
+              clauses:
+                select: >-
+                     'LEP' AS dimension,
+                     fe.lep AS dimension_id,
+                     CASE WHEN fe.lep = 1 THEN 'yes' ELSE 'no' END AS dimension_code
+                where: >-
+                     ( true = :all_leps OR fe.lep in (:lep_ids) )
+                groupBy: >-
+                     fe.lep
+
+            EconomicDisadvantage:
+              clauses:
+                select: >-
+                     'EconomicDisadvantage' AS dimension,
+                     fe.economic_disadvantage AS dimension_id,
+                     CASE WHEN fe.economic_disadvantage = 1 THEN 'yes' ELSE 'no' END AS dimension_code
+                where: >-
+                     ( true = :all_economic_disadvantages OR fe.economic_disadvantage in (:economic_disadvantage_ids) )
+                groupBy: >-
+                     fe.economic_disadvantage
+
+            Section504:
+              clauses:
+                select: >-
+                     'Section504' AS dimension,
+                     fe.section504 AS dimension_id,
+                     CASE WHEN fe.section504 = 1 THEN 'yes' WHEN fe.section504 = 0 THEN 'no' ELSE 'undefined' END AS dimension_code
+                where: >-
+                     ( true = :all_section504s OR fe.section504 in (:section504_ids) )
+                groupBy: >-
+                     fe.section504
+
+            MigrantStatus:
+              clauses:
+                select: >-
+                     'MigrantStatus' AS dimension,
+                     fe.migrant_status AS dimension_id,
+                     CASE WHEN fe.migrant_status = 1 THEN 'yes' WHEN fe.migrant_status = 0 THEN 'no' ELSE 'undefined' END AS dimension_code
+                where: >-
+                     ( true = :all_migrant_statuses OR fe.migrant_status in (:migrant_status_ids) )
+                groupBy: >-
+                     fe.migrant_status
+
+            # unlike all other dimensions we are not back-filling missing enrolled grades
+            StudentEnrolledGrade:
+               clauses:
+                 select: >-
+                      'StudentEnrolledGrade' AS dimension,
+                      fe.grade_id AS dimension_id,
+                      g.code AS dimension_code
+                 join: >-
+                      JOIN grade g ON g.id = fe.grade_id
+                 groupBy: >-
+                      fe.grade_id,
+                      g.code
+
+      # ------------ filters, must be added on when a dimension and filter do not overlap --------------------------------------------------
+            Completeness_filter:
+               clauses:
+                 where: >-
+                     fe.completeness_id in (:completeness_ids)
+
+            AdministrationCondition_filter:
+               clauses:
+                 where: >-
+                     fe.administration_condition_id in (:administration_condition_ids)
+
+            Gender_filter:
+               clauses:
+                 join: >-
+                     JOIN student s ON fe.student_id = s.id
+                 where: >-
+                    s.gender_id in (:gender_ids)
+
+            ELAS_filter:
+              clauses:
+                where: >-
+                  fe.elas_id in (:elas_ids)
+
+            Ethnicity_filter:
+               clauses:
+                 where: >-
+                     EXISTS (select 1 from student_ethnicity where ethnicity_id in (:ethnicity_ids) and student_id = fe.student_id)
+
+            IEP_filter:
+               clauses:
+                 where: >-
+                     fe.iep in (:iep_ids)
+
+            LEP_filter:
+               clauses:
+                 where: >-
+                     fe.lep in (:lep_ids)
+
+            EconomicDisadvantage_filter:
+               clauses:
+                 where: >-
+                     fe.economic_disadvantage in (:economic_disadvantage_ids)
+
+            Section504_filter:
+               clauses:
+                 where: >-
+                     fe.section504 in (:section504_ids)
+
+            MigrantStatus_filter:
+               clauses:
+                 where: >-
+                     fe.migrant_status in (:migrant_status_ids)

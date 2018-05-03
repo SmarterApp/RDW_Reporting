@@ -1,7 +1,7 @@
 import { HomeComponent } from './home/home.component';
 import { Routes } from '@angular/router';
 import { GroupResultsComponent } from './groups/results/group-results.component';
-import { GroupAssessmentsResolve } from './groups/results/group-assessments.resolve';
+import { GroupAssessmentResolve } from './groups/results/group-assessment.resolve';
 import { SchoolAssessmentResolve } from './school-grade/results/school-assessments.resolve';
 import { SchoolResultsComponent } from './school-grade/results/school-results.component';
 import { CurrentSchoolResolve } from './school-grade/results/current-school.resolve';
@@ -213,7 +213,7 @@ export const routes: Routes = [
             path: '',
             pathMatch: 'full',
             data: { canReuse: true },
-            resolve: { assessment: GroupAssessmentsResolve },
+            resolve: { assessment: GroupAssessmentResolve },
             component: GroupResultsComponent
           },
           studentTestHistoryChildRoute

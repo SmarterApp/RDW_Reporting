@@ -159,7 +159,7 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   get enableWritingTraitScores(): boolean {
-    return this.hasExamsAfterMinimumItemYear;
+    return this._assessmentExam.assessment.hasWerItem && this.hasExamsAfterMinimumItemYear;
   }
 
   get showStudentResults(): boolean {

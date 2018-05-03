@@ -241,12 +241,12 @@ sqlbuilder:
                       g.code
 
       # ------------ filters, must be added on when a dimension and filter do not overlap --------------------------------------------------
-            completeness:
+            Completeness_filter:
                clauses:
                  where: >-
                      fe.completeness_id in (:completeness_ids)
 
-            administration_condition:
+            AdministrationCondition_filter:
                clauses:
                  where: >-
                      fe.administration_condition_id in (:administration_condition_ids)

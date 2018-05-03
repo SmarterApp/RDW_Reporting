@@ -8,6 +8,7 @@ import { ExamFilterOptionsService } from '../../assessments/filters/exam-filters
 import { ExamFilterOptions } from '../../assessments/model/exam-filter-options.model';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { AssessmentCardEvent } from './group-assessment-card.component';
+import { GroupReportDownloadComponent } from '../../report/group-report-download.component';
 
 @Component({
   selector: 'group-dashboard',
@@ -76,6 +77,28 @@ export class GroupDashboardComponent implements OnInit {
     });
   }
 
+  viewAssessments(): void {
+    const queryParams = {  };
+    this.router.navigate([ 'groups', this.currentGroup.id, {
+      schoolYear: this.currentSchoolYear,
+      assessmentIds: this.selectedAssessments.map(measuredAssessment => measuredAssessment.assessment.id)
+    } ]).then(() => {
+      // reset selected assessments to avoid issues with going back to previous page
+      this.selectedAssessments = [];
+      this.groupService.getGroup(this.currentGroup.id).subscribe((group) => {
+        this.group = group;
+        this.groupDashboardService.getAvailableMeasuredAssessments(group, this.currentSchoolYear).subscribe(measuredAssessments => {
+          if (!this.currentSubject) {
+            this.measuredAssessments = measuredAssessments;
+          } else {
+            this.measuredAssessments = measuredAssessments.filter(
+              measuredAssessment => measuredAssessment.assessment.subject === this._currentSubject);
+          }
+        });
+      });
+    });
+  }
+
   get currentSubject(): string {
     return this._currentSubject;
   }
@@ -91,6 +114,15 @@ export class GroupDashboardComponent implements OnInit {
     this.selectedAssessments = event.selected ? this.selectedAssessments.concat(event.measuredAssessment)
       : this.selectedAssessments.filter(measuredAssessment =>
         measuredAssessment.assessment.id !== event.measuredAssessment.assessment.id);
+  }
+
+  /**
+   * Initializes GroupReportDownloadComponent options with the currently selected filters
+   *
+   * @param downloader
+   */
+  initializeDownloader(downloader: GroupReportDownloadComponent): void {
+    downloader.options.schoolYear = this.currentSchoolYear;
   }
 
 }

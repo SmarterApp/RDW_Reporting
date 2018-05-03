@@ -9,7 +9,7 @@
            class="btn btn-sm btn-default"><i class="fa fa-table"></i> {{'organization-export.title' | translate}}</a>
       </li>
       <li>
-        <button class="btn btn-default btn-sm">
+        <button class="btn btn-default btn-sm" (click)="reportDownloader.modal.show()">
           <i class="fa fa-cloud-download" aria-hidden="true"></i> {{'group-results.group-button-label' | translate}}
         </button>
       </li>
@@ -58,7 +58,7 @@
         </select>
       </div>
       <div class="col-md-6">
-        <a href="javascript:void(0)" [ngClass]="{'disabled': !cardViewEnabled}" class="col-btn btn btn-primary">{{
+        <a (click)="viewAssessments()" [ngClass]="{'disabled': !cardViewEnabled}" class="col-btn btn btn-primary">{{
           'assessment-card.view-assessments' | translate }}<i class="ml-xs fa fa-angle-right"></i></a>
       </div>
     </div>
@@ -87,3 +87,10 @@
 </div>
 
 
+<span group-report-download
+      #reportDownloader
+      [title]="'common.reports.form.title.multiple' | translate:currentGroup"
+      [group]="currentGroup"
+      [schoolYears]="filterOptions.schoolYears"
+      [schoolYear]="currentSchoolYear"
+      (onShow)="initializeDownloader(reportDownloader)"></span>
