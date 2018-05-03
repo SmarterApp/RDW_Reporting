@@ -1,7 +1,8 @@
 <!-- IAB display -->
 <div *ngIf="hasAverageScore" class="average-scale-score-display">
   <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-4">
+      <ng-container *ngIf="!isClaimScoreSelected">
       <strong>{{ 'average-scale-score.title' | translate }}</strong>
       <div class="well">
         <div class="assessment-results-summary">
@@ -9,16 +10,22 @@
             <tr>
               <td class="pl-sm">
                 <div info-button
-                      title="{{ 'average-scale-score.scale-score' | translate }}"
-                      content="{{ 'average-scale-score.scale-score-info' | translate }}"
-                      class="average-scale-score-label"></div>
+                     title="{{ 'average-scale-score.scale-score' | translate }}"
+                     content="{{ 'average-scale-score.scale-score-info' | translate }}"
+                     class="average-scale-score-label"></div>
               </td>
               <td>
                 <div class="scale-score font-large text-left">
                   <span class="score label label-primary">{{ averageScore }}</span>
                   <span class="error-band black"> ± {{ statistics.standardError | number:'1.0-0' }}</span>
                 </div>
-
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="result-count-label">
+                  {{'average-scale-score.results-label' | translate}}
+                </div>
               </td>
               <td class="">
                 <span class="text-left gray-darkest">
@@ -30,41 +37,75 @@
           </table>
         </div>
       </div>
+      </ng-container>
+    </div>
+    <div class="col-md-5">
+      <ng-container *ngIf="!isClaimScoreSelected">
+        <strong>{{ 'average-scale-score.student-score-distribution' | translate }}</strong>
+
+        <div class="well">
+
+      <div *ngFor="let performanceLevel of performanceLevels; let i = index" class="score-distribution-container">
+      <div class="text-right gray-lighter grid-item">
+      {{ examLevelTranslation(performanceLevel) }}
+      <button *ngIf="assessmentExam.assessment.isIab"
+      class="btn btn-borderless btn-xs icon-only pull-right"
+      angulartics2On="click"
+      angularticsEvent="InstructionalResource"
+      angularticsCategory="AssessmentResults"
+      [popover]="buttonPopover"
+      popoverTitle="{{ 'common.results.assessment.instruct-button' | translate:{ level:(examLevelTranslation(performanceLevel)) } }}"
+      container="body"
+      (click)="loadInstructionalResources(performanceLevel)"
+      [outsideClick]="true"><i
+      class="fa fa-book"></i></button>
+      </div>
+      <div class="level-down text-right gray-lightest grid-item">
+      <strong>{{ performanceLevel.value | number:'1.0-0' }}{{performanceLevel.suffix }}</strong>
+      </div>
+      <div class="level-down scale-score-graph rounded blend-middle gray-lightest grid-item">
+      <div class="bar-container">
+      <div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode(assessmentExam.assessment.type, performanceLevels.length - i)"
+      [attr.data-width]="filledLevel(performanceLevel)"></div>
+      <div *ngIf="filledLevel(performanceLevel) < 100" class="bar gray"
+      [attr.data-width]="unfilledLevel(performanceLevel)">
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </ng-container>
+
+    </div>
+    <div class="col-md-3">
+      <div *ngIf="showClaimToggle"
+           class="btn-group btn-group-xs z-index-over-data-table mb-sm pull-right"
+           role="group">
+        <button (click)="setOverallScoreSelected()"
+                class="btn btn-default"
+                angulartics2On="click"
+                angularticsEvent="ViewOverallScores"
+                angularticsCategory="AssessmentResults"
+                [ngClass]="{'active': !isClaimScoreSelected}">
+          {{'common.buttons.display-overall' | translate}}
+        </button>
+        <button (click)="setClaimScoreSelected()"
+                class="btn btn-default z-index-over-data-table"
+                angulartics2On="click"
+                angularticsEvent="ViewClaimScores"
+                angularticsCategory="AssessmentResults"
+                [ngClass]="{'active': isClaimScoreSelected}">
+          <i class="fa fa-bold fa-table"></i>
+          {{'common.buttons.display-claim' | translate}}
+        </button>
+      </div>
     </div>
   </div>
 
-  <div class="row mt-md">
+  <div class="row">
     <div class="col-md-12">
-      <div class="row">
-        <div class="col-md-6">
-          <strong>{{ 'average-scale-score.student-score-distribution' | translate }}</strong>
-        </div>
-        <div class="col-md-6">
-          <div *ngIf="showClaimToggle"
-            class="btn-group btn-group-xs z-index-over-data-table mb-sm pull-right"
-            role="group">
-            <button (click)="setOverallScoreSelected()"
-                    class="btn btn-default"
-                    angulartics2On="click"
-                    angularticsEvent="ViewOverallScores"
-                    angularticsCategory="AssessmentResults"
-                    [ngClass]="{'active': !isClaimScoreSelected}">
-              {{'common.buttons.display-overall' | translate}}
-            </button>
-            <button (click)="setClaimScoreSelected()"
-                    class="btn btn-default z-index-over-data-table"
-                    angulartics2On="click"
-                    angularticsEvent="ViewClaimScores"
-                    angularticsCategory="AssessmentResults"
-                    [ngClass]="{'active': isClaimScoreSelected}">
-              <i class="fa fa-bold fa-table"></i>
-              {{'common.buttons.display-claim' | translate}}
-            </button>
-          </div>
-        </div>
-      </div>
 
-      <div class="row" *ngIf="!isClaimScoreSelected">
+      <div class="row" *ngIf="false">
         <div class="col-md-12">
 
           <div class="ui-table-wrapper">
@@ -151,37 +192,7 @@
         </div>
       </div>
 
-      <!--<div class="well">-->
 
-        <!--<div *ngFor="let performanceLevel of performanceLevels; let i = index" class="score-distribution-container">-->
-          <!--<div class="text-right gray-lighter grid-item">-->
-            <!--{{ examLevelTranslation(performanceLevel) }}-->
-            <!--<button *ngIf="assessmentExam.assessment.isIab"-->
-                    <!--class="btn btn-borderless btn-xs icon-only pull-right"-->
-                    <!--angulartics2On="click"-->
-                    <!--angularticsEvent="InstructionalResource"-->
-                    <!--angularticsCategory="AssessmentResults"-->
-                    <!--[popover]="buttonPopover"-->
-                    <!--popoverTitle="{{ 'common.results.assessment.instruct-button' | translate:{ level:(examLevelTranslation(performanceLevel)) } }}"-->
-                    <!--container="body"-->
-                    <!--(click)="loadInstructionalResources(performanceLevel)"-->
-                    <!--[outsideClick]="true"><i-->
-              <!--class="fa fa-book"></i></button>-->
-          <!--</div>-->
-          <!--<div class="level-down text-right gray-lightest grid-item">-->
-            <!--<strong>{{ performanceLevel.value | number:'1.0-0' }}{{performanceLevel.suffix }}</strong>-->
-          <!--</div>-->
-          <!--<div class="level-down scale-score-graph rounded blend-middle gray-lightest grid-item">-->
-            <!--<div class="bar-container">-->
-              <!--<div *ngIf="performanceLevel.value != 0" class="bar" [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode(assessmentExam.assessment.type, performanceLevels.length - i)"-->
-                   <!--[attr.data-width]="filledLevel(performanceLevel)"></div>-->
-              <!--<div *ngIf="filledLevel(performanceLevel) < 100" class="bar gray"-->
-                   <!--[attr.data-width]="unfilledLevel(performanceLevel)">-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
     </div>
   </div>
 
