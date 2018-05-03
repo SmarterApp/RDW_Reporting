@@ -411,9 +411,22 @@ export class AggregateReportFormComponent {
   }
 
   capableOfRowEstimation(): boolean {
-    return (!Utils.isNullOrEmpty(this.settings.schools) || !Utils.isNullOrEmpty(this.settings.districts))
-      && !Utils.isNullOrEmpty(this.settings.subjects)
-      && (!Utils.isNullOrEmpty(this.settings.generalPopulation.schoolYears) || this.settings.longitudinalCohort.toSchoolYear > 0);
+    return (
+      // summative & include state results
+      (this.settings.assessmentType === 'sum' && this.settings.includeStateResults
+        // or anything include schools or districts
+        || !Utils.isNullOrEmpty(this.settings.schools) || !Utils.isNullOrEmpty(this.settings.districts))
+      && (
+        // and has at least one grade
+        !Utils.isNullOrEmpty(this.settings.generalPopulation.assessmentGrades)
+        || !Utils.isNullOrEmpty(this.settings.longitudinalCohort.assessmentGrades)
+      )
+      && (
+        // and has at least one schools years
+        !Utils.isNullOrEmpty(this.settings.generalPopulation.schoolYears)
+        || this.settings.longitudinalCohort.toSchoolYear > 0
+      )
+    );
   }
 
   onPreviewSectionInView(): void {
