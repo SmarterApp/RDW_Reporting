@@ -1,8 +1,8 @@
 export class Utils {
 
   static getPropertyValue(propertyPath: string, object: any): any {
-    let parts = propertyPath.split('.'),
-      property = object || this;
+     const parts = propertyPath.split('.');
+     let property = object || this;
 
     for (let i = 0; i < parts.length; i++) {
       property = property[ parts[ i ] ];
@@ -220,8 +220,8 @@ export class Utils {
    * @returns {string} the given name suffixed with "(N + 1)" or " (1)" if no "(N)" is provided
    */
   static appendOrIncrementFileNameSuffix(name: string): string {
-    return name.replace(/((\((\d+)\)(\s)?)?$)/, (a) => {
-      if (a == '') {
+    return name.replace(/((\((\d+)\)(\s)?)?$)/, (a: string) => {
+      if (a === '') {
         return ` (1)`;
       }
       return `(${Number(a.replace(/[()]/g, '')) + 1})`;
@@ -237,4 +237,5 @@ export class Utils {
   static camelCaseToDash(str: string): string {
     return str.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
   }
+
 }

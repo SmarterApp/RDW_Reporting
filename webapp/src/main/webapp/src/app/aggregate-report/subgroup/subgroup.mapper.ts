@@ -21,15 +21,21 @@ export class SubgroupMapper {
   }
 
   fromTypeAndCode(type: string, code: string): Subgroup {
+
+    const configuration = DimensionConfigurationByType[ type ];
+    const values = configuration != null
+      ? [
+        {
+          code: code,
+          translationCode: configuration.getTranslationCode(code)
+        }
+      ]
+      : [];
+
     return this.createSubgroupInternal([
       {
         type: type,
-        values: [
-          {
-            code: code,
-            translationCode: DimensionConfigurationByType[ type ].getTranslationCode(code)
-          }
-        ]
+        values: values
       }
     ]);
   }

@@ -6,9 +6,6 @@ export interface AggregateReportRow {
   // Present on Basic query
   readonly dimension?: AggregateReportRowDimension;
 
-  // Present on FilteredSubgroup query
-  readonly subgroupKey?: string;
-
   readonly organization: any;
   readonly assessment: AggregateReportRowAssessment;
   readonly measures: AggregateReportRowMeasure;

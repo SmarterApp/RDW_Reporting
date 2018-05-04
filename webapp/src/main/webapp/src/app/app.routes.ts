@@ -1,7 +1,7 @@
 import { HomeComponent } from './home/home.component';
 import { Routes } from '@angular/router';
 import { GroupResultsComponent } from './groups/results/group-results.component';
-import { GroupAssessmentsResolve } from './groups/results/group-assessments.resolve';
+import { GroupAssessmentResolve } from './groups/results/group-assessment.resolve';
 import { SchoolAssessmentResolve } from './school-grade/results/school-assessments.resolve';
 import { SchoolResultsComponent } from './school-grade/results/school-results.component';
 import { CurrentSchoolResolve } from './school-grade/results/current-school.resolve';
@@ -38,7 +38,7 @@ import { AggregateReportOptionsResolve } from './aggregate-report/aggregate-repo
 import { AssessmentDefinitionResolve } from './aggregate-report/assessment/assessment-definition.resolve';
 import { AggregateReportFormSettingsResolve } from './aggregate-report/aggregate-report-form-settings.resolve';
 import { LongitudinalPlaygroundComponent } from './aggregate-report/results/longitudinal-playground.component';
-import { GroupDashboardComponent } from './group-dashboard/group-dashboard.component';
+import { GroupDashboardComponent } from './dashboard/group-dashboard/group-dashboard.component';
 
 const adminRoute = {
   path: '',
@@ -145,6 +145,22 @@ const adminRoute = {
   ]
 };
 
+const studentTestExamHistoryChildRoute = {
+  path: 'exams/:examId',
+  pathMatch: 'full',
+  resolve: {
+    assessment: StudentHistoryResponsesAssessmentResolve,
+    assessmentItems: StudentResponsesResolve,
+    exam: StudentHistoryResponsesExamResolve,
+    student: StudentHistoryResponsesStudentResolve
+  },
+  data: {
+    breadcrumb: {
+      translate: 'student-responses.crumb'
+    }
+  },
+  component: StudentResponsesComponent
+};
 
 const studentTestHistoryChildRoute = {
   path: 'students/:studentId',
@@ -162,22 +178,7 @@ const studentTestHistoryChildRoute = {
       pathMatch: 'full',
       component: StudentResultsComponent
     },
-    {
-      path: 'exams/:examId',
-      pathMatch: 'full',
-      resolve: {
-        assessment: StudentHistoryResponsesAssessmentResolve,
-        assessmentItems: StudentResponsesResolve,
-        exam: StudentHistoryResponsesExamResolve,
-        student: StudentHistoryResponsesStudentResolve
-      },
-      data: {
-        breadcrumb: {
-          translate: 'student-responses.crumb'
-        }
-      },
-      component: StudentResponsesComponent
-    }
+    studentTestExamHistoryChildRoute
   ]
 };
 
@@ -212,7 +213,7 @@ export const routes: Routes = [
             path: '',
             pathMatch: 'full',
             data: { canReuse: true },
-            resolve: { assessment: GroupAssessmentsResolve },
+            resolve: { assessment: GroupAssessmentResolve },
             component: GroupResultsComponent
           },
           studentTestHistoryChildRoute
@@ -256,40 +257,7 @@ export const routes: Routes = [
           studentTestHistoryChildRoute
         ]
       },
-      {
-        path: 'students/:studentId',
-        resolve: { examHistory: StudentExamHistoryResolve },
-        data: {
-          breadcrumb: {
-            translate: 'student-results.crumb',
-            translateResolve: 'examHistory.student'
-          },
-          permissions: [ 'GROUP_PII_READ' ]
-        },
-        canActivate: [ AuthorizationCanActivate ],
-        children: [
-          {
-            path: '',
-            data: { canReuse: true },
-            pathMatch: 'full',
-            component: StudentResultsComponent
-          },
-          {
-            path: 'exams/:examId',
-            pathMatch: 'full',
-            resolve: {
-              assessment: StudentHistoryResponsesAssessmentResolve,
-              assessmentItems: StudentResponsesResolve,
-              exam: StudentHistoryResponsesExamResolve,
-              student: StudentHistoryResponsesStudentResolve
-            },
-            data: {
-              breadcrumb: { translate: 'student-responses.crumb' }
-            },
-            component: StudentResponsesComponent
-          }
-        ]
-      },
+      studentTestHistoryChildRoute,
       {
         path: 'reports',
         pathMatch: 'full',

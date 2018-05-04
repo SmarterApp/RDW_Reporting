@@ -3,10 +3,10 @@ insert into school_year (year) values
   (1997),
   (1998);
 
-insert into grade (id, code, name) values
-  (-1, 'g1', 'grade1'),
-  (-2, 'g2', 'grade2'),
-  (-3, 'g3', 'grade3');
+insert into grade (id, code, name, sequence) values
+  (-1, 'g1', 'grade1', 1),
+  (-2, 'g2', 'grade2', 2),
+  (-3, 'g3', 'grade3', 3);
 
 insert into asmt (id, type_id, natural_id, grade_id, grade_code, subject_id, school_year, name, label, version,
                   claim1_score_code, claim2_score_code, claim3_score_code, claim4_score_code,

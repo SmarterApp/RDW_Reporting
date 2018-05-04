@@ -26,14 +26,11 @@ export class AggregateReportItemMapper {
             row: AggregateReportRow,
             uuid: number): AggregateReportItem {
 
-    if (query.queryType === 'Basic') {
+    if (query.subgroups == null) {
       return this.createBasicRow(assessmentDefinition, row, uuid);
     }
-    if (query.queryType === 'FilteredSubgroup') {
-      return this.createFilteredSubgroupRow(
-        assessmentDefinition, row, uuid, query.subgroups, this.subgroupMapper.createOverall());
-    }
-    throw new Error(`Unsupported query type "${query.queryType}"`);
+    return this.createFilteredSubgroupRow(
+      assessmentDefinition, row, uuid, query.subgroups, this.subgroupMapper.createOverall());
   }
 
   createBasicRow(assessmentDefinition: AssessmentDefinition,
@@ -52,7 +49,7 @@ export class AggregateReportItemMapper {
                             overall: Subgroup): AggregateReportItem {
 
     const item = this.createRowInternal(assessmentDefinition, row, uuid);
-    const serverSubgroup = subgroups[ row.subgroupKey ];
+    const serverSubgroup = subgroups[ row.dimension.code ];
     item.subgroup = serverSubgroup
       ? this.subgroupMapper.fromFilters(
         this.requestMapper.createSubgroupFilters(serverSubgroup)

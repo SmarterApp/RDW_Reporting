@@ -14,9 +14,9 @@ insert into school (id, district_group_id, district_id, school_group_id, natural
   (-12, -9, -10, -20, 'schoolNat3', 'school3', 0, -1, '1997-07-18 20:14:34.000000', -1),
   (-13, -9, -10, -20, 'schoolNat4', 'school4', 0, -1, '1997-07-18 20:14:34.000000', -1);
 
-insert into grade (id, code, name) values
-  (-1, 'g1', 'grade1'),
-  (-2, 'g2', 'grade2');
+insert into grade (id, code, name, sequence) values
+  (-1, 'g1', 'grade1', 1),
+  (-2, 'g2', 'grade2', 2);
 
 insert into gender (id, code) values
   (-1, 'g1');

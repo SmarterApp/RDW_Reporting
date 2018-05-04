@@ -1,10 +1,9 @@
 sql:
   translation:
-    findAllForNamespaceAndLanguage:
-      select label_code, label
-      from translation
-      where namespace=:namespace
-      and language_code=:language_code
+    findAllForLanguage: >-
+        select label_code, label
+        from accommodation_translation
+        where language_code=:language_code
 
   organization:
     reporting:

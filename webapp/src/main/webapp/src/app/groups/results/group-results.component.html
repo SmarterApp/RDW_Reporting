@@ -6,6 +6,10 @@
   </ng-template>
   <ng-template #content>
     <ul class="list-unstyled list-inline" *ngIf="currentGroup">
+      <li>
+        <a (click)="viewDashboard()"
+           class="btn btn-sm btn-default"><i class="fa fa-bars"></i> {{'groups.view-dashboard' | translate}}</a>
+      </li>
       <li *hasPermission="'INDIVIDUAL_PII_READ'">
         <a routerLink="/custom-export"
            class="btn btn-sm btn-default"><i class="fa fa-table"></i> {{'organization-export.title' | translate}}</a>

@@ -151,15 +151,23 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   get displayItemLevelData(): boolean {
-    return !this._assessmentExam.assessment.isSummative && this._assessmentExam.exams.some(x => x.schoolYear > this.minimumItemDataYear);
+    return !this._assessmentExam.assessment.isSummative && this.hasExamsAfterMinimumItemYear;
   }
 
   get displayWritingTraitScores(): boolean {
-    return this._assessmentExam.assessment.isEla;
+    return this._assessmentExam.assessment.hasWerItem;
   }
 
   get enableWritingTraitScores(): boolean {
-    return this.displayItemLevelData;
+    return this.hasExamsAfterMinimumItemYear;
+  }
+
+  get displayDistractorAnalysis() : boolean {
+    return !this._assessmentExam.assessment.isSummative;
+  }
+
+  get displayResultsByItem() : boolean {
+    return !this._assessmentExam.assessment.isSummative;
   }
 
   get showStudentResults(): boolean {
@@ -192,6 +200,10 @@ export class AssessmentResultsComponent implements OnInit {
     }
 
     return undefined;
+  }
+
+  private get hasExamsAfterMinimumItemYear(): boolean {
+    return this._assessmentExam.exams.some(x => x.schoolYear > this.minimumItemDataYear);
   }
 
   @ViewChild('menuReportDownloader')
@@ -243,8 +255,8 @@ export class AssessmentResultsComponent implements OnInit {
 
   updateViews(): void {
     this.resultsByStudentView = this.createResultViewState(ResultsViewState.ByStudent, true, false, true);
-    this.resultsByItemView = this.createResultViewState(ResultsViewState.ByItem, this.displayItemLevelData, true, true);
-    this.distractorAnalysisView = this.createResultViewState(ResultsViewState.DistractorAnalysis, this.displayItemLevelData, true, true);
+    this.resultsByItemView = this.createResultViewState(ResultsViewState.ByItem, this.displayItemLevelData, true, this.displayResultsByItem);
+    this.distractorAnalysisView = this.createResultViewState(ResultsViewState.DistractorAnalysis, this.displayItemLevelData, true, this.displayDistractorAnalysis);
     this.writingTraitScoresView = this.createResultViewState(ResultsViewState.WritingTraitScores, this.enableWritingTraitScores, true, this.displayWritingTraitScores);
   }
 

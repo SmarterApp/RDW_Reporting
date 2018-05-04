@@ -51,9 +51,8 @@
   <ng-container *ngFor="let section of sections">
     <div class="well wide-content-container"
          [hidden]="!section.filteredExams.length">
-      <span class="h3 label-group"
-            [ngClass]="section.assessmentTypeColor">
-        <span class="label">{{'common.assessment-type.' + section.assessmentTypeCode + '.short-name' | translate}}</span><span
+      <span class="h3 label-group orange">
+        <span
           class="label">{{'common.subject.' + section.subjectCode + '.short-name' | translate}}</span>
       </span>
       <button class="btn btn-default pull-right"
@@ -68,8 +67,7 @@
 
       <div class="mt-md"
            [hidden]="section.collapsed">
-        <student-history-table [assessmentType]="section.assessmentTypeCode"
-                               [student]="examHistory.student"
+        <student-history-table [student]="examHistory.student"
                                [minimumItemDataYear]="minimumItemDataYear"
                                [exams]="section.filteredExams">
         </student-history-table>

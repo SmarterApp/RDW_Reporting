@@ -1,4 +1,4 @@
-import { Utils } from "./support";
+import { Utils } from './support';
 
 describe('Utils', () => {
 
@@ -26,4 +26,5 @@ describe('Utils', () => {
     expect(Utils.appendOrIncrementFileNameSuffix('an aggregateReport')).toEqual('an aggregateReport (1)');
     expect(Utils.appendOrIncrementFileNameSuffix('an aggregateReport (1)')).toEqual('an aggregateReport (2)');
   });
+
 });

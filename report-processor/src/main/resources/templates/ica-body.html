@@ -38,7 +38,7 @@
                         <span class="h3 label-group red">
                             <span class="label" th:text="#{report.ica.short-name}"></span><span class="label" th:text="#{'report.subject.' + ${report.assessment.subject} + '.name'}"></span>
                         </span>
-                        <span class="h4" th:text="#{('report.ica.title.grade.' + ${report.assessment.gradeCode})(${#strings.toString(report.exam.schoolYear - 1)}, ${support.getLastTwoDigits(report.exam.schoolYear)})}"><br/>
+                        <span class="h4" th:text="#{('report.ica.grade.title.' + ${report.assessment.gradeCode})(${#strings.toString(report.exam.schoolYear - 1)}, ${support.getLastTwoDigits(report.exam.schoolYear)})}"><br/>
                             <small><strong th:text="#{report.ica.date.label}"></strong> <span th:text="${#instants.formatDate(report.exam.dateTime)}" th:remove="tag"></span></small>
                         </span>
                     </div>

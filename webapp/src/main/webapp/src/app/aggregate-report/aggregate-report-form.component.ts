@@ -29,6 +29,7 @@ import { SubgroupFilters, SubgroupFilterSupport } from './subgroup/subgroup-filt
 import { SubgroupMapper } from './subgroup/subgroup.mapper';
 import { fileName, notEmpty } from '../shared/form/validators';
 import { SubgroupItem } from './subgroup/subgroup-item';
+import { Utils } from '../shared/support/support';
 
 const OrganizationComparator = (a: Organization, b: Organization) => a.name.localeCompare(b.name);
 
@@ -397,7 +398,7 @@ export class AggregateReportFormComponent {
 
   onReviewSectionInView(): void {
     // compute and render estimated row count
-    if (this.formGroup.valid) {
+    if (this.formGroup.valid && this.capableOfRowEstimation()) {
       this.reportService.getEstimatedRowCount(this.createReportRequest().query)
         .subscribe(count => this.estimatedRowCount = count);
     }
@@ -407,6 +408,25 @@ export class AggregateReportFormComponent {
       options: this.aggregateReportOptions,
       settings: this.settings
     };
+  }
+
+  capableOfRowEstimation(): boolean {
+    return (
+      // summative & include state results
+      (this.settings.assessmentType === 'sum' && this.settings.includeStateResults
+        // or anything include schools or districts
+        || !Utils.isNullOrEmpty(this.settings.schools) || !Utils.isNullOrEmpty(this.settings.districts))
+      && (
+        // and has at least one grade
+        !Utils.isNullOrEmpty(this.settings.generalPopulation.assessmentGrades)
+        || !Utils.isNullOrEmpty(this.settings.longitudinalCohort.assessmentGrades)
+      )
+      && (
+        // and has at least one schools years
+        !Utils.isNullOrEmpty(this.settings.generalPopulation.schoolYears)
+        || this.settings.longitudinalCohort.toSchoolYear > 0
+      )
+    );
   }
 
   onPreviewSectionInView(): void {

@@ -39,8 +39,7 @@ sql:
       findAllForAssessment: >-
         ${sql.reporting.snippet.selectFromItem}
           join asmt a on i.asmt_id=a.id
-        where a.type_id in (:assessmentTypes)
-        and i.asmt_id=:assessment_id
+        where i.asmt_id=:assessment_id
         and (1=:includeAllItemTypes or i.type in (:types))
 
       findAllForExam: >-

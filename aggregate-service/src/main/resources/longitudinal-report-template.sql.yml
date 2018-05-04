@@ -282,12 +282,12 @@ sqlbuilder:
       # ------------ filters, must be added on when a dimension and filter do not overlap --------------------------------------------------
       # Note that this adds all filters to the outer SQL. While logically it seems that adding filters to the inner SQL should perform better, testing
       # it on Redshift showed opposite results.
-            completeness:
+            Completeness_filter:
                clauses:
                  where: >-
                      fe.completeness_id in (:completeness_ids)
 
-            administration_condition:
+            AdministrationCondition_filter:
                clauses:
                  where: >-
                      fe.administration_condition_id in (:administration_condition_ids)

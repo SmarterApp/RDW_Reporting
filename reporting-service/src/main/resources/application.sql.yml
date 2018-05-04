@@ -228,7 +228,7 @@ sql:
   assessment:
     grade:
       findAllForSchool: >-
-        SELECT id, code
+        SELECT id, code, sequence
         FROM grade g WHERE EXISTS (
             SELECT a.grade_id
             FROM exam e
@@ -258,7 +258,9 @@ sql:
           a.max_score,
           a.cut_point_1,
           a.cut_point_2,
-          a.cut_point_3
+          a.cut_point_3,
+          EXISTS(SELECT 1 FROM item i WHERE i.asmt_id = a.id AND i.type = 'WER') as has_wer_item
+
 
       selectFromExamItem: >-
            SELECT

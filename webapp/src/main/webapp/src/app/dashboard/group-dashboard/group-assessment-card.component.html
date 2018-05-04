@@ -1,0 +1,41 @@
+<div class="card assessment-aggregate" [ngClass]="{'selected': selected}" (click)="selectCard()">
+
+  <span class="check"><i class="fa fa-check"></i></span>
+  <span
+    class="label" [ngClass]="getGradeColor()">{{ 'common.assessment-grade-short-label.' + measuredAssessment.assessment.grade | translate}}</span>
+  <span class="title">{{ measuredAssessment.assessment.label }}</span>
+  <span class="date">{{ date | date }}</span>
+  <div class="students">
+      <span class="caption"
+            [innerHTML]="'assessment-card.student-count' | translate: {studentsTested: measuredAssessment.studentsTested, groupCount: group.totalStudents }"></span>
+    <div class="scale-score-graph rounded small">
+      <div class="bar-container">
+        <div class="bar green" [attr.data-width]="studentCountFill"></div>
+        <div class="bar green remainder" [attr.data-width]="100 - studentCountFill"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="aggregate-graph">
+
+    <div class="perc-container">
+      <div class="bar" *ngFor="let i of [0, 1, 2]">
+        <span class="square"
+              [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode('iab', i + 1)"></span>
+        {{ 'common.value-display-type-format.Percent' | translate: { value: percents[i] } }}
+        <span
+          class="sr-only">{{ 'common.assessment-type.iab.performance-level.' + i + 1 + '.name' | translate }}</span>
+      </div>
+    </div>
+
+    <div class="scale-score-graph rounded blend-middle">
+      <div class="bar-container">
+        <div *ngFor="let i of [0, 1, 2]">
+          <div class="bar" *ngIf="percents[i] != 0"
+               [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode('iab', i + 1)"
+               [attr.data-width]="dataWidths[i]"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

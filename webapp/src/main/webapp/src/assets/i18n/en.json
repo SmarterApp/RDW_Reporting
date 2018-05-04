@@ -176,11 +176,8 @@
   },
   "assessment-results": {
     "no-distractor-analysis": "Key / Distractor Analysis is not available for assessments administered prior to 2017-18 school year.",
-    "no-distractor-analysis-for-summative-exams": "Key / Distractor Analysis is not available for summative assessments.",
-    "no-results-by-item": "Results by item is not available for assessments administered prior to 2017-18 school year.",
-    "no-results-by-item-for-summative-exams": "Results by item is not available for summative assessments.",
+    "no-results-by-item": "Results By Item is not available for assessments administered prior to 2017-18 school year.",
     "no-writing-trait-scores": "Writing trait scores are not available for assessments administered prior to 2017-18 school year.",
-    "writing-trait-scores-disabled": "Writing trait scores are currently available for only ELA Performance Task for interim assessments..",
     "result-view-select": "Select a results view",
     "select-view": "Select View",
     "session-unknown": "[Unknown]",
@@ -287,9 +284,9 @@
       "UG": "Ungraded"
     },
     "assessment-grade-short-label": {
-      "10": "G10",
-      "11": "G11",
-      "12": "G12",
+      "10": "HS",
+      "11": "HS",
+      "12": "HS",
       "13": "G13",
       "01": "G1",
       "02": "G2",
@@ -299,7 +296,7 @@
       "06": "G6",
       "07": "G7",
       "08": "G8",
-      "09": "G9",
+      "09": "HS",
       "IT": "IT",
       "KG": "KG",
       "PK": "PK",
@@ -343,7 +340,7 @@
           },
           "3": {
             "name": "Met Standard",
-            "short-name": "Met",
+            "name-prefix": "Met",
             "short-name": "Met"
           },
           "4": {
@@ -380,6 +377,7 @@
         "short-name": "Summative"
       }
     },
+    "assessment-type-select-label": "Assessment Type",
     "assessments": {
       "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above."
     },
@@ -623,7 +621,7 @@
       "student-report": {
         "iab": "Print {{firstName}}'s Full IAB Report",
         "ica": "Print {{firstName}}'s ICA Report",
-        "summative": "Print {{firstName}}'s Summative Report"
+        "sum": "Print {{firstName}}'s Summative Report"
       },
       "test-history": "{{firstName}}'s Test History"
     },
@@ -682,6 +680,10 @@
           "performance-info": "Student scores on each Interim Assessment Block are assigned to one of three reporting categories (Below Standard, Near Standard, Above Standard).  The standard is based on the minimum scale score for the 'Met Standard' achievement level on the Interim Comprehensive and summative assessments (the score that separates Levels 2 and 3).  See the Interpretive Guide for more information on how placement into the reporting categories is determined."
         },
         "ica": {
+          "performance": "Achievement Level",
+          "performance-info": "Student scores on the Summative and Interim Comprehensive assessments are assigned to one of four achievement levels (Standard Not Met, Standard Nearly Met, Standard Met, and Standard Exceeded) based on the scale score."
+        },
+        "sum": {
           "performance": "Achievement Level",
           "performance-info": "Student scores on the Summative and Interim Comprehensive assessments are assigned to one of four achievement levels (Standard Not Met, Standard Nearly Met, Standard Met, and Standard Exceeded) based on the scale score."
         },
@@ -968,6 +970,7 @@
   "groups": {
     "columns": {
       "group": "Group Name",
+      "group-dashboard": "IAB Dashboard",
       "school": "School",
       "subject": "Subjects"
     },
@@ -975,7 +978,8 @@
     "filter": "Search by Group Name",
     "name": "My Groups",
     "no-groups-message": "Contact your building administrator for access to group-level test results.",
-    "search-label": "Search by My Groups"
+    "search-label": "Search by My Groups",
+    "view-dashboard": "View IAB Dashboard"
   },
   "home": {
     "title": "Access Assessment Results",
@@ -987,7 +991,7 @@
     }
   },
   "html": {
-    "system-news": ""
+    "system-news": "<h2 class=\"blue-dark h3 mb-md\">Note</h2><div class=\"summary-reports-container mb-md\"><p>Item level data and session IDs are not available for tests administered prior to the 2017-18 school year.</p></div>"
   },
   "import-history": {
     "title": "View Uploads"
@@ -1225,6 +1229,9 @@
     "no-results-message": "Student does not exist or has no available test results.",
     "prompt": "Enter the Statewide Student Identifier (SSID)",
     "title": "Search by Student ID"
+  },
+  "student-assessment-card": {
+    "results": "{{resultCount}} results"
   },
   "student-exam-history-table": {
     "columns": {

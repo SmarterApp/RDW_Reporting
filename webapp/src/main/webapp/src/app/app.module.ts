@@ -23,7 +23,7 @@ import { AdminModule } from './admin/admin.module';
 import { AdminDropdownComponent } from './home/admin-dropdown.component';
 import { ApplicationSettingsService } from './app-settings.service';
 import { ApplicationSettingsResolve } from './app-settings.resolve';
-import { GroupDashboardModule } from './group-dashboard/group-dashboard.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import { GroupDashboardModule } from './group-dashboard/group-dashboard.module';
     AlertModule.forRoot(),
     BrowserModule,
     CommonModule,
-    GroupDashboardModule,
+    DashboardModule,
     GroupsModule,
     StudentModule,
     SchoolGradeModule,

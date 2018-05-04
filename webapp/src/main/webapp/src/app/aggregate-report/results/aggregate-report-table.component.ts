@@ -518,12 +518,11 @@ export class AggregateReportTableComponent implements OnInit {
     const enrolledGradeComparator: Comparator<AggregateReportItem> = ordering(byNumber)
       .on((item: AggregateReportItem) => {
         const { type, codes } = <any>item.subgroup;
-        const [code] = codes;
         if (type == null || type !== 'StudentEnrolledGrade') {
           return -1;
         }
         try {
-          return Number.parseInt(code);
+          return Number.parseInt(codes[0]);
         } catch (error) {
           return 1;
         }
@@ -533,6 +532,16 @@ export class AggregateReportTableComponent implements OnInit {
     return ordering(join(
       dimensionTypeAndCodeComparator,
       enrolledGradeComparator,
+      // hotfix Overall order on FilteredSubgroup results
+      (a: AggregateReportItem, b: AggregateReportItem) => {
+        if (a.subgroup.id === 'Overall:') {
+          return -1;
+        }
+        if (b.subgroup.id === 'Overall:') {
+          return 1;
+        }
+        return 0;
+      },
       ordering(byString).on(({ subgroup }) => subgroup.id).compare
     ));
   }
