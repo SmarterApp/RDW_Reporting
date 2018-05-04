@@ -380,7 +380,6 @@ describe('Exam Calculator', () => {
     let fixture = new ExamStatisticsCalculator();
     let actual = fixture.calculateClaimStatistics(exams, 3);
 
-
     expect(actual).toEqual([
       <ClaimStatistics>{ id: 0, levels: [
           <ExamStatisticsLevel>{ id: 1, value: 2 },
@@ -425,14 +424,14 @@ describe('Exam Calculator', () => {
     ]);
   });
 
-  it('should ignore bad claim levels when aggregating', () => {
+  it('should aggregate by empty exams', () => {
     let fixture = new ExamStatisticsCalculator();
     let actual = fixture.calculateClaimStatistics([], 3);
 
     expect(actual).toEqual([]);
   });
 
-  it('should aggregate by empty exams', () => {
+  it('should ignore bad claim levels when aggregating', () => {
     let exams = [
       <Exam>{
         claimScores: [
@@ -500,7 +499,5 @@ describe('Exam Calculator', () => {
     expect(fixture.getDataWidths([33.49, 32.49, 34.18])).toEqual([34, 32, 34]);
     expect(fixture.getDataWidths([40.5, 59.5, 0.0])).toEqual([40, 60, 0]);
     expect(fixture.getDataWidths([20.55, 30.2, 25.75, 24.5])).toEqual([20, 30, 26, 24]);
-
-    //expect(fixture.getDataWidths([32, 33, 33]))
   });
 });

@@ -39,9 +39,9 @@ export class ExamStatisticsCalculator {
   }
 
   calculateClaimStatistics(exams: Exam[], numberOfLevels: number): ClaimStatistics[] {
-    if (exams == null || exams.length == 0) return [];
-
     let stats = [];
+
+    if (exams == null || exams.length == 0) return stats;
 
     for (let i = 0; i < exams[0].claimScores.length; i++) {
       let claimStats = <ClaimStatistics>{
@@ -50,7 +50,6 @@ export class ExamStatisticsCalculator {
       };
 
       claimStats.percents = this.mapGroupLevelsToPercents(claimStats.levels);
-
       stats.push(claimStats);
     }
 
@@ -216,7 +215,7 @@ export class ExamStatisticsCalculator {
 
     let diff = total > 100 ? -1 : 1;
 
-    // to get the total to equal 100, this adds or subtracts 1 from items based on how much they were rounded
+    // to get the total to equal 100, this adds or subtracts 1 from items prioritized by how much rounding was done
     dataWidths.concat().sort((a, b) => (a.diff - b.diff) * diff ).forEach((x, index) => {
       if (total != 100) {
         dataWidths[x.index].percent += diff;

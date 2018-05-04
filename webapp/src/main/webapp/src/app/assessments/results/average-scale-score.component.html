@@ -87,9 +87,9 @@
           </thead>
           <tbody>
           <tr>
-            <td *ngFor="let claimStats of statistics.claims; let claimIndex = index">
-              <div class="assessment-aggregate" style="box-shadow: none; padding: 14px 28px;">
-                <div class="perc-container" [ngClass]="'grid-' + statistics.claims.length" style="padding-top: 0px;">
+            <td *ngFor="let claimStats of statistics.claims; let claimIndex = index" class="claim-distribution">
+              <div class="assessment-aggregate">
+                <div class="perc-container" [ngClass]="'grid-' + statistics.claims.length" >
                   <div class="bar" *ngFor="let level of claimStats.levels; let i = index">
                     <span class="square"
                           [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode('iab', i + 1)"></span>
@@ -101,7 +101,7 @@
 
                 <div class="scale-score-graph rounded blend-middle">
                   <div class="bar-container">
-                    <div *ngFor="let i of [0, 1, 2]">
+                    <div *ngFor="let level of claimStats.levels; let i = index">
                       <div class="bar" *ngIf="claimStats.percents[i].value != 0"
                            [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode('iab', i + 1)"
                            [attr.data-width]="getClaimDataWidth(claimIndex, i)"></div>

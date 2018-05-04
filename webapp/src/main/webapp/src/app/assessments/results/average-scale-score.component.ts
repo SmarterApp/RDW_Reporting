@@ -24,7 +24,6 @@ enum ScoreViewState {
 })
 export class AverageScaleScoreComponent {
 
-
   @Input()
   showValuesAsPercent: boolean = true;
 
@@ -53,7 +52,8 @@ export class AverageScaleScoreComponent {
         });
     }
 
-    this._claimDataWidths = new Array<number[]>();
+    // pre-calculates the data widths for the graph representation for all of the claims
+    this._claimDataWidths = [];
     value.claims.forEach(cs => {
       this._claimDataWidths.push(this.examCalculator.getDataWidths(cs.percents.map(x => x.value)));
     });

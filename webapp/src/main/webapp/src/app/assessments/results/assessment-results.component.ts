@@ -347,15 +347,14 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   private calculateStats(): ExamStatistics {
-    // TODO: determine this a different way for configurable subjects
-    const numberOfLevels = this.assessmentExam.assessment.isIab ? 3 : 4;
     let stats = new ExamStatistics();
-
 
     stats.total = this.exams.length;
     stats.average = this.examCalculator.calculateAverage(this.exams);
     stats.standardError = this.examCalculator.calculateStandardErrorOfTheMean(this.exams);
-    stats.levels = this.examCalculator.groupLevels(this.exams, numberOfLevels);
+
+    // TODO: determine a different way for configurable subjects
+    stats.levels = this.examCalculator.groupLevels(this.exams, this.assessmentExam.assessment.isIab ? 3 : 4);
     stats.percents = this.examCalculator.mapGroupLevelsToPercents(stats.levels);
     stats.claims = this.examCalculator.calculateClaimStatistics(this.exams, 3);
 
