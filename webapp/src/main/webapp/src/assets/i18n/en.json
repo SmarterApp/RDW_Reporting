@@ -211,6 +211,7 @@
     "scale-score": "Average Scale Score and Error Band",
     "scale-score-info": "Average scale score for the selected group of students and an error band based on the Standard Error of the Mean (SEM) associated with that score. Test scores are estimates of student achievement and come with a certain amount of measurement error. See the Interpretive Guide for additional information about scale scores and measurement error.",
     "student-score-distribution": "Student Score Distribution",
+    "student-claim-distribution": "Student Claim Score Distribution",
     "title": "Results Summary"
   },
   "common": {

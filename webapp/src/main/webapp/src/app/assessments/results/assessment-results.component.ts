@@ -357,7 +357,7 @@ export class AssessmentResultsComponent implements OnInit {
     stats.standardError = this.examCalculator.calculateStandardErrorOfTheMean(this.exams);
     stats.levels = this.examCalculator.groupLevels(this.exams, numberOfLevels);
     stats.percents = this.examCalculator.mapGroupLevelsToPercents(stats.levels);
-    stats.claims = this.examCalculator.calculateClaimStatistics(this.exams, numberOfLevels);
+    stats.claims = this.examCalculator.calculateClaimStatistics(this.exams, 3);
 
     return stats;
   }
