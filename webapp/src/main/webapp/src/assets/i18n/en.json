@@ -176,11 +176,8 @@
   },
   "assessment-results": {
     "no-distractor-analysis": "Key / Distractor Analysis is not available for assessments administered prior to 2017-18 school year.",
-    "no-distractor-analysis-for-summative-exams": "Key / Distractor Analysis is not available for summative assessments.",
-    "no-results-by-item": "Results by item is not available for assessments administered prior to 2017-18 school year.",
-    "no-results-by-item-for-summative-exams": "Results by item is not available for summative assessments.",
+    "no-results-by-item": "Results By Item is not available for assessments administered prior to 2017-18 school year.",
     "no-writing-trait-scores": "Writing trait scores are not available for assessments administered prior to 2017-18 school year.",
-    "writing-trait-scores-disabled": "Writing trait scores are currently available for only ELA Performance Task assessments.",
     "result-view-select": "Select a results view",
     "select-view": "Select View",
     "session-unknown": "[Unknown]",
