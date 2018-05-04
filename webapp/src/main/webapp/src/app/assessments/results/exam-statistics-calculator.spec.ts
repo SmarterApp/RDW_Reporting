@@ -486,4 +486,21 @@ describe('Exam Calculator', () => {
         ]}
     ]);
   });
+
+  it('should determine data widths from simple percents', () => {
+    let fixture = new ExamStatisticsCalculator();
+    expect(fixture.getDataWidths([30.0, 70.0])).toEqual([30, 70]);
+    expect(fixture.getDataWidths([33.0, 34.0, 33.0])).toEqual([33, 34, 33]);
+    expect(fixture.getDataWidths([20.0, 30.0, 25.0, 25.0])).toEqual([20, 30, 25, 25]);
+  });
+
+  it('should determine data widths with rounding issues', () => {
+    let fixture = new ExamStatisticsCalculator();
+    expect(fixture.getDataWidths([30.5, 69.5])).toEqual([30, 70]);
+    expect(fixture.getDataWidths([33.49, 32.49, 34.18])).toEqual([34, 32, 34]);
+    expect(fixture.getDataWidths([40.5, 59.5, 0.0])).toEqual([40, 60, 0]);
+    expect(fixture.getDataWidths([20.55, 30.2, 25.75, 24.5])).toEqual([20, 30, 26, 24]);
+
+    //expect(fixture.getDataWidths([32, 33, 33]))
+  });
 });

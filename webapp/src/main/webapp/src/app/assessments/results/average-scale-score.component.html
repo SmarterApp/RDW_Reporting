@@ -96,13 +96,13 @@
           </thead>
           <tbody>
           <tr>
-            <td *ngFor="let claimStats of statistics.claims; let i = index">
+            <td *ngFor="let claimStats of statistics.claims; let claimIndex = index">
               <div class="assessment-aggregate" style="box-shadow: none; padding: 14px 28px;">
                 <div class="perc-container" [ngClass]="'grid-' + statistics.claims.length" style="padding-top: 0px;">
                   <div class="bar" *ngFor="let i of [0, 1, 2]">
                     <span class="square"
                           [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode('iab', i + 1)"></span>
-                    {{ 'common.value-display-type-format.Percent' | translate: { value: getClaimRoundedPercent(claimStats, i) } }}
+                    {{ getClaimValue(claimStats, i) }}{{ getClaimSuffix(claimStats, i) }}
                     <span
                       class="sr-only">{{ 'common.assessment-type.iab.performance-level.' + i + 1 + '.name' | translate }}</span>
                   </div>
@@ -113,7 +113,7 @@
                     <div *ngFor="let i of [0, 1, 2]">
                       <div class="bar" *ngIf="claimStats.percents[i].value != 0"
                            [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode('iab', i + 1)"
-                           [attr.data-width]="getClaimRoundedPercent(claimStats, i)"></div>
+                           [attr.data-width]="getClaimDataWidth(claimIndex, i)"></div>
                     </div>
                   </div>
                 </div>

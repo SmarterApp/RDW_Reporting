@@ -8,6 +8,7 @@ import { AssessmentProvider } from "../assessment-provider.interface";
 import { Observable } from "rxjs/Observable";
 import { TranslateService } from "@ngx-translate/core";
 import { ClaimStatistics } from '../model/claim-score.model';
+import { ExamStatisticsCalculator } from './exam-statistics-calculator';
 
 enum ScoreViewState {
   OVERALL = 1,
@@ -51,6 +52,11 @@ export class AverageScaleScoreComponent {
           return total + levelCount;
         });
     }
+
+    this._claimDataWidths = new Array<number[]>();
+    value.claims.forEach(cs => {
+      this._claimDataWidths.push(this.examCalculator.getDataWidths(cs.percents.map(x => x.value)));
+    });
   }
 
   @Input()
@@ -58,18 +64,6 @@ export class AverageScaleScoreComponent {
 
   @Output()
   onScoreViewToggle: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  get statistics(): ExamStatistics {
-    return this._statistics;
-  }
-
-  get claimCodes(): string[] {
-    return this.assessmentExam.assessment.claimCodes;
-  }
-
-  getClaimRoundedPercent(claimStats: ClaimStatistics, i: number) {
-    return Math.floor(claimStats.percents[i].value);
-  }
 
   instructionalResourcesProvider: () => Observable<InstructionalResource[]>;
 
@@ -80,27 +74,49 @@ export class AverageScaleScoreComponent {
 
   private _statistics: ExamStatistics;
   private _totalCount: number;
+  private _claimDataWidths: Array<number[]>;
 
   constructor(public colorService: ColorService,
               private instructionalResourcesService: InstructionalResourcesService,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private examCalculator: ExamStatisticsCalculator) {
   }
 
-  get isClaimScoreSelected() {
+  get statistics(): ExamStatistics {
+    return this._statistics;
+  }
+
+  get claimCodes(): string[] {
+    return this.assessmentExam.assessment.claimCodes;
+  }
+
+  getClaimDataWidth(claimIndex: number, levelIndex: number): number {
+    return this._claimDataWidths[claimIndex][levelIndex];
+  }
+
+  getClaimValue(claimStats: ClaimStatistics, index: number): number {
+    return this.showValuesAsPercent ? Math.round(claimStats.percents[index].value) : claimStats.levels[index].value;
+  }
+
+  getClaimSuffix(claimStats: ClaimStatistics, index: number): string {
+    return this.showValuesAsPercent ? claimStats.percents[index].suffix : claimStats.levels[index].suffix;
+  })
+
+  get isClaimScoreSelected(): boolean {
     return this.displayState.table == ScoreViewState.CLAIM;
   }
 
-  public setClaimScoreSelected() {
+  public setClaimScoreSelected(): void {
     this.displayState.table = ScoreViewState.CLAIM;
     this.onScoreViewToggle.emit(true);
   }
 
-  public setOverallScoreSelected() {
+  public setOverallScoreSelected(): void {
     this.displayState.table = ScoreViewState.OVERALL;
     this.onScoreViewToggle.emit(false);
   }
 
-  get showClaimToggle() {
+  get showClaimToggle(): boolean {
     return !this.assessmentExam.assessment.isIab;
   }
 
@@ -109,7 +125,7 @@ export class AverageScaleScoreComponent {
   }
 
   get performanceLevels(): ExamStatisticsLevel[] {
-    return (this.showValuesAsPercent ? this.statistics.percents : this.statistics.levels);
+    return this.showValuesAsPercent ? this.statistics.percents : this.statistics.levels;
   }
 
   /**
@@ -142,9 +158,4 @@ export class AverageScaleScoreComponent {
     this.instructionalResourcesProvider = () => this.instructionalResourcesService.getInstructionalResources(this.assessmentExam.assessment.id, this.assessmentProvider.getSchoolId())
       .map(resources => resources.getResourcesByPerformance(performanceLevel.id));
   }
-
-  getRoundedValue(value: number): number {
-    return Math.round(value);
-  }
-
 }

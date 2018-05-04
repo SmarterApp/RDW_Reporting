@@ -3,6 +3,7 @@ import { Group } from '../../groups/group';
 import { MeasuredAssessment } from '../measured-assessment';
 import { ColorService } from '../../shared/color.service';
 import { GradeCode } from '../../shared/enum/grade-code.enum';
+import { ExamStatisticsCalculator } from '../../assessments/results/exam-statistics-calculator';
 
 @Component({
   selector: 'group-assessment-card',
@@ -21,20 +22,14 @@ export class GroupAssessmentCardComponent implements OnInit {
   dataWidths: number[] = [];
   selected = false;
 
-  constructor(public colorService: ColorService) {
+  constructor(public colorService: ColorService, private examCalculator: ExamStatisticsCalculator) {
   }
 
   ngOnInit() {
-    // TODO: make this dynamic for configurable subjects
-    this.percents = [
-      Math.round(this.measuredAssessment.studentCountByPerformanceLevel[ 0 ].percent),
-      Math.round(this.measuredAssessment.studentCountByPerformanceLevel[ 1 ].percent),
-      Math.round(this.measuredAssessment.studentCountByPerformanceLevel[ 2 ].percent)
-    ];
-    // data widths must sum to 100. This avoids issues where the result is 99 or 101
-    this.dataWidths = this.percents.concat();
-    this.dataWidths[ 1 ] = this.dataWidths[ 0 ] + this.dataWidths[ 1 ] > 100 ? this.dataWidths[ 1 ] - 1 : this.dataWidths[ 1 ];
-    this.dataWidths[ 2 ] = 100 - (this.dataWidths[ 0 ] + this.dataWidths[ 1 ]);
+    this.percents = this.measuredAssessment.studentCountByPerformanceLevel.map(x => Math.round(x.percent));
+    this.dataWidths = this.examCalculator.getDataWidths(
+      this.measuredAssessment.studentCountByPerformanceLevel.map(x => x.percent)
+    );
   }
 
   get date(): Date {

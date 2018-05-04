@@ -10,11 +10,6 @@ import { InstructionalResource } from "../../../model/instructional-resources.mo
 import { Observable } from "rxjs/Observable";
 import { PopupMenuAction } from "../../../../shared/menu/popup-menu-action.model";
 
-enum ScoreViewState {
-  OVERALL = 1,
-  CLAIM = 2
-}
-
 @Component({
   selector: 'results-by-student',
   templateUrl: './results-by-student.component.html'
@@ -48,21 +43,6 @@ export class ResultsByStudentComponent implements OnInit {
   columns: Column[];
   actions: PopupMenuAction[];
   instructionalResourcesProvider: () => Observable<InstructionalResource[]>;
-  displayState: any = {
-    showClaim: ScoreViewState.OVERALL
-  };
-
-  // get isClaimScoreSelected() {
-  //   return this.displayState.table == ScoreViewState.CLAIM;
-  // }
-  //
-  // public setClaimScoreSelected() {
-  //   this.displayState.table = ScoreViewState.CLAIM;
-  // }
-  //
-  // public setOverallScoreSelected() {
-  //   this.displayState.table = ScoreViewState.OVERALL;
-  // }
 
   get performanceLevelHeader() {
     return 'common.results.assessment-exam-columns.' +
@@ -71,10 +51,6 @@ export class ResultsByStudentComponent implements OnInit {
 
   get performanceLevelHeaderInfo() {
     return this.performanceLevelHeader + '-info';
-  }
-
-  get showClaimToggle() {
-    return !this.assessment.isIab;
   }
 
   constructor(private actionBuilder: MenuActionBuilder,

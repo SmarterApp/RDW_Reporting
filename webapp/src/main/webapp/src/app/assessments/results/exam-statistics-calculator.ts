@@ -198,4 +198,32 @@ export class ExamStatisticsCalculator {
       throw Error("Undefined potential response for given number of choices.");
     }
   }
+
+  /**
+   * Takes an array of percents and makes them integers that sum to 100 exactly
+   * Used for data widths where it needs to be exact and not 99 or 101 due to rounding
+   * @param {number[]} percents
+   * @returns {number[]}
+   */
+  getDataWidths(percents: number[]): number[] {
+    // make sure the percents are whole numbers
+    let dataWidths = percents.map((x, index) => {
+      return { index: index, percent: Math.round(x), diff: Math.round(x) - x };
+    });
+    let total = dataWidths.map(x => x.percent).reduce((x, y) => x + y);
+
+    if (total == 100) return dataWidths.map(x => x.percent);
+
+    let diff = total > 100 ? -1 : 1;
+
+    // to get the total to equal 100, this adds or subtracts 1 from items based on how much they were rounded
+    dataWidths.concat().sort((a, b) => (a.diff - b.diff) * diff ).forEach((x, index) => {
+      if (total != 100) {
+        dataWidths[x.index].percent += diff;
+        total += diff;
+      }
+    });
+
+    return dataWidths.map(x => x.percent);
+  }
 }
