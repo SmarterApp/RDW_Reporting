@@ -100,7 +100,7 @@ export class AverageScaleScoreComponent {
 
   getClaimSuffix(claimStats: ClaimStatistics, index: number): string {
     return this.showValuesAsPercent ? claimStats.percents[index].suffix : claimStats.levels[index].suffix;
-  })
+  }
 
   get isClaimScoreSelected(): boolean {
     return this.displayState.table == ScoreViewState.CLAIM;
