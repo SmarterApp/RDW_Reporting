@@ -230,7 +230,7 @@ export class AssessmentResultsComponent implements OnInit {
   percentileDisplayEnabled: boolean = false;
   showPercentileHistory: boolean = false;
   percentileGroups: PercentileGroup[];
-  isClaimScoreSelected: boolean = false;
+  showClaimScores: boolean = false;
 
   private _filterBy: FilterBy;
   private _assessmentExam: AssessmentExam;
@@ -254,8 +254,8 @@ export class AssessmentResultsComponent implements OnInit {
     this.setCurrentView(this.resultsByStudentView);
   }
 
-  setClaimScoreSelected(value: boolean) {
-    this.isClaimScoreSelected = value;
+  setShowClaimScores(value: boolean) {
+    this.showClaimScores = value;
   }
 
   updateViews(): void {

@@ -55,7 +55,7 @@
                            [statistics]="statistics"
                            [showValuesAsPercent]="showValuesAsPercent"
                            [assessmentProvider]="assessmentProvider"
-                           (onScoreViewToggle)="setClaimScoreSelected($event)"></average-scale-score>
+                           (onScoreViewToggle)="setShowClaimScores($event)"></average-scale-score>
     </div>
   </div>
 
@@ -181,7 +181,7 @@
         <ng-container *ngIf="showStudentResults">
           <results-by-student [exams]="exams"
                               [assessment]="assessmentExam.assessment"
-                              [isClaimScoreSelected]="isClaimScoreSelected"
+                              [showClaimScores]="showClaimScores"
                               [minimumItemDataYear]="minimumItemDataYear"></results-by-student>
         </ng-container>
         <ng-container *ngIf="showItemsByPointsEarned">

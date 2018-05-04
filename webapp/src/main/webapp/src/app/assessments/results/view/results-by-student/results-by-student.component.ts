@@ -35,7 +35,7 @@ export class ResultsByStudentComponent implements OnInit {
   minimumItemDataYear: number;
 
   @Input()
-  isClaimScoreSelected: boolean;
+  showClaimScores: boolean;
 
   @ViewChild('menuReportDownloader')
   reportDownloader: StudentReportDownloadComponent;

@@ -358,21 +358,21 @@ describe('Exam Calculator', () => {
   });
 
   it('should aggregate by claims and levels', () => {
-    let exams = [
-      <Exam>{
+    let exams = <Exam[]>[
+      {
         claimScores: [
-          <ClaimScore>{ level: 1 },
-          <ClaimScore>{ level: 2 },
-          <ClaimScore>{ level: 3 },
-          <ClaimScore>{ level: 1 },
+          { level: 1 },
+          { level: 2 },
+          { level: 3 },
+          { level: 1 },
         ]
       },
-      <Exam>{
+      {
         claimScores: [
-          <ClaimScore>{ level: 1 },
-          <ClaimScore>{ level: 2 },
-          <ClaimScore>{ level: 1 },
-          <ClaimScore>{ level: 2 }
+          { level: 1 },
+          { level: 2 },
+          { level: 1 },
+          { level: 2 }
         ]
       }
     ];
@@ -380,46 +380,46 @@ describe('Exam Calculator', () => {
     let fixture = new ExamStatisticsCalculator();
     let actual = fixture.calculateClaimStatistics(exams, 3);
 
-    expect(actual).toEqual([
-      <ClaimStatistics>{ id: 0, levels: [
-          <ExamStatisticsLevel>{ id: 1, value: 2 },
-          <ExamStatisticsLevel>{ id: 2, value: 0 },
-          <ExamStatisticsLevel>{ id: 3, value: 0 }
+    expect(actual).toEqual(<ClaimStatistics[]>[
+      { id: 0, levels: [
+          { id: 1, value: 2 },
+          { id: 2, value: 0 },
+          { id: 3, value: 0 }
         ],
         percents: [
-          <ExamStatisticsLevel>{ id: 1, value: 100.0, suffix: '%' },
-          <ExamStatisticsLevel>{ id: 2, value: 0, suffix: '%' },
-          <ExamStatisticsLevel>{ id: 3, value: 0, suffix: '%' }
+          { id: 1, value: 100.0, suffix: '%' },
+          { id: 2, value: 0, suffix: '%' },
+          { id: 3, value: 0, suffix: '%' }
         ]},
-      <ClaimStatistics>{ id: 1, levels: [
-          <ExamStatisticsLevel>{ id: 1, value: 0 },
-          <ExamStatisticsLevel>{ id: 2, value: 2 },
-          <ExamStatisticsLevel>{ id: 3, value: 0 }
+      { id: 1, levels: [
+          { id: 1, value: 0 },
+          { id: 2, value: 2 },
+          { id: 3, value: 0 }
         ],
         percents: [
-          <ExamStatisticsLevel>{ id: 1, value: 0, suffix: '%' },
-          <ExamStatisticsLevel>{ id: 2, value: 100.0, suffix: '%' },
-          <ExamStatisticsLevel>{ id: 3, value: 0, suffix: '%' }
+          { id: 1, value: 0, suffix: '%' },
+          { id: 2, value: 100.0, suffix: '%' },
+          { id: 3, value: 0, suffix: '%' }
         ]},
-      <ClaimStatistics>{ id: 2, levels: [
-          <ExamStatisticsLevel>{ id: 1, value: 1 },
-          <ExamStatisticsLevel>{ id: 2, value: 0 },
-          <ExamStatisticsLevel>{ id: 3, value: 1 }
+      { id: 2, levels: [
+          { id: 1, value: 1 },
+          { id: 2, value: 0 },
+          { id: 3, value: 1 }
         ],
         percents: [
-          <ExamStatisticsLevel>{ id: 1, value: 50.0, suffix: '%' },
-          <ExamStatisticsLevel>{ id: 2, value: 0, suffix: '%' },
-          <ExamStatisticsLevel>{ id: 3, value: 50.0, suffix: '%' }
+          { id: 1, value: 50.0, suffix: '%' },
+          { id: 2, value: 0, suffix: '%' },
+          { id: 3, value: 50.0, suffix: '%' }
         ]},
-      <ClaimStatistics>{ id: 3, levels: [
-          <ExamStatisticsLevel>{ id: 1, value: 1 },
-          <ExamStatisticsLevel>{ id: 2, value: 1 },
-          <ExamStatisticsLevel>{ id: 3, value: 0 }
+      { id: 3, levels: [
+          { id: 1, value: 1 },
+          { id: 2, value: 1 },
+          { id: 3, value: 0 }
         ],
         percents: [
-          <ExamStatisticsLevel>{ id: 1, value: 50.0, suffix: '%' },
-          <ExamStatisticsLevel>{ id: 2, value: 50.0, suffix: '%' },
-          <ExamStatisticsLevel>{ id: 3, value: 0, suffix: '%' }
+          { id: 1, value: 50.0, suffix: '%' },
+          { id: 2, value: 50.0, suffix: '%' },
+          { id: 3, value: 0, suffix: '%' }
         ]}
     ]);
   });
@@ -432,19 +432,19 @@ describe('Exam Calculator', () => {
   });
 
   it('should ignore bad claim levels when aggregating', () => {
-    let exams = [
-      <Exam>{
+    let exams = <Exam[]>[
+      {
         claimScores: [
-          <ClaimScore>{ level: 1 },
-          <ClaimScore>{ level: 1 },
+          { level: 1 },
+          { level: 1 },
           <ClaimScore>{ level: 1 },
         ]
       },
-      <Exam>{
+      {
         claimScores: [
-          <ClaimScore>{ level: 2 },
-          <ClaimScore>{ level: 6 },
-          <ClaimScore>{ level: -2 }
+          { level: 2 },
+          { level: 6 },
+          { level: -2 }
         ]
       }
     ];
@@ -452,36 +452,36 @@ describe('Exam Calculator', () => {
     let fixture = new ExamStatisticsCalculator();
     let actual = fixture.calculateClaimStatistics(exams, 3);
 
-    expect(actual).toEqual([
-      <ClaimStatistics>{ id: 0, levels: [
-          <ExamStatisticsLevel>{ id: 1, value: 1 },
-          <ExamStatisticsLevel>{ id: 2, value: 1 },
-          <ExamStatisticsLevel>{ id: 3, value: 0 }
+    expect(actual).toEqual(<ClaimStatistics[]>[
+      { id: 0, levels: [
+          { id: 1, value: 1 },
+          { id: 2, value: 1 },
+          { id: 3, value: 0 }
         ],
         percents: [
-          <ExamStatisticsLevel>{ id: 1, value: 50.0, suffix: '%' },
-          <ExamStatisticsLevel>{ id: 2, value: 50.0, suffix: '%' },
-          <ExamStatisticsLevel>{ id: 3, value: 0, suffix: '%' }
+          { id: 1, value: 50.0, suffix: '%' },
+          { id: 2, value: 50.0, suffix: '%' },
+          { id: 3, value: 0, suffix: '%' }
         ]},
-      <ClaimStatistics>{ id: 1, levels: [
-          <ExamStatisticsLevel>{ id: 1, value: 1 },
-          <ExamStatisticsLevel>{ id: 2, value: 0 },
-          <ExamStatisticsLevel>{ id: 3, value: 0 }
+      { id: 1, levels: [
+          { id: 1, value: 1 },
+          { id: 2, value: 0 },
+          { id: 3, value: 0 }
         ],
         percents: [
-          <ExamStatisticsLevel>{ id: 1, value: 100.0, suffix: '%' },
-          <ExamStatisticsLevel>{ id: 2, value: 0, suffix: '%' },
-          <ExamStatisticsLevel>{ id: 3, value: 0, suffix: '%' }
+          { id: 1, value: 100.0, suffix: '%' },
+          { id: 2, value: 0, suffix: '%' },
+          { id: 3, value: 0, suffix: '%' }
         ]},
-      <ClaimStatistics>{ id: 2, levels: [
-          <ExamStatisticsLevel>{ id: 1, value: 1 },
-          <ExamStatisticsLevel>{ id: 2, value: 0 },
-          <ExamStatisticsLevel>{ id: 3, value: 0 }
+      { id: 2, levels: [
+          { id: 1, value: 1 },
+          { id: 2, value: 0 },
+          { id: 3, value: 0 }
         ],
         percents: [
-          <ExamStatisticsLevel>{ id: 1, value: 100.0, suffix: '%' },
-          <ExamStatisticsLevel>{ id: 2, value: 0, suffix: '%' },
-          <ExamStatisticsLevel>{ id: 3, value: 0, suffix: '%' }
+          { id: 1, value: 100.0, suffix: '%' },
+          { id: 2, value: 0, suffix: '%' },
+          { id: 3, value: 0, suffix: '%' }
         ]}
     ]);
   });

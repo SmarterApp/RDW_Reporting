@@ -14,7 +14,7 @@
                let-columns>
     <tr>
       <th *ngFor="let column of columns"
-          [hidden]="(isClaimScoreSelected && column.overall) || (!isClaimScoreSelected && column.claim)"
+          [hidden]="(showClaimScores && column.overall) || (!showClaimScores && column.claim)"
           [pSortableColumn]="column.field"
           [ngSwitch]="column.id">
 
@@ -51,7 +51,7 @@
     <tr>
       <td *ngFor="let column of columns"
           [ngSwitch]="column.id"
-          [hidden]="(isClaimScoreSelected && column.overall) || (!isClaimScoreSelected && column.claim)">
+          [hidden]="(showClaimScores && column.overall) || (!showClaimScores && column.claim)">
 
         <div *ngSwitchCase="'name'">
           <popup-menu [item]="exam"

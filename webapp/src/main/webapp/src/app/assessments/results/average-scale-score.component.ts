@@ -53,10 +53,9 @@ export class AverageScaleScoreComponent {
     }
 
     // pre-calculates the data widths for the graph representation for all of the claims
-    this._claimDataWidths = [];
-    value.claims.forEach(cs => {
-      this._claimDataWidths.push(this.examCalculator.getDataWidths(cs.percents.map(x => x.value)));
-    });
+    this._claimDataWidths = value.claims.map(claimStatistics =>
+      this.examCalculator.getDataWidths(claimStatistics.percents.map(percent => percent.value))
+    );
   }
 
   @Input()
