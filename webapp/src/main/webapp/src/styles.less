@@ -1238,48 +1238,7 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
     }
   }
 
-  .perc-container {
-    display: grid;
-    grid-gap: @spacer / 4;
-    grid-template-columns: repeat(3, 1fr);
-    padding-top: @spacer * 2;
-    .bar {
-      display: flex;
-      align-items: center;
-      font-size: 12.8px;
-      &:nth-child(1) { justify-self: left; }
-      &:nth-child(2) { justify-self: center; }
-      &:nth-child(3) { justify-self: right; }
-    }
-    .square {
-      display: inline-block;
-      width: 1em;
-      height: 1em;
-      margin-right: 0.25em;
-      background-color: currentcolor;
-      border-radius: 3px;
-      &.blue-dark.aqua {
-        .textured-blue;
-      }
-    }
-  }
-  .scale-score-graph {
-    .bar-container {
-      padding: 0;
-      font-size: 14px;
-      &:first-child .bar { height: 1em; }
-      .bar .percentage {
-        top: @spacer * -1;
-      }
-    }
-  }
-}
-
-.overall-assessment-aggregate {
-  padding: (@spacer * 1.7);
-  font-family: PT Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
-  color: #353538;
-
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: repeat(3, 1fr); }
   .grid-4 { grid-template-columns: repeat(4, 1fr); }
   .grid-5 { grid-template-columns: repeat(5, 1fr); }
@@ -1304,6 +1263,9 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
       margin-right: 0.25em;
       background-color: currentcolor;
       border-radius: 3px;
+      &.blue-dark.aqua {
+        .textured-blue;
+      }
     }
   }
   .scale-score-graph {
