@@ -89,7 +89,7 @@
           <tr>
             <td *ngFor="let claimStats of statistics.claims; let claimIndex = index" class="claim-distribution">
               <div class="assessment-aggregate">
-                <div class="perc-container" [ngClass]="'grid-' + statistics.claims.length" >
+                <div class="perc-container" [ngClass]="'grid-' + claimStats.levels.length" >
                   <div class="bar" *ngFor="let level of claimStats.levels; let i = index">
                     <span class="square"
                           [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode('iab', i + 1)"></span>
