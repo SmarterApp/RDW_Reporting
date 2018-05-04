@@ -41,7 +41,7 @@ export class ExamStatisticsCalculator {
   calculateClaimStatistics(exams: Exam[], numberOfLevels: number): ClaimStatistics[] {
     let stats = [];
 
-    if (exams == null || exams.length == 0) return stats;
+    if (exams == null || exams.length == 0 || exams[0].claimScores == null) return stats;
 
     for (let i = 0; i < exams[0].claimScores.length; i++) {
       let claimStats = <ClaimStatistics>{

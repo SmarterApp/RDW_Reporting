@@ -5,6 +5,7 @@ import { CommonModule } from '../../shared/common.module';
 import { DetailsByPerformanceLevel, MeasuredAssessment } from '../measured-assessment';
 import { Assessment } from '../../assessments/model/assessment.model';
 import { Group } from '../../groups/group';
+import { ExamStatisticsCalculator } from '../../assessments/results/exam-statistics-calculator';
 
 describe('GroupAssessmentCardComponent', () => {
 
@@ -19,6 +20,9 @@ describe('GroupAssessmentCardComponent', () => {
       declarations: [
         GroupAssessmentCardComponent
       ],
+      providers: [
+        ExamStatisticsCalculator
+      ],
       schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
   }));
@@ -30,15 +34,15 @@ describe('GroupAssessmentCardComponent', () => {
 
   it('should create', () => {
     createComponent();
-    const studentCountByPerformanceLevel: DetailsByPerformanceLevel[] = [ <DetailsByPerformanceLevel> {
-      percent: 20,
-      studentCount: 2
-    },
-      <DetailsByPerformanceLevel> {
+    const studentCountByPerformanceLevel: DetailsByPerformanceLevel[] = <DetailsByPerformanceLevel[]>[  {
+        percent: 20,
+        studentCount: 2
+      },
+      {
         percent: 30,
         studentCount: 3
       },
-      <DetailsByPerformanceLevel> {
+      {
         percent: 50,
         studentCount: 5
       } ];
@@ -57,15 +61,15 @@ describe('GroupAssessmentCardComponent', () => {
 
   it('should have percents of 33.33 have a data width sum to 100', () => {
     createComponent();
-    const studentCountByPerformanceLevel: DetailsByPerformanceLevel[] = [ <DetailsByPerformanceLevel> {
-      percent: (1 / 3) * 100,
-      studentCount: 1
-    },
-      <DetailsByPerformanceLevel> {
+    const studentCountByPerformanceLevel: DetailsByPerformanceLevel[] = <DetailsByPerformanceLevel[]>[ {
         percent: (1 / 3) * 100,
         studentCount: 1
       },
-      <DetailsByPerformanceLevel> {
+      {
+        percent: (1 / 3) * 100,
+        studentCount: 1
+      },
+      {
         percent: (1 / 3) * 100,
         studentCount: 1
       } ];
@@ -79,20 +83,20 @@ describe('GroupAssessmentCardComponent', () => {
     };
     fixture.detectChanges();
     expect(component.percents).toEqual(([ 33, 33, 33 ]));
-    expect(component.dataWidths).toEqual([ 33, 33, 34 ]);
+    expect(component.dataWidths).toEqual([ 34, 33, 33 ]);
   });
 
   it('should have rounded percents sum of 101 and a data width sum to 100', () => {
     createComponent();
-    const studentCountByPerformanceLevel = [ <DetailsByPerformanceLevel> {
-      percent: (2 / 7) * 100,
-      studentCount: 2
-    },
-      <DetailsByPerformanceLevel> {
+    const studentCountByPerformanceLevel = <DetailsByPerformanceLevel[]>[ {
+        percent: (2 / 7) * 100,
+        studentCount: 2
+      },
+      {
         percent: (3 / 7) * 100,
         studentCount: 3
       },
-      <DetailsByPerformanceLevel> {
+      {
         percent: (2 / 7) * 100,
         studentCount: 2
       } ];
@@ -106,7 +110,7 @@ describe('GroupAssessmentCardComponent', () => {
     };
     fixture.detectChanges();
     expect(component.percents).toEqual(([ 29, 43, 29 ]));
-    expect(component.dataWidths).toEqual([ 29, 43, 28 ]);
+    expect(component.dataWidths).toEqual([ 28, 43, 29 ]);
   });
 
 

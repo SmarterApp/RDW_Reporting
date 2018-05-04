@@ -130,6 +130,7 @@ describe('AssessmentResultsComponent', () => {
     exam.student.lastName = studentName;
     exam.session = session;
     exam.date = date;
+    exam.claimScores = [];
 
     return exam;
   }
