@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AggregateReportItem } from './aggregate-report-item';
-import { AggregateReportRow } from '../../report/aggregate-report';
+import {
+  AggregateReportRow,
+  AggregateReportRowDimension,
+  AggregateReportRowMeasure
+} from '../../report/aggregate-report';
 import { AssessmentDefinition } from '../assessment/assessment-definition';
 import { OrganizationMapper } from '../../shared/organization/organization.mapper';
 import { SubgroupMapper } from '../subgroup/subgroup.mapper';
@@ -26,40 +30,18 @@ export class AggregateReportItemMapper {
             row: AggregateReportRow,
             uuid: number): AggregateReportItem {
 
-    if (query.subgroups == null) {
-      return this.createBasicRow(assessmentDefinition, row, uuid);
-    }
-    return this.createFilteredSubgroupRow(
-      assessmentDefinition, row, uuid, query.subgroups, this.subgroupMapper.createOverall());
+    return this.createRowInternal(query, assessmentDefinition, row, uuid, (row) => row.measures);
   }
 
-  createBasicRow(assessmentDefinition: AssessmentDefinition,
-                 row: AggregateReportRow,
-                 uuid: number): AggregateReportItem {
+  createRowUsingCohortMeasures(query: AggregateReportQuery,
+                               assessmentDefinition: AssessmentDefinition,
+                               row: AggregateReportRow,
+                               uuid: number): AggregateReportItem {
 
-    const item = this.createRowInternal(assessmentDefinition, row, uuid);
-    item.subgroup = this.subgroupMapper.fromTypeAndCode(row.dimension.type, row.dimension.code);
-    return item;
+    return this.createRowInternal(query, assessmentDefinition, row, uuid, (row) => row.cohortMeasures);
   }
 
-  createFilteredSubgroupRow(assessmentDefinition: AssessmentDefinition,
-                            row: AggregateReportRow,
-                            uuid: number,
-                            subgroups: { [ key: string ]: StudentFilters },
-                            overall: Subgroup): AggregateReportItem {
-
-    const item = this.createRowInternal(assessmentDefinition, row, uuid);
-    const serverSubgroup = subgroups[ row.dimension.code ];
-    item.subgroup = serverSubgroup
-      ? this.subgroupMapper.fromFilters(
-        this.requestMapper.createSubgroupFilters(serverSubgroup)
-        // TODO should make sure user subgroup creation order is preserved
-      )
-      : overall;
-    return item;
-  }
-
-  private createRowInternal(assessmentDefinition: AssessmentDefinition, row: AggregateReportRow, uuid: number): AggregateReportItem {
+  private createRowInternal(query: AggregateReportQuery, assessmentDefinition: AssessmentDefinition, row: AggregateReportRow, uuid: number, measuresGetter: (row: AggregateReportRow) => AggregateReportRowMeasure): AggregateReportItem {
     const item = new AggregateReportItem();
     const itemPerformanceLevelCounts = item.performanceLevelByDisplayTypes.Separate.Number;
     const itemPerformanceLevelPercents = item.performanceLevelByDisplayTypes.Separate.Percent;
@@ -74,7 +56,9 @@ export class AggregateReportItemMapper {
     item.schoolYear = row.assessment.examSchoolYear;
     item.organization = this.organizationMapper.map(row.organization);
 
-    const measures: any = row.measures || {};
+    item.subgroup = this.subgroupMapper.fromAggregateReportRow(query, row);
+
+    const measures: any = measuresGetter(row) || {};
     item.avgScaleScore = measures.avgScaleScore || 0;
     item.avgStdErr = measures.avgStdErr || 0;
 

@@ -218,38 +218,44 @@ export class LongitudinalCohortChartComponent implements OnInit {
     };
 
     this._chartView = <ChartView>{
-      performancePaths: this._chart.organizationPerformances.map((performance, i) => <PerformancePath>{
-        styles: `scale-score-line color-${i} series-${i}`,
-        visible: true,
-        pathData: d3line(performance.yearGradeScaleScores.map(({ scaleScore }, j) => <any>{
-          x: j,
-          y: scaleScore
-        })),
-        points: performance.yearGradeScaleScores.map(({ scaleScore }, j) => {
-          return <PerformancePoint>{
-            styles: `point color-stroke`,
-            x: xScale(j),
-            y: yScale(scaleScore),
-            scaleScore: scaleScore,
-            levelRange: findPerformanceLevelRange(levelRangesByYearGradeIndex, j, scaleScore)
-          };
+      performancePaths: this._chart.organizationPerformances
+        // TODO allow different subgroup selection
+        .filter(performance => performance.subgroup.id === 'Overall:')
+        .map((performance, i) => <PerformancePath>{
+          styles: `scale-score-line color-${i % 3} series-${i}`,
+          visible: true,
+          pathData: d3line(performance.yearGradeScaleScores.map(({ scaleScore }, j) => <any>{
+            x: j,
+            y: scaleScore
+          })),
+          points: performance.yearGradeScaleScores.reduce((points, { scaleScore }, j) => {
+            if (scaleScore != null) {
+              points.push(<PerformancePoint>{
+                styles: `point color-stroke`,
+                x: xScale(j),
+                y: yScale(scaleScore),
+                scaleScore: scaleScore,
+                levelRange: findPerformanceLevelRange(levelRangesByYearGradeIndex, j, scaleScore)
+              });
+            }
+            return points;
+          }, []),
+          organization: performance.organization,
+          subgroup: performance.subgroup
         }),
-        organization: performance.organization,
-        subgroup: null
-      }),
-      performanceLevelPaths: this._chart.performanceLevels.map((level, i) => <PerformanceLevelPath>{
-        styles: `scale-score-area color-${i}`,
-        pathData: d3area(level.yearGradeScaleScoreRanges.map(({ scaleScoreRange }, j) => <any>{
-          x: j,
-          y0: scaleScoreRange.minimum,
-          y1: scaleScoreRange.maximum
-        })),
-        dividerPathData: d3line(level.yearGradeScaleScoreRanges.map(({ scaleScoreRange }, j) => <any>{
-          x: j,
-          y: scaleScoreRange.maximum
-        })),
-        performanceLevel: level
-      }),
+        performanceLevelPaths: this._chart.performanceLevels.map((level, i) => <PerformanceLevelPath>{
+          styles: `scale-score-area color-${i % 4}`,
+          pathData: d3area(level.yearGradeScaleScoreRanges.map(({ scaleScoreRange }, j) => <any>{
+            x: j,
+            y0: scaleScoreRange.minimum,
+            y1: scaleScoreRange.maximum
+          })),
+          dividerPathData: d3line(level.yearGradeScaleScoreRanges.map(({ scaleScoreRange }, j) => <any>{
+            x: j,
+            y: scaleScoreRange.maximum
+          })),
+          performanceLevel: level
+        }),
       performanceLevelPathLabels: levelRangesByYearGradeIndex[ levelRangesByYearGradeIndex.length - 1 ].map(levelRange => {
         const height = yScale(levelRange.scaleScoreRange.maximum) - yScale(levelRange.scaleScoreRange.minimum);
         const margin = { left: 5, top: -2, right: 0, bottom: 2 };

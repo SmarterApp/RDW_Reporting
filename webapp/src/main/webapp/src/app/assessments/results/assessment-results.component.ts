@@ -230,6 +230,7 @@ export class AssessmentResultsComponent implements OnInit {
   percentileDisplayEnabled: boolean = false;
   showPercentileHistory: boolean = false;
   percentileGroups: PercentileGroup[];
+  showClaimScores: boolean = false;
 
   private _filterBy: FilterBy;
   private _assessmentExam: AssessmentExam;
@@ -251,6 +252,10 @@ export class AssessmentResultsComponent implements OnInit {
     });
 
     this.setCurrentView(this.resultsByStudentView);
+  }
+
+  setShowClaimScores(value: boolean) {
+    this.showClaimScores = value;
   }
 
   updateViews(): void {
@@ -355,8 +360,11 @@ export class AssessmentResultsComponent implements OnInit {
     stats.total = this.exams.length;
     stats.average = this.examCalculator.calculateAverage(this.exams);
     stats.standardError = this.examCalculator.calculateStandardErrorOfTheMean(this.exams);
+
+    // TODO: determine a different way for configurable subjects
     stats.levels = this.examCalculator.groupLevels(this.exams, this.assessmentExam.assessment.isIab ? 3 : 4);
     stats.percents = this.examCalculator.mapGroupLevelsToPercents(stats.levels);
+    stats.claims = this.examCalculator.calculateClaimStatistics(this.exams, 3);
 
     return stats;
   }

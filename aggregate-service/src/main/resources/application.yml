@@ -46,7 +46,7 @@ app:
 spring:
   cache:
     type: SIMPLE
-    cache-names: internalTranslationsByCode, reportOptions, administrationConditions, assessments, assessmentGrades, assessmentTypes, booleans, strictBooleans, organizations, completenessCodes, ethnicities, genders, elases, schoolYears, subjects, activeAssessments, embargo
+    cache-names: internalTranslationsByCode, reportOptions, administrationConditions, assessments, assessmentGrades, assessmentTypes, booleans, strictBooleans, organizations, completenessCodes, claims, ethnicities, genders, elases, schoolYears, subjects, activeAssessments, embargo
 
   cloud:
     stream:
@@ -87,6 +87,8 @@ reporting:
   state:
     code: CA
     name: California
+  subjects:
+    max-claims: 6
 
   # english-learners should be lep or elas
   english-learners:

@@ -4,11 +4,15 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { DimensionGroup, DimensionValue, Subgroup } from './subgroup';
 import { SubgroupItem } from './subgroup-item';
+import { AggregateReportRow } from "../../report/aggregate-report";
+import { AggregateReportQuery } from "../../report/aggregate-report-request";
+import { AggregateReportRequestMapper } from "../aggregate-report-request.mapper";
 
 @Injectable()
 export class SubgroupMapper {
 
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService,
+              private requestMapper: AggregateReportRequestMapper) {
   }
 
   createOverall(): Subgroup {
@@ -59,6 +63,16 @@ export class SubgroupMapper {
       }, []);
 
     return this.createSubgroupInternal(dimensionGroups);
+  }
+
+  fromAggregateReportRow(query: AggregateReportQuery, row: AggregateReportRow, overallFlyweight?: Subgroup): Subgroup {
+    if (query.subgroups == null) {
+      return this.fromTypeAndCode(row.dimension.type, row.dimension.code);
+    }
+    const serverSubgroup = query.subgroups[ row.dimension.code ];
+    return serverSubgroup
+      ? this.fromFilters(this.requestMapper.createSubgroupFilters(serverSubgroup))
+      : (overallFlyweight || this.createOverall());
   }
 
   createPermutationsFromFilters(input: SubgroupFilters, dimensionTypes: string[]): Subgroup[] {

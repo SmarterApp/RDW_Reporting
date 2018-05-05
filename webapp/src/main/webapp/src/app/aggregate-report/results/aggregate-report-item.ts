@@ -3,7 +3,6 @@ import { Subgroup } from '../subgroup/subgroup';
 
 /**
  * This model represents an aggregate report data table row result.
- * TODO rename to row?
  */
 export class AggregateReportItem {
   itemId: number;

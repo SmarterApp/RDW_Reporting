@@ -10,13 +10,13 @@ sqlbuilder:
               sum(CASE WHEN category = 1 THEN 1 ELSE 0 END) AS level1,
               sum(CASE WHEN category = 2 THEN 1 ELSE 0 END) AS level2,
               sum(CASE WHEN category = 3 THEN 1 ELSE 0 END) AS level3,
-              sum(CASE WHEN category = 4 THEN 1 ELSE 0 END) AS level4,
               fe.school_year,
               fe.asmt_id,
-              fe.subject_claim_score_id
+              fe.subject_claim_score_id,
+              scs.code as claim_code
 
           from: >-
-              fact_exam_claim_score fe
+              fact_exam_claim_score fe JOIN subject_claim_score scs ON scs.id = fe.subject_claim_score_id
 
           join: >-
               JOIN asmt a ON a.id = fe.asmt_id
@@ -26,12 +26,13 @@ sqlbuilder:
               a.grade_id IN (:asmt_grade_ids) AND
               a.subject_id in (:subject_ids) AND
               a.type_id = :asmt_type_id AND
-              ( true = :all_claims OR fe.subject_claim_score_id in (:subject_claim_score_ids) )
+              ( true = :all_claims OR scs.code in (:subject_claim_score_codes) )
 
           groupBy: >-
               fe.school_year,
               fe.asmt_id,
-              fe.subject_claim_score_id
+              fe.subject_claim_score_id,
+              scs.code
 
       # ------------ organization parts -------------------------------------------------------------
         addons:

@@ -54,7 +54,8 @@
       <average-scale-score [assessmentExam]="assessmentExam"
                            [statistics]="statistics"
                            [showValuesAsPercent]="showValuesAsPercent"
-                           [assessmentProvider]="assessmentProvider"></average-scale-score>
+                           [assessmentProvider]="assessmentProvider"
+                           (onScoreViewToggle)="setShowClaimScores($event)"></average-scale-score>
     </div>
   </div>
 
@@ -68,7 +69,7 @@
 
   <!-- Student Results -->
   <ng-container *ngIf="!collapsed" @fadeAnimation>
-    <div class="row mt-md">
+    <div class="row">
       <div class="col-md-12">
 
         <!-- Result view selector -->
@@ -180,6 +181,7 @@
         <ng-container *ngIf="showStudentResults">
           <results-by-student [exams]="exams"
                               [assessment]="assessmentExam.assessment"
+                              [showClaimScores]="showClaimScores"
                               [minimumItemDataYear]="minimumItemDataYear"></results-by-student>
         </ng-container>
         <ng-container *ngIf="showItemsByPointsEarned">

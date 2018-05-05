@@ -1238,18 +1238,24 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
     }
   }
 
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-5 { grid-template-columns: repeat(5, 1fr); }
+  .grid-6 { grid-template-columns: repeat(6, 1fr); }
+
   .perc-container {
     display: grid;
     grid-gap: @spacer / 4;
-    grid-template-columns: repeat(3, 1fr);
-    padding-top: @spacer * 0.88;
+    padding-top: @spacer * 1;
+
     .bar {
       display: flex;
       align-items: center;
       font-size: 12.8px;
-      &:nth-child(1) { justify-self: left; }
-      &:nth-child(2) { justify-self: center; }
-      &:nth-child(3) { justify-self: right; }
+      & { justify-self: center; }
+      &:first-child { justify-self: left; }
+      &:last-child { justify-self: right; }
     }
     .square {
       display: inline-block;
@@ -1271,6 +1277,15 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
       .bar .percentage {
         top: @spacer * -1;
       }
+    }
+  }
+}
+
+.claim-distribution {
+  .assessment-aggregate {
+    box-shadow: none;
+    .perc-container {
+      padding-top: 0px;
     }
   }
 }

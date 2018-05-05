@@ -82,14 +82,14 @@
     </ng-container>
 
     <ng-container *ngIf="reportView">
-      <div *ngFor="let table of reportTables" class="well wide-content-container">
+      <div *ngFor="let view of reportViews" class="well wide-content-container">
         <div class="row">
           <div class="col-md-12">
             <div>
               <h3 class="h3 label-group green pull-left">
                 <span
                   class="label">{{'common.assessment-type.' + query.assessmentTypeCode + '.short-name' | translate}}</span><span
-                class="label">{{'common.subject.' + table.subjectCode + '.short-name' | translate}}</span>
+                class="label">{{'common.subject.' + view.subjectCode + '.short-name' | translate}}</span>
               </h3>
               <a class="btn btn-sm btn-default ml-sm with-pointer"
                  [ngClass]="{'disabled': isEmbargoed()}"
@@ -97,11 +97,22 @@
                  triggers="{{ isEmbargoed() ? 'mouseenter:mouseleave': '' }}"
                  placement="top"
                  container="body"
-                 (click)="!isEmbargoed() && reportTable.exportTable(getExportName(table))"><i class="fa fa-cloud-download"></i>
+                 (click)="!isEmbargoed() && reportTable.exportTable(getExportName(view))"><i class="fa fa-cloud-download"></i>
                 {{'common.export' | translate}}
               </a>
             </div>
-            <div class="clearfix"></div>
+
+          </div>
+        </div>
+
+        <div class="row mt-xs " *ngIf="view.chart">
+          <div class="col-md-12">
+            <longitudinal-cohort-chart [chart]="view.chart"></longitudinal-cohort-chart>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
             <div>
               <span class="pull-left flex-child">
                 <label class="mr-xs">
@@ -109,23 +120,23 @@
                                content="{{'common.aggregate-report.column-order-info' | translate}}">
                   </info-button>
                 </label>
-                <order-selector [items]="table.columnOrderingItems"
-                                (itemsChange)="onColumnOrderChange(table, $event)"></order-selector>
+                <order-selector [items]="view.columnOrderingItems"
+                                (itemsChange)="onColumnOrderChange(view, $event)"></order-selector>
               </span>
               <span class="pull-right flex-child ml-xs">
                 <label class="mr-xs">{{'common.value-display-type-input-label' | translate}}</label>
                 <sb-radio-button-group [options]="displayOptions.valueDisplayTypes"
-                                       [(ngModel)]="table.valueDisplayType"
+                                       [(ngModel)]="view.valueDisplayType"
                                        buttonGroupStyles="btn-group-xs"
                                        buttonStyles="btn-default"
                                        analyticsCategory="AggregateReportControl"
                                        analyticsEvent="Change"></sb-radio-button-group>
               </span>
               <span class="pull-right flex-child ml-xs"
-                    *ngIf="table.table.assessmentDefinition.performanceLevelDisplayTypes.length > 1">
+                    *ngIf="view.table.assessmentDefinition.performanceLevelDisplayTypes.length > 1">
                 <label class="mr-xs">{{'common.performance-level-display-type-input-label' | translate}}</label>
                 <sb-radio-button-group [options]="displayOptions.performanceLevelDisplayTypes"
-                                       [(ngModel)]="table.performanceLevelDisplayType"
+                                       [(ngModel)]="view.performanceLevelDisplayType"
                                        buttonGroupStyles="btn-group-xs"
                                        buttonStyles="btn-default"
                                        analyticsCategory="AggregateReportControl"
@@ -138,10 +149,10 @@
         <div class="row mt-xs">
           <div class="col-md-12">
             <aggregate-report-table #reportTable
-                                    [table]="table.table"
-                                    [valueDisplayType]="table.valueDisplayType"
-                                    [performanceLevelDisplayType]="table.performanceLevelDisplayType"
-                                    [identityColumns]="table.columnOrdering"></aggregate-report-table>
+                                    [table]="view.table"
+                                    [valueDisplayType]="view.valueDisplayType"
+                                    [performanceLevelDisplayType]="view.performanceLevelDisplayType"
+                                    [identityColumns]="view.columnOrdering"></aggregate-report-table>
           </div>
         </div>
       </div>

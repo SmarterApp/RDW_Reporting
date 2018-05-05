@@ -210,7 +210,9 @@
           <div class="well" [hidden]="!currentAssessmentDefinition.aggregateReportLongitudinalCohortEnabled">
             <div class="row">
               <div class="col-md-6">
-                <label>{{'aggregate-report-form.field.report-type-label' | translate}}</label>
+                <label info-button
+                       title="{{'aggregate-report-form.field.report-type-label' | translate}}"
+                       content="{{'aggregate-report-form.field.report-type-info' | translate}}"></label>
               </div>
               <div class="col-md-6">
                 <sb-radio-group name="reportType"
@@ -311,7 +313,9 @@
             <div class="well">
               <div class="row">
                 <div class="col-md-6">
-                  <label>{{'aggregate-report-form.field.to-school-year-label' | translate}}</label>
+                  <label info-button
+                         title="{{'aggregate-report-form.field.to-school-year-label' | translate}}"
+                         content="{{'aggregate-report-form.field.to-school-year-info' | translate}}"></label>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">

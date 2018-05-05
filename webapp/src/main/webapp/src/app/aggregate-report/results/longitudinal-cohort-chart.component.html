@@ -6,7 +6,7 @@
       <ul class="list-unstyled">
         <li *ngFor="let performancePath of chartView.performancePaths; let index = index"
             class="mb-xs">
-          <button class="btn chart-series color-{{index}} text-left"
+          <button class="btn chart-series color-{{index % 3}} text-left"
                   [ngClass]="{'chart-series-hidden': !performancePath.visible}"
                   (click)="performancePath.visible = !performancePath.visible">
             <div>

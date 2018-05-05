@@ -42,8 +42,7 @@ export interface OrganizationPerformance {
  */
 export interface YearGrade {
   readonly year: number;
-  // TODO make this string code when data comes from backend
-  readonly grade: number;
+  readonly grade: string;
 }
 
 /**

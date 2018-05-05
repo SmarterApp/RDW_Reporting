@@ -39,7 +39,7 @@ export class AssessmentService {
         subject: serverAssessment.subjectCode,
         grade: serverAssessment.gradeCode,
         schoolYear: serverAssessment.schoolYear,
-        cutPoints: serverAssessment.cutPoints.concat()
+        cutPoints: serverAssessment.cutPoints.filter(point => point != null)
       }))
     );
   }
