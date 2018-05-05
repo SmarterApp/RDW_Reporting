@@ -599,7 +599,7 @@
         "03": {
           "subject": {
             "ELA": {
-              "": "{0} took a Smarter Balanced assessment based on the grade three California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "title": "{0} took a Smarter Balanced assessment based on the grade three California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
               "level": {
                 "1": "{0} did not meet the grade three standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
                 "2": "English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
@@ -608,7 +608,7 @@
               }
             },
             "MATH": {
-              "": "{0} took a Smarter Balanced assessment based on the grade three California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "title": "{0} took a Smarter Balanced assessment based on the grade three California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
               "level": {
                 "1": "{0} did not meet the grade three standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
                 "2": "{0} nearly met the grade three standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
@@ -621,7 +621,7 @@
         "04": {
           "subject": {
             "ELA": {
-              "": "{0} took a Smarter Balanced assessment based on the grade four California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "title": "{0} took a Smarter Balanced assessment based on the grade four California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
               "level": {
                 "1": "{0} did not meet the grade four standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
                 "2": "{0} nearly met the grade four standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
@@ -630,7 +630,7 @@
               }
             },
             "MATH": {
-              "": "{0} took a Smarter Balanced assessment based on the grade four California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "title": "{0} took a Smarter Balanced assessment based on the grade four California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
               "level": {
                 "1": "{0} did not meet the grade four standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
                 "2": "{0} nearly met the grade four standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
@@ -643,7 +643,7 @@
         "05": {
           "subject": {
             "ELA": {
-              "": "{0} took a Smarter Balanced assessment based on the grade five California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "title": "{0} took a Smarter Balanced assessment based on the grade five California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
               "level": {
                 "1": "{0} did not meet the grade five standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
                 "2": "{0} nearly met the grade five standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
@@ -652,7 +652,7 @@
               }
             },
             "MATH": {
-              "": "{0} took a Smarter Balanced assessment based on the grade five California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "title": "{0} took a Smarter Balanced assessment based on the grade five California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
               "level": {
                 "1": "{0} did not meet the grade five standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
                 "2": "{0} nearly met the grade five standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
@@ -665,7 +665,7 @@
         "06": {
           "subject": {
             "ELA": {
-              "": "{0} took a Smarter Balanced assessment based on the grade six California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "title": "{0} took a Smarter Balanced assessment based on the grade six California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
               "level": {
                 "1": "{0} did not meet the grade six standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
                 "2": "{0} nearly met the grade six standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
@@ -674,7 +674,7 @@
               }
             },
             "MATH": {
-              "": "{0} took a Smarter Balanced assessment based on the grade six California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "title": "{0} took a Smarter Balanced assessment based on the grade six California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
               "level": {
                 "1": "{0} did not meet the grade six standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
                 "2": "{0} nearly met the grade six standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
@@ -687,7 +687,7 @@
         "07": {
           "subject": {
             "ELA": {
-              "": "{0} took a Smarter Balanced assessment based on the grade seven California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "title": "{0} took a Smarter Balanced assessment based on the grade seven California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
               "level": {
                 "1": "{0} did not meet the grade seven standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
                 "2": "{0} nearly met the grade seven standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
@@ -696,7 +696,7 @@
               }
             },
             "MATH": {
-              "": "{0} took a Smarter Balanced assessment based on the grade seven California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "title": "{0} took a Smarter Balanced assessment based on the grade seven California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
               "level": {
                 "1": "{0} did not meet the grade seven standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
                 "2": "{0} nearly met the grade seven standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
@@ -709,7 +709,7 @@
         "08": {
           "subject": {
             "ELA": {
-              "": "{0} took a Smarter Balanced assessment based on the grade eight California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "title": "{0} took a Smarter Balanced assessment based on the grade eight California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
               "level": {
                 "1": "{0} did not meet the grade eight standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
                 "2": "{0} nearly met the grade eight standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
@@ -718,7 +718,7 @@
               }
             },
             "MATH": {
-              "": "{0} took a Smarter Balanced assessment based on the grade eight California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "title": "{0} took a Smarter Balanced assessment based on the grade eight California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
               "level": {
                 "1": "{0} did not meet the grade eight standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
                 "2": "{0} nearly met the grade eight standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.",
@@ -731,7 +731,7 @@
         "11": {
           "subject": {
             "ELA": {
-              "": "{0} took a Smarter Balanced assessment based on the grade eleven California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "title": "{0} took a Smarter Balanced assessment based on the grade eleven California academic standards for English language arts/literacy and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
               "level": {
                 "1": "{0} did not meet the grade eleven standard for English language arts/literacy and did not demonstrate readiness for future coursework. Please discuss with {0}''s teacher(s) steps to help {0} improve.",
                 "2": "{0} nearly met the grade eleven standard for English language arts/literacy needed for likely success in future coursework. Please discuss with {0}''s teacher(s) steps to help {0} improve.",
@@ -740,7 +740,7 @@
               }
             },
             "MATH": {
-              "": "{0} took a Smarter Balanced assessment based on the grade eleven California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
+              "title": "{0} took a Smarter Balanced assessment based on the grade eleven California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.",
               "level": {
                 "1": "{0} did not meet the grade eleven standard for mathematics and did not demonstrate readiness for future coursework. Please discuss with {0}''s teacher(s) steps to help {0} improve.",
                 "2": "{0} nearly met the grade eleven standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) steps to help {0} improve.",
