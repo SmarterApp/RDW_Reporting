@@ -16,7 +16,7 @@
               <td>
                 <div class="scale-score font-large text-left">
                   <span class="score label label-primary">{{ averageScore }}</span>
-                  <span class="error-band black"> ± {{ statistics.standardError | number:'1.0-0' }}</span>
+                  <span class="error-band black"> {{'common.error-band-value' | translate: {errorBand: statistics.standardError | number:'1.0-0'} }}</span>
                 </div>
               </td>
             </tr>

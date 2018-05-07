@@ -513,6 +513,7 @@
       "TK": "TK",
       "UG": "UG"
     },
+    "error-band-value": "± {{errorBand}}",
     "ethnicity": {
       "AmericanIndianOrAlaskaNative": "American Indian or Alaska Native",
       "Asian": "Asian",
@@ -1100,8 +1101,7 @@
     "area-description": {
       "text": "Achievement Level",
       "subtext": "relative to standard"
-    },
-    "error-band": "± {{errorBand}}"
+    }
   },
   "order-selector": {
     "move-left": "Move Left",
