@@ -161,7 +161,8 @@ sql:
           WHERE e2.student_id IS NULL
         )
         AND ${sql.snippet.studentExamPermissionWithoutEmbargo}
-        GROUP BY asmt_id;
+        GROUP BY asmt_id
+        ORDER BY completed_at DESC;
 
     examItem:
         findAllExamItemScoresForAssessment:
