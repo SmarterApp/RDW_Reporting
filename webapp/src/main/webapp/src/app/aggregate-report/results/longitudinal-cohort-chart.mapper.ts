@@ -35,6 +35,7 @@ function createStubPerformanceLevels(count: number,
                                      yearGrades: YearGrade[],
                                      scaleScoreRange: number[],
                                      performanceLevelNameProvider: (level: number) => string,
+                                     performanceLevelNamePrefixProvider: (level: number) => string,
                                      performanceLevelColorProvider: (level: number) => string): PerformanceLevel[] {
 
   const [ minimumScaleScore ] = scaleScoreRange;
@@ -61,7 +62,8 @@ function createStubPerformanceLevels(count: number,
     const level = i + 1;
     areas.push(<PerformanceLevel>{
       id: level,
-      namePrefix: performanceLevelNameProvider(level),
+      name: performanceLevelNameProvider(level),
+      namePrefix: performanceLevelNamePrefixProvider(level),
       color: performanceLevelColorProvider(level),
       yearGradeScaleScoreRanges: area
     });
@@ -126,12 +128,14 @@ export class LongitudinalCohortChartMapper {
     const scaleScoreRange = [ 2000, 2800 ];
     const yearGrades = createStubGradeYears({ year: 2000, grade: '03' }, 10, 1, 4);
     const nameProvider = (level) => this.translate
+      .instant(`common.assessment-type.${assessmentTypeCode}.performance-level.${level}.name`);
+    const namePrefixProvider = (level) => this.translate
       .instant(`common.assessment-type.${assessmentTypeCode}.performance-level.${level}.name-prefix`);
     const colorProvider = (level) => this.colorService
       .getPerformanceLevelColorsByAssessmentTypeCode(assessmentTypeCode, level);
 
     return {
-      performanceLevels: createStubPerformanceLevels(4, yearGrades, scaleScoreRange, nameProvider, colorProvider),
+      performanceLevels: createStubPerformanceLevels(4, yearGrades, scaleScoreRange, nameProvider, namePrefixProvider, colorProvider),
       organizationPerformances: createStubOrganizationPerformances(3, yearGrades, scaleScoreRange)
     };
   }
