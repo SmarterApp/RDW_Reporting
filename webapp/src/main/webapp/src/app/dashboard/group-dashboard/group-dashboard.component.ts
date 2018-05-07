@@ -24,6 +24,7 @@ export class GroupDashboardComponent implements OnInit {
   currentGroup: Group;
   private _currentSubject: string;
   private selectedAssessments: MeasuredAssessment[] = [];
+  private _availableSubjects: Set<string>;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -46,6 +47,7 @@ export class GroupDashboardComponent implements OnInit {
       this.currentSchoolYear = Number.parseInt(schoolYear) || filterOptions.schoolYears[ 0 ];
       this.groupDashboardService.getAvailableMeasuredAssessments(group, this.currentSchoolYear).subscribe(measuredAssessments => {
         this.measuredAssessments = measuredAssessments;
+        this.setAvailableSubjects(measuredAssessments);
       });
     });
   }
@@ -66,6 +68,7 @@ export class GroupDashboardComponent implements OnInit {
       this.groupService.getGroup(this.currentGroup.id).subscribe((group) => {
         this.group = group;
         this.groupDashboardService.getAvailableMeasuredAssessments(group, this.currentSchoolYear).subscribe(measuredAssessments => {
+          this.setAvailableSubjects(measuredAssessments);
           if (!this.currentSubject) {
             this.measuredAssessments = measuredAssessments;
           } else {
@@ -75,6 +78,10 @@ export class GroupDashboardComponent implements OnInit {
         });
       });
     });
+  }
+
+  setAvailableSubjects(measuredAssessments: MeasuredAssessment[]): void {
+    this._availableSubjects = new Set(measuredAssessments.map(x => x.assessment.subject));
   }
 
   viewAssessments(): void {
@@ -114,6 +121,10 @@ export class GroupDashboardComponent implements OnInit {
     this.selectedAssessments = event.selected ? this.selectedAssessments.concat(event.measuredAssessment)
       : this.selectedAssessments.filter(measuredAssessment =>
         measuredAssessment.assessment.id !== event.measuredAssessment.assessment.id);
+  }
+
+  hasSubject(subject: string): boolean {
+    return this._availableSubjects.has(subject);
   }
 
   /**

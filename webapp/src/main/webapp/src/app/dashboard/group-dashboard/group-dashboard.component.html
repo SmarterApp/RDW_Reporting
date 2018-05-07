@@ -53,7 +53,8 @@
                 (change)="updateRoute()">
           <option selected [ngValue]="undefined">{{'common.subject.ALL.short-name' | translate}}</option>
           <option *ngFor="let subject of filterOptions.subjects"
-                  [ngValue]="subject">{{'common.subject.' + subject + '.short-name' | translate}}
+                  [ngValue]="subject"
+                  [hidden]="!hasSubject(subject)">{{'common.subject.' + subject + '.short-name' | translate}}
           </option>
         </select>
       </div>
