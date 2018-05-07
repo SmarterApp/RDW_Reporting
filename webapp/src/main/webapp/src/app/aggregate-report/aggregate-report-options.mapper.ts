@@ -42,7 +42,7 @@ export class AggregateReportOptionsMapper {
     const optionMapper = this.displayOptionService.createOptionMapper;
     const translate = code => this.translateService.instant(code);
     return <AggregateReportFormOptions>{
-      assessmentGrades: options.assessmentGrades
+      assessmentGrades: options.assessmentGrades.reverse()
         .map(optionMapper(
           value => translate(`common.assessment-grade.${value}`),
           value => `Assessment Grade: ${value}`
