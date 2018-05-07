@@ -4,14 +4,16 @@ import {
   LongitudinalCohortChart,
   OrganizationPerformance,
   PerformanceLevel,
-  YearGrade, YearGradeScaleScore, YearGradeScaleScoreRange
+  YearGrade,
+  YearGradeScaleScore,
+  YearGradeScaleScoreRange
 } from './longitudinal-cohort-chart';
 import { DefaultSchool, Organization } from '../../shared/organization/organization';
 import { ColorService } from '../../shared/color.service';
-import { LongitudinalReport } from "../aggregate-report.service";
-import { AggregateReportRow } from "../../report/aggregate-report";
-import { OrganizationMapper } from "../../shared/organization/organization.mapper";
-import { SubgroupMapper } from "../subgroup/subgroup.mapper";
+import { LongitudinalReport } from '../aggregate-report.service';
+import { AggregateReportRow } from '../../report/aggregate-report';
+import { OrganizationMapper } from '../../shared/organization/organization.mapper';
+import { SubgroupMapper } from '../subgroup/subgroup.mapper';
 import { AggregateReportQuery } from '../../report/aggregate-report-request';
 import { Assessment } from '../assessment/assessment';
 import { ordering } from '@kourge/ordering';
@@ -59,7 +61,7 @@ function createStubPerformanceLevels(count: number,
     const level = i + 1;
     areas.push(<PerformanceLevel>{
       id: level,
-      name: performanceLevelNameProvider(level),
+      namePrefix: performanceLevelNameProvider(level),
       color: performanceLevelColorProvider(level),
       yearGradeScaleScoreRanges: area
     });
@@ -87,7 +89,8 @@ function createStubOrganizationPerformances(count: number,
 
       line.push(<YearGradeScaleScore>{
         yearGrade: yearGrade,
-        scaleScore: Math.floor(previous + 50 + 25 * Math.random())
+        scaleScore: Math.floor(previous + 50 + 25 * Math.random()),
+        standardError: Math.floor(Math.max(maximumScaleScore - this.scaleScore, minimumScaleScore + this.scaleScore))
       });
 
     }
@@ -163,26 +166,27 @@ export class LongitudinalCohortChartMapper {
       .sort(rowYearAscending)
       .forEach((row: AggregateReportRow) => {
 
-      const yearGradeScaleScore = <YearGradeScaleScore>{
-        yearGrade: <YearGrade>{
-          year: row.assessment.examSchoolYear,
-          grade: row.assessment.gradeCode
-        },
-        scaleScore: row.cohortMeasures.avgScaleScore
-      };
+        const yearGradeScaleScore = <YearGradeScaleScore>{
+          yearGrade: <YearGrade>{
+            year: row.assessment.examSchoolYear,
+            grade: row.assessment.gradeCode
+          },
+          scaleScore: row.cohortMeasures.avgScaleScore,
+          standardError: row.cohortMeasures.avgStdErr
+        };
 
-      const key = keyGenerator(row);
-      const performance = performanceByOrganizationSubgroup.get(key);
-      if (performance != null) {
-        performance.yearGradeScaleScores.push(yearGradeScaleScore)
-      } else {
-        performanceByOrganizationSubgroup.set(key, <OrganizationPerformance>{
-          organization: this.organizationMapper.map(row.organization),
-          subgroup: this.subgroupMapper.fromAggregateReportRow(query, row, overall),
-          yearGradeScaleScores: [ yearGradeScaleScore ]
-        })
-      }
-    });
+        const key = keyGenerator(row);
+        const performance = performanceByOrganizationSubgroup.get(key);
+        if (performance != null) {
+          performance.yearGradeScaleScores.push(yearGradeScaleScore);
+        } else {
+          performanceByOrganizationSubgroup.set(key, <OrganizationPerformance>{
+            organization: this.organizationMapper.map(row.organization),
+            subgroup: this.subgroupMapper.fromAggregateReportRow(query, row, overall),
+            yearGradeScaleScores: [ yearGradeScaleScore ]
+          });
+        }
+      });
 
     return Array.from(performanceByOrganizationSubgroup.values());
   }
@@ -195,38 +199,39 @@ export class LongitudinalCohortChartMapper {
     assessments.concat()
       .sort(assessmentYearAscending)
       .forEach(assessment => {
-      assessment.cutPoints.forEach((cutPoint, index, cutPoints) => {
+        assessment.cutPoints.forEach((cutPoint, index, cutPoints) => {
 
-        const nextCutPoint = cutPoints[ index + 1 ];
-        if (nextCutPoint == null) {
-          return;
-        }
-
-        const range = <YearGradeScaleScoreRange>{
-          yearGrade: {
-            year: assessment.schoolYear,
-            grade: assessment.grade
-          },
-          scaleScoreRange: {
-            minimum: cutPoint,
-            maximum: nextCutPoint
+          const nextCutPoint = cutPoints[ index + 1 ];
+          if (nextCutPoint == null) {
+            return;
           }
-        };
 
-        const performanceLevel = performanceLevels[ index ];
-        if (performanceLevel != null) {
-          performanceLevel.yearGradeScaleScoreRanges.push(range)
-        } else {
-          const level = index + 1;
-          performanceLevels.push(<PerformanceLevel>{
-            id: level,
-            name: this.translate.instant(`common.assessment-type.${assessmentType}.performance-level.${level}.name-prefix`),
-            color: this.colorService.getPerformanceLevelColorsByAssessmentTypeCode(assessmentType, level),
-            yearGradeScaleScoreRanges: [ range ]
-          })
-        }
-      })
-    });
+          const range = <YearGradeScaleScoreRange>{
+            yearGrade: {
+              year: assessment.schoolYear,
+              grade: assessment.grade
+            },
+            scaleScoreRange: {
+              minimum: cutPoint,
+              maximum: nextCutPoint
+            }
+          };
+
+          const performanceLevel = performanceLevels[ index ];
+          if (performanceLevel != null) {
+            performanceLevel.yearGradeScaleScoreRanges.push(range);
+          } else {
+            const level = index + 1;
+            performanceLevels.push(<PerformanceLevel>{
+              id: level,
+              name: this.translate.instant(`common.assessment-type.${assessmentType}.performance-level.${level}.name`),
+              namePrefix: this.translate.instant(`common.assessment-type.${assessmentType}.performance-level.${level}.name-prefix`),
+              color: this.colorService.getPerformanceLevelColorsByAssessmentTypeCode(assessmentType, level),
+              yearGradeScaleScoreRanges: [ range ]
+            });
+          }
+        });
+      });
 
     return performanceLevels;
   }

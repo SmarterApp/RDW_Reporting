@@ -66,6 +66,7 @@ interface PerformancePath extends DiscretePath<PerformancePoint> {
 interface PerformancePoint extends Point {
   readonly levelRange: LevelRange;
   readonly scaleScore: number;
+  readonly standardError: number;
 }
 
 interface PerformanceLevelPath extends Path {
@@ -228,13 +229,14 @@ export class LongitudinalCohortChartComponent implements OnInit {
             x: j,
             y: scaleScore
           })),
-          points: performance.yearGradeScaleScores.reduce((points, { scaleScore }, j) => {
+          points: performance.yearGradeScaleScores.reduce((points, { scaleScore, standardError }, j) => {
             if (scaleScore != null) {
               points.push(<PerformancePoint>{
                 styles: `point color-stroke`,
                 x: xScale(j),
                 y: yScale(scaleScore),
                 scaleScore: scaleScore,
+                standardError: standardError,
                 levelRange: findPerformanceLevelRange(levelRangesByYearGradeIndex, j, scaleScore)
               });
             }
@@ -260,7 +262,7 @@ export class LongitudinalCohortChartComponent implements OnInit {
         const height = yScale(levelRange.scaleScoreRange.maximum) - yScale(levelRange.scaleScoreRange.minimum);
         const margin = { left: 5, top: -2, right: 0, bottom: 2 };
         return <PerformanceLevelPathLabel>{
-          text: levelRange.level.name,
+          text: levelRange.level.namePrefix,
           styles: ``,
           margin: margin,
           y: yScale(levelRange.scaleScoreRange.minimum),

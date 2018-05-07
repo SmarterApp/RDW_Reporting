@@ -59,6 +59,7 @@ export interface NumberRange {
 export interface YearGradeScaleScore {
   readonly yearGrade: YearGrade;
   readonly scaleScore: number;
+  readonly standardError: number;
 }
 
 /**

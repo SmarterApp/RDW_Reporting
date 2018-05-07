@@ -1100,7 +1100,8 @@
     "area-description": {
       "text": "Achievement Level",
       "subtext": "relative to standard"
-    }
+    },
+    "error-band": "± {{errorBand}}"
   },
   "order-selector": {
     "move-left": "Move Left",
