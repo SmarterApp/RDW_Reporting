@@ -113,6 +113,8 @@ export class LongitudinalCohortChartComponent implements OnInit {
     tickPadding: 10
   };
 
+  private _selectedPaths: Set<number> = new Set();
+
   constructor(private elementReference: ElementRef,
               private translate: TranslateService,
               private schoolYearPipe: SchoolYearPipe) {
@@ -155,6 +157,15 @@ export class LongitudinalCohortChartComponent implements OnInit {
     this._initialized = true;
   }
 
+  onChartSeriesToggleClick(path: PerformancePath, pathIndex: number): void {
+    this._selectedPaths.has(pathIndex)
+      ? this._selectedPaths.delete(pathIndex)
+      : this._selectedPaths.add(pathIndex);
+
+    this._chartView.performancePaths
+      .forEach((path, index) => path.visible = this._selectedPaths.size === 0 || this._selectedPaths.has(index));
+  }
+
   toggleFade(performancePath: PerformancePath): void {
     performancePath.fade = !performancePath.fade;
     this.previousPoint = null;
@@ -174,7 +185,7 @@ export class LongitudinalCohortChartComponent implements OnInit {
       }
     }
   }
-
+  
   private render(): void {
 
     if (this.chart == null
@@ -241,8 +252,6 @@ export class LongitudinalCohortChartComponent implements OnInit {
 
     this._chartView = <ChartView>{
       performancePaths: this._chart.organizationPerformances
-      // TODO allow different subgroup selection
-        .filter(performance => performance.subgroup.id === 'Overall:')
         .map((performance, i) => <PerformancePath>{
           styles: `scale-score-line color-${i % 3} series-${i}`,
           fade: true,

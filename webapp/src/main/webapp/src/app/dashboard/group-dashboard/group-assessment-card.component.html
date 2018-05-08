@@ -17,8 +17,8 @@
   </div>
 
   <div class="aggregate-graph">
-
-    <div class="perc-container">
+    <!-- TODO: custom subjects need to dynamically pull performance levels for the current assessment type -->
+    <div class="perc-container grid-3">
       <div class="bar" *ngFor="let i of [0, 1, 2]">
         <span class="square"
               [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode('iab', i + 1)"></span>

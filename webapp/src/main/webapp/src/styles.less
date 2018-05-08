@@ -350,6 +350,7 @@ sb-button-typeahead .input-group-btn > .btn,
 }
 
 .label-max-width {
+  white-space: nowrap;
   text-overflow: ellipsis;
   text-align: left;
   overflow: hidden;
@@ -934,25 +935,31 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
 .chart-series-legend {
 
   &.pallet-a {
-    .chart-series {
+    .chart-series,
+    .chart-series-icon {
       &.color-0 { background-color: @gray-darkest; }
       &.color-1 { background-color: @aqua; }
       &.color-2 { background-color: @green; }
     }
   }
 
-  .chart-series {
-    color: #fff;
-    font-size: 80%;
-    padding: @padding-xs-vertical @padding-xs-horizontal;
-    border-radius: @border-radius-base;
-    outline: none;
-    &:active,&:focus {
-      outline: none;
-    }
-    &.chart-series-hidden {
-      opacity: @opacity-softer;
-    }
+  .chart-series-toggle {
+    font-family: @font-family-base;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+  }
+
+  @chart-series-icon-size: 8px;
+
+  .chart-series-icon {
+    width: @chart-series-icon-size;
+    height: @chart-series-icon-size;
+    display: inline-block;
+  }
+
+  .chart-series-hidden {
+    opacity: @opacity-softer;
   }
 }
 

@@ -6,16 +6,13 @@
       <ul class="list-unstyled">
         <li *ngFor="let performancePath of chartView.performancePaths; let index = index"
             class="mb-xs">
-          <button class="btn chart-series color-{{index % 3}} text-left"
-                  [ngClass]="{'chart-series-hidden': !performancePath.fade}"
-                  (click)="toggleFade(performancePath)">
-            <div>
-              {{performancePath.organization.name}}
-            </div>
-            <div class="small">
-              {{'common.organization.type.' + performancePath.organization.type | translate}}
-            </div>
-          </button>
+          <a class="chart-series-toggle label-max-width"
+             (click)="onChartSeriesToggleClick(performancePath, index)"
+             [ngClass]="{'chart-series-hidden': !performancePath.fade}">
+            <span class="chart-series-icon color-{{index % 3}}"></span>
+            <span>{{performancePath.organization.name}}:</span>
+            <span class="small">{{performancePath.subgroup.name}}</span>
+          </a>
         </li>
       </ul>
     </div>

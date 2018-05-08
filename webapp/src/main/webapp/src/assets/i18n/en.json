@@ -54,7 +54,7 @@
       "report-type-label": "Report Type",
       "report-type-info": "TODO",
       "assessment-grade-range-label": "Assessment Grades",
-      "to-school-year-label": "Final Academic Year",
+      "to-school-year-label": "Most Recent Academic Year",
       "to-school-year-info": "TODO",
       "organization-label": "Search a School or District",
       "organization-invalid-error": "Please select a school, district or include state results.",
@@ -948,7 +948,8 @@
   },
   "group-dashboard": {
     "heading": "Student Groups",
-    "name": "Assessment Reports"
+    "name": "Assessment Reports",
+    "no-results-found": "No test results are available for the current selection.  Please check the filters above as this group may not have access to the subject selected. "
   },
   "group-import": {
     "browse-instruct": "browse for files",

@@ -4,7 +4,7 @@ import { AggregateReportItem } from './aggregate-report-item';
 import { byNumber, byString, Comparator, join, ranking } from '@kourge/ordering/comparator';
 import { ColorService } from '../../shared/color.service';
 import { AssessmentDefinition } from '../assessment/assessment-definition';
-import { District, OrganizationType, School } from '../../shared/organization/organization';
+import { OrganizationType } from '../../shared/organization/organization';
 import { Utils } from '../../shared/support/support';
 import { AggregateReportOptions } from '../aggregate-report-options';
 import { PerformanceLevelDisplayTypes } from '../../shared/display-options/performance-level-display-type';
@@ -13,6 +13,7 @@ import { AggregateReportTableExportService, ExportOptions } from './aggregate-re
 import { Table } from 'primeng/table';
 import { SortEvent } from 'primeng/api';
 import * as _ from 'lodash';
+import { organizationOrdering, subgroupOrdering } from '../support';
 
 export const SupportedRowCount = 10000;
 export const DefaultRowsPerPageOptions = [ 100, 500, 1000 ];
@@ -24,30 +25,6 @@ export const IdentityColumnOptions: string[] = [
   'dimension'
 ];
 
-const OverallDimensionType: string = 'Overall';
-
-const StateOrdering: Ordering<AggregateReportItem> = ordering(ranking([ OrganizationType.State ]))
-  .reverse()
-  .on(item => item.organization.type);
-
-const DistrictsWithSchoolsByIdOrdering: Ordering<AggregateReportItem> = ordering(byNumber)
-  .on(item => {
-    switch (item.organization.type) {
-      case OrganizationType.District:
-        return (item.organization as District).id;
-      case OrganizationType.School:
-        return (item.organization as School).districtId;
-      default:
-        return -1;
-    }
-  });
-
-const DistrictOrdering: Ordering<AggregateReportItem> = ordering(ranking([ OrganizationType.District ]))
-  .reverse()
-  .on(item => item.organization.type);
-
-const SchoolOrdering: Ordering<AggregateReportItem> = ordering(byString)
-  .on(item => item.organization.name);
 
 const SchoolYearOrdering: Ordering<AggregateReportItem> = ordering(byNumber)
   .on(item => item.schoolYear);
@@ -88,7 +65,6 @@ export class AggregateReportTableComponent implements OnInit {
   private _previousSortEvent: any;
   private _table: AggregateReportTable;
   private _identityColumns: string[] = IdentityColumnOptions.concat();
-  private _districtNamesById: Map<number, string> = new Map();
   private _orderingByColumnField: { [ key: string ]: Ordering<AggregateReportItem> } = {};
   private _valueDisplayType: string = ValueDisplayTypes.Percent;
   private _performanceLevelDisplayType: string = PerformanceLevelDisplayTypes.Separate;
@@ -269,12 +245,11 @@ export class AggregateReportTableComponent implements OnInit {
     const assessmentGradeOrdering = ordering(ranking(options.assessmentGrades))
       .on((item: AggregateReportItem) => item.assessmentGradeCode);
 
-    this._districtNamesById = this.getDistrictNamesById(rows);
     this._orderingByColumnField[ 'assessmentLabel' ] = AssessmentLabelOrdering;
-    this._orderingByColumnField[ 'organization.name' ] = this.createOrganizationOrdering();
+    this._orderingByColumnField[ 'organization.name' ] = organizationOrdering(item => item.organization, rows);
     this._orderingByColumnField[ 'assessmentGradeCode' ] = assessmentGradeOrdering;
     this._orderingByColumnField[ 'schoolYear' ] = SchoolYearOrdering;
-    this._orderingByColumnField[ 'subgroup.id' ] = this.createDimensionOrdering(options);
+    this._orderingByColumnField[ 'subgroup.id' ] = subgroupOrdering(item => item.subgroup, options);
 
     // create columns
     const performanceLevelsByDisplayType = {
@@ -417,17 +392,6 @@ export class AggregateReportTableComponent implements OnInit {
     return index;
   }
 
-  private getDistrictNamesById(items: AggregateReportItem[]): Map<number, string> {
-    const districtNamesById = new Map<number, string>();
-    items.forEach(item => {
-      if (item.organization.type === OrganizationType.District) {
-        const district = item.organization as District;
-        districtNamesById.set(district.id, district.name);
-      }
-    });
-    return districtNamesById;
-  }
-
   private createPerformanceLevelColumns(performanceLevelsByDisplayType: any, assessmentDefinition: AssessmentDefinition): Column[] {
     const performanceColumns: Column[] = [];
     Object.keys(performanceLevelsByDisplayType)
@@ -465,86 +429,6 @@ export class AggregateReportTableComponent implements OnInit {
       : `aggregate-report-table.columns.grouped-performance-level-prefix.${index}`;
   }
 
-  private createOrganizationOrdering(): Ordering<AggregateReportItem> {
-
-    const districtsWithSchoolsByName: Ordering<AggregateReportItem> = ordering(byString)
-      .on(item => {
-        switch (item.organization.type) {
-          case OrganizationType.District:
-            return this._districtNamesById.get((item.organization as District).id) || '';
-          case OrganizationType.School:
-            return this._districtNamesById.get((item.organization as School).districtId) || '';
-          default:
-            return '';
-        }
-      });
-
-    return ordering(join(
-      StateOrdering.compare,
-      districtsWithSchoolsByName.compare,
-      DistrictsWithSchoolsByIdOrdering.compare,
-      DistrictOrdering.compare,
-      SchoolOrdering.compare
-    ));
-  }
-
-  private createDimensionOrdering(options: AggregateReportOptions): Ordering<AggregateReportItem> {
-    const dimensionOptionsByDimensionType = {
-      Gender: options.studentFilters.genders,
-      Ethnicity: options.studentFilters.ethnicities,
-      LEP: options.studentFilters.limitedEnglishProficiencies,
-      ELAS: options.studentFilters.englishLanguageAcquisitionStatuses,
-      MigrantStatus: options.studentFilters.migrantStatuses,
-      Section504: options.studentFilters.migrantStatuses,
-      IEP: options.studentFilters.individualEducationPlans,
-      EconomicDisadvantage: options.studentFilters.economicDisadvantages
-    };
-
-    const dimensionTypeAndCodeRankingValues = options.dimensionTypes.reduce((ranking, dimensionType) => {
-      return ranking.concat(
-        (dimensionOptionsByDimensionType[ dimensionType ] || []).map(dimensionCode => `${dimensionType}:${dimensionCode}`)
-      );
-    }, []);
-
-    const dimensionTypeAndCodeComparator: Comparator<AggregateReportItem> = ordering(ranking(
-      [ OverallDimensionType, ...dimensionTypeAndCodeRankingValues ]
-      ))
-      .on((item: AggregateReportItem) => item.subgroup.id)
-      .compare;
-
-    // Attempt to sort based upon the enrolled grade code as a number ("01", "02", "KG", "UG", etc)
-    // If the code cannot be parsed as a number, the order is undefined
-    // TODO we should have a specific ordering for all grade codes, although the system only currently uses "03" - "12"
-    const enrolledGradeComparator: Comparator<AggregateReportItem> = ordering(byNumber)
-      .on((item: AggregateReportItem) => {
-        const { type, codes } = <any>item.subgroup;
-        if (type == null || type !== 'StudentEnrolledGrade') {
-          return -1;
-        }
-        try {
-          return Number.parseInt(codes[0]);
-        } catch (error) {
-          return 1;
-        }
-      })
-      .compare;
-
-    return ordering(join(
-      dimensionTypeAndCodeComparator,
-      enrolledGradeComparator,
-      // hotfix Overall order on FilteredSubgroup results
-      (a: AggregateReportItem, b: AggregateReportItem) => {
-        if (a.subgroup.id === 'Overall:') {
-          return -1;
-        }
-        if (b.subgroup.id === 'Overall:') {
-          return 1;
-        }
-        return 0;
-      },
-      ordering(byString).on(({ subgroup }) => subgroup.id).compare
-    ));
-  }
 }
 
 export interface AggregateReportTable {

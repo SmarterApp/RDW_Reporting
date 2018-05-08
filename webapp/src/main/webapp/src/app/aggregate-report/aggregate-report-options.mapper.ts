@@ -62,7 +62,7 @@ export class AggregateReportOptionsMapper {
           value => translate(`common.administration-condition.${value}`),
           value => `Manner of Administration: ${value}`
         )),
-      schoolYears: options.schoolYears
+      schoolYears: options.schoolYears.reverse()
         .map(optionMapper(
           value => this.schoolYearPipe.transform(value),
           value => `School Year: ${value}`

@@ -25,7 +25,7 @@ export class AggregateReportOptionsService {
   getReportOptions(): Observable<AggregateReportOptions> {
     return this.dataService.get(`${ServiceRoute}/reportOptions`).pipe(
       map(serverOptions => <AggregateReportOptions>{
-        assessmentGrades: serverOptions.assessmentGrades.concat().reverse(),
+        assessmentGrades: serverOptions.assessmentGrades.concat(),
         assessmentTypes: serverOptions.assessmentTypes.concat().sort(assessmentTypeComparator),
         completenesses: serverOptions.completenesses.concat().sort(completenessComparator),
         defaultOrganization: serverOptions.defaultOrganization

@@ -126,26 +126,34 @@ sql:
           SELECT
             e1.id
           FROM (
-                 SELECT ex1.id, ex1.student_id, ex1.asmt_id, ex1.school_year, ex1.completed_at from exam ex1
+                 SELECT ex1.id, ex1.student_id, ex1.asmt_id, ex1.school_year, ex1.completed_at
+                 FROM exam ex1
+                   JOIN asmt a ON a.id = ex1.asmt_id
                    JOIN student_group_membership gm on gm.student_id = ex1.student_id
                    JOIN user_student_group usg ON usg.student_group_id = gm.student_group_id
+                   JOIN student_group sg ON sg.id = usg.student_group_id
                  WHERE ex1.type_id = 2
                        AND ex1.school_year = :school_year
                        AND ex1.scale_score IS NOT NULL
                        AND ex1.scale_score_std_err IS NOT NULL
                        AND ex1.performance_level IS NOT NULL
                        AND gm.student_group_id = :group_id
+                       AND (sg.subject_id is null OR a.subject_id = sg.subject_id)
                        AND usg.user_login = :user_login
                ) AS e1 LEFT OUTER JOIN
-            ( SELECT ex2.id, ex2.student_id, ex2.asmt_id, ex2.school_year, ex2.completed_at from exam ex2
-              JOIN student_group_membership gm on gm.student_id = ex2.student_id
-              JOIN user_student_group usg ON usg.student_group_id = gm.student_group_id
+            ( SELECT ex2.id, ex2.student_id, ex2.asmt_id, ex2.school_year, ex2.completed_at
+              FROM exam ex2
+                JOIN asmt a ON a.id = ex2.asmt_id
+                JOIN student_group_membership gm on gm.student_id = ex2.student_id
+                JOIN user_student_group usg ON usg.student_group_id = gm.student_group_id
+                JOIN student_group sg ON sg.id = usg.student_group_id
             WHERE ex2.type_id = 2
                   AND ex2.school_year = :school_year
                   AND ex2.scale_score IS NOT NULL
                   AND ex2.scale_score_std_err IS NOT NULL
                   AND ex2.performance_level IS NOT NULL
                   AND gm.student_group_id = :group_id
+                  AND (sg.subject_id is null OR a.subject_id = sg.subject_id)
                   AND usg.user_login = :user_login
             ) AS e2
               ON e1.student_id = e2.student_id  AND e1.asmt_id = e2.asmt_id AND e1.school_year = e2.school_year
@@ -153,7 +161,8 @@ sql:
           WHERE e2.student_id IS NULL
         )
         AND ${sql.snippet.studentExamPermissionWithoutEmbargo}
-        GROUP BY asmt_id;
+        GROUP BY asmt_id
+        ORDER BY completed_at DESC;
 
     examItem:
         findAllExamItemScoresForAssessment:
