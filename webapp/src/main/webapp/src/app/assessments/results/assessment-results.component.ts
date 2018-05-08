@@ -321,6 +321,11 @@ export class AssessmentResultsComponent implements OnInit {
     }
   }
 
+  /**
+   * Find distinct exam sessions and calculate the most recent date for that session
+   * @param {Exam[]} exams
+   * @returns {any[]} sessions
+   */
   private getDistinctExamSessions(exams: Exam[]): any[] {
     let sessions = [];
 
@@ -328,12 +333,8 @@ export class AssessmentResultsComponent implements OnInit {
       if (!sessions.some(x => x.id == exam.session)) {
         sessions.push({
           id: exam.session,
-
-          // get the maximum date for this session in case of timezone issues or data issues where the exams in a session have different dates
-          date: exams.filter(x => x.session == exam.session).reduce((a, b) => {
-              return new Date(a.date) > new Date(b.date) ? a : b
-            }).date,
-          
+          date: exams.filter(x => x.session == exam.session)
+                    .reduce((a, b) => new Date(a.date) > new Date(b.date) ? a : b).date,
           filter: false
         });
       }
