@@ -4,9 +4,9 @@ import { SchoolYearPipe } from '../../shared/format/school-year.pipe';
 import * as d3 from 'd3';
 import {
   LongitudinalCohortChart,
+  NumberRange,
   OrganizationPerformance,
   PerformanceLevel,
-  NumberRange,
   YearGrade
 } from './longitudinal-cohort-chart';
 import { byNumber } from '@kourge/ordering/comparator';
@@ -60,7 +60,7 @@ interface Point {
 interface PerformancePath extends DiscretePath<PerformancePoint> {
   readonly organization: Organization;
   readonly subgroup: any;
-  visible: boolean;
+  fade: boolean;
 }
 
 interface PerformancePoint extends Point {
@@ -100,6 +100,7 @@ export class LongitudinalCohortChartComponent implements OnInit {
   @Input()
   areaPallet: string = 'pallet-b';
 
+  private previousPoint: { path: PerformancePath, point: PerformancePoint };
   private _initialized: boolean = false;
   private _chart: LongitudinalCohortChart;
   private _chartView: ChartView;
@@ -154,10 +155,30 @@ export class LongitudinalCohortChartComponent implements OnInit {
     this._initialized = true;
   }
 
+  toggleFade(performancePath: PerformancePath): void {
+    performancePath.fade = !performancePath.fade;
+    this.previousPoint = null;
+  }
+
+  toggleFadeOnPoint(path: PerformancePath, point: PerformancePoint): void {
+    if (this.previousPoint && this.previousPoint.path === path) {
+      // do nothing...same line
+      return;
+    }
+    this.previousPoint = { path, point };
+    for (const performancePath of this.chartView.performancePaths) {
+      if (performancePath !== path) {
+        performancePath.fade = !performancePath.fade;
+      } else {
+        performancePath.fade = true;
+      }
+    }
+  }
+
   private render(): void {
 
     if (this.chart == null
-    || this.display == null) {
+      || this.display == null) {
       return;
     }
 
@@ -220,11 +241,11 @@ export class LongitudinalCohortChartComponent implements OnInit {
 
     this._chartView = <ChartView>{
       performancePaths: this._chart.organizationPerformances
-        // TODO allow different subgroup selection
+      // TODO allow different subgroup selection
         .filter(performance => performance.subgroup.id === 'Overall:')
         .map((performance, i) => <PerformancePath>{
           styles: `scale-score-line color-${i % 3} series-${i}`,
-          visible: true,
+          fade: true,
           pathData: d3line(performance.yearGradeScaleScores.map(({ scaleScore }, j) => <any>{
             x: j,
             y: scaleScore
@@ -245,19 +266,19 @@ export class LongitudinalCohortChartComponent implements OnInit {
           organization: performance.organization,
           subgroup: performance.subgroup
         }),
-        performanceLevelPaths: this._chart.performanceLevels.map((level, i) => <PerformanceLevelPath>{
-          styles: `scale-score-area color-${i % 4}`,
-          pathData: d3area(level.yearGradeScaleScoreRanges.map(({ scaleScoreRange }, j) => <any>{
-            x: j,
-            y0: scaleScoreRange.minimum,
-            y1: scaleScoreRange.maximum
-          })),
-          dividerPathData: d3line(level.yearGradeScaleScoreRanges.map(({ scaleScoreRange }, j) => <any>{
-            x: j,
-            y: scaleScoreRange.maximum
-          })),
-          performanceLevel: level
-        }),
+      performanceLevelPaths: this._chart.performanceLevels.map((level, i) => <PerformanceLevelPath>{
+        styles: `scale-score-area color-${i % 4}`,
+        pathData: d3area(level.yearGradeScaleScoreRanges.map(({ scaleScoreRange }, j) => <any>{
+          x: j,
+          y0: scaleScoreRange.minimum,
+          y1: scaleScoreRange.maximum
+        })),
+        dividerPathData: d3line(level.yearGradeScaleScoreRanges.map(({ scaleScoreRange }, j) => <any>{
+          x: j,
+          y: scaleScoreRange.maximum
+        })),
+        performanceLevel: level
+      }),
       performanceLevelPathLabels: levelRangesByYearGradeIndex[ levelRangesByYearGradeIndex.length - 1 ].map(levelRange => {
         const height = yScale(levelRange.scaleScoreRange.maximum) - yScale(levelRange.scaleScoreRange.minimum);
         const margin = { left: 5, top: -2, right: 0, bottom: 2 };

@@ -7,8 +7,8 @@
         <li *ngFor="let performancePath of chartView.performancePaths; let index = index"
             class="mb-xs">
           <button class="btn chart-series color-{{index % 3}} text-left"
-                  [ngClass]="{'chart-series-hidden': !performancePath.visible}"
-                  (click)="performancePath.visible = !performancePath.visible">
+                  [ngClass]="{'chart-series-hidden': !performancePath.fade}"
+                  (click)="toggleFade(performancePath)">
             <div>
               {{performancePath.organization.name}}
             </div>
@@ -51,7 +51,7 @@
            [ngClass]="linePallet">
 
           <g *ngFor="let performancePath of chartView.performancePaths; let i = index"
-             [ngClass]="performancePath.visible ? '' : ' hidden'">
+             [ngClass]="performancePath.fade ? '' : ' fade'">
 
             <g [ngClass]="performancePath.styles">
 
@@ -65,6 +65,7 @@
                       [attr.cy]="point.y"
                       [popover]="dataPointPopoverTemplate"
                       [popoverContext]="{$implicit: point}"
+                      (click)="toggleFadeOnPoint(performancePath, point)"
                       placement="top"
                       container="body"
                       outsideClick="true"
