@@ -8,7 +8,7 @@
             class="mb-xs">
           <a class="chart-series-toggle label-max-width"
              (click)="onChartSeriesToggleClick(performancePath, index)"
-             [ngClass]="{'chart-series-hidden': !performancePath.fade}">
+             [ngClass]="{'chart-series-hidden': performancePath.fade}">
             <span class="chart-series-icon color-{{index % 3}}"></span>
             <span>{{performancePath.organization.name}}:</span>
             <span class="small">{{performancePath.subgroup.name}}</span>
@@ -48,7 +48,7 @@
            [ngClass]="linePallet">
 
           <g *ngFor="let performancePath of chartView.performancePaths; let i = index"
-             [ngClass]="performancePath.fade ? '' : ' fade'">
+             [ngClass]="{'fade': performancePath.fade}">
 
             <g [ngClass]="performancePath.styles">
 

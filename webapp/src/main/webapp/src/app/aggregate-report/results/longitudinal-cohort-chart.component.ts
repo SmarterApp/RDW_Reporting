@@ -163,11 +163,7 @@ export class LongitudinalCohortChartComponent implements OnInit {
       : this._selectedPaths.add(pathIndex);
 
     this._chartView.performancePaths
-      .forEach((path, index) => path.visible = this._selectedPaths.size === 0 || this._selectedPaths.has(index));
-  }
-
-  toggleFade(performancePath: PerformancePath): void {
-    performancePath.fade = !performancePath.fade;
+      .forEach((path, index) => path.fade = this._selectedPaths.size !== 0 && !this._selectedPaths.has(index));
     this.previousPoint = null;
   }
 
@@ -181,11 +177,11 @@ export class LongitudinalCohortChartComponent implements OnInit {
       if (performancePath !== path) {
         performancePath.fade = !performancePath.fade;
       } else {
-        performancePath.fade = true;
+        performancePath.fade = false;
       }
     }
   }
-  
+
   private render(): void {
 
     if (this.chart == null
@@ -254,7 +250,7 @@ export class LongitudinalCohortChartComponent implements OnInit {
       performancePaths: this._chart.organizationPerformances
         .map((performance, i) => <PerformancePath>{
           styles: `scale-score-line color-${i % 3} series-${i}`,
-          fade: true,
+          fade: false,
           pathData: d3line(performance.yearGradeScaleScores.map(({ scaleScore }, j) => <any>{
             x: j,
             y: scaleScore
