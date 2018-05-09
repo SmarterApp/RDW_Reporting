@@ -98,6 +98,18 @@ describe('AssessmentResultsComponent', () => {
     expect(component.sessions[ 1 ].id).toBe("ma-02");
   });
 
+  it('should take most recent date for each session', () => {
+    let assessmentExam = new AssessmentExam();
+    assessmentExam.exams.push(buildExam("Benoit", "ma-02", "2017-01-01T17:05:26Z"));
+    assessmentExam.exams.push(buildExam("Wood", "ma-01", "2017-03-01T17:05:26Z"));
+    assessmentExam.exams.push(buildExam("Joe", "ma-02", "2017-01-03T17:05:26Z"));
+    assessmentExam.exams.push(buildExam("Jane", "ma-01", "2017-03-02T17:05:26Z"));
+
+    component.assessmentExam = assessmentExam;
+    expect(component.sessions[ 0 ].date).toBe("2017-03-02T17:05:26Z");
+    expect(component.sessions[ 1 ].date).toBe("2017-01-03T17:05:26Z");
+  });
+
   it('should toggle sessions filtered to true and false', () => {
     let session = { id: "ma-02", filter: undefined, exams: [] };
 

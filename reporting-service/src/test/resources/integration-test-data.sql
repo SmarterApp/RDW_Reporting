@@ -151,7 +151,8 @@ insert into student_group (id, name, school_id, school_year, subject_id, update_
   (-50, 'group5', -50, 1997, null, -1, '1997-07-18 20:14:34.000000', -1),
   (-60, 'group6', -50, 1997, null, -1, '1997-07-18 20:14:34.000000', -1),
   (-70, 'group7', -50, 1997, null, -1, '1997-07-18 20:14:34.000000', -1),
-  (-80, 'group8', -50, 1997, null, -1, '1997-07-18 20:14:34.000000', -1);
+  (-80, 'group8', -50, 1997, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-90, 'group9', -10, 1997, 2, -1, '1997-07-18 20:14:34.000000', -1);
 
 insert into student_group_membership (student_group_id, student_id) values
   (-10, -1),
@@ -163,7 +164,8 @@ insert into student_group_membership (student_group_id, student_id) values
   (-70, -5),
   (-70, -6),
   (-80, -6),
-  (-80, -7);
+  (-80, -7),
+  (-90, -2);
 
 insert into user_student_group(student_group_id, user_login) values
    (-10, 'someone-10@somewhere.com'),
@@ -173,7 +175,8 @@ insert into user_student_group(student_group_id, user_login) values
    (-50, 'someone-10@somewhere.com'),
    (-60, 'someone-10@somewhere.com'),
    (-70, 'someone-10@somewhere.com'),
-   (-80, 'someone-10@somewhere.com');
+   (-80, 'someone-10@somewhere.com'),
+   (-90, 'someone-10@somewhere.com');
 
 -- transfer student test data
 insert into student (id, ssid, last_or_surname, first_name, gender_id, gender_code,

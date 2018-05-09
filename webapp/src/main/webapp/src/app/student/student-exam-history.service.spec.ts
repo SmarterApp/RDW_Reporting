@@ -88,7 +88,7 @@ describe('StudentExamHistoryService', () => {
       });
   }));
 
-  it('should return a student\'s exam history',
+  it('should return a student\'s exam history ordered most recent exam date',
     inject([StudentExamHistoryService], (service: StudentExamHistoryService) => {
 
       dataService.get.and.returnValue(of({
@@ -97,7 +97,17 @@ describe('StudentExamHistoryService', () => {
         },
         exams: [ {
           exam: {
-            id: 1
+            id: 1,
+            dateTime: '2017-03-15T09:24:22.561Z'
+          },
+          assessment: {
+            id: 2
+          }
+        },
+        {
+          exam: {
+            id: 2,
+            dateTime: '2017-09-15T09:24:22.561Z'
           },
           assessment: {
             id: 2
@@ -107,9 +117,11 @@ describe('StudentExamHistoryService', () => {
 
       service.findOneById(123).subscribe((history: StudentExamHistory) => {
         expect(history.student.id).toBe(123);
-        expect(history.exams.length).toBe(1);
-        expect(history.exams[0].exam.id).toBe(1);
+        expect(history.exams.length).toBe(2);
+        expect(history.exams[0].exam.id).toBe(2);
         expect(history.exams[0].assessment.id).toBe(2);
+        expect(history.exams[1].exam.id).toBe(1);
+        expect(history.exams[1].assessment.id).toBe(2);
       });
     }));
 });
