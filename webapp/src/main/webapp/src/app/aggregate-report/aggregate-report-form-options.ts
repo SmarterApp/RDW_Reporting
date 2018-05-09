@@ -9,6 +9,7 @@ export interface AggregateReportFormOptions {
 
   assessmentGrades: SbCheckboxGroupOption[];
   assessmentTypes: SbToggleOption[];
+  claimCodes: SbCheckboxGroupOption[];
   completenesses: SbCheckboxGroupOption[];
   dimensionTypes: SbCheckboxGroupOption[];
   interimAdministrationConditions: SbCheckboxGroupOption[];

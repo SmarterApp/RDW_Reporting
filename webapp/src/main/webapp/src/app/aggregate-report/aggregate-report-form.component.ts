@@ -123,6 +123,8 @@ export class AggregateReportFormComponent {
    */
   subgroupItems: SubgroupItem[] = [];
 
+  private originalReportTypes: any;
+  private originalAssessmentTypes: any;
   /**
    * Controls for view invalidation
    */
@@ -164,6 +166,8 @@ export class AggregateReportFormComponent {
     this.columnItems = this.columnOrderableItemProvider.toOrderableItems(this.settings.columnOrder);
 
     this.options = optionMapper.map(this.aggregateReportOptions);
+    this.originalReportTypes = this.options.reportTypes;
+    this.originalAssessmentTypes = this.options.assessmentTypes;
 
     this.organizationTypeaheadOptions = Observable.create(observer => {
       observer.next(this.organizationTypeahead.value);
@@ -310,6 +314,13 @@ export class AggregateReportFormComponent {
   }
 
   onReportTypeChange(): void {
+    if (this.settings.reportType === 'Claim') {
+      this.options.assessmentTypes = this.originalAssessmentTypes.filter(assessmentType => assessmentType.value !== 'iab');
+    } else if (this.settings.reportType === 'LongitudinalCohort') {
+      this.options.assessmentTypes = this.originalAssessmentTypes.filter(assessmentType => assessmentType.value !== 'iab' && assessmentType.value !== 'ica');
+    } else {
+      this.options.assessmentTypes = this.originalAssessmentTypes;
+    }
     this.onSettingsChange();
   }
 
@@ -387,6 +398,12 @@ export class AggregateReportFormComponent {
 
     this.settings.columnOrder = order;
     this.columnItems = this.columnOrderableItemProvider.toOrderableItems(order);
+
+    if (!this.currentAssessmentDefinition.aggregateReportLongitudinalCohortEnabled && this.currentAssessmentDefinition.aggregateReportClaimEnabled) {
+      this.options.reportTypes = this.originalReportTypes.filter(reportType => reportType.value !== 'LongitudinalCohort');
+    } else {
+      this.options.reportTypes = this.originalReportTypes;
+    }
 
     this.markOrganizationsControlTouched();
     this.onSettingsChange();

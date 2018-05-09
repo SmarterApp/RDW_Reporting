@@ -53,6 +53,8 @@
     "field": {
       "report-type-label": "Report Type",
       "report-type-info": "TODO",
+      "claim-codes-label": "Claim Codes",
+      "claim-codes-info": "TODO",
       "assessment-grade-range-label": "Assessment Grades",
       "to-school-year-label": "Most Recent Academic Year",
       "to-school-year-info": "TODO",
@@ -108,8 +110,10 @@
       "subgroup-filters-subtext": "Use this feature to include only selected student sub-groups, e.g. only male Hispanic students.",
       "comparative-subgroups-heading": "Subgroups",
       "comparative-subgroups-subtext": "The report will break down results by the subgroups you select.",
+      "report-type-heading": "Report Type",
       "review-heading": "Report Review",
       "preview-heading": "Report Preview",
+      "question-attributes-heading": "Question Attributes",
       "custom-subgroup": {
         "heading": "Custom Subgroups",
         "description": "Create multiple custom subgroups by selecting a combination of attributes below and clicking \"Create Subgroup.\" Each custom subgroup will represent a row in your report. The Report Preview section below shows how it will look.",
@@ -239,8 +243,18 @@
       "column-order-info": "Change your result column order to easily compare your results broken down in different ways."
     },
     "aggregate-report-type": {
-      "GeneralPopulation": "General",
-      "LongitudinalCohort": "Longitudinal"
+      "Claim": {
+        "description": "This is a claim report",
+        "label": "Claim"
+      },
+      "GeneralPopulation": {
+        "description": "This is general population",
+        "label": "General"
+      },
+      "LongitudinalCohort": {
+        "description": "This is a longitudinal cohort",
+        "label": "Longitudinal"
+      }
     },
     "assessment-grade": {
       "10": "HS",
@@ -742,11 +756,36 @@
       },
       "ELA": {
         "name": "ELA",
-        "short-name": "ELA"
+        "short-name": "ELA",
+        "claim": {
+          "2-W": {
+            "name": "Writing"
+          },
+          "4-CR": {
+            "name": "Research & Inquiry"
+          },
+          "SOCK_LS": {
+            "name": "Listening"
+          },
+          "SOCK_R": {
+            "name": "Reading"
+          }
+        }
       },
       "Math": {
         "name": "Math",
-        "short-name": "Math"
+        "short-name": "Math",
+        "claim": {
+          "1": {
+            "name": "Concepts & Procedures"
+          },
+          "3": {
+            "name": "Reasoning"
+          },
+          "SOCK_2": {
+            "name": "Problem Solving"
+          }
+        }
       }
     },
     "subject-claim-code": {

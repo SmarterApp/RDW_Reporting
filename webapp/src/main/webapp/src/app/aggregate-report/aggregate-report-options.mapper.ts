@@ -52,6 +52,11 @@ export class AggregateReportOptionsMapper {
           value => translate(`common.assessment-type.${value}.short-name`),
           value => `Assessment Type: ${value}`
         )),
+      claimCodes: options.claimCodes
+        .map(optionMapper(
+          value => translate(`common.subject-claim-code.${value}`),
+          value => `Claim Code: ${value}`
+        )),
       completenesses: options.completenesses
         .map(optionMapper(
           value => translate(`common.completeness.${value}`),
@@ -86,8 +91,8 @@ export class AggregateReportOptionsMapper {
         )),
       reportTypes: options.reportTypes
         .map(optionMapper(
-          value => translate(`common.aggregate-report-type.${value}`),
-          value => `Aggregate Report Type: ${value}`
+          value => translate(`common.aggregate-report-type.${value}.label`),
+          value => `Aggregate Report Type: ${value}`,
         )),
       statewideReporter: options.statewideReporter, // TODO move to user context?
       studentFilters: {
@@ -170,6 +175,11 @@ export class AggregateReportOptionsMapper {
           generalPopulation: {
             assessmentGrades: [],
             schoolYears: [ options.schoolYears[ 0 ] ]
+          },
+          claimReport: {
+            assessmentGrades: [],
+            schoolYears: [ options.schoolYears[ 0 ] ],
+            claimCodes: []
           },
           longitudinalCohort: {
             assessmentGrades: [],

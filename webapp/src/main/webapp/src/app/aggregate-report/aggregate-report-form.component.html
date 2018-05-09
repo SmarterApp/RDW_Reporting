@@ -3,7 +3,8 @@
 <ng-template #submitButtonTemplate>
   <button class="btn btn-success btn-sm green"
           [disabled]="submissionSubscription"
-          (click)="onGenerateButtonClick()">{{'aggregate-report-form.submit' | translate}}</button>
+          (click)="onGenerateButtonClick()">{{'aggregate-report-form.submit' | translate}}
+  </button>
 </ng-template>
 
 <ng-container *ngIf="accessDenied; else accessAllowed">
@@ -21,6 +22,10 @@
 
   <div sticky marginTop="12" [style.position]="'absolute'">
     <scroll-nav [items]="[
+    {
+        scrollTo: reportTypeSection,
+        text: 'aggregate-report-form.section.report-type-heading' | translate
+      },
       {
         scrollTo: organizationSection,
         text: 'aggregate-report-form.section.organization.heading' | translate
@@ -61,13 +66,37 @@
 
   <form #form [formGroup]="formGroup">
 
+    <!-- Report Type -->
+    <div class="row" #reportTypeSection id="reportTypeSection">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="well-group">
+          <div class="well">
+            <h3>{{'aggregate-report-form.section.report-type-heading' | translate}}</h3>
+          </div>
+          <div class="well pb-0"
+               [hidden]="!currentAssessmentDefinition.aggregateReportLongitudinalCohortEnabled && !currentAssessmentDefinition.aggregateReportClaimEnabled">
+            <div class="row">
+              <div class="col-md-12">
+                <sb-radio-group name="reportType"
+                                [options]="options.reportTypes"
+                                [(ngModel)]="settings.reportType"
+                                [ngModelOptions]="{standalone: true}"
+                                (change)="onReportTypeChange()"></sb-radio-group>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Organization -->
     <div class="row" #organizationSection id="organizationSection">
       <div class="col-md-8 col-md-offset-2">
         <div class="well-group">
           <div class="well">
             <h3>{{'aggregate-report-form.section.organization.heading' | translate}}</h3>
-            <p *ngIf="!hasDefaultSchoolOrganization" class="text-muted small">{{'aggregate-report-form.section.organization.subtext' | translate}}</p>
+            <p *ngIf="!hasDefaultSchoolOrganization" class="text-muted small">
+              {{'aggregate-report-form.section.organization.subtext' | translate}}</p>
           </div>
           <div class="well pb-0">
 
@@ -87,7 +116,8 @@
                        [(ngModel)]="organizations"
                        formControlName="organizations">
                 <div *ngIf="showErrors(organizationsControl)">
-                  <p *ngIf="organizationsControl.errors.invalid" class="help-block small red">{{organizationsControl.errors.invalid.messageId | translate}}</p>
+                  <p *ngIf="organizationsControl.errors.invalid" class="help-block small red">
+                    {{organizationsControl.errors.invalid.messageId | translate}}</p>
                 </div>
               </div>
             </div>
@@ -207,24 +237,8 @@
             </div>
           </div>
 
-          <div class="well" [hidden]="!currentAssessmentDefinition.aggregateReportLongitudinalCohortEnabled">
-            <div class="row">
-              <div class="col-md-6">
-                <label info-button
-                       title="{{'aggregate-report-form.field.report-type-label' | translate}}"
-                       content="{{'aggregate-report-form.field.report-type-info' | translate}}"></label>
-              </div>
-              <div class="col-md-6">
-                <sb-radio-group name="reportType"
-                                [options]="options.reportTypes"
-                                [(ngModel)]="settings.reportType"
-                                [ngModelOptions]="{standalone: true}"
-                                (change)="onReportTypeChange()"></sb-radio-group>
-              </div>
-            </div>
-          </div>
-
-          <div [hidden]="settings.reportType !== 'GeneralPopulation' && currentAssessmentDefinition.aggregateReportLongitudinalCohortEnabled">
+          <div
+            [hidden]="settings.reportType === 'LongitudinalCohort' && currentAssessmentDefinition.aggregateReportLongitudinalCohortEnabled">
 
             <div class="well">
               <div class="row">
@@ -248,7 +262,8 @@
                                      [(ngModel)]="settings.generalPopulation.assessmentGrades"
                                      (change)="onSettingsChange()"></sb-button-group>
                     <div *ngIf="showErrors(assessmentGradesControl)">
-                      <p *ngIf="assessmentGradesControl.errors.notEmpty" class="help-block small red">{{assessmentGradesControl.errors.notEmpty.messageId | translate}}</p>
+                      <p *ngIf="assessmentGradesControl.errors.notEmpty" class="help-block small red">
+                        {{assessmentGradesControl.errors.notEmpty.messageId | translate}}</p>
                     </div>
                   </div>
                 </div>
@@ -274,7 +289,8 @@
                                      [(ngModel)]="settings.generalPopulation.schoolYears"
                                      (change)="onSettingsChange()"></sb-button-group>
                     <div *ngIf="showErrors(schoolYearsControl)">
-                      <p *ngIf="schoolYearsControl.errors.notEmpty" class="help-block small red">{{schoolYearsControl.errors.notEmpty.messageId | translate}}</p>
+                      <p *ngIf="schoolYearsControl.errors.notEmpty" class="help-block small red">
+                        {{schoolYearsControl.errors.notEmpty.messageId | translate}}</p>
                     </div>
                   </div>
 
@@ -283,7 +299,8 @@
             </div>
           </div>
 
-          <div [hidden]="settings.reportType !== 'LongitudinalCohort' || !currentAssessmentDefinition.aggregateReportStateResultsEnabled">
+          <div
+            [hidden]="settings.reportType !== 'LongitudinalCohort' || !currentAssessmentDefinition.aggregateReportStateResultsEnabled">
 
             <div class="well">
               <div class="row">
@@ -304,7 +321,8 @@
                                      [(ngModel)]="settings.longitudinalCohort.assessmentGrades"
                                      (change)="onSettingsChange()"></sb-button-group>
                     <div *ngIf="showErrors(assessmentGradeRangeControl)">
-                      <p *ngIf="assessmentGradeRangeControl.errors.notEmpty" class="help-block small red">{{assessmentGradeRangeControl.errors.notEmpty.messageId | translate}}</p>
+                      <p *ngIf="assessmentGradeRangeControl.errors.notEmpty" class="help-block small red">
+                        {{assessmentGradeRangeControl.errors.notEmpty.messageId | translate}}</p>
                     </div>
                   </div>
                 </div>
@@ -394,6 +412,36 @@
       </div>
     </div>
 
+    <!-- Question Attributes -->
+    <div class="row" #questionAttributesSection id="questionAttributesSection"
+         [hidden]="settings.reportType !== 'Claim'">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="well-group">
+          <div class="well">
+            <h3>{{'aggregate-report-form.section.question-attributes-heading' | translate}}</h3>
+          </div>
+          <div class="well pb-0">
+            <div class="row">
+              <div class="col-md-4">
+                <label info-button
+                       title="{{'aggregate-report-form.field.claim-codes-label' | translate}}"
+                       content="{{'aggregate-report-form.field.claim-codes-info' | translate}}"></label>
+              </div>
+              <div class="col-md-4">
+                <sb-checkbox-group [options]="options.claimCodes"
+                                   [(ngModel)]="settings.claimReport.claimCodes"
+                                   [ngModelOptions]="{standalone: true}"
+                                   name="claimCodes"
+                                   analyticsEvent="FilterClick"
+                                   analyticsCategory="AggregateQueryBuilder"
+                                   [allOptionAnalyticsProperties]="{label: 'Claim Codes: All'}"></sb-checkbox-group>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Query Type Tabs -->
     <div class="row" #subgroupSection>
       <div class="col-md-8 col-md-offset-2">
@@ -406,7 +454,8 @@
             <!-- Subgroups -->
             <div class="well-group" id="subgroupSection">
               <div class="well">
-                <p class="text-muted small">{{'aggregate-report-form.section.comparative-subgroups-subtext' | translate}}</p>
+                <p class="text-muted small">{{'aggregate-report-form.section.comparative-subgroups-subtext' |
+                  translate}}</p>
               </div>
               <div class="well">
                 <div class="row">
@@ -429,7 +478,8 @@
                 <div class="flex-children">
                   <div class="flex-child grow">
                     <h3>{{'aggregate-report-form.section.subgroup-filters-heading' | translate}}</h3>
-                    <p class="text-muted small">{{'aggregate-report-form.section.subgroup-filters-subtext' | translate}}</p>
+                    <p class="text-muted small">{{'aggregate-report-form.section.subgroup-filters-subtext' |
+                      translate}}</p>
                   </div>
                   <div class="flex-child">
                     <button class="form-control btn btn-sm btn-default pull-right"
@@ -456,7 +506,8 @@
             <div class="well-group">
 
               <div class="well">
-                <p class="text-muted small">{{'aggregate-report-form.section.custom-subgroup.description' | translate}}</p>
+                <p class="text-muted small">{{'aggregate-report-form.section.custom-subgroup.description' |
+                  translate}}</p>
               </div>
 
               <subgroup-filters [options]="options.studentFilters"
@@ -506,17 +557,20 @@
               <ng-container *ngIf="estimatedRowCount != null; else estimatedRowCountSpinner">
                 <div class="flex-children">
                   <p>
-                    <span class="text-muted small">{{'aggregate-report-form.estimated-row-count.label' | translate}}</span>
+                    <span
+                      class="text-muted small">{{'aggregate-report-form.estimated-row-count.label' | translate}}</span>
                     <strong class="label gray-darker">{{estimatedRowCount | number}}</strong>
                   </p>
                   <ng-container *ngIf="estimatedRowCountIsLarge">
-                    <ng-container *ngTemplateOutlet="warning; context: {$implicit: ('aggregate-report-form.estimated-row-count.warning' | translate)}"></ng-container>
+                    <ng-container
+                      *ngTemplateOutlet="warning; context: {$implicit: ('aggregate-report-form.estimated-row-count.warning' | translate)}"></ng-container>
                   </ng-container>
                 </div>
               </ng-container>
               <ng-template #estimatedRowCountSpinner *ngIf="capableOfRowEstimation()">
                 <p class="text-muted small">
-                  {{'aggregate-report-form.estimated-row-count.loading' | translate}} <i class="fa fa-spinner fa-pulse"></i>
+                  {{'aggregate-report-form.estimated-row-count.loading' | translate}} <i
+                  class="fa fa-spinner fa-pulse"></i>
                 </p>
               </ng-template>
             </ng-container>
@@ -538,7 +592,8 @@
                        maxlength="255"
                        placeholder="{{'aggregate-report-form.default-report-name' | translate}}">
                 <div *ngIf="showErrors(reportNameControl)">
-                  <p *ngIf="reportNameControl.errors.fileName" class="help-block small red">{{reportNameControl.errors.fileName.messageId | translate}}</p>
+                  <p *ngIf="reportNameControl.errors.fileName" class="help-block small red">
+                    {{reportNameControl.errors.fileName.messageId | translate}}</p>
                 </div>
               </div>
               <div class="flex-child flex-child-no-label">
@@ -566,7 +621,8 @@
         <div class="well inline-headings">
           <h3>{{'aggregate-report-form.section.preview-heading' | translate}}</h3>
           <ng-container *ngIf="estimatedRowCountIsLarge">
-              <ng-container *ngTemplateOutlet="warning; context: {$implicit: ('aggregate-report-form.preview' | translate)}"></ng-container>
+            <ng-container
+              *ngTemplateOutlet="warning; context: {$implicit: ('aggregate-report-form.preview' | translate)}"></ng-container>
           </ng-container>
         </div>
         <div class="well">

@@ -8,6 +8,7 @@ export interface AggregateReportOptions {
 
   readonly assessmentGrades: string[];
   readonly assessmentTypes: string[];
+  readonly claimCodes: string[];
   readonly completenesses: string[];
   readonly defaultOrganization?: Organization;
   readonly dimensionTypes?: string[];

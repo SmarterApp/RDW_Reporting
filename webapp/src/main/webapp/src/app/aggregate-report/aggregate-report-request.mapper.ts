@@ -198,7 +198,7 @@ export class AggregateReportRequestMapper {
     let generalPopulation,
       longitudinalCohort;
 
-    if (reportType === 'GeneralPopulation') {
+    if (reportType === 'GeneralPopulation' || reportType === 'Claim') {
       generalPopulation = {
         assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
         schoolYears: query.schoolYears.sort((a, b) => b - a),
@@ -247,7 +247,8 @@ export class AggregateReportRequestMapper {
               : querySummativeAdministrationConditions,
             valueDisplayType: query.valueDisplayType,
             generalPopulation: generalPopulation,
-            longitudinalCohort: longitudinalCohort
+            longitudinalCohort: longitudinalCohort,
+
           };
         })
       );
@@ -361,7 +362,7 @@ export class AggregateReportRequestMapper {
     Claim: 'Claim'
   };
 
-  private ClientReportTypeBSyerverType = {
+  private ClientReportTypeByServerType = {
     CustomAggregate: 'GeneralPopulation',
     Longitudinal: 'LongitudinalCohort',
     Claim: 'Claim'
@@ -372,7 +373,7 @@ export class AggregateReportRequestMapper {
   }
 
   private fromServerReportType(type: string) {
-    return this.ClientReportTypeBSyerverType[ type ];
+    return this.ClientReportTypeByServerType[ type ];
   }
 
 }
