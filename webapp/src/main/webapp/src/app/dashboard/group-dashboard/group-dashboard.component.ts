@@ -24,7 +24,7 @@ export class GroupDashboardComponent implements OnInit {
   currentGroup: Group;
   private _currentSubject: string;
   private selectedAssessments: MeasuredAssessment[] = [];
-  private _availableSubjects: Set<string>;
+  private _availableSubjects: Set<string> = new Set<string>();
 
   constructor(private route: ActivatedRoute,
               private router: Router,
