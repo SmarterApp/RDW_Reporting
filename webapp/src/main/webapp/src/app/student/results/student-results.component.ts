@@ -143,13 +143,16 @@ export class StudentResultsComponent implements OnInit {
       parameters.assessmentType = this.filterState.assessmentType;
     }
 
+    // this is needed since the route can be for a group (/groups/1/students/2 or directly to the student (/students/2)
+    let navigationExtras = this.route.parent.parent.snapshot.url.length > 0
+      ? { relativeTo: this.route.parent.parent }
+      : undefined;
+
     this.router.navigate([
       'students',
       this.examHistory.student.id,
       parameters
-    ], {
-      relativeTo: this.route.parent.parent
-    });
+    ], navigationExtras);
   }
 
   private createSections(exams: StudentHistoryExamWrapper[]): Section[] {

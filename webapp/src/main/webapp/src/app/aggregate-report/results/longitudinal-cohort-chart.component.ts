@@ -100,7 +100,6 @@ export class LongitudinalCohortChartComponent implements OnInit {
   @Input()
   areaPallet: string = 'pallet-b';
 
-  private previousPoint: { path: PerformancePath, point: PerformancePoint };
   private _initialized: boolean = false;
   private _chart: LongitudinalCohortChart;
   private _chartView: ChartView;
@@ -158,28 +157,25 @@ export class LongitudinalCohortChartComponent implements OnInit {
   }
 
   onChartSeriesToggleClick(path: PerformancePath, pathIndex: number): void {
-    this._selectedPaths.has(pathIndex)
-      ? this._selectedPaths.delete(pathIndex)
-      : this._selectedPaths.add(pathIndex);
+    if (this._selectedPaths.has(pathIndex)) {
+      this._selectedPaths.delete(pathIndex);
+    } else if (!path.fade
+      && this._selectedPaths.size === 0
+      && this.chartView.performancePaths.filter(val => !val.fade).length === 1) {
+      path.fade = !path.fade;
+    } else {
+      this._selectedPaths.add(pathIndex);
+    }
 
     this._chartView.performancePaths
       .forEach((path, index) => path.fade = this._selectedPaths.size !== 0 && !this._selectedPaths.has(index));
-    this.previousPoint = null;
   }
 
   toggleFadeOnPoint(path: PerformancePath, point: PerformancePoint): void {
-    if (this.previousPoint && this.previousPoint.path === path) {
-      // do nothing...same line
-      return;
-    }
-    this.previousPoint = { path, point };
-    for (const performancePath of this.chartView.performancePaths) {
-      if (performancePath !== path) {
-        performancePath.fade = !performancePath.fade;
-      } else {
-        performancePath.fade = false;
-      }
-    }
+    path.fade = false;
+    this.chartView.performancePaths
+      .filter(perfPath => perfPath !== path)
+      .forEach(perfPath => perfPath.fade = true);
   }
 
   private render(): void {
