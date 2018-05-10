@@ -125,6 +125,7 @@ export class AggregateReportFormComponent {
 
   private originalReportTypes: any;
   private originalAssessmentTypes: any;
+  private originalClaimCodes: any;
   /**
    * Controls for view invalidation
    */
@@ -167,6 +168,7 @@ export class AggregateReportFormComponent {
 
     this.options = optionMapper.map(this.aggregateReportOptions);
     this.originalReportTypes = this.options.reportTypes;
+    this.originalClaimCodes = this.options.claimCodes;
     this.originalAssessmentTypes = this.options.assessmentTypes;
 
     this.organizationTypeaheadOptions = Observable.create(observer => {
@@ -316,6 +318,13 @@ export class AggregateReportFormComponent {
   onReportTypeChange(): void {
     if (this.settings.reportType === 'Claim') {
       this.options.assessmentTypes = this.originalAssessmentTypes.filter(assessmentType => assessmentType.value !== 'iab');
+      this.reportService.getClaimCodes(this.createReportRequest().query)
+        .subscribe(codes => {
+          this.options.claimCodes = this.originalClaimCodes.filter(
+            code =>
+              codes.indexOf(code.value) > 0
+          );
+        });
     } else if (this.settings.reportType === 'LongitudinalCohort') {
       this.options.assessmentTypes = this.originalAssessmentTypes.filter(assessmentType => assessmentType.value !== 'iab' && assessmentType.value !== 'ica');
     } else {
@@ -437,10 +446,12 @@ export class AggregateReportFormComponent {
         // and has at least one grade
         !Utils.isNullOrEmpty(this.settings.generalPopulation.assessmentGrades)
         || !Utils.isNullOrEmpty(this.settings.longitudinalCohort.assessmentGrades)
+        || !Utils.isNullOrEmpty(this.settings.claimReport.assessmentGrades)
       )
       && (
         // and has at least one schools years
         !Utils.isNullOrEmpty(this.settings.generalPopulation.schoolYears)
+        || !Utils.isNullOrEmpty(this.settings.claimReport.schoolYears)
         || this.settings.longitudinalCohort.toSchoolYear > 0
       )
     );

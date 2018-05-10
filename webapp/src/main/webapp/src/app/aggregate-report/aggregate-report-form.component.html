@@ -77,11 +77,11 @@
                [hidden]="!currentAssessmentDefinition.aggregateReportLongitudinalCohortEnabled && !currentAssessmentDefinition.aggregateReportClaimEnabled">
             <div class="row">
               <div class="col-md-12">
-                <sb-radio-group name="reportType"
-                                [options]="options.reportTypes"
-                                [(ngModel)]="settings.reportType"
-                                [ngModelOptions]="{standalone: true}"
-                                (change)="onReportTypeChange()"></sb-radio-group>
+                <wide-radio-group name="reportType"
+                                  [options]="options.reportTypes"
+                                  [(ngModel)]="settings.reportType"
+                                  [ngModelOptions]="{standalone: true}"
+                                  (change)="onReportTypeChange()"></wide-radio-group>
               </div>
             </div>
           </div>
@@ -238,7 +238,7 @@
           </div>
 
           <div
-            [hidden]="settings.reportType === 'LongitudinalCohort' && currentAssessmentDefinition.aggregateReportLongitudinalCohortEnabled">
+            [hidden]="settings.reportType !== 'GeneralPopulation'">
 
             <div class="well">
               <div class="row">
@@ -300,7 +300,69 @@
           </div>
 
           <div
-            [hidden]="settings.reportType !== 'LongitudinalCohort' || !currentAssessmentDefinition.aggregateReportStateResultsEnabled">
+            [hidden]="settings.reportType !== 'Claim'">
+
+            <div class="well">
+              <div class="row">
+                <div class="col-md-6">
+                  <label info-button
+                         title="{{'aggregate-report-form.field.assessment-grades-label' | translate}}"
+                         content="{{'aggregate-report-form.field.assessment-grades-info' | translate}}"></label>
+                  <p class="small mb-0"
+                     [ngClass]="showErrors(assessmentGradesControl) ? 'red' : 'gray-darker'">
+                    {{'common.form-field-message.required' | translate}}
+                  </p>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <sb-button-group name="assessmentGrades"
+                                     formControlName="assessmentGrades"
+                                     analyticsEvent="FilterClick"
+                                     analyticsCategory="AggregateQueryBuilder"
+                                     [allOptionEnabled]="false"
+                                     [options]="options.assessmentGrades"
+                                     [(ngModel)]="settings.claimReport.assessmentGrades"
+                                     (change)="onSettingsChange()"></sb-button-group>
+                    <div *ngIf="showErrors(assessmentGradesControl)">
+                      <p *ngIf="assessmentGradesControl.errors.notEmpty" class="help-block small red">
+                        {{assessmentGradesControl.errors.notEmpty.messageId | translate}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="well">
+              <div class="row">
+                <div class="col-md-6">
+                  <label>{{'aggregate-report-form.field.school-year-label' | translate}}</label>
+                  <p class="small mb-0"
+                     [ngClass]="showErrors(schoolYearsControl) ? 'red' : 'gray-darker'">
+                    {{'common.form-field-message.required' | translate}}
+                  </p>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <sb-button-group name="schoolYears"
+                                     formControlName="schoolYears"
+                                     analyticsEvent="FilterClick"
+                                     analyticsCategory="AggregateQueryBuilder"
+                                     [allOptionEnabled]="false"
+                                     [options]="options.schoolYears"
+                                     [(ngModel)]="settings.claimReport.schoolYears"
+                                     (change)="onSettingsChange()"></sb-button-group>
+                    <div *ngIf="showErrors(schoolYearsControl)">
+                      <p *ngIf="schoolYearsControl.errors.notEmpty" class="help-block small red">
+                        {{schoolYearsControl.errors.notEmpty.messageId | translate}}</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            [hidden]="settings.reportType !== 'LongitudinalCohort'">
 
             <div class="well">
               <div class="row">
@@ -412,36 +474,6 @@
       </div>
     </div>
 
-    <!-- Question Attributes -->
-    <div class="row" #questionAttributesSection id="questionAttributesSection"
-         [hidden]="settings.reportType !== 'Claim'">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="well-group">
-          <div class="well">
-            <h3>{{'aggregate-report-form.section.question-attributes-heading' | translate}}</h3>
-          </div>
-          <div class="well pb-0">
-            <div class="row">
-              <div class="col-md-4">
-                <label info-button
-                       title="{{'aggregate-report-form.field.claim-codes-label' | translate}}"
-                       content="{{'aggregate-report-form.field.claim-codes-info' | translate}}"></label>
-              </div>
-              <div class="col-md-4">
-                <sb-checkbox-group [options]="options.claimCodes"
-                                   [(ngModel)]="settings.claimReport.claimCodes"
-                                   [ngModelOptions]="{standalone: true}"
-                                   name="claimCodes"
-                                   analyticsEvent="FilterClick"
-                                   analyticsCategory="AggregateQueryBuilder"
-                                   [allOptionAnalyticsProperties]="{label: 'Claim Codes: All'}"></sb-checkbox-group>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Query Type Tabs -->
     <div class="row" #subgroupSection>
       <div class="col-md-8 col-md-offset-2">
@@ -474,7 +506,7 @@
                   </div>
                 </div>
               </div>
-              <div class="well" #advancedFiltersSection id="advancedFiltersSection">
+              <div class="well">
                 <div class="flex-children">
                   <div class="flex-child grow">
                     <h3>{{'aggregate-report-form.section.subgroup-filters-heading' | translate}}</h3>
@@ -496,6 +528,22 @@
                                 [options]="options.studentFilters"
                                 [settings]="settings.studentFilters"
                                 (changed)="onSettingsChange()"></subgroup-filters>
+              <div [hidden]="settings.reportType !== 'Claim'">
+                <div class="well">
+                  <h3>{{'aggregate-report-form.field.claim-codes-label' | translate}}</h3>
+                  <div class="col-md-6"></div>
+                  <div class="flex-children">
+                    <sb-checkbox-group [options]="options.claimCodes"
+                                       [(ngModel)]="settings.claimReport.claimCodes"
+                                       [ngModelOptions]="{standalone: true}"
+                                       name="claimCodes"
+                                       analyticsEvent="FilterClick"
+                                       analyticsCategory="AggregateQueryBuilder"
+                                       [allOptionAnalyticsProperties]="{label: 'Claim Codes: All'}"></sb-checkbox-group>
+                  </div>
+
+                </div>
+              </div>
             </div>
 
           </tab>

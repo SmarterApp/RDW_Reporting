@@ -103,6 +103,10 @@ export class AggregateReportRequestMapper {
     } else if (settings.reportType === 'LongitudinalCohort' && assessmentDefinition.aggregateReportLongitudinalCohortEnabled) {
       query.assessmentGradeCodes = settings.longitudinalCohort.assessmentGrades;
       query.toSchoolYear = settings.longitudinalCohort.toSchoolYear;
+    } else if (settings.reportType === 'Claim' &&  assessmentDefinition.aggregateReportClaimEnabled) {
+      query.assessmentGradeCodes = settings.claimReport.assessmentGrades;
+      query.schoolYears = settings.claimReport.schoolYears;
+      // TODO add claim codes
     }
 
     const name = settings.name
@@ -190,25 +194,42 @@ export class AggregateReportRequestMapper {
       schoolYears: [ options.schoolYears[ 0 ] ]
     };
 
+    const defaultClaimReport = {
+      assessmentGrades: [],
+      schoolYears: [ options.schoolYears[ 0 ] ],
+      claimCodes: []
+    };
+
     const defaultLongitudinalCohort = {
       assessmentGrades: [],
       toSchoolYear: options.schoolYears[ 0 ]
     };
 
     let generalPopulation,
-      longitudinalCohort;
+      longitudinalCohort,
+      claimReport;
 
-    if (reportType === 'GeneralPopulation' || reportType === 'Claim') {
+    if (reportType === 'GeneralPopulation') {
       generalPopulation = {
         assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
         schoolYears: query.schoolYears.sort((a, b) => b - a),
       };
       longitudinalCohort = defaultLongitudinalCohort;
+      claimReport = defaultClaimReport;
     } else if (reportType === 'LongitudinalCohort') {
       longitudinalCohort = {
         assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
         toSchoolYear: query.toSchoolYear
       };
+      generalPopulation = defaultGeneralPopulation;
+      claimReport = defaultClaimReport;
+    } else if (reportType === 'Claim') {
+      claimReport = {
+        assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
+        schoolYears: query.schoolYears.sort((a, b) => b - a),
+        claimCodes: options.claimCodes
+      }
+      longitudinalCohort = defaultLongitudinalCohort;
       generalPopulation = defaultGeneralPopulation;
     }
 
@@ -248,6 +269,7 @@ export class AggregateReportRequestMapper {
             valueDisplayType: query.valueDisplayType,
             generalPopulation: generalPopulation,
             longitudinalCohort: longitudinalCohort,
+            claimReport: claimReport
 
           };
         })

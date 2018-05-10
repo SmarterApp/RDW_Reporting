@@ -19,4 +19,6 @@ export interface Option {
    */
   readonly analyticsProperties?: any;
 
+  readonly description?: string;
+
 }

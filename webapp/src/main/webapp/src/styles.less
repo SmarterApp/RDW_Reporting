@@ -1322,3 +1322,13 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
 .label.label-lg {
   font-size: 100%;
 }
+
+.btn-toolbar-grid {
+  .btn-toolbar;
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  grid-auto-flow: column;
+  &:before {
+    content: none;
+  }
+}
