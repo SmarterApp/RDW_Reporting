@@ -788,7 +788,7 @@
         }
       }
     },
-    "subject-claim-code": {
+    "subject-claim-code": { // TODO remove me
       "1": "Concepts & Procedures",
       "3": "Communicating Reasoning",
       "2-W": "Writing",

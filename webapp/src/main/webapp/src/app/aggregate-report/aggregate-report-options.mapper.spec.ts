@@ -3,8 +3,8 @@ import { AggregateReportOptionsMapper } from './aggregate-report-options.mapper'
 import { ValueDisplayTypes } from '../shared/display-options/value-display-type';
 import { of } from 'rxjs/observable/of';
 import { AggregateReportFormSettings } from './aggregate-report-form-settings';
-import Spy = jasmine.Spy;
 import { Observable } from 'rxjs/Observable';
+import Spy = jasmine.Spy;
 
 describe('AggregateReportOptionsMapper', () => {
 
@@ -52,7 +52,10 @@ describe('AggregateReportOptionsMapper', () => {
         performanceLevelCount: 0,
         performanceLevelDisplayTypes: [ 'displayTypeA' ],
         performanceLevelGroupingCutPoint: 0,
-        aggregateReportIdentityColumns: [ 'columnA' ]
+        aggregateReportIdentityColumns: [ 'columnA' ],
+        aggregateReportStateResultsEnabled: true,
+        aggregateReportLongitudinalCohortEnabled: true,
+        aggregateReportClaimEnabled: true
       } ] ])
     ));
 
@@ -77,7 +80,8 @@ describe('AggregateReportOptionsMapper', () => {
         migrantStatuses: [ '1', '2' ],
         section504s: [ '1', '2' ]
       },
-      reportTypes: [ '1', '2' ]
+      reportTypes: [ '1', '2' ],
+      claimCodes: []
     };
     fixture.toDefaultSettings(options).subscribe(settings => {
       expect(settings).toEqual(<AggregateReportFormSettings>{
@@ -112,6 +116,11 @@ describe('AggregateReportOptionsMapper', () => {
         generalPopulation: {
           assessmentGrades: [],
           schoolYears: [ options.schoolYears[ 0 ] ]
+        },
+        claimReport: {
+          assessmentGrades: [],
+          schoolYears: [ options.schoolYears[ 0 ] ],
+          claimCodes: []
         },
         longitudinalCohort: {
           assessmentGrades: [],

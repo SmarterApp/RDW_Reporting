@@ -31,7 +31,8 @@ describe('AggregateReportTableExportService', () => {
         performanceLevelGroupingCutPoint: 3,
         aggregateReportIdentityColumns: [ 'columnA' ],
         aggregateReportStateResultsEnabled: false,
-        aggregateReportLongitudinalCohortEnabled: false
+        aggregateReportLongitudinalCohortEnabled: false,
+        aggregateReportClaimEnabled: false
       },
       name: 'my_export'
     };
