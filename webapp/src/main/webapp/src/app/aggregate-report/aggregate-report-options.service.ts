@@ -27,7 +27,7 @@ export class AggregateReportOptionsService {
       map(serverOptions => <AggregateReportOptions>{
         assessmentGrades: serverOptions.assessmentGrades.concat(),
         assessmentTypes: serverOptions.assessmentTypes.concat().sort(assessmentTypeComparator),
-        claimCodes: ['1', '3', '2-W', '4-CR', 'SOCK_2', 'SOCK_LS', 'SOCK_R'],
+        claimCodes: serverOptions.claimCodes.concat(),
         completenesses: serverOptions.completenesses.concat().sort(completenessComparator),
         defaultOrganization: serverOptions.defaultOrganization
           ? this.organizationMapper.map(serverOptions.defaultOrganization)

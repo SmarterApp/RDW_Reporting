@@ -317,14 +317,7 @@ export class AggregateReportFormComponent {
 
   onReportTypeChange(): void {
     if (this.settings.reportType === 'Claim') {
-      this.options.assessmentTypes = this.originalAssessmentTypes.filter(assessmentType => assessmentType.value !== 'iab');
-      this.reportService.getClaimCodes(this.createReportRequest().query)
-        .subscribe(codes => {
-          this.options.claimCodes = this.originalClaimCodes.filter(
-            code =>
-              codes.indexOf(code.value) > 0
-          );
-        });
+      this.filterClaimCodes();
     } else if (this.settings.reportType === 'LongitudinalCohort') {
       this.options.assessmentTypes = this.originalAssessmentTypes.filter(assessmentType => assessmentType.value !== 'iab' && assessmentType.value !== 'ica');
     } else {
@@ -470,6 +463,13 @@ export class AggregateReportFormComponent {
     };
   }
 
+  onSubjectsChange(): void {
+    this.onSettingsChange();
+    if (this.settings.reportType === 'Claim') {
+      this.filterClaimCodes();
+    }
+  }
+
   /**
    * Reloads the report preview based on current form state
    */
@@ -507,6 +507,17 @@ export class AggregateReportFormComponent {
           }
         );
     });
+  }
+
+  private filterClaimCodes(): void {
+    this.options.assessmentTypes = this.originalAssessmentTypes.filter(assessmentType => assessmentType.value !== 'iab');
+    this.reportService.getClaimCodes(this.createReportRequest().query)
+      .subscribe(codes => {
+        this.options.claimCodes = this.originalClaimCodes.filter(
+          code =>
+            codes.indexOf(code.value) > 0
+        );
+      });
   }
 
   private markOrganizationsControlTouched(): void {
