@@ -13,7 +13,7 @@ const Iab: AssessmentDefinition = {
   performanceLevelDisplayTypes: [ PerformanceLevelDisplayTypes.Separate ],
   aggregateReportIdentityColumns: IdentityColumnOptions.concat(),
   aggregateReportStateResultsEnabled: false,
-  aggregateReportTypes: [ null ]
+  aggregateReportTypes: [ 'GeneralPopulation' ]
 };
 
 const Ica: AssessmentDefinition = {
