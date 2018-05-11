@@ -40,10 +40,10 @@ export class AggregateReportService {
   }
 
   /**
-   * Gets the estimated report row count for the provided report request
+   * Gets the claim codes for the provided report request
    *
    * @param {AggregateReportQuery} query the report parameters
-   * @returns {Observable<number>} the row count
+   * @returns {Observable<string[]>} the claim codes
    */
   getClaimCodes(query: AggregateReportQuery): Observable<string[]> {
     return this.dataService.post(`${AggregateServiceRoute}/aggregate/claimCodes`, query);
