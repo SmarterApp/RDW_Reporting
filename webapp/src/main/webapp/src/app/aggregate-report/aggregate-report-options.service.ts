@@ -27,7 +27,7 @@ export class AggregateReportOptionsService {
       map(serverOptions => <AggregateReportOptions>{
         assessmentGrades: serverOptions.assessmentGrades.concat(),
         assessmentTypes: serverOptions.assessmentTypes.concat().sort(assessmentTypeComparator),
-        claimCodes: serverOptions.claimCodes.concat(),
+        claims: this.mapClaims(serverOptions.claims),
         completenesses: serverOptions.completenesses.concat().sort(completenessComparator),
         defaultOrganization: serverOptions.defaultOrganization
           ? this.organizationMapper.map(serverOptions.defaultOrganization)
@@ -54,4 +54,25 @@ export class AggregateReportOptionsService {
     );
   }
 
+  mapClaims(claims: any[]): Claim[] {
+    const claimArray = [];
+    claims.forEach(claim => {
+        claimArray.push(
+          <Claim> {
+            assessmentType: claim.assessmentTypeCode,
+            subject: claim.subjectCode,
+            code: claim.code
+          }
+        );
+      }
+    );
+    return claimArray;
+  }
+
+}
+
+export interface Claim {
+  readonly assessmentType: string;
+  readonly subject: string;
+  readonly code: string;
 }

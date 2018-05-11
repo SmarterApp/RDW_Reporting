@@ -11,7 +11,7 @@ import CallInfo = jasmine.CallInfo;
 import { DimensionGroup, Subgroup } from '../subgroup/subgroup';
 
 describe('AggregateReportTableExportService', () => {
-  let itemIdx: number = 1;
+  let itemIdx = 1;
   let service: AggregateReportTableExportService;
   let csvBuilder: CsvBuilder;
   let translateService: TranslateService;
@@ -30,9 +30,6 @@ describe('AggregateReportTableExportService', () => {
         performanceLevelDisplayTypes: [],
         performanceLevelGroupingCutPoint: 3,
         aggregateReportIdentityColumns: [ 'columnA' ],
-        aggregateReportStateResultsEnabled: false,
-        aggregateReportLongitudinalCohortEnabled: false,
-        aggregateReportClaimEnabled: false
       },
       name: 'my_export'
     };

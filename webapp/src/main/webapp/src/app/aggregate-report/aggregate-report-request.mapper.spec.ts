@@ -12,6 +12,7 @@ import { AggregateReportOptions } from './aggregate-report-options';
 import { AggregateReportQuery, AggregateReportRequest, StudentFilters } from '../report/aggregate-report-request';
 import { AggregateReportFormSettings } from './aggregate-report-form-settings';
 import { of } from 'rxjs/observable/of';
+import { Claim } from './aggregate-report-options.service';
 import Spy = jasmine.Spy;
 
 describe('AggregateReportRequestMapper', () => {
@@ -219,7 +220,17 @@ describe('AggregateReportRequestMapper', () => {
       queryTypes: [ 'Basic', 'FilteredSubgroup' ],
       reportTypes: [ 'GeneralPopulation', 'LongitudinalCohort', 'Claim' ],
       schoolYears: [ 2000, 1999 ],
-      claimCodes: [ 'claim1', 'claim2' ],
+      claims: [ <Claim>{
+        subject: 'Math',
+        assessmentType: 'ica',
+        code: '3'
+
+      },
+        <Claim>{
+          subject: 'ELA',
+          assessmentType: 'sum',
+          code: '4'
+        } ],
       statewideReporter: false,
       subjects: [ 'Math', 'ELA' ],
       summativeAdministrationConditions: [ 'Valid', 'IN' ],

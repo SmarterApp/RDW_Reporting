@@ -3,7 +3,7 @@ export interface AssessmentDefinition {
   /**
    * Reflective reference to the type code of the assessment
    */
-  readonly typeCode: string;
+  readonly typeCode: 'sum' | 'iab' | 'ica';
 
   /**
    * Whether or not the assessment is interim or not
@@ -38,20 +38,5 @@ export interface AssessmentDefinition {
    * The identity columns to use in aggregate reports for the given assessment definition
    */
   readonly aggregateReportIdentityColumns: string[];
-
-  /**
-   * True if the definition supports state results
-   */
-  readonly aggregateReportStateResultsEnabled: boolean;
-
-  /**
-   * True if the definition supports longitudinal cohort reports
-   */
-  readonly aggregateReportLongitudinalCohortEnabled: boolean;
-
-  /**
-   * True if the definition supports report claims
-   */
-  readonly aggregateReportClaimEnabled: boolean;
 
 }

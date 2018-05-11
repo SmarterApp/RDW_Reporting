@@ -10,6 +10,7 @@ import { AssessmentDefinitionService } from './assessment/assessment-definition.
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { ApplicationSettingsService } from '../app-settings.service';
+import { Claim } from './aggregate-report-options.service';
 
 /**
  * Responsible for mapping server provided report options into option
@@ -52,10 +53,10 @@ export class AggregateReportOptionsMapper {
           value => translate(`common.assessment-type.${value}.short-name`),
           value => `Assessment Type: ${value}`
         )),
-      claimCodes: options.claimCodes
+      claimCodes: options.claims
         .map(optionMapper(
-          value => translate(`common.subject-claim-code.${value}`),
-          value => `Claim Code: ${value}`
+          (value: Claim) => translate(`common.subject-claim-code.${value.code}`),
+          (value: Claim) => `Claim Code: ${value.code}`
         )),
       completenesses: options.completenesses
         .map(optionMapper(

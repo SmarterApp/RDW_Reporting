@@ -81,7 +81,7 @@ describe('AggregateReportOptionsMapper', () => {
         section504s: [ '1', '2' ]
       },
       reportTypes: [ '1', '2' ],
-      claimCodes: []
+      claims: []
     };
     fixture.toDefaultSettings(options).subscribe(settings => {
       expect(settings).toEqual(<AggregateReportFormSettings>{

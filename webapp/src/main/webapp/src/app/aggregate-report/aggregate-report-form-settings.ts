@@ -1,7 +1,5 @@
-import { District, School } from "../shared/organization/organization";
-import {SubgroupFilters} from "./subgroup/subgroup-filters";
-import { AggregateReportType } from './aggregate-report-type';
-import { AggregateReportQueryType } from './aggregate-report-query-type';
+import { District, School } from '../shared/organization/organization';
+import { SubgroupFilters } from './subgroup/subgroup-filters';
 
 /**
  * Client side representation of a report request.

@@ -33,13 +33,13 @@ export class AggregateReportTableDataService {
     const organizations = this.createSampleOrganizations(settings, assessmentDefinition);
 
     const gradesAndYears: { grade: string, year: number }[] = [];
-    if (settings.reportType === 'GeneralPopulation' || !assessmentDefinition.aggregateReportLongitudinalCohortEnabled) {
+    if (settings.reportType === 'GeneralPopulation' || assessmentDefinition.typeCode !== 'sum') {
       for (const grade of settings.generalPopulation.assessmentGrades) {
         for (const year of settings.generalPopulation.schoolYears) {
           gradesAndYears.push({ grade, year });
         }
       }
-    } else if (settings.reportType === 'LongitudinalCohort' && assessmentDefinition.aggregateReportLongitudinalCohortEnabled) {
+    } else if (settings.reportType === 'LongitudinalCohort' && assessmentDefinition.typeCode === 'sum') {
       const assessmentGrades = settings.longitudinalCohort.assessmentGrades;
       const schoolYears = computeEffectiveYears(settings.longitudinalCohort.toSchoolYear, assessmentGrades);
       for (let i = 0; i < assessmentGrades.length; i++) {
@@ -117,7 +117,7 @@ export class AggregateReportTableDataService {
 
     const organizations: Organization[] = [];
 
-    if (settings.includeStateResults && definition.aggregateReportStateResultsEnabled) {
+    if (settings.includeStateResults && definition.typeCode === 'sum') {
       organizations.push(this.createSampleState());
     }
 

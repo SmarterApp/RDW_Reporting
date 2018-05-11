@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  AggregateReportQuery,
-  AggregateReportRequest,
-  StudentFilters
-} from '../report/aggregate-report-request';
+import { AggregateReportQuery, AggregateReportRequest, StudentFilters } from '../report/aggregate-report-request';
 import { AggregateReportFormSettings } from './aggregate-report-form-settings';
 import { AggregateReportFormOptions } from './aggregate-report-form-options';
 import { TranslateService } from '@ngx-translate/core';
@@ -58,7 +54,7 @@ export class AggregateReportRequestMapper {
       includeAllDistricts: settings.includeAllDistricts,
       includeAllDistrictsOfSchools: settings.includeAllDistrictsOfSelectedSchools,
       includeAllSchoolsOfDistricts: settings.includeAllSchoolsOfSelectedDistricts,
-      includeState: settings.includeStateResults && assessmentDefinition.aggregateReportStateResultsEnabled,
+      includeState: settings.includeStateResults && assessmentDefinition.typeCode === 'sum',
       reportType: this.toServerReportType(settings.reportType),
       subjectCodes: settings.subjects,
       valueDisplayType: settings.valueDisplayType,
@@ -97,13 +93,13 @@ export class AggregateReportRequestMapper {
     // Set report type specific parameters
     // The assessment definition check is tacked on because the form state can be set to longitudinal cohort
     // and then the assessment definition can be changed to a type that does not support longitudinal cohort
-    if (settings.reportType === 'GeneralPopulation' || !assessmentDefinition.aggregateReportLongitudinalCohortEnabled) {
+    if (settings.reportType === 'GeneralPopulation' || assessmentDefinition.typeCode !== 'sum') {
       query.assessmentGradeCodes = settings.generalPopulation.assessmentGrades;
       query.schoolYears = settings.generalPopulation.schoolYears;
-    } else if (settings.reportType === 'LongitudinalCohort' && assessmentDefinition.aggregateReportLongitudinalCohortEnabled) {
+    } else if (settings.reportType === 'LongitudinalCohort' && assessmentDefinition.typeCode === 'sum') {
       query.assessmentGradeCodes = settings.longitudinalCohort.assessmentGrades;
       query.toSchoolYear = settings.longitudinalCohort.toSchoolYear;
-    } else if (settings.reportType === 'Claim' &&  assessmentDefinition.aggregateReportClaimEnabled) {
+    } else if (settings.reportType === 'Claim' && [ 'ica', 'sum' ].includes(assessmentDefinition.typeCode)) {
       query.assessmentGradeCodes = settings.claimReport.assessmentGrades;
       query.schoolYears = settings.claimReport.schoolYears;
       // TODO add claim codes
@@ -227,7 +223,7 @@ export class AggregateReportRequestMapper {
       claimReport = {
         assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
         schoolYears: query.schoolYears.sort((a, b) => b - a),
-        claimCodes: options.claimCodes
+        claimCodes: options.claims
       }
       longitudinalCohort = defaultLongitudinalCohort;
       generalPopulation = defaultGeneralPopulation;
