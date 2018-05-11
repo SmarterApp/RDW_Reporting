@@ -1,5 +1,0 @@
-# There are test resources with specific line endings so disable text handling by git
-*.cr.csv -text
-*.crlf.csv -text
-*.crlf.tsv -text
-*.lf.csv -text
