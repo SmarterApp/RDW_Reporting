@@ -533,13 +533,15 @@
                   <h3>{{'aggregate-report-form.field.claim-codes-label' | translate}}</h3>
                   <div class="col-md-6"></div>
                   <div class="flex-children">
-                    <sb-checkbox-group [options]="options.claimCodes"
-                                       [(ngModel)]="settings.claimReport.claimCodes"
-                                       [ngModelOptions]="{standalone: true}"
-                                       name="claimCodes"
-                                       analyticsEvent="FilterClick"
-                                       analyticsCategory="AggregateQueryBuilder"
-                                       [allOptionAnalyticsProperties]="{label: 'Claim Codes: All'}"></sb-checkbox-group>
+                    <sb-button-group type="checkbox"
+                                     [vertical]="true"
+                                     [options]="options.claimCodes"
+                                     [(ngModel)]="settings.claimReport.claimCodes"
+                                     [ngModelOptions]="{standalone: true}"
+                                     name="claimCodes"
+                                     analyticsEvent="FilterClick"
+                                     analyticsCategory="AggregateQueryBuilder"
+                                     [allOptionAnalyticsProperties]="{label: 'Claim Codes: All'}"></sb-button-group>
                   </div>
 
                 </div>
