@@ -207,7 +207,7 @@ export class AggregateReportFormComponent {
       control.updateValueAndValidity();
     };
 
-    if (this.settings.reportType === 'GeneralPopulation' || this.currentAssessmentDefinition.typeCode !== 'sum') {
+    if (this.settings.reportType === 'GeneralPopulation' || !this.currentAssessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')) {
       setValidators(this.assessmentGradesControl, [
         notEmpty({ messageId: 'aggregate-report-form.field.assessment-grades-empty-error' })
       ]);
@@ -215,7 +215,7 @@ export class AggregateReportFormComponent {
         notEmpty({ messageId: 'aggregate-report-form.field.school-year-empty-error' })
       ]);
       setValidators(this.assessmentGradeRangeControl, null);
-    } else if (this.settings.reportType === 'LongitudinalCohort' && this.currentAssessmentDefinition.typeCode === 'sum') {
+    } else if (this.settings.reportType === 'LongitudinalCohort' && this.currentAssessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')) {
       setValidators(this.assessmentGradesControl, null);
       setValidators(this.schoolYearsControl, null);
       setValidators(this.assessmentGradeRangeControl, [
@@ -402,7 +402,7 @@ export class AggregateReportFormComponent {
     this.settings.columnOrder = order;
     this.columnItems = this.columnOrderableItemProvider.toOrderableItems(order);
 
-    if (this.currentAssessmentDefinition.typeCode === 'ica') {
+    if (!this.currentAssessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort') && this.currentAssessmentDefinition.aggregateReportTypes.includes('Claim')) {
       this.filteredOptions.reportTypes = this.options.reportTypes.filter(reportType => reportType.value !== 'LongitudinalCohort');
     } else {
       this.filteredOptions.reportTypes = this.options.reportTypes;

@@ -136,7 +136,7 @@ export class AggregateReportSummary {
         values: orAll(options.subjects, settings.subjects, code => translate(`common.subject.${code}.short-name`))
       },
 
-      ...(settings.reportType === 'GeneralPopulation' || assessmentDefinition.typeCode !== 'sum'
+      ...(settings.reportType === 'GeneralPopulation' || !assessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')
         ? [
           {
             label: translate('aggregate-report-form.field.assessment-grades-label'),

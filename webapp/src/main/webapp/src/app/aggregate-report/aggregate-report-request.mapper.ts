@@ -54,7 +54,7 @@ export class AggregateReportRequestMapper {
       includeAllDistricts: settings.includeAllDistricts,
       includeAllDistrictsOfSchools: settings.includeAllDistrictsOfSelectedSchools,
       includeAllSchoolsOfDistricts: settings.includeAllSchoolsOfSelectedDistricts,
-      includeState: settings.includeStateResults && assessmentDefinition.typeCode === 'sum',
+      includeState: settings.includeStateResults && assessmentDefinition.aggregateReportStateResultsEnabled,
       reportType: this.toServerReportType(settings.reportType),
       subjectCodes: settings.subjects,
       valueDisplayType: settings.valueDisplayType,
@@ -93,13 +93,13 @@ export class AggregateReportRequestMapper {
     // Set report type specific parameters
     // The assessment definition check is tacked on because the form state can be set to longitudinal cohort
     // and then the assessment definition can be changed to a type that does not support longitudinal cohort
-    if (settings.reportType === 'GeneralPopulation' || assessmentDefinition.typeCode !== 'sum') {
+    if (settings.reportType === 'GeneralPopulation' || !assessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')) {
       query.assessmentGradeCodes = settings.generalPopulation.assessmentGrades;
       query.schoolYears = settings.generalPopulation.schoolYears;
-    } else if (settings.reportType === 'LongitudinalCohort' && assessmentDefinition.typeCode === 'sum') {
+    } else if (settings.reportType === 'LongitudinalCohort' && assessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')) {
       query.assessmentGradeCodes = settings.longitudinalCohort.assessmentGrades;
       query.toSchoolYear = settings.longitudinalCohort.toSchoolYear;
-    } else if (settings.reportType === 'Claim' && [ 'ica', 'sum' ].includes(assessmentDefinition.typeCode)) {
+    } else if (settings.reportType === 'Claim' && assessmentDefinition.aggregateReportTypes.includes('Claim')) {
       query.assessmentGradeCodes = settings.claimReport.assessmentGrades;
       query.schoolYears = settings.claimReport.schoolYears;
       // TODO add claim codes

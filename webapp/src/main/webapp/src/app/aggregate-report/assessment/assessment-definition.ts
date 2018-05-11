@@ -39,4 +39,13 @@ export interface AssessmentDefinition {
    */
   readonly aggregateReportIdentityColumns: string[];
 
+  /**
+   * True if the definition supports state results
+   */
+  readonly aggregateReportStateResultsEnabled: boolean;
+
+  /**
+   * An array of report types the definition supports
+   */
+  readonly aggregateReportTypes: [ 'LongitudinalCohort' | 'Claim' ] | null;
 }

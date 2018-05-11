@@ -74,7 +74,7 @@
             <h3>{{'aggregate-report-form.section.report-type-heading' | translate}}</h3>
           </div>
           <div class="well pb-0"
-               [hidden]="currentAssessmentDefinition.typeCode === 'iab'">
+               [hidden]="!currentAssessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort') && !currentAssessmentDefinition.aggregateReportTypes.includes('Claim')">
             <div class="row">
               <div class="col-md-12">
                 <wide-radio-group name="reportType"

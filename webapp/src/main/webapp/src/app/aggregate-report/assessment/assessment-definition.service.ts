@@ -12,6 +12,8 @@ const Iab: AssessmentDefinition = {
   performanceLevelCount: 3,
   performanceLevelDisplayTypes: [ PerformanceLevelDisplayTypes.Separate ],
   aggregateReportIdentityColumns: IdentityColumnOptions.concat(),
+  aggregateReportStateResultsEnabled: false,
+  aggregateReportTypes: [ null ]
 };
 
 const Ica: AssessmentDefinition = {
@@ -23,6 +25,8 @@ const Ica: AssessmentDefinition = {
   performanceLevelGroupingCutPoint: 3,
   aggregateReportIdentityColumns: IdentityColumnOptions
     .filter(option => option !== 'assessmentLabel'),
+  aggregateReportStateResultsEnabled: false,
+  aggregateReportTypes: [ 'Claim' ]
 };
 
 const Summative: AssessmentDefinition = {
@@ -34,6 +38,8 @@ const Summative: AssessmentDefinition = {
   performanceLevelGroupingCutPoint: 3,
   aggregateReportIdentityColumns: IdentityColumnOptions
     .filter(option => option !== 'assessmentLabel'),
+  aggregateReportStateResultsEnabled: true,
+  aggregateReportTypes: [ 'Claim', 'LongitudinalCohort' ]
 };
 
 /**
