@@ -87,8 +87,6 @@ reporting:
   state:
     code: CA
     name: California
-  subjects:
-    max-claims: 6
 
   # english-learners should be lep or elas
   english-learners:
