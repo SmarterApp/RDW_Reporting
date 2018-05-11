@@ -55,18 +55,11 @@ export class AggregateReportOptionsService {
   }
 
   mapClaims(claims: any[]): Claim[] {
-    const claimArray = [];
-    claims.forEach(claim => {
-        claimArray.push(
-          <Claim> {
-            assessmentType: claim.assessmentTypeCode,
-            subject: claim.subjectCode,
-            code: claim.code
-          }
-        );
-      }
-    );
-    return claimArray;
+    return claims.map(claim => <Claim>{
+      assessmentType: claim.assessmentTypeCode,
+      subject: claim.subjectCode,
+      code: claim.code
+    });
   }
 
 }

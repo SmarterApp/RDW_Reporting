@@ -242,15 +242,15 @@
     },
     "aggregate-report-type": {
       "Claim": {
-        "description": "This is a claim report",
-        "label": "Claim"
+        "description": "Examine claim specific performance across groups",
+        "label": "Claim Focus"
       },
       "GeneralPopulation": {
-        "description": "This is general population",
-        "label": "General"
+        "description": "Compare aggregate scores across groups",
+        "label": "General Report"
       },
       "LongitudinalCohort": {
-        "description": "This is a longitudinal cohort",
+        "description": "Compare performance within a population of cohorts",
         "label": "Longitudinal"
       }
     },
