@@ -78,7 +78,7 @@
             <div class="row">
               <div class="col-md-12">
                 <wide-radio-group name="reportType"
-                                  [options]="options.reportTypes"
+                                  [options]="filteredOptions.reportTypes"
                                   [(ngModel)]="settings.reportType"
                                   [ngModelOptions]="{standalone: true}"
                                   (change)="onReportTypeChange()"></wide-radio-group>
@@ -157,7 +157,7 @@
                               [ngClass]="{'text-muted': summativeFieldsDisabled}">{{'aggregate-report-form.section.organization.include.state-results' | translate}}</span>
                       </label>
                     </div>
-                    <div class="col-sm-6" *ngIf="options.statewideReporter">
+                    <div class="col-sm-6" *ngIf="filteredOptions.statewideReporter">
                       <label class="inline-label">
                         <input type="checkbox"
                                [(ngModel)]="settings.includeAllDistricts"
@@ -209,10 +209,10 @@
                 <label>{{'aggregate-report-form.field.assessment-type-label' | translate}}</label>
               </div>
               <div class="col-md-6">
-                <span class="gray-darker" *ngIf="options.assessmentTypes.length == 1">{{options.assessmentTypes[0].text}}</span>
-                <sb-radio-button-group *ngIf="options.assessmentTypes.length > 1"
+                <span class="gray-darker" *ngIf="filteredOptions.assessmentTypes.length == 1">{{filteredOptions.assessmentTypes[0].text}}</span>
+                <sb-radio-button-group *ngIf="filteredOptions.assessmentTypes.length > 1"
                                        name="assessmentType"
-                                       [options]="options.assessmentTypes"
+                                       [options]="filteredOptions.assessmentTypes"
                                        [(ngModel)]="settings.assessmentType"
                                        [ngModelOptions]="{standalone: true}"
                                        (change)="onAssessmentTypeChange()"></sb-radio-button-group>
@@ -229,7 +229,7 @@
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
                                  [allOptionAnalyticsProperties]="{label: 'Subject: All'}"
-                                 [options]="options.subjects"
+                                 [options]="filteredOptions.subjects"
                                  [(ngModel)]="settings.subjects"
                                  [ngModelOptions]="{standalone: true}"
                                  (change)="onSubjectsChange()"></sb-button-group>
@@ -258,7 +258,7 @@
                                      analyticsEvent="FilterClick"
                                      analyticsCategory="AggregateQueryBuilder"
                                      [allOptionEnabled]="false"
-                                     [options]="options.assessmentGrades"
+                                     [options]="filteredOptions.assessmentGrades"
                                      [(ngModel)]="settings.generalPopulation.assessmentGrades"
                                      (change)="onSettingsChange()"></sb-button-group>
                     <div *ngIf="showErrors(assessmentGradesControl)">
@@ -285,7 +285,7 @@
                                      analyticsEvent="FilterClick"
                                      analyticsCategory="AggregateQueryBuilder"
                                      [allOptionEnabled]="false"
-                                     [options]="options.schoolYears"
+                                     [options]="filteredOptions.schoolYears"
                                      [(ngModel)]="settings.generalPopulation.schoolYears"
                                      (change)="onSettingsChange()"></sb-button-group>
                     <div *ngIf="showErrors(schoolYearsControl)">
@@ -320,7 +320,7 @@
                                      analyticsEvent="FilterClick"
                                      analyticsCategory="AggregateQueryBuilder"
                                      [allOptionEnabled]="false"
-                                     [options]="options.assessmentGrades"
+                                     [options]="filteredOptions.assessmentGrades"
                                      [(ngModel)]="settings.claimReport.assessmentGrades"
                                      (change)="onSettingsChange()"></sb-button-group>
                     <div *ngIf="showErrors(assessmentGradesControl)">
@@ -347,7 +347,7 @@
                                      analyticsEvent="FilterClick"
                                      analyticsCategory="AggregateQueryBuilder"
                                      [allOptionEnabled]="false"
-                                     [options]="options.schoolYears"
+                                     [options]="filteredOptions.schoolYears"
                                      [(ngModel)]="settings.claimReport.schoolYears"
                                      (change)="onSettingsChange()"></sb-button-group>
                     <div *ngIf="showErrors(schoolYearsControl)">
@@ -379,7 +379,7 @@
                                      name="assessmentGradeRange"
                                      formControlName="assessmentGradeRange"
                                      [allOptionEnabled]="false"
-                                     [options]="options.assessmentGrades"
+                                     [options]="filteredOptions.assessmentGrades"
                                      [(ngModel)]="settings.longitudinalCohort.assessmentGrades"
                                      (change)="onSettingsChange()"></sb-button-group>
                     <div *ngIf="showErrors(assessmentGradeRangeControl)">
@@ -401,7 +401,7 @@
                   <div class="form-group">
                     <sb-radio-group name="toSchoolYear"
                                     formControlName="toSchoolYear"
-                                    [options]="options.schoolYears"
+                                    [options]="filteredOptions.schoolYears"
                                     [(ngModel)]="settings.longitudinalCohort.toSchoolYear"
                                     (change)="onSettingsChange()"></sb-radio-group>
                   </div>
@@ -419,7 +419,7 @@
               </div>
               <div class="col-md-6">
                 <sb-checkbox-group [horizontal]="true"
-                                   [options]="options.interimAdministrationConditions"
+                                   [options]="filteredOptions.interimAdministrationConditions"
                                    [(ngModel)]="settings.interimAdministrationConditions"
                                    [ngModelOptions]="{standalone: true}"
                                    name="interimAdministrationConditions"
@@ -439,7 +439,7 @@
               </div>
               <div class="col-md-6">
                 <sb-checkbox-group [horizontal]="true"
-                                   [options]="options.summativeAdministrationConditions"
+                                   [options]="filteredOptions.summativeAdministrationConditions"
                                    [(ngModel)]="settings.summativeAdministrationConditions"
                                    [ngModelOptions]="{standalone: true}"
                                    name="summativeAdministrationConditions"
@@ -459,7 +459,7 @@
               </div>
               <div class="col-md-6">
                 <sb-checkbox-group [horizontal]="true"
-                                   [options]="options.completenesses"
+                                   [options]="filteredOptions.completenesses"
                                    [(ngModel)]="settings.completenesses"
                                    [ngModelOptions]="{standalone: true}"
                                    name="completenesses"
@@ -494,7 +494,7 @@
                   <div class="col-md-6">
                   </div>
                   <div class="col-md-6">
-                    <sb-checkbox-group [options]="options.dimensionTypes"
+                    <sb-checkbox-group [options]="filteredOptions.dimensionTypes"
                                        [(ngModel)]="settings.dimensionTypes"
                                        [ngModelOptions]="{standalone: true}"
                                        name="dimensionTypes"
@@ -525,7 +525,7 @@
                 </div>
               </div>
               <subgroup-filters *ngIf="showAdvancedFilters"
-                                [options]="options.studentFilters"
+                                [options]="filteredOptions.studentFilters"
                                 [settings]="settings.studentFilters"
                                 (changed)="onSettingsChange()"></subgroup-filters>
               <div [hidden]="settings.reportType !== 'Claim'">
@@ -535,7 +535,7 @@
                   <div class="flex-children">
                     <sb-button-group type="checkbox"
                                      [vertical]="true"
-                                     [options]="options.claimCodes"
+                                     [options]="filteredOptions.claimCodes"
                                      [(ngModel)]="settings.claimReport.claimCodes"
                                      [ngModelOptions]="{standalone: true}"
                                      name="claimCodes"
@@ -560,7 +560,7 @@
                   translate}}</p>
               </div>
 
-              <subgroup-filters [options]="options.studentFilters"
+              <subgroup-filters [options]="filteredOptions.studentFilters"
                                 [settings]="customSubgroup"></subgroup-filters>
 
               <div class="well">
@@ -689,7 +689,7 @@
               </span>
               <span class="pull-right flex-child ml-xs">
                 <label class="mr-xs">{{'common.value-display-type-input-label' | translate}}</label>
-                <sb-radio-button-group [options]="options.valueDisplayTypes"
+                <sb-radio-button-group [options]="filteredOptions.valueDisplayTypes"
                                        [(ngModel)]="settings.valueDisplayType"
                                        buttonGroupStyles="btn-group-xs"
                                        buttonStyles="btn-default"
@@ -699,7 +699,7 @@
               <span class="pull-right flex-child ml-xs"
                     *ngIf="currentAssessmentDefinition.performanceLevelDisplayTypes.length > 1">
                 <label class="mr-xs">{{'common.performance-level-display-type-input-label' | translate}}</label>
-                <sb-radio-button-group [options]="options.performanceLevelDisplayTypes"
+                <sb-radio-button-group [options]="filteredOptions.performanceLevelDisplayTypes"
                                        [(ngModel)]="settings.performanceLevelDisplayType"
                                        buttonGroupStyles="btn-group-xs"
                                        buttonStyles="btn-default"
