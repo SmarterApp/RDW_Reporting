@@ -402,11 +402,25 @@ export class AggregateReportFormComponent {
     this.settings.columnOrder = order;
     this.columnItems = this.columnOrderableItemProvider.toOrderableItems(order);
 
+    this.options.reportTypes.forEach(reportType => reportType.disabled = false);
     if (!this.currentAssessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort') && this.currentAssessmentDefinition.aggregateReportTypes.includes('Claim')) {
-      this.filteredOptions.reportTypes = this.options.reportTypes.filter(reportType => reportType.value !== 'LongitudinalCohort');
+      this.filteredOptions.reportTypes = this.options.reportTypes.map(reportType => {
+        if (reportType.value === 'LongitudinalCohort') {
+          reportType.disabled = true;
+        }
+        return reportType;
+      });
+    } else if (this.currentAssessmentDefinition.aggregateReportTypes.includes('GeneralPopulation')) {
+      this.filteredOptions.reportTypes = this.options.reportTypes.map(reportType => {
+        if (reportType.value !== 'GeneralPopulation') {
+          reportType.disabled = true;
+        }
+        return reportType;
+      });
     } else {
       this.filteredOptions.reportTypes = this.options.reportTypes;
     }
+
 
     this.markOrganizationsControlTouched();
     this.onSettingsChange();

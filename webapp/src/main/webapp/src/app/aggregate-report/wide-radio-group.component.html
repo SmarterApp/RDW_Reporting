@@ -6,13 +6,13 @@
       class="btn"
       [ngClass]="computeStylesInternal(buttonStyles, {
                  active: option.value === value,
-                 disabled: disabled
+                 disabled: option.disabled || disabled
              })">
       <input type="radio"
              id="{{name}}"
              name="{{name}}"
              [attr.selected]="option.value === value"
-             [disabled]="disabled"
+             [disabled]="option.disabled || disabled"
              [value]="option.value"
              [(ngModel)]="value"
              angulartics2On="click"
@@ -21,7 +21,7 @@
              [angularticsProperties]="option.analyticsProperties">
       {{option.text}}
     </label>
-    <p class="ml-xs text-muted small">{{option.description}}</p>
+    <p class="ml-xs text-muted small" [ngClass]="{'disabled': option.disabled || disabled}">{{option.description}}</p>
   </ng-container>
 </div>
 

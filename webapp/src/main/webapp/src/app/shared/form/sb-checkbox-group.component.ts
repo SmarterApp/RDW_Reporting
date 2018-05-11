@@ -208,4 +208,5 @@ export interface Option {
   value: any;
   text?: string;
   analyticsProperties?: any;
+  disabled?: boolean;
 }
