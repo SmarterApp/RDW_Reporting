@@ -164,7 +164,7 @@ sql:
       SELECT * FROM import WHERE content = 5 AND digest = :digest
 
     findGroupByCreator: >-
-      SELECT * FROM import WHERE content = 5 AND creator = :creator
+      SELECT * FROM import WHERE content = 5 AND contentType <> 'group delete' AND creator = :creator
 
   instructionalResource:
     findAll: >-
