@@ -54,7 +54,6 @@
       "report-type-label": "Report Type",
       "report-type-info": "TODO",
       "claim-codes-label": "Claim Codes",
-      "claim-codes-info": "TODO",
       "assessment-grade-range-label": "Assessment Grades",
       "to-school-year-label": "Most Recent Academic Year",
       "to-school-year-info": "TODO",
@@ -113,7 +112,6 @@
       "report-type-heading": "Report Type",
       "review-heading": "Report Review",
       "preview-heading": "Report Preview",
-      "question-attributes-heading": "Question Attributes",
       "custom-subgroup": {
         "heading": "Custom Subgroups",
         "description": "Create multiple custom subgroups by selecting a combination of attributes below and clicking \"Create Subgroup.\" Each custom subgroup will represent a row in your report. The Report Preview section below shows how it will look.",
