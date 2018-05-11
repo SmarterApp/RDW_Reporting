@@ -201,32 +201,26 @@ export class AggregateReportRequestMapper {
       toSchoolYear: options.schoolYears[ 0 ]
     };
 
-    let generalPopulation,
-      longitudinalCohort,
-      claimReport;
+    let generalPopulation = defaultGeneralPopulation,
+      longitudinalCohort = defaultLongitudinalCohort,
+      claimReport = defaultClaimReport;
 
     if (reportType === 'GeneralPopulation') {
       generalPopulation = {
         assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
         schoolYears: query.schoolYears.sort((a, b) => b - a),
       };
-      longitudinalCohort = defaultLongitudinalCohort;
-      claimReport = defaultClaimReport;
     } else if (reportType === 'LongitudinalCohort') {
       longitudinalCohort = {
         assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
         toSchoolYear: query.toSchoolYear
       };
-      generalPopulation = defaultGeneralPopulation;
-      claimReport = defaultClaimReport;
     } else if (reportType === 'Claim') {
       claimReport = {
         assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
         schoolYears: query.schoolYears.sort((a, b) => b - a),
         claimCodes: options.claims
       }
-      longitudinalCohort = defaultLongitudinalCohort;
-      generalPopulation = defaultGeneralPopulation;
     }
 
     return forkJoin(schools, districts)
