@@ -97,7 +97,7 @@ export class WideRadioGroupComponent extends AbstractControlValueAccessor<any[]>
             value: option.value,
             text: option.text ? option.text : option.value,
             description: option.description,
-            disabled: option.disabled ? true : false,
+            disabled: option.disabled,
             analyticsProperties: option.analyticsProperties
           };
         }
