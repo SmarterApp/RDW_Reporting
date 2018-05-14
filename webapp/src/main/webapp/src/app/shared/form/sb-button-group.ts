@@ -410,11 +410,11 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
    */
   private computeState(options: Option[], values: any[]): State {
     if (this.allOptionEnabled) {
-      const effectivelySelectedAllOption = values.length >= options.length;
       const optionsFilter = options.filter(option => values.includes(option.value));
+      const effectivelySelectedAllOption = values.length === options.length || options.length === optionsFilter.length;
       return {
-        selectedAllOption: effectivelySelectedAllOption || !optionsFilter.length,
-        selectedOptions: effectivelySelectedAllOption || !optionsFilter.length
+        selectedAllOption: effectivelySelectedAllOption,
+        selectedOptions: effectivelySelectedAllOption
           ? new Set()
           : new Set(optionsFilter)
       };
