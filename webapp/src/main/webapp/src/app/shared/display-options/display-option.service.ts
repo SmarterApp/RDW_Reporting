@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
-import { PerformanceLevelDisplayTypes } from "./performance-level-display-type";
-import { ValueDisplayTypes } from "./value-display-type";
+import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { PerformanceLevelDisplayTypes } from './performance-level-display-type';
+import { ValueDisplayTypes } from './value-display-type';
 
 @Injectable()
 export class DisplayOptionService {
@@ -17,7 +17,8 @@ export class DisplayOptionService {
       .map(this.createOptionMapper(
         value => this.translateService.instant(`common.value-display-type.${value}`),
         value => `Value Display Type: ${value}`
-      ));;
+      ));
+    ;
   }
 
   /**
@@ -38,7 +39,16 @@ export class DisplayOptionService {
    * @param {(value: any) => string} labelProvider
    * @returns {any}
    */
-  createOptionMapper(translationProvider: (value: any) => string, analyticsLabelProvider: (value: any) => string): any {
+  createOptionMapper(translationProvider: (value: any) => string, analyticsLabelProvider: (value: any) => string, descriptionProvider?: (value: any) => string, disabledTextProvider?: (value: any) => string): any {
+    if (descriptionProvider) {
+      return (value: any) => <any>{
+        value: value,
+        text: translationProvider(value),
+        label: analyticsLabelProvider(value),
+        description: descriptionProvider(value),
+        disabledText: disabledTextProvider(value)
+      };
+    }
     return (value: any) => <any>{
       value: value,
       text: translationProvider(value),

@@ -1,7 +1,5 @@
-import { District, School } from "../shared/organization/organization";
-import {SubgroupFilters} from "./subgroup/subgroup-filters";
-import { AggregateReportType } from './aggregate-report-type';
-import { AggregateReportQueryType } from './aggregate-report-query-type';
+import { District, School } from '../shared/organization/organization';
+import { SubgroupFilters } from './subgroup/subgroup-filters';
 
 /**
  * Client side representation of a report request.
@@ -97,7 +95,7 @@ export interface AggregateReportFormSettings {
   /**
    * Defines the report type (standard or longitudinal)
    */
-  reportType: 'GeneralPopulation' | 'LongitudinalCohort';
+  reportType: 'GeneralPopulation' | 'LongitudinalCohort' | 'Claim';
 
   /**
    * The advanced filters applied to basic reports
@@ -123,6 +121,28 @@ export interface AggregateReportFormSettings {
      * The school years to be covered on the report
      */
     schoolYears: number[];
+
+  };
+
+  /**
+   * Claim report assessment settings
+   */
+  claimReport: {
+
+    /**
+     * Assessment grades to be covered on the report
+     */
+    assessmentGrades: string[];
+
+    /**
+     * The school years to be covered on the report
+     */
+    schoolYears: number[];
+
+    /**
+     * The claim codes
+     */
+    claimCodes: string[];
 
   };
 

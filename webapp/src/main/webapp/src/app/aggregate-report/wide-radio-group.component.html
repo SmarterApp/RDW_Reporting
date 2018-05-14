@@ -1,0 +1,30 @@
+<div class="btn-toolbar-grid toggle-group"
+     [ngClass]="buttonGroupStyles"
+     data-toggle="buttons">
+  <ng-container *ngFor="let option of options">
+    <label
+      class="btn"
+      popover="{{ option.disabledText }}"
+      triggers="{{ option.disabled || disabled ? 'mouseenter:mouseleave' : ''}}"
+      [ngClass]="computeStylesInternal(buttonStyles, {
+                 active: option.value === value,
+                 disabled: option.disabled || disabled
+             })">
+      <input type="radio"
+             id="{{name}}"
+             name="{{name}}"
+             [attr.selected]="option.value === value"
+             [disabled]="option.disabled || disabled"
+             [value]="option.value"
+             [(ngModel)]="value"
+             angulartics2On="click"
+             angularticsEvent="{{analyticsEvent}}"
+             angularticsCategory="{{analyticsCategory}}"
+             [angularticsProperties]="option.analyticsProperties">
+      {{option.text}}
+    </label>
+    <p class="ml-xs text-muted small" [ngClass]="{'disabled': option.disabled || disabled}">{{option.description}}</p>
+  </ng-container>
+</div>
+
+

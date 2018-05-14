@@ -30,6 +30,8 @@ import { SubgroupMapper } from './subgroup/subgroup.mapper';
 import { fileName, notEmpty } from '../shared/form/validators';
 import { SubgroupItem } from './subgroup/subgroup-item';
 import { Utils } from '../shared/support/support';
+import { Claim } from './aggregate-report-options.service';
+import { Option as SbCheckboxGroupOption } from '../shared/form/sb-checkbox-group.component';
 
 const OrganizationComparator = (a: Organization, b: Organization) => a.name.localeCompare(b.name);
 
@@ -43,9 +45,9 @@ const OrganizationComparator = (a: Organization, b: Organization) => a.name.loca
 export class AggregateReportFormComponent {
 
   /**
-   * Holds the form options
+   * Holds the form's filtered options
    */
-  options: AggregateReportFormOptions;
+  filteredOptions: AggregateReportFormOptions;
 
   /**
    * Holds the form state
@@ -106,7 +108,7 @@ export class AggregateReportFormComponent {
   /**
    * Determines whether or not the advanced filters section is visible
    */
-  showAdvancedFilters: boolean = false;
+  showAdvancedFilters = false;
 
   /**
    * Handle on the request submission
@@ -122,6 +124,8 @@ export class AggregateReportFormComponent {
    * Custom subgroup display items
    */
   subgroupItems: SubgroupItem[] = [];
+
+  private options: AggregateReportFormOptions;
 
   /**
    * Controls for view invalidation
@@ -164,6 +168,10 @@ export class AggregateReportFormComponent {
     this.columnItems = this.columnOrderableItemProvider.toOrderableItems(this.settings.columnOrder);
 
     this.options = optionMapper.map(this.aggregateReportOptions);
+    if (!this.settings.assessmentType.includes('sum')) {
+      this.options.reportTypes = this.options.reportTypes.filter(reportType => reportType.value !== 'LongitudinalCohort');
+    }
+    this.filteredOptions = Object.assign({}, this.options);
 
     this.organizationTypeaheadOptions = Observable.create(observer => {
       observer.next(this.organizationTypeahead.value);
@@ -202,7 +210,7 @@ export class AggregateReportFormComponent {
       control.updateValueAndValidity();
     };
 
-    if (this.settings.reportType === 'GeneralPopulation' || !this.currentAssessmentDefinition.aggregateReportLongitudinalCohortEnabled) {
+    if (this.settings.reportType === 'GeneralPopulation' || !this.currentAssessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')) {
       setValidators(this.assessmentGradesControl, [
         notEmpty({ messageId: 'aggregate-report-form.field.assessment-grades-empty-error' })
       ]);
@@ -210,7 +218,7 @@ export class AggregateReportFormComponent {
         notEmpty({ messageId: 'aggregate-report-form.field.school-year-empty-error' })
       ]);
       setValidators(this.assessmentGradeRangeControl, null);
-    } else if (this.settings.reportType === 'LongitudinalCohort' && this.currentAssessmentDefinition.aggregateReportLongitudinalCohortEnabled) {
+    } else if (this.settings.reportType === 'LongitudinalCohort' && this.currentAssessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')) {
       setValidators(this.assessmentGradesControl, null);
       setValidators(this.schoolYearsControl, null);
       setValidators(this.assessmentGradeRangeControl, [
@@ -310,6 +318,15 @@ export class AggregateReportFormComponent {
   }
 
   onReportTypeChange(): void {
+    if (this.settings.reportType === 'Claim') {
+      this.filteredOptions.assessmentTypes = this.options.assessmentTypes.filter(assessmentType => assessmentType.value !== 'iab');
+      this.filterClaimCodes();
+    } else if (this.settings.reportType === 'LongitudinalCohort') {
+      this.filteredOptions.assessmentTypes = this.options.assessmentTypes.filter(assessmentType => assessmentType.value !== 'iab'
+        && assessmentType.value !== 'ica');
+    } else {
+      this.filteredOptions.assessmentTypes = this.options.assessmentTypes;
+    }
     this.onSettingsChange();
   }
 
@@ -376,7 +393,7 @@ export class AggregateReportFormComponent {
   }
 
   onAssessmentTypeChange(): void {
-
+    this.filterClaimCodes();
     // Preserve column order between changing assessment types
     const currentOrder = this.settings.columnOrder.concat();
     if (!currentOrder.includes('assessmentLabel')) {
@@ -387,6 +404,26 @@ export class AggregateReportFormComponent {
 
     this.settings.columnOrder = order;
     this.columnItems = this.columnOrderableItemProvider.toOrderableItems(order);
+
+    this.options.reportTypes.forEach(reportType => reportType.disabled = false);
+    if (!this.currentAssessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort') && this.currentAssessmentDefinition.aggregateReportTypes.includes('Claim')) {
+      this.filteredOptions.reportTypes = this.options.reportTypes.map(reportType => {
+        if (reportType.value === 'LongitudinalCohort') {
+          reportType.disabled = true;
+        }
+        return reportType;
+      });
+    } else if (this.currentAssessmentDefinition.aggregateReportTypes.includes('GeneralPopulation')) {
+      this.filteredOptions.reportTypes = this.options.reportTypes.map(reportType => {
+        if (reportType.value !== 'GeneralPopulation') {
+          reportType.disabled = true;
+        }
+        return reportType;
+      });
+    } else {
+      this.filteredOptions.reportTypes = this.options.reportTypes;
+    }
+
 
     this.markOrganizationsControlTouched();
     this.onSettingsChange();
@@ -420,10 +457,12 @@ export class AggregateReportFormComponent {
         // and has at least one grade
         !Utils.isNullOrEmpty(this.settings.generalPopulation.assessmentGrades)
         || !Utils.isNullOrEmpty(this.settings.longitudinalCohort.assessmentGrades)
+        || !Utils.isNullOrEmpty(this.settings.claimReport.assessmentGrades)
       )
       && (
         // and has at least one schools years
         !Utils.isNullOrEmpty(this.settings.generalPopulation.schoolYears)
+        || !Utils.isNullOrEmpty(this.settings.claimReport.schoolYears)
         || this.settings.longitudinalCohort.toSchoolYear > 0
       )
     );
@@ -440,6 +479,11 @@ export class AggregateReportFormComponent {
         this.aggregateReportOptions
       )
     };
+  }
+
+  onSubjectsChange(): void {
+    this.onSettingsChange();
+    this.filterClaimCodes();
   }
 
   /**
@@ -479,6 +523,14 @@ export class AggregateReportFormComponent {
           }
         );
     });
+  }
+
+  private filterClaimCodes(): void {
+    if (this.settings.reportType === 'Claim') {
+      this.filteredOptions.claimCodes = this.options.claimCodes.filter((claim: SbCheckboxGroupOption) => {
+        return claim.value.assessmentType === this.settings.assessmentType && this.settings.subjects.includes(claim.value.subject);
+      });
+    }
   }
 
   private markOrganizationsControlTouched(): void {
@@ -571,7 +623,7 @@ export class AggregateReportFormComponent {
    * @returns {AggregateReportRequest} the created request
    */
   private createReportRequest(): AggregateReportRequest {
-    return this.requestMapper.map(this.options, this.settings, this.currentAssessmentDefinition);
+    return this.requestMapper.map(this.filteredOptions, this.settings, this.currentAssessmentDefinition);
   }
 
 }

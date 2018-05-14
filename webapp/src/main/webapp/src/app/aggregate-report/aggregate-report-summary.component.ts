@@ -136,26 +136,29 @@ export class AggregateReportSummary {
         values: orAll(options.subjects, settings.subjects, code => translate(`common.subject.${code}.short-name`))
       },
 
-      ...(settings.reportType === 'GeneralPopulation' || !assessmentDefinition.aggregateReportLongitudinalCohortEnabled
+      ...(settings.reportType === 'GeneralPopulation' || !assessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')
         ? [
-            {
-              label: translate('aggregate-report-form.field.assessment-grades-label'),
-              values: inline(orAll(options.assessmentGrades, settings.generalPopulation.assessmentGrades, code => translate(`common.assessment-grade.${code}`)))
-            },
-            {
-              label: translate('aggregate-report-form.field.school-year-label'),
-              values: settings.generalPopulation.schoolYears.map(value => this.schoolYearPipe.transform(value))
-            }
-          ]
+          {
+            label: translate('aggregate-report-form.field.assessment-grades-label'),
+            values: inline(orAll(options.assessmentGrades, settings.generalPopulation.assessmentGrades,
+              code => translate(`common.assessment-grade.${code}`)))
+          },
+          {
+            label: translate('aggregate-report-form.field.school-year-label'),
+            values: settings.generalPopulation.schoolYears.map(value => this.schoolYearPipe.transform(value))
+          }
+        ]
         : [
-            {
-              label: translate('aggregate-report-form.field.assessment-grades-label'),
-              values: inline(orAll(options.assessmentGrades, settings.longitudinalCohort.assessmentGrades, code => translate(`common.assessment-grade.${code}`)))
-            },
-            {
-              label: translate('aggregate-report-form.field.school-year-label'),
-              values: computeEffectiveYears(settings.longitudinalCohort.toSchoolYear, settings.longitudinalCohort.assessmentGrades).map(value => this.schoolYearPipe.transform(value))
-            }
+          {
+            label: translate('aggregate-report-form.field.assessment-grades-label'),
+            values: inline(orAll(options.assessmentGrades, settings.longitudinalCohort.assessmentGrades,
+              code => translate(`common.assessment-grade.${code}`)))
+          },
+          {
+            label: translate('aggregate-report-form.field.school-year-label'),
+            values: computeEffectiveYears(settings.longitudinalCohort.toSchoolYear, settings.longitudinalCohort.assessmentGrades)
+              .map(value => this.schoolYearPipe.transform(value))
+          }
         ]),
       ...[
         assessmentDefinition.interim
@@ -293,7 +296,7 @@ export class AggregateReportSummary {
                 subgroups.length === 0
                   ? None
                   : subgroups.length === 1
-                  ? this.subgroupMapper.fromFilters(subgroups[0], options.dimensionTypes).name
+                  ? this.subgroupMapper.fromFilters(subgroups[ 0 ], options.dimensionTypes).name
                   : subgroups.length
               ]
             }

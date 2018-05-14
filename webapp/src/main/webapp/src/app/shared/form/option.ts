@@ -19,4 +19,19 @@ export interface Option {
    */
   readonly analyticsProperties?: any;
 
+  /**
+   * Optional description to display beneath the option value
+   */
+  readonly description?: string;
+
+  /**
+   * Optional boolean to specify whether or not to disable the option
+   */
+  readonly disabled?: boolean;
+
+  /**
+   * Optional hover over text to display when the option is disabled
+   */
+  readonly disabledText?: string;
+
 }

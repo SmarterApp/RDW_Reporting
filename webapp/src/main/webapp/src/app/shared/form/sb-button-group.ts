@@ -236,6 +236,9 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
   set options(options: Option[]) {
     if (this._initialized) {
       this._options = this.parseInputOptions(options);
+      if (!this.effectiveNoneStateEnabled && (!this._value || this._value.length === 0)) {
+        this._value = this.parseInputValues(this._initialValues);
+      }
       this._state = this.computeState(this._options, this._value);
     } else {
       this._initialOptions = options;
@@ -407,12 +410,13 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
    */
   private computeState(options: Option[], values: any[]): State {
     if (this.allOptionEnabled) {
-      const effectivelySelectedAllOption = values.length === options.length;
+      const effectiveOptions = options.filter(option => values.includes(option.value));
+      const effectivelySelectedAllOption = values.length === options.length || options.length === effectiveOptions.length;
       return {
         selectedAllOption: effectivelySelectedAllOption,
         selectedOptions: effectivelySelectedAllOption
           ? new Set()
-          : new Set(options.filter(option => values.includes(option.value)))
+          : new Set(effectiveOptions)
       };
     }
     return {

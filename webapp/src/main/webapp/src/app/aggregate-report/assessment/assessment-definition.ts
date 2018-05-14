@@ -3,7 +3,7 @@ export interface AssessmentDefinition {
   /**
    * Reflective reference to the type code of the assessment
    */
-  readonly typeCode: string;
+  readonly typeCode: 'sum' | 'iab' | 'ica';
 
   /**
    * Whether or not the assessment is interim or not
@@ -45,8 +45,7 @@ export interface AssessmentDefinition {
   readonly aggregateReportStateResultsEnabled: boolean;
 
   /**
-   * True if the definition supports longitudinal cohort reports
+   * An array of report types the definition supports
    */
-  readonly aggregateReportLongitudinalCohortEnabled: boolean;
-
+  readonly aggregateReportTypes: [ 'GeneralPopulation' | 'LongitudinalCohort' | 'Claim' ];
 }

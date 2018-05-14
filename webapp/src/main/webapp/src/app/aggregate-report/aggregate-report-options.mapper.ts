@@ -10,6 +10,7 @@ import { AssessmentDefinitionService } from './assessment/assessment-definition.
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { ApplicationSettingsService } from '../app-settings.service';
+import { Claim } from './aggregate-report-options.service';
 
 /**
  * Responsible for mapping server provided report options into option
@@ -52,6 +53,11 @@ export class AggregateReportOptionsMapper {
           value => translate(`common.assessment-type.${value}.short-name`),
           value => `Assessment Type: ${value}`
         )),
+      claimCodes: options.claims
+        .map(optionMapper(
+          (value: Claim) => translate(`common.subject-claim-code.${value.code}`),
+          (value: Claim) => `Claim Code: ${value.code}`
+        )),
       completenesses: options.completenesses
         .map(optionMapper(
           value => translate(`common.completeness.${value}`),
@@ -86,8 +92,10 @@ export class AggregateReportOptionsMapper {
         )),
       reportTypes: options.reportTypes
         .map(optionMapper(
-          value => translate(`common.aggregate-report-type.${value}`),
-          value => `Aggregate Report Type: ${value}`
+          value => translate(`common.aggregate-report-type.${value}.label`),
+          value => `Aggregate Report Type: ${value}`,
+          value => translate(`common.aggregate-report-type.${value}.description`),
+          value => translate(`common.aggregate-report-type.${value}.disabled`)
         )),
       statewideReporter: options.statewideReporter, // TODO move to user context?
       studentFilters: {
@@ -170,6 +178,11 @@ export class AggregateReportOptionsMapper {
           generalPopulation: {
             assessmentGrades: [],
             schoolYears: [ options.schoolYears[ 0 ] ]
+          },
+          claimReport: {
+            assessmentGrades: [],
+            schoolYears: [ options.schoolYears[ 0 ] ],
+            claimCodes: []
           },
           longitudinalCohort: {
             assessmentGrades: [],

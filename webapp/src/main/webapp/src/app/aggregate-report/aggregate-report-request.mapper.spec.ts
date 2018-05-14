@@ -9,13 +9,10 @@ import {
   School
 } from '../shared/organization/organization';
 import { AggregateReportOptions } from './aggregate-report-options';
-import {
-  AggregateReportQuery,
-  AggregateReportRequest,
-  StudentFilters
-} from '../report/aggregate-report-request';
+import { AggregateReportQuery, AggregateReportRequest, StudentFilters } from '../report/aggregate-report-request';
 import { AggregateReportFormSettings } from './aggregate-report-form-settings';
 import { of } from 'rxjs/observable/of';
+import { Claim } from './aggregate-report-options.service';
 import Spy = jasmine.Spy;
 
 describe('AggregateReportRequestMapper', () => {
@@ -117,9 +114,14 @@ describe('AggregateReportRequestMapper', () => {
         assessmentGrades: query.assessmentGradeCodes,
         schoolYears: query.schoolYears,
       },
+      claimReport: {
+        assessmentGrades: [],
+        schoolYears: query.schoolYears,
+        claimCodes: []
+      },
       longitudinalCohort: {
         assessmentGrades: [],
-        toSchoolYear: options.schoolYears[0]
+        toSchoolYear: options.schoolYears[ 0 ]
       }
     };
 
@@ -188,9 +190,14 @@ describe('AggregateReportRequestMapper', () => {
         assessmentGrades: query.assessmentGradeCodes,
         schoolYears: query.schoolYears,
       },
+      claimReport: {
+        assessmentGrades: [],
+        schoolYears: query.schoolYears,
+        claimCodes: []
+      },
       longitudinalCohort: {
         assessmentGrades: [],
-        toSchoolYear: options.schoolYears[0]
+        toSchoolYear: options.schoolYears[ 0 ]
       }
     };
 
@@ -211,8 +218,19 @@ describe('AggregateReportRequestMapper', () => {
       dimensionTypes: [ 'Gender', 'Ethnicity' ],
       interimAdministrationConditions: [ 'SD', 'NS' ],
       queryTypes: [ 'Basic', 'FilteredSubgroup' ],
-      reportTypes: [ 'GeneralPopulation', 'LongitudinalCohort' ],
+      reportTypes: [ 'GeneralPopulation', 'LongitudinalCohort', 'Claim' ],
       schoolYears: [ 2000, 1999 ],
+      claims: [ <Claim>{
+        subject: 'Math',
+        assessmentType: 'ica',
+        code: '3'
+
+      },
+        <Claim>{
+          subject: 'ELA',
+          assessmentType: 'sum',
+          code: '4'
+        } ],
       statewideReporter: false,
       subjects: [ 'Math', 'ELA' ],
       summativeAdministrationConditions: [ 'Valid', 'IN' ],
@@ -226,7 +244,7 @@ describe('AggregateReportRequestMapper', () => {
         migrantStatuses: booleans,
         section504s: booleans
       }
-    }
+    };
   }
 
   function mockDistrict(): District {

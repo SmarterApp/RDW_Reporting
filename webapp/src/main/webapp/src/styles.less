@@ -1322,3 +1322,27 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
 .label.label-lg {
   font-size: 100%;
 }
+wide-radio-group {
+  .btn-toolbar-grid {
+    .btn-toolbar;
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+    grid-auto-flow: column;
+    &:before {
+      content: none;
+    }
+  }
+
+  .toggle-group .btn.disabled {
+    pointer-events: auto;
+    &:hover, &:active {
+      background-color: @white;
+      border-color: @gray-light;
+      color: @gray-mid;
+    }
+  }
+
+  p.disabled {
+    opacity: 0.65;
+  }
+}

@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  AggregateReportQuery,
-  AggregateReportRequest,
-  StudentFilters
-} from '../report/aggregate-report-request';
+import { AggregateReportQuery, AggregateReportRequest, StudentFilters } from '../report/aggregate-report-request';
 import { AggregateReportFormSettings } from './aggregate-report-form-settings';
 import { AggregateReportFormOptions } from './aggregate-report-form-options';
 import { TranslateService } from '@ngx-translate/core';
@@ -97,12 +93,16 @@ export class AggregateReportRequestMapper {
     // Set report type specific parameters
     // The assessment definition check is tacked on because the form state can be set to longitudinal cohort
     // and then the assessment definition can be changed to a type that does not support longitudinal cohort
-    if (settings.reportType === 'GeneralPopulation' || !assessmentDefinition.aggregateReportLongitudinalCohortEnabled) {
+    if (settings.reportType === 'GeneralPopulation' || !assessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')) {
       query.assessmentGradeCodes = settings.generalPopulation.assessmentGrades;
       query.schoolYears = settings.generalPopulation.schoolYears;
-    } else if (settings.reportType === 'LongitudinalCohort' && assessmentDefinition.aggregateReportLongitudinalCohortEnabled) {
+    } else if (settings.reportType === 'LongitudinalCohort' && assessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')) {
       query.assessmentGradeCodes = settings.longitudinalCohort.assessmentGrades;
       query.toSchoolYear = settings.longitudinalCohort.toSchoolYear;
+    } else if (settings.reportType === 'Claim' && assessmentDefinition.aggregateReportTypes.includes('Claim')) {
+      query.assessmentGradeCodes = settings.claimReport.assessmentGrades;
+      query.schoolYears = settings.claimReport.schoolYears;
+      // TODO add claim codes
     }
 
     const name = settings.name
@@ -190,26 +190,37 @@ export class AggregateReportRequestMapper {
       schoolYears: [ options.schoolYears[ 0 ] ]
     };
 
+    const defaultClaimReport = {
+      assessmentGrades: [],
+      schoolYears: [ options.schoolYears[ 0 ] ],
+      claimCodes: []
+    };
+
     const defaultLongitudinalCohort = {
       assessmentGrades: [],
       toSchoolYear: options.schoolYears[ 0 ]
     };
 
-    let generalPopulation,
-      longitudinalCohort;
+    let generalPopulation = defaultGeneralPopulation,
+      longitudinalCohort = defaultLongitudinalCohort,
+      claimReport = defaultClaimReport;
 
     if (reportType === 'GeneralPopulation') {
       generalPopulation = {
         assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
         schoolYears: query.schoolYears.sort((a, b) => b - a),
       };
-      longitudinalCohort = defaultLongitudinalCohort;
     } else if (reportType === 'LongitudinalCohort') {
       longitudinalCohort = {
         assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
         toSchoolYear: query.toSchoolYear
       };
-      generalPopulation = defaultGeneralPopulation;
+    } else if (reportType === 'Claim') {
+      claimReport = {
+        assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
+        schoolYears: query.schoolYears.sort((a, b) => b - a),
+        claimCodes: options.claims
+      }
     }
 
     return forkJoin(schools, districts)
@@ -247,7 +258,9 @@ export class AggregateReportRequestMapper {
               : querySummativeAdministrationConditions,
             valueDisplayType: query.valueDisplayType,
             generalPopulation: generalPopulation,
-            longitudinalCohort: longitudinalCohort
+            longitudinalCohort: longitudinalCohort,
+            claimReport: claimReport
+
           };
         })
       );
@@ -361,7 +374,7 @@ export class AggregateReportRequestMapper {
     Claim: 'Claim'
   };
 
-  private ClientReportTypeBSyerverType = {
+  private ClientReportTypeByServerType = {
     CustomAggregate: 'GeneralPopulation',
     Longitudinal: 'LongitudinalCohort',
     Claim: 'Claim'
@@ -372,7 +385,7 @@ export class AggregateReportRequestMapper {
   }
 
   private fromServerReportType(type: string) {
-    return this.ClientReportTypeBSyerverType[ type ];
+    return this.ClientReportTypeByServerType[ type ];
   }
 
 }

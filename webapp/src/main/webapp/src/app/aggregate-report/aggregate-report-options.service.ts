@@ -27,6 +27,7 @@ export class AggregateReportOptionsService {
       map(serverOptions => <AggregateReportOptions>{
         assessmentGrades: serverOptions.assessmentGrades.concat(),
         assessmentTypes: serverOptions.assessmentTypes.concat().sort(assessmentTypeComparator),
+        claims: this.mapClaims(serverOptions.claims),
         completenesses: serverOptions.completenesses.concat().sort(completenessComparator),
         defaultOrganization: serverOptions.defaultOrganization
           ? this.organizationMapper.map(serverOptions.defaultOrganization)
@@ -34,7 +35,7 @@ export class AggregateReportOptionsService {
         dimensionTypes: serverOptions.dimensionTypes.concat(),
         interimAdministrationConditions: serverOptions.interimAdministrationConditions.concat(),
         queryTypes: [ 'Basic', 'FilteredSubgroup' ],
-        reportTypes: [ 'GeneralPopulation', 'LongitudinalCohort' ],
+        reportTypes: [ 'GeneralPopulation', 'Claim', 'LongitudinalCohort' ],
         schoolYears: serverOptions.schoolYears.concat(),
         statewideReporter: serverOptions.statewideReporter,
         subjects: serverOptions.subjects.concat(),
@@ -53,4 +54,18 @@ export class AggregateReportOptionsService {
     );
   }
 
+  mapClaims(claims: any[]): Claim[] {
+    return claims.map(claim => <Claim>{
+      assessmentType: claim.assessmentTypeCode,
+      subject: claim.subjectCode,
+      code: claim.code
+    });
+  }
+
+}
+
+export interface Claim {
+  readonly assessmentType: string;
+  readonly subject: string;
+  readonly code: string;
 }

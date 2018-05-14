@@ -31,6 +31,7 @@ import { LongitudinalCohortChartComponent } from './results/longitudinal-cohort-
 import { LongitudinalPlaygroundComponent } from './results/longitudinal-playground.component';
 import { SubgroupModule } from './subgroup/subgroup.module';
 import { LongitudinalCohortChartMapper } from './results/longitudinal-cohort-chart.mapper';
+import { WideRadioGroupComponent } from './wide-radio-group.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { LongitudinalCohortChartMapper } from './results/longitudinal-cohort-cha
     AggregateReportComponent,
     AggregateReportTableComponent,
     AggregateReportSummary,
+    WideRadioGroupComponent,
     EditableListGroupComponent,
     ListGroupComponent,
     LongitudinalCohortChartComponent,
@@ -69,6 +71,7 @@ import { LongitudinalCohortChartMapper } from './results/longitudinal-cohort-cha
     AggregateReportTableDataService,
     AggregateReportTableExportService,
     AggregateReportService,
+    WideRadioGroupComponent,
     AggregateReportResolve,
     AggregateReportOptionsResolve,
     AggregateReportOptionsService,

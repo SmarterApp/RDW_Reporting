@@ -1,6 +1,6 @@
-import { Option as SbToggleOption } from "../shared/sb-toggle.component";
-import { Option as SbCheckboxGroupOption } from "../shared/form/sb-checkbox-group.component";
-import { SubgroupFilterFormOptions } from "./subgroup/subgroup-filter-form-options";
+import { Option as SbToggleOption } from '../shared/sb-toggle.component';
+import { Option as SbCheckboxGroupOption } from '../shared/form/sb-checkbox-group.component';
+import { SubgroupFilterFormOptions } from './subgroup/subgroup-filter-form-options';
 
 /**
  * Represents the options available in the aggregate report form
@@ -9,6 +9,7 @@ export interface AggregateReportFormOptions {
 
   assessmentGrades: SbCheckboxGroupOption[];
   assessmentTypes: SbToggleOption[];
+  claimCodes: SbCheckboxGroupOption[];
   completenesses: SbCheckboxGroupOption[];
   dimensionTypes: SbCheckboxGroupOption[];
   interimAdministrationConditions: SbCheckboxGroupOption[];
