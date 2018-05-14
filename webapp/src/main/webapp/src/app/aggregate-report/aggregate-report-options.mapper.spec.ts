@@ -54,8 +54,7 @@ describe('AggregateReportOptionsMapper', () => {
         performanceLevelGroupingCutPoint: 0,
         aggregateReportIdentityColumns: [ 'columnA' ],
         aggregateReportStateResultsEnabled: true,
-        aggregateReportLongitudinalCohortEnabled: true,
-        aggregateReportClaimEnabled: true
+        aggregateReportTypes: ['LongitudinalCohort', 'Claim']
       } ] ])
     ));
 

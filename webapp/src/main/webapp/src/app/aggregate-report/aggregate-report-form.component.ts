@@ -168,6 +168,9 @@ export class AggregateReportFormComponent {
     this.columnItems = this.columnOrderableItemProvider.toOrderableItems(this.settings.columnOrder);
 
     this.options = optionMapper.map(this.aggregateReportOptions);
+    if (!this.settings.assessmentType.includes('sum')) {
+      this.options.reportTypes = this.options.reportTypes.filter(reportType => reportType.value !== 'LongitudinalCohort');
+    }
     this.filteredOptions = Object.assign({}, this.options);
 
     this.organizationTypeaheadOptions = Observable.create(observer => {
