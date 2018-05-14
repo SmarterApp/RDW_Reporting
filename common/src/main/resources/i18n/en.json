@@ -18,7 +18,8 @@
           "standard-deviation": "ScaleScoreStandardDeviation",
           "student-count": "StudentsTested",
           "subject": "Subject",
-          "year": "SchoolYear"
+          "year": "SchoolYear",
+          "claim": "Claim"
         }
       }
     },

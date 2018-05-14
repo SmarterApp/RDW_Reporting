@@ -142,34 +142,29 @@ sql:
     readTest: >-
       SELECT ist.name FROM import_status ist
 
-  student_group_batch:
-    create: >-
-      INSERT INTO upload_student_group_batch (status, digest, creator, message, filename)
-        VALUES (:status, :digest, :creator, :message, :filename)
-
-    findOne: >-
-      SELECT * FROM upload_student_group_batch WHERE id=:id
-
-    findOneByDigest: >-
-      SELECT * FROM upload_student_group_batch WHERE digest=:digest LIMIT 1
-
-    sqlFindByCreator: >-
-      SELECT * FROM upload_student_group_batch WHERE creator=:creator
-
   import:
     createQuery: >-
       INSERT INTO import (status, content, contentType, digest, batch) VALUES
         (0, :content, :contentType, :digest, :batch)
 
     triggerQuery: >-
-      UPDATE import
-      SET status = 1
-      WHERE id = :id
+      UPDATE import SET status = 1 WHERE id = :id
 
     statusQuery: >-
-      UPDATE import
-      SET status = :status, message = :message
-      WHERE id = :id
+      UPDATE import SET status = :status, message = :message WHERE id = :id
+
+    createGroup: >-
+      INSERT INTO import (status, content, contentType, digest, batch, creator) VALUES
+        (0, 5, :contentType, :digest, :batch, :creator)
+
+    findGroupById: >-
+      SELECT * FROM import WHERE content = 5 AND id = :id
+
+    findGroupByDigest: >-
+      SELECT * FROM import WHERE content = 5 AND digest = :digest
+
+    findGroupByCreator: >-
+      SELECT * FROM import WHERE content = 5 AND contentType <> 'group delete' AND creator = :creator
 
   instructionalResource:
     findAll: >-

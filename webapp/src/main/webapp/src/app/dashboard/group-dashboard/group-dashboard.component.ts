@@ -9,6 +9,8 @@ import { ExamFilterOptions } from '../../assessments/model/exam-filter-options.m
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { AssessmentCardEvent } from './group-assessment-card.component';
 import { GroupReportDownloadComponent } from '../../report/group-report-download.component';
+import { byString } from '@kourge/ordering/comparator';
+import { ordering } from '@kourge/ordering';
 
 @Component({
   selector: 'group-dashboard',
@@ -46,7 +48,7 @@ export class GroupDashboardComponent implements OnInit {
       this.filterOptions = filterOptions;
       this.currentSchoolYear = Number.parseInt(schoolYear) || filterOptions.schoolYears[ 0 ];
       this.groupDashboardService.getAvailableMeasuredAssessments(group, this.currentSchoolYear).subscribe(measuredAssessments => {
-        this.measuredAssessments = measuredAssessments;
+        this.measuredAssessments = measuredAssessments.sort(ordering(byString).on<MeasuredAssessment>(x => x.assessment.label).compare);
         this.setAvailableSubjects(measuredAssessments);
       });
     });

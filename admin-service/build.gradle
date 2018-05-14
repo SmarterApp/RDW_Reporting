@@ -4,6 +4,7 @@ dependencies {
     compile project(':rdw-reporting-common')
     compile project(':rdw-reporting-common-web')
     compile 'org.opentestsystem.rdw.common:rdw-common-archive'
+    compile 'org.opentestsystem.rdw.common:rdw-common-group'
     compile 'org.opentestsystem.rdw.common:rdw-common-model'
     compile 'org.opentestsystem.rdw.common:rdw-common-messaging'
     compile 'org.opentestsystem.rdw.common:rdw-common-security'
