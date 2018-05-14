@@ -39,13 +39,14 @@ export class DisplayOptionService {
    * @param {(value: any) => string} labelProvider
    * @returns {any}
    */
-  createOptionMapper(translationProvider: (value: any) => string, analyticsLabelProvider: (value: any) => string, descriptionProvider?: (value: any) => string): any {
+  createOptionMapper(translationProvider: (value: any) => string, analyticsLabelProvider: (value: any) => string, descriptionProvider?: (value: any) => string, disabledTextProvider?: (value: any) => string): any {
     if (descriptionProvider) {
       return (value: any) => <any>{
         value: value,
         text: translationProvider(value),
         label: analyticsLabelProvider(value),
-        description: descriptionProvider(value)
+        description: descriptionProvider(value),
+        disabledText: disabledTextProvider(value)
       };
     }
     return (value: any) => <any>{

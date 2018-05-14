@@ -4,6 +4,8 @@
   <ng-container *ngFor="let option of options">
     <label
       class="btn"
+      popover="{{ option.disabledText }}"
+      triggers="{{ option.disabled || disabled ? 'mouseenter:mouseleave' : ''}}"
       [ngClass]="computeStylesInternal(buttonStyles, {
                  active: option.value === value,
                  disabled: option.disabled || disabled

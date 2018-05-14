@@ -243,6 +243,7 @@
     "aggregate-report-type": {
       "Claim": {
         "description": "Examine claim specific performance across groups",
+        "disabled": "Claim Focus is only available for ICA and Summative assessments.",
         "label": "Claim Focus"
       },
       "GeneralPopulation": {
@@ -251,6 +252,7 @@
       },
       "LongitudinalCohort": {
         "description": "Compare performance within a population of cohorts",
+        "disabled": "Longitudinal is only available for Summative assessments.",
         "label": "Longitudinal"
       }
     },

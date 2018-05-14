@@ -23,4 +23,6 @@ export interface Option {
 
   readonly disabled?: boolean;
 
+  readonly disabledText?: string;
+
 }

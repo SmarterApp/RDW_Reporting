@@ -94,7 +94,8 @@ export class AggregateReportOptionsMapper {
         .map(optionMapper(
           value => translate(`common.aggregate-report-type.${value}.label`),
           value => `Aggregate Report Type: ${value}`,
-          value => translate(`common.aggregate-report-type.${value}.description`)
+          value => translate(`common.aggregate-report-type.${value}.description`),
+          value => translate(`common.aggregate-report-type.${value}.disabled`)
         )),
       statewideReporter: options.statewideReporter, // TODO move to user context?
       studentFilters: {
