@@ -16,9 +16,8 @@ sqlbuilder:
               scs.code as claim_code
 
           from: >-
-              fact_exam_claim_score fe JOIN subject_claim_score scs ON scs.id = fe.subject_claim_score_id
-
-          join: >-
+              fact_exam_claim_score fe
+              JOIN subject_claim_score scs ON scs.id = fe.subject_claim_score_id
               JOIN asmt a ON a.id = fe.asmt_id
 
           where: >-
@@ -26,7 +25,7 @@ sqlbuilder:
               a.grade_id IN (:asmt_grade_ids) AND
               a.subject_id in (:subject_ids) AND
               a.type_id = :asmt_type_id AND
-              ( true = :all_claims OR scs.code in (:subject_claim_score_codes) )
+              scs.code in (:subject_claim_score_codes)
 
           groupBy: >-
               fe.school_year,

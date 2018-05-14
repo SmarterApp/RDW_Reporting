@@ -43,8 +43,6 @@ export class AssessmentsComponent implements OnInit {
     this._hasInitialAssessment = !Utils.isNullOrEmpty(this._assessmentExams);
   }
 
-  private _preselectedAssessments: Assessment[] = [];
-
   /**
    * The provider which implements the AssessmentProvider interface in order
    * to load assessment and exam data.
@@ -128,13 +126,10 @@ export class AssessmentsComponent implements OnInit {
   }
 
   get selectedAssessments(): Assessment[] {
-    if (!this.showOnlyMostRecent && this._preselectedAssessments.length > 0) {
-      return this._preselectedAssessments;
-    } else if (this.showOnlyMostRecent && this._assessmentExams.length > 0) {
-      this._preselectedAssessments = [];
+    if (this.showOnlyMostRecent && this._assessmentExams) {
       return this._assessmentExams.map(x => x.assessment);
-    } else if (this.availableAssessments.length > 0) {
-      this._preselectedAssessments = [];
+    }
+    else if (this.availableAssessments) {
       return this.availableAssessments.filter(x => x.selected);
     }
 
@@ -199,7 +194,6 @@ export class AssessmentsComponent implements OnInit {
         preselectedAssessments.forEach((assessment) => {
           assessment.selected = true;
           this.loadAssessmentExam(assessment);
-          this._preselectedAssessments = this._preselectedAssessments.concat(assessment);
         });
         this._hasInitialAssessment = true;
         this.updateFilterOptions();
