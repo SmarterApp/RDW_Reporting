@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { SchoolYearPipe } from '../../shared/format/school-year.pipe';
 import * as d3 from 'd3';
@@ -116,7 +116,8 @@ export class LongitudinalCohortChartComponent implements OnInit {
 
   constructor(private elementReference: ElementRef,
               private translate: TranslateService,
-              private schoolYearPipe: SchoolYearPipe) {
+              private schoolYearPipe: SchoolYearPipe,
+              private elementRef: ElementRef) {
   }
 
   get chart(): LongitudinalCohortChart {
@@ -156,13 +157,29 @@ export class LongitudinalCohortChartComponent implements OnInit {
     this._initialized = true;
   }
 
+  @HostListener('document:click', [ '$event' ])
+  handleClick(event) {
+    if (
+      (!this.elementRef.nativeElement.contains(event.target)
+        || event.target.tagName !== 'circle'
+      )
+      && (event.target.parentElement === undefined
+        || event.target.parentElement.className === undefined
+        || (!event.target.parentElement.className.toString().includes('chart-series-toggle'))
+      )
+    ) {
+      this.chartView.performancePaths
+        .forEach(perfPath => perfPath.fade = false);
+    }
+  }
+
   onChartSeriesToggleClick(path: PerformancePath, pathIndex: number): void {
     if (this._selectedPaths.has(pathIndex)) {
       this._selectedPaths.delete(pathIndex);
     } else if (!path.fade
       && this._selectedPaths.size === 0
       && this.chartView.performancePaths.filter(val => !val.fade).length === 1) {
-      path.fade = !path.fade;
+      path.fade = true;
     } else {
       this._selectedPaths.add(pathIndex);
     }

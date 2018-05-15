@@ -11,9 +11,9 @@ export class GroupsComponent implements OnInit {
   groups: Group[];
   filteredGroups: Group[] = [];
   searchTerm : string;
+  defaultGroup: Group;
   columns: Column[] = [
     new Column({id: 'group', field: 'name'}),
-    new Column({id: 'group-dashboard'}),
     new Column({id: 'school', field: 'schoolName'}),
     new Column({id: 'subject', field: 'subjectCode'})
   ];
@@ -23,6 +23,10 @@ export class GroupsComponent implements OnInit {
       const groupsCopy = groups.concat();
       this.groups = groupsCopy;
       this.filteredGroups = groupsCopy;
+
+      if (this.groups && this.groups.length != 0) {
+        this.defaultGroup = this.groups[ 0 ];
+      }
     })
   }
 

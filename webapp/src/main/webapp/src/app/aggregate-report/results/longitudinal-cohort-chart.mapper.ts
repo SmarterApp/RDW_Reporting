@@ -163,8 +163,8 @@ export class LongitudinalCohortChartMapper {
     const performanceByOrganizationSubgroup: Map<string, OrganizationPerformance> = new Map();
     const overall = this.subgroupMapper.createOverall();
     const keyGenerator = query.subgroups == null
-      ? row => `${row.organization.id}:${row.dimension.type}:${row.dimension.code}`
-      : row => `${row.organization.id}:${row.dimension.code}`;
+      ? row => `${row.organization.id}:${row.organization.organizationType}:${row.dimension.type}:${row.dimension.code}`
+      : row => `${row.organization.id}:${row.organization.organizationType}:${row.dimension.code}`;
 
     rows.concat()
       .sort(rowYearAscending)

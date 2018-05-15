@@ -8,6 +8,7 @@
             class="mb-xs">
           <a class="chart-series-toggle label-max-width"
              (click)="onChartSeriesToggleClick(performancePath, index)"
+             title="{{performancePath.organization.name}}: {{performancePath.subgroup.name}}"
              [ngClass]="{'chart-series-hidden': performancePath.fade}">
             <span class="chart-series-icon color-{{index % 3}}"></span>
             <span>{{performancePath.organization.name}}:</span>

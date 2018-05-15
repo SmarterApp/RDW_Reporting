@@ -5,6 +5,13 @@
 <ng-template #loaded>
   <div class="flex-child grow">
     <label>{{'groups.search-label' | translate }}</label>
+
+    <a *ngIf="defaultGroup" 
+       routerLink="/group-dashboard/{{ defaultGroup.id }}"
+       title="{{ 'groups.view-dashboard' | translate }}"
+       class="btn btn-xs btn-default pull-right">
+      <i class="fa fa-bars"></i> {{ 'groups.view-dashboard' | translate }}
+    </a>
   </div>
 
   <!-- My Groups Search Input -->
@@ -57,13 +64,6 @@
               <a routerLink="/groups/{{group.id}}"
                  title="{{group.name}}">
                 {{group.name}}
-              </a>
-            </div>
-
-            <div *ngSwitchCase="'group-dashboard'">
-              <a routerLink="/group-dashboard/{{group.id}}"
-                 title="{{ 'groups.view-dashboard' | translate }}">
-                {{ 'groups.view-dashboard' | translate }}
               </a>
             </div>
 
