@@ -11,7 +11,7 @@ import {
 import { DefaultSchool, Organization } from '../../shared/organization/organization';
 import { ColorService } from '../../shared/color.service';
 import { LongitudinalReport } from '../aggregate-report.service';
-import { AggregateReportRow } from '../../report/aggregate-report';
+import { AggregateReportRow, AggregateReportRowMeasure } from '../../report/aggregate-report';
 import { OrganizationMapper } from '../../shared/organization/organization.mapper';
 import { SubgroupMapper } from '../subgroup/subgroup.mapper';
 import { AggregateReportQuery } from '../../report/aggregate-report-request';
@@ -145,20 +145,22 @@ export class LongitudinalCohortChartMapper {
    *
    * @param {AggregateReportQuery} query the query used to create the report
    * @param {LongitudinalReport} report the report data
+   * @param measuresGetter defines whether to get the measures or the cohortMeasures from the row
    * @returns {LongitudinalCohortChart} the resulting chart
    */
-  fromReport(query: AggregateReportQuery, report: LongitudinalReport): LongitudinalCohortChart {
+  fromReport(query: AggregateReportQuery, report: LongitudinalReport, measuresGetter: (row: AggregateReportRow) => AggregateReportRowMeasure): LongitudinalCohortChart {
     if (report.rows.length === 0
       || report.assessments.length === 0) {
       return { performanceLevels: [], organizationPerformances: [] };
     }
     return {
-      organizationPerformances: this.createOrganizationPerformances(query, report.rows),
+      organizationPerformances: this.createOrganizationPerformances(query, report.rows, measuresGetter),
       performanceLevels: this.createPerformanceLevels(report.assessments)
     };
   }
 
-  private createOrganizationPerformances(query: AggregateReportQuery, rows: AggregateReportRow[]): OrganizationPerformance[] {
+  private createOrganizationPerformances(query: AggregateReportQuery, rows: AggregateReportRow[],
+                                         measuresGetter: (row: AggregateReportRow) => AggregateReportRowMeasure): OrganizationPerformance[] {
 
     const performanceByOrganizationSubgroup: Map<string, OrganizationPerformance> = new Map();
     const overall = this.subgroupMapper.createOverall();
@@ -170,13 +172,14 @@ export class LongitudinalCohortChartMapper {
       .sort(rowYearAscending)
       .forEach((row: AggregateReportRow) => {
 
+        const measures: any = measuresGetter(row) || {};
         const yearGradeScaleScore = <YearGradeScaleScore>{
           yearGrade: <YearGrade>{
             year: row.assessment.examSchoolYear,
             grade: row.assessment.gradeCode
           },
-          scaleScore: row.cohortMeasures.avgScaleScore,
-          standardError: row.cohortMeasures.avgStdErr
+          scaleScore: measures.avgScaleScore || 0,
+          standardError: measures.avgStdErr || 0
         };
 
         const key = keyGenerator(row);

@@ -3,6 +3,17 @@
 <page-heading>
   <ng-template #heading>
     <h2>{{report.label}}</h2>
+
+    <div *ngIf="reportView && isLongitudinal" class="pull-right flex-child ml-xs">
+      <label class="mr-xs">{{'common.longitudinal-type-input-label' | translate}}</label>
+      <sb-radio-button-group [options]="displayOptions.longitudinalDisplayTypes"
+                             [(ngModel)]="longitudinalDisplayType"
+                             (ngModelChange)="longitudinalTypeChange()"
+                             buttonGroupStyles="btn-group-xs"
+                             buttonStyles="btn-default"
+                             analyticsCategory="AggregateReportControl"
+                             analyticsEvent="Change"></sb-radio-button-group>
+    </div>
   </ng-template>
 </page-heading>
 
@@ -14,6 +25,9 @@
         <i class="fa fa-chevron-left mr-xs"></i>{{'aggregate-report.form-link' | translate}}
       </button>
     </div>
+
+
+
     <div *ngIf="reportView" class="flex-child text-muted pt-xs">
       {{'aggregate-report.row-count-label' | translate}} <span class="label gray-darker">{{report.metadata.totalCount | number}}</span>
     </div>
@@ -105,7 +119,7 @@
           </div>
         </div>
 
-        <div class="row mt-xs " *ngIf="view.chart">
+        <div class="row mt-xs" *ngIf="view.chart">
           <div class="col-md-12">
             <longitudinal-cohort-chart [chart]="view.chart"></longitudinal-cohort-chart>
           </div>

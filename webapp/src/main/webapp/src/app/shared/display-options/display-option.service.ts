@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { PerformanceLevelDisplayTypes } from "./performance-level-display-type";
 import { ValueDisplayTypes } from "./value-display-type";
+import { LongitudinalDisplayType } from './longitudinal-display-type';
 
 @Injectable()
 export class DisplayOptionService {
@@ -28,6 +29,17 @@ export class DisplayOptionService {
       .map(this.createOptionMapper(
         value => this.translateService.instant(`common.performance-level-display-type.${value}`),
         value => `Achievement Level Display Type: ${value}`
+      ));
+  }
+
+  /**
+   * @returns {any[]} the longitudinal display type options
+   */
+  getLongitudinalDisplayTypeOptions(): any[] {
+    return LongitudinalDisplayType.values()
+      .map(this.createOptionMapper(
+        value => this.translateService.instant(`common.longitudinal-display-type.${value}`),
+        value => `Longitudinal Report Display Type: ${value}`
       ));
   }
 
