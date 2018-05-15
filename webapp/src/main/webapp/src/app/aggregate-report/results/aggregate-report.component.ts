@@ -155,7 +155,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     return this.report.metadata.createdWhileDataEmbargoed === 'true';
   }
 
-  longitudinalTypeChange() {
+  onLongitudinalDisplayTypeChange(): void {
     if (!this._aggregateReport) return;
 
     this.initializeReportViews(this.query, this._aggregateReport);
@@ -163,10 +163,6 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
 
   get isLongitudinal(): boolean {
     return this.query.reportType === 'Longitudinal'
-  }
-
-  get isLongitudinalCohort(): boolean {
-    return this.longitudinalDisplayType == LongitudinalDisplayType.Cohort;
   }
 
   private updateViewState(): void {
@@ -249,7 +245,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     const { rows, assessments } = report;
     const hasLongitudinalData = assessments != null;
 
-    const measuresGetter = hasLongitudinalData && this.isLongitudinalCohort
+    const measuresGetter = hasLongitudinalData && this.longitudinalDisplayType == LongitudinalDisplayType.Cohort
       ? (row) => row.cohortMeasures : (row) => row.measures;
 
     const rowMapper: (query, assessmentDefinition, row, index) => AggregateReportItem =

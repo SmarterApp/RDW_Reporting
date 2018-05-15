@@ -8,7 +8,7 @@
       <label class="mr-xs">{{'common.longitudinal-type-input-label' | translate}}</label>
       <sb-radio-button-group [options]="displayOptions.longitudinalDisplayTypes"
                              [(ngModel)]="longitudinalDisplayType"
-                             (ngModelChange)="longitudinalTypeChange()"
+                             (ngModelChange)="onLongitudinalDisplayTypeChange()"
                              buttonGroupStyles="btn-group-xs"
                              buttonStyles="btn-default"
                              analyticsCategory="AggregateReportControl"
