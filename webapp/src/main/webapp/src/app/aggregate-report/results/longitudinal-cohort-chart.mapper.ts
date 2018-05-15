@@ -178,8 +178,8 @@ export class LongitudinalCohortChartMapper {
             year: row.assessment.examSchoolYear,
             grade: row.assessment.gradeCode
           },
-          scaleScore: measures.avgScaleScore || 0,
-          standardError: measures.avgStdErr || 0
+          scaleScore: measures.avgScaleScore,
+          standardError: measures.avgStdErr
         };
 
         const key = keyGenerator(row);
