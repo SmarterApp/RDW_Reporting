@@ -272,7 +272,7 @@ export class LongitudinalCohortChartComponent implements OnInit {
                   x: j,
                   y: scaleScore
                 })
-              .filter(p => p.y != null)
+              .filter(({ y }) => y != null)
           ),
           points: performance.yearGradeScaleScores.reduce((points, { scaleScore, standardError }, j) => {
             if (scaleScore != null) {
