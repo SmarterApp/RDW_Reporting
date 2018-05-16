@@ -2,7 +2,8 @@
   <div class="flex-child">
 
     <div *ngIf="chartView"
-         class="chart-series-legend pallet-a">
+         class="chart-series-legend pallet-a"
+         [style.height.px]="display.outerHeight">
       <ul class="list-unstyled">
         <li *ngFor="let performancePath of chartView.performancePaths; let index = index"
             class="mb-xs">
