@@ -17,6 +17,7 @@ dependencies {
     compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-properties'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-guava'
     compile 'org.springframework.boot:spring-boot-starter-jdbc'
+    compile 'org.springframework.retry:spring-retry'
     compile 'com.healthmarketscience.sqlbuilder:sqlbuilder:2.1.7'
 
     optional 'org.springframework.boot:spring-boot-configuration-processor'

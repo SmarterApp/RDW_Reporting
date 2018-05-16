@@ -2,7 +2,8 @@
   <div class="flex-child">
 
     <div *ngIf="chartView"
-         class="chart-series-legend pallet-a">
+         class="chart-series-legend pallet-a"
+         [style.height.px]="display.outerHeight">
       <ul class="list-unstyled">
         <li *ngFor="let performancePath of chartView.performancePaths; let index = index"
             class="mb-xs">
@@ -10,7 +11,7 @@
              (click)="onChartSeriesToggleClick(performancePath, index)"
              title="{{performancePath.organization.name}}: {{performancePath.subgroup.name}}"
              [ngClass]="{'chart-series-hidden': performancePath.fade}">
-            <span class="chart-series-icon color-{{index % 3}}"></span>
+            <span class="chart-series-icon color-{{index % display.totalLineColors}}"></span>
             <span>{{performancePath.organization.name}}:</span>
             <span class="small">{{performancePath.subgroup.name}}</span>
           </a>

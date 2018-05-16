@@ -35,33 +35,33 @@ sql:
 
     findAllOlderThanNumberOfDays: >-
       ${sql.reportProcessor.snippet.selectFromUserReport}
-      where r.created < date_sub(now(), interval :number_of_days day);
+      where r.created < date_sub(now(), interval :number_of_days day)
 
     deleteByIds: >-
-      delete from `user_report` WHERE `id` in (:ids);
+      delete from `user_report` WHERE `id` in (:ids)
 
     completeChunk: >-
       update user_report_metadata
         set value = cast(LAST_INSERT_ID(cast(value as unsigned) + 1) AS CHAR)
       where
         report_id = :report_id and
-        name = 'completed_chunk_count';
+        name = 'completed_chunk_count'
 
     insertMetadataForReport: >-
       insert into user_report_metadata
         (report_id, name, value)
         values
-        (:report_id, :name, :value);
+        (:report_id, :name, :value)
 
     deleteMetadataForReport: >-
       delete from user_report_metadata
       where
-        report_id = :report_id;
+        report_id = :report_id
 
     findMetadataForReports: >-
       select * from user_report_metadata
       where
-        report_id IN (:report_ids);
+        report_id IN (:report_ids)
 
   reportProcessor:
     snippet:

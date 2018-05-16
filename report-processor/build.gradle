@@ -38,3 +38,14 @@ dependencies {
     testCompile 'org.springframework.security:spring-security-test'
     testCompile 'com.opencsv:opencsv:4.0'
 }
+
+//TODO: not sure it this is working; need to verify and configure CI
+//This will allow for running of the multithreaded test application
+task runMTTest(type: JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+
+    main = 'org.opentestsystem.rdw.reporting.processor.multithreaded.MultiThreadedApplicationTest'
+
+    description = 'task to run the MultiThreadedApplication test as a separate test app'
+
+}

@@ -94,6 +94,7 @@ spring:
       ?useSSL=${spring.datasource.use-ssl:false}\
       &useLegacyDatetimeCode=${spring.datasource.use-legacy-datetime-code:false}\
       &characterEncoding=${spring.datasource.character-encoding:utf8}\
+      &rewriteBatchedStatements=${spring.reporting_datasource.rewrite-batched-statements:true}\
       "
     username: root
     password:

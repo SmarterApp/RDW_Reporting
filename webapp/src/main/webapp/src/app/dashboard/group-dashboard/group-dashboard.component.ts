@@ -48,7 +48,7 @@ export class GroupDashboardComponent implements OnInit {
       this.filterOptions = filterOptions;
       this.currentSchoolYear = Number.parseInt(schoolYear) || filterOptions.schoolYears[ 0 ];
       this.groupDashboardService.getAvailableMeasuredAssessments(group, this.currentSchoolYear).subscribe(measuredAssessments => {
-        this.measuredAssessments = measuredAssessments.sort(ordering(byString).on<MeasuredAssessment>(x => x.assessment.label).compare);
+        this.measuredAssessments = this.sortMeasuredAssessments(measuredAssessments);
         this.setAvailableSubjects(measuredAssessments);
       });
     });
@@ -62,6 +62,10 @@ export class GroupDashboardComponent implements OnInit {
     return this.selectedAssessments.length !== 0;
   }
 
+  sortMeasuredAssessments(measuredAssessments: MeasuredAssessment[]): MeasuredAssessment[] {
+    return measuredAssessments.sort(ordering(byString).on<MeasuredAssessment>(x => x.assessment.label).compare);
+  }
+
   updateRoute(changeSource: string): void {
     this.selectedAssessments = [];
     this.router.navigate([ 'group-dashboard', this.currentGroup.id, {
@@ -72,10 +76,10 @@ export class GroupDashboardComponent implements OnInit {
         this.groupDashboardService.getAvailableMeasuredAssessments(group, this.currentSchoolYear).subscribe(measuredAssessments => {
           this.setAvailableSubjects(measuredAssessments);
           if (!this.currentSubject) {
-            this.measuredAssessments = measuredAssessments;
+            this.measuredAssessments = this.sortMeasuredAssessments(measuredAssessments);
           } else {
-            this.measuredAssessments = measuredAssessments.filter(
-              measuredAssessment => measuredAssessment.assessment.subject === this._currentSubject);
+            this.measuredAssessments = this.sortMeasuredAssessments(measuredAssessments.filter(
+              measuredAssessment => measuredAssessment.assessment.subject === this._currentSubject));
           }
         });
       });

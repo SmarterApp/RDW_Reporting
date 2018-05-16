@@ -24,6 +24,7 @@ import { AggregateReportService, LongitudinalReport } from "../aggregate-report.
 import { LongitudinalCohortChartMapper } from './longitudinal-cohort-chart.mapper';
 import { AggregateReportItem } from './aggregate-report-item';
 import { organizationOrdering, subgroupOrdering } from '../support';
+import { LongitudinalDisplayType } from '../../shared/display-options/longitudinal-display-type';
 
 const PollingInterval = 4000;
 
@@ -46,12 +47,14 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   reportViews: AggregateReportView[];
   showRequest: boolean = false;
   summary: AggregateReportRequestSummary;
+  longitudinalDisplayType = LongitudinalDisplayType.GeneralPopulation;
 
   private _viewComparator: Comparator<AggregateReportView>;
   private _pollingSubscription: Subscription;
   private _displayLargeReport: boolean = false;
   private _displayOptions: AggregateReportTableDisplayOptions;
   private _viewState: ViewState;
+  private _aggregateReport: any;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -71,7 +74,8 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
       .on((wrapper: AggregateReportView) => wrapper.subjectCode).compare;
     this._displayOptions = {
       valueDisplayTypes: this.displayOptionService.getValueDisplayTypeOptions(),
-      performanceLevelDisplayTypes: this.displayOptionService.getPerformanceLevelDisplayTypeOptions()
+      performanceLevelDisplayTypes: this.displayOptionService.getPerformanceLevelDisplayTypeOptions(),
+      longitudinalDisplayTypes: this.displayOptionService.getLongitudinalDisplayTypeOptions()
     };
     this.requestMapper.toSettings(this.report.request, this.options)
       .subscribe(settings => this.summary = {
@@ -151,6 +155,16 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     return this.report.metadata.createdWhileDataEmbargoed === 'true';
   }
 
+  onLongitudinalDisplayTypeChange(): void {
+    if (!this._aggregateReport) return;
+
+    this.initializeReportViews(this.query, this._aggregateReport);
+  }
+
+  get isLongitudinal(): boolean {
+    return this.query.reportType === 'Longitudinal'
+  }
+
   private updateViewState(): void {
     const targetViewState = this.getTargetViewState();
     this.onViewStateChange(this._viewState, targetViewState);
@@ -212,7 +226,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   private loadReport(): void {
     this.spinnerModal.loading = true;
 
-    const observable = this.query.reportType === 'Longitudinal'
+    const observable = this.isLongitudinal
       ? this.reportService.getLongitudinalReport(this.report.id)
       : this.reportService.getAggregateReport(this.report.id);
 
@@ -221,19 +235,21 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
         this.spinnerModal.loading = false;
       })
     ).subscribe(report => {
+      this._aggregateReport = report;
       this.initializeReportViews(this.query, report);
     });
 
   }
 
   private initializeReportViews(query: AggregateReportQuery, report: any): void {
-
     const { rows, assessments } = report;
-    const isLongitudinal = assessments != null;
+    const hasLongitudinalData = assessments != null;
 
-    const rowMapper: (query, assessmentDefinition, row, index) => AggregateReportItem = isLongitudinal
-      ? (query, assessmentDefinition, row, index) => this.itemMapper.createRowUsingCohortMeasures(query, assessmentDefinition, row, index)
-      : (query, assessmentDefinition, row, index) => this.itemMapper.createRow(query, assessmentDefinition, row, index);
+    const measuresGetter = hasLongitudinalData && this.longitudinalDisplayType == LongitudinalDisplayType.Cohort
+      ? (row) => row.cohortMeasures : (row) => row.measures;
+
+    const rowMapper: (query, assessmentDefinition, row, index) => AggregateReportItem =
+      (query, assessmentDefinition, row, index) => this.itemMapper.createRow(query, assessmentDefinition, row, index, measuresGetter);
 
     this.reportViews = rows.reduce((views, row, index) => {
       const item = rowMapper(query, this.assessmentDefinition, row, index);
@@ -257,11 +273,11 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
           columnOrderingItems: this.columnOrderableItemProvider.toOrderableItems(columnOrder)
         };
 
-        if (isLongitudinal) {
+        if (hasLongitudinalData) {
           view.chart = this.chartMapper.fromReport(this.query, <LongitudinalReport>{
             rows: rows.filter(row => row.assessment.subjectCode === subjectCode),
             assessments: assessments.filter(assessment => assessment.subject === subjectCode)
-          });
+          }, measuresGetter);
 
           view.chart.organizationPerformances.sort(
             join(
@@ -291,6 +307,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
 interface AggregateReportTableDisplayOptions {
   readonly valueDisplayTypes: any[];
   readonly performanceLevelDisplayTypes: any[];
+  readonly longitudinalDisplayTypes: any[];
 }
 
 interface AggregateReportView {
@@ -310,3 +327,4 @@ enum ViewState {
   ReportSizeNotSupported,
   ReportView
 }
+

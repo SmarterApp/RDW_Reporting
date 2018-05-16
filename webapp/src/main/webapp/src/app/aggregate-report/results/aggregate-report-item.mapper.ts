@@ -2,17 +2,12 @@ import { Injectable } from '@angular/core';
 import { AggregateReportItem } from './aggregate-report-item';
 import {
   AggregateReportRow,
-  AggregateReportRowDimension,
   AggregateReportRowMeasure
 } from '../../report/aggregate-report';
 import { AssessmentDefinition } from '../assessment/assessment-definition';
 import { OrganizationMapper } from '../../shared/organization/organization.mapper';
 import { SubgroupMapper } from '../subgroup/subgroup.mapper';
-import {
-  AggregateReportQuery, StudentFilters
-} from '../../report/aggregate-report-request';
-import { AggregateReportRequestMapper } from '../aggregate-report-request.mapper';
-import { Subgroup } from '../subgroup/subgroup';
+import { AggregateReportQuery } from '../../report/aggregate-report-request';
 
 /**
  * Maps server modeled aggregate report rows into client friendly table rows
@@ -21,27 +16,15 @@ import { Subgroup } from '../subgroup/subgroup';
 export class AggregateReportItemMapper {
 
   constructor(private organizationMapper: OrganizationMapper,
-              private subgroupMapper: SubgroupMapper,
-              private requestMapper: AggregateReportRequestMapper) {
+              private subgroupMapper: SubgroupMapper) {
   }
 
   createRow(query: AggregateReportQuery,
             assessmentDefinition: AssessmentDefinition,
             row: AggregateReportRow,
-            uuid: number): AggregateReportItem {
+            uuid: number,
+            measuresGetter: (row: AggregateReportRow) => AggregateReportRowMeasure): AggregateReportItem {
 
-    return this.createRowInternal(query, assessmentDefinition, row, uuid, (row) => row.measures);
-  }
-
-  createRowUsingCohortMeasures(query: AggregateReportQuery,
-                               assessmentDefinition: AssessmentDefinition,
-                               row: AggregateReportRow,
-                               uuid: number): AggregateReportItem {
-
-    return this.createRowInternal(query, assessmentDefinition, row, uuid, (row) => row.cohortMeasures);
-  }
-
-  private createRowInternal(query: AggregateReportQuery, assessmentDefinition: AssessmentDefinition, row: AggregateReportRow, uuid: number, measuresGetter: (row: AggregateReportRow) => AggregateReportRowMeasure): AggregateReportItem {
     const item = new AggregateReportItem();
     const itemPerformanceLevelCounts = item.performanceLevelByDisplayTypes.Separate.Number;
     const itemPerformanceLevelPercents = item.performanceLevelByDisplayTypes.Separate.Percent;

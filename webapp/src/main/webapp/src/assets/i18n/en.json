@@ -633,6 +633,11 @@
         "System": "Smarter Balanced Instructional Resource"
       }
     },
+    "longitudinal-type-input-label": "Show",
+    "longitudinal-display-type": {
+      "GeneralPopulation": "General Population",
+      "Cohort": "Cohort"
+    },
     "menus": {
       "resources": "Instructional Resources",
       "responses": "{{firstName}}'s Responses",
@@ -1140,7 +1145,7 @@
   "longitudinal-cohort-chart": {
     "area-description": {
       "text": "Achievement Level",
-      "subtext": "relative to standard"
+      "subtext": ""
     }
   },
   "order-selector": {

@@ -24,6 +24,7 @@ export interface ChartDisplay {
   readonly padding: Spacing;
   readonly domainMargin: Spacing;
   readonly tickPadding: number;
+  readonly totalLineColors: number;
 }
 
 /**
@@ -109,7 +110,8 @@ export class LongitudinalCohortChartComponent implements OnInit {
     margin: { top: 0, right: 0, bottom: 0, left: 0 },
     padding: { top: 0, right: 200, bottom: 40, left: 40 },
     domainMargin: { top: 25, right: 0.25, bottom: 25, left: 0.25 },
-    tickPadding: 10
+    tickPadding: 10,
+    totalLineColors: 12
   };
 
   private _selectedPaths: Set<number> = new Set();
@@ -262,12 +264,16 @@ export class LongitudinalCohortChartComponent implements OnInit {
     this._chartView = <ChartView>{
       performancePaths: this._chart.organizationPerformances
         .map((performance, i) => <PerformancePath>{
-          styles: `scale-score-line color-${i % 3} series-${i}`,
+          styles: `scale-score-line color-${i % this.display.totalLineColors} series-${i}`,
           fade: false,
-          pathData: d3line(performance.yearGradeScaleScores.map(({ scaleScore }, j) => <any>{
-            x: j,
-            y: scaleScore
-          })),
+          pathData: d3line(
+            performance.yearGradeScaleScores
+              .map(({ scaleScore }, j) => <any>{
+                  x: j,
+                  y: scaleScore
+                })
+              .filter(({ y }) => y != null)
+          ),
           points: performance.yearGradeScaleScores.reduce((points, { scaleScore, standardError }, j) => {
             if (scaleScore != null) {
               points.push(<PerformancePoint>{
