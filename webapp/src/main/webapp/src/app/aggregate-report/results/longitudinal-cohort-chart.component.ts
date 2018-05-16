@@ -266,10 +266,14 @@ export class LongitudinalCohortChartComponent implements OnInit {
         .map((performance, i) => <PerformancePath>{
           styles: `scale-score-line color-${i % this.display.totalLineColors} series-${i}`,
           fade: false,
-          pathData: d3line(performance.yearGradeScaleScores.map(({ scaleScore }, j) => <any>{
-            x: j,
-            y: scaleScore
-          })),
+          pathData: d3line(
+            performance.yearGradeScaleScores
+              .map(({ scaleScore }, j) => <any>{
+                  x: j,
+                  y: scaleScore
+                })
+              .filter(p => p.y != null)
+          ),
           points: performance.yearGradeScaleScores.reduce((points, { scaleScore, standardError }, j) => {
             if (scaleScore != null) {
               points.push(<PerformancePoint>{
