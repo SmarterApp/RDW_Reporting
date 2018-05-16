@@ -15,6 +15,7 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 import { map } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { SubgroupFilters, SubgroupFilterSupport } from './subgroup/subgroup-filters';
+import { Claim } from './aggregate-report-options.service';
 
 const equalSize = (a: any[], b: any[]) => Utils.hasEqualLength(a, b);
 const idsOf = values => values.map(value => value.id);
@@ -102,7 +103,7 @@ export class AggregateReportRequestMapper {
     } else if (settings.reportType === 'Claim' && assessmentDefinition.aggregateReportTypes.includes('Claim')) {
       query.assessmentGradeCodes = settings.claimReport.assessmentGrades;
       query.schoolYears = settings.claimReport.schoolYears;
-      // TODO add claim codes
+      query.claimCodesBySubject = JSON.stringify(this.strMapToObj(settings.claimReport.claimCodesBySubject) );
     }
 
     const name = settings.name
@@ -193,7 +194,7 @@ export class AggregateReportRequestMapper {
     const defaultClaimReport = {
       assessmentGrades: [],
       schoolYears: [ options.schoolYears[ 0 ] ],
-      claimCodes: []
+      claimCodesBySubject: []
     };
 
     const defaultLongitudinalCohort = {
@@ -219,8 +220,8 @@ export class AggregateReportRequestMapper {
       claimReport = {
         assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
         schoolYears: query.schoolYears.sort((a, b) => b - a),
-        claimCodes: options.claims
-      }
+        claimCodesBySubject: []
+      };
     }
 
     return forkJoin(schools, districts)
@@ -388,4 +389,33 @@ export class AggregateReportRequestMapper {
     return this.ClientReportTypeByServerType[ type ];
   }
 
+  private claimMap(claim: any[]): [ [ string, string[] ] ] {
+    let arr: [ [ string, string[] ] ];
+    claim.forEach(
+      c => {
+        if (arr === undefined) {
+          arr = [ [ <string>c.subject, [ <string>c.code ] ] ];
+        } else if (arr.find(a => a[ 0 ] === c.subject)) {
+          arr.find(a => a[ 0 ] === c.subject)[ 1 ].push(c.code);
+        } else {
+          arr.push([ c.subject, [ c.code ] ]);
+        }
+      }
+    );
+    return arr;
+  }
+
+  strMapToObj(strMap: Claim[]) {
+    const obj = <Map<string, string[]>>Object.create(null);
+    for (const claim of strMap) {
+      // We don’t escape the key '__proto__'
+      // which can cause problems on older engines
+      if ( obj[claim.subject] === undefined) {
+        obj[claim.subject] = [claim.code];
+      } else {
+        obj[ claim.subject ].push(claim.code);
+      }
+    }
+    return obj;
+  }
 }

@@ -182,7 +182,7 @@ export class AggregateReportOptionsMapper {
           claimReport: {
             assessmentGrades: [],
             schoolYears: [ options.schoolYears[ 0 ] ],
-            claimCodes: []
+            claimCodesBySubject: []
           },
           longitudinalCohort: {
             assessmentGrades: [],
