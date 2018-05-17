@@ -1192,9 +1192,9 @@
     "reload": "Reload",
     "report-type": {
       "AggregateReportRequest": "Aggregate Report",
-      "AggregateReportRequest-CustomAggregate": "Aggregate Report",
-      "AggregateReportRequest-Claims": "Aggregate Report: Claims",
-      "AggregateReportRequest-Longitudinal": "Aggregate Report: Longitudinal",
+      "AggregateReportRequest CustomAggregate": "Aggregate Report",
+      "AggregateReportRequest Claims": "Aggregate Report: Claims",
+      "AggregateReportRequest Longitudinal": "Aggregate Report: Longitudinal",
       "ExamExport": "District / School Export",
       "Group": "Group Report",
       "SchoolGrade": "School / Grade Report",

@@ -54,11 +54,9 @@ export class ReportsComponent implements OnInit, OnDestroy {
   }
 
   getReportTypeTranslateValue(report: Report) {
-    if (report.request && report.request.reportTypeDisplayValue) {
-      return report.request.reportTypeDisplayValue.replace(' ', '-');
-    }
-
-    return report.reportType;
+    return report.request && report.request.reportTypeDisplayValue
+      ? report.request.reportTypeDisplayValue
+      : report.reportType;
   }
 
   private startPollingStatus(): void {
