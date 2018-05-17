@@ -45,7 +45,7 @@
           </report-action>
 
           <ng-container *ngSwitchCase="'report-type-header'">
-            {{ 'reports.report-type.' + report.reportType | translate }}
+            {{ 'reports.report-type.' + getReportTypeTranslateValue(report) | translate }}
           </ng-container>
 
           <ng-container *ngSwitchCase="'assessment-type-header'">

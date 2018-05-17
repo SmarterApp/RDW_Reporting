@@ -53,6 +53,14 @@ export class ReportsComponent implements OnInit, OnDestroy {
     window.location.reload();
   }
 
+  getReportTypeTranslateValue(report: Report) {
+    if (report.request && report.request.reportTypeDisplayValue) {
+      return report.request.reportTypeDisplayValue.replace(' ', '-');
+    }
+
+    return report.reportType;
+  }
+
   private startPollingStatus(): void {
     this.statusPollingTimer = setInterval(() => {
 
