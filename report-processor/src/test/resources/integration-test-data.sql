@@ -40,7 +40,8 @@ insert into asmt (id, type_id, natural_id, grade_id, grade_code, subject_id, sch
   (-4, 2, 'iab3', -1, 'g1', 1, 1995, 'iab3', 'iab3', 'v1', null, null, null, null, 1, null, 2, null, 3, -1, '1997-07-18 20:14:34.000000', -1),
   (-5, 1, 'ica2', -1, 'g1', 2, 1997, 'ica2', 'ica2', 'v1', 'ica_claim1', 'ica_claim2', 'ica_claim3', 'ica_claim4', 100, 200, 300, 400, 500, -1, '1997-07-18 20:14:34.000000', -1),
   (-6, 2, 'iab4', -1, 'g1', 2, 1997, 'iab2', 'iab4', 'v1', null, null, null, null, 1, null, 2, null, 3, -1, '1997-07-18 20:14:34.000000', -1),
-  (-7, 2, 'iab5', -1, 'g1', 2, 1997, 'iab3', 'iab5', 'v1', null, null, null, null, 1, null, 2, null, 3, -1, '1997-07-18 20:14:34.000000', -1);
+  (-7, 2, 'iab5', -1, 'g1', 2, 1997, 'iab3', 'iab5', 'v1', null, null, null, null, 1, null, 2, null, 3, -1, '1997-07-18 20:14:34.000000', -1),
+  (-8, 3, 'sum1', -1, 'g1', 1, 1997, 'sum1', 'sum1', 'v1', 'ica_claim1', 'ica_claim2', 'ica_claim3', 'ica_claim4', 100, 200, 300, 400, 500, -1, '1997-07-18 20:14:34.000000', -1);
 
 -- mean values are intentionally unique here, the test relies on it
 INSERT INTO percentile (id, asmt_id, start_date, end_date, count, mean, standard_deviation, min_score, max_score, update_import_id, updated, migrate_id) VALUES
@@ -117,7 +118,7 @@ insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, oppo
   (-15, 1, -1, 'g1', -2, -10, 0, null, 0, 0, 0, 0, 1997, -1, 'v1', 'Complete', 'Valid', 'session2', 2000, 20, 1, '2016-01-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, null, 'EO', null, -1, '1997-07-18 20:14:34.000000', -1),
   (-16, 2, -2, 'g2', -2, -10, 1, null, 0, 0, 0, 0, 1997, -2, 'v1', 'Complete', 'Valid', 'session3', 2100, 21, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, 'EO', null, -1, '1997-07-18 20:14:34.000000', -1),
   (-17, 2, -2, 'g2', -2, -11, 1, null, 0, 1, 0, 0, 1997, -2, 'v1', 'Complete', 'Valid', 'session3', 2100, 21, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, 'TDS_BT_UCT|NEA0|NEA_Abacus', 'RFEP', '1996-08-01', -1, '1997-07-18 20:14:34.000000', -1),
-  (-18, 2, -2, 'g2', -2, -12, 1, null, 0, 0, 0, 0, 1997, -2, 'v1', 'Complete', 'Valid', 'session3', 2100, 21, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, 'EO', null, -1, '1997-07-18 20:14:34.000000', -1);
+  (-18, 3, -2, 'g2', -2, -10, 0, null, 0, 0, 0, 0, 1997, -8, 'v1', 'Complete', 'Valid', 'session12', 2000, 20, 1, '1997-01-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, null, 'EO', null, -1, '1997-07-18 20:14:34.000000', -1);
 
 -- groups
 insert into student_group (id, name, school_id, school_year, subject_id, update_import_id, updated, migrate_id) values
