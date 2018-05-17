@@ -105,13 +105,13 @@ export class LongitudinalCohortChartComponent implements OnInit {
   private _chart: LongitudinalCohortChart;
   private _chartView: ChartView;
   private _display: ChartDisplay = {
-    outerWidth: 960,
+    outerWidth: 910,
     outerHeight: 480,
     margin: { top: 0, right: 0, bottom: 0, left: 0 },
-    padding: { top: 0, right: 200, bottom: 40, left: 40 },
+    padding: { top: 0, right: 150, bottom: 40, left: 40 },
     domainMargin: { top: 25, right: 0.25, bottom: 25, left: 0.25 },
     tickPadding: 10,
-    totalLineColors: 12
+    totalLineColors: 10
   };
 
   private _selectedPaths: Set<number> = new Set();
