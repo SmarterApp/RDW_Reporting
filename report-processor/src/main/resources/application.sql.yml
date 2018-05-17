@@ -97,6 +97,42 @@ sql:
         AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
       ORDER BY e.completed_at asc
 
+    findAllSummativesByStudentIdsAndQueryParamsUnknownPermissions: >-
+      SELECT
+        d.name AS district_name,
+        ${sql.snippet.claimColumns},
+        ${sql.snippet.exam}
+      JOIN district d ON s.district_id=d.id
+      WHERE e.student_id in (:student_ids)
+        AND (:school_year is null or e.school_year=:school_year)
+        AND (:subject_id is null or a.subject_id=:subject_id)
+        AND (:grade_id is null or a.grade_id=:grade_id)
+        AND a.type_id=3
+        AND ${sql.reportProcessor.snippet.schoolFilter}
+        AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
+      ORDER BY e.completed_at asc
+
+    findAllSummativesByStudentIdsAndQueryParamsGroupPermissions: >-
+      SELECT
+        d.name AS district_name,
+        ${sql.snippet.claimColumns},
+        ${sql.snippet.exam}
+      JOIN district d ON s.district_id=d.id
+      JOIN student_group_membership sgm ON st.id = sgm.student_id
+      JOIN student_group sg ON sgm.student_group_id = sg.id
+          AND (sg.subject_id is null or a.subject_id = sg.subject_id)
+      JOIN user_student_group usg ON usg.student_group_id = sg.id
+      WHERE e.student_id in (:student_ids)
+        AND sg.id=:group_id
+        AND usg.user_login = :user_login
+        AND (:school_year is null or e.school_year=:school_year)
+        AND (:subject_id is null or a.subject_id=:subject_id)
+        AND (:grade_id is null or a.grade_id=:grade_id)
+        AND a.type_id=3
+        AND ${sql.reportProcessor.snippet.schoolFilter}
+        AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
+      ORDER BY e.completed_at asc
+
   export:
     exams: >-
       SELECT
