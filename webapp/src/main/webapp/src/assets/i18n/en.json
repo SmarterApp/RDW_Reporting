@@ -91,6 +91,7 @@
       "report-name-file-name-error": "The name cannot contain these special characters: <>:;,?\"*|\\/"
     },
     "section": {
+      "claim-heading": "Claim",
       "organization": {
         "heading": "Schools and Districts",
         "subtext": "Select schools and districts to compare.",
@@ -132,6 +133,7 @@
       "assessment-grade": "Assessment Grade",
       "avg-scale-score": "Average Scale Score",
       "avg-scale-score-suffix": "± Error Band",
+      "claim": "Claim",
       "dimension": "Subgroup",
       "grouped-performance-level-prefix": {
         "0": "Below",

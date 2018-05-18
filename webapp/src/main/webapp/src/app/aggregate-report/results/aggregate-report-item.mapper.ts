@@ -21,7 +21,7 @@ export class AggregateReportItemMapper {
 
   createRow(query: AggregateReportQuery,
             assessmentDefinition: AssessmentDefinition,
-            row: AggregateReportRow,
+            row: any,
             uuid: number,
             measuresGetter: (row: AggregateReportRow) => AggregateReportRowMeasure): AggregateReportItem {
 
@@ -38,6 +38,7 @@ export class AggregateReportItemMapper {
     item.subjectCode = row.assessment.subjectCode;
     item.schoolYear = row.assessment.examSchoolYear;
     item.organization = this.organizationMapper.map(row.organization);
+    item.claimCode = row.claimCode;
 
     item.subgroup = this.subgroupMapper.fromAggregateReportRow(query, row);
 

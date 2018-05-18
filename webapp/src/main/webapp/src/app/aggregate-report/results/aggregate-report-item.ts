@@ -1,4 +1,4 @@
-import { Organization } from "../../shared/organization/organization";
+import { Organization } from '../../shared/organization/organization';
 import { Subgroup } from '../subgroup/subgroup';
 
 /**
@@ -9,14 +9,15 @@ export class AggregateReportItem {
   assessmentId: number;
   assessmentLabel: string;
   assessmentGradeCode: string;
+  claimCode?: string;
   subjectCode: string;
   schoolYear: number;
   avgScaleScore: number;
   avgStdErr: number;
   studentsTested: any;
   performanceLevelByDisplayTypes: {
-    [performanceLevelDisplayType: string]: {
-      [valueDisplayType: string]: number[]
+    [ performanceLevelDisplayType: string ]: {
+      [ valueDisplayType: string ]: number[]
     }
   } = {
     Separate: {

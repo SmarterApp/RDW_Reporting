@@ -7,6 +7,7 @@ import { AssessmentDefinition } from './assessment/assessment-definition';
 import { Utils } from '../shared/support/support';
 import { SubgroupMapper } from './subgroup/subgroup.mapper';
 import { computeEffectiveYears } from './support';
+import { Claim } from './aggregate-report-options.service';
 
 
 const createColumnProvider = (columnCount: number = Number.MAX_VALUE): ColumnProvider => {
@@ -62,6 +63,18 @@ export class AggregateReportSummary {
     return this._summary;
   }
 
+  get settings(): AggregateReportFormSettings {
+    return this._summary.settings;
+  }
+
+  get options(): AggregateReportOptions {
+    return this._summary.options;
+  }
+
+  get assessmentDefinition(): AssessmentDefinition {
+    return this._summary.assessmentDefinition;
+  }
+
   @Input()
   set summary(value: AggregateReportRequestSummary) {
     if (this._summary !== value) {
@@ -79,6 +92,7 @@ export class AggregateReportSummary {
     const { assessmentDefinition, options, settings } = this.summary;
 
     const equalSize = Utils.hasEqualLength;
+
     const translate = code => this.translate.instant(code);
 
     const All = translate('common.collection-selection.all');
@@ -126,6 +140,46 @@ export class AggregateReportSummary {
       });
     }
 
+    let assessmentAttributes = [];
+    if (this.settings.reportType === 'GeneralPopulation') {
+      assessmentAttributes = [
+        {
+          label: translate('aggregate-report-form.field.assessment-grades-label'),
+          values: inline(orAll(this.options.assessmentGrades, this.settings.generalPopulation.assessmentGrades,
+            code => translate(`common.assessment-grade.${code}`)))
+        },
+        {
+          label: translate('aggregate-report-form.field.school-year-label'),
+          values: this.settings.generalPopulation.schoolYears.map(value => this.schoolYearPipe.transform(value))
+        }
+      ];
+    } else if (this.settings.reportType === 'Claim') {
+      assessmentAttributes = [
+        {
+          label: translate('aggregate-report-form.field.assessment-grades-label'),
+          values: inline(orAll(this.options.assessmentGrades, this.settings.claimReport.assessmentGrades,
+            code => translate(`common.assessment-grade.${code}`)))
+        },
+        {
+          label: translate('aggregate-report-form.field.school-year-label'),
+          values: this.settings.claimReport.schoolYears.map(value => this.schoolYearPipe.transform(value))
+        },
+      ];
+    } else {
+      assessmentAttributes = [
+        {
+          label: translate('aggregate-report-form.field.assessment-grades-label'),
+          values: inline(orAll(this.options.assessmentGrades, this.settings.longitudinalCohort.assessmentGrades,
+            code => translate(`common.assessment-grade.${code}`)))
+        },
+        {
+          label: translate('aggregate-report-form.field.school-year-label'),
+          values: computeEffectiveYears(this.settings.longitudinalCohort.toSchoolYear, this.settings.longitudinalCohort.assessmentGrades)
+            .map(value => this.schoolYearPipe.transform(value))
+        }
+      ];
+    }
+
     const assessmentRows = [
       {
         label: translate('aggregate-report-form.field.assessment-type-label'),
@@ -135,31 +189,7 @@ export class AggregateReportSummary {
         label: translate('aggregate-report-form.field.subjects-label'),
         values: orAll(options.subjects, settings.subjects, code => translate(`common.subject.${code}.short-name`))
       },
-
-      ...(settings.reportType === 'GeneralPopulation' || !assessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')
-        ? [
-          {
-            label: translate('aggregate-report-form.field.assessment-grades-label'),
-            values: inline(orAll(options.assessmentGrades, settings.generalPopulation.assessmentGrades,
-              code => translate(`common.assessment-grade.${code}`)))
-          },
-          {
-            label: translate('aggregate-report-form.field.school-year-label'),
-            values: settings.generalPopulation.schoolYears.map(value => this.schoolYearPipe.transform(value))
-          }
-        ]
-        : [
-          {
-            label: translate('aggregate-report-form.field.assessment-grades-label'),
-            values: inline(orAll(options.assessmentGrades, settings.longitudinalCohort.assessmentGrades,
-              code => translate(`common.assessment-grade.${code}`)))
-          },
-          {
-            label: translate('aggregate-report-form.field.school-year-label'),
-            values: computeEffectiveYears(settings.longitudinalCohort.toSchoolYear, settings.longitudinalCohort.assessmentGrades)
-              .map(value => this.schoolYearPipe.transform(value))
-          }
-        ]),
+      ...assessmentAttributes,
       ...[
         assessmentDefinition.interim
           ? {
@@ -187,6 +217,15 @@ export class AggregateReportSummary {
           values: orAll(options.dimensionTypes, settings.dimensionTypes, code => translate(`common.dimension.${code}`))
         }
       ];
+
+      const claimRows = [];
+      if (!equalSize(options.claims, settings.claimReport.claimCodesBySubject)) {
+        claimRows.push({
+          label: translate('aggregate-report-form.field.claim-codes-label'),
+          values: orAll(this.options.claims, this.settings.claimReport.claimCodesBySubject,
+            (claim: Claim) => translate(`common.subject.${claim.subject}.claim.${claim.code}.name`))
+        });
+      }
 
       const filterRows = [];
       const settingFilters = settings.studentFilters;
@@ -280,6 +319,10 @@ export class AggregateReportSummary {
         {
           label: translate('aggregate-report-form.section.subgroup-filters-heading'),
           rows: filterRows
+        },
+        {
+          label: translate('aggregate-report-form.section.claim-heading'),
+          rows: claimRows
         }
       ];
 
@@ -320,7 +363,6 @@ export class AggregateReportSummary {
     // removes empty columns
       .filter(holder => holder.reduce((totalRows, column) => totalRows + column.rows.length, 0) > 0);
   }
-
 }
 
 interface Section {

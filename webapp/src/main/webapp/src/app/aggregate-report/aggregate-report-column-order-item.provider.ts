@@ -6,7 +6,8 @@ const ColumnToLabel: {[key: string]: string} = {
   assessmentLabel: 'aggregate-report-table.columns.assessment-label',
   assessmentGrade: 'aggregate-report-table.columns.assessment-grade',
   schoolYear: 'aggregate-report-table.columns.school-year',
-  dimension: 'aggregate-report-table.columns.dimension'
+  dimension: 'aggregate-report-table.columns.dimension',
+  claim: 'aggregate-report-table.columns.claim'
 };
 
 /**

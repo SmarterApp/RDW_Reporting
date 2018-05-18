@@ -16,6 +16,7 @@ import { SubgroupMapper } from './subgroup/subgroup.mapper';
 import { computeEffectiveYears } from './support';
 import { AggregateReportOptions } from './aggregate-report-options';
 import { Subgroup } from './subgroup/subgroup';
+import { Claim } from './aggregate-report-options.service';
 
 const MaximumOrganizations = 3;
 
@@ -33,17 +34,23 @@ export class AggregateReportTableDataService {
     const organizations = this.createSampleOrganizations(settings, assessmentDefinition);
 
     const gradesAndYears: { grade: string, year: number }[] = [];
-    if (settings.reportType === 'GeneralPopulation' || !assessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')) {
+    if (settings.reportType === 'GeneralPopulation') {
       for (const grade of settings.generalPopulation.assessmentGrades) {
         for (const year of settings.generalPopulation.schoolYears) {
           gradesAndYears.push({ grade, year });
         }
       }
-    } else if (settings.reportType === 'LongitudinalCohort' && assessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')) {
+    } else if (settings.reportType === 'LongitudinalCohort') {
       const assessmentGrades = settings.longitudinalCohort.assessmentGrades;
       const schoolYears = computeEffectiveYears(settings.longitudinalCohort.toSchoolYear, assessmentGrades);
       for (let i = 0; i < assessmentGrades.length; i++) {
         gradesAndYears.push({ grade: assessmentGrades[ i ], year: schoolYears[ i ] });
+      }
+    } else if (settings.reportType === 'Claim') {
+      for (const grade of settings.claimReport.assessmentGrades) {
+        for (const year of settings.claimReport.schoolYears) {
+          gradesAndYears.push({ grade, year });
+        }
       }
     }
 
@@ -61,36 +68,84 @@ export class AggregateReportTableDataService {
     const groupedPerformanceLevelCount = studentsTested * 0.5;
     const groupedPerformanceLevelCounts = [ groupedPerformanceLevelCount, groupedPerformanceLevelCount ];
 
+    let claims: Claim[] = [];
+
+    if (settings.reportType === 'Claim') {
+      if (settings.claimReport.claimCodesBySubject.length === 0) {
+        claims =
+          options.claims.filter(
+            claim => claim.assessmentType === settings.assessmentType && settings.subjects.includes(claim.subject));
+      } else {
+        claims =
+          settings.claimReport.claimCodesBySubject.filter(
+            claim => claim.assessmentType === settings.assessmentType && settings.subjects.includes(claim.subject));
+      }
+    }
+
     const createRows = (subgroups: Subgroup[]): AggregateReportItem[] => {
       let uuid = 0;
       const rows: AggregateReportItem[] = [];
       for (const organization of organizations) {
         for (const { grade, year } of gradesAndYears) {
           for (const subgroup of subgroups) {
-            const row: any = {
-              itemId: ++uuid,
-              organization: organization,
-              assessmentId: undefined,
-              assessmentLabel: this.translate.instant('sample-aggregate-table-data-service.assessment-label'),
-              assessmentGradeCode: grade,
-              subjectCode: undefined,
-              schoolYear: year,
-              avgScaleScore: averageScaleScore,
-              avgStdErr: averageStandardError,
-              studentsTested: studentsTested,
-              performanceLevelByDisplayTypes: {
-                Separate: {
-                  Number: performanceLevelCounts,
-                  Percent: performanceLevelPercents
-                },
-                Grouped: {
-                  Number: groupedPerformanceLevelCounts,
-                  Percent: groupedPerformanceLevelCounts
+            for (const subject of settings.subjects) {
+              if (!claims.length) {
+                const row: any = {
+                  itemId: ++uuid,
+                  organization: organization,
+                  assessmentId: undefined,
+                  assessmentLabel: this.translate.instant('sample-aggregate-table-data-service.assessment-label'),
+                  assessmentGradeCode: grade,
+                  subjectCode: subject,
+                  schoolYear: year,
+                  avgScaleScore: averageScaleScore,
+                  avgStdErr: averageStandardError,
+                  studentsTested: studentsTested,
+                  performanceLevelByDisplayTypes: {
+                    Separate: {
+                      Number: performanceLevelCounts,
+                      Percent: performanceLevelPercents
+                    },
+                    Grouped: {
+                      Number: groupedPerformanceLevelCounts,
+                      Percent: groupedPerformanceLevelCounts
+                    }
+                  },
+                  subgroup: subgroup
+                };
+                rows.push(row);
+              } else {
+                for (const claim of claims) {
+                  const row: any = {
+                    itemId: ++uuid,
+                    organization: organization,
+                    assessmentId: undefined,
+                    assessmentLabel: this.translate.instant('sample-aggregate-table-data-service.assessment-label'),
+                    assessmentGradeCode: grade,
+                    subjectCode: subject,
+                    claimCode: claim.code,
+                    schoolYear: year,
+                    avgScaleScore: averageScaleScore,
+                    avgStdErr: averageStandardError,
+                    studentsTested: studentsTested,
+                    performanceLevelByDisplayTypes: {
+                      Separate: {
+                        Number: performanceLevelCounts,
+                        Percent: performanceLevelPercents
+                      },
+                      Grouped: {
+                        Number: groupedPerformanceLevelCounts,
+                        Percent: groupedPerformanceLevelCounts
+                      }
+                    },
+                    subgroup: subgroup
+                  };
+                  if (this.getClaimCodeTranslationKey(row) !== this.getClaimCodeTranslation(row)) {
+                    rows.push(row);
+                  }
                 }
-              },
-              subgroup: subgroup
-            };
-            rows.push(row);
+              }
+            }
           }
         }
       }
@@ -111,6 +166,14 @@ export class AggregateReportTableDataService {
       return createRows(subgroups);
     }
     throw new Error(`Unsupported query type "${settings.queryType}"`);
+  }
+
+  private getClaimCodeTranslationKey(row: AggregateReportItem): string {
+    return `common.subject.${row.subjectCode}.claim.${row.claimCode}.name`;
+  }
+
+  getClaimCodeTranslation(row: AggregateReportItem): string {
+    return this.translate.instant(this.getClaimCodeTranslationKey(row));
   }
 
   private createSampleOrganizations(settings: AggregateReportFormSettings, definition: AssessmentDefinition): Organization[] {

@@ -172,6 +172,17 @@ export class AggregateReportFormComponent {
       this.options.reportTypes = this.options.reportTypes.filter(reportType => reportType.value !== 'LongitudinalCohort');
     }
     this.filteredOptions = Object.assign({}, this.options);
+    if (this.settings.reportType === 'Claim') {
+      this.filteredOptions.claimCodes = this.filteredOptions.claimCodes
+        .filter(claim => this.settings.subjects.includes(claim.value.subject))
+        .filter(claim => claim.value.assessmentType === this.settings.assessmentType);
+      if (this.settings.claimReport.claimCodesBySubject.length === 0) {
+        // selected All
+        this.filteredOptions.claimCodes.forEach(claim => {
+          this.settings.claimReport.claimCodesBySubject.push(claim.value);
+        });
+      }
+    }
 
     this.organizationTypeaheadOptions = Observable.create(observer => {
       observer.next(this.organizationTypeahead.value);
@@ -197,8 +208,8 @@ export class AggregateReportFormComponent {
         this.settings.name,
         fileName({ messageId: 'aggregate-report-form.field.report-name-file-name-error' })
       ],
-      assessmentGrades: [ this.settings.generalPopulation.assessmentGrades ],
-      schoolYears: [ this.settings.generalPopulation.schoolYears ],
+      assessmentGrades: [ this.settings.generalPopulation.assessmentGrades || this.settings.claimReport.assessmentGrades ],
+      schoolYears: [ this.settings.generalPopulation.schoolYears || this.settings.claimReport.schoolYears ],
       assessmentGradeRange: [ this.settings.longitudinalCohort.assessmentGrades ],
       toSchoolYear: [ this.settings.longitudinalCohort.toSchoolYear ],
     });
@@ -210,7 +221,7 @@ export class AggregateReportFormComponent {
       control.updateValueAndValidity();
     };
 
-    if (this.settings.reportType === 'GeneralPopulation' || !this.currentAssessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')) {
+    if (this.settings.reportType === 'GeneralPopulation' || this.settings.reportType === 'Claim' || !this.currentAssessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')) {
       setValidators(this.assessmentGradesControl, [
         notEmpty({ messageId: 'aggregate-report-form.field.assessment-grades-empty-error' })
       ]);
@@ -327,6 +338,7 @@ export class AggregateReportFormComponent {
     } else {
       this.filteredOptions.assessmentTypes = this.options.assessmentTypes;
     }
+    this.setColumnOrder();
     this.onSettingsChange();
   }
 
@@ -392,18 +404,30 @@ export class AggregateReportFormComponent {
     this.showAdvancedFilters = !this.showAdvancedFilters;
   }
 
-  onAssessmentTypeChange(): void {
-    this.filterClaimCodes();
+  setColumnOrder() {
+
+    let order = this.currentAssessmentDefinition.aggregateReportIdentityColumns.concat();
+    if (this.settings.reportType === 'Claim') {
+      order = order.concat([ 'claim' ]);
+      // this.settings.columnOrder = this.columnItems.map((orderItem) => orderItem.value);
+    }
+
     // Preserve column order between changing assessment types
-    const currentOrder = this.settings.columnOrder.concat();
+    // TODO fix column ordering. Shows as claim first and doesn't respect previous ordering
+    const currentOrder = order.concat();
     if (!currentOrder.includes('assessmentLabel')) {
       currentOrder.splice(currentOrder.indexOf('assessmentGrade') + 1, 0, 'assessmentLabel');
     }
-    const order = this.currentAssessmentDefinition.aggregateReportIdentityColumns.concat()
-      .sort(ordering(ranking(currentOrder)).compare);
 
+    order = order.sort(ordering(ranking(currentOrder)).compare);
     this.settings.columnOrder = order;
     this.columnItems = this.columnOrderableItemProvider.toOrderableItems(order);
+  }
+
+  onAssessmentTypeChange(): void {
+    this.filterClaimCodes();
+    this.setColumnOrder();
+
 
     this.options.reportTypes.forEach(reportType => reportType.disabled = false);
     if (!this.currentAssessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort') && this.currentAssessmentDefinition.aggregateReportTypes.includes('Claim')) {

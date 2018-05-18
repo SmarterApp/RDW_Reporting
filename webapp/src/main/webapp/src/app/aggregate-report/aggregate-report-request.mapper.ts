@@ -103,7 +103,7 @@ export class AggregateReportRequestMapper {
     } else if (settings.reportType === 'Claim' && assessmentDefinition.aggregateReportTypes.includes('Claim')) {
       query.assessmentGradeCodes = settings.claimReport.assessmentGrades;
       query.schoolYears = settings.claimReport.schoolYears;
-      query.claimCodesBySubject = JSON.stringify(this.strMapToObj(settings.claimReport.claimCodesBySubject) );
+      query.claimCodesBySubject = this.strMapToObj(settings.claimReport.claimCodesBySubject);
     }
 
     const name = settings.name
@@ -406,7 +406,7 @@ export class AggregateReportRequestMapper {
   }
 
   strMapToObj(strMap: Claim[]) {
-    const obj = <Map<string, string[]>>Object.create(null);
+    const obj = {};
     for (const claim of strMap) {
       // We don’t escape the key '__proto__'
       // which can cause problems on older engines

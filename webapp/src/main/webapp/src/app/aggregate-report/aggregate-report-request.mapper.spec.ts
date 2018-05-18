@@ -117,7 +117,7 @@ describe('AggregateReportRequestMapper', () => {
       claimReport: {
         assessmentGrades: [],
         schoolYears: query.schoolYears,
-        claimCodes: []
+        claimCodesBySubject: []
       },
       longitudinalCohort: {
         assessmentGrades: [],
@@ -193,7 +193,7 @@ describe('AggregateReportRequestMapper', () => {
       claimReport: {
         assessmentGrades: [],
         schoolYears: query.schoolYears,
-        claimCodes: []
+        claimCodesBySubject: []
       },
       longitudinalCohort: {
         assessmentGrades: [],

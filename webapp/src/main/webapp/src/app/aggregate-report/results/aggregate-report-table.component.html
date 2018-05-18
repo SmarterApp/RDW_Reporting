@@ -82,6 +82,11 @@
             {{rowData.schoolYear | schoolYear}}
           </div>
 
+          <div *ngSwitchCase="'claim'"
+               class="text-right">
+            {{ getClaimCodeTranslation(rowData) }}
+          </div>
+
           <div *ngSwitchCase="'dimension'"
                class="label-max-width"
                title="{{rowData.subgroup.name}}">

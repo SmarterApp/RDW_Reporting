@@ -537,6 +537,7 @@
                                      [options]="filteredOptions.claimCodes"
                                      [(ngModel)]="settings.claimReport.claimCodesBySubject"
                                      [ngModelOptions]="{standalone: true}"
+                                     (change)="onSettingsChange()"
                                      name="claimCodes"
                                      analyticsEvent="FilterClick"
                                      analyticsCategory="AggregateQueryBuilder"

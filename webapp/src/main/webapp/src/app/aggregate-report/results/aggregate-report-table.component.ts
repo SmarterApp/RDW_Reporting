@@ -14,6 +14,7 @@ import { Table } from 'primeng/table';
 import { SortEvent } from 'primeng/api';
 import * as _ from 'lodash';
 import { organizationOrdering, subgroupOrdering } from '../support';
+import { TranslateService } from '@ngx-translate/core';
 
 export const SupportedRowCount = 10000;
 export const DefaultRowsPerPageOptions = [ 100, 500, 1000 ];
@@ -22,7 +23,7 @@ export const IdentityColumnOptions: string[] = [
   'assessmentGrade',
   'assessmentLabel',
   'schoolYear',
-  'dimension'
+  'dimension',
 ];
 
 
@@ -31,6 +32,9 @@ const SchoolYearOrdering: Ordering<AggregateReportItem> = ordering(byNumber)
 
 const AssessmentLabelOrdering: Ordering<AggregateReportItem> = ordering(byString)
   .on(item => item.assessmentLabel);
+
+const ClaimOrdering: Ordering<AggregateReportItem> = ordering(byString)
+  .on(item => item.claimCode);
 
 /**
  * This component is responsible for displaying a table of aggregate report results
@@ -70,6 +74,7 @@ export class AggregateReportTableComponent implements OnInit {
   private _performanceLevelDisplayType: string = PerformanceLevelDisplayTypes.Separate;
 
   constructor(public colorService: ColorService,
+              private translate: TranslateService,
               private exportService: AggregateReportTableExportService) {
   }
 
@@ -178,7 +183,7 @@ export class AggregateReportTableComponent implements OnInit {
    * @param event {{order: number, field: string}} An optional sort event
    */
   public sort(event?: SortEvent): void {
-    const ordering: Comparator<AggregateReportItem>[] = this.getidentityColumns();
+    const ordering: Comparator<AggregateReportItem>[] = this.getIdentityColumns();
 
     if (!event.field) {
       // We're not sorting on a field.  Just apply the default column ordering
@@ -239,6 +244,14 @@ export class AggregateReportTableComponent implements OnInit {
     return this.colorService.getColor(0);
   }
 
+  private getClaimCodeTranslationKey(row: AggregateReportItem): string {
+    return `common.subject.${row.subjectCode}.claim.${row.claimCode}.name`;
+  }
+
+  getClaimCodeTranslation(row: AggregateReportItem): string {
+    return this.translate.instant(this.getClaimCodeTranslationKey(row));
+  }
+
   private buildAndRender({ rows, options, assessmentDefinition }: AggregateReportTable): void {
 
     // configure row sorting
@@ -250,6 +263,7 @@ export class AggregateReportTableComponent implements OnInit {
     this._orderingByColumnField[ 'assessmentGradeCode' ] = assessmentGradeOrdering;
     this._orderingByColumnField[ 'schoolYear' ] = SchoolYearOrdering;
     this._orderingByColumnField[ 'subgroup.id' ] = subgroupOrdering(item => item.subgroup, options);
+    this._orderingByColumnField[ 'claimCode' ] = ClaimOrdering;
 
     // create columns
     const performanceLevelsByDisplayType = {
@@ -265,7 +279,8 @@ export class AggregateReportTableComponent implements OnInit {
       new Column({ id: 'assessmentGrade', field: 'assessmentGradeCode' }),
       new Column({ id: 'assessmentLabel' }),
       new Column({ id: 'schoolYear' }),
-      new Column({ id: 'dimension', field: 'subgroup.id' })
+      new Column({ id: 'dimension', field: 'subgroup.id' }),
+      new Column({ id: 'claim', field: 'claimCode' })
     ];
 
     this.columns = [
@@ -336,7 +351,7 @@ export class AggregateReportTableComponent implements OnInit {
    *
    * @returns {Comparator<AggregateReportItem>[]} The ordered list of comparators
    */
-  private getidentityColumns(): Comparator<AggregateReportItem>[] {
+  private getIdentityColumns(): Comparator<AggregateReportItem>[] {
     return this.columns
       .map((column: Column) => {
         const ordering = this._orderingByColumnField[ column.field ];
