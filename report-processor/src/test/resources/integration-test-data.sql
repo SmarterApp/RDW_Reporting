@@ -124,17 +124,20 @@ insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, oppo
 insert into student_group (id, name, school_id, school_year, subject_id, update_import_id, updated, migrate_id) values
   (-10, 'group1', -10, 1997, 1, -1, '1997-07-18 20:14:34.000000', -1),
   (-20, 'group2', -10, 1997, null, -1, '1997-07-18 20:14:34.000000', -1),
-  (-30, 'group3', -10, 1997, null, -1, '1997-07-18 20:14:34.000000', -1);
+  (-30, 'group3', -10, 1997, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-40, 'group4', -10, 1997, null, -1, '1997-07-18 20:14:34.000000', -1);
 
 insert into student_group_membership (student_group_id, student_id) values
   (-10, -1),
   (-20, -1),
-  (-30, -1);
+  (-30, -1),
+  (-40, -2);
 
 insert into user_student_group(student_group_id, user_login) values
-   (-10, 'someone@somewhere.com'),
-   (-20, 'someone@somewhere.com'),
-   (-30, 'someoneelse@somewhere.com');
+  (-10, 'someone@somewhere.com'),
+  (-20, 'someone@somewhere.com'),
+  (-30, 'someoneelse@somewhere.com'),
+  (-40, 'someone@somewhere.com');
 
 insert into ethnicity (id, code) values
   (8, 'Filipino');
