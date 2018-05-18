@@ -61,7 +61,7 @@ sql:
       ORDER BY e.completed_at DESC,
               i.performance_task_writing_type DESC
 
-    findAllIcasByStudentIdsAndQueryParamsUnknownPermissions: >-
+    findAllIcasOrSummativesByStudentIdsAndQueryParamsUnknownPermissions: >-
       SELECT
         d.name AS district_name,
         ${sql.snippet.claimColumns},
@@ -71,12 +71,12 @@ sql:
         AND (:school_year is null or e.school_year=:school_year)
         AND (:subject_id is null or a.subject_id=:subject_id)
         AND (:grade_id is null or a.grade_id=:grade_id)
-        AND a.type_id=1
+        AND a.type_id=:type_id
         AND ${sql.reportProcessor.snippet.schoolFilter}
         AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
       ORDER BY e.completed_at asc
 
-    findAllIcasByStudentIdsAndQueryParamsGroupPermissions: >-
+    findAllIcasOrSummativesByStudentIdsAndQueryParamsGroupPermissions: >-
       SELECT
         d.name AS district_name,
         ${sql.snippet.claimColumns},
@@ -92,7 +92,7 @@ sql:
         AND (:school_year is null or e.school_year=:school_year)
         AND (:subject_id is null or a.subject_id=:subject_id)
         AND (:grade_id is null or a.grade_id=:grade_id)
-        AND a.type_id=1
+        AND a.type_id=:type_id
         AND ${sql.reportProcessor.snippet.schoolFilter}
         AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
       ORDER BY e.completed_at asc
