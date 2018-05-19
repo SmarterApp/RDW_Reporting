@@ -57,7 +57,6 @@ export class AggregateReportRequestMapper {
       includeAllSchoolsOfDistricts: settings.includeAllSchoolsOfSelectedDistricts,
       includeState: settings.includeStateResults && assessmentDefinition.aggregateReportStateResultsEnabled,
       reportType: this.toServerReportType(settings.reportType),
-      subjectCodes: settings.subjects,
       valueDisplayType: settings.valueDisplayType,
       columnOrder: settings.columnOrder
     };
@@ -97,9 +96,11 @@ export class AggregateReportRequestMapper {
     if (settings.reportType === 'GeneralPopulation' || !assessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')) {
       query.assessmentGradeCodes = settings.generalPopulation.assessmentGrades;
       query.schoolYears = settings.generalPopulation.schoolYears;
+      query.subjectCodes = settings.subjects;
     } else if (settings.reportType === 'LongitudinalCohort' && assessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')) {
       query.assessmentGradeCodes = settings.longitudinalCohort.assessmentGrades;
       query.toSchoolYear = settings.longitudinalCohort.toSchoolYear;
+      query.subjectCodes = settings.subjects;
     } else if (settings.reportType === 'Claim' && assessmentDefinition.aggregateReportTypes.includes('Claim')) {
       query.assessmentGradeCodes = settings.claimReport.assessmentGrades;
       query.schoolYears = settings.claimReport.schoolYears;
