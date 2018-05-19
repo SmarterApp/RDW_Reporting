@@ -103,7 +103,11 @@ export class AggregateReportRequestMapper {
     } else if (settings.reportType === 'Claim' && assessmentDefinition.aggregateReportTypes.includes('Claim')) {
       query.assessmentGradeCodes = settings.claimReport.assessmentGrades;
       query.schoolYears = settings.claimReport.schoolYears;
-      query.claimCodesBySubject = this.strMapToObj(settings.claimReport.claimCodesBySubject);
+      query.claimCodesBySubject = this.claimsBySubjectMapping(options.subjects.map(
+        subject => subject.value),
+        settings.claimReport.claimCodesBySubject
+      );
+
     }
 
     const name = settings.name
@@ -389,33 +393,15 @@ export class AggregateReportRequestMapper {
     return this.ClientReportTypeByServerType[ type ];
   }
 
-  private claimMap(claim: any[]): [ [ string, string[] ] ] {
-    let arr: [ [ string, string[] ] ];
-    claim.forEach(
-      c => {
-        if (arr === undefined) {
-          arr = [ [ <string>c.subject, [ <string>c.code ] ] ];
-        } else if (arr.find(a => a[ 0 ] === c.subject)) {
-          arr.find(a => a[ 0 ] === c.subject)[ 1 ].push(c.code);
-        } else {
-          arr.push([ c.subject, [ c.code ] ]);
-        }
-      }
-    );
-    return arr;
-  }
-
-  strMapToObj(strMap: Claim[]) {
+  claimsBySubjectMapping(subjects: string[], strMap: Claim[]) {
     const obj = {};
+    for (const subject of subjects) {
+      obj[ subject ] = [];
+    }
     for (const claim of strMap) {
-      // We don’t escape the key '__proto__'
-      // which can cause problems on older engines
-      if ( obj[claim.subject] === undefined) {
-        obj[claim.subject] = [claim.code];
-      } else {
-        obj[ claim.subject ].push(claim.code);
-      }
+      obj[ claim.subject ].push(claim.code);
     }
     return obj;
   }
+
 }

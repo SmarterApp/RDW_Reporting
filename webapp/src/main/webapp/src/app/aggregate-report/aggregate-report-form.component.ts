@@ -174,8 +174,8 @@ export class AggregateReportFormComponent {
     this.filteredOptions = Object.assign({}, this.options);
     if (this.settings.reportType === 'Claim') {
       this.filteredOptions.claimCodes = this.filteredOptions.claimCodes
-        .filter(claim => this.settings.subjects.includes(claim.value.subject))
-        .filter(claim => claim.value.assessmentType === this.settings.assessmentType);
+        .filter(claim => this.settings.subjects.includes(claim.value.subject)
+          && claim.value.assessmentType === this.settings.assessmentType);
       if (this.settings.claimReport.claimCodesBySubject.length === 0) {
         // selected All
         this.filteredOptions.claimCodes.forEach(claim => {
