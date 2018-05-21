@@ -33,7 +33,7 @@
     "download-data": "Download Data",
     "empty": "There are no available test results matching your report query. Please modify your query and generate a new report.",
     "export-name": "{{label}}_{{subject}}_view",
-    "form-link": "View Query",
+    "form-link": "Create New Query",
     "processing": "Your report is being generated. This may take several minutes. ",
     "row-count-label": "Row count: ",
     "unloadable-error": "The requested report cannot be loaded. Visit \"My Reports\" to see status.",
@@ -97,8 +97,8 @@
           "heading": "Include",
           "state-results": "State results (Summatives only)",
           "all-districts": "All district results",
-          "all-schools-of-districts": "School results for listed districts",
-          "all-districts-of-schools": "District results for listed schools"
+          "all-schools-of-districts": "School results for selected district(s)",
+          "all-districts-of-schools": "District results for selected school(s)"
         },
         "district-list-heading": "Districts",
         "school-list-heading": "Schools"
@@ -1115,7 +1115,7 @@
   },
   "organization-export": {
     "form": {
-      "default-report-name": "District and School Exam Data",
+      "default-report-name": "District and School Export File",
       "organization": {
         "add": "Add",
         "label": "Search for an Organization",
@@ -1127,6 +1127,7 @@
           "SchoolGroup": "Groups of Schools"
         }
       },
+      "report-name": "Export File Name",
       "submit": {
         "failure": "Error creating export. Please try again.",
         "label": "Export Results",
