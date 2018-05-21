@@ -25,7 +25,12 @@ describe('AggregateReportRequestMapper', () => {
     'getOrganizationsByIdAndType'
   ]);
 
-  const fixture: AggregateReportRequestMapper = new AggregateReportRequestMapper(translateService, organizationService);
+  const assessmentDefinitionService = jasmine.createSpyObj('AssessmentDefinitionService', [
+    'getEffectiveReportType'
+  ]);
+
+
+  const fixture: AggregateReportRequestMapper = new AggregateReportRequestMapper(translateService, organizationService, assessmentDefinitionService);
 
   it('toSettings should map a request to settings', () => {
 

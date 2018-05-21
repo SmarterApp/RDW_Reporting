@@ -32,6 +32,7 @@ import { SubgroupItem } from './subgroup/subgroup-item';
 import { Utils } from '../shared/support/support';
 import { Claim } from './aggregate-report-options.service';
 import { Option as SbCheckboxGroupOption } from '../shared/form/sb-checkbox-group.component';
+import { AssessmentDefinitionService } from './assessment/assessment-definition.service';
 
 const OrganizationComparator = (a: Organization, b: Organization) => a.name.localeCompare(b.name);
 
@@ -146,7 +147,8 @@ export class AggregateReportFormComponent {
               private reportService: AggregateReportService,
               private tableDataService: AggregateReportTableDataService,
               private columnOrderableItemProvider: AggregateReportColumnOrderItemProvider,
-              private subgroupMapper: SubgroupMapper) {
+              private subgroupMapper: SubgroupMapper,
+              private assessmentDefinitionService: AssessmentDefinitionService) {
 
     this.assessmentDefinitionsByTypeCode = route.snapshot.data[ 'assessmentDefinitionsByAssessmentTypeCode' ];
     this.aggregateReportOptions = route.snapshot.data[ 'options' ];
@@ -223,7 +225,7 @@ export class AggregateReportFormComponent {
       control.updateValueAndValidity();
     };
 
-    if (this.settings.reportType === 'GeneralPopulation') {
+    if (this.assessmentDefinitionService.getEffectiveReportType(this.settings.reportType, this.currentAssessmentDefinition) === 'GeneralPopulation') {
       setValidators(this.assessmentGradesControl, [
         notEmpty({ messageId: 'aggregate-report-form.field.assessment-grades-empty-error' })
       ]);
@@ -233,7 +235,7 @@ export class AggregateReportFormComponent {
       setValidators(this.assessmentGradeRangeControl, null);
       setValidators(this.claimAssessmentGradesControl, null);
       setValidators(this.claimSchoolYearsControl, null);
-    } else if (this.settings.reportType === 'LongitudinalCohort') {
+    } else if (this.assessmentDefinitionService.getEffectiveReportType(this.settings.reportType, this.currentAssessmentDefinition) === 'LongitudinalCohort') {
       setValidators(this.assessmentGradesControl, null);
       setValidators(this.schoolYearsControl, null);
       setValidators(this.claimAssessmentGradesControl, null);
@@ -241,7 +243,7 @@ export class AggregateReportFormComponent {
       setValidators(this.assessmentGradeRangeControl, [
         notEmpty({ messageId: 'aggregate-report-form.field.assessment-grades-empty-error' })
       ]);
-    } else if (this.settings.reportType === 'Claim') {
+    } else if (this.assessmentDefinitionService.getEffectiveReportType(this.settings.reportType, this.currentAssessmentDefinition) === 'Claim') {
       setValidators(this.assessmentGradeRangeControl, null);
       setValidators(this.assessmentGradesControl, null);
       setValidators(this.schoolYearsControl, null);

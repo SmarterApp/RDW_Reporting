@@ -47,5 +47,5 @@ export interface AssessmentDefinition {
   /**
    * An array of report types the definition supports
    */
-  readonly aggregateReportTypes: [ 'GeneralPopulation' | 'LongitudinalCohort' | 'Claim' ];
+  readonly aggregateReportTypes: string[];
 }

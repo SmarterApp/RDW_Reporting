@@ -5,6 +5,8 @@ import { of } from 'rxjs/observable/of';
 import { IdentityColumnOptions } from '../results/aggregate-report-table.component';
 import { PerformanceLevelDisplayTypes } from '../../shared/display-options/performance-level-display-type';
 
+const DefaultAggregateReportType = 'GeneralPopulation';
+
 const Iab: AssessmentDefinition = {
   typeCode: 'iab',
   interim: true,
@@ -62,6 +64,12 @@ export class AssessmentDefinitionService {
       [ 'iab', Iab ],
       [ 'sum', Summative ]
     ]));
+  }
+
+  getEffectiveReportType(selectedReportType: string, assessmentDefinition: AssessmentDefinition): string {
+    return assessmentDefinition.aggregateReportTypes.includes(selectedReportType)
+      ? selectedReportType
+      : DefaultAggregateReportType;
   }
 
 }

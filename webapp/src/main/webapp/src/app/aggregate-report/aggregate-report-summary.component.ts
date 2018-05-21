@@ -8,6 +8,7 @@ import { Utils } from '../shared/support/support';
 import { SubgroupMapper } from './subgroup/subgroup.mapper';
 import { computeEffectiveYears } from './support';
 import { Claim } from './aggregate-report-options.service';
+import { AssessmentDefinitionService } from './assessment/assessment-definition.service';
 
 
 const createColumnProvider = (columnCount: number = Number.MAX_VALUE): ColumnProvider => {
@@ -43,7 +44,8 @@ export class AggregateReportSummary {
 
   constructor(private translate: TranslateService,
               private schoolYearPipe: SchoolYearPipe,
-              private subgroupMapper: SubgroupMapper) {
+              private subgroupMapper: SubgroupMapper,
+              private assessmentDefinitionService: AssessmentDefinitionService) {
   }
 
   get narrow(): any {
@@ -141,7 +143,7 @@ export class AggregateReportSummary {
     }
 
     let assessmentAttributes = [];
-    if (this.settings.reportType === 'GeneralPopulation') {
+    if (this.assessmentDefinitionService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'GeneralPopulation') {
       assessmentAttributes = [
         {
           label: translate('aggregate-report-form.field.assessment-grades-label'),
@@ -153,7 +155,7 @@ export class AggregateReportSummary {
           values: this.settings.generalPopulation.schoolYears.map(value => this.schoolYearPipe.transform(value))
         }
       ];
-    } else if (this.settings.reportType === 'Claim') {
+    } else if (this.assessmentDefinitionService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'Claim') {
       assessmentAttributes = [
         {
           label: translate('aggregate-report-form.field.assessment-grades-label'),
