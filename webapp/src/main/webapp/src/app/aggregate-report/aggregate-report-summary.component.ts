@@ -104,6 +104,8 @@ export class AggregateReportSummary {
       ? (equalSize(options, values) ? [ All ] : values.map(codeProvider))
       : [ None ];
 
+    const defaultAllOrAll = (options, values, codeProvider) => values.length === 0 ? [ All ] : orAll(options, values, codeProvider);
+
     const inline = values => [ values.join(', ') ];
 
     const organizations = settings.districts.concat(settings.schools);
@@ -225,7 +227,7 @@ export class AggregateReportSummary {
         if (!equalSize(options.claims, settings.claimReport.claimCodesBySubject)) {
           claimRows.push({
             label: translate('aggregate-report-form.field.claim-codes-label'),
-            values: orAll(this.options.claims, this.settings.claimReport.claimCodesBySubject,
+            values: defaultAllOrAll(this.options.claims, this.settings.claimReport.claimCodesBySubject,
               (claim: Claim) => translate(`common.subject.${claim.subject}.claim.${claim.code}.name`))
           });
         }
