@@ -221,12 +221,14 @@ export class AggregateReportSummary {
       ];
 
       const claimRows = [];
-      if (!equalSize(options.claims, settings.claimReport.claimCodesBySubject)) {
-        claimRows.push({
-          label: translate('aggregate-report-form.field.claim-codes-label'),
-          values: orAll(this.options.claims, this.settings.claimReport.claimCodesBySubject,
-            (claim: Claim) => translate(`common.subject.${claim.subject}.claim.${claim.code}.name`))
-        });
+      if (this.assessmentDefinitionService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'Claim') {
+        if (!equalSize(options.claims, settings.claimReport.claimCodesBySubject)) {
+          claimRows.push({
+            label: translate('aggregate-report-form.field.claim-codes-label'),
+            values: orAll(this.options.claims, this.settings.claimReport.claimCodesBySubject,
+              (claim: Claim) => translate(`common.subject.${claim.subject}.claim.${claim.code}.name`))
+          });
+        }
       }
 
       const filterRows = [];

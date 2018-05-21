@@ -90,33 +90,33 @@ export class AggregateReportTableDataService {
       for (const organization of organizations) {
         for (const { grade, year } of gradesAndYears) {
           for (const subgroup of subgroups) {
-            for (const subject of settings.subjects) {
-              if (!claims.length) {
-                const row: any = {
-                  itemId: ++uuid,
-                  organization: organization,
-                  assessmentId: undefined,
-                  assessmentLabel: this.translate.instant('sample-aggregate-table-data-service.assessment-label'),
-                  assessmentGradeCode: grade,
-                  subjectCode: subject,
-                  schoolYear: year,
-                  avgScaleScore: averageScaleScore,
-                  avgStdErr: averageStandardError,
-                  studentsTested: studentsTested,
-                  performanceLevelByDisplayTypes: {
-                    Separate: {
-                      Number: performanceLevelCounts,
-                      Percent: performanceLevelPercents
-                    },
-                    Grouped: {
-                      Number: groupedPerformanceLevelCounts,
-                      Percent: groupedPerformanceLevelCounts
-                    }
+            if (!claims.length) {
+              const row: any = {
+                itemId: ++uuid,
+                organization: organization,
+                assessmentId: undefined,
+                assessmentLabel: this.translate.instant('sample-aggregate-table-data-service.assessment-label'),
+                assessmentGradeCode: grade,
+                subjectCode: undefined,
+                schoolYear: year,
+                avgScaleScore: averageScaleScore,
+                avgStdErr: averageStandardError,
+                studentsTested: studentsTested,
+                performanceLevelByDisplayTypes: {
+                  Separate: {
+                    Number: performanceLevelCounts,
+                    Percent: performanceLevelPercents
                   },
-                  subgroup: subgroup
-                };
-                rows.push(row);
-              } else {
+                  Grouped: {
+                    Number: groupedPerformanceLevelCounts,
+                    Percent: groupedPerformanceLevelCounts
+                  }
+                },
+                subgroup: subgroup
+              };
+              rows.push(row);
+            } else {
+              for (const subject of settings.subjects) {
                 for (const claim of claims) {
                   const row: any = {
                     itemId: ++uuid,
@@ -178,7 +178,7 @@ export class AggregateReportTableDataService {
     return this.translate.instant(this.getClaimCodeTranslationKey(row));
   }
 
-  private createSampleOrganizations(settings: AggregateReportFormSettings, definition: AssessmentDefinition): Organization[] {
+  private createSampleOrganizations(settings: AggregateReportFormSettings, definition: AssessmentDefinition): Organization[ ] {
 
     const organizations: Organization[] = [];
 
