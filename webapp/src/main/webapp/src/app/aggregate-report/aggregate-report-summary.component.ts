@@ -163,7 +163,7 @@ export class AggregateReportSummary {
         {
           label: translate('aggregate-report-form.field.school-year-label'),
           values: this.settings.claimReport.schoolYears.map(value => this.schoolYearPipe.transform(value))
-        },
+        }
       ];
     } else {
       assessmentAttributes = [
