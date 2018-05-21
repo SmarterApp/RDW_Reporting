@@ -1,4 +1,10 @@
 <spinner *ngIf="loading" text="{{'common.messages.loading' | translate}}"></spinner>
+<div class="row">
+  <div class="col-md-12">
+    <span class="pull-right"><em>{{'assessment-results.distractor-analysis-instructions' | translate}}</em></span>
+  </div>
+</div>
+
 <p-table *ngIf="!loading"
          #distractorTable
          [columns]="columns"
