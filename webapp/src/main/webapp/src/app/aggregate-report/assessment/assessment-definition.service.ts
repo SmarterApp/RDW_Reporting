@@ -66,7 +66,7 @@ export class AssessmentDefinitionService {
     ]));
   }
 
-  getEffectiveReportType(selectedReportType: string, assessmentDefinition: AssessmentDefinition): string {
+  getEffectiveReportType(selectedReportType: 'GeneralPopulation' | 'LongitudinalCohort' | 'Claim' , assessmentDefinition: AssessmentDefinition): string {
     return assessmentDefinition.aggregateReportTypes.includes(selectedReportType)
       ? selectedReportType
       : DefaultAggregateReportType;

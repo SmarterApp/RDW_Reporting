@@ -227,7 +227,7 @@ export class AggregateReportRequestMapper {
       claimReport = {
         assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
         schoolYears: query.schoolYears.sort((a, b) => b - a),
-        claimCodesBySubject: []
+        claimCodesBySubject: this.getClaims(query.assessmentTypeCode, options.claims, query.claimCodesBySubject)
       };
     }
 
@@ -272,6 +272,21 @@ export class AggregateReportRequestMapper {
           };
         })
       );
+  }
+
+  private getClaims(assessmentType: string, claimOptions: Claim[], selectedClaims: any): Claim[] {
+    const claims: Claim[] = [];
+    for (const subject in selectedClaims) {
+      if (selectedClaims[ subject ].length) {
+        claims.push(...claimOptions.filter(claimOption => claimOption.assessmentType === assessmentType
+          && claimOption.subject === subject
+          && selectedClaims[ subject ].includes(claimOption.code)));
+      } else {
+        claims.push(...claimOptions.filter(claimOption => claimOption.assessmentType === assessmentType
+          && claimOption.subject === subject));
+      }
+    }
+    return claims;
   }
 
   private createStudentFilters(settingFilters, optionFilters): StudentFilters {
@@ -396,12 +411,12 @@ export class AggregateReportRequestMapper {
     return this.ClientReportTypeByServerType[ type ];
   }
 
-  claimsBySubjectMapping(subjects: string[], strMap: Claim[]) {
+  claimsBySubjectMapping(subjects: string[], claims: Claim[]) {
     const obj = {};
     for (const subject of subjects) {
       obj[ subject ] = [];
     }
-    for (const claim of strMap) {
+    for (const claim of claims) {
       obj[ claim.subject ].push(claim.code);
     }
     return obj;
