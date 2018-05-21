@@ -51,7 +51,7 @@ INSERT INTO student (id, gender_id, updated, update_import_id, migrate_id) VALUE
   (-101,  -29);
 
 -- ------------------------------------------ Exams ---------------------------------------------------------------------------------------------
-INSERT INTO fact_student_exam_longitudinal (id, school_year, school_year_asmt_grade_code, asmt_id, asmt_grade_id, subject_id, grade_id, student_id, school_id,
+INSERT INTO exam_longitudinal (id, school_year, school_year_asmt_grade_code, asmt_id, asmt_grade_id, subject_id, grade_id, student_id, school_id,
                                             completeness_id, administration_condition_id, performance_level,
                                             scale_score, elas_id,
                                             iep, lep, section504, economic_disadvantage, migrant_status,

@@ -170,6 +170,7 @@ export class LongitudinalCohortChartComponent implements OnInit {
         || (!event.target.parentElement.className.toString().includes('chart-series-toggle'))
       )
     ) {
+      this._selectedPaths.clear();
       this.chartView.performancePaths
         .forEach(perfPath => perfPath.fade = false);
     }
@@ -281,7 +282,7 @@ export class LongitudinalCohortChartComponent implements OnInit {
                 x: xScale(j),
                 y: yScale(scaleScore),
                 scaleScore: scaleScore,
-                standardError: standardError,
+                standardError: standardError || 0,
                 levelRange: findPerformanceLevelRange(levelRangesByYearGradeIndex, j, scaleScore)
               });
             }

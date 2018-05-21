@@ -12,28 +12,28 @@ sqlbuilder:
           # multiple assessments in one aggregate. This introduces a challenge of what assessment to return and what cut points to use for the report visualization.
           # This approach does not solve the problem, but gives enough data to warn the user about this use case.
           select: >-
-              round(avg(CASE WHEN fe.years_in_one_org = :cohort_years THEN fe.scale_score ELSE NULL END)) AS cohort_score,
-              round(avg(fe.scale_score)) AS score,
-              round(stddev_samp(CASE WHEN fe.years_in_one_org = :cohort_years THEN fe.scale_score ELSE NULL END)/sqrt(sum(CASE WHEN fe.years_in_one_org = :cohort_years THEN 1 ELSE 0 END))) AS cohort_std_err,
-              round(stddev_samp(fe.scale_score)/sqrt(count(*))) AS std_err,
-              sum(CASE WHEN fe.performance_level = 1 THEN 1 ELSE 0 END) AS level1,
-              sum(CASE WHEN fe.performance_level = 2 THEN 1 ELSE 0 END) AS level2,
-              sum(CASE WHEN fe.performance_level = 3 THEN 1 ELSE 0 END) AS level3,
-              sum(CASE WHEN fe.performance_level = 4 THEN 1 ELSE 0 END) AS level4,
-              sum(CASE WHEN (fe.performance_level = 1 AND fe.years_in_one_org = :cohort_years) THEN 1 ELSE 0 END) AS cohort_level1,
-              sum(CASE WHEN (fe.performance_level = 2 AND fe.years_in_one_org = :cohort_years) THEN 1 ELSE 0 END) AS cohort_level2,
-              sum(CASE WHEN (fe.performance_level = 3 AND fe.years_in_one_org = :cohort_years) THEN 1 ELSE 0 END) AS cohort_level3,
-              sum(CASE WHEN (fe.performance_level = 4 AND fe.years_in_one_org = :cohort_years) THEN 1 ELSE 0 END) AS cohort_level4,
-              fe.school_year,
-              fe.subject_id,
-              fe.asmt_grade_id,
-              max(fe.asmt_id) as asmt_id,
-              CASE WHEN max(fe.asmt_id) = min(fe.asmt_id) THEN true ELSE false END AS singleAsmtInAggregate
+              round(avg(CASE WHEN e.years_in_one_org = :cohort_years THEN e.scale_score ELSE NULL END)) AS cohort_score,
+              round(avg(e.scale_score)) AS score,
+              round(stddev_samp(CASE WHEN e.years_in_one_org = :cohort_years THEN e.scale_score ELSE NULL END)/sqrt(sum(CASE WHEN e.years_in_one_org = :cohort_years THEN 1 ELSE 0 END))) AS cohort_std_err,
+              round(stddev_samp(e.scale_score)/sqrt(count(*))) AS std_err,
+              sum(CASE WHEN e.performance_level = 1 THEN 1 ELSE 0 END) AS level1,
+              sum(CASE WHEN e.performance_level = 2 THEN 1 ELSE 0 END) AS level2,
+              sum(CASE WHEN e.performance_level = 3 THEN 1 ELSE 0 END) AS level3,
+              sum(CASE WHEN e.performance_level = 4 THEN 1 ELSE 0 END) AS level4,
+              sum(CASE WHEN (e.performance_level = 1 AND e.years_in_one_org = :cohort_years) THEN 1 ELSE 0 END) AS cohort_level1,
+              sum(CASE WHEN (e.performance_level = 2 AND e.years_in_one_org = :cohort_years) THEN 1 ELSE 0 END) AS cohort_level2,
+              sum(CASE WHEN (e.performance_level = 3 AND e.years_in_one_org = :cohort_years) THEN 1 ELSE 0 END) AS cohort_level3,
+              sum(CASE WHEN (e.performance_level = 4 AND e.years_in_one_org = :cohort_years) THEN 1 ELSE 0 END) AS cohort_level4,
+              e.school_year,
+              e.subject_id,
+              e.asmt_grade_id,
+              max(e.asmt_id) as asmt_id,
+              CASE WHEN max(e.asmt_id) = min(e.asmt_id) THEN true ELSE false END AS singleAsmtInAggregate
 
           groupBy: >-
-              fe.school_year,
-              fe.subject_id,
-              fe.asmt_grade_id
+              e.school_year,
+              e.subject_id,
+              e.asmt_grade_id
 
       # ------------ organization parts -------------------------------------------------------------
         addons:
@@ -48,16 +48,16 @@ sqlbuilder:
                        SELECT
                          f.*,
                          count(*) OVER (PARTITION BY f.student_id ) AS years_in_one_org
-                       FROM fact_student_exam_longitudinal f
+                       FROM exam_longitudinal f
                        WHERE
                          f.subject_id = :subject_id AND school_year_asmt_grade_code IN (:yearGradePairs)
-                    ) fe
+                    ) e
 
             allDistricts:
               clauses:
                 select: >-
                    'District' AS organization_type,
-                   fe.district_id AS organization_id
+                   e.district_id AS organization_id
 
                 from: >-
                    (
@@ -66,20 +66,20 @@ sqlbuilder:
                         sch.district_id,
                         sch.embargo_enabled,
                         count(*) OVER (PARTITION BY f.student_id, sch.district_id ) AS years_in_one_org
-                      FROM fact_student_exam_longitudinal f
+                      FROM exam_longitudinal f
                        JOIN school sch ON sch.id = f.school_id
                       WHERE
                         f.subject_id = :subject_id AND school_year_asmt_grade_code IN (:yearGradePairs)
-                   ) fe
+                   ) e
 
                 groupBy: >-
-                  fe.district_id
+                  e.district_id
 
             districts:
               clauses:
                 select: >-
                    'District' AS organization_type,
-                   fe.district_id AS organization_id
+                   e.district_id AS organization_id
 
                 from: >-
                    (
@@ -88,21 +88,21 @@ sqlbuilder:
                         sch.district_id,
                         sch.embargo_enabled,
                         count(*) OVER (PARTITION BY f.student_id, sch.district_id ) AS years_in_one_org
-                      FROM fact_student_exam_longitudinal f
+                      FROM exam_longitudinal f
                        JOIN school sch ON sch.id = f.school_id
                       WHERE
                         f.subject_id = :subject_id AND school_year_asmt_grade_code IN (:yearGradePairs)
                       AND sch.district_id in (:district_ids)
-                   ) fe
+                   ) e
 
                 groupBy: >-
-                  fe.district_id
+                  e.district_id
 
             allSchoolsInDistricts:
               clauses:
                 select: >-
                      'School' AS organization_type,
-                     fe.school_id AS organization_id
+                     e.school_id AS organization_id
 
                 from: >-
                     (
@@ -111,21 +111,21 @@ sqlbuilder:
                          sch.district_id,
                          sch.embargo_enabled,
                          count(*) OVER (PARTITION BY f.student_id, f.school_id ) AS years_in_one_org
-                       FROM fact_student_exam_longitudinal f
+                       FROM exam_longitudinal f
                         JOIN school sch ON sch.id = f.school_id
                        WHERE
                          f.subject_id = :subject_id AND school_year_asmt_grade_code IN (:yearGradePairs)
                        AND sch.district_id in (:school_district_ids)
-                    ) fe
+                    ) e
 
                 groupBy: >-
-                     fe.school_id
+                     e.school_id
 
             schools:
               clauses:
                 select: >-
                      'School' AS organization_type,
-                     fe.school_id AS organization_id
+                     e.school_id AS organization_id
 
                 from: >-
                     (
@@ -134,28 +134,28 @@ sqlbuilder:
                          sch.district_id,
                          sch.embargo_enabled,
                          count(*) OVER (PARTITION BY f.student_id, f.school_id ) AS years_in_one_org
-                       FROM fact_student_exam_longitudinal f
+                       FROM exam_longitudinal f
                         JOIN school sch ON sch.id = f.school_id
                        WHERE
                          subject_id = :subject_id AND school_year_asmt_grade_code IN (:yearGradePairs)
                         AND f.school_id in (:school_ids)
-                    ) fe
+                    ) e
 
                 groupBy: >-
-                     fe.school_id
+                     e.school_id
 
             districtEmbargo:
               clauses:
                 where: >-
-                    fe.school_year < ${reporting.school-year}
-                    OR fe.embargo_enabled = 0
+                    e.school_year < ${reporting.school-year}
+                    OR e.embargo_enabled = 0
                     OR 1 = :state_embargo_admin
-                    OR fe.district_id IN (:district_embargo_admin_ids)
+                    OR e.district_id IN (:district_embargo_admin_ids)
 
             stateEmbargo:
               clauses:
                 where: >-
-                     fe.school_year < ${reporting.school-year}
+                     e.school_year < ${reporting.school-year}
                      OR EXISTS (SELECT 1 FROM state_embargo WHERE aggregate = 0)
                      OR 1 = :state_embargo_admin
 
@@ -173,7 +173,7 @@ sqlbuilder:
                       s.gender_id  AS dimension_id,
                       gn.code AS dimension_code
                 join: >-
-                     JOIN student s ON fe.student_id = s.id
+                     JOIN student s ON e.student_id = s.id
                      JOIN gender gn on gn.id = s.gender_id
                 where: >-
                      ( true = :all_genders OR s.gender_id in (:gender_ids) )
@@ -187,96 +187,96 @@ sqlbuilder:
                 select: >-
                      'Ethnicity' AS dimension,
                      se.ethnicity_id AS dimension_id,
-                     e.code AS dimension_code
+                     et.code AS dimension_code
                 join: >-
-                     JOIN student_ethnicity se ON se.student_id = fe.student_id
-                     JOIN ethnicity e ON e.id = se.ethnicity_id
+                     JOIN student_ethnicity se ON se.student_id = e.student_id
+                     JOIN ethnicity et ON et.id = se.ethnicity_id
                 where: >-
                     ( true = :all_ethnicities OR se.ethnicity_id in (:ethnicity_ids) )
                 groupBy: >-
                      se.ethnicity_id,
-                     e.code
+                     et.code
 
             ELAS:
               clauses:
                 select: >-
                      'ELAS' AS dimension,
-                     fe.elas_id AS dimension_id,
+                     e.elas_id AS dimension_id,
                      el.code AS dimension_code
                 join: >-
-                     JOIN elas el ON el.id = fe.elas_id
+                     JOIN elas el ON el.id = e.elas_id
                 where: >-
-                    ( true = :all_elas OR fe.elas_id in (:elas_ids) )
+                    ( true = :all_elas OR e.elas_id in (:elas_ids) )
                 groupBy: >-
-                     fe.elas_id,
+                     e.elas_id,
                      el.code
 
             IEP:
               clauses:
                 select: >-
                      'IEP' AS dimension,
-                     fe.iep AS dimension_id,
-                     CASE WHEN fe.iep = 1 THEN 'yes' ELSE 'no' END AS dimension_code
+                     e.iep AS dimension_id,
+                     CASE WHEN e.iep = 1 THEN 'yes' ELSE 'no' END AS dimension_code
                 where: >-
-                     ( true = :all_ieps OR fe.iep in (:iep_ids) )
+                     ( true = :all_ieps OR e.iep in (:iep_ids) )
                 groupBy: >-
-                     fe.iep
+                     e.iep
 
             LEP:
               clauses:
                 select: >-
                      'LEP' AS dimension,
-                     fe.lep AS dimension_id,
-                     CASE WHEN fe.lep = 1 THEN 'yes' ELSE 'no' END AS dimension_code
+                     e.lep AS dimension_id,
+                     CASE WHEN e.lep = 1 THEN 'yes' ELSE 'no' END AS dimension_code
                 where: >-
-                     ( true = :all_leps OR fe.lep in (:lep_ids) )
+                     ( true = :all_leps OR e.lep in (:lep_ids) )
                 groupBy: >-
-                     fe.lep
+                     e.lep
 
             EconomicDisadvantage:
               clauses:
                 select: >-
                      'EconomicDisadvantage' AS dimension,
-                     fe.economic_disadvantage AS dimension_id,
-                     CASE WHEN fe.economic_disadvantage = 1 THEN 'yes' ELSE 'no' END AS dimension_code
+                     e.economic_disadvantage AS dimension_id,
+                     CASE WHEN e.economic_disadvantage = 1 THEN 'yes' ELSE 'no' END AS dimension_code
                 where: >-
-                     ( true = :all_economic_disadvantages OR fe.economic_disadvantage in (:economic_disadvantage_ids) )
+                     ( true = :all_economic_disadvantages OR e.economic_disadvantage in (:economic_disadvantage_ids) )
                 groupBy: >-
-                     fe.economic_disadvantage
+                     e.economic_disadvantage
 
             Section504:
               clauses:
                 select: >-
                      'Section504' AS dimension,
-                     fe.section504 AS dimension_id,
-                     CASE WHEN fe.section504 = 1 THEN 'yes' WHEN fe.section504 = 0 THEN 'no' ELSE 'undefined' END AS dimension_code
+                     e.section504 AS dimension_id,
+                     CASE WHEN e.section504 = 1 THEN 'yes' WHEN e.section504 = 0 THEN 'no' ELSE 'undefined' END AS dimension_code
                 where: >-
-                     ( true = :all_section504s OR fe.section504 in (:section504_ids) )
+                     ( true = :all_section504s OR e.section504 in (:section504_ids) )
                 groupBy: >-
-                     fe.section504
+                     e.section504
 
             MigrantStatus:
               clauses:
                 select: >-
                      'MigrantStatus' AS dimension,
-                     fe.migrant_status AS dimension_id,
-                     CASE WHEN fe.migrant_status = 1 THEN 'yes' WHEN fe.migrant_status = 0 THEN 'no' ELSE 'undefined' END AS dimension_code
+                     e.migrant_status AS dimension_id,
+                     CASE WHEN e.migrant_status = 1 THEN 'yes' WHEN e.migrant_status = 0 THEN 'no' ELSE 'undefined' END AS dimension_code
                 where: >-
-                     ( true = :all_migrant_statuses OR fe.migrant_status in (:migrant_status_ids) )
+                     ( true = :all_migrant_statuses OR e.migrant_status in (:migrant_status_ids) )
                 groupBy: >-
-                     fe.migrant_status
+                     e.migrant_status
 
             # unlike all other dimensions we are not back-filling missing enrolled grades
             StudentEnrolledGrade:
                clauses:
                  select: >-
                       'StudentEnrolledGrade' AS dimension,
-                      fe.grade_id AS dimension_id,
+                      e.grade_id AS dimension_id,
                       g.code AS dimension_code
                  join: >-
-                      JOIN grade g ON g.id = fe.grade_id
+                      JOIN grade g ON g.id = e.grade_id
                  groupBy: >-
-                      fe.grade_id,
+                      e.grade_id,
                       g.code
 
       # ------------ filters, must be added on when a dimension and filter do not overlap --------------------------------------------------
@@ -285,51 +285,51 @@ sqlbuilder:
             Completeness_filter:
                clauses:
                  where: >-
-                     fe.completeness_id in (:completeness_ids)
+                     e.completeness_id in (:completeness_ids)
 
             AdministrationCondition_filter:
                clauses:
                  where: >-
-                     fe.administration_condition_id in (:administration_condition_ids)
+                     e.administration_condition_id in (:administration_condition_ids)
 
             Gender_filter:
                clauses:
                  join: >-
-                     JOIN student s ON fe.student_id = s.id
+                     JOIN student s ON e.student_id = s.id
                  where: >-
                     s.gender_id in (:gender_ids)
 
             ELAS_filter:
               clauses:
                 where: >-
-                  fe.elas_id in (:elas_ids)
+                  e.elas_id in (:elas_ids)
 
             Ethnicity_filter:
                clauses:
                  where: >-
-                     EXISTS (select 1 from student_ethnicity where ethnicity_id in (:ethnicity_ids) and student_id = fe.student_id)
+                     EXISTS (select 1 from student_ethnicity where ethnicity_id in (:ethnicity_ids) and student_id = e.student_id)
 
             IEP_filter:
                clauses:
                  where: >-
-                     fe.iep in (:iep_ids)
+                     e.iep in (:iep_ids)
 
             LEP_filter:
                clauses:
                  where: >-
-                     fe.lep in (:lep_ids)
+                     e.lep in (:lep_ids)
 
             EconomicDisadvantage_filter:
                clauses:
                  where: >-
-                     fe.economic_disadvantage in (:economic_disadvantage_ids)
+                     e.economic_disadvantage in (:economic_disadvantage_ids)
 
             Section504_filter:
                clauses:
                  where: >-
-                     fe.section504 in (:section504_ids)
+                     e.section504 in (:section504_ids)
 
             MigrantStatus_filter:
                clauses:
                  where: >-
-                     fe.migrant_status in (:migrant_status_ids)
+                     e.migrant_status in (:migrant_status_ids)

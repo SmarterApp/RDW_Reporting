@@ -60,7 +60,7 @@ INSERT INTO student_ethnicity(student_id, ethnicity_id) values
   (-9,  -29);
 
 -- ------------------------------------------ Exams ---------------------------------------------------------------------------------------------
-INSERT INTO  fact_student_exam (id, school_year, asmt_id, elas_id, completeness_id, administration_condition_id, performance_level,
+INSERT INTO  exam (id, school_year, asmt_id, elas_id, completeness_id, administration_condition_id, performance_level,
                                     scale_score, grade_id, student_id, school_id,  iep, lep, section504, economic_disadvantage,
                                      migrant_status,completed_at, updated, update_import_id, migrate_id) VALUES
   (-5, 1999, -8, -11, -8, -98, 1, 2500,  -4, -5, -8,  1, 1, 0, 0, 1, '2016-08-14 19:05:33.000000', '2016-09-14 19:05:33.000000', -1, -1),
@@ -83,7 +83,7 @@ INSERT INTO  fact_student_exam (id, school_year, asmt_id, elas_id, completeness_
   (-40, 1999, -11, -11, -9, -99, 1, 2000, -4, -9, -9,  1, 1, 0, 0, 1, '2016-08-14 19:05:33.000000', '2016-09-14 19:05:33.000000', -1, -1);
 
 
-INSERT INTO  fact_student_iab_exam (id, school_year, asmt_id, elas_id, completeness_id, administration_condition_id, performance_level,
+INSERT INTO  iab_exam (id, school_year, asmt_id, elas_id, completeness_id, administration_condition_id, performance_level,
                                     scale_score, grade_id, student_id, school_id,  iep, lep, section504, economic_disadvantage,
                                      migrant_status,completed_at, updated, update_import_id, migrate_id) VALUES
   (-100, 1999, -12, -11, -9, -99, 1, 2500, -4, -5, -8,  1, 1, 0, 0, 1, '2016-08-14 19:05:33.000000', '2016-09-14 19:05:33.000000', -1, -1),
