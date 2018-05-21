@@ -236,8 +236,7 @@
             </div>
           </div>
 
-          <div
-            [hidden]="settings.reportType !== 'GeneralPopulation'">
+          <div [hidden]="settings.reportType !== 'GeneralPopulation'">
 
             <div class="well">
               <div class="row">
@@ -308,23 +307,23 @@
                          title="{{'aggregate-report-form.field.assessment-grades-label' | translate}}"
                          content="{{'aggregate-report-form.field.assessment-grades-info' | translate}}"></label>
                   <p class="small mb-0"
-                     [ngClass]="showErrors(assessmentGradesControl) ? 'red' : 'gray-darker'">
+                     [ngClass]="showErrors(claimAssessmentGradesControl) ? 'red' : 'gray-darker'">
                     {{'common.form-field-message.required' | translate}}
                   </p>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <sb-button-group name="assessmentGrades"
-                                     formControlName="assessmentGrades"
+                    <sb-button-group name="claimAssessmentGrades"
+                                     formControlName="claimAssessmentGrades"
                                      analyticsEvent="FilterClick"
                                      analyticsCategory="AggregateQueryBuilder"
                                      [allOptionEnabled]="false"
                                      [options]="filteredOptions.assessmentGrades"
                                      [(ngModel)]="settings.claimReport.assessmentGrades"
                                      (change)="onSettingsChange()"></sb-button-group>
-                    <div *ngIf="showErrors(assessmentGradesControl)">
-                      <p *ngIf="assessmentGradesControl.errors.notEmpty" class="help-block small red">
-                        {{assessmentGradesControl.errors.notEmpty.messageId | translate}}</p>
+                    <div *ngIf="showErrors(claimAssessmentGradesControl)">
+                      <p *ngIf="claimAssessmentGradesControl.errors.notEmpty" class="help-block small red">
+                        {{claimAssessmentGradesControl.errors.notEmpty.messageId | translate}}</p>
                     </div>
                   </div>
                 </div>
@@ -335,23 +334,23 @@
                 <div class="col-md-6">
                   <label>{{'aggregate-report-form.field.school-year-label' | translate}}</label>
                   <p class="small mb-0"
-                     [ngClass]="showErrors(schoolYearsControl) ? 'red' : 'gray-darker'">
+                     [ngClass]="showErrors(claimSchoolYearsControl) ? 'red' : 'gray-darker'">
                     {{'common.form-field-message.required' | translate}}
                   </p>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <sb-button-group name="schoolYears"
-                                     formControlName="schoolYears"
+                    <sb-button-group name="claimSchoolYears"
+                                     formControlName="claimSchoolYears"
                                      analyticsEvent="FilterClick"
                                      analyticsCategory="AggregateQueryBuilder"
                                      [allOptionEnabled]="false"
                                      [options]="filteredOptions.schoolYears"
                                      [(ngModel)]="settings.claimReport.schoolYears"
                                      (change)="onSettingsChange()"></sb-button-group>
-                    <div *ngIf="showErrors(schoolYearsControl)">
-                      <p *ngIf="schoolYearsControl.errors.notEmpty" class="help-block small red">
-                        {{schoolYearsControl.errors.notEmpty.messageId | translate}}</p>
+                    <div *ngIf="showErrors(claimSchoolYearsControl)">
+                      <p *ngIf="claimSchoolYearsControl.errors.notEmpty" class="help-block small red">
+                        {{claimSchoolYearsControl.errors.notEmpty.messageId | translate}}</p>
                     </div>
                   </div>
 

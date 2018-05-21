@@ -208,10 +208,12 @@ export class AggregateReportFormComponent {
         this.settings.name,
         fileName({ messageId: 'aggregate-report-form.field.report-name-file-name-error' })
       ],
-      assessmentGrades: [ this.settings.generalPopulation.assessmentGrades || this.settings.claimReport.assessmentGrades ],
-      schoolYears: [ this.settings.generalPopulation.schoolYears || this.settings.claimReport.schoolYears ],
+      assessmentGrades: [ this.settings.generalPopulation.assessmentGrades ],
+      schoolYears: [ this.settings.generalPopulation.schoolYears ],
       assessmentGradeRange: [ this.settings.longitudinalCohort.assessmentGrades ],
       toSchoolYear: [ this.settings.longitudinalCohort.toSchoolYear ],
+      claimAssessmentGrades: [ this.settings.claimReport.assessmentGrades ],
+      claimSchoolYears: [ this.settings.claimReport.schoolYears ]
     });
   }
 
@@ -221,7 +223,7 @@ export class AggregateReportFormComponent {
       control.updateValueAndValidity();
     };
 
-    if (this.settings.reportType === 'GeneralPopulation' || this.settings.reportType === 'Claim' || !this.currentAssessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')) {
+    if (this.settings.reportType === 'GeneralPopulation') {
       setValidators(this.assessmentGradesControl, [
         notEmpty({ messageId: 'aggregate-report-form.field.assessment-grades-empty-error' })
       ]);
@@ -229,11 +231,25 @@ export class AggregateReportFormComponent {
         notEmpty({ messageId: 'aggregate-report-form.field.school-year-empty-error' })
       ]);
       setValidators(this.assessmentGradeRangeControl, null);
-    } else if (this.settings.reportType === 'LongitudinalCohort' && this.currentAssessmentDefinition.aggregateReportTypes.includes('LongitudinalCohort')) {
+      setValidators(this.claimAssessmentGradesControl, null);
+      setValidators(this.claimSchoolYearsControl, null);
+    } else if (this.settings.reportType === 'LongitudinalCohort') {
       setValidators(this.assessmentGradesControl, null);
       setValidators(this.schoolYearsControl, null);
+      setValidators(this.claimAssessmentGradesControl, null);
+      setValidators(this.claimSchoolYearsControl, null);
       setValidators(this.assessmentGradeRangeControl, [
         notEmpty({ messageId: 'aggregate-report-form.field.assessment-grades-empty-error' })
+      ]);
+    } else if (this.settings.reportType === 'Claim') {
+      setValidators(this.assessmentGradeRangeControl, null);
+      setValidators(this.assessmentGradesControl, null);
+      setValidators(this.schoolYearsControl, null);
+      setValidators(this.claimAssessmentGradesControl, [
+        notEmpty({ messageId: 'aggregate-report-form.field.assessment-grades-empty-error' })
+      ]);
+      setValidators(this.claimSchoolYearsControl, [
+        notEmpty({ messageId: 'aggregate-report-form.field.school-year-empty-error' })
       ]);
     }
   }
@@ -281,6 +297,14 @@ export class AggregateReportFormComponent {
 
   get toSchoolYearControl(): FormControl {
     return <FormControl>this.formGroup.get('toSchoolYear');
+  }
+
+  get claimAssessmentGradesControl(): FormControl {
+    return <FormControl>this.formGroup.get('claimAssessmentGrades');
+  }
+
+  get claimSchoolYearsControl(): FormControl {
+    return <FormControl>this.formGroup.get('claimSchoolYears');
   }
 
   /**
@@ -409,11 +433,9 @@ export class AggregateReportFormComponent {
     let order = this.currentAssessmentDefinition.aggregateReportIdentityColumns.concat();
     if (this.settings.reportType === 'Claim') {
       order = order.concat([ 'claim' ]);
-      // this.settings.columnOrder = this.columnItems.map((orderItem) => orderItem.value);
     }
 
     // Preserve column order between changing assessment types
-    // TODO fix column ordering. Shows as claim first and doesn't respect previous ordering
     const currentOrder = order.concat();
     if (!currentOrder.includes('assessmentLabel')) {
       currentOrder.splice(currentOrder.indexOf('assessmentGrade') + 1, 0, 'assessmentLabel');
