@@ -219,13 +219,17 @@ export class AggregateReportFormComponent {
     });
   }
 
+  get effectiveReportType() {
+    return this.assessmentDefinitionService.getEffectiveReportType(this.settings.reportType, this.currentAssessmentDefinition);
+  }
+
   private updateValidators(): void {
     const setValidators = (control: FormControl, validators: ValidatorFn | ValidatorFn[] | null): void => {
       control.setValidators(validators);
       control.updateValueAndValidity();
     };
 
-    if (this.assessmentDefinitionService.getEffectiveReportType(this.settings.reportType, this.currentAssessmentDefinition) === 'GeneralPopulation') {
+    if (this.effectiveReportType === 'GeneralPopulation') {
       setValidators(this.assessmentGradesControl, [
         notEmpty({ messageId: 'aggregate-report-form.field.assessment-grades-empty-error' })
       ]);
@@ -235,7 +239,7 @@ export class AggregateReportFormComponent {
       setValidators(this.assessmentGradeRangeControl, null);
       setValidators(this.claimAssessmentGradesControl, null);
       setValidators(this.claimSchoolYearsControl, null);
-    } else if (this.assessmentDefinitionService.getEffectiveReportType(this.settings.reportType, this.currentAssessmentDefinition) === 'LongitudinalCohort') {
+    } else if (this.effectiveReportType === 'LongitudinalCohort') {
       setValidators(this.assessmentGradesControl, null);
       setValidators(this.schoolYearsControl, null);
       setValidators(this.claimAssessmentGradesControl, null);
@@ -243,7 +247,7 @@ export class AggregateReportFormComponent {
       setValidators(this.assessmentGradeRangeControl, [
         notEmpty({ messageId: 'aggregate-report-form.field.assessment-grades-empty-error' })
       ]);
-    } else if (this.assessmentDefinitionService.getEffectiveReportType(this.settings.reportType, this.currentAssessmentDefinition) === 'Claim') {
+    } else if (this.effectiveReportType === 'Claim') {
       setValidators(this.assessmentGradeRangeControl, null);
       setValidators(this.assessmentGradesControl, null);
       setValidators(this.schoolYearsControl, null);
@@ -355,10 +359,10 @@ export class AggregateReportFormComponent {
   }
 
   onReportTypeChange(): void {
-    if (this.settings.reportType === 'Claim') {
+    if (this.effectiveReportType === 'Claim') {
       this.filteredOptions.assessmentTypes = this.options.assessmentTypes.filter(assessmentType => assessmentType.value !== 'iab');
       this.filterClaimCodes();
-    } else if (this.settings.reportType === 'LongitudinalCohort') {
+    } else if (this.effectiveReportType === 'LongitudinalCohort') {
       this.filteredOptions.assessmentTypes = this.options.assessmentTypes.filter(assessmentType => assessmentType.value !== 'iab'
         && assessmentType.value !== 'ica');
     } else {

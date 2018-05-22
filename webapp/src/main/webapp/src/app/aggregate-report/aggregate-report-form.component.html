@@ -236,7 +236,7 @@
             </div>
           </div>
 
-          <div [hidden]="settings.reportType !== 'GeneralPopulation'">
+          <div [hidden]="effectiveReportType !== 'GeneralPopulation'">
 
             <div class="well">
               <div class="row">
@@ -298,7 +298,7 @@
           </div>
 
           <div
-            [hidden]="settings.reportType !== 'Claim'">
+            [hidden]="effectiveReportType !== 'Claim'">
 
             <div class="well">
               <div class="row">
@@ -360,7 +360,7 @@
           </div>
 
           <div
-            [hidden]="settings.reportType !== 'LongitudinalCohort'">
+            [hidden]="effectiveReportType !== 'LongitudinalCohort'">
 
             <div class="well">
               <div class="row">
@@ -526,7 +526,7 @@
                                 [options]="filteredOptions.studentFilters"
                                 [settings]="settings.studentFilters"
                                 (changed)="onSettingsChange()"></subgroup-filters>
-              <div [hidden]="settings.reportType !== 'Claim'">
+              <div [hidden]="effectiveReportType !== 'Claim'">
                 <div class="well">
                   <h3>{{'aggregate-report-form.field.claim-codes-label' | translate}}</h3>
                   <div class="col-md-6"></div>

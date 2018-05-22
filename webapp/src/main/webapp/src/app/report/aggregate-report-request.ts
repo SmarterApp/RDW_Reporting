@@ -44,7 +44,7 @@ export interface AggregateReportQuery {
   readonly toSchoolYear?: number;
 
   // Claim report type params
-  claimCodesBySubject?: any;
+  readonly claimCodesBySubject?: any;
 }
 
 export interface StudentFilters {
