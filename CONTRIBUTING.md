@@ -98,6 +98,19 @@ java -jar build/libs/rdw-reporting*.jar --server.port=8088
 open http://localhost:8088
 ```
 
+It would be great if somebody could provide instructions for running the micro-services without the fronting webapp.
+One big issue is security and getting a proper test user in context. For now, here are some crude instructions for
+running admin-service well enough to test one controller end-point:
+1. Create a Spring Boot configuration (i'm using IntelliJ)
+    * Set main class to `org.opentestsystem.rdw.admin.Application`
+    * Set program arguments to `--app.test-mode=true --security.user.name=user --security.user.password=pass`
+1. Run it and set your breakpoint
+1. Hit the endpoint
+```bash
+curl -u user:pass -X POST  http://localhost:8080/studentGroups -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' --data-binary $'------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name="file"; filename="demo 演示.csv"\r\nContent-Type: text/csv\r\n\r\n\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--\r\n'
+```
+1. Note: there isn't a User for the security context so stuff will probably fail quickly.
+
 ### Posterity
 This project was created on Mac OS with the below instructions:
 ```
