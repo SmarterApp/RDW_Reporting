@@ -458,18 +458,16 @@ export class AggregateReportTableComponent implements OnInit {
     Object.keys(performanceLevelsByDisplayType)
       .forEach(displayType => {
         performanceLevelsByDisplayType[ displayType ].forEach((level, index) => {
-          if (level !== undefined && !isNaN(level)) {
-            performanceColumns.push(new Column({
-              id: 'performanceLevel',
-              displayType: displayType,
-              level: level,
-              visible: this.performanceLevelDisplayType === displayType,
-              index: index,
-              field: `performanceLevelByDisplayTypes.${displayType}.${this.valueDisplayType}.${index}`,
-              headerKey: this.getPerformanceLevelColumnHeaderTranslationCode(displayType, level, index),
-              headerColor: this.colorService.getPerformanceLevelColorsByAssessmentTypeCode(assessmentDefinition.typeCode, level)
-            }));
-          }
+          performanceColumns.push(new Column({
+            id: 'performanceLevel',
+            displayType: displayType,
+            level: level,
+            visible: this.performanceLevelDisplayType === displayType,
+            index: index,
+            field: `performanceLevelByDisplayTypes.${displayType}.${this.valueDisplayType}.${index}`,
+            headerKey: this.getPerformanceLevelColumnHeaderTranslationCode(displayType, level, index),
+            headerColor: this.colorService.getPerformanceLevelColorsByAssessmentTypeCode(assessmentDefinition.typeCode, level)
+          }));
         });
       });
 
