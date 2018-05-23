@@ -57,13 +57,7 @@ export class AggregateReportTableDataService {
     }
 
     if (settings.reportType === 'Claim') {
-      assessmentDefinition = <AssessmentDefinition>{
-        typeCode: 'iab',
-        interim: true,
-        performanceLevels: [ 1, 2, 3 ],
-        performanceLevelCount: 3,
-      };
-
+      assessmentDefinition = this.reportService.claimAssessmentDefinition();
     }
     const studentsTested = 100;
     const averageScaleScore = 2500;

@@ -2,8 +2,15 @@ import { Injectable } from '@angular/core';
 import { AssessmentDefinition } from './assessment-definition';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { IdentityColumnOptions } from '../results/aggregate-report-table.component';
 import { PerformanceLevelDisplayTypes } from '../../shared/display-options/performance-level-display-type';
+
+export const IdentityColumnOptions: string[] = [
+  'organization',
+  'assessmentGrade',
+  'assessmentLabel',
+  'schoolYear',
+  'dimension',
+];
 
 const Iab: AssessmentDefinition = {
   typeCode: 'iab',

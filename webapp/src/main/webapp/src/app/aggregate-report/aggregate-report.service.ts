@@ -11,6 +11,8 @@ import { map } from 'rxjs/operators';
 import { Assessment } from './assessment/assessment';
 import { AssessmentDefinitionService } from './assessment/assessment-definition.service';
 import { AssessmentDefinition } from './assessment/assessment-definition';
+import { PerformanceLevelDisplayTypes } from '../shared/display-options/performance-level-display-type';
+import { IdentityColumnOptions } from './results/aggregate-report-table.component';
 
 export interface BasicReport {
   readonly rows: AggregateReportRow[];
@@ -56,6 +58,21 @@ export class AggregateReportService {
     return definition.aggregateReportTypes.includes(reportType)
       ? reportType
       : DefaultReportType;
+  }
+
+  /**
+   *
+   * @returns {AssessmentDefinition}
+   */
+  claimAssessmentDefinition(): AssessmentDefinition {
+    return <AssessmentDefinition>{
+      typeCode: 'iab',
+      interim: true,
+      performanceLevels: [ 1, 2, 3 ],
+      performanceLevelCount: 3,
+      performanceLevelDisplayTypes: [ PerformanceLevelDisplayTypes.Separate ],
+      aggregateReportIdentityColumns: IdentityColumnOptions
+    };
   }
 
   /**

@@ -15,16 +15,11 @@ import { SortEvent } from 'primeng/api';
 import * as _ from 'lodash';
 import { organizationOrdering, subgroupOrdering } from '../support';
 import { TranslateService } from '@ngx-translate/core';
+import { AggregateReportService } from '../aggregate-report.service';
+import { IdentityColumnOptions } from '../assessment/assessment-definition.service';
 
 export const SupportedRowCount = 10000;
 export const DefaultRowsPerPageOptions = [ 100, 500, 1000 ];
-export const IdentityColumnOptions: string[] = [
-  'organization',
-  'assessmentGrade',
-  'assessmentLabel',
-  'schoolYear',
-  'dimension',
-];
 
 
 const SchoolYearOrdering: Ordering<AggregateReportItem> = ordering(byNumber)
@@ -78,7 +73,8 @@ export class AggregateReportTableComponent implements OnInit {
 
   constructor(public colorService: ColorService,
               private translate: TranslateService,
-              private exportService: AggregateReportTableExportService) {
+              private exportService: AggregateReportTableExportService,
+              private reportService: AggregateReportService) {
   }
 
   ngOnInit(): void {
@@ -101,7 +97,7 @@ export class AggregateReportTableComponent implements OnInit {
 
   get cutPoint(): number {
     if (this._table.reportType === 'Claim') {
-      return this._cutPoint;
+      return null;
     }
     return this.table.assessmentDefinition.performanceLevelGroupingCutPoint;
   }
@@ -331,14 +327,7 @@ export class AggregateReportTableComponent implements OnInit {
     this._cutPoint = 3;
     this._assessmentTypeCode = 'iab';
     this._center = false;
-    return <AssessmentDefinition>{
-      typeCode: 'iab',
-      interim: true,
-      performanceLevels: [ 1, 2, 3 ],
-      performanceLevelCount: 3,
-      performanceLevelDisplayTypes: [ PerformanceLevelDisplayTypes.Separate ],
-      aggregateReportIdentityColumns: IdentityColumnOptions
-    };
+    return this.reportService.claimAssessmentDefinition();
   }
 
   private renderWithPreviousRowSorting(): void {
