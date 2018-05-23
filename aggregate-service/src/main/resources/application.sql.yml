@@ -39,10 +39,9 @@ sql:
 
   claim:
     findAll: >-
-      SELECT scs.id, scs.code, s.code as subject_code, at.code as asmt_type_code
+      SELECT scs.id, scs.code, s.code as subject_code
         FROM subject_claim_score scs
           JOIN subject s ON scs.subject_id = s.id
-          JOIN asmt_type at ON at.id = scs.asmt_type_id
 
   target:
     findAll: >-
