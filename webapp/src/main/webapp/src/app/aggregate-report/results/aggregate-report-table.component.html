@@ -101,10 +101,10 @@
           <div *ngSwitchCase="'achievementComparison'">
             <performance-level-distribution-chart
               [percentages]="rowData.performanceLevelByDisplayTypes.Separate.Percent"
-              [cutPoint]="table.assessmentDefinition.performanceLevelGroupingCutPoint"
-              [assessmentTypeCode]="table.assessmentDefinition.typeCode"
+              [cutPoint]="cutPoint"
+              [assessmentTypeCode]="assessmentTypeCode"
               [displayType]="performanceLevelDisplayType"
-              [center]="table.assessmentDefinition.performanceLevelGroupingCutPoint != null"></performance-level-distribution-chart>
+              [center]="center"></performance-level-distribution-chart>
           </div>
 
           <div *ngSwitchCase="'avgScaleScore'"

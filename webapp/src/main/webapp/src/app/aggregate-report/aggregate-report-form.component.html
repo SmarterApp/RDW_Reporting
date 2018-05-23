@@ -696,7 +696,7 @@
                                        analyticsEvent="Change"></sb-radio-button-group>
               </span>
               <span class="pull-right flex-child ml-xs"
-                    *ngIf="currentAssessmentDefinition.performanceLevelDisplayTypes.length > 1">
+                    *ngIf="effectiveReportType !== 'Claim' && currentAssessmentDefinition.performanceLevelDisplayTypes.length > 1">
                 <label class="mr-xs">{{'common.performance-level-display-type-input-label' | translate}}</label>
                 <sb-radio-button-group [options]="filteredOptions.performanceLevelDisplayTypes"
                                        [(ngModel)]="settings.performanceLevelDisplayType"

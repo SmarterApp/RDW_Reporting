@@ -32,7 +32,6 @@ import { SubgroupItem } from './subgroup/subgroup-item';
 import { Utils } from '../shared/support/support';
 import { Claim } from './aggregate-report-options.service';
 import { Option as SbCheckboxGroupOption } from '../shared/form/sb-checkbox-group.component';
-import { AssessmentDefinitionService } from './assessment/assessment-definition.service';
 
 const OrganizationComparator = (a: Organization, b: Organization) => a.name.localeCompare(b.name);
 
@@ -147,8 +146,7 @@ export class AggregateReportFormComponent {
               private reportService: AggregateReportService,
               private tableDataService: AggregateReportTableDataService,
               private columnOrderableItemProvider: AggregateReportColumnOrderItemProvider,
-              private subgroupMapper: SubgroupMapper,
-              private assessmentDefinitionService: AssessmentDefinitionService) {
+              private subgroupMapper: SubgroupMapper) {
 
     this.assessmentDefinitionsByTypeCode = route.snapshot.data[ 'assessmentDefinitionsByAssessmentTypeCode' ];
     this.aggregateReportOptions = route.snapshot.data[ 'options' ];
@@ -220,7 +218,7 @@ export class AggregateReportFormComponent {
   }
 
   get effectiveReportType() {
-    return this.assessmentDefinitionService.getEffectiveReportType(this.settings.reportType, this.currentAssessmentDefinition);
+    return this.reportService.getEffectiveReportType(this.settings.reportType, this.currentAssessmentDefinition);
   }
 
   private updateValidators(): void {
@@ -529,7 +527,8 @@ export class AggregateReportFormComponent {
         this.currentAssessmentDefinition,
         this.settings,
         this.aggregateReportOptions
-      )
+      ),
+      reportType: this.settings.reportType
     };
   }
 

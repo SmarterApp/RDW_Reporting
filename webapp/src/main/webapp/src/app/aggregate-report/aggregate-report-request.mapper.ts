@@ -16,7 +16,7 @@ import { map } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { SubgroupFilters, SubgroupFilterSupport } from './subgroup/subgroup-filters';
 import { Claim } from './aggregate-report-options.service';
-import { AssessmentDefinitionService } from './assessment/assessment-definition.service';
+import { AggregateReportService } from './aggregate-report.service';
 
 const equalSize = (a: any[], b: any[]) => Utils.hasEqualLength(a, b);
 const idsOf = values => values.map(value => value.id);
@@ -31,7 +31,7 @@ export class AggregateReportRequestMapper {
 
   constructor(private translate: TranslateService,
               private organizationService: AggregateReportOrganizationService,
-              private assessmentDefinitionService: AssessmentDefinitionService) {
+              private reportService: AggregateReportService) {
   }
 
   /**
@@ -95,15 +95,15 @@ export class AggregateReportRequestMapper {
     // Set report type specific parameters
     // The assessment definition check is tacked on because the form state can be set to longitudinal cohort
     // and then the assessment definition can be changed to a type that does not support longitudinal cohort
-    if (this.assessmentDefinitionService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'GeneralPopulation') {
+    if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'GeneralPopulation') {
       query.assessmentGradeCodes = settings.generalPopulation.assessmentGrades;
       query.schoolYears = settings.generalPopulation.schoolYears;
       query.subjectCodes = settings.subjects;
-    } else if (this.assessmentDefinitionService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'LongitudinalCohort') {
+    } else if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'LongitudinalCohort') {
       query.assessmentGradeCodes = settings.longitudinalCohort.assessmentGrades;
       query.toSchoolYear = settings.longitudinalCohort.toSchoolYear;
       query.subjectCodes = settings.subjects;
-    } else if (this.assessmentDefinitionService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'Claim') {
+    } else if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'Claim') {
       query.assessmentGradeCodes = settings.claimReport.assessmentGrades;
       query.schoolYears = settings.claimReport.schoolYears;
       query.claimCodesBySubject = this.claimsBySubjectMapping(options.subjects.map(
