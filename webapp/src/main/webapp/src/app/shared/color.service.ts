@@ -11,7 +11,7 @@ const Colors: string[] = [
 ];
 
 const Pallets: any[] = [
-  [ 'blue-dark', 'blue-dark aqua', 'aqua' ],
+  [ 'iab-red', 'iab-yellow', 'iab-green' ],
   [ 'maroon', 'gray-darkest', 'green-dark', 'blue-dark' ],
   [ 'maroon', 'gray-darkest', 'green-dark', 'blue-dark' ],
 ];

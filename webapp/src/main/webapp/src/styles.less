@@ -924,6 +924,28 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
 }
 
 /**
+ * New IAB Colors - TODO move to UI Kit?
+ */
+@iab-green: #2c7f3e;
+@iab-yellow: #eccb1a;
+@iab-red: #750f2c;
+
+// Create color classes
+// List the colors
+@colorVars: iab-green, iab-yellow, iab-red;
+// Call the generator mixin
+// Yes, it's supposed to be called in recursive order
+.generate-color-classes(@colorVars, 1);
+// Generate color classes based on declared names above
+.generate-color-classes(@colorName, @i) when (@i =< length(@colorName)) {
+  @name: extract(@colorName, @i);
+  .@{name} {
+    .colorElement(@@name);
+  }
+  .generate-color-classes(@colorName, (@i + 1));
+}
+
+/**
  * Longitudinal Cohort Chart
  */
 
