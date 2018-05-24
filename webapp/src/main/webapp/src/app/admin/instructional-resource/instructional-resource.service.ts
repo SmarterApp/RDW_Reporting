@@ -66,11 +66,7 @@ export class InstructionalResourceService {
   }
 
   private toServerFormat(resource: InstructionalResource): InstructionalResource {
-    if (resource.assessmentType === 'sum') {
-      resource.assessmentType = 'SUMMATIVE';
-    } else {
-      resource.assessmentType = resource.assessmentType.toUpperCase();
-    }
+    resource.assessmentType = AssessmentType[resource.assessmentType];
     return resource;
   }
 
@@ -86,4 +82,10 @@ export class InstructionalResourceService {
     resource.performanceLevel = serverResource.performanceLevel;
     return resource;
   }
+}
+
+enum AssessmentType {
+  iab = 'IAB',
+  ica = 'ICA',
+  sum = 'SUMMATIVE'
 }
