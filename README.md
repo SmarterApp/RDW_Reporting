@@ -106,7 +106,7 @@ servers). The users may be different (but for CI they are the same). The `ORG_GR
 into the gradle environment so the RDW_Schema commands are applied to the correct database. The `SPRING_*_*` are used
 by the Spring Boot ITs. And the temporary variables are just to avoid some duplication.
 ```bash
-(SERVER=rdw-aurora-ci.cugsexobhx8t.us-west-2.rds.amazonaws.com:3306; USER=sbac; PSWD=sbac4rdw; \
+(SERVER=rdw-aurora-ci.cugsexobhx8t.us-west-2.rds.amazonaws.com:3306; USER=sbac; PSWD=password; \
  export ORG_GRADLE_PROJECT_database_url=jdbc:mysql://$SERVER/; \
  export ORG_GRADLE_PROJECT_database_user=$USER; export ORG_GRADLE_PROJECT_database_password=$PSWD; \
  export SPRING_DATASOURCE_URL_SERVER=$SERVER; \
