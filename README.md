@@ -99,6 +99,28 @@ After cloning the repository run:
 ```
 The `it` task will trigger the integration tests.
 
+If you want to run the integration tests against Aurora (instead of the local MySQL) you should set environment
+variable with the required credentials for the CI (or other appropriate) database instance. Note that the way things
+work for this, all the schemas must live in the same database server (so reporting and warehouse can't be separate
+servers). The users may be different (but for CI they are the same). The `ORG_GRADLE_PROJECT_*` variables are passed
+into the gradle environment so the RDW_Schema commands are applied to the correct database. The `SPRING_*_*` are used
+by the Spring Boot ITs. And the temporary variables are just to avoid some duplication.
+```bash
+(SERVER=rdw-aurora-ci.cugsexobhx8t.us-west-2.rds.amazonaws.com:3306; USER=sbac; PSWD=sbac4rdw; \
+ export ORG_GRADLE_PROJECT_database_url=jdbc:mysql://$SERVER/; \
+ export ORG_GRADLE_PROJECT_database_user=$USER; export ORG_GRADLE_PROJECT_database_password=$PSWD; \
+ export SPRING_DATASOURCE_URL_SERVER=$SERVER; \
+ export SPRING_DATASOURCE_USERNAME=$USER; export SPRING_DATASOURCE_PASSWORD=$PSWD; \
+ export SPRING_REPORTING_DATASOURCE_URL_SERVER=$SERVER; \
+ export SPRING_REPORTING_DATASOURCE_USERNAME=$USER; export SPRING_REPORTING_DATASOURCE_PASSWORD=$PSWD; \
+ export SPRING_WAREHOUSE_DATASOURCE_URL_SERVER=$SERVER; \
+ export SPRING_WAREHOUSE_DATASOURCE_USERNAME=$USER; export SPRING_WAREHOUSE_DATASOURCE_PASSWORD=$PSWD; \
+ export SPRING_WRITABLE_DATASOURCE_URL_SERVER=$SERVER; \
+ export SPRING_WRITABLE_DATASOURCE_USERNAME=$USER; export SPRING_WRITABLE_DATASOURCE_PASSWORD=$PSWD; \
+ export TEST_AURORA=true
+ ./gradlew it)
+```
+
 The integration tests dealing with Redshift have been separated out because they require remote AWS resources
 and they take a while to run. To run these tests you must set credentials -- please see the comment in 
 aggregate-service/build.gradle. By default it uses the CI database instances:
@@ -153,8 +175,6 @@ To use docker-compose to run the reporting or admin webapp. Go to the module dir
 ```bash
 docker-compose up -d
 ```
-
-These apps are not meant to be run simultaneously in local-docker mode with the current docker-compose / IDP configuration.
 
 To test the app navigate to `http://localhost:8080` in a browser. You'll need ART credentials to login.
 The status end-point should be available without credentials at `http://localhost:8081/status?level=5`
