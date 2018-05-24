@@ -620,6 +620,12 @@
           "2": "Standard Nearly Met",
           "3": "Standard Met",
           "4": "Standard Exceeded"
+        },
+        "summative": {
+          "1": "Standard Not Met",
+          "2": "Standard Nearly Met",
+          "3": "Standard Met",
+          "4": "Standard Exceeded"
         }
       }
     },

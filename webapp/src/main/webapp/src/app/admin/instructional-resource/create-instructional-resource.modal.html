@@ -83,7 +83,7 @@
                   [disabled]="!assessment" >
             <option disabled [ngValue]="-1">{{'common.action.select' | translate}}</option>
             <option *ngIf="assessment" [ngValue]="0">{{'common.instructional-resource.performance-levels.all' | translate}}</option>
-            <option *ngFor="let performanceLevel of performanceLevels" [ngValue]="performanceLevel">{{ ('common.instructional-resource.performance-levels.' + assessment.type + '.' + performanceLevel) | translate }}</option>
+            <option *ngFor="let performanceLevel of performanceLevels" [ngValue]="performanceLevel">{{ ('common.instructional-resource.performance-levels.' + assessment.type + '.' + performanceLevel) | lowercase | translate }}</option>
           </select>
         </div>
         <div class="form-group"
