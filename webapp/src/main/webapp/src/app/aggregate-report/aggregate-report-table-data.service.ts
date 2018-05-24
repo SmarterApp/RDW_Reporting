@@ -46,7 +46,7 @@ export class AggregateReportTableDataService {
       const assessmentGrades = settings.longitudinalCohort.assessmentGrades;
       const schoolYears = computeEffectiveYears(settings.longitudinalCohort.toSchoolYear, assessmentGrades);
       for (let i = 0; i < assessmentGrades.length; i++) {
-        gradesAndYears.push({ grade: assessmentGrades[ i ], year: schoolYears[ i ] });
+        gradesAndYears.push({ grade: assessmentGrades[ i ], year: schoolYears[ assessmentGrades.length - 1 - i ] });
       }
     } else if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'Claim') {
       for (const grade of settings.claimReport.assessmentGrades) {
