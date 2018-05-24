@@ -83,11 +83,11 @@ export class AssessmentDefinitionService {
    * TODO make this hit backend and cache results.
    * TODO expand to consider subject type possibly.
    *
-   * Gets all assessment type related data.
+   * Gets definition key related data.
    *
-   * @returns {Observable<Map<string, AssessmentDefinition>>}
+   * @returns {Observable<Map<DefinitionKey, AssessmentDefinition>>}
    */
-  public getDefinitionsByAssessmentTypeCode(): Observable<Map<DefinitionKey, AssessmentDefinition>> {
+  public getDefinitionsByDefinitionKey(): Observable<Map<DefinitionKey, AssessmentDefinition>> {
     return of(
       new Map([
         [ <DefinitionKey>{ assessmentType: 'iab', reportType: 'GeneralPopulation' }, Iab ],
@@ -105,4 +105,4 @@ export class AssessmentDefinitionService {
 export interface DefinitionKey {
   readonly assessmentType: string;
   readonly reportType: string;
-};
+}

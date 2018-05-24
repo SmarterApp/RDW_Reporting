@@ -28,7 +28,7 @@ describe('AggregateReportOptionsMapper', () => {
       'createOptionMapper'
     ]);
     assessmentDefinitionService = jasmine.createSpyObj('AssessmentDefinitionService', [
-      'getDefinitionsByAssessmentTypeCode'
+      'getDefinitionsByDefinitionKey'
     ]);
     applicationSettingService = new MockApplicationSettingsService();
     fixture = new AggregateReportOptionsMapper(
@@ -44,7 +44,7 @@ describe('AggregateReportOptionsMapper', () => {
 
     const reportName = 'Report Name';
     (translateService.instant as Spy).and.callFake(() => reportName);
-    (assessmentDefinitionService.getDefinitionsByAssessmentTypeCode as Spy).and.callFake(() => of(
+    (assessmentDefinitionService.getDefinitionsByDefinitionKey as Spy).and.callFake(() => of(
       new Map([ [ '1', {
         typeCode: '1',
         interim: true,

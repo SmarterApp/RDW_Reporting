@@ -8,13 +8,13 @@ import { Observable } from 'rxjs/Observable';
  * Resolves assessment type definitions and properties
  */
 @Injectable()
-export class AssessmentDefinitionResolve implements Resolve<Map<{ assessmentType: string, reportType: string }, AssessmentDefinition>> {
+export class AssessmentDefinitionResolve implements Resolve<Map<DefinitionKey, AssessmentDefinition>> {
 
   constructor(private service: AssessmentDefinitionService) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Map<DefinitionKey, AssessmentDefinition>> {
-    return this.service.getDefinitionsByAssessmentTypeCode();
+    return this.service.getDefinitionsByDefinitionKey();
   }
 
 }

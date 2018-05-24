@@ -156,7 +156,7 @@ export class AggregateReportOptionsMapper {
    * @returns {AggregateReportFormSettings} the initial form state
    */
   toDefaultSettings(options: AggregateReportOptions): Observable<AggregateReportFormSettings> {
-    return this.assessmentDefinitionService.getDefinitionsByAssessmentTypeCode().pipe(
+    return this.assessmentDefinitionService.getDefinitionsByDefinitionKey().pipe(
       map((definitions: Map<DefinitionKey, AssessmentDefinition>) => {
         const defaultAssessmentType = options.assessmentTypes[ 0 ];
         let assessmentDefinition = null;
