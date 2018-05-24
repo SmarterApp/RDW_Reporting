@@ -115,6 +115,11 @@ export class AggregateReportTableComponent implements OnInit {
       };
       this.buildAndRender(this._table);
     }
+    // Latest TurboTable version (1.5.7) does not sort when row data
+    // changes.  Manually trigger a sort after setting row data.
+    setTimeout(() => {
+      this.sort({data: this._table.rows});
+    });
   }
 
   get table(): AggregateReportTable {
