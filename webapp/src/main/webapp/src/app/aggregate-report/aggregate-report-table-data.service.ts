@@ -198,7 +198,7 @@ export class AggregateReportTableDataService {
 
       if (settings.schools.length >= schoolId
         || ((settings.districts.length || settings.includeAllDistricts) && settings.includeAllSchoolsOfSelectedDistricts)) {
-        organizations.push(this.createSampleSchool(schoolId++));
+        organizations.push(this.createSampleSchool(schoolId++, districtId - 1));
       }
     }
 
@@ -218,11 +218,11 @@ export class AggregateReportTableDataService {
     return district;
   }
 
-  private createSampleSchool(id: number): School {
+  private createSampleSchool(id: number, districtId: number): School {
     const school = new DefaultSchool();
     school.id = id;
     school.name = this.translate.instant('sample-aggregate-table-data-service.school-name', { id: id });
-    school.districtId = id;
+    school.districtId = districtId;
     return school;
   }
 
