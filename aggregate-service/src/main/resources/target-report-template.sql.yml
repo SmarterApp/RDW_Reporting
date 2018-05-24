@@ -7,12 +7,16 @@ sqlbuilder:
       targetAggregate:
         clauses:
           select: >-
-              round(avg(ets.student_relative_residual_score)) AS student_relative_residual_score,
-              round(stddev_samp(ets.student_relative_residual_score)/sqrt(count(*))) as student_relative_residual_score_std_err,
-              round(avg(ets.standard_met_relative_residual_score)) AS standard_met_relative_residual_score,
-              round(stddev_samp(ets.standard_met_relative_residual_score)/sqrt(count(*))) as standard_met_relative_residual_score_std_err,
+              round(avg(e.scale_score)) AS score,
+              round(stddev_samp(e.scale_score)/sqrt(count(*))) as std_err,
+              count(*) as exam_count,
+              avg(ets.student_relative_residual_score) AS student_relative_residual_score,
+              stddev_samp(ets.student_relative_residual_score)/sqrt(count(*)) as student_relative_residual_score_std_err,
+              avg(ets.standard_met_relative_residual_score) AS standard_met_relative_residual_score,
+              stddev_samp(ets.standard_met_relative_residual_score)/sqrt(count(*)) as standard_met_relative_residual_score_std_err,
               e.school_year,
               e.asmt_id,
+              ets.target_id,
               t.natural_id as target_natural_id,
               t.claim_code
 

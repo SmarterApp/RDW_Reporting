@@ -48,7 +48,7 @@ export class GroupDashboardComponent implements OnInit {
       this.filterOptions = filterOptions;
       this.currentSchoolYear = Number.parseInt(schoolYear) || filterOptions.schoolYears[ 0 ];
       this.groupDashboardService.getAvailableMeasuredAssessments(group, this.currentSchoolYear).subscribe(measuredAssessments => {
-        this.measuredAssessments = this.sortMeasuredAssessments(measuredAssessments);
+        this.measuredAssessments = measuredAssessments;
         this.setAvailableSubjects(measuredAssessments);
       });
     });
@@ -56,6 +56,10 @@ export class GroupDashboardComponent implements OnInit {
 
   compareGroups(g1: Group, g2: Group): boolean {
     return g1 && g2 ? g1.id === g2.id : g1 === g2;
+  }
+
+  get sortedMeasuredAssessments() {
+    return this.sortMeasuredAssessments(this.measuredAssessments);
   }
 
   get cardViewEnabled() {
@@ -76,10 +80,10 @@ export class GroupDashboardComponent implements OnInit {
         this.groupDashboardService.getAvailableMeasuredAssessments(group, this.currentSchoolYear).subscribe(measuredAssessments => {
           this.setAvailableSubjects(measuredAssessments);
           if (!this.currentSubject) {
-            this.measuredAssessments = this.sortMeasuredAssessments(measuredAssessments);
+            this.measuredAssessments = measuredAssessments;
           } else {
-            this.measuredAssessments = this.sortMeasuredAssessments(measuredAssessments.filter(
-              measuredAssessment => measuredAssessment.assessment.subject === this._currentSubject));
+            this.measuredAssessments = measuredAssessments.filter(
+              measuredAssessment => measuredAssessment.assessment.subject === this._currentSubject);
           }
         });
       });

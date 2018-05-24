@@ -75,7 +75,7 @@
 
 <div class="col-md-12 mt-md">
   <div class="card-grid">
-    <div *ngFor="let measuredAssessment of measuredAssessments">
+    <div *ngFor="let measuredAssessment of sortedMeasuredAssessments">
       <group-assessment-card (selectedAssessment)="onCardSelection($event)"
                        [group]="group"
                        [measuredAssessment]="measuredAssessment"></group-assessment-card>

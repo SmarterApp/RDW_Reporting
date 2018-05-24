@@ -66,14 +66,19 @@
                                                 th:text="${exam.scaleScore.value}"></span> <span class="error-band">&plusmn;
                                             <span th:text="${support.round(exam.scaleScore.standardError)}"
                                                   th:remove="tag"></span></span></span>
-                                        <div class="bar blue-dark"
+                                        <div class="bar"
+                                             th:classappend="#{'report.iab.level.1.color'}"
                                              th:attr="data-width=${scaleScoreView.levels[0].width}">
                                             <span class="bar-label" th:text="#{'report.iab.level.1.label'}"></span>
                                         </div>
-                                        <div class="bar blue" th:attr="data-width=${scaleScoreView.levels[1].width}">
+                                        <div class="bar"
+                                             th:classappend="#{'report.iab.level.2.color'}"
+                                             th:attr="data-width=${scaleScoreView.levels[1].width}">
                                             <span class="bar-label" th:text="#{'report.iab.level.2.label'}"></span>
                                         </div>
-                                        <div class="bar aqua" th:attr="data-width=${scaleScoreView.levels[2].width}">
+                                        <div class="bar"
+                                             th:classappend="#{'report.iab.level.3.color'}"
+                                             th:attr="data-width=${scaleScoreView.levels[2].width}">
                                             <span class="bar-label" th:text="#{'report.iab.level.3.label'}"></span>
                                         </div>
                                     </div>

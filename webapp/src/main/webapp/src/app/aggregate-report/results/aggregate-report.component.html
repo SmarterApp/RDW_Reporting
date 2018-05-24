@@ -121,6 +121,7 @@
 
         <div class="row mt-xs" *ngIf="view.chart">
           <div class="col-md-12">
+            <p>{{ 'longitudinal-cohort-chart.instructions' | translate }}</p>
             <longitudinal-cohort-chart [chart]="view.chart"></longitudinal-cohort-chart>
           </div>
         </div>

@@ -509,15 +509,15 @@
       },
       "level": {
         "1": {
-          "color": "blue-dark",
+          "color": "sb-iab-red",
           "label": "Below Standard"
         },
         "2": {
-          "color": "blue",
+          "color": "sb-iab-yellow",
           "label": "Near Standard"
         },
         "3": {
-          "color": "aqua",
+          "color": "sb-iab-green",
           "label": "Above Standard"
         }
       },

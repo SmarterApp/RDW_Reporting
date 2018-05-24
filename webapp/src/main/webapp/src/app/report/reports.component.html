@@ -6,7 +6,7 @@
 
 
 <div class="well wide-content-container" *ngIf="resolution.isOk()">
-
+  <p *ngIf="reports.length">{{ 'reports.instructions' | translate }}</p>
   <p *ngIf="!reports.length" [innerHtml]="'reports.no-reports-html' | translate"></p>
   <p-table *ngIf="reports.length"
            [columns]="columns"
