@@ -55,6 +55,7 @@
     "@types/node": "~6.0.60",
     "codelyzer": "^4.0.1",
     "core-js": "^2.5.1",
+    "hoek": "4.2.1",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "~1.7.0",
