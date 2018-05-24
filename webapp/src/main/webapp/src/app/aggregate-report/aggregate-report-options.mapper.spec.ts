@@ -28,7 +28,8 @@ describe('AggregateReportOptionsMapper', () => {
       'createOptionMapper'
     ]);
     assessmentDefinitionService = jasmine.createSpyObj('AssessmentDefinitionService', [
-      'getDefinitionsByDefinitionKey'
+      'getDefinitionsByDefinitionKey',
+      'get'
     ]);
     applicationSettingService = new MockApplicationSettingsService();
     fixture = new AggregateReportOptionsMapper(
@@ -54,7 +55,7 @@ describe('AggregateReportOptionsMapper', () => {
         performanceLevelGroupingCutPoint: 0,
         aggregateReportIdentityColumns: [ 'columnA' ],
         aggregateReportStateResultsEnabled: true,
-        aggregateReportTypes: ['LongitudinalCohort', 'Claim']
+        aggregateReportTypes: [ 'LongitudinalCohort', 'Claim' ]
       } ] ])
     ));
 

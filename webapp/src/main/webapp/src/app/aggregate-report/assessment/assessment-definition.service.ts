@@ -102,20 +102,21 @@ export const ClaimSumKey: DefinitionKey = <DefinitionKey>{
   reportType: 'Claim'
 };
 
+export const definitions = new Array(
+  { key: GeneralPopulationIabKey, value: Iab },
+  { key: GeneralPopulationIcaKey, value: Ica },
+  { key: ClaimIcaKey, value: ClaimIca },
+  { key: GeneralPopulationSumKey, value: Summative },
+  { key: LongitudinalCohortSumKey, value: Summative },
+  { key: ClaimSumKey, value: ClaimSummative }
+);
+
 /**
  * Responsible for providing definition key related properties
  */
 @Injectable()
-export class AssessmentDefinitionProvider {
+export class AssessmentDefinitionService {
 
-  private definitions = new Map([
-    [ GeneralPopulationIabKey, Iab ],
-    [ GeneralPopulationIcaKey, Ica ],
-    [ ClaimIcaKey, ClaimIca ],
-    [ GeneralPopulationSumKey, Summative ],
-    [ LongitudinalCohortSumKey, Summative ],
-    [ ClaimSumKey, ClaimSummative ]
-  ]);
 
   /**
    * TODO make this hit backend and cache results.
@@ -126,9 +127,11 @@ export class AssessmentDefinitionProvider {
    * @returns {Observable<Map<DefinitionKey, AssessmentDefinition>>}
    */
   public getDefinitionsByDefinitionKey(): Observable<Map<DefinitionKey, AssessmentDefinition>> {
-    return of(
-      this.definitions
-    );
+    const map = new Map<DefinitionKey, AssessmentDefinition>();
+    definitions.forEach(value => {
+      map.set(value.key, value.value);
+    });
+    return of(map);
   }
 
   /**
@@ -138,14 +141,7 @@ export class AssessmentDefinitionProvider {
    * @returns {AssessmentDefinition}
    */
   get(assessmentType: string, reportType: 'LongitudinalCohort' | 'GeneralPopulation' | 'Claim'): AssessmentDefinition {
-    let assessmentDefinition = null;
-    this.definitions.forEach((value: AssessmentDefinition, key: DefinitionKey) => {
-        if (assessmentType === key.assessmentType && reportType === key.reportType) {
-          assessmentDefinition = value;
-        }
-      }
-    );
-    return assessmentDefinition;
+    return definitions.find((value) => assessmentType === value.key.assessmentType && reportType === value.key.reportType).value;
   }
 }
 

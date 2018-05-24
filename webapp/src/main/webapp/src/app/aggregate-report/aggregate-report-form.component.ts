@@ -32,7 +32,7 @@ import { SubgroupItem } from './subgroup/subgroup-item';
 import { Utils } from '../shared/support/support';
 import { Claim } from './aggregate-report-options.service';
 import { Option as SbCheckboxGroupOption } from '../shared/form/sb-checkbox-group.component';
-import { AssessmentDefinitionProvider, DefinitionKey } from './assessment/assessment-definition.provider';
+import { AssessmentDefinitionService, DefinitionKey } from './assessment/assessment-definition.service';
 
 const OrganizationComparator = (a: Organization, b: Organization) => a.name.localeCompare(b.name);
 
@@ -139,7 +139,7 @@ export class AggregateReportFormComponent {
               private requestMapper: AggregateReportRequestMapper,
               private notificationService: NotificationService,
               private organizationService: AggregateReportOrganizationService,
-              private assessmentDefinitionProvider: AssessmentDefinitionProvider,
+              private assessmentDefinitionService: AssessmentDefinitionService,
               private reportService: AggregateReportService,
               private tableDataService: AggregateReportTableDataService,
               private columnOrderableItemProvider: AggregateReportColumnOrderItemProvider,
@@ -329,7 +329,7 @@ export class AggregateReportFormComponent {
   }
 
   get currentAssessmentDefinition(): AssessmentDefinition {
-    return this.assessmentDefinitionProvider.get(this.settings.assessmentType, this.settings.reportType);
+    return this.assessmentDefinitionService.get(this.settings.assessmentType, this.settings.reportType);
   }
 
   get estimatedRowCountIsLarge(): boolean {

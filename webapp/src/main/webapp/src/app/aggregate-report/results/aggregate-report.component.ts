@@ -25,7 +25,7 @@ import { LongitudinalCohortChartMapper } from './longitudinal-cohort-chart.mappe
 import { AggregateReportItem } from './aggregate-report-item';
 import { organizationOrdering, subgroupOrdering } from '../support';
 import { LongitudinalDisplayType } from '../../shared/display-options/longitudinal-display-type';
-import { AssessmentDefinitionProvider } from '../assessment/assessment-definition.provider';
+import { AssessmentDefinitionService } from '../assessment/assessment-definition.service';
 
 const PollingInterval = 4000;
 
@@ -64,13 +64,13 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
               private itemMapper: AggregateReportItemMapper,
               private displayOptionService: DisplayOptionService,
               private translateService: TranslateService,
-              private definitionProvider: AssessmentDefinitionProvider,
+              private definitionService: AssessmentDefinitionService,
               private columnOrderableItemProvider: AggregateReportColumnOrderItemProvider,
               private chartMapper: LongitudinalCohortChartMapper) {
 
     this.options = this.route.snapshot.data[ 'options' ];
     this.report = this.route.snapshot.data[ 'report' ];
-    this.assessmentDefinition = this.definitionProvider.get(this.report.request.query.assessmentTypeCode, this.report.request.query.reportType);
+    this.assessmentDefinition = this.definitionService.get(this.report.request.query.assessmentTypeCode, this.report.request.query.reportType);
     this._viewComparator = ordering(ranking(this.options.subjects))
       .on((wrapper: AggregateReportView) => wrapper.subjectCode).compare;
     this._displayOptions = {

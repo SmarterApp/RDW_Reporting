@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { AssessmentDefinitionProvider } from './assessment-definition.provider';
+import { AssessmentDefinitionService } from './assessment-definition.service';
 import { AssessmentService } from './assessment.service';
 
 @NgModule({
   providers: [
-    AssessmentDefinitionProvider,
+    AssessmentDefinitionService,
     AssessmentService
   ]
 })
