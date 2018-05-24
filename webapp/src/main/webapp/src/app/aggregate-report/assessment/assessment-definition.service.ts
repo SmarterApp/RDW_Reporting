@@ -118,10 +118,10 @@ export class AssessmentDefinitionService {
   /**
    * Gets the assessment definition by assessment type and report type
    * @param {string} assessmentType
-   * @param {"LongitudinalCohort" | "GeneralPopulation" | "Claim"} reportType
+   * @param {string} reportType
    * @returns {AssessmentDefinition}
    */
-  get(assessmentType: string, reportType: 'LongitudinalCohort' | 'GeneralPopulation' | 'Claim'): AssessmentDefinition {
+  get(assessmentType: string, reportType: string): AssessmentDefinition {
     return definitions.find((value) => assessmentType === value.key.assessmentType && reportType === value.key.reportType).value;
   }
 }

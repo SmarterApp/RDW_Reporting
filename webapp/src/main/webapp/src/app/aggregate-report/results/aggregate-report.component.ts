@@ -70,7 +70,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
 
     this.options = this.route.snapshot.data[ 'options' ];
     this.report = this.route.snapshot.data[ 'report' ];
-    this.assessmentDefinition = this.definitionService.get(this.report.request.query.assessmentTypeCode, this.report.request.query.reportType);
+    this.assessmentDefinition = this.definitionService.get(this.report.request.query.assessmentTypeCode, this.mapToReportType(this.report.request.query.reportType));
     this._viewComparator = ordering(ranking(this.options.subjects))
       .on((wrapper: AggregateReportView) => wrapper.subjectCode).compare;
     this._displayOptions = {
@@ -166,6 +166,16 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     }
 
     this.initializeReportViews(this.query, this._aggregateReport);
+  }
+
+  mapToReportType(serverReportType: string): string {
+    if (serverReportType === 'Longitudinal') {
+      return 'LongitudinalCohort';
+    }
+    if (serverReportType === 'CustomAggregate') {
+      return 'GeneralPopulation';
+    }
+    return serverReportType;
   }
 
   get isLongitudinal(): boolean {

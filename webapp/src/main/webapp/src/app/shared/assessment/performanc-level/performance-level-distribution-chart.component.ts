@@ -15,7 +15,7 @@ export class PerformanceLevelDistributionChart implements OnInit {
 
   private _percentages: number[] = [];
   private _assessmentTypeCode: string;
-  private _performanceLevels: number;
+  private _performanceLevels?: number = null;
   private _cutPoint: number;
   private _center: boolean = false;
   private _displayType: string = PerformanceLevelDisplayTypes.Separate;
