@@ -6,7 +6,7 @@ import { SchoolYearPipe } from '../shared/format/school-year.pipe';
 import { DisplayOptionService } from '../shared/display-options/display-option.service';
 import { AggregateReportFormSettings } from './aggregate-report-form-settings';
 import { ValueDisplayTypes } from '../shared/display-options/value-display-type';
-import { AssessmentDefinitionService, DefinitionKey } from './assessment/assessment-definition.service';
+import { AssessmentDefinitionProvider, DefinitionKey } from './assessment/assessment-definition.provider';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { ApplicationSettingsService } from '../app-settings.service';
@@ -26,7 +26,7 @@ export class AggregateReportOptionsMapper {
   constructor(private translateService: TranslateService,
               private schoolYearPipe: SchoolYearPipe,
               private displayOptionService: DisplayOptionService,
-              private assessmentDefinitionService: AssessmentDefinitionService,
+              private assessmentDefinitionService: AssessmentDefinitionProvider,
               private applicationSettingsService: ApplicationSettingsService) {
     applicationSettingsService.getSettings().subscribe(settings => {
       this.showElas = settings.elasEnabled;
@@ -159,12 +159,7 @@ export class AggregateReportOptionsMapper {
     return this.assessmentDefinitionService.getDefinitionsByDefinitionKey().pipe(
       map((definitions: Map<DefinitionKey, AssessmentDefinition>) => {
         const defaultAssessmentType = options.assessmentTypes[ 0 ];
-        let assessmentDefinition = null;
-        definitions.forEach((value: AssessmentDefinition, key: DefinitionKey) => {
-          if (key.assessmentType === defaultAssessmentType && key.reportType === 'GeneralPopulation') {
-            assessmentDefinition = value;
-          }
-        });
+        const assessmentDefinition = this.assessmentDefinitionService.get(defaultAssessmentType, 'GeneralPopulation');
         return <AggregateReportFormSettings>{
           assessmentType: defaultAssessmentType,
           columnOrder: assessmentDefinition.aggregateReportIdentityColumns,

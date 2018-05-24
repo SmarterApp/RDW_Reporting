@@ -35,7 +35,6 @@ import { AggregateReportComponent } from './aggregate-report/results/aggregate-r
 import { AggregateReportFormComponent } from './aggregate-report/aggregate-report-form.component';
 import { AggregateReportResolve } from './aggregate-report/results/aggregate-report.resolve';
 import { AggregateReportOptionsResolve } from './aggregate-report/aggregate-report-options.resolve';
-import { AssessmentDefinitionResolve } from './aggregate-report/assessment/assessment-definition.resolve';
 import { AggregateReportFormSettingsResolve } from './aggregate-report/aggregate-report-form-settings.resolve';
 import { LongitudinalPlaygroundComponent } from './aggregate-report/results/longitudinal-playground.component';
 import { GroupDashboardComponent } from './dashboard/group-dashboard/group-dashboard.component';
@@ -276,8 +275,7 @@ export const routes: Routes = [
           permissions: [ 'CUSTOM_AGGREGATE_READ' ]
         },
         resolve: {
-          options: AggregateReportOptionsResolve,
-          assessmentDefinitionsMap: AssessmentDefinitionResolve
+          options: AggregateReportOptionsResolve
         },
         canActivate: [ AuthorizationCanActivate ],
         children: [

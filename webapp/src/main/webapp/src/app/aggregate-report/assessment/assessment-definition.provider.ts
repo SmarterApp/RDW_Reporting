@@ -59,7 +59,7 @@ const ClaimIca: AssessmentDefinition = {
     .filter(option => option !== 'assessmentLabel'),
   aggregateReportStateResultsEnabled: false,
   aggregateReportTypes: [ 'Claim' ]
-}
+};
 
 const ClaimSummative: AssessmentDefinition = {
   typeCode: 'sum',
@@ -71,13 +71,51 @@ const ClaimSummative: AssessmentDefinition = {
     .filter(option => option !== 'assessmentLabel'),
   aggregateReportStateResultsEnabled: true,
   aggregateReportTypes: [ 'Claim', 'LongitudinalCohort' ]
-}
+};
+
+export const GeneralPopulationIabKey: DefinitionKey = <DefinitionKey>{
+  assessmentType: 'iab',
+  reportType: 'GeneralPopulation'
+};
+
+export const GeneralPopulationIcaKey: DefinitionKey = <DefinitionKey>{
+  assessmentType: 'iab',
+  reportType: 'GeneralPopulation'
+};
+
+export const ClaimIcaKey: DefinitionKey = <DefinitionKey>{
+  assessmentType: 'ica',
+  reportType: 'Claim'
+};
+
+export const GeneralPopulationSumKey: DefinitionKey = <DefinitionKey>{
+  assessmentType: 'sum',
+  reportType: 'GeneralPopulation'
+};
+export const LongitudinalCohortSumKey: DefinitionKey = <DefinitionKey>{
+  assessmentType: 'sum',
+  reportType: 'LongitudinalCohort'
+};
+
+export const ClaimSumKey: DefinitionKey = <DefinitionKey>{
+  assessmentType: 'sum',
+  reportType: 'Claim'
+};
 
 /**
- * Responsible for providing assessment type related properties
+ * Responsible for providing definition key related properties
  */
 @Injectable()
-export class AssessmentDefinitionService {
+export class AssessmentDefinitionProvider {
+
+  private definitions = new Map([
+    [ GeneralPopulationIabKey, Iab ],
+    [ GeneralPopulationIcaKey, Ica ],
+    [ ClaimIcaKey, ClaimIca ],
+    [ GeneralPopulationSumKey, Summative ],
+    [ LongitudinalCohortSumKey, Summative ],
+    [ ClaimSumKey, ClaimSummative ]
+  ]);
 
   /**
    * TODO make this hit backend and cache results.
@@ -89,17 +127,26 @@ export class AssessmentDefinitionService {
    */
   public getDefinitionsByDefinitionKey(): Observable<Map<DefinitionKey, AssessmentDefinition>> {
     return of(
-      new Map([
-        [ <DefinitionKey>{ assessmentType: 'iab', reportType: 'GeneralPopulation' }, Iab ],
-        [ <DefinitionKey>{ assessmentType: 'ica', reportType: 'GeneralPopulation' }, Ica ],
-        [ <DefinitionKey>{ assessmentType: 'ica', reportType: 'Claim' }, ClaimIca ],
-        [ <DefinitionKey>{ assessmentType: 'sum', reportType: 'GeneralPopulation' }, Summative ],
-        [ <DefinitionKey>{ assessmentType: 'sum', reportType: 'LongitudinalCohort' }, Summative ],
-        [ <DefinitionKey>{ assessmentType: 'sum', reportType: 'Claim' }, ClaimSummative ]
-      ])
+      this.definitions
     );
   }
 
+  /**
+   * Gets the assessment definition by assessment type and report type
+   * @param {string} assessmentType
+   * @param {"LongitudinalCohort" | "GeneralPopulation" | "Claim"} reportType
+   * @returns {AssessmentDefinition}
+   */
+  get(assessmentType: string, reportType: 'LongitudinalCohort' | 'GeneralPopulation' | 'Claim'): AssessmentDefinition {
+    let assessmentDefinition = null;
+    this.definitions.forEach((value: AssessmentDefinition, key: DefinitionKey) => {
+        if (assessmentType === key.assessmentType && reportType === key.reportType) {
+          assessmentDefinition = value;
+        }
+      }
+    );
+    return assessmentDefinition;
+  }
 }
 
 export interface DefinitionKey {

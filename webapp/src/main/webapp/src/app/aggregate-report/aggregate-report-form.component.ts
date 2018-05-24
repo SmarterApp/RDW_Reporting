@@ -32,7 +32,7 @@ import { SubgroupItem } from './subgroup/subgroup-item';
 import { Utils } from '../shared/support/support';
 import { Claim } from './aggregate-report-options.service';
 import { Option as SbCheckboxGroupOption } from '../shared/form/sb-checkbox-group.component';
-import { DefinitionKey } from './assessment/assessment-definition.service';
+import { AssessmentDefinitionProvider, DefinitionKey } from './assessment/assessment-definition.provider';
 
 const OrganizationComparator = (a: Organization, b: Organization) => a.name.localeCompare(b.name);
 
@@ -87,11 +87,6 @@ export class AggregateReportFormComponent {
   aggregateReportOptions: AggregateReportOptions;
 
   /**
-   * Assessment definitions for use in generating sample data
-   */
-  assessmentDefinitionsMap: Map<DefinitionKey, AssessmentDefinition>;
-
-  /**
    * Estimated row count based on the given report form settings
    */
   estimatedRowCount: number;
@@ -144,12 +139,12 @@ export class AggregateReportFormComponent {
               private requestMapper: AggregateReportRequestMapper,
               private notificationService: NotificationService,
               private organizationService: AggregateReportOrganizationService,
+              private assessmentDefinitionProvider: AssessmentDefinitionProvider,
               private reportService: AggregateReportService,
               private tableDataService: AggregateReportTableDataService,
               private columnOrderableItemProvider: AggregateReportColumnOrderItemProvider,
               private subgroupMapper: SubgroupMapper) {
 
-    this.assessmentDefinitionsMap = route.snapshot.data[ 'assessmentDefinitionsMap' ];
     this.aggregateReportOptions = route.snapshot.data[ 'options' ];
     this.settings = route.snapshot.data[ 'settings' ];
 
@@ -334,13 +329,7 @@ export class AggregateReportFormComponent {
   }
 
   get currentAssessmentDefinition(): AssessmentDefinition {
-    let assessmentDefinition = null;
-    this.assessmentDefinitionsMap.forEach((value: AssessmentDefinition, key: DefinitionKey) => {
-      if (key.reportType === this.settings.reportType && key.assessmentType === this.settings.assessmentType) {
-        assessmentDefinition = value;
-      }
-    });
-    return assessmentDefinition;
+    return this.assessmentDefinitionProvider.get(this.settings.assessmentType, this.settings.reportType);
   }
 
   get estimatedRowCountIsLarge(): boolean {
