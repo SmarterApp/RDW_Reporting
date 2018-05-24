@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AssessmentDefinition } from './assessment-definition';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
 import { PerformanceLevelDisplayTypes } from '../../shared/display-options/performance-level-display-type';
 
 export const IdentityColumnOptions: string[] = [
@@ -116,23 +114,6 @@ export const definitions = new Array(
  */
 @Injectable()
 export class AssessmentDefinitionService {
-
-
-  /**
-   * TODO make this hit backend and cache results.
-   * TODO expand to consider subject type possibly.
-   *
-   * Gets definition key related data.
-   *
-   * @returns {Observable<Map<DefinitionKey, AssessmentDefinition>>}
-   */
-  public getDefinitionsByDefinitionKey(): Observable<Map<DefinitionKey, AssessmentDefinition>> {
-    const map = new Map<DefinitionKey, AssessmentDefinition>();
-    definitions.forEach(value => {
-      map.set(value.key, value.value);
-    });
-    return of(map);
-  }
 
   /**
    * Gets the assessment definition by assessment type and report type

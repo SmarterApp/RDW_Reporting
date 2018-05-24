@@ -6,12 +6,11 @@ import { SchoolYearPipe } from '../shared/format/school-year.pipe';
 import { DisplayOptionService } from '../shared/display-options/display-option.service';
 import { AggregateReportFormSettings } from './aggregate-report-form-settings';
 import { ValueDisplayTypes } from '../shared/display-options/value-display-type';
-import { AssessmentDefinitionService, DefinitionKey } from './assessment/assessment-definition.service';
+import { AssessmentDefinitionService } from './assessment/assessment-definition.service';
 import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
 import { ApplicationSettingsService } from '../app-settings.service';
 import { Claim } from './aggregate-report-options.service';
-import { AssessmentDefinition } from './assessment/assessment-definition';
+import { of } from 'rxjs/observable/of';
 
 /**
  * Responsible for mapping server provided report options into option
@@ -156,55 +155,53 @@ export class AggregateReportOptionsMapper {
    * @returns {AggregateReportFormSettings} the initial form state
    */
   toDefaultSettings(options: AggregateReportOptions): Observable<AggregateReportFormSettings> {
-    return this.assessmentDefinitionService.getDefinitionsByDefinitionKey().pipe(
-      map((definitions: Map<DefinitionKey, AssessmentDefinition>) => {
-        const defaultAssessmentType = options.assessmentTypes[ 0 ];
-        const assessmentDefinition = definitions.get({assessmentType: defaultAssessmentType, reportType: 'GeneralPopulation'});
-        return <AggregateReportFormSettings>{
-          assessmentType: defaultAssessmentType,
-          columnOrder: assessmentDefinition.aggregateReportIdentityColumns,
-          completenesses: [ options.completenesses[ 0 ] ],
-          dimensionTypes: [],
-          districts: [],
-          includeStateResults: true,
-          includeAllDistricts: false,
-          includeAllSchoolsOfSelectedDistricts: false,
-          includeAllDistrictsOfSelectedSchools: true,
-          interimAdministrationConditions: [ options.interimAdministrationConditions[ 0 ] ],
-          performanceLevelDisplayType: assessmentDefinition.performanceLevelDisplayTypes[ 0 ],
-          queryType: options.queryTypes[ 0 ],
-          reportType: options.reportTypes[ 0 ],
-          summativeAdministrationConditions: [ options.summativeAdministrationConditions[ 0 ] ],
-          schools: [],
-          generalPopulation: {
-            assessmentGrades: [],
-            schoolYears: [ options.schoolYears[ 0 ] ]
-          },
-          claimReport: {
-            assessmentGrades: [],
-            schoolYears: [ options.schoolYears[ 0 ] ],
-            claimCodesBySubject: []
-          },
-          longitudinalCohort: {
-            assessmentGrades: [],
-            toSchoolYear: options.schoolYears[ 0 ]
-          },
-          studentFilters: {
-            economicDisadvantages: options.studentFilters.economicDisadvantages,
-            ethnicities: options.studentFilters.ethnicities,
-            genders: options.studentFilters.genders,
-            individualEducationPlans: options.studentFilters.individualEducationPlans,
-            limitedEnglishProficiencies: options.studentFilters.limitedEnglishProficiencies,
-            englishLanguageAcquisitionStatuses: options.studentFilters.englishLanguageAcquisitionStatuses,
-            migrantStatuses: options.studentFilters.migrantStatuses,
-            section504s: options.studentFilters.section504s
-          },
-          subjects: options.subjects,
-          subgroups: [],
-          valueDisplayType: ValueDisplayTypes.Percent
-        };
-      })
-    );
+    const defaultAssessmentType = options.assessmentTypes[ 0 ];
+    const defaultReportType = <'GeneralPopulation' | 'LongitudinalCohort' | 'Claim'>options.reportTypes[ 0 ];
+    const assessmentDefinition = this.assessmentDefinitionService.get(defaultAssessmentType, defaultReportType);
+    return of(<AggregateReportFormSettings>{
+      assessmentType: defaultAssessmentType,
+      columnOrder: assessmentDefinition.aggregateReportIdentityColumns,
+      completenesses: [ options.completenesses[ 0 ] ],
+      dimensionTypes: [],
+      districts: [],
+      includeStateResults: true,
+      includeAllDistricts: false,
+      includeAllSchoolsOfSelectedDistricts: false,
+      includeAllDistrictsOfSelectedSchools: true,
+      interimAdministrationConditions: [ options.interimAdministrationConditions[ 0 ] ],
+      performanceLevelDisplayType: assessmentDefinition.performanceLevelDisplayTypes[ 0 ],
+      queryType: options.queryTypes[ 0 ],
+      reportType: options.reportTypes[ 0 ],
+      summativeAdministrationConditions: [ options.summativeAdministrationConditions[ 0 ] ],
+      schools: [],
+      generalPopulation: {
+        assessmentGrades: [],
+        schoolYears: [ options.schoolYears[ 0 ] ]
+      },
+      claimReport: {
+        assessmentGrades: [],
+        schoolYears: [ options.schoolYears[ 0 ] ],
+        claimCodesBySubject: []
+      },
+      longitudinalCohort: {
+        assessmentGrades: [],
+        toSchoolYear: options.schoolYears[ 0 ]
+      },
+      studentFilters: {
+        economicDisadvantages: options.studentFilters.economicDisadvantages,
+        ethnicities: options.studentFilters.ethnicities,
+        genders: options.studentFilters.genders,
+        individualEducationPlans: options.studentFilters.individualEducationPlans,
+        limitedEnglishProficiencies: options.studentFilters.limitedEnglishProficiencies,
+        englishLanguageAcquisitionStatuses: options.studentFilters.englishLanguageAcquisitionStatuses,
+        migrantStatuses: options.studentFilters.migrantStatuses,
+        section504s: options.studentFilters.section504s
+      },
+      subjects: options.subjects,
+      subgroups: [],
+      valueDisplayType: ValueDisplayTypes.Percent
+    });
   }
+
 
 }

@@ -1238,7 +1238,7 @@
     "report-type": {
       "AggregateReportRequest": "Aggregate Report",
       "AggregateReportRequest CustomAggregate": "Aggregate Report",
-      "AggregateReportRequest Claims": "Aggregate Report: Claims",
+      "AggregateReportRequest Claim": "Aggregate Report: Claims",
       "AggregateReportRequest Longitudinal": "Aggregate Report: Longitudinal",
       "ExamExport": "District / School Export",
       "Group": "Group Report",
