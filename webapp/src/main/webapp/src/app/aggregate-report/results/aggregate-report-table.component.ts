@@ -294,7 +294,7 @@ export class AggregateReportTableComponent implements OnInit {
       new Column({ id: 'schoolYear' }),
       new Column({ id: 'dimension', field: 'subgroup.id' }),
       ...hasClaimCodes ? [ new Column({ id: 'claim', field: 'claimCode' }) ] : []
-    ];
+    ].filter(col => col !== undefined);
 
     // create columns
     const performanceLevelsByDisplayType = {
@@ -312,7 +312,7 @@ export class AggregateReportTableComponent implements OnInit {
       new Column({ id: 'achievementComparison', sortable: false }),
       ...hasClaimCodes ? [] : [ new Column({ id: 'avgScaleScore' }) ],
       ...this.createPerformanceLevelColumns(performanceLevelsByDisplayType, assessmentDefinition)
-    ];
+    ].filter(col => col !== undefined);
 
     this.calculateTreeColumns();
   }
