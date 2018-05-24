@@ -55,9 +55,9 @@ export class ColorService {
   }
 
   /**
-   * Retrieves the color for the performance level (1-based)
+   * Retrieves the color for the performance level (1-based) and total number of performance levels
    *
-   * @param {string} assessment type (ica, iab, sum)
+   * @param {number} total performance levels
    * @param {number} performanceLevel (1-based)
    * @returns {string} the class of the color
    */
