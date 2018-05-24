@@ -22,6 +22,11 @@ const PerformanceLevelColorsByAssessmentTypeCode: Map<string, string[]> = new Ma
   [ 'sum', Pallets[ 2 ] ]
 ]);
 
+const PerformanceLevelColorsNumberOfPerformanceLevels: Map<number, string[]> = new Map([
+  [ 3, Pallets[ 0 ] ],
+  [ 4, Pallets[ 1 ] ]
+]);
+
 /**
  * This service is responsible for transforming an arbitrary number
  * into a color value.
@@ -47,6 +52,17 @@ export class ColorService {
    */
   getPerformanceLevelColorsByAssessmentTypeCode(code: string, performanceLevel: number): string {
     return PerformanceLevelColorsByAssessmentTypeCode.get(code)[ performanceLevel - 1 ];
+  }
+
+  /**
+   * Retrieves the color for the performance level (1-based)
+   *
+   * @param {string} assessment type (ica, iab, sum)
+   * @param {number} performanceLevel (1-based)
+   * @returns {string} the class of the color
+   */
+  getPerformanceLevelColorsByNumberOfPerformanceLevels(levels: number, performanceLevel: number): string {
+    return PerformanceLevelColorsNumberOfPerformanceLevels.get(levels)[ performanceLevel - 1 ];
   }
 
 }

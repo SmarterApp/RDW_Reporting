@@ -49,6 +49,30 @@ const Summative: AssessmentDefinition = {
   aggregateReportTypes: [ 'Claim', 'LongitudinalCohort' ]
 };
 
+const ClaimIca: AssessmentDefinition = {
+  typeCode: 'ica',
+  interim: true,
+  performanceLevels: [ 1, 2, 3 ],
+  performanceLevelCount: 3,
+  performanceLevelDisplayTypes: [ PerformanceLevelDisplayTypes.Separate ],
+  aggregateReportIdentityColumns: IdentityColumnOptions
+    .filter(option => option !== 'assessmentLabel'),
+  aggregateReportStateResultsEnabled: false,
+  aggregateReportTypes: [ 'Claim' ]
+}
+
+const ClaimSummative: AssessmentDefinition = {
+  typeCode: 'sum',
+  interim: false,
+  performanceLevels: [ 1, 2, 3 ],
+  performanceLevelCount: 3,
+  performanceLevelDisplayTypes: [ PerformanceLevelDisplayTypes.Separate ],
+  aggregateReportIdentityColumns: IdentityColumnOptions
+    .filter(option => option !== 'assessmentLabel'),
+  aggregateReportStateResultsEnabled: true,
+  aggregateReportTypes: [ 'Claim', 'LongitudinalCohort' ]
+}
+
 /**
  * Responsible for providing assessment type related properties
  */
@@ -63,12 +87,22 @@ export class AssessmentDefinitionService {
    *
    * @returns {Observable<Map<string, AssessmentDefinition>>}
    */
-  public getDefinitionsByAssessmentTypeCode(): Observable<Map<string, AssessmentDefinition>> {
-    return of(new Map([
-      [ 'ica', Ica ],
-      [ 'iab', Iab ],
-      [ 'sum', Summative ]
-    ]));
+  public getDefinitionsByAssessmentTypeCode(): Observable<Map<DefinitionKey, AssessmentDefinition>> {
+    return of(
+      new Map([
+        [ <DefinitionKey>{ assessmentType: 'iab', reportType: 'GeneralPopulation' }, Iab ],
+        [ <DefinitionKey>{ assessmentType: 'ica', reportType: 'GeneralPopulation' }, Ica ],
+        [ <DefinitionKey>{ assessmentType: 'ica', reportType: 'Claim' }, ClaimIca ],
+        [ <DefinitionKey>{ assessmentType: 'sum', reportType: 'GeneralPopulation' }, Summative ],
+        [ <DefinitionKey>{ assessmentType: 'sum', reportType: 'LongitudinalCohort' }, Summative ],
+        [ <DefinitionKey>{ assessmentType: 'sum', reportType: 'Claim' }, ClaimSummative ]
+      ])
+    );
   }
 
 }
+
+export interface DefinitionKey {
+  readonly assessmentType: string;
+  readonly reportType: string;
+};

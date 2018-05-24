@@ -6,11 +6,12 @@ import { SchoolYearPipe } from '../shared/format/school-year.pipe';
 import { DisplayOptionService } from '../shared/display-options/display-option.service';
 import { AggregateReportFormSettings } from './aggregate-report-form-settings';
 import { ValueDisplayTypes } from '../shared/display-options/value-display-type';
-import { AssessmentDefinitionService } from './assessment/assessment-definition.service';
+import { AssessmentDefinitionService, DefinitionKey } from './assessment/assessment-definition.service';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { ApplicationSettingsService } from '../app-settings.service';
 import { Claim } from './aggregate-report-options.service';
+import { AssessmentDefinition } from './assessment/assessment-definition';
 
 /**
  * Responsible for mapping server provided report options into option
@@ -156,9 +157,14 @@ export class AggregateReportOptionsMapper {
    */
   toDefaultSettings(options: AggregateReportOptions): Observable<AggregateReportFormSettings> {
     return this.assessmentDefinitionService.getDefinitionsByAssessmentTypeCode().pipe(
-      map(definitions => {
+      map((definitions: Map<DefinitionKey, AssessmentDefinition>) => {
         const defaultAssessmentType = options.assessmentTypes[ 0 ];
-        const assessmentDefinition = definitions.get(defaultAssessmentType);
+        let assessmentDefinition = null;
+        definitions.forEach((value: AssessmentDefinition, key: DefinitionKey) => {
+          if (key.assessmentType === defaultAssessmentType && key.reportType === 'GeneralPopulation') {
+            assessmentDefinition = value;
+          }
+        });
         return <AggregateReportFormSettings>{
           assessmentType: defaultAssessmentType,
           columnOrder: assessmentDefinition.aggregateReportIdentityColumns,

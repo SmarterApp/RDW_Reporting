@@ -16,10 +16,16 @@ import * as _ from 'lodash';
 import { organizationOrdering, subgroupOrdering } from '../support';
 import { TranslateService } from '@ngx-translate/core';
 import { AggregateReportService } from '../aggregate-report.service';
-import { IdentityColumnOptions } from '../assessment/assessment-definition.service';
 
 export const SupportedRowCount = 10000;
 export const DefaultRowsPerPageOptions = [ 100, 500, 1000 ];
+export const IdentityColumnOptions: string[] = [
+  'organization',
+  'assessmentGrade',
+  'assessmentLabel',
+  'schoolYear',
+  'dimension',
+];
 
 
 const SchoolYearOrdering: Ordering<AggregateReportItem> = ordering(byNumber)
@@ -96,23 +102,14 @@ export class AggregateReportTableComponent implements OnInit {
   }
 
   get cutPoint(): number {
-    if (this._table.reportType === 'Claim') {
-      return null;
-    }
     return this.table.assessmentDefinition.performanceLevelGroupingCutPoint;
   }
 
   get assessmentTypeCode(): string {
-    if (this._table.reportType === 'Claim') {
-      return this._assessmentTypeCode;
-    }
     return this.table.assessmentDefinition.typeCode;
   }
 
   get center(): boolean {
-    if (this._table.reportType === 'Claim') {
-      return this._center;
-    }
     return this.table.assessmentDefinition.performanceLevelGroupingCutPoint != null;
   }
 
@@ -300,9 +297,6 @@ export class AggregateReportTableComponent implements OnInit {
     ];
 
     // create columns
-    if (hasClaimCodes) {
-      assessmentDefinition = this.configureClaimReport();
-    }
     const performanceLevelsByDisplayType = {
       Separate: assessmentDefinition.performanceLevels,
       Grouped: [
@@ -321,13 +315,6 @@ export class AggregateReportTableComponent implements OnInit {
     ];
 
     this.calculateTreeColumns();
-  }
-
-  private configureClaimReport(): AssessmentDefinition {
-    this._cutPoint = 3;
-    this._assessmentTypeCode = 'iab';
-    this._center = false;
-    return this.reportService.claimAssessmentDefinition();
   }
 
   private renderWithPreviousRowSorting(): void {
@@ -455,7 +442,7 @@ export class AggregateReportTableComponent implements OnInit {
             index: index,
             field: `performanceLevelByDisplayTypes.${displayType}.${this.valueDisplayType}.${index}`,
             headerKey: this.getPerformanceLevelColumnHeaderTranslationCode(displayType, level, index),
-            headerColor: this.colorService.getPerformanceLevelColorsByAssessmentTypeCode(assessmentDefinition.typeCode, level)
+            headerColor: this.colorService.getPerformanceLevelColorsByNumberOfPerformanceLevels(assessmentDefinition.performanceLevelCount, level)
           }));
         });
       });

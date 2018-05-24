@@ -68,8 +68,11 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
 
     this.options = this.route.snapshot.data[ 'options' ];
     this.report = this.route.snapshot.data[ 'report' ];
-    this.assessmentDefinition = this.route.snapshot.data[ 'assessmentDefinitionsByAssessmentTypeCode' ]
-      .get(this.report.request.query.assessmentTypeCode);
+    this.route.snapshot.data[ 'assessmentDefinitionsMap' ].forEach((value, key) => {
+      if (key.assessmentType === this.report.request.query.assessmentTypeCode && key.reportType === this.report.request.query.reportType) {
+        this.assessmentDefinition = value;
+      }
+    });
     this._viewComparator = ordering(ranking(this.options.subjects))
       .on((wrapper: AggregateReportView) => wrapper.subjectCode).compare;
     this._displayOptions = {

@@ -102,6 +102,7 @@
             <performance-level-distribution-chart
               [percentages]="rowData.performanceLevelByDisplayTypes.Separate.Percent"
               [cutPoint]="cutPoint"
+              [performanceLevels]="rowData.claimCode ? 3 : null"
               [assessmentTypeCode]="assessmentTypeCode"
               [displayType]="performanceLevelDisplayType"
               [center]="center"></performance-level-distribution-chart>

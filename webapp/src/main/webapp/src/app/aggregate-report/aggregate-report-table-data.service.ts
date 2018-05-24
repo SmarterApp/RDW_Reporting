@@ -56,9 +56,6 @@ export class AggregateReportTableDataService {
       }
     }
 
-    if (settings.reportType === 'Claim') {
-      assessmentDefinition = this.reportService.claimAssessmentDefinition();
-    }
     const studentsTested = 100;
     const averageScaleScore = 2500;
     const averageStandardError = 50;

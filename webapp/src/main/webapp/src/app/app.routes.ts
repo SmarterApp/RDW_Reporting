@@ -277,7 +277,7 @@ export const routes: Routes = [
         },
         resolve: {
           options: AggregateReportOptionsResolve,
-          assessmentDefinitionsByAssessmentTypeCode: AssessmentDefinitionResolve
+          assessmentDefinitionsMap: AssessmentDefinitionResolve
         },
         canActivate: [ AuthorizationCanActivate ],
         children: [

@@ -32,6 +32,7 @@ import { SubgroupItem } from './subgroup/subgroup-item';
 import { Utils } from '../shared/support/support';
 import { Claim } from './aggregate-report-options.service';
 import { Option as SbCheckboxGroupOption } from '../shared/form/sb-checkbox-group.component';
+import { DefinitionKey } from './assessment/assessment-definition.service';
 
 const OrganizationComparator = (a: Organization, b: Organization) => a.name.localeCompare(b.name);
 
@@ -88,7 +89,7 @@ export class AggregateReportFormComponent {
   /**
    * Assessment definitions for use in generating sample data
    */
-  assessmentDefinitionsByTypeCode: Map<string, AssessmentDefinition>;
+  assessmentDefinitionsMap: Map<DefinitionKey, AssessmentDefinition>;
 
   /**
    * Estimated row count based on the given report form settings
@@ -148,7 +149,7 @@ export class AggregateReportFormComponent {
               private columnOrderableItemProvider: AggregateReportColumnOrderItemProvider,
               private subgroupMapper: SubgroupMapper) {
 
-    this.assessmentDefinitionsByTypeCode = route.snapshot.data[ 'assessmentDefinitionsByAssessmentTypeCode' ];
+    this.assessmentDefinitionsMap = route.snapshot.data[ 'assessmentDefinitionsMap' ];
     this.aggregateReportOptions = route.snapshot.data[ 'options' ];
     this.settings = route.snapshot.data[ 'settings' ];
 
@@ -333,7 +334,13 @@ export class AggregateReportFormComponent {
   }
 
   get currentAssessmentDefinition(): AssessmentDefinition {
-    return this.assessmentDefinitionsByTypeCode.get(this.settings.assessmentType);
+    let assessmentDefinition = null;
+    this.assessmentDefinitionsMap.forEach((value: AssessmentDefinition, key: DefinitionKey) => {
+      if (key.reportType === this.settings.reportType && key.assessmentType === this.settings.assessmentType) {
+        assessmentDefinition = value;
+      }
+    });
+    return assessmentDefinition;
   }
 
   get estimatedRowCountIsLarge(): boolean {

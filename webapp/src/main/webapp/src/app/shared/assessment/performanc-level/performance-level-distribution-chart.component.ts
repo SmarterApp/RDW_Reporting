@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { Utils } from "../../support/support";
-import { ColorService } from "../../color.service";
-import { PerformanceLevelDisplayTypes } from "../../display-options/performance-level-display-type";
+import { Component, Input, OnInit } from '@angular/core';
+import { Utils } from '../../support/support';
+import { ColorService } from '../../color.service';
+import { PerformanceLevelDisplayTypes } from '../../display-options/performance-level-display-type';
 
 /**
  * Performance level distribution chart view
@@ -15,6 +15,7 @@ export class PerformanceLevelDistributionChart implements OnInit {
 
   private _percentages: number[] = [];
   private _assessmentTypeCode: string;
+  private _performanceLevels: number;
   private _cutPoint: number;
   private _center: boolean = false;
   private _displayType: string = PerformanceLevelDisplayTypes.Separate;
@@ -23,6 +24,15 @@ export class PerformanceLevelDistributionChart implements OnInit {
   private _performanceLevelBarsByDisplayType: Map<string, Map<boolean, PerformanceLevelBars>> = new Map();
 
   constructor(private colorService: ColorService) {
+  }
+
+  get performanceLevels(): number {
+    return this._performanceLevels;
+  }
+
+  @Input()
+  set performanceLevels(value: number) {
+    this._performanceLevels = value;
   }
 
   /**
@@ -147,7 +157,7 @@ export class PerformanceLevelDistributionChart implements OnInit {
     if (this.percentages.length < 2) {
       throw new Error('value size must not be less than 2');
     }
-    if (Utils.isUndefined(this.assessmentTypeCode)) {
+    if (Utils.isUndefined(this.assessmentTypeCode || this.performanceLevels)) {
       throw new Error('assessment type code undefined');
     }
     if (Utils.isUndefined(this.displayType)) {
@@ -217,6 +227,9 @@ export class PerformanceLevelDistributionChart implements OnInit {
    * @returns {string} the color class
    */
   private getPerformanceLevelColor(level: number): string {
+    if (this.performanceLevels) {
+      return this.colorService.getPerformanceLevelColorsByNumberOfPerformanceLevels(this.performanceLevels, level);
+    }
     return this.colorService.getPerformanceLevelColorsByAssessmentTypeCode(this.assessmentTypeCode, level);
   }
 
