@@ -62,6 +62,7 @@
       "assessment-grades-label": "Assessment Grades",
       "assessment-grades-info": "The grade of the assessment that was administered",
       "assessment-grades-empty-error": "Please select an assessment grade.",
+      "assessment-grades-exceed-available-school-years-error": "Range of selected assessment grades exceed number of available academic years.",
       "assessment-type-label": "Assessment Type",
       "elas-label": "English Language Acquisition Status",
       "elas-info": "Status determined by the Home Language Survey and the Initial ELPAC.",

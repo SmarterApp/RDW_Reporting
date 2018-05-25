@@ -383,6 +383,8 @@
                     <div *ngIf="showErrors(assessmentGradeRangeControl)">
                       <p *ngIf="assessmentGradeRangeControl.errors.notEmpty" class="help-block small red">
                         {{assessmentGradeRangeControl.errors.notEmpty.messageId | translate}}</p>
+                      <p *ngIf="assessmentGradeRangeControl.errors.withinBounds" class="small red">
+                        {{assessmentGradeRangeControl.errors.withinBounds.messageId | translate}}</p>
                     </div>
                   </div>
                 </div>
