@@ -15,12 +15,11 @@ export function notEmpty(properties: any): ValidatorFn {
 
 export function withinBounds(toSchoolYear: number,
                              assessmentGrades: string[],
-                             availableSchoolYears: number[],
+                             lowestAvailableSchoolYear: number,
                              properties: any): ValidatorFn {
   return control => {
     const effectiveSchoolYears = computeEffectiveYears(toSchoolYear, assessmentGrades);
-    const firstAvailableSchoolYear = Math.min(...availableSchoolYears);
-    if (firstAvailableSchoolYear > Math.min(...effectiveSchoolYears)) {
+    if (lowestAvailableSchoolYear > Math.min(...effectiveSchoolYears)) {
       return { withinBounds: properties };
     }
     return null;

@@ -122,6 +122,11 @@ export class AggregateReportFormComponent {
    */
   subgroupItems: SubgroupItem[] = [];
 
+  /**
+   * Lowest available school year
+   */
+  lowestAvailableSchoolYear: number;
+
   private options: AggregateReportFormOptions;
 
   /**
@@ -165,6 +170,7 @@ export class AggregateReportFormComponent {
     this.columnItems = this.columnOrderableItemProvider.toOrderableItems(this.settings.columnOrder);
 
     this.options = optionMapper.map(this.aggregateReportOptions);
+    this.lowestAvailableSchoolYear = Math.min(...this.options.schoolYears.map(schoolYear => schoolYear.value));
     if (!this.settings.assessmentType.includes('sum')) {
       this.options.reportTypes = this.options.reportTypes.filter(reportType => reportType.value !== 'LongitudinalCohort');
     }
@@ -243,7 +249,7 @@ export class AggregateReportFormComponent {
         notEmpty({ messageId: 'aggregate-report-form.field.assessment-grades-empty-error' }),
         withinBounds(this.settings.longitudinalCohort.toSchoolYear,
           this.settings.longitudinalCohort.assessmentGrades,
-          this.options.schoolYears.map(schoolYear => schoolYear.value),
+          this.lowestAvailableSchoolYear,
           { messageId: 'aggregate-report-form.field.assessment-grades-exceed-available-school-years-error' })
       ]);
     } else if (this.effectiveReportType === 'Claim') {

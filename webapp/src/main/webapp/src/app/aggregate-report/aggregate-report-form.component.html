@@ -384,7 +384,7 @@
                       <p *ngIf="assessmentGradeRangeControl.errors.notEmpty" class="help-block small red">
                         {{assessmentGradeRangeControl.errors.notEmpty.messageId | translate}}</p>
                       <p *ngIf="assessmentGradeRangeControl.errors.withinBounds" class="help-block small red">
-                        {{assessmentGradeRangeControl.errors.withinBounds.messageId | translate}}</p>
+                        {{assessmentGradeRangeControl.errors.withinBounds.messageId | translate: {lowestAvailableSchoolYear: lowestAvailableSchoolYear | schoolYear} }}</p>
                     </div>
                   </div>
                 </div>
