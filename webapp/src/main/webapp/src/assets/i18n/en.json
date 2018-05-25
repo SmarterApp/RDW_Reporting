@@ -193,7 +193,7 @@
       "ByItem": "Results By Item",
       "ByStudent": "Results By Student",
       "DistractorAnalysis": "Key / Distractor Analysis",
-      "WritingTraitScores": "Writing Trait Scores"
+      "WritingTraitScores": "Writing Trait Points"
     }
   },
   "assessments": {
@@ -1132,8 +1132,8 @@
     "student-scores-intro-text": "Expand each student row to view their response to this item."
   },
   "item-tab": {
-    "student-scores": "Student Scores and Responses",
-    "writing-trait-scores": "Writing Trait Scores"
+    "student-points": "Student Points and Responses",
+    "writing-trait-points": "Writing Trait Points"
   },
   "item-viewer": {
     "answer-key": "Key: ",
