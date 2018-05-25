@@ -38,6 +38,7 @@ export class AssessmentService {
         type: serverAssessment.typeCode,
         subject: serverAssessment.subjectCode,
         grade: serverAssessment.gradeCode,
+        gradeSequence: serverAssessment.gradeSequence,
         schoolYear: serverAssessment.schoolYear,
         cutPoints: serverAssessment.cutPoints.filter(point => point != null)
       }))

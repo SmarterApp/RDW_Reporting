@@ -12,6 +12,7 @@ sql:
         at.code as type_code,
         s.code as subject_code,
         g.code as grade_code,
+        g.sequence as grade_sequence,
         a.school_year,
         a.min_score,
         a.cut_point_1,

@@ -6,6 +6,7 @@ export interface Assessment {
   readonly type: string;
   readonly subject: string;
   readonly grade: string;
+  readonly gradeSequence: number;
   readonly schoolYear: number;
   readonly cutPoints: number[];
 
