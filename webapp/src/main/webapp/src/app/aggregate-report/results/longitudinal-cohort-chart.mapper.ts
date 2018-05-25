@@ -17,7 +17,7 @@ import { SubgroupMapper } from '../subgroup/subgroup.mapper';
 import { AggregateReportQuery } from '../../report/aggregate-report-request';
 import { Assessment } from '../assessment/assessment';
 import { ordering } from '@kourge/ordering';
-import { byNumber } from '@kourge/ordering/comparator';
+import { byNumber, join } from '@kourge/ordering/comparator';
 
 
 function createStubGradeYears(first: YearGrade, count: number, step: number = 1, initialGap: number = 0) {
@@ -113,7 +113,8 @@ function createOrganization(id: number): Organization {
 }
 
 const rowYearAscending = ordering(byNumber).on<AggregateReportRow>(row => row.assessment.examSchoolYear).compare;
-const assessmentYearAscending = ordering(byNumber).on<Assessment>(assessment => assessment.gradeSequence).compare;
+const assessmentGradeAscending = ordering(byNumber).on<Assessment>(assessment => assessment.gradeSequence).compare;
+const assessmentYearDescending = ordering(byNumber).on<Assessment>( assessment => assessment.schoolYear).reverse().compare;
 
 @Injectable()
 export class LongitudinalCohortChartMapper {
@@ -205,7 +206,7 @@ export class LongitudinalCohortChartMapper {
     const grades = new Set<string>();
 
     assessments.concat()
-      .sort(assessmentYearAscending)
+      .sort(join(assessmentGradeAscending, assessmentYearDescending))
       .forEach(assessment => {
         // there is an edge case where multiple assessments are returned for a grade, so we only want to take one of them
         if (grades.has(assessment.grade)) return;
