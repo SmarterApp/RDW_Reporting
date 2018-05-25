@@ -93,8 +93,7 @@ describe('Instructional Resource Service', () => {
       organizationType: `org type ${id}`,
       assessmentLabel: `asmt label ${id}`,
       assessmentName: `asmt name ${id}`,
-      assessmentType: `asmt type ${id}`,
-      assessmentTypeCode: `asmt type code  ${id}`,
+      assessmentTypeCode: `asmt type ${id}`,
       performanceLevel: id,
       resource: `resource ${id}`
     };

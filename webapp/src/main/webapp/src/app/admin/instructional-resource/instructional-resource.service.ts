@@ -66,7 +66,7 @@ export class InstructionalResourceService {
   }
 
   private toServerFormat(resource: InstructionalResource): InstructionalResource {
-    resource.assessmentType = AssessmentType[resource.assessmentType];
+    resource.assessmentType = AssessmentType[resource.assessmentType] ? AssessmentType[resource.assessmentType] : resource.assessmentType;
     return resource;
   }
 
