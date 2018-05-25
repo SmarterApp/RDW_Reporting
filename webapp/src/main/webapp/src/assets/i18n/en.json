@@ -184,7 +184,7 @@
     "distractor-analysis-instructions": "The shaded responses below indicate the correct answer for each item.",
     "no-distractor-analysis": "Key / Distractor Analysis is not available for assessments administered prior to 2017-18 school year.",
     "no-results-by-item": "Results By Item is not available for assessments administered prior to 2017-18 school year.",
-    "no-writing-trait-scores": "Writing trait points are not available for assessments administered prior to 2017-18 school year.",
+    "no-writing-trait-scores": "Writing trait scores are not available for assessments administered prior to 2017-18 school year.",
     "result-view-select": "Select a results view",
     "select-view": "Select View",
     "session-unknown": "[Unknown]",
@@ -193,7 +193,7 @@
       "ByItem": "Results By Item",
       "ByStudent": "Results By Student",
       "DistractorAnalysis": "Key / Distractor Analysis",
-      "WritingTraitScores": "Writing Trait Points"
+      "WritingTraitScores": "Writing Trait Scores"
     }
   },
   "assessments": {
@@ -1133,7 +1133,7 @@
   },
   "item-tab": {
     "student-scores": "Student Points and Responses",
-    "writing-trait-scores": "Writing Trait Points"
+    "writing-trait-scores": "Writing Trait Scores"
   },
   "item-viewer": {
     "answer-key": "Key: ",
