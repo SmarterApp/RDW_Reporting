@@ -731,7 +731,7 @@
         "difficulty": "Item Difficulty",
         "difficulty-info": "Item difficulty (easy, moderate, difficult) is based on the difficulty of the item for students in a reference population.  See the Interpretive Guide for a description of the reference population and how the difficulty categories are derived.",
         "full-credit": "Full Credit",
-        "full-credit-info": "Percentage of students in the group who earned the maximum number of points available for a particular test item.",
+        "full-credit-info": "Students in the group who earned the maximum number of points available for a particular test item.",
         "max-points": "Max Points",
         "number": "Item #",
         "purpose": "Writing Purpose",
