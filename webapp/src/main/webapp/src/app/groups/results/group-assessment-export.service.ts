@@ -36,7 +36,7 @@ export class GroupAssessmentExportService implements AssessmentExporter {
     let filename: string = this.getFilename(exportRequest);
 
     this.angulartics2.eventTrack.next({
-      action: 'Export Group Writing Trait Points',
+      action: 'Export Group Writing Trait Scores',
       properties: {
         category: 'Export'
       }
