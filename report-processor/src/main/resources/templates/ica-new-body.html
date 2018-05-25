@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="body">
+    <div class="header container">
+        <div class="block-group blue right">
+            <span th:text="#{'report.subject.' + ${report.assessment.subject} + '.name'}"></span>
+            <span>2016 - 17 TBD</span>
+        </div>
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1501143/sbac%20logo%20color.svg" alt="Smarter Balanced Assessment Consortium" class="logo">
+        <div class="block-group blue">
+            <span th:text="#{report.ica.short-name}"></span>
+            <span>TBD Interim Comprehensive Assessment Report</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="overview row">
+            <div class="info col-sm-2">
+                <div class="name" th:text="#{report.student.name(${report.student.firstName}, ${report.student.lastName})}"></div>
+                <div class="grade">
+                    <span th:text="#{report.student.grade.label}" th:remove="tag"></span>
+                    <span th:text="#{'report.enrollment-grade.' + ${report.studentEnrollment.gradeCode}}" th:remove="tag"></span>
+                </div>
+                <div class="school" th:text="${report.studentEnrollment.schoolName}"></div>
+                <div class="district">
+                    <span th:text="${report.studentEnrollment.districtName}" th:remove="tag"></span>,
+                    <span th:text="${report.studentEnrollment.stateCode}" th:remove="tag"></span>
+                </div>
+            </div>
+            <div class="standard col-sm-4">
+                <span class="score"
+                      th:classappend="#{'report.ica.level.' + ${report.exam.scaleScore.level} + '.color'}"
+                      th:text="${report.exam.scaleScore.value}"></span>
+                <span class="level"><strong>{Level Label}</strong><br>{{Min}}-{{Max}}</span>
+                <p class="description mt-sm">{{FirstName}} {{Achievement Level Description}} Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt rem, ipsum, distinctio cupiditate laudantium alias culpa ratione, quis quas quae quod nam. Temporibus delectus et doloremque sunt, totam pariatur nihil.</p>
+            </div>
+            <div class="performance col-sm-6"
+                    th:with="scaleScoreView=${support.getScaleScoreView(report.exam, report.assessment)}">
+                <div class="graph clearfix">
+                    <span class="score" data-left="75">
+                        <span class="num"
+                              th:classappend="#{'report.ica.level.' + ${report.exam.scaleScore.level} + '.color'}"
+                              th:text="${report.exam.scaleScore.value}">
+                            <span class="error">±
+                                <span th:text="${support.round(report.exam.scaleScore.standardError) + '*'}"
+                                      th:remove="tag"></span>
+                            </span>
+                        </span>
+                    </span>
+                    <span class="bound">{{bound}}</span>
+                    <div class="bar maroon"
+                         th:attr="data-width=${scaleScoreView.levels[0].width}"><span class="bound">{{bound}}</span></div>
+                    <div class="bar gray-darkest"
+                         th:attr="data-width=${scaleScoreView.levels[1].width}"><span class="bound">{{bound}}</span></div>
+                    <div class="bar green-dark"
+                         th:attr="data-width=${scaleScoreView.levels[2].width}"><span class="bound">{{bound}}</span></div>
+                    <div class="bar blue-dark"
+                         th:attr="data-width=${scaleScoreView.levels[3].width}"><span class="bound">{{bound}}</span></div>
+                </div>
+                <div class="legend">
+                    <span><i class="fa fa-square" style="color: #8D1135;"></i> <span th:text="#{'report.ica.level.1.description'}" th:remove="tag"></span></span>
+                    <span><i class="fa fa-square" style="color: #353538;"></i> <span th:text="#{'report.ica.level.2.description'}" th:remove="tag"></span></span>
+                    <span><i class="fa fa-square" style="color: #406934;"></i> <span th:text="#{'report.ica.level.3.description'}" th:remove="tag"></span></span>
+                    <span><i class="fa fa-square" style="color: #104564;"></i> <span th:text="#{'report.ica.level.4.description'}" th:remove="tag"></span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" th:if="${scored}">
+        <div class="achievement-descriptions">
+            <div class="overall">
+                <span class="title" th:text="#{report.ica.section.claim.header}"></span>
+                <p th:text="#{('report.student-achievement-by-claim.grade.' + ${report.assessment.gradeCode} + '.subject.' + ${report.assessment.subject})(${report.student.firstName})}"></p>
+            </div>
+            <div class="level-description">
+                <span class="title"><i class="fa fa-book"></i> Reading</span>
+                <span class="level-label" style="background-color: #104564">{{Level Label}}</span>
+                <div class="description">
+                    <p>{{FirstName}} {{Category Specific Achievement Level Description}} Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt rem, ipsum, distinctio cupiditate laudantium alias culpa ratione, quis quas quae quod nam. Temporibus delectus et doloremque sunt, totam pariatur nihil.</p>
+                </div>
+            </div>
+            <div class="level-description">
+                <span class="title"><i class="fa fa-lightbulb-o"></i> Listening</span>
+                <span class="level-label" style="background-color: #104564">{{Level Label}}</span>
+                <div class="description">
+                    <p>{{FirstName}} {{Category Specific Achievement Level Description}} Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt rem, ipsum, distinctio cupiditate laudantium alias culpa ratione, quis quas quae quod nam. Temporibus delectus et doloremque sunt, totam pariatur nihil.</p>
+                </div>
+            </div>
+            <div class="level-description">
+                <span class="title"><i class="fa fa-question"></i> Research &amp; Inquiry</span>
+                <span class="level-label" style="background-color: #104564">{{Level Label}}</span>
+                <div class="description">
+                    <p>{{FirstName}} {{Category Specific Achievement Level Description}} Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt rem, ipsum, distinctio cupiditate laudantium alias culpa ratione, quis quas quae quod nam. Temporibus delectus et doloremque sunt, totam pariatur nihil.</p>
+                </div>
+            </div>
+            <div class="level-description">
+                <span class="title"><i class="fa fa-edit"></i> Writing</span>
+                <span class="level-label" style="background-color: #104564">{{Level Label}}</span>
+                <div class="description">
+                    <p>{{FirstName}} {{Category Specific Achievement Level Description}} Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt rem, ipsum, distinctio cupiditate laudantium alias culpa ratione, quis quas quae quod nam. Temporibus delectus et doloremque sunt, totam pariatur nihil.</p>
+                </div>
+            </div>
+            <div class="writing-traits">
+                <span class="title">{{Writing Type}} Writing</span>
+                <div class="trait">
+                    <span class="title">Evidence / Elaboration</span>
+                    <span class="score"><span style="background-color: #104564;">3</span> of 4</span>
+                    <div class="description"><p>{{Trait Specific Achievement Level Description}} Lorem ipsum dolor sit amet consectetur adipisicing elit.</p></div>
+                </div>
+                <div class="trait">
+                    <span class="title">Organization / Purpose</span>
+                    <span class="score"><span style="background-color: #104564;">3</span> of 4</span>
+                    <div class="description"><p>{{Trait Specific Achievement Level Description}} Lorem ipsum dolor sit amet consectetur adipisicing elit.</p></div>
+                </div>
+                <div class="trait">
+                    <span class="title">Conventions</span>
+                    <span class="score"><span style="background-color: #104564;">3</span> of 4</span>
+                    <div class="description"><p>{{Trait Specific Achievement Level Description}} Lorem ipsum dolor sit amet consectetur adipisicing elit.</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="footer row">
+            <div class="col-sm-4">
+                <p><strong th:text="#{report.faq.header}">Take the Test</strong><br>
+                    Gain familiarity with the types of questions and tools for students by taking a practice test:
+                    <a href="http://www.smarterbalanced.org/assessments/practice-and-training-tests" target="_blank">http://www.smarterbalanced.org/assessments/practice-and-training-tests</a></p>
+                <p>These results represent only one indicator of a student&rsquo;s performance. These results should be used along with other information, such as classwork and other tests when making educational decisions. Specific questions about individual student results should be directed to the student&rsquo;s teacher.</p>
+            </div>
+            <div class="col-sm-4">
+                <p><strong>Important Information About Interim Assessments</strong><br>
+                    Interim assessments may be scored by local teachers. This scoring is not subject to the rigorous controls used in summative assessment and local results may show some variations. Exposure to, and familiarity with test questions may affect student performance and the accuracy of interim results.</p>
+            </div>
+            <div class="col-sm-4">
+                <p><strong>* Error Band</strong><br>
+                    A student&rsquo;s test score can vary if the test is taken several times. If this student was tested again, it is likely that the scale score would fall within this range.</p>
+                <p><strong>Frequently Asked Questions</strong><br>
+                    Where can I find more information about the Smarter Balanced Assessment System? Information about Smarter Balanced Assessment System is available at <a href="http://www.smarterbalanced.org/" target="_blank">www.smarterbalanced.org</a>.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="sub-footer">
+                <p>&copy; The Regents of the University of California &ndash; Smarter Balanced Assessment Consortium</p>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>

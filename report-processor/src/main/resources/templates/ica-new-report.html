@@ -2,11 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="fragments::meta"></div>
-    <title th:text="#{report.sum.title}"></title>
+    <title th:text="#{report.ica.title}"></title>
     <div th:replace="fragments::styles-libraries"></div>
     <div th:replace="fragments::styles-general"></div>
+    <div th:replace="fragments::styles-new-ica"></div>
 </head>
 <body class="pdf">
-<div th:replace="sum-body::body"></div>
+<div th:replace="ica-new-body::body"></div>
 </body>
 </html>

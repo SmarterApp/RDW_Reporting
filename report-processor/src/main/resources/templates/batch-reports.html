@@ -3,7 +3,8 @@
     <head>
         <div th:replace="fragments::meta"></div>
         <title th:text="${request.name}"></title>
-        <div th:replace="fragments::styles"></div>
+        <div th:replace="fragments::styles-libraries"></div>
+        <div th:replace="fragments::styles-new-ica"></div>
     </head>
     <body class="pdf">
         <div th:each="studentCompositeReport : ${studentCompositeReports}">
@@ -17,11 +18,11 @@
             </div>
             <div th:if="${studentCompositeReport.icaMath != null}"
                  th:with="report=${studentCompositeReport.icaMath}">
-                <div th:replace="ica-body::body"></div>
+                <div th:replace="ica-new-body::body"></div>
             </div>
             <div th:if="${studentCompositeReport.icaEla != null}"
                  th:with="report=${studentCompositeReport.icaEla}">
-                <div th:replace="ica-body::body"></div>
+                <div th:replace="ica-new-body::body"></div>
             </div>
             <div th:if="${studentCompositeReport.summativeMath != null}"
                  th:with="report=${studentCompositeReport.summativeMath}">
