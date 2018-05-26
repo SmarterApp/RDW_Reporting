@@ -27,13 +27,12 @@ import { ranking } from '@kourge/ordering/comparator';
 import { ordering } from '@kourge/ordering';
 import { SubgroupFilters, SubgroupFilterSupport } from './subgroup/subgroup-filters';
 import { SubgroupMapper } from './subgroup/subgroup.mapper';
-import { fileName, notEmpty, withinBounds } from '../shared/form/validators';
+import { fileName, isGreaterThanOne, notEmpty, withinBounds } from '../shared/form/validators';
 import { SubgroupItem } from './subgroup/subgroup-item';
 import { Utils } from '../shared/support/support';
 import { Claim } from './aggregate-report-options.service';
 import { Option as SbCheckboxGroupOption } from '../shared/form/sb-checkbox-group.component';
 import { AssessmentDefinitionService } from './assessment/assessment-definition.service';
-import { computeEffectiveYears } from './support';
 
 const OrganizationComparator = (a: Organization, b: Organization) => a.name.localeCompare(b.name);
 
@@ -246,7 +245,7 @@ export class AggregateReportFormComponent {
       setValidators(this.claimAssessmentGradesControl, null);
       setValidators(this.claimSchoolYearsControl, null);
       setValidators(this.assessmentGradeRangeControl, [
-        notEmpty({ messageId: 'aggregate-report-form.field.assessment-grades-empty-error' }),
+        isGreaterThanOne({ messageId: 'aggregate-report-form.field.assessment-grades-greater-than-one-error' }),
         withinBounds(this.settings.longitudinalCohort.toSchoolYear,
           this.settings.longitudinalCohort.assessmentGrades,
           this.lowestAvailableSchoolYear,
