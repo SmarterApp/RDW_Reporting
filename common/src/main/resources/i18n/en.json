@@ -550,26 +550,22 @@
         "1": {
           "color": "maroon",
           "description": "Did Not Meet Standard",
-          "label": "L1",
-          "name": "Standard Not Met (Level 1) {0}-{1}"
+          "label": "L1"
         },
         "2": {
           "color": "gray-darkest",
           "description": "Nearly Met Standard",
-          "label": "L2",
-          "name": "Standard Nearly Met (Level 2) {0}-{1}"
+          "label": "L2"
         },
         "3": {
           "color": "green-dark",
           "description": "Met Standard",
-          "label": "L3",
-          "name": "Standard Met (Level 3) {0}-{1}"
+          "label": "L3"
         },
         "4": {
           "color": "blue-dark",
           "description": "Exceeded Standard",
-          "label": "L4",
-          "name": "Standard Exceeded (Level 4) {0}-{1}"
+          "label": "L4"
         },
         "cohort": {
           "1": {
@@ -594,6 +590,7 @@
           "header": "Overall Achievement"
         }
       },
+      "score-range": "{0}-{1}",
       "short-name": "ICA",
       "title": "Interim Comprehensive Assessment Report"
     },
@@ -860,26 +857,22 @@
         "1": {
           "color": "maroon",
           "description": "Did Not Meet Standard",
-          "label": "L1",
-          "name": "Standard Not Met (Level 1) {0}-{1}"
+          "label": "L1"
         },
         "2": {
           "color": "gray-darkest",
           "description": "Nearly Met Standard",
-          "label": "L2",
-          "name": "Standard Nearly Met (Level 2) {0}-{1}"
+          "label": "L2"
         },
         "3": {
           "color": "green-dark",
           "description": "Met Standard",
-          "label": "L3",
-          "name": "Standard Met (Level 3) {0}-{1}"
+          "label": "L3"
         },
         "4": {
           "color": "blue-dark",
           "description": "Exceeded Standard",
-          "label": "L4",
-          "name": "Standard Exceeded (Level 4) {0}-{1}"
+          "label": "L4"
         },
         "cohort": {
           "1": {
@@ -904,6 +897,7 @@
           "header": "Overall Achievement"
         }
       },
+      "score-range": "{0}-{1}",
       "short-name": "SUM",
       "title": "Summative Assessment Report"
     },
@@ -1038,8 +1032,8 @@
             "4": "Unknown.Organization/Purpose.4"
           }
         },
-        "outof": "out of {0}",
-        "purpose": "Writing Purpose: {0}"
+        "outof": "of {0}",
+        "purpose": "{0} Writing"
       }
     }
   }
