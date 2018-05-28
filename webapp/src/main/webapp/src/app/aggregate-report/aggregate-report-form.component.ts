@@ -245,7 +245,7 @@ export class AggregateReportFormComponent {
       setValidators(this.claimAssessmentGradesControl, null);
       setValidators(this.claimSchoolYearsControl, null);
       setValidators(this.assessmentGradeRangeControl, [
-        isGreaterThanOne({ messageId: 'aggregate-report-form.field.assessment-grades-greater-than-one-error' }),
+        isGreaterThanOne({ messageId: 'aggregate-report-form.field.assessment-grades-less-than-minimum-error' }),
         withinBounds(this.settings.longitudinalCohort.toSchoolYear,
           this.settings.longitudinalCohort.assessmentGrades,
           this.lowestAvailableSchoolYear,
