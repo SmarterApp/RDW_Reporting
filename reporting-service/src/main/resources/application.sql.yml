@@ -20,8 +20,7 @@ sql:
         e.lep,
         e.elas_code,
         e.section504,
-        e.migrant_status,
-        GROUP_CONCAT(se.ethnicity_code SEPARATOR '|') AS ethnicity_codes
+        e.migrant_status
       FROM exam e
         LEFT OUTER JOIN exam e2
           ON e.student_id = e2.student_id
@@ -36,7 +35,6 @@ sql:
         JOIN school s ON s.id = e.school_id
         JOIN school isch ON st.inferred_school_id = isch.id
         JOIN asmt a ON a.id = e.asmt_id
-        LEFT JOIN student_ethnicity se ON se.student_id = e.student_id
       WHERE e2.student_id IS NULL
         AND (
           :group_id IS NULL
@@ -50,7 +48,6 @@ sql:
         AND (:school_id IS NULL OR e.school_id = :school_id)
         AND (:search_student_ids IS FALSE OR e.student_id IN (:student_ids))
         AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
-      GROUP BY e.student_id
       ORDER BY st.last_or_surname, st.first_name, st.ssid
 
   exam:
