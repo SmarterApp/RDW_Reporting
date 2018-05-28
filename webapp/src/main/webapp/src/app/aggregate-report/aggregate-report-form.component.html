@@ -381,10 +381,11 @@
                                      [(ngModel)]="settings.longitudinalCohort.assessmentGrades"
                                      (change)="onSettingsChange()"></sb-button-group>
                     <div *ngIf="showErrors(assessmentGradeRangeControl)">
-                      <p *ngIf="assessmentGradeRangeControl.errors.isGreaterThanOne" class="help-block small red">
-                        {{assessmentGradeRangeControl.errors.isGreaterThanOne.messageId | translate}}</p>
+                      <p *ngIf="assessmentGradeRangeControl.errors.isGreaterThan" class="help-block small red">
+                        {{assessmentGradeRangeControl.errors.isGreaterThan.messageId | translate}}</p>
                       <p *ngIf="assessmentGradeRangeControl.errors.withinBounds" class="help-block small red">
-                        {{assessmentGradeRangeControl.errors.withinBounds.messageId | translate: {lowestAvailableSchoolYear: lowestAvailableSchoolYear | schoolYear} }}</p>
+                        {{assessmentGradeRangeControl.errors.withinBounds.messageId | translate:
+                        {lowestAvailableSchoolYear: lowestAvailableSchoolYear | schoolYear} }}</p>
                     </div>
                   </div>
                 </div>

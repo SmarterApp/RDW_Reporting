@@ -27,7 +27,7 @@ import { ranking } from '@kourge/ordering/comparator';
 import { ordering } from '@kourge/ordering';
 import { SubgroupFilters, SubgroupFilterSupport } from './subgroup/subgroup-filters';
 import { SubgroupMapper } from './subgroup/subgroup.mapper';
-import { fileName, isGreaterThanOne, notEmpty, withinBounds } from '../shared/form/validators';
+import { fileName, isGreaterThan, notEmpty, withinBounds } from '../shared/form/validators';
 import { SubgroupItem } from './subgroup/subgroup-item';
 import { Utils } from '../shared/support/support';
 import { Claim } from './aggregate-report-options.service';
@@ -245,7 +245,7 @@ export class AggregateReportFormComponent {
       setValidators(this.claimAssessmentGradesControl, null);
       setValidators(this.claimSchoolYearsControl, null);
       setValidators(this.assessmentGradeRangeControl, [
-        isGreaterThanOne({ messageId: 'aggregate-report-form.field.assessment-grades-less-than-minimum-error' }),
+        isGreaterThan(1, { messageId: 'aggregate-report-form.field.assessment-grades-less-than-minimum-error' }),
         withinBounds(this.settings.longitudinalCohort.toSchoolYear,
           this.settings.longitudinalCohort.assessmentGrades,
           this.lowestAvailableSchoolYear,

@@ -19,9 +19,9 @@ export function notEmpty(properties: any): ValidatorFn {
  * @param properties the properties to propagate when the control value is invalid
  * @return {ValidatorFn}
  */
-export function isGreaterThanOne(properties: any): ValidatorFn {
+export function isGreaterThan(greaterThanNumber: number, properties: any): ValidatorFn {
   return control => {
-    return control.value.length > 1 ? null : { isGreaterThanOne: properties };
+    return control.value.length > greaterThanNumber ? null : { isGreaterThan: properties };
   };
 }
 
