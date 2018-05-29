@@ -31,5 +31,8 @@ export class AggregateReportItem {
   };
   organization: Organization;
   subgroup: Subgroup;
+  studentRelativeResidualScoresLevel?: 'Above' | 'Near' | 'Below' | 'InsufficientData' | 'Excluded';
+  standardMetRelativeResidualLevel?: 'Above' | 'Near' | 'Below' | 'InsufficientData' | 'Excluded';
+  targetNaturalId?: string;
 }
 

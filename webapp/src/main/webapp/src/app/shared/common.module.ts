@@ -40,6 +40,7 @@ import { NgxDnDModule } from "@swimlane/ngx-dnd";
 import { CommonEmbargoModule } from "./embargo/embargo.module";
 import { SchoolModule } from "./school/school.module";
 import { InViewDirective } from './nav/in-view.directive';
+import { RdwIconModule } from "./icon/rdw-icon.module";
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import { InViewDirective } from './nav/in-view.directive';
     RdwFormModule,
     RdwFormatModule,
     RdwI18nModule,
+    RdwIconModule,
     RdwLayoutModule,
     RdwLoadingModule,
     RdwMenuModule,
@@ -103,6 +105,7 @@ import { InViewDirective } from './nav/in-view.directive';
     RdwFormModule,
     RdwFormatModule,
     RdwI18nModule,
+    RdwIconModule,
     RdwLayoutModule,
     RdwLoadingModule,
     RdwPreferenceModule,
@@ -112,7 +115,8 @@ import { InViewDirective } from './nav/in-view.directive';
     SBToggleComponent,
     ScaleScoreComponent,
     TranslateModule,
-    InViewDirective
+    InViewDirective,
+
   ],
   providers: [
     { provide: AuthenticationServiceAuthenticationExpiredRoute, useValue: 'session-expired' },

@@ -24,154 +24,230 @@ const MaximumOrganizations = 3;
 @Injectable()
 export class AggregateReportTableDataService {
 
+  private defaultOrganizationProvider: ValueProvider = {
+    getValues: (context) => this.createSampleOrganizations(context.settings, context.assessmentDefinition)
+      .map(organization => { return {organization: organization} })
+  };
+
+  private defaultSubgroupProvider: ValueProvider = {
+    getValues: (context) => {
+      let subgroups: Subgroup[];
+      if (context.settings.queryType === 'Basic') {
+        subgroups = [
+          this.subgroupMapper.createOverall(),
+          ...this.subgroupMapper.createPermutationsFromFilters(context.settings.studentFilters, context.settings.dimensionTypes)
+        ]
+      } else if (context.settings.queryType === 'FilteredSubgroup') {
+        subgroups = [
+          this.subgroupMapper.createOverall(),
+          ...context.settings.subgroups.map(subgroup => this.subgroupMapper.fromFilters(subgroup, context.options.dimensionTypes))
+        ]
+      }
+      return subgroups.map(subgroup => { return {subgroup: subgroup} });
+    }
+  };
+
+  private defaultPerformanceLevelProvider: ValueProvider = {
+    getValues: (context) => {
+      const studentsTested = context.row.studentsTested;
+      const performanceLevelCounts = [];
+      const performanceLevelPercents = [];
+      const performanceLevelCount = Math.floor(studentsTested / context.assessmentDefinition.performanceLevelCount);
+      const performanceLevelPercent = Math.floor(100 / context.assessmentDefinition.performanceLevelCount);
+      for (let i = 0; i < context.assessmentDefinition.performanceLevelCount; i++) {
+        performanceLevelCounts.push(performanceLevelCount);
+        performanceLevelPercents.push(performanceLevelPercent);
+      }
+      const groupedPerformanceLevelCount = studentsTested * 0.5;
+      const groupedPerformanceLevelCounts = [ groupedPerformanceLevelCount, groupedPerformanceLevelCount ];
+
+      return [{
+        performanceLevelByDisplayTypes: {
+          Grouped: {
+            Number: groupedPerformanceLevelCounts,
+              Percent: groupedPerformanceLevelCounts
+          },
+          Separate: {
+            Number: performanceLevelCounts,
+              Percent: performanceLevelPercents
+          },
+        }
+      }];
+    }
+  };
+
   constructor(private translate: TranslateService,
               private subgroupMapper: SubgroupMapper,
               private reportService: AggregateReportService) {
   }
 
   createSampleData(assessmentDefinition: AssessmentDefinition,
-                   settings: AggregateReportFormSettings,
-                   options: AggregateReportOptions): AggregateReportItem[] {
+                    settings: AggregateReportFormSettings,
+                    options: AggregateReportOptions): AggregateReportItem[] {
 
-    const organizations = this.createSampleOrganizations(settings, assessmentDefinition);
+    let valueProviders: ValueProvider[] = [];
+    switch (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition)) {
 
-    const gradesAndYears: { grade: string, year: number }[] = [];
-    if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'GeneralPopulation') {
-      for (const grade of settings.generalPopulation.assessmentGrades) {
-        for (const year of settings.generalPopulation.schoolYears) {
-          gradesAndYears.push({ grade, year });
-        }
-      }
-    } else if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'LongitudinalCohort') {
-      const assessmentGrades = settings.longitudinalCohort.assessmentGrades;
-      const schoolYears = computeEffectiveYears(settings.longitudinalCohort.toSchoolYear, assessmentGrades);
-      for (let i = 0; i < assessmentGrades.length; i++) {
-        gradesAndYears.push({ grade: assessmentGrades[ i ], year: schoolYears[ assessmentGrades.length - 1 - i ] });
-      }
-    } else if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'Claim') {
-      for (const grade of settings.claimReport.assessmentGrades) {
-        for (const year of settings.claimReport.schoolYears) {
-          gradesAndYears.push({ grade, year });
-        }
-      }
+      case 'GeneralPopulation':
+        valueProviders.push(
+          this.defaultOrganizationProvider,
+          this.defaultSubgroupProvider,
+          this.defaultPerformanceLevelProvider, {
+            getValues: (context) => context.settings.generalPopulation.assessmentGrades
+              .map((grade: string) => {
+                return { assessmentGradeCode: grade }
+              })
+          }, {
+            getValues: (context) => context.settings.generalPopulation.schoolYears
+              .map(year => {
+                return { schoolYear: year }
+              })
+          });
+        break;
+
+      case 'LongitudinalCohort':
+        valueProviders.push(
+          this.defaultOrganizationProvider,
+          this.defaultSubgroupProvider,
+          this.defaultPerformanceLevelProvider, {
+            getValues: (context) => {
+              const gradeAndYears: { assessmentGradeCode: string, schoolYear: number }[] = [];
+              const assessmentGrades = context.settings.longitudinalCohort.assessmentGrades;
+              const schoolYears = computeEffectiveYears(context.settings.longitudinalCohort.toSchoolYear, assessmentGrades);
+              for (let i = 0; i < assessmentGrades.length; i++) {
+                gradeAndYears.push({
+                  assessmentGradeCode: assessmentGrades[ i ],
+                  schoolYear: schoolYears[ assessmentGrades.length - 1 - i ]
+                });
+              }
+              return gradeAndYears;
+            }
+          });
+        break;
+
+      case 'Claim':
+        valueProviders.push(
+          this.defaultOrganizationProvider,
+          this.defaultSubgroupProvider, {
+            getValues: (context) => {
+              //Strip out grouped performance level results
+              const bothDisplayTypes = this.defaultPerformanceLevelProvider.getValues(context)[0];
+              delete bothDisplayTypes.performanceLevelByDisplayTypes.Grouped;
+              return [ bothDisplayTypes ];
+            }
+          }, {
+            getValues: (context) => [ {subjectCode: context.settings.subjects[0]} ]
+          }, {
+            getValues: (context) => context.settings.claimReport.assessmentGrades
+              .map(grade => {
+                return { assessmentGradeCode: grade }
+              })
+          }, {
+            getValues: (context) => context.settings.claimReport.schoolYears
+              .map(year => {
+                return { schoolYear: year }
+              })
+          }, {
+            getValues: (context) => {
+              const assessmentTypeCode: string = context.settings.assessmentType;
+              const subjectCode: string = context.row.subjectCode;
+              const claims: Claim[] = context.settings.claimReport.claimCodesBySubject.length === 0
+                ? options.claims
+                : settings.claimReport.claimCodesBySubject;
+              return claims
+                .filter(claim => claim.assessmentType === assessmentTypeCode && claim.subject === subjectCode)
+                .map(claim => {return {claimCode: claim.code} });
+            }
+          });
+        break;
+
+      case 'Target':
+        valueProviders.push(
+          this.defaultSubgroupProvider, {
+            getValues: (context) => [ {
+              assessmentGradeCode: context.settings.targetReport.assessmentGrade,
+              schoolYear: context.settings.targetReport.schoolYear,
+              subjectCode: context.settings.targetReport.subjectCode
+            } ]
+          }, {
+            getValues: (context) => [ {
+              claimCode: 'A'
+            }, {
+              claimCode: 'B'
+            } ]
+          }, {
+            getValues: (context) => [ {
+              targetNaturalId: 'A',
+              studentRelativeResidualScoresLevel: 'Above',
+              standardMetRelativeResidualLevel: 'Above'
+            }, {
+              targetNaturalId: 'B',
+              studentRelativeResidualScoresLevel: 'Near',
+              standardMetRelativeResidualLevel: 'Near'
+            }, {
+              targetNaturalId: 'C',
+              studentRelativeResidualScoresLevel: 'Below',
+              standardMetRelativeResidualLevel: 'Below'
+            }, {
+              targetNaturalId: 'D',
+              studentRelativeResidualScoresLevel: 'InsufficientData',
+              standardMetRelativeResidualLevel: 'InsufficientData'
+            }, {
+              targetNaturalId: 'E',
+              studentRelativeResidualScoresLevel: 'Excluded',
+              standardMetRelativeResidualLevel: 'Excluded'
+            } ]
+          });
     }
 
+    const rowTemplate: AggregateReportItem = this.createRowTemplate();
+    return this.createRows(rowTemplate, valueProviders, {
+      assessmentDefinition: assessmentDefinition,
+      settings: settings,
+      options: options,
+      itemId: 1
+    });
+  }
+
+  private createRowTemplate(): AggregateReportItem {
     const studentsTested = 100;
     const averageScaleScore = 2500;
     const averageStandardError = 50;
-    const performanceLevelCounts = [];
-    const performanceLevelPercents = [];
-    const performanceLevelCount = Math.floor(studentsTested / assessmentDefinition.performanceLevelCount);
-    const performanceLevelPercent = Math.floor(100 / assessmentDefinition.performanceLevelCount);
-    for (let i = 0; i < assessmentDefinition.performanceLevelCount; i++) {
-      performanceLevelCounts.push(performanceLevelCount);
-      performanceLevelPercents.push(performanceLevelPercent);
+
+    return {
+      assessmentId: undefined,
+      assessmentLabel: this.translate.instant('sample-aggregate-table-data-service.assessment-label'),
+      assessmentGradeCode: undefined,
+      avgScaleScore: averageScaleScore,
+      avgStdErr: averageStandardError,
+      claimCode: undefined,
+      itemId: undefined,
+      organization: this.createSampleDistrict(1),
+      performanceLevelByDisplayTypes: undefined,
+      schoolYear: undefined,
+      standardMetRelativeResidualLevel: undefined,
+      studentRelativeResidualScoresLevel: undefined,
+      studentsTested: studentsTested,
+      subgroup: undefined,
+      subjectCode: undefined
     }
-    const groupedPerformanceLevelCount = studentsTested * 0.5;
-    const groupedPerformanceLevelCounts = [ groupedPerformanceLevelCount, groupedPerformanceLevelCount ];
-
-    let claims: Claim[] = [];
-
-    if (settings.reportType === 'Claim') {
-      if (settings.claimReport.claimCodesBySubject.length === 0) {
-        claims =
-          options.claims.filter(
-            claim => claim.assessmentType === settings.assessmentType && settings.subjects.includes(claim.subject));
-      } else {
-        claims =
-          settings.claimReport.claimCodesBySubject.filter(
-            claim => claim.assessmentType === settings.assessmentType && settings.subjects.includes(claim.subject));
-      }
-    }
-
-    const createRows = (subgroups: Subgroup[]): AggregateReportItem[] => {
-      let uuid = 0;
-      const rows: AggregateReportItem[] = [];
-      for (const organization of organizations) {
-        for (const { grade, year } of gradesAndYears) {
-          for (const subgroup of subgroups) {
-            if (!claims.length) {
-              const row: any = {
-                itemId: ++uuid,
-                organization: organization,
-                assessmentId: undefined,
-                assessmentLabel: this.translate.instant('sample-aggregate-table-data-service.assessment-label'),
-                assessmentGradeCode: grade,
-                subjectCode: undefined,
-                schoolYear: year,
-                avgScaleScore: averageScaleScore,
-                avgStdErr: averageStandardError,
-                studentsTested: studentsTested,
-                performanceLevelByDisplayTypes: {
-                  Separate: {
-                    Number: performanceLevelCounts,
-                    Percent: performanceLevelPercents
-                  },
-                  Grouped: {
-                    Number: groupedPerformanceLevelCounts,
-                    Percent: groupedPerformanceLevelCounts
-                  }
-                },
-                subgroup: subgroup
-              };
-              rows.push(row);
-            } else {
-              for (const subject of settings.subjects) {
-                for (const claim of claims) {
-                  const row: any = {
-                    itemId: ++uuid,
-                    organization: organization,
-                    assessmentId: undefined,
-                    assessmentLabel: this.translate.instant('sample-aggregate-table-data-service.assessment-label'),
-                    assessmentGradeCode: grade,
-                    subjectCode: subject,
-                    claimCode: claim.code,
-                    schoolYear: year,
-                    avgScaleScore: averageScaleScore,
-                    avgStdErr: averageStandardError,
-                    studentsTested: studentsTested,
-                    performanceLevelByDisplayTypes: {
-                      Separate: {
-                        Number: performanceLevelCounts,
-                        Percent: performanceLevelPercents
-                      }
-                    },
-                    subgroup: subgroup
-                  };
-                  if (this.getClaimCodeTranslationKey(row) !== this.getClaimCodeTranslation(row)) {
-                    rows.push(row);
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-      return rows;
-    };
-
-    if (settings.queryType === 'Basic') {
-      const subgroups = [
-        this.subgroupMapper.createOverall(),
-        ...this.subgroupMapper.createPermutationsFromFilters(settings.studentFilters, settings.dimensionTypes)
-      ];
-      return createRows(subgroups);
-    } else if (settings.queryType === 'FilteredSubgroup') {
-      const subgroups = [
-        this.subgroupMapper.createOverall(),
-        ...settings.subgroups.map(subgroup => this.subgroupMapper.fromFilters(subgroup, options.dimensionTypes))
-      ];
-      return createRows(subgroups);
-    }
-    throw new Error(`Unsupported query type "${settings.queryType}"`);
   }
 
-  private getClaimCodeTranslationKey(row: AggregateReportItem): string {
-    return `common.subject.${row.subjectCode}.claim.${row.claimCode}.name`;
-  }
+  private createRows(row: AggregateReportItem, valueProviders: ValueProvider[], context: RowContext): AggregateReportItem[] {
+    let items: AggregateReportItem[] = [];
+    if (valueProviders.length === 0) {
+      row.itemId = context.itemId++;
+      return [ row ];
+    }
 
-  getClaimCodeTranslation(row: AggregateReportItem): string {
-    return this.translate.instant(this.getClaimCodeTranslationKey(row));
+    const valueProvider: ValueProvider = valueProviders.shift();
+    for (let values of valueProvider.getValues(context)) {
+      row = Object.assign({}, row, values);
+      context.row = row;
+      items = items.concat(this.createRows(row, valueProviders, context));
+    }
+    valueProviders.unshift(valueProvider);
+    return items;
   }
 
   private createSampleOrganizations(settings: AggregateReportFormSettings, definition: AssessmentDefinition): Organization[ ] {
@@ -221,8 +297,16 @@ export class AggregateReportTableDataService {
     school.districtId = districtId;
     return school;
   }
-
 }
 
+interface ValueProvider {
+  getValues: (context: RowContext) => any[];
+}
 
-
+class RowContext {
+  assessmentDefinition: AssessmentDefinition;
+  settings: AggregateReportFormSettings;
+  options: AggregateReportOptions;
+  itemId: number;
+  row?: AggregateReportItem;
+}

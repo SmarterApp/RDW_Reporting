@@ -38,6 +38,7 @@ import { AggregateReportOptionsResolve } from './aggregate-report/aggregate-repo
 import { AggregateReportFormSettingsResolve } from './aggregate-report/aggregate-report-form-settings.resolve';
 import { LongitudinalPlaygroundComponent } from './aggregate-report/results/longitudinal-playground.component';
 import { GroupDashboardComponent } from './dashboard/group-dashboard/group-dashboard.component';
+import { TargetReportFormComponent } from "./aggregate-report/target/target-report-form.component";
 
 const adminRoute = {
   path: '',
@@ -286,6 +287,14 @@ export const routes: Routes = [
               settings: AggregateReportFormSettingsResolve
             },
             component: AggregateReportFormComponent
+          },
+          {
+            path: 'targets',
+            pathMatch: 'full',
+            resolve: {
+              settings: AggregateReportFormSettingsResolve
+            },
+            component: TargetReportFormComponent
           },
           {
             path: ':id',

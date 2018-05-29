@@ -45,6 +45,10 @@ export interface AggregateReportQuery {
 
   // Claim report type params
   readonly claimCodesBySubject?: any;
+
+  // Target report type params
+  readonly schoolYear?: number;
+  readonly subjectCode?: string;
 }
 
 export interface StudentFilters {
