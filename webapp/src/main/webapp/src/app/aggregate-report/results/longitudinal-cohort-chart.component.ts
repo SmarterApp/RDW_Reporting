@@ -157,8 +157,8 @@ export class LongitudinalCohortChartComponent implements OnInit {
   ngOnInit(): void {
     const svg = d3.select('svg');
 
-    svg.selectAll('circle').on('click', function () {
-      this.parentNode.parentNode.parentNode.appendChild(this.parentNode.parentNode);
+    svg.selectAll('.path-container').on('click', function () {
+      this.parentNode.appendChild(this);
     });
 
     this.render();

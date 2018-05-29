@@ -49,7 +49,7 @@
            class="scale-score-lines"
            [ngClass]="linePallet">
 
-          <g *ngFor="let performancePath of chartView.performancePaths; let i = index"
+          <g class="path-container" *ngFor="let performancePath of chartView.performancePaths; let i = index"
              [ngClass]="{'fade': performancePath.fade}">
 
             <g [ngClass]="performancePath.styles">
