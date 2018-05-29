@@ -80,6 +80,40 @@ INSERT INTO percentile_score (percentile_id, percentile_rank, score, min_inclusi
   (2, 15, 2332, 2322, 2338),
   (2, 95, 2358, 2338, 4444);
 
+insert into claim (id, subject_id, code, name, description) values
+  (-1,  1, 'c1', 'c1', 'c1'),
+  (-11, 2, '1',  'ELA-claim1', 'ELA-c1'),
+  (-12, 2, '2',  'ELA-claim2', 'ELA-c2'),
+  (-13, 2, '3',  'ELA-claim3', 'ELA-c3'),
+  (-14, 2, '4',  'ELA-claim4', 'ELA-c4');
+
+INSERT INTO target(id, code, natural_id, claim_id, description) VALUES
+  (-11,  'E-3', 'NBT|E-3', -11,  'NBT|E-3-1'),
+  (-12,  'J-3',  'MD|J-3', -11,  'MD|J-3-1' ),
+  (-21,  'D',    'OA|D',   -12,  'OA|D-2'   ),
+  (-22,  'A',    'OA|A',   -12,  'OA|A-2'   ),
+  (-31,  'C',    'NF|C',   -13,  'NF|C-3'   ),
+  (-32,  'D',    'MD|D',   -13,  'MD|D-3'   ),
+  (-33,  'E',    'MD|E',   -13,  'MD|E-3'   ),
+  (-34,  'E',    'OA|E',   -13,  'OA|E-3'   ),
+  (-41,  'E',    'OA|E',   -14,  'OA|E-4'   ),
+  (-42,  'D',    'MD|D',   -14,  'MD|D-4'   ),
+  (-43,  'A',    'OA|A',   -14,  'OA|A-4'   );
+
+INSERT INTO asmt_target (target_id, asmt_id, include_in_report) VALUES
+  (-11, -4, 1),
+  (-12, -4, 1),
+  (-21, -4, 1),
+  (-22, -4, 1),
+  (-31, -4, 1),
+  (-32, -4, 0),
+  (-33, -4, 1),
+  (-34, -4, 1),
+  (-41, -4, 1),
+  -- missing scores for this target/asmt
+  (-42, -4, 1),
+  (-43, -4, 1);
+
 insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, opportunity, iep, lep, section504, economic_disadvantage,
   school_year, asmt_id, asmt_version, completeness_code, administration_condition_code, session_id,
   scale_score, scale_score_std_err, performance_level, completed_at,
@@ -94,7 +128,7 @@ insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, oppo
   (-4, 3, -1, 'g1', -1, -30, 3, 0, 0, 0, 0, 1997, -3, 'v1', 'Complete', 'Valid', 'session4', 2300, 23, 1, '1997-01-02 00:00:00.000000', 1, 1100, 110, 2, 2100, 210, 3, 3100, 310, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
   (-5, 3, -1, 'g1', -1, -30, 4, 0, 0, 0, 0, 1997, -3, 'v1', 'Complete', 'Valid', 'session5', 2400, 24, 2, '1997-01-05 00:00:00.000000', 1, 1200, 120, 2, 2200, 220, 3, 3200, 320, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
   (-6, 3, -1, 'g1', -1, -30, null, 1, 1, 1, 1, 1997, -3, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
-  (-7, 3, -1, 'g1', -2, -30, null, 1, 1, 1, 1, 1997, -4, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
+  (-7, 3, -1, 'g1', -2, -20, null, 1, 1, 1, 1, 1997, -4, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
   (-17, 3, -1, 'g1', -2, -30, null, 1, 1, 1, 1, 1997, -1, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-04 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
   (-8, 3, -1, 'g1', -1, -30, null, 1, 1, 1, 1, 1997, -4, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
   (-20, 2, -2, 'g2', -4, -10, 1, 0, 0, 0, 0, 1997, -2, 'v1', 'Complete', 'Valid', 'session2', 2500, 25, 2, '1996-12-31 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
@@ -105,15 +139,21 @@ insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, oppo
   (-25, 2, -2, 'g2', -6, -50, 1, 0, 0, 0, 0, 1997, -9, 'v1', 'Partial', 'Valid', 'session2', null, null, null, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
   (-26, 2, -2, 'g2', -5, -50, 1, 0, 0, 0, 0, 1997, -9, 'v1', 'Complete', 'Valid', 'session2', 2150, 28, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1);
 
--- items
+INSERT INTO exam_target_score (id, target_id, exam_id, student_relative_residual_score, standard_met_relative_residual_score) VALUES
+  (-11,  -11, -7,  -1,    -1     ),
+  (-12,  -12, -7,  0.9876, 0.8976),
+  (-13,  -21, -7,  0.123,  0.1456),
+  (-15,  -22, -7,  0.1,    0.1   ),
+  (-16,  -31, -7,  0.1,    0.1   ),
+  (-17,  -32, -7,  0.1,    0.1   ),
+  (-18,  -33, -7,  0.1,    0.1   ),
+  (-19,  -34, -7,  0.1,    0.1   ),
+  (-191, -41, -7,  0.1,    0.1   ),
+  (-192, -43, -7,  0.1,    0.1   ),
 
-insert into claim (id, subject_id, code, name, description) values
-  (-1, 1, 'c1', 'c1', 'c1');
-
-insert into target (id, claim_id, code, description) values
-  (-1, -1, 't1', 't1'),
-  (-2, -1, 't2', 't2'),
-  (-3, -1, 't3', 't3');
+  (-21,  -11, -6, -0.88, -0.88   ),
+  (-22,  -21, -6, 1,      1      ),
+  (-23,  -32, -6, 0.1,    0.1    );
 
 insert into math_practice (practice, description, code) values
   (-1, 'mp1', '-1');
@@ -121,15 +161,16 @@ insert into math_practice (practice, description, code) values
 insert into depth_of_knowledge (id, level, subject_id, description, reference) values
   (-1, 1, 1, 'dok1', 'dok1');
 
+-- items
 insert into item (id, natural_id, claim_id, claim_code, target_id, target_code, asmt_id, math_practice, math_practice_code, dok_id, dok_level_subject_id, difficulty_code, max_points, common_core_standard_ids, answer_key, options_count, type, performance_task_writing_type) values
-  (-1, '200-3391', -1, 'c1', -1, 't1', -1, -1, '-1', -1,'-1_1', 'E', 3, 'S-ID.1','C',3,'MS',null),
-  (-2, '200-3392', -1, 'c1', -2, 't2', -1, -1, '-1', -1, '-1_1', 'D', 4, 'S-ID.3',null,null,'EQ',null),
-  (-3, '200-3393', -1, 'c1', -3, 't3', -1, -1, '-1', -1, '-1_1', 'M', 5, 'S-ID.4|S-ID.7','B',2,'MC',null),
-  (-4, '200-3394', -1, 'c1', -3, 't3', -4, -1, '-1', -1, '-1_1', 'M', 5, 'S-ID.4|S-ID.7','D',4,'MC',null),
-  (-5, '200-3395', -1, 'c1', -3, 't3', -4, -1, '-1', -1, '-1_1', 'M', 5, 'S-ID.4|S-ID.7','A',5,'MS',null),
-  (-6, '200-3396', -1, 'c1', -3, 't3', -4, -1, '-1', -1, '-1_1', 'M', 5, 'S-ID.4|S-ID.7','B',5,'MC',null),
-  (-7, '200-3397', -1, 'c1', -3, 't3', -1, -1, '-1', -1, '-1_1', 'M', 5, 'S-ID.4|S-ID.7','Hand',null,'WER','Narrative'),
-  (-8, '200-3398', -1, 'c1', -3, 't3', -4, -1, '-1', -1, '-1_1', 'M', 5, 'S-ID.4|S-ID.7','Hand',null,'WER','Opinion');
+  (-1, '200-3391', -11, '1', -11, 't1', -1, -1, '-1', -1, '-1_1', 'E', 3, 'S-ID.1','C',3,'MS',null),
+  (-2, '200-3392', -11, '1', -12, 't2', -1, -1, '-1', -1, '-1_1', 'D', 4, 'S-ID.3',null,null,'EQ',null),
+  (-3, '200-3393', -12, '2', -21, 't3', -1, -1, '-1', -1, '-1_1', 'M', 5, 'S-ID.4|S-ID.7','B',2,'MC',null),
+  (-4, '200-3394', -13, '3', -31, 't3', -4, -1, '-1', -1, '-1_1', 'M', 5, 'S-ID.4|S-ID.7','D',4,'MC',null),
+  (-5, '200-3395', -13, '3', -32, 't3', -4, -1, '-1', -1, '-1_1', 'M', 5, 'S-ID.4|S-ID.7','A',5,'MS',null),
+  (-6, '200-3396', -13, '3', -33, 't3', -4, -1, '-1', -1, '-1_1', 'M', 5, 'S-ID.4|S-ID.7','B',5,'MC',null),
+  (-7, '200-3397', -14, '4', -34, 't3', -1, -1, '-1', -1, '-1_1', 'M', 5, 'S-ID.4|S-ID.7','Hand',null,'WER','Narrative'),
+  (-8, '200-3398', -14, '4', -41, 't3', -4, -1, '-1', -1, '-1_1', 'M', 5, 'S-ID.4|S-ID.7','Hand',null,'WER','Opinion');
 
 insert into exam_item (id, exam_id, item_id, score, position, response, trait_evidence_elaboration_score, trait_organization_purpose_score, trait_conventions_score) values
   (-1, -1, -1, 0, 1, 'A', null, null, null),

@@ -127,6 +127,26 @@ sql:
           AND ${sql.reporting.snippet.groupFilters}
           AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
+    examWithTargetScore:
+      findAllForAssessment: >-
+        SELECT
+         ${sql.snippet.examColumns},
+          st.gender_code as student_gender_code,
+          ets.target_id,
+          ets.standard_met_relative_residual_score,
+          ets.student_relative_residual_score
+        FROM exam e
+          JOIN student st on st.id = e.student_id
+          JOIN asmt a on e.asmt_id = a.id
+          JOIN school s on e.school_id = s.id
+          JOIN school isch on st.inferred_school_id = isch.id
+          JOIN exam_target_score ets on ets.exam_id = e.id
+          JOIN target t on t.id = ets.target_id
+         WHERE a.id = :assessment_id
+            AND e.school_year = :school_year
+            AND ${sql.reporting.snippet.groupFilters}
+            AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
+
     measuredAssessment:
       findAll: >-
         SELECT
