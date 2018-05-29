@@ -156,7 +156,7 @@
     "empty-message": "No Results Found",
     "target-description": "<strong>Target {{name}}</strong> {{description}}",
     "sample": {
-      "claim": "Sample Claim {{id}}",
+      "claim": "Sample Claim {{code}}",
       "target": "<strong>Sample Target {{name}}</strong> Sample target description"
     },
     "target": {
