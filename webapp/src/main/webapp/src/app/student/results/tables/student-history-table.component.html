@@ -28,7 +28,7 @@
               [ngClass]="{'active': viewState === 'overall'}">
         {{'common.buttons.display-overall' | translate}}
       </button>
-      <button (click)="viewState = 'claim'"
+      <button (click)="viewState = 'claim'; createColumns()"
               class="btn btn-default"
               angulartics2On="click" angularticsEvent="ViewClaimScores" angularticsCategory="StudentHistory"
               [ngClass]="{'active': viewState === 'claim'}">
