@@ -180,6 +180,13 @@ export class TargetReportFormComponent implements OnInit {
   }
 
   /**
+   * @returns {boolean} True if the user does not have access to create aggregate reports
+   */
+  get accessDenied(): boolean {
+    return this.aggregateReportOptions.assessmentTypes.length === 0;
+  }
+
+  /**
    * Organization typeahead select handler
    *
    * @param organization the selected organization
