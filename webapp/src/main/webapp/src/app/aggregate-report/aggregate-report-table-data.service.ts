@@ -26,7 +26,7 @@ export class AggregateReportTableDataService {
 
   private defaultOrganizationProvider: ValueProvider = {
     getValues: (context) => this.createSampleOrganizations(context.settings, context.assessmentDefinition)
-      .map(organization => { return {organization: organization} })
+      .map(organization => <any>{organization: organization})
   };
 
   private defaultSubgroupProvider: ValueProvider = {
@@ -43,7 +43,7 @@ export class AggregateReportTableDataService {
           ...context.settings.subgroups.map(subgroup => this.subgroupMapper.fromFilters(subgroup, context.options.dimensionTypes))
         ]
       }
-      return subgroups.map(subgroup => { return {subgroup: subgroup} });
+      return subgroups.map(subgroup => <any>{subgroup: subgroup});
     }
   };
 
@@ -94,14 +94,10 @@ export class AggregateReportTableDataService {
           this.defaultSubgroupProvider,
           this.defaultPerformanceLevelProvider, {
             getValues: (context) => context.settings.generalPopulation.assessmentGrades
-              .map((grade: string) => {
-                return { assessmentGradeCode: grade }
-              })
+              .map((grade: string) => <any>{ assessmentGradeCode: grade })
           }, {
             getValues: (context) => context.settings.generalPopulation.schoolYears
-              .map(year => {
-                return { schoolYear: year }
-              })
+              .map(year => <any>{ schoolYear: year })
           });
         break;
 
@@ -130,7 +126,7 @@ export class AggregateReportTableDataService {
           this.defaultOrganizationProvider,
           this.defaultSubgroupProvider, {
             getValues: (context) => {
-              //Strip out grouped performance level results
+              // Strip out grouped performance level results
               const bothDisplayTypes = this.defaultPerformanceLevelProvider.getValues(context)[0];
               delete bothDisplayTypes.performanceLevelByDisplayTypes.Grouped;
               return [ bothDisplayTypes ];
@@ -139,14 +135,10 @@ export class AggregateReportTableDataService {
             getValues: (context) => [ {subjectCode: context.settings.subjects[0]} ]
           }, {
             getValues: (context) => context.settings.claimReport.assessmentGrades
-              .map(grade => {
-                return { assessmentGradeCode: grade }
-              })
+              .map(grade => <any>{ assessmentGradeCode: grade })
           }, {
             getValues: (context) => context.settings.claimReport.schoolYears
-              .map(year => {
-                return { schoolYear: year }
-              })
+              .map(year => <any>{ schoolYear: year })
           }, {
             getValues: (context) => {
               const assessmentTypeCode: string = context.settings.assessmentType;
@@ -156,7 +148,7 @@ export class AggregateReportTableDataService {
                 : settings.claimReport.claimCodesBySubject;
               return claims
                 .filter(claim => claim.assessmentType === assessmentTypeCode && claim.subject === subjectCode)
-                .map(claim => {return {claimCode: claim.code} });
+                .map(claim => <any>{claimCode: claim.code});
             }
           });
         break;
