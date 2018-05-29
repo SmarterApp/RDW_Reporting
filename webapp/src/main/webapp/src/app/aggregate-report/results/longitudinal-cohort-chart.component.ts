@@ -155,6 +155,12 @@ export class LongitudinalCohortChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const svg = d3.select('svg');
+
+    svg.selectAll('circle').on('click', function () {
+      this.parentNode.parentNode.parentNode.appendChild(this.parentNode.parentNode);
+    });
+
     this.render();
     this._initialized = true;
   }
@@ -184,6 +190,10 @@ export class LongitudinalCohortChartComponent implements OnInit {
       && this.chartView.performancePaths.filter(val => !val.fade).length === 1) {
       path.fade = true;
     } else {
+      // select this node and put it on top of all other paths/circles
+      const node = d3.select('svg').selectAll('circle')._groups[ 0 ][ pathIndex ];
+      this.placeOnTop(node);
+
       this._selectedPaths.add(pathIndex);
     }
 
@@ -196,6 +206,10 @@ export class LongitudinalCohortChartComponent implements OnInit {
     this.chartView.performancePaths
       .filter(perfPath => perfPath !== path)
       .forEach(perfPath => perfPath.fade = true);
+  }
+
+  private placeOnTop(element: Node) {
+    element.parentNode.parentNode.parentNode.appendChild(element.parentNode.parentNode);
   }
 
   private render(): void {
@@ -270,9 +284,9 @@ export class LongitudinalCohortChartComponent implements OnInit {
           pathData: d3line(
             performance.yearGradeScaleScores
               .map(({ scaleScore }, j) => <any>{
-                  x: j,
-                  y: scaleScore
-                })
+                x: j,
+                y: scaleScore
+              })
               .filter(({ y }) => y != null)
           ),
           points: performance.yearGradeScaleScores.reduce((points, { scaleScore, standardError }, j) => {
