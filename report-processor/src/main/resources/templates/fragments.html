@@ -24,62 +24,56 @@
 </div>
 
 <div th:fragment="styles-general">
-<style>
-    footer {
-        page-break-after: always;
-        page-break-inside: avoid;
-    }
-    .accommodations {
-        page-break-after: always;
-    }
-    .row, .well-group {
-        page-break-inside: avoid;
-    }
-    .bordered.gray-light .label {
-        border: 1px solid #64666A;
-    }
-    .well-group--horizontal>.well {
-        min-height: 180px;
-    }
-    .relative-container {
-        position: relative;
-    }
-    .bottom-right-aligned {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-    }
-    .well.pad-small {
-        padding: 10px 20px;
-    }
-    .scale-score-graph .bar-container .bar {
-        border-collapse: separate;
-    }
-    .scale-score-graph.ica {
-        margin-right: 115px;
-    }
-    .scale-score-graph.individual .bar-container .cut-points .label,
-    .scale-score-graph.individual .bar-container .cut-points .label:first-child,
-    .scale-score-graph.individual .bar-container .cut-points .label:last-child {
-        margin-left: 0;
-        -webkit-transform: translateX(-50%);
-        -moz-transform: translateX(-50%);
-        -ms-transform: translateX(-50%);
-        -o-transform: translateX(-50%);
-        transform: translateX(-50%);
-    }
-    .scale-score-graph.individual .scale-score {
-        margin-left: 0;
-        -webkit-transform: translateX(-50%);
-        -moz-transform: translateX(-50%);
-        -ms-transform: translateX(-50%);
-        -o-transform: translateX(-50%);
-        transform: translateX(-50%);
-    }
-</style>
-</div>
-
-<div th:fragment="styles-new-ica">
+    <style>
+        footer {
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+        .row, .well-group {
+            page-break-inside: avoid;
+        }
+        .bordered.gray-light .label {
+            border: 1px solid #64666A;
+        }
+        .well-group--horizontal>.well {
+            min-height: 180px;
+        }
+        .relative-container {
+            position: relative;
+        }
+        .bottom-right-aligned {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+        .well.pad-small {
+            padding: 10px 20px;
+        }
+        .scale-score-graph .bar-container .bar {
+            border-collapse: separate;
+        }
+        .scale-score-graph.ica {
+            margin-right: 115px;
+        }
+        .scale-score-graph.individual .bar-container .cut-points .label,
+        .scale-score-graph.individual .bar-container .cut-points .label:first-child,
+        .scale-score-graph.individual .bar-container .cut-points .label:last-child {
+            margin-left: 0;
+            -webkit-transform: translateX(-50%);
+            -moz-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+            -o-transform: translateX(-50%);
+            transform: translateX(-50%);
+        }
+        .scale-score-graph.individual .scale-score {
+            margin-left: 0;
+            -webkit-transform: translateX(-50%);
+            -moz-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+            -o-transform: translateX(-50%);
+            transform: translateX(-50%);
+        }
+    </style>
     <style>
         body {
             font-size: 11px;
@@ -164,11 +158,7 @@
             padding: 0.5em 0.75em;
             border-radius: 5px;
         }
-        .overview .standard .level {
-            font-size: 9px;
-        }
         .overview .standard .description {
-            width: 60%;
             padding-right: 2em;
         }
 
@@ -218,6 +208,7 @@
         }
         .graph .bound {
             position: absolute;
+            color: #000;
             top: 3em;
             left: 0;
             display: block;
@@ -298,6 +289,9 @@
         .achievement-descriptions .level-description .title {
             font-size: 16px;
             font-weight: 700;
+            width: 72.5%;
+            float: left;
+
         }
         .achievement-descriptions .level-description .level-label {
             float: right;
@@ -309,19 +303,29 @@
         }
         .achievement-descriptions .level-description .description {
             width: 100%;
-            display: block;
+            display: inline-block;
             margin-top: 1em;
         }
         .achievement-descriptions .level-description p:last-child {
             margin-bottom: 0;
         }
+        .level-description.level-description-writing-traits {
+            width: 98.8%;
+            height: auto;
+        }
         .achievement-descriptions .writing-traits {
-            width: 65.6%;
-            border-bottom: 1px solid #DBDBDB;
+            width: 68%;
+            border-top: 1px solid #EDEDED;
+            border-bottom: 1px solid #EDEDED;
+            border-left: 1px solid #DBDBDB;
+            border-right: 1px solid #EDEDED;
+            float: right!important;
+            padding-left: 12px;
         }
         .achievement-descriptions .writing-traits .title {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
+            width: 100%;
         }
         .achievement-descriptions .writing-traits .trait .score {
             float: right;
@@ -336,6 +340,11 @@
             width: 100%;
             display: block;
             margin-top: 0.5em;
+        }
+
+        .level-description.level-description-writing-traits .main-claim {
+            width: 31%;
+            float: left!important;
         }
 
         .footer {
@@ -359,6 +368,38 @@
             color: #64666a;
             page-break-after: always;
             page-break-inside: avoid;
+        }
+
+        .overview .standard .score.maroon,
+        .graph .score .num.maroon {
+            background-color: #5B1931;
+            color: #FDF6F1;
+        }
+        .overview .standard .score.gray-darkest,
+        .graph .score .num.gray-darkest {
+            background-color: #2a2b2d;
+            color: #eaebeb;
+        }
+        .overview .standard .score.green-dark,
+        .graph .score .num.green-dark {
+            background-color: #406934;
+            color: #fff;
+        }
+        .overview .standard .score.blue-dark,
+        .graph .score .num.blue-dark {
+            background-color: #104564;
+            color: #f5fafd;
+        }
+
+        .achievement-descriptions .level-description .level-label.sb-iab-green {
+            background-color: #2c7f3e;
+        }
+        .achievement-descriptions .level-description .level-label.sb-iab-yellow {
+            color: #000000;
+            background-color: #eccb1a;
+        }
+        .achievement-descriptions .level-description .level-label.sb-iab-red {
+            background-color: #750f2c;
         }
 
     </style>

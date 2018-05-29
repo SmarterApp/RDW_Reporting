@@ -590,7 +590,7 @@
           "header": "Overall Achievement"
         }
       },
-      "score-range": "{0}-{1}",
+      "score-range": " ({0}-{1})",
       "short-name": "ICA",
       "title": "Interim Comprehensive Assessment Report"
     },
@@ -902,6 +902,7 @@
       "title": "Summative Assessment Report"
     },
     "writing": {
+      "description": "Students write an extended response (i.e., essay) with one of the following purposes: narrative, opinion, informational, explanatory, or argumentative. {0} received the following scores on the essay:",
       "trait": {
         "Argumentative": {
           "Conventions": {
@@ -1033,7 +1034,7 @@
           }
         },
         "outof": "of {0}",
-        "purpose": "{0} Writing"
+        "purpose": "Writing Purpose: {0}"
       }
     }
   }
