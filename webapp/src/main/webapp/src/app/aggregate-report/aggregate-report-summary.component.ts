@@ -357,6 +357,13 @@ export class AggregateReportSummary {
 
     this.columns = this._columnProvider(
       {
+        label: translate('aggregate-report-form.section.report-type-heading'),
+        rows: [ <Row>{
+          label: translate('aggregate-report-form.section.report-type-heading'),
+          values: [ translate(`common.aggregate-report-type.${settings.reportType}.label`) ]
+        } ]
+      },
+      {
         label: translate('aggregate-report-form.section.organization.heading'),
         rows: organizationRows
       },

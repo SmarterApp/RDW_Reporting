@@ -1,3 +1,5 @@
+insert into ethnicity VALUES (-29,'ethnicity-29'),(-28,'ethnicity-28'),(-27, 'ethnicity-27'), (-26, 'ethnicity-26');
+
 insert into school_group (id, natural_id, name) values
   (-10, 'schoolGroup1', 'schoolGroup1'),
   (-40, 'schoolGroup4', 'schoolGroup4'),
@@ -44,6 +46,11 @@ insert into student (id, ssid, last_or_surname, first_name, gender_id, gender_co
   (-6, 'student6_ssid', 'student6_lastName', 'student6_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -50, -1, '1997-07-18 20:14:34.000000', -1),
   (-7, 'student7_ssid', 'student7_lastName', 'student7_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -50, -1, '1997-07-18 20:14:34.000000', -1),
   (-100, 'transfer_1', 'from_school3', 'to_school4', -1, 'g1', '1997-01-01 00:00:00.000000', -40, -1, '1997-07-18 20:14:34.000000', -1);
+
+insert into student_ethnicity(student_id, ethnicity_id, ethnicity_code ) values
+  (-1, -29,'ethnicity-29'),
+  (-1, -28,'ethnicity-28'),
+  (-2, -27,'ethnicity-27');
 
 insert into asmt (id, type_id, natural_id, grade_id, grade_code, subject_id, school_year, name, label, version,
   claim1_score_code, claim2_score_code, claim3_score_code, claim4_score_code,

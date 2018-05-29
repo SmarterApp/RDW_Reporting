@@ -73,9 +73,6 @@ export class AggregateReportTableComponent implements OnInit {
   private _orderingByColumnField: { [ key: string ]: Ordering<AggregateReportItem> } = {};
   private _valueDisplayType: string = ValueDisplayTypes.Percent;
   private _performanceLevelDisplayType: string = PerformanceLevelDisplayTypes.Separate;
-  private _assessmentTypeCode: string;
-  private _cutPoint: number;
-  private _center: boolean;
 
   constructor(public colorService: ColorService,
               private translate: TranslateService,

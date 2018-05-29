@@ -152,7 +152,7 @@ sql:
           )
         )
 
-    claimColumns: >-
+    examClaimColumns: >-
         e.claim1_category,
         e.claim1_scale_score,
         e.claim1_scale_score_std_err,
@@ -164,7 +164,9 @@ sql:
         e.claim3_scale_score_std_err,
         e.claim4_category,
         e.claim4_scale_score,
-        e.claim4_scale_score_std_err,
+        e.claim4_scale_score_std_err
+
+    asmtClaimColumns: >-
         a.claim1_score_code,
         a.claim2_score_code,
         a.claim3_score_code,
@@ -174,27 +176,41 @@ sql:
         a.claim3_score_code as asmt_claim3_score_code,
         a.claim4_score_code as asmt_claim4_score_code
 
-    exam: >-
+    claimColumns: >-
+       ${sql.snippet.examClaimColumns},
+       ${sql.snippet.asmtClaimColumns}
+
+    examColumns: >-
         e.id,
-        e.student_id,
-        st.ssid as student_ssid,
-        st.last_or_surname as student_last_name,
-        st.first_name as student_first_name,
-        st.gender_code as student_gender_code,
         e.type_id,
-        e.grade_code,
-        e.school_year,
-        e.completeness_code,
-        e.administration_condition_code,
-        e.school_year,
+        e.student_id,
         e.session_id,
         e.completed_at,
+        e.school_id,
+        e.school_year,
+        e.grade_code,
+        e.available_accommodation_codes,
+        e.iep,
+        e.lep,
+        e.elas_code,
+        e.section504,
+        e.migrant_status,
+        e.completeness_code,
+        e.administration_condition_code,
         e.scale_score,
         e.scale_score_std_err,
         e.performance_level,
-        e.asmt_id,
-        e.available_accommodation_codes,
-        e.elas_code,
+        s.name as school_name,
+        s.district_id as school_district_id,
+        s.district_group_id as school_district_group_id,
+        s.school_group_id
+
+    exam: >-
+        ${sql.snippet.examColumns},
+        st.ssid as student_ssid,
+        st.gender_code as student_gender_code,
+        st.last_or_surname as student_last_name,
+        st.first_name as student_first_name,
         a.id as asmt_id,
         a.label as asmt_label,
         a.grade_code as asmt_grade_code,
@@ -205,12 +221,7 @@ sql:
         a.max_score as asmt_max_score,
         a.cut_point_1 as asmt_cut_point_1,
         a.cut_point_2 as asmt_cut_point_2,
-        a.cut_point_3 as asmt_cut_point_3,
-        s.id as school_id,
-        s.name as school_name,
-        s.district_id as school_district_id,
-        s.district_group_id as school_district_group_id,
-        s.school_group_id
+        a.cut_point_3 as asmt_cut_point_3
         from exam e
           join student st on st.id = e.student_id
           join asmt a on e.asmt_id = a.id

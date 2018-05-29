@@ -34,8 +34,6 @@ app:
       jdbc-fetch-size: -1
     query-pool-size: 6
     api-enabled: false
-    target-report:
-      insufficient-data-cutoff: 0.2
 
   archive:
       root: file:///tmp/
@@ -85,11 +83,13 @@ jwt:
   secret: ${rdw.reporting.jwt.secret:secret}
 
 reporting:
+  # english-learners should be lep or elas
+  english-learners:
+    - elas
   school-year: 2018
   state:
     code: CA
     name: California
-
-  # english-learners should be lep or elas
-  english-learners:
-    - elas
+  target-report:
+    insufficient-data-cutoff: 0.2
+    min-number-of-students: 0
