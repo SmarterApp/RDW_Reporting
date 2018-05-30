@@ -127,6 +127,17 @@
                                 label="{{ 'common.filters.student.504-plan' | translate }}"
                                 analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
         </div>
+        <!-- IEP -->
+        <div class="block-children">
+          <label>
+            <span info-button
+                  title="{{ 'common.filters.student.iep' | translate }}"
+                  content="{{ 'common.filters.student.iep-info' | translate }}"></span>
+          </label>
+          <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="iep" enum="common.polar"
+                                label="{{ 'common.filters.student.iep' | translate }}"
+                                analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
+        </div>
       </div>
       <!-- Column 3 -->
       <div class="flex-child col3">
@@ -154,17 +165,6 @@
                             enum="common.elas"
                             label="{{ 'common.filters.student.elas' | translate }}"
                             analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-checkbox-list>
-        </div>
-        <!-- IEP -->
-        <div class="block-children">
-          <label>
-            <span info-button
-                  title="{{ 'common.filters.student.iep' | translate }}"
-                  content="{{ 'common.filters.student.iep-info' | translate }}"></span>
-          </label>
-          <sb-radio-button-list [model]="filterBy" [values]="[1,2]" property="iep" enum="common.polar"
-                                label="{{ 'common.filters.student.iep' | translate }}"
-                                analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
         </div>
       </div>
       <!-- Column 4 -->
