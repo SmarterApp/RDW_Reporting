@@ -62,6 +62,7 @@
       "to-school-year-info": "TODO",
       "organization-label": "Search a School or District",
       "organization-invalid-error": "Please select a school, district or include state results.",
+      "assessment-grade-label": "Assessment Grade",
       "assessment-grades-label": "Assessment Grades",
       "assessment-grades-info": "The grade of the assessment that was administered",
       "assessment-grades-empty-error": "Please select an assessment grade.",
@@ -72,8 +73,10 @@
       "elas-info": "Status determined by the Home Language Survey and the Initial ELPAC.",
       "interim-administration-condition-label": "Manner of Administration",
       "interim-administration-condition-info": "For interim assessments, a Standardized administration follows the same protocols and security procedures as a summative test administration. For a Non Standardized administration, the teacher may use the assessment during instruction and interact with students as they complete the assessment.",
-      "school-year-label": "Academic Years",
+      "school-year-label": "Academic Year",
+      "school-years-label": "Academic Years",
       "school-year-empty-error": "Please select a school year.",
+      "subject-label": "Subject",
       "subjects-label": "Subjects",
       "summative-administration-condition-label": "Validity",
       "summative-administration-condition-info": "For summative assessments, a test is noted as invalid if an appeal is submitted  to invalidate the test due to a test irregularity or breach.",
@@ -180,7 +183,10 @@
     }
   },
   "aggregate-reports": {
-    "heading": "Aggregate Reports"
+    "heading": "Aggregate Reports",
+    "targets": {
+      "heading": "Target Reports"
+    }
   },
   "aggregate-reports-summary": {
     "include-all-districts": "All Districts",

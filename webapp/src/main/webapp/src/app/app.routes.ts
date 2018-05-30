@@ -291,6 +291,9 @@ export const routes: Routes = [
           {
             path: 'targets',
             pathMatch: 'full',
+            data: {
+              breadcrumb: { translate: 'aggregate-reports.targets.heading' },
+            },
             resolve: {
               settings: AggregateReportFormSettingsResolve
             },

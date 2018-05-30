@@ -157,7 +157,7 @@ export class AggregateReportSummary {
             code => translate(`common.assessment-grade.${code}`)))
         },
         {
-          label: translate('aggregate-report-form.field.school-year-label'),
+          label: translate('aggregate-report-form.field.school-years-label'),
           values: this.settings.generalPopulation.schoolYears.map(value => this.schoolYearPipe.transform(value))
         }
       ];
@@ -173,18 +173,18 @@ export class AggregateReportSummary {
             code => translate(`common.assessment-grade.${code}`)))
         },
         {
-          label: translate('aggregate-report-form.field.school-year-label'),
+          label: translate('aggregate-report-form.field.school-years-label'),
           values: this.settings.claimReport.schoolYears.map(value => this.schoolYearPipe.transform(value))
         }
       ];
     } else if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'Target') {
       assessmentAttributes = [
         {
-          label: translate('aggregate-report-form.field.subjects-label'),
+          label: translate('aggregate-report-form.field.subject-label'),
           values: [ translate(`common.subject.${settings.targetReport.subjectCode}.short-name`) ]
         },
         {
-          label: translate('aggregate-report-form.field.assessment-grades-label'),
+          label: translate('aggregate-report-form.field.assessment-grade-label'),
           values: [ translate(`common.assessment-grade.${settings.targetReport.assessmentGrade}`) ]
         },
         {
@@ -204,7 +204,7 @@ export class AggregateReportSummary {
             code => translate(`common.assessment-grade.${code}`)))
         },
         {
-          label: translate('aggregate-report-form.field.school-year-label'),
+          label: translate('aggregate-report-form.field.school-years-label'),
           values: computeEffectiveYears(this.settings.longitudinalCohort.toSchoolYear, this.settings.longitudinalCohort.assessmentGrades)
             .map(value => this.schoolYearPipe.transform(value))
         }
