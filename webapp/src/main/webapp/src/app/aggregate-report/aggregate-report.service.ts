@@ -45,12 +45,12 @@ export class AggregateReportService {
   /**
    * Gets the effective report type
    *
-   * @param {"GeneralPopulation" | "LongitudinalCohort" | "Claim"} reportType the report type
+   * @param {"GeneralPopulation" | "LongitudinalCohort" | "Claim" | "Target"} reportType the report type
    * @param {AssessmentDefinition} definition the assessment definition
-   * @returns {"GeneralPopulation" | "LongitudinalCohort" | "Claim"}
+   * @returns {"GeneralPopulation" | "LongitudinalCohort" | "Claim" | "Target"}
    */
-  getEffectiveReportType(reportType: 'GeneralPopulation' | 'LongitudinalCohort' | 'Claim', definition: AssessmentDefinition):
-    'GeneralPopulation' | 'LongitudinalCohort' | 'Claim' {
+  getEffectiveReportType(reportType: 'GeneralPopulation' | 'LongitudinalCohort' | 'Claim' | 'Target', definition: AssessmentDefinition):
+    'GeneralPopulation' | 'LongitudinalCohort' | 'Claim' | 'Target' {
     return definition.aggregateReportTypes.includes(reportType)
       ? reportType
       : DefaultReportType;

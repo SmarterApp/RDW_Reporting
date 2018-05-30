@@ -34,6 +34,7 @@ export class AggregateReportFormSettingsResolve implements Resolve<AggregateRepo
           }))
         );
     }
+
     return this.optionMapper.toDefaultSettings(options);
   }
 

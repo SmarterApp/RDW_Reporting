@@ -148,6 +148,10 @@ export class AggregateReportSummary {
     if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'GeneralPopulation') {
       assessmentAttributes = [
         {
+          label: translate('aggregate-report-form.field.subjects-label'),
+          values: orAll(options.subjects, settings.subjects, code => translate(`common.subject.${code}.short-name`))
+        },
+        {
           label: translate('aggregate-report-form.field.assessment-grades-label'),
           values: inline(orAll(this.options.assessmentGrades, this.settings.generalPopulation.assessmentGrades,
             code => translate(`common.assessment-grade.${code}`)))
@@ -160,6 +164,10 @@ export class AggregateReportSummary {
     } else if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'Claim') {
       assessmentAttributes = [
         {
+          label: translate('aggregate-report-form.field.subjects-label'),
+          values: orAll(options.subjects, settings.subjects, code => translate(`common.subject.${code}.short-name`))
+        },
+        {
           label: translate('aggregate-report-form.field.assessment-grades-label'),
           values: inline(orAll(this.options.assessmentGrades, this.settings.claimReport.assessmentGrades,
             code => translate(`common.assessment-grade.${code}`)))
@@ -169,8 +177,27 @@ export class AggregateReportSummary {
           values: this.settings.claimReport.schoolYears.map(value => this.schoolYearPipe.transform(value))
         }
       ];
+    } else if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'Target') {
+      assessmentAttributes = [
+        {
+          label: translate('aggregate-report-form.field.subjects-label'),
+          values: [ translate(`common.subject.${settings.targetReport.subjectCode}.short-name`) ]
+        },
+        {
+          label: translate('aggregate-report-form.field.assessment-grades-label'),
+          values: [ translate(`common.assessment-grade.${settings.targetReport.assessmentGrade}`) ]
+        },
+        {
+          label: translate('aggregate-report-form.field.school-year-label'),
+          values: [ this.schoolYearPipe.transform(settings.targetReport.schoolYear) ]
+        }
+      ];
     } else {
       assessmentAttributes = [
+        {
+          label: translate('aggregate-report-form.field.subjects-label'),
+          values: orAll(options.subjects, settings.subjects, code => translate(`common.subject.${code}.short-name`))
+        },
         {
           label: translate('aggregate-report-form.field.assessment-grades-label'),
           values: inline(orAll(this.options.assessmentGrades, this.settings.longitudinalCohort.assessmentGrades,
@@ -188,10 +215,6 @@ export class AggregateReportSummary {
       {
         label: translate('aggregate-report-form.field.assessment-type-label'),
         values: [ translate(`common.assessment-type.${settings.assessmentType}.short-name`) ]
-      },
-      {
-        label: translate('aggregate-report-form.field.subjects-label'),
-        values: orAll(options.subjects, settings.subjects, code => translate(`common.subject.${code}.short-name`))
       },
       ...assessmentAttributes,
       ...[
@@ -356,6 +379,13 @@ export class AggregateReportSummary {
     }
 
     this.columns = this._columnProvider(
+      {
+        label: translate('aggregate-report-form.section.report-type-heading'),
+        rows: [ <Row>{
+          label: translate('aggregate-report-form.section.report-type-heading'),
+          values: [ translate(`common.aggregate-report-type.${settings.reportType}.label`) ]
+        } ]
+      },
       {
         label: translate('aggregate-report-form.section.organization.heading'),
         rows: organizationRows

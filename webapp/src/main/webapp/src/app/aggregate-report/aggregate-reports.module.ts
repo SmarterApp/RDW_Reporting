@@ -32,6 +32,7 @@ import { LongitudinalPlaygroundComponent } from './results/longitudinal-playgrou
 import { SubgroupModule } from './subgroup/subgroup.module';
 import { LongitudinalCohortChartMapper } from './results/longitudinal-cohort-chart.mapper';
 import { WideRadioGroupComponent } from './wide-radio-group.component';
+import { TargetReportFormComponent } from "./target/target-report-form.component";
 
 @NgModule({
   declarations: [
@@ -39,12 +40,13 @@ import { WideRadioGroupComponent } from './wide-radio-group.component';
     AggregateReportComponent,
     AggregateReportTableComponent,
     AggregateReportSummary,
-    WideRadioGroupComponent,
     EditableListGroupComponent,
     ListGroupComponent,
     LongitudinalCohortChartComponent,
     LongitudinalPlaygroundComponent,
-    StickyDirective
+    StickyDirective,
+    TargetReportFormComponent,
+    WideRadioGroupComponent
   ],
   imports: [
     AssessmentModule,
@@ -64,7 +66,8 @@ import { WideRadioGroupComponent } from './wide-radio-group.component';
   ],
   exports: [
     AggregateReportComponent,
-    AggregateReportFormComponent
+    AggregateReportFormComponent,
+    TargetReportFormComponent
   ],
   providers: [
     AggregateReportRequestMapper,

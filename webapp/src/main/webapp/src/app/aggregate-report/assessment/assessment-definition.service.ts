@@ -71,6 +71,17 @@ const ClaimSummative: AssessmentDefinition = {
   aggregateReportTypes: [ 'Claim', 'LongitudinalCohort' ]
 };
 
+const TargetSummative: AssessmentDefinition = {
+  typeCode: 'sum',
+  interim: false,
+  performanceLevels: [1, 2, 3],
+  performanceLevelCount: 3,
+  performanceLevelDisplayTypes: [ PerformanceLevelDisplayTypes.Separate ],
+  aggregateReportIdentityColumns: ['claim', 'target', 'dimension'],
+  aggregateReportStateResultsEnabled: false,
+  aggregateReportTypes: [ 'Target' ]
+};
+
 export const GeneralPopulationIabKey: DefinitionKey = <DefinitionKey>{
   assessmentType: 'iab',
   reportType: 'GeneralPopulation'
@@ -100,13 +111,19 @@ export const ClaimSumKey: DefinitionKey = <DefinitionKey>{
   reportType: 'Claim'
 };
 
+export const TargetSummativeKey: DefinitionKey = <DefinitionKey>{
+  assessmentType: 'sum',
+  reportType: 'Target'
+};
+
 export const definitions = new Array(
   { key: GeneralPopulationIabKey, value: Iab },
   { key: GeneralPopulationIcaKey, value: Ica },
   { key: ClaimIcaKey, value: ClaimIca },
   { key: GeneralPopulationSumKey, value: Summative },
   { key: LongitudinalCohortSumKey, value: Summative },
-  { key: ClaimSumKey, value: ClaimSummative }
+  { key: ClaimSumKey, value: ClaimSummative },
+  { key: TargetSummativeKey, value: TargetSummative }
 );
 
 /**

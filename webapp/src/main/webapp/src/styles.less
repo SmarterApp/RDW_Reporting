@@ -357,6 +357,12 @@ sb-button-typeahead .input-group-btn > .btn,
   max-width: 330px;
 }
 
+.wrapping-max-width {
+  white-space: normal;
+  text-align: left;
+  max-width: 330px;
+}
+
 /**
   Required for controls that are placed above data tables, otherwise the data table
   extends above its size.  The real fix for this would be tio fix the sizing of data tables
@@ -557,7 +563,9 @@ body .select-menu-group {
 
 .full-cell {
   margin: -@table-cell-padding;
-  padding: @table-cell-padding;
+  padding-left: @table-cell-padding;
+  padding-right: @table-cell-padding;
+  padding-top: 0.5em;
 
   &.pt-0 {
     padding-top: 0;
@@ -573,8 +581,14 @@ body .select-menu-group {
   }
 }
 
-aggregate-report-table .label {
-  vertical-align: middle;
+aggregate-report-table {
+  .label {
+    vertical-align: middle;
+  }
+
+  .ui-table table .ui-table-tbody > tr > td {
+    vertical-align: top;
+  }
 }
 
 .performance-level-distribution-chart,
@@ -1420,6 +1434,19 @@ wide-radio-group {
 
   p.disabled {
     opacity: 0.65;
+  }
+}
+
+.icon.sbac {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: middle;
+
+  > svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
   }
 }
 

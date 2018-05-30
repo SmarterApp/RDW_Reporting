@@ -156,7 +156,7 @@ export class AggregateReportOptionsMapper {
    */
   toDefaultSettings(options: AggregateReportOptions): Observable<AggregateReportFormSettings> {
     const defaultAssessmentType = options.assessmentTypes[ 0 ];
-    const defaultReportType = <'GeneralPopulation' | 'LongitudinalCohort' | 'Claim'>options.reportTypes[ 0 ];
+    const defaultReportType = <'GeneralPopulation' | 'LongitudinalCohort' | 'Claim' | 'Target'>options.reportTypes[ 0 ];
     const assessmentDefinition = this.assessmentDefinitionService.get(defaultAssessmentType, defaultReportType);
     return of(<AggregateReportFormSettings>{
       assessmentType: defaultAssessmentType,
@@ -196,6 +196,11 @@ export class AggregateReportOptionsMapper {
         englishLanguageAcquisitionStatuses: options.studentFilters.englishLanguageAcquisitionStatuses,
         migrantStatuses: options.studentFilters.migrantStatuses,
         section504s: options.studentFilters.section504s
+      },
+      targetReport: {
+        assessmentGrade: options.assessmentGrades[ 0 ],
+        schoolYear: options.schoolYears[ 0 ],
+        subjectCode: options.subjects[ 0 ]
       },
       subjects: options.subjects,
       subgroups: [],

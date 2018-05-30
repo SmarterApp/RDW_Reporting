@@ -57,7 +57,7 @@
     <div class="col-md-8 col-md-offset-2">
       <page-heading>
         <ng-template #heading>
-          <h2>{{'aggregate-report-form.heading' | translate}}</h2>
+          <h2>{{'aggregate-report-form.heading.default' | translate}}</h2>
           <p class="small gray-darkest mt-sm">{{'aggregate-report-form.subheading' | translate}}</p>
         </ng-template>
       </page-heading>
@@ -381,8 +381,11 @@
                                      [(ngModel)]="settings.longitudinalCohort.assessmentGrades"
                                      (change)="onSettingsChange()"></sb-button-group>
                     <div *ngIf="showErrors(assessmentGradeRangeControl)">
-                      <p *ngIf="assessmentGradeRangeControl.errors.notEmpty" class="help-block small red">
-                        {{assessmentGradeRangeControl.errors.notEmpty.messageId | translate}}</p>
+                      <p *ngIf="assessmentGradeRangeControl.errors.isGreaterThan" class="help-block small red">
+                        {{assessmentGradeRangeControl.errors.isGreaterThan.messageId | translate}}</p>
+                      <p *ngIf="assessmentGradeRangeControl.errors.withinBounds" class="help-block small red">
+                        {{assessmentGradeRangeControl.errors.withinBounds.messageId | translate:
+                        {lowestAvailableSchoolYear: lowestAvailableSchoolYear | schoolYear} }}</p>
                     </div>
                   </div>
                 </div>

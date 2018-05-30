@@ -27,12 +27,12 @@ import { ranking } from '@kourge/ordering/comparator';
 import { ordering } from '@kourge/ordering';
 import { SubgroupFilters, SubgroupFilterSupport } from './subgroup/subgroup-filters';
 import { SubgroupMapper } from './subgroup/subgroup.mapper';
-import { fileName, notEmpty } from '../shared/form/validators';
+import { fileName, isGreaterThan, notEmpty, withinBounds } from '../shared/form/validators';
 import { SubgroupItem } from './subgroup/subgroup-item';
 import { Utils } from '../shared/support/support';
 import { Claim } from './aggregate-report-options.service';
 import { Option as SbCheckboxGroupOption } from '../shared/form/sb-checkbox-group.component';
-import { AssessmentDefinitionService, DefinitionKey } from './assessment/assessment-definition.service';
+import { AssessmentDefinitionService } from './assessment/assessment-definition.service';
 
 const OrganizationComparator = (a: Organization, b: Organization) => a.name.localeCompare(b.name);
 
@@ -121,6 +121,11 @@ export class AggregateReportFormComponent {
    */
   subgroupItems: SubgroupItem[] = [];
 
+  /**
+   * Lowest available school year
+   */
+  lowestAvailableSchoolYear: number;
+
   private options: AggregateReportFormOptions;
 
   /**
@@ -164,6 +169,7 @@ export class AggregateReportFormComponent {
     this.columnItems = this.columnOrderableItemProvider.toOrderableItems(this.settings.columnOrder);
 
     this.options = optionMapper.map(this.aggregateReportOptions);
+    this.lowestAvailableSchoolYear = Math.min(...this.options.schoolYears.map(schoolYear => schoolYear.value));
     if (!this.settings.assessmentType.includes('sum')) {
       this.options.reportTypes = this.options.reportTypes.filter(reportType => reportType.value !== 'LongitudinalCohort');
     }
@@ -239,7 +245,11 @@ export class AggregateReportFormComponent {
       setValidators(this.claimAssessmentGradesControl, null);
       setValidators(this.claimSchoolYearsControl, null);
       setValidators(this.assessmentGradeRangeControl, [
-        notEmpty({ messageId: 'aggregate-report-form.field.assessment-grades-empty-error' })
+        isGreaterThan(1, { messageId: 'aggregate-report-form.field.assessment-grades-less-than-minimum-error' }),
+        withinBounds(this.settings.longitudinalCohort.toSchoolYear,
+          this.settings.longitudinalCohort.assessmentGrades,
+          this.lowestAvailableSchoolYear,
+          { messageId: 'aggregate-report-form.field.assessment-grades-exceed-available-school-years-error' })
       ]);
     } else if (this.effectiveReportType === 'Claim') {
       setValidators(this.assessmentGradeRangeControl, null);

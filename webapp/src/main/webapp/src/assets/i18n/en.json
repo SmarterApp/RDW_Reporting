@@ -47,7 +47,10 @@
       "loading": "Estimating row count",
       "warning": "This report is large and may result in a slow experience when viewed in your browser"
     },
-    "heading": "Custom Aggregate Report",
+    "heading": {
+      "default": "Custom Aggregate Report",
+      "target": "Target Aggregate Report"
+    },
     "preview": "This table does not contain actual data and is for preview purposes only.",
     "subheading": "Select the attributes to include in the report. Then click \"Generate Report.\"",
     "field": {
@@ -62,6 +65,8 @@
       "assessment-grades-label": "Assessment Grades",
       "assessment-grades-info": "The grade of the assessment that was administered",
       "assessment-grades-empty-error": "Please select an assessment grade.",
+      "assessment-grades-exceed-available-school-years-error": "You've selected too many grades. There are no results prior to {{lowestAvailableSchoolYear}}.",
+      "assessment-grades-less-than-minimum-error": "Please select more than one assessment grade.",
       "assessment-type-label": "Assessment Type",
       "elas-label": "English Language Acquisition Status",
       "elas-info": "Status determined by the Home Language Survey and the Initial ELPAC.",
@@ -143,9 +148,33 @@
       "organization": "Organization",
       "performance-level-suffix": "Standard",
       "school-year": "Academic Year",
-      "students-tested": "Students Tested"
+      "student-relative-residual-scores-level": "Performance relative to other targets",
+      "standard-met-relative-residual-level": "Performance relative to achievement standards",
+      "students-tested": "Students Tested",
+      "target": "Target"
     },
-    "empty-message": "No Results Found"
+    "empty-message": "No Results Found",
+    "target-description": "<strong>Target {{name}}</strong> {{description}}",
+    "sample": {
+      "claim": "Sample Claim {{code}}",
+      "target": "<strong>Sample Target {{name}}</strong> Sample target description"
+    },
+    "target": {
+      "overall": {
+        "Above": "Better",
+        "Below": "Worse",
+        "Excluded": "Excluded",
+        "InsufficientData": "Insufficient Data",
+        "Near": "Similar to Overall"
+      },
+      "standard": {
+        "Above": "Above",
+        "Below": "Below",
+        "Excluded": "Excluded",
+        "InsufficientData": "Insufficient Data",
+        "Near": "Near"
+      }
+    }
   },
   "aggregate-reports": {
     "heading": "Aggregate Reports"
@@ -257,6 +286,10 @@
         "description": "Track performance over time.",
         "disabled": "Longitudinal Reports are only available for Summative assessments.",
         "label": "Longitudinal Report"
+      },
+      "Target": {
+        "description": "Compare target-level performance across groups.",
+        "label": "Target Report"
       }
     },
     "assessment-grade": {

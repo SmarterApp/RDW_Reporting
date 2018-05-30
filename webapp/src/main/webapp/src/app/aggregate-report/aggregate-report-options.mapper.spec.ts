@@ -4,9 +4,8 @@ import { ValueDisplayTypes } from '../shared/display-options/value-display-type'
 import { of } from 'rxjs/observable/of';
 import { AggregateReportFormSettings } from './aggregate-report-form-settings';
 import { Observable } from 'rxjs/Observable';
-import Spy = jasmine.Spy;
-import { DefinitionKey } from './assessment/assessment-definition.service';
 import { AssessmentDefinition } from './assessment/assessment-definition';
+import Spy = jasmine.Spy;
 
 describe('AggregateReportOptionsMapper', () => {
 
@@ -125,7 +124,12 @@ describe('AggregateReportOptionsMapper', () => {
         longitudinalCohort: {
           assessmentGrades: [],
           toSchoolYear: options.schoolYears[ 0 ]
-        }
+        },
+        targetReport: {
+          assessmentGrade: options.assessmentGrades[ 0 ],
+          schoolYear: options.schoolYears[ 0 ],
+          subjectCode: options.subjects[ 0 ]
+        },
       });
     });
 
