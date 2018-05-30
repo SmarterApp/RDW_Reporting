@@ -735,5 +735,12 @@ body.login #about .faq {
 body.login #footer {
   background-color: #e7e7e7;
   border-top: solid 1px #b4b4b4;
-  padding-top: 80px
+  padding-top: 70px
+}
+
+#footer .copyright {
+  text-align: center;
+  padding-top: 10px;
+  width: 980px;
+  margin: auto;
 }

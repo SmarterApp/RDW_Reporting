@@ -110,7 +110,10 @@ export class AggregateReportRequestMapper {
         subject => subject.value),
         settings.claimReport.claimCodesBySubject
       );
-
+    } else if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'Target') {
+      query.schoolYear = settings.targetReport.schoolYear;
+      query.subjectCode = settings.targetReport.subjectCode;
+      query.assessmentGradeCodes = [settings.targetReport.assessmentGrade];
     }
 
     const name = settings.name
@@ -209,9 +212,16 @@ export class AggregateReportRequestMapper {
       toSchoolYear: options.schoolYears[ 0 ]
     };
 
+    const defaultTargetReport = {
+      assessmentGrade: options.assessmentGrades[ 0 ],
+      schoolYear: options.schoolYears[ 0 ],
+      subjectCode: options.subjects[ 0 ]
+    };
+
     let generalPopulation = defaultGeneralPopulation,
       longitudinalCohort = defaultLongitudinalCohort,
-      claimReport = defaultClaimReport;
+      claimReport = defaultClaimReport,
+      targetReport = defaultTargetReport;
 
     if (reportType === 'GeneralPopulation') {
       generalPopulation = {
@@ -229,6 +239,21 @@ export class AggregateReportRequestMapper {
         schoolYears: query.schoolYears.sort((a, b) => b - a),
         claimCodesBySubject: this.getClaims(query.assessmentTypeCode, options.claims, query.claimCodesBySubject)
       };
+    } else if (reportType === 'Target') {
+      targetReport = {
+        assessmentGrade: or(
+          query.assessmentGradeCodes,
+          [ defaultTargetReport.assessmentGrade ]
+        )[ 0 ],
+        schoolYear: or(
+          query.schoolYear,
+          defaultTargetReport.schoolYear
+        ),
+        subjectCode: or(
+          query.subjectCode,
+          defaultTargetReport.subjectCode
+        )
+      }
     }
 
     return forkJoin(schools, districts)
@@ -267,8 +292,8 @@ export class AggregateReportRequestMapper {
             valueDisplayType: query.valueDisplayType,
             generalPopulation: generalPopulation,
             longitudinalCohort: longitudinalCohort,
-            claimReport: claimReport
-
+            claimReport: claimReport,
+            targetReport: targetReport
           };
         })
       );

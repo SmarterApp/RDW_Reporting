@@ -96,7 +96,7 @@ export interface AggregateReportFormSettings {
   /**
    * Defines the report type (standard or longitudinal)
    */
-  reportType: 'GeneralPopulation' | 'LongitudinalCohort' | 'Claim';
+  reportType: 'GeneralPopulation' | 'LongitudinalCohort' | 'Claim' | 'Target';
 
   /**
    * The advanced filters applied to basic reports
@@ -163,5 +163,26 @@ export interface AggregateReportFormSettings {
     toSchoolYear: number;
 
   };
+
+  /**
+   * Target report settings
+   */
+  targetReport: {
+
+    /**
+     * The school year for the report's assessment
+     */
+    schoolYear: number;
+
+    /**
+     * The subject code for the report's assessment
+     */
+    subjectCode: string;
+
+    /**
+     * The assessment grade for the report's assessment
+     */
+    assessmentGrade: string;
+  }
 
 }

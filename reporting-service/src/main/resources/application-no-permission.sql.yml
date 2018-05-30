@@ -128,6 +128,14 @@ sql:
         where p.asmt_id = :assessmentId AND :endDate >= start_date AND end_date >= :startDate
         ORDER BY start_date, percentile_rank
 
+    target:
+      findAllForAssessment: >-
+         SELECT t.id, t.natural_id, c.code as claim_code, at.asmt_id, at.include_in_report
+            FROM asmt_target at
+              JOIN target t ON at.target_id =  t.id
+              JOIN claim c ON c.id = t.claim_id
+            WHERE at.asmt_id = :asmt_id
+
   student:
     findOneById: >-
       select id,

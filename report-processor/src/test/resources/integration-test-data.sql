@@ -80,8 +80,8 @@ INSERT INTO percentile_score (percentile_id, percentile_rank, score, min_inclusi
 insert into claim (id, subject_id, code, name, description) values
   (-1, 1, 'c1', 'c1', 'c1');
 
-insert into target (id, claim_id, code, description) values
-  (-1, -1, 't1', 't1');
+insert into target (id, code, natural_id, claim_id, description) VALUES
+  (-1, 't1', 't1', -1, 't1');
 
 insert into math_practice (practice, description, code) values
   (-1, 'mp1', '-1');

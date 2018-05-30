@@ -37,6 +37,9 @@ const AssessmentLabelOrdering: Ordering<AggregateReportItem> = ordering(byString
 const ClaimOrdering: Ordering<AggregateReportItem> = ordering(byString)
   .on(item => item.claimCode);
 
+const TargetOrdering: Ordering<AggregateReportItem> = ordering(byString)
+  .on(item => item.targetNaturalId);
+
 /**
  * This component is responsible for displaying a table of aggregate report results
  * scoped to a single AssessmentType and Subject.
@@ -272,9 +275,11 @@ export class AggregateReportTableComponent implements OnInit {
     return this.translate.instant(this.getClaimCodeTranslationKey(row));
   }
 
-  private buildAndRender({ rows, options, assessmentDefinition, reportType }: AggregateReportTable): void {
+  getTargetDisplay(row: AggregateReportItem): string {
+    return "Fetch target display from API here";
+  }
 
-    const hasClaimCodes = reportType === 'Claim';
+  private buildAndRender({ rows, options, assessmentDefinition, reportType }: AggregateReportTable): void {
 
     // configure row sorting
     const assessmentGradeOrdering = ordering(ranking(options.assessmentGrades))
@@ -285,9 +290,10 @@ export class AggregateReportTableComponent implements OnInit {
     this._orderingByColumnField[ 'assessmentGradeCode' ] = assessmentGradeOrdering;
     this._orderingByColumnField[ 'schoolYear' ] = SchoolYearOrdering;
     this._orderingByColumnField[ 'subgroup.id' ] = subgroupOrdering(item => item.subgroup, options);
-    if (hasClaimCodes) {
-      this._orderingByColumnField[ 'claimCode' ] = ClaimOrdering;
-    }
+    this._orderingByColumnField[ 'claimCode' ] = ClaimOrdering;
+    this._orderingByColumnField[ 'targetNaturalId' ] = TargetOrdering;
+
+    // Create columns
 
     const IdentityColumns: Column[] = [
       new Column({ id: 'organization', field: 'organization.name' }),
@@ -295,10 +301,10 @@ export class AggregateReportTableComponent implements OnInit {
       new Column({ id: 'assessmentLabel' }),
       new Column({ id: 'schoolYear' }),
       new Column({ id: 'dimension', field: 'subgroup.id' }),
-      ...hasClaimCodes ? [ new Column({ id: 'claim', field: 'claimCode' }) ] : []
-    ].filter(col => col !== undefined);
+      new Column({ id: 'claim', field: 'claimCode' }),
+      new Column({ id: 'target', field: 'targetNaturalId' })
+    ];
 
-    // create columns
     const performanceLevelsByDisplayType = {
       Separate: assessmentDefinition.performanceLevels,
       Grouped: [
@@ -307,14 +313,38 @@ export class AggregateReportTableComponent implements OnInit {
       ]
     };
 
+    const dataColumns: Column[] = [];
+    switch(reportType) {
+      case 'GeneralPopulation':
+      case 'LongitudinalCohort':
+        dataColumns.push(
+          new Column({ id: 'studentsTested' }),
+          new Column({ id: 'achievementComparison', sortable: false }),
+          new Column({ id: 'avgScaleScore' }),
+          ...this.createPerformanceLevelColumns(performanceLevelsByDisplayType, assessmentDefinition)
+        );
+        break;
+      case 'Claim':
+        dataColumns.push(
+          new Column({ id: 'studentsTested' }),
+          new Column({ id: 'achievementComparison', sortable: false }),
+          ...this.createPerformanceLevelColumns(performanceLevelsByDisplayType, assessmentDefinition)
+        );
+        break;
+      case 'Target':
+        dataColumns.push(
+          new Column({ id: 'studentsTested' }),
+          new Column({ id: 'studentRelativeResidualScoresLevel' }),
+          new Column({ id: 'standardMetRelativeResidualLevel' })
+        );
+        break;
+    }
+
     this.columns = [
       ...this.identityColumns
         .map(columnId => IdentityColumns.find(column => column.id === columnId)),
-      new Column({ id: 'studentsTested' }),
-      new Column({ id: 'achievementComparison', sortable: false }),
-      ...hasClaimCodes ? [] : [ new Column({ id: 'avgScaleScore' }) ],
-      ...this.createPerformanceLevelColumns(performanceLevelsByDisplayType, assessmentDefinition)
-    ].filter(col => col !== undefined);
+      ...dataColumns
+    ];
 
     this.calculateTreeColumns();
   }

@@ -1,6 +1,6 @@
-import { Component, Input } from "@angular/core";
-import { FilterBy } from "../../model/filter-by.model";
-import { ExamFilterOptions } from "../../model/exam-filter-options.model";
+import { Component, Input } from '@angular/core';
+import { FilterBy } from '../../model/filter-by.model';
+import { ExamFilterOptions } from '../../model/exam-filter-options.model';
 import { ApplicationSettingsService } from '../../../app-settings.service';
 
 /*
@@ -20,18 +20,18 @@ export class AdvFiltersComponent {
   filterBy: FilterBy;
 
   @Input()
-  showStudentFilter: boolean = true;
+  showStudentFilter = true;
 
-  showTransferAccess: boolean = false;
-  showElas: boolean = false;
-  showLep: boolean = false;
+  showTransferAccess = false;
+  showElas = false;
+  showLep = false;
 
   constructor(private applicationSettingsService: ApplicationSettingsService) {
     applicationSettingsService.getSettings().subscribe(settings => {
       this.showTransferAccess = settings.transferAccess;
       this.showElas = settings.elasEnabled;
       this.showLep = settings.lepEnabled;
-    })
+    });
   }
 
 }

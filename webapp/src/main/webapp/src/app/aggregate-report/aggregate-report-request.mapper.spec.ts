@@ -127,6 +127,11 @@ describe('AggregateReportRequestMapper', () => {
       longitudinalCohort: {
         assessmentGrades: [],
         toSchoolYear: options.schoolYears[ 0 ]
+      },
+      targetReport: {
+        assessmentGrade: options.assessmentGrades[ 0 ],
+        subjectCode: options.subjects[ 0 ],
+        schoolYear: options.schoolYears[ 0 ]
       }
     };
 
@@ -203,6 +208,11 @@ describe('AggregateReportRequestMapper', () => {
       longitudinalCohort: {
         assessmentGrades: [],
         toSchoolYear: options.schoolYears[ 0 ]
+      },
+      targetReport: {
+        assessmentGrade: options.assessmentGrades[ 0 ],
+        subjectCode: options.subjects[ 0 ],
+        schoolYear: options.schoolYears[ 0 ]
       }
     };
 
