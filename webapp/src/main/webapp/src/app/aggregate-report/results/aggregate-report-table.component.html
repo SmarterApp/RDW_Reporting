@@ -20,11 +20,18 @@
           [hidden]="!column.visible"
           [pSortableColumn]="column.field"
           [pSortableColumnDisabled]="!column.sortable"
-          [ngSwitch]="column.id">
+          [ngSwitch]="column.id"
+          [ngClass]="{
+            'wrapping': column.id !== 'achievementComparison'
+              && column.id !== 'dimension'
+              && column.id !== 'organization'
+              && column.id !== 'claim'
+              && column.id !== 'target'
+          }">
 
         <div *ngSwitchCase="'avgScaleScore'" class="text-center">
-          <div>{{'aggregate-report-table.columns.avg-scale-score' | translate}}</div>
-          <div>{{'aggregate-report-table.columns.avg-scale-score-suffix' | translate}}</div>
+          <div class="no-wrap">{{'aggregate-report-table.columns.avg-scale-score' | translate}}</div>
+          <div class="no-wrap">{{'aggregate-report-table.columns.avg-scale-score-suffix' | translate}}</div>
         </div>
 
         <div *ngSwitchCase="'performanceLevel'"
@@ -69,7 +76,8 @@
             {{rowData.organization.name}}
           </div>
 
-          <div *ngSwitchCase="'assessmentLabel'">
+          <div *ngSwitchCase="'assessmentLabel'"
+              class="wrapping-max-width">
             {{rowData.assessmentLabel}}
           </div>
 

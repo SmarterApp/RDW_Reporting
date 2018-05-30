@@ -68,7 +68,14 @@ body .ui-table {
             }
           }
         }
-        > th {padding: (@table-cell-padding / 2) @table-cell-padding}
+        > th {
+          padding: (@table-cell-padding / 2) @table-cell-padding;
+
+          &.wrapping {
+            white-space: normal;
+            text-align: center;
+          }
+        }
         &:last-child td {
           border-bottom: 1px solid @table-border-color;
         }
