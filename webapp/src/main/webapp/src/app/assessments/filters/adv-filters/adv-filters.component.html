@@ -88,7 +88,7 @@
 
   <div *ngIf="showStudentFilter" id="filter-by-student" class="flex-child grow">
     <p class="border-bottom">{{ 'common.filters.student.label' | translate }}</p>
-    <div class="flex-children flex-cols-3">
+    <div class="flex-children flex-cols-4">
       <!-- Column 1 -->
       <div class="flex-child col1">
         <!-- Gender -->
@@ -102,6 +102,9 @@
                             label="{{ 'common.filters.student.gender' | translate }}"
                             analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-checkbox-list>
         </div>
+      </div>
+      <!-- Column 2 -->
+      <div class="flex-child col2">
         <!-- Migrant Status -->
         <div class="block-children">
           <label>
@@ -125,8 +128,8 @@
                                 analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
         </div>
       </div>
-      <!-- Column 2 -->
-      <div class="flex-child col2">
+      <!-- Column 3 -->
+      <div class="flex-child col3">
 
         <!-- Limited English Proficiency -->
         <div class="block-children" *ngIf="showLep">
@@ -164,8 +167,8 @@
                                 analyticsEvent="FilterClick" analyticsCategory="AdvancedFilters"></sb-radio-button-list>
         </div>
       </div>
-      <!-- Column 3 -->
-      <div class="flex-child col3 grow">
+      <!-- Column 4 -->
+      <div class="flex-child col4 grow">
         <!-- Race / Ethnicity -->
         <div class="block-children">
           <label>
