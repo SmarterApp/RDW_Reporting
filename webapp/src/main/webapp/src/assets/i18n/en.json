@@ -1345,6 +1345,21 @@
     "student-button-label": "Student Report",
     "title": "Student Test History Report"
   },
+  "target-report": {
+    "columns": {
+      "claim": "Claim",
+      "claim-info": "Claim TODO",
+      "target": "Target",
+      "target-info": "Target TODO",
+      "subgroup": "Subgroup",
+      "subgroup-info": "Subgroup TODO",
+      "students-tested": "Students Tested",
+      "student-relative-residual-scores-level": "Performance relative to other targets",
+      "student-relative-residual-scores-level-info": "Performance relative to other targets TODO",
+      "standard-met-relative-residual-level": "Performance relative to achievement standards",
+      "standard-met-relative-residual-level-info": "Performance relative to achievement standards TODO"
+    }
+  },
   "update-instructional-resource-modal": {
     "error": "Unable to modify instructional resource.",
     "link": "Edit",

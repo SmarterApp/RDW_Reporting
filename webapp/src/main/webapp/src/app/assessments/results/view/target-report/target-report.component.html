@@ -14,88 +14,22 @@
                let-columns>
     <tr>
       <th *ngFor="let column of columns"
-          [hidden]="(showClaimScores && column.overall) || (!showClaimScores && column.claim)"
           [pSortableColumn]="column.field"
           [ngSwitch]="column.id">
 
-        <span *ngSwitchCase="'level'"
-              info-button
-              title="{{performanceLevelHeader | translate}}"
-              content="{{performanceLevelHeaderInfo | translate}}">
-        </span>
-
-        <span *ngSwitchCase="'claim'">
-          {{('common.subject-claim-code.' + column.claim) | translate}}
-        </span>
-
         <span *ngSwitchDefault>
           <span *ngIf="!column.headerInfo">
-            {{('common.results.assessment-exam-columns.' + column.id) | translate}}
+            {{('target-report.columns.' + column.id) | translate}}
           </span>
           <span *ngIf="column.headerInfo"
                 info-button
-                title="{{('common.results.assessment-exam-columns.' + column.id) | translate}}"
-                content="{{('common.results.assessment-exam-columns.' + column.id + '-info') | translate}}">
+                title="{{('target-report.columns.' + column.id) | translate}}"
+                content="{{('target-report.columns.' + column.id + '-info') | translate}}">
           </span>
         </span>
 
         <p-sortIcon [field]="column.field"></p-sortIcon>
       </th>
-    </tr>
-  </ng-template>
-
-  <ng-template pTemplate="body"
-               let-exam
-               let-i="rowIndex"
-               let-columns="columns">
-    <tr>
-      <td *ngFor="let column of columns"
-          [ngSwitch]="column.id"
-          [hidden]="(showClaimScores && column.overall) || (!showClaimScores && column.claim)">
-
-        <div *ngSwitchCase="'name'">
-          <popup-menu [item]="exam"
-                      [actions]="actions"
-                      [text]="'common.person-name' | translate:exam.student"></popup-menu>
-        </div>
-
-        <div *ngSwitchCase="'date'">
-          {{ exam.date | date }}
-        </div>
-
-        <div *ngSwitchCase="'session'">
-          {{ exam.session }}
-        </div>
-
-        <div *ngSwitchCase="'grade'">
-          {{ 'common.enrolled-grade-label.' + exam.enrolledGrade | translate }}
-        </div>
-
-        <div *ngSwitchCase="'school'">
-          {{ exam.school.name }}
-        </div>
-
-        <div *ngSwitchCase="'status'">
-          <span *ngIf="exam.administrativeCondition !== 'Valid'" class="label border-only maroon">{{ 'common.administration-condition.' + exam.administrativeCondition | translate }}</span>
-          <span *ngIf="exam.completeness == 'Partial'" class="label border-only maroon">{{ 'common.completeness.' + exam.completeness | translate }}</span>
-        </div>
-
-        <div *ngSwitchCase="'level'">
-          <span class="pull-left">
-            {{ examLevelTranslation(exam) }}
-          </span>
-        </div>
-
-        <div *ngSwitchCase="'score'">
-          <scale-score [score]="exam.score"
-                       [standardError]="exam.standardError"></scale-score>
-        </div>
-
-        <div *ngSwitchCase="'claim'">
-          <span *ngIf="exam.claimScores[column.index].level">{{ ('common.assessment-type.iab.performance-level.' + exam.claimScores[column.index].level.toString() + '.name') | translate }}</span>
-          <span *ngIf="!exam.claimScores[column.index].level">-</span>
-        </div>
-      </td>
     </tr>
   </ng-template>
 

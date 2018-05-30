@@ -6,8 +6,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { MenuActionBuilder } from '../../../menu/menu-action.builder';
 import { Assessment } from '../../../model/assessment.model';
 import { InstructionalResourcesService } from '../../instructional-resources.service';
-import { InstructionalResource } from '../../../model/instructional-resources.model';
-import { Observable } from 'rxjs/Observable';
 import { PopupMenuAction } from '../../../../shared/menu/popup-menu-action.model';
 
 // TODO replace this stub
@@ -44,15 +42,6 @@ export class TargetReportComponent implements OnInit {
 
   columns: Column[];
   actions: PopupMenuAction[];
-  instructionalResourcesProvider: () => Observable<InstructionalResource[]>;
-
-  get performanceLevelHeader() {
-    return 'common.results.assessment-exam-columns.sum.performance';
-  }
-
-  get performanceLevelHeaderInfo() {
-    return this.performanceLevelHeader + '-info';
-  }
 
   constructor(private actionBuilder: MenuActionBuilder,
               private translate: TranslateService,
@@ -61,35 +50,16 @@ export class TargetReportComponent implements OnInit {
 
   ngOnInit() {
     this.columns = [
-      new Column({ id: 'name', field: 'student.lastName' }),
-      new Column({ id: 'date' }),
-      new Column({ id: 'session' }),
-      new Column({ id: 'grade', field: 'enrolledGrade', overall: true }),
-      new Column({ id: 'school', field: 'school.name' }),
-      new Column({ id: 'status', headerInfo: true, overall: true }),
-      new Column({ id: 'level', overall: true }),
-      new Column({ id: 'score', headerInfo: true, overall: true }),
-      ...this.getClaimColumns()
+      new Column({ id: 'claim', headerInfo: true }),
+      new Column({ id: 'target', headerInfo: true }),
+      new Column({ id: 'subgroup', headerInfo: true }),
+      new Column({ id: 'students-tested' }),
+      new Column({ id: 'student-relative-residual-scores-level', headerInfo: true }),
+      new Column({ id: 'standard-met-relative-residual-level', headerInfo: true })
     ];
     this.actions = this.createActions();
   }
 
-  loadInstructionalResources(exam: Exam) {
-    this.instructionalResourcesProvider = () => this.instructionalResourcesService.getInstructionalResources(this.assessment.id, exam.school.id)
-      .map(resources => resources.getResourcesByPerformance(exam.level));
-  }
-
-  examLevelTranslation(exam: Exam): string {
-    return this.translate.instant(exam.level ? `common.assessment-type.${this.assessment.type}.performance-level.${exam.level}.name` : 'common.missing');
-  }
-
-  private getClaimColumns(): Column[] {
-    if (!this.assessment.claimCodes) {
-      return [];
-    }
-    return this.assessment.claimCodes.map((code, index) =>
-      new Column({ id: 'claim', field: `claimScores.${index}.level`, index: index, claim: code }));
-  }
 
   private createActions(): PopupMenuAction[] {
     const builder = this.actionBuilder.newActions();
@@ -133,29 +103,14 @@ class Column {
   id: string;
   field: string;
   headerInfo: boolean;
-  overall: boolean;
-
-  //Claim properties
-  index?: number;
-  claim?: string;
 
   constructor({
                 id,
                 field = '',
                 headerInfo = false,
-                overall = false,
-                index = -1,
-                claim = ''
               }) {
     this.id = id;
     this.field = field ? field : id;
     this.headerInfo = headerInfo;
-    this.overall = overall;
-    if (index >= 0) {
-      this.index = index;
-    }
-    if (claim) {
-      this.claim = claim;
-    }
   }
 }
