@@ -88,7 +88,7 @@ export const GeneralPopulationIabKey: DefinitionKey = <DefinitionKey>{
 };
 
 export const GeneralPopulationIcaKey: DefinitionKey = <DefinitionKey>{
-  assessmentType: 'iab',
+  assessmentType: 'ica',
   reportType: 'GeneralPopulation'
 };
 
