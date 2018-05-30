@@ -222,7 +222,8 @@
       "ByItem": "Results By Item",
       "ByStudent": "Results By Student",
       "DistractorAnalysis": "Key / Distractor Analysis",
-      "WritingTraitScores": "Writing Trait Scores"
+      "WritingTraitScores": "Writing Trait Scores",
+      "TargetReport": "Target Report"
     }
   },
   "assessments": {
