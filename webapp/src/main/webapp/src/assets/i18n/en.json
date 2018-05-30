@@ -93,7 +93,10 @@
       "economic-disadvantage-info": "Indicates that a student qualifies for free or reduced lunch or meets other state criteria for economic disadvantage.",
       "comparative-subgroup-label": "Subgroups",
       "report-name-label": "Report Name",
-      "report-name-file-name-error": "The name cannot contain these special characters: <>:;,?\"*|\\/"
+      "report-name-file-name-error": "The name cannot contain these special characters: <>:;,?\"*|\\/",
+      "target": {
+        "organization-invalid-error": "Please select a school or district."
+      }
     },
     "section": {
       "claim-heading": "Claim",

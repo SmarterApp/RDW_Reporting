@@ -56,6 +56,7 @@
              class="full-cell"
              [ngClass]="{
               'pt-0': column.id === 'achievementComparison',
+              'pb-0': column.id === 'achievementComparison',
               'hidden': treeColumns[i] > columnIdx,
               'border-top': treeColumns[i] <= columnIdx && treeColumns[i] < identityColumns.length - 1
              }">
@@ -178,18 +179,20 @@
               </span>
               <span *ngSwitchCase="'Near'"
                     class="label sb-iab-yellow">
-                 {{'aggregate-report-table.target.standard.Near' | translate}}
+                {{'aggregate-report-table.target.standard.Near' | translate}}
               </span>
               <span *ngSwitchCase="'Below'"
                     class="label sb-iab-red">
-                 {{'aggregate-report-table.target.standard.Below' | translate}}
+                {{'aggregate-report-table.target.standard.Below' | translate}}
               </span>
-              <span *ngSwitchCase="'InsufficientData'"
-                    class="label gray-light">
-                 {{'aggregate-report-table.target.standard.InsufficientData' | translate}}
+              <span *ngSwitchCase="'InsufficientData'">
+                <span class="gray-light">
+                  <sb-icon class="fa-lg" icon="sbac-insufficient-data"></sb-icon>
+                </span>
+                {{'aggregate-report-table.target.standard.InsufficientData' | translate}}
               </span>
               <span *ngSwitchCase="'Excluded'">
-                 {{'aggregate-report-table.target.standard.Excluded' | translate}}
+                {{'aggregate-report-table.target.standard.Excluded' | translate}}
               </span>
             </span>
 
