@@ -24,6 +24,8 @@ export class StudentHistoryTableComponent implements OnInit {
   assessmentType: string;
 
   studentHistoryCards: StudentHistoryExamWrapper[] = [];
+
+  columns: Column[] = [];
   /**
    * Represents the cutoff year for when there is no item level response data available.
    * If there are no exams that are after this school year, then disable the ability to go there and show proper message
@@ -39,6 +41,7 @@ export class StudentHistoryTableComponent implements OnInit {
   constructor(private actionBuilder: MenuActionBuilder,
               private instructionalResourcesService: InstructionalResourcesService,
               private translateService: TranslateService) {
+    this.createColumns();
   }
 
   ngOnInit(): void {
@@ -77,8 +80,8 @@ export class StudentHistoryTableComponent implements OnInit {
     return builder.build();
   }
 
-  get columns(): Column[] {
-    return [
+  createColumns() {
+    this.columns = [
       new Column({ id: 'date', field: 'exam.date' }),
       new Column({ id: 'assessment', field: 'assessment.label' }),
       new Column({ id: 'school-year', field: 'exam.schoolYear' }),
@@ -152,8 +155,12 @@ export class StudentHistoryTableComponent implements OnInit {
     return returnExams;
   }
 
+  private hasClaimColumns(): boolean {
+    return this.exams !== undefined && this.exams.length && this.exams[ 0 ].assessment.claimCodes !== undefined;
+  }
+
   private getClaimColumns(): Column[] {
-    if (!this.exams || !this.exams.length || !this.exams[ 0 ].assessment.claimCodes) {
+    if (!this.hasClaimColumns()) {
       return [];
     }
 
