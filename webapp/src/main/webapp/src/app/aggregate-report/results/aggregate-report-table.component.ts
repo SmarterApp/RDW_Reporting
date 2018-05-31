@@ -16,6 +16,7 @@ import * as _ from 'lodash';
 import { organizationOrdering, subgroupOrdering } from '../support';
 import { TranslateService } from '@ngx-translate/core';
 import { AggregateReportService } from '../aggregate-report.service';
+import { ClaimCodeOrdering } from '../../shared/ordering/orderings';
 
 export const SupportedRowCount = 10000;
 export const DefaultRowsPerPageOptions = [ 100, 500, 1000 ];
@@ -34,8 +35,8 @@ const SchoolYearOrdering: Ordering<AggregateReportItem> = ordering(byNumber)
 const AssessmentLabelOrdering: Ordering<AggregateReportItem> = ordering(byString)
   .on(item => item.assessmentLabel);
 
-const ClaimOrdering: Ordering<AggregateReportItem> = ordering(byString)
-  .on(item => item.claimCode);
+const ClaimOrdering: Ordering<AggregateReportItem> = ClaimCodeOrdering
+  .on((item: AggregateReportItem) => item.claimCode);
 
 const TargetOrdering: Ordering<AggregateReportItem> = ordering(byString)
   .on(item => item.targetNaturalId);
@@ -136,7 +137,7 @@ export class AggregateReportTableComponent implements OnInit {
     // Latest TurboTable version (1.5.7) does not sort when row data
     // changes.  Manually trigger a sort after setting row data.
     setTimeout(() => {
-      this.sort({data: this._table.rows});
+      this.sort({ data: this._table.rows });
     });
   }
 
@@ -276,7 +277,7 @@ export class AggregateReportTableComponent implements OnInit {
   }
 
   getTargetDisplay(row: AggregateReportItem): string {
-    return "Fetch target display from API here";
+    return 'Fetch target display from API here';
   }
 
   private buildAndRender({ rows, options, assessmentDefinition, reportType }: AggregateReportTable): void {
@@ -314,7 +315,7 @@ export class AggregateReportTableComponent implements OnInit {
     };
 
     const dataColumns: Column[] = [];
-    switch(reportType) {
+    switch (reportType) {
       case 'GeneralPopulation':
       case 'LongitudinalCohort':
         dataColumns.push(

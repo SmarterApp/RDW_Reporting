@@ -5,7 +5,14 @@ import { CachingDataService } from '../shared/data/caching-data.service';
 import { OrganizationMapper } from '../shared/organization/organization.mapper';
 import { map } from 'rxjs/operators';
 import { AggregateServiceRoute } from '../shared/service-route';
-import { AssessmentTypeOrdering, BooleanOrdering, CompletenessOrdering } from '../shared/ordering/orderings';
+import {
+  AssessmentTypeOrdering,
+  BooleanOrdering,
+  ClaimCodeOrdering,
+  CompletenessOrdering,
+  SubjectOrdering
+} from '../shared/ordering/orderings';
+import { join } from '@kourge/ordering/comparator';
 
 const ServiceRoute = AggregateServiceRoute;
 const assessmentTypeComparator = AssessmentTypeOrdering.compare;
@@ -27,7 +34,9 @@ export class AggregateReportOptionsService {
       map(serverOptions => <AggregateReportOptions>{
         assessmentGrades: serverOptions.assessmentGrades.concat(),
         assessmentTypes: serverOptions.assessmentTypes.concat().sort(assessmentTypeComparator),
-        claims: this.mapClaims(serverOptions.claims.concat()).sort((a, b) => a.code.localeCompare(b.code)),
+        claims: this.mapClaims(serverOptions.claims.concat()).sort(join(
+          SubjectOrdering.on((claim: Claim) => claim.subject).compare,
+          ClaimCodeOrdering.on((claim: Claim) => claim.code).compare)),
         completenesses: serverOptions.completenesses.concat().sort(completenessComparator),
         defaultOrganization: serverOptions.defaultOrganization
           ? this.organizationMapper.map(serverOptions.defaultOrganization)
