@@ -2,8 +2,8 @@ import { OnDestroy, Pipe, PipeTransform } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { DatePipe } from "@angular/common";
 import { EmbeddedLanguage } from "./language-settings";
-import { isNullOrUndefined } from "util";
 import { Subscription } from "rxjs/Subscription";
+import { Utils } from "../support/support";
 
 /**
  * This date pipe proxies requests to the Angular DatePipe
@@ -71,7 +71,7 @@ export class TranslateDatePipe implements PipeTransform, OnDestroy {
   }
 
   private dispose(): void {
-    if (!isNullOrUndefined(this.onLangChange)) {
+    if (!Utils.isNullOrUndefined(this.onLangChange)) {
       this.onLangChange.unsubscribe();
       delete this.onLangChange;
     }

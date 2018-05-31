@@ -18,7 +18,7 @@ import { AggregateReportOptions } from './aggregate-report-options';
 import { Subgroup } from './subgroup/subgroup';
 import { Claim } from './aggregate-report-options.service';
 import { AggregateReportService } from './aggregate-report.service';
-import { isNullOrUndefined } from "util";
+import { Utils } from "../shared/support/support";
 
 const MaximumOrganizations = 3;
 
@@ -148,7 +148,7 @@ export class AggregateReportTableDataService {
                 : settings.claimReport.claimCodesBySubject;
 
               const subjectCode: string = context.settings.subjects
-                .filter((subject) => !isNullOrUndefined(claims.find((claim) => claim.subject === subject)))
+                .filter((subject) => !Utils.isNullOrUndefined(claims.find((claim) => claim.subject === subject)))
                 .find(subject => true);
 
               return claims

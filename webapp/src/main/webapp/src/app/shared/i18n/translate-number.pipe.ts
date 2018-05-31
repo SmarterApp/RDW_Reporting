@@ -2,8 +2,8 @@ import { OnDestroy, Pipe, PipeTransform } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { DecimalPipe } from "@angular/common";
 import { EmbeddedLanguage } from "./language-settings";
-import { isNullOrUndefined } from "util";
 import { Subscription } from "rxjs/Subscription";
+import { Utils } from "../support/support";
 
 /**
  * This number pipe proxies requests to the Angular DecimalPipe
@@ -43,7 +43,7 @@ export class TranslateNumberPipe implements PipeTransform, OnDestroy {
     // subscribe to onLangChange event, in case the language changes
     if (!this.onLangChange) {
       this.onLangChange = this.translate.onLangChange.subscribe(() => {
-        if (!isNullOrUndefined(this.currentNumber)) {
+        if (!Utils.isNullOrUndefined(this.currentNumber)) {
           this.updateValue(this.currentNumber, this.currentFormat);
         }
       });
@@ -71,7 +71,7 @@ export class TranslateNumberPipe implements PipeTransform, OnDestroy {
   }
 
   private dispose(): void {
-    if (!isNullOrUndefined(this.onLangChange)) {
+    if (!Utils.isNullOrUndefined(this.onLangChange)) {
       this.onLangChange.unsubscribe();
       delete this.onLangChange;
     }
