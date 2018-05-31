@@ -68,6 +68,8 @@ export class AssessmentResultsComponent implements OnInit {
   set assessmentExam(assessment: AssessmentExam) {
     this._assessmentExam = assessment;
 
+    this._assessmentExam.collapsed = this.isDefaultCollapsed;
+
     // if we aren't going to display the sessions, don't waste resources computing them
     if (this.allowFilterBySessions) {
       this.sessions = this.getDistinctExamSessions(assessment.exams);
@@ -104,6 +106,13 @@ export class AssessmentResultsComponent implements OnInit {
    */
   @Input()
   allowFilterBySessions = true;
+
+  /**
+   * If true, the results are collapsed by default, otherwise they are expanded
+   * with the results shown.
+   */
+  @Input()
+  isDefaultCollapsed = true;
 
   /**
    * Represents the cutoff year for when there is no item level response data available.

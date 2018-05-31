@@ -264,10 +264,10 @@
     "action": {
       "cancel": "Cancel",
       "close": "Close",
-      "collapse": "Collapse",
+      "collapse": "Collapse Results",
       "create": "Create",
       "delete": "Delete",
-      "expand": "Expand",
+      "expand": "Expand Results",
       "go-home": "Go Home",
       "hide": "Hide",
       "save": "Save",
