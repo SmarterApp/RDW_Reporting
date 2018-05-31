@@ -25,7 +25,7 @@ export class TranslateNumberPipe implements PipeTransform, OnDestroy {
   }
 
   public transform(value: any, format: string): any {
-    if (isNullOrUndefined(value)) {
+    if (Utils.isNullOrUndefined(value)) {
       return '';
     }
 
