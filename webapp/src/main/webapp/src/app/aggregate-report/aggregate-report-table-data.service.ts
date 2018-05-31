@@ -18,6 +18,7 @@ import { AggregateReportOptions } from './aggregate-report-options';
 import { Subgroup } from './subgroup/subgroup';
 import { Claim } from './aggregate-report-options.service';
 import { AggregateReportService } from './aggregate-report.service';
+import { isNullOrUndefined } from "util";
 
 const MaximumOrganizations = 3;
 
@@ -142,13 +143,20 @@ export class AggregateReportTableDataService {
           }, {
             getValues: (context) => {
               const assessmentTypeCode: string = context.settings.assessmentType;
-              const subjectCode: string = context.row.subjectCode;
               const claims: Claim[] = context.settings.claimReport.claimCodesBySubject.length === 0
                 ? options.claims
                 : settings.claimReport.claimCodesBySubject;
+
+              const subjectCode: string = context.settings.subjects
+                .filter((subject) => !isNullOrUndefined(claims.find((claim) => claim.subject === subject)))
+                .find(subject => true);
+
               return claims
                 .filter(claim => claim.assessmentType === assessmentTypeCode && claim.subject === subjectCode)
-                .map(claim => <any>{claimCode: claim.code});
+                .map(claim => <any>{
+                  subjectCode: subjectCode,
+                  claimCode: claim.code
+                });
             }
           });
         break;
