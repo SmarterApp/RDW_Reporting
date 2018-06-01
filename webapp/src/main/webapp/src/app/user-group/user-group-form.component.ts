@@ -69,8 +69,9 @@ export class UserGroupFormComponent implements OnInit {
     this.setStudentControl(this.group.students);
   }
 
-  removeAllStudents(): void {
-    this.setStudentControl([]);
+  removeAllStudentsButtonClick(): void {
+    this.group.students = [];
+    this.setStudentControl(this.group.students);
   }
 
   private setStudentControl(students: Student[]): void {

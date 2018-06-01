@@ -15,8 +15,8 @@
            required
            minlength="1"
            maxlength="255">
-      <p *ngIf="showErrors(nameControl)"
-         class="help-block small red">{{'user-group-form.field.name.required-error' | translate}}</p>
+    <p *ngIf="showErrors(nameControl)"
+       class="help-block small red">{{'user-group-form.field.name.required-error' | translate}}</p>
   </div>
   <div class="form-group">
     <label for="subjects">{{'user-group-form.field.subjects.label' | translate}}</label>
@@ -30,19 +30,19 @@
   </div>
   <div class="form-group"
        [ngClass]="{'has-error': showErrors(studentsControl)}">
-       <div class="flex-children">
-           <div class="flex-child grow pb-sm">
-               <label>{{'user-group-form.field.students.label' | translate}}</label>
-           </div>
-           <div *ngIf="group.students.length" class="flex-child">
-               <button type="submit"
-                   class="btn btn-danger btn-sm"
-                   (click)="removeAllStudents()">
-                   <i class="fa fa-minus"></i>
-                   {{'user-group-form.field.students.remove-all-button' | translate}}
-               </button>
-           </div>
-       </div>
+    <div class="flex-children">
+      <div class="flex-child grow">
+        <label>{{'user-group-form.field.students.label' | translate}}</label>
+      </div>
+      <div class="mb-sm">
+        <div *ngIf="group.students.length" class="flex-child">
+          <a class="small"
+             (click)="removeAllStudentsButtonClick()">
+            <i class="fa fa-close mr-xs"></i> {{'user-group-form.field.students.remove-all-button' | translate}}
+          </a>
+        </div>
+      </div>
+    </div>
 
     <ng-container *ngIf="showErrors(studentsControl); else hideStudentsErrors">
       <p class="help-block small red">{{'user-group-form.field.students.required-error' | translate}}</p>
