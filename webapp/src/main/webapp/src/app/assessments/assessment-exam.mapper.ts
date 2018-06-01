@@ -56,13 +56,13 @@ export class AssessmentExamMapper {
 
   mapTargetsFromApi(serverTargets: any): Target[] {
     return serverTargets.map((serverTarget: any) => {
-      const target = new Target();
-      target.id = serverTarget.id;
-      target.assessmentId = serverTarget.assessmentId;
-      target.claimCode = serverTarget.claimCode;
-      target.naturalId = serverTarget.naturalId;
-      target.includeInReport = serverTarget.includeInReport;
-      return target;
+      return <Target>{
+        id: serverTarget.id,
+        assessmentId: serverTarget.assessmentId,
+        claimCode: serverTarget.claimCode,
+        naturalId: serverTarget.naturalId,
+        includeInReport: serverTarget.includeInReport,
+      };
     });
   }
 

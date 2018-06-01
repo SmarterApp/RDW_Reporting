@@ -1,7 +1,7 @@
-export class Target {
-  id: number;
-  assessmentId: number;
-  claimCode: string;
-  naturalId: string;
-  includeInReport: boolean;
+export interface Target {
+  readonly id: number;
+  readonly assessmentId: number;
+  readonly claimCode: string;
+  readonly naturalId: string;
+  readonly includeInReport: boolean;
 }
