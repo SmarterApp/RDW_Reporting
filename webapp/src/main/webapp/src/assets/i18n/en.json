@@ -1412,7 +1412,7 @@
       "students": {
         "label": "Students",
         "none-selected": "None selected",
-          "remove-all-button": "Remove All Students",
+        "remove-all-button": "Remove All Students",
         "required-error": "Please select one or more students for your group."
       }
     }
