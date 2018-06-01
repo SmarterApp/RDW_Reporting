@@ -195,8 +195,17 @@ export class UserGroupComponent implements OnInit, OnDestroy {
   }
 
   onFormStudentClick(student: Student): void {
+    this.addStudents(student);
+  }
+
+  addAllStudents() {
+    this.addStudents(...this.filteredStudents);
+  }
+
+  private addStudents(...student: Student[]) {
+    const studentsToAdd = student.filter(aStudent => !this.group.students.includes(aStudent));
     this.group.students = this.group.students
-      .concat(student)
+      .concat(studentsToAdd)
       .sort(StudentComparator);
 
     // Hacky fix to allow angular forms to process validity checks before we update based on that validity
@@ -204,7 +213,6 @@ export class UserGroupComponent implements OnInit, OnDestroy {
       this.updateFormStudents();
       this.updateSaveButtonDisabled();
     }, 0);
-
   }
 
   onShowAdvancedFiltersChange(value: boolean): void {

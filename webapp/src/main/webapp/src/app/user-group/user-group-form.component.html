@@ -24,7 +24,19 @@
 
   </div>
   <div class="form-group">
-    <label>{{'user-group-form.field.students.label' | translate}}</label>
+    <div class="flex-children">
+      <div class="flex-child grow pb-sm">
+        <label>{{'user-group-form.field.students.label' | translate}}</label>
+      </div>
+      <div *ngIf="group.students.length" class="flex-child">
+        <button type="submit"
+                class="btn btn-danger btn-sm"
+                (click)="removeAllStudents()">
+          <i class="fa fa-minus"></i>
+          {{'user-group-form.field.students.remove-all-button' | translate}}
+        </button>
+      </div>
+    </div>
     <input type="hidden"
            name="students"
            formControlName="students"

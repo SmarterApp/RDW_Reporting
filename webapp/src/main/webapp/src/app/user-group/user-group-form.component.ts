@@ -61,10 +61,18 @@ export class UserGroupFormComponent implements OnInit {
     this.group.students = this.group.students
       .filter(x => x.id !== student.id);
 
-    // Hacky intervention to get angular form validation to kick in
-    this.studentsControl.setValue(this.group.students);
+    this.setStudentControl(this.group.students);
+  }
 
-    this.studentsChange.emit(this.group.students);
+  removeAllStudents(): void {
+    this.setStudentControl([]);
+  }
+
+  private setStudentControl(students: Student[]): void {
+    // Hacky intervention to get angular form validation to kick in
+    this.studentsControl.setValue(students);
+
+    this.studentsChange.emit(students);
   }
 
 }
