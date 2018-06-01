@@ -510,16 +510,16 @@ describe('Exam Calculator', () => {
     expect(actual.length).toBe(3);
 
     expect(actual[ 0 ].targetId).toBe(1);
-    expect(actual[ 0 ].standardMetRelativeLevel).toBe(3); // TBD
-    expect(actual[ 0 ].studentRelativeLevel).toBe(0); // TBD
+    expect(actual[ 0 ].standardMetRelativeLevel).toBe(3);
+    expect(actual[ 0 ].studentRelativeLevel).toBe(0);
 
     expect(actual[ 1 ].targetId).toBe(2);
-    expect(actual[ 1 ].standardMetRelativeLevel).toBe(3); // TBD
-    expect(actual[ 1 ].studentRelativeLevel).toBe(3); // TBD
+    expect(actual[ 1 ].standardMetRelativeLevel).toBe(3);
+    expect(actual[ 1 ].studentRelativeLevel).toBe(3);
 
     expect(actual[ 2 ].targetId).toBe(3);
-    expect(actual[ 2 ].standardMetRelativeLevel).toBe(3); // TBD
-    expect(actual[ 2 ].studentRelativeLevel).toBe(3); // TBD
+    expect(actual[ 2 ].standardMetRelativeLevel).toBe(3);
+    expect(actual[ 2 ].studentRelativeLevel).toBe(3);
   });
 
   it('should map aggregaste target deltas to levels', () => {
