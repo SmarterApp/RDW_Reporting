@@ -237,7 +237,7 @@ export class AggregateReportRequestMapper {
       claimReport = {
         assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
         schoolYears: query.schoolYears.sort((a, b) => b - a),
-        claimCodesBySubject: this.getClaims(query.assessmentTypeCode, options.claims, query.claimCodesBySubject)
+        claimCodesBySubject: sort(this.getClaims(query.assessmentTypeCode, options.claims, query.claimCodesBySubject), options.claims)
       };
     } else if (reportType === 'Target') {
       targetReport = {
