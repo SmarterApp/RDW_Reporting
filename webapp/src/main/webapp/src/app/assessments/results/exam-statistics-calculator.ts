@@ -40,14 +40,16 @@ export class ExamStatisticsCalculator {
   }
 
   calculateStandardError(scores: number[]): number {
-    if (scores.length == 0) {
+    let scored = scores.filter(x => x != null);
+
+    if (scored.length == 0) {
       return 0;
     }
 
-    let avg = this.calculateAverage(scores);
+    let avg = this.calculateAverage(scored);
 
     return math.sqrt(
-      scores.reduce((x, y) => x + ((y - avg)*(y - avg)), 0) / (scores.length * (scores.length - 1))
+      scored.reduce((x, y) => x + ((y - avg)*(y - avg)), 0) / (scored.length * (scored.length - 1))
     );
   }
 
