@@ -1,5 +1,4 @@
-<p-table *ngIf="initialized"
-         [columns]="columns"
+<p-table [columns]="columns"
          [value]="groups"
          [autoLayout]="true"
          sortField="name"
@@ -13,12 +12,11 @@
           [pSortableColumn]="column.field"
           [ngSwitch]="column.id">
 
-        <ng-container *ngSwitchCase="'action'"></ng-container>
+        <div *ngSwitchDefault>
+          {{ ('groups.columns.' + column.id) | translate }}
+        </div>
 
-        <ng-container *ngSwitchDefault>
-          {{('groups.columns.' + column.id) | translate}}
-          <p-sortIcon [field]="column.field"></p-sortIcon>
-        </ng-container>
+        <p-sortIcon [field]="column.field"></p-sortIcon>
       </th>
     </tr>
   </ng-template>
@@ -28,27 +26,22 @@
                let-columns="columns">
     <tr>
       <td *ngFor="let column of columns"
-          [ngSwitch]="column.id"
-          [ngClass]="{'text-right': column.id === 'action'}">
+          [ngSwitch]="column.id">
 
         <div *ngSwitchCase="'group'"
              class="label-max-width">
-          <a routerLink="/exams?teacherGroup={{group.id}}"
+          <a routerLink="/groups/{{group.id}}"
              title="{{group.name}}">
             {{group.name}}
           </a>
         </div>
 
-        <ng-container *ngSwitchCase="'subject'">
-          <ng-container *ngFor="let subject of (group.subjects || subjects); let last = last">
-            {{'common.subject.' + subject + '.name' | translate}}{{last ? '' : ', '}}
-          </ng-container>
+        <ng-container *ngSwitchCase="'school'">
+          {{group.schoolName}}
         </ng-container>
 
-        <ng-container *ngSwitchCase="'action'">
-          <a routerLink="userGroups/{{group.id}}">
-            <i class="fa fa-pencil"></i> {{'user-group-table.edit' | translate}}
-          </a>
+        <ng-container *ngSwitchCase="'subject'">
+          {{'common.subject.' + group.subjectCode + '.name' | translate }}
         </ng-container>
       </td>
     </tr>

@@ -4,23 +4,21 @@
   </ng-template>
   <ng-template #content>
     <ul class="list-unstyled list-inline">
-      <li>
-        <a *hasPermission="'CUSTOM_AGGREGATE_READ'"
-           routerLink="/aggregate-reports"
+      <li *hasPermission="'CUSTOM_AGGREGATE_READ'">
+        <a routerLink="/aggregate-reports"
            class="btn btn-xs btn-default">
           {{'aggregate-report-form.heading.default' | translate}}
         </a>
       </li>
-      <li>
-        <a *hasPermission="'INDIVIDUAL_PII_READ'"
-           routerLink="/custom-export"
+      <li *hasPermission="'INDIVIDUAL_PII_READ'">
+        <a routerLink="/custom-export"
            class="btn btn-xs btn-default">
           <i class="fa fa-bold fa-table"></i>
           {{'organization-export.title' | translate}}
         </a>
       </li>
-      <li>
-        <admin-dropdown *hasAnyPermission="['GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE']"></admin-dropdown>
+      <li *hasAnyPermission="['GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE']">
+        <admin-dropdown></admin-dropdown>
       </li>
     </ul>
   </ng-template>
@@ -31,25 +29,19 @@
   <!-- Left Column Content Area -->
   <div class="col-md-9">
 
-    <!-- Student ID Search -->
-    <div *hasPermission="'GROUP_PII_READ'" class="student-id-search-container well">
+    <div *hasPermission="'GROUP_PII_READ'"
+         class="well">
       <student-search></student-search>
     </div>
 
-    <!-- School & Grade Search -->
-    <div *hasPermission="'INDIVIDUAL_PII_READ'" class="school-and-grade-search-container well">
+    <div *hasPermission="'INDIVIDUAL_PII_READ'"
+         class="well">
       <school-grade></school-grade>
     </div>
 
-    <!-- My Groups Search -->
-    <div *hasPermission="'GROUP_PII_READ'" class="my-groups-search-container well">
-      <groups></groups>
-    </div>
-
-    <!-- My User Groups Search -->
-    <div *hasAnyPermission="['INDIVIDUAL_PII_READ', 'GROUP_PII_READ']" class="well">
-      <user-groups></user-groups>
-    </div>
+    <ng-container *hasPermission="'GROUP_PII_READ'">
+      <group-tabs></group-tabs>
+    </ng-container>
 
   </div>
 

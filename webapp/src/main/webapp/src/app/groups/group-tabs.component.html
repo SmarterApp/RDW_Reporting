@@ -1,0 +1,21 @@
+<tabset *ngIf="initialized">
+  <tab>
+    <ng-template tabHeading>
+      {{'home.groups-well.assigned-groups-heading' | translate}}
+      <span class="badge ml-xs">{{groups.length}}</span>
+    </ng-template>
+    <div class="well">
+      <groups [groups]="groups"></groups>
+    </div>
+  </tab>
+  <tab *ngIf="userGroups"
+       [active]="userGroups.length">
+    <ng-template tabHeading>
+      {{'home.groups-well.created-groups-heading' | translate}}
+      <span class="badge ml-xs">{{userGroups.length}}</span>
+    </ng-template>
+    <div class="well">
+      <user-groups [groups]="userGroups"></user-groups>
+    </div>
+  </tab>
+</tabset>

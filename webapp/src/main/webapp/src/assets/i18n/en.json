@@ -1077,7 +1077,7 @@
     "filter": "Search by Group Name",
     "name": "My Groups",
     "no-groups-message": "Contact your building administrator for access to group-level test results.",
-    "search-label": "Search by My Groups",
+    "search-label": "Search by Group",
     "view-dashboard": "View IAB Dashboard"
   },
   "home": {
@@ -1087,6 +1087,10 @@
       "interpretive-guide-subtitle": "Interim Assessments",
       "title": "Welcome!",
       "user-guide-html": "<a href=\"{{userGuideUrl}}\" target=\"_blank\">The User Guide</a> describes features of the Smarter Balanced Reporting System and instructions for using each feature."
+    },
+    "groups-well": {
+      "assigned-groups-heading": "Assigned Groups",
+      "created-groups-heading": "My Groups"
     }
   },
   "html": {
@@ -1314,7 +1318,7 @@
   "school-grade": {
     "grade": "Grade",
     "no-grades-available": "No test results are available for the selected school.",
-    "school-name-label": "Search by School Name"
+    "school-name-label": "Search by School"
   },
   "school-results": {
     "current-grade-select-label": "Assessment Grade",
@@ -1333,7 +1337,7 @@
   "student": {
     "no-results-message": "Student does not exist or has no available test results.",
     "prompt": "Enter the Statewide Student Identifier (SSID)",
-    "title": "Search by Student ID"
+    "title": "Search by Student"
   },
   "student-assessment-card": {
     "results": "{{resultCount}} results"
@@ -1399,20 +1403,24 @@
   "user-group-form": {
     "field": {
       "name": {
-        "label": "Group Name"
+        "label": "Group Name",
+        "required-error": "Please enter a name for your group."
       },
       "subjects": {
         "label": "Subjects"
       },
       "students": {
         "label": "Students",
-        "remove-all-button": "Remove All Students",
-        "empty-error": "None selected"
+        "none-selected": "None selected",
+          "remove-all-button": "Remove All Students",
+        "required-error": "Please select one or more students for your group."
       }
     }
   },
   "user-groups": {
-    "heading": "Search by My Created Groups"
+    "heading": "Search by Group",
+    "create-group-prompt": "Click the create button to create your own group.",
+    "no-results": "No results"
   },
   "user-group-table": {
     "edit": "Edit"

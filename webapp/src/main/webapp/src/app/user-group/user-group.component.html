@@ -62,41 +62,33 @@
         </div>
 
         <div class="well gray-lightest">
+            <div class="flex-children">
+                <div class="flex-child grow">
+          <label>{{'user-group.student-search.results-label' | translate}}</label>
 
-          <div class="flex-children">
-            <div class="flex-child grow">
-              <label>{{'user-group.student-search.results-label' | translate}}</label>
+          <i class="fa fa-spinner fa-pulse fa-fw" *ngIf="loadingStudents"></i>
 
-              <p class="small">
-
-                <ng-container *ngIf="loadingStudents; else studentsLoaded">
-                  <i class="fa fa-spinner fa-pulse fa-fw"></i>
-                </ng-container>
-                <ng-template #studentsLoaded>
-
-                  <ng-container *ngIf="filteredStudents.length; else noResults">
-                    {{'user-group.student-search.add-student-prompt' | translate}}
-                  </ng-container>
-                  <ng-template #noResults>
-                    {{'user-group.student-search.no-results' | translate}}
-                  </ng-template>
-
-                </ng-template>
-              </p>
-            </div>
-            <div *ngIf="filteredStudents.length" class="flex-child">
-            <button type="submit"
-                    class="btn btn-primary btn-sm"
-                    (click)="addAllStudents()">
-              <i class="fa fa-plus"></i>
-              {{'user-group.student-search.add-all-button' | translate}}
-            </button>
-            </div>
+          <ng-container *ngIf="filteredStudents.length; else noResults">
+            <p class="small">{{'user-group.student-search.add-student-prompt' | translate}}</p>
+          </ng-container>
+          <ng-template #noResults>
+            <p class="small">{{'user-group.student-search.no-results' | translate}}</p>
+          </ng-template>
           </div>
+                <div *ngIf="filteredStudents.length" class="flex-child">
+                    <button type="submit"
+                        class="btn btn-primary btn-sm"
+                        (click)="addAllStudents()">
+                        <i class="fa fa-plus"></i>
+                        {{'user-group.student-search.add-all-button' | translate}}
+                    </button>
+                </div>
+</div>
 
           <actionable-list-group [items]="filteredStudents"
-          [itemTemplate]="studentFormStudentTemplate"
-          (itemClick)="onFormStudentClick($event)"></actionable-list-group>
+                                 [itemTemplate]="studentFormStudentTemplate"
+                                 (itemClick)="onFormStudentClick($event)"
+                                 [disabled]="loadingStudents"></actionable-list-group>
         </div>
       </div>
     </div>

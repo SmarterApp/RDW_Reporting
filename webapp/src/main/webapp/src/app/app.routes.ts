@@ -9,7 +9,7 @@ import { StudentResultsComponent } from './student/results/student-results.compo
 import { StudentExamHistoryResolve } from './student/results/student-exam-history.resolve';
 import { StudentResponsesResolve } from './student/responses/student-responses.resolve';
 import { StudentResponsesComponent } from './student/responses/student-responses.component';
-import { TranslateResolve } from './home/translate.resolve';
+import { TranslateResolve } from './translate.resolve';
 import { StudentHistoryResponsesExamResolve } from './student/responses/student-history-responses-exam.resolve';
 import { StudentHistoryResponsesAssessmentResolve } from './student/responses/student-history-responses-assessment.resolve';
 import { StudentHistoryResponsesStudentResolve } from './student/responses/student-history-responses-student.resolve';
