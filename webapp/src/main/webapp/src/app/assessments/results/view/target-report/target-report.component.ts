@@ -5,13 +5,13 @@ import { ReportOptions } from '../../../../report/report-options.model';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuActionBuilder } from '../../../menu/menu-action.builder';
 import { Assessment } from '../../../model/assessment.model';
-import { InstructionalResourcesService } from '../../instructional-resources.service';
 import { PopupMenuAction } from '../../../../shared/menu/popup-menu-action.model';
 import { TargetScoreExam } from '../../../model/target-score-exam.model';
 import { AggregateTargetScoreRow, TargetReportingLevel } from '../../../model/aggregate-target-score-row.model';
 import { AggregateReportItem } from '../../../../aggregate-report/results/aggregate-report-item';
 import { ExamFilterService } from '../../../filters/exam-filters/exam-filter.service';
 import { FilterBy } from '../../../model/filter-by.model';
+import { GroupAssessmentService } from '../../../../groups/results/group-assessment.service';
 
 // TODO replace this stub
 
@@ -39,7 +39,7 @@ export class TargetReportComponent implements OnInit {
   constructor(private examFilterService: ExamFilterService,
               private actionBuilder: MenuActionBuilder,
               private translate: TranslateService,
-              private instructionalResourcesService: InstructionalResourcesService) {
+              private assessmentProvider: GroupAssessmentService) {
   }
 
   ngOnInit() {

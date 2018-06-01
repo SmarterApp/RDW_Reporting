@@ -6,9 +6,12 @@ import { TestModule } from '../../../../../test/test.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Assessment } from '../../../model/assessment.model';
-import { InstructionalResourcesService } from '../../instructional-resources.service';
 import { CachingDataService } from '../../../../shared/data/caching-data.service';
 import { TargetReportComponent } from './target-report.component';
+import { GroupAssessmentService } from '../../../../groups/results/group-assessment.service';
+import { ExamFilterOptionsService } from '../../../filters/exam-filters/exam-filter-options.service';
+import { ExamFilterOptionsMapper } from '../../../filters/exam-filters/exam-filter-options.mapper';
+import { AssessmentExamMapper } from '../../../assessment-exam.mapper';
 
 describe('TargetReportComponent', () => {
   let component: TargetReportComponent;
@@ -27,7 +30,10 @@ describe('TargetReportComponent', () => {
       ],
       providers: [
         MenuActionBuilder,
-        InstructionalResourcesService,
+        GroupAssessmentService,
+        ExamFilterOptionsService,
+        ExamFilterOptionsMapper,
+        AssessmentExamMapper,
         CachingDataService
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
