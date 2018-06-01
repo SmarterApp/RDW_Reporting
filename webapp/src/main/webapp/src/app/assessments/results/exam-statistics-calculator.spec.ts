@@ -2,8 +2,8 @@ import { ExamStatisticsCalculator } from './exam-statistics-calculator';
 import { Exam } from '../model/exam.model';
 import { AssessmentItem } from '../model/assessment-item.model';
 import { ExamItemScore } from '../model/exam-item-score.model';
-import { ClaimScore, ClaimStatistics } from '../model/claim-score.model';
-import { ExamStatisticsLevel } from '../model/exam-statistics.model';
+import { ClaimStatistics } from '../model/claim-score.model';
+import { TargetScoreExam } from '../model/target-score-exam.model';
 
 describe('Exam Calculator', () => {
 
@@ -20,71 +20,50 @@ describe('Exam Calculator', () => {
   });
 
   it('should calculate the average', () => {
-    let exams = [ 2580, 2551, 2850, 2985, 2650, 2651 ].map(x => {
-      let exam = new Exam();
-      exam.score = x;
-      return exam;
-    });
+    let scores = [ 2580, 2551, 2850, 2985, 2650, 2651 ];
 
     let fixture = new ExamStatisticsCalculator();
-    let actual = fixture.calculateAverage(exams);
+    let actual = fixture.calculateAverage(scores);
     expect(actual).toBe(16267 / 6);
   });
 
   it('should calculate the average when there is only one score.', () => {
-    let exams = [ 2393 ].map(x => {
-      let exam = new Exam();
-      exam.score = x;
-      return exam;
-    });
+    let scores = [ 2393 ];
 
     let fixture = new ExamStatisticsCalculator();
-    let actual = fixture.calculateAverage(exams);
+    let actual = fixture.calculateAverage(scores);
     expect(actual).toBe(2393);
   });
 
   it('should calculate the average when there are unscored exams.', () => {
-    let exams = [ 2580, 2551, 2850, 2985, 2650, 2651 ].map(x => {
-      let exam = new Exam();
-      exam.score = x;
-      return exam;
-    });
-
+    let scores = [ 2580, 2551, 2850, 2985, 2650, 2651 ];
 
     let fixture = new ExamStatisticsCalculator();
-    let expected = fixture.calculateAverage(exams);
+    let expected = fixture.calculateAverage(scores);
 
-    exams.push(null);
-    let actual = fixture.calculateAverage(exams);
+    scores.push(null);
+    let actual = fixture.calculateAverage(scores);
     expect(actual).toBe(expected);
   });
 
   it('should calculate the average when there no scored exams.', () => {
-    let exams: Exam[] = [];
-
     let fixture = new ExamStatisticsCalculator();
-    let actual = fixture.calculateAverage(exams);
+    let actual = fixture.calculateAverage([]);
     expect(actual).toBeNaN();
   });
 
   it('should calculate the average standard error when there no scored exams.', () => {
-    let exams: Exam[] = [];
-
     let fixture = new ExamStatisticsCalculator();
-    let actual = fixture.calculateStandardErrorOfTheMean(exams);
+    let actual = fixture.calculateStandardErrorOfTheMean([]);
     expect(actual).toBe(0);
   });
 
   it('should calculate the average standard error of the mean correctly', () => {
-    let exams = [ 2, 4, 6 ].map(x => {
-      let exam = new Exam();
-      exam.score = x;
-      return exam;
-    });
+    let scores = [ 2, 4, 6 ];
 
     let fixture = new ExamStatisticsCalculator();
-    let actual = fixture.calculateStandardErrorOfTheMean(exams);
-    expect(actual).toBe(2 / Math.sqrt(exams.length));
+    let actual = fixture.calculateStandardErrorOfTheMean(scores);
+    expect(actual).toBe(2 / Math.sqrt(scores.length));
   });
 
   it('should add one level for the number of specified levels', () => {
@@ -513,5 +492,42 @@ describe('Exam Calculator', () => {
     expect(fixture.getDataWidths([ 33.49, 32.49, 34.18 ])).toEqual([ 34, 32, 34 ]);
     expect(fixture.getDataWidths([ 40.5, 59.5, 0.0 ])).toEqual([ 40, 60, 0 ]);
     expect(fixture.getDataWidths([ 20.55, 30.2, 25.75, 24.5 ])).toEqual([ 20, 30, 26, 24 ]);
+  });
+
+  it ('should aggregate target scores', () => {
+    let exams: TargetScoreExam[] = [
+      <TargetScoreExam>{id: 1, targetId: 1, standardMetRelativeResidualScore: 0.15, studentRelativeResidualScore: 0.9},
+      <TargetScoreExam>{id: 1, targetId: 2, standardMetRelativeResidualScore: 0.2, studentRelativeResidualScore: 0.15},
+      <TargetScoreExam>{id: 1, targetId: 3, standardMetRelativeResidualScore: 0.1, studentRelativeResidualScore: 0.4},
+      <TargetScoreExam>{id: 2, targetId: 1, standardMetRelativeResidualScore: 0.4, studentRelativeResidualScore: 0.2},
+      <TargetScoreExam>{id: 2, targetId: 2, standardMetRelativeResidualScore: 0.6, studentRelativeResidualScore: 0.3},
+      <TargetScoreExam>{id: 2, targetId: 3, standardMetRelativeResidualScore: 0.5, studentRelativeResidualScore: 0.2}
+    ];
+
+    let fixture = new ExamStatisticsCalculator();
+    let actual = fixture.aggregateTargetScores(exams);
+
+    expect(actual.length).toBe(3);
+
+    expect(actual[ 0 ].targetId).toBe(1);
+    expect(actual[ 0 ].standardMetRelativeLevel).toBe(3); // TBD
+    expect(actual[ 0 ].studentRelativeLevel).toBe(0); // TBD
+
+    expect(actual[ 1 ].targetId).toBe(2);
+    expect(actual[ 1 ].standardMetRelativeLevel).toBe(3); // TBD
+    expect(actual[ 1 ].studentRelativeLevel).toBe(3); // TBD
+
+    expect(actual[ 2 ].targetId).toBe(3);
+    expect(actual[ 2 ].standardMetRelativeLevel).toBe(3); // TBD
+    expect(actual[ 2 ].studentRelativeLevel).toBe(3); // TBD
+  });
+
+  it('should map aggregaste target deltas to levels', () => {
+    let fixture = new ExamStatisticsCalculator();
+
+    expect(fixture.mapTargetScoreDeltaToReportingLevel(2, 1)).toBe(0);
+    expect(fixture.mapTargetScoreDeltaToReportingLevel(0.2, 0.1)).toBe(3);
+    expect(fixture.mapTargetScoreDeltaToReportingLevel(-0.2, 0.1)).toBe(1);
+    expect(fixture.mapTargetScoreDeltaToReportingLevel(0.05, 0.1)).toBe(2);
   });
 });

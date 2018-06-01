@@ -394,9 +394,11 @@ export class AssessmentResultsComponent implements OnInit {
   private calculateStats(): ExamStatistics {
     const stats = new ExamStatistics();
 
+    let scores = this.examCalculator.getOnlyScoredExams(this.exams).map(x => x.score);
+
     stats.total = this.exams.length;
-    stats.average = this.examCalculator.calculateAverage(this.exams);
-    stats.standardError = this.examCalculator.calculateStandardErrorOfTheMean(this.exams);
+    stats.average = this.examCalculator.calculateAverage(scores);
+    stats.standardError = this.examCalculator.calculateStandardErrorOfTheMean(scores);
 
     // TODO: determine a different way for configurable subjects
     stats.levels = this.examCalculator.groupLevels(this.exams, this.assessmentExam.assessment.isIab ? 3 : 4);
