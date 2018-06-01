@@ -1387,7 +1387,7 @@
     "edit-heading": "Editing: {{name}}",
     "default-name": "My Group",
     "student-search": {
-      "add-all-button": "Add All Students",
+      "add-all": "Add All Students",
       "results-label": "Students",
       "find-students-prompt": "Search for students to add to your group.",
       "add-student-prompt": "Add students to your group by clicking on their name.",
@@ -1412,7 +1412,7 @@
       "students": {
         "label": "Students",
         "none-selected": "None selected",
-        "remove-all-button": "Remove All Students",
+        "remove-all": "Remove All Students",
         "required-error": "Please select one or more students for your group."
       }
     }

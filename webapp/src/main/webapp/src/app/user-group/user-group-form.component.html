@@ -33,12 +33,16 @@
     <div class="flex-children">
       <div class="flex-child grow">
         <label>{{'user-group-form.field.students.label' | translate}}</label>
+        <input type="hidden"
+               name="students"
+               formControlName="students"
+               [(ngModel)]="group.students">
       </div>
       <div class="mb-sm">
         <div *ngIf="group.students.length" class="flex-child">
           <a class="small link-button"
              (click)="removeAllStudentsButtonClick()">
-            <i class="fa fa-close mr-xs"></i> {{'user-group-form.field.students.remove-all-button' | translate}}
+            <i class="fa fa-close mr-xs"></i> {{'user-group-form.field.students.remove-all' | translate}}
           </a>
         </div>
       </div>
