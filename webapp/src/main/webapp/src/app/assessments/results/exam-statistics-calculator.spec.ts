@@ -495,6 +495,11 @@ describe('Exam Calculator', () => {
     expect(fixture.getDataWidths([ 20.55, 30.2, 25.75, 24.5 ])).toEqual([ 20, 30, 26, 24 ]);
   });
 
+  it('should handle null for aggregate target calculation', () => {
+    let fixture = new ExamStatisticsCalculator();
+    expect(fixture.aggregateTargetScores(null)).toEqual([]);
+  })
+
   it ('should aggregate target scores', () => {
     let exams: TargetScoreExam[] = [
       <TargetScoreExam>{id: 1, targetId: 1, standardMetRelativeResidualScore: 0.15, studentRelativeResidualScore: 0.9},
@@ -511,14 +516,17 @@ describe('Exam Calculator', () => {
     expect(actual.length).toBe(3);
 
     expect(actual[ 0 ].targetId).toBe(1);
+    expect(actual[ 0 ].studentsTested).toBe(2);
     expect(actual[ 0 ].standardMetRelativeLevel).toBe(TargetReportingLevel.Above);
     expect(actual[ 0 ].studentRelativeLevel).toBe(TargetReportingLevel.InsufficientData);
 
     expect(actual[ 1 ].targetId).toBe(2);
+    expect(actual[ 1 ].studentsTested).toBe(2);
     expect(actual[ 1 ].standardMetRelativeLevel).toBe(TargetReportingLevel.Above);
     expect(actual[ 1 ].studentRelativeLevel).toBe(TargetReportingLevel.Above);
 
     expect(actual[ 2 ].targetId).toBe(3);
+    expect(actual[ 2 ].studentsTested).toBe(2);
     expect(actual[ 2 ].standardMetRelativeLevel).toBe(TargetReportingLevel.Above);
     expect(actual[ 2 ].studentRelativeLevel).toBe(TargetReportingLevel.Above);
   });

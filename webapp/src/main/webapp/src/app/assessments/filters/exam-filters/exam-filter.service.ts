@@ -1,8 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ExamFilter } from "../../model/exam-filter.model";
-import { AssessmentExam } from "../../model/assessment-exam.model";
 import { FilterBy } from "../../model/filter-by.model";
-import { Exam, ExamInterface } from "../../model/exam.model";
+import { Exam } from "../../model/exam.model";
 import { Assessment } from "../../model/assessment.model";
 import { Utils } from "../../../shared/support/support";
 

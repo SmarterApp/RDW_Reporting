@@ -174,7 +174,7 @@
         "Below": "Worse",
         "Excluded": "Excluded",
         "InsufficientData": "Insufficient Data",
-        "Near": "Similar to Overall"
+        "Near": "Similar"
       },
       "standard": {
         "Above": "Above",
@@ -1367,10 +1367,10 @@
       "subgroup": "Subgroup",
       "subgroup-info": "Subgroup TODO",
       "students-tested": "Students Tested",
-      "student-relative-residual-scores-level": "Performance relative to other targets",
-      "student-relative-residual-scores-level-info": "Performance relative to other targets TODO",
-      "standard-met-relative-residual-level": "Performance relative to achievement standards",
-      "standard-met-relative-residual-level-info": "Performance relative to achievement standards TODO"
+      "student-relative-residual-scores-level": "Performance relative to test",
+      "student-relative-residual-scores-level-info": "Performance relative to test TODO",
+      "standard-met-relative-residual-level": "Performance relative to the standard",
+      "standard-met-relative-residual-level-info": "Performance relative to the standard TODO"
     }
   },
   "update-instructional-resource-modal": {

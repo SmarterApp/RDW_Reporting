@@ -6,7 +6,7 @@
 
 <!-- Student Results Table -->
 <p-table [columns]="columns"
-         [value]="exams"
+         [value]="aggregateTargetScoreRows"
          [autoLayout]="true"
          sortField="claim"
          styleClass="table table-striped table-hover overflow">
@@ -53,13 +53,18 @@
           </span>
         </div>
 
-        <div *ngSwitchCase="'subgroup'"
-             class="label-max-width"
-             title="{{rowData.subgroup.name}}">
-          <subgroup [subgroup]="rowData.subgroup"></subgroup>
+        <!--<div *ngSwitchCase="'subgroup'"-->
+             <!--class="label-max-width"-->
+             <!--title="{{rowData.subgroup.name}}">-->
+          <!--{{rowData.subgroup.name}}-->
+          <!--&lt;!&ndash;<subgroup [subgroup]="rowData.subgroup"></subgroup>&ndash;&gt;-->
+        <!--</div>-->
+
+        <div *ngSwitchCase="'subgroup'">
+          Overall
         </div>
 
-        <div *ngSwitchCase="'studentsTested'"
+        <div *ngSwitchCase="'students-tested'"
              class="text-right">
           {{rowData.studentsTested}}
         </div>
@@ -67,7 +72,7 @@
         <div *ngSwitchCase="'student-relative-residual-scores-level'">
 
           <!-- pick the icon -->
-          <span [ngSwitch]="rowData.studentRelativeLevel">
+          <span [ngSwitch]="getTargetReportingLevelString(rowData.studentRelativeLevel)">
             <span *ngSwitchCase="'Above'"
                   class="sb-iab-green">
               <sb-icon class="fa-lg" icon="sbac-above-average"></sb-icon>
@@ -85,13 +90,13 @@
               <sb-icon class="fa-lg" icon="sbac-insufficient-data"></sb-icon>
             </span>
           </span>
-          {{'aggregate-report-table.target.overall.' + rowData.studentRelativeLevel | translate}}
+          {{'aggregate-report-table.target.overall.' + getTargetReportingLevelString(rowData.studentRelativeLevel) | translate}}
         </div>
 
         <div *ngSwitchCase="'standard-met-relative-residual-level'">
 
           <!-- pick the label color -->
-          <span [ngSwitch]="rowData.standardMetRelativeLevel">
+          <span [ngSwitch]="getTargetReportingLevelString(rowData.standardMetRelativeLevel)">
             <span *ngSwitchCase="'Above'"
                   class="label sb-iab-green">
               {{'aggregate-report-table.target.standard.Above' | translate}}

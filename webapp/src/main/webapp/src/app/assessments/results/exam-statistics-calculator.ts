@@ -115,6 +115,8 @@ export class ExamStatisticsCalculator {
   }
 
   aggregateTargetScores(targetScoreExams: TargetScoreExam[]): AggregateTargetScoreRow[] {
+    if (targetScoreExams == null) return [];
+
     let grouped = targetScoreExams.reduce((groupedExams, exam) => {
       let index = groupedExams.findIndex(x => x.targetId == exam.targetId);
       if (index === -1) {
@@ -136,6 +138,7 @@ export class ExamStatisticsCalculator {
     let rows = grouped.map(entry => {
       return <AggregateTargetScoreRow>{
         targetId: entry.targetId,
+        studentsTested: entry.standardMetScores.length,
         standardMetRelativeLevel: this.mapTargetScoreDeltaToReportingLevel(
           this.calculateAverage(entry.standardMetScores),
           this.calculateStandardErrorOfTheMean(entry.standardMetScores)
