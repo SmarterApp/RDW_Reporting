@@ -48,8 +48,10 @@ export class AssessmentExamMapper {
 
   mapTargetScoreExamsFromApi(serverTargetScoreExams: any): TargetScoreExam[] {
     return serverTargetScoreExams.map((serverTargetScoreExam: any) => {
-      const targetScoreExam: TargetScoreExam = this.mapExamFromApi(serverTargetScoreExam);
+      const targetScoreExam = <TargetScoreExam>this.mapExamFromApi(serverTargetScoreExam);
       targetScoreExam.targetId = serverTargetScoreExam.targetId;
+      targetScoreExam.standardMetRelativeResidualScore = serverTargetScoreExam.standardMetRelativeResidualScore;
+      targetScoreExam.studentRelativeResidualScore = serverTargetScoreExam.studentRelativeResidualScore;
       return targetScoreExam;
     });
   }
@@ -80,7 +82,7 @@ export class AssessmentExamMapper {
     return assessment;
   }
 
-  mapExamFromApi(serverExam: any): any {
+  mapExamFromApi(serverExam: any): Exam {
     const exam: Exam = new Exam();
     exam.id = serverExam.id;
     exam.date = serverExam.dateTime;
