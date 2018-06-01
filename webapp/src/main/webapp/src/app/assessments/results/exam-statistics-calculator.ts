@@ -115,22 +115,22 @@ export class ExamStatisticsCalculator {
   }
 
   aggregateTargetScores(targetScoreExams: TargetScoreExam[]): AggregateTargetScoreRow[] {
-    let grouped = targetScoreExams.reduce((l, r) => {
-      let index = l.findIndex(x => x.targetId == r.targetId);
+    let grouped = targetScoreExams.reduce((groupedExams, exam) => {
+      let index = groupedExams.findIndex(x => x.targetId == exam.targetId);
       if (index === -1) {
-        l.push({
-          targetId: r.targetId,
+        groupedExams.push({
+          targetId: exam.targetId,
           standardMetScores:[],
           studentScores: []
         });
 
-        index = l.length - 1;
+        index = groupedExams.length - 1;
       }
 
-      l[ index ].standardMetScores.push(r.standardMetRelativeResidualScore);
-      l[ index ].studentScores.push(r.studentRelativeResidualScore);
+      groupedExams[ index ].standardMetScores.push(exam.standardMetRelativeResidualScore);
+      groupedExams[ index ].studentScores.push(exam.studentRelativeResidualScore);
 
-      return l;
+      return groupedExams;
     }, []);
 
     let rows = grouped.map(entry => {
