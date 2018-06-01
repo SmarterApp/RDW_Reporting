@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ExamFilter } from "../../model/exam-filter.model";
 import { AssessmentExam } from "../../model/assessment-exam.model";
 import { FilterBy } from "../../model/filter-by.model";
-import { Exam } from "../../model/exam.model";
+import { Exam, ExamInterface } from "../../model/exam.model";
 import { Assessment } from "../../model/assessment.model";
 import { Utils } from "../../../shared/support/support";
 
@@ -35,13 +35,12 @@ export class ExamFilterService {
   /**
    * Filter exams within an AssessmentExam.
    *
-   * @param assessmentExam  An assessment exam
-   * @param filterBy        The currently-applied filters
+   * @param exams  The exams
+   * @param assessment The assessment
+   * @param filterBy   The currently-applied filters
    * @returns {Exam[]} The filtered exams
    */
-  filterExams(assessmentExam: AssessmentExam, filterBy: FilterBy): Exam[] {
-    let exams = assessmentExam.exams;
-
+  filterExams(exams: Exam[], assessment: Assessment, filterBy: FilterBy): Exam[] {
     if (filterBy == null)
       return exams;
 
@@ -49,11 +48,11 @@ export class ExamFilterService {
     for (let filter of filters) {
       let filterDefinition = this.getFilterDefinitionFor(filter);
 
-      if (filterDefinition.precondition(assessmentExam.assessment)) {
+      if (filterDefinition.precondition(assessment)) {
         let filterValue = filterBy[ filter ];
 
         if (filter == 'offGradeAssessment')
-          filterValue = assessmentExam.assessment.grade;
+          filterValue = assessment.grade;
         else if (filter == 'ethnicities')
           filterValue = filterBy.filteredEthnicities;
         else if (filter == 'genders')

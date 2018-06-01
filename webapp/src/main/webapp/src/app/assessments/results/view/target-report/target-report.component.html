@@ -8,7 +8,7 @@
 <p-table [columns]="columns"
          [value]="exams"
          [autoLayout]="true"
-         sortField="student.lastName"
+         sortField="claim"
          styleClass="table table-striped table-hover overflow">
   <ng-template pTemplate="header"
                let-columns>
@@ -32,7 +32,93 @@
       </th>
     </tr>
   </ng-template>
+  <ng-template pTemplate="body"
+               let-rowData
+               let-i="rowIndex"
+               let-columns="columns">
+    <tr>
+      <td *ngFor="let column of columns; let columnIdx = index;"
+          [ngSwitch]="column.id">
 
+        <div *ngSwitchCase="'claim'"
+             class="text-right">
+          <span>
+            {{ getClaimCodeTranslation(rowData) }}
+          </span>
+        </div>
+
+        <div *ngSwitchCase="'target'"
+             class="text-right wrapping-max-width">
+          <span [innerHTML]="'aggregate-report-table.target-description' | translate: getTargetDisplay(rowData)">
+          </span>
+        </div>
+
+        <div *ngSwitchCase="'subgroup'"
+             class="label-max-width"
+             title="{{rowData.subgroup.name}}">
+          <subgroup [subgroup]="rowData.subgroup"></subgroup>
+        </div>
+
+        <div *ngSwitchCase="'studentsTested'"
+             class="text-right">
+          {{rowData.studentsTested}}
+        </div>
+
+        <div *ngSwitchCase="'student-relative-residual-scores-level'">
+
+          <!-- pick the icon -->
+          <span [ngSwitch]="rowData.studentRelativeLevel">
+            <span *ngSwitchCase="'Above'"
+                  class="sb-iab-green">
+              <sb-icon class="fa-lg" icon="sbac-above-average"></sb-icon>
+            </span>
+            <span *ngSwitchCase="'Near'"
+                  class="sb-iab-yellow">
+              <sb-icon class="fa-lg" icon="sbac-average"></sb-icon>
+            </span>
+            <span *ngSwitchCase="'Below'"
+                  class="sb-iab-red">
+              <sb-icon class="fa-lg" icon="sbac-below-average"></sb-icon>
+            </span>
+            <span *ngSwitchCase="'InsufficientData'"
+                  class="gray-light">
+              <sb-icon class="fa-lg" icon="sbac-insufficient-data"></sb-icon>
+            </span>
+          </span>
+          {{'aggregate-report-table.target.overall.' + rowData.studentRelativeLevel | translate}}
+        </div>
+
+        <div *ngSwitchCase="'standard-met-relative-residual-level'">
+
+          <!-- pick the label color -->
+          <span [ngSwitch]="rowData.standardMetRelativeLevel">
+            <span *ngSwitchCase="'Above'"
+                  class="label sb-iab-green">
+              {{'aggregate-report-table.target.standard.Above' | translate}}
+            </span>
+            <span *ngSwitchCase="'Near'"
+                  class="label sb-iab-yellow">
+              {{'aggregate-report-table.target.standard.Near' | translate}}
+            </span>
+            <span *ngSwitchCase="'Below'"
+                  class="label sb-iab-red">
+              {{'aggregate-report-table.target.standard.Below' | translate}}
+            </span>
+            <span *ngSwitchCase="'InsufficientData'">
+              <span class="gray-light">
+                <sb-icon class="fa-lg" icon="sbac-insufficient-data"></sb-icon>
+              </span>
+              {{'aggregate-report-table.target.standard.InsufficientData' | translate}}
+            </span>
+            <span *ngSwitchCase="'Excluded'">
+              {{'aggregate-report-table.target.standard.Excluded' | translate}}
+            </span>
+          </span>
+
+        </div>
+      </td>
+    </tr>
+  </ng-template>
   <ng-template pTemplate="emptymessage" let-columns>
     <tr>
       <td [attr.colspan]="columns.length">
