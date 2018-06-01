@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
-import { URLSearchParams } from "@angular/http";
-import { AssessmentExamMapper } from "../../assessments/assessment-exam.mapper";
-import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
-import { AssessmentProvider } from "../../assessments/assessment-provider.interface";
-import { ResponseUtils } from "../../shared/response-utils";
-import { Group } from "../group";
-import { DataService } from "../../shared/data/data.service";
+import { Injectable } from '@angular/core';
+import { URLSearchParams } from '@angular/http';
+import { AssessmentExamMapper } from '../../assessments/assessment-exam.mapper';
+import { ExamFilterOptionsService } from '../../assessments/filters/exam-filters/exam-filter-options.service';
+import { AssessmentProvider } from '../../assessments/assessment-provider.interface';
+import { ResponseUtils } from '../../shared/response-utils';
+import { Group } from '../group';
+import { DataService } from '../../shared/data/data.service';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ReportingServiceRoute } from '../../shared/service-route';
 
@@ -47,6 +47,29 @@ export class GroupAssessmentService implements AssessmentProvider {
     }).pipe(
       catchError(ResponseUtils.badResponseToNull),
       map(serverExams => this.mapper.mapExamsFromApi(serverExams))
+    );
+  }
+
+  getTargetScoreExams(assessmentId: number) {
+    return this.dataService.get(`${ServiceRoute}/groups/${this.group.id}/assessments/${assessmentId}/examsWithTargetScores`, {
+      params: {
+        schoolYear: this.schoolYear.toString()
+      }
+    }).pipe(
+      catchError(ResponseUtils.badResponseToNull),
+      map(serverTargetScoreExams => this.mapper.mapTargetScoreExamsFromApi(serverTargetScoreExams))
+    );
+
+  }
+
+  getTargetsForAssessment(assessmentId: number) {
+    return this.dataService.get(`${ServiceRoute}/assessment-targets`, {
+      params: {
+        id: assessmentId
+      }
+    }).pipe(
+      catchError(ResponseUtils.badResponseToNull),
+      map(serverTargets => this.mapper.mapTargetsFromApi(serverTargets))
     );
   }
 
