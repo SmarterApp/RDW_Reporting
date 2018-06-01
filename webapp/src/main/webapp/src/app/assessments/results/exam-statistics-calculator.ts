@@ -7,7 +7,7 @@ import * as math from 'mathjs';
 import { WritingTraitScoreSummary } from '../model/writing-trait-score-summary.model';
 import { ClaimStatistics } from '../model/claim-score.model';
 import { TargetScoreExam } from '../model/target-score-exam.model';
-import { AggregateTargetScoreRow } from '../model/aggregate-target-score-row.model';
+import { AggregateTargetScoreRow, TargetReportingLevel } from '../model/aggregate-target-score-row.model';
 
 @Injectable()
 export class ExamStatisticsCalculator {
@@ -37,20 +37,6 @@ export class ExamStatisticsCalculator {
     }
 
     return math.std(scored) / math.sqrt(scored.length);
-  }
-
-  calculateStandardError(scores: number[]): number {
-    let scored = scores.filter(x => x != null);
-
-    if (scored.length == 0) {
-      return 0;
-    }
-
-    let avg = this.calculateAverage(scored);
-
-    return math.sqrt(
-      scored.reduce((x, y) => x + ((y - avg)*(y - avg)), 0) / (scored.length * (scored.length - 1))
-    );
   }
 
   calculateClaimStatistics(exams: Exam[], numberOfLevels: number): ClaimStatistics[] {
@@ -164,12 +150,11 @@ export class ExamStatisticsCalculator {
     return rows;
   }
 
-  // TODO: enum?
-  mapTargetScoreDeltaToReportingLevel(delta: number, standardError: number): number {
-    if (standardError > 0.2) return 0;
-    if (delta >= standardError) return 3;
-    if (delta <= -standardError) return 1;
-    return 2;
+  mapTargetScoreDeltaToReportingLevel(delta: number, standardError: number): TargetReportingLevel {
+    if (standardError > 0.2) return TargetReportingLevel.InsufficientData;
+    if (delta >= standardError) return TargetReportingLevel.Above;
+    if (delta <= -standardError) return TargetReportingLevel.Below;
+    return TargetReportingLevel.Near;
   }
 
   aggregateWritingTraitScores(assessmentItems: AssessmentItem[]): WritingTraitScoreSummary[] {

@@ -4,6 +4,7 @@ import { AssessmentItem } from '../model/assessment-item.model';
 import { ExamItemScore } from '../model/exam-item-score.model';
 import { ClaimStatistics } from '../model/claim-score.model';
 import { TargetScoreExam } from '../model/target-score-exam.model';
+import { TargetReportingLevel } from '../model/aggregate-target-score-row.model';
 
 describe('Exam Calculator', () => {
 
@@ -510,24 +511,24 @@ describe('Exam Calculator', () => {
     expect(actual.length).toBe(3);
 
     expect(actual[ 0 ].targetId).toBe(1);
-    expect(actual[ 0 ].standardMetRelativeLevel).toBe(3);
-    expect(actual[ 0 ].studentRelativeLevel).toBe(0);
+    expect(actual[ 0 ].standardMetRelativeLevel).toBe(TargetReportingLevel.Above);
+    expect(actual[ 0 ].studentRelativeLevel).toBe(TargetReportingLevel.InsufficientData);
 
     expect(actual[ 1 ].targetId).toBe(2);
-    expect(actual[ 1 ].standardMetRelativeLevel).toBe(3);
-    expect(actual[ 1 ].studentRelativeLevel).toBe(3);
+    expect(actual[ 1 ].standardMetRelativeLevel).toBe(TargetReportingLevel.Above);
+    expect(actual[ 1 ].studentRelativeLevel).toBe(TargetReportingLevel.Above);
 
     expect(actual[ 2 ].targetId).toBe(3);
-    expect(actual[ 2 ].standardMetRelativeLevel).toBe(3);
-    expect(actual[ 2 ].studentRelativeLevel).toBe(3);
+    expect(actual[ 2 ].standardMetRelativeLevel).toBe(TargetReportingLevel.Above);
+    expect(actual[ 2 ].studentRelativeLevel).toBe(TargetReportingLevel.Above);
   });
 
   it('should map aggregaste target deltas to levels', () => {
     let fixture = new ExamStatisticsCalculator();
 
-    expect(fixture.mapTargetScoreDeltaToReportingLevel(2, 1)).toBe(0);
-    expect(fixture.mapTargetScoreDeltaToReportingLevel(0.2, 0.1)).toBe(3);
-    expect(fixture.mapTargetScoreDeltaToReportingLevel(-0.2, 0.1)).toBe(1);
-    expect(fixture.mapTargetScoreDeltaToReportingLevel(0.05, 0.1)).toBe(2);
+    expect(fixture.mapTargetScoreDeltaToReportingLevel(2, 1)).toBe(TargetReportingLevel.InsufficientData);
+    expect(fixture.mapTargetScoreDeltaToReportingLevel(0.2, 0.1)).toBe(TargetReportingLevel.Above);
+    expect(fixture.mapTargetScoreDeltaToReportingLevel(-0.2, 0.1)).toBe(TargetReportingLevel.Below);
+    expect(fixture.mapTargetScoreDeltaToReportingLevel(0.05, 0.1)).toBe(TargetReportingLevel.Near);
   });
 });
