@@ -154,6 +154,12 @@ export class ExamStatisticsCalculator {
   }
 
   mapTargetScoreDeltaToReportingLevel(delta: number, standardError: number): TargetReportingLevel {
+    // TODO: remove.  keeping for now to help test the display with a lot of mixed values
+    // if (Math.random() > 0.7) return TargetReportingLevel.Above;
+    // if (Math.random() > 0.35) return TargetReportingLevel.Near;
+    // if (Math.random() > 0.1) return TargetReportingLevel.Below;
+    // return TargetReportingLevel.InsufficientData;
+
     if (standardError > 0.2) return TargetReportingLevel.InsufficientData;
     if (delta >= standardError) return TargetReportingLevel.Above;
     if (delta <= -standardError) return TargetReportingLevel.Below;

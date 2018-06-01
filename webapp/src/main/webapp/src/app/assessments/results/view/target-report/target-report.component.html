@@ -40,8 +40,7 @@
       <td *ngFor="let column of columns; let columnIdx = index;"
           [ngSwitch]="column.id">
 
-        <div *ngSwitchCase="'claim'"
-             class="text-right">
+        <div *ngSwitchCase="'claim'">
           <span>
             {{ getClaimCodeTranslation(rowData) }}
           </span>
@@ -74,23 +73,30 @@
           <!-- pick the icon -->
           <span [ngSwitch]="getTargetReportingLevelString(rowData.studentRelativeLevel)">
             <span *ngSwitchCase="'Above'"
-                  class="sb-iab-green">
-              <sb-icon class="fa-lg" icon="sbac-above-average"></sb-icon>
+                  class="label sb-iab-green">
+              <!--<sb-icon class="fa-lg" icon="sbac-above-average"></sb-icon>-->
+              {{'aggregate-report-table.target.overall.Above' | translate}}
             </span>
             <span *ngSwitchCase="'Near'"
-                  class="sb-iab-yellow">
-              <sb-icon class="fa-lg" icon="sbac-average"></sb-icon>
+                  class="label sb-iab-yellow">
+              <!--<sb-icon class="fa-lg" icon="sbac-average"></sb-icon>-->
+              {{'aggregate-report-table.target.overall.Near' | translate}}
             </span>
             <span *ngSwitchCase="'Below'"
-                  class="sb-iab-red">
-              <sb-icon class="fa-lg" icon="sbac-below-average"></sb-icon>
+                  class="label sb-iab-red">
+              <!--<sb-icon class="fa-lg" icon="sbac-below-average"></sb-icon>-->
+              {{'aggregate-report-table.target.overall.Below' | translate}}
             </span>
             <span *ngSwitchCase="'InsufficientData'"
-                  class="gray-light">
-              <sb-icon class="fa-lg" icon="sbac-insufficient-data"></sb-icon>
+                  class="label gray-light">
+              <!--<sb-icon class="fa-lg" icon="sbac-insufficient-data"></sb-icon>-->
+              {{'aggregate-report-table.target.overall.InsufficientData' | translate}}
+            </span>
+            <span *ngSwitchCase="'Excluded'"
+                  class="label gray-light">
+              {{'aggregate-report-table.target.standard.Excluded' | translate}}
             </span>
           </span>
-          {{'aggregate-report-table.target.overall.' + getTargetReportingLevelString(rowData.studentRelativeLevel) | translate}}
         </div>
 
         <div *ngSwitchCase="'standard-met-relative-residual-level'">
@@ -109,13 +115,12 @@
                   class="label sb-iab-red">
               {{'aggregate-report-table.target.standard.Below' | translate}}
             </span>
-            <span *ngSwitchCase="'InsufficientData'">
-              <span class="gray-light">
-                <sb-icon class="fa-lg" icon="sbac-insufficient-data"></sb-icon>
-              </span>
+            <span *ngSwitchCase="'InsufficientData'"
+                  class="label gray-light">
               {{'aggregate-report-table.target.standard.InsufficientData' | translate}}
             </span>
-            <span *ngSwitchCase="'Excluded'">
+            <span *ngSwitchCase="'Excluded'"
+                  class="label gray-light">
               {{'aggregate-report-table.target.standard.Excluded' | translate}}
             </span>
           </span>

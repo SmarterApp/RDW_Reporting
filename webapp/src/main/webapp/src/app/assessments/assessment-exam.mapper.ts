@@ -63,6 +63,8 @@ export class AssessmentExamMapper {
         assessmentId: serverTarget.assessmentId,
         claimCode: serverTarget.claimCode,
         naturalId: serverTarget.naturalId,
+        code: serverTarget.code,
+        description: serverTarget.description,
         includeInReport: serverTarget.includeInReport,
       };
     });

@@ -1,23 +1,21 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { Exam } from '../../../model/exam.model';
 import { StudentReportDownloadComponent } from '../../../../report/student-report-download.component';
-import { ReportOptions } from '../../../../report/report-options.model';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuActionBuilder } from '../../../menu/menu-action.builder';
 import { Assessment } from '../../../model/assessment.model';
-import { PopupMenuAction } from '../../../../shared/menu/popup-menu-action.model';
 import { TargetScoreExam } from '../../../model/target-score-exam.model';
 import { AggregateTargetScoreRow, TargetReportingLevel } from '../../../model/aggregate-target-score-row.model';
 import { ExamFilterService } from '../../../filters/exam-filters/exam-filter.service';
 import { FilterBy } from '../../../model/filter-by.model';
 import { GroupAssessmentService } from '../../../../groups/results/group-assessment.service';
 import { Subscription } from 'rxjs/Subscription';
-import { AssessmentExam } from '../../../model/assessment-exam.model';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Target } from '../../../model/target.model';
 import { ExamStatisticsCalculator } from '../../exam-statistics-calculator';
-
-// TODO replace this stub
+import { ordering } from '@kourge/ordering';
+import { byString, join } from '@kourge/ordering/comparator';
+import { TargetService } from '../../../../shared/target/target.service';
+import { AssessmentExamMapper } from '../../../assessment-exam.mapper';
 
 @Component({
   selector: 'target-report',
@@ -56,7 +54,7 @@ export class TargetReportComponent implements OnInit {
   columns: Column[];
   loading: boolean = false;
   targetScoreExams: TargetScoreExam[];
-  allTargets: Target[];
+  targetDisplayMap: Map<number, any>;
   aggregateTargetScoreRows: AggregateTargetScoreRow[] = [];
 
   private _filterBy: FilterBy;
@@ -66,6 +64,8 @@ export class TargetReportComponent implements OnInit {
               private actionBuilder: MenuActionBuilder,
               private translate: TranslateService,
               private examStatisticsCalculator: ExamStatisticsCalculator,
+              private targetService: TargetService,
+              private assessmentExamMapper: AssessmentExamMapper,
               private assessmentProvider: GroupAssessmentService) {
   }
 
@@ -73,32 +73,40 @@ export class TargetReportComponent implements OnInit {
     this.loading = true;
 
     this.columns = [
-      new Column({ id: 'claim', headerInfo: true }),
-      new Column({ id: 'target', headerInfo: true }),
-      new Column({ id: 'subgroup', headerInfo: true }),
+      new Column({ id: 'claim' }),
+      new Column({ id: 'target' }),
+      new Column({ id: 'subgroup' }),
       new Column({ id: 'students-tested' }),
       new Column({ id: 'student-relative-residual-scores-level', headerInfo: true }),
       new Column({ id: 'standard-met-relative-residual-level', headerInfo: true })
     ];
 
     forkJoin(
-      this.assessmentProvider.getTargetsForAssessment(this.assessment.id),
+      this.targetService.getTargetsForAssessment(this.assessment.id),
       this.assessmentProvider.getTargetScoreExams(this.assessment.id)
     ).subscribe(([ allTargets, targetScoreExams ]) => {
-      this.allTargets = allTargets;
       this.targetScoreExams = targetScoreExams;
 
-      this.aggregateTargetScoreRows = this.backfillExcludedTargets(
+      this.aggregateTargetScoreRows = this.mergeTargetData(
         allTargets,
         this.examStatisticsCalculator.aggregateTargetScores(this.targetScoreExams)
       );
+
+      this.targetDisplayMap = allTargets.reduce((targetMap, target) => {
+        targetMap[target.id] = {
+          name: this.assessmentExamMapper.formatTarget(target.code),
+          description: target.description
+        };
+
+        return targetMap;
+      }, new Map<number, any>());
 
       this.loading = false;
     });
   }
 
   // TODO: do we need to use the includeInReport flag?  what if that flag is true but we don't have scores
-  backfillExcludedTargets(allTargets: Target[], targetScoreRows: AggregateTargetScoreRow[]): AggregateTargetScoreRow[] {
+  mergeTargetData(allTargets: Target[], targetScoreRows: AggregateTargetScoreRow[]): AggregateTargetScoreRow[] {
     let filledTargetScoreRows: AggregateTargetScoreRow[] = targetScoreRows.concat();
 
     allTargets.forEach(target => {
@@ -117,8 +125,13 @@ export class TargetReportComponent implements OnInit {
       }
     });
 
-    return filledTargetScoreRows;
-
+    return filledTargetScoreRows
+      .sort(
+        join(
+          ordering(byString).on<AggregateTargetScoreRow>(row => row.claimCode).compare,
+          ordering(byString).on<AggregateTargetScoreRow>(row => row.targetNaturalId).compare
+        )
+      );
   }
 
   private updateTargetScoreExam(): void {
@@ -147,7 +160,7 @@ export class TargetReportComponent implements OnInit {
   }
 
   getTargetDisplay(row: AggregateTargetScoreRow): any {
-    return {name: row.targetNaturalId, description: 'TBD description'};
+    return this.targetDisplayMap[row.targetId];
   }
 
   getTargetReportingLevelString(level: TargetReportingLevel): string {
