@@ -38,6 +38,8 @@ import { AggregateReportOptionsResolve } from './aggregate-report/aggregate-repo
 import { AggregateReportFormSettingsResolve } from './aggregate-report/aggregate-report-form-settings.resolve';
 import { LongitudinalPlaygroundComponent } from './aggregate-report/results/longitudinal-playground.component';
 import { GroupDashboardComponent } from './dashboard/group-dashboard/group-dashboard.component';
+import { UserGroupComponent } from './user-group/user-group.component';
+import { UserGroupResolve } from './user-group/user-group.resolve';
 import { TargetReportFormComponent } from "./aggregate-report/target/target-report-form.component";
 
 const adminRoute = {
@@ -182,6 +184,39 @@ const studentTestHistoryChildRoute = {
   ]
 };
 
+const UserGroupRoutes = {
+  path: 'userGroups',
+  data: {
+
+    permissions: [ 'GROUP_PII_READ' ]
+  },
+  canActivate: [ RoutingAuthorizationCanActivate ],
+  children: [
+    {
+      path: '',
+      pathMatch: 'full',
+      component: UserGroupComponent,
+      data: {
+        breadcrumb: { translate: 'user-group.new-heading' },
+      },
+      resolve: {
+        group: UserGroupResolve
+      }
+    },
+    {
+      path: ':groupId',
+      pathMatch: 'full',
+      component: UserGroupComponent,
+      data: {
+        breadcrumb: { resolve: 'group.name' },
+      },
+      resolve: {
+        group: UserGroupResolve
+      }
+    }
+  ]
+};
+
 export const routes: Routes = [
   {
     path: 'home',
@@ -201,6 +236,7 @@ export const routes: Routes = [
         component: HomeComponent
       },
       adminRoute,
+      UserGroupRoutes,
       {
         path: 'groups/:groupId',
         data: {
@@ -291,6 +327,9 @@ export const routes: Routes = [
           {
             path: 'targets',
             pathMatch: 'full',
+            data: {
+              breadcrumb: { translate: 'aggregate-reports.targets.heading' },
+            },
             resolve: {
               settings: AggregateReportFormSettingsResolve
             },

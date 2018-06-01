@@ -24,6 +24,7 @@ import { AdminDropdownComponent } from './home/admin-dropdown.component';
 import { ApplicationSettingsService } from './app-settings.service';
 import { ApplicationSettingsResolve } from './app-settings.resolve';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { UserGroupModule } from './user-group/user-group.module';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     OrganizationExportModule,
     RouterModule.forRoot(routes),
     UserModule,
+    UserGroupModule,
     FormsModule,
     HttpModule,
     BsDropdownModule.forRoot(),

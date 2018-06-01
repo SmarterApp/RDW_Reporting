@@ -442,7 +442,7 @@ export class AggregateReportFormComponent {
 
     let order = this.currentAssessmentDefinition.aggregateReportIdentityColumns.concat();
     if (this.settings.reportType === 'Claim') {
-      order = order.concat([ 'claim' ]);
+      order.splice(order.indexOf('schoolYear') + 1, 0, 'claim');
     }
 
     // Preserve column order between changing assessment types

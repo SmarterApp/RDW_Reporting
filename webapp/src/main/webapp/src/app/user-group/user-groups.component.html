@@ -1,0 +1,47 @@
+<ng-container *ngIf="!groups; else loaded">
+  <span class="gray-darker"><i class="fa fa-spinner fa-pulse fa-2x"></i></span>
+</ng-container>
+
+<ng-template #loaded>
+  <div class="flex-child grow clearfix">
+    <label>{{'user-groups.heading' | translate}}</label>
+
+    <ul class="list-unstyled list-inline pull-right">
+      <li>
+        <a *hasPermission="'GROUP_PII_READ'"
+           routerLink="/userGroups"
+           title="{{'common.action.create' | translate}}"
+           class="btn btn-xs btn-primary">
+          <i class="fa fa-plus"></i> {{'common.action.create' | translate}}
+        </a>
+      </li>
+      <li>
+        <a *ngIf="defaultGroup"
+           routerLink="/group-dashboard/{{defaultGroup.id}}"
+           title="{{'groups.view-dashboard' | translate}}"
+           class="btn btn-xs btn-default">
+          <i class="fa fa-bars"></i> {{'groups.view-dashboard' | translate}}
+        </a>
+      </li>
+    </ul>
+
+  </div>
+
+  <!-- My Groups Search Input -->
+  <div *ngIf="groups.length > searchThreshold"
+       class="table-search-form-container">
+    <label for="search" class="sr-only">{{'groups.filter' | translate}}</label>
+    <input [(ngModel)]="search"
+           class="search form-control"
+           id="search"
+           type="text"
+           placeholder="{{'groups.filter' | translate}}"
+           autocomplete="off"
+           (ngModelChange)="onSearchChange($event)">
+  </div>
+
+  <!-- My Groups Search Results List -->
+  <div class="table-list-container">
+    <user-group-table [groups]="filteredGroups"></user-group-table>
+  </div>
+</ng-template>

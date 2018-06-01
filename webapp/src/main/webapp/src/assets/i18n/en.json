@@ -28,6 +28,9 @@
     "label": "Advanced Filters",
     "subhead": "Click an item to remove it from the list"
   },
+  "advanced-filters": {
+    "label": "Advanced Filters"
+  },
   "aggregate-report": {
     "display-report": "Display Report",
     "download-data": "Download Data",
@@ -62,6 +65,7 @@
       "to-school-year-info": "TODO",
       "organization-label": "Search a School or District",
       "organization-invalid-error": "Please select a school, district or include state results.",
+      "assessment-grade-label": "Assessment Grade",
       "assessment-grades-label": "Assessment Grades",
       "assessment-grades-info": "The grade of the assessment that was administered",
       "assessment-grades-empty-error": "Please select an assessment grade.",
@@ -72,8 +76,10 @@
       "elas-info": "Status determined by the Home Language Survey and the Initial ELPAC.",
       "interim-administration-condition-label": "Manner of Administration",
       "interim-administration-condition-info": "For interim assessments, a Standardized administration follows the same protocols and security procedures as a summative test administration. For a Non Standardized administration, the teacher may use the assessment during instruction and interact with students as they complete the assessment.",
-      "school-year-label": "Academic Years",
+      "school-year-label": "Academic Year",
+      "school-years-label": "Academic Years",
       "school-year-empty-error": "Please select a school year.",
+      "subject-label": "Subject",
       "subjects-label": "Subjects",
       "summative-administration-condition-label": "Validity",
       "summative-administration-condition-info": "For summative assessments, a test is noted as invalid if an appeal is submitted  to invalidate the test due to a test irregularity or breach.",
@@ -93,7 +99,10 @@
       "economic-disadvantage-info": "Indicates that a student qualifies for free or reduced lunch or meets other state criteria for economic disadvantage.",
       "comparative-subgroup-label": "Subgroups",
       "report-name-label": "Report Name",
-      "report-name-file-name-error": "The name cannot contain these special characters: <>:;,?\"*|\\/"
+      "report-name-file-name-error": "The name cannot contain these special characters: <>:;,?\"*|\\/",
+      "target": {
+        "organization-invalid-error": "Please select a school or district."
+      }
     },
     "section": {
       "claim-heading": "Claim",
@@ -177,7 +186,10 @@
     }
   },
   "aggregate-reports": {
-    "heading": "Aggregate Reports"
+    "heading": "Aggregate Reports",
+    "targets": {
+      "heading": "Target Reports"
+    }
   },
   "aggregate-reports-summary": {
     "include-all-districts": "All Districts",
@@ -222,7 +234,8 @@
       "ByItem": "Results By Item",
       "ByStudent": "Results By Student",
       "DistractorAnalysis": "Key / Distractor Analysis",
-      "WritingTraitScores": "Writing Trait Scores"
+      "WritingTraitScores": "Writing Trait Scores",
+      "TargetReport": "Target Report"
     }
   },
   "assessments": {
@@ -251,12 +264,13 @@
     "action": {
       "cancel": "Cancel",
       "close": "Close",
-      "collapse": "Collapse",
+      "collapse": "Collapse Results",
       "create": "Create",
       "delete": "Delete",
-      "expand": "Expand",
+      "expand": "Expand Results",
       "go-home": "Go Home",
       "hide": "Hide",
+      "save": "Save",
       "search": "Search",
       "select": "Select",
       "show": "Show",
@@ -605,7 +619,7 @@
         "label": "Test",
         "off-grade-assessment": "Off-Grade Assessments",
         "off-grade-assessment-info": "Schools may administer interim assessments for any grade.  This filter indicates that a student took an assessment for a grade other than their assigned grade.",
-        "transfer-assessment": "Transfer Assessments",
+        "transfer-assessment": "New Students",
         "transfer-assessment-info": "Indicates whether to show or hide assessments administered outside of the User's standard institutions."
       }
     },
@@ -824,7 +838,7 @@
             "name": "Reasoning"
           },
           "SOCK_2": {
-            "name": "Problem Solving"
+            "name": "Problem Solving & Modeling / Data Analysis"
           }
         }
       }
@@ -834,7 +848,7 @@
       "3": "Communicating Reasoning",
       "2-W": "Writing",
       "4-CR": "Research & Inquiry",
-      "SOCK_2": "Problem Solving",
+      "SOCK_2": "Problem Solving & Modeling / Data Analysis",
       "SOCK_LS": "Listening",
       "SOCK_R": "Reading"
     },
@@ -1344,10 +1358,67 @@
     "student-button-label": "Student Report",
     "title": "Student Test History Report"
   },
+  "target-report": {
+    "columns": {
+      "claim": "Claim",
+      "claim-info": "Claim TODO",
+      "target": "Target",
+      "target-info": "Target TODO",
+      "subgroup": "Subgroup",
+      "subgroup-info": "Subgroup TODO",
+      "students-tested": "Students Tested",
+      "student-relative-residual-scores-level": "Performance relative to other targets",
+      "student-relative-residual-scores-level-info": "Performance relative to other targets TODO",
+      "standard-met-relative-residual-level": "Performance relative to achievement standards",
+      "standard-met-relative-residual-level-info": "Performance relative to achievement standards TODO"
+    }
+  },
   "update-instructional-resource-modal": {
     "error": "Unable to modify instructional resource.",
     "link": "Edit",
     "title": "Edit Instructional Resource"
+  },
+  "user-group": {
+    "new-heading": "New Group",
+    "edit-heading": "Editing: {{name}}",
+    "default-name": "My Group",
+    "student-search": {
+      "results-label": "Students",
+      "find-students-prompt": "Search for students to add to your group.",
+      "add-student-prompt": "Add students to your group by clicking on their name.",
+      "no-results": "There are no students matching the current search."
+    },
+    "save-error": "Unable to save this group. Please try again later.",
+    "delete-error": "Unable to delete this group. Please try again later.",
+    "delete-modal": {
+      "header": "Delete {{name}}?",
+      "body": "This action cannot be undone. Are you sure you would like to continue?"
+    }
+  },
+  "user-group-form": {
+    "field": {
+      "name": {
+        "label": "Group Name"
+      },
+      "subjects": {
+        "label": "Subjects"
+      },
+      "students": {
+        "label": "Students",
+        "empty-error": "None selected"
+      }
+    }
+  },
+  "user-groups": {
+    "heading": "Search by My Created Groups"
+  },
+  "user-group-table": {
+    "edit": "Edit"
+  },
+  "student-search-form": {
+    "school-label": "School",
+    "group-label": "Group",
+    "name-ssid-label": "Student Name or SSID"
   },
   "writing-trait-scores": {
     "aggregate-header": "Points Breakdown"

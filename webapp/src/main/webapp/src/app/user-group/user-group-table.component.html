@@ -1,0 +1,65 @@
+<p-table [columns]="columns"
+         [value]="groups"
+         [autoLayout]="true"
+         sortField="name"
+         dataKey="id"
+         styleClass="table table-striped table-hover">
+
+  <ng-template pTemplate="header"
+               let-columns>
+    <tr>
+      <th *ngFor="let column of columns"
+          [pSortableColumn]="column.field"
+          [ngSwitch]="column.id">
+
+        <ng-container *ngSwitchCase="'action'"></ng-container>
+
+        <div *ngSwitchDefault>
+          {{ ('groups.columns.' + column.id) | translate }}
+        </div>
+
+        <p-sortIcon [field]="column.field"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body"
+               let-group
+               let-columns="columns">
+    <tr>
+      <td *ngFor="let column of columns"
+          [ngSwitch]="column.id"
+          [ngClass]="{'text-right': column.id === 'action'}">
+
+        <div *ngSwitchCase="'group'"
+             class="label-max-width">
+          <a routerLink="/exams?teacherGroup={{group.id}}"
+             title="{{group.name}}">
+            {{group.name}}
+          </a>
+        </div>
+
+        <ng-container *ngSwitchCase="'subject'">
+          <ng-container *ngFor="let subject of group.subjects; let first = first">
+            <ng-container *ngIf="!first">, </ng-container>
+            {{ 'common.subject.' + subject + '.name' | translate }}
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'action'">
+          <a routerLink="userGroups/{{group.id}}">
+            <i class="fa fa-pencil"></i> {{'user-group-table.edit' | translate}}
+          </a>
+        </ng-container>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage" let-columns>
+    <tr>
+      <td [attr.colspan]="columns.length">
+        {{emptyMessage}}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

@@ -47,11 +47,11 @@ export class Forms {
   /**
    * True if the control has errors and has been touched or dirtied
    *
-   * @param {FormControl} formControl the form control to test
+   * @param {AbstractControl} formControl the form control to test
    * @returns {boolean}
    */
-  public static showErrors(formControl: FormControl): boolean {
-    return formControl.invalid && (formControl.dirty || formControl.touched);
+  public static showErrors(control: AbstractControl): boolean {
+    return control.invalid && (control.dirty || control.touched);
   }
 
 }

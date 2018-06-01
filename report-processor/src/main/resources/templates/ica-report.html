@@ -3,7 +3,9 @@
 <head>
     <div th:replace="fragments::meta"></div>
     <title th:text="#{report.ica.title}"></title>
-    <div th:replace="fragments::styles"></div>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css'>
+    <div th:replace="fragments::styles-libraries"></div>
+    <div th:replace="fragments::styles-general"></div>
 </head>
 <body class="pdf">
 <div th:replace="ica-body::body"></div>

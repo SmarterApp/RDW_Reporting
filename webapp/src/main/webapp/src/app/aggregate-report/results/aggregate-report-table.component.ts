@@ -289,8 +289,8 @@ export class AggregateReportTableComponent implements OnInit {
     this._orderingByColumnField[ 'organization.name' ] = organizationOrdering(item => item.organization, rows);
     this._orderingByColumnField[ 'assessmentGradeCode' ] = assessmentGradeOrdering;
     this._orderingByColumnField[ 'schoolYear' ] = SchoolYearOrdering;
-    this._orderingByColumnField[ 'subgroup.id' ] = subgroupOrdering(item => item.subgroup, options);
     this._orderingByColumnField[ 'claimCode' ] = ClaimOrdering;
+    this._orderingByColumnField[ 'subgroup.id' ] = subgroupOrdering(item => item.subgroup, options);
     this._orderingByColumnField[ 'targetNaturalId' ] = TargetOrdering;
 
     // Create columns
@@ -300,8 +300,8 @@ export class AggregateReportTableComponent implements OnInit {
       new Column({ id: 'assessmentGrade', field: 'assessmentGradeCode' }),
       new Column({ id: 'assessmentLabel' }),
       new Column({ id: 'schoolYear' }),
-      new Column({ id: 'dimension', field: 'subgroup.id' }),
       new Column({ id: 'claim', field: 'claimCode' }),
+      new Column({ id: 'dimension', field: 'subgroup.id' }),
       new Column({ id: 'target', field: 'targetNaturalId' })
     ];
 
@@ -494,7 +494,7 @@ export class AggregateReportTableComponent implements OnInit {
 
   private getPerformanceLevelColumnHeaderTranslationCode(displayType: string, level: number, index: number) {
     return displayType === 'Separate'
-      ? `common.assessment-type.${this.table.assessmentDefinition.typeCode}.performance-level.${level}.name-prefix`
+      ? `common.assessment-type.${this.table.reportType == 'Claim' ? 'iab' : this.table.assessmentDefinition.typeCode}.performance-level.${level}.name-prefix`
       : `aggregate-report-table.columns.grouped-performance-level-prefix.${index}`;
   }
 

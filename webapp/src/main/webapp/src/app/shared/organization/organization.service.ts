@@ -26,7 +26,7 @@ export class OrganizationService {
     return this.dataService.get(`${ReportingServiceRoute}/organizations/schoolGroups`);
   }
 
-  protected getSchools(limit?: number): Observable<School[]> {
+  getSchools(limit?: number): Observable<School[]> {
     return this.dataService.get(`${ReportingServiceRoute}/organizations/schools`, {
       params: {
         limit: limit

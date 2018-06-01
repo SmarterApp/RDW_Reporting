@@ -16,6 +16,7 @@ import { UserModule } from '../user/user.module';
 import { GroupAssessmentExportService } from './results/group-assessment-export.service';
 import { GroupService } from './group.service';
 import { TableModule } from 'primeng/table';
+import { UserGroupModule } from '../user-group/user-group.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { TableModule } from 'primeng/table';
     ReportModule,
     SharedModule,
     TableModule,
-    UserModule
+    UserModule,
+    UserGroupModule
   ],
   exports: [
     GroupsComponent

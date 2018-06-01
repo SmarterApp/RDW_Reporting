@@ -1,0 +1,46 @@
+<!-- modal flyweight for student reports -->
+<student-report-download #menuReportDownloader
+                         [lockAssessmentType]="true"
+                         [lockSubject]="true"
+                         [lockSchoolYear]="true"></student-report-download>
+
+<!-- Student Results Table -->
+<p-table [columns]="columns"
+         [value]="exams"
+         [autoLayout]="true"
+         sortField="student.lastName"
+         styleClass="table table-striped table-hover overflow">
+  <ng-template pTemplate="header"
+               let-columns>
+    <tr>
+      <th *ngFor="let column of columns"
+          [pSortableColumn]="column.field"
+          [ngSwitch]="column.id">
+
+        <span *ngSwitchDefault>
+          <span *ngIf="!column.headerInfo">
+            {{('target-report.columns.' + column.id) | translate}}
+          </span>
+          <span *ngIf="column.headerInfo"
+                info-button
+                title="{{('target-report.columns.' + column.id) | translate}}"
+                content="{{('target-report.columns.' + column.id + '-info') | translate}}">
+          </span>
+        </span>
+
+        <p-sortIcon [field]="column.field"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage" let-columns>
+    <tr>
+      <td [attr.colspan]="columns.length">
+        {{'results-by-student.assessment-exams-empty-message' | translate}}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<ng-template #buttonPopover>
+  <instructional-resource-popover [provider]="instructionalResourcesProvider"></instructional-resource-popover>
+</ng-template>

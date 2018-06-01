@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import { Utils } from '../../shared/support/support';
 
 export interface SubgroupFilters {
 
@@ -44,19 +44,9 @@ export interface SubgroupFilters {
 
 }
 
-const equalSets = (a: any[], b: any[]) => {
-  return a === b
-    || (
-      a != null
-      && b != null
-      && a.length === b.length
-      && _.isEqual(a.concat().sort(), b.concat().sort())
-    );
-};
-
 const leftDifference = (a: { [ key: string ]: any }, b: { [ key: string ]: any }): { [ key: string ]: any } => {
   return Object.entries(a).reduce((difference, [ key, value ]) => {
-    if (!equalSets(value, b[ key ])) {
+    if (!Utils.equalSets(value, b[ key ])) {
       difference[ key ] = value;
     }
     return difference;
@@ -93,14 +83,14 @@ export class SubgroupFilterSupport {
    * @returns {boolean} True if the provided filters are equal
    */
   static equals(a: SubgroupFilters, b: SubgroupFilters): boolean {
-    return equalSets(a.genders, b.genders)
-      && equalSets(a.ethnicities, b.ethnicities)
-      && equalSets(a.migrantStatuses, b.migrantStatuses)
-      && equalSets(a.individualEducationPlans, b.individualEducationPlans)
-      && equalSets(a.section504s, b.section504s)
-      && equalSets(a.limitedEnglishProficiencies, b.limitedEnglishProficiencies)
-      && equalSets(a.englishLanguageAcquisitionStatuses, b.englishLanguageAcquisitionStatuses)
-      && equalSets(a.economicDisadvantages, b.economicDisadvantages);
+    return Utils.equalSets(a.genders, b.genders)
+      && Utils.equalSets(a.ethnicities, b.ethnicities)
+      && Utils.equalSets(a.migrantStatuses, b.migrantStatuses)
+      && Utils.equalSets(a.individualEducationPlans, b.individualEducationPlans)
+      && Utils.equalSets(a.section504s, b.section504s)
+      && Utils.equalSets(a.limitedEnglishProficiencies, b.limitedEnglishProficiencies)
+      && Utils.equalSets(a.englishLanguageAcquisitionStatuses, b.englishLanguageAcquisitionStatuses)
+      && Utils.equalSets(a.economicDisadvantages, b.economicDisadvantages);
   }
 
   static copy(input: SubgroupFilters): SubgroupFilters {

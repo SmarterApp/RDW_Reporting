@@ -10,7 +10,8 @@
   <div class="flex-children">
     <div class="flex-child grow">
       <span class="tag tag-lg {{colorService.getColor(getGradeIdx(assessmentExam.assessment.grade))}}">
-        <span class="label">{{'common.assessment-grade-short-label.' + assessmentExam.assessment.grade | translate}}</span>
+        <span
+          class="label">{{'common.assessment-grade-short-label.' + assessmentExam.assessment.grade | translate}}</span>
         {{assessmentExam.assessment.label}}
       </span>
     </div>
@@ -136,6 +137,18 @@
                     {{ writingTraitScoresView.label | translate }}
                   </a>
                 </li>
+                <li role="menuitem"
+                    *ngIf="targetReportView.display">
+                  <a class="dropdown-item"
+                     popover="{{ 'assessment-results.no-target-reports' | translate }}"
+                     triggers="{{ !targetReportView.disabled ? '' : 'mouseenter:mouseleave'}}"
+                     placement="right"
+                     container="body"
+                     (click)="targetReportView.disabled || setCurrentView(targetReportView)"
+                     [ngClass]="{'selected': currentResultsView == targetReportView, disabled: targetReportView.disabled}">
+                    {{ targetReportView.label | translate }}
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -163,8 +176,8 @@
                       type="button"
                       (click)="onPercentileButtonClickInternal()">
                 {{(showPercentileHistory
-                  ? 'assessment-percentile-history.button.hide'
-                  : 'assessment-percentile-history.button.show'
+                ? 'assessment-percentile-history.button.hide'
+                : 'assessment-percentile-history.button.show'
                 ) | translate}}
               </button>
             </li>
@@ -207,6 +220,13 @@
                                 [assessmentExporter]="assessmentExporter"
                                 [assessment]="assessmentExam.assessment"
                                 [exams]="exams"></writing-trait-scores>
+        </ng-container>
+        <ng-container *ngIf="showTargetReport">
+          <target-report #targetReport
+                         [exams]="[]"
+                         [assessment]="assessmentExam.assessment"
+                         [showClaimScores]="showClaimScores"
+                         [minimumItemDataYear]="minimumItemDataYear"></target-report>
         </ng-container>
       </div>
     </div>

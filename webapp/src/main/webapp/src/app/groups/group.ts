@@ -1,3 +1,4 @@
+
 export interface Group {
   readonly id: number;
   readonly name: string;
@@ -5,4 +6,5 @@ export interface Group {
   readonly schoolId: number;
   readonly subjectCode: string;
   readonly totalStudents?: number;
+  readonly userCreated: boolean;
 }

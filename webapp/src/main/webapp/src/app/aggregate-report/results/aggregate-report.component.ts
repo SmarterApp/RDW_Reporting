@@ -127,7 +127,11 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   }
 
   onUpdateRequestButtonClick(): void {
-    this.router.navigate([ '..' ], { relativeTo: this.route, queryParams: { src: this.report.id } });
+    const commands: string[] = [ '..' ];
+    if (this.report.request.query.reportType === 'Target') {
+      commands.push("targets");
+    }
+    this.router.navigate(commands, { relativeTo: this.route, queryParams: { src: this.report.id } });
   }
 
   onToggleRequestViewButtonClick(): void {

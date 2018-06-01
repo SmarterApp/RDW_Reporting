@@ -465,7 +465,8 @@
         "html": "Gain familiarity with the types of questions and tools for students by taking a practice test: <a target=\"_blank\" href=\"http://www.smarterbalanced.org/assessments/practice-and-training-tests\">http://www.smarterbalanced.org/assessments/practice-and-training-tests</a>"
       },
       "p3": {
-        "html": "These results represent only one indicator of a student's performance. These results should be used along with other information, such as classwork and other tests when making educational decisions. Specific questions about individual student results should be directed to the student's teacher."
+        "header": "Note:",
+        "html": "These results represent only one indicator of a student''s performance. These results should be used along with other information, such as classwork and other tests when making educational decisions. Specific questions about individual student results should be directed to the student''s teacher."
       }
     },
     "grade": {
@@ -550,26 +551,22 @@
         "1": {
           "color": "maroon",
           "description": "Did Not Meet Standard",
-          "label": "L1",
-          "name": "Standard Not Met (Level 1) {0}-{1}"
+          "label": "L1"
         },
         "2": {
           "color": "gray-darkest",
           "description": "Nearly Met Standard",
-          "label": "L2",
-          "name": "Standard Nearly Met (Level 2) {0}-{1}"
+          "label": "L2"
         },
         "3": {
           "color": "green-dark",
           "description": "Met Standard",
-          "label": "L3",
-          "name": "Standard Met (Level 3) {0}-{1}"
+          "label": "L3"
         },
         "4": {
           "color": "blue-dark",
           "description": "Exceeded Standard",
-          "label": "L4",
-          "name": "Standard Exceeded (Level 4) {0}-{1}"
+          "label": "L4"
         },
         "cohort": {
           "1": {
@@ -594,6 +591,7 @@
           "header": "Overall Achievement"
         }
       },
+      "score-range": " ({0}-{1})",
       "short-name": "ICA",
       "title": "Interim Comprehensive Assessment Report"
     },
@@ -766,7 +764,7 @@
       "rank": "Score is higher than {0}% of students."
     },
     "scale-score": {
-      "description": "A student's test score can vary if the test is taken several times. If this student was tested again, it is likely that the scale score would fall within this range.",
+      "description": "A student''s test score can vary if the test is taken several times. If this student was tested again, it is likely that the scale score would fall within this range.",
       "error-band": "Error Band"
     },
     "student": {
@@ -860,26 +858,22 @@
         "1": {
           "color": "maroon",
           "description": "Did Not Meet Standard",
-          "label": "L1",
-          "name": "Standard Not Met (Level 1) {0}-{1}"
+          "label": "L1"
         },
         "2": {
           "color": "gray-darkest",
           "description": "Nearly Met Standard",
-          "label": "L2",
-          "name": "Standard Nearly Met (Level 2) {0}-{1}"
+          "label": "L2"
         },
         "3": {
           "color": "green-dark",
           "description": "Met Standard",
-          "label": "L3",
-          "name": "Standard Met (Level 3) {0}-{1}"
+          "label": "L3"
         },
         "4": {
           "color": "blue-dark",
           "description": "Exceeded Standard",
-          "label": "L4",
-          "name": "Standard Exceeded (Level 4) {0}-{1}"
+          "label": "L4"
         },
         "cohort": {
           "1": {
@@ -904,10 +898,12 @@
           "header": "Overall Achievement"
         }
       },
+      "score-range": "{0}-{1}",
       "short-name": "SUM",
       "title": "Summative Assessment Report"
     },
     "writing": {
+      "description": "Students write an extended response (i.e., essay) with one of the following purposes: narrative, opinion, informational, explanatory, or argumentative. {0} received the following scores on the essay:",
       "trait": {
         "Argumentative": {
           "Conventions": {
@@ -1038,7 +1034,7 @@
             "4": "Unknown.Organization/Purpose.4"
           }
         },
-        "outof": "out of {0}",
+        "outof": "of {0}",
         "purpose": "Writing Purpose: {0}"
       }
     }

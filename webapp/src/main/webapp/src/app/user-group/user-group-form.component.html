@@ -1,0 +1,45 @@
+<form [formGroup]="formGroup">
+
+  <div class="form-group">
+    <label for="name">{{'user-group-form.field.name.label' | translate}}</label>
+    <input type="text"
+           class="form-control"
+           id="name"
+           name="name"
+           formControlName="name"
+           placeholder="{{'user-group.default-name' | translate}}"
+           [(ngModel)]="group.name"
+           (ngModelChange)="onNameChange()"
+           autocomplete="off"
+           maxlength="255">
+  </div>
+  <div class="form-group">
+    <label for="subjects">{{'user-group-form.field.subjects.label' | translate}}</label>
+    <sb-button-group id="subjects"
+                     name="subjects"
+                     [options]="options.subjects"
+                     [(ngModel)]="group.subjects"
+                     [ngModelOptions]="{standalone: true}"
+                     (ngModelChange)="onSubjectsChange()"></sb-button-group>
+
+  </div>
+  <div class="form-group">
+    <label>{{'user-group-form.field.students.label' | translate}}</label>
+    <input type="hidden"
+           name="students"
+           formControlName="students"
+           [(ngModel)]="group.students">
+
+    <p *ngIf="!group.students.length"
+       class="small text-muted">{{'user-group-form.field.students.empty-error' | translate}}</p>
+
+    <actionable-list-group [items]="group.students"
+                           [itemTemplate]="studentTemplate"
+                           (itemClick)="onStudentClick($event)"></actionable-list-group>
+  </div>
+</form>
+
+
+<ng-template #studentTemplate let-student>
+  <i class="fa fa-close mr-xs"></i> {{'common.person-name' | translate: student}}
+</ng-template>

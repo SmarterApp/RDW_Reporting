@@ -5,7 +5,7 @@ import { Injectable } from "@angular/core";
 import { OrganizationMapper } from "./organization/organization.mapper";
 import { OrganizationType } from "./organization/organization-type.enum";
 import { Tree } from "./organization/tree";
-import { isNullOrUndefined } from "util";
+import { Utils } from "../shared/support/support";
 
 @Injectable()
 export class OrganizationGroupingService {
@@ -102,7 +102,7 @@ export class OrganizationGroupingService {
    * @returns {boolean} True if the node is a valid grouping node
    */
   private validGroupingNode(node: Tree<Organization>) {
-    return !isNullOrUndefined(node.value.name);
+    return !Utils.isNullOrUndefined(node.value.name);
   }
 
 }

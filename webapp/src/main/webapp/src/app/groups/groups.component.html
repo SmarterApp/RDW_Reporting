@@ -3,22 +3,27 @@
 </ng-container>
 
 <ng-template #loaded>
-  <div class="flex-child grow">
-    <label>{{'groups.search-label' | translate }}</label>
+  <div class="flex-child grow clearfix">
+    <label>{{'groups.search-label' | translate}}</label>
 
-    <a *ngIf="defaultGroup" 
-       routerLink="/group-dashboard/{{ defaultGroup.id }}"
-       title="{{ 'groups.view-dashboard' | translate }}"
-       class="btn btn-xs btn-default pull-right">
-      <i class="fa fa-bars"></i> {{ 'groups.view-dashboard' | translate }}
-    </a>
+    <ul class="list-unstyled list-inline pull-right">
+      <li>
+        <a *ngIf="defaultGroup"
+           routerLink="/group-dashboard/{{defaultGroup.id}}"
+           title="{{'groups.view-dashboard' | translate}}"
+           class="btn btn-xs btn-default">
+          <i class="fa fa-bars"></i> {{'groups.view-dashboard' | translate}}
+        </a>
+      </li>
+    </ul>
+
   </div>
 
   <!-- My Groups Search Input -->
-  <div *ngIf="groups.length > 2"
+  <div *ngIf="groups.length > searchThreshold"
        class="table-search-form-container">
     <label for="search" class="sr-only">{{'groups.filter' | translate}}</label>
-    <input [(ngModel)]="searchTerm"
+    <input [(ngModel)]="search"
            class="search form-control"
            id="search"
            type="text"

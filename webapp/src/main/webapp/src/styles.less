@@ -169,7 +169,7 @@ h1 + p.pull-left, .h1 + p.pull-left, h2 + p.pull-left, .h2 + p.pull-left, h3 + p
   border-radius: @border-radius-base @border-radius-base 0 0;
   padding: @padding-base-horizontal @padding-large-horizontal;
   + .table-list-container .table > thead > tr,
-  + .table-list-container > p-table > .table > .ui-table-wrapper > table > thead > tr {
+  + .table-list-container p-table > .table > .ui-table-wrapper > table > thead > tr {
     > th:first-child {
       border-top-left-radius: 0;
     }
@@ -349,18 +349,26 @@ sb-button-typeahead .input-group-btn > .btn,
   line-height: 1.48;
 }
 
-.label-max-width {
+.label-max-width,
+.label-max-width-sm {
   white-space: nowrap;
   text-overflow: ellipsis;
   text-align: left;
   overflow: hidden;
   max-width: 330px;
 }
+.label-max-width-sm {
+  max-width: 250px;
+}
 
 .wrapping-max-width {
   white-space: normal;
   text-align: left;
   max-width: 330px;
+}
+
+.no-wrap {
+  white-space:nowrap;
 }
 
 /**
@@ -563,12 +571,17 @@ body .select-menu-group {
 
 .full-cell {
   margin: -@table-cell-padding;
-  padding-left: @table-cell-padding;
-  padding-right: @table-cell-padding;
-  padding-top: 0.5em;
+  padding: @table-cell-padding;
 
   &.pt-0 {
     padding-top: 0;
+  }
+  &.pb-0 {
+    padding-bottom: 0;
+  }
+
+  .scale-score {
+    margin: -.15em;
   }
 }
 
@@ -703,6 +716,24 @@ aggregate-report-table {
   color: @white;
   padding: 5px;
   border-radius: 5px;
+}
+
+.well-group {
+  &.ignore-last-margin-bottom {
+    .well {
+      padding: 15px 20px 20px 20px;
+      /**
+       * pseudo-recursive last child selector
+       */
+      > :last-child,
+      > :last-child > :last-child,
+      > :last-child > :last-child > :last-child,
+      > :last-child > :last-child > :last-child > :last-child,
+      > :last-child > :last-child > :last-child > :last-child > :last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
 aggregate-report-form {
@@ -957,6 +988,41 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
     .colorElement(@@name);
   }
   .generate-color-classes(@colorName, (@i + 1));
+}
+
+/**
+ * ICA/Summative PDF Report
+ */
+.overview .standard .score.maroon,
+.graph .score .num.maroon {
+  background-color: #5B1931;
+  color: #FDF6F1;
+}
+.overview .standard .score.gray-darkest,
+.graph .score .num.gray-darkest {
+  background-color: #2a2b2d;
+  color: #eaebeb;
+}
+.overview .standard .score.gray-darkest,
+.graph .score .num.gray-darkest {
+  background-color: #406934;
+  color: #fff;
+}
+.overview .standard .score.gray-darkest,
+.graph .score .num.gray-darkest {
+  background-color: #104564;
+  color: #f5fafd;
+}
+
+.achievement-descriptions .level-description .level-label.sb-iab-green {
+  background-color: @sb-iab-green;
+}
+.achievement-descriptions .level-description .level-label.sb-iab-yellow {
+  color: #000000;
+  background-color: @sb-iab-yellow;
+}
+.achievement-descriptions .level-description .level-label.sb-iab-red {
+  background-color: @sb-iab-red;
 }
 
 /**
@@ -1453,5 +1519,17 @@ wide-radio-group {
 adv-filters {
   .section.row {
     margin: 0.5% 0.5% 0.5% 0.5%;
+  }
+}
+
+table.student-claim-distribution {
+  table-layout: fixed;
+  
+  thead {
+    tr {
+      th {
+        vertical-align: top;
+      }
+    }
   }
 }

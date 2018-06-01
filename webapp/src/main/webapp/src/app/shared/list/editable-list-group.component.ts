@@ -12,7 +12,8 @@ import {ListGroupComponent} from "./list-group.component";
            class="mr-xs"
            href="javascript:void(0)"
            (click)="itemRemoveButtonClick.emit(item)"><i class="fa fa-close"></i></a>
-        <ng-container *ngTemplateOutlet="(itemTemplate ? itemTemplate : defaultItemTemplate); context:{$implicit: item}"></ng-container>
+        <ng-container *ngTemplateOutlet="(itemTemplate ? itemTemplate : defaultItemTemplate);
+                      context:{$implicit: item}"></ng-container>
       </li>
     </ul>
   `

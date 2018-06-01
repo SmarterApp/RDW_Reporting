@@ -1,0 +1,102 @@
+<div class="flex-children">
+
+  <div class="flex-child">
+    <div>
+      <label>
+            <span info-button
+                  title="{{'common.filters.student.gender' | translate}}"
+                  content="{{'common.filters.student.gender-info' | translate}}"></span>
+      </label>
+      <sb-button-group [options]="optionsInternal.genders"
+                       [(ngModel)]="value.genders"
+                       (ngModelChange)="onChange()"
+                       [vertical]="true"
+                       analyticsEvent="FilterClick"
+                       analyticsCategory="AdvancedFilters"></sb-button-group>
+    </div>
+    <div>
+      <label>
+            <span info-button
+                  title="{{'common.filters.student.migrant-status' | translate}}"
+                  content="{{'common.filters.student.migrant-status-info' | translate}}"></span>
+      </label>
+      <sb-button-group [options]="optionsInternal.migrantStatuses"
+                       [(ngModel)]="value.migrantStatuses"
+                       (ngModelChange)="onChange()"
+                       [vertical]="true"
+                       analyticsEvent="FilterClick"
+                       analyticsCategory="AdvancedFilters"></sb-button-group>
+    </div>
+    <div>
+      <label>
+            <span info-button
+                  title="{{'common.filters.student.504-plan' | translate}}"
+                  content="{{'common.filters.student.504-plan-info' | translate}}"></span>
+      </label>
+      <sb-button-group [options]="optionsInternal.section504s"
+                       [(ngModel)]="value.section504s"
+                       (ngModelChange)="onChange()"
+                       [vertical]="true"
+                       analyticsEvent="FilterClick"
+                       analyticsCategory="AdvancedFilters"></sb-button-group>
+    </div>
+  </div>
+
+  <div class="flex-child">
+    <div *ngIf="showLimitedEnglishProficiencyFilter">
+      <label>
+            <span info-button
+                  title="{{'common.filters.student.limited-english-proficiency' | translate}}"
+                  content="{{'common.filters.student.limited-english-proficiency-info' | translate}}"></span>
+      </label>
+      <sb-button-group [options]="optionsInternal.limitedEnglishProficiencies"
+                       [(ngModel)]="value.limitedEnglishProficiencies"
+                       (ngModelChange)="onChange()"
+                       analyticsEvent="FilterClick"
+                       analyticsCategory="AdvancedFilters"></sb-button-group>
+    </div>
+    <div *ngIf="showEnglishLanguageAcquisitionStatusFilter">
+      <label>
+            <span info-button
+                  title="{{'common.filters.student.elas' | translate}}"
+                  content="{{'common.filters.student.elas-info' | translate}}"></span>
+      </label>
+      <sb-button-group [options]="optionsInternal.englishLanguageAcquisitionStatuses"
+                       [(ngModel)]="value.englishLanguageAcquisitionStatuses"
+                       (ngModelChange)="onChange()"
+                       [vertical]="true"
+                       [noneStateEnabled]="true"
+                       analyticsEvent="FilterClick"
+                       analyticsCategory="AdvancedFilters"></sb-button-group>
+    </div>
+    <div>
+      <label>
+            <span info-button
+                  title="{{'common.filters.student.iep' | translate}}"
+                  content="{{'common.filters.student.iep-info' | translate}}"></span>
+      </label>
+      <sb-button-group [options]="optionsInternal.individualEducationPlans"
+                       [(ngModel)]="value.individualEducationPlans"
+                       (ngModelChange)="onChange()"
+                       analyticsEvent="FilterClick"
+                       analyticsCategory="AdvancedFilters"></sb-button-group>
+    </div>
+  </div>
+
+  <div class="flex-child">
+    <div>
+      <label>
+            <span info-button
+                  title="{{'common.filters.student.ethnicity' | translate}}"
+                  content="{{'common.filters.student.ethnicity-info' | translate}}"></span>
+      </label>
+      <sb-button-group [options]="optionsInternal.ethnicities"
+                       [(ngModel)]="value.ethnicities"
+                       (ngModelChange)="onChange()"
+                       [vertical]="true"
+                       analyticsEvent="FilterClick"
+                       analyticsCategory="AdvancedFilters"></sb-button-group>
+    </div>
+  </div>
+
+</div>

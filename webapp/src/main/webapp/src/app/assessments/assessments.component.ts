@@ -69,6 +69,13 @@ export class AssessmentsComponent implements OnInit {
   @Input()
   allowFilterBySessions = true;
 
+  /**
+   * If true, the results are collapsed by default, otherwise they are expanded
+   * with the results shown.
+   */
+  @Input()
+  isDefaultCollapsed = false;
+
   @Output()
   export: EventEmitter<any> = new EventEmitter<any>();
 

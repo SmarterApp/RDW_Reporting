@@ -1,4 +1,16 @@
+import * as _ from 'lodash';
+
 export class Utils {
+
+  static equalSets(a: any[], b: any[]): boolean {
+    return a === b
+      || (
+        a != null
+        && b != null
+        && a.length === b.length
+        && _.isEqual(a.concat().sort(), b.concat().sort())
+      );
+  }
 
   static getPropertyValue(propertyPath: string, object: any): any {
      const parts = propertyPath.split('.');

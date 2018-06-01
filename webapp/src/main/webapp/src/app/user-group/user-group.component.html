@@ -1,0 +1,155 @@
+<ng-container *ngIf="!initialized; else loaded">
+  <spinner></spinner>
+</ng-container>
+
+<ng-template #loaded>
+
+  <page-heading>
+    <ng-template #heading>
+      <h5><i class="fa fa-search"></i> {{'user-group.student-search.find-students-prompt' | translate}}</h5>
+    </ng-template>
+    <ng-template #content>
+      <ul class="list-unstyled list-inline">
+        <li *ngIf="group.id != null">
+          <button type="button"
+                  class="btn btn-danger btn-sm"
+                  [disabled]="deleteButtonDisabled"
+                  (click)="deleteModal.show()">
+            <i class="fa fa-trash"></i>
+            {{'common.action.delete' | translate}}
+          </button>
+        </li>
+        <li>
+          <button type="submit"
+                  class="btn btn-primary btn-sm"
+                  [disabled]="saveButtonDisabled"
+                  (click)="onSaveButtonClick()">
+            <i class="fa fa-save"></i>
+            {{'common.action.save' | translate}}
+          </button>
+        </li>
+        <li>
+          <button type="button"
+                  class="btn btn-default btn-sm"
+                  (click)="onCancelButtonClick()">
+            {{'common.action.cancel' | translate}}
+          </button>
+        </li>
+      </ul>
+    </ng-template>
+  </page-heading>
+
+  <div class="row">
+
+    <div class="col-md-8">
+      <div class="well-group ignore-last-margin-bottom">
+        <div class="well">
+          <student-search-form #studentSearchForm
+                               [options]="studentFormOptions"
+                               [(ngModel)]="studentForm"
+                               (schoolChange)="onStudentFormSearchChange($event)"
+                               (groupChange)="onStudentFormSearchChange($event)"
+                               (nameChange)="onStudentFormFilterChange($event)"
+                               (showAdvancedFiltersChange)="onShowAdvancedFiltersChange($event)"></student-search-form>
+        </div>
+
+        <div *ngIf="showAdvancedFilters"
+             class="well gray-lighter">
+          <student-filters [options]="studentFilterOptions"
+                           [showEnglishLanguageAcquisitionStatusFilter]="applicationSettings.elasEnabled"
+                           [showLimitedEnglishProficiencyFilter]="applicationSettings.lepEnabled"
+                           (changed)="onAdvancedFilterChange($event)"></student-filters>
+        </div>
+
+        <div class="well gray-lightest">
+
+          <label>{{'user-group.student-search.results-label' | translate}}</label>
+
+          <p class="small">
+
+            <ng-container *ngIf="loadingStudents; else studentsLoaded">
+              <i class="fa fa-spinner fa-pulse fa-fw"></i>
+            </ng-container>
+            <ng-template #studentsLoaded>
+
+              <ng-container *ngIf="filteredStudents.length; else noResults">
+                {{'user-group.student-search.add-student-prompt' | translate}}
+              </ng-container>
+              <ng-template #noResults>
+                {{'user-group.student-search.no-results' | translate}}
+              </ng-template>
+
+            </ng-template>
+          </p>
+
+          <actionable-list-group [items]="filteredStudents"
+                                 [itemTemplate]="studentFormStudentTemplate"
+                                 (itemClick)="onFormStudentClick($event)"></actionable-list-group>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="well-group ignore-last-margin-bottom">
+        <div class="well">
+          <user-group-form #groupForm
+                           [options]="formOptions"
+                           [group]="group"
+                           (nameChange)="onGroupNameChange()"
+                           (subjectsChange)="onGroupSubjectsChange()"
+                           (studentsChange)="onGroupStudentsChange($event)"></user-group-form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ng-template>
+
+<ng-template #studentFormStudentTemplate let-student>
+  <div>
+    <i class="fa fa-plus mr-xs"></i> {{'common.person-name' | translate:student}}
+  </div>
+</ng-template>
+
+<div bsModal
+     #deleteModal="bs-modal"
+     class="modal fade"
+     tabindex="-1"
+     role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-static-name"
+            class="modal-title pull-left label-max-width">{{'user-group.delete-modal.header' | translate:group}}</h4>
+        <button type="button"
+                class="close pull-right"
+                aria-label="Close"
+                (click)="deleteModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{'user-group.delete-modal.body' | translate:group}}
+      </div>
+      <div class="modal-footer">
+        <ul class="pull-right list-unstyled list-inline">
+          <li>
+            <button type="button"
+                    class="btn btn-danger btn-sm"
+                    (click)="deleteModal.hide(); onDeleteButtonClick()">
+              <i class="fa fa-trash"></i>
+              {{'common.action.delete' | translate}}
+            </button>
+          </li>
+          <li>
+            <button type="button"
+                    class="btn btn-default btn-sm"
+                    (click)="deleteModal.hide()">
+              {{'common.action.cancel' | translate}}
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

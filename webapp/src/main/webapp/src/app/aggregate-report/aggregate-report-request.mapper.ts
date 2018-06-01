@@ -419,13 +419,15 @@ export class AggregateReportRequestMapper {
   private ServerReportTypeByClientType = {
     GeneralPopulation: 'CustomAggregate',
     LongitudinalCohort: 'Longitudinal',
-    Claim: 'Claim'
+    Claim: 'Claim',
+    Target: 'Target'
   };
 
   private ClientReportTypeByServerType = {
     CustomAggregate: 'GeneralPopulation',
     Longitudinal: 'LongitudinalCohort',
-    Claim: 'Claim'
+    Claim: 'Claim',
+    Target: 'Target'
   };
 
   private toServerReportType(type: string) {
