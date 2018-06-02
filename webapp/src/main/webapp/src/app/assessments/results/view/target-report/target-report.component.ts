@@ -11,7 +11,6 @@ import { GroupAssessmentService } from '../../../../groups/results/group-assessm
 import { Subscription } from 'rxjs/Subscription';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Target } from '../../../model/target.model';
-import { ExamStatisticsCalculator } from '../../exam-statistics-calculator';
 import { ordering } from '@kourge/ordering';
 import { byString, join, ranking } from '@kourge/ordering/comparator';
 import { TargetService } from '../../../../shared/target/target.service';
@@ -22,6 +21,7 @@ import { DataTableService } from '../../../../shared/datatable/datatable-service
 import { SubgroupMapper } from '../../../../aggregate-report/subgroup/subgroup.mapper';
 import { ExamFilterOptionsService } from '../../../filters/exam-filters/exam-filter-options.service';
 import { ExamFilterOptions } from '../../../model/exam-filter-options.model';
+import { TargetStatisticsCalculator } from '../../target-statistics-calculator';
 
 @Component({
   selector: 'target-report',
@@ -85,7 +85,7 @@ export class TargetReportComponent implements OnInit {
   constructor(private examFilterService: ExamFilterService,
               private actionBuilder: MenuActionBuilder,
               private translate: TranslateService,
-              private examStatisticsCalculator: ExamStatisticsCalculator,
+              private targetStatisticsCalculator: TargetStatisticsCalculator,
               private targetService: TargetService,
               private dataTableService: DataTableService,
               private assessmentExamMapper: AssessmentExamMapper,
@@ -149,7 +149,8 @@ export class TargetReportComponent implements OnInit {
       if (index === -1) {
         filledTargetScoreRows.push(<AggregateTargetScoreRow>{
           targetId: target.id,
-          subgroup: 'Overall',
+          subgroup: this.subgroupMapper.createOverall(),
+          subgroupValue: 'Overall',
           standardMetRelativeLevel: TargetReportingLevel.Excluded,
           studentRelativeLevel: TargetReportingLevel.Excluded
         })
@@ -187,7 +188,7 @@ export class TargetReportComponent implements OnInit {
       join(
         ordering(byString).on<AggregateTargetScoreRow>(row => row.claim).compare,
         ordering(byTarget).on<AggregateTargetScoreRow>(row => row.target).compare,
-        ordering(bySubgroup).on<AggregateTargetScoreRow>(row => row.subgroup).compare
+        ordering(bySubgroup).on<AggregateTargetScoreRow>(row => row.subgroupValue).compare
       )
     );
   }
@@ -199,14 +200,14 @@ export class TargetReportComponent implements OnInit {
 
   private updateTargetScoreExam(): void {
     //this.targetScoreExams = this.filterExams();
-    // this.aggregateTargetScoreRows = this.examStatisticsCalculator.aggregateTargetScores(
+    // this.aggregateTargetScoreRows = this.targetStatisticsCalculator.aggregateTargetScores(
     //   this.targetScoreExams,
     //   this.selectedSubgroups
     // );
 
     this.aggregateTargetScoreRows = this.mergeTargetData(
       this.allTargets,
-      this.examStatisticsCalculator.aggregateTargetScores(this.targetScoreExams, this.selectedSubgroups)
+      this.targetStatisticsCalculator.aggregateTargetScores(this.targetScoreExams, this.selectedSubgroups)
     );
 
     this.sortRows();

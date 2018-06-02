@@ -1,8 +1,11 @@
+import { Subgroup } from '../../aggregate-report/subgroup/subgroup';
+
 export class AggregateTargetScoreRow {
   targetId: number;
   target: string;
   claim: string;
-  subgroup: string;
+  subgroup: Subgroup;
+  subgroupValue: string;
   studentsTested: number;
   standardMetRelativeLevel: TargetReportingLevel;
   studentRelativeLevel: TargetReportingLevel;

@@ -71,15 +71,10 @@
             </span>
           </div>
 
-          <!--<div *ngSwitchCase="'subgroup'"-->
-               <!--class="label-max-width"-->
-               <!--title="{{rowData.subgroup.name}}">-->
-            <!--{{rowData.subgroup.name}}-->
-            <!--&lt;!&ndash;<subgroup [subgroup]="rowData.subgroup"></subgroup>&ndash;&gt;-->
-          <!--</div>-->
-
-          <div *ngSwitchCase="'subgroup'">
-            {{rowData.subgroup}}
+          <div *ngSwitchCase="'subgroup'"
+               class="label-max-width"
+               title="{{rowData.subgroup.name}}">
+            <subgroup [subgroup]="rowData.subgroup"></subgroup>
           </div>
 
           <div *ngSwitchCase="'studentsTested'"
