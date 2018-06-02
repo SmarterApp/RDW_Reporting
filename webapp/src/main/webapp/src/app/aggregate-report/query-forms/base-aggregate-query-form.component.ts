@@ -22,6 +22,9 @@ import { Observable } from "rxjs/Observable";
 import { AggregateReportColumnOrderItemProvider } from "../aggregate-report-column-order-item.provider";
 import { OrderableItem } from "../../shared/order-selector/order-selector.component";
 
+/**
+ * Base query component implementation for all aggregate report types.
+ */
 export abstract class BaseAggregateQueryFormComponent implements OnInit, OnDestroy {
 
   @Input()

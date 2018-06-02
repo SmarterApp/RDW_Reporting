@@ -20,6 +20,10 @@ import { SupportedRowCount } from "../results/aggregate-report-table.component";
 
 const OrganizationComparator = (a: Organization, b: Organization) => a.name.localeCompare(b.name);
 
+/**
+ * Base query component implementation for the multi-organization aggregate report types:
+ * GeneralPopulation, LongitudinalCohort, and Claim.
+ */
 export abstract class MultiOrganizationQueryFormComponent extends BaseAggregateQueryFormComponent {
 
   /**
