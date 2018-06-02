@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import { BaseColumn } from './base-column.model';
 
 @Injectable()
-export class DatatableUtils {
+export class DataTableService {
   /**
    * Calculate the index for each row at which it differs from the data in the previous row.
    * This is used to display a tree-like structure which hides repetitive data in the left-most columns.

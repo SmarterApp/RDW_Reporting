@@ -13,12 +13,15 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Target } from '../../../model/target.model';
 import { ExamStatisticsCalculator } from '../../exam-statistics-calculator';
 import { ordering } from '@kourge/ordering';
-import { byString, join } from '@kourge/ordering/comparator';
+import { byString, join, ranking } from '@kourge/ordering/comparator';
 import { TargetService } from '../../../../shared/target/target.service';
 import { AssessmentExamMapper } from '../../../assessment-exam.mapper';
-import { DatatableUtils } from '../../../../shared/datatable/datatable-utils';
 import { BaseColumn } from '../../../../shared/datatable/base-column.model';
 import { Table } from 'primeng/table';
+import { DataTableService } from '../../../../shared/datatable/datatable-service';
+import { SubgroupMapper } from '../../../../aggregate-report/subgroup/subgroup.mapper';
+import { ExamFilterOptionsService } from '../../../filters/exam-filters/exam-filter-options.service';
+import { ExamFilterOptions } from '../../../model/exam-filter-options.model';
 
 @Component({
   selector: 'target-report',
@@ -58,12 +61,23 @@ export class TargetReportComponent implements OnInit {
   private dataTable: Table;
 
   columns: Column[];
+  allTargets: Target[] = [];
   loading: boolean = false;
   targetScoreExams: TargetScoreExam[];
   targetDisplayMap: Map<number, any>;
   aggregateTargetScoreRows: AggregateTargetScoreRow[] = [];
-  identityColumns: string[] = [ 'claim', 'target' ];
+  identityColumns: string[] = [ 'claim', 'target', 'subgroup' ];
   treeColumns: number[] = [];
+  filterOptions: ExamFilterOptions = new ExamFilterOptions();
+  // TODO: handle ELAS, vs LEP decision
+  allSubgroups: any[] = [
+    {code: 'Gender', selected: false},
+    {code: 'Ethnicity', selected: false},
+    {code: 'ELAS', selected: false},
+    {code: 'Section504', selected: false},
+    {code: 'IEP', selected: false},
+    {code: 'MigrantStatus', selected: false}
+  ];
 
   private _filterBy: FilterBy;
   private _filterBySubscription: Subscription;
@@ -73,9 +87,11 @@ export class TargetReportComponent implements OnInit {
               private translate: TranslateService,
               private examStatisticsCalculator: ExamStatisticsCalculator,
               private targetService: TargetService,
-              private datatableUtils: DatatableUtils,
+              private dataTableService: DataTableService,
               private assessmentExamMapper: AssessmentExamMapper,
-              private assessmentProvider: GroupAssessmentService) {
+              private assessmentProvider: GroupAssessmentService,
+              private filterOptionService: ExamFilterOptionsService,
+              private subgroupMapper: SubgroupMapper) {
   }
 
   ngOnInit() {
@@ -92,33 +108,36 @@ export class TargetReportComponent implements OnInit {
 
     forkJoin(
       this.targetService.getTargetsForAssessment(this.assessment.id),
-      this.assessmentProvider.getTargetScoreExams(this.assessment.id)
-    ).subscribe(([ allTargets, targetScoreExams ]) => {
+      this.assessmentProvider.getTargetScoreExams(this.assessment.id),
+      this.filterOptionService.getExamFilterOptions()
+    ).subscribe(([ allTargets, targetScoreExams, filterOptions ]) => {
       this.targetScoreExams = targetScoreExams;
-
-      this.aggregateTargetScoreRows = this.mergeTargetData(
-        allTargets,
-        this.examStatisticsCalculator.aggregateTargetScores(this.targetScoreExams)
-      );
+      this.filterOptions = filterOptions;
+      this.allTargets = allTargets;
 
       this.targetDisplayMap = allTargets.reduce((targetMap, target) => {
         targetMap[target.id] = {
           name: this.assessmentExamMapper.formatTarget(target.code),
-          description: target.description
+          description: target.description,
+          claim: target.claimCode
         };
 
         return targetMap;
       }, new Map<number, any>());
 
-      this.treeColumns = this.datatableUtils.calculateTreeColumns(
-        this.aggregateTargetScoreRows,
-        this.dataTable,
-        this.columns,
-        this.identityColumns
-      );
+      this.updateTargetScoreExam();
 
       this.loading = false;
     });
+  }
+
+  calculateTreeColumns() {
+    this.treeColumns = this.dataTableService.calculateTreeColumns(
+      this.aggregateTargetScoreRows,
+      this.dataTable,
+      this.columns,
+      this.identityColumns
+    );
   }
 
   // TODO: do we need to use the includeInReport flag?  what if that flag is true but we don't have scores
@@ -130,29 +149,72 @@ export class TargetReportComponent implements OnInit {
       if (index === -1) {
         filledTargetScoreRows.push(<AggregateTargetScoreRow>{
           targetId: target.id,
-          target: target.naturalId,
-          claim: target.claimCode,
+          subgroup: 'Overall',
           standardMetRelativeLevel: TargetReportingLevel.Excluded,
           studentRelativeLevel: TargetReportingLevel.Excluded
         })
-      } else {
-        filledTargetScoreRows[ index ].claim = target.claimCode;
-        filledTargetScoreRows[ index ].target = target.naturalId;
       }
     });
 
-    return filledTargetScoreRows
-      .sort(
-        join(
-          ordering(byString).on<AggregateTargetScoreRow>(row => row.claim).compare,
-          ordering(byString).on<AggregateTargetScoreRow>(row => row.target).compare
-        )
-      );
+    // now update all claim and target info
+    for (let i=0; i < filledTargetScoreRows.length; i++) {
+      const target = this.targetDisplayMap[filledTargetScoreRows[i].targetId];
+      filledTargetScoreRows[i].claim = target.claim;
+      filledTargetScoreRows[i].target = target.name;
+    }
+
+    return filledTargetScoreRows;
+  }
+
+  sortRows() {
+    const byTarget = (a: string, b: string) => {
+      let numA = Number(a);
+      let numB = Number(b);
+
+      if (!Number.isNaN(numA) && !Number.isNaN(numB)) return numA - numB;
+
+      return a.localeCompare(b);
+    };
+
+    const bySubgroup = (a: string, b: string) => {
+      if (a.startsWith('Overall') && !b.startsWith('Overall')) return 1;
+      if (!a.startsWith('Overall') && b.startsWith('Overall')) return -1;
+
+      return a.localeCompare(b);
+    };
+
+    this.aggregateTargetScoreRows.sort(
+      join(
+        ordering(byString).on<AggregateTargetScoreRow>(row => row.claim).compare,
+        ordering(byTarget).on<AggregateTargetScoreRow>(row => row.target).compare,
+        ordering(bySubgroup).on<AggregateTargetScoreRow>(row => row.subgroup).compare
+      )
+    );
+  }
+
+  toggleSubgroup(subgroup) {
+    subgroup.selected = !subgroup.selected;
+    this.updateTargetScoreExam();
   }
 
   private updateTargetScoreExam(): void {
-    this.targetScoreExams = this.filterExams();
-    this.aggregateTargetScoreRows = this.examStatisticsCalculator.aggregateTargetScores(this.targetScoreExams);
+    //this.targetScoreExams = this.filterExams();
+    // this.aggregateTargetScoreRows = this.examStatisticsCalculator.aggregateTargetScores(
+    //   this.targetScoreExams,
+    //   this.selectedSubgroups
+    // );
+
+    this.aggregateTargetScoreRows = this.mergeTargetData(
+      this.allTargets,
+      this.examStatisticsCalculator.aggregateTargetScores(this.targetScoreExams, this.selectedSubgroups)
+    );
+
+    this.sortRows();
+    this.calculateTreeColumns();
+  }
+
+  get selectedSubgroups(): string[] {
+    return this.allSubgroups.filter(x => x.selected).map(x => x.code);
   }
 
   private filterExams(): TargetScoreExam[] {

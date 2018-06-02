@@ -4,12 +4,25 @@
                          [lockSubject]="true"
                          [lockSchoolYear]="true"></student-report-download>
 
+<div class="pull-right">
+  <a *ngFor="let subgroup of allSubgroups"
+     class="reverse multi-line btn flex-child {{subgroup.selected ? 'aqua' : 'gray-dark'}}"
+     (click)="toggleSubgroup(subgroup)"
+     angulartics2On="click"
+     angularticsEvent="ToggleSubgroup"
+     angularticsCategory="TeacherTargetResults">
+          <span class="block-children">
+              <strong>{{subgroup.code }}</strong>
+          </span>
+  </a>
+</div>
+
 <!-- Student Results Table -->
 <p-table #dataTable
          [columns]="columns"
          [value]="aggregateTargetScoreRows"
          [autoLayout]="true"
-         sortField="claim"
+         sortField=""
          styleClass="table table-striped table-hover overflow">
   <ng-template pTemplate="header"
                let-columns>
@@ -17,14 +30,7 @@
       <th *ngFor="let column of columns"
           [pSortableColumn]="column.field"
           [ngSwitch]="column.id"
-          class="wrapping"
-          [ngClass]="{
-            'wrapping': column.id !== 'achievementComparison'
-              && column.id !== 'dimension'
-              && column.id !== 'organization'
-              && column.id !== 'claim'
-              && column.id !== 'target'
-          }">
+          class="wrapping">
 
         <span *ngSwitchDefault>
           <span *ngIf="!column.headerInfo">
@@ -73,7 +79,7 @@
           <!--</div>-->
 
           <div *ngSwitchCase="'subgroup'">
-            Overall
+            {{rowData.subgroup}}
           </div>
 
           <div *ngSwitchCase="'studentsTested'"

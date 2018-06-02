@@ -8,6 +8,7 @@ import { WritingTraitScoreSummary } from '../model/writing-trait-score-summary.m
 import { ClaimStatistics } from '../model/claim-score.model';
 import { TargetScoreExam } from '../model/target-score-exam.model';
 import { AggregateTargetScoreRow, TargetReportingLevel } from '../model/aggregate-target-score-row.model';
+import { SubgroupMapper } from '../../aggregate-report/subgroup/subgroup.mapper';
 
 @Injectable()
 export class ExamStatisticsCalculator {
@@ -15,6 +16,9 @@ export class ExamStatisticsCalculator {
   private readonly PercentFieldPrefix = "percent-point_";
 
   private readonly potentialResponses = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  constructor(private subgroupMapper: SubgroupMapper) {
+  }
 
   calculateAverage(scores: number[]): number {
     let scored = scores.filter(x => x != null);
@@ -114,7 +118,7 @@ export class ExamStatisticsCalculator {
     return pointFields;
   }
 
-  aggregateTargetScores(targetScoreExams: TargetScoreExam[]): AggregateTargetScoreRow[] {
+  aggregateTargetScores(targetScoreExams: TargetScoreExam[], subgroups: string[] = []): AggregateTargetScoreRow[] {
     if (targetScoreExams == null) return [];
 
     let grouped = targetScoreExams.reduce((groupedExams, exam) => {
@@ -122,6 +126,9 @@ export class ExamStatisticsCalculator {
       if (index === -1) {
         groupedExams.push({
           targetId: exam.targetId,
+          subgroup: this.subgroupMapper.createOverall(),
+          subgroupCode: 'Overall',
+          subgroupValue: null,
           standardMetScores:[],
           studentScores: []
         });
@@ -132,12 +139,37 @@ export class ExamStatisticsCalculator {
       groupedExams[ index ].standardMetScores.push(exam.standardMetRelativeResidualScore);
       groupedExams[ index ].studentScores.push(exam.studentRelativeResidualScore);
 
+      // for each subgroup (Gender, Ethnicity, etc.) breakdown by all subgroup values
+      subgroups.forEach(subgroupCode => {
+        let subgroupValue = this.getExamSubgroupValue(exam, subgroupCode);
+
+        let index = groupedExams.findIndex(x => x.targetId == exam.targetId
+          && x.subgroupCode == subgroupCode && x.subgroupValue == subgroupValue);
+
+        if (index === -1) {
+          groupedExams.push({
+            targetId: exam.targetId,
+            subgroup: this.subgroupMapper.fromTypeAndCode(subgroupCode, subgroupValue),
+            subgroupCode: subgroupCode,
+            subgroupValue: subgroupValue,
+            standardMetScores:[],
+            studentScores: []
+          });
+
+          index = groupedExams.length - 1;
+        }
+
+        groupedExams[ index ].standardMetScores.push(exam.standardMetRelativeResidualScore);
+        groupedExams[ index ].studentScores.push(exam.studentRelativeResidualScore);
+      });
+
       return groupedExams;
     }, []);
 
     let rows = grouped.map(entry => {
       return <AggregateTargetScoreRow>{
         targetId: entry.targetId,
+        subgroup: entry.subgroupCode + '|' + entry.subgroupValue,
         studentsTested: entry.standardMetScores.length,
         standardMetRelativeLevel: this.mapTargetScoreDeltaToReportingLevel(
           this.calculateAverage(entry.standardMetScores),
@@ -151,6 +183,19 @@ export class ExamStatisticsCalculator {
     });
 
     return rows;
+  }
+
+  private getExamSubgroupValue(exam: Exam, subgroupCode: string): any {
+    switch (subgroupCode) {
+      case 'Gender': return exam.student.genderCode;
+      case 'Ethnicity': return exam.student.ethnicityCodes;
+      case 'Section504': return exam.plan504;
+      case 'IEP': return exam.iep;
+      case 'MigrantStatus': return exam.migrantStatus;
+      case 'StudentEnrolledGrade': return exam.enrolledGrade;
+    }
+
+    return null;
   }
 
   mapTargetScoreDeltaToReportingLevel(delta: number, standardError: number): TargetReportingLevel {

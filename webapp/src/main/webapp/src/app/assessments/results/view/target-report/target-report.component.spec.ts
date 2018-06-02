@@ -10,11 +10,11 @@ import { TargetReportComponent } from './target-report.component';
 import { GroupAssessmentService } from '../../../../groups/results/group-assessment.service';
 import { AssessmentExamMapper } from '../../../assessment-exam.mapper';
 import { ExamFilterService } from '../../../filters/exam-filters/exam-filter.service';
-import { DatatableUtils } from '../../../../shared/datatable/datatable-utils';
 import { ExamStatisticsCalculator } from '../../exam-statistics-calculator';
 import { ExamFilterOptionsService } from '../../../filters/exam-filters/exam-filter-options.service';
 import { ExamFilterOptionsMapper } from '../../../filters/exam-filters/exam-filter-options.mapper';
 import { of } from 'rxjs/observable/of';
+import { DataTableService } from '../../../../shared/datatable/datatable-service';
 
 describe('TargetReportComponent', () => {
   let component: TargetReportComponent;
@@ -41,7 +41,7 @@ describe('TargetReportComponent', () => {
         ExamFilterService,
         ExamFilterOptionsService,
         ExamFilterOptionsMapper,
-        DatatableUtils,
+        DataTableService,
         AssessmentExamMapper,
         ExamStatisticsCalculator
       ],
