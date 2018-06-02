@@ -22,6 +22,7 @@ import { SubgroupMapper } from '../../../../aggregate-report/subgroup/subgroup.m
 import { ExamFilterOptionsService } from '../../../filters/exam-filters/exam-filter-options.service';
 import { ExamFilterOptions } from '../../../model/exam-filter-options.model';
 import { TargetStatisticsCalculator } from '../../target-statistics-calculator';
+import { Subgroup } from '../../../../aggregate-report/subgroup/subgroup';
 
 @Component({
   selector: 'target-report',
@@ -71,12 +72,12 @@ export class TargetReportComponent implements OnInit {
   filterOptions: ExamFilterOptions = new ExamFilterOptions();
   // TODO: handle ELAS, vs LEP decision
   allSubgroups: any[] = [
-    {code: 'Gender', selected: false},
-    {code: 'Ethnicity', selected: false},
-    {code: 'ELAS', selected: false},
-    {code: 'Section504', selected: false},
-    {code: 'IEP', selected: false},
-    {code: 'MigrantStatus', selected: false}
+    {code: 'Gender', translatecode: 'gender-label', selected: false},
+    {code: 'Ethnicity', translatecode: 'ethnicity-label', selected: false},
+    {code: 'ELAS', translatecode: 'elas-label', selected: false},
+    {code: 'Section504', translatecode: '504-label', selected: false},
+    {code: 'IEP', translatecode: 'iep-label', selected: false},
+    {code: 'MigrantStatus', translatecode: 'migrant-status-label', selected: false}
   ];
 
   private _filterBy: FilterBy;
@@ -140,32 +141,7 @@ export class TargetReportComponent implements OnInit {
     );
   }
 
-  // TODO: do we need to use the includeInReport flag?  what if that flag is true but we don't have scores
-  mergeTargetData(allTargets: Target[], targetScoreRows: AggregateTargetScoreRow[]): AggregateTargetScoreRow[] {
-    let filledTargetScoreRows: AggregateTargetScoreRow[] = targetScoreRows.concat();
 
-    allTargets.forEach(target => {
-      let index = filledTargetScoreRows.findIndex(x => x.targetId == target.id)
-      if (index === -1) {
-        filledTargetScoreRows.push(<AggregateTargetScoreRow>{
-          targetId: target.id,
-          subgroup: this.subgroupMapper.createOverall(),
-          subgroupValue: 'Overall',
-          standardMetRelativeLevel: TargetReportingLevel.Excluded,
-          studentRelativeLevel: TargetReportingLevel.Excluded
-        })
-      }
-    });
-
-    // now update all claim and target info
-    for (let i=0; i < filledTargetScoreRows.length; i++) {
-      const target = this.targetDisplayMap[filledTargetScoreRows[i].targetId];
-      filledTargetScoreRows[i].claim = target.claim;
-      filledTargetScoreRows[i].target = target.name;
-    }
-
-    return filledTargetScoreRows;
-  }
 
   sortRows() {
     const byTarget = (a: string, b: string) => {
@@ -177,18 +153,18 @@ export class TargetReportComponent implements OnInit {
       return a.localeCompare(b);
     };
 
-    const bySubgroup = (a: string, b: string) => {
-      if (a.startsWith('Overall') && !b.startsWith('Overall')) return 1;
-      if (!a.startsWith('Overall') && b.startsWith('Overall')) return -1;
+    const bySubgroup = (a: Subgroup, b: Subgroup) => {
+      if (a.name.startsWith('Overall') && !b.name.startsWith('Overall')) return -1;
+      if (!a.name.startsWith('Overall') && b.name.startsWith('Overall')) return 1;
 
-      return a.localeCompare(b);
+      return a.name.localeCompare(b.name);
     };
 
     this.aggregateTargetScoreRows.sort(
       join(
         ordering(byString).on<AggregateTargetScoreRow>(row => row.claim).compare,
         ordering(byTarget).on<AggregateTargetScoreRow>(row => row.target).compare,
-        ordering(bySubgroup).on<AggregateTargetScoreRow>(row => row.subgroupValue).compare
+        ordering(bySubgroup).on<AggregateTargetScoreRow>(row => row.subgroup).compare
       )
     );
   }
@@ -205,10 +181,8 @@ export class TargetReportComponent implements OnInit {
     //   this.selectedSubgroups
     // );
 
-    this.aggregateTargetScoreRows = this.mergeTargetData(
-      this.allTargets,
-      this.targetStatisticsCalculator.aggregateTargetScores(this.targetScoreExams, this.selectedSubgroups)
-    );
+    let rows = this.targetStatisticsCalculator.aggregateTargetScores(this.targetScoreExams, this.selectedSubgroups);
+    this.aggregateTargetScoreRows = this.targetStatisticsCalculator.mergeTargetData(this.allTargets, rows, this.targetDisplayMap);
 
     this.sortRows();
     this.calculateTreeColumns();

@@ -449,7 +449,9 @@
       "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above."
     },
     "boolean": {
+      "false": "No",
       "no": "No",
+      "true": "Yes",
       "undefined": "Not Stated",
       "yes": "Yes"
     },
@@ -795,7 +797,9 @@
     "school-typeahead-label": "School",
     "school-year-select-label": "School Year",
     "strict-boolean": {
+      "false": "No",
       "no": "No",
+      "true": "Yes",
       "yes": "Yes"
     },
     "student-response-columns": {

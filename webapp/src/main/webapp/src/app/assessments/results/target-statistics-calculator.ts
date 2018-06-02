@@ -4,6 +4,7 @@ import { AggregateTargetScoreRow, TargetReportingLevel } from '../model/aggregat
 import { TargetScoreExam } from '../model/target-score-exam.model';
 import { Exam } from '../model/exam.model';
 import { ExamStatisticsCalculator } from './exam-statistics-calculator';
+import { Target } from '../model/target.model';
 
 @Injectable()
 export class TargetStatisticsCalculator {
@@ -90,6 +91,33 @@ export class TargetStatisticsCalculator {
     }
 
     return null;
+  }
+
+  // TODO: do we need to use the includeInReport flag?  what if that flag is true but we don't have scores
+  public mergeTargetData(allTargets: Target[], targetScoreRows: AggregateTargetScoreRow[], targetMap: Map<number, any>): AggregateTargetScoreRow[] {
+    let filledTargetScoreRows: AggregateTargetScoreRow[] = targetScoreRows.concat();
+
+    allTargets.forEach(target => {
+      let index = filledTargetScoreRows.findIndex(x => x.targetId == target.id)
+      if (index === -1) {
+        filledTargetScoreRows.push(<AggregateTargetScoreRow>{
+          targetId: target.id,
+          subgroup: this.subgroupMapper.createOverall(),
+          subgroupValue: 'Overall',
+          standardMetRelativeLevel: TargetReportingLevel.Excluded,
+          studentRelativeLevel: TargetReportingLevel.Excluded
+        })
+      }
+    });
+
+    // now update all claim and target info
+    for (let i=0; i < filledTargetScoreRows.length; i++) {
+      const target = targetMap[filledTargetScoreRows[i].targetId];
+      filledTargetScoreRows[i].claim = target.claim;
+      filledTargetScoreRows[i].target = target.name;
+    }
+
+    return filledTargetScoreRows;
   }
 
   mapTargetScoreDeltaToReportingLevel(delta: number, standardError: number): TargetReportingLevel {

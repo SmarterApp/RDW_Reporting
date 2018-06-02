@@ -4,15 +4,15 @@
                          [lockSubject]="true"
                          [lockSchoolYear]="true"></student-report-download>
 
-<div class="pull-right">
+<div class="pull-right mt-sm">
   <a *ngFor="let subgroup of allSubgroups"
-     class="reverse multi-line btn flex-child {{subgroup.selected ? 'aqua' : 'gray-dark'}}"
+     class="reverse btn btn-sm subgroup-toggle {{subgroup.selected ? 'aqua' : 'gray-dark'}}"
      (click)="toggleSubgroup(subgroup)"
      angulartics2On="click"
      angularticsEvent="ToggleSubgroup"
      angularticsCategory="TeacherTargetResults">
           <span class="block-children">
-              <strong>{{subgroup.code }}</strong>
+              {{'aggregate-report-form.field.' + subgroup.translatecode | translate }}
           </span>
   </a>
 </div>
@@ -52,11 +52,13 @@
                let-i="rowIndex"
                let-columns="columns">
     <tr>
-      <td *ngFor="let column of columns; let columnIdx = index;">
+      <td *ngFor="let column of columns; let columnIdx = index;"
+          style="vertical-align: top">
         <div [ngSwitch]="column.id"
+             class="full-cell"
              [ngClass]="{
               'hidden': treeColumns[i] > columnIdx,
-              'notyet-border-top': treeColumns[i] <= columnIdx && treeColumns[i] < identityColumns.length - 1
+              'border-top': treeColumns[i] <= columnIdx && treeColumns[i] < identityColumns.length - 1
              }">
 
           <div *ngSwitchCase="'claim'">
@@ -66,7 +68,7 @@
           </div>
 
           <div *ngSwitchCase="'target'"
-               class="text-right wrapping-max-width">
+               class="text-right wrapping-max-width-xl">
             <span [innerHTML]="'aggregate-report-table.target-description' | translate: getTargetDisplay(rowData)">
             </span>
           </div>
