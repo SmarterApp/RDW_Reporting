@@ -35,7 +35,7 @@ export class AggregateReportOptionsService {
         dimensionTypes: serverOptions.dimensionTypes.concat(),
         interimAdministrationConditions: serverOptions.interimAdministrationConditions.concat(),
         queryTypes: [ 'Basic', 'FilteredSubgroup' ],
-        reportTypes: [ 'GeneralPopulation', 'Claim', 'LongitudinalCohort' ],
+        reportTypes: [ 'GeneralPopulation', 'Claim', 'LongitudinalCohort', 'Target' ],
         schoolYears: serverOptions.schoolYears.concat(),
         statewideReporter: serverOptions.statewideReporter,
         subjects: serverOptions.subjects.concat(),

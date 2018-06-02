@@ -157,22 +157,23 @@
           <div *ngSwitchCase="'studentRelativeResidualScoresLevel'">
 
             <!-- pick the icon -->
-            <span [ngSwitch]="rowData.studentRelativeResidualScoresLevel">
+            <span [ngSwitch]="rowData.studentRelativeResidualScoresLevel"
+              style="font-size: 1.2em">
               <span *ngSwitchCase="'Above'"
                     class="sb-iab-green">
-                <sb-icon class="fa-lg" icon="sbac-above-average"></sb-icon>
+                <sb-icon class="fa-lg" style="stroke-width: 1px; stroke: #000;" icon="sbac-above-average"></sb-icon>
               </span>
               <span *ngSwitchCase="'Near'"
                     class="sb-iab-yellow">
-                <sb-icon class="fa-lg" icon="sbac-average"></sb-icon>
+                <sb-icon class="fa-lg" style="stroke-width: 1px; stroke: #000;" icon="sbac-average"></sb-icon>
               </span>
               <span *ngSwitchCase="'Below'"
                     class="sb-iab-red">
-                <sb-icon class="fa-lg" icon="sbac-below-average"></sb-icon>
+                <sb-icon class="fa-lg" style="stroke-width: 1px; stroke: #000;" icon="sbac-below-average"></sb-icon>
               </span>
               <span *ngSwitchCase="'InsufficientData'"
                     class="gray-light">
-                <sb-icon class="fa-lg" icon="sbac-insufficient-data"></sb-icon>
+                <sb-icon class="fa-lg" style="stroke-width: 1px; stroke: #000;" icon="sbac-insufficient-data"></sb-icon>
               </span>
             </span>
             {{'aggregate-report-table.target.overall.' + rowData.studentRelativeResidualScoresLevel | translate}}

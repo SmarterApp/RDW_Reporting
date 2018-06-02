@@ -2,6 +2,7 @@ import { Component, HostListener, Inject, Input } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { WindowRefService } from '../core/window-ref.service';
 import { Utils } from '../support/support';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'scroll-nav',
@@ -14,7 +15,8 @@ export class ScrollNavComponent {
   private _window: Window;
   private _enabled = true;
 
-  constructor(private windowRef: WindowRefService,
+  constructor(private translateService: TranslateService,
+              private windowRef: WindowRefService,
               @Inject(DOCUMENT) private _document: Document) {
     this._window = windowRef.nativeWindow;
   }
@@ -26,7 +28,28 @@ export class ScrollNavComponent {
   @Input()
   set items(items: ScrollNavItem[]) {
     if (this._items !== items) {
-      this._items = Utils.isNullOrEmpty(items) ? [] : items.concat();
+      this._items = Utils.isNullOrEmpty(items)
+        ? []
+        : items.map((item) => {
+
+          //Saturate element reference from id
+          if (Utils.isNullOrUndefined(item.scrollTo)
+            && !Utils.isNullOrUndefined(item.id)) {
+            item = Object.assign(item, {
+              scrollTo: document.getElementById(item.id)
+            });
+          }
+
+          //Saturate text from translation key
+          if (Utils.isNullOrUndefined(item.text)
+            && !Utils.isNullOrUndefined(item.translationKey)) {
+            item = Object.assign(item, {
+              text: this.translateService.instant(item.translationKey)
+            });
+          }
+
+          return item;
+        });
     }
   }
 
@@ -107,7 +130,9 @@ export class ScrollNavComponent {
 export interface ScrollNavItem {
   readonly click?: any;
   readonly scrollTo?: Element;
-  readonly text: string;
+  readonly id?: string;
+  readonly text?: string;
+  readonly translationKey?: string;
   readonly classes?: string;
   readonly iconClasses?: string;
 }
