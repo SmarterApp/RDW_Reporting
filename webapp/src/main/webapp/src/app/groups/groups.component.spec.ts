@@ -82,7 +82,7 @@ describe('GroupComponents', () => {
 
 @Component({
   selector: 'test-component-wrapper',
-  template: '<groups></groups>'
+  template: '<groups [groups]="groups"></groups>'
 })
 class TestComponentWrapper {
   groups = mockGroups;

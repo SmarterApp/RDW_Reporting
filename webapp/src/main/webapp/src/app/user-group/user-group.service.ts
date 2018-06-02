@@ -11,8 +11,7 @@ import { Student } from '../student/search/student';
 @Injectable()
 export class UserGroupService {
 
-  constructor(private dataService: DataService,
-              private translate: TranslateService) {
+  constructor(private dataService: DataService) {
   }
 
   getGroups(): Observable<UserGroup[]> {
@@ -39,11 +38,6 @@ export class UserGroupService {
   }
 
   private createGroup(group: UserGroup): Observable<UserGroup> {
-    if (Utils.isNullOrEmpty(group.name)) {
-      group = Object.assign(group, {
-        name: `this.translate.instant('user-group.default-name') ${Date.now()}`
-      });
-    }
     return this.dataService.post(`${ReportingServiceRoute}/userGroups`, this.toUserGroupRequest(group)).pipe(
       map(serverGroup => this.toUserGroup(serverGroup))
     );

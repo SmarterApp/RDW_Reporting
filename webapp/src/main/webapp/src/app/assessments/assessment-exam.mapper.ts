@@ -1,16 +1,18 @@
-import { Injectable } from "@angular/core";
-import { AssessmentExam } from "./model/assessment-exam.model";
-import { Assessment } from "./model/assessment.model";
-import { Exam } from "./model/exam.model";
-import { AssessmentItem } from "./model/assessment-item.model";
-import { ExamItemScore } from "./model/exam-item-score.model";
-import { byGradeThenByName } from "./assessment.comparator";
-import { ordering } from "@kourge/ordering";
-import { byNumber } from "@kourge/ordering/comparator";
-import { ClaimScore } from "./model/claim-score.model";
-import { Student } from "../student/model/student.model";
-import { Utils } from "../shared/support/support";
+import { Injectable } from '@angular/core';
+import { AssessmentExam } from './model/assessment-exam.model';
+import { Assessment } from './model/assessment.model';
+import { Exam } from './model/exam.model';
+import { AssessmentItem } from './model/assessment-item.model';
+import { ExamItemScore } from './model/exam-item-score.model';
+import { byGradeThenByName } from './assessment.comparator';
+import { ordering } from '@kourge/ordering';
+import { byNumber } from '@kourge/ordering/comparator';
+import { ClaimScore } from './model/claim-score.model';
+import { Student } from '../student/model/student.model';
+import { Utils } from '../shared/support/support';
 import { DefaultSchool, School } from '../shared/organization/organization';
+import { TargetScoreExam } from './model/target-score-exam.model';
+import { Target } from './model/target.model';
 
 @Injectable()
 export class AssessmentExamMapper {
@@ -42,6 +44,28 @@ export class AssessmentExamMapper {
         return item;
       })
       .sort(ordering(byNumber).on<AssessmentItem>(ai => ai.position).compare);
+  }
+
+  mapTargetScoreExamsFromApi(serverTargetScoreExams: any): TargetScoreExam[] {
+    return serverTargetScoreExams.map((serverTargetScoreExam: any) => {
+      const targetScoreExam = <TargetScoreExam>this.mapExamFromApi(serverTargetScoreExam);
+      targetScoreExam.targetId = serverTargetScoreExam.targetId;
+      targetScoreExam.standardMetRelativeResidualScore = serverTargetScoreExam.standardMetRelativeResidualScore;
+      targetScoreExam.studentRelativeResidualScore = serverTargetScoreExam.studentRelativeResidualScore;
+      return targetScoreExam;
+    });
+  }
+
+  mapTargetsFromApi(serverTargets: any): Target[] {
+    return serverTargets.map((serverTarget: any) => {
+      return <Target>{
+        id: serverTarget.id,
+        assessmentId: serverTarget.assessmentId,
+        claimCode: serverTarget.claimCode,
+        naturalId: serverTarget.naturalId,
+        includeInReport: serverTarget.includeInReport,
+      };
+    });
   }
 
   mapAssessmentFromApi(serverAssessment: any): Assessment {
@@ -119,7 +143,7 @@ export class AssessmentExamMapper {
   }
 
   private mapAssessmentItemFromApi(apiModel): AssessmentItem {
-    let uiModel: AssessmentItem = new AssessmentItem();
+    const uiModel: AssessmentItem = new AssessmentItem();
 
     uiModel.id = apiModel.id;
     uiModel.bankItemKey = apiModel.bankItemKey;
@@ -144,7 +168,7 @@ export class AssessmentExamMapper {
   }
 
   formatTarget(target) {
-    let dashIndex = target.indexOf("-");
+    const dashIndex = target.indexOf('-');
 
     return dashIndex === -1
       ? target
@@ -152,7 +176,7 @@ export class AssessmentExamMapper {
   }
 
   private mapClaimScaleScoreFromApi(apiScaleScore: any): ClaimScore {
-    let uiModel: ClaimScore = new ClaimScore();
+    const uiModel: ClaimScore = new ClaimScore();
 
     if (apiScaleScore) {
       uiModel.level = apiScaleScore.level;

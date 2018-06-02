@@ -11,13 +11,19 @@ export class UserGroupTableComponent {
   groups: UserGroup[];
 
   @Input()
-  emptyMessage: string;
+  subjects: string[];
+
+  initialized: boolean = false;
 
   columns: Column[] = [
     new Column({ id: 'group', field: 'name' }),
     new Column({ id: 'subject', field: 'subjects' }),
     new Column({ id: 'action' })
   ];
+
+  ngOnInit(): void {
+    this.initialized = true;
+  }
 
 }
 

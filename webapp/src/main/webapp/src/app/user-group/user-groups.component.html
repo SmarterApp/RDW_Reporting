@@ -1,4 +1,4 @@
-<ng-container *ngIf="!groups; else loaded">
+<ng-container *ngIf="!initialized; else loaded">
   <span class="gray-darker"><i class="fa fa-spinner fa-pulse fa-2x"></i></span>
 </ng-container>
 
@@ -15,9 +15,8 @@
           <i class="fa fa-plus"></i> {{'common.action.create' | translate}}
         </a>
       </li>
-      <li>
-        <a *ngIf="defaultGroup"
-           routerLink="/group-dashboard/{{defaultGroup.id}}"
+      <li *ngIf="defaultGroup">
+        <a routerLink="/group-dashboard/{{defaultGroup.id}}"
            title="{{'groups.view-dashboard' | translate}}"
            class="btn btn-xs btn-default">
           <i class="fa fa-bars"></i> {{'groups.view-dashboard' | translate}}
@@ -27,7 +26,6 @@
 
   </div>
 
-  <!-- My Groups Search Input -->
   <div *ngIf="groups.length > searchThreshold"
        class="table-search-form-container">
     <label for="search" class="sr-only">{{'groups.filter' | translate}}</label>
@@ -40,8 +38,10 @@
            (ngModelChange)="onSearchChange($event)">
   </div>
 
-  <!-- My Groups Search Results List -->
   <div class="table-list-container">
-    <user-group-table [groups]="filteredGroups"></user-group-table>
+    <user-group-table [groups]="filteredGroups"
+                      [subjects]="subjects"></user-group-table>
+
   </div>
+
 </ng-template>

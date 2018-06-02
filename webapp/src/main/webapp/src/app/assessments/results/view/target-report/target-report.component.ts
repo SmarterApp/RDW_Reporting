@@ -5,8 +5,8 @@ import { ReportOptions } from '../../../../report/report-options.model';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuActionBuilder } from '../../../menu/menu-action.builder';
 import { Assessment } from '../../../model/assessment.model';
-import { InstructionalResourcesService } from '../../instructional-resources.service';
 import { PopupMenuAction } from '../../../../shared/menu/popup-menu-action.model';
+import { GroupAssessmentService } from '../../../../groups/results/group-assessment.service';
 
 // TODO replace this stub
 
@@ -45,7 +45,7 @@ export class TargetReportComponent implements OnInit {
 
   constructor(private actionBuilder: MenuActionBuilder,
               private translate: TranslateService,
-              private instructionalResourcesService: InstructionalResourcesService) {
+              private assessmentProvider: GroupAssessmentService) {
   }
 
   ngOnInit() {

@@ -4,6 +4,7 @@ import { Student } from '../student/search/student';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { notEmpty } from '../shared/form/validators';
 import { UserGroup } from './user-group';
+import { Forms } from '../shared/form/forms';
 
 @Component({
   selector: 'user-group-form',
@@ -38,6 +39,10 @@ export class UserGroupFormComponent implements OnInit {
     return this._formGroup;
   }
 
+  get nameControl(): AbstractControl {
+    return this.formGroup.get('name');
+  }
+
   get studentsControl(): AbstractControl {
     return this.formGroup.get('students');
   }
@@ -61,10 +66,22 @@ export class UserGroupFormComponent implements OnInit {
     this.group.students = this.group.students
       .filter(x => x.id !== student.id);
 
-    // Hacky intervention to get angular form validation to kick in
-    this.studentsControl.setValue(this.group.students);
+    this.setStudentControl(this.group.students);
+  }
 
-    this.studentsChange.emit(this.group.students);
+  removeAllStudentsButtonClick(): void {
+    this.group.students = [];
+    this.setStudentControl(this.group.students);
+  }
+
+  private setStudentControl(students: Student[]): void {
+    // Hacky intervention to get angular form validation to kick in
+    this.studentsControl.markAsDirty();
+    this.studentsChange.emit(students);
+  }
+
+  showErrors(control: AbstractControl): boolean {
+    return Forms.showErrors(control);
   }
 
 }
