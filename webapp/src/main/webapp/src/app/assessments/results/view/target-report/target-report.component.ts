@@ -16,6 +16,9 @@ import { ordering } from '@kourge/ordering';
 import { byString, join } from '@kourge/ordering/comparator';
 import { TargetService } from '../../../../shared/target/target.service';
 import { AssessmentExamMapper } from '../../../assessment-exam.mapper';
+import { DatatableUtils } from '../../../../shared/datatable/datatable-utils';
+import { BaseColumn } from '../../../../shared/datatable/base-column.model';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'target-report',
@@ -51,11 +54,16 @@ export class TargetReportComponent implements OnInit {
   @ViewChild('menuReportDownloader')
   reportDownloader: StudentReportDownloadComponent;
 
+  @ViewChild('dataTable')
+  private dataTable: Table;
+
   columns: Column[];
   loading: boolean = false;
   targetScoreExams: TargetScoreExam[];
   targetDisplayMap: Map<number, any>;
   aggregateTargetScoreRows: AggregateTargetScoreRow[] = [];
+  identityColumns: string[] = [ 'claim', 'target' ];
+  treeColumns: number[] = [];
 
   private _filterBy: FilterBy;
   private _filterBySubscription: Subscription;
@@ -65,6 +73,7 @@ export class TargetReportComponent implements OnInit {
               private translate: TranslateService,
               private examStatisticsCalculator: ExamStatisticsCalculator,
               private targetService: TargetService,
+              private datatableUtils: DatatableUtils,
               private assessmentExamMapper: AssessmentExamMapper,
               private assessmentProvider: GroupAssessmentService) {
   }
@@ -76,7 +85,7 @@ export class TargetReportComponent implements OnInit {
       new Column({ id: 'claim' }),
       new Column({ id: 'target' }),
       new Column({ id: 'subgroup' }),
-      new Column({ id: 'students-tested' }),
+      new Column({ id: 'studentsTested' }),
       new Column({ id: 'student-relative-residual-scores-level', headerInfo: true }),
       new Column({ id: 'standard-met-relative-residual-level', headerInfo: true })
     ];
@@ -101,6 +110,13 @@ export class TargetReportComponent implements OnInit {
         return targetMap;
       }, new Map<number, any>());
 
+      this.treeColumns = this.datatableUtils.calculateTreeColumns(
+        this.aggregateTargetScoreRows,
+        this.dataTable,
+        this.columns,
+        this.identityColumns
+      );
+
       this.loading = false;
     });
   }
@@ -114,22 +130,22 @@ export class TargetReportComponent implements OnInit {
       if (index === -1) {
         filledTargetScoreRows.push(<AggregateTargetScoreRow>{
           targetId: target.id,
-          targetNaturalId: target.naturalId,
-          claimCode: target.claimCode,
+          target: target.naturalId,
+          claim: target.claimCode,
           standardMetRelativeLevel: TargetReportingLevel.Excluded,
           studentRelativeLevel: TargetReportingLevel.Excluded
         })
       } else {
-        filledTargetScoreRows[ index ].claimCode = target.claimCode;
-        filledTargetScoreRows[ index ].targetNaturalId = target.naturalId;
+        filledTargetScoreRows[ index ].claim = target.claimCode;
+        filledTargetScoreRows[ index ].target = target.naturalId;
       }
     });
 
     return filledTargetScoreRows
       .sort(
         join(
-          ordering(byString).on<AggregateTargetScoreRow>(row => row.claimCode).compare,
-          ordering(byString).on<AggregateTargetScoreRow>(row => row.targetNaturalId).compare
+          ordering(byString).on<AggregateTargetScoreRow>(row => row.claim).compare,
+          ordering(byString).on<AggregateTargetScoreRow>(row => row.target).compare
         )
       );
   }
@@ -152,7 +168,7 @@ export class TargetReportComponent implements OnInit {
   }
 
   private getClaimCodeTranslationKey(row: AggregateTargetScoreRow): string {
-    return `common.claim-name.${row.claimCode}`;
+    return `common.claim-name.${row.claim}`;
   }
 
   getClaimCodeTranslation(row: AggregateTargetScoreRow): string {
@@ -168,7 +184,7 @@ export class TargetReportComponent implements OnInit {
   }
 }
 
-class Column {
+class Column implements BaseColumn {
   id: string;
   field: string;
   headerInfo: boolean;

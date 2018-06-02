@@ -1361,12 +1361,9 @@
   "target-report": {
     "columns": {
       "claim": "Claim",
-      "claim-info": "Claim TODO",
       "target": "Target",
-      "target-info": "Target TODO",
       "subgroup": "Subgroup",
-      "subgroup-info": "Subgroup TODO",
-      "students-tested": "Students Tested",
+      "studentsTested": "Students Tested",
       "student-relative-residual-scores-level": "Performance relative to test",
       "student-relative-residual-scores-level-info": "Performance relative to test TODO",
       "standard-met-relative-residual-level": "Performance relative to the standard",

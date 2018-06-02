@@ -57,6 +57,8 @@ export class AssessmentExamMapper {
   }
 
   mapTargetsFromApi(serverTargets: any): Target[] {
+    if (serverTargets == null) return [];
+
     return serverTargets.map((serverTarget: any) => {
       return <Target>{
         id: serverTarget.id,

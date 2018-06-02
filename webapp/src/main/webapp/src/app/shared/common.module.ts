@@ -43,6 +43,7 @@ import { RdwListModule } from './list/rdw-list.module';
 import { RdwFilterModule } from './filter/rdw-filter.module';
 import { RdwIconModule } from "./icon/rdw-icon.module";
 import { TargetService } from './target/target.service';
+import { DatatableUtils } from './datatable/datatable-utils';
 
 
 @NgModule({
@@ -126,6 +127,7 @@ import { TargetService } from './target/target.service';
     { provide: AuthenticationServiceAuthenticationExpiredRoute, useValue: 'session-expired' },
     { provide: AuthenticationServiceDefaultAuthenticationRoute, useValue: 'home' },
     ColorService,
+    DatatableUtils,
     NotificationService,
     TargetService
   ]

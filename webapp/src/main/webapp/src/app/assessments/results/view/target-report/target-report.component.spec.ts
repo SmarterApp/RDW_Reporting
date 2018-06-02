@@ -6,18 +6,25 @@ import { TestModule } from '../../../../../test/test.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Assessment } from '../../../model/assessment.model';
-import { CachingDataService } from '../../../../shared/data/caching-data.service';
 import { TargetReportComponent } from './target-report.component';
 import { GroupAssessmentService } from '../../../../groups/results/group-assessment.service';
+import { AssessmentExamMapper } from '../../../assessment-exam.mapper';
+import { ExamFilterService } from '../../../filters/exam-filters/exam-filter.service';
+import { DatatableUtils } from '../../../../shared/datatable/datatable-utils';
+import { ExamStatisticsCalculator } from '../../exam-statistics-calculator';
 import { ExamFilterOptionsService } from '../../../filters/exam-filters/exam-filter-options.service';
 import { ExamFilterOptionsMapper } from '../../../filters/exam-filters/exam-filter-options.mapper';
-import { AssessmentExamMapper } from '../../../assessment-exam.mapper';
+import { of } from 'rxjs/observable/of';
 
 describe('TargetReportComponent', () => {
   let component: TargetReportComponent;
   let fixture: ComponentFixture<TestComponentWrapper>;
 
   beforeEach(async(() => {
+    let mockGroupAssessmentService = {
+      getTargetScoreExams: (id: number) => of([])
+    };
+
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -30,11 +37,13 @@ describe('TargetReportComponent', () => {
       ],
       providers: [
         MenuActionBuilder,
-        GroupAssessmentService,
+        { provide: GroupAssessmentService, useValue: mockGroupAssessmentService },
+        ExamFilterService,
         ExamFilterOptionsService,
         ExamFilterOptionsMapper,
+        DatatableUtils,
         AssessmentExamMapper,
-        CachingDataService
+        ExamStatisticsCalculator
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     })
@@ -54,7 +63,7 @@ describe('TargetReportComponent', () => {
 
 @Component({
   selector: 'test-component-wrapper',
-  template: '<target-report [assessment]="assessment" [exams]="[]" [minimumItemDataYear]="2017"></target-report>'
+  template: '<target-report [assessment]="assessment"></target-report>'
 })
 class TestComponentWrapper {
   assessment = new Assessment();
