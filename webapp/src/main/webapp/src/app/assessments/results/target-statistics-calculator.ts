@@ -6,6 +6,7 @@ import { Exam } from '../model/exam.model';
 import { ExamStatisticsCalculator } from './exam-statistics-calculator';
 import { Target } from '../model/target.model';
 import * as deepEqual from "fast-deep-equal";
+import { ExamFilterOptions } from '../model/exam-filter-options.model';
 
 @Injectable()
 export class TargetStatisticsCalculator {
@@ -13,7 +14,7 @@ export class TargetStatisticsCalculator {
               private subgroupMapper: SubgroupMapper) {
   }
 
-  aggregateTargetScores(targetScoreExams: TargetScoreExam[], subgroups: string[] = []): AggregateTargetScoreRow[] {
+  aggregateTargetScores(targetScoreExams: TargetScoreExam[], subgroupOptions: ExamFilterOptions, selectedSubgroups: string[] = []): AggregateTargetScoreRow[] {
     if (targetScoreExams == null) return [];
 
     let grouped = targetScoreExams.reduce((groupedExams, exam) => {
@@ -33,17 +34,15 @@ export class TargetStatisticsCalculator {
       groupedExams[ index ].studentScores.push(exam.studentRelativeResidualScore);
 
       // for each subgroup (Gender, Ethnicity, etc.) breakdown by all subgroup values
-      subgroups.forEach(subgroupCode => {
-        let subgroupValue = this.getExamSubgroupValue(exam, subgroupCode);
-        let subgroup = this.subgroupMapper.fromTypeAndCode(subgroupCode, subgroupValue);
+      selectedSubgroups.forEach(subgroupCode => {
+        let examSubgroupValue = this.getExamSubgroupValue(exam, subgroupCode);
+        let subgroup = this.subgroupMapper.fromTypeAndCode(subgroupCode, examSubgroupValue);
 
-        let index = groupedExams.findIndex(x => x.targetId == exam.targetId
-          && deepEqual(x.subgroup, subgroup));
-
+        let index = groupedExams.findIndex(x => x.targetId == exam.targetId && deepEqual(x.subgroup, subgroup));
         if (index === -1) {
           groupedExams.push({
             targetId: exam.targetId,
-            subgroup: this.subgroupMapper.fromTypeAndCode(subgroupCode, subgroupValue),
+            subgroup: subgroup,
             standardMetScores:[],
             studentScores: []
           });
@@ -58,19 +57,69 @@ export class TargetStatisticsCalculator {
       return groupedExams;
     }, []);
 
+    // unique targets
+    let targets = grouped.map(x => x.targetId);
+    targets = targets.filter((targetId, i) => targets.indexOf(targetId) == i);
+
+    // for each selected subgroup make sure all entries are there
+    selectedSubgroups.forEach(subgroupCode => {
+      let values = [];
+      let isArrayValue: boolean = false;
+      switch (subgroupCode) {
+        case 'Gender':
+          values = subgroupOptions.genders;
+          break;
+        case 'Ethnicity':
+          values = subgroupOptions.ethnicities;
+          isArrayValue = true;
+          break;
+        case 'ELAS':
+          values = subgroupOptions.elasCodes;
+          break;
+        case 'Section504':
+        case 'IEP':
+          values = [true, false];
+          break;
+        case 'MigrantStatus':
+          values = [true, false, undefined];
+          break;
+      }
+
+      values.forEach(subgroupValue => {
+        let subgroup = this.subgroupMapper.fromTypeAndCode(subgroupCode, isArrayValue ? [subgroupValue] : subgroupValue);
+
+        targets.forEach(targetId => {
+          let index = grouped.findIndex(x => x.targetId == targetId && deepEqual(x.subgroup, subgroup));
+          if (index === -1) {
+            grouped.push({
+              targetId: targetId,
+              subgroup: subgroup,
+              standardMetScores:[],
+              studentScores: []
+            });
+          }
+        });
+      });
+    });
+
     let rows = grouped.map(entry => {
+      const numStudents = entry.standardMetScores.length;
       return <AggregateTargetScoreRow>{
         targetId: entry.targetId,
         subgroup: entry.subgroup,
-        studentsTested: entry.standardMetScores.length,
-        standardMetRelativeLevel: this.mapTargetScoreDeltaToReportingLevel(
-          this.examStatisticsCalculator.calculateAverage(entry.standardMetScores),
-          this.examStatisticsCalculator.calculateStandardErrorOfTheMean(entry.standardMetScores)
-        ),
-        studentRelativeLevel: this.mapTargetScoreDeltaToReportingLevel(
-          this.examStatisticsCalculator.calculateAverage(entry.studentScores),
-          this.examStatisticsCalculator.calculateStandardErrorOfTheMean(entry.studentScores)
-        )
+        studentsTested: numStudents,
+        standardMetRelativeLevel: numStudents == 0
+          ? TargetReportingLevel.InsufficientData
+          : this.mapTargetScoreDeltaToReportingLevel(
+              this.examStatisticsCalculator.calculateAverage(entry.standardMetScores),
+              this.examStatisticsCalculator.calculateStandardErrorOfTheMean(entry.standardMetScores)
+            ),
+        studentRelativeLevel: numStudents == 0
+          ? TargetReportingLevel.InsufficientData
+          : this.mapTargetScoreDeltaToReportingLevel(
+              this.examStatisticsCalculator.calculateAverage(entry.studentScores),
+              this.examStatisticsCalculator.calculateStandardErrorOfTheMean(entry.studentScores)
+            )
       };
     });
 
@@ -91,10 +140,12 @@ export class TargetStatisticsCalculator {
   }
 
   // TODO: do we need to use the includeInReport flag?  what if that flag is true but we don't have scores
-  public mergeTargetData(allTargets: Target[], targetScoreRows: AggregateTargetScoreRow[], targetMap: Map<number, any>): AggregateTargetScoreRow[] {
+  public mergeTargetData(allTargets: Target[], targetScoreRows: AggregateTargetScoreRow[],
+                         targetMap: Map<number, any>): AggregateTargetScoreRow[] {
     let filledTargetScoreRows: AggregateTargetScoreRow[] = targetScoreRows.concat();
 
     allTargets.forEach(target => {
+      // check overall backfill for excluded
       let index = filledTargetScoreRows.findIndex(x => x.targetId == target.id)
       if (index === -1) {
         filledTargetScoreRows.push(<AggregateTargetScoreRow>{

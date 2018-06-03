@@ -23,6 +23,7 @@ import { ExamFilterOptionsService } from '../../../filters/exam-filters/exam-fil
 import { ExamFilterOptions } from '../../../model/exam-filter-options.model';
 import { TargetStatisticsCalculator } from '../../target-statistics-calculator';
 import { Subgroup } from '../../../../aggregate-report/subgroup/subgroup';
+import { AggregateReportOptionsService } from '../../../../aggregate-report/aggregate-report-options.service';
 
 @Component({
   selector: 'target-report',
@@ -40,13 +41,13 @@ export class TargetReportComponent implements OnInit {
    * The minimum number of students that must be included in order to show any results
    */
   @Input()
-  minimumStudents: number = 5;
+  minimumStudents: number = 2;
 
   /**
    * The number of students that must be included in order to hide the caution text
    */
   @Input()
-  maximumStudentsCaution: number = 10;
+  maximumStudentsCaution: number = 5;
 
   @Input()
   studentsTested: number;
@@ -86,6 +87,7 @@ export class TargetReportComponent implements OnInit {
   identityColumns: string[] = [ 'claim', 'target', 'subgroup' ];
   treeColumns: number[] = [];
   filterOptions: ExamFilterOptions = new ExamFilterOptions();
+
   // TODO: handle ELAS, vs LEP decision
   allSubgroups: any[] = [
     {code: 'Gender', translatecode: 'gender-label', selected: false},
@@ -107,9 +109,10 @@ export class TargetReportComponent implements OnInit {
               private dataTableService: DataTableService,
               private assessmentExamMapper: AssessmentExamMapper,
               private assessmentProvider: GroupAssessmentService,
-              private filterOptionService: ExamFilterOptionsService,
-              private subgroupMapper: SubgroupMapper) {
+              private filterOptionService: ExamFilterOptionsService) {
   }
+  //private optionsService: AggregateReportOptionsService
+  //this.optionsService.getReportOptions()
 
   ngOnInit() {
     if (!this.showResults) return;
@@ -128,7 +131,8 @@ export class TargetReportComponent implements OnInit {
     forkJoin(
       this.targetService.getTargetsForAssessment(this.assessment.id),
       this.assessmentProvider.getTargetScoreExams(this.assessment.id),
-      this.filterOptionService.getExamFilterOptions()
+      this.filterOptionService.getExamFilterOptions(),
+
     ).subscribe(([ allTargets, targetScoreExams, filterOptions ]) => {
       this.targetScoreExams = targetScoreExams;
       this.filterOptions = filterOptions;
@@ -202,7 +206,7 @@ export class TargetReportComponent implements OnInit {
   }
 
   private updateTargetScoreExam(): void {
-    let rows = this.targetStatisticsCalculator.aggregateTargetScores(this.targetScoreExams, this.selectedSubgroups);
+    let rows = this.targetStatisticsCalculator.aggregateTargetScores(this.targetScoreExams, this.filterOptions, this.selectedSubgroups);
     this.aggregateTargetScoreRows = this.targetStatisticsCalculator.mergeTargetData(this.allTargets, rows, this.targetDisplayMap);
 
     this.sortRows();

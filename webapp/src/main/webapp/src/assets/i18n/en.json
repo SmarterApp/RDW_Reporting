@@ -532,7 +532,8 @@
       "EL": "English Learner",
       "IFEP": "Initial Fluent English Proficient",
       "RFEP": "Reclassified Fluent English Proficient",
-      "TBD": "To Be Determined"
+      "TBD": "To Be Determined",
+      "null": "Not Stated"
     },
     "embargo-export-disabled": "Embargoed results can be viewed online, but may not be exported.",
     "enrolled-grade": {
