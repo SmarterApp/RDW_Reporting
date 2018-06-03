@@ -224,6 +224,7 @@
         <ng-container *ngIf="showTargetReport">
           <target-report #targetReport
                          [assessment]="assessmentExam.assessment"
+                         [studentsTested]="statistics.total"
                          [filterBy]="_filterBy"></target-report>
         </ng-container>
       </div>

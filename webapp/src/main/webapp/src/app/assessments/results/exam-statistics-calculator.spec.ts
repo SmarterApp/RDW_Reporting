@@ -494,49 +494,4 @@ describe('Exam Calculator', () => {
     expect(fixture.getDataWidths([ 40.5, 59.5, 0.0 ])).toEqual([ 40, 60, 0 ]);
     expect(fixture.getDataWidths([ 20.55, 30.2, 25.75, 24.5 ])).toEqual([ 20, 30, 26, 24 ]);
   });
-
-  it('should handle null for aggregate target calculation', () => {
-    let fixture = new ExamStatisticsCalculator();
-    expect(fixture.aggregateTargetScores(null)).toEqual([]);
-  })
-
-  it ('should aggregate target scores', () => {
-    let exams: TargetScoreExam[] = [
-      <TargetScoreExam>{id: 1, targetId: 1, standardMetRelativeResidualScore: 0.15, studentRelativeResidualScore: 0.9},
-      <TargetScoreExam>{id: 1, targetId: 2, standardMetRelativeResidualScore: 0.2, studentRelativeResidualScore: 0.15},
-      <TargetScoreExam>{id: 1, targetId: 3, standardMetRelativeResidualScore: 0.1, studentRelativeResidualScore: 0.4},
-      <TargetScoreExam>{id: 2, targetId: 1, standardMetRelativeResidualScore: 0.4, studentRelativeResidualScore: 0.2},
-      <TargetScoreExam>{id: 2, targetId: 2, standardMetRelativeResidualScore: 0.6, studentRelativeResidualScore: 0.3},
-      <TargetScoreExam>{id: 2, targetId: 3, standardMetRelativeResidualScore: 0.5, studentRelativeResidualScore: 0.2}
-    ];
-
-    let fixture = new ExamStatisticsCalculator();
-    let actual = fixture.aggregateTargetScores(exams);
-
-    expect(actual.length).toBe(3);
-
-    expect(actual[ 0 ].targetId).toBe(1);
-    expect(actual[ 0 ].studentsTested).toBe(2);
-    expect(actual[ 0 ].standardMetRelativeLevel).toBe(TargetReportingLevel.Above);
-    expect(actual[ 0 ].studentRelativeLevel).toBe(TargetReportingLevel.InsufficientData);
-
-    expect(actual[ 1 ].targetId).toBe(2);
-    expect(actual[ 1 ].studentsTested).toBe(2);
-    expect(actual[ 1 ].standardMetRelativeLevel).toBe(TargetReportingLevel.Above);
-    expect(actual[ 1 ].studentRelativeLevel).toBe(TargetReportingLevel.Above);
-
-    expect(actual[ 2 ].targetId).toBe(3);
-    expect(actual[ 2 ].studentsTested).toBe(2);
-    expect(actual[ 2 ].standardMetRelativeLevel).toBe(TargetReportingLevel.Above);
-    expect(actual[ 2 ].studentRelativeLevel).toBe(TargetReportingLevel.Above);
-  });
-
-  it('should map aggregaste target deltas to levels', () => {
-    let fixture = new ExamStatisticsCalculator();
-
-    expect(fixture.mapTargetScoreDeltaToReportingLevel(2, 1)).toBe(TargetReportingLevel.InsufficientData);
-    expect(fixture.mapTargetScoreDeltaToReportingLevel(0.2, 0.1)).toBe(TargetReportingLevel.Above);
-    expect(fixture.mapTargetScoreDeltaToReportingLevel(-0.2, 0.1)).toBe(TargetReportingLevel.Below);
-    expect(fixture.mapTargetScoreDeltaToReportingLevel(0.05, 0.1)).toBe(TargetReportingLevel.Near);
-  });
 });

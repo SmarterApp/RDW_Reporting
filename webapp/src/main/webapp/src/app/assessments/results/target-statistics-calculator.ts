@@ -5,6 +5,7 @@ import { TargetScoreExam } from '../model/target-score-exam.model';
 import { Exam } from '../model/exam.model';
 import { ExamStatisticsCalculator } from './exam-statistics-calculator';
 import { Target } from '../model/target.model';
+import * as deepEqual from "fast-deep-equal";
 
 @Injectable()
 export class TargetStatisticsCalculator {
@@ -21,8 +22,6 @@ export class TargetStatisticsCalculator {
         groupedExams.push({
           targetId: exam.targetId,
           subgroup: this.subgroupMapper.createOverall(),
-          subgroupCode: 'Overall',
-          subgroupValue: null,
           standardMetScores:[],
           studentScores: []
         });
@@ -36,16 +35,15 @@ export class TargetStatisticsCalculator {
       // for each subgroup (Gender, Ethnicity, etc.) breakdown by all subgroup values
       subgroups.forEach(subgroupCode => {
         let subgroupValue = this.getExamSubgroupValue(exam, subgroupCode);
+        let subgroup = this.subgroupMapper.fromTypeAndCode(subgroupCode, subgroupValue);
 
         let index = groupedExams.findIndex(x => x.targetId == exam.targetId
-          && x.subgroupCode == subgroupCode && x.subgroupValue == subgroupValue);
+          && deepEqual(x.subgroup, subgroup));
 
         if (index === -1) {
           groupedExams.push({
             targetId: exam.targetId,
             subgroup: this.subgroupMapper.fromTypeAndCode(subgroupCode, subgroupValue),
-            subgroupCode: subgroupCode,
-            subgroupValue: subgroupValue,
             standardMetScores:[],
             studentScores: []
           });
@@ -64,7 +62,6 @@ export class TargetStatisticsCalculator {
       return <AggregateTargetScoreRow>{
         targetId: entry.targetId,
         subgroup: entry.subgroup,
-        subgroupValue: entry.subgroupCode + '|' + entry.subgroupValue,
         studentsTested: entry.standardMetScores.length,
         standardMetRelativeLevel: this.mapTargetScoreDeltaToReportingLevel(
           this.examStatisticsCalculator.calculateAverage(entry.standardMetScores),
@@ -103,7 +100,6 @@ export class TargetStatisticsCalculator {
         filledTargetScoreRows.push(<AggregateTargetScoreRow>{
           targetId: target.id,
           subgroup: this.subgroupMapper.createOverall(),
-          subgroupValue: 'Overall',
           standardMetRelativeLevel: TargetReportingLevel.Excluded,
           studentRelativeLevel: TargetReportingLevel.Excluded
         })
@@ -120,14 +116,14 @@ export class TargetStatisticsCalculator {
     return filledTargetScoreRows;
   }
 
-  mapTargetScoreDeltaToReportingLevel(delta: number, standardError: number): TargetReportingLevel {
+  mapTargetScoreDeltaToReportingLevel(delta: number, standardError: number, insufficientCutpoint: number = 0.2): TargetReportingLevel {
     // TODO: remove.  keeping for now to help test the display with a lot of mixed values
     // if (Math.random() > 0.7) return TargetReportingLevel.Above;
     // if (Math.random() > 0.35) return TargetReportingLevel.Near;
     // if (Math.random() > 0.1) return TargetReportingLevel.Below;
     // return TargetReportingLevel.InsufficientData;
 
-    if (standardError > 0.2) return TargetReportingLevel.InsufficientData;
+    if (standardError > insufficientCutpoint) return TargetReportingLevel.InsufficientData;
     if (delta >= standardError) return TargetReportingLevel.Above;
     if (delta <= -standardError) return TargetReportingLevel.Below;
     return TargetReportingLevel.Near;

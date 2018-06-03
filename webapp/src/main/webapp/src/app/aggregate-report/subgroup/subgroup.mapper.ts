@@ -76,6 +76,8 @@ export class SubgroupMapper {
   }
 
   createPermutationsFromFilters(input: SubgroupFilters, dimensionTypes: string[]): Subgroup[] {
+    console.log('createPermutationsFromFilters', input, dimensionTypes);
+
     return dimensionTypes
       .map(type => DimensionConfigurationByType[ type ])
       .reduce((subgroups, configuration) => {

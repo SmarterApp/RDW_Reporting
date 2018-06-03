@@ -4,7 +4,7 @@
                          [lockSubject]="true"
                          [lockSchoolYear]="true"></student-report-download>
 
-<div class="pull-right mt-sm">
+<div *ngIf="showResults" class="pull-right mt-sm">
   <a *ngFor="let subgroup of allSubgroups"
      class="reverse btn btn-sm subgroup-toggle {{subgroup.selected ? 'aqua' : 'gray-dark'}}"
      (click)="toggleSubgroup(subgroup)"
@@ -17,8 +17,13 @@
   </a>
 </div>
 
+<div *ngIf="showCautionMessage">
+  {{ 'target-report.caution-message' | translate }}
+</div>
+
 <!-- Student Results Table -->
 <p-table #dataTable
+         *ngIf="showResults"
          [columns]="columns"
          [value]="aggregateTargetScoreRows"
          [autoLayout]="true"
@@ -154,6 +159,7 @@
     </tr>
   </ng-template>
 </p-table>
-<ng-template #buttonPopover>
-  <instructional-resource-popover [provider]="instructionalResourcesProvider"></instructional-resource-popover>
-</ng-template>
+
+<div *ngIf="!showResults">
+  {{ 'target-report.not-enough-results' | translate }}
+</div>

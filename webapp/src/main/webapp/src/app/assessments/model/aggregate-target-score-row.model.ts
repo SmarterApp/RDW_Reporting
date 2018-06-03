@@ -5,7 +5,6 @@ export class AggregateTargetScoreRow {
   target: string;
   claim: string;
   subgroup: Subgroup;
-  subgroupValue: string;
   studentsTested: number;
   standardMetRelativeLevel: TargetReportingLevel;
   studentRelativeLevel: TargetReportingLevel;

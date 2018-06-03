@@ -35,6 +35,22 @@ export class TargetReportComponent implements OnInit {
   @Input()
   assessment: Assessment;
 
+  // TODO: check what this is called in the config
+  /**
+   * The minimum number of students that must be included in order to show any results
+   */
+  @Input()
+  minimumStudents: number = 5;
+
+  /**
+   * The number of students that must be included in order to hide the caution text
+   */
+  @Input()
+  maximumStudentsCaution: number = 10;
+
+  @Input()
+  studentsTested: number;
+
   /**
    * Exam filters applied, if any.
    */
@@ -96,6 +112,8 @@ export class TargetReportComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!this.showResults) return;
+
     this.loading = true;
 
     this.columns = [
@@ -132,7 +150,17 @@ export class TargetReportComponent implements OnInit {
     });
   }
 
+  get showResults(): boolean {
+    return this.studentsTested > this.minimumStudents;
+  }
+
+  get showCautionMessage(): boolean {
+    return this.showResults && this.studentsTested < this.maximumStudentsCaution;
+  }
+
   calculateTreeColumns() {
+    if (this.dataTable == null) return;
+
     this.treeColumns = this.dataTableService.calculateTreeColumns(
       this.aggregateTargetScoreRows,
       this.dataTable,
@@ -140,8 +168,6 @@ export class TargetReportComponent implements OnInit {
       this.identityColumns
     );
   }
-
-
 
   sortRows() {
     const byTarget = (a: string, b: string) => {
@@ -154,6 +180,7 @@ export class TargetReportComponent implements OnInit {
     };
 
     const bySubgroup = (a: Subgroup, b: Subgroup) => {
+      // Overall should be first
       if (a.name.startsWith('Overall') && !b.name.startsWith('Overall')) return -1;
       if (!a.name.startsWith('Overall') && b.name.startsWith('Overall')) return 1;
 
@@ -175,12 +202,6 @@ export class TargetReportComponent implements OnInit {
   }
 
   private updateTargetScoreExam(): void {
-    //this.targetScoreExams = this.filterExams();
-    // this.aggregateTargetScoreRows = this.targetStatisticsCalculator.aggregateTargetScores(
-    //   this.targetScoreExams,
-    //   this.selectedSubgroups
-    // );
-
     let rows = this.targetStatisticsCalculator.aggregateTargetScores(this.targetScoreExams, this.selectedSubgroups);
     this.aggregateTargetScoreRows = this.targetStatisticsCalculator.mergeTargetData(this.allTargets, rows, this.targetDisplayMap);
 

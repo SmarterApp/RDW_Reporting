@@ -1363,6 +1363,7 @@
     "title": "Student Test History Report"
   },
   "target-report": {
+    "caution-message": "TODO - caution message here",
     "columns": {
       "claim": "Claim",
       "target": "Target",
@@ -1372,7 +1373,8 @@
       "student-relative-residual-scores-level-info": "Performance relative to test TODO",
       "standard-met-relative-residual-level": "Performance relative to the standard",
       "standard-met-relative-residual-level-info": "Performance relative to the standard TODO"
-    }
+    },
+    "not-enough-results": "TODO - not enough results"
   },
   "update-instructional-resource-modal": {
     "error": "Unable to modify instructional resource.",
