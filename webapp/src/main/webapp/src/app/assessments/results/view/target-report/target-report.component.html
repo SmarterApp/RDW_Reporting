@@ -4,17 +4,29 @@
                          [lockSubject]="true"
                          [lockSchoolYear]="true"></student-report-download>
 
-<div *ngIf="showResults" class="pull-right mt-sm">
-  <a *ngFor="let subgroup of allSubgroups"
-     class="reverse btn btn-sm subgroup-toggle {{subgroup.selected ? 'aqua' : 'gray-dark'}}"
-     (click)="toggleSubgroup(subgroup)"
-     angulartics2On="click"
-     angularticsEvent="ToggleSubgroup"
-     angularticsCategory="TeacherTargetResults">
-          <span class="block-children">
-              {{'aggregate-report-form.field.' + subgroup.translatecode | translate }}
-          </span>
-  </a>
+<div *ngIf="showResults" class="pull-right mt-md">
+  <span *ngIf="!showSubgroupOptions">
+    <a (click)="toggleSubgroupOptions()"
+       class="btn btn-xs btn-default">
+      {{ 'target-report.subgroup-options' | translate }}
+    </a>
+  </span>
+  <span *ngIf="showSubgroupOptions">
+    <a (click)="toggleSubgroupOptions()"
+       class="btn btn-xs btn-default">
+      <i class="fa fa-close"></i>
+    </a>
+    <a *ngFor="let subgroup of allSubgroups"
+       class="reverse btn btn-xs subgroup-toggle {{subgroup.selected ? 'aqua' : 'gray-dark'}}"
+       (click)="toggleSubgroup(subgroup)"
+       angulartics2On="click"
+       angularticsEvent="ToggleSubgroup"
+       angularticsCategory="TeacherTargetResults">
+            <span class="block-children">
+                {{'aggregate-report-form.field.' + subgroup.translatecode | translate }}
+            </span>
+    </a>
+  </span>
 </div>
 
 <div *ngIf="showCautionMessage">

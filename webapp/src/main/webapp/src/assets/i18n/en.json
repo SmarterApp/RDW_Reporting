@@ -1375,7 +1375,8 @@
       "standard-met-relative-residual-level": "Performance relative to the standard",
       "standard-met-relative-residual-level-info": "Performance relative to the standard TODO"
     },
-    "not-enough-results": "TODO - not enough results"
+    "not-enough-results": "TODO - not enough results",
+    "subgroup-options": "Subgroups"
   },
   "update-instructional-resource-modal": {
     "error": "Unable to modify instructional resource.",

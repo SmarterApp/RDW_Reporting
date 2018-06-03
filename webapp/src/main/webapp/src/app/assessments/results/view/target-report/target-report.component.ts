@@ -87,6 +87,7 @@ export class TargetReportComponent implements OnInit {
   identityColumns: string[] = [ 'claim', 'target', 'subgroup' ];
   treeColumns: number[] = [];
   filterOptions: ExamFilterOptions = new ExamFilterOptions();
+  showSubgroupOptions: boolean = false;
 
   // TODO: handle ELAS, vs LEP decision
   allSubgroups: any[] = [
@@ -111,8 +112,6 @@ export class TargetReportComponent implements OnInit {
               private assessmentProvider: GroupAssessmentService,
               private filterOptionService: ExamFilterOptionsService) {
   }
-  //private optionsService: AggregateReportOptionsService
-  //this.optionsService.getReportOptions()
 
   ngOnInit() {
     if (!this.showResults) return;
@@ -203,6 +202,10 @@ export class TargetReportComponent implements OnInit {
   toggleSubgroup(subgroup) {
     subgroup.selected = !subgroup.selected;
     this.updateTargetScoreExam();
+  }
+
+  toggleSubgroupOptions() {
+    this.showSubgroupOptions = !this.showSubgroupOptions;
   }
 
   private updateTargetScoreExam(): void {
