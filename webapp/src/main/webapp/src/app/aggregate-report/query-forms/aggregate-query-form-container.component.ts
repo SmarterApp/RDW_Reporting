@@ -34,7 +34,10 @@ export class AggregateQueryFormContainerComponent {
 
     const options: AggregateReportFormOptions = optionMapper.map(this.aggregateReportOptions);
     this.filteredOptions = Object.assign({}, options);
-    this.filteredOptions.reportTypes.forEach((reportType) => this.submitActionsByReportType[reportType.value] = new EventEmitter());
+    this.filteredOptions.reportTypes.forEach((reportType) => {
+      this.submitActionsByReportType[reportType.value] = new EventEmitter();
+      this.navItemsByReportType[reportType.value] = this._globalNavItems;
+    });
 
     this.accessDenied = this.aggregateReportOptions.assessmentTypes.length === 0;
   }
@@ -48,7 +51,7 @@ export class AggregateQueryFormContainerComponent {
   }
 
   onReportTypeChange(): void {
-    this.navItems = this.navItemsByReportType[this.reportType] || [];
+    this.navItems = this.navItemsByReportType[this.reportType];
   }
 
   submitQuery($event): void {

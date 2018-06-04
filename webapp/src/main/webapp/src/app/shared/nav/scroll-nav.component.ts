@@ -35,7 +35,7 @@ export class ScrollNavComponent {
           //Saturate element reference from id
           if (Utils.isNullOrUndefined(item.scrollTo)
             && !Utils.isNullOrUndefined(item.id)) {
-            item = Object.assign(item, {
+            item = Object.assign({}, item, {
               scrollTo: document.getElementById(item.id)
             });
           }
@@ -43,7 +43,7 @@ export class ScrollNavComponent {
           //Saturate text from translation key
           if (Utils.isNullOrUndefined(item.text)
             && !Utils.isNullOrUndefined(item.translationKey)) {
-            item = Object.assign(item, {
+            item = Object.assign({}, item, {
               text: this.translateService.instant(item.translationKey)
             });
           }
