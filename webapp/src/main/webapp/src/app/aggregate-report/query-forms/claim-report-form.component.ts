@@ -119,11 +119,11 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
     }, {
       id: 'claimPreviewSection',
       translationKey: 'aggregate-report-form.section.preview-heading'
-    } ]
+    } ];
   }
 
   getSupportedAssessmentTypes(): string[] {
-    return ['sum', 'ica', 'iab'];
+    return [ 'sum', 'ica' ];
   }
 
   onAssessmentTypeChange(): void {

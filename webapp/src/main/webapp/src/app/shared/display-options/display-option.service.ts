@@ -48,7 +48,9 @@ export class DisplayOptionService {
    * Creates a generic option class given a translation provider and analytics label provider
    *
    * @param {(value: any) => string} translationProvider
-   * @param {(value: any) => string} labelProvider
+   * @param {(value: any) => string} analyticsLabelProvider
+   * @param {(value: any) => string} descriptionProvider optional descriptionProvider
+   * @param {(value: any) => string} disabledTextProvider optional disabledTextProvider
    * @returns {any}
    */
   createOptionMapper(translationProvider: (value: any) => string, analyticsLabelProvider: (value: any) => string, descriptionProvider?: (value: any) => string, disabledTextProvider?: (value: any) => string): any {
