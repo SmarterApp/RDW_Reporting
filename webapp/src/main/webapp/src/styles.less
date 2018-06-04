@@ -72,6 +72,10 @@
   }
 }
 
+.btn-default .badge.aqua {
+  background-color: @aqua;
+}
+
 /**
   Required to meet WCAG 2 AA contrast ratio
  */
@@ -746,7 +750,7 @@ aggregate-report-table {
   }
 }
 
-aggregate-report-form {
+aggregate-report-form, .aggregate-report-form {
   .well-group .well {
     box-shadow: none;
     padding-bottom: 20px;
@@ -1300,13 +1304,13 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
 @easing-sharp: cubic-bezier(0.4, 0.0, 0.6, 1);
 
 // cards per row
-@cards-per-row: 3;
+@cards-per-row: 4;
 
 // copy below CSS
 .card-grid {
   display: grid;
   grid-gap: @spacer;
-  grid-template-columns: repeat(@cards-per-row, @spacer * 18);
+  grid-template-columns: repeat(@cards-per-row, @spacer * 15.7);
 }
 
 .card {
@@ -1323,11 +1327,11 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
   transition-timing-function: @easing-decel;
   .check {
     position: absolute;
-    top: @spacer / 2;
-    right: @spacer / 2;
+    top: @spacer / 1.7;
+    right: @spacer / 1.7;
     display: flex;
-    width: @spacer * 2;
-    height: @spacer * 2;
+    width: @spacer * 1.5;
+    height: @spacer * 1.5;
     align-items: center;
     justify-content: center;
     background-color: transparent;
@@ -1369,7 +1373,7 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
 }
 
 .assessment-aggregate {
-  padding: (@spacer * 1.7);
+  padding: (@spacer * 0.8);
   font-family: PT Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
   color: #353538;
   box-shadow: 0 3px 6px rgba(0,0,0,.16);
@@ -1423,16 +1427,17 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
 
   .perc-container {
     display: grid;
-    grid-gap: @spacer / 4;
-    padding-top: @spacer * 1;
+    grid-gap: @spacer / 4.2;
 
     .bar {
       display: flex;
       align-items: center;
       font-size: 12.8px;
-      & { justify-self: center; }
-      &:first-child { justify-self: left; }
-      &:last-child { justify-self: right; }
+      & { justify-self: left; }
+    }
+    .bar.description {
+      font-size: 11px;
+      color: @gray-light;
     }
     .square {
       display: inline-block;
@@ -1489,11 +1494,12 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
   font-size: 100%;
 }
 wide-radio-group {
+
   .btn-toolbar-grid {
-    .btn-toolbar;
     display: grid;
     grid-template-rows: repeat(2, auto);
     grid-auto-flow: column;
+    grid-gap: 0 @spacer;
     &:before {
       content: none;
     }
@@ -1551,3 +1557,13 @@ table.student-claim-distribution {
   font-color: @gray-darkest;
   font-size: 0.8em;
 }
+
+user-group {
+  student-filters {
+    .flex-children .flex-child {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+}
+

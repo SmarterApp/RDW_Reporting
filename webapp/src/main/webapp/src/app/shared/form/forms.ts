@@ -54,6 +54,20 @@ export class Forms {
     return control.invalid && (control.dirty || control.touched);
   }
 
+  public static submit(form: FormGroup, onValid: () => void, onInvalid?: () => void): void {
+    if (form.valid) {
+      onValid();
+    } else {
+      Forms.controls(form)
+        .forEach(control => control.markAsDirty());
+      form.updateValueAndValidity();
+
+      if (typeof onInvalid === 'function') {
+        onInvalid();
+      }
+    }
+  }
+
 }
 
 /**

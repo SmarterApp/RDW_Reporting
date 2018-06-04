@@ -26,7 +26,7 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 
 // Set version dependencies. This allows the cli to force version, e.g. `-Pcommon=1.1.0-SNAPSHOT`
-String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "1.2.0-85"
+String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "1.2.0-90"
 String rdwSchemaVersion = project.hasProperty("schema") ? project.property("schema") : "1.2.0-353"
 String dockerPrefix = "smarterbalanced"
 
@@ -72,32 +72,24 @@ subprojects {
             dependency "org.opentestsystem.rdw.common:rdw-common-archive:${rdwCommonVersion}"
 
             // commonly used libraries
-            dependency 'com.google.guava:guava:21.0'
-            dependency 'commons-io:commons-io:2.4'
+            dependency 'com.google.guava:guava:23.0'
+            dependency 'commons-io:commons-io:2.6'
+            dependency 'io.jsonwebtoken:jjwt:0.9.0'
+            dependency 'org.apache.pdfbox:pdfbox:2.0.7'
             dependency 'org.slf4j:slf4j-api:1.7.25'
             dependency 'org.thymeleaf:thymeleaf:3.0.6.RELEASE'
 
             // spring extensions aren't included in the the bom
             dependency 'org.springframework.security.extensions:spring-security-saml2-core:1.0.2.RELEASE'
 
-            // pdf tooling
-            dependency 'org.apache.pdfbox:pdfbox:2.0.7'
-
             // commonly used test libraries
+            dependency 'junit:junit:4.12'
             dependency 'org.assertj:assertj-core:3.6.2'
             dependency 'org.mockito:mockito-core:2.16.0'
-            dependency 'junit:junit:4.12'
-
-            // jwt
-            dependency 'io.jsonwebtoken:jjwt:0.9.0'
-
-            // override default spring boot zuul version to handle multipart form proxy requests
-            // TODO remove this override after upgrading to Camden.SR7 or above
-            dependency 'org.springframework.cloud:spring-cloud-netflix-core:1.2.7.RELEASE'
         }
         imports {
-            // spring cloud Camden.SR5 includes spring cloud stream Brooklyn.SR2
-            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Camden.SR5'
+            // https://github.com/spring-projects/spring-cloud/wiki/Spring-Cloud-Camden-Release-Notes
+            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Camden.SR7'
         }
     }
 

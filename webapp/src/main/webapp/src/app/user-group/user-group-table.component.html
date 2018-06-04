@@ -1,4 +1,5 @@
-<p-table [columns]="columns"
+<p-table *ngIf="initialized"
+         [columns]="columns"
          [value]="groups"
          [autoLayout]="true"
          sortField="name"
@@ -14,11 +15,10 @@
 
         <ng-container *ngSwitchCase="'action'"></ng-container>
 
-        <div *ngSwitchDefault>
-          {{ ('groups.columns.' + column.id) | translate }}
-        </div>
-
-        <p-sortIcon [field]="column.field"></p-sortIcon>
+        <ng-container *ngSwitchDefault>
+          {{('groups.columns.' + column.id) | translate}}
+          <p-sortIcon [field]="column.field"></p-sortIcon>
+        </ng-container>
       </th>
     </tr>
   </ng-template>
@@ -40,9 +40,8 @@
         </div>
 
         <ng-container *ngSwitchCase="'subject'">
-          <ng-container *ngFor="let subject of group.subjects; let first = first">
-            <ng-container *ngIf="!first">, </ng-container>
-            {{ 'common.subject.' + subject + '.name' | translate }}
+          <ng-container *ngFor="let subject of (group.subjects || subjects); let last = last">
+            {{'common.subject.' + subject + '.name' | translate}}{{last ? '' : ', '}}
           </ng-container>
         </ng-container>
 
@@ -58,7 +57,7 @@
   <ng-template pTemplate="emptymessage" let-columns>
     <tr>
       <td [attr.colspan]="columns.length">
-        {{emptyMessage}}
+        {{'groups.empty-message' | translate}}
       </td>
     </tr>
   </ng-template>

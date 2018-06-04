@@ -44,14 +44,17 @@
     </div>
 
     <div class="flex-child text-right">
-      <label>{{'advanced-filters.label' | translate}}</label>
+      <label>{{'advanced-filters.label' | translate}} </label>
       <button id="advanced"
               class="form-control btn btn-sm btn-default"
               (click)="onAdvancedFiltersToggleClick()">
         {{(showAdvancedFilters ? 'common.action.hide' : 'common.action.show') | translate}}
-        <i aria-hidden="true"
+        <i *ngIf="advancedFilterCount === 0"
+           aria-hidden="true"
            class="fa ml-xs"
            [ngClass]="showAdvancedFilters ? 'fa-caret-square-o-up' : 'fa-caret-square-o-down'"></i>
+        <div *ngIf="advancedFilterCount > 0"
+             class="badge aqua ml-xs">{{advancedFilterCount}}</div>
       </button>
     </div>
 

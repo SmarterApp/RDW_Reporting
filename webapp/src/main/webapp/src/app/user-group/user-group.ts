@@ -2,12 +2,10 @@ import { Utils } from '../shared/support/support';
 import { Student } from '../student/search/student';
 
 export interface UserGroup {
-
   id?: number;
   name: string;
   subjects: string[];
   students: Student[];
-
 }
 
 export interface UserGroupRequest {

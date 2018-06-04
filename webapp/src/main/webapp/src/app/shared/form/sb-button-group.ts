@@ -199,6 +199,7 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
   private _initialized: boolean = false;
   private _initialOptions: Option[];
   private _initialValues: any[];
+  private _allOptionReturnsUndefined: boolean = false; // TODO default should be true
   private _buttonGroupStyles: any = DefaultButtonGroupStyles;
   private _buttonStyles: any = DefaultButtonStyles;
 
@@ -274,6 +275,15 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
   @Input()
   set buttonStyles(value: any) {
     this._buttonStyles = value ? value : DefaultButtonStyles;
+  }
+
+  get allOptionReturnsUndefined(): boolean {
+    return this._allOptionReturnsUndefined;
+  }
+
+  @Input()
+  set allOptionReturnsUndefined(value: boolean) {
+    this._allOptionReturnsUndefined = Utils.booleanValueOf(value);
   }
 
   get initializedInternal(): boolean {
@@ -352,9 +362,11 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
    * @param {Option[]} options
    */
   private updateValue(state, options: Option[]): void {
-    const values = options
-      .filter(option => state.selectedAllOption || state.selectedOptions.has(option))
-      .map(option => option.value);
+    const values = state.selectedAllOption && this._allOptionReturnsUndefined
+      ? undefined
+      : options
+        .filter(option => state.selectedAllOption || state.selectedOptions.has(option))
+        .map(option => option.value);
 
     this.setValueAndNotifyChanges(values);
   }
@@ -384,11 +396,11 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
    * Normalizes and copies values
    * This should be used to process all values provided to the value field
    *
-   * @param value
+   * @param values
    * @returns {any[]}
    */
-  private parseInputValues(value: any): any[] {
-    if (value == null) {
+  private parseInputValues(values: any): any[] {
+    if (values == null) {
       // If the value is undefined and the component allows a no-value state, set value to empty
       if (this.effectiveNoneStateEnabled) {
         return [];
@@ -397,7 +409,7 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
       return this.options.map(option => option.value);
     }
     // Make a copy of the value to avoid side effects
-    return value.concat();
+    return values.concat();
   }
 
   /**

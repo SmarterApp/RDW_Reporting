@@ -17,11 +17,17 @@ import { StudentSearch, StudentService } from '../student/search/student.service
 import { byString, join } from '@kourge/ordering/comparator';
 import { ordering } from '@kourge/ordering';
 import { UserGroupFormComponent } from './user-group-form.component';
-import { createStudentArrayFilter, StudentArrayFilter, StudentFilter } from '../shared/filter/student-filter';
+import {
+  countFilters,
+  createStudentArrayFilter,
+  StudentArrayFilter,
+  StudentFilter
+} from '../shared/filter/student-filter';
 import { StudentFilterOptions } from '../shared/filter/student-filter-options';
 import { FilterOptionsService } from '../shared/filter/filter-options.service';
 import { ApplicationSettingsService } from '../app-settings.service';
 import { ApplicationSettings } from '../app-settings';
+import { Forms } from '../shared/form/forms';
 
 const StudentComparator = join(
   ordering(byString).on<Student>(student => student.lastName).compare,
@@ -49,6 +55,7 @@ export class UserGroupComponent implements OnInit, OnDestroy {
   applicationSettings: ApplicationSettings;
   showAdvancedFilters: boolean = false;
   loadingStudents: boolean = true;
+  advancedFilterCount: number = 0;
 
   processingSubscription: Subscription;
   initialized: boolean;
@@ -146,19 +153,20 @@ export class UserGroupComponent implements OnInit, OnDestroy {
   }
 
   onSaveButtonClick(): void {
-    if (this.saveButtonDisabled) {
-      return;
-    }
-    // TODO only save when there are changes
-    this.processingSubscription = this.service.saveGroup(this.group)
-      .subscribe(() => {
-          this.navigateHome();
-        },
-        () => {
-          this.notificationService.error({ id: 'user-group.save-error' });
-        }, () => {
-          this.unsubscribe();
-        });
+    Forms.submit(
+      this.groupForm.formGroup,
+      () => {
+        this.processingSubscription = this.service.saveGroup(this.group)
+          .subscribe(() => {
+              this.navigateHome();
+            },
+            () => {
+              this.notificationService.error({ id: 'user-group.save-error' });
+            }, () => {
+              this.unsubscribe();
+            });
+      }
+    );
   }
 
   onDeleteButtonClick(): void {
@@ -182,7 +190,9 @@ export class UserGroupComponent implements OnInit, OnDestroy {
   }
 
   onGroupNameChange(): void {
-    this.updateSaveButtonDisabled();
+    setTimeout(() => {
+      this.updateSaveButtonDisabled();
+    }, 0);
   }
 
   onGroupSubjectsChange(): void {
@@ -195,8 +205,16 @@ export class UserGroupComponent implements OnInit, OnDestroy {
   }
 
   onFormStudentClick(student: Student): void {
+    this.addStudents(student);
+  }
+
+  addAllStudentsButtonClick() {
+    this.addStudents(...this.filteredStudents);
+  }
+
+  private addStudents(...students: Student[]) {
     this.group.students = this.group.students
-      .concat(student)
+      .concat(students)
       .sort(StudentComparator);
 
     // Hacky fix to allow angular forms to process validity checks before we update based on that validity
@@ -204,7 +222,6 @@ export class UserGroupComponent implements OnInit, OnDestroy {
       this.updateFormStudents();
       this.updateSaveButtonDisabled();
     }, 0);
-
   }
 
   onShowAdvancedFiltersChange(value: boolean): void {
@@ -213,6 +230,7 @@ export class UserGroupComponent implements OnInit, OnDestroy {
 
   onAdvancedFilterChange(filter: StudentFilter): void {
     this.studentArrayFilter = createStudentArrayFilter(filter);
+    this.advancedFilterCount = countFilters(filter);
     this.updateFormStudents();
   }
 
@@ -258,7 +276,7 @@ export class UserGroupComponent implements OnInit, OnDestroy {
   private updateFormStudents(): void {
     const nameSearch = (this.studentForm.name || '')
       .toLowerCase()
-      .replace(/[^\w\s]/g, '')
+      .replace(/[,]/g, '')
       .replace(/\s+/g, '');
 
     this.filteredStudents = this.students
@@ -278,8 +296,6 @@ export class UserGroupComponent implements OnInit, OnDestroy {
 
   private updateSaveButtonDisabled(): void {
     this._saveButtonDisabled = !this.initialized
-      || this.groupForm == null
-      || !this.groupForm.formGroup.valid
       || equals(this.originalGroup, this.group);
   }
 

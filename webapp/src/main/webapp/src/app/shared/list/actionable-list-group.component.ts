@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ListGroupComponent } from './list-group.component';
 
 @Component({
@@ -7,9 +7,9 @@ import { ListGroupComponent } from './list-group.component';
     <ng-template #defaultItemTemplate let-item>{{ item }}</ng-template>
     <div class="list-group list-group-sm small">
       <a *ngFor="let item of items"
-         class="list-group-item list-group-item-action"
          href="javascript:void(0)"
-         (click)="itemClick.emit(item)">
+         class="list-group-item list-group-item-action"
+         (click)="disabled || itemClick.emit(item)">
         <ng-container *ngTemplateOutlet="(itemTemplate ? itemTemplate : defaultItemTemplate);
                       context:{$implicit: item}"></ng-container>
       </a>
@@ -17,6 +17,9 @@ import { ListGroupComponent } from './list-group.component';
   `
 })
 export class ActionableListGroupComponent extends ListGroupComponent {
+
+  @Input()
+  disabled: boolean;
 
   @Output()
   itemClick: EventEmitter<any> = new EventEmitter<any>();

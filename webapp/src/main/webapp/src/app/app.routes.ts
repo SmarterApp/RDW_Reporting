@@ -9,7 +9,7 @@ import { StudentResultsComponent } from './student/results/student-results.compo
 import { StudentExamHistoryResolve } from './student/results/student-exam-history.resolve';
 import { StudentResponsesResolve } from './student/responses/student-responses.resolve';
 import { StudentResponsesComponent } from './student/responses/student-responses.component';
-import { TranslateResolve } from './home/translate.resolve';
+import { TranslateResolve } from './translate.resolve';
 import { StudentHistoryResponsesExamResolve } from './student/responses/student-history-responses-exam.resolve';
 import { StudentHistoryResponsesAssessmentResolve } from './student/responses/student-history-responses-assessment.resolve';
 import { StudentHistoryResponsesStudentResolve } from './student/responses/student-history-responses-student.resolve';
@@ -32,7 +32,6 @@ import { SessionExpiredComponent } from './shared/security/session-expired.compo
 import { AuthorizationCanActivate } from './shared/security/authorization.can-activate';
 import { RoutingAuthorizationCanActivate } from './shared/security/routing-authorization.can-activate';
 import { AggregateReportComponent } from './aggregate-report/results/aggregate-report.component';
-import { AggregateReportFormComponent } from './aggregate-report/aggregate-report-form.component';
 import { AggregateReportResolve } from './aggregate-report/results/aggregate-report.resolve';
 import { AggregateReportOptionsResolve } from './aggregate-report/aggregate-report-options.resolve';
 import { AggregateReportFormSettingsResolve } from './aggregate-report/aggregate-report-form-settings.resolve';
@@ -40,7 +39,7 @@ import { LongitudinalPlaygroundComponent } from './aggregate-report/results/long
 import { GroupDashboardComponent } from './dashboard/group-dashboard/group-dashboard.component';
 import { UserGroupComponent } from './user-group/user-group.component';
 import { UserGroupResolve } from './user-group/user-group.resolve';
-import { TargetReportFormComponent } from "./aggregate-report/target/target-report-form.component";
+import { AggregateQueryFormContainerComponent } from "./aggregate-report/query-forms/aggregate-query-form-container.component";
 
 const adminRoute = {
   path: '',
@@ -322,18 +321,7 @@ export const routes: Routes = [
             resolve: {
               settings: AggregateReportFormSettingsResolve
             },
-            component: AggregateReportFormComponent
-          },
-          {
-            path: 'targets',
-            pathMatch: 'full',
-            data: {
-              breadcrumb: { translate: 'aggregate-reports.targets.heading' },
-            },
-            resolve: {
-              settings: AggregateReportFormSettingsResolve
-            },
-            component: TargetReportFormComponent
+            component: AggregateQueryFormContainerComponent
           },
           {
             path: ':id',

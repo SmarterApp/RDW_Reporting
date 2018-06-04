@@ -4,6 +4,8 @@ import { Observable } from "rxjs/Observable";
 import { TranslateService } from "@ngx-translate/core";
 
 /**
+ * TODO repackage
+ *
  * Resolver that only resolves once the translate getTranslation is complete.
  */
 @Injectable()

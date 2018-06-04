@@ -9,7 +9,6 @@ import { AggregateReportOrganizationService } from './aggregate-report-organizat
 import { ModalModule, PopoverModule, TabsModule, TypeaheadModule } from 'ngx-bootstrap';
 import { AggregateReportService } from './aggregate-report.service';
 import { ReportModule } from '../report/report.module';
-import { AggregateReportFormComponent } from './aggregate-report-form.component';
 import { AggregateReportComponent } from './results/aggregate-report.component';
 import { AggregateReportResolve } from './results/aggregate-report.resolve';
 import { AggregateReportOptionsResolve } from './aggregate-report-options.resolve';
@@ -30,16 +29,22 @@ import { LongitudinalPlaygroundComponent } from './results/longitudinal-playgrou
 import { SubgroupModule } from './subgroup/subgroup.module';
 import { LongitudinalCohortChartMapper } from './results/longitudinal-cohort-chart.mapper';
 import { WideRadioGroupComponent } from './wide-radio-group.component';
-import { TargetReportFormComponent } from './target/target-report-form.component';
+import { TargetReportFormComponent } from './query-forms/target-report-form.component';
+import { AggregateQueryFormContainerComponent } from "./query-forms/aggregate-query-form-container.component";
+import { GeneralPopulationFormComponent } from "./query-forms/general-population-form.component";
+import { LongitudinalCohortFormComponent } from "./query-forms/longitudinal-cohort-form.component";
+import { ClaimReportFormComponent } from "./query-forms/claim-report-form.component";
 
 @NgModule({
   declarations: [
-    AggregateReportFormComponent,
+    AggregateQueryFormContainerComponent,
     AggregateReportComponent,
     AggregateReportTableComponent,
     AggregateReportSummary,
-    WideRadioGroupComponent,
+    ClaimReportFormComponent,
+    GeneralPopulationFormComponent,
     LongitudinalCohortChartComponent,
+    LongitudinalCohortFormComponent,
     LongitudinalPlaygroundComponent,
     StickyDirective,
     TargetReportFormComponent,
@@ -63,7 +68,7 @@ import { TargetReportFormComponent } from './target/target-report-form.component
   ],
   exports: [
     AggregateReportComponent,
-    AggregateReportFormComponent,
+    AggregateQueryFormContainerComponent,
     TargetReportFormComponent
   ],
   providers: [

@@ -21,6 +21,9 @@ export class StudentSearchFormComponent extends AbstractControlValueAccessor<Stu
     groups: []
   };
 
+  @Input()
+  advancedFilterCount: number = 0;
+
   @Output()
   schoolChange: EventEmitter<School> = new EventEmitter<School>();
 
