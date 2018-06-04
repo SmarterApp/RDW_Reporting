@@ -1364,16 +1364,16 @@
     "title": "Student Test History Report"
   },
   "target-report": {
-    "caution-message": "TODO - caution message here",
+    "caution-message": "Assessment target scores based on fewer than 50 students may be less reliable and will have fewer unique items contributing to the overall target summary.",
     "columns": {
       "claim": "Claim",
       "target": "Target",
       "subgroup": "Subgroup",
       "studentsTested": "Students Tested",
-      "student-relative-residual-scores-level": "Performance relative to test",
-      "student-relative-residual-scores-level-info": "Performance relative to test TODO",
-      "standard-met-relative-residual-level": "Performance relative to the standard",
-      "standard-met-relative-residual-level-info": "Performance relative to the standard TODO"
+      "student-relative-residual-scores-level": "Performance Relative to Entire Test",
+      "student-relative-residual-scores-level-info": "Indicates whether students'' performance on a target was better than, the same, or worse than the students'' performance on the entire test. A \"Worse\" indicator does not necessarily mean poor performance on a target, but rather that students'' performance in this area was weaker than their overall performance.",
+      "standard-met-relative-residual-level": "Performance Relative to Standard Met (Level 3)",
+      "standard-met-relative-residual-level-info": "Indicates whether students'' performance on a target was above, near, or below Standard Met (Level 3).  A \"Below Standard Met\" indicator suggests that students have not yet mastered the content assessed in a target; however, the students'' overall performance on the test may be near or above standard."
     },
     "not-enough-results": "TODO - not enough results",
     "subgroup-options": "Subgroups"

@@ -7,17 +7,25 @@
 
 
 <div *ngIf="showResults" class="row mb-xs">
-  <div class="col-md-5">
+  <div class="col-md-10">
     <span class="target-caution-message">* {{ 'target-report.caution-message' | translate }}</span>
   </div>
-  <div class="col-md-7 text-right">
-    <span *ngIf="!showSubgroupOptions">
+  <div class="col-md-2 text-right">
+    <span>
       <a (click)="toggleSubgroupOptions()"
-         class="btn btn-xs btn-default">
+         class="btn btn-xs"
+        [ngClass]="{
+          'btn-default': !showSubgroupOptions,
+          'btn-primary': showSubgroupOptions
+        }">
         {{ 'target-report.subgroup-options' | translate }}
       </a>
     </span>
-    <span *ngIf="showSubgroupOptions">
+  </div>
+</div>
+<div *ngIf="showSubgroupOptions" class="row mb-xs">
+  <div class="col-md-12 text-right">
+    <span>
       <a (click)="toggleSubgroupOptions()"
          class="btn btn-xs btn-default">
         <i class="fa fa-close"></i>
