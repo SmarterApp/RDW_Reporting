@@ -107,22 +107,18 @@
             <span [ngSwitch]="getTargetReportingLevelString(rowData.studentRelativeLevel)">
               <span *ngSwitchCase="'Above'"
                     class="label sb-iab-green">
-                <!--<sb-icon class="fa-lg" icon="sbac-above-average"></sb-icon>-->
                 {{'aggregate-report-table.target.overall.Above' | translate}}
               </span>
               <span *ngSwitchCase="'Near'"
                     class="label sb-iab-yellow">
-                <!--<sb-icon class="fa-lg" icon="sbac-average"></sb-icon>-->
                 {{'aggregate-report-table.target.overall.Near' | translate}}
               </span>
               <span *ngSwitchCase="'Below'"
                     class="label sb-iab-red">
-                <!--<sb-icon class="fa-lg" icon="sbac-below-average"></sb-icon>-->
                 {{'aggregate-report-table.target.overall.Below' | translate}}
               </span>
               <span *ngSwitchCase="'InsufficientData'"
                     class="label gray-light">
-                <!--<sb-icon class="fa-lg" icon="sbac-insufficient-data"></sb-icon>-->
                 {{'aggregate-report-table.target.overall.InsufficientData' | translate}}
               </span>
               <span *ngSwitchCase="'Excluded'"

@@ -15,25 +15,37 @@ export class TargetStatisticsCalculator {
               private subgroupMapper: SubgroupMapper) {
   }
 
+  /**
+   * Calculate the overall scores for each target from the raw API data
+   * @param {Target[]} allTargets
+   * @param {TargetScoreExam[]} targetScoreExams
+   * @returns {AggregateTargetScoreRow[]}
+   */
   aggregateOverallScores(allTargets: Target[], targetScoreExams: TargetScoreExam[]): AggregateTargetScoreRow[] {
     // setup the placeholders to aggregate into
     let groupedScores = this.generateOverallTargets(allTargets);
 
     if (targetScoreExams == null) targetScoreExams = [];
 
-    groupedScores = targetScoreExams.reduce((groupedExams, exam) => {
-      let index = groupedExams.findIndex(x => x.targetId == exam.targetId);
+    targetScoreExams.forEach(exam => {
+      let index = groupedScores.findIndex(x => x.targetId == exam.targetId);
       if (index !== -1) {
-        groupedExams[ index ].standardMetScores.push(exam.standardMetRelativeResidualScore);
-        groupedExams[ index ].studentScores.push(exam.studentRelativeResidualScore);
+        groupedScores[ index ].standardMetScores.push(exam.standardMetRelativeResidualScore);
+        groupedScores[ index ].studentScores.push(exam.studentRelativeResidualScore);
       }
-
-      return groupedExams;
-    }, groupedScores);
+    });
 
     return groupedScores.map(entry => this.mapToAggregateTargetScoreRow(entry));
   }
 
+  /**
+   * Calculate the subgroup scores for each subgroup value and target
+   * @param {Target[]} allTargets
+   * @param {TargetScoreExam[]} targetScoreExams
+   * @param {string[]} subgroupCodes
+   * @param {ExamFilterOptions} subgroupOptions
+   * @returns {AggregateTargetScoreRow[]}
+   */
   aggregateSubgroupScores(allTargets: Target[], targetScoreExams: TargetScoreExam[], subgroupCodes: string[], subgroupOptions: ExamFilterOptions): AggregateTargetScoreRow[] {
     // setup the placeholders to aggregate into
     let groupedScores = this.generateSubgroupTargets(allTargets, subgroupCodes, subgroupOptions);
@@ -58,7 +70,6 @@ export class TargetStatisticsCalculator {
       });
     });
 
-
     return groupedScores.map(entry => this.mapToAggregateTargetScoreRow(entry));
   }
 
@@ -80,7 +91,7 @@ export class TargetStatisticsCalculator {
   }
 
   /**
-   * Generates a row for each Target as the initial placeholders and determines if any are exlcuded
+   * Generates a row for each Target as the initial placeholders and determines if any should be excluded
    * This means we won't have to backfill later as all targets are there already
    * @param {Target[]} allTargets
    * @returns {GroupedTargetScore[]} that is used in the other aggregate methods
@@ -98,6 +109,13 @@ export class TargetStatisticsCalculator {
     });
   }
 
+  /**
+   * Generate a row for each Target and subgroup option as the initial placeholders and determines if any should be excluded
+   * @param {Target[]} allTargets
+   * @param {string[]} subgroupCodes
+   * @param {ExamFilterOptions} subgroupOptions
+   * @returns {GroupedTargetScore[]}
+   */
   private generateSubgroupTargets(allTargets: Target[], subgroupCodes: string[], subgroupOptions: ExamFilterOptions): GroupedTargetScore[] {
     let groupedScores: GroupedTargetScore[] = [];
 
@@ -164,6 +182,13 @@ export class TargetStatisticsCalculator {
     return null;
   }
 
+  /**
+   * Calculate the reporting level based on the value and the standard error
+   * @param {number} delta
+   * @param {number} standardError
+   * @param {number} insufficientCutpoint
+   * @returns {TargetReportingLevel}
+   */
   mapTargetScoreDeltaToReportingLevel(delta: number, standardError: number, insufficientCutpoint: number = 0.2): TargetReportingLevel {
     if (standardError > insufficientCutpoint) return TargetReportingLevel.InsufficientData;
     if (delta >= standardError) return TargetReportingLevel.Above;

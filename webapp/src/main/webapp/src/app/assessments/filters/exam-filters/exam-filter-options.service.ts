@@ -5,7 +5,6 @@ import { ExamFilterOptions } from "../../model/exam-filter-options.model";
 import { Observable } from "rxjs/Observable";
 import { map } from 'rxjs/operators';
 import { ReportingServiceRoute } from '../../../shared/service-route';
-import { SubgroupFilters } from '../../../aggregate-report/subgroup/subgroup-filters';
 
 const ServiceRoute = ReportingServiceRoute;
 
@@ -21,13 +20,5 @@ export class ExamFilterOptionsService {
       .pipe(
         map(serverOptions => this.mapper.mapFromApi(serverOptions))
       );
-  }
-
-  toSubgroupFilters(examFilterOptions: ExamFilterOptions): SubgroupFilters {
-    return <SubgroupFilters>{
-      englishLanguageAcquisitionStatuses: examFilterOptions.elasCodes,
-      ethnicities: examFilterOptions.ethnicities,
-      genders: examFilterOptions.genders
-    };
   }
 }

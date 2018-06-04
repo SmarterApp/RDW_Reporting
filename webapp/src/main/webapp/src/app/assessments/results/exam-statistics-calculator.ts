@@ -6,9 +6,6 @@ import { DynamicItemField } from '../model/item-point-field.model';
 import * as math from 'mathjs';
 import { WritingTraitScoreSummary } from '../model/writing-trait-score-summary.model';
 import { ClaimStatistics } from '../model/claim-score.model';
-import { TargetScoreExam } from '../model/target-score-exam.model';
-import { AggregateTargetScoreRow, TargetReportingLevel } from '../model/aggregate-target-score-row.model';
-import { SubgroupMapper } from '../../aggregate-report/subgroup/subgroup.mapper';
 
 @Injectable()
 export class ExamStatisticsCalculator {
@@ -16,7 +13,6 @@ export class ExamStatisticsCalculator {
   private readonly PercentFieldPrefix = "percent-point_";
 
   private readonly potentialResponses = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
 
   calculateAverage(scores: number[]): number {
     let scored = scores.filter(x => x != null);
