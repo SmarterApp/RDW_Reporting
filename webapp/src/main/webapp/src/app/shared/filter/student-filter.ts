@@ -3,25 +3,13 @@ import { Utils } from '../support/support';
 import { Student } from '../../student/search/student';
 
 export interface StudentFilter {
-  genders: string[];
-  ethnicities: string[];
-  englishLanguageAcquisitionStatuses: string[];
-  individualEducationPlans: string[];
+  genders?: string[];
+  ethnicities?: string[];
+  englishLanguageAcquisitionStatuses?: string[];
+  individualEducationPlans?: string[];
   limitedEnglishProficiencies?: string[];
   section504s?: string[];
   migrantStatuses?: string[];
-}
-
-export function createDefaultStudentFilter(options: StudentFilterOptions): StudentFilter {
-  return {
-    genders: options.genders.concat(),
-    ethnicities: options.ethnicities.concat(),
-    englishLanguageAcquisitionStatuses: [],
-    individualEducationPlans: options.individualEducationPlans.concat(),
-    limitedEnglishProficiencies: options.limitedEnglishProficiencies.concat(),
-    section504s: options.section504s.concat(),
-    migrantStatuses: options.migrantStatuses.concat()
-  };
 }
 
 export type ArrayFilter<T> = (student: T, index: number, students: T[]) => boolean;
@@ -53,4 +41,10 @@ export function createStudentArrayFilter(filter: StudentFilter): StudentArrayFil
       || filter.migrantStatuses.includes(student.migrantStatus)
     );
   };
+}
+
+export function countFilters(filter: StudentFilter): number {
+  return Object.entries(filter).reduce((count, [key, value]) => {
+    return count + (value != null ? value.length : 0);
+  }, 0);
 }

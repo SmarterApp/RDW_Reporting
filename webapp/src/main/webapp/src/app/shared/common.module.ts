@@ -42,6 +42,8 @@ import { InViewDirective } from './nav/in-view.directive';
 import { RdwListModule } from './list/rdw-list.module';
 import { RdwFilterModule } from './filter/rdw-filter.module';
 import { RdwIconModule } from "./icon/rdw-icon.module";
+import { TargetService } from './target/target.service';
+import { DataTableService } from './datatable/datatable-service';
 
 
 @NgModule({
@@ -125,7 +127,9 @@ import { RdwIconModule } from "./icon/rdw-icon.module";
     { provide: AuthenticationServiceAuthenticationExpiredRoute, useValue: 'session-expired' },
     { provide: AuthenticationServiceDefaultAuthenticationRoute, useValue: 'home' },
     ColorService,
-    NotificationService
+    DataTableService,
+    NotificationService,
+    TargetService
   ]
 })
 export class CommonModule {

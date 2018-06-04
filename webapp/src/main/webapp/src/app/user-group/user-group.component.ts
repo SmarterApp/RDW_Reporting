@@ -2,13 +2,11 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UserGroupService } from './user-group.service';
 import { copy, equals, UserGroup } from './user-group';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Option } from '../shared/form/option';
 import { TranslateService } from '@ngx-translate/core';
 import { UserGroupOptionsService } from './user-group-options.service';
 import { UserGroupFormOptions } from './user-group-form-options';
 import { NotificationService } from '../shared/notification/notification.service';
 import { Subscription } from 'rxjs/Subscription';
-import { StudentSearchFormOptions } from '../student/search/student-search-form-options';
 import { StudentSearchFormOptionsService } from '../student/search/student-search-form-options.service';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Student } from '../student/search/student';
@@ -17,12 +15,20 @@ import { StudentSearch, StudentService } from '../student/search/student.service
 import { byString, join } from '@kourge/ordering/comparator';
 import { ordering } from '@kourge/ordering';
 import { UserGroupFormComponent } from './user-group-form.component';
-import { createStudentArrayFilter, StudentArrayFilter, StudentFilter } from '../shared/filter/student-filter';
+import {
+  countFilters,
+  createStudentArrayFilter,
+  StudentArrayFilter,
+  StudentFilter
+} from '../shared/filter/student-filter';
 import { StudentFilterOptions } from '../shared/filter/student-filter-options';
 import { FilterOptionsService } from '../shared/filter/filter-options.service';
 import { ApplicationSettingsService } from '../app-settings.service';
 import { ApplicationSettings } from '../app-settings';
 import { Forms } from '../shared/form/forms';
+import { SchoolAndGroupTypeaheadOptionMapper } from '../student/search/school-and-group-typeahead-option.mapper';
+import { Option as SchoolAndGroupTypeaheadOption } from '../student/search/school-and-group-typeahead.component';
+import { Option } from '../shared/form/option';
 
 const StudentComparator = join(
   ordering(byString).on<Student>(student => student.lastName).compare,
@@ -41,7 +47,7 @@ export class UserGroupComponent implements OnInit, OnDestroy {
   group: UserGroup;
 
   // student form
-  studentFormOptions: StudentSearchFormOptions;
+  schoolAndGroupTypeaheadOptions: SchoolAndGroupTypeaheadOption[];
   studentForm: StudentSearchForm;
   studentFilterOptions: StudentFilterOptions;
   studentArrayFilter: StudentArrayFilter;
@@ -50,6 +56,7 @@ export class UserGroupComponent implements OnInit, OnDestroy {
   applicationSettings: ApplicationSettings;
   showAdvancedFilters: boolean = false;
   loadingStudents: boolean = true;
+  advancedFilterCount: number = 0;
 
   processingSubscription: Subscription;
   initialized: boolean;
@@ -64,6 +71,7 @@ export class UserGroupComponent implements OnInit, OnDestroy {
               private optionService: UserGroupOptionsService,
               private service: UserGroupService,
               private studentFormOptionService: StudentSearchFormOptionsService,
+              private schoolAndGroupTypeaheadOptionMapper: SchoolAndGroupTypeaheadOptionMapper,
               private filterOptionService: FilterOptionsService,
               private studentService: StudentService,
               private applicationSettingsService: ApplicationSettingsService,
@@ -114,18 +122,19 @@ export class UserGroupComponent implements OnInit, OnDestroy {
         this.group = copy(this.originalGroup);
       }
 
-
       // setup student form
-      this.studentFormOptions = {
-        schools: studentFormOptions.schools,
-        groups: this.originalGroup == null
-          ? studentFormOptions.groups
-          : studentFormOptions.groups
-            .filter(group => !(group.userCreated && group.id === this.originalGroup.id))
-      };
+      this.schoolAndGroupTypeaheadOptions = this.schoolAndGroupTypeaheadOptionMapper
+        .createOptions({
+            schools: studentFormOptions.schools,
+            groups: this.originalGroup == null
+              ? studentFormOptions.groups
+              : studentFormOptions.groups
+                .filter(group => !(group.userCreated && group.id === this.originalGroup.id))
+          });
+
       this.studentForm = {
-        school: studentFormOptions.schools[ 0 ],
-        name: ''
+        schoolOrGroup: this.schoolAndGroupTypeaheadOptions[0],
+        nameOrSsid: ''
       };
 
       this.studentFilterOptions = filterOptions;
@@ -224,6 +233,7 @@ export class UserGroupComponent implements OnInit, OnDestroy {
 
   onAdvancedFilterChange(filter: StudentFilter): void {
     this.studentArrayFilter = createStudentArrayFilter(filter);
+    this.advancedFilterCount = countFilters(filter);
     this.updateFormStudents();
   }
 
@@ -238,7 +248,7 @@ export class UserGroupComponent implements OnInit, OnDestroy {
 
   private searchStudents(): void {
     const search = this.createStudentSearch(this.studentForm);
-    if (search != null) {
+    if (Object.keys(search).length) {
       this.loadingStudents = true;
       this.studentService.getStudents(search)
         .subscribe(students => {
@@ -257,17 +267,24 @@ export class UserGroupComponent implements OnInit, OnDestroy {
   }
 
   private createStudentSearch(searchForm: StudentSearchForm): StudentSearch {
-    if (searchForm.school) {
-      return { schoolId: searchForm.school.id };
+    const search = <StudentSearch>{};
+    if (searchForm.schoolOrGroup != null) {
+      if (searchForm.schoolOrGroup.valueType === 'School') {
+        search.schoolId = searchForm.schoolOrGroup.value.id;
+      } else if (searchForm.schoolOrGroup.valueType === 'Group') {
+        search.groupId = searchForm.schoolOrGroup.value.id;
+      } else if (searchForm.schoolOrGroup.valueType === 'UserGroup') {
+        search.userGroupId = searchForm.schoolOrGroup.value.id;
+      }
     }
-    if (searchForm.group) {
-      return { groupId: searchForm.group.id };
+    if (searchForm.nameOrSsid != null) {
+      search.nameOrSsid = searchForm.nameOrSsid;
     }
-    return null;
+    return search;
   }
 
   private updateFormStudents(): void {
-    const nameSearch = (this.studentForm.name || '')
+    const nameSearch = (this.studentForm.nameOrSsid || '')
       .toLowerCase()
       .replace(/[,]/g, '')
       .replace(/\s+/g, '');
@@ -276,9 +293,9 @@ export class UserGroupComponent implements OnInit, OnDestroy {
       .filter((student, index, students) => {
         return this.group.students.find(x => x.id === student.id) == null
           && (
-            student.ssid.startsWith(this.studentForm.name)
-            || `${(student.lastName + student.firstName).toLowerCase()}`.includes(nameSearch)
-            || `${(student.firstName + student.lastName).toLowerCase()}`.includes(nameSearch)
+            student.ssid.startsWith(this.studentForm.nameOrSsid)
+            || `${(student.lastName.trim() + student.firstName.trim()).toLowerCase()}`.startsWith(nameSearch)
+            || `${(student.firstName.trim() + student.lastName.trim()).toLowerCase()}`.startsWith(nameSearch)
           ) && (
             this.studentArrayFilter == null
             || this.studentArrayFilter(student, index, students)

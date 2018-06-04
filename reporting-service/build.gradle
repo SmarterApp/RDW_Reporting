@@ -28,3 +28,13 @@ dependencies {
     }
     testCompile 'org.springframework.security:spring-security-test'
 }
+
+//This will allow for running of the multithreaded test application
+task runMTTest(type: JavaExec) {
+    group = 'Verification'
+    description = 'Runs MultiThreadedApplicationTest'
+    outputs.upToDateWhen { false }
+    doFirst { println "Running multithreaded tests..." }
+    classpath = sourceSets.test.runtimeClasspath
+    main = 'org.opentestsystem.rdw.reporting.multithreaded.MultiThreadedApplicationTest'
+}

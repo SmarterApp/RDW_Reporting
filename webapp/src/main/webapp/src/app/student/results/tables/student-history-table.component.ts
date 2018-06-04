@@ -103,7 +103,7 @@ export class StudentHistoryTableComponent implements OnInit {
 
   showTableForIndex(index: number): boolean {
     const selectedIndex = this.selectedIndex();
-    return selectedIndex !== -1 && selectedIndex < index + 3 && selectedIndex >= index;
+    return selectedIndex !== -1 && selectedIndex < index + 4 && selectedIndex >= index;
   }
 
   private selectedIndex(): number {

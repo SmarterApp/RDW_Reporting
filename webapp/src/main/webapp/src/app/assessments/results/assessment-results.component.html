@@ -223,10 +223,9 @@
         </ng-container>
         <ng-container *ngIf="showTargetReport">
           <target-report #targetReport
-                         [exams]="[]"
                          [assessment]="assessmentExam.assessment"
-                         [showClaimScores]="showClaimScores"
-                         [minimumItemDataYear]="minimumItemDataYear"></target-report>
+                         [studentsTested]="statistics.total"
+                         [filterBy]="_filterBy"></target-report>
         </ng-container>
       </div>
     </div>

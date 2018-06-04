@@ -8,8 +8,9 @@ import { Observable } from 'rxjs/Observable';
 export interface StudentSearch {
   schoolId?: number;
   groupId?: number;
+  userGroupId?: number;
+  nameOrSsid?: string;
 }
-
 
 @Injectable()
 export class StudentService {

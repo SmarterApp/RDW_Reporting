@@ -1,8 +1,6 @@
-import { Group } from '../../groups/group';
-import { School } from '../../shared/organization/organization';
+import { Option } from './school-and-group-typeahead.component';
 
 export interface StudentSearchForm {
-  school?: School;
-  group?: Group;
-  name: string;
+  schoolOrGroup?: Option;
+  nameOrSsid?: string;
 }

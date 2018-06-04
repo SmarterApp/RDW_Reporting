@@ -381,7 +381,7 @@ export class AssessmentResultsComponent implements OnInit {
 
   private filterExams(): Exam[] {
     const exams: Exam[] = this.examFilterService
-      .filterExams(this._assessmentExam, this._filterBy);
+      .filterExams(this._assessmentExam.exams, this._assessmentExam.assessment, this._filterBy);
 
     // only filter by sessions if this is my groups, otherwise return all regardless of session
     if (this.allowFilterBySessions) {

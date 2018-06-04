@@ -33,7 +33,7 @@ export class CsvExportService {
     // TODO: Is this filter needed?  I think we pass in the filtered exam collection we wouldn't need to
     // TODO: apply the filter yet again here.
     assessmentExams.forEach((assessmentExam: AssessmentExam) => {
-      let filteredExams: Exam[] = this.examFilterService.filterExams(assessmentExam, filterBy);
+      let filteredExams: Exam[] = this.examFilterService.filterExams(assessmentExam.exams, assessmentExam.assessment, filterBy);
       filteredExams.forEach((exam) => {
         sourceData.push({
           assessment: assessmentExam.assessment,

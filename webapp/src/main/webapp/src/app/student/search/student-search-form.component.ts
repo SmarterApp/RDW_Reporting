@@ -1,10 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { StudentSearchFormOptions } from './student-search-form-options';
 import { AbstractControlValueAccessor } from '../../shared/form/abstract-control-value-accessor';
 import { StudentSearchForm } from './student-search-form';
 import { Forms } from '../../shared/form/forms';
-import { School } from '../../shared/organization/organization';
-import { Group } from '../../groups/group';
+import { Option } from './school-and-group-typeahead.component';
 
 @Component({
   selector: 'student-search-form',
@@ -16,19 +14,16 @@ import { Group } from '../../groups/group';
 export class StudentSearchFormComponent extends AbstractControlValueAccessor<StudentSearchForm> {
 
   @Input()
-  options: StudentSearchFormOptions = {
-    schools: [],
-    groups: []
-  };
+  schoolAndGroupTypeaheadOptions: Option[];
+
+  @Input()
+  advancedFilterCount: number = 0;
 
   @Output()
-  schoolChange: EventEmitter<School> = new EventEmitter<School>();
+  schoolOrGroupChange: EventEmitter<Option> = new EventEmitter<Option>();
 
   @Output()
-  groupChange: EventEmitter<Group> = new EventEmitter<Group>();
-
-  @Output()
-  nameChange: EventEmitter<string> = new EventEmitter<string>();
+  nameOrSsidChange: EventEmitter<string> = new EventEmitter<string>();
 
   @Output()
   showAdvancedFiltersChange: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -40,21 +35,15 @@ export class StudentSearchFormComponent extends AbstractControlValueAccessor<Stu
   }
 
   get initialized(): boolean {
-    return this.options != null && this.value != null;
+    return this.schoolAndGroupTypeaheadOptions != null && this.value != null;
   }
 
-  onSchoolChange(): void {
-    this.value = { school: this.value.school, name: this.value.name };
-    this.schoolChange.emit(this.value.school);
+  onSchoolOrGroupChange(): void {
+    this.schoolOrGroupChange.emit(this.value.schoolOrGroup);
   }
 
-  onGroupChange(): void {
-    this.value = { group: this.value.group, name: this.value.name };
-    this.groupChange.emit(this.value.group);
-  }
-
-  onNameChange(): void {
-    this.nameChange.emit(this.value.name);
+  onNameOrSsidChange(): void {
+    this.nameOrSsidChange.emit(this.value.nameOrSsid);
   }
 
   onAdvancedFiltersToggleClick(): void {

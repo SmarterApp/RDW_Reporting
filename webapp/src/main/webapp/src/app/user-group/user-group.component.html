@@ -45,15 +45,15 @@
       <div class="well-group ignore-last-margin-bottom">
         <div class="well">
           <student-search-form #studentSearchForm
-                               [options]="studentFormOptions"
+                               [schoolAndGroupTypeaheadOptions]="schoolAndGroupTypeaheadOptions"
                                [(ngModel)]="studentForm"
-                               (schoolChange)="onStudentFormSearchChange($event)"
-                               (groupChange)="onStudentFormSearchChange($event)"
-                               (nameChange)="onStudentFormFilterChange($event)"
+                               [advancedFilterCount]="advancedFilterCount"
+                               (schoolOrGroupChange)="onStudentFormSearchChange($event)"
+                               (nameOrSsidChange)="onStudentFormFilterChange($event)"
                                (showAdvancedFiltersChange)="onShowAdvancedFiltersChange($event)"></student-search-form>
         </div>
 
-        <div *ngIf="showAdvancedFilters"
+        <div [hidden]="!showAdvancedFilters"
              class="well gray-lighter">
           <student-filters [options]="studentFilterOptions"
                            [showEnglishLanguageAcquisitionStatusFilter]="applicationSettings.elasEnabled"

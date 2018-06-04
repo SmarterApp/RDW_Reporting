@@ -62,17 +62,6 @@ export class GroupAssessmentService implements AssessmentProvider {
 
   }
 
-  getTargetsForAssessment(assessmentId: number) {
-    return this.dataService.get(`${ServiceRoute}/assessment-targets`, {
-      params: {
-        id: assessmentId
-      }
-    }).pipe(
-      catchError(ResponseUtils.badResponseToNull),
-      map(serverTargets => this.mapper.mapTargetsFromApi(serverTargets))
-    );
-  }
-
   getAssessmentItems(assessmentId: number, itemTypes?: string[]) {
     return this.dataService.get(`${ServiceRoute}/groups/${this.group.id}/assessments/${assessmentId}/examitems`, {
       params: {

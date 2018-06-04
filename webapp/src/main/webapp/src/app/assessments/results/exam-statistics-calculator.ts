@@ -6,8 +6,6 @@ import { DynamicItemField } from '../model/item-point-field.model';
 import * as math from 'mathjs';
 import { WritingTraitScoreSummary } from '../model/writing-trait-score-summary.model';
 import { ClaimStatistics } from '../model/claim-score.model';
-import { TargetScoreExam } from '../model/target-score-exam.model';
-import { AggregateTargetScoreRow, TargetReportingLevel } from '../model/aggregate-target-score-row.model';
 
 @Injectable()
 export class ExamStatisticsCalculator {
@@ -112,49 +110,6 @@ export class ExamStatisticsCalculator {
     }
 
     return pointFields;
-  }
-
-  aggregateTargetScores(targetScoreExams: TargetScoreExam[]): AggregateTargetScoreRow[] {
-    let grouped = targetScoreExams.reduce((groupedExams, exam) => {
-      let index = groupedExams.findIndex(x => x.targetId == exam.targetId);
-      if (index === -1) {
-        groupedExams.push({
-          targetId: exam.targetId,
-          standardMetScores:[],
-          studentScores: []
-        });
-
-        index = groupedExams.length - 1;
-      }
-
-      groupedExams[ index ].standardMetScores.push(exam.standardMetRelativeResidualScore);
-      groupedExams[ index ].studentScores.push(exam.studentRelativeResidualScore);
-
-      return groupedExams;
-    }, []);
-
-    let rows = grouped.map(entry => {
-      return <AggregateTargetScoreRow>{
-        targetId: entry.targetId,
-        standardMetRelativeLevel: this.mapTargetScoreDeltaToReportingLevel(
-          this.calculateAverage(entry.standardMetScores),
-          this.calculateStandardErrorOfTheMean(entry.standardMetScores)
-        ),
-        studentRelativeLevel: this.mapTargetScoreDeltaToReportingLevel(
-          this.calculateAverage(entry.studentScores),
-          this.calculateStandardErrorOfTheMean(entry.studentScores)
-        )
-      };
-    });
-
-    return rows;
-  }
-
-  mapTargetScoreDeltaToReportingLevel(delta: number, standardError: number): TargetReportingLevel {
-    if (standardError > 0.2) return TargetReportingLevel.InsufficientData;
-    if (delta >= standardError) return TargetReportingLevel.Above;
-    if (delta <= -standardError) return TargetReportingLevel.Below;
-    return TargetReportingLevel.Near;
   }
 
   aggregateWritingTraitScores(assessmentItems: AssessmentItem[]): WritingTraitScoreSummary[] {

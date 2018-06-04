@@ -16,6 +16,7 @@ import * as _ from 'lodash';
 import { organizationOrdering, subgroupOrdering } from '../support';
 import { TranslateService } from '@ngx-translate/core';
 import { AggregateReportService } from '../aggregate-report.service';
+import { BaseColumn } from '../../shared/datatable/base-column.model';
 
 export const SupportedRowCount = 10000;
 export const DefaultRowsPerPageOptions = [ 100, 500, 1000 ];
@@ -507,7 +508,7 @@ export interface AggregateReportTable {
   readonly reportType: string;
 }
 
-class Column {
+class Column implements BaseColumn {
   // The column id/type
   id: string;
 

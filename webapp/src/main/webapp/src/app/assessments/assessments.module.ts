@@ -41,6 +41,8 @@ import { RdwMenuModule } from '../shared/menu/rdw-menu.module';
 import { AssessmentPercentileModule } from './percentile/assessment-percentile.module';
 import { TableModule } from 'primeng/table';
 import { TargetReportComponent } from './results/view/target-report/target-report.component';
+import { TargetStatisticsCalculator } from './results/target-statistics-calculator';
+import { SubgroupModule } from '../aggregate-report/subgroup/subgroup.module';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,7 @@ import { TargetReportComponent } from './results/view/target-report/target-repor
   ],
   imports: [
     Angulartics2Module.forChild(),
+    AssessmentPercentileModule,
     BrowserModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
@@ -76,9 +79,9 @@ import { TargetReportComponent } from './results/view/target-report/target-repor
     RdwMenuModule,
     ReportModule,
     SharedModule,
+    SubgroupModule,
     TableModule,
-    TabsModule,
-    AssessmentPercentileModule
+    TabsModule
   ],
   exports: [
     AdvFiltersComponent,
@@ -94,12 +97,13 @@ import { TargetReportComponent } from './results/view/target-report/target-repor
     ExamFilterService,
     ExamFilterOptionsService,
     ExamFilterOptionsMapper,
+    InstructionalResourcesService,
     ItemScoringService,
     ItemScoringGuideMapper,
     ItemInfoService,
     StudentScoreService,
     ScaleScoreService,
-    InstructionalResourcesService
+    TargetStatisticsCalculator
   ]
 })
 export class AssessmentsModule {

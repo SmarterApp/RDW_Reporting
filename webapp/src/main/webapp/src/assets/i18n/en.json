@@ -154,8 +154,6 @@
       "organization": "Organization",
       "performance-level-suffix": "Standard",
       "school-year": "Academic Year",
-      "student-relative-residual-scores-level": "Performance relative to other targets",
-      "standard-met-relative-residual-level": "Performance relative to achievement standards",
       "students-tested": "Students Tested",
       "target": "Target"
     },
@@ -171,7 +169,7 @@
         "Below": "Worse",
         "Excluded": "Excluded",
         "InsufficientData": "Insufficient Data",
-        "Near": "Similar to Overall"
+        "Near": "Similar"
       },
       "standard": {
         "Above": "Above",
@@ -204,7 +202,7 @@
     "no-results": "There are currently no consortium percentiles uploaded for this assessment."
   },
   "assessment-card": {
-    "student-count": "<strong>{{ studentsTested }}</strong> of {{ groupCount }} students",
+    "student-count": "{{ studentsTested }} of {{ groupCount }} students tested",
     "view-assessments": "View Assessments"
   },
   "assessment-percentile-table": {
@@ -446,7 +444,9 @@
       "no-results-found": "No test results are available for the current selection.  If a new school year has begun recently, please check the year selected above."
     },
     "boolean": {
+      "false": "No",
       "no": "No",
+      "true": "Yes",
       "undefined": "Not Stated",
       "yes": "Yes"
     },
@@ -527,7 +527,8 @@
       "EL": "English Learner",
       "IFEP": "Initial Fluent English Proficient",
       "RFEP": "Reclassified Fluent English Proficient",
-      "TBD": "To Be Determined"
+      "TBD": "To Be Determined",
+      "null": "Not Stated"
     },
     "embargo-export-disabled": "Embargoed results can be viewed online, but may not be exported.",
     "enrolled-grade": {
@@ -792,7 +793,9 @@
     "school-typeahead-label": "School",
     "school-year-select-label": "School Year",
     "strict-boolean": {
+      "false": "No",
       "no": "No",
+      "true": "Yes",
       "yes": "Yes"
     },
     "student-response-columns": {
@@ -1288,6 +1291,7 @@
       "AggregateReportRequest CustomAggregate": "Aggregate Report",
       "AggregateReportRequest Claim": "Aggregate Report: Claims",
       "AggregateReportRequest Longitudinal": "Aggregate Report: Longitudinal",
+      "AggregateReportRequest Target": "Aggregate Report: Target",
       "ExamExport": "District / School Export",
       "Group": "Group Report",
       "SchoolGrade": "School / Grade Report",
@@ -1360,19 +1364,19 @@
     "title": "Student Test History Report"
   },
   "target-report": {
+    "caution-message": "TODO - caution message here",
     "columns": {
       "claim": "Claim",
-      "claim-info": "Claim TODO",
       "target": "Target",
-      "target-info": "Target TODO",
       "subgroup": "Subgroup",
-      "subgroup-info": "Subgroup TODO",
-      "students-tested": "Students Tested",
-      "student-relative-residual-scores-level": "Performance relative to other targets",
-      "student-relative-residual-scores-level-info": "Performance relative to other targets TODO",
-      "standard-met-relative-residual-level": "Performance relative to achievement standards",
-      "standard-met-relative-residual-level-info": "Performance relative to achievement standards TODO"
-    }
+      "studentsTested": "Students Tested",
+      "student-relative-residual-scores-level": "Performance relative to test",
+      "student-relative-residual-scores-level-info": "Performance relative to test TODO",
+      "standard-met-relative-residual-level": "Performance relative to the standard",
+      "standard-met-relative-residual-level-info": "Performance relative to the standard TODO"
+    },
+    "not-enough-results": "TODO - not enough results",
+    "subgroup-options": "Subgroups"
   },
   "update-instructional-resource-modal": {
     "error": "Unable to modify instructional resource.",
@@ -1422,9 +1426,13 @@
   "user-group-table": {
     "edit": "Edit"
   },
+  "school-and-group-typeahead": {
+    "school-group": "Schools",
+    "assigned-group-group": "Groups",
+    "created-group-group": "Groups I Created"
+  },
   "student-search-form": {
-    "school-label": "School",
-    "group-label": "Group",
+    "school-or-group-label": "School or Group",
     "name-ssid-label": "Student Name or SSID"
   },
   "writing-trait-scores": {

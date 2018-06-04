@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { StudentFilterOptions } from './student-filter-options';
-import { createDefaultStudentFilter, StudentFilter } from './student-filter';
+import { StudentFilter } from './student-filter';
 import { StudentFilterFormOptions } from './student-filter-form-options';
 import { StudentFilterFormOptionsMapper } from './student-filter-form-options.mapper';
 
@@ -38,7 +38,7 @@ export class StudentFiltersComponent {
   set options(options: StudentFilterOptions) {
     this._options = options;
     this._formOptions = this.mapper.fromOptions(options);
-    this._value = createDefaultStudentFilter(options);
+    this._value = {};
   }
 
   get optionsInternal(): StudentFilterFormOptions {
