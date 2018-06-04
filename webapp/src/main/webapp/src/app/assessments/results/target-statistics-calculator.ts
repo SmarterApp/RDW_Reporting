@@ -16,6 +16,15 @@ export class TargetStatisticsCalculator {
   }
 
   /**
+   * Used to determine the ordering of the claims on the Target report
+   * @type {Map<string, number>}
+   */
+  claimOrder: Map<string, number> = new Map([
+    ['1', 1], ['2', 2], ['3', 3], ['4', 4],
+    ['1-LT', 1], ['1-IT', 2], ['2-W', 3], ['3-L', 4], ['3-S', 5], ['4-CR', 6]
+  ]);
+
+  /**
    * Calculate the overall scores for each target from the raw API data
    * @param {Target[]} allTargets
    * @param {TargetScoreExam[]} targetScoreExams
@@ -78,6 +87,7 @@ export class TargetStatisticsCalculator {
     return <AggregateTargetScoreRow>{
       targetId: groupedScore.targetId,
       claim: groupedScore.claim,
+      claimOrder: this.claimOrder.get(groupedScore.claim),
       target: groupedScore.target,
       subgroup: groupedScore.subgroup,
       studentsTested: numStudents,

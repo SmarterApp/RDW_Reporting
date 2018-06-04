@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Target } from '../../../model/target.model';
 import { ordering } from '@kourge/ordering';
-import { byString, join, ranking } from '@kourge/ordering/comparator';
+import { byNumber, byString, join, ranking } from '@kourge/ordering/comparator';
 import { TargetService } from '../../../../shared/target/target.service';
 import { AssessmentExamMapper } from '../../../assessment-exam.mapper';
 import { BaseColumn } from '../../../../shared/datatable/base-column.model';
@@ -116,7 +116,7 @@ export class TargetReportComponent implements OnInit {
     this.loading = true;
 
     this.columns = [
-      new Column({ id: 'claim' }),
+      new Column({ id: 'claim', sortField: 'claimOrder' }),
       new Column({ id: 'target' }),
       new Column({ id: 'subgroup' }),
       new Column({ id: 'studentsTested' }),
@@ -191,7 +191,7 @@ export class TargetReportComponent implements OnInit {
 
     this.aggregateTargetScoreRows.sort(
       join(
-        ordering(byString).on<AggregateTargetScoreRow>(row => row.claim).compare,
+        ordering(byNumber).on<AggregateTargetScoreRow>(row => row.claimOrder).compare,
         ordering(byTarget).on<AggregateTargetScoreRow>(row => row.target).compare,
         ordering(bySubgroup).on<AggregateTargetScoreRow>(row => row.subgroup).compare
       )
@@ -268,15 +268,18 @@ export class TargetReportComponent implements OnInit {
 class Column implements BaseColumn {
   id: string;
   field: string;
+  sortField: string;
   headerInfo: boolean;
 
   constructor({
                 id,
                 field = '',
+                sortField = '',
                 headerInfo = false,
               }) {
     this.id = id;
     this.field = field ? field : id;
+    this.sortField = sortField ? sortField : this.field;
     this.headerInfo = headerInfo;
   }
 }

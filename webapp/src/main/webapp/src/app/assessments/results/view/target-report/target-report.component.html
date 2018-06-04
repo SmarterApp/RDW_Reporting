@@ -48,7 +48,7 @@
                let-columns>
     <tr>
       <th *ngFor="let column of columns"
-          [pSortableColumn]="column.field"
+          [pSortableColumn]="column.sortField"
           [ngSwitch]="column.id"
           class="wrapping">
 
