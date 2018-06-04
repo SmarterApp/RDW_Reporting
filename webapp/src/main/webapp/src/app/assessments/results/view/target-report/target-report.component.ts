@@ -24,6 +24,7 @@ import { ExamFilterOptions } from '../../../model/exam-filter-options.model';
 import { TargetStatisticsCalculator } from '../../target-statistics-calculator';
 import { Subgroup } from '../../../../aggregate-report/subgroup/subgroup';
 import { AggregateReportOptionsService } from '../../../../aggregate-report/aggregate-report-options.service';
+import { SubjectClaimOrder, SubjectClaimOrderings } from '../../../../shared/ordering/orderings';
 
 @Component({
   selector: 'target-report',
@@ -146,6 +147,7 @@ export class TargetReportComponent implements OnInit {
 
 
       this.aggregateTargetScoreRows = this.targetStatisticsCalculator.aggregateOverallScores(
+        this.assessment.subject,
         allTargets,
         this.targetScoreExams);
 
@@ -191,7 +193,7 @@ export class TargetReportComponent implements OnInit {
 
     this.aggregateTargetScoreRows.sort(
       join(
-        ordering(byNumber).on<AggregateTargetScoreRow>(row => row.claimOrder).compare,
+        SubjectClaimOrderings.get(this.assessment.subject).on<AggregateTargetScoreRow>(row => row.claim).compare,
         ordering(byTarget).on<AggregateTargetScoreRow>(row => row.target).compare,
         ordering(bySubgroup).on<AggregateTargetScoreRow>(row => row.subgroup).compare
       )
@@ -215,7 +217,7 @@ export class TargetReportComponent implements OnInit {
 
   addSubgroup(subgroupCode: string) {
     this.aggregateTargetScoreRows.push(
-      ...this.targetStatisticsCalculator.aggregateSubgroupScores(this.allTargets, this.targetScoreExams, [subgroupCode], this.subgroupOptions)
+      ...this.targetStatisticsCalculator.aggregateSubgroupScores(this.assessment.subject, this.allTargets, this.targetScoreExams, [subgroupCode], this.subgroupOptions)
     );
 
     this.updateTargetScoreTable();
