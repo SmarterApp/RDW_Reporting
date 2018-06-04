@@ -154,51 +154,55 @@
             </span>
           </div>
 
-          <div *ngSwitchCase="'studentRelativeResidualScoresLevel'">
+          <div *ngSwitchCase="'studentRelativeResidualScoresLevel'"
+               class="text-center">
 
             <!-- pick the icon -->
-            <span [ngSwitch]="rowData.studentRelativeResidualScoresLevel"
-              style="font-size: 1.2em">
-              <span *ngSwitchCase="'Above'"
-                    class="sb-iab-green">
-                <sb-icon class="fa-lg" style="stroke-width: 1px; stroke: #000;" icon="sbac-above-average"></sb-icon>
+            <ng-container [ngSwitch]="rowData.studentRelativeResidualScoresLevel">
+              <span *ngSwitchCase="'Above'">
+                <span class="blue"><i class="fa fa-lg fa-arrow-up"></i></span>
+                {{'aggregate-report-table.target.overall.' + rowData.studentRelativeResidualScoresLevel | translate}}
               </span>
-              <span *ngSwitchCase="'Near'"
-                    class="sb-iab-yellow">
-                <sb-icon class="fa-lg" style="stroke-width: 1px; stroke: #000;" icon="sbac-average"></sb-icon>
+              <span *ngSwitchCase="'Near'">
+                <span class="blue">
+                  <sb-icon class="fa-lg" icon="fa-equals"></sb-icon>
+                </span>
+                {{'aggregate-report-table.target.overall.' + rowData.studentRelativeResidualScoresLevel | translate}}
               </span>
-              <span *ngSwitchCase="'Below'"
-                    class="sb-iab-red">
-                <sb-icon class="fa-lg" style="stroke-width: 1px; stroke: #000;" icon="sbac-below-average"></sb-icon>
+              <span *ngSwitchCase="'Below'">
+                <span class="blue"><i class="fa fa-lg fa-arrow-down"></i></span>
+                {{'aggregate-report-table.target.overall.' + rowData.studentRelativeResidualScoresLevel | translate}}
               </span>
               <span *ngSwitchCase="'InsufficientData'"
-                    class="gray-light">
-                <sb-icon class="fa-lg" style="stroke-width: 1px; stroke: #000;" icon="sbac-insufficient-data"></sb-icon>
+                    class="label label-lg gray-light">
+                {{'aggregate-report-table.target.overall.' + rowData.studentRelativeResidualScoresLevel | translate}}
               </span>
-            </span>
-            {{'aggregate-report-table.target.overall.' + rowData.studentRelativeResidualScoresLevel | translate}}
+              <span *ngSwitchDefault>
+                {{'aggregate-report-table.target.overall.' + rowData.studentRelativeResidualScoresLevel | translate}}
+              </span>
+            </ng-container>
+
           </div>
 
-          <div *ngSwitchCase="'standardMetRelativeResidualLevel'">
+          <div *ngSwitchCase="'standardMetRelativeResidualLevel'"
+               class="text-center">
 
             <!-- pick the label color -->
             <span [ngSwitch]="rowData.standardMetRelativeResidualLevel">
               <span *ngSwitchCase="'Above'"
-                    class="label sb-iab-green">
+                    class="label label-lg performance-min-width sb-iab-green">
                 {{'aggregate-report-table.target.standard.Above' | translate}}
               </span>
               <span *ngSwitchCase="'Near'"
-                    class="label sb-iab-yellow">
+                    class="label label-lg performance-min-width sb-iab-yellow">
                 {{'aggregate-report-table.target.standard.Near' | translate}}
               </span>
               <span *ngSwitchCase="'Below'"
-                    class="label sb-iab-red">
+                    class="label label-lg performance-min-width sb-iab-red">
                 {{'aggregate-report-table.target.standard.Below' | translate}}
               </span>
-              <span *ngSwitchCase="'InsufficientData'">
-                <span class="gray-light">
-                  <sb-icon class="fa-lg" icon="sbac-insufficient-data"></sb-icon>
-                </span>
+              <span *ngSwitchCase="'InsufficientData'"
+                    class="label label-lg gray-light">
                 {{'aggregate-report-table.target.standard.InsufficientData' | translate}}
               </span>
               <span *ngSwitchCase="'Excluded'">
