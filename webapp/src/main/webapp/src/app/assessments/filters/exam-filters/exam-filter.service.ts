@@ -32,7 +32,7 @@ export class ExamFilterService {
   }
 
   /**
-   * Filter exams within an AssessmentExam.
+   * Filter exams
    *
    * @param exams  The exams
    * @param assessment The assessment

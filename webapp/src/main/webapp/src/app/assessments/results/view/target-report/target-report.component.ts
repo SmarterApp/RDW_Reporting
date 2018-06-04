@@ -86,7 +86,7 @@ export class TargetReportComponent implements OnInit {
   aggregateTargetScoreRows: AggregateTargetScoreRow[] = [];
   identityColumns: string[] = [ 'claim', 'target', 'subgroup' ];
   treeColumns: number[] = [];
-  filterOptions: ExamFilterOptions = new ExamFilterOptions();
+  subgroupOptions: ExamFilterOptions = new ExamFilterOptions();
   showSubgroupOptions: boolean = false;
 
   // TODO: handle ELAS, vs LEP decision
@@ -132,9 +132,9 @@ export class TargetReportComponent implements OnInit {
       this.assessmentProvider.getTargetScoreExams(this.assessment.id),
       this.filterOptionService.getExamFilterOptions(),
 
-    ).subscribe(([ allTargets, targetScoreExams, filterOptions ]) => {
+    ).subscribe(([ allTargets, targetScoreExams, subgroupOptions ]) => {
       this.targetScoreExams = targetScoreExams;
-      this.filterOptions = filterOptions;
+      this.subgroupOptions = subgroupOptions;
       this.allTargets = allTargets;
 
       this.targetDisplayMap = allTargets.reduce((targetMap, target) => {
@@ -209,11 +209,7 @@ export class TargetReportComponent implements OnInit {
     subgroup.selected = !subgroup.selected;
 
     if (subgroup.selected) {
-      this.aggregateTargetScoreRows.push(
-        ...this.targetStatisticsCalculator.aggregateSubgroupScores(this.allTargets, this.targetScoreExams, subgroup.code, this.filterOptions)
-      )
-
-      this.updateTargetScoreTable();
+      this.addSubgroup(subgroup.code);
     }
     else {
       this.removeSubgroup(subgroup.code);
@@ -222,6 +218,14 @@ export class TargetReportComponent implements OnInit {
 
   toggleSubgroupOptions() {
     this.showSubgroupOptions = !this.showSubgroupOptions;
+  }
+
+  addSubgroup(subgroupCode: string) {
+    this.aggregateTargetScoreRows.push(
+      ...this.targetStatisticsCalculator.aggregateSubgroupScores(this.allTargets, this.targetScoreExams, [subgroupCode], this.subgroupOptions)
+    );
+
+    this.updateTargetScoreTable();
   }
 
   removeSubgroup(subgroupCode: string) {
@@ -236,6 +240,7 @@ export class TargetReportComponent implements OnInit {
 
   private updateTargetScoreExamFilters() {
     // TODO: handle filters
+    this.filterExams();
   }
 
   private filterExams(): TargetScoreExam[] {

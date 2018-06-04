@@ -34,27 +34,30 @@ export class TargetStatisticsCalculator {
     return groupedScores.map(entry => this.mapToAggregateTargetScoreRow(entry));
   }
 
-  aggregateSubgroupScores(allTargets: Target[], targetScoreExams: TargetScoreExam[], subgroupCode: string, subgroupOptions: ExamFilterOptions): AggregateTargetScoreRow[] {
+  aggregateSubgroupScores(allTargets: Target[], targetScoreExams: TargetScoreExam[], subgroupCodes: string[], subgroupOptions: ExamFilterOptions): AggregateTargetScoreRow[] {
     // setup the placeholders to aggregate into
-    let groupedScores = this.generateSubgroupTargets(allTargets, subgroupCode, subgroupOptions);
+    let groupedScores = this.generateSubgroupTargets(allTargets, subgroupCodes, subgroupOptions);
 
     if (targetScoreExams == null) targetScoreExams = [];
 
-    targetScoreExams.forEach(exam => {
-      let value = this.getExamSubgroupValue(exam, subgroupCode);
-      let subgroupValues = Array.isArray(value) ? value : [value];
+    subgroupCodes.forEach(subgroupCode => {
+      targetScoreExams.forEach(exam => {
+        let value = this.getExamSubgroupValue(exam, subgroupCode);
+        let subgroupValues = Array.isArray(value) ? value : [value];
 
-      // always treat results as array since race/ethnicity will come back as array and we need to handle multiple as separate entries
-      subgroupValues.forEach(examSubgroupValue => {
-        let subgroup = this.subgroupMapper.fromTypeAndCode(subgroupCode, examSubgroupValue);
+        // always treat results as array since race/ethnicity will come back as array and we need to handle multiple as separate entries
+        subgroupValues.forEach(examSubgroupValue => {
+          let subgroup = this.subgroupMapper.fromTypeAndCode(subgroupCode, examSubgroupValue);
 
-        let index = groupedScores.findIndex(x => x.targetId == exam.targetId && deepEqual(x.subgroup, subgroup));
-        if (index !== -1) {
-          groupedScores[ index ].standardMetScores.push(exam.standardMetRelativeResidualScore);
-          groupedScores[ index ].studentScores.push(exam.studentRelativeResidualScore);
-        }
+          let index = groupedScores.findIndex(x => x.targetId == exam.targetId && deepEqual(x.subgroup, subgroup));
+          if (index !== -1) {
+            groupedScores[ index ].standardMetScores.push(exam.standardMetRelativeResidualScore);
+            groupedScores[ index ].studentScores.push(exam.studentRelativeResidualScore);
+          }
+        });
       });
     });
+
 
     return groupedScores.map(entry => this.mapToAggregateTargetScoreRow(entry));
   }
@@ -95,43 +98,45 @@ export class TargetStatisticsCalculator {
     });
   }
 
-  private generateSubgroupTargets(allTargets: Target[], subgroupCode: string, subgroupOptions: ExamFilterOptions): GroupedTargetScore[] {
+  private generateSubgroupTargets(allTargets: Target[], subgroupCodes: string[], subgroupOptions: ExamFilterOptions): GroupedTargetScore[] {
     let groupedScores: GroupedTargetScore[] = [];
 
-    let subgroupValues = [];
-    switch (subgroupCode) {
-      case 'Gender':
-        subgroupValues = subgroupOptions.genders;
-        break;
-      case 'Ethnicity':
-        subgroupValues = subgroupOptions.ethnicities;
-        break;
-      case 'ELAS':
-        subgroupValues = [...subgroupOptions.elasCodes, null]; // adding NULL since we have Not Stated data but not a filter option for it
-        break;
-      case 'Section504':
-      case 'IEP':
-        subgroupValues = [true, false];
-        break;
-      case 'MigrantStatus':
-        subgroupValues = [true, false, undefined];
-        break;
-    }
+    subgroupCodes.forEach(subgroupCode => {
+      let subgroupValues = [];
+      switch (subgroupCode) {
+        case 'Gender':
+          subgroupValues = subgroupOptions.genders;
+          break;
+        case 'Ethnicity':
+          subgroupValues = subgroupOptions.ethnicities;
+          break;
+        case 'ELAS':
+          subgroupValues = [...subgroupOptions.elasCodes, null]; // adding NULL since we have Not Stated data but not a filter option for it
+          break;
+        case 'Section504':
+        case 'IEP':
+          subgroupValues = [true, false];
+          break;
+        case 'MigrantStatus':
+          subgroupValues = [true, false, undefined];
+          break;
+      }
 
-    subgroupValues.forEach(subgroupValue => {
-      let subgroup = this.subgroupMapper.fromTypeAndCode(subgroupCode, subgroupValue);
+      subgroupValues.forEach(subgroupValue => {
+        let subgroup = this.subgroupMapper.fromTypeAndCode(subgroupCode, subgroupValue);
 
-      groupedScores.push(
-        ...allTargets.map(target => <GroupedTargetScore>{
-          targetId: target.id,
-          target: target.code,
-          claim: target.claimCode,
-          subgroup: subgroup,
-          standardMetScores: [],
-          studentScores: [],
-          includeInReport: target.includeInReport
-        })
-      );
+        groupedScores.push(
+          ...allTargets.map(target => <GroupedTargetScore>{
+            targetId: target.id,
+            target: target.code,
+            claim: target.claimCode,
+            subgroup: subgroup,
+            standardMetScores: [],
+            studentScores: [],
+            includeInReport: target.includeInReport
+          })
+        );
+      });
     });
 
     return groupedScores;
@@ -159,14 +164,7 @@ export class TargetStatisticsCalculator {
     return null;
   }
 
-
   mapTargetScoreDeltaToReportingLevel(delta: number, standardError: number, insufficientCutpoint: number = 0.2): TargetReportingLevel {
-    // TODO: remove.  keeping for now to help test the display with a lot of mixed values
-    // if (Math.random() > 0.7) return TargetReportingLevel.Above;
-    // if (Math.random() > 0.35) return TargetReportingLevel.Near;
-    // if (Math.random() > 0.1) return TargetReportingLevel.Below;
-    // return TargetReportingLevel.InsufficientData;
-
     if (standardError > insufficientCutpoint) return TargetReportingLevel.InsufficientData;
     if (delta >= standardError) return TargetReportingLevel.Above;
     if (delta <= -standardError) return TargetReportingLevel.Below;
