@@ -202,15 +202,15 @@
             <!-- pick the label color -->
             <span [ngSwitch]="rowData.standardMetRelativeResidualLevel">
               <span *ngSwitchCase="'Above'"
-                    class="label label-lg performance-min-width sb-iab-green">
+                    class="label label-lg performance-label sb-iab-green">
                 {{'aggregate-report-table.target.standard.Above' | translate}}
               </span>
               <span *ngSwitchCase="'Near'"
-                    class="label label-lg performance-min-width sb-iab-yellow">
+                    class="label label-lg performance-label sb-iab-yellow">
                 {{'aggregate-report-table.target.standard.Near' | translate}}
               </span>
               <span *ngSwitchCase="'Below'"
-                    class="label label-lg performance-min-width sb-iab-red">
+                    class="label label-lg performance-label sb-iab-red">
                 {{'aggregate-report-table.target.standard.Below' | translate}}
               </span>
               <span *ngSwitchCase="'InsufficientData'"
