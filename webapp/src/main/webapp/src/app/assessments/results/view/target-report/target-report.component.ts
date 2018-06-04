@@ -12,19 +12,18 @@ import { Subscription } from 'rxjs/Subscription';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Target } from '../../../model/target.model';
 import { ordering } from '@kourge/ordering';
-import { byNumber, byString, join, ranking } from '@kourge/ordering/comparator';
+import { join } from '@kourge/ordering/comparator';
 import { TargetService } from '../../../../shared/target/target.service';
 import { AssessmentExamMapper } from '../../../assessment-exam.mapper';
 import { BaseColumn } from '../../../../shared/datatable/base-column.model';
 import { Table } from 'primeng/table';
 import { DataTableService } from '../../../../shared/datatable/datatable-service';
-import { SubgroupMapper } from '../../../../aggregate-report/subgroup/subgroup.mapper';
 import { ExamFilterOptionsService } from '../../../filters/exam-filters/exam-filter-options.service';
 import { ExamFilterOptions } from '../../../model/exam-filter-options.model';
 import { TargetStatisticsCalculator } from '../../target-statistics-calculator';
 import { Subgroup } from '../../../../aggregate-report/subgroup/subgroup';
-import { AggregateReportOptionsService } from '../../../../aggregate-report/aggregate-report-options.service';
-import { SubjectClaimOrder, SubjectClaimOrderings } from '../../../../shared/ordering/orderings';
+import { SubjectClaimOrderings } from '../../../../shared/ordering/orderings';
+import { ApplicationSettingsService } from '../../../../app-settings.service';
 
 @Component({
   selector: 'target-report',
@@ -36,13 +35,6 @@ export class TargetReportComponent implements OnInit {
    */
   @Input()
   assessment: Assessment;
-
-  // TODO: check what this is called in the config
-  /**
-   * The minimum number of students that must be included in order to show any results
-   */
-  @Input()
-  minimumStudents: number = 0;
 
   /**
    * The overall number of students tested
@@ -86,6 +78,7 @@ export class TargetReportComponent implements OnInit {
   treeColumns: number[] = [];
   subgroupOptions: ExamFilterOptions = new ExamFilterOptions();
   showSubgroupOptions: boolean = false;
+  minimumStudentCount: number = 0;
 
   // TODO: handle ELAS, vs LEP decision
   allSubgroups: any[] = [
@@ -108,7 +101,8 @@ export class TargetReportComponent implements OnInit {
               private dataTableService: DataTableService,
               private assessmentExamMapper: AssessmentExamMapper,
               private assessmentProvider: GroupAssessmentService,
-              private filterOptionService: ExamFilterOptionsService) {
+              private filterOptionService: ExamFilterOptionsService,
+              private applicationSettingsService: ApplicationSettingsService) {
   }
 
   ngOnInit() {
@@ -129,11 +123,14 @@ export class TargetReportComponent implements OnInit {
       this.targetService.getTargetsForAssessment(this.assessment.id),
       this.assessmentProvider.getTargetScoreExams(this.assessment.id),
       this.filterOptionService.getExamFilterOptions(),
-
-    ).subscribe(([ allTargets, targetScoreExams, subgroupOptions ]) => {
+      this.applicationSettingsService.getSettings()
+    ).subscribe(([ allTargets, targetScoreExams, subgroupOptions, applicationSettings ]) => {
       this.targetScoreExams = targetScoreExams;
       this.subgroupOptions = subgroupOptions;
       this.allTargets = allTargets;
+
+      this.minimumStudentCount = applicationSettings.targetReport.minimumStudentCount;
+      this.targetStatisticsCalculator.insufficientDataCutoff = applicationSettings.targetReport.insufficientDataCutoff;
 
       this.targetDisplayMap = allTargets.reduce((targetMap, target) => {
         targetMap[target.id] = {
@@ -159,7 +156,7 @@ export class TargetReportComponent implements OnInit {
   }
 
   get showResults(): boolean {
-    return this.studentsTested > this.minimumStudents;
+    return this.studentsTested > this.minimumStudentCount;
   }
 
   calculateTreeColumns() {

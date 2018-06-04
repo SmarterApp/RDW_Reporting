@@ -129,3 +129,7 @@ reporting:
   # english-learners should be lep or elas
   english-learners:
     - elas
+
+  target-report:
+    insufficient-data-cutoff: 0.2
+    min-number-of-students: 0

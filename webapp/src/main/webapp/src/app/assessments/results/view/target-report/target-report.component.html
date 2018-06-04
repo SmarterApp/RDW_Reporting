@@ -139,23 +139,23 @@
             <!-- pick the label color -->
             <span [ngSwitch]="getTargetReportingLevelString(rowData.standardMetRelativeLevel)">
               <span *ngSwitchCase="'Above'"
-                    class="label sb-iab-green">
+                    class="label label-lg sb-iab-green">
                 {{'aggregate-report-table.target.standard.Above' | translate}}
               </span>
               <span *ngSwitchCase="'Near'"
-                    class="label sb-iab-yellow">
+                    class="label label-lg sb-iab-yellow">
                 {{'aggregate-report-table.target.standard.Near' | translate}}
               </span>
               <span *ngSwitchCase="'Below'"
-                    class="label sb-iab-red">
+                    class="label label-lg sb-iab-red">
                 {{'aggregate-report-table.target.standard.Below' | translate}}
               </span>
               <span *ngSwitchCase="'InsufficientData'"
-                    class="label gray-light">
+                    class="label label-lg gray-light">
                 {{'aggregate-report-table.target.standard.InsufficientData' | translate}}
               </span>
               <span *ngSwitchCase="'Excluded'"
-                    class="label gray-light">
+                    class="label label-lg gray-light">
                 {{'aggregate-report-table.target.standard.Excluded' | translate}}
               </span>
               <span *ngSwitchCase="'NoResults'">
