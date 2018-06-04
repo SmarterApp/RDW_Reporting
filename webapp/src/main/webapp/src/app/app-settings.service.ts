@@ -28,6 +28,10 @@ export class ApplicationSettingsService {
           code: serverSettings.state.code,
           name: serverSettings.state.name
         },
+        targetReport: {
+          insufficientDataCutoff: serverSettings.targetReport.insufficientDataCutoff,
+          minNumberOfStudents: serverSettings.targetReport.minNumberOfStudents
+        },
         transferAccess: serverSettings.transferAccessEnabled,
         uiLanguages: serverSettings.uiLanguages,
         userGuideUrl: serverSettings.userGuideUrl

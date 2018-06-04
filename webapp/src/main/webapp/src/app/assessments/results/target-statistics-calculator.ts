@@ -11,8 +11,18 @@ import { Subgroup } from '../../aggregate-report/subgroup/subgroup';
 
 @Injectable()
 export class TargetStatisticsCalculator {
+  private insufficientDataCutoff: number = 0.2;
+
   constructor(private examStatisticsCalculator: ExamStatisticsCalculator,
               private subgroupMapper: SubgroupMapper) {
+  }
+
+  /**
+   * Set the standard error cutoff used when determining if the data is sufficient or not
+   * @param {number} cutoff
+   */
+  setInsufficientDataCutoff(cutoff: number): void {
+    this.insufficientDataCutoff = cutoff;
   }
 
   /**
@@ -189,8 +199,8 @@ export class TargetStatisticsCalculator {
    * @param {number} insufficientCutpoint
    * @returns {TargetReportingLevel}
    */
-  mapTargetScoreDeltaToReportingLevel(delta: number, standardError: number, insufficientCutpoint: number = 0.2): TargetReportingLevel {
-    if (standardError > insufficientCutpoint) return TargetReportingLevel.InsufficientData;
+  mapTargetScoreDeltaToReportingLevel(delta: number, standardError: number): TargetReportingLevel {
+    if (standardError > this.insufficientDataCutoff) return TargetReportingLevel.InsufficientData;
     if (delta >= standardError) return TargetReportingLevel.Above;
     if (delta <= -standardError) return TargetReportingLevel.Below;
     return TargetReportingLevel.Near;

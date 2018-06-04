@@ -24,6 +24,8 @@ import { ExamFilterOptions } from '../../../model/exam-filter-options.model';
 import { TargetStatisticsCalculator } from '../../target-statistics-calculator';
 import { Subgroup } from '../../../../aggregate-report/subgroup/subgroup';
 import { AggregateReportOptionsService } from '../../../../aggregate-report/aggregate-report-options.service';
+import { ApplicationSettingsService } from '../../../../app-settings.service';
+import { ApplicationSettings } from '../../../../app-settings';
 
 @Component({
   selector: 'target-report',
@@ -35,13 +37,6 @@ export class TargetReportComponent implements OnInit {
    */
   @Input()
   assessment: Assessment;
-
-  // TODO: check what this is called in the config
-  /**
-   * The minimum number of students that must be included in order to show any results
-   */
-  @Input()
-  minimumStudents: number = 0;
 
   /**
    * The overall number of students tested
@@ -85,6 +80,7 @@ export class TargetReportComponent implements OnInit {
   treeColumns: number[] = [];
   subgroupOptions: ExamFilterOptions = new ExamFilterOptions();
   showSubgroupOptions: boolean = false;
+  minimumStudents: number = 0;
 
   // TODO: handle ELAS, vs LEP decision
   allSubgroups: any[] = [
@@ -107,7 +103,8 @@ export class TargetReportComponent implements OnInit {
               private dataTableService: DataTableService,
               private assessmentExamMapper: AssessmentExamMapper,
               private assessmentProvider: GroupAssessmentService,
-              private filterOptionService: ExamFilterOptionsService) {
+              private filterOptionService: ExamFilterOptionsService,
+              private applicationSettingsService: ApplicationSettingsService) {
   }
 
   ngOnInit() {
@@ -128,11 +125,14 @@ export class TargetReportComponent implements OnInit {
       this.targetService.getTargetsForAssessment(this.assessment.id),
       this.assessmentProvider.getTargetScoreExams(this.assessment.id),
       this.filterOptionService.getExamFilterOptions(),
-
-    ).subscribe(([ allTargets, targetScoreExams, subgroupOptions ]) => {
+      this.applicationSettingsService.getSettings()
+    ).subscribe(([ allTargets, targetScoreExams, subgroupOptions, applicationSettings ]) => {
       this.targetScoreExams = targetScoreExams;
       this.subgroupOptions = subgroupOptions;
       this.allTargets = allTargets;
+
+      this.minimumStudents = applicationSettings.targetReport.minNumberOfStudents;
+      this.targetStatisticsCalculator.setInsufficientDataCutoff(applicationSettings.targetReport.insufficientDataCutoff);
 
       this.targetDisplayMap = allTargets.reduce((targetMap, target) => {
         targetMap[target.id] = {
