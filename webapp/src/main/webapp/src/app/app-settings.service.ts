@@ -30,7 +30,7 @@ export class ApplicationSettingsService {
         },
         targetReport: {
           insufficientDataCutoff: serverSettings.targetReport.insufficientDataCutoff,
-          minNumberOfStudents: serverSettings.targetReport.minNumberOfStudents
+          minimumStudentCount: serverSettings.targetReport.minNumberOfStudents
         },
         transferAccess: serverSettings.transferAccessEnabled,
         uiLanguages: serverSettings.uiLanguages,

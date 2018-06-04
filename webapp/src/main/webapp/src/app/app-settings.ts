@@ -16,5 +16,5 @@ export interface ApplicationSettings {
 
 export interface TargetReportSettings {
   readonly insufficientDataCutoff: number;
-  readonly minNumberOfStudents: number;
+  readonly minimumStudentCount: number;
 }

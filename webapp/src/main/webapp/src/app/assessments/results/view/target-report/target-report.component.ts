@@ -80,7 +80,7 @@ export class TargetReportComponent implements OnInit {
   treeColumns: number[] = [];
   subgroupOptions: ExamFilterOptions = new ExamFilterOptions();
   showSubgroupOptions: boolean = false;
-  minimumStudents: number = 0;
+  minimumStudentCount: number = 0;
 
   // TODO: handle ELAS, vs LEP decision
   allSubgroups: any[] = [
@@ -131,8 +131,8 @@ export class TargetReportComponent implements OnInit {
       this.subgroupOptions = subgroupOptions;
       this.allTargets = allTargets;
 
-      this.minimumStudents = applicationSettings.targetReport.minNumberOfStudents;
-      this.targetStatisticsCalculator.setInsufficientDataCutoff(applicationSettings.targetReport.insufficientDataCutoff);
+      this.minimumStudentCount = applicationSettings.targetReport.minimumStudentCount;
+      this.targetStatisticsCalculator.insufficientDataCutoff = applicationSettings.targetReport.insufficientDataCutoff;
 
       this.targetDisplayMap = allTargets.reduce((targetMap, target) => {
         targetMap[target.id] = {
@@ -157,7 +157,7 @@ export class TargetReportComponent implements OnInit {
   }
 
   get showResults(): boolean {
-    return this.studentsTested > this.minimumStudents;
+    return this.studentsTested > this.minimumStudentCount;
   }
 
   calculateTreeColumns() {
