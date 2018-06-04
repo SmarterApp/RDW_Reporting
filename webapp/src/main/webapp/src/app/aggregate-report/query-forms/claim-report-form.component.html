@@ -135,7 +135,7 @@
             <div class="col-md-6">
               <label>{{'aggregate-report-form.field.subjects-label' | translate}}</label>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
               <sb-button-group name="subjects"
                                analyticsEvent="FilterClick"
                                analyticsCategory="AggregateQueryBuilder"
@@ -144,6 +144,39 @@
                                [(ngModel)]="settings.subjects"
                                [ngModelOptions]="{standalone: true}"
                                (change)="onSubjectsChange()"></sb-button-group>
+            </div>
+            <div class="col-md-3">
+              <button class="form-control btn btn-default pull-right"
+                      (click)="collapsed = !collapsed; onSubjectsChange()"
+                      angulartics2On="click"
+                      angularticsEvent="ToggleClaimResults"
+                      angularticsCategory="AggregateQueryBuilder">
+                {{'aggregate-report-form.field.claim-codes-label' | translate}}
+                <i class="fa"
+                   [ngClass]="{'fa-caret-square-o-up': !collapsed, 'fa-caret-square-o-down': collapsed}"
+                   aria-hidden="true"></i>
+                <span class="sr-only">{{'common.action.collapse' | translate}}</span>
+              </button>
+            </div>
+          </div>
+          <div class="well-group mt-md" *ngIf="!collapsed">
+            <div class="well gray-lighter">
+              <div class="row mt-md" *ngFor="let subject of settings.subjects">
+                <div class="col-md-6">{{'common.subject.' + subject + '.short-name' | translate}}</div>
+
+                <div class="col-md-3">
+                  <sb-button-group type="checkbox"
+                                   [vertical]="true"
+                                   [options]="claimsBySubject[subject]"
+                                   [(ngModel)]="selectionBySubject[subject]"
+                                   [ngModelOptions]="{standalone: true}"
+                                   (change)="onClaimChange()"
+                                   name="claimCodes"
+                                   analyticsEvent="FilterClick"
+                                   analyticsCategory="AggregateQueryBuilder"
+                                   [allOptionAnalyticsProperties]="{label: 'Claims: All'}"></sb-button-group>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -323,24 +356,6 @@
                               [options]="filteredOptions.studentFilters"
                               [settings]="settings.studentFilters"
                               (changed)="onSettingsChange()"></subgroup-filters>
-
-            <div class="well">
-              <h3>{{'aggregate-report-form.field.claim-codes-label' | translate}}</h3>
-              <div class="col-md-6"></div>
-              <div class="flex-children">
-                <sb-button-group type="checkbox"
-                                 [vertical]="true"
-                                 [options]="filteredOptions.claimCodes"
-                                 [(ngModel)]="settings.claimReport.claimCodesBySubject"
-                                 [ngModelOptions]="{standalone: true}"
-                                 (change)="onSettingsChange()"
-                                 name="claimCodes"
-                                 analyticsEvent="FilterClick"
-                                 analyticsCategory="AggregateQueryBuilder"
-                                 [allOptionAnalyticsProperties]="{label: 'Claims: All'}"></sb-button-group>
-              </div>
-
-            </div>
           </div>
         </tab>
 
