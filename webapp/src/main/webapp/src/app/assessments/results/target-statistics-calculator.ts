@@ -161,7 +161,7 @@ export class TargetStatisticsCalculator {
   }
 
   private getReportingLevel(scores: number[]) {
-    if (scores.length === 0) return TargetReportingLevel.InsufficientData;
+    if (scores.length === 0) return TargetReportingLevel.NoResults;
 
     return this.mapTargetScoreDeltaToReportingLevel(
       this.examStatisticsCalculator.calculateAverage(scores),

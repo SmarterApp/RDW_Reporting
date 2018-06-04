@@ -41,14 +41,11 @@ export class TargetReportComponent implements OnInit {
    * The minimum number of students that must be included in order to show any results
    */
   @Input()
-  minimumStudents: number = 2;
+  minimumStudents: number = 0;
 
   /**
-   * The number of students that must be included in order to hide the caution text
+   * The overall number of students tested
    */
-  @Input()
-  maximumStudentsCaution: number = 5;
-
   @Input()
   studentsTested: number;
 
@@ -161,10 +158,6 @@ export class TargetReportComponent implements OnInit {
 
   get showResults(): boolean {
     return this.studentsTested > this.minimumStudents;
-  }
-
-  get showCautionMessage(): boolean {
-    return this.showResults && this.studentsTested < this.maximumStudentsCaution;
   }
 
   calculateTreeColumns() {

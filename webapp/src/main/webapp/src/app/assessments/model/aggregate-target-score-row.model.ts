@@ -15,5 +15,6 @@ export enum TargetReportingLevel {
   Near,
   Below,
   InsufficientData,
-  Excluded
+  Excluded,
+  NoResults
 }
