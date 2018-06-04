@@ -1288,6 +1288,7 @@
       "AggregateReportRequest CustomAggregate": "Aggregate Report",
       "AggregateReportRequest Claim": "Aggregate Report: Claims",
       "AggregateReportRequest Longitudinal": "Aggregate Report: Longitudinal",
+      "AggregateReportRequest Target": "Aggregate Report: Target",
       "ExamExport": "District / School Export",
       "Group": "Group Report",
       "SchoolGrade": "School / Grade Report",
