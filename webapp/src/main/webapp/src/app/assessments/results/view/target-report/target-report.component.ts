@@ -64,10 +64,10 @@ export class TargetReportComponent implements OnInit {
     }
 
     if (this._filterBy) {
-      this.updateTargetScoreExam();
+      this.updateTargetScoreExamFilters();
 
       this._filterBySubscription = this._filterBy.onChanges.subscribe(() => {
-        this.updateTargetScoreExam();
+        this.updateTargetScoreExamFilters();
       });
     }
   }
@@ -147,7 +147,13 @@ export class TargetReportComponent implements OnInit {
         return targetMap;
       }, new Map<number, any>());
 
-      this.updateTargetScoreExam();
+
+      this.aggregateTargetScoreRows = this.targetStatisticsCalculator.aggregateOverallScores(
+        allTargets,
+        this.targetScoreExams);
+
+      this.sortRows();
+      this.calculateTreeColumns();
 
       this.loading = false;
     });
@@ -201,23 +207,35 @@ export class TargetReportComponent implements OnInit {
 
   toggleSubgroup(subgroup) {
     subgroup.selected = !subgroup.selected;
-    this.updateTargetScoreExam();
+
+    if (subgroup.selected) {
+      this.aggregateTargetScoreRows.push(
+        ...this.targetStatisticsCalculator.aggregateSubgroupScores(this.allTargets, this.targetScoreExams, subgroup.code, this.filterOptions)
+      )
+
+      this.updateTargetScoreTable();
+    }
+    else {
+      this.removeSubgroup(subgroup.code);
+    }
   }
 
   toggleSubgroupOptions() {
     this.showSubgroupOptions = !this.showSubgroupOptions;
   }
 
-  private updateTargetScoreExam(): void {
-    let rows = this.targetStatisticsCalculator.aggregateTargetScores(this.targetScoreExams, this.filterOptions, this.selectedSubgroups);
-    this.aggregateTargetScoreRows = this.targetStatisticsCalculator.mergeTargetData(this.allTargets, rows, this.targetDisplayMap);
+  removeSubgroup(subgroupCode: string) {
+    this.aggregateTargetScoreRows = this.aggregateTargetScoreRows.filter(x => x.subgroup.dimensionGroups[0].type != subgroupCode);
+    this.calculateTreeColumns();
+  }
 
+  private updateTargetScoreTable(): void {
     this.sortRows();
     this.calculateTreeColumns();
   }
 
-  get selectedSubgroups(): string[] {
-    return this.allSubgroups.filter(x => x.selected).map(x => x.code);
+  private updateTargetScoreExamFilters() {
+    // TODO: handle filters
   }
 
   private filterExams(): TargetScoreExam[] {
