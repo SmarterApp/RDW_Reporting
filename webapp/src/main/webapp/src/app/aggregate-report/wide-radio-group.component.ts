@@ -22,6 +22,9 @@ export class WideRadioGroupComponent extends AbstractControlValueAccessor<any[]>
   @Input()
   public analyticsCategory: string;
 
+  @Input()
+  public rowCount: number = 1;
+
   private _options: Option[];
   private _buttonGroupStyles: any = DefaultButtonGroupStyles;
   private _buttonStyles: any = DefaultButtonStyles;
