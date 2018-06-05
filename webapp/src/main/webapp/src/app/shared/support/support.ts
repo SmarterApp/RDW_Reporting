@@ -1,4 +1,6 @@
 import * as _ from 'lodash';
+import { isArray } from 'util';
+import { hasOwnProperty } from 'tslint/lib/utils';
 
 export class Utils {
 
@@ -46,11 +48,22 @@ export class Utils {
   /**
    * Checks to see if the string or array is <code>null</code>, <code>undefined</code> or empty.
    *
-   * @param {string | any[]} value
+   * @param {string | any[] | Object} value
    * @returns {boolean}
    */
-  static isNullOrEmpty(value: string | any[]): boolean {
-    return Utils.isNullOrUndefined(value) || value.length === 0;
+  static isNullOrEmpty(value: string | any[] | Object): boolean {
+    if (Utils.isNullOrUndefined(value)) {
+      return true;
+    }
+    if (isArray(value)) {
+      return (<any[]>value).length === 0;
+    }
+    for (const aKey in <Object>value) {
+      if (value.hasOwnProperty(aKey)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   static isUndefined(value: any): boolean {

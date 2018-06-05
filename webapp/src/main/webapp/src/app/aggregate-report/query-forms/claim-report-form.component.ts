@@ -40,6 +40,7 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
 
   claimsBySubject = {};
   selectionBySubject = {};
+  collapsed = true;
 
   private options: AggregateReportFormOptions;
 
@@ -100,20 +101,22 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
   }
 
   setClaimsBySubject(): void {
-    this.claimsBySubject = {};
-    const subjects = this.options.subjects.map(
-      subject => subject.value);
-    for (const subject of subjects) {
-      this.claimsBySubject[ subject ] = this.filteredOptions.claimCodes.filter(claim => claim.value.subject === subject);
+    if (Utils.isNullOrEmpty(this.claimsBySubject)) {
+      const subjects = this.filteredOptions.subjects.map(
+        subject => subject.value);
+      for (const subject of subjects) {
+        this.claimsBySubject[ subject ] = this.filteredOptions.claimCodes.filter(claim => claim.value.subject === subject && claim.value.assessmentType === this.settings.assessmentType);
+      }
     }
   }
 
   setSelectionBySubject(): void {
-    this.selectionBySubject = {};
-    const subjects = this.options.subjects.map(
-      subject => subject.value);
-    for (const subject of subjects) {
-      this.selectionBySubject[ subject ] = this.settings.claimReport.claimCodesBySubject;
+    if (Utils.isNullOrEmpty(this.selectionBySubject)) {
+      const subjects = this.filteredOptions.subjects.map(
+        subject => subject.value);
+      for (const subject of subjects) {
+        this.selectionBySubject[ subject ] = this.settings.claimReport.claimCodesBySubject;
+      }
     }
   }
 
