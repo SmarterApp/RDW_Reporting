@@ -1,0 +1,35 @@
+<div class="key-value-display">
+  <div class="well">
+    <div class="key-value-table">
+      <table class="table table-borderless">
+        <tr>
+          <td class="pl-sm">
+            <div info-button
+                 title="{{ 'average-scale-score.scale-score' | translate }}"
+                 content="{{ 'average-scale-score.scale-score-info' | translate }}"
+                 class="average-scale-score-label"></div>
+          </td>
+          <td>
+            <div class="scale-score font-large text-left">
+              <span class="score label label-primary">{{ overallRow.avgScaleScore }}</span>
+              <span class="error-band black"> {{'common.error-band-value' | translate: {errorBand: overallRow.avgStdErr | number:'1.0-0'} }}</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="result-count-label">
+              {{'average-scale-score.results-label' | translate}}
+            </div>
+          </td>
+          <td class="">
+        <span class="text-left gray-darkest">
+          <span class="score font-large">{{ overallRow.studentsTested }}</span>
+          <span class="ml-xs">{{ (overallRow.studentsTested == 1 ? 'average-scale-score.result' : 'average-scale-score.results') | translate }}</span>
+        </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

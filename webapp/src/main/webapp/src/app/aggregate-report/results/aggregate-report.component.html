@@ -98,7 +98,7 @@
     <ng-container *ngIf="reportView">
       <div *ngFor="let view of reportViews" class="well wide-content-container">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-xs-12 col-sm-6">
             <div>
               <h3 class="h3 label-group green pull-left">
                 <span
@@ -115,7 +115,10 @@
                 {{'common.export' | translate}}
               </a>
             </div>
-
+          </div>
+          <div *ngIf="view.table.reportType === 'Target'"
+               class="col-xs-12 col-sm-6 mb-md">
+            <aggregate-target-overview [table]="view.table"></aggregate-target-overview>
           </div>
         </div>
 

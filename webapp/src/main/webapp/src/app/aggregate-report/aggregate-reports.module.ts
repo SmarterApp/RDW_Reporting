@@ -34,6 +34,7 @@ import { AggregateQueryFormContainerComponent } from "./query-forms/aggregate-qu
 import { GeneralPopulationFormComponent } from "./query-forms/general-population-form.component";
 import { LongitudinalCohortFormComponent } from "./query-forms/longitudinal-cohort-form.component";
 import { ClaimReportFormComponent } from "./query-forms/claim-report-form.component";
+import { AggregateTargetOverviewComponent } from "./results/aggregate-target-overview.component";
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ClaimReportFormComponent } from "./query-forms/claim-report-form.compon
     AggregateReportComponent,
     AggregateReportTableComponent,
     AggregateReportSummary,
+    AggregateTargetOverviewComponent,
     ClaimReportFormComponent,
     GeneralPopulationFormComponent,
     LongitudinalCohortChartComponent,
