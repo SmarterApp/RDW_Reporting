@@ -17,17 +17,10 @@ import { organizationOrdering, subgroupOrdering } from '../support';
 import { TranslateService } from '@ngx-translate/core';
 import { AggregateReportService } from '../aggregate-report.service';
 import { BaseColumn } from '../../shared/datatable/base-column.model';
+import { IdentityColumnOptions } from '../assessment/assessment-definition.service';
 
 export const SupportedRowCount = 10000;
 export const DefaultRowsPerPageOptions = [ 100, 500, 1000 ];
-export const IdentityColumnOptions: string[] = [
-  'organization',
-  'assessmentGrade',
-  'assessmentLabel',
-  'schoolYear',
-  'dimension',
-];
-
 
 const SchoolYearOrdering: Ordering<AggregateReportItem> = ordering(byNumber)
   .on(item => item.schoolYear);
@@ -134,11 +127,7 @@ export class AggregateReportTableComponent implements OnInit {
       };
       this.buildAndRender(this._table);
     }
-    // Latest TurboTable version (1.5.7) does not sort when row data
-    // changes.  Manually trigger a sort after setting row data.
-    setTimeout(() => {
-      this.sort({data: this._table.rows});
-    });
+
   }
 
   get table(): AggregateReportTable {
@@ -161,6 +150,7 @@ export class AggregateReportTableComponent implements OnInit {
       // did the order of the columns present change?
       if (!_.isEqual(previousColumns, newColumns)) {
         this.updateColumnOrder();
+        this.sortRows();
       }
     } else {
       // rebuild the table with the new identity columns
@@ -348,6 +338,21 @@ export class AggregateReportTableComponent implements OnInit {
     ];
 
     this.calculateTreeColumns();
+
+    this.sortRows();
+  }
+
+  /**
+   * Sort rows of the table
+   */
+  private sortRows(): void {
+    // Latest TurboTable version (1.5.7) does not sort when row data
+    // changes.  Manually trigger a sort after setting row data.
+    setTimeout(() => {
+      this.sort({data: this._table.rows});
+      // reset any sort indicators
+      this.dataTable.reset();
+    });
   }
 
   private renderWithPreviousRowSorting(): void {
