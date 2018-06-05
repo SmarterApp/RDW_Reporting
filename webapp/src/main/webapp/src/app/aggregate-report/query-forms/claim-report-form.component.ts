@@ -98,26 +98,9 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
         notEmpty({ messageId: 'aggregate-report-form.field.school-year-empty-error' })
       ]
     });
-  }
 
-  setClaimsBySubject(): void {
-    if (Utils.isNullOrEmpty(this.claimsBySubject)) {
-      const subjects = this.filteredOptions.subjects.map(
-        subject => subject.value);
-      for (const subject of subjects) {
-        this.claimsBySubject[ subject ] = this.filteredOptions.claimCodes.filter(claim => claim.value.subject === subject && claim.value.assessmentType === this.settings.assessmentType);
-      }
-    }
-  }
-
-  setSelectionBySubject(): void {
-    if (Utils.isNullOrEmpty(this.selectionBySubject)) {
-      const subjects = this.filteredOptions.subjects.map(
-        subject => subject.value);
-      for (const subject of subjects) {
-        this.selectionBySubject[ subject ] = this.settings.claimReport.claimCodesBySubject;
-      }
-    }
+    this.initializeClaimsBySubject();
+    this.initializeSelectionBySubject();
   }
 
   getFormGroup(): FormGroup {
@@ -161,7 +144,7 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
 
   onSubjectsChange(): void {
     this.filterClaimCodes();
-    this.onSettingsChange();
+    this.onClaimChange();
   }
 
   protected capableOfRowEstimation(): boolean {
@@ -179,24 +162,41 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
     );
   }
 
+  onClaimChange() {
+    this.settings.claimReport.claimCodesBySubject = this.selectedClaimsBySubject;
+    this.onSettingsChange();
+  }
+
+  private get selectedClaimsBySubject(): Claim[] {
+    const claims = [];
+    for (const subject in this.selectionBySubject) {
+      if (this.settings.subjects.includes(subject)) {
+        claims.push(...this.selectionBySubject[ subject ]);
+      }
+    }
+    return claims;
+  }
+
+  private initializeClaimsBySubject(): void {
+    const subjects = this.filteredOptions.subjects.map(
+      subject => subject.value);
+    for (const subject of subjects) {
+      this.claimsBySubject[ subject ] = this.filteredOptions.claimCodes.filter(claim => claim.value.subject === subject && claim.value.assessmentType === this.settings.assessmentType);
+    }
+  }
+
+  private initializeSelectionBySubject(): void {
+    const subjects = this.filteredOptions.subjects.map(
+      subject => subject.value);
+    for (const subject of subjects) {
+      this.selectionBySubject[ subject ] = this.settings.claimReport.claimCodesBySubject.filter(claim => claim.subject === subject);
+    }
+  }
+
   private filterClaimCodes(): void {
-    this.setClaimsBySubject();
-    this.setSelectionBySubject();
     this.filteredOptions.claimCodes = this.options.claimCodes.filter((claim: SbCheckboxGroupOption) => {
       return claim.value.assessmentType === this.settings.assessmentType && this.settings.subjects.includes(claim.value.subject);
     });
   }
 
-  get selectedClaimsBySubject(): Claim[] {
-    const claims = [];
-    for (const subject in this.selectionBySubject) {
-      claims.push(...this.selectionBySubject[ subject ]);
-    }
-    return claims;
-  }
-
-  onClaimChange() {
-    this.settings.claimReport.claimCodesBySubject = this.selectedClaimsBySubject;
-    super.onSettingsChange();
-  }
 }
