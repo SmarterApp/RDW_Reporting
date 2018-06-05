@@ -31,7 +31,6 @@ const AssessmentLabelOrdering: Ordering<AggregateReportItem> = ordering(byString
 
 const ScorableClaimOrdering: Ordering<AggregateReportItem> = ordering(byString)
   .on(item => {
-    console.log("getting scorable claim code", item.claimCode);
     return item.claimCode;
   });
 
