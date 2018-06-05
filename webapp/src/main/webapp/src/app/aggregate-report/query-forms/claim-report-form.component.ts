@@ -163,34 +163,30 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
   }
 
   onClaimChange() {
-    this.settings.claimReport.claimCodesBySubject = this.selectedClaimsBySubject;
+    this.settings.claimReport.claimCodesBySubject = this.getAllSelectedClaims();
     this.onSettingsChange();
   }
 
-  private get selectedClaimsBySubject(): Claim[] {
-    const claims = [];
-    for (const subject in this.selectionBySubject) {
-      if (this.settings.subjects.includes(subject)) {
-        claims.push(...this.selectionBySubject[ subject ]);
-      }
+  private getAllSelectedClaims(): Claim[] {
+    const claims: Claim[] = [];
+    for (const subject of this.settings.subjects) {
+      claims.push(...this.selectionBySubject[ subject ]);
     }
     return claims;
   }
 
   private initializeClaimsBySubject(): void {
-    const subjects = this.filteredOptions.subjects.map(
-      subject => subject.value);
-    for (const subject of subjects) {
-      this.claimsBySubject[ subject ] = this.filteredOptions.claimCodes.filter(claim => claim.value.subject === subject && claim.value.assessmentType === this.settings.assessmentType);
-    }
+    this.filteredOptions.subjects.forEach(subject => {
+      const subjectCode = subject.value;
+      this.claimsBySubject[ subjectCode ] = this.filteredOptions.claimCodes.filter(claim => claim.value.subject === subjectCode && claim.value.assessmentType === this.settings.assessmentType);
+    });
   }
 
   private initializeSelectionBySubject(): void {
-    const subjects = this.filteredOptions.subjects.map(
-      subject => subject.value);
-    for (const subject of subjects) {
-      this.selectionBySubject[ subject ] = this.settings.claimReport.claimCodesBySubject.filter(claim => claim.subject === subject);
-    }
+    this.filteredOptions.subjects.forEach(subject => {
+      const subjectCode = subject.value;
+      this.selectionBySubject[ subjectCode ] = this.settings.claimReport.claimCodesBySubject.filter(claim => claim.subject === subject);
+    });
   }
 
   private filterClaimCodes(): void {
