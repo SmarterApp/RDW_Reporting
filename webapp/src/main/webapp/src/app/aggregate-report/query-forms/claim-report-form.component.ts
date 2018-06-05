@@ -185,7 +185,7 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
   private initializeSelectionBySubject(): void {
     this.filteredOptions.subjects.forEach(subject => {
       const subjectCode = subject.value;
-      this.selectionBySubject[ subjectCode ] = this.settings.claimReport.claimCodesBySubject.filter(claim => claim.subject === subject);
+      this.selectionBySubject[ subjectCode ] = this.settings.claimReport.claimCodesBySubject.filter(claim => claim.subject === subjectCode);
     });
   }
 
