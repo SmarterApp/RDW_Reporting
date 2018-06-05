@@ -234,6 +234,17 @@ export class AggregateReportSummary {
       }
     ];
 
+    const claimRows = [];
+    if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'Claim') {
+      if (!equalSize(options.claims, settings.claimReport.claimCodesBySubject)) {
+        claimRows.push({
+          label: translate('aggregate-report-form.field.claim-codes-label'),
+          values: defaultAllOrAll(this.options.claims, this.settings.claimReport.claimCodesBySubject,
+            (claim: Claim) => translate(`common.subject.${claim.subject}.claim.${claim.code}.name`))
+        });
+      }
+    }
+
     let variableSections: Section[];
 
     if (settings.queryType === 'Basic') {
@@ -244,17 +255,6 @@ export class AggregateReportSummary {
           values: orAll(options.dimensionTypes, settings.dimensionTypes, code => translate(`common.dimension.${code}`))
         }
       ];
-
-      const claimRows = [];
-      if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'Claim') {
-        if (!equalSize(options.claims, settings.claimReport.claimCodesBySubject)) {
-          claimRows.push({
-            label: translate('aggregate-report-form.field.claim-codes-label'),
-            values: defaultAllOrAll(this.options.claims, this.settings.claimReport.claimCodesBySubject,
-              (claim: Claim) => translate(`common.subject.${claim.subject}.claim.${claim.code}.name`))
-          });
-        }
-      }
 
       const filterRows = [];
       const settingFilters = settings.studentFilters;
@@ -348,10 +348,6 @@ export class AggregateReportSummary {
         {
           label: translate('aggregate-report-form.section.subgroup-filters-heading'),
           rows: filterRows
-        },
-        {
-          label: translate('aggregate-report-form.section.claim-heading'),
-          rows: claimRows
         }
       ];
 
@@ -393,6 +389,10 @@ export class AggregateReportSummary {
       {
         label: translate('aggregate-report-form.section.assessment-heading'),
         rows: assessmentRows
+      },
+      {
+        label: translate('aggregate-report-form.section.claim-heading'),
+        rows: claimRows
       },
       ...variableSections
     )
