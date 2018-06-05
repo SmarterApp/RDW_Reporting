@@ -1,6 +1,4 @@
 import * as _ from 'lodash';
-import { isArray } from 'util';
-import { hasOwnProperty } from 'tslint/lib/utils';
 
 export class Utils {
 
@@ -15,8 +13,8 @@ export class Utils {
   }
 
   static getPropertyValue(propertyPath: string, object: any): any {
-     const parts = propertyPath.split('.');
-     let property = object || this;
+    const parts = propertyPath.split('.');
+    let property = object || this;
 
     for (let i = 0; i < parts.length; i++) {
       property = property[ parts[ i ] ];
@@ -48,22 +46,11 @@ export class Utils {
   /**
    * Checks to see if the string or array is <code>null</code>, <code>undefined</code> or empty.
    *
-   * @param {string | any[] | Object} value
+   * @param {string | any[]} value
    * @returns {boolean}
    */
-  static isNullOrEmpty(value: string | any[] | Object): boolean {
-    if (Utils.isNullOrUndefined(value)) {
-      return true;
-    }
-    if (isArray(value)) {
-      return (<any[]>value).length === 0;
-    }
-    for (const aKey in <Object>value) {
-      if (value.hasOwnProperty(aKey)) {
-        return false;
-      }
-    }
-    return true;
+  static isNullOrEmpty(value: string | any[]): boolean {
+    return Utils.isNullOrUndefined(value) || value.length === 0;
   }
 
   static isUndefined(value: any): boolean {

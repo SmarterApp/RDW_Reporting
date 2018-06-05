@@ -148,13 +148,13 @@
             </div>
             <div class="col-md-3">
               <button class="form-control btn btn-default pull-right"
-                      (click)="collapsed = !collapsed"
+                      (click)="claimsCollapsed = !claimsCollapsed"
                       angulartics2On="click"
                       angularticsEvent="ToggleClaimResults"
                       angularticsCategory="AggregateQueryBuilder">
                 {{'aggregate-report-form.field.claim-codes-label' | translate}}
                 <i class="fa"
-                   [ngClass]="{'fa-caret-square-o-up': !collapsed, 'fa-caret-square-o-down': collapsed}"
+                   [ngClass]="{'fa-caret-square-o-up': !claimsCollapsed, 'fa-caret-square-o-down': claimsCollapsed}"
                    aria-hidden="true"></i>
                 <span class="sr-only">{{'common.action.collapse' | translate}}</span>
               </button>
@@ -162,7 +162,7 @@
           </div>
         </div>
 
-        <div class="well gray-lighter" *ngIf="!collapsed">
+        <div class="well gray-lighter" *ngIf="!claimsCollapsed">
           <div class="row mt-md" *ngFor="let subject of settings.subjects">
             <div class="col-md-6">
               <label>{{'common.subject.' + subject + '.short-name' | translate}}</label>
@@ -175,7 +175,6 @@
                                [(ngModel)]="selectionBySubject[subject]"
                                [ngModelOptions]="{standalone: true}"
                                (change)="onClaimChange()"
-                               name="claimCodes"
                                analyticsEvent="FilterClick"
                                analyticsCategory="AggregateQueryBuilder"
                                [allOptionAnalyticsProperties]="{label: 'Claims: All'}"></sb-button-group>

@@ -40,7 +40,7 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
 
   claimsBySubject = {};
   selectionBySubject = {};
-  collapsed = true;
+  claimsCollapsed = true;
 
   private options: AggregateReportFormOptions;
 
