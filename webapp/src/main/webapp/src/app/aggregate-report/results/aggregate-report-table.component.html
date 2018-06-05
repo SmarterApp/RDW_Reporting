@@ -147,7 +147,7 @@
 
           <div *ngSwitchCase="'avgScaleScore'"
                class="text-center">
-            <span *ngIf="!rowData.studentsTested">-</span>
+            <span *ngIf="!rowData.studentsTested">{{ "common.missing" | translate }}</span>
             <span *ngIf="rowData.studentsTested">
                   <scale-score [score]="rowData.avgScaleScore"
                                [standardError]="rowData.avgStdErr"></scale-score>
@@ -156,7 +156,7 @@
 
           <div *ngSwitchCase="'performanceLevel'"
                class="text-center">
-            <span *ngIf="!rowData.studentsTested">-</span>
+            <span *ngIf="!rowData.studentsTested">{{ "common.missing" | translate }}</span>
             <span *ngIf="rowData.studentsTested">
               {{
                 ('common.value-display-type-format.' + valueDisplayType) | translate:{
@@ -168,7 +168,7 @@
 
           <div *ngSwitchCase="'studentRelativeResidualScoresLevel'"
                class="text-center">
-            <span *ngIf="!rowData.studentsTested">-</span>
+            <span *ngIf="!rowData.studentsTested">{{ "common.missing" | translate }}</span>
             <ng-container *ngIf="rowData.studentsTested">
               <!-- pick the icon -->
               <ng-container [ngSwitch]="rowData.studentRelativeResidualScoresLevel">
@@ -199,7 +199,7 @@
 
           <div *ngSwitchCase="'standardMetRelativeResidualLevel'"
                class="text-center">
-            <span *ngIf="!rowData.studentsTested">-</span>
+            <span *ngIf="!rowData.studentsTested">{{ "common.missing" | translate }}</span>
             <ng-container *ngIf="rowData.studentsTested">
               <!-- pick the label color -->
               <span [ngSwitch]="rowData.standardMetRelativeResidualLevel">

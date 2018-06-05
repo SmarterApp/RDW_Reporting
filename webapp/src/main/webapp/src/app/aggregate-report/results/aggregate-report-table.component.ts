@@ -89,10 +89,6 @@ export class AggregateReportTableComponent {
               private reportService: AggregateReportService) {
   }
 
-  ngOnInit(): void {
-
-  }
-
   get valueDisplayType(): string {
     return this._valueDisplayType;
   }
