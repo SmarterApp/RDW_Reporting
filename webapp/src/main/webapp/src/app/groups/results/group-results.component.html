@@ -5,7 +5,7 @@
     <h2>{{'groups.name' | translate}}</h2>
   </ng-template>
   <ng-template #content>
-    <ul class="list-unstyled list-inline" *ngIf="currentGroup">
+    <ul class="list-unstyled list-inline" *ngIf="group">
       <li>
         <a (click)="viewDashboard()"
            class="btn btn-sm btn-default"><i class="fa fa-bars"></i> {{'groups.view-dashboard' | translate}}</a>
@@ -29,7 +29,7 @@
 </ng-container>
 
 <ng-template #loaded>
-  <ng-container *ngIf="currentGroup; else groupNotFound">
+  <ng-container *ngIf="group; else groupNotFound">
     <assessments [assessmentExams]="assessmentExams"
                  [assessmentProvider]="assessmentProvider"
                  [assessmentExporter]="assessmentExporter"
@@ -42,7 +42,7 @@
       <div class="col-md-3">
         <label for="select-group">{{'group-results.select-group' | translate}}</label>
         <!--TODO: type ahead? -->
-        <select id="select-group" [(ngModel)]="currentGroup" (change)="updateRoute('Group')" class="form-control">
+        <select id="select-group" [(ngModel)]="group" (change)="updateRoute('Group')" class="form-control">
           <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
         </select>
       </div>
@@ -50,7 +50,7 @@
       <!-- School Year -->
       <div class="col-md-3">
         <label for="school-year">{{'common.school-year-select-label' | translate}}</label>
-        <select id="school-year" [(ngModel)]="currentSchoolYear" (change)="updateRoute('Year')"
+        <select id="school-year" [(ngModel)]="schoolYear" (change)="updateRoute('Year')"
                 class="form-control">
           <option *ngFor="let year of filterOptions.schoolYears" [ngValue]="year">{{year | schoolYear}}</option>
         </select>
@@ -75,10 +75,10 @@
 
 <span group-report-download
       #reportDownloader
-      [title]="'common.reports.form.title.multiple' | translate:currentGroup"
-      [group]="currentGroup"
+      [title]="'common.reports.form.title.multiple' | translate:group"
+      [group]="group"
       [schoolYears]="filterOptions.schoolYears"
-      [schoolYear]="currentSchoolYear"
+      [schoolYear]="schoolYear"
       (onShow)="initializeDownloader(reportDownloader)"></span>
 
 

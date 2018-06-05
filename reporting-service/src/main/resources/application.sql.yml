@@ -96,7 +96,7 @@ sql:
             JOIN school isch ON st.inferred_school_id = isch.id
           WHERE e.school_year = :school_year
             AND a.id = e.asmt_id
-            AND ${sql.reporting.snippet.groupFilters}
+            AND ${sql.snippet.groupFilters}
             AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
       findLatestExam: >-
@@ -108,7 +108,7 @@ sql:
             JOIN student st ON e.student_id = st.id
             JOIN school isch ON st.inferred_school_id = isch.id
           WHERE e.school_year = :school_year
-            AND ${sql.reporting.snippet.groupFilters}
+            AND ${sql.snippet.groupFilters}
             AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
           ORDER BY e.completed_at desc
           LIMIT 1
@@ -124,7 +124,7 @@ sql:
           ${sql.snippet.exam}
         WHERE a.id = :assessment_id
           AND e.school_year = :school_year
-          AND ${sql.reporting.snippet.groupFilters}
+          AND ${sql.snippet.groupFilters}
           AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
     examWithTargetScore:
@@ -183,7 +183,7 @@ sql:
                        AND ex1.scale_score IS NOT NULL
                        AND ex1.scale_score_std_err IS NOT NULL
                        AND ex1.performance_level IS NOT NULL
-                       AND ${sql.reporting.snippet.groupFilters}
+                       AND ${sql.snippet.groupFilters}
                ) AS e1 LEFT OUTER JOIN
             ( SELECT ex2.id, ex2.student_id, ex2.asmt_id, ex2.school_year, ex2.completed_at
               FROM exam ex2
@@ -194,7 +194,7 @@ sql:
                   AND ex2.scale_score IS NOT NULL
                   AND ex2.scale_score_std_err IS NOT NULL
                   AND ex2.performance_level IS NOT NULL
-                  AND ${sql.reporting.snippet.groupFilters}
+                  AND ${sql.snippet.groupFilters}
             ) AS e2
               ON e1.student_id = e2.student_id  AND e1.asmt_id = e2.asmt_id AND e1.school_year = e2.school_year
                  AND ( e1.completed_at < e2.completed_at OR (e1.completed_at = e2.completed_at AND e1.id < e2.id))
@@ -208,7 +208,7 @@ sql:
           ${sql.reporting.snippet.selectFromExamItem}
           WHERE e.asmt_id = :assessment_id
             AND e.school_year = :school_year
-            AND ${sql.reporting.snippet.groupFilters}
+            AND ${sql.snippet.groupFilters}
             AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
   schoolgrade:
@@ -333,35 +333,3 @@ sql:
              OR 1 = :state_embargo_admin
              OR s.district_id IN (:district_embargo_admin_ids)
           )
-
-      # dependencies: student st, asmt a, :group_id, :user_group_id
-      groupFilters: >-
-        (
-          (
-            :group_id IS NULL
-            OR EXISTS(
-              SELECT 1
-              FROM student_group_membership sgm
-                JOIN student_group sg ON sg.id = sgm.student_group_id
-                JOIN user_student_group usg ON usg.student_group_id = sgm.student_group_id
-              WHERE sgm.student_group_id = :group_id
-                AND sgm.student_id = st.id
-                AND usg.user_login = :user_login
-                AND (sg.subject_id is null OR sg.subject_id = a.subject_id)
-            )
-          )
-          AND (
-            :user_group_id IS NULL
-            OR EXISTS(
-              SELECT 1
-              FROM teacher_student_group_membership tsgm
-                JOIN teacher_student_group tsg ON tsg.id = tsgm.teacher_student_group_id
-              WHERE tsgm.teacher_student_group_id = :user_group_id
-                AND tsgm.student_id = st.id
-                AND tsg.user_login = :user_login
-                AND (tsg.subject_id IS NULL OR tsg.subject_id = a.subject_id)
-            )
-          )
-        )
-
-

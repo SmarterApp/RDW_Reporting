@@ -1,82 +1,110 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AssessmentExam } from '../../assessments/model/assessment-exam.model';
-import { ExamFilterOptions } from '../../assessments/model/exam-filter-options.model';
 import { ExamFilterOptionsService } from '../../assessments/filters/exam-filters/exam-filter-options.service';
 import { GroupAssessmentService } from './group-assessment.service';
 import { Angulartics2 } from 'angulartics2';
-import { AssessmentsComponent } from '../../assessments/assessments.component';
 import { CsvExportService } from '../../csv-export/csv-export.service';
-import { GroupReportDownloadComponent } from '../../report/group-report-download.component';
-import { Group } from '../../groups/group';
+import { Group } from '../group';
 import { GroupAssessmentExportService } from './group-assessment-export.service';
-import { forkJoin } from 'rxjs/observable/forkJoin';
 import { GroupService } from '../group.service';
+import { GroupAssessmentProvider, StateProvider } from './group-assessment.provider';
+import { DefaultAssessmentExporter } from './default-assessment-exporter';
+import { TranslateService } from '@ngx-translate/core';
+import { UserGroupService } from '../../user-group/user-group.service';
+import { AssessmentsComponent } from '../../assessments/assessments.component';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { AssessmentExam } from '../../assessments/model/assessment-exam.model';
+import { AssessmentExporter } from '../../assessments/assessment-exporter.interface';
+import { ExamFilterOptions } from '../../assessments/model/exam-filter-options.model';
+import { AssessmentProvider } from '../../assessments/assessment-provider.interface';
+import { GroupReportDownloadComponent } from '../../report/group-report-download.component';
+import { byString } from '@kourge/ordering/comparator';
+import { ordering } from '@kourge/ordering';
 
 @Component({
   selector: 'group-results',
   templateUrl: './group-results.component.html'
 })
-export class GroupResultsComponent implements OnInit {
+export class GroupResultsComponent implements OnInit, StateProvider {
+
 
   @ViewChild(AssessmentsComponent)
   assessmentsComponent: AssessmentsComponent;
 
-  groups: Group[];
+  groups: any[];
   assessmentExams: AssessmentExam[] = [];
   filterOptions: ExamFilterOptions = new ExamFilterOptions();
+  assessmentProvider: AssessmentProvider;
+  assessmentExporter: AssessmentExporter;
 
-  get currentGroup(): Group {
-    return this._currentGroup;
+  private _group: any;
+  private _schoolYear: number;
+
+  get group(): Group {
+    return this._group;
   }
 
-  set currentGroup(value: Group) {
-    this._currentGroup = value;
-    if (this._currentGroup) {
-      this.assessmentProvider.group = this._currentGroup;
-      this.assessmentExporter.group = this._currentGroup;
+  set group(value: Group) {
+    this._group = value;
+  }
+
+  get schoolYear(): number {
+    return this._schoolYear;
+  }
+
+  set schoolYear(value: number) {
+    this._schoolYear = value;
+  }
+
+  get stateAsNavigationParameters(): any {
+    const parameters = <any>{
+      schoolYear: this.schoolYear
+    };
+    if (this.group.userCreated) {
+      parameters.userGroupId = this.group.id;
+    } else {
+      parameters.groupId = this.group.id;
     }
+    return parameters;
   }
-
-  get currentSchoolYear(): number {
-    return this._currentSchoolYear;
-  }
-
-  set currentSchoolYear(value: number) {
-    this._currentSchoolYear = value;
-    this.assessmentProvider.schoolYear = value;
-  }
-
-  private _currentGroup;
-  private _currentSchoolYear: number;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private groupService: GroupService,
               private filterOptionService: ExamFilterOptionsService,
               private angulartics2: Angulartics2,
               private csvExportService: CsvExportService,
-              public assessmentProvider: GroupAssessmentService,
-              public assessmentExporter: GroupAssessmentExportService) {
+              private groupService: GroupService,
+              private userGroupService: UserGroupService,
+              assessmentService: GroupAssessmentService,
+              assessmentExportService: GroupAssessmentExportService,
+              translateService: TranslateService) {
+
+    this.assessmentProvider = new GroupAssessmentProvider(assessmentService, this);
+    this.assessmentExporter = new DefaultAssessmentExporter(assessmentExportService, request =>
+      `${this.group.name}-${request.assessment.label}-${translateService.instant(request.type.toString())}-${new Date().toDateString()}`
+    );
   }
 
   ngOnInit() {
     forkJoin(
       this.groupService.getGroups(),
+      this.userGroupService.getGroupsAsGroups(),
       this.filterOptionService.getExamFilterOptions()
-    ).subscribe(([ groups, filterOptions ]) => {
-      this.groups = groups;
+    ).subscribe(([ groups, userGroups, filterOptions ]) => {
+      this.groups = groups.concat(userGroups)
+        .sort(ordering(byString).on<Group>(({name}) => name).compare);
       this.filterOptions = filterOptions;
-      const { groupId, schoolYear, assessmentIds } = this.route.snapshot.params;
-      this.currentGroup = this.groups.find(group => group.id == groupId);
-      this.currentSchoolYear = Number.parseInt(schoolYear) || this.filterOptions.schoolYears[ 0 ];
+      const { groupId, userGroupId, schoolYear } = this.route.snapshot.params;
+      this.group = this.groups.find(group => group.userCreated
+        ? group.id == userGroupId
+        : group.id == groupId
+      );
+      this.schoolYear = Number.parseInt(schoolYear) || this.filterOptions.schoolYears[ 0 ];
     });
   }
 
   viewDashboard() {
-    this.router.navigate([ 'group-dashboard', this.currentGroup.id, {
-      schoolYear: this.currentSchoolYear
-    } ]);
+    this.router.navigate([ 'group-dashboard', this.stateAsNavigationParameters ]);
   }
 
   updateAssessment(latestAssessment): void {
@@ -87,7 +115,8 @@ export class GroupResultsComponent implements OnInit {
   }
 
   updateRoute(changeSource: string): void {
-    this.router.navigate([ 'groups', this._currentGroup.id, { schoolYear: this._currentSchoolYear } ])
+
+    this.router.navigate([ this.stateAsNavigationParameters ])
       .then(() => {
         this.updateAssessment(this.route.snapshot.data[ 'assessment' ]);
       });
@@ -97,7 +126,7 @@ export class GroupResultsComponent implements OnInit {
       action: 'Change' + changeSource,
       properties: {
         category: 'AssessmentResults',
-        label: changeSource === 'Group' ? this._currentGroup.id : this._currentSchoolYear
+        label: changeSource === 'Group' ? this.group.id : this.schoolYear
       }
     });
   }
@@ -115,7 +144,7 @@ export class GroupResultsComponent implements OnInit {
       this.assessmentsComponent.assessmentExams,
       this.assessmentsComponent.clientFilterBy,
       this.filterOptions.ethnicities,
-      `${this.currentGroup.name}-${Date.now().toString()}`
+      `${this.group.name}-${Date.now().toString()}`
     );
   }
 
@@ -125,7 +154,7 @@ export class GroupResultsComponent implements OnInit {
    * @param downloader
    */
   initializeDownloader(downloader: GroupReportDownloadComponent): void {
-    downloader.options.schoolYear = this.currentSchoolYear;
+    downloader.options.schoolYear = this.schoolYear;
   }
 
 }

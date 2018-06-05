@@ -223,6 +223,7 @@
         </ng-container>
         <ng-container *ngIf="showTargetReport">
           <target-report #targetReport
+                         [assessmentProvider]="assessmentProvider"
                          [assessment]="assessmentExam.assessment"
                          [studentsTested]="statistics.total"
                          [sessions]="sessions"

@@ -8,7 +8,7 @@
 
     <ul class="list-unstyled list-inline pull-right">
       <li *ngIf="defaultGroup">
-        <a routerLink="/group-dashboard/{{defaultGroup.id}}"
+        <a [routerLink]="['group-dashboard', {groupId: defaultGroup.id}]"
            title="{{'groups.view-dashboard' | translate}}"
            class="btn btn-xs btn-default">
           <i class="fa fa-bars"></i> {{'groups.view-dashboard' | translate}}

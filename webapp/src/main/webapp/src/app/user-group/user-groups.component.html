@@ -9,14 +9,14 @@
     <ul class="list-unstyled list-inline pull-right">
       <li>
         <a *hasPermission="'GROUP_PII_READ'"
-           routerLink="/userGroups"
+           routerLink="/user-groups"
            title="{{'common.action.create' | translate}}"
            class="btn btn-xs btn-primary">
           <i class="fa fa-plus"></i> {{'common.action.create' | translate}}
         </a>
       </li>
       <li *ngIf="defaultGroup">
-        <a routerLink="/group-dashboard/{{defaultGroup.id}}"
+        <a [routerLink]="['group-dashboard', {userGroupId: defaultGroup.id}]"
            title="{{'groups.view-dashboard' | translate}}"
            class="btn btn-xs btn-default">
           <i class="fa fa-bars"></i> {{'groups.view-dashboard' | translate}}

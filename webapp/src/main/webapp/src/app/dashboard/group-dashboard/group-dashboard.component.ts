@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MeasuredAssessment } from '../measured-assessment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Group } from '../../groups/group';
@@ -11,6 +11,8 @@ import { AssessmentCardEvent } from './group-assessment-card.component';
 import { GroupReportDownloadComponent } from '../../report/group-report-download.component';
 import { byString } from '@kourge/ordering/comparator';
 import { ordering } from '@kourge/ordering';
+import { UserGroupService } from '../../user-group/user-group.service';
+import { Search } from '../../groups/results/group-assessment.service';
 
 @Component({
   selector: 'group-dashboard',
@@ -19,122 +21,107 @@ import { ordering } from '@kourge/ordering';
 export class GroupDashboardComponent implements OnInit {
 
   measuredAssessments: MeasuredAssessment[] = [];
-  group: Group;
-  groups: Group[];
   filterOptions: ExamFilterOptions = new ExamFilterOptions();
-  currentSchoolYear: number;
-  currentGroup: Group;
-  private _currentSubject: string;
+  groups: Group[];
+  group: Group;
+  schoolYear: number;
+  subjects: string[];
+  subject: string;
+
   private selectedAssessments: MeasuredAssessment[] = [];
-  private _availableSubjects: Set<string> = new Set<string>();
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private groupService: GroupService,
+              private userGroupService: UserGroupService,
               private groupDashboardService: GroupDashboardService,
               private filterOptionsService: ExamFilterOptionsService) {
   }
 
   ngOnInit() {
-    const { groupId } = this.route.snapshot.params;
+    const { groupId, userGroupId, schoolYear } = this.route.snapshot.params;
     forkJoin(
-      this.groupService.getGroup(groupId),
       this.groupService.getGroups(),
+      this.userGroupService.getGroupsAsGroups(),
       this.filterOptionsService.getExamFilterOptions()
-    ).subscribe(([ group, groups, filterOptions ]) => {
-      this.group = this.currentGroup = group;
-      this.groups = groups;
-      const { schoolYear } = this.route.snapshot.params;
+    ).subscribe(([ groups, userGroups, filterOptions ]) => {
+      this.groups = groups.concat(userGroups)
+        .sort(ordering(byString).on<Group>(({ name }) => name).compare);
+      this.group = this.groups.find(group => group.userCreated
+        ? group.id == userGroupId
+        : group.id == groupId
+      );
+
       this.filterOptions = filterOptions;
-      this.currentSchoolYear = Number.parseInt(schoolYear) || filterOptions.schoolYears[ 0 ];
-      this.groupDashboardService.getAvailableMeasuredAssessments(group, this.currentSchoolYear).subscribe(measuredAssessments => {
-        this.measuredAssessments = measuredAssessments;
-        this.setAvailableSubjects(measuredAssessments);
-      });
+      this.schoolYear = Number.parseInt(schoolYear) || filterOptions.schoolYears[ 0 ];
+      this.groupDashboardService.getAvailableMeasuredAssessments(this.createSearch(this.group))
+        .subscribe(measuredAssessments => {
+          this.updateMeasuredAssessments(measuredAssessments);
+        });
     });
   }
 
-  compareGroups(g1: Group, g2: Group): boolean {
-    return g1 && g2 ? g1.id === g2.id : g1 === g2;
-  }
-
-  get sortedMeasuredAssessments() {
-    return this.sortMeasuredAssessments(this.measuredAssessments);
+  get filteredMeasuredAssessments() {
+    return this.measuredAssessments
+      .filter(measuredAssessment => this.subject == null || measuredAssessment.assessment.subject === this.subject);
   }
 
   get cardViewEnabled() {
     return this.selectedAssessments.length !== 0;
   }
 
-  sortMeasuredAssessments(measuredAssessments: MeasuredAssessment[]): MeasuredAssessment[] {
-    return measuredAssessments.sort(ordering(byString).on<MeasuredAssessment>(x => x.assessment.label).compare);
+  get stateAsNavigationParameters(): any {
+    const parameters = <any>{
+      schoolYear: this.schoolYear,
+      assessmentIds: this.selectedAssessments
+        .map(measuredAssessment => measuredAssessment.assessment.id)
+    };
+    if (this.group.userCreated) {
+      parameters.userGroupId = this.group.id;
+    } else {
+      parameters.groupId = this.group.id;
+    }
+    return parameters;
   }
 
   updateRoute(changeSource: string): void {
     this.selectedAssessments = [];
-    this.router.navigate([ 'group-dashboard', this.currentGroup.id, {
-      schoolYear: this.currentSchoolYear
-    } ]).then(() => {
-      this.groupService.getGroup(this.currentGroup.id).subscribe((group) => {
-        this.group = group;
-        this.groupDashboardService.getAvailableMeasuredAssessments(group, this.currentSchoolYear).subscribe(measuredAssessments => {
-          this.setAvailableSubjects(measuredAssessments);
-          if (!this.currentSubject) {
-            this.measuredAssessments = measuredAssessments;
-          } else {
-            this.measuredAssessments = measuredAssessments.filter(
-              measuredAssessment => measuredAssessment.assessment.subject === this._currentSubject);
-          }
+    this.router.navigate([ this.stateAsNavigationParameters ]).then(() => {
+      // TODO why call service to get group here?
+      // we could make the assessment selection update the URL in the group-exams
+      this.groupDashboardService.getAvailableMeasuredAssessments(this.createSearch(this.group))
+        .subscribe(measuredAssessments => {
+          this.updateMeasuredAssessments(measuredAssessments);
         });
-      });
     });
   }
 
-  setAvailableSubjects(measuredAssessments: MeasuredAssessment[]): void {
-    this._availableSubjects = new Set(measuredAssessments.map(x => x.assessment.subject));
+  updateMeasuredAssessments(assessments: MeasuredAssessment[]): void {
+    this.measuredAssessments = assessments
+      .sort(ordering(byString).on<MeasuredAssessment>(x => x.assessment.label).compare);
+
+    const assessmentSubjects = new Set(assessments.map(x => x.assessment.subject));
+    this.subjects = this.filterOptions.subjects
+      .filter(subject => assessmentSubjects.has(subject));
   }
 
   viewAssessments(): void {
-    const queryParams = {  };
-    this.router.navigate([ 'groups', this.currentGroup.id, {
-      schoolYear: this.currentSchoolYear,
-      assessmentIds: this.selectedAssessments.map(measuredAssessment => measuredAssessment.assessment.id)
-    } ]).then(() => {
+    this.router.navigate([ 'group-exams', this.stateAsNavigationParameters ]).then(() => {
       // reset selected assessments to avoid issues with going back to previous page
+      // TODO pass through assessment provider
       this.selectedAssessments = [];
-      this.groupService.getGroup(this.currentGroup.id).subscribe((group) => {
-        this.group = group;
-        this.groupDashboardService.getAvailableMeasuredAssessments(group, this.currentSchoolYear).subscribe(measuredAssessments => {
-          if (!this.currentSubject) {
-            this.measuredAssessments = measuredAssessments;
-          } else {
-            this.measuredAssessments = measuredAssessments.filter(
-              measuredAssessment => measuredAssessment.assessment.subject === this._currentSubject);
-          }
+      this.groupDashboardService.getAvailableMeasuredAssessments(this.createSearch(this.group))
+        .subscribe(measuredAssessments => {
+          this.updateMeasuredAssessments(measuredAssessments);
         });
-      });
     });
   }
 
-  get currentSubject(): string {
-    return this._currentSubject;
-  }
-
-  @Input()
-  set currentSubject(value: string) {
-    this._currentSubject = value;
-    this.measuredAssessments = this.measuredAssessments.filter(
-      measuredAssessment => measuredAssessment.assessment.subject === this._currentSubject);
-  }
-
   onCardSelection(event: AssessmentCardEvent) {
-    this.selectedAssessments = event.selected ? this.selectedAssessments.concat(event.measuredAssessment)
-      : this.selectedAssessments.filter(measuredAssessment =>
-        measuredAssessment.assessment.id !== event.measuredAssessment.assessment.id);
-  }
-
-  hasSubject(subject: string): boolean {
-    return this._availableSubjects.has(subject);
+    this.selectedAssessments = event.selected
+      ? this.selectedAssessments.concat(event.measuredAssessment)
+      : this.selectedAssessments
+        .filter(measuredAssessment => measuredAssessment.assessment.id !== event.measuredAssessment.assessment.id);
   }
 
   /**
@@ -143,7 +130,21 @@ export class GroupDashboardComponent implements OnInit {
    * @param downloader
    */
   initializeDownloader(downloader: GroupReportDownloadComponent): void {
-    downloader.options.schoolYear = this.currentSchoolYear;
+    downloader.options.schoolYear = this.schoolYear;
+  }
+
+  private createSearch(group?: Group): Search {
+    return this.addGroup({ schoolYear: this.schoolYear }, group ? group : this.group);
+  }
+
+  // TODO should be in provider
+  private addGroup<T extends Search>(search: T, group: Group): T {
+    if (group.userCreated) {
+      search.userGroupId = group.id;
+    } else {
+      search.groupId = group.id;
+    }
+    return search;
   }
 
 }

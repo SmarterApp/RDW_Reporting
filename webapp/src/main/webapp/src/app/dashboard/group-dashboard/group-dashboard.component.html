@@ -3,13 +3,15 @@
     <h2>{{'group-dashboard.heading' | translate}}</h2>
   </ng-template>
   <ng-template #content>
-    <ul class="list-unstyled list-inline" *ngIf="group">
+    <ul class="list-unstyled list-inline"
+        *ngIf="group">
       <li *hasPermission="'INDIVIDUAL_PII_READ'">
         <a routerLink="/custom-export"
            class="btn btn-sm btn-default"><i class="fa fa-table"></i> {{'organization-export.title' | translate}}</a>
       </li>
       <li>
-        <button class="btn btn-default btn-sm" (click)="reportDownloader.modal.show()">
+        <button class="btn btn-default btn-sm"
+                (click)="reportDownloader.modal.show()">
           <i class="fa fa-cloud-download" aria-hidden="true"></i> {{'group-results.group-button-label' | translate}}
         </button>
       </li>
@@ -28,18 +30,24 @@
     <div class="col-md-3">
       <label for="select-group">{{'group-results.select-group' | translate}}</label>
       <!--TODO: type ahead? -->
-      <select id="select-group" [(ngModel)]="currentGroup" [compareWith]="compareGroups" class="form-control"
-              (change)="updateRoute('Group')">
-        <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
+      <select id="select-group"
+              class="form-control"
+              [(ngModel)]="group"
+              (ngModelChange)="updateRoute('Group')">
+        <option *ngFor="let group of groups"
+                [ngValue]="group">{{group.name}}</option>
       </select>
     </div>
 
     <!-- School Year -->
     <div class="col-md-3">
       <label for="school-year">{{'common.school-year-select-label' | translate}}</label>
-      <select id="school-year" [(ngModel)]="currentSchoolYear" (change)="updateRoute('SchoolYear')"
-              class="form-control">
-        <option *ngFor="let year of filterOptions.schoolYears" [ngValue]="year">{{year | schoolYear}}</option>
+      <select id="school-year"
+              class="form-control"
+              [(ngModel)]="schoolYear"
+              (ngModelChange)="updateRoute('SchoolYear')">
+        <option *ngFor="let year of filterOptions.schoolYears"
+                [ngValue]="year">{{year | schoolYear}}</option>
       </select>
     </div>
 
@@ -48,19 +56,19 @@
       <div class="col-md-6">
         <label for="select-subject">{{'common.subject-select-label' | translate}}</label>
         <select id="select-subject"
-                [(ngModel)]="currentSubject"
-                class="form-control"
-                (change)="updateRoute()">
+                [(ngModel)]="subject"
+                class="form-control">
           <option selected [ngValue]="undefined">{{'common.subject.ALL.short-name' | translate}}</option>
-          <option *ngFor="let subject of filterOptions.subjects"
-                  [ngValue]="subject"
-                  [hidden]="!hasSubject(subject)">{{'common.subject.' + subject + '.short-name' | translate}}
+          <option *ngFor="let subject of subjects"
+                  [ngValue]="subject">{{'common.subject.' + subject + '.short-name' | translate}}
           </option>
         </select>
       </div>
       <div class="col-md-6">
-        <a (click)="viewAssessments()" [ngClass]="{'disabled': !cardViewEnabled}" class="col-btn btn btn-primary">{{
-          'assessment-card.view-assessments' | translate }}<i class="ml-xs fa fa-angle-right"></i></a>
+        <a class="col-btn btn btn-primary"
+           [ngClass]="{'disabled': !cardViewEnabled}"
+           (click)="viewAssessments()">{{'assessment-card.view-assessments' | translate }}<i class="ml-xs fa fa-angle-right"></i>
+        </a>
       </div>
     </div>
   </ng-container>
@@ -75,23 +83,23 @@
 
 <div class="col-md-12 mt-md">
   <div class="card-grid">
-    <div *ngFor="let measuredAssessment of sortedMeasuredAssessments">
+    <div *ngFor="let measuredAssessment of filteredMeasuredAssessments">
       <group-assessment-card (selectedAssessment)="onCardSelection($event)"
-                       [group]="group"
-                       [measuredAssessment]="measuredAssessment"></group-assessment-card>
+                             [group]="group"
+                             [measuredAssessment]="measuredAssessment"></group-assessment-card>
     </div>
   </div>
   <!-- No Results Error -->
-  <div class="alert alert-info" *ngIf="measuredAssessments.length == 0">
+  <div class="alert alert-info"
+       *ngIf="measuredAssessments.length == 0">
     {{'group-dashboard.no-results-found' | translate}}
   </div>
 </div>
 
-
 <span group-report-download
       #reportDownloader
-      [title]="'common.reports.form.title.multiple' | translate:currentGroup"
-      [group]="currentGroup"
+      [title]="'common.reports.form.title.multiple' | translate:group"
+      [group]="group"
       [schoolYears]="filterOptions.schoolYears"
-      [schoolYear]="currentSchoolYear"
+      [schoolYear]="schoolYear"
       (onShow)="initializeDownloader(reportDownloader)"></span>

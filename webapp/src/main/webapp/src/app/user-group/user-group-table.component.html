@@ -33,7 +33,7 @@
 
         <div *ngSwitchCase="'group'"
              class="label-max-width">
-          <a routerLink="/exams?teacherGroup={{group.id}}"
+          <a [routerLink]="['group-exams', {userGroupId: group.id}]"
              title="{{group.name}}">
             {{group.name}}
           </a>
@@ -46,7 +46,7 @@
         </ng-container>
 
         <ng-container *ngSwitchCase="'action'">
-          <a routerLink="userGroups/{{group.id}}">
+          <a routerLink="user-groups/{{group.id}}">
             <i class="fa fa-pencil"></i> {{'user-group-table.edit' | translate}}
           </a>
         </ng-container>

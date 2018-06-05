@@ -140,6 +140,19 @@ insert into user_student_group(student_group_id, user_login) values
   (-30, 'someoneelse@somewhere.com'),
   (-40, 'someone@somewhere.com');
 
+-- user groups
+insert into teacher_student_group (id, name, school_year, subject_id, user_login) values
+  (-10, 'group1', 1997, 1, 'someone@somewhere.com'),
+  (-20, 'group2', 1997, null, 'someone@somewhere.com'),
+  (-30, 'group3', 1997, null, 'someoneelse@somewhere.com'),
+  (-40, 'group4', 1997, null, 'someone@somewhere.com');
+
+insert into teacher_student_group_membership (teacher_student_group_id, student_id) values
+  (-10, -1),
+  (-20, -1),
+  (-30, -1),
+  (-40, -2);
+
 insert into ethnicity (id, code) values
   (8, 'Filipino');
 
@@ -177,4 +190,10 @@ insert into student_group_membership (student_group_id, student_id) values
   (-100, -100);
 
 insert into user_student_group(student_group_id, user_login) values
-   (-100, 'someone@somewhere.com');
+  (-100, 'someone@somewhere.com');
+
+insert into teacher_student_group(id, name, school_year, subject_id, user_login) values
+  (-100, 'transfer groupSomeone', 1998, null, 'someone@somewhere.com');
+
+insert into teacher_student_group_membership (teacher_student_group_id, student_id) values
+  (-100, -100);

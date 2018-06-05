@@ -7,8 +7,9 @@ import { ExamFilterOptionsService } from '../../assessments/filters/exam-filters
 import { MockActivatedRoute } from '../../shared/test/mock.activated-route';
 import { GroupDashboardComponent } from './group-dashboard.component';
 import { MockRouter } from '../../shared/test/mock.router';
+import { UserGroupService } from '../../user-group/user-group.service';
 
-describe('StudentDashboardComponent', () => {
+describe('GroupDashboardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -19,6 +20,7 @@ describe('StudentDashboardComponent', () => {
         GroupDashboardComponent,
         { provide: ActivatedRoute, useClass: MockActivatedRoute },
         { provide: Router, useClass: MockRouter },
+        { provide: UserGroupService, useClass: MockUserGroupService },
         { provide: GroupService, useClass: MockGroupService },
         { provide: GroupDashboardService, useClass: MockGroupDashboardService },
         { provide: ExamFilterOptionsService, useClass: MockExamFilterOptionsService },
@@ -33,7 +35,7 @@ describe('StudentDashboardComponent', () => {
 
   it('should return undefined subject by default',
     inject([ GroupDashboardComponent ], (builder: GroupDashboardComponent) => {
-      expect(builder.currentSubject).toBeUndefined();
+      expect(builder.subject).toBeUndefined();
     }));
 
   it('should respect card view enabled property',
@@ -51,6 +53,10 @@ class MockGroupDashboardService {
 }
 
 class MockExamFilterOptionsService {
+
+}
+
+class MockUserGroupService {
 
 }
 

@@ -4,10 +4,9 @@ import { ResponseUtils } from '../../shared/response-utils';
 import { Injectable } from '@angular/core';
 import { ReportingServiceRoute } from '../../shared/service-route';
 import { DataService } from '../../shared/data/data.service';
-import { URLSearchParams } from '@angular/http';
-import { Group } from '../../groups/group';
 import { MeasuredAssessment } from '../measured-assessment';
 import { MeasuredAssessmentMapper } from '../measured-assessment.mapper';
+import { Search } from '../../groups/results/group-assessment.service';
 
 const ServiceRoute = ReportingServiceRoute;
 
@@ -18,20 +17,13 @@ export class GroupDashboardService {
               private measuredAssessmentMapper: MeasuredAssessmentMapper) {
   }
 
-  getAvailableMeasuredAssessments(group: Group, schoolYear: number): Observable<MeasuredAssessment[]> {
-    return this.dataService.get(`${ServiceRoute}/groups/${group.id}/measuredassessments`, {
-      search: this.getSchoolYearParams(schoolYear)
+  getAvailableMeasuredAssessments(search: Search): Observable<MeasuredAssessment[]> {
+    return this.dataService.get(`${ServiceRoute}/measuredassessments`, {
+      params: <any>search
     }).pipe(
       catchError(ResponseUtils.badResponseToNull),
       map(serverAssessments => this.measuredAssessmentMapper.mapMeasuredAssessmentsFromApi(serverAssessments))
     );
   }
-
-  private getSchoolYearParams(schoolYear): URLSearchParams {
-    const params: URLSearchParams = new URLSearchParams();
-    params.set('schoolYear', schoolYear.toString());
-    return params;
-  }
-
 
 }

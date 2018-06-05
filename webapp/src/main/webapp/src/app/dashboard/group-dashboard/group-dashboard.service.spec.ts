@@ -5,7 +5,7 @@ import { GroupDashboardService } from './group-dashboard.service';
 import { DataService } from '../../shared/data/data.service';
 import { MeasuredAssessmentMapper } from '../measured-assessment.mapper';
 
-describe('StudentDashboardService', () => {
+describe('GroupDashboardService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({

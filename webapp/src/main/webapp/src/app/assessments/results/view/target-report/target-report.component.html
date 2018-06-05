@@ -116,16 +116,16 @@
 
             <!-- pick the icon -->
             <span [ngSwitch]="getTargetReportingLevelString(rowData.studentRelativeLevel)">
-              <span *ngSwitchCase="'Above'"
-                    class="label label-lg sb-iab-green">
+              <span *ngSwitchCase="'Above'">
+                <span class="blue"><i class="fa fa-lg fa-arrow-up"></i></span>
                 {{'aggregate-report-table.target.overall.Above' | translate}}
               </span>
-              <span *ngSwitchCase="'Near'"
-                    class="label label-lg sb-iab-yellow">
+              <span *ngSwitchCase="'Near'">
+                <span class="blue"><sb-icon class="fa-lg" icon="fa-equals"></sb-icon></span>
                 {{'aggregate-report-table.target.overall.Near' | translate}}
               </span>
-              <span *ngSwitchCase="'Below'"
-                    class="label label-lg sb-iab-red">
+              <span *ngSwitchCase="'Below'">
+                <span class="blue"><i class="fa fa-lg fa-arrow-down"></i></span>
                 {{'aggregate-report-table.target.overall.Below' | translate}}
               </span>
               <span *ngSwitchCase="'InsufficientData'"

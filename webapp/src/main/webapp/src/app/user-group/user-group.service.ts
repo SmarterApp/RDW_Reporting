@@ -7,11 +7,25 @@ import { DataService } from '../shared/data/data.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Utils } from '../shared/support/support';
 import { Student } from '../student/search/student';
+import { Group } from '../groups/group';
 
 @Injectable()
 export class UserGroupService {
 
   constructor(private dataService: DataService) {
+  }
+
+  getGroupsAsGroups(): Observable<Group[]> {
+    return this.getGroups().pipe(
+      map(userGroups => userGroups.map(userGroup => <Group>{
+        id: userGroup.id,
+        name: userGroup.name,
+        schoolId: null,
+        schoolName: '',
+        subjectCode: userGroup.subjects != null ? userGroup.subjects[ 0 ] : undefined,
+        userCreated: true
+      }))
+    );
   }
 
   getGroups(): Observable<UserGroup[]> {

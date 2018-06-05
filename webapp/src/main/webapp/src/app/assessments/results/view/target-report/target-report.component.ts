@@ -22,6 +22,7 @@ import { ExamFilterOptionsService } from '../../../filters/exam-filters/exam-fil
 import { ExamFilterOptions } from '../../../model/exam-filter-options.model';
 import { TargetStatisticsCalculator } from '../../target-statistics-calculator';
 import { Subgroup } from '../../../../aggregate-report/subgroup/subgroup';
+import { AssessmentProvider } from '../../../assessment-provider.interface';
 import { byNumericString, SubjectClaimOrderings } from '../../../../shared/ordering/orderings';
 import { ApplicationSettingsService } from '../../../../app-settings.service';
 import { ExportResults } from '../../assessment-results.component';
@@ -31,6 +32,10 @@ import { ExportResults } from '../../assessment-results.component';
   templateUrl: './target-report.component.html'
 })
 export class TargetReportComponent implements OnInit, ExportResults {
+
+  @Input()
+  assessmentProvider: AssessmentProvider;
+
   /**
    * The assessment
    */
@@ -94,12 +99,12 @@ export class TargetReportComponent implements OnInit, ExportResults {
 
   // TODO: handle ELAS, vs LEP decision
   allSubgroups: any[] = [
-    {code: 'Gender', translatecode: 'gender-label', selected: false},
-    {code: 'Ethnicity', translatecode: 'ethnicity-label', selected: false},
-    {code: 'ELAS', translatecode: 'elas-label', selected: false},
-    {code: 'Section504', translatecode: '504-label', selected: false},
-    {code: 'IEP', translatecode: 'iep-label', selected: false},
-    {code: 'MigrantStatus', translatecode: 'migrant-status-label', selected: false}
+    { code: 'Gender', translatecode: 'gender-label', selected: false },
+    { code: 'Ethnicity', translatecode: 'ethnicity-label', selected: false },
+    { code: 'ELAS', translatecode: 'elas-label', selected: false },
+    { code: 'Section504', translatecode: '504-label', selected: false },
+    { code: 'IEP', translatecode: 'iep-label', selected: false },
+    { code: 'MigrantStatus', translatecode: 'migrant-status-label', selected: false }
   ];
 
   private _sessions: any[];
@@ -113,13 +118,15 @@ export class TargetReportComponent implements OnInit, ExportResults {
               private targetService: TargetService,
               private dataTableService: DataTableService,
               private assessmentExamMapper: AssessmentExamMapper,
-              private assessmentProvider: GroupAssessmentService,
               private filterOptionService: ExamFilterOptionsService,
+              private assessmentService: GroupAssessmentService,
               private applicationSettingsService: ApplicationSettingsService) {
   }
 
-  ngOnInit() {
-    if (!this.showResults) return;
+  ngOnInit(): void {
+    if (!this.showResults) {
+      return;
+    }
 
     this.loading = true;
 
@@ -146,7 +153,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
       this.targetStatisticsCalculator.insufficientDataCutoff = applicationSettings.targetReport.insufficientDataCutoff;
 
       this.targetDisplayMap = allTargets.reduce((targetMap, target) => {
-        targetMap[target.id] = {
+        targetMap[ target.id ] = {
           name: this.assessmentExamMapper.formatTarget(target.code),
           description: target.description,
           claim: target.claimCode
@@ -187,7 +194,9 @@ export class TargetReportComponent implements OnInit, ExportResults {
   }
 
   calculateTreeColumns() {
-    if (this.dataTable == null) return;
+    if (this.dataTable == null) {
+      return;
+    }
 
     this.treeColumns = this.dataTableService.calculateTreeColumns(
       this.aggregateTargetScoreRows,
@@ -200,9 +209,12 @@ export class TargetReportComponent implements OnInit, ExportResults {
   sortRows() {
     const bySubgroup = (a: Subgroup, b: Subgroup) => {
       // Overall should be first
-      if (a.name.startsWith('Overall') && !b.name.startsWith('Overall')) return -1;
-      if (!a.name.startsWith('Overall') && b.name.startsWith('Overall')) return 1;
-
+      if (a.name.startsWith('Overall') && !b.name.startsWith('Overall')) {
+        return -1;
+      }
+      if (!a.name.startsWith('Overall') && b.name.startsWith('Overall')) {
+        return 1;
+      }
       return a.name.localeCompare(b.name);
     };
 
@@ -223,8 +235,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
 
     if (subgroup.selected) {
       this.addSubgroup(subgroup.code);
-    }
-    else {
+    } else {
       this.removeSubgroup(subgroup.code);
     }
   }
@@ -235,14 +246,14 @@ export class TargetReportComponent implements OnInit, ExportResults {
 
   addSubgroup(subgroupCode: string) {
     this.aggregateTargetScoreRows.push(
-      ...this.targetStatisticsCalculator.aggregateSubgroupScores(this.assessment.subject, this.allTargets, this.targetScoreExams, [subgroupCode], this.subgroupOptions)
+      ...this.targetStatisticsCalculator.aggregateSubgroupScores(this.assessment.subject, this.allTargets, this.targetScoreExams, [ subgroupCode ], this.subgroupOptions)
     );
 
     this.updateTargetScoreTable();
   }
 
   removeSubgroup(subgroupCode: string) {
-    this.aggregateTargetScoreRows = this.aggregateTargetScoreRows.filter(x => x.subgroup.dimensionGroups[0].type != subgroupCode);
+    this.aggregateTargetScoreRows = this.aggregateTargetScoreRows.filter(x => x.subgroup.dimensionGroups[ 0 ].type != subgroupCode);
     this.calculateTreeColumns();
   }
 
@@ -254,7 +265,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
       this.targetScoreExams);
 
     // add selected subgroups
-    let subgroupCodes = this.allSubgroups.filter(x => x.selected).map(x => x.code);
+    const subgroupCodes = this.allSubgroups.filter(x => x.selected).map(x => x.code);
 
     this.aggregateTargetScoreRows.push(
       ...this.targetStatisticsCalculator.aggregateSubgroupScores(this.assessment.subject, this.allTargets, this.targetScoreExams, subgroupCodes, this.subgroupOptions)
@@ -270,11 +281,12 @@ export class TargetReportComponent implements OnInit, ExportResults {
     this.targetScoreExams = this.filterExams();
     this.recalculateAggregateRows();
     this.updateTargetScoreTable();
-
   }
 
   private filterExams(): TargetScoreExam[] {
-    if (this.originalTargetScoreExams == null) return [];
+    if (this.originalTargetScoreExams == null) {
+      return [];
+    }
 
     const exams: TargetScoreExam[] = <TargetScoreExam[]>this.examFilterService
       .filterExams(this.originalTargetScoreExams, this.assessment, this._filterBy);
@@ -292,11 +304,11 @@ export class TargetReportComponent implements OnInit, ExportResults {
   }
 
   getTargetDisplay(row: AggregateTargetScoreRow): any {
-    return this.targetDisplayMap[row.targetId];
+    return this.targetDisplayMap[ row.targetId ];
   }
 
   getTargetReportingLevelString(level: TargetReportingLevel): string {
-    return TargetReportingLevel[level];
+    return TargetReportingLevel[ level ];
   }
 }
 
@@ -310,7 +322,7 @@ class Column implements BaseColumn {
                 id,
                 field = '',
                 sortField = '',
-                headerInfo = false,
+                headerInfo = false
               }) {
     this.id = id;
     this.field = field ? field : id;

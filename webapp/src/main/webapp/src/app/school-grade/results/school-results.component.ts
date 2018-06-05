@@ -71,7 +71,6 @@ export class SchoolResultsComponent implements OnInit {
 
     if (!Utils.isNullOrUndefined(value)) {
       this.assessmentProvider.schoolId = value.id;
-      this.assessmentProvider.schoolName = value.name;
       this.assessmentExporter.schoolId = value.id;
       this.assessmentExporter.schoolName = value.name;
     }
