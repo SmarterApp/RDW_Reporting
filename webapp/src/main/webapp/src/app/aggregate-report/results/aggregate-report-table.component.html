@@ -89,8 +89,8 @@
           </div>
 
           <div *ngSwitchCase="'assessmentLabel'"
-              class="label-max-width-sm"
-              title="{{rowData.assessmentLabel}}">
+               class="label-max-width-sm"
+               title="{{rowData.assessmentLabel}}">
             {{rowData.assessmentLabel}}
           </div>
 
@@ -168,60 +168,62 @@
 
           <div *ngSwitchCase="'studentRelativeResidualScoresLevel'"
                class="text-center">
-
-            <!-- pick the icon -->
-            <ng-container [ngSwitch]="rowData.studentRelativeResidualScoresLevel">
-              <span *ngSwitchCase="'Above'">
-                <span class="blue"><i class="fa fa-lg fa-arrow-up"></i></span>
-                {{'aggregate-report-table.target.overall.' + rowData.studentRelativeResidualScoresLevel | translate}}
-              </span>
-              <span *ngSwitchCase="'Near'">
-                <span class="blue">
-                  <sb-icon class="fa-lg" icon="fa-equals"></sb-icon>
+            <span *ngIf="!rowData.studentsTested">-</span>
+            <ng-container *ngIf="rowData.studentsTested">
+              <!-- pick the icon -->
+              <ng-container [ngSwitch]="rowData.studentRelativeResidualScoresLevel">
+                <span *ngSwitchCase="'Above'">
+                  <span class="blue"><i class="fa fa-lg fa-arrow-up"></i></span>
+                  {{'aggregate-report-table.target.overall.' + rowData.studentRelativeResidualScoresLevel | translate}}
                 </span>
-                {{'aggregate-report-table.target.overall.' + rowData.studentRelativeResidualScoresLevel | translate}}
-              </span>
-              <span *ngSwitchCase="'Below'">
-                <span class="blue"><i class="fa fa-lg fa-arrow-down"></i></span>
-                {{'aggregate-report-table.target.overall.' + rowData.studentRelativeResidualScoresLevel | translate}}
-              </span>
-              <span *ngSwitchCase="'InsufficientData'"
-                    class="label label-lg gray-light">
-                {{'aggregate-report-table.target.overall.' + rowData.studentRelativeResidualScoresLevel | translate}}
-              </span>
-              <span *ngSwitchDefault>
-                {{'aggregate-report-table.target.overall.' + rowData.studentRelativeResidualScoresLevel | translate}}
-              </span>
+                <span *ngSwitchCase="'Near'">
+                  <span class="blue">
+                    <sb-icon class="fa-lg" icon="fa-equals"></sb-icon>
+                  </span>
+                  {{'aggregate-report-table.target.overall.' + rowData.studentRelativeResidualScoresLevel | translate}}
+                </span>
+                <span *ngSwitchCase="'Below'">
+                  <span class="blue"><i class="fa fa-lg fa-arrow-down"></i></span>
+                  {{'aggregate-report-table.target.overall.' + rowData.studentRelativeResidualScoresLevel | translate}}
+                </span>
+                <span *ngSwitchCase="'InsufficientData'"
+                      class="label label-lg gray-light">
+                  {{'aggregate-report-table.target.overall.' + rowData.studentRelativeResidualScoresLevel | translate}}
+                </span>
+                <span *ngSwitchDefault>
+                  {{'aggregate-report-table.target.overall.' + rowData.studentRelativeResidualScoresLevel | translate}}
+                </span>
+              </ng-container>
             </ng-container>
-
           </div>
 
           <div *ngSwitchCase="'standardMetRelativeResidualLevel'"
                class="text-center">
-
-            <!-- pick the label color -->
-            <span [ngSwitch]="rowData.standardMetRelativeResidualLevel">
-              <span *ngSwitchCase="'Above'"
-                    class="label label-lg performance-label sb-iab-green">
-                {{'aggregate-report-table.target.standard.Above' | translate}}
+            <span *ngIf="!rowData.studentsTested">-</span>
+            <ng-container *ngIf="rowData.studentsTested">
+              <!-- pick the label color -->
+              <span [ngSwitch]="rowData.standardMetRelativeResidualLevel">
+                <span *ngSwitchCase="'Above'"
+                      class="label label-lg performance-label sb-iab-green">
+                  {{'aggregate-report-table.target.standard.Above' | translate}}
+                </span>
+                <span *ngSwitchCase="'Near'"
+                      class="label label-lg performance-label sb-iab-yellow">
+                  {{'aggregate-report-table.target.standard.Near' | translate}}
+                </span>
+                <span *ngSwitchCase="'Below'"
+                      class="label label-lg performance-label sb-iab-red">
+                  {{'aggregate-report-table.target.standard.Below' | translate}}
+                </span>
+                <span *ngSwitchCase="'InsufficientData'"
+                      class="label label-lg gray-light">
+                  {{'aggregate-report-table.target.standard.InsufficientData' | translate}}
+                </span>
+                <span *ngSwitchCase="'Excluded'">
+                  {{'aggregate-report-table.target.standard.Excluded' | translate}}
+                </span>
               </span>
-              <span *ngSwitchCase="'Near'"
-                    class="label label-lg performance-label sb-iab-yellow">
-                {{'aggregate-report-table.target.standard.Near' | translate}}
-              </span>
-              <span *ngSwitchCase="'Below'"
-                    class="label label-lg performance-label sb-iab-red">
-                {{'aggregate-report-table.target.standard.Below' | translate}}
-              </span>
-              <span *ngSwitchCase="'InsufficientData'"
-                    class="label label-lg gray-light">
-                {{'aggregate-report-table.target.standard.InsufficientData' | translate}}
-              </span>
-              <span *ngSwitchCase="'Excluded'">
-                {{'aggregate-report-table.target.standard.Excluded' | translate}}
-              </span>
-            </span>
-
+            </ng-container>
           </div>
         </div>
       </td>

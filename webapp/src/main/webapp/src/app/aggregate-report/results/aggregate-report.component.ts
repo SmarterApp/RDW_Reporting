@@ -87,7 +87,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   }
 
   get effectiveReportType() {
-    return this.reportService.getEffectiveReportType(<'GeneralPopulation' | 'LongitudinalCohort' | 'Claim'>this.report.request.query.reportType, this.assessmentDefinition);
+    return this.reportService.getEffectiveReportType(<'GeneralPopulation' | 'LongitudinalCohort' | 'Claim' | 'Target'>this.report.request.query.reportType, this.assessmentDefinition);
   }
 
   get displayOptions(): AggregateReportTableDisplayOptions {
@@ -243,9 +243,14 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   private loadReport(): void {
     this.spinnerModal.loading = true;
 
-    const observable = this.isLongitudinal
-      ? this.reportService.getLongitudinalReport(this.report.id)
-      : this.reportService.getAggregateReport(this.report.id);
+    let observable;
+    if (this.effectiveReportType === "LongitudinalCohort") {
+      observable = this.reportService.getLongitudinalReport(this.report.id);
+    } else if (this.effectiveReportType === "Target") {
+      observable = this.reportService.getTargetReport(this.report.id);
+    } else {
+      observable = this.reportService.getAggregateReport(this.report.id);
+    }
 
     observable.pipe(
       finalize(() => {
@@ -271,7 +276,6 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     this.reportViews = rows.reduce((views, row, index) => {
       const item = rowMapper(query, this.assessmentDefinition, row, index);
       const subjectCode = row.assessment.subjectCode;
-      const hasClaimCode = row.claimCode !== undefined;
       let view = views.find(wrapper => wrapper.subjectCode === subjectCode);
       const columnOrder: string[] = Utils.isNullOrEmpty(this.report.request.query.columnOrder)
         ? this.assessmentDefinition.aggregateReportIdentityColumns.concat()
@@ -284,7 +288,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
             options: this.options,
             assessmentDefinition: this.assessmentDefinition,
             rows: [ item ],
-            reportType: hasClaimCode ? 'Claim' : 'GeneralPopulation'
+            reportType: this.report.request.query.reportType
           },
           valueDisplayType: this.query.valueDisplayType,
           performanceLevelDisplayType: this.query.achievementLevelDisplayType,

@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AggregateReportItem } from './aggregate-report-item';
-import {
-  AggregateReportRow,
-  AggregateReportRowMeasure
-} from '../../report/aggregate-report';
+import { AggregateReportRow, AggregateReportRowMeasure } from '../../report/aggregate-report';
 import { AssessmentDefinition } from '../assessment/assessment-definition';
 import { OrganizationMapper } from '../../shared/organization/organization.mapper';
 import { SubgroupMapper } from '../subgroup/subgroup.mapper';
@@ -39,6 +36,15 @@ export class AggregateReportItemMapper {
     item.schoolYear = row.assessment.examSchoolYear;
     item.organization = this.organizationMapper.map(row.organization);
     item.claimCode = row.claimCode;
+    item.targetNaturalId = row.targetNaturalId;
+    item.studentRelativeResidualScoresLevel = row.studentRelativeResidualScoresLevel;
+    item.standardMetRelativeResidualLevel = row.standardMetRelativeResidualLevel;
+    item.targetDescription = row.targetDescription;
+
+    const dashIndex = row.targetCode ? row.targetCode.indexOf('-') : -1;
+    item.targetCode = dashIndex === -1
+      ? row.targetCode
+      : row.targetCode.substring(0, dashIndex);
 
     item.subgroup = this.subgroupMapper.fromAggregateReportRow(query, row);
 
@@ -46,17 +52,14 @@ export class AggregateReportItemMapper {
     item.avgScaleScore = measures.avgScaleScore || 0;
     item.avgStdErr = measures.avgStdErr || 0;
 
-    let totalTested = 0;
-
     for (let level = 1; level <= assessmentDefinition.performanceLevelCount; level++) {
       const count = measures[ `level${level}Count` ] || 0;
-      totalTested += count;
       itemPerformanceLevelCounts.push(count);
     }
-    item.studentsTested = totalTested;
+    item.studentsTested = row.measures.studentCount;
 
     for (let level = 0; level < itemPerformanceLevelCounts.length; level++) {
-      const percent = totalTested === 0 ? 0 : Math.floor((itemPerformanceLevelCounts[ level ] / totalTested) * 100);
+      const percent = item.studentsTested === 0 ? 0 : Math.floor((itemPerformanceLevelCounts[ level ] / item.studentsTested) * 100);
       itemPerformanceLevelPercents.push(percent);
     }
 
@@ -75,8 +78,8 @@ export class AggregateReportItemMapper {
       itemGroupedPerformanceLevelCounts.push(belowCount);
       itemGroupedPerformanceLevelCounts.push(aboveCount);
 
-      itemGroupedPerformanceLevelPercents.push(totalTested === 0 ? 0 : Math.floor((belowCount / totalTested) * 100));
-      itemGroupedPerformanceLevelPercents.push(totalTested === 0 ? 0 : Math.floor((aboveCount / totalTested) * 100));
+      itemGroupedPerformanceLevelPercents.push(item.studentsTested === 0 ? 0 : Math.floor((belowCount / item.studentsTested) * 100));
+      itemGroupedPerformanceLevelPercents.push(item.studentsTested === 0 ? 0 : Math.floor((aboveCount / item.studentsTested) * 100));
     }
 
     return item;

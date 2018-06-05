@@ -10,6 +10,7 @@ import { AssessmentService } from './assessment/assessment.service';
 import { map } from 'rxjs/operators';
 import { Assessment } from './assessment/assessment';
 import { AssessmentDefinition } from './assessment/assessment-definition';
+import { TargetService } from "../shared/target/target.service";
 
 export interface BasicReport {
   readonly rows: AggregateReportRow[];
@@ -29,7 +30,8 @@ export class AggregateReportService {
 
   constructor(private dataService: DataService,
               private reportService: ReportService,
-              private assessmentService: AssessmentService) {
+              private assessmentService: AssessmentService,
+              private targetService: TargetService) {
   }
 
   /**
@@ -100,6 +102,40 @@ export class AggregateReportService {
           map(assessments => <LongitudinalReport>{ rows, assessments })
         )
       });
+  }
+
+  /**
+   *
+   * @param {number} id
+   * @returns {Observable<BasicReport>}
+   * @deprecated With configurable subjects, we should get target display text via translation
+   */
+  getTargetReport(id: number): Observable<BasicReport> {
+    return this.getAggregateReport(id)
+      .flatMap((report) => {
+        return report.rows.length === 0
+          ? Observable.of({report: report, targets: []})
+          : this.targetService.getTargetsForAssessment(report.rows[0].assessment.id)
+            .pipe(
+              map((targets) => <any>{report: report, targets: targets})
+            );
+      })
+      .pipe(
+        map(({report, targets}) => {
+          const targetByNaturalId = {};
+          targets.forEach(target => {
+            targetByNaturalId[target.naturalId] = target;
+          });
+          for (let row of report.rows) {
+            const target = targetByNaturalId[row.targetNaturalId];
+            if (target) {
+              (<any>row).targetCode = target.code;
+              (<any>row).targetDescription = target.description;
+            }
+          }
+          return report;
+        })
+      );
   }
 
 }

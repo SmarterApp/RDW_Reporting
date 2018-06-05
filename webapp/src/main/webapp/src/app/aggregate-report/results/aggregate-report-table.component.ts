@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Ordering, ordering } from '@kourge/ordering';
 import { AggregateReportItem } from './aggregate-report-item';
 import { byNumber, byString, Comparator, join, ranking } from '@kourge/ordering/comparator';
@@ -17,6 +17,7 @@ import { organizationOrdering, subgroupOrdering } from '../support';
 import { TranslateService } from '@ngx-translate/core';
 import { AggregateReportService } from '../aggregate-report.service';
 import { BaseColumn } from '../../shared/datatable/base-column.model';
+import { SubjectClaimOrderings } from "../../shared/ordering/orderings";
 
 export const SupportedRowCount = 10000;
 export const DefaultRowsPerPageOptions = [ 100, 500, 1000 ];
@@ -35,11 +36,15 @@ const SchoolYearOrdering: Ordering<AggregateReportItem> = ordering(byNumber)
 const AssessmentLabelOrdering: Ordering<AggregateReportItem> = ordering(byString)
   .on(item => item.assessmentLabel);
 
-const ClaimOrdering: Ordering<AggregateReportItem> = ordering(byString)
+const ScorableClaimOrdering: Ordering<AggregateReportItem> = ordering(byString)
   .on(item => item.claimCode);
 
-const TargetOrdering: Ordering<AggregateReportItem> = ordering(byString)
-  .on(item => item.targetNaturalId);
+const OrganizationalClaimOrderingProvider: (subjectCode: string) => Ordering<AggregateReportItem> = (subjectCode) =>
+  (SubjectClaimOrderings.get(subjectCode) || ordering(byString))
+    .on(item => item.claimCode);
+
+const TargetOrdering: Ordering<AggregateReportItem> = ordering(Utils.byNumericString)
+  .on(item => item.targetCode || item.targetNaturalId);
 
 /**
  * This component is responsible for displaying a table of aggregate report results
@@ -57,19 +62,19 @@ const TargetOrdering: Ordering<AggregateReportItem> = ordering(byString)
     '[class.disabled-table]': 'preview'
   }
 })
-export class AggregateReportTableComponent implements OnInit {
+export class AggregateReportTableComponent {
 
   @Input()
   public preview: boolean = false;
+
+  @Input()
+  public rowsPerPageOptions: number[] = DefaultRowsPerPageOptions;
 
   @ViewChild('dataTable')
   private dataTable: Table;
 
   public treeColumns: number[] = [];
   public columns: Column[];
-
-  @Input()
-  public rowsPerPageOptions: number[] = DefaultRowsPerPageOptions;
 
   private _previousSortEvent: any;
   private _table: AggregateReportTable;
@@ -269,15 +274,24 @@ export class AggregateReportTableComponent implements OnInit {
   }
 
   private getClaimCodeTranslationKey(row: AggregateReportItem): string {
-    return `common.subject.${row.subjectCode}.claim.${row.claimCode}.name`;
+    return this.table.reportType === 'Target'
+      ? `common.claim-name.${row.claimCode}`
+      : `common.subject.${row.subjectCode}.claim.${row.claimCode}.name`;
   }
 
   getClaimCodeTranslation(row: AggregateReportItem): string {
     return this.translate.instant(this.getClaimCodeTranslationKey(row));
   }
 
-  getTargetDisplay(row: AggregateReportItem): string {
-    return "Fetch target display from API here";
+  getTargetDisplay(row: AggregateReportItem): {name: string, description: string} {
+    const targetName: string = row.targetCode
+      ? row.targetCode
+      : this.translate.instant("common.unknown") + ' (' + row.targetNaturalId + ')';
+
+    return {
+      name: targetName,
+      description: row.targetDescription || ''
+    };
   }
 
   private buildAndRender({ rows, options, assessmentDefinition, reportType }: AggregateReportTable): void {
@@ -290,7 +304,9 @@ export class AggregateReportTableComponent implements OnInit {
     this._orderingByColumnField[ 'organization.name' ] = organizationOrdering(item => item.organization, rows);
     this._orderingByColumnField[ 'assessmentGradeCode' ] = assessmentGradeOrdering;
     this._orderingByColumnField[ 'schoolYear' ] = SchoolYearOrdering;
-    this._orderingByColumnField[ 'claimCode' ] = ClaimOrdering;
+    this._orderingByColumnField[ 'claimCode' ] = reportType === 'Target'
+      ? OrganizationalClaimOrderingProvider(rows[0].subjectCode)
+      : ScorableClaimOrdering;
     this._orderingByColumnField[ 'subgroup.id' ] = subgroupOrdering(item => item.subgroup, options);
     this._orderingByColumnField[ 'targetNaturalId' ] = TargetOrdering;
 

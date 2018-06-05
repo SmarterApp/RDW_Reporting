@@ -25,6 +25,7 @@ import { Subgroup } from '../../../../aggregate-report/subgroup/subgroup';
 import { SubjectClaimOrderings } from '../../../../shared/ordering/orderings';
 import { ApplicationSettingsService } from '../../../../app-settings.service';
 import { ExportResults } from '../../assessment-results.component';
+import { Utils } from "../../../../shared/support/support";
 
 @Component({
   selector: 'target-report',
@@ -88,7 +89,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
 
   // holds the original values that includes all the data
   originalTargetScoreExams: TargetScoreExam[];
-  
+
   // the filtered values used to get the aggregate rows for the data table
   targetScoreExams: TargetScoreExam[];
 
@@ -198,15 +199,6 @@ export class TargetReportComponent implements OnInit, ExportResults {
   }
 
   sortRows() {
-    const byTarget = (a: string, b: string) => {
-      let numA = Number(a);
-      let numB = Number(b);
-
-      if (!Number.isNaN(numA) && !Number.isNaN(numB)) return numA - numB;
-
-      return a.localeCompare(b);
-    };
-
     const bySubgroup = (a: Subgroup, b: Subgroup) => {
       // Overall should be first
       if (a.name.startsWith('Overall') && !b.name.startsWith('Overall')) return -1;
@@ -218,7 +210,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
     this.aggregateTargetScoreRows.sort(
       join(
         SubjectClaimOrderings.get(this.assessment.subject).on<AggregateTargetScoreRow>(row => row.claim).compare,
-        ordering(byTarget).on<AggregateTargetScoreRow>(row => row.target).compare,
+        ordering(Utils.byNumericString).on<AggregateTargetScoreRow>(row => row.target).compare,
         ordering(bySubgroup).on<AggregateTargetScoreRow>(row => row.subgroup).compare
       )
     );

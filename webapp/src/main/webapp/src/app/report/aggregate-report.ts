@@ -12,6 +12,13 @@ export interface AggregateReportRow {
    * These measures are present on longitudinal reports only
    */
   readonly cohortMeasures?: AggregateReportRowMeasure;
+
+  /**
+   * These properties are present on target reports only
+   */
+  readonly targetNaturalId?: string;
+  readonly studentRelativeResidualScoresLevel?: string;
+  readonly standardMetRelativeResidualLevel?: string;
 }
 
 export interface ServerOrganization {
@@ -41,4 +48,5 @@ export interface AggregateReportRowMeasure {
   readonly level2Count: number;
   readonly level3Count: number;
   readonly level4Count: number;
+  readonly studentCount: number;
 }

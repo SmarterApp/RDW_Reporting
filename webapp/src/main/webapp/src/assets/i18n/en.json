@@ -853,6 +853,7 @@
       "SOCK_R": "Reading"
     },
     "subject-select-label": "Subject",
+    "unknown": "Unknown",
     "value-display-type": {
       "Number": "Number",
       "Percent": "Percent"
