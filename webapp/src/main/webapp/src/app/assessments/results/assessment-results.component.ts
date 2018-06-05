@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { AssessmentExam } from '../model/assessment-exam.model';
 import { Exam } from '../model/exam.model';
@@ -27,6 +27,7 @@ import { PercentileGroup } from '../percentile/assessment-percentile';
 import { Utils } from '../../shared/support/support';
 import { ApplicationSettingsService } from '../../app-settings.service';
 import { Angulartics2 } from 'angulartics2';
+import { TargetReportComponent } from './view/target-report/target-report.component';
 
 enum ResultsViewState {
   ByStudent = 1,
@@ -106,6 +107,13 @@ export class AssessmentResultsComponent implements OnInit {
   allowFilterBySessions = true;
 
   /**
+   * If true, the target report view will be displayed for Summative assessments. This is a Group only feature,
+   * so it will be disabled for the school/grade display.
+   */
+  @Input()
+  allowTargetReport = false;
+
+  /**
    * If true, the results are collapsed by default, otherwise they are expanded
    * with the results shown.
    */
@@ -179,27 +187,31 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   get displayTargetReport(): boolean {
-    return this._assessmentExam.assessment.isSummative;
+    return this.allowTargetReport && this._assessmentExam.assessment.isSummative;
   }
 
   get showStudentResults(): boolean {
-    return this.currentResultsView.value === ResultsViewState.ByStudent;
+    return this.isCurrentView(ResultsViewState.ByStudent);
   }
 
   get showItemsByPointsEarned(): boolean {
-    return this.currentResultsView.value === ResultsViewState.ByItem;
+    return this.isCurrentView(ResultsViewState.ByItem);
   }
 
   get showDistractorAnalysis(): boolean {
-    return this.currentResultsView.value === ResultsViewState.DistractorAnalysis;
+    return this.isCurrentView(ResultsViewState.DistractorAnalysis);
   }
 
   get showWritingTraitScores(): boolean {
-    return this.currentResultsView.value === ResultsViewState.WritingTraitScores;
+    return this.isCurrentView(ResultsViewState.WritingTraitScores);
   }
 
   get showTargetReport(): boolean {
-    return this.currentResultsView.value === ResultsViewState.TargetReport;
+    return this.isCurrentView(ResultsViewState.TargetReport);
+  }
+
+  private isCurrentView(viewState: ResultsViewState): boolean {
+    return this.currentResultsView != null && this.currentResultsView.value === viewState;
   }
 
   get currentExportResults(): ExportResults {
@@ -239,7 +251,7 @@ export class AssessmentResultsComponent implements OnInit {
   writingTraitScores: WritingTraitScoresComponent;
 
   @ViewChild('targetReport')
-  targetReport: WritingTraitScoresComponent;
+  targetReport: TargetReportComponent;
 
   exams: Exam[] = [];
   sessions = [];
@@ -310,6 +322,11 @@ export class AssessmentResultsComponent implements OnInit {
 
   toggleSession(session): void {
     session.filter = !session.filter;
+
+    if (this.showTargetReport) {
+      this.targetReport.sessions = this.sessions;
+    }
+
     this.updateExamSessions();
   }
 

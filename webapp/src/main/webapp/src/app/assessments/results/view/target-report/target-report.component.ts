@@ -24,12 +24,13 @@ import { TargetStatisticsCalculator } from '../../target-statistics-calculator';
 import { Subgroup } from '../../../../aggregate-report/subgroup/subgroup';
 import { SubjectClaimOrderings } from '../../../../shared/ordering/orderings';
 import { ApplicationSettingsService } from '../../../../app-settings.service';
+import { ExportResults } from '../../assessment-results.component';
 
 @Component({
   selector: 'target-report',
   templateUrl: './target-report.component.html'
 })
-export class TargetReportComponent implements OnInit {
+export class TargetReportComponent implements OnInit, ExportResults {
   /**
    * The assessment
    */
@@ -41,6 +42,12 @@ export class TargetReportComponent implements OnInit {
    */
   @Input()
   studentsTested: number;
+
+  @Input()
+  set sessions(value: any) {
+    this._sessions = value;
+    this.updateTargetScoreExamFilters();
+  }
 
   /**
    * Exam filters applied, if any.
@@ -71,7 +78,6 @@ export class TargetReportComponent implements OnInit {
   columns: Column[];
   allTargets: Target[] = [];
   loading: boolean = false;
-  targetScoreExams: TargetScoreExam[];
   targetDisplayMap: Map<number, any>;
   aggregateTargetScoreRows: AggregateTargetScoreRow[] = [];
   identityColumns: string[] = [ 'claim', 'target', 'subgroup' ];
@@ -79,6 +85,12 @@ export class TargetReportComponent implements OnInit {
   subgroupOptions: ExamFilterOptions = new ExamFilterOptions();
   showSubgroupOptions: boolean = false;
   minimumStudentCount: number = 0;
+
+  // holds the original values that includes all the data
+  originalTargetScoreExams: TargetScoreExam[];
+  
+  // the filtered values used to get the aggregate rows for the data table
+  targetScoreExams: TargetScoreExam[];
 
   // TODO: handle ELAS, vs LEP decision
   allSubgroups: any[] = [
@@ -90,6 +102,7 @@ export class TargetReportComponent implements OnInit {
     {code: 'MigrantStatus', translatecode: 'migrant-status-label', selected: false}
   ];
 
+  private _sessions: any[];
   private _filterBy: FilterBy;
   private _filterBySubscription: Subscription;
 
@@ -125,7 +138,7 @@ export class TargetReportComponent implements OnInit {
       this.filterOptionService.getExamFilterOptions(),
       this.applicationSettingsService.getSettings()
     ).subscribe(([ allTargets, targetScoreExams, subgroupOptions, applicationSettings ]) => {
-      this.targetScoreExams = targetScoreExams;
+      this.originalTargetScoreExams = this.targetScoreExams = targetScoreExams;
       this.subgroupOptions = subgroupOptions;
       this.allTargets = allTargets;
 
@@ -148,11 +161,25 @@ export class TargetReportComponent implements OnInit {
         allTargets,
         this.targetScoreExams);
 
-      this.sortRows();
-      this.calculateTreeColumns();
+      this.updateTargetScoreExamFilters();
 
       this.loading = false;
     });
+  }
+
+  hasDataToExport(): boolean {
+    return false;
+    // return this.filteredItems && this.filteredItems.length > 0;
+  }
+
+  exportToCsv(): void {
+    // let exportRequest = new ExportWritingTraitsRequest();
+    // exportRequest.assessment = this.assessment;
+    // exportRequest.showAsPercent = this.showValuesAsPercent;
+    // exportRequest.assessmentItems = this.filteredItems;
+    // exportRequest.summaries = this.traitScoreSummaries;
+
+    //this.assessmentExporter.exportWritingTraitScoresToCsv(exportRequest);
   }
 
   get showResults(): boolean {
@@ -225,26 +252,41 @@ export class TargetReportComponent implements OnInit {
     this.calculateTreeColumns();
   }
 
+  private recalculateAggregateRows(): void {
+    // do overall
+    this.aggregateTargetScoreRows = this.targetStatisticsCalculator.aggregateOverallScores(
+      this.assessment.subject,
+      this.allTargets,
+      this.targetScoreExams);
+
+    // add selected subgroups
+    let subgroupCodes = this.allSubgroups.filter(x => x.selected).map(x => x.code);
+
+    this.aggregateTargetScoreRows.push(
+      ...this.targetStatisticsCalculator.aggregateSubgroupScores(this.assessment.subject, this.allTargets, this.targetScoreExams, subgroupCodes, this.subgroupOptions)
+    );
+  }
+
   private updateTargetScoreTable(): void {
     this.sortRows();
     this.calculateTreeColumns();
   }
 
   private updateTargetScoreExamFilters() {
-    // TODO: handle filters
-    this.filterExams();
+    this.targetScoreExams = this.filterExams();
+    this.recalculateAggregateRows();
+    this.updateTargetScoreTable();
+
   }
 
   private filterExams(): TargetScoreExam[] {
+    if (this.originalTargetScoreExams == null) return [];
+
     const exams: TargetScoreExam[] = <TargetScoreExam[]>this.examFilterService
-      .filterExams(this.targetScoreExams, this.assessment, this.filterBy);
+      .filterExams(this.originalTargetScoreExams, this.assessment, this._filterBy);
 
-    // only filter by sessions if this is my groups, otherwise return all regardless of session
-    // if (this.allowFilterBySessions) {
-    //   return exams.filter(x => this.sessions.some(y => y.filter && y.id === x.session));
-    // }
-
-    return exams;
+    // this is only for Groups so always filter by sessions
+    return exams.filter(x => this._sessions.some(y => y.filter && y.id === x.session));
   }
 
   private getClaimCodeTranslationKey(row: AggregateTargetScoreRow): string {

@@ -70,6 +70,13 @@ export class AssessmentsComponent implements OnInit {
   allowFilterBySessions = true;
 
   /**
+   * If true, the target report view will be displayed for Summative assessments. This is a Group only feature,
+   * so it will be disabled for the school/grade display.
+   */
+  @Input()
+  allowTargetReport = false;
+
+  /**
    * If true, the results are collapsed by default, otherwise they are expanded
    * with the results shown.
    */
