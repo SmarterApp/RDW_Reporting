@@ -4,8 +4,6 @@ import { map } from 'rxjs/operators';
 import { UserGroup, UserGroupRequest } from './user-group';
 import { Observable } from 'rxjs/Observable';
 import { DataService } from '../shared/data/data.service';
-import { TranslateService } from '@ngx-translate/core';
-import { Utils } from '../shared/support/support';
 import { Student } from '../student/search/student';
 import { Group } from '../groups/group';
 

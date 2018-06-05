@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { URLSearchParams } from "@angular/http";
 import { AssessmentExamMapper } from "../../assessments/assessment-exam.mapper";
 import { ExamFilterOptionsService } from "../../assessments/filters/exam-filters/exam-filter-options.service";
 import { AssessmentProvider } from "../../assessments/assessment-provider.interface";
@@ -14,7 +13,6 @@ import { Assessment } from '../../assessments/model/assessment.model';
 import { Exam } from '../../assessments/model/exam.model';
 import { AssessmentItem } from '../../assessments/model/assessment-item.model';
 import { ReportingServiceRoute } from '../../shared/service-route';
-import { ExamSearch } from '../../groups/results/group-assessment.service';
 import { of } from 'rxjs/observable/of';
 import { TargetScoreExam } from '../../assessments/model/target-score-exam.model';
 

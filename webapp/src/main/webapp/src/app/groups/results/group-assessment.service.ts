@@ -5,9 +5,6 @@ import { ResponseUtils } from '../../shared/response-utils';
 import { DataService } from '../../shared/data/data.service';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ReportingServiceRoute } from '../../shared/service-route';
-import { Observable } from 'rxjs/Observable';
-import { MeasuredAssessment } from '../../dashboard/measured-assessment';
-import { MeasuredAssessmentMapper } from '../../dashboard/measured-assessment.mapper';
 
 const ServiceRoute = ReportingServiceRoute;
 
