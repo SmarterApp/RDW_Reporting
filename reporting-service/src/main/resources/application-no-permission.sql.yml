@@ -45,6 +45,7 @@ sql:
         LEFT JOIN subject s ON s.id = tsg.subject_id
         LEFT JOIN teacher_student_group_membership tsgm ON tsgm.teacher_student_group_id = tsg.id
       WHERE tsg.user_login = :user_login
+        AND tsg.school_year = :school_year
       GROUP BY tsg.id
 
     findOneByUsernameAndId: >-
@@ -58,6 +59,7 @@ sql:
         LEFT JOIN teacher_student_group_membership tsgm ON tsgm.teacher_student_group_id = tsg.id
       WHERE tsg.id = :id
         AND tsg.user_login = :user_login
+        AND tsg.school_year = :school_year
       GROUP BY tsg.id
 
     create: >-
@@ -77,10 +79,12 @@ sql:
         name = :name,
         subject_id = s.id
       WHERE tsg.id = :id
+        AND tsg.school_year = :school_year
 
     delete: >-
       DELETE FROM teacher_student_group
       WHERE id = :id
+        AND school_year = :school_year
 
   teacherGroupMembership:
     findAllStudentIdsByGroupId: >-

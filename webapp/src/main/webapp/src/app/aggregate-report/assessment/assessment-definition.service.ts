@@ -7,7 +7,15 @@ export const IdentityColumnOptions: string[] = [
   'assessmentGrade',
   'assessmentLabel',
   'schoolYear',
-  'dimension',
+  'dimension'
+];
+
+export const ClaimIdentityColumnOptions: string[] = [
+  'organization',
+  'assessmentGrade',
+  'schoolYear',
+  'claim',
+  'dimension'
 ];
 
 const Iab: AssessmentDefinition = {
@@ -53,8 +61,7 @@ const ClaimIca: AssessmentDefinition = {
   performanceLevels: [ 1, 2, 3 ],
   performanceLevelCount: 3,
   performanceLevelDisplayTypes: [ PerformanceLevelDisplayTypes.Separate ],
-  aggregateReportIdentityColumns: IdentityColumnOptions
-    .filter(option => option !== 'assessmentLabel'),
+  aggregateReportIdentityColumns: ClaimIdentityColumnOptions.concat(),
   aggregateReportStateResultsEnabled: false,
   aggregateReportTypes: [ 'Claim' ]
 };
@@ -65,8 +72,7 @@ const ClaimSummative: AssessmentDefinition = {
   performanceLevels: [ 1, 2, 3 ],
   performanceLevelCount: 3,
   performanceLevelDisplayTypes: [ PerformanceLevelDisplayTypes.Separate ],
-  aggregateReportIdentityColumns: IdentityColumnOptions
-    .filter(option => option !== 'assessmentLabel'),
+  aggregateReportIdentityColumns: ClaimIdentityColumnOptions.concat(),
   aggregateReportStateResultsEnabled: true,
   aggregateReportTypes: [ 'Claim', 'LongitudinalCohort' ]
 };

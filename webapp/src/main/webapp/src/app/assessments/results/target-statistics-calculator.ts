@@ -8,11 +8,22 @@ import { Target } from '../model/target.model';
 import * as deepEqual from "fast-deep-equal";
 import { ExamFilterOptions } from '../model/exam-filter-options.model';
 import { Subgroup } from '../../aggregate-report/subgroup/subgroup';
+import { SubjectClaimOrder } from '../../shared/ordering/orderings';
 
 @Injectable()
 export class TargetStatisticsCalculator {
+  private _insufficientDataCutoff: number = 0.2;
+
   constructor(private examStatisticsCalculator: ExamStatisticsCalculator,
               private subgroupMapper: SubgroupMapper) {
+  }
+
+  /**
+   * Set the standard error cutoff used when determining if the data is sufficient or not
+   * @param {number} cutoff
+   */
+  set insufficientDataCutoff(cutoff: number) {
+    this._insufficientDataCutoff = cutoff;
   }
 
   /**
@@ -21,9 +32,9 @@ export class TargetStatisticsCalculator {
    * @param {TargetScoreExam[]} targetScoreExams
    * @returns {AggregateTargetScoreRow[]}
    */
-  aggregateOverallScores(allTargets: Target[], targetScoreExams: TargetScoreExam[]): AggregateTargetScoreRow[] {
+  aggregateOverallScores(subjectCode: string, allTargets: Target[], targetScoreExams: TargetScoreExam[]): AggregateTargetScoreRow[] {
     // setup the placeholders to aggregate into
-    let groupedScores = this.generateOverallTargets(allTargets);
+    let groupedScores = this.generateOverallTargets(subjectCode, allTargets);
 
     if (targetScoreExams == null) targetScoreExams = [];
 
@@ -46,9 +57,9 @@ export class TargetStatisticsCalculator {
    * @param {ExamFilterOptions} subgroupOptions
    * @returns {AggregateTargetScoreRow[]}
    */
-  aggregateSubgroupScores(allTargets: Target[], targetScoreExams: TargetScoreExam[], subgroupCodes: string[], subgroupOptions: ExamFilterOptions): AggregateTargetScoreRow[] {
+  aggregateSubgroupScores(subjectCode: string, allTargets: Target[], targetScoreExams: TargetScoreExam[], subgroupCodes: string[], subgroupOptions: ExamFilterOptions): AggregateTargetScoreRow[] {
     // setup the placeholders to aggregate into
-    let groupedScores = this.generateSubgroupTargets(allTargets, subgroupCodes, subgroupOptions);
+    let groupedScores = this.generateSubgroupTargets(subjectCode, allTargets, subgroupCodes, subgroupOptions);
 
     if (targetScoreExams == null) targetScoreExams = [];
 
@@ -78,6 +89,7 @@ export class TargetStatisticsCalculator {
     return <AggregateTargetScoreRow>{
       targetId: groupedScore.targetId,
       claim: groupedScore.claim,
+      claimOrder: SubjectClaimOrder.get(groupedScore.subject).indexOf(groupedScore.claim),
       target: groupedScore.target,
       subgroup: groupedScore.subgroup,
       studentsTested: numStudents,
@@ -96,9 +108,10 @@ export class TargetStatisticsCalculator {
    * @param {Target[]} allTargets
    * @returns {GroupedTargetScore[]} that is used in the other aggregate methods
    */
-  private generateOverallTargets(allTargets: Target[]): GroupedTargetScore[] {
+  private generateOverallTargets(subjectCode: string, allTargets: Target[]): GroupedTargetScore[] {
     const overallSubgroup = this.subgroupMapper.createOverall();
     return allTargets.map(target => <GroupedTargetScore>{
+      subject: subjectCode,
       targetId: target.id,
       target: target.code,
       claim: target.claimCode,
@@ -116,7 +129,7 @@ export class TargetStatisticsCalculator {
    * @param {ExamFilterOptions} subgroupOptions
    * @returns {GroupedTargetScore[]}
    */
-  private generateSubgroupTargets(allTargets: Target[], subgroupCodes: string[], subgroupOptions: ExamFilterOptions): GroupedTargetScore[] {
+  private generateSubgroupTargets(subjectCode: string, allTargets: Target[], subgroupCodes: string[], subgroupOptions: ExamFilterOptions): GroupedTargetScore[] {
     let groupedScores: GroupedTargetScore[] = [];
 
     subgroupCodes.forEach(subgroupCode => {
@@ -145,6 +158,7 @@ export class TargetStatisticsCalculator {
 
         groupedScores.push(
           ...allTargets.map(target => <GroupedTargetScore>{
+            subject: subjectCode,
             targetId: target.id,
             target: target.code,
             claim: target.claimCode,
@@ -189,8 +203,8 @@ export class TargetStatisticsCalculator {
    * @param {number} insufficientCutpoint
    * @returns {TargetReportingLevel}
    */
-  mapTargetScoreDeltaToReportingLevel(delta: number, standardError: number, insufficientCutpoint: number = 0.2): TargetReportingLevel {
-    if (standardError > insufficientCutpoint) return TargetReportingLevel.InsufficientData;
+  mapTargetScoreDeltaToReportingLevel(delta: number, standardError: number): TargetReportingLevel {
+    if (standardError > this._insufficientDataCutoff) return TargetReportingLevel.InsufficientData;
     if (delta >= standardError) return TargetReportingLevel.Above;
     if (delta <= -standardError) return TargetReportingLevel.Below;
     return TargetReportingLevel.Near;
@@ -198,6 +212,7 @@ export class TargetStatisticsCalculator {
 }
 
 export interface GroupedTargetScore {
+  subject: string;
   targetId: number;
   target: string;
   claim: string;

@@ -106,10 +106,7 @@ export class AggregateReportRequestMapper {
     } else if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'Claim') {
       query.assessmentGradeCodes = settings.claimReport.assessmentGrades;
       query.schoolYears = settings.claimReport.schoolYears;
-      query.claimCodesBySubject = this.claimsBySubjectMapping(options.subjects.map(
-        subject => subject.value),
-        settings.claimReport.claimCodesBySubject
-      );
+      query.claimCodesBySubject = this.claimsBySubjectMapping(settings.subjects, settings.claimReport.claimCodesBySubject);
     } else if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'Target') {
       query.schoolYear = settings.targetReport.schoolYear;
       query.subjectCode = settings.targetReport.subjectCode;
@@ -444,7 +441,9 @@ export class AggregateReportRequestMapper {
       obj[ subject ] = [];
     }
     for (const claim of claims) {
-      obj[ claim.subject ].push(claim.code);
+      if (obj[ claim.subject ] != null) {
+        obj[ claim.subject ].push(claim.code);
+      }
     }
     return obj;
   }

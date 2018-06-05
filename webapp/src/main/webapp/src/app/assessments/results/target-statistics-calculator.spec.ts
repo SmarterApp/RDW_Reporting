@@ -16,7 +16,7 @@ describe('Target Calculator', () => {
     ];
 
   it('should handle null for aggregate target calculation', () => {
-    expect(fixture.aggregateOverallScores([], null)).toEqual([]);
+    expect(fixture.aggregateOverallScores('ELA', [], null)).toEqual([]);
   })
 
   it ('should aggregate target scores handling exclusions', () => {
@@ -29,7 +29,7 @@ describe('Target Calculator', () => {
       <TargetScoreExam>{id: 2, targetId: 4, standardMetRelativeResidualScore: 0.5, studentRelativeResidualScore: 0.2}
     ];
 
-    let actual = fixture.aggregateOverallScores(allTargets, exams);
+    let actual = fixture.aggregateOverallScores('Math', allTargets, exams);
 
     expect(actual.length).toBe(4);
 

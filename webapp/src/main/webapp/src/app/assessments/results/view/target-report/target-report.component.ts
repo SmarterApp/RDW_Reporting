@@ -12,42 +12,42 @@ import { Subscription } from 'rxjs/Subscription';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Target } from '../../../model/target.model';
 import { ordering } from '@kourge/ordering';
-import { byString, join, ranking } from '@kourge/ordering/comparator';
+import { join } from '@kourge/ordering/comparator';
 import { TargetService } from '../../../../shared/target/target.service';
 import { AssessmentExamMapper } from '../../../assessment-exam.mapper';
 import { BaseColumn } from '../../../../shared/datatable/base-column.model';
 import { Table } from 'primeng/table';
 import { DataTableService } from '../../../../shared/datatable/datatable-service';
-import { SubgroupMapper } from '../../../../aggregate-report/subgroup/subgroup.mapper';
 import { ExamFilterOptionsService } from '../../../filters/exam-filters/exam-filter-options.service';
 import { ExamFilterOptions } from '../../../model/exam-filter-options.model';
 import { TargetStatisticsCalculator } from '../../target-statistics-calculator';
 import { Subgroup } from '../../../../aggregate-report/subgroup/subgroup';
-import { AggregateReportOptionsService } from '../../../../aggregate-report/aggregate-report-options.service';
+import { SubjectClaimOrderings } from '../../../../shared/ordering/orderings';
+import { ApplicationSettingsService } from '../../../../app-settings.service';
+import { ExportResults } from '../../assessment-results.component';
 
 @Component({
   selector: 'target-report',
   templateUrl: './target-report.component.html'
 })
-export class TargetReportComponent implements OnInit {
+export class TargetReportComponent implements OnInit, ExportResults {
   /**
    * The assessment
    */
   @Input()
   assessment: Assessment;
 
-  // TODO: check what this is called in the config
-  /**
-   * The minimum number of students that must be included in order to show any results
-   */
-  @Input()
-  minimumStudents: number = 0;
-
   /**
    * The overall number of students tested
    */
   @Input()
   studentsTested: number;
+
+  @Input()
+  set sessions(value: any) {
+    this._sessions = value;
+    this.updateTargetScoreExamFilters();
+  }
 
   /**
    * Exam filters applied, if any.
@@ -78,13 +78,19 @@ export class TargetReportComponent implements OnInit {
   columns: Column[];
   allTargets: Target[] = [];
   loading: boolean = false;
-  targetScoreExams: TargetScoreExam[];
   targetDisplayMap: Map<number, any>;
   aggregateTargetScoreRows: AggregateTargetScoreRow[] = [];
   identityColumns: string[] = [ 'claim', 'target', 'subgroup' ];
   treeColumns: number[] = [];
   subgroupOptions: ExamFilterOptions = new ExamFilterOptions();
   showSubgroupOptions: boolean = false;
+  minimumStudentCount: number = 0;
+
+  // holds the original values that includes all the data
+  originalTargetScoreExams: TargetScoreExam[];
+  
+  // the filtered values used to get the aggregate rows for the data table
+  targetScoreExams: TargetScoreExam[];
 
   // TODO: handle ELAS, vs LEP decision
   allSubgroups: any[] = [
@@ -96,6 +102,7 @@ export class TargetReportComponent implements OnInit {
     {code: 'MigrantStatus', translatecode: 'migrant-status-label', selected: false}
   ];
 
+  private _sessions: any[];
   private _filterBy: FilterBy;
   private _filterBySubscription: Subscription;
 
@@ -107,7 +114,8 @@ export class TargetReportComponent implements OnInit {
               private dataTableService: DataTableService,
               private assessmentExamMapper: AssessmentExamMapper,
               private assessmentProvider: GroupAssessmentService,
-              private filterOptionService: ExamFilterOptionsService) {
+              private filterOptionService: ExamFilterOptionsService,
+              private applicationSettingsService: ApplicationSettingsService) {
   }
 
   ngOnInit() {
@@ -116,7 +124,7 @@ export class TargetReportComponent implements OnInit {
     this.loading = true;
 
     this.columns = [
-      new Column({ id: 'claim' }),
+      new Column({ id: 'claim', sortField: 'claimOrder' }),
       new Column({ id: 'target' }),
       new Column({ id: 'subgroup' }),
       new Column({ id: 'studentsTested' }),
@@ -128,11 +136,14 @@ export class TargetReportComponent implements OnInit {
       this.targetService.getTargetsForAssessment(this.assessment.id),
       this.assessmentProvider.getTargetScoreExams(this.assessment.id),
       this.filterOptionService.getExamFilterOptions(),
-
-    ).subscribe(([ allTargets, targetScoreExams, subgroupOptions ]) => {
-      this.targetScoreExams = targetScoreExams;
+      this.applicationSettingsService.getSettings()
+    ).subscribe(([ allTargets, targetScoreExams, subgroupOptions, applicationSettings ]) => {
+      this.originalTargetScoreExams = this.targetScoreExams = targetScoreExams;
       this.subgroupOptions = subgroupOptions;
       this.allTargets = allTargets;
+
+      this.minimumStudentCount = applicationSettings.targetReport.minimumStudentCount;
+      this.targetStatisticsCalculator.insufficientDataCutoff = applicationSettings.targetReport.insufficientDataCutoff;
 
       this.targetDisplayMap = allTargets.reduce((targetMap, target) => {
         targetMap[target.id] = {
@@ -146,18 +157,33 @@ export class TargetReportComponent implements OnInit {
 
 
       this.aggregateTargetScoreRows = this.targetStatisticsCalculator.aggregateOverallScores(
+        this.assessment.subject,
         allTargets,
         this.targetScoreExams);
 
-      this.sortRows();
-      this.calculateTreeColumns();
+      this.updateTargetScoreExamFilters();
 
       this.loading = false;
     });
   }
 
+  hasDataToExport(): boolean {
+    return false;
+    // return this.filteredItems && this.filteredItems.length > 0;
+  }
+
+  exportToCsv(): void {
+    // let exportRequest = new ExportWritingTraitsRequest();
+    // exportRequest.assessment = this.assessment;
+    // exportRequest.showAsPercent = this.showValuesAsPercent;
+    // exportRequest.assessmentItems = this.filteredItems;
+    // exportRequest.summaries = this.traitScoreSummaries;
+
+    //this.assessmentExporter.exportWritingTraitScoresToCsv(exportRequest);
+  }
+
   get showResults(): boolean {
-    return this.studentsTested > this.minimumStudents;
+    return this.studentsTested > this.minimumStudentCount;
   }
 
   calculateTreeColumns() {
@@ -191,7 +217,7 @@ export class TargetReportComponent implements OnInit {
 
     this.aggregateTargetScoreRows.sort(
       join(
-        ordering(byString).on<AggregateTargetScoreRow>(row => row.claim).compare,
+        SubjectClaimOrderings.get(this.assessment.subject).on<AggregateTargetScoreRow>(row => row.claim).compare,
         ordering(byTarget).on<AggregateTargetScoreRow>(row => row.target).compare,
         ordering(bySubgroup).on<AggregateTargetScoreRow>(row => row.subgroup).compare
       )
@@ -215,7 +241,7 @@ export class TargetReportComponent implements OnInit {
 
   addSubgroup(subgroupCode: string) {
     this.aggregateTargetScoreRows.push(
-      ...this.targetStatisticsCalculator.aggregateSubgroupScores(this.allTargets, this.targetScoreExams, [subgroupCode], this.subgroupOptions)
+      ...this.targetStatisticsCalculator.aggregateSubgroupScores(this.assessment.subject, this.allTargets, this.targetScoreExams, [subgroupCode], this.subgroupOptions)
     );
 
     this.updateTargetScoreTable();
@@ -226,26 +252,41 @@ export class TargetReportComponent implements OnInit {
     this.calculateTreeColumns();
   }
 
+  private recalculateAggregateRows(): void {
+    // do overall
+    this.aggregateTargetScoreRows = this.targetStatisticsCalculator.aggregateOverallScores(
+      this.assessment.subject,
+      this.allTargets,
+      this.targetScoreExams);
+
+    // add selected subgroups
+    let subgroupCodes = this.allSubgroups.filter(x => x.selected).map(x => x.code);
+
+    this.aggregateTargetScoreRows.push(
+      ...this.targetStatisticsCalculator.aggregateSubgroupScores(this.assessment.subject, this.allTargets, this.targetScoreExams, subgroupCodes, this.subgroupOptions)
+    );
+  }
+
   private updateTargetScoreTable(): void {
     this.sortRows();
     this.calculateTreeColumns();
   }
 
   private updateTargetScoreExamFilters() {
-    // TODO: handle filters
-    this.filterExams();
+    this.targetScoreExams = this.filterExams();
+    this.recalculateAggregateRows();
+    this.updateTargetScoreTable();
+
   }
 
   private filterExams(): TargetScoreExam[] {
+    if (this.originalTargetScoreExams == null) return [];
+
     const exams: TargetScoreExam[] = <TargetScoreExam[]>this.examFilterService
-      .filterExams(this.targetScoreExams, this.assessment, this.filterBy);
+      .filterExams(this.originalTargetScoreExams, this.assessment, this._filterBy);
 
-    // only filter by sessions if this is my groups, otherwise return all regardless of session
-    // if (this.allowFilterBySessions) {
-    //   return exams.filter(x => this.sessions.some(y => y.filter && y.id === x.session));
-    // }
-
-    return exams;
+    // this is only for Groups so always filter by sessions
+    return exams.filter(x => this._sessions.some(y => y.filter && y.id === x.session));
   }
 
   private getClaimCodeTranslationKey(row: AggregateTargetScoreRow): string {
@@ -268,15 +309,18 @@ export class TargetReportComponent implements OnInit {
 class Column implements BaseColumn {
   id: string;
   field: string;
+  sortField: string;
   headerInfo: boolean;
 
   constructor({
                 id,
                 field = '',
+                sortField = '',
                 headerInfo = false,
               }) {
     this.id = id;
     this.field = field ? field : id;
+    this.sortField = sortField ? sortField : this.field;
     this.headerInfo = headerInfo;
   }
 }

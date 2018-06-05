@@ -22,6 +22,7 @@ import { AggregateReportOrganizationService } from '../../../../aggregate-report
 import { AggregateReportService } from '../../../../aggregate-report/aggregate-report.service';
 import { ReportService } from '../../../../report/report.service';
 import { AssessmentService } from '../../../../aggregate-report/assessment/assessment.service';
+import { ApplicationSettingsService } from '../../../../app-settings.service';
 
 describe('TargetReportComponent', () => {
   let component: TargetReportComponent;
@@ -57,7 +58,8 @@ describe('TargetReportComponent', () => {
         AggregateReportOrganizationService,
         AggregateReportService,
         ReportService,
-        AssessmentService
+        AssessmentService,
+        ApplicationSettingsService
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     })

@@ -7,17 +7,25 @@
 
 
 <div *ngIf="showResults" class="row mb-xs">
-  <div class="col-md-5">
+  <div class="col-md-10">
     <span class="target-caution-message">* {{ 'target-report.caution-message' | translate }}</span>
   </div>
-  <div class="col-md-7 text-right">
-    <span *ngIf="!showSubgroupOptions">
+  <div class="col-md-2 text-right">
+    <span>
       <a (click)="toggleSubgroupOptions()"
-         class="btn btn-xs btn-default">
+         class="btn btn-xs"
+        [ngClass]="{
+          'btn-default': !showSubgroupOptions,
+          'btn-primary': showSubgroupOptions
+        }">
         {{ 'target-report.subgroup-options' | translate }}
       </a>
     </span>
-    <span *ngIf="showSubgroupOptions">
+  </div>
+</div>
+<div *ngIf="showSubgroupOptions" class="row mb-xs">
+  <div class="col-md-12 text-right">
+    <span>
       <a (click)="toggleSubgroupOptions()"
          class="btn btn-xs btn-default">
         <i class="fa fa-close"></i>
@@ -48,7 +56,7 @@
                let-columns>
     <tr>
       <th *ngFor="let column of columns"
-          [pSortableColumn]="column.field"
+          [pSortableColumn]="column.sortField"
           [ngSwitch]="column.id"
           class="wrapping">
 
@@ -139,23 +147,23 @@
             <!-- pick the label color -->
             <span [ngSwitch]="getTargetReportingLevelString(rowData.standardMetRelativeLevel)">
               <span *ngSwitchCase="'Above'"
-                    class="label sb-iab-green">
+                    class="label label-lg sb-iab-green">
                 {{'aggregate-report-table.target.standard.Above' | translate}}
               </span>
               <span *ngSwitchCase="'Near'"
-                    class="label sb-iab-yellow">
+                    class="label label-lg sb-iab-yellow">
                 {{'aggregate-report-table.target.standard.Near' | translate}}
               </span>
               <span *ngSwitchCase="'Below'"
-                    class="label sb-iab-red">
+                    class="label label-lg sb-iab-red">
                 {{'aggregate-report-table.target.standard.Below' | translate}}
               </span>
               <span *ngSwitchCase="'InsufficientData'"
-                    class="label gray-light">
+                    class="label label-lg gray-light">
                 {{'aggregate-report-table.target.standard.InsufficientData' | translate}}
               </span>
               <span *ngSwitchCase="'Excluded'"
-                    class="label gray-light">
+                    class="label label-lg gray-light">
                 {{'aggregate-report-table.target.standard.Excluded' | translate}}
               </span>
               <span *ngSwitchCase="'NoResults'">

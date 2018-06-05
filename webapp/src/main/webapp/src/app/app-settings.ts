@@ -11,5 +11,10 @@ export interface ApplicationSettings {
   readonly percentileDisplayEnabled: boolean;
   readonly lepEnabled: boolean;
   readonly elasEnabled: boolean;
+  readonly targetReport: TargetReportSettings;
+}
 
+export interface TargetReportSettings {
+  readonly insufficientDataCutoff: number;
+  readonly minimumStudentCount: number;
 }
