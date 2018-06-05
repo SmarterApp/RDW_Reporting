@@ -144,7 +144,7 @@ sql:
           JOIN target t on t.id = ets.target_id
          WHERE a.id = :assessment_id
             AND e.school_year = :school_year
-            AND ${sql.reporting.snippet.groupFilters}
+            AND ${sql.snippet.groupFilters}
             AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
     measuredAssessment:
