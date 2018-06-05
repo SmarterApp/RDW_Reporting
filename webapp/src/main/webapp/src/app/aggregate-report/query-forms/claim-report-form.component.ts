@@ -38,8 +38,6 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
    */
   showAdvancedFilters = false;
 
-  collapsed = true;
-
   claimsBySubject = {};
   selectionBySubject = {};
 

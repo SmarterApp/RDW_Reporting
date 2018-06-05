@@ -235,14 +235,16 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
 
   @Input()
   set options(options: Option[]) {
-    if (this._initialized) {
-      this._options = this.parseInputOptions(options);
-      if (!this.effectiveNoneStateEnabled && (!this._value || this._value.length === 0)) {
-        this._value = this.parseInputValues(this._initialValues);
+    if (options.length) {
+      if (this._initialized) {
+        this._options = this.parseInputOptions(options);
+        if (!this.effectiveNoneStateEnabled && (!this._value || this._value.length === 0)) {
+          this._value = this.parseInputValues(this._initialValues);
+        }
+        this._state = this.computeState(this._options, this._value);
+      } else {
+        this._initialOptions = options;
       }
-      this._state = this.computeState(this._options, this._value);
-    } else {
-      this._initialOptions = options;
     }
   }
 
