@@ -131,6 +131,10 @@ export function subgroupOrdering<T>(subgroupGetter: (item: T) => Subgroup, optio
     enrolledGradeOrdering.compare,
     // hotfix Overall order on FilteredSubgroup results
     (a: T, b: T) => {
+      if (subgroupGetter(a).id === subgroupGetter(b).id
+        &&  subgroupGetter(a).id === 'Overall:') {
+        return 0;
+      }
       if (subgroupGetter(a).id === 'Overall:') {
         return -1;
       }
