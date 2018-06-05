@@ -1,5 +1,6 @@
 import { Organization } from '../../shared/organization/organization';
 import { Subgroup } from '../subgroup/subgroup';
+import { TargetReportingLevel } from "../../assessments/model/aggregate-target-score-row.model";
 
 /**
  * This model represents an aggregate report data table row result.
@@ -30,8 +31,8 @@ export class AggregateReportItem {
   };
   organization: Organization;
   subgroup: Subgroup;
-  studentRelativeResidualScoresLevel?: 'Above' | 'Near' | 'Below' | 'InsufficientData' | 'Excluded';
-  standardMetRelativeResidualLevel?: 'Above' | 'Near' | 'Below' | 'InsufficientData' | 'Excluded';
+  studentRelativeResidualScoresLevel?: TargetReportingLevel;
+  standardMetRelativeResidualLevel?: TargetReportingLevel;
   targetNaturalId?: string;
   targetCode?: string;
   targetDescription?: string;

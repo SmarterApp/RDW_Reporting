@@ -1,6 +1,8 @@
 /**
  * Represents server aggregate report model interface
  */
+import { TargetReportingLevel } from "../assessments/model/aggregate-target-score-row.model";
+
 export interface AggregateReportRow {
 
   readonly dimension: AggregateReportRowDimension;
@@ -17,8 +19,8 @@ export interface AggregateReportRow {
    * These properties are present on target reports only
    */
   readonly targetNaturalId?: string;
-  readonly studentRelativeResidualScoresLevel?: string;
-  readonly standardMetRelativeResidualLevel?: string;
+  readonly studentRelativeResidualScoresLevel?: TargetReportingLevel;
+  readonly standardMetRelativeResidualLevel?: TargetReportingLevel;
 }
 
 export interface ServerOrganization {
