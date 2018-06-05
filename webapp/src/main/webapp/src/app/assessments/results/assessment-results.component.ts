@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { AssessmentExam } from '../model/assessment-exam.model';
 import { Exam } from '../model/exam.model';
