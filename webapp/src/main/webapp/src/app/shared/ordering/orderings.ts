@@ -18,3 +18,20 @@ export const SubjectClaimOrderings: Map<string, Ordering<string>> = new Map([
   ['Math', ordering(ranking(SubjectClaimOrder.get('Math')))],
   ['ELA', ordering(ranking(SubjectClaimOrder.get('ELA')))]
 ]);
+
+/**
+ * Comparator for ordering two strings which may represent numbers such that
+ * "A" < "B" and "2" < "10"
+ *
+ * @param {string} a  A string value
+ * @param {string} b  A string value
+ * @returns {number}  0 if equal, less than 0 if a < b, greater than 0 if a > b
+ */
+export const byNumericString = (a: string, b: string) => {
+  const numA = Number(a);
+  const numB = Number(b);
+
+  if (!Number.isNaN(numA) && !Number.isNaN(numB)) return numA - numB;
+
+  return a.localeCompare(b);
+};

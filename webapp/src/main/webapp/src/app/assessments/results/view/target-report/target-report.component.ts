@@ -22,10 +22,9 @@ import { ExamFilterOptionsService } from '../../../filters/exam-filters/exam-fil
 import { ExamFilterOptions } from '../../../model/exam-filter-options.model';
 import { TargetStatisticsCalculator } from '../../target-statistics-calculator';
 import { Subgroup } from '../../../../aggregate-report/subgroup/subgroup';
-import { SubjectClaimOrderings } from '../../../../shared/ordering/orderings';
+import { byNumericString, SubjectClaimOrderings } from '../../../../shared/ordering/orderings';
 import { ApplicationSettingsService } from '../../../../app-settings.service';
 import { ExportResults } from '../../assessment-results.component';
-import { Utils } from "../../../../shared/support/support";
 
 @Component({
   selector: 'target-report',
@@ -213,7 +212,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
     this.aggregateTargetScoreRows.sort(
       join(
         claimOrdering.on<AggregateTargetScoreRow>(row => row.claim).compare,
-        ordering(Utils.byNumericString).on<AggregateTargetScoreRow>(row => row.target).compare,
+        ordering(byNumericString).on<AggregateTargetScoreRow>(row => row.target).compare,
         ordering(bySubgroup).on<AggregateTargetScoreRow>(row => row.subgroup).compare
       )
     );

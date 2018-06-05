@@ -9,7 +9,6 @@ export class AggregateReportItem {
   assessmentId: number;
   assessmentLabel: string;
   assessmentGradeCode: string;
-  claimCode?: string;
   subjectCode: string;
   schoolYear: number;
   avgScaleScore: number;
@@ -36,5 +35,9 @@ export class AggregateReportItem {
   targetNaturalId?: string;
   targetCode?: string;
   targetDescription?: string;
+
+  // NOTE That for Claim reports, this represents a Scorable claim code (e.g. SOCK_R)
+  // For Target reports, this represents an Organizational claim code (e.g. 1-LT)
+  claimCode?: string;
 }
 

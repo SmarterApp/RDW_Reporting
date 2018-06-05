@@ -11,6 +11,8 @@ import { map } from 'rxjs/operators';
 import { Assessment } from './assessment/assessment';
 import { AssessmentDefinition } from './assessment/assessment-definition';
 import { TargetService } from "../shared/target/target.service";
+import { Target } from "../assessments/model/target.model";
+import { of } from "rxjs/observable/of";
 
 export interface BasicReport {
   readonly rows: AggregateReportRow[];
@@ -114,7 +116,7 @@ export class AggregateReportService {
     return this.getAggregateReport(id)
       .flatMap((report) => {
         return report.rows.length === 0
-          ? Observable.of({report: report, targets: []})
+          ? of({report: report, targets: []})
           : this.targetService.getTargetsForAssessment(report.rows[0].assessment.id)
             .pipe(
               map((targets) => <any>{report: report, targets: targets})
@@ -122,15 +124,16 @@ export class AggregateReportService {
       })
       .pipe(
         map(({report, targets}) => {
-          const targetByNaturalId = {};
-          targets.forEach(target => {
-            targetByNaturalId[target.naturalId] = target;
-          });
+          const targetByNaturalId: Map<number, Target> = targets.reduce((targetMap, target) => {
+            targetMap.set(target.naturalId, target);
+            return targetMap;
+          }, new Map<number, any>());
+
           for (let row of report.rows) {
-            const target = targetByNaturalId[row.targetNaturalId];
+            const target: Target = targetByNaturalId.get(row.targetNaturalId);
             if (target) {
-              (<any>row).targetCode = target.code;
-              (<any>row).targetDescription = target.description;
+              row.targetCode = target.code;
+              row.targetDescription = target.description;
             }
           }
           return report;

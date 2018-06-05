@@ -5,6 +5,7 @@ import { AssessmentDefinition } from '../assessment/assessment-definition';
 import { OrganizationMapper } from '../../shared/organization/organization.mapper';
 import { SubgroupMapper } from '../subgroup/subgroup.mapper';
 import { AggregateReportQuery } from '../../report/aggregate-report-request';
+import { Utils } from "../../shared/support/support";
 
 /**
  * Maps server modeled aggregate report rows into client friendly table rows
@@ -41,7 +42,7 @@ export class AggregateReportItemMapper {
     item.standardMetRelativeResidualLevel = row.standardMetRelativeResidualLevel;
     item.targetDescription = row.targetDescription;
 
-    const dashIndex = row.targetCode ? row.targetCode.indexOf('-') : -1;
+    const dashIndex = Utils.isNullOrUndefined(row.targetCode) ? -1 : row.targetCode.indexOf('-');
     item.targetCode = dashIndex === -1
       ? row.targetCode
       : row.targetCode.substring(0, dashIndex);

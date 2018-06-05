@@ -17,7 +17,7 @@ import { organizationOrdering, subgroupOrdering } from '../support';
 import { TranslateService } from '@ngx-translate/core';
 import { AggregateReportService } from '../aggregate-report.service';
 import { BaseColumn } from '../../shared/datatable/base-column.model';
-import { SubjectClaimOrderings } from "../../shared/ordering/orderings";
+import { byNumericString, SubjectClaimOrderings } from "../../shared/ordering/orderings";
 
 export const SupportedRowCount = 10000;
 export const DefaultRowsPerPageOptions = [ 100, 500, 1000 ];
@@ -43,7 +43,7 @@ const OrganizationalClaimOrderingProvider: (subjectCode: string) => Ordering<Agg
   (SubjectClaimOrderings.get(subjectCode) || ordering(byString))
     .on(item => item.claimCode);
 
-const TargetOrdering: Ordering<AggregateReportItem> = ordering(Utils.byNumericString)
+const TargetOrdering: Ordering<AggregateReportItem> = ordering(byNumericString)
   .on(item => item.targetCode || item.targetNaturalId);
 
 /**
@@ -282,7 +282,7 @@ export class AggregateReportTableComponent {
   getTargetDisplay(row: AggregateReportItem): {name: string, description: string} {
     const targetName: string = row.targetCode
       ? row.targetCode
-      : this.translate.instant("common.unknown") + ' (' + row.targetNaturalId + ')';
+      : this.translate.instant('common.unknown') + ' (' + row.targetNaturalId + ')';
 
     return {
       name: targetName,
