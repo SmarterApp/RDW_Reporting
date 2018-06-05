@@ -11,7 +11,6 @@ export class AggregateTargetOverviewComponent {
   @Input()
   set table(value: AggregateReportTable) {
     this.overallRow = value.rows.find(row => row.subgroup.dimensionGroups[0].type === "Overall");
-    console.log("overallRow", this.overallRow);
   }
 
   overallRow: AggregateReportItem;
