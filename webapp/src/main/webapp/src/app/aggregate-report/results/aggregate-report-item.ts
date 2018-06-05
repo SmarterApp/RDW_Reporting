@@ -33,7 +33,6 @@ export class AggregateReportItem {
   subgroup: Subgroup;
   studentRelativeResidualScoresLevel?: 'Above' | 'Near' | 'Below' | 'InsufficientData' | 'Excluded';
   standardMetRelativeResidualLevel?: 'Above' | 'Near' | 'Below' | 'InsufficientData' | 'Excluded';
-  organizationalClaimCode?: string;
   targetNaturalId?: string;
   targetCode?: string;
   targetDescription?: string;
