@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { AlertModule, BsDropdownModule, PopoverModule, TabsModule } from 'ngx-bootstrap';
 import { CommonModule } from './shared/common.module';
 import { UserModule } from './user/user.module';
 import { routes } from './app.routes';
@@ -19,6 +19,7 @@ import { ApplicationSettingsService } from './app-settings.service';
 import { ApplicationSettingsResolve } from './app-settings.resolve';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { HomeModule } from './home/home.module';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -29,15 +30,19 @@ import { HomeModule } from './home/home.module';
   imports: [
     AdminModule,
     AggregateReportsModule,
+    AlertModule.forRoot(),
     BrowserModule,
     CommonModule,
     DashboardModule,
     HomeModule,
+    HttpModule,
     OrganizationExportModule,
     RouterModule.forRoot(routes),
     UserModule,
     FormsModule,
     BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
+    PopoverModule.forRoot(),
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
   ],
   providers: [

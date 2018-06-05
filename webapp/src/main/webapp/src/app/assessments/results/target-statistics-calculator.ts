@@ -89,7 +89,7 @@ export class TargetStatisticsCalculator {
     return <AggregateTargetScoreRow>{
       targetId: groupedScore.targetId,
       claim: groupedScore.claim,
-      claimOrder: SubjectClaimOrder.get(groupedScore.subject).indexOf(groupedScore.claim),
+      claimOrder: (SubjectClaimOrder.get(groupedScore.subject) || []).indexOf(groupedScore.claim),
       target: groupedScore.target,
       subgroup: groupedScore.subgroup,
       studentsTested: numStudents,

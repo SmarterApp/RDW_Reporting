@@ -1,23 +1,24 @@
-import { Component, Inject } from "@angular/core";
-import { AggregateReportColumnOrderItemProvider } from "../aggregate-report-column-order-item.provider";
-import { AssessmentDefinitionService } from "../assessment/assessment-definition.service";
-import { AggregateReportOrganizationService } from "../aggregate-report-organization.service";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { AggregateReportTableDataService } from "../aggregate-report-table-data.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { AggregateReportRequestMapper } from "../aggregate-report-request.mapper";
-import { AggregateReportService } from "../aggregate-report.service";
-import { AggregateReportOptionsMapper } from "../aggregate-report-options.mapper";
-import { NotificationService } from "../../shared/notification/notification.service";
-import { AssessmentDefinition } from "../assessment/assessment-definition";
-import { ScrollNavItem } from "../../shared/nav/scroll-nav.component";
-import { SubgroupFilterSupport } from "../subgroup/subgroup-filters";
-import { SubgroupMapper } from "../subgroup/subgroup.mapper";
-import { MultiOrganizationQueryFormComponent } from "./multi-organization-query-form.component";
-import { fileName, notEmpty } from "../../shared/form/validators";
-import { Utils } from "../../shared/support/support";
-import { AggregateReportFormOptions } from "../aggregate-report-form-options";
+import { Component, Inject } from '@angular/core';
+import { AggregateReportColumnOrderItemProvider } from '../aggregate-report-column-order-item.provider';
+import { AssessmentDefinitionService } from '../assessment/assessment-definition.service';
+import { AggregateReportOrganizationService } from '../aggregate-report-organization.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { AggregateReportTableDataService } from '../aggregate-report-table-data.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AggregateReportRequestMapper } from '../aggregate-report-request.mapper';
+import { AggregateReportService } from '../aggregate-report.service';
+import { AggregateReportOptionsMapper } from '../aggregate-report-options.mapper';
+import { NotificationService } from '../../shared/notification/notification.service';
+import { AssessmentDefinition } from '../assessment/assessment-definition';
+import { ScrollNavItem } from '../../shared/nav/scroll-nav.component';
+import { SubgroupFilterSupport } from '../subgroup/subgroup-filters';
+import { SubgroupMapper } from '../subgroup/subgroup.mapper';
+import { MultiOrganizationQueryFormComponent } from './multi-organization-query-form.component';
+import { fileName, notEmpty } from '../../shared/form/validators';
+import { Utils } from '../../shared/support/support';
+import { AggregateReportFormOptions } from '../aggregate-report-form-options';
 import { Option as SbCheckboxGroupOption } from '../../shared/form/sb-checkbox-group.component';
+import { Claim } from '../aggregate-report-options.service';
 
 @Component({
   selector: 'claim-report-form',
@@ -36,6 +37,10 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
    * Determines whether or not the advanced filters section is visible
    */
   showAdvancedFilters = false;
+
+  claimsBySubject = {};
+  selectionBySubject = {};
+  claimsCollapsed = true;
 
   private options: AggregateReportFormOptions;
 
@@ -93,6 +98,9 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
         notEmpty({ messageId: 'aggregate-report-form.field.school-year-empty-error' })
       ]
     });
+
+    this.initializeClaimsBySubject();
+    this.initializeSelectionBySubject();
   }
 
   getFormGroup(): FormGroup {
@@ -136,7 +144,7 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
 
   onSubjectsChange(): void {
     this.filterClaimCodes();
-    this.onSettingsChange();
+    this.onClaimChange();
   }
 
   protected capableOfRowEstimation(): boolean {
@@ -154,9 +162,37 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
     );
   }
 
+  onClaimChange() {
+    this.settings.claimReport.claimCodesBySubject = this.getAllSelectedClaims();
+    this.onSettingsChange();
+  }
+
+  private getAllSelectedClaims(): Claim[] {
+    const claims: Claim[] = [];
+    for (const subject of this.settings.subjects) {
+      claims.push(...this.selectionBySubject[ subject ]);
+    }
+    return claims;
+  }
+
+  private initializeClaimsBySubject(): void {
+    this.filteredOptions.subjects.forEach(subject => {
+      const subjectCode = subject.value;
+      this.claimsBySubject[ subjectCode ] = this.filteredOptions.claimCodes.filter(claim => claim.value.subject === subjectCode && claim.value.assessmentType === this.settings.assessmentType);
+    });
+  }
+
+  private initializeSelectionBySubject(): void {
+    this.filteredOptions.subjects.forEach(subject => {
+      const subjectCode = subject.value;
+      this.selectionBySubject[ subjectCode ] = this.settings.claimReport.claimCodesBySubject.filter(claim => claim.subject === subjectCode);
+    });
+  }
+
   private filterClaimCodes(): void {
     this.filteredOptions.claimCodes = this.options.claimCodes.filter((claim: SbCheckboxGroupOption) => {
       return claim.value.assessmentType === this.settings.assessmentType && this.settings.subjects.includes(claim.value.subject);
     });
   }
+
 }

@@ -11,8 +11,8 @@ import { GroupAssessmentService } from '../../../../groups/results/group-assessm
 import { Subscription } from 'rxjs/Subscription';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Target } from '../../../model/target.model';
-import { ordering } from '@kourge/ordering';
-import { join } from '@kourge/ordering/comparator';
+import { Ordering, ordering } from '@kourge/ordering';
+import { byString, join } from '@kourge/ordering/comparator';
 import { TargetService } from '../../../../shared/target/target.service';
 import { AssessmentExamMapper } from '../../../assessment-exam.mapper';
 import { BaseColumn } from '../../../../shared/datatable/base-column.model';
@@ -207,9 +207,12 @@ export class TargetReportComponent implements OnInit, ExportResults {
       return a.name.localeCompare(b.name);
     };
 
+    // when there isn't a subject specific claim ordering, then default ot a simple alpha sort
+    let claimOrdering: Ordering<string> = (SubjectClaimOrderings.get(this.assessment.subject) || ordering(byString));
+
     this.aggregateTargetScoreRows.sort(
       join(
-        SubjectClaimOrderings.get(this.assessment.subject).on<AggregateTargetScoreRow>(row => row.claim).compare,
+        claimOrdering.on<AggregateTargetScoreRow>(row => row.claim).compare,
         ordering(Utils.byNumericString).on<AggregateTargetScoreRow>(row => row.target).compare,
         ordering(bySubgroup).on<AggregateTargetScoreRow>(row => row.subgroup).compare
       )

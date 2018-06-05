@@ -13,8 +13,8 @@ export class Utils {
   }
 
   static getPropertyValue(propertyPath: string, object: any): any {
-     const parts = propertyPath.split('.');
-     let property = object || this;
+    const parts = propertyPath.split('.');
+    let property = object || this;
 
     for (let i = 0; i < parts.length; i++) {
       property = property[ parts[ i ] ];
