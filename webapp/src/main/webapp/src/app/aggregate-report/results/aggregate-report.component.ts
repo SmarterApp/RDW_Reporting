@@ -280,6 +280,15 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     const rowMapper: (query, assessmentDefinition, row, index) => AggregateReportItem =
       (query, assessmentDefinition, row, index) => this.itemMapper.createRow(query, assessmentDefinition, row, index, measuresGetter);
 
+    // Preserve existing display type choices if they exist
+    const displayBySubject: Map<string, any> = (this.reportViews || []).reduce((map, view) => {
+      map.set(view.subjectCode, {
+        valueDisplayType: view.valueDisplayType,
+        performanceLevelDisplayType: view.performanceLevelDisplayType
+      });
+      return map;
+    }, new Map());
+
     this.reportViews = rows.reduce((views, row, index) => {
       const item = rowMapper(query, this.assessmentDefinition, row, index);
       const subjectCode = row.assessment.subjectCode;
@@ -289,6 +298,11 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
         : this.report.request.query.columnOrder;
 
       if (!view) {
+        const displayTypes = displayBySubject.get(subjectCode) || {
+          valueDisplayType: this.query.valueDisplayType,
+          performanceLevelDisplayType: this.query.achievementLevelDisplayType,
+        };
+
         view = <any>{
           subjectCode: subjectCode,
           table: {
@@ -297,8 +311,8 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
             rows: [ item ],
             reportType: this.effectiveReportType
           },
-          valueDisplayType: this.query.valueDisplayType,
-          performanceLevelDisplayType: this.query.achievementLevelDisplayType,
+          valueDisplayType: displayTypes.valueDisplayType,
+          performanceLevelDisplayType: displayTypes.performanceLevelDisplayType,
           columnOrdering: columnOrder,
           columnOrderingItems: this.columnOrderableItemProvider.toOrderableItems(columnOrder)
         };
