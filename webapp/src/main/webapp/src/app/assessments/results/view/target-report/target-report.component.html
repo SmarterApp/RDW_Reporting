@@ -5,7 +5,6 @@
                          [lockSchoolYear]="true"></student-report-download>
 
 
-
 <div *ngIf="showResults" class="row mb-xs">
   <div class="col-md-10">
     <span class="target-caution-message">* {{ 'target-report.caution-message' | translate }}</span>
@@ -14,7 +13,7 @@
     <span>
       <a (click)="toggleSubgroupOptions()"
          class="btn btn-xs"
-        [ngClass]="{
+         [ngClass]="{
           'btn-default': !showSubgroupOptions,
           'btn-primary': showSubgroupOptions
         }">
@@ -136,8 +135,8 @@
                     class="label label-lg gray-light">
                 {{'aggregate-report-table.target.standard.Excluded' | translate}}
               </span>
-              <span *ngSwitchCase="'NoResults'">
-                {{'aggregate-report-table.target.standard.NoResults' | translate}}
+              <span *ngSwitchDefault>
+                {{'aggregate-report-table.target.standard.' + getTargetReportingLevelString(rowData.studentRelativeLevel) | translate}}
               </span>
             </span>
           </div>
@@ -166,8 +165,8 @@
                     class="label label-lg gray-light">
                 {{'aggregate-report-table.target.standard.Excluded' | translate}}
               </span>
-              <span *ngSwitchCase="'NoResults'">
-                -
+              <span *ngSwitchDefault>
+                {{'aggregate-report-table.target.standard.' + getTargetReportingLevelString(rowData.studentRelativeLevel) | translate}}
               </span>
             </span>
 
