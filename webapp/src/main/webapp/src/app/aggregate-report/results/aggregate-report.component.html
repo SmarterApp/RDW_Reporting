@@ -141,7 +141,7 @@
                 <order-selector [items]="view.columnOrderingItems"
                                 (itemsChange)="onColumnOrderChange(view, $event)"></order-selector>
               </span>
-              <span class="pull-right flex-child ml-xs">
+              <span *ngIf="effectiveReportType !== 'Target'" class="pull-right flex-child ml-xs">
                 <label class="mr-xs">{{'common.value-display-type-input-label' | translate}}</label>
                 <sb-radio-button-group [options]="displayOptions.valueDisplayTypes"
                                        [(ngModel)]="view.valueDisplayType"
