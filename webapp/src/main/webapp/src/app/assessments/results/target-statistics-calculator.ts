@@ -144,6 +144,7 @@ export class TargetStatisticsCalculator {
         case 'ELAS':
           subgroupValues = [...subgroupOptions.elasCodes, null]; // adding NULL since we have Not Stated data but not a filter option for it
           break;
+        case 'LEP':
         case 'Section504':
         case 'IEP':
           subgroupValues = [true, false];
@@ -188,6 +189,7 @@ export class TargetStatisticsCalculator {
       case 'Gender': return exam.student.genderCode;
       case 'Ethnicity': return exam.student.ethnicityCodes;
       case 'Section504': return exam.plan504;
+      case 'LEP': return exam.limitedEnglishProficiency;
       case 'IEP': return exam.iep;
       case 'MigrantStatus': return exam.migrantStatus;
       case 'StudentEnrolledGrade': return exam.enrolledGrade;

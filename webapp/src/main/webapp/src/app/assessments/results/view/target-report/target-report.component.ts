@@ -105,15 +105,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
   // the filtered values used to get the aggregate rows for the data table
   targetScoreExams: TargetScoreExam[];
 
-  // TODO: handle ELAS, vs LEP decision
-  allSubgroups: any[] = [
-    { code: 'Gender', translatecode: 'gender-label', selected: false },
-    { code: 'Ethnicity', translatecode: 'ethnicity-label', selected: false },
-    { code: 'ELAS', translatecode: 'elas-label', selected: false },
-    { code: 'Section504', translatecode: '504-label', selected: false },
-    { code: 'IEP', translatecode: 'iep-label', selected: false },
-    { code: 'MigrantStatus', translatecode: 'migrant-status-label', selected: false }
-  ];
+  allSubgroups: any[] = [];
 
   private _sessions: any[];
   private _filterBy: FilterBy;
@@ -129,6 +121,10 @@ export class TargetReportComponent implements OnInit, ExportResults {
               private filterOptionService: ExamFilterOptionsService,
               private assessmentService: GroupAssessmentService,
               private applicationSettingsService: ApplicationSettingsService) {
+
+    applicationSettingsService.getSettings().subscribe(settings => {
+      this.allSubgroups = this.createAllSubgroups(settings);
+    });
   }
 
   ngOnInit(): void {
@@ -304,6 +300,25 @@ export class TargetReportComponent implements OnInit, ExportResults {
 
     // this is only for Groups so always filter by sessions
     return exams.filter(x => this._sessions.some(y => y.filter && y.id === x.session));
+  }
+
+  private createAllSubgroups(settings: any): any[] {
+    const subgroups = [
+      { code: 'Gender', translatecode: 'gender-label', selected: false },
+      { code: 'Ethnicity', translatecode: 'ethnicity-label', selected: false }
+    ];
+    if (settings.elasEnabled) {
+      subgroups.push({ code: 'ELAS', translatecode: 'elas-label', selected: false });
+    }
+    if (settings.lepEnabled) {
+      subgroups.push({ code: 'LEP', translatecode: 'limited-english-proficiency-label', selected: false });
+    }
+    subgroups.push(
+      { code: 'Section504', translatecode: '504-label', selected: false },
+      { code: 'IEP', translatecode: 'iep-label', selected: false },
+      { code: 'MigrantStatus', translatecode: 'migrant-status-label', selected: false }
+    );
+    return subgroups;
   }
 
   getClaimCodeTranslation(row: AggregateTargetScoreRow): string {

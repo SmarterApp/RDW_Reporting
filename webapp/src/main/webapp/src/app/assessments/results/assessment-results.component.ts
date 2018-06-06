@@ -134,6 +134,10 @@ export class AssessmentResultsComponent implements OnInit {
     return this._minimumItemDataYear;
   }
 
+  get filterBy(): FilterBy {
+    return this._filterBy;
+  }
+
   /**
    * Exam filters applied, if any.
    */
