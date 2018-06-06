@@ -190,7 +190,9 @@ export class TargetReportComponent implements OnInit, ExportResults {
     let exportRequest = new ExportTargetReportRequest();
     exportRequest.assessment = this.assessment;
     exportRequest.targetScoreRows = this.aggregateTargetScoreRows;
-    // TODO iplement this for real
+
+    // TODO don't have these values in this component right now
+    exportRequest.group = 'TODO';
     exportRequest.schoolYear = 2018;
     exportRequest.averageScaleScore = 2345;
     exportRequest.standardError = 9;
