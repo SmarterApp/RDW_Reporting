@@ -28,6 +28,8 @@ import { ApplicationSettingsService } from '../../../../app-settings.service';
 import { ExportResults } from '../../assessment-results.component';
 import { ExportTargetReportRequest } from '../../../model/export-target-report-request.model';
 import { AssessmentExporter } from '../../../assessment-exporter.interface';
+import { ExamStatistics } from '../../../model/exam-statistics.model';
+import { Exam } from '../../../model/exam.model';
 
 @Component({
   selector: 'target-report',
@@ -49,6 +51,21 @@ export class TargetReportComponent implements OnInit, ExportResults {
    */
   @Input()
   studentsTested: number;
+
+  @Input()
+  statistics: ExamStatistics;
+
+  @Input()
+  displayedFor: string;
+
+  @Input()
+  set exams(exams: Exam[]) {
+    if (exams && exams.length > 0) {
+      this.schoolYear = exams[ 0 ].schoolYear;
+    }
+  }
+
+  schoolYear: number;
 
   @Input()
   set sessions(value: any) {
@@ -183,15 +200,13 @@ export class TargetReportComponent implements OnInit, ExportResults {
   }
 
   exportToCsv(): void {
-    let exportRequest = new ExportTargetReportRequest();
+    const exportRequest = new ExportTargetReportRequest();
     exportRequest.assessment = this.assessment;
     exportRequest.targetScoreRows = this.aggregateTargetScoreRows;
-
-    // TODO don't have these values in this component right now
-    exportRequest.group = 'TODO';
-    exportRequest.schoolYear = 2018;
-    exportRequest.averageScaleScore = 2345;
-    exportRequest.standardError = 9;
+    exportRequest.group = this.displayedFor;
+    exportRequest.schoolYear = this.schoolYear;
+    exportRequest.averageScaleScore = Math.round(this.statistics.average);
+    exportRequest.standardError = Math.round(this.statistics.standardError);
 
     this.assessmentExporter.exportTargetScoresToCsv(exportRequest);
   }

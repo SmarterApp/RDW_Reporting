@@ -445,7 +445,7 @@ export class CsvBuilder {
   withTargetReportAggregate(getTargetReportAggregate: (item: any) => AggregateTargetScoreRow) {
     this.withColumn(
       this.translateService.instant('target-report.columns.claim'),
-      (item) => `common.claim-name.${getTargetReportAggregate(item).claim}`
+      (item) => this.translateService.instant(`common.claim-name.${getTargetReportAggregate(item).claim}`)
     );
     this.withColumn(
       this.translateService.instant('target-report.columns.target'),

@@ -83,6 +83,9 @@ export class AssessmentsComponent implements OnInit {
   @Input()
   isDefaultCollapsed = false;
 
+  @Input()
+  displayedFor: string;
+
   @Output()
   export: EventEmitter<any> = new EventEmitter<any>();
 
@@ -217,12 +220,12 @@ export class AssessmentsComponent implements OnInit {
         });
 
         forkJoin(loadingObservables).subscribe(args => {
-            args.forEach((exams, index) => this.processLoadAssessmentExam(preselectedAssessments[index].id, exams));
+          args.forEach((exams, index) => this.processLoadAssessmentExam(preselectedAssessments[ index ].id, exams));
 
-            this._hasInitialAssessment = true;
-            this.updateFilterOptions();
-            this.showOnlyMostRecent = false;
-            this.expandAssessments = false;
+          this._hasInitialAssessment = true;
+          this.updateFilterOptions();
+          this.showOnlyMostRecent = false;
+          this.expandAssessments = false;
           this.loadingInitialResults = false;
         });
 
