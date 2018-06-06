@@ -413,25 +413,25 @@ export class AggregateReportRequestMapper {
 
   // TODO consolidate type names to remove need for extra mapping
 
-  private ServerReportTypeByClientType: Map<AggregateReportType, AggregateReportServerType> = new Map([
-    [AggregateReportType.GeneralPopulation, AggregateReportServerType.CustomAggregate],
-    [AggregateReportType.LongitudinalCohort, AggregateReportServerType.Longitudinal],
-    [AggregateReportType.Claim, AggregateReportServerType.Claim],
-    [AggregateReportType.Target, AggregateReportServerType.Target]
+  private ServerReportTypeByClientType: Map<AggregateReportType, ServerAggregateReportType> = new Map([
+    [AggregateReportType.GeneralPopulation, ServerAggregateReportType.CustomAggregate],
+    [AggregateReportType.LongitudinalCohort, ServerAggregateReportType.Longitudinal],
+    [AggregateReportType.Claim, ServerAggregateReportType.Claim],
+    [AggregateReportType.Target, ServerAggregateReportType.Target]
   ]);
 
-  private ClientReportTypeByServerType: Map<AggregateReportServerType, AggregateReportType> = new Map([
-    [AggregateReportServerType.CustomAggregate, AggregateReportType.GeneralPopulation],
-    [AggregateReportServerType.Longitudinal, AggregateReportType.LongitudinalCohort],
-    [AggregateReportServerType.Claim, AggregateReportType.Claim],
-    [AggregateReportServerType.Target, AggregateReportType.Target]
+  private ClientReportTypeByServerType: Map<ServerAggregateReportType, AggregateReportType> = new Map([
+    [ServerAggregateReportType.CustomAggregate, AggregateReportType.GeneralPopulation],
+    [ServerAggregateReportType.Longitudinal, AggregateReportType.LongitudinalCohort],
+    [ServerAggregateReportType.Claim, AggregateReportType.Claim],
+    [ServerAggregateReportType.Target, AggregateReportType.Target]
   ]);
 
-  private toServerReportType(type: AggregateReportType): AggregateReportServerType {
+  private toServerReportType(type: AggregateReportType): ServerAggregateReportType {
     return this.ServerReportTypeByClientType.get(type);
   }
 
-  private fromServerReportType(type: AggregateReportServerType): AggregateReportType {
+  private fromServerReportType(type: ServerAggregateReportType): AggregateReportType {
     return this.ClientReportTypeByServerType.get(type);
   }
 
@@ -450,7 +450,7 @@ export class AggregateReportRequestMapper {
 
 }
 
-export enum AggregateReportServerType {
+export enum ServerAggregateReportType {
   CustomAggregate = 'CustomAggregate',
   Longitudinal = 'Longitudinal',
   Claim = 'Claim',

@@ -1,4 +1,4 @@
-import { AggregateReportRequestMapper, AggregateReportServerType } from './aggregate-report-request.mapper';
+import { AggregateReportRequestMapper, ServerAggregateReportType } from './aggregate-report-request.mapper';
 import { TranslateService } from '@ngx-translate/core';
 import { AggregateReportOrganizationService } from './aggregate-report-organization.service';
 import {
@@ -71,7 +71,7 @@ describe('AggregateReportRequestMapper', () => {
       includeAllDistrictsOfSchools: true,
       includeAllSchoolsOfDistricts: true,
       includeState: true,
-      reportType: AggregateReportServerType.CustomAggregate,
+      reportType: ServerAggregateReportType.CustomAggregate,
       schoolIds: [ 2 ],
       schoolYears: [ 2000 ],
       studentFilters: studentFilters,
@@ -154,7 +154,7 @@ describe('AggregateReportRequestMapper', () => {
       includeAllDistrictsOfSchools: true,
       includeAllSchoolsOfDistricts: true,
       includeState: true,
-      reportType: AggregateReportServerType.CustomAggregate,
+      reportType: ServerAggregateReportType.CustomAggregate,
       schoolYears: [ 2000 ],
       studentFilters: {},
       subjectCodes: [ 'Math' ],

@@ -12,7 +12,7 @@ import { ordering } from '@kourge/ordering';
 import { AggregateReportQuery } from '../../report/aggregate-report-request';
 import { DisplayOptionService } from '../../shared/display-options/display-option.service';
 import { TranslateService } from '@ngx-translate/core';
-import { AggregateReportRequestMapper, AggregateReportServerType } from '../aggregate-report-request.mapper';
+import { AggregateReportRequestMapper, ServerAggregateReportType } from '../aggregate-report-request.mapper';
 import { SpinnerModal } from '../../shared/loading/spinner.modal';
 import { OrderableItem } from '../../shared/order-selector/order-selector.component';
 import { AggregateReportColumnOrderItemProvider } from '../aggregate-report-column-order-item.provider';
@@ -170,23 +170,23 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     this.initializeReportViews(this.query, this._aggregateReport);
   }
 
-  mapToReportType(serverReportType: AggregateReportServerType): AggregateReportType {
-    if (serverReportType == AggregateReportServerType.Longitudinal) {
+  mapToReportType(serverReportType: ServerAggregateReportType): AggregateReportType {
+    if (serverReportType == ServerAggregateReportType.Longitudinal) {
       return AggregateReportType.LongitudinalCohort
     }
-    if (serverReportType == AggregateReportServerType.CustomAggregate) {
+    if (serverReportType == ServerAggregateReportType.CustomAggregate) {
       return AggregateReportType.GeneralPopulation
     }
-    if (serverReportType == AggregateReportServerType.Claim) {
+    if (serverReportType == ServerAggregateReportType.Claim) {
       return AggregateReportType.Claim;
     }
-    if (serverReportType == AggregateReportServerType.Target) {
+    if (serverReportType == ServerAggregateReportType.Target) {
       return AggregateReportType.Target;
     }
   }
 
   get isLongitudinal(): boolean {
-    return this.query.reportType === AggregateReportServerType.Longitudinal;
+    return this.query.reportType === ServerAggregateReportType.Longitudinal;
   }
 
   private updateViewState(): void {
