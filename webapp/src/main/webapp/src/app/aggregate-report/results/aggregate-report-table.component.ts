@@ -35,7 +35,9 @@ const ScorableClaimOrdering: Ordering<AggregateReportItem> = ordering(byString)
 
 const OrganizationalClaimOrderingProvider: (subjectCode: string) => Ordering<AggregateReportItem> = (subjectCode) =>
   (SubjectClaimOrderings.get(subjectCode) || ordering(byString))
-    .on(item => item.claimCode);
+    .on(item => {
+      return item.claimCode
+    });
 
 const TargetOrdering: Ordering<AggregateReportItem> = ordering(byNumericString)
   .on(item => item.targetCode || item.targetNaturalId);
@@ -199,7 +201,7 @@ export class AggregateReportTableComponent {
    * @param event {{order: number, field: string}} An optional sort event
    */
   public sort(event?: SortEvent): void {
-    const ordering: Comparator<AggregateReportItem>[] = this.getIdentityColumns();
+    const ordering: Comparator<AggregateReportItem>[] = this.getIdentityColumnsComparator();
 
     if (!event.field) {
       // We're not sorting on a field.  Just apply the default column ordering
@@ -424,7 +426,7 @@ export class AggregateReportTableComponent {
    *
    * @returns {Comparator<AggregateReportItem>[]} The ordered list of comparators
    */
-  private getIdentityColumns(): Comparator<AggregateReportItem>[] {
+  private getIdentityColumnsComparator(): Comparator<AggregateReportItem>[] {
     return this.columns
       .map((column: Column) => {
         const ordering = this._orderingByColumnField[ column.field ];
