@@ -439,7 +439,7 @@ export class CsvBuilder {
     return this.withColumn(
       this.translateService.instant('groups.columns.group'),
       (item) => getGroupName(item)
-    )
+    );
   }
 
   withTargetReportAggregate(getTargetReportAggregate: (item: any) => AggregateTargetScoreRow) {

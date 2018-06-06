@@ -20,8 +20,6 @@ import { AssessmentProvider } from '../../assessments/assessment-provider.interf
 import { GroupReportDownloadComponent } from '../../report/group-report-download.component';
 import { byString } from '@kourge/ordering/comparator';
 import { ordering } from '@kourge/ordering';
-import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
 
 @Component({
   selector: 'group-results',
@@ -48,6 +46,7 @@ export class GroupResultsComponent implements OnInit, StateProvider {
 
   set group(value: Group) {
     this._group = value;
+    this.createAssessmentExporter();
   }
 
   get schoolYear(): number {
@@ -56,6 +55,7 @@ export class GroupResultsComponent implements OnInit, StateProvider {
 
   set schoolYear(value: number) {
     this._schoolYear = value;
+    this.createAssessmentExporter();
   }
 
   get stateAsNavigationParameters(): any {
@@ -78,13 +78,11 @@ export class GroupResultsComponent implements OnInit, StateProvider {
               private groupService: GroupService,
               private userGroupService: UserGroupService,
               assessmentService: GroupAssessmentService,
-              assessmentExportService: GroupAssessmentExportService,
-              translateService: TranslateService) {
+              private assessmentExportService: GroupAssessmentExportService,
+              private translateService: TranslateService) {
 
     this.assessmentProvider = new GroupAssessmentProvider(assessmentService, this);
-    this.assessmentExporter = new DefaultAssessmentExporter(assessmentExportService, request =>
-      `${this.group.name}-${request.assessment.label}-${translateService.instant(request.type.toString())}-${new Date().toDateString()}`
-    );
+
   }
 
   ngOnInit() {
@@ -94,7 +92,7 @@ export class GroupResultsComponent implements OnInit, StateProvider {
       this.filterOptionService.getExamFilterOptions()
     ).subscribe(([ groups, userGroups, filterOptions ]) => {
       this.groups = groups.concat(userGroups)
-        .sort(ordering(byString).on<Group>(({name}) => name).compare);
+        .sort(ordering(byString).on<Group>(({ name }) => name).compare);
       this.filterOptions = filterOptions;
       const { groupId, userGroupId, schoolYear } = this.route.snapshot.params;
       this.group = this.groups.find(group => group.userCreated
@@ -157,6 +155,12 @@ export class GroupResultsComponent implements OnInit, StateProvider {
    */
   initializeDownloader(downloader: GroupReportDownloadComponent): void {
     downloader.options.schoolYear = this.schoolYear;
+  }
+
+  private createAssessmentExporter() {
+    this.assessmentExporter = new DefaultAssessmentExporter(this.assessmentExportService, this.group.name, this.schoolYear, request =>
+      `${this.group.name}-${request.assessment.label}-${this.translateService.instant(request.type.toString())}-${new Date().toDateString()}`
+    );
   }
 
 }

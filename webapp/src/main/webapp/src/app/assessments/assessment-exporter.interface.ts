@@ -6,6 +6,8 @@ import { ExportTargetReportRequest } from './model/export-target-report-request.
  * Implementations of this interface are responsible for exporting CSVs
  */
 export interface AssessmentExporter {
+  readonly name: string;
+  readonly schoolYear: number;
   exportItemsToCsv(request: ExportItemsRequest);
   exportWritingTraitScoresToCsv(request: ExportWritingTraitsRequest);
   exportTargetScoresToCsv(request: ExportTargetReportRequest);

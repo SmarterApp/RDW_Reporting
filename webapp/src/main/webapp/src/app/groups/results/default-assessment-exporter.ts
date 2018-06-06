@@ -7,8 +7,13 @@ import { ExportTargetReportRequest } from '../../assessments/model/export-target
 export class DefaultAssessmentExporter implements AssessmentExporter {
 
   constructor(private service: GroupAssessmentExportService,
+              private groupName: string,
+              private groupSchoolYear: number,
               private filenameProvider: (request: ExportItemsRequest | ExportWritingTraitsRequest | ExportTargetReportRequest) => string) {
   }
+
+  name = this.groupName;
+  schoolYear = this.groupSchoolYear;
 
   exportItemsToCsv(request: ExportItemsRequest) {
     this.service.exportItemsToCsv(request, this.filenameProvider(request));
@@ -19,7 +24,7 @@ export class DefaultAssessmentExporter implements AssessmentExporter {
   }
 
   exportTargetScoresToCsv(request: ExportTargetReportRequest) {
-    this.service.exportTargetScoresToCsv(request, this.filenameProvider(request));
+    this.service.exportTargetScoresToCsv(request, this.name, this.schoolYear, this.filenameProvider(request));
   }
 
 }

@@ -13,6 +13,7 @@ import { ExportTargetReportRequest } from '../../assessments/model/export-target
 @Injectable()
 export class SchoolAssessmentExportService implements AssessmentExporter {
 
+  name = '';
   schoolId: number;
   schoolName: string;
   grade: Grade;
@@ -59,7 +60,7 @@ export class SchoolAssessmentExportService implements AssessmentExporter {
       }
     });
 
-    this.csvExportService.exportTargetScoresToCsv(exportRequest, filename);
+    this.csvExportService.exportTargetScoresToCsv(exportRequest, null, filename);
   }
 
   private getFilename(exportRequest: ExportRequest) {

@@ -59,15 +59,6 @@ export class TargetReportComponent implements OnInit, ExportResults {
   displayedFor: string;
 
   @Input()
-  set exams(exams: Exam[]) {
-    if (exams && exams.length > 0) {
-      this.schoolYear = exams[ 0 ].schoolYear;
-    }
-  }
-
-  schoolYear: number;
-
-  @Input()
   set sessions(value: any) {
     this._sessions = value;
     this.updateTargetScoreExamFilters();
@@ -203,8 +194,6 @@ export class TargetReportComponent implements OnInit, ExportResults {
     const exportRequest = new ExportTargetReportRequest();
     exportRequest.assessment = this.assessment;
     exportRequest.targetScoreRows = this.aggregateTargetScoreRows;
-    exportRequest.group = this.displayedFor;
-    exportRequest.schoolYear = this.schoolYear;
     exportRequest.averageScaleScore = Math.round(this.statistics.average);
     exportRequest.standardError = Math.round(this.statistics.standardError);
 

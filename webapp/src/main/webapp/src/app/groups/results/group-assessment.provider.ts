@@ -13,7 +13,7 @@ export interface StateProvider {
 export class GroupAssessmentProvider implements AssessmentProvider {
 
   constructor(private service: GroupAssessmentService,
-              private stateProvider: StateProvider) {
+              public stateProvider: StateProvider) {
   }
 
   getAssessmentItems(assessmentId: number, types?: string[]): Observable<AssessmentItem[]> {
