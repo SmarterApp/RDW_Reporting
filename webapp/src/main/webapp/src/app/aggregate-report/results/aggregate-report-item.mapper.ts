@@ -52,12 +52,12 @@ export class AggregateReportItemMapper {
     const measures: any = measuresGetter(row) || {};
     item.avgScaleScore = measures.avgScaleScore || 0;
     item.avgStdErr = measures.avgStdErr || 0;
+    item.studentsTested = measures.studentCount;
 
     for (let level = 1; level <= assessmentDefinition.performanceLevelCount; level++) {
       const count = measures[ `level${level}Count` ] || 0;
       itemPerformanceLevelCounts.push(count);
     }
-    item.studentsTested = row.measures.studentCount;
 
     for (let level = 0; level < itemPerformanceLevelCounts.length; level++) {
       const percent = item.studentsTested === 0 ? 0 : Math.floor((itemPerformanceLevelCounts[ level ] / item.studentsTested) * 100);
