@@ -97,15 +97,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
   // the filtered values used to get the aggregate rows for the data table
   targetScoreExams: TargetScoreExam[];
 
-  // TODO: handle ELAS, vs LEP decision
-  allSubgroups: any[] = [
-    { code: 'Gender', translatecode: 'gender-label', selected: false },
-    { code: 'Ethnicity', translatecode: 'ethnicity-label', selected: false },
-    { code: 'ELAS', translatecode: 'elas-label', selected: false },
-    { code: 'Section504', translatecode: '504-label', selected: false },
-    { code: 'IEP', translatecode: 'iep-label', selected: false },
-    { code: 'MigrantStatus', translatecode: 'migrant-status-label', selected: false }
-  ];
+  allSubgroups: any[] = [];
 
   private _sessions: any[];
   private _filterBy: FilterBy;
@@ -121,6 +113,24 @@ export class TargetReportComponent implements OnInit, ExportResults {
               private filterOptionService: ExamFilterOptionsService,
               private assessmentService: GroupAssessmentService,
               private applicationSettingsService: ApplicationSettingsService) {
+
+    applicationSettingsService.getSettings().subscribe(settings => {
+      this.allSubgroups = [
+        { code: 'Gender', translatecode: 'gender-label', selected: false },
+        { code: 'Ethnicity', translatecode: 'ethnicity-label', selected: false }
+      ];
+      if (settings.elasEnabled) {
+        this.allSubgroups.push({ code: 'ELAS', translatecode: 'elas-label', selected: false });
+      }
+      if (settings.lepEnabled) {
+        this.allSubgroups.push({ code: 'LEP', translatecode: 'limited-english-proficiency-label', selected: false });
+      }
+      this.allSubgroups.push(
+        { code: 'Section504', translatecode: '504-label', selected: false },
+        { code: 'IEP', translatecode: 'iep-label', selected: false },
+        { code: 'MigrantStatus', translatecode: 'migrant-status-label', selected: false }
+      );
+    });
   }
 
   ngOnInit(): void {
