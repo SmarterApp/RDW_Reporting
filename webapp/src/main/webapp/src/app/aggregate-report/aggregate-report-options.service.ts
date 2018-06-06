@@ -6,6 +6,7 @@ import { OrganizationMapper } from '../shared/organization/organization.mapper';
 import { map } from 'rxjs/operators';
 import { AggregateServiceRoute } from '../shared/service-route';
 import { AssessmentTypeOrdering, BooleanOrdering, CompletenessOrdering } from '../shared/ordering/orderings';
+import { AggregateReportType } from "./aggregate-report-form-settings";
 
 const ServiceRoute = AggregateServiceRoute;
 const assessmentTypeComparator = AssessmentTypeOrdering.compare;
@@ -35,7 +36,7 @@ export class AggregateReportOptionsService {
         dimensionTypes: serverOptions.dimensionTypes.concat(),
         interimAdministrationConditions: serverOptions.interimAdministrationConditions.concat(),
         queryTypes: [ 'Basic', 'FilteredSubgroup' ],
-        reportTypes: [ 'GeneralPopulation', 'LongitudinalCohort', 'Claim', 'Target' ],
+        reportTypes: [ AggregateReportType.GeneralPopulation, AggregateReportType.LongitudinalCohort, AggregateReportType.Claim, AggregateReportType.Target ],
         schoolYears: serverOptions.schoolYears.concat(),
         statewideReporter: serverOptions.statewideReporter,
         subjects: serverOptions.subjects.concat(),

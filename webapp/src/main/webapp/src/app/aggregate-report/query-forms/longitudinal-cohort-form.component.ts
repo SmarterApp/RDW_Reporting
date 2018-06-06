@@ -16,6 +16,7 @@ import { SubgroupMapper } from "../subgroup/subgroup.mapper";
 import { MultiOrganizationQueryFormComponent } from "./multi-organization-query-form.component";
 import { fileName, isGreaterThan, withinBounds } from "../../shared/form/validators";
 import { Utils } from "../../shared/support/support";
+import { AggregateReportType } from "../aggregate-report-form-settings";
 
 @Component({
   selector: 'longitudinal-cohort-form',
@@ -50,7 +51,7 @@ export class LongitudinalCohortFormComponent extends MultiOrganizationQueryFormC
               @Inject(FormBuilder) formBuilder: FormBuilder,
               protected assessmentDefinitionService: AssessmentDefinitionService) {
     super(columnOrderableItemProvider, notificationService, optionMapper, organizationService, reportService, requestMapper, route, router, subgroupMapper, tableDataService);
-    this.settings.reportType = 'LongitudinalCohort';
+    this.settings.reportType = AggregateReportType.LongitudinalCohort;
     this.settings.assessmentType = 'sum';
 
     this.assessmentDefinition = this.assessmentDefinitionService.get(this.settings.assessmentType, this.settings.reportType);

@@ -96,7 +96,7 @@ export interface AggregateReportFormSettings {
   /**
    * Defines the report type (standard or longitudinal)
    */
-  reportType: 'GeneralPopulation' | 'LongitudinalCohort' | 'Claim' | 'Target';
+  reportType: AggregateReportType;
 
   /**
    * The advanced filters applied to basic reports
@@ -184,5 +184,11 @@ export interface AggregateReportFormSettings {
      */
     assessmentGrade: string;
   }
+}
 
+export enum AggregateReportType {
+  GeneralPopulation = 'GeneralPopulation',
+  LongitudinalCohort = 'LongitudinalCohort',
+  Claim = 'Claim',
+  Target = 'Target'
 }

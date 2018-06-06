@@ -19,6 +19,7 @@ import { AssessmentDefinition } from "../assessment/assessment-definition";
 import { Utils } from "../../shared/support/support";
 import { BaseAggregateQueryFormComponent } from "./base-aggregate-query-form.component";
 import { ScrollNavItem } from "../../shared/nav/scroll-nav.component";
+import { AggregateReportType } from "../aggregate-report-form-settings";
 
 @Component({
   selector: 'target-report-form',
@@ -75,7 +76,7 @@ export class TargetReportFormComponent extends BaseAggregateQueryFormComponent {
               protected assessmentDefinitionService: AssessmentDefinitionService) {
     super(columnOrderableItemProvider, notificationService, optionMapper, reportService, requestMapper, route, router, tableDataService);
 
-    this.settings.reportType = 'Target';
+    this.settings.reportType = AggregateReportType.Target;
 
     this.assessmentDefinition = this.assessmentDefinitionService.get(TargetSummativeKey.assessmentType, TargetSummativeKey.reportType);
 

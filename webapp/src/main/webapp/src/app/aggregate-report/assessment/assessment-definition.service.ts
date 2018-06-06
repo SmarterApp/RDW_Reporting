@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AssessmentDefinition } from './assessment-definition';
 import { PerformanceLevelDisplayTypes } from '../../shared/display-options/performance-level-display-type';
+import { AggregateReportType } from "../aggregate-report-form-settings";
 
 export const IdentityColumnOptions: string[] = [
   'organization',
@@ -26,7 +27,7 @@ const Iab: AssessmentDefinition = {
   performanceLevelDisplayTypes: [ PerformanceLevelDisplayTypes.Separate ],
   aggregateReportIdentityColumns: IdentityColumnOptions.concat(),
   aggregateReportStateResultsEnabled: false,
-  aggregateReportTypes: [ 'GeneralPopulation' ]
+  aggregateReportTypes: [ AggregateReportType.GeneralPopulation ]
 };
 
 const Ica: AssessmentDefinition = {
@@ -39,7 +40,7 @@ const Ica: AssessmentDefinition = {
   aggregateReportIdentityColumns: IdentityColumnOptions
     .filter(option => option !== 'assessmentLabel'),
   aggregateReportStateResultsEnabled: false,
-  aggregateReportTypes: [ 'Claim' ]
+  aggregateReportTypes: [ AggregateReportType.Claim ]
 };
 
 const Summative: AssessmentDefinition = {
@@ -52,7 +53,7 @@ const Summative: AssessmentDefinition = {
   aggregateReportIdentityColumns: IdentityColumnOptions
     .filter(option => option !== 'assessmentLabel'),
   aggregateReportStateResultsEnabled: true,
-  aggregateReportTypes: [ 'Claim', 'LongitudinalCohort' ]
+  aggregateReportTypes: [ AggregateReportType.Claim, AggregateReportType.LongitudinalCohort ]
 };
 
 const ClaimIca: AssessmentDefinition = {
@@ -63,7 +64,7 @@ const ClaimIca: AssessmentDefinition = {
   performanceLevelDisplayTypes: [ PerformanceLevelDisplayTypes.Separate ],
   aggregateReportIdentityColumns: ClaimIdentityColumnOptions.concat(),
   aggregateReportStateResultsEnabled: false,
-  aggregateReportTypes: [ 'Claim' ]
+  aggregateReportTypes: [ AggregateReportType.Claim ]
 };
 
 const ClaimSummative: AssessmentDefinition = {
@@ -74,7 +75,7 @@ const ClaimSummative: AssessmentDefinition = {
   performanceLevelDisplayTypes: [ PerformanceLevelDisplayTypes.Separate ],
   aggregateReportIdentityColumns: ClaimIdentityColumnOptions.concat(),
   aggregateReportStateResultsEnabled: true,
-  aggregateReportTypes: [ 'Claim', 'LongitudinalCohort' ]
+  aggregateReportTypes: [ AggregateReportType.Claim, AggregateReportType.LongitudinalCohort ]
 };
 
 const TargetSummative: AssessmentDefinition = {
@@ -85,44 +86,44 @@ const TargetSummative: AssessmentDefinition = {
   performanceLevelDisplayTypes: [ PerformanceLevelDisplayTypes.Separate ],
   aggregateReportIdentityColumns: ['claim', 'target', 'dimension'],
   aggregateReportStateResultsEnabled: false,
-  aggregateReportTypes: [ 'Target' ]
+  aggregateReportTypes: [ AggregateReportType.Target ]
 };
 
 export const GeneralPopulationIabKey: DefinitionKey = <DefinitionKey>{
   assessmentType: 'iab',
-  reportType: 'GeneralPopulation'
+  reportType: AggregateReportType.GeneralPopulation
 };
 
 export const GeneralPopulationIcaKey: DefinitionKey = <DefinitionKey>{
   assessmentType: 'ica',
-  reportType: 'GeneralPopulation'
+  reportType: AggregateReportType.GeneralPopulation
 };
 
 export const ClaimIcaKey: DefinitionKey = <DefinitionKey>{
   assessmentType: 'ica',
-  reportType: 'Claim'
+  reportType: AggregateReportType.Claim
 };
 
 export const GeneralPopulationSumKey: DefinitionKey = <DefinitionKey>{
   assessmentType: 'sum',
-  reportType: 'GeneralPopulation'
+  reportType: AggregateReportType.GeneralPopulation
 };
 export const LongitudinalCohortSumKey: DefinitionKey = <DefinitionKey>{
   assessmentType: 'sum',
-  reportType: 'LongitudinalCohort'
+  reportType: AggregateReportType.LongitudinalCohort
 };
 
 export const ClaimSumKey: DefinitionKey = <DefinitionKey>{
   assessmentType: 'sum',
-  reportType: 'Claim'
+  reportType: AggregateReportType.Claim
 };
 
 export const TargetSummativeKey: DefinitionKey = <DefinitionKey>{
   assessmentType: 'sum',
-  reportType: 'Target'
+  reportType: AggregateReportType.Target
 };
 
-export const definitions = new Array(
+export const definitions = [
   { key: GeneralPopulationIabKey, value: Iab },
   { key: GeneralPopulationIcaKey, value: Ica },
   { key: ClaimIcaKey, value: ClaimIca },
@@ -130,7 +131,7 @@ export const definitions = new Array(
   { key: LongitudinalCohortSumKey, value: Summative },
   { key: ClaimSumKey, value: ClaimSummative },
   { key: TargetSummativeKey, value: TargetSummative }
-);
+  ];
 
 /**
  * Responsible for providing definition key related properties
@@ -144,12 +145,12 @@ export class AssessmentDefinitionService {
    * @param {string} reportType
    * @returns {AssessmentDefinition}
    */
-  get(assessmentType: string, reportType: string): AssessmentDefinition {
+  get(assessmentType: string, reportType: AggregateReportType): AssessmentDefinition {
     return definitions.find((value) => assessmentType === value.key.assessmentType && reportType === value.key.reportType).value;
   }
 }
 
 export interface DefinitionKey {
   readonly assessmentType: string;
-  readonly reportType: string;
+  readonly reportType: AggregateReportType;
 }

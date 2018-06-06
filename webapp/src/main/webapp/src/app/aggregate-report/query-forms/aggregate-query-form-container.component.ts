@@ -1,7 +1,7 @@
 import { Component, EventEmitter } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { AggregateReportOptions } from "../aggregate-report-options";
-import { AggregateReportFormSettings } from "../aggregate-report-form-settings";
+import { AggregateReportFormSettings, AggregateReportType } from "../aggregate-report-form-settings";
 import { AggregateReportFormOptions } from "../aggregate-report-form-options";
 import { AggregateReportOptionsMapper } from "../aggregate-report-options.mapper";
 import { ScrollNavItem } from "../../shared/nav/scroll-nav.component";
@@ -14,7 +14,7 @@ export class AggregateQueryFormContainerComponent {
 
   accessDenied: boolean;
   aggregateReportOptions: AggregateReportOptions;
-  reportType: string;
+  reportType: AggregateReportType;
   filteredOptions: AggregateReportFormOptions;
 
   navItems: ScrollNavItem[];
@@ -42,7 +42,7 @@ export class AggregateQueryFormContainerComponent {
     this.accessDenied = this.aggregateReportOptions.assessmentTypes.length === 0;
   }
 
-  setNavItems(reportType: string, navItems: ScrollNavItem[]): void {
+  setNavItems(reportType: AggregateReportType, navItems: ScrollNavItem[]): void {
     navItems = this._globalNavItems.concat(navItems);
     this.navItemsByReportType[reportType] = navItems;
     if (this.reportType === reportType) {

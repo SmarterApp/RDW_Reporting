@@ -1,6 +1,8 @@
 /**
  * Represents a basic aggregate report request
  */
+import { AggregateReportServerType } from "../aggregate-report/aggregate-report-request.mapper";
+
 export interface AggregateReportRequest {
   readonly name: string;
   readonly query: AggregateReportQuery;
@@ -35,7 +37,7 @@ export interface AggregateReportQuery {
   readonly subgroups?: { [ key: string ]: StudentFilters };
 
   // Needed for mapping back into form state
-  readonly reportType: 'CustomAggregate' | 'Longitudinal' | 'Claim';
+  readonly reportType: AggregateReportServerType;
 
   // GeneralPopulation report type params
   readonly schoolYears?: number[];

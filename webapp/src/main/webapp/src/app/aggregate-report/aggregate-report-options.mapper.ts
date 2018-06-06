@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { SchoolYearPipe } from '../shared/format/school-year.pipe';
 import { DisplayOptionService } from '../shared/display-options/display-option.service';
-import { AggregateReportFormSettings } from './aggregate-report-form-settings';
+import { AggregateReportFormSettings, AggregateReportType } from './aggregate-report-form-settings';
 import { ValueDisplayTypes } from '../shared/display-options/value-display-type';
 import { AssessmentDefinitionService } from './assessment/assessment-definition.service';
 import { Observable } from 'rxjs/Observable';
@@ -156,7 +156,7 @@ export class AggregateReportOptionsMapper {
    */
   toDefaultSettings(options: AggregateReportOptions): Observable<AggregateReportFormSettings> {
     const defaultAssessmentType = options.assessmentTypes[ 0 ];
-    const defaultReportType = <'GeneralPopulation' | 'LongitudinalCohort' | 'Claim' | 'Target'>options.reportTypes[ 0 ];
+    const defaultReportType: AggregateReportType = options.reportTypes[ 0 ];
     const assessmentDefinition = this.assessmentDefinitionService.get(defaultAssessmentType, defaultReportType);
     return of(<AggregateReportFormSettings>{
       assessmentType: defaultAssessmentType,

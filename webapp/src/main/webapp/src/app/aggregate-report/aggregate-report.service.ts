@@ -13,6 +13,7 @@ import { AssessmentDefinition } from './assessment/assessment-definition';
 import { TargetService } from "../shared/target/target.service";
 import { Target } from "../assessments/model/target.model";
 import { of } from "rxjs/observable/of";
+import { AggregateReportType } from "./aggregate-report-form-settings";
 
 export interface BasicReport {
   readonly rows: AggregateReportRow[];
@@ -22,7 +23,7 @@ export interface LongitudinalReport extends BasicReport {
   readonly assessments: Assessment[];
 }
 
-const DefaultReportType = 'GeneralPopulation';
+const DefaultReportType: AggregateReportType = AggregateReportType.GeneralPopulation;
 
 /**
  * Responsible for interfacing with aggregate report server
@@ -49,12 +50,11 @@ export class AggregateReportService {
   /**
    * Gets the effective report type
    *
-   * @param {"GeneralPopulation" | "LongitudinalCohort" | "Claim" | "Target"} reportType the report type
+   * @param {AggregateReportType} reportType the report type
    * @param {AssessmentDefinition} definition the assessment definition
-   * @returns {"GeneralPopulation" | "LongitudinalCohort" | "Claim" | "Target"}
+   * @returns {AggregateReportType}
    */
-  getEffectiveReportType(reportType: 'GeneralPopulation' | 'LongitudinalCohort' | 'Claim' | 'Target', definition: AssessmentDefinition):
-    'GeneralPopulation' | 'LongitudinalCohort' | 'Claim' | 'Target' {
+  getEffectiveReportType(reportType: AggregateReportType, definition: AssessmentDefinition): AggregateReportType {
     return definition.aggregateReportTypes.includes(reportType)
       ? reportType
       : DefaultReportType;

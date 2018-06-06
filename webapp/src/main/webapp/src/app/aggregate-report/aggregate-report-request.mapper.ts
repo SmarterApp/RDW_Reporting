@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AggregateReportQuery, AggregateReportRequest, StudentFilters } from '../report/aggregate-report-request';
-import { AggregateReportFormSettings } from './aggregate-report-form-settings';
+import { AggregateReportFormSettings, AggregateReportType } from './aggregate-report-form-settings';
 import { AggregateReportFormOptions } from './aggregate-report-form-options';
 import { TranslateService } from '@ngx-translate/core';
 import { AssessmentDefinition } from './assessment/assessment-definition';
@@ -95,19 +95,19 @@ export class AggregateReportRequestMapper {
     // Set report type specific parameters
     // The assessment definition check is tacked on because the form state can be set to longitudinal cohort
     // and then the assessment definition can be changed to a type that does not support longitudinal cohort
-    if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'GeneralPopulation') {
+    if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === AggregateReportType.GeneralPopulation) {
       query.assessmentGradeCodes = settings.generalPopulation.assessmentGrades;
       query.schoolYears = settings.generalPopulation.schoolYears;
       query.subjectCodes = settings.subjects;
-    } else if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'LongitudinalCohort') {
+    } else if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === AggregateReportType.LongitudinalCohort) {
       query.assessmentGradeCodes = settings.longitudinalCohort.assessmentGrades;
       query.toSchoolYear = settings.longitudinalCohort.toSchoolYear;
       query.subjectCodes = settings.subjects;
-    } else if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'Claim') {
+    } else if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === AggregateReportType.Claim) {
       query.assessmentGradeCodes = settings.claimReport.assessmentGrades;
       query.schoolYears = settings.claimReport.schoolYears;
       query.claimCodesBySubject = this.claimsBySubjectMapping(settings.subjects, settings.claimReport.claimCodesBySubject);
-    } else if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === 'Target') {
+    } else if (this.reportService.getEffectiveReportType(settings.reportType, assessmentDefinition) === AggregateReportType.Target) {
       query.schoolYear = settings.targetReport.schoolYear;
       query.subjectCode = settings.targetReport.subjectCode;
       query.assessmentGradeCodes = [settings.targetReport.assessmentGrade];
@@ -127,7 +127,7 @@ export class AggregateReportRequestMapper {
 
     const query: AggregateReportQuery = request.query;
     const queryType: string = request.query.subgroups ? 'FilteredSubgroup' : 'Basic';
-    const reportType: string = this.fromServerReportType(request.query.reportType);
+    const reportType: AggregateReportType = this.fromServerReportType(request.query.reportType);
     const filters: StudentFilters = query.studentFilters || {};
 
     const queryInterimAdministrationConditions = (query.administrativeConditionCodes || [])
@@ -220,23 +220,23 @@ export class AggregateReportRequestMapper {
       claimReport = defaultClaimReport,
       targetReport = defaultTargetReport;
 
-    if (reportType === 'GeneralPopulation') {
+    if (reportType === AggregateReportType.GeneralPopulation) {
       generalPopulation = {
         assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
         schoolYears: query.schoolYears.sort((a, b) => b - a),
       };
-    } else if (reportType === 'LongitudinalCohort') {
+    } else if (reportType === AggregateReportType.LongitudinalCohort) {
       longitudinalCohort = {
         assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
         toSchoolYear: query.toSchoolYear
       };
-    } else if (reportType === 'Claim') {
+    } else if (reportType === AggregateReportType.Claim) {
       claimReport = {
         assessmentGrades: sort(query.assessmentGradeCodes, options.assessmentGrades),
         schoolYears: query.schoolYears.sort((a, b) => b - a),
         claimCodesBySubject: this.getClaims(query.assessmentTypeCode, options.claims, query.claimCodesBySubject)
       };
-    } else if (reportType === 'Target') {
+    } else if (reportType === AggregateReportType.Target) {
       targetReport = {
         assessmentGrade: or(
           query.assessmentGradeCodes,
@@ -413,26 +413,26 @@ export class AggregateReportRequestMapper {
 
   // TODO consolidate type names to remove need for extra mapping
 
-  private ServerReportTypeByClientType = {
-    GeneralPopulation: 'CustomAggregate',
-    LongitudinalCohort: 'Longitudinal',
-    Claim: 'Claim',
-    Target: 'Target'
-  };
+  private ServerReportTypeByClientType: Map<AggregateReportType, AggregateReportServerType> = new Map([
+    [AggregateReportType.GeneralPopulation, AggregateReportServerType.CustomAggregate],
+    [AggregateReportType.LongitudinalCohort, AggregateReportServerType.Longitudinal],
+    [AggregateReportType.Claim, AggregateReportServerType.Claim],
+    [AggregateReportType.Target, AggregateReportServerType.Target]
+  ]);
 
-  private ClientReportTypeByServerType = {
-    CustomAggregate: 'GeneralPopulation',
-    Longitudinal: 'LongitudinalCohort',
-    Claim: 'Claim',
-    Target: 'Target'
-  };
+  private ClientReportTypeByServerType: Map<AggregateReportServerType, AggregateReportType> = new Map([
+    [AggregateReportServerType.CustomAggregate, AggregateReportType.GeneralPopulation],
+    [AggregateReportServerType.Longitudinal, AggregateReportType.LongitudinalCohort],
+    [AggregateReportServerType.Claim, AggregateReportType.Claim],
+    [AggregateReportServerType.Target, AggregateReportType.Target]
+  ]);
 
-  private toServerReportType(type: string) {
-    return this.ServerReportTypeByClientType[ type ];
+  private toServerReportType(type: AggregateReportType): AggregateReportServerType {
+    return this.ServerReportTypeByClientType.get(type);
   }
 
-  private fromServerReportType(type: string) {
-    return this.ClientReportTypeByServerType[ type ];
+  private fromServerReportType(type: AggregateReportServerType): AggregateReportType {
+    return this.ClientReportTypeByServerType.get(type);
   }
 
   claimsBySubjectMapping(subjects: string[], claims: Claim[]) {
@@ -448,4 +448,11 @@ export class AggregateReportRequestMapper {
     return obj;
   }
 
+}
+
+export enum AggregateReportServerType {
+  CustomAggregate = 'CustomAggregate',
+  Longitudinal = 'Longitudinal',
+  Claim = 'Claim',
+  Target = 'Target'
 }

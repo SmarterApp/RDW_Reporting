@@ -19,6 +19,7 @@ import { Utils } from '../../shared/support/support';
 import { AggregateReportFormOptions } from '../aggregate-report-form-options';
 import { Option as SbCheckboxGroupOption } from '../../shared/form/sb-checkbox-group.component';
 import { Claim } from '../aggregate-report-options.service';
+import { AggregateReportType } from "../aggregate-report-form-settings";
 
 @Component({
   selector: 'claim-report-form',
@@ -57,7 +58,7 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
               @Inject(FormBuilder) formBuilder: FormBuilder,
               protected assessmentDefinitionService: AssessmentDefinitionService) {
     super(columnOrderableItemProvider, notificationService, optionMapper, organizationService, reportService, requestMapper, route, router, subgroupMapper, tableDataService);
-    this.settings.reportType = 'Claim';
+    this.settings.reportType = AggregateReportType.Claim;
     this.options = optionMapper.map(this.aggregateReportOptions);
 
     this.assessmentDefinition = this.assessmentDefinitionService.get(this.settings.assessmentType, this.settings.reportType);

@@ -1,4 +1,4 @@
-import { AggregateReportRequestMapper } from './aggregate-report-request.mapper';
+import { AggregateReportRequestMapper, AggregateReportServerType } from './aggregate-report-request.mapper';
 import { TranslateService } from '@ngx-translate/core';
 import { AggregateReportOrganizationService } from './aggregate-report-organization.service';
 import {
@@ -10,7 +10,7 @@ import {
 } from '../shared/organization/organization';
 import { AggregateReportOptions } from './aggregate-report-options';
 import { AggregateReportQuery, AggregateReportRequest, StudentFilters } from '../report/aggregate-report-request';
-import { AggregateReportFormSettings } from './aggregate-report-form-settings';
+import { AggregateReportFormSettings, AggregateReportType } from './aggregate-report-form-settings';
 import { of } from 'rxjs/observable/of';
 import { Claim } from './aggregate-report-options.service';
 import Spy = jasmine.Spy;
@@ -71,7 +71,7 @@ describe('AggregateReportRequestMapper', () => {
       includeAllDistrictsOfSchools: true,
       includeAllSchoolsOfDistricts: true,
       includeState: true,
-      reportType: 'CustomAggregate',
+      reportType: AggregateReportServerType.CustomAggregate,
       schoolIds: [ 2 ],
       schoolYears: [ 2000 ],
       studentFilters: studentFilters,
@@ -98,7 +98,7 @@ describe('AggregateReportRequestMapper', () => {
       includeAllSchoolsOfSelectedDistricts: query.includeAllSchoolsOfDistricts,
       includeStateResults: query.includeState,
       queryType: 'Basic',
-      reportType: 'GeneralPopulation',
+      reportType: AggregateReportType.GeneralPopulation,
       schools: schools,
       subjects: query.subjectCodes,
       subgroups: [],
@@ -154,7 +154,7 @@ describe('AggregateReportRequestMapper', () => {
       includeAllDistrictsOfSchools: true,
       includeAllSchoolsOfDistricts: true,
       includeState: true,
-      reportType: 'CustomAggregate',
+      reportType: AggregateReportServerType.CustomAggregate,
       schoolYears: [ 2000 ],
       studentFilters: {},
       subjectCodes: [ 'Math' ],
@@ -179,7 +179,7 @@ describe('AggregateReportRequestMapper', () => {
       includeAllSchoolsOfSelectedDistricts: query.includeAllSchoolsOfDistricts,
       includeStateResults: query.includeState,
       queryType: 'Basic',
-      reportType: 'GeneralPopulation',
+      reportType: AggregateReportType.GeneralPopulation,
       schools: [],
       subjects: query.subjectCodes,
       subgroups: [],
@@ -233,7 +233,7 @@ describe('AggregateReportRequestMapper', () => {
       dimensionTypes: [ 'Gender', 'Ethnicity' ],
       interimAdministrationConditions: [ 'SD', 'NS' ],
       queryTypes: [ 'Basic', 'FilteredSubgroup' ],
-      reportTypes: [ 'GeneralPopulation', 'LongitudinalCohort', 'Claim' ],
+      reportTypes: [ AggregateReportType.GeneralPopulation, AggregateReportType.LongitudinalCohort, AggregateReportType.Claim, AggregateReportType.Target ],
       schoolYears: [ 2000, 1999 ],
       claims: [ <Claim>{
         subject: 'Math',

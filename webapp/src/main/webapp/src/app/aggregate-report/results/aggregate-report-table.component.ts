@@ -19,6 +19,7 @@ import { AggregateReportService } from '../aggregate-report.service';
 import { BaseColumn } from '../../shared/datatable/base-column.model';
 import { byNumericString, SubjectClaimOrderings } from "../../shared/ordering/orderings";
 import { IdentityColumnOptions } from '../assessment/assessment-definition.service';
+import { AggregateReportType } from "../aggregate-report-form-settings";
 
 export const SupportedRowCount = 10000;
 export const DefaultRowsPerPageOptions = [ 100, 500, 1000 ];
@@ -124,7 +125,7 @@ export class AggregateReportTableComponent {
         rows: value.rows ? value.rows.concat() : [],
         assessmentDefinition: value.assessmentDefinition,
         options: value.options,
-        reportType: value.reportType || 'GeneralPopulation'
+        reportType: value.reportType || AggregateReportType.GeneralPopulation
       };
       this.buildAndRender(this._table);
     }
@@ -260,7 +261,7 @@ export class AggregateReportTableComponent {
   }
 
   private getClaimCodeTranslationKey(row: AggregateReportItem): string {
-    return this.table.reportType === 'Target'
+    return this.table.reportType === AggregateReportType.Target
       ? `common.claim-name.${row.claimCode}`
       : `common.subject.${row.subjectCode}.claim.${row.claimCode}.name`;
   }
@@ -290,7 +291,7 @@ export class AggregateReportTableComponent {
     this._orderingByColumnField[ 'organization.name' ] = organizationOrdering(item => item.organization, rows);
     this._orderingByColumnField[ 'assessmentGradeCode' ] = assessmentGradeOrdering;
     this._orderingByColumnField[ 'schoolYear' ] = SchoolYearOrdering;
-    this._orderingByColumnField[ 'claimCode' ] = reportType === 'Target'
+    this._orderingByColumnField[ 'claimCode' ] = reportType === AggregateReportType.Target
       ? OrganizationalClaimOrderingProvider(rows[0].subjectCode)
       : ScorableClaimOrdering;
     this._orderingByColumnField[ 'subgroup.id' ] = subgroupOrdering(item => item.subgroup, options);
@@ -318,8 +319,8 @@ export class AggregateReportTableComponent {
 
     const dataColumns: Column[] = [];
     switch(reportType) {
-      case 'GeneralPopulation':
-      case 'LongitudinalCohort':
+      case AggregateReportType.GeneralPopulation:
+      case AggregateReportType.LongitudinalCohort:
         dataColumns.push(
           new Column({ id: 'studentsTested' }),
           new Column({ id: 'achievementComparison', sortable: false }),
@@ -327,14 +328,14 @@ export class AggregateReportTableComponent {
           ...this.createPerformanceLevelColumns(performanceLevelsByDisplayType, assessmentDefinition)
         );
         break;
-      case 'Claim':
+      case AggregateReportType.Claim:
         dataColumns.push(
           new Column({ id: 'studentsTested' }),
           new Column({ id: 'achievementComparison', sortable: false }),
           ...this.createPerformanceLevelColumns(performanceLevelsByDisplayType, assessmentDefinition)
         );
         break;
-      case 'Target':
+      case AggregateReportType.Target:
         dataColumns.push(
           new Column({ id: 'studentsTested' }),
           new Column({ id: 'studentRelativeResidualScoresLevel' }),
@@ -512,7 +513,7 @@ export class AggregateReportTableComponent {
 
   private getPerformanceLevelColumnHeaderTranslationCode(displayType: string, level: number, index: number) {
     return displayType === 'Separate'
-      ? `common.assessment-type.${this.table.reportType == 'Claim' ? 'iab' : this.table.assessmentDefinition.typeCode}.performance-level.${level}.name-prefix`
+      ? `common.assessment-type.${this.table.reportType === AggregateReportType.Claim ? 'iab' : this.table.assessmentDefinition.typeCode}.performance-level.${level}.name-prefix`
       : `aggregate-report-table.columns.grouped-performance-level-prefix.${index}`;
   }
 
@@ -522,7 +523,7 @@ export interface AggregateReportTable {
   readonly rows: AggregateReportItem[];
   readonly assessmentDefinition: AssessmentDefinition;
   readonly options: AggregateReportOptions;
-  readonly reportType: string;
+  readonly reportType: AggregateReportType;
 }
 
 class Column implements BaseColumn {

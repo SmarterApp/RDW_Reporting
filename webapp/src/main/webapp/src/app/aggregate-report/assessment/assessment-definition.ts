@@ -1,3 +1,5 @@
+import { AggregateReportType } from "../aggregate-report-form-settings";
+
 export interface AssessmentDefinition {
 
   /**
@@ -47,5 +49,5 @@ export interface AssessmentDefinition {
   /**
    * An array of report types the definition supports
    */
-  readonly aggregateReportTypes: [ 'GeneralPopulation' | 'LongitudinalCohort' | 'Claim' | 'Target' ];
+  readonly aggregateReportTypes: AggregateReportType[];
 }

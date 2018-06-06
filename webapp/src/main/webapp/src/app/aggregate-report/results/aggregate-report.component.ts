@@ -12,7 +12,7 @@ import { ordering } from '@kourge/ordering';
 import { AggregateReportQuery } from '../../report/aggregate-report-request';
 import { DisplayOptionService } from '../../shared/display-options/display-option.service';
 import { TranslateService } from '@ngx-translate/core';
-import { AggregateReportRequestMapper } from '../aggregate-report-request.mapper';
+import { AggregateReportRequestMapper, AggregateReportServerType } from '../aggregate-report-request.mapper';
 import { SpinnerModal } from '../../shared/loading/spinner.modal';
 import { OrderableItem } from '../../shared/order-selector/order-selector.component';
 import { AggregateReportColumnOrderItemProvider } from '../aggregate-report-column-order-item.provider';
@@ -26,6 +26,7 @@ import { AggregateReportItem } from './aggregate-report-item';
 import { organizationOrdering, subgroupOrdering } from '../support';
 import { LongitudinalDisplayType } from '../../shared/display-options/longitudinal-display-type';
 import { AssessmentDefinitionService } from '../assessment/assessment-definition.service';
+import { AggregateReportType } from "../aggregate-report-form-settings";
 
 const PollingInterval = 4000;
 
@@ -70,7 +71,8 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
 
     this.options = this.route.snapshot.data[ 'options' ];
     this.report = this.route.snapshot.data[ 'report' ];
-    this.assessmentDefinition = this.definitionService.get(this.report.request.query.assessmentTypeCode, this.mapToReportType(this.report.request.query.reportType));
+
+    this.assessmentDefinition = this.definitionService.get(this.query.assessmentTypeCode, this.mapToReportType(this.query.reportType));
     this._viewComparator = ordering(ranking(this.options.subjects))
       .on((wrapper: AggregateReportView) => wrapper.subjectCode).compare;
     this._displayOptions = {
@@ -87,7 +89,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   }
 
   get effectiveReportType() {
-    return this.reportService.getEffectiveReportType(<'GeneralPopulation' | 'LongitudinalCohort' | 'Claim' | 'Target'>this.report.request.query.reportType, this.assessmentDefinition);
+    return this.reportService.getEffectiveReportType(this.mapToReportType(this.query.reportType), this.assessmentDefinition);
   }
 
   get displayOptions(): AggregateReportTableDisplayOptions {
@@ -168,18 +170,23 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     this.initializeReportViews(this.query, this._aggregateReport);
   }
 
-  mapToReportType(serverReportType: string): string {
-    if (serverReportType === 'Longitudinal') {
-      return 'LongitudinalCohort';
+  mapToReportType(serverReportType: AggregateReportServerType): AggregateReportType {
+    if (serverReportType == AggregateReportServerType.Longitudinal) {
+      return AggregateReportType.LongitudinalCohort
     }
-    if (serverReportType === 'CustomAggregate') {
-      return 'GeneralPopulation';
+    if (serverReportType == AggregateReportServerType.CustomAggregate) {
+      return AggregateReportType.GeneralPopulation
     }
-    return serverReportType;
+    if (serverReportType == AggregateReportServerType.Claim) {
+      return AggregateReportType.Claim;
+    }
+    if (serverReportType == AggregateReportServerType.Target) {
+      return AggregateReportType.Target;
+    }
   }
 
   get isLongitudinal(): boolean {
-    return this.query.reportType === 'Longitudinal';
+    return this.query.reportType === AggregateReportServerType.Longitudinal;
   }
 
   private updateViewState(): void {
@@ -244,9 +251,9 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     this.spinnerModal.loading = true;
 
     let observable;
-    if (this.effectiveReportType === "LongitudinalCohort") {
+    if (this.effectiveReportType === AggregateReportType.LongitudinalCohort) {
       observable = this.reportService.getLongitudinalReport(this.report.id);
-    } else if (this.effectiveReportType === "Target") {
+    } else if (this.effectiveReportType === AggregateReportType.Target) {
       observable = this.reportService.getTargetReport(this.report.id);
     } else {
       observable = this.reportService.getAggregateReport(this.report.id);
@@ -288,7 +295,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
             options: this.options,
             assessmentDefinition: this.assessmentDefinition,
             rows: [ item ],
-            reportType: this.report.request.query.reportType
+            reportType: this.effectiveReportType
           },
           valueDisplayType: this.query.valueDisplayType,
           performanceLevelDisplayType: this.query.achievementLevelDisplayType,
