@@ -83,9 +83,6 @@ export class AssessmentsComponent implements OnInit {
   @Input()
   isDefaultCollapsed = false;
 
-  @Input()
-  displayedFor: string;
-
   @Output()
   export: EventEmitter<any> = new EventEmitter<any>();
 
