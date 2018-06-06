@@ -15,7 +15,6 @@ import { SortEvent } from 'primeng/api';
 import * as _ from 'lodash';
 import { organizationOrdering, subgroupOrdering } from '../support';
 import { TranslateService } from '@ngx-translate/core';
-import { AggregateReportService } from '../aggregate-report.service';
 import { BaseColumn } from '../../shared/datatable/base-column.model';
 import { byNumericString, SubjectClaimOrderings } from "../../shared/ordering/orderings";
 import { IdentityColumnOptions } from '../assessment/assessment-definition.service';
@@ -81,8 +80,7 @@ export class AggregateReportTableComponent {
 
   constructor(public colorService: ColorService,
               private translate: TranslateService,
-              private exportService: AggregateReportTableExportService,
-              private reportService: AggregateReportService) {
+              private exportService: AggregateReportTableExportService) {
   }
 
   get valueDisplayType(): string {
@@ -245,6 +243,7 @@ export class AggregateReportTableComponent {
       performanceLevelDisplayType: this.performanceLevelDisplayType,
       columnOrdering: this.identityColumns,
       assessmentDefinition: this.table.assessmentDefinition,
+      reportType: this.table.reportType,
       name: name
     };
 

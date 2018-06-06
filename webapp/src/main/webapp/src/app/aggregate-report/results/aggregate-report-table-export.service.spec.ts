@@ -7,6 +7,7 @@ import { DefaultSchool } from '../../shared/organization/organization';
 import { ValueDisplayTypes } from '../../shared/display-options/value-display-type';
 import { PerformanceLevelDisplayTypes } from '../../shared/display-options/performance-level-display-type';
 import { Subgroup } from '../subgroup/subgroup';
+import { AggregateReportType } from "../aggregate-report-form-settings";
 import Spy = jasmine.Spy;
 import CallInfo = jasmine.CallInfo;
 
@@ -33,7 +34,8 @@ describe('AggregateReportTableExportService', () => {
         aggregateReportStateResultsEnabled: false,
         aggregateReportTypes: [ null ]
       },
-      name: 'my_export'
+      name: 'my_export',
+      reportType: AggregateReportType.GeneralPopulation
     };
 
     csvBuilder = jasmine.createSpyObj(
