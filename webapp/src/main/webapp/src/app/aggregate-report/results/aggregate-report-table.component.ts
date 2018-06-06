@@ -30,9 +30,7 @@ const AssessmentLabelOrdering: Ordering<AggregateReportItem> = ordering(byString
   .on(item => item.assessmentLabel);
 
 const ScorableClaimOrdering: Ordering<AggregateReportItem> = ordering(byString)
-  .on(item => {
-    return item.claimCode;
-  });
+  .on(item => item.claimCode);
 
 const OrganizationalClaimOrderingProvider: (subjectCode: string) => Ordering<AggregateReportItem> = (subjectCode) =>
   (SubjectClaimOrderings.get(subjectCode) || ordering(byString))
