@@ -26,6 +26,8 @@ import { AssessmentProvider } from '../../../assessment-provider.interface';
 import { byNumericString, SubjectClaimOrderings } from '../../../../shared/ordering/orderings';
 import { ApplicationSettingsService } from '../../../../app-settings.service';
 import { ExportResults } from '../../assessment-results.component';
+import { ExportTargetReportRequest } from '../../../model/export-target-report-request.model';
+import { AssessmentExporter } from '../../../assessment-exporter.interface';
 
 @Component({
   selector: 'target-report',
@@ -73,6 +75,12 @@ export class TargetReportComponent implements OnInit, ExportResults {
       });
     }
   }
+
+  /**
+   * Service class which provides export capabilities for this assessment and exam.
+   */
+  @Input()
+  assessmentExporter: AssessmentExporter;
 
   @ViewChild('menuReportDownloader')
   reportDownloader: StudentReportDownloadComponent;
@@ -175,18 +183,19 @@ export class TargetReportComponent implements OnInit, ExportResults {
   }
 
   hasDataToExport(): boolean {
-    return false;
-    // return this.filteredItems && this.filteredItems.length > 0;
+    return this.aggregateTargetScoreRows && this.aggregateTargetScoreRows.length !== 0;
   }
 
   exportToCsv(): void {
-    // let exportRequest = new ExportWritingTraitsRequest();
-    // exportRequest.assessment = this.assessment;
-    // exportRequest.showAsPercent = this.showValuesAsPercent;
-    // exportRequest.assessmentItems = this.filteredItems;
-    // exportRequest.summaries = this.traitScoreSummaries;
+    let exportRequest = new ExportTargetReportRequest();
+    exportRequest.assessment = this.assessment;
+    exportRequest.targetScoreRows = this.aggregateTargetScoreRows;
+    // TODO iplement this for real
+    exportRequest.schoolYear = 2018;
+    exportRequest.averageScaleScore = 2345;
+    exportRequest.standardError = 9;
 
-    //this.assessmentExporter.exportWritingTraitScoresToCsv(exportRequest);
+    this.assessmentExporter.exportTargetScoresToCsv(exportRequest);
   }
 
   get showResults(): boolean {
@@ -295,12 +304,8 @@ export class TargetReportComponent implements OnInit, ExportResults {
     return exams.filter(x => this._sessions.some(y => y.filter && y.id === x.session));
   }
 
-  private getClaimCodeTranslationKey(row: AggregateTargetScoreRow): string {
-    return `common.claim-name.${row.claim}`;
-  }
-
   getClaimCodeTranslation(row: AggregateTargetScoreRow): string {
-    return this.translate.instant(this.getClaimCodeTranslationKey(row));
+    return this.translate.instant(`common.claim-name.${row.claim}`);
   }
 
   getTargetDisplay(row: AggregateTargetScoreRow): any {

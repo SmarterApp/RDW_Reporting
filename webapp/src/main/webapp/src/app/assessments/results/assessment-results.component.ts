@@ -301,7 +301,7 @@ export class AssessmentResultsComponent implements OnInit {
     this.resultsByItemView = this.createResultViewState(ResultsViewState.ByItem, this.displayItemLevelData, true, this.displayResultsByItem);
     this.distractorAnalysisView = this.createResultViewState(ResultsViewState.DistractorAnalysis, this.displayItemLevelData, true, this.displayDistractorAnalysis);
     this.writingTraitScoresView = this.createResultViewState(ResultsViewState.WritingTraitScores, this.enableWritingTraitScores, true, this.displayWritingTraitScores);
-    this.targetReportView = this.createResultViewState(ResultsViewState.TargetReport, true, false, this.displayTargetReport);
+    this.targetReportView = this.createResultViewState(ResultsViewState.TargetReport, true, true, this.displayTargetReport);
   }
 
   setCurrentView(view: ResultsView): void {

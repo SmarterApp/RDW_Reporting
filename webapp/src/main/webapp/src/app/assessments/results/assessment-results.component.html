@@ -224,6 +224,7 @@
         <ng-container *ngIf="showTargetReport">
           <target-report #targetReport
                          [assessmentProvider]="assessmentProvider"
+                         [assessmentExporter]="assessmentExporter"
                          [assessment]="assessmentExam.assessment"
                          [studentsTested]="statistics.total"
                          [sessions]="sessions"

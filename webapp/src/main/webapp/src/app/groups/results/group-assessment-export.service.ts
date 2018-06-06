@@ -3,6 +3,7 @@ import { ExportItemsRequest } from '../../assessments/model/export-items-request
 import { ExportWritingTraitsRequest } from '../../assessments/model/export-writing-trait-request.model';
 import { Angulartics2 } from 'angulartics2';
 import { CsvExportService } from '../../csv-export/csv-export.service';
+import { ExportTargetReportRequest } from '../../assessments/model/export-target-report-request.model';
 
 @Injectable()
 export class GroupAssessmentExportService {
@@ -33,4 +34,14 @@ export class GroupAssessmentExportService {
     this.service.exportWritingTraitScores(request, filename);
   }
 
+  exportTargetScoresToCsv(request: ExportTargetReportRequest, filename: string) {
+    this.angulartics2.eventTrack.next({
+      action: 'Export Group Target Report Scores',
+      properties: {
+        category: 'Export'
+      }
+    });
+
+    this.service.exportTargetScoresToCsv(request, filename);
+  }
 }

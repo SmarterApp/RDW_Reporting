@@ -9,6 +9,7 @@ import { Student } from "../student/model/student.model";
 import { ExportItemsRequest} from "../assessments/model/export-items-request.model";
 import { RequestType } from "../shared/enum/request-type.enum";
 import {ExportWritingTraitsRequest} from "../assessments/model/export-writing-trait-request.model";
+import { ExportTargetReportRequest } from '../assessments/model/export-target-report-request.model';
 
 @Injectable()
 export class CsvExportService {
@@ -137,8 +138,6 @@ export class CsvExportService {
     let compositeRows: any[] = [];
     let maxPoints: number = 0;
 
-    // since there can be multiple items, we need to iterate over multiple summary table rows if there are multiple items that have writing trait scores
-    //  here we flatten the items and summary rows into a single array the CSV builder can iterate over
     exportRequest.assessmentItems.forEach((item, i) => {
 
       exportRequest.summaries[i].rows.forEach(summary => {
@@ -158,7 +157,6 @@ export class CsvExportService {
       .newBuilder()
       .withFilename(filename)
       .withAssessmentTypeNameAndSubject(() => exportRequest.assessment)
-      .withItemNumber(getAssessmentItem)
       .withClaim(getAssessmentItem)
       .withTarget(getAssessmentItem)
       .withItemDifficulty(getAssessmentItem)
@@ -167,5 +165,20 @@ export class CsvExportService {
       .withPerformanceTaskWritingType(getAssessmentItem)
       .withWritingTraitAggregate((item) => item.writingTraitAggregate, maxPoints, exportRequest.showAsPercent)
       .build(compositeRows);
+  }
+
+  exportTargetScoresToCsv(exportRequest: ExportTargetReportRequest,
+                           filename: string) {
+
+    this.csvBuilder
+      .newBuilder()
+      .withFilename(filename)
+      .withGroupName(() => exportRequest.group)
+      .withSchoolYear(() => <Exam>{ schoolYear: exportRequest.schoolYear})
+      .withAssessmentTypeNameAndSubject(() => exportRequest.assessment)
+      .withScoreAndErrorBand(() => <Exam>{ score: exportRequest.averageScaleScore, standardError: exportRequest.standardError})
+      .withTargetReportAggregate((item) => item)
+      .build(exportRequest.targetScoreRows);
+
   }
 }

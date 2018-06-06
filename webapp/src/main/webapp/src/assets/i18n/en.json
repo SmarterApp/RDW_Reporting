@@ -169,14 +169,16 @@
         "Below": "Worse",
         "Excluded": "Excluded",
         "InsufficientData": "Insufficient Data",
-        "Near": "Similar"
+        "Near": "Similar",
+        "NoResults": "-"
       },
       "standard": {
         "Above": "Above",
         "Below": "Below",
         "Excluded": "Excluded",
         "InsufficientData": "Insufficient Data",
-        "Near": "Near"
+        "Near": "Near",
+        "NoResults": "-"
       }
     }
   },

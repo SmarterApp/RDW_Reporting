@@ -13,6 +13,7 @@ import { WritingTraitAggregate } from "../assessments/model/writing-trait-aggreg
 import { TranslateDatePipe } from "../shared/i18n/translate-date.pipe";
 import { TranslateNumberPipe } from "../shared/i18n/translate-number.pipe";
 import { ApplicationSettingsService } from "../app-settings.service";
+import { AggregateTargetScoreRow, TargetReportingLevel } from '../assessments/model/aggregate-target-score-row.model';
 
 @Injectable()
 export class CsvBuilder {
@@ -432,6 +433,41 @@ export class CsvBuilder {
       this.translateService.instant('common.results.assessment-item-columns.purpose'),
       (item) => getAssessmentItem(item).performanceTaskWritingType
     );
+  }
+
+  withGroupName(getGroupName: (item: any) => string) {
+    return this.withColumn(
+      this.translateService.instant('groups.columns.group'),
+      (item) => getGroupName(item)
+    )
+  }
+
+  withTargetReportAggregate(getTargetReportAggregate: (item: any) => AggregateTargetScoreRow) {
+    this.withColumn(
+      this.translateService.instant('target-report.columns.claim'),
+      (item) => `common.claim-name.${getTargetReportAggregate(item).claim}`
+    );
+    this.withColumn(
+      this.translateService.instant('target-report.columns.target'),
+      (item) => getTargetReportAggregate(item).target
+    );
+
+    this.withColumn(
+      this.translateService.instant('target-report.columns.studentsTested'),
+      (item) => getTargetReportAggregate(item).studentsTested
+    );
+
+    this.withColumn(
+      this.translateService.instant('target-report.columns.student-relative-residual-scores-level'),
+      (item) => this.translateService.instant('aggregate-report-table.target.overall.' + TargetReportingLevel[ getTargetReportAggregate(item).studentRelativeLevel ])
+    );
+
+    this.withColumn(
+      this.translateService.instant('target-report.columns.standard-met-relative-residual-level'),
+      (item) => this.translateService.instant('aggregate-report-table.target.overall.' + TargetReportingLevel[ getTargetReportAggregate(item).standardMetRelativeLevel ])
+    );
+
+    return this;
   }
 
   withWritingTraitAggregate(getWritingTraitAggregate: (item: any) => WritingTraitAggregate,
