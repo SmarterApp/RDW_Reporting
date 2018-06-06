@@ -16,9 +16,9 @@ export class GroupAssessmentProvider implements AssessmentProvider {
               private stateProvider: StateProvider) {
   }
 
-  getAssessmentItems(assessmentId: number, itemTypes?: string[]): Observable<AssessmentItem[]> {
+  getAssessmentItems(assessmentId: number, types?: string[]): Observable<AssessmentItem[]> {
     const { group, schoolYear } = this.stateProvider;
-    return this.service.getAssessmentItems(this.addGroup({schoolYear, assessmentId, itemTypes}, group));
+    return this.service.getAssessmentItems(this.addGroup({schoolYear, assessmentId, types}, group));
   }
 
   getAvailableAssessments(): Observable<Assessment[]> {
