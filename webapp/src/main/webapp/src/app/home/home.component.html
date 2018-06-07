@@ -73,6 +73,6 @@
 
 <ng-template #noPermissions>
   <div class="well">
-    <label>{{'home.no-permissions' | translate}}</label>
+    <label [innerHTML]="'home.no-permissions' | translate"></label>
   </div>
 </ng-template>

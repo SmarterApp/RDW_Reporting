@@ -1095,7 +1095,7 @@
       "assigned-groups-heading": "Assigned Groups",
       "created-groups-heading": "My Groups"
     },
-    "no-permissions": "You do not have permissions to view Assessment Results. If you are an application administrator you may click 'Application Administration' button in the top right."
+    "no-permissions": "You do not have permissions to view Assessment Results.<p><p>Depending on your exact roles, you may have access to the \"Custom Aggregate Reports\" or \"Application Administration\" buttons above."
   },
   "html": {
     "system-news": "<h2 class=\"blue-dark h3 mb-md\">Note</h2><div class=\"summary-reports-container mb-md\"><p>Item level data and session IDs are not available for tests administered prior to the 2017-18 school year.</p></div>"
