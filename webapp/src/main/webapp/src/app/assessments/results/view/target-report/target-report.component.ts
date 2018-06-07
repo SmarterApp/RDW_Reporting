@@ -145,7 +145,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
   private _sessions: any[];
   private _filterBy: FilterBy;
   private _filterBySubscription: Subscription;
-  private _orderingByColumnField: { [ key: string ]: Ordering<AggregateTargetScoreRow> } = {};
+  private _orderingByIdentityField: { [ key: string ]: Ordering<AggregateTargetScoreRow> } = {};
   private _previousSortEvent: SortEvent;
 
   constructor(private examFilterService: ExamFilterService,
@@ -181,7 +181,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
     ];
 
     this.identityColumns.forEach(column => {
-      this._orderingByColumnField[ column ] = this.createOrdering(column);
+      this._orderingByIdentityField[ column ] = this.createOrdering(column);
     });
 
     forkJoin(
@@ -263,7 +263,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
   private getIdentityColumnsComparator(): Comparator<AggregateTargetScoreRow>[] {
     return this.columns
       .map((column: Column) => {
-        const ordering = this._orderingByColumnField[ column.field ];
+        const ordering = this._orderingByIdentityField[ column.field ];
         return ordering ? ordering.compare : null;
       })
       .filter(value => !Utils.isNullOrUndefined(value));
