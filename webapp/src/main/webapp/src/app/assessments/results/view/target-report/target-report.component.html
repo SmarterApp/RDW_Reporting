@@ -56,7 +56,7 @@
                let-columns>
     <tr>
       <th *ngFor="let column of columns"
-          [pSortableColumn]="column.sortField"
+          [pSortableColumn]="column.field"
           [ngSwitch]="column.id"
           class="wrapping">
 
@@ -71,7 +71,7 @@
           </span>
         </span>
 
-        <p-sortIcon [field]="column.sortField"></p-sortIcon>
+        <p-sortIcon [field]="column.field"></p-sortIcon>
       </th>
     </tr>
   </ng-template>

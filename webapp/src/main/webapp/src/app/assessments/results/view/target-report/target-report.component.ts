@@ -172,7 +172,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
     this.loading = true;
 
     this.columns = [
-      new Column({ id: 'claim', sortField: 'claimOrder' }),
+      new Column({ id: 'claim' }),
       new Column({ id: 'target' }),
       new Column({ id: 'subgroup' }),
       new Column({ id: 'studentsTested' }),
@@ -180,7 +180,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
       new Column({ id: 'standard-met-relative-residual-level', headerInfo: true })
     ];
 
-    this._orderingByColumnField[ 'claim' ] = this.createOrdering('claimOrder');
+    this._orderingByColumnField[ 'claim' ] = this.createOrdering('claim');
     this._orderingByColumnField[ 'target' ] = this.createOrdering('target');
     this._orderingByColumnField[ 'subgroup' ] = this.createOrdering('subgroup');
 
@@ -271,7 +271,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
 
   private createOrdering(field: string): Ordering<AggregateTargetScoreRow> {
     switch (field) {
-      case 'claimOrder':
+      case 'claim':
         const claimOrdering: Ordering<string> = (SubjectClaimOrderings.get(this.assessment.subject) || ordering(byString));
         return claimOrdering.on<AggregateTargetScoreRow>(row => row.claim);
       case 'target':
@@ -432,18 +432,15 @@ export class TargetReportComponent implements OnInit, ExportResults {
 class Column implements BaseColumn {
   id: string;
   field: string;
-  sortField: string;
   headerInfo: boolean;
 
   constructor({
                 id,
                 field = '',
-                sortField = '',
                 headerInfo = false
               }) {
     this.id = id;
     this.field = field ? field : id;
-    this.sortField = sortField ? sortField : this.field;
     this.headerInfo = headerInfo;
   }
 }
