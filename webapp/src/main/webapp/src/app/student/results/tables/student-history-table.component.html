@@ -121,9 +121,15 @@
               <span *ngIf="rowData.exam.completeness == 'Partial'" class="label border-only maroon">{{ 'common.completeness.Partial' | translate }}</span>
             </div>
 
-            <div *ngSwitchCase="'performance'">
-              {{ 'common.assessment-type.' + assessmentType + '.performance-level.' + (rowData.exam.level ?
-              rowData.exam.level.toString() : 'missing') + '.name' | translate }}
+            <div *ngSwitchCase="'performance'"
+                 class="text-center">
+              <ng-container *ngIf="rowData.exam.level">
+                {{ 'common.assessment-type.' + assessmentType + '.performance-level.' + rowData.exam.level + '.name' | translate }}
+              </ng-container>
+              <ng-container *ngIf="!rowData.exam.level">
+                {{ 'common.missing' | translate }}
+              </ng-container>
+
               <button *ngIf="assessmentType === 'iab'"
                       class="btn btn-borderless btn-xs icon-only pull-right"
                       angulartics2On="click"
@@ -131,7 +137,7 @@
                       angularticsCategory="AssessmentResults"
                       [disabled]="false"
                       [popover]="buttonPopover"
-                      popoverTitle="{{ 'common.results.assessment.instruct-button' | translate:{ level:(('common.assessment-type.iab.performance-level.' + (rowData.exam.level ? rowData.exam.level.toString() : 'missing')) +'.name' | translate) } }}"
+                      popoverTitle="{{ 'common.results.assessment.instruct-button' | translate:{ level:((rowData.exam.level ? 'common.assessment-type.iab.performance-level.' + rowData.exam.level +'.name' : 'common.missing') | translate) } }}"
                       container="body"
                       (click)="loadInstructionalResources(rowData)"
                       [outsideClick]="true"><i class="fa fa-book"></i></button>
@@ -141,8 +147,14 @@
                          [score]="rowData.exam.score"
                          [standardError]="rowData.exam.standardError"></scale-score>
 
-            <div *ngSwitchCase="'claim'">
-              <span>{{ 'common.assessment-type.iab.performance-level.' + (rowData.exam.claimScores[column.index] ? rowData.exam.claimScores[column.index].level.toString() : 'missing') + '.name' | translate }}</span>
+            <div *ngSwitchCase="'claim'"
+                 class="text-center">
+              <ng-container *ngIf="rowData.exam.claimScores[column.index] && rowData.exam.claimScores[column.index].level">
+                {{ 'common.assessment-type.iab.performance-level.' + rowData.exam.claimScores[column.index].level + '.name' | translate }}
+              </ng-container>
+              <ng-container *ngIf="!rowData.exam.claimScores[column.index] || !rowData.exam.claimScores[column.index].level">
+                {{ 'common.missing' | translate }}
+              </ng-container>
             </div>
 
           </td>

@@ -223,7 +223,7 @@ export class CsvBuilder {
           return '';
         }
         return this.translateService.instant(
-          `common.assessment-type.iab.performance-level.${exam.level ? exam.level : 'missing'}.name`);
+          `common.assessment-type.iab.performance-level.${exam.level}.name`);
       }
     );
   }
