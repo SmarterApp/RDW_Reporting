@@ -451,6 +451,10 @@ export class CsvBuilder {
       this.translateService.instant('target-report.columns.target'),
       (item) => getTargetReportAggregate(item).target
     );
+    this.withColumn(
+      this.translateService.instant('target-report.columns.subgroup'),
+      (item) => getTargetReportAggregate(item).subgroup.name
+    );
 
     this.withColumn(
       this.translateService.instant('target-report.columns.studentsTested'),
