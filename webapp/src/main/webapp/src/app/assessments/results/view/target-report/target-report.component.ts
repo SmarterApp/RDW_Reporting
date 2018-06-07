@@ -180,9 +180,9 @@ export class TargetReportComponent implements OnInit, ExportResults {
       new Column({ id: 'standard-met-relative-residual-level', headerInfo: true })
     ];
 
-    this._orderingByColumnField[ 'claim' ] = this.createOrdering('claim');
-    this._orderingByColumnField[ 'target' ] = this.createOrdering('target');
-    this._orderingByColumnField[ 'subgroup' ] = this.createOrdering('subgroup');
+    this.identityColumns.forEach(column => {
+      this._orderingByColumnField[ column ] = this.createOrdering(column);
+    });
 
     forkJoin(
       this.targetService.getTargetsForAssessment(this.assessment.id),
