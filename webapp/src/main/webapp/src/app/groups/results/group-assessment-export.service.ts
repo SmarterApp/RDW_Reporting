@@ -34,7 +34,7 @@ export class GroupAssessmentExportService {
     this.service.exportWritingTraitScores(request, filename);
   }
 
-  exportTargetScoresToCsv(request: ExportTargetReportRequest, groupName: string, schoolYear: number, filename: string) {
+  exportTargetScoresToCsv(request: ExportTargetReportRequest, filename: string) {
     this.angulartics2.eventTrack.next({
       action: 'Export Group Target Report Scores',
       properties: {
@@ -42,6 +42,6 @@ export class GroupAssessmentExportService {
       }
     });
 
-    this.service.exportTargetScoresToCsv(request, groupName, schoolYear, filename);
+    this.service.exportTargetScoresToCsv(request, filename);
   }
 }

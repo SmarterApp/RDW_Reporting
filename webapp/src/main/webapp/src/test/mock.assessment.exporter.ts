@@ -4,8 +4,6 @@ import { AssessmentExporter } from "../app/assessments/assessment-exporter.inter
 import { ExportTargetReportRequest } from '../app/assessments/model/export-target-report-request.model';
 
 export class MockAssessmentExporter implements AssessmentExporter {
-  name = '';
-  schoolYear = 0;
   exportItemsToCsv(exportRequest: ExportItemsRequest) {
   }
 

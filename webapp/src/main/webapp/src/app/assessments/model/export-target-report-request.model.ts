@@ -8,8 +8,11 @@ import { AggregateTargetScoreRow } from './aggregate-target-score-row.model';
  */
 export class ExportTargetReportRequest implements ExportRequest {
   assessment: Assessment;
+  group: string;
+  schoolYear: number;
   averageScaleScore: number;
   standardError: number;
+
   targetScoreRows: AggregateTargetScoreRow[];
   type: RequestType = RequestType.WritingTraitScores;
 }

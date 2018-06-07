@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { AssessmentExam } from '../assessments/model/assessment-exam.model';
-import { FilterBy } from '../assessments/model/filter-by.model';
-import { Exam } from '../assessments/model/exam.model';
-import { ExamFilterService } from '../assessments/filters/exam-filters/exam-filter.service';
-import { CsvBuilder } from './csv-builder.service';
-import { StudentHistoryExamWrapper } from '../student/model/student-history-exam-wrapper.model';
-import { Student } from '../student/model/student.model';
-import { ExportItemsRequest } from '../assessments/model/export-items-request.model';
-import { RequestType } from '../shared/enum/request-type.enum';
-import { ExportWritingTraitsRequest } from '../assessments/model/export-writing-trait-request.model';
+import { Injectable } from "@angular/core";
+import { AssessmentExam } from "../assessments/model/assessment-exam.model";
+import { FilterBy } from "../assessments/model/filter-by.model";
+import { Exam } from "../assessments/model/exam.model";
+import { ExamFilterService } from "../assessments/filters/exam-filters/exam-filter.service";
+import { CsvBuilder } from "./csv-builder.service";
+import { StudentHistoryExamWrapper } from "../student/model/student-history-exam-wrapper.model";
+import { Student } from "../student/model/student.model";
+import { ExportItemsRequest} from "../assessments/model/export-items-request.model";
+import { RequestType } from "../shared/enum/request-type.enum";
+import {ExportWritingTraitsRequest} from "../assessments/model/export-writing-trait-request.model";
 import { ExportTargetReportRequest } from '../assessments/model/export-target-report-request.model';
 
 @Injectable()
@@ -47,7 +47,7 @@ export class CsvExportService {
     let getExam = (item) => item.exam;
     let getAssessment = (item) => item.assessment;
     let getIABExam = (item) => item.assessment.isIab ? item.exam : null;
-    let getNonIABExam = (item) => item.assessment.isIab ? null : item.exam;
+    let getNonIABExam = (item) => item.assessment.isIab ? null: item.exam;
     let getNonIABMathExam = (item) => !item.assessment.isIab && item.assessment.subject === 'MATH' ? item.exam : null;
     let getNonIABElaExam = (item) => !item.assessment.isIab && item.assessment.subject === 'ELA' ? item.exam : null;
 
@@ -85,7 +85,7 @@ export class CsvExportService {
     let getExam = (wrapper: StudentHistoryExamWrapper) => wrapper.exam;
     let getAssessment = (wrapper: StudentHistoryExamWrapper) => wrapper.assessment;
     let getIABExam = (wrapper: StudentHistoryExamWrapper) => wrapper.assessment.isIab ? wrapper.exam : null;
-    let getNonIABExam = (wrapper: StudentHistoryExamWrapper) => wrapper.assessment.isIab ? null : wrapper.exam;
+    let getNonIABExam = (wrapper: StudentHistoryExamWrapper) => wrapper.assessment.isIab ? null: wrapper.exam;
     let getNonIABMathExam = (wrapper: StudentHistoryExamWrapper) => !wrapper.assessment.isIab && wrapper.assessment.subject === 'Math' ? wrapper.exam : null;
     let getNonIABElaExam = (wrapper: StudentHistoryExamWrapper) => !wrapper.assessment.isIab && wrapper.assessment.subject === 'ELA' ? wrapper.exam : null;
 
@@ -124,11 +124,11 @@ export class CsvExportService {
       .withStandards(getAssessmentItem)
       .withFullCredit(getAssessmentItem, exportRequest.showAsPercent);
 
-    if (exportRequest.type == RequestType.DistractorAnalysis) {
-      builder = builder.withItemAnswerKey(getAssessmentItem)
-    }
+      if (exportRequest.type == RequestType.DistractorAnalysis) {
+        builder = builder.withItemAnswerKey(getAssessmentItem)
+      }
 
-    builder.withPoints(getAssessmentItem, exportRequest.pointColumns, exportRequest.showAsPercent)
+      builder.withPoints(getAssessmentItem, exportRequest.pointColumns, exportRequest.showAsPercent)
       .build(exportRequest.assessmentItems);
   }
 
@@ -140,7 +140,7 @@ export class CsvExportService {
 
     exportRequest.assessmentItems.forEach((item, i) => {
 
-      exportRequest.summaries[ i ].rows.forEach(summary => {
+      exportRequest.summaries[i].rows.forEach(summary => {
         compositeRows.push({
           assessmentItem: item,
           writingTraitAggregate: summary
@@ -168,20 +168,15 @@ export class CsvExportService {
   }
 
   exportTargetScoresToCsv(exportRequest: ExportTargetReportRequest,
-                          groupName: string,
-                          schoolYear: number,
-                          filename: string) {
+                           filename: string) {
 
     this.csvBuilder
       .newBuilder()
       .withFilename(filename)
-      .withGroupName(() => groupName)
-      .withSchoolYear(() => <Exam>{ schoolYear: schoolYear })
+      .withGroupName(() => exportRequest.group)
+      .withSchoolYear(() => <Exam>{ schoolYear: exportRequest.schoolYear})
       .withAssessmentTypeNameAndSubject(() => exportRequest.assessment)
-      .withScoreAndErrorBand(() => <Exam>{
-        score: exportRequest.averageScaleScore,
-        standardError: exportRequest.standardError
-      })
+      .withScoreAndErrorBand(() => <Exam>{ score: exportRequest.averageScaleScore, standardError: exportRequest.standardError})
       .withTargetReportAggregate((item) => item)
       .build(exportRequest.targetScoreRows);
 
