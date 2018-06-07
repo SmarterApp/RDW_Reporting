@@ -221,32 +221,33 @@ export class TargetReportComponent implements OnInit, ExportResults {
    * @param event {{order: number, field: string}} An optional sort event
    */
   public sort(event?: SortEvent): void {
+    const { field, data } = event;
     const ascending = event.order > 0;
-    if (event.field === 'claimOrder') {
+    if (field === 'claimOrder') {
       // when there isn't a subject specific claim ordering, then default ot a simple alpha sort
       const claimOrdering: Ordering<string> = (SubjectClaimOrderings.get(this.assessment.subject) || ordering(byString));
-      ascending ? event.data.sort(claimOrdering.on<AggregateTargetScoreRow>(row => row.claim).compare)
-        : event.data.sort(claimOrdering.on<AggregateTargetScoreRow>(row => row.claim).reverse().compare);
-    } else if (event.field === 'target') {
-      ascending ? event.data.sort(ordering(byString).on<AggregateTargetScoreRow>(row => row.target).compare)
-        : event.data.sort(ordering(byString).on<AggregateTargetScoreRow>(row => row.target).reverse().compare);
-    } else if (event.field === 'subgroup') {
+      ascending ? data.sort(claimOrdering.on<AggregateTargetScoreRow>(row => row.claim).compare)
+        : data.sort(claimOrdering.on<AggregateTargetScoreRow>(row => row.claim).reverse().compare);
+    } else if (field === 'target') {
+      ascending ? data.sort(ordering(byString).on<AggregateTargetScoreRow>(row => row.target).compare)
+        : data.sort(ordering(byString).on<AggregateTargetScoreRow>(row => row.target).reverse().compare);
+    } else if (field === 'subgroup') {
       // to keep Overall at the top we shift -> sort -> unshift
-      const overall = event.data.shift();
-      ascending ? event.data.sort(SubgroupOrdering.on<AggregateTargetScoreRow>(row => row.subgroup).compare)
-        : event.data.sort(SubgroupOrdering.on<AggregateTargetScoreRow>(row => row.subgroup).reverse().compare);
-      event.data.unshift(overall);
-    } else if (event.field === 'studentsTested') {
-      ascending ? event.data.sort(ordering(byNumber).on<AggregateTargetScoreRow>(row => row.studentsTested).compare)
-        : event.data.sort(ordering(byNumber).on<AggregateTargetScoreRow>(row => row.studentsTested).reverse().compare);
-    } else if (event.field === 'student-relative-residual-scores-level') {
-      ascending ? event.data.sort(ordering(byTargetReportingLevel).on<AggregateTargetScoreRow>(row => row.studentRelativeLevel).compare)
-        : event.data.sort(ordering(byTargetReportingLevel).on<AggregateTargetScoreRow>(row => row.studentRelativeLevel).reverse().compare);
-    } else if (event.field === 'standard-met-relative-residual-level') {
-      ascending ? event.data.sort(ordering(byTargetReportingLevel).on<AggregateTargetScoreRow>(row => row.standardMetRelativeLevel).compare)
-        : event.data.sort(ordering(byTargetReportingLevel).on<AggregateTargetScoreRow>(row => row.standardMetRelativeLevel).reverse().compare);
+      const overall = data.shift();
+      ascending ? data.sort(SubgroupOrdering.on<AggregateTargetScoreRow>(row => row.subgroup).compare)
+        : data.sort(SubgroupOrdering.on<AggregateTargetScoreRow>(row => row.subgroup).reverse().compare);
+      data.unshift(overall);
+    } else if (field === 'studentsTested') {
+      ascending ? data.sort(ordering(byNumber).on<AggregateTargetScoreRow>(row => row.studentsTested).compare)
+        : data.sort(ordering(byNumber).on<AggregateTargetScoreRow>(row => row.studentsTested).reverse().compare);
+    } else if (field === 'student-relative-residual-scores-level') {
+      ascending ? data.sort(ordering(byTargetReportingLevel).on<AggregateTargetScoreRow>(row => row.studentRelativeLevel).compare)
+        : data.sort(ordering(byTargetReportingLevel).on<AggregateTargetScoreRow>(row => row.studentRelativeLevel).reverse().compare);
+    } else if (field === 'standard-met-relative-residual-level') {
+      ascending ? data.sort(ordering(byTargetReportingLevel).on<AggregateTargetScoreRow>(row => row.standardMetRelativeLevel).compare)
+        : data.sort(ordering(byTargetReportingLevel).on<AggregateTargetScoreRow>(row => row.standardMetRelativeLevel).reverse().compare);
     } else {
-      throw Error(event.field + ' not accounted for in sorting');
+      throw Error(field + ' not accounted for in sorting');
     }
   }
 
