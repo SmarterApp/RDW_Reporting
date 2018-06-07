@@ -56,6 +56,9 @@ export class TargetReportComponent implements OnInit, ExportResults {
   statistics: ExamStatistics;
 
   @Input()
+  displayedFor: string;
+
+  @Input()
   set sessions(value: any) {
     this._sessions = value;
     this.updateTargetScoreExamFilters();

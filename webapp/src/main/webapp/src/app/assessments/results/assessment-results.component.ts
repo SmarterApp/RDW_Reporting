@@ -120,6 +120,9 @@ export class AssessmentResultsComponent implements OnInit {
   @Input()
   isDefaultCollapsed = false;
 
+  @Input()
+  displayedFor: string;
+
   /**
    * Represents the cutoff year for when there is no item level response data available.
    * If there are no exams that are after this school year, then disable the ability to go there and show proper message
