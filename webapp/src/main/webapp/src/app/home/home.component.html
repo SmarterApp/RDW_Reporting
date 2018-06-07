@@ -29,19 +29,21 @@
   <!-- Left Column Content Area -->
   <div class="col-md-9">
 
-    <div *hasPermission="'GROUP_PII_READ'"
-         class="well">
-      <student-search></student-search>
-    </div>
+    <div *hasAnyPermission="['GROUP_PII_READ', 'INDIVIDUAL_PII_READ', 'GROUP_PII_READ']; else noPermissions">
+      <div *hasPermission="'GROUP_PII_READ'"
+           class="well">
+        <student-search></student-search>
+      </div>
 
-    <div *hasPermission="'INDIVIDUAL_PII_READ'"
-         class="well">
-      <school-grade></school-grade>
-    </div>
+      <div *hasPermission="'INDIVIDUAL_PII_READ'"
+           class="well">
+        <school-grade></school-grade>
+      </div>
 
-    <ng-container *hasPermission="'GROUP_PII_READ'">
-      <group-tabs></group-tabs>
-    </ng-container>
+      <ng-container *hasPermission="'GROUP_PII_READ'">
+        <group-tabs></group-tabs>
+      </ng-container>
+    </div>
 
   </div>
 
@@ -68,3 +70,9 @@
     <div [innerHTML]="'html.system-news' | translate"></div>
   </div>
 </div>
+
+<ng-template #noPermissions>
+  <div class="well">
+    <label>{{'home.no-permissions' | translate}}</label>
+  </div>
+</ng-template>
