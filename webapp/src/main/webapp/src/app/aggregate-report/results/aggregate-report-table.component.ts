@@ -32,11 +32,12 @@ const AssessmentLabelOrdering: Ordering<AggregateReportItem> = ordering(byString
 const ScorableClaimOrdering: Ordering<AggregateReportItem> = ordering(byString)
   .on(item => item.claimCode);
 
-const OrganizationalClaimOrderingProvider: (subjectCode: string) => Ordering<AggregateReportItem> = (subjectCode) =>
-  (SubjectClaimOrderings.get(subjectCode) || ordering(byString))
-    .on(item => {
-      return item.claimCode
-    });
+const OrganizationalClaimOrderingProvider: (subjectCode: string, preview: boolean) => Ordering<AggregateReportItem> = (subjectCode, preview) => {
+  const currentOrdering: Ordering<string> = !preview && SubjectClaimOrderings.has(subjectCode)
+    ? SubjectClaimOrderings.get(subjectCode)
+    : ordering(byString);
+  return currentOrdering.on(item => item.claimCode);
+};
 
 const TargetOrdering: Ordering<AggregateReportItem> = ordering(byNumericString)
   .on(item => item.targetCode || item.targetNaturalId);
@@ -293,7 +294,7 @@ export class AggregateReportTableComponent {
     this._orderingByColumnField[ 'assessmentGradeCode' ] = assessmentGradeOrdering;
     this._orderingByColumnField[ 'schoolYear' ] = SchoolYearOrdering;
     this._orderingByColumnField[ 'claimCode' ] = reportType === AggregateReportType.Target
-      ? OrganizationalClaimOrderingProvider(rows[0].subjectCode)
+      ? OrganizationalClaimOrderingProvider(rows[0].subjectCode, this.preview)
       : ScorableClaimOrdering;
     this._orderingByColumnField[ 'subgroup.id' ] = subgroupOrdering(item => item.subgroup, options);
     this._orderingByColumnField[ 'targetNaturalId' ] = TargetOrdering;
