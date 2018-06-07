@@ -112,7 +112,7 @@
             {{rowData.studentsTested}}
           </div>
 
-          <div *ngSwitchCase="'student-relative-residual-scores-level'">
+          <div *ngSwitchCase="'student-relative-residual-scores-level'" class="text-center">
 
             <!-- pick the icon -->
             <span [ngSwitch]="getTargetReportingLevelString(rowData.studentRelativeLevel)">
@@ -142,7 +142,7 @@
             </span>
           </div>
 
-          <div *ngSwitchCase="'standard-met-relative-residual-level'">
+          <div *ngSwitchCase="'standard-met-relative-residual-level'"  class="text-center">
 
             <!-- pick the label color -->
             <span [ngSwitch]="getTargetReportingLevelString(rowData.standardMetRelativeLevel)">
