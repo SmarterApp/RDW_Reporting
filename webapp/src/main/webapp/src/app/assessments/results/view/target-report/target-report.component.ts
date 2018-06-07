@@ -223,31 +223,36 @@ export class TargetReportComponent implements OnInit, ExportResults {
   public sort(event?: SortEvent): void {
     const { field, data } = event;
     const ascending = event.order > 0;
-    if (field === 'claimOrder') {
-      // when there isn't a subject specific claim ordering, then default ot a simple alpha sort
-      const claimOrdering: Ordering<string> = (SubjectClaimOrderings.get(this.assessment.subject) || ordering(byString));
-      ascending ? data.sort(claimOrdering.on<AggregateTargetScoreRow>(row => row.claim).compare)
-        : data.sort(claimOrdering.on<AggregateTargetScoreRow>(row => row.claim).reverse().compare);
-    } else if (field === 'target') {
-      ascending ? data.sort(ordering(byString).on<AggregateTargetScoreRow>(row => row.target).compare)
-        : data.sort(ordering(byString).on<AggregateTargetScoreRow>(row => row.target).reverse().compare);
-    } else if (field === 'subgroup') {
+    const order = this.getOrdering(field);
+
+    if (field === 'subgroup') {
       // to keep Overall at the top we shift -> sort -> unshift
       const overall = data.shift();
-      ascending ? data.sort(SubgroupOrdering.on<AggregateTargetScoreRow>(row => row.subgroup).compare)
-        : data.sort(SubgroupOrdering.on<AggregateTargetScoreRow>(row => row.subgroup).reverse().compare);
+      ascending ? data.sort(order.compare)
+        : data.sort(order.reverse().compare);
       data.unshift(overall);
-    } else if (field === 'studentsTested') {
-      ascending ? data.sort(ordering(byNumber).on<AggregateTargetScoreRow>(row => row.studentsTested).compare)
-        : data.sort(ordering(byNumber).on<AggregateTargetScoreRow>(row => row.studentsTested).reverse().compare);
-    } else if (field === 'student-relative-residual-scores-level') {
-      ascending ? data.sort(ordering(byTargetReportingLevel).on<AggregateTargetScoreRow>(row => row.studentRelativeLevel).compare)
-        : data.sort(ordering(byTargetReportingLevel).on<AggregateTargetScoreRow>(row => row.studentRelativeLevel).reverse().compare);
-    } else if (field === 'standard-met-relative-residual-level') {
-      ascending ? data.sort(ordering(byTargetReportingLevel).on<AggregateTargetScoreRow>(row => row.standardMetRelativeLevel).compare)
-        : data.sort(ordering(byTargetReportingLevel).on<AggregateTargetScoreRow>(row => row.standardMetRelativeLevel).reverse().compare);
-    } else {
-      throw Error(field + ' not accounted for in sorting');
+      return;
+    }
+    ascending ? data.sort(order.compare) : data.sort(order.reverse().compare);
+  }
+
+  private getOrdering(field: string): Ordering<AggregateTargetScoreRow> {
+    switch (field) {
+      case 'claimOrder':
+        const claimOrdering: Ordering<string> = (SubjectClaimOrderings.get(this.assessment.subject) || ordering(byString));
+        return claimOrdering.on<AggregateTargetScoreRow>(row => row.claim);
+      case 'target':
+        return ordering(byString).on<AggregateTargetScoreRow>(row => row.target);
+      case 'subgroup':
+        return SubgroupOrdering.on<AggregateTargetScoreRow>(row => row.subgroup);
+      case 'studentsTested':
+        return ordering(byNumber).on<AggregateTargetScoreRow>(row => row.studentsTested);
+      case 'student-relative-residual-scores-level':
+        return ordering(byTargetReportingLevel).on<AggregateTargetScoreRow>(row => row.studentRelativeLevel);
+      case 'standard-met-relative-residual-level':
+        return ordering(byTargetReportingLevel).on<AggregateTargetScoreRow>(row => row.standardMetRelativeLevel);
+      default:
+        throw Error(field + ' not accounted for in sorting');
     }
   }
 
