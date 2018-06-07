@@ -856,6 +856,7 @@
     },
     "subject-select-label": "Subject",
     "unknown": "Unknown",
+    "unscored": "No Score Recorded",
     "value-display-type": {
       "Number": "Number",
       "Percent": "Percent"
