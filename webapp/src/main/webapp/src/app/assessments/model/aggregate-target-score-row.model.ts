@@ -13,12 +13,12 @@ export class AggregateTargetScoreRow {
 }
 
 export enum TargetReportingLevel {
-  Above,
-  Near,
-  Below,
-  InsufficientData,
-  Excluded,
-  NoResults
+  Above = 'Above',
+  Near = 'Near',
+  Below = 'Below',
+  InsufficientData = 'InsufficientData',
+  Excluded = 'Excluded',
+  NoResults = 'NoResults'
 }
 
 export const byTargetReportingLevel = ranking<TargetReportingLevel>([

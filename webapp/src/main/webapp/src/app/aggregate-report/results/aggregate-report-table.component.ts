@@ -19,6 +19,7 @@ import { BaseColumn } from '../../shared/datatable/base-column.model';
 import { byNumericString, SubjectClaimOrderings } from "../../shared/ordering/orderings";
 import { IdentityColumnOptions } from '../assessment/assessment-definition.service';
 import { AggregateReportType } from "../aggregate-report-form-settings";
+import { byTargetReportingLevel } from "../../assessments/model/aggregate-target-score-row.model";
 
 export const SupportedRowCount = 10000;
 export const DefaultRowsPerPageOptions = [ 100, 500, 1000 ];
@@ -295,6 +296,10 @@ export class AggregateReportTableComponent {
       : ordering(ranking(options.claims.map(claim => claim.code))).on<AggregateReportItem>(item => item.claimCode);
     this._orderingByColumnField[ 'subgroup.id' ] = subgroupOrdering(item => item.subgroup, options);
     this._orderingByColumnField[ 'targetNaturalId' ] = TargetOrdering;
+    this._orderingByColumnField[ 'studentRelativeResidualScoresLevel' ] = ordering(byTargetReportingLevel)
+      .on(item => item.studentRelativeResidualScoresLevel);
+    this._orderingByColumnField[ 'standardMetRelativeResidualLevel' ] = ordering(byTargetReportingLevel)
+      .on(item => item.standardMetRelativeResidualLevel);
 
     // Create columns
 
