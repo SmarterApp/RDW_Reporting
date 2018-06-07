@@ -160,7 +160,7 @@ export class AggregateReportOptionsMapper {
     const assessmentDefinition = this.assessmentDefinitionService.get(defaultAssessmentType, defaultReportType);
     return of(<AggregateReportFormSettings>{
       assessmentType: defaultAssessmentType,
-      columnOrder: assessmentDefinition.aggregateReportIdentityColumns,
+      columnOrder: assessmentDefinition.aggregateReportIdentityColumns.concat(),
       completenesses: [ options.completenesses[ 0 ] ],
       dimensionTypes: [],
       districts: [],
@@ -188,21 +188,21 @@ export class AggregateReportOptionsMapper {
         toSchoolYear: options.schoolYears[ 0 ]
       },
       studentFilters: {
-        economicDisadvantages: options.studentFilters.economicDisadvantages,
-        ethnicities: options.studentFilters.ethnicities,
-        genders: options.studentFilters.genders,
-        individualEducationPlans: options.studentFilters.individualEducationPlans,
-        limitedEnglishProficiencies: options.studentFilters.limitedEnglishProficiencies,
-        englishLanguageAcquisitionStatuses: options.studentFilters.englishLanguageAcquisitionStatuses,
-        migrantStatuses: options.studentFilters.migrantStatuses,
-        section504s: options.studentFilters.section504s
+        economicDisadvantages: options.studentFilters.economicDisadvantages.concat(),
+        ethnicities: options.studentFilters.ethnicities.concat(),
+        genders: options.studentFilters.genders.concat(),
+        individualEducationPlans: options.studentFilters.individualEducationPlans.concat(),
+        limitedEnglishProficiencies: options.studentFilters.limitedEnglishProficiencies.concat(),
+        englishLanguageAcquisitionStatuses: options.studentFilters.englishLanguageAcquisitionStatuses.concat(),
+        migrantStatuses: options.studentFilters.migrantStatuses.concat(),
+        section504s: options.studentFilters.section504s.concat()
       },
       targetReport: {
         assessmentGrade: options.assessmentGrades[ 0 ],
         schoolYear: options.schoolYears[ 0 ],
         subjectCode: options.subjects[ 0 ]
       },
-      subjects: options.subjects,
+      subjects: options.subjects.concat(),
       subgroups: [],
       valueDisplayType: ValueDisplayTypes.Percent
     });
