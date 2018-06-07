@@ -17,7 +17,6 @@ import { MultiOrganizationQueryFormComponent } from './multi-organization-query-
 import { fileName, notEmpty } from '../../shared/form/validators';
 import { Utils } from '../../shared/support/support';
 import { AggregateReportFormOptions } from '../aggregate-report-form-options';
-import { Option as SbCheckboxGroupOption } from '../../shared/form/sb-checkbox-group.component';
 import { Claim } from '../aggregate-report-options.service';
 import { AggregateReportType } from "../aggregate-report-form-settings";
 
@@ -63,14 +62,6 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
 
     this.assessmentDefinition = this.assessmentDefinitionService.get(this.settings.assessmentType, this.settings.reportType);
 
-    this.filterClaimCodes();
-    if (this.settings.claimReport.claimCodesBySubject.length === 0) {
-      // selected All
-      this.filteredOptions.claimCodes.forEach(claim => {
-        this.settings.claimReport.claimCodesBySubject.push(claim.value);
-      });
-    }
-
     this.updateColumnOrder();
 
     this.showAdvancedFilters = !SubgroupFilterSupport.equals(this.settings.studentFilters, this.aggregateReportOptions.studentFilters);
@@ -100,8 +91,7 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
       ]
     });
 
-    this.initializeClaimsBySubject();
-    this.initializeSelectionBySubject();
+    this.initializeClaimsForAssessmentType();
   }
 
   getFormGroup(): FormGroup {
@@ -140,11 +130,11 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
 
     this.updateColumnOrder();
     this.markOrganizationsControlTouched();
-    this.onSettingsChange();
+    this.initializeClaimsForAssessmentType();
+    this.onSubjectsChange();
   }
 
   onSubjectsChange(): void {
-    this.filterClaimCodes();
     this.onClaimChange();
   }
 
@@ -171,29 +161,39 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
   private getAllSelectedClaims(): Claim[] {
     const claims: Claim[] = [];
     for (const subject of this.settings.subjects) {
+      if (Utils.isNullOrUndefined(this.selectionBySubject[ subject ])
+        || this.selectionBySubject[ subject ].length === this.claimsBySubject[ subject ].length) {
+        continue;
+      }
       claims.push(...this.selectionBySubject[ subject ]);
     }
     return claims;
   }
 
-  private initializeClaimsBySubject(): void {
+  private initializeClaimsForAssessmentType(): void {
     this.filteredOptions.subjects.forEach(subject => {
       const subjectCode = subject.value;
-      this.claimsBySubject[ subjectCode ] = this.filteredOptions.claimCodes.filter(claim => claim.value.subject === subjectCode && claim.value.assessmentType === this.settings.assessmentType);
+      this.claimsBySubject[ subjectCode ] = this.filteredOptions.claimCodes
+          .filter(claim => claim.value.subject === subjectCode
+            && claim.value.assessmentType === this.settings.assessmentType);
     });
+
+    this.initializeSelectionBySubject();
   }
 
   private initializeSelectionBySubject(): void {
-    this.filteredOptions.subjects.forEach(subject => {
-      const subjectCode = subject.value;
-      this.selectionBySubject[ subjectCode ] = this.settings.claimReport.claimCodesBySubject.filter(claim => claim.subject === subjectCode);
-    });
-  }
+    const selections: Map<string, Claim[]> = this.settings.claimReport.claimCodesBySubject
+      .filter(claim => claim.assessmentType === this.settings.assessmentType)
+      .reduce((map, claim) => {
+        const subjectClaims = map.get(claim.subject) || [];
+        subjectClaims.push(claim);
+        map.set(claim.subject, subjectClaims);
+        return map;
+      }, new Map());
 
-  private filterClaimCodes(): void {
-    this.filteredOptions.claimCodes = this.options.claimCodes.filter((claim: SbCheckboxGroupOption) => {
-      return claim.value.assessmentType === this.settings.assessmentType && this.settings.subjects.includes(claim.value.subject);
-    });
+    for (let subject of this.settings.subjects) {
+      this.selectionBySubject[subject] = selections.get(subject);
+    }
   }
 
 }
