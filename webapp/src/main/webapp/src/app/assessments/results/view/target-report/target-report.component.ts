@@ -198,15 +198,14 @@ export class TargetReportComponent implements OnInit, ExportResults {
       this.targetStatisticsCalculator.insufficientDataCutoff = applicationSettings.targetReport.insufficientDataCutoff;
 
       this.targetDisplayMap = allTargets.reduce((targetMap, target) => {
-        targetMap[ target.id ] = {
+        targetMap.set(target.id, {
           name: this.assessmentExamMapper.formatTarget(target.code),
           description: target.description,
           claim: target.claimCode
-        };
+        });
 
         return targetMap;
       }, new Map<number, any>());
-
 
       this.aggregateTargetScoreRows = this.targetStatisticsCalculator.aggregateOverallScores(
         this.assessment.subject,
@@ -229,19 +228,25 @@ export class TargetReportComponent implements OnInit, ExportResults {
    * @param event {{order: number, field: string}} An optional sort event
    */
   public sort(event?: SortEvent): void {
+    if (!event.data || !event.data.length) {
+      return;
+    }
+
     const ordering: Comparator<AggregateTargetScoreRow>[] = this.getIdentityColumnsComparator();
 
-    if (!this._previousSortEvent ||
-      event === this._previousSortEvent ||
-      event.order !== 1 ||
-      event.field !== this._previousSortEvent.field) {
-      // Standard column sort.  Sort on the selected column first, then default sorting.
-      ordering.unshift(this.getComparator(event.field, event.order));
-      this._previousSortEvent = event;
-    } else {
-      // This is the third time sorting on the same column, reset to default sorting
-      delete this._previousSortEvent;
-      this.dataTable.reset();
+    if (event.field) {
+      if (!this._previousSortEvent ||
+        event === this._previousSortEvent ||
+        event.order !== 1 ||
+        event.field !== this._previousSortEvent.field) {
+        // Standard column sort.  Sort on the selected column first, then default sorting.
+        ordering.unshift(this.getComparator(event.field, event.order));
+        this._previousSortEvent = event;
+      } else {
+        // This is the third time sorting on the same column, reset to default sorting
+        delete this._previousSortEvent;
+        this.dataTable.reset();
+      }
     }
 
     event.data.sort(join(...ordering));
@@ -275,7 +280,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
         const claimOrdering: Ordering<string> = (SubjectClaimOrderings.get(this.assessment.subject) || ordering(byString));
         return claimOrdering.on<AggregateTargetScoreRow>(row => row.claim);
       case 'target':
-        return ordering(byString).on<AggregateTargetScoreRow>(row => row.target);
+        return ordering(byNumericString).on<AggregateTargetScoreRow>(row => this.targetDisplayMap.get(row.targetId).name);
       case 'subgroup':
         return SubgroupOrdering.on<AggregateTargetScoreRow>(row => row.subgroup);
       case 'studentsTested':
@@ -316,19 +321,6 @@ export class TargetReportComponent implements OnInit, ExportResults {
       this.dataTable,
       this.columns,
       this.identityColumns
-    );
-  }
-
-  private sortRows() {
-    // when there isn't a subject specific claim ordering, then default ot a simple alpha sort
-    const claimOrdering: Ordering<string> = (SubjectClaimOrderings.get(this.assessment.subject) || ordering(byString));
-
-    this.aggregateTargetScoreRows.sort(
-      join(
-        claimOrdering.on<AggregateTargetScoreRow>(row => row.claim).compare,
-        ordering(byNumericString).on<AggregateTargetScoreRow>(row => row.target).compare,
-        SubgroupOrdering.on<AggregateTargetScoreRow>(row => row.subgroup).compare
-      )
     );
   }
 
@@ -375,8 +367,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
   }
 
   private updateTargetScoreTable(): void {
-    this.sortRows();
-    this.calculateTreeColumns();
+    this.sort({data: this.aggregateTargetScoreRows});
   }
 
   private updateTargetScoreExamFilters() {
@@ -421,7 +412,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
   }
 
   getTargetDisplay(row: AggregateTargetScoreRow): any {
-    return this.targetDisplayMap[ row.targetId ];
+    return this.targetDisplayMap.get(row.targetId);
   }
 
   getTargetReportingLevelString(level: TargetReportingLevel): string {
