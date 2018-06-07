@@ -49,7 +49,8 @@
          [columns]="columns"
          [value]="aggregateTargetScoreRows"
          [autoLayout]="true"
-         sortField=""
+         (sortFunction)="sort($event)"
+         [customSort]="true"
          styleClass="table table-striped table-hover overflow">
   <ng-template pTemplate="header"
                let-columns>
@@ -70,7 +71,7 @@
           </span>
         </span>
 
-        <p-sortIcon [field]="column.field"></p-sortIcon>
+        <p-sortIcon [field]="column.sortField"></p-sortIcon>
       </th>
     </tr>
   </ng-template>

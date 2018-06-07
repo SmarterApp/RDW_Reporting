@@ -1,4 +1,5 @@
 import { Subgroup } from '../../aggregate-report/subgroup/subgroup';
+import { ranking } from '@kourge/ordering/comparator';
 
 export class AggregateTargetScoreRow {
   targetId: number;
@@ -19,3 +20,12 @@ export enum TargetReportingLevel {
   Excluded,
   NoResults
 }
+
+export const byTargetReportingLevel = ranking<TargetReportingLevel>([
+  TargetReportingLevel.Above,
+  TargetReportingLevel.Near,
+  TargetReportingLevel.Below,
+  TargetReportingLevel.InsufficientData,
+  TargetReportingLevel.Excluded,
+  TargetReportingLevel.NoResults
+]);
