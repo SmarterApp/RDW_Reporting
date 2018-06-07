@@ -47,7 +47,7 @@ sql:
         )
         AND (:school_id IS NULL OR e.school_id = :school_id)
         AND (:search_student_ids IS FALSE OR e.student_id IN (:student_ids))
-        AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
+        AND ${sql.reporting.snippet.studentSearchPermissions}
       ORDER BY st.last_or_surname, st.first_name, st.ssid
 
   exam:
@@ -327,6 +327,46 @@ sql:
             
       studentExamPermissionWithEmbargo: >-
         ${sql.snippet.studentExamPermissionWithoutEmbargo}
+        AND
+        (
+           e.school_year < ${reporting.school-year}
+           OR e.type_id <> 3
+           OR s.embargo_enabled = 0
+           OR 1 = :state_embargo_admin
+           OR s.district_id IN (:district_embargo_admin_ids)
+        )
+
+      studentSearchPermissions: >-
+        (
+           # Individual permissions
+          (
+            (1 = :individual_statewide OR s.district_group_id IN (:individual_district_group_ids) OR s.district_id IN (:individual_district_ids) OR s.school_group_id IN (:individual_school_group_ids) OR e.school_id IN (:individual_school_ids))
+            OR
+            (
+             # this flag represents a combination of the system setting and a user choice to turn it off when available
+              1 = :allow_transfer_access AND (isch.district_group_id IN (:individual_district_group_ids) OR isch.district_id IN (:individual_district_ids) OR isch.school_group_id IN (:individual_school_group_ids) OR isch.id IN (:individual_school_ids))
+            )
+          )
+          OR
+          # Group permissions
+          (
+            EXISTS(
+               SELECT 1 FROM student_group_membership gm
+                     JOIN student_group sg ON sg.id = gm.student_group_id
+                     JOIN user_student_group usg ON usg.student_group_id = gm.student_group_id
+                        WHERE gm.student_id = e.student_id AND usg.user_login = :user_login
+            )
+            AND
+            (
+              (1 = :group_statewide OR s.district_group_id IN (:group_district_group_ids) OR s.district_id IN (:group_district_ids) OR s.school_group_id IN (:group_school_group_ids) OR e.school_id IN (:group_school_ids))
+              OR
+              (
+                # this flag represents a combination of the system setting and a user choice to turn it off when available
+                1 = :allow_transfer_access AND (isch.district_group_id IN (:group_district_group_ids) OR isch.district_id IN (:group_district_ids) OR isch.school_group_id IN (:group_school_group_ids) OR isch.id IN (:group_school_ids))
+              )
+            )
+          )
+        )
         AND
         (
            e.school_year < ${reporting.school-year}
