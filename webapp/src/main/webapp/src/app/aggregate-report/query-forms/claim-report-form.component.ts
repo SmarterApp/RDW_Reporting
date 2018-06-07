@@ -178,6 +178,7 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
   }
 
   private initializeSelectionBySubject(): void {
+    // Map selected claims by subject
     const selections: Map<string, Claim[]> = this.settings.claimReport.claimCodesBySubject
       .filter(claim => claim.assessmentType === this.settings.assessmentType)
       .reduce((map, claim) => {
@@ -189,8 +190,10 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
 
     for (let subject of this.settings.subjects) {
       if (selections.has(subject)) {
+        // Initialize selection based on settings values
         this.selectionBySubject[ subject ] = selections.get(subject);
       } else {
+        // Set selection to 'All'
         this.selectionBySubject[ subject ] = this.claimsBySubject[ subject ]
           .map(option => option.value);
       }
