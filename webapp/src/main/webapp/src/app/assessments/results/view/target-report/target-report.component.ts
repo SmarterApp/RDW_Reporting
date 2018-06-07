@@ -223,20 +223,11 @@ export class TargetReportComponent implements OnInit, ExportResults {
   public sort(event?: SortEvent): void {
     const { field, data } = event;
     const ascending = event.order > 0;
-    const order = this.getOrdering(field);
-
-    if (field === 'subgroup') {
-      // to keep Overall at the top we shift -> sort -> unshift
-      const overall = data.shift();
-      ascending ? data.sort(order.compare)
-        : data.sort(order.reverse().compare);
-      data.unshift(overall);
-      return;
-    }
-    ascending ? data.sort(order.compare) : data.sort(order.reverse().compare);
+    const columnOrdering = this.createOrdering(field);
+    ascending ? data.sort(columnOrdering.compare) : data.sort(columnOrdering.reverse().compare);
   }
 
-  private getOrdering(field: string): Ordering<AggregateTargetScoreRow> {
+  private createOrdering(field: string): Ordering<AggregateTargetScoreRow> {
     switch (field) {
       case 'claimOrder':
         const claimOrdering: Ordering<string> = (SubjectClaimOrderings.get(this.assessment.subject) || ordering(byString));
