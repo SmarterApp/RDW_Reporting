@@ -118,7 +118,7 @@ class DefaultActionProvider implements ActionProvider {
 class AggregateReportActionProvider extends DefaultActionProvider {
 
   public supports(report: Report): boolean {
-    return report.reportType === AggregateReportType
+    return report.reportType.startsWith(AggregateReportType)
       && !report.processing;
   }
 
