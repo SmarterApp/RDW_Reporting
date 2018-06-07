@@ -161,10 +161,6 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
   private getAllSelectedClaims(): Claim[] {
     const claims: Claim[] = [];
     for (const subject of this.settings.subjects) {
-      if (Utils.isNullOrUndefined(this.selectionBySubject[ subject ])
-        || this.selectionBySubject[ subject ].length === this.claimsBySubject[ subject ].length) {
-        continue;
-      }
       claims.push(...this.selectionBySubject[ subject ]);
     }
     return claims;
@@ -192,7 +188,12 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
       }, new Map());
 
     for (let subject of this.settings.subjects) {
-      this.selectionBySubject[subject] = selections.get(subject);
+      if (selections.has(subject)) {
+        this.selectionBySubject[ subject ] = selections.get(subject);
+      } else {
+        this.selectionBySubject[ subject ] = this.claimsBySubject[ subject ]
+          .map(option => option.value);
+      }
     }
   }
 
