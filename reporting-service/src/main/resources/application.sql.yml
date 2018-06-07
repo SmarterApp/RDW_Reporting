@@ -34,7 +34,6 @@ sql:
         JOIN student st on st.id = e.student_id
         JOIN school s ON s.id = e.school_id
         JOIN school isch ON st.inferred_school_id = isch.id
-        JOIN asmt a ON a.id = e.asmt_id
       WHERE e2.student_id IS NULL
         AND (
           :group_id IS NULL
