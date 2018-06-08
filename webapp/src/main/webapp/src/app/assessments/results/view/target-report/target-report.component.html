@@ -134,10 +134,10 @@
               </span>
               <span *ngSwitchCase="'Excluded'"
                     class="label label-lg gray-light">
-                {{'aggregate-report-table.target.standard.Excluded' | translate}}
+                {{'aggregate-report-table.target.overall.Excluded' | translate}}
               </span>
               <span *ngSwitchDefault>
-                {{'aggregate-report-table.target.standard.' + getTargetReportingLevelString(rowData.studentRelativeLevel) | translate}}
+                {{'aggregate-report-table.target.overall.' + getTargetReportingLevelString(rowData.studentRelativeLevel) | translate}}
               </span>
             </span>
           </div>
@@ -167,7 +167,7 @@
                 {{'aggregate-report-table.target.standard.Excluded' | translate}}
               </span>
               <span *ngSwitchDefault>
-                {{'aggregate-report-table.target.standard.' + getTargetReportingLevelString(rowData.studentRelativeLevel) | translate}}
+                {{'aggregate-report-table.target.standard.' + getTargetReportingLevelString(rowData.standardMetRelativeLevel) | translate}}
               </span>
             </span>
 
