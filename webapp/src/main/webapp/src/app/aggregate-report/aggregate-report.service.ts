@@ -124,13 +124,13 @@ export class AggregateReportService {
       })
       .pipe(
         map(({report, targets}) => {
-          const targetByNaturalId: Map<number, Target> = targets.reduce((targetMap, target) => {
-            targetMap.set(target.naturalId, target);
+          const targetByClaimAndNaturalId: Map<string, Target> = targets.reduce((targetMap, target) => {
+            targetMap.set(target.claimCode + "|" + target.naturalId, target);
             return targetMap;
-          }, new Map<number, any>());
+          }, new Map<string, Target>());
 
           for (let row of report.rows) {
-            const target: Target = targetByNaturalId.get(row.targetNaturalId);
+            const target: Target = targetByClaimAndNaturalId.get(row.claimCode  + "|" + row.targetNaturalId);
             if (target) {
               row.targetCode = target.code;
               row.targetDescription = target.description;
