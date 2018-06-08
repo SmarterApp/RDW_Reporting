@@ -468,7 +468,7 @@ export class CsvBuilder {
 
     this.withColumn(
       this.translateService.instant('target-report.columns.standard-met-relative-residual-level'),
-      (item) => this.translateService.instant('aggregate-report-table.target.overall.' + TargetReportingLevel[ getTargetReportAggregate(item).standardMetRelativeLevel ])
+      (item) => this.translateService.instant('aggregate-report-table.target.standard.' + TargetReportingLevel[ getTargetReportAggregate(item).standardMetRelativeLevel ])
     );
 
     return this;
