@@ -112,7 +112,7 @@ Util.XDM = (function ($) {
   function messageHandler(evt) {
 
     if (!evt.data
-      || typeof evt.data != 'string'
+      || typeof evt.data !== 'string'
       || evt.data.toUpperCase().indexOf("IRIS") < 0) {
       return;
     }
@@ -120,14 +120,12 @@ Util.XDM = (function ($) {
     try {
       var data = XDM.deserialize(evt.data);
     } catch (ex) {
-
       console.log('XDM: error parsing json data');
       return;
     }
 
     if (data.type === 'request') {
       // message request on the server from the client
-      console.log('MESSAGE REQUEST: ', data);
       var response = new Response(data);
       response.targetWindow = evt.source;
       response.targetOrigin = evt.origin === 'null' ? defaults.targetOrigin : evt.origin;
@@ -135,7 +133,6 @@ Util.XDM = (function ($) {
     }
     else if (data.type === 'response') {
       // message response from the server to the client
-      console.log('MESSAGE RESPONSE: ', data);
       if (data.success) {
         requests[data.id].resolve(data.data);
       } else {
@@ -220,7 +217,7 @@ Util.XDM = (function ($) {
     function postMessage(value) {
       request.data = value;
       request.targetWindow.postMessage(XDM.serialize(request), request.targetOrigin);
-    };
+    }
 
     // delay posting message in case listener returned a promise
     $.when(this.data).then(function (value) {

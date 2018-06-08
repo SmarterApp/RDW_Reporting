@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /src/**/*.js
+!/src/scripts/iris/*.js
 
 # dependencies
 node_modules
