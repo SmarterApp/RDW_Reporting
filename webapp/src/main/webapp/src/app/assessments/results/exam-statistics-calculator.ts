@@ -6,6 +6,7 @@ import { DynamicItemField } from '../model/item-point-field.model';
 import * as math from 'mathjs';
 import { WritingTraitScoreSummary } from '../model/writing-trait-score-summary.model';
 import { ClaimStatistics } from '../model/claim-score.model';
+import { ExamItemScore } from "../model/exam-item-score.model";
 
 @Injectable()
 export class ExamStatisticsCalculator {
@@ -152,17 +153,21 @@ export class ExamStatisticsCalculator {
     for (let item of assessmentItems) {
       this.assertNumberOfChoicesIsValid(item.numberOfChoices);
 
-      for (let i = 0; i < item.numberOfChoices; i++) {
-        let response = this.potentialResponses[ i ];
+      //Only include "scored" item scores
+      const itemScores: ExamItemScore[] = item.scores.filter(score => score.points >= 0);
 
-        if (item.scores.length > 0) {
-          let compareFunction = item.type == 'MS'
+      for (let i = 0; i < item.numberOfChoices; i++) {
+        const response = this.potentialResponses[ i ];
+
+        if (itemScores.length > 0) {
+          const compareFunction = item.type == 'MS'
             ? (x => x.response != null && x.response.indexOf(response) !== -1)
             : (x => x.response == response);
 
-          let count = item.scores.filter(compareFunction).length;
+          let count = itemScores.filter(compareFunction).length;
+
           item[ this.NumberFieldPrefix + response ] = count;
-          item[ this.PercentFieldPrefix + response ] = count / item.scores.length * 100;
+          item[ this.PercentFieldPrefix + response ] = count / itemScores.length * 100;
         }
         else {
           item[ this.NumberFieldPrefix + response ] = 0;

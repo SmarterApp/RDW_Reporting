@@ -146,7 +146,7 @@ export class WritingTraitScoresComponent implements OnInit, ExportResults {
 
     for (let item of items) {
       let filteredItem = Object.assign(new AssessmentItem(), item);
-      filteredItem.scores = item.scores.filter(score => this._exams.some(exam => exam.id == score.examId));
+      filteredItem.scores = item.scores.filter(score => score.points >= 0 && this._exams.some(exam => exam.id == score.examId));
       filtered.push(filteredItem);
     }
 
