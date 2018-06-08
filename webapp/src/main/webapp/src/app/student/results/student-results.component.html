@@ -16,6 +16,7 @@
     <ng-template #content>
       <ul class="list-unstyled list-inline">
         <li>
+          <!-- Note: we have 'ml-md' as a class here to avoid an issue with flickering popovers -->
           <button class="btn btn-default btn-sm ml-md"
                   [ngClass]="{disabled: exportDisabled}"
                   popover="{{'common.embargo-export-disabled' | translate}}"
