@@ -55,7 +55,7 @@ export class AggregateReportTableExportService {
           (item: AggregateReportItem) => {
             if (!item.studentsTested) return '';
 
-            return this.translateService.instant(`aggregate-report-table.target.standard.${item.studentRelativeResidualScoresLevel}`);
+            return this.translateService.instant(`aggregate-report-table.target.standard.${item.standardMetRelativeResidualLevel}`);
           }
         );
 
