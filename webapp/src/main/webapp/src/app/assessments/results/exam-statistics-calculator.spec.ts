@@ -3,8 +3,6 @@ import { Exam } from '../model/exam.model';
 import { AssessmentItem } from '../model/assessment-item.model';
 import { ExamItemScore } from '../model/exam-item-score.model';
 import { ClaimStatistics } from '../model/claim-score.model';
-import { TargetScoreExam } from '../model/target-score-exam.model';
-import { TargetReportingLevel } from '../model/aggregate-target-score-row.model';
 
 describe('Exam Calculator', () => {
 
@@ -261,6 +259,7 @@ describe('Exam Calculator', () => {
       item.numberOfChoices = ai.numberOfChoices;
       item.scores = ai.responses.map(result => {
         let score = new ExamItemScore();
+        score.points = 1;
         score.response = result;
         return score;
       });
