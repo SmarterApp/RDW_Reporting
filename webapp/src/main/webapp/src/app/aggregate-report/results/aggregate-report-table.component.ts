@@ -412,14 +412,23 @@ export class AggregateReportTableComponent {
    */
   private getComparator(field: string, order: number): Comparator<AggregateReportItem> {
     const ascending: boolean = order >= 0;
-    let rowOrdering: Ordering<AggregateReportItem> = this._orderingByColumnField[ field ];
-    if (!rowOrdering) {
-      const defaultValue: number = ascending ? Number.MAX_SAFE_INTEGER : Number.MIN_SAFE_INTEGER;
-      rowOrdering = ordering(byNumber).on(item => {
-        return item.studentsTested === 0 ? defaultValue : _.get(item, field, defaultValue);
-      });
+    let rowOrdering: Ordering<AggregateReportItem> = (this._orderingByColumnField[ field ])
+      ? this._orderingByColumnField[ field ]
+      : ordering(byNumber).on(item => _.get(item, field));
+    if (!ascending) {
+      rowOrdering = rowOrdering.reverse();
     }
-    return ascending ? rowOrdering.compare : rowOrdering.reverse().compare;
+    return this.getNoResultsLastComparator(rowOrdering.compare, order);
+  }
+
+  private getNoResultsLastComparator(comparator: Comparator<any>, order: number): Comparator<AggregateReportItem> {
+    const ascending: boolean = order >= 0;
+    const noResultsComparator: Ordering<AggregateReportItem> = ordering(byNumber)
+      .on(item => item.studentsTested === 0 ? 1 : 0);
+    return join(
+      (ascending ? noResultsComparator.compare : noResultsComparator.compare),
+      comparator
+    );
   }
 
   /**
