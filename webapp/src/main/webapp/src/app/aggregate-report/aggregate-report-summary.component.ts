@@ -25,6 +25,8 @@ const createColumnProvider = (columnCount: number = Number.MAX_VALUE): ColumnPro
   };
 };
 
+const equalSize = Utils.hasEqualLength;
+const inline = values => [ values.join(', ') ];
 const NarrowColumnProvider: ColumnProvider = createColumnProvider(2);
 const WideColumnProvider: ColumnProvider = createColumnProvider();
 
@@ -93,8 +95,6 @@ export class AggregateReportSummary {
 
     const { assessmentDefinition, options, settings } = this.summary;
 
-    const equalSize = Utils.hasEqualLength;
-
     const translate = code => this.translate.instant(code);
 
     const All = translate('common.collection-selection.all');
@@ -105,8 +105,6 @@ export class AggregateReportSummary {
       : [ None ];
 
     const defaultAllOrAll = (options, values, codeProvider) => values.length === 0 ? [ All ] : orAll(options, values, codeProvider);
-
-    const inline = values => [ values.join(', ') ];
 
     const organizations = settings.districts.concat(settings.schools);
 
@@ -221,16 +219,18 @@ export class AggregateReportSummary {
         assessmentDefinition.interim
           ? {
             label: translate('aggregate-report-form.field.interim-administration-condition-label'),
-            values: settings.interimAdministrationConditions.map(code => translate(`common.administration-condition.${code}`))
+            values: orAll(this.options.interimAdministrationConditions,
+              settings.interimAdministrationConditions, code => translate(`common.administration-condition.${code}`))
           }
           : {
             label: translate('aggregate-report-form.field.summative-administration-condition-label'),
-            values: settings.summativeAdministrationConditions.map(code => translate(`common.administration-condition.${code}`))
+            values: orAll(this.options.summativeAdministrationConditions,
+              settings.summativeAdministrationConditions, code => translate(`common.administration-condition.${code}`))
           }
       ],
       {
         label: translate('common.completeness-form-control.label'),
-        values: settings.completenesses.map(code => translate(`common.completeness.${code}`))
+        values: orAll(this.options.completenesses, settings.completenesses, code => translate(`common.completeness.${code}`))
       }
     ];
 
