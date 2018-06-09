@@ -126,12 +126,13 @@
             </div>
 
             <div class="form-group">
-              <label>
+              <label for="accommodations-toggle">
                 <span info-button
                       title="{{'report-download.form.accommodations-title' | translate}}"
                       content="{{'report-download.form.accommodations-info' | translate}}"></span>
               </label>
-              <sb-radio-button-group name="accommodations-toggle"
+              <sb-radio-button-group id="accommodations-toggle"
+                         name="accommodations-toggle"
                          [(ngModel)]="options.accommodationsVisible"
                          [disabled]="options.assessmentType === 'iab'"
                          [options]="[
