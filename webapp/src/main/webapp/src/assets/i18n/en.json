@@ -1085,18 +1085,19 @@
     "view-dashboard": "View IAB Dashboard"
   },
   "home": {
+    "groups-well": {
+      "assigned-groups-heading": "Assigned Groups",
+      "created-groups-heading": "My Groups"
+    },
+    "no-permissions": "You do not have permissions to view Assessment Results.<p><p>Depending on your exact roles, you may have access to other system features above.",
+    "skip-link": "Skip to main content",
     "title": "Access Assessment Results",
     "welcome": {
       "interpretive-guide-html": "<a href=\"{{interpretiveGuideUrl}}\" target=\"_blank\">The Interim Assessments Interpretive Guide</a> is designed to help educators, parents, and other stakeholders interpret interim assessments reports for the Smarter Balanced Reporting System.",
       "interpretive-guide-subtitle": "Interim Assessments",
       "title": "Welcome!",
       "user-guide-html": "<a href=\"{{userGuideUrl}}\" target=\"_blank\">The User Guide</a> describes features of the Smarter Balanced Reporting System and instructions for using each feature."
-    },
-    "groups-well": {
-      "assigned-groups-heading": "Assigned Groups",
-      "created-groups-heading": "My Groups"
-    },
-    "no-permissions": "You do not have permissions to view Assessment Results.<p><p>Depending on your exact roles, you may have access to other system features above."
+    }
   },
   "html": {
     "system-news": "<h2 class=\"blue-dark h3 mb-md\">Note</h2><div class=\"summary-reports-container mb-md\"><p>Item level data and session IDs are not available for tests administered prior to the 2017-18 school year.</p></div>"
