@@ -1,140 +1,168 @@
 <div class="well">
-  <div class="row">
-    <div class="col-md-6">
-      <label info-button
-             title="{{'aggregate-report-form.field.gender-label' | translate}}"
-             content="{{'aggregate-report-form.field.gender-info' | translate}}"></label>
+  <fieldset>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="gender-subgroup-filter"
+               info-button
+               title="{{'aggregate-report-form.field.gender-label' | translate}}"
+               content="{{'aggregate-report-form.field.gender-info' | translate}}"></label>
+      </div>
+      <div class="col-md-6">
+        <sb-checkbox-group id="gender-subgroup-filter"
+                           [horizontal]="true"
+                           [options]="options.genders"
+                           [(ngModel)]="settings.genders"
+                           [ngModelOptions]="{standalone: true}"
+                           name="genders"
+                           analyticsEvent="FilterClick"
+                           analyticsCategory="AggregateQueryBuilder"
+                           [allOptionAnalyticsProperties]="{label: 'Gender: All'}"
+                           (change)="onSettingChangeInternal()"></sb-checkbox-group>
+      </div>
     </div>
-    <div class="col-md-6">
-      <sb-checkbox-group [horizontal]="true"
-                         [options]="options.genders"
-                         [(ngModel)]="settings.genders"
-                         [ngModelOptions]="{standalone: true}"
-                         name="genders"
-                         analyticsEvent="FilterClick"
-                         analyticsCategory="AggregateQueryBuilder"
-                         [allOptionAnalyticsProperties]="{label: 'Gender: All'}"
-                         (change)="onSettingChangeInternal()"></sb-checkbox-group>
-    </div>
-  </div>
+  </fieldset>
 </div>
 <div class="well">
-  <div class="row">
-    <div class="col-md-6">
-      <label info-button
-             title="{{'aggregate-report-form.field.ethnicity-label' | translate}}"
-             content="{{'aggregate-report-form.field.ethnicity-info' | translate}}"></label>
+  <fieldset>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="ethnicities-subgroup-filter"
+               info-button
+               title="{{'aggregate-report-form.field.ethnicity-label' | translate}}"
+               content="{{'aggregate-report-form.field.ethnicity-info' | translate}}"></label>
+      </div>
+      <div class="col-md-6">
+        <sb-checkbox-group id="ethnicities-subgroup-filter"
+                           [options]="options.ethnicities"
+                           [(ngModel)]="settings.ethnicities"
+                           [ngModelOptions]="{standalone: true}"
+                           name="ethnicities"
+                           analyticsEvent="FilterClick"
+                           analyticsCategory="AggregateQueryBuilder"
+                           [allOptionAnalyticsProperties]="{label: 'Ethnicity: All'}"
+                           (change)="onSettingChangeInternal()"></sb-checkbox-group>
+      </div>
     </div>
-    <div class="col-md-6">
-      <sb-checkbox-group [options]="options.ethnicities"
-                         [(ngModel)]="settings.ethnicities"
-                         [ngModelOptions]="{standalone: true}"
-                         name="ethnicities"
-                         analyticsEvent="FilterClick"
-                         analyticsCategory="AggregateQueryBuilder"
-                         [allOptionAnalyticsProperties]="{label: 'Ethnicity: All'}"
-                         (change)="onSettingChangeInternal()"></sb-checkbox-group>
-    </div>
-  </div>
+  </fieldset>
 </div>
 <div *ngIf="appSettings.lepEnabled" class="well">
-  <div class="row">
-    <div class="col-md-6">
-      <label info-button
-             title="{{'aggregate-report-form.field.limited-english-proficiency-label' | translate}}"
-             content="{{'aggregate-report-form.field.limited-english-proficiency-info' | translate}}"></label>
+  <fieldset>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="lep-subgroup-filter"
+               info-button
+               title="{{'aggregate-report-form.field.limited-english-proficiency-label' | translate}}"
+               content="{{'aggregate-report-form.field.limited-english-proficiency-info' | translate}}"></label>
+      </div>
+      <div class="col-md-6">
+        <sb-checkbox-group id="lep-subgroup-filter"
+                           [horizontal]="true"
+                           [options]="options.limitedEnglishProficiencies"
+                           [(ngModel)]="settings.limitedEnglishProficiencies"
+                           [ngModelOptions]="{standalone: true}"
+                           name="limitedEnglishProficiencies"
+                           analyticsEvent="FilterClick"
+                           analyticsCategory="AggregateQueryBuilder"
+                           [allOptionAnalyticsProperties]="{label: 'Limited English Proficiency: All'}"
+                           (change)="onSettingChangeInternal()"></sb-checkbox-group>
+      </div>
     </div>
-    <div class="col-md-6">
-      <sb-checkbox-group [horizontal]="true"
-                         [options]="options.limitedEnglishProficiencies"
-                         [(ngModel)]="settings.limitedEnglishProficiencies"
-                         [ngModelOptions]="{standalone: true}"
-                         name="limitedEnglishProficiencies"
-                         analyticsEvent="FilterClick"
-                         analyticsCategory="AggregateQueryBuilder"
-                         [allOptionAnalyticsProperties]="{label: 'Limited English Proficiency: All'}"
-                         (change)="onSettingChangeInternal()"></sb-checkbox-group>
-    </div>
-  </div>
+  </fieldset>
 </div>
 <div *ngIf="appSettings.elasEnabled" class="well">
-  <div class="row">
-    <div class="col-md-6">
-      <label info-button
-             title="{{'aggregate-report-form.field.elas-label' | translate}}"
-             content="{{'aggregate-report-form.field.elas-info' | translate}}"></label>
+  <fieldset>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="elas-subgroup-filter"
+               info-button
+               title="{{'aggregate-report-form.field.elas-label' | translate}}"
+               content="{{'aggregate-report-form.field.elas-info' | translate}}"></label>
+      </div>
+      <div class="col-md-6">
+        <sb-checkbox-group id="elas-subgroup-filter"
+                           [options]="options.englishLanguageAcquisitionStatuses"
+                           [(ngModel)]="settings.englishLanguageAcquisitionStatuses"
+                           [ngModelOptions]="{standalone: true}"
+                           name="englishLanguageAcquisitionStatuses"
+                           analyticsEvent="FilterClick"
+                           analyticsCategory="AggregateQueryBuilder"
+                           [allOptionAnalyticsProperties]="{label: 'English Language Acquisition Status: All'}"
+                           (change)="onSettingChangeInternal()"></sb-checkbox-group>
+      </div>
     </div>
-    <div class="col-md-6">
-      <sb-checkbox-group [options]="options.englishLanguageAcquisitionStatuses"
-                         [(ngModel)]="settings.englishLanguageAcquisitionStatuses"
-                         [ngModelOptions]="{standalone: true}"
-                         name="englishLanguageAcquisitionStatuses"
-                         analyticsEvent="FilterClick"
-                         analyticsCategory="AggregateQueryBuilder"
-                         [allOptionAnalyticsProperties]="{label: 'English Language Acquisition Status: All'}"
-                         (change)="onSettingChangeInternal()"></sb-checkbox-group>
-    </div>
-  </div>
+  </fieldset>
 </div>
 <div class="well">
-  <div class="row">
-    <div class="col-md-6">
-      <label info-button
-             title="{{'aggregate-report-form.field.504-label' | translate}}"
-             content="{{'aggregate-report-form.field.504-info' | translate}}"></label>
+  <fieldset>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="504-subgroup-filter"
+               info-button
+               title="{{'aggregate-report-form.field.504-label' | translate}}"
+               content="{{'aggregate-report-form.field.504-info' | translate}}"></label>
+      </div>
+      <div class="col-md-6">
+        <sb-checkbox-group id="504-subgroup-filter"
+                           [horizontal]="true"
+                           [options]="options.section504s"
+                           [(ngModel)]="settings.section504s"
+                           [ngModelOptions]="{standalone: true}"
+                           name="section504s"
+                           analyticsEvent="FilterClick"
+                           analyticsCategory="AggregateQueryBuilder"
+                           [allOptionAnalyticsProperties]="{label: '504 Plan: All'}"
+                           (change)="onSettingChangeInternal()"></sb-checkbox-group>
+      </div>
     </div>
-    <div class="col-md-6">
-      <sb-checkbox-group [horizontal]="true"
-                         [options]="options.section504s"
-                         [(ngModel)]="settings.section504s"
-                         [ngModelOptions]="{standalone: true}"
-                         name="section504s"
-                         analyticsEvent="FilterClick"
-                         analyticsCategory="AggregateQueryBuilder"
-                         [allOptionAnalyticsProperties]="{label: '504 Plan: All'}"
-                         (change)="onSettingChangeInternal()"></sb-checkbox-group>
-    </div>
-  </div>
+  </fieldset>
 </div>
 <div class="well">
-  <div class="row">
-    <div class="col-md-6">
-      <label info-button
-             title="{{'aggregate-report-form.field.iep-label' | translate}}"
-             content="{{'aggregate-report-form.field.iep-info' | translate}}"></label>
+  <fieldset>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="iep-subgroup-filter"
+               info-button
+               title="{{'aggregate-report-form.field.iep-label' | translate}}"
+               content="{{'aggregate-report-form.field.iep-info' | translate}}"></label>
+      </div>
+      <div class="col-md-6">
+        <sb-checkbox-group id="iep-subgroup-filter"
+                           [horizontal]="true"
+                           [options]="options.individualEducationPlans"
+                           [(ngModel)]="settings.individualEducationPlans"
+                           [ngModelOptions]="{standalone: true}"
+                           name="individualEducationPlans"
+                           analyticsEvent="FilterClick"
+                           analyticsCategory="AggregateQueryBuilder"
+                           [allOptionAnalyticsProperties]="{label: 'IEP: All'}"
+                           (change)="onSettingChangeInternal()"></sb-checkbox-group>
+      </div>
     </div>
-    <div class="col-md-6">
-      <sb-checkbox-group [horizontal]="true"
-                         [options]="options.individualEducationPlans"
-                         [(ngModel)]="settings.individualEducationPlans"
-                         [ngModelOptions]="{standalone: true}"
-                         name="individualEducationPlans"
-                         analyticsEvent="FilterClick"
-                         analyticsCategory="AggregateQueryBuilder"
-                         [allOptionAnalyticsProperties]="{label: 'IEP: All'}"
-                         (change)="onSettingChangeInternal()"></sb-checkbox-group>
-    </div>
-  </div>
+  </fieldset>
 </div>
 <div class="well">
-  <div class="row">
-    <div class="col-md-6">
-      <label info-button
-             title="{{'aggregate-report-form.field.migrant-status-label' | translate}}"
-             content="{{'aggregate-report-form.field.migrant-status-info' | translate}}"></label>
+  <fieldset>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="migrant-subgroup-filter"
+               info-button
+               title="{{'aggregate-report-form.field.migrant-status-label' | translate}}"
+               content="{{'aggregate-report-form.field.migrant-status-info' | translate}}"></label>
+      </div>
+      <div class="col-md-6">
+        <sb-checkbox-group id="migrant-subgroup-filter"
+                           [horizontal]="true"
+                           [options]="options.migrantStatuses"
+                           [(ngModel)]="settings.migrantStatuses"
+                           [ngModelOptions]="{standalone: true}"
+                           name="migrantStatuses"
+                           analyticsEvent="FilterClick"
+                           analyticsCategory="AggregateQueryBuilder"
+                           [allOptionAnalyticsProperties]="{label: 'Migrant Status: All'}"
+                           (change)="onSettingChangeInternal()"></sb-checkbox-group>
+      </div>
     </div>
-    <div class="col-md-6">
-      <sb-checkbox-group [horizontal]="true"
-                         [options]="options.migrantStatuses"
-                         [(ngModel)]="settings.migrantStatuses"
-                         [ngModelOptions]="{standalone: true}"
-                         name="migrantStatuses"
-                         analyticsEvent="FilterClick"
-                         analyticsCategory="AggregateQueryBuilder"
-                         [allOptionAnalyticsProperties]="{label: 'Migrant Status: All'}"
-                         (change)="onSettingChangeInternal()"></sb-checkbox-group>
-    </div>
-  </div>
+  </fieldset>
 </div>
 <div class="well">
   <div class="row">

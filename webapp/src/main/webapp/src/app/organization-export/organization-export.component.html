@@ -33,21 +33,24 @@
         </div>
         <div class="col-md-3" *ngIf="transferAccess">
           <div class="form-group">
-            <div>
-              <label>
-                <span info-button
-                      title="{{'common.filters.test.transfer-assessment' | translate}}"
-                      content="{{'common.filters.test.transfer-assessment-info' | translate}}"></span>
-              </label>
-            </div>
-            <sb-radio-button-group name="transfer-assessment-toggle"
-                                   [(ngModel)]="orgExport.disableTransferAccess"
-                                   buttonGroupStyles=""
-                                   [options]="[
-                           {value: false, text: 'common.action.show' | translate},
-                           {value: true, text: 'common.action.hide' | translate}
-                         ]">
-            </sb-radio-button-group>
+            <fieldset>
+              <div>
+                <label for="transfer-assessment-toggle">
+                  <span info-button
+                        title="{{'common.filters.test.transfer-assessment' | translate}}"
+                        content="{{'common.filters.test.transfer-assessment-info' | translate}}"></span>
+                </label>
+              </div>
+              <sb-radio-button-group id="transfer-assessment-toggle"
+                                     name="transfer-assessment-toggle"
+                                     [(ngModel)]="orgExport.disableTransferAccess"
+                                     buttonGroupStyles=""
+                                     [options]="[
+                             {value: false, text: 'common.action.show' | translate},
+                             {value: true, text: 'common.action.hide' | translate}
+                           ]">
+              </sb-radio-button-group>
+            </fieldset>
           </div>
         </div>
       </div>

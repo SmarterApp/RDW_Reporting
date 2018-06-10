@@ -79,18 +79,20 @@
 
             <div class="form-group"
                  *ngIf="transferAccess">
-              <label for="report-transfer-assessment-toggle">
-                <span info-button
-                      title="{{'common.filters.test.transfer-assessment' | translate}}"
-                      content="{{'common.filters.test.transfer-assessment-info' | translate}}"></span>
-              </label>
-              <sb-radio-button-group id="report-transfer-assessment-toggle"
-                         name="report-transfer-assessment-toggle"
-                         [(ngModel)]="options.disableTransferAccess"
-                         [options]="[
-                           {value: false, text: 'common.action.show' | translate},
-                           {value: true, text: 'common.action.hide' | translate}
-                         ]"></sb-radio-button-group>
+              <fieldset>
+                <label for="report-transfer-assessment-toggle">
+                  <span info-button
+                        title="{{'common.filters.test.transfer-assessment' | translate}}"
+                        content="{{'common.filters.test.transfer-assessment-info' | translate}}"></span>
+                </label>
+                <sb-radio-button-group id="report-transfer-assessment-toggle"
+                           name="report-transfer-assessment-toggle"
+                           [(ngModel)]="options.disableTransferAccess"
+                           [options]="[
+                             {value: false, text: 'common.action.show' | translate},
+                             {value: true, text: 'common.action.hide' | translate}
+                           ]"></sb-radio-button-group>
+              </fieldset>
             </div>
 
           </div>
@@ -126,19 +128,21 @@
             </div>
 
             <div class="form-group">
-              <label for="accommodations-toggle">
-                <span info-button
-                      title="{{'report-download.form.accommodations-title' | translate}}"
-                      content="{{'report-download.form.accommodations-info' | translate}}"></span>
-              </label>
-              <sb-radio-button-group id="accommodations-toggle"
-                         name="accommodations-toggle"
-                         [(ngModel)]="options.accommodationsVisible"
-                         [disabled]="options.assessmentType === 'iab'"
-                         [options]="[
-                           {value: true, text: 'common.action.show' | translate},
-                           {value: false, text: 'common.action.hide' | translate}
-                         ]"></sb-radio-button-group>
+              <fieldset>
+                <label for="accommodations-toggle">
+                  <span info-button
+                        title="{{'report-download.form.accommodations-title' | translate}}"
+                        content="{{'report-download.form.accommodations-info' | translate}}"></span>
+                </label>
+                <sb-radio-button-group id="accommodations-toggle"
+                           name="accommodations-toggle"
+                           [(ngModel)]="options.accommodationsVisible"
+                           [disabled]="options.assessmentType === 'iab'"
+                           [options]="[
+                             {value: true, text: 'common.action.show' | translate},
+                             {value: false, text: 'common.action.hide' | translate}
+                           ]"></sb-radio-button-group>
+              </fieldset>
             </div>
 
           </div>
