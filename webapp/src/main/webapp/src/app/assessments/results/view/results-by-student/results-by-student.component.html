@@ -4,6 +4,12 @@
                          [lockSubject]="true"
                          [lockSchoolYear]="true"></student-report-download>
 
+<div class="row" *ngIf="hasTransferStudent">
+  <div class="col-md-12">
+    <div class="pull-right"><em>{{'assessment-results.transfer-student-instructions' | translate}}</em></div>
+  </div>
+</div>
+
 <!-- Student Results Table -->
 <p-table [columns]="columns"
          [value]="exams"
@@ -48,7 +54,7 @@
                let-exam
                let-i="rowIndex"
                let-columns="columns">
-    <tr>
+    <tr [ngClass]="{'highlight': exam.transfer}">
       <td *ngFor="let column of columns"
           [ngSwitch]="column.id"
           [hidden]="(showClaimScores && column.overall) || (!showClaimScores && column.claim)">
