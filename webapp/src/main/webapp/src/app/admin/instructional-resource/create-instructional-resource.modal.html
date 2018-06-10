@@ -99,8 +99,10 @@
                  required>
           <div *ngIf="resource.invalid && (resource.dirty || resource.touched)">
             <p *ngIf="resource.errors.pattern"
+               aria-live="polite"
                class="help-block small red">{{'common.instructional-resource-form.resource-pattern-error' | translate}}</p>
             <p *ngIf="!resource.errors.pattern && resource.errors.required"
+               aria-live="polite"
                class="help-block small red">{{'common.form-field-message.required' | translate}}</p>
           </div>
         </div>
