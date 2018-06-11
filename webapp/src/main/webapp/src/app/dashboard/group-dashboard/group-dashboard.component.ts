@@ -125,10 +125,6 @@ export class GroupDashboardComponent implements OnInit {
     this.router.navigate([ 'group-exams', this.stateAsNavigationParameters ]).then(() => {
       // reset selected assessments to avoid issues with going back to previous page
       this.selectedAssessments = [];
-      this.groupDashboardService.getAvailableMeasuredAssessments(this.createSearch(this.group))
-        .subscribe(measuredAssessments => {
-          this.updateMeasuredAssessments(measuredAssessments);
-        });
     });
   }
 
