@@ -23,10 +23,10 @@ export class StudentScoreService {
     score.session = exam.session;
     score.enrolledGrade = exam.enrolledGrade;
     score.school = exam.school;
-    score.score = itemScore.points;
+    score.score = itemScore.points >= 0 ? itemScore.points : undefined;
     score.maxScore = maxPoints;
 
-    if(score.maxScore) {
+    if(score.maxScore && score.score >= 0) {
       score.correctness = score.score / score.maxScore;
     }
 

@@ -45,8 +45,11 @@ export class AssessmentItem {
   }
 
   get fullCreditAsPercent(): number {
+    const scoreCount = this.scores.reduce((count, score) =>
+      score.points >= 0 ? count + 1 : count,
+      0);
     return this.scores.length > 0
-      ? this.fullCredit / this.scores.length * 100
+      ? this.fullCredit / scoreCount * 100
       : 0;
   }
 }

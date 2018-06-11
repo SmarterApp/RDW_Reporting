@@ -84,11 +84,14 @@ export class ExamStatisticsCalculator {
 
   aggregateItemsByPoints(assessmentItems: AssessmentItem[]) {
     for (let item of assessmentItems) {
+      const scoreCount: number = item.scores.reduce((count, score) =>
+        score.points >= 0 ? count + 1 : count
+      , 0);
       for (let i = 0; i <= item.maxPoints; i++) {
         if (item.scores.length > 0) {
           let count = item.scores.filter(x => x.points == i).length;
           item[ this.NumberFieldPrefix + i ] = count;
-          item[ this.PercentFieldPrefix + i ] = count / item.scores.length * 100;
+          item[ this.PercentFieldPrefix + i ] = count / scoreCount * 100;
         }
         else {
           item[ this.NumberFieldPrefix + i ] = 0;

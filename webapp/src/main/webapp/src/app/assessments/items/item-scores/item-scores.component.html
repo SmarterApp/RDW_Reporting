@@ -86,7 +86,7 @@
           </div>
           <div *ngSwitchCase="'correctness'"
                class="text-center">
-            {{ score.correctness | number:'1.2-2' }}
+            {{ score.correctness | optional:( score.correctness | number:'1.2-2') }}
           </div>
         </div>
 

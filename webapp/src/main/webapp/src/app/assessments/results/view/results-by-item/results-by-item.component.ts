@@ -117,7 +117,7 @@ export class ResultsByItemComponent implements OnInit, ExportResults {
     for (let assessmentItem of assessmentItems) {
       let filteredItem = Object.assign(new AssessmentItem(), assessmentItem);
       filteredItem.scores = assessmentItem.scores.filter(score =>
-        score.points >= 0 && this._exams.some(exam => exam.id == score.examId));
+        this._exams.some(exam => exam.id == score.examId));
       filtered.push(filteredItem);
     }
 
