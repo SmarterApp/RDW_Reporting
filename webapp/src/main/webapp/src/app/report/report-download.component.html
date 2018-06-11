@@ -32,7 +32,6 @@
                      maxlength="255"
                      [(ngModel)]="options.name"
                      [aria-invalid]="resourceControl.invalid && (resourceControl.dirty || resourceControl.touched) && resourceControl.errors.required"
-                     aria-required="true"
                      required>
             </div>
             <div *ngIf="resourceControl.invalid && (resourceControl.dirty || resourceControl.touched)">
