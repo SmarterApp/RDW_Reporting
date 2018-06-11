@@ -96,6 +96,7 @@
                  placeholder="{{'common.instructional-resource-form.resource-placeholder' | translate}}"
                  [(ngModel)]="resourceUrl"
                  pattern="https?://.+"
+                 aria-required="true"
                  required>
           <div *ngIf="resource.invalid && (resource.dirty || resource.touched)">
             <p *ngIf="resource.errors.pattern"
