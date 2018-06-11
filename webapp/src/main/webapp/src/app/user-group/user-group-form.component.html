@@ -16,7 +16,7 @@
            minlength="1"
            maxlength="255">
     <p *ngIf="showErrors(nameControl)"
-       class="help-block small red">{{'user-group-form.field.name.required-error' | translate}}</p>
+       class="help-block small red" aria-live="polite">{{'user-group-form.field.name.required-error' | translate}}</p>
   </div>
   <div class="form-group">
     <label for="subjects">{{'user-group-form.field.subjects.label' | translate}}</label>
