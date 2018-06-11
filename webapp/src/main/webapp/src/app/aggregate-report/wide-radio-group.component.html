@@ -1,6 +1,6 @@
 <div class="btn-toolbar-grid toggle-group"
      [ngClass]="buttonGroupStyles"
-     [ngStyle]="{'grid-template-rows': 'repeat(' + (rowCount * 2) + ', auto)'}"
+     [ngStyle]="gridStyles"
      data-toggle="buttons">
   <ng-container *ngFor="let option of options">
     <label

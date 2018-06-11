@@ -31,6 +31,13 @@ export class WideRadioGroupComponent extends AbstractControlValueAccessor<any[]>
   private _initialized = false;
   private _initialOptions: Option[];
 
+  get gridStyles(): any {
+    return {
+      '-ms-grid-rows': 'auto '.repeat(this.rowCount).trim(),
+      'grid-template-rows': 'repeat(' + (this.rowCount * 2) + ', auto)'
+    };
+  }
+
   get buttonGroupStyles(): any {
     return this._buttonGroupStyles;
   }

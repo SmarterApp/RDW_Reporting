@@ -1310,6 +1310,7 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
 .card-grid {
   display: grid;
   grid-gap: @spacer;
+  -ms-grid-columns: (@spacer * 21) (@spacer * 21) (@spacer * 21);
   grid-template-columns: repeat(@cards-per-row, @spacer * 21);
 }
 
@@ -1418,11 +1419,30 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
     }
   }
 
-  .grid-2 { grid-template-columns: repeat(2, 1fr); }
-  .grid-3 { grid-template-columns: repeat(3, 1fr); }
-  .grid-4 { grid-template-columns: repeat(4, 1fr); }
-  .grid-5 { grid-template-columns: repeat(5, 1fr); }
-  .grid-6 { grid-template-columns: repeat(6, 1fr); }
+  .grid-2 {
+    -ms-grid-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-3 {
+    -ms-grid-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid-4 {
+    -ms-grid-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .grid-5 {
+    -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .grid-6 {
+    -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(6, 1fr);
+  }
 
   .perc-container {
     display: grid;
@@ -1497,6 +1517,7 @@ wide-radio-group {
 
   .btn-toolbar-grid {
     display: grid;
+    -ms-grid-rows: auto auto;
     grid-template-rows: repeat(2, auto);
     grid-auto-flow: column;
     grid-gap: 0 @spacer;
