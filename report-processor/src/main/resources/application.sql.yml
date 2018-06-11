@@ -243,21 +243,6 @@ sql:
         ${sql.reportProcessor.snippet.exportExamsFilter}
         AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
 
-    hasExams: >-
-      SELECT EXISTS (SELECT 1
-      FROM exam e
-        JOIN student st ON st.id = e.student_id
-        JOIN asmt a ON e.asmt_id = a.id
-        JOIN subject su ON su.id = a.subject_id
-        JOIN asmt_type at ON at.id = a.type_id
-        JOIN school s ON e.school_id = s.id
-        JOIN district d ON d.id = s.district_id
-        JOIN school isch ON st.inferred_school_id = isch.id
-      where
-        ${sql.reportProcessor.snippet.exportExamsFilter}
-        AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
-      )
-
   student:
     findByExamQueryParamsUnknownPermissions: >-
       ${sql.reportProcessor.snippet.selectFromStudent}
