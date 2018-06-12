@@ -97,7 +97,7 @@ spring:
       &characterEncoding=${spring.datasource.character-encoding:utf8}\
       &rewriteBatchedStatements=${spring.reporting_datasource.rewrite-batched-statements:true}\
       &connectTimeout=${spring.reporting_datasource.connect-timeout:10000}\
-      &socketTimeout=${spring.reporting_datasource.socket-timeout:40000}\
+      &socketTimeout=${spring.reporting_datasource.socket-timeout:130000}\
       "
     username: root
     password:
@@ -109,7 +109,7 @@ spring:
     maxActive: 20
     initialSize: 4
     maxWait: 10000
-    jdbcInterceptors: "QueryTimeoutInterceptor(queryTimeout=30)"
+    jdbcInterceptors: "QueryTimeoutInterceptor(queryTimeout=120)"
 
   jackson:
       default-property-inclusion: non_null
