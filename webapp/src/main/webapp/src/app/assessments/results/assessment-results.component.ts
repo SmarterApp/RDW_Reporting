@@ -71,6 +71,11 @@ export class AssessmentResultsComponent implements OnInit {
 
     // if we aren't going to display the sessions, don't waste resources computing them
     if (this.allowFilterBySessions) {
+      // temp testing
+      for (let i=0; i < assessment.exams.length; i++) {
+        assessment.exams[i].session = null;
+      }
+
       this.sessions = this.getDistinctExamSessions(assessment.exams);
 
       if (this.sessions.length > 0) {

@@ -226,7 +226,7 @@
     "no-writing-trait-scores": "Writing trait scores are not available for assessments administered prior to 2017-18 school year.",
     "result-view-select": "Select a results view",
     "select-view": "Select View",
-    "session-unknown": "[Unknown]",
+    "session-unknown": "Not provided",
     "sessions-title": "Sessions",
     "transfer-student-instructions": "The highlighted row(s) indicate test results from a previous school.",
     "view": {
