@@ -151,7 +151,6 @@ describe('AssessmentResultsComponent', () => {
     assessmentExam.exams.push(buildExam("Wood", "ma-12", "2017-03-01T17:05:26Z"));
 
     component.assessmentExam = assessmentExam;
-    console.log(component.sessions);
     expect(component.sessions[ 0 ].filter).toBeTruthy();
     expect(component.sessions[ 0 ].id).toBeNull();
     expect(component.sessions[ 1 ].filter).toBeFalsy();
