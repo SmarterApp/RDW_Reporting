@@ -45,9 +45,8 @@
 
 <!-- Student Results Table -->
 <p-table #dataTable
-         *ngIf="showResults"
          [columns]="columns"
-         [value]="aggregateTargetScoreRows"
+         [value]="showResults ? aggregateTargetScoreRows : []"
          [autoLayout]="true"
          (sortFunction)="sort($event)"
          [customSort]="true"
@@ -142,7 +141,7 @@
             </span>
           </div>
 
-          <div *ngSwitchCase="'standard-met-relative-residual-level'"  class="text-center">
+          <div *ngSwitchCase="'standard-met-relative-residual-level'" class="text-center">
 
             <!-- pick the label color -->
             <span [ngSwitch]="getTargetReportingLevelString(rowData.standardMetRelativeLevel)">
@@ -179,12 +178,8 @@
   <ng-template pTemplate="emptymessage" let-columns>
     <tr>
       <td [attr.colspan]="columns.length">
-        {{'results-by-student.assessment-exams-empty-message' | translate}}
+        {{'target-report.not-enough-results' | translate}}
       </td>
     </tr>
   </ng-template>
 </p-table>
-
-<div *ngIf="!showResults">
-  {{ 'target-report.not-enough-results' | translate }}
-</div>

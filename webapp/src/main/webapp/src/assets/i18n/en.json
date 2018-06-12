@@ -1384,7 +1384,7 @@
       "standard-met-relative-residual-level": "Performance Relative to Standard Met (Level 3)",
       "standard-met-relative-residual-level-info": "Indicates whether students' performance on a target was above, near, or below Standard Met (Level 3).  A \"Below Standard Met\" indicator suggests that students have not yet mastered the content assessed in a target; however, the students' overall performance on the test may be near or above standard."
     },
-    "not-enough-results": "TODO - not enough results",
+    "not-enough-results": "There are currently not enough results available to display the target level report.",
     "subgroup-options": "Subgroups"
   },
   "update-instructional-resource-modal": {
