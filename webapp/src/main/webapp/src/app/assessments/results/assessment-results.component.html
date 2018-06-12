@@ -44,7 +44,7 @@
            angularticsCategory="AssessmentResults">
           <span class="block-children">
               <strong>{{session.date | date }}</strong>
-              <small class="text-left">{{session.id || 'assessment-results.session-unknown' | translate }}</small>
+              <small class="text-left">{{session.id | session }}</small>
           </span>
         </a>
       </div>
