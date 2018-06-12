@@ -11,7 +11,7 @@
 
   <page-heading>
     <ng-template #heading>
-      <h2>{{'common.person-name' | translate:examHistory.student}}</h2> <div class="student-ssid-label">{{examHistory.student.ssid}}</div>
+      <h2>{{examHistory.student | studentName}}</h2> <div class="student-ssid-label">{{examHistory.student.ssid}}</div>
     </ng-template>
     <ng-template #content>
       <ul class="list-unstyled list-inline">

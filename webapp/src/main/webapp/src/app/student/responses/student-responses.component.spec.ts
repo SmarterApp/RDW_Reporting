@@ -16,6 +16,8 @@ import { PermissionService } from "../../shared/security/permission.service";
 import { WritingTraitScores } from "../../assessments/model/writing-trait-scores.model";
 import createSpy = jasmine.createSpy;
 import Spy = jasmine.Spy;
+import { CommonModule } from '../../shared/common.module';
+import { RdwFormatModule } from '../../shared/format/rdw-format.module';
 
 describe('StudentResponsesComponent', () => {
   let component: StudentResponsesComponent;
@@ -37,7 +39,8 @@ describe('StudentResponsesComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
+        RdwFormatModule
       ],
       declarations: [
         AuthorizationDirective,

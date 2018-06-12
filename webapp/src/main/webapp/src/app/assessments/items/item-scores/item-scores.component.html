@@ -52,7 +52,7 @@
         <table-row-expander *ngSwitchCase="'name'"
                             [table]="itemScores"
                             [row]="score"
-                            [text]="'common.person-name' | translate:score.student">
+                            [text]="score.student | studentName">
         </table-row-expander>
 
         <div *ngSwitchCase="'date'">

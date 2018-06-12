@@ -67,5 +67,5 @@
 
 
 <ng-template #studentTemplate let-student>
-  <i class="fa fa-close mr-xs"></i> {{'common.person-name' | translate: student}}
+  <i class="fa fa-close mr-xs"></i> {{student | studentName}}
 </ng-template>

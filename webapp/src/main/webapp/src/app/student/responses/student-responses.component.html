@@ -2,7 +2,7 @@
 
 <page-heading>
   <ng-template #heading>
-    <h2>{{'common.person-name' | translate:student}}</h2> <div class="student-ssid-label">{{student.ssid}}</div>
+    <h2>{{student | studentName}}</h2> <div class="student-ssid-label">{{student.ssid}}</div>
   </ng-template>
 </page-heading>
 

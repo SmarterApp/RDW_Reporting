@@ -62,7 +62,7 @@
         <div *ngSwitchCase="'name'">
           <popup-menu [item]="exam"
                       [actions]="actions"
-                      [text]="'common.person-name' | translate:exam.student"></popup-menu>
+                      [text]="exam.student | studentName"></popup-menu>
         </div>
 
         <div *ngSwitchCase="'date'">

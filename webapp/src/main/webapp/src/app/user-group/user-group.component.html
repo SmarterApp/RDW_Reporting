@@ -109,7 +109,7 @@
 
 <ng-template #studentFormStudentTemplate let-student>
   <div>
-    <i class="fa fa-plus mr-xs"></i> {{'common.person-name' | translate:student}}
+    <i class="fa fa-plus mr-xs"></i> {{student | studentName}}
   </div>
 </ng-template>
 
