@@ -43,6 +43,7 @@ sql:
         ${sql.snippet.writingTraits},
         ${sql.snippet.exam}
       JOIN district d ON s.district_id=d.id
+      JOIN ${sql.snippet.selectFromBothGroupTypes} sg ON sg.student_id = e.student_id
       LEFT JOIN exam_item ei ON ei.exam_id=e.id
       LEFT JOIN item i ON i.id=ei.item_id
       ${sql.reportProcessor.snippet.percentileLeftJoin}
@@ -108,6 +109,7 @@ sql:
         JOIN item i ON i.id=ei.item_id
         WHERE i.performance_task_writing_type is not null
       ) wt ON wt.exam_id = e.id
+      JOIN ${sql.snippet.selectFromBothGroupTypes} sg ON sg.student_id = e.student_id
       WHERE e.student_id in (:student_ids)
         AND ${sql.snippet.groupFilters}
         AND (:school_year is null or e.school_year=:school_year)
@@ -270,6 +272,7 @@ sql:
 
     findByExamQueryParamsGroupPermissions: >-
       ${sql.reportProcessor.snippet.selectFromStudent}
+      JOIN ${sql.snippet.selectFromBothGroupTypes} sg ON sg.student_id = e.student_id
       WHERE ${sql.snippet.groupFilters}
         AND (:student_id is null or st.id = :student_id)
         AND (:school_year is null or e.school_year = :school_year)

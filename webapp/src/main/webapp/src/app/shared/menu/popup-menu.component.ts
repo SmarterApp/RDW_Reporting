@@ -42,6 +42,7 @@ import { Utils } from "../support/support";
              disabled: action.isDisabled(item),
              'dropdown-submenu': getSubActions(action).length
          }"
+         href="javascript:void(0)"
          (click)="action.isDisabled(item) || onMenuClick($event, action)">
         <i *ngIf="isSubActionsLoading(action)" class="fa fa-spinner fa-pulse fa-fw"></i>
         {{action.displayName( item )}}

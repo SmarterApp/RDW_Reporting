@@ -8,6 +8,7 @@ import { InstructionalResourcesService } from '../../../assessments/results/inst
 import { InstructionalResource } from '../../../assessments/model/instructional-resources.model';
 import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'student-history-table',
@@ -33,10 +34,12 @@ export class StudentHistoryTableComponent implements OnInit {
   @Input()
   minimumItemDataYear: number;
 
-
   private originalExams: StudentHistoryExamWrapper[] = [];
   viewState: 'overall' | 'claim' = 'overall';
   instructionalResourcesProvider: () => Observable<InstructionalResource[]>;
+  selectedCardRowIndex: number;
+  itemsPerRow: number = 3;
+  rows: StudentHistoryExamWrapper[][] = [];
 
   constructor(private actionBuilder: MenuActionBuilder,
               private instructionalResourcesService: InstructionalResourcesService,
@@ -99,15 +102,17 @@ export class StudentHistoryTableComponent implements OnInit {
     this._exams = exams;
     this.originalExams = Array.from(exams);
     this.studentHistoryCards = this.getLatestStudentHistoryCards();
+    this.rows = _.chunk(this.studentHistoryCards, this.itemsPerRow);
   }
 
-  showTableForIndex(index: number): boolean {
-    const selectedIndex = this.selectedIndex();
-    return selectedIndex !== -1 && selectedIndex < index + 3 && selectedIndex >= index;
-  }
+  updateSelectedCardRowIndex(): void {
+    const selectedCardIndex = this.studentHistoryCards
+      .indexOf(this.studentHistoryCards.find(studentHistoryCard => studentHistoryCard.selected));
 
-  private selectedIndex(): number {
-    return this.studentHistoryCards.indexOf(this.studentHistoryCards.find(studentHistoryCard => studentHistoryCard.selected));
+    if (selectedCardIndex < 0) {
+      delete this.selectedCardRowIndex;
+    }
+    this.selectedCardRowIndex = Math.floor(selectedCardIndex / this.itemsPerRow);
   }
 
   onCardSelection(event: StudentHistoryExamWrapper) {
@@ -120,6 +125,8 @@ export class StudentHistoryTableComponent implements OnInit {
     this._exams = Array.from(this.originalExams);
     this._exams = this.exams.filter(exam =>
       exam.assessment.label === event.assessment.label);
+
+    this.updateSelectedCardRowIndex();
   }
 
   loadInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): void {

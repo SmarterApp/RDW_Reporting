@@ -37,6 +37,7 @@
       <div class="flex-children">
         <a *ngFor="let session of sessions"
            class="reverse multi-line btn flex-child {{session.filter ? 'aqua' : 'gray-dark'}}"
+           href="javascript:void(0)"
            (click)="toggleSession(session)"
            angulartics2On="click"
            angularticsEvent="ToggleSession"
@@ -96,6 +97,7 @@
                      triggers="{{ !resultsByStudentView.disabled ? '': 'mouseenter:mouseleave'}}"
                      placement="right"
                      container="body"
+                     href="javascript:void(0)"
                      (click)="resultsByStudentView.disabled || setCurrentView(resultsByStudentView)"
                      [ngClass]="{'selected': currentResultsView == resultsByStudentView, disabled: resultsByStudentView.disabled }">
                     {{ resultsByStudentView.label | translate }}
@@ -108,6 +110,7 @@
                      triggers="{{ !resultsByItemView.disabled ? '': 'mouseenter:mouseleave'}}"
                      placement="right"
                      container="body"
+                     href="javascript:void(0)"
                      (click)="resultsByItemView.disabled || setCurrentView(resultsByItemView)"
                      [ngClass]="{'selected': currentResultsView == resultsByItemView, disabled: resultsByItemView.disabled }">
                     {{ resultsByItemView.label | translate }}
@@ -120,6 +123,7 @@
                      triggers="{{ !distractorAnalysisView.disabled ? '' : 'mouseenter:mouseleave'}}"
                      placement="right"
                      container="body"
+                     href="javascript:void(0)"
                      (click)="distractorAnalysisView.disabled || setCurrentView(distractorAnalysisView)"
                      [ngClass]="{'selected': currentResultsView == distractorAnalysisView, disabled: distractorAnalysisView.disabled }">
                     {{ distractorAnalysisView.label | translate }}
@@ -132,6 +136,7 @@
                      triggers="{{ !writingTraitScoresView.disabled ? '' : 'mouseenter:mouseleave'}}"
                      placement="right"
                      container="body"
+                     href="javascript:void(0)"
                      (click)="writingTraitScoresView.disabled || setCurrentView(writingTraitScoresView)"
                      [ngClass]="{'selected': currentResultsView == writingTraitScoresView, disabled: writingTraitScoresView.disabled}">
                     {{ writingTraitScoresView.label | translate }}
@@ -144,6 +149,7 @@
                      triggers="{{ !targetReportView.disabled ? '' : 'mouseenter:mouseleave'}}"
                      placement="right"
                      container="body"
+                     href="javascript:void(0)"
                      (click)="targetReportView.disabled || setCurrentView(targetReportView)"
                      [ngClass]="{'selected': currentResultsView == targetReportView, disabled: targetReportView.disabled}">
                     {{ targetReportView.label | translate }}

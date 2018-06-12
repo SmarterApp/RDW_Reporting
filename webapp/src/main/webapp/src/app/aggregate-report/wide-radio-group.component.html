@@ -1,10 +1,10 @@
-<div class="btn-toolbar-grid toggle-group"
+<div class="btn-toolbar-grid toggle-group row"
      [ngClass]="buttonGroupStyles"
-     [ngStyle]="{'grid-template-rows': 'repeat(' + (rowCount * 2) + ', auto)'}"
      data-toggle="buttons">
-  <ng-container *ngFor="let option of options">
+  <div class="col-xs-6"
+       *ngFor="let option of options">
     <label
-      class="btn"
+      class="btn btn-block"
       popover="{{ option.disabledText }}"
       triggers="{{ option.disabled || disabled ? 'mouseenter:mouseleave' : ''}}"
       [ngClass]="computeStylesInternal(buttonStyles, {
@@ -25,7 +25,7 @@
       {{option.text}}
     </label>
     <p class="ml-xs text-muted small" [ngClass]="{'disabled': option.disabled || disabled}">{{option.description}}</p>
-  </ng-container>
+  </div>
 </div>
 
 

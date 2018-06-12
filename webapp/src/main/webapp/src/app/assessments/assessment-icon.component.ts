@@ -52,13 +52,13 @@ export const IabAssessmentIconsByAssessmentName = {
   'SBAC-IAB-FIXED-G11M-GMD-MATH-11': 'Math/HS/Geometry Measurement and Modeling',
   'SBAC-IAB-FIXED-G11M-IF': 'Math/HS/Interpreting Functions',
   'SBAC-IAB-FIXED-G11M-NQ': 'Math/HS/Number and Quantity',
-  'SBAC-IAB-FIXED-G11M-Perf-TeenDrivingRest-MATH-11': 'Math/8/Performance Task',
+  'SBAC-IAB-FIXED-G11M-Perf-TeenDrivingRest-MATH-11': 'Math/HS/Performance Task',
   'SBAC-IAB-FIXED-G11M-SP-Calc-MATH-11': 'Math/HS/Statistics and Probability',
   'SBAC-IAB-FIXED-G11M-SSE': 'Math/HS/Seeing Structure in Expressions',
 
   'SBAC-IAB-FIXED-G3E-BriefWrites-ELA-3': 'ELA/Brief Write',
   'SBAC-IAB-FIXED-G3E-Editing-ELA-3': 'ELA/Edit',
-  'SBAC-IAB-FIXED-G3E-EditRevise-ELA-3': 'ELA/Edit',
+  'SBAC-IAB-FIXED-G3E-EditRevise-ELA-3': 'ELA/Edit - Revise',
   'SBAC-IAB-FIXED-G3E-LangVocab-ELA-3': 'ELA/Language and Vocabulary Use',
   'SBAC-IAB-FIXED-G3E-ListenInterpet-ELA-3': 'ELA/Listen and Interpret',
   'SBAC-IAB-FIXED-G3E-Perf-Opinion-Beetles': 'ELA/Performance Task',
@@ -69,7 +69,7 @@ export const IabAssessmentIconsByAssessmentName = {
 
   'SBAC-IAB-FIXED-G4E-BriefWrites-ELA-4': 'ELA/Brief Write',
   'SBAC-IAB-FIXED-G4E-Editing-ELA-4': 'ELA/Edit',
-  'SBAC-IAB-FIXED-G4E-EditRevise-ELA-4': 'ELA/Edit',
+  'SBAC-IAB-FIXED-G4E-EditRevise-ELA-4': 'ELA/Edit - Revise',
   'SBAC-IAB-FIXED-G4E-LangVocab-ELA-4': 'ELA/Language and Vocabulary Use',
   'SBAC-IAB-FIXED-G4E-ListenInterpet-ELA-4': 'ELA/Listen and Interpret',
   'SBAC-IAB-FIXED-G4E-Perf-Narrative-UnlikelyAnimal': 'ELA/Performance Task',
@@ -80,7 +80,7 @@ export const IabAssessmentIconsByAssessmentName = {
 
   'SBAC-IAB-FIXED-G5E-BriefWrites-ELA-5': 'ELA/Brief Write',
   'SBAC-IAB-FIXED-G5E-Editing-ELA-5': 'ELA/Edit',
-  'SBAC-IAB-FIXED-G5E-EditRevise-ELA-5': 'ELA/Edit',
+  'SBAC-IAB-FIXED-G5E-EditRevise-ELA-5': 'ELA/Edit - Revise',
   'SBAC-IAB-FIXED-G5E-LangVocab-ELA-5': 'ELA/Language and Vocabulary Use',
   'SBAC-IAB-FIXED-G5E-ListenInterpet-ELA-5': 'ELA/Listen and Interpret',
   'SBAC-IAB-FIXED-G5E-Perf-Narrative-Whales': 'ELA/Performance Task',
@@ -91,7 +91,7 @@ export const IabAssessmentIconsByAssessmentName = {
 
   'SBAC-IAB-FIXED-G6E-BriefWrites-ELA-6': 'ELA/Brief Write',
   'SBAC-IAB-FIXED-G6E-Editing-ELA-6': 'ELA/Edit',
-  'SBAC-IAB-FIXED-G6E-EditRevise-ELA-6': 'ELA/Edit',
+  'SBAC-IAB-FIXED-G6E-EditRevise-ELA-6': 'ELA/Edit - Revise',
   'SBAC-IAB-FIXED-G6E-LangVocab-ELA-6': 'ELA/Language and Vocabulary Use',
   'SBAC-IAB-FIXED-G6E-ListenInterpet-ELA-6': 'ELA/Listen and Interpret',
   'SBAC-IAB-FIXED-G6E-Perf-Argument-Multivitamins': 'ELA/Performance Task',
@@ -102,7 +102,7 @@ export const IabAssessmentIconsByAssessmentName = {
 
   'SBAC-IAB-FIXED-G7E-BriefWrites-ELA-7': 'ELA/Brief Write',
   'SBAC-IAB-FIXED-G7E-Editing-ELA-7': 'ELA/Edit',
-  'SBAC-IAB-FIXED-G7E-EditRevise-ELA-7': 'ELA/Edit',
+  'SBAC-IAB-FIXED-G7E-EditRevise-ELA-7': 'ELA/Edit - Revise',
   'SBAC-IAB-FIXED-G7E-LangVocab-ELA-7': 'ELA/Language and Vocabulary Use',
   'SBAC-IAB-FIXED-G7E-ListenInterpet-ELA-7': 'ELA/Listen and Interpret',
   'SBAC-IAB-FIXED-G7E-Perf-Explanatory-MobileEdTech': 'ELA/Performance Task',
@@ -112,7 +112,7 @@ export const IabAssessmentIconsByAssessmentName = {
   'SBAC-IAB-FIXED-G7E-Revision-ELA-7': 'ELA/Revise',
 
   'SBAC-IAB-FIXED-G8E-BriefWrites-ELA-8': 'ELA/Brief Write',
-  'SBAC-IAB-FIXED-G8E-EditRevise-ELA-8': 'ELA/Edit',
+  'SBAC-IAB-FIXED-G8E-EditRevise-ELA-8': 'ELA/Edit - Revise',
   'SBAC-IAB-FIXED-G8E-ListenInterpet-ELA-8': 'ELA/Listen and Interpret',
   'SBAC-IAB-FIXED-G8E-Perf-Explanatory-CompareAncient': 'ELA/Performance Task',
   'SBAC-IAB-FIXED-G8E-ReadInfo-ELA-8': 'ELA/Read Informational Texts',
@@ -121,7 +121,7 @@ export const IabAssessmentIconsByAssessmentName = {
 
   'SBAC-IAB-FIXED-G11E-BriefWrites-ELA-11': 'ELA/Brief Write',
   'SBAC-IAB-FIXED-G11E-Editing-ELA-11': 'ELA/Edit',
-  'SBAC-IAB-FIXED-G11E-EditRevise-ELA-11': 'ELA/Edit',
+  'SBAC-IAB-FIXED-G11E-EditRevise-ELA-11': 'ELA/Edit - Revise',
   'SBAC-IAB-FIXED-G11E-LangVocab-ELA-11': 'ELA/Language and Vocabulary Use',
   'SBAC-IAB-FIXED-G11E-ListenInterpet-ELA-11': 'ELA/Listen and Interpret',
   'SBAC-IAB-FIXED-G11E-Perf-Explanatory-Marshmallow': 'ELA/Performance Task',
@@ -137,7 +137,10 @@ export const IabAssessmentIconsByAssessmentName = {
     <sb-icon *ngIf="icon"
              [icon]="'assessment-icon/' + icon"
              [styles]="styles"></sb-icon>
-  `
+  `,
+  host: {
+    class: 'assessment-icon'
+  }
 })
 export class AssessmentIconComponent {
 

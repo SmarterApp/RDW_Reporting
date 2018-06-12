@@ -3,45 +3,55 @@
 </ng-container>
 
 <ng-template #loaded>
-  <div class="flex-child grow clearfix">
-    <label>{{'user-groups.heading' | translate}}</label>
+  <div class="flex-children">
+    <div class="flex-child grow">
+      <label *ngIf="groups.length">{{'user-groups.heading' | translate}}</label>
 
-    <ul class="list-unstyled list-inline pull-right">
-      <li>
-        <a *hasPermission="'GROUP_PII_READ'"
-           routerLink="/user-groups"
-           title="{{'common.action.create' | translate}}"
-           class="btn btn-xs btn-primary">
-          <i class="fa fa-plus"></i> {{'common.action.create' | translate}}
-        </a>
-      </li>
-      <li *ngIf="defaultGroup">
-        <a [routerLink]="['/', 'group-dashboard', {userGroupId: defaultGroup.id}]"
-           title="{{'groups.view-dashboard' | translate}}"
-           class="btn btn-xs btn-default">
-          <i class="fa fa-bars"></i> {{'groups.view-dashboard' | translate}}
-        </a>
-      </li>
-    </ul>
-
+      <p *ngIf="groups.length === 0"
+         class="text-muted">
+        {{(createButtonDisabled ? 'user-groups.create-button-disabled-popover' : 'user-groups.create-group-prompt') | translate }}
+      </p>
+    </div>
+    <div class="flex-child">
+      <ul class="list-unstyled list-inline">
+        <li>
+          <button class="btn btn-xs btn-primary"
+                  [ngClass]="{disabled: createButtonDisabled}"
+                  title="{{'common.action.create' | translate}}"
+                  [popover]="createButtonDisabled ? ('user-groups.create-button-disabled-popover' | translate) : ''"
+                  triggers="mouseenter:mouseleave"
+                  container="body"
+                  (click)="onCreateButtonClick()">
+            <i class="fa fa-plus"></i> {{'common.action.create' | translate}}
+          </button>
+        </li>
+        <li *ngIf="defaultGroup">
+          <a [routerLink]="['/', 'group-dashboard', {userGroupId: defaultGroup.id}]"
+             title="{{'groups.view-dashboard' | translate}}"
+             class="btn btn-xs btn-default">
+            <i class="fa fa-bars"></i> {{'groups.view-dashboard' | translate}}
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 
-  <div *ngIf="groups.length > searchThreshold"
-       class="table-search-form-container">
-    <label for="search" class="sr-only">{{'groups.filter' | translate}}</label>
-    <input [(ngModel)]="search"
-           class="search form-control"
-           id="search"
-           type="text"
-           placeholder="{{'groups.filter' | translate}}"
-           autocomplete="off"
-           (ngModelChange)="onSearchChange($event)">
-  </div>
-
-  <div class="table-list-container">
-    <user-group-table [groups]="filteredGroups"
-                      [subjects]="subjects"></user-group-table>
-
-  </div>
+  <ng-container *ngIf="groups.length">
+    <div *ngIf="groups.length > searchThreshold"
+         class="table-search-form-container">
+      <label for="search" class="sr-only">{{'groups.filter' | translate}}</label>
+      <input [(ngModel)]="search"
+             class="search form-control"
+             id="search"
+             type="text"
+             placeholder="{{'groups.filter' | translate}}"
+             autocomplete="off"
+             (ngModelChange)="onSearchChange($event)">
+    </div>
+    <div class="table-list-container">
+      <user-group-table [groups]="filteredGroups"
+                        [subjects]="subjects"></user-group-table>
+    </div>
+  </ng-container>
 
 </ng-template>

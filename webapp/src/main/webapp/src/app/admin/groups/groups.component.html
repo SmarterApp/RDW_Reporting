@@ -136,7 +136,8 @@
                 </div>
 
                 <div *ngSwitchCase="'deleted'">
-                  <a href="javascript:void(0)" (click)="openDeleteGroupModal(group)">
+                  <a href="javascript:void(0)" (click)="openDeleteGroupModal(group)"
+                     title="{{ 'admin-groups.columns.delete-title' | translate: { groupName: group.name } }}">
                     <i class="fa fa-minus-square-o"></i> {{ 'admin-groups.columns.delete' | translate }}
                   </a>
                 </div>

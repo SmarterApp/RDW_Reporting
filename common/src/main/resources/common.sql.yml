@@ -124,7 +124,7 @@ sql:
         (
            # Individual permissions
           (
-            (1 = :individual_statewide OR s.district_group_id IN (:individual_district_group_ids) OR s.district_id IN (:individual_district_ids) OR s.school_group_id IN (:individual_school_group_ids) OR e.school_id IN (:individual_school_ids))
+            (1 = :individual_statewide OR s.district_group_id IN (:individual_district_group_ids) OR s.district_id IN (:individual_district_ids) OR s.school_group_id IN (:individual_school_group_ids) OR s.id IN (:individual_school_ids))
             OR
             (
              # this flag represents a combination of the system setting and a user choice to turn it off when available
@@ -241,32 +241,23 @@ sql:
       ei.trait_conventions_score as ei_trait_conventions_score,
       i.performance_task_writing_type
 
-    # dependencies: student st, asmt a, :group_id, :user_group_id
+    # dependencies: sg (sql.snippet.selectFromBothGroupTypes), student st, asmt a
     groupFilters: >-
-      (
-        (
-          :group_id IS NULL
-          OR EXISTS(
-            SELECT 1
-            FROM student_group_membership sgm
-              JOIN student_group sg ON sg.id = sgm.student_group_id
-              JOIN user_student_group usg ON usg.student_group_id = sgm.student_group_id
-            WHERE sgm.student_group_id = :group_id
-              AND sgm.student_id = st.id
-              AND usg.user_login = :user_login
-              AND (sg.subject_id is null OR sg.subject_id = a.subject_id)
-          )
-        )
-        AND (
-          :user_group_id IS NULL
-          OR EXISTS(
-            SELECT 1
-            FROM teacher_student_group_membership tsgm
-              JOIN teacher_student_group tsg ON tsg.id = tsgm.teacher_student_group_id
-            WHERE tsgm.teacher_student_group_id = :user_group_id
-              AND tsgm.student_id = st.id
-              AND tsg.user_login = :user_login
-              AND (tsg.subject_id IS NULL OR tsg.subject_id = a.subject_id)
-          )
-        )
+      sg.id = :group_id
+      AND sg.user_login = :user_login
+      AND sg.group_type = :group_type
+      AND sg.student_id = st.id
+      AND (sg.subject_id IS NULL OR sg.subject_id = a.subject_id)
+
+    selectFromBothGroupTypes: >-
+      (SELECT sg.id, gm.student_id, sg.subject_id, usg.user_login, 1 AS group_type
+        FROM student_group_membership gm
+          JOIN student_group sg ON sg.id = gm.student_group_id
+          JOIN user_student_group usg ON usg.student_group_id = gm.student_group_id
+
+      UNION ALL
+
+      SELECT tsg.id, tsgm.student_id, tsg.subject_id, tsg.user_login, 2 AS group_type
+        FROM teacher_student_group_membership tsgm
+          JOIN teacher_student_group tsg ON tsg.id = tsgm.teacher_student_group_id
       )

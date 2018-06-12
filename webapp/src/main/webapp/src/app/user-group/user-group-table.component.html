@@ -46,7 +46,8 @@
         </ng-container>
 
         <ng-container *ngSwitchCase="'action'">
-          <a [routerLink]="['/', 'user-groups', {groupId: group.id}]">
+          <a [routerLink]="['/', 'user-groups', {groupId: group.id}]"
+             title="{{ 'user-group-table.edit-title' | translate: { groupName: group.name } }}">
             <i class="fa fa-pencil"></i> {{'user-group-table.edit' | translate}}
           </a>
         </ng-container>

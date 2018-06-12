@@ -10,7 +10,11 @@ export class GroupAssessmentResolve implements Resolve<any> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return this.service.getMostRecentAssessment(<Search>route.params);
+    // if there are pre-selected assessments, don't call to get the most recent assessment
+    const { assessmentIds } = route.params;
+    if (!assessmentIds) {
+      return this.service.getMostRecentAssessment(<Search>route.params);
+    }
   }
 
 }

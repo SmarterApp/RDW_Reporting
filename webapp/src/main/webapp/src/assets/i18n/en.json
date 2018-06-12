@@ -10,6 +10,7 @@
   "admin-groups": {
     "columns": {
       "delete": "Delete",
+      "delete-title": "Delete {{groupName}}",
       "name": "Name",
       "school": "School",
       "school-year": "School Year",
@@ -227,6 +228,7 @@
     "select-view": "Select View",
     "session-unknown": "[Unknown]",
     "sessions-title": "Sessions",
+    "transfer-student-instructions": "The highlighted row(s) indicate test results from a previous school.",
     "view": {
       "ByItem": "Results By Item",
       "ByStudent": "Results By Student",
@@ -1080,23 +1082,24 @@
     "empty-message": "There are no groups that match your search.  Please try again.",
     "filter": "Search by Group Name",
     "heading": "Groups",
-    "no-groups-message": "Contact your building administrator for access to group-level test results.",
+    "no-groups": "Contact your building administrator for access to group-level test results.",
     "search-label": "Search by Group",
     "view-dashboard": "View IAB Dashboard"
   },
   "home": {
+    "groups-well": {
+      "assigned-groups-heading": "Assigned Groups",
+      "created-groups-heading": "My Groups"
+    },
+    "no-permissions": "You do not have permissions to view Assessment Results.<p><p>Depending on your exact roles, you may have access to other system features above.",
+    "skip-link": "Skip to main content",
     "title": "Access Assessment Results",
     "welcome": {
       "interpretive-guide-html": "<a href=\"{{interpretiveGuideUrl}}\" target=\"_blank\">The Interim Assessments Interpretive Guide</a> is designed to help educators, parents, and other stakeholders interpret interim assessments reports for the Smarter Balanced Reporting System.",
       "interpretive-guide-subtitle": "Interim Assessments",
       "title": "Welcome!",
       "user-guide-html": "<a href=\"{{userGuideUrl}}\" target=\"_blank\">The User Guide</a> describes features of the Smarter Balanced Reporting System and instructions for using each feature."
-    },
-    "groups-well": {
-      "assigned-groups-heading": "Assigned Groups",
-      "created-groups-heading": "My Groups"
-    },
-    "no-permissions": "You do not have permissions to view Assessment Results.<p><p>Depending on your exact roles, you may have access to other system features above."
+    }
   },
   "html": {
     "system-news": "<h2 class=\"blue-dark h3 mb-md\">Note</h2><div class=\"summary-reports-container mb-md\"><p>Item level data and session IDs are not available for tests administered prior to the 2017-18 school year.</p></div>"
@@ -1377,9 +1380,9 @@
       "subgroup": "Subgroup",
       "studentsTested": "Students Tested",
       "student-relative-residual-scores-level": "Performance Relative to Entire Test",
-      "student-relative-residual-scores-level-info": "Indicates whether students'' performance on a target was better than, the same, or worse than the students'' performance on the entire test. A \"Worse\" indicator does not necessarily mean poor performance on a target, but rather that students'' performance in this area was weaker than their overall performance.",
+      "student-relative-residual-scores-level-info": "Indicates whether students' performance on a target was better than, the same, or worse than the students' performance on the entire test. A \"Worse\" indicator does not necessarily mean poor performance on a target, but rather that students' performance in this area was weaker than their overall performance.",
       "standard-met-relative-residual-level": "Performance Relative to Standard Met (Level 3)",
-      "standard-met-relative-residual-level-info": "Indicates whether students'' performance on a target was above, near, or below Standard Met (Level 3).  A \"Below Standard Met\" indicator suggests that students have not yet mastered the content assessed in a target; however, the students'' overall performance on the test may be near or above standard."
+      "standard-met-relative-residual-level-info": "Indicates whether students' performance on a target was above, near, or below Standard Met (Level 3).  A \"Below Standard Met\" indicator suggests that students have not yet mastered the content assessed in a target; however, the students' overall performance on the test may be near or above standard."
     },
     "not-enough-results": "TODO - not enough results",
     "subgroup-options": "Subgroups"
@@ -1427,10 +1430,12 @@
   "user-groups": {
     "heading": "Search by Group",
     "create-group-prompt": "Click the create button to create your own group.",
+    "create-button-disabled-popover": "You can create your own groups once one or more groups assigned to you.",
     "no-results": "No results"
   },
   "user-group-table": {
-    "edit": "Edit"
+    "edit": "Edit",
+    "edit-title": "Edit {{groupName}}"
   },
   "school-and-group-typeahead": {
     "school-group": "Schools",

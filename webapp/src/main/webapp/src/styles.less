@@ -1306,13 +1306,6 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
 // cards per row
 @cards-per-row: 3;
 
-// copy below CSS
-.card-grid {
-  display: grid;
-  grid-gap: @spacer;
-  grid-template-columns: repeat(@cards-per-row, @spacer * 21);
-}
-
 .card {
   position: relative;
   background-color: @white;
@@ -1425,14 +1418,9 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
   .grid-6 { grid-template-columns: repeat(6, 1fr); }
 
   .perc-container {
-    display: grid;
-    grid-gap: @spacer / 4.2;
 
     .bar {
-      display: flex;
-      align-items: center;
       font-size: 12.8px;
-      & { justify-self: left; }
     }
     .bar.description {
       font-size: 11px;
@@ -1445,6 +1433,8 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
       margin-right: 0.25em;
       background-color: currentcolor;
       border-radius: 3px;
+      position: relative;
+      top: 2px;
       &.blue-dark.aqua {
         .textured-blue;
       }
@@ -1496,12 +1486,8 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
 wide-radio-group {
 
   .btn-toolbar-grid {
-    display: grid;
-    grid-template-rows: repeat(2, auto);
-    grid-auto-flow: column;
-    grid-gap: 0 @spacer;
-    &:before {
-      content: none;
+    .btn > input {
+        display: none;
     }
   }
 
@@ -1572,19 +1558,22 @@ user-group {
   min-width: 75px;
 }
 
-.icon-wrapper {
+@assessment-icon-size: 80px;
+
+.assessment-icon {
   padding: 5px;
   background-color: @gray-lightest;
   border-radius: 6px;
   border: 1px solid @gray;
+  display: inline-block;
+
+  i.icon.sbac {
+    color: @blue;
+    width: @assessment-icon-size;
+    height: @assessment-icon-size;
+  }
 }
 
-@assessment-icon-size: 80px;
-
-assessment-icon i.icon.sbac {
-  color: @blue;
-  width: @assessment-icon-size;
-  height: @assessment-icon-size;
-  display: block;
-  margin: 0;
+tr.highlight {
+  background-color: lighten(@yellow, 45%) !important;
 }

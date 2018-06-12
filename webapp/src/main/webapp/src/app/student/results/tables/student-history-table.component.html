@@ -3,34 +3,44 @@
 <div class="mb-sm clearfix"></div>
 
 <div class="card-grid">
-  <div *ngFor="let studentHistoryCard of studentHistoryCards; let i = index">
-    <student-assessment-card *ngIf="studentHistoryCard.exam"
-                             [latestExam]="studentHistoryCard"
-                             [exams]="exams"
-                             (selectedAssessment)="onCardSelection($event)"></student-assessment-card>
-    <ng-container *ngIf="i % 3 === 0 && showTableForIndex(i)">
-      <ng-container
-        *ngTemplateOutlet="tableTemplate"></ng-container>
-    </ng-container>
-  </div>
-</div>
 
+  <ng-container *ngFor="let row of rows; let i = index">
+    <div class="row">
+      <div class="col-md-4 mb-md" *ngFor="let studentHistoryCard of row">
+        <student-assessment-card *ngIf="studentHistoryCard.exam"
+                                 [latestExam]="studentHistoryCard"
+                                 [exams]="exams"
+                                 (selectedAssessment)="onCardSelection($event)"></student-assessment-card>
+
+      </div>
+    </div>
+    <div *ngIf="selectedCardRowIndex === i"
+         class="row">
+      <div class="col-md-12 mb-md">
+        <ng-container *ngTemplateOutlet="tableTemplate"></ng-container>
+      </div>
+    </div>
+  </ng-container>
+</div>
 
 <ng-template #tableTemplate>
 
-  <div class="mt-lg">
     <div *ngIf="assessmentType !== 'iab'"
          class="btn-group btn-group-md"
          role="group">
       <button (click)="viewState = 'overall'"
               class="btn btn-default"
-              angulartics2On="click" angularticsEvent="ViewOverallScores" angularticsCategory="StudentHistory"
+              angulartics2On="click"
+              angularticsEvent="ViewOverallScores"
+              angularticsCategory="StudentHistory"
               [ngClass]="{'active': viewState === 'overall'}">
         {{'common.buttons.display-overall' | translate}}
       </button>
       <button (click)="viewState = 'claim'; createColumns()"
               class="btn btn-default"
-              angulartics2On="click" angularticsEvent="ViewClaimScores" angularticsCategory="StudentHistory"
+              angulartics2On="click"
+              angularticsEvent="ViewClaimScores"
+              angularticsCategory="StudentHistory"
               [ngClass]="{'active': viewState === 'claim'}">
         {{'common.buttons.display-claim' | translate}}
       </button>
@@ -48,7 +58,7 @@
       <ng-template pTemplate="header"
                    let-columns>
         <tr>
-          <th *ngFor="let column of columns; let columnIdx = index;"
+          <th *ngFor="let column of columns"
               [pSortableColumn]="column.field"
               [hidden]="(viewState !== 'overall' && column.overall) || (viewState !== 'claim' && column.claim)"
               [ngSwitch]="column.id">
@@ -169,7 +179,6 @@
         </tr>
       </ng-template>
     </p-table>
-  </div>
 
 </ng-template>
 <ng-template #buttonPopover>

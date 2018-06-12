@@ -26,52 +26,59 @@
 <ng-template #loaded>
   <ng-container *ngIf="group; else groupNotFound">
 
-    <!-- Group Select -->
-    <div class="col-md-3">
-      <label for="select-group">{{'group-results.select-group' | translate}}</label>
-      <!--TODO: type ahead? -->
-      <select id="select-group"
-              class="form-control"
-              [compareWith]="groupEquals"
-              [(ngModel)]="group"
-              (ngModelChange)="updateRoute('Group')">
-        <option *ngFor="let group of groups"
-                [ngValue]="group">{{group.name}}</option>
-      </select>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="select-group">{{'group-results.select-group' | translate}}</label>
+          <select id="select-group"
+                  class="form-control"
+                  [compareWith]="groupEquals"
+                  [(ngModel)]="group"
+                  (change)="onGroupChange()">
+            <option *ngFor="let group of groups"
+                    [ngValue]="group">{{group.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="school-year">{{'common.school-year-select-label' | translate}}</label>
+          <select id="school-year"
+                  class="form-control"
+                  [(ngModel)]="schoolYear"
+                  (change)="onSchoolYearChange()">
+            <option *ngFor="let year of filterOptions.schoolYears"
+                    [ngValue]="year">{{year | schoolYear}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="select-subject">{{'common.subject-select-label' | translate}}</label>
+          <select id="select-subject"
+                  [(ngModel)]="subject"
+                  class="form-control"
+                  (change)="onSubjectChange()">
+            <option selected [ngValue]="undefined">{{'common.subject.ALL.short-name' | translate}}</option>
+            <option *ngFor="let subject of subjects"
+                    [ngValue]="subject">{{'common.subject.' + subject + '.short-name' | translate}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="form-group">
+          <div class="pull-right">
+            <label>&nbsp;</label>
+            <a class="btn btn-primary form-control"
+               [ngClass]="{'disabled': !cardViewEnabled}"
+               (click)="viewAssessments()">{{'assessment-card.view-assessments' | translate }}<i class="ml-xs fa fa-angle-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- School Year -->
-    <div class="col-md-3">
-      <label for="school-year">{{'common.school-year-select-label' | translate}}</label>
-      <select id="school-year"
-              class="form-control"
-              [(ngModel)]="schoolYear"
-              (ngModelChange)="updateRoute('SchoolYear')">
-        <option *ngFor="let year of filterOptions.schoolYears"
-                [ngValue]="year">{{year | schoolYear}}</option>
-      </select>
-    </div>
-
-    <!-- Subject -->
-    <div class="col-md-4">
-      <div class="col-md-6">
-        <label for="select-subject">{{'common.subject-select-label' | translate}}</label>
-        <select id="select-subject"
-                [(ngModel)]="subject"
-                class="form-control">
-          <option selected [ngValue]="undefined">{{'common.subject.ALL.short-name' | translate}}</option>
-          <option *ngFor="let subject of subjects"
-                  [ngValue]="subject">{{'common.subject.' + subject + '.short-name' | translate}}
-          </option>
-        </select>
-      </div>
-      <div class="col-md-6">
-        <a class="col-btn btn btn-primary"
-           [ngClass]="{'disabled': !cardViewEnabled}"
-           (click)="viewAssessments()">{{'assessment-card.view-assessments' | translate }}<i class="ml-xs fa fa-angle-right"></i>
-        </a>
-      </div>
-    </div>
   </ng-container>
 </ng-template>
 
@@ -81,34 +88,32 @@
   </div>
 </ng-template>
 
+<!-- Loading and No Results Error -->
+<ng-container *ngIf="loadingMeasuredAssessments; else measuredAssessmentsLoaded">
+  <spinner></spinner>
+</ng-container>
+<ng-template #measuredAssessmentsLoaded>
+  <ng-container *ngIf="measuredAssessments.length === 0; else hasMeasuredAssessments">
 
-<div class="col-md-12 mt-md">
-  <!-- Loading and No Results Error -->
-  <ng-container *ngIf="loadingMeasuredAssessments; else measuredAssessmentsLoaded">
-      <spinner></spinner>
+    <div class="alert alert-info">
+      {{'group-dashboard.no-results-found' | translate}}
+    </div>
+
   </ng-container>
-  <ng-template #measuredAssessmentsLoaded>
-    <ng-container *ngIf="measuredAssessments.length === 0; else hasMeasuredAssessments">
+  <ng-template #hasMeasuredAssessments>
 
-      <div class="alert alert-info">
-        {{'group-dashboard.no-results-found' | translate}}
+    <div class="row" *ngFor="let row of rows">
+      <div *ngFor="let measuredAssessment of row"
+           class="col-md-4 mt-md">
+        <group-assessment-card (selectedAssessment)="onCardSelection($event)"
+                               [group]="group"
+                               [measuredAssessment]="measuredAssessment"></group-assessment-card>
       </div>
+    </div>
 
-    </ng-container>
-    <ng-template #hasMeasuredAssessments>
-
-      <div class="card-grid">
-        <div *ngFor="let measuredAssessment of filteredMeasuredAssessments">
-          <group-assessment-card (selectedAssessment)="onCardSelection($event)"
-                                 [group]="group"
-                                 [measuredAssessment]="measuredAssessment"></group-assessment-card>
-        </div>
-      </div>
-
-    </ng-template>
   </ng-template>
+</ng-template>
 
-</div>
 
 <span group-report-download
       #reportDownloader

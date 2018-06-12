@@ -9,6 +9,7 @@ import { ListGroupComponent } from './list-group.component';
       <a *ngFor="let item of items"
          href="javascript:void(0)"
          class="list-group-item list-group-item-action"
+         href="javascript:void(0)"
          (click)="disabled || itemClick.emit(item)">
         <ng-container *ngTemplateOutlet="(itemTemplate ? itemTemplate : defaultItemTemplate);
                       context:{$implicit: item}"></ng-container>

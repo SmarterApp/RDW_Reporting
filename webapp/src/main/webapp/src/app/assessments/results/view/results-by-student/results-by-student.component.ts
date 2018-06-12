@@ -43,6 +43,7 @@ export class ResultsByStudentComponent implements OnInit {
   columns: Column[];
   actions: PopupMenuAction[];
   instructionalResourcesProvider: () => Observable<InstructionalResource[]>;
+  hasTransferStudent: boolean = false;
 
   get performanceLevelHeader() {
     return 'common.results.assessment-exam-columns.' +
@@ -71,6 +72,7 @@ export class ResultsByStudentComponent implements OnInit {
       ...this.getClaimColumns()
     ];
     this.actions = this.createActions();
+    this.hasTransferStudent = this.exams.some(x => x.transfer);
   }
 
   loadInstructionalResources(exam: Exam) {

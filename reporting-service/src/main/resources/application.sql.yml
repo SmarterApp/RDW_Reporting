@@ -9,6 +9,8 @@ sql:
         LIMIT 1) AS embargo_enabled
 
   student:
+    # It finds all students with one of the following: school id, or groups id or student ids, and uses a student's latest exam to complete
+    # the students' demographic data. Note: there is no embargo or transfer student logic here because it is about students, not exams.
     findAll:
       SELECT
         st.id,
@@ -21,33 +23,42 @@ sql:
         e.elas_code,
         e.section504,
         e.migrant_status
-      FROM exam e
-        LEFT OUTER JOIN exam e2
-          ON e.student_id = e2.student_id
-          AND (
-            e.completed_at < e2.completed_at
-            OR (
-              e.completed_at = e2.completed_at
-              AND e.id < e2.id
-            )
-          )
-        JOIN student st on st.id = e.student_id
-        JOIN school s ON s.id = e.school_id
-        JOIN school isch ON st.inferred_school_id = isch.id
-      WHERE e2.student_id IS NULL
-        AND (
-          :group_id IS NULL
-          OR EXISTS (
-            SELECT 1 FROM student_group_membership sgm
-              JOIN student_group sg ON sg.id = sgm.student_group_id
-            WHERE sgm.student_id = st.id
-              AND sg.id = :group_id
+      FROM student st
+        JOIN school sc ON st.inferred_school_id = sc.id
+        JOIN exam e ON st.id = e.student_id
+        LEFT OUTER JOIN exam e2 ON e.student_id = e2.student_id AND (e.completed_at < e2.completed_at OR (e.completed_at = e2.completed_at AND e.id < e2.id))
+      WHERE
+        e2.student_id IS NULL
+        AND
+        ( :group_id IS NULL
+          OR EXISTS(
+              SELECT 1
+              FROM student_group_membership sgm
+                JOIN student_group sg ON sg.id = sgm.student_group_id
+              WHERE sgm.student_id = st.id AND sg.id = :group_id
           )
         )
-        AND (:school_id IS NULL OR e.school_id = :school_id)
-        AND (:search_student_ids IS FALSE OR e.student_id IN (:student_ids))
-        AND ${sql.reporting.snippet.studentSearchPermissions}
-      ORDER BY st.last_or_surname, st.first_name, st.ssid
+        AND (:school_id IS NULL OR sc.id = :school_id)
+        AND (:search_student_ids IS FALSE OR st.id IN (:student_ids))
+        AND
+        (
+         (1 = :individual_statewide OR sc.district_group_id IN (:individual_district_group_ids) OR sc.district_id IN (:individual_district_ids) OR sc.school_group_id IN (:individual_school_group_ids) OR sc.id IN (:individual_school_ids))
+         OR
+         (
+           EXISTS(
+               SELECT 1
+               FROM student_group_membership gm
+                 JOIN student_group sg ON sg.id = gm.student_group_id
+                 JOIN user_student_group usg ON usg.student_group_id = gm.student_group_id
+               WHERE gm.student_id = st.id AND usg.user_login = :user_login
+           )
+           AND
+           (
+             (1 = :group_statewide OR sc.district_group_id IN (:group_district_group_ids) OR sc.district_id IN (:group_district_ids) OR sc.school_group_id IN (:group_school_group_ids) OR sc.id IN (:group_school_ids))
+           )
+         )
+        )
+      ORDER BY st.last_or_surname, st.first_name, st.ssid;
 
   exam:
     findAllByStudentId: >-
@@ -93,6 +104,7 @@ sql:
             JOIN school s ON e.school_id = s.id
             JOIN student st ON e.student_id = st.id
             JOIN school isch ON st.inferred_school_id = isch.id
+            JOIN ${sql.snippet.selectFromBothGroupTypes} sg ON sg.student_id = e.student_id
           WHERE e.school_year = :school_year
             AND a.id = e.asmt_id
             AND ${sql.snippet.groupFilters}
@@ -106,6 +118,7 @@ sql:
             JOIN school s ON e.school_id=s.id
             JOIN student st ON e.student_id = st.id
             JOIN school isch ON st.inferred_school_id = isch.id
+            JOIN ${sql.snippet.selectFromBothGroupTypes} sg ON sg.student_id = e.student_id
           WHERE e.school_year = :school_year
             AND ${sql.snippet.groupFilters}
             AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
@@ -121,6 +134,7 @@ sql:
           e.migrant_status,
           ${sql.snippet.claimColumns},
           ${sql.snippet.exam}
+          JOIN ${sql.snippet.selectFromBothGroupTypes} sg ON sg.student_id = e.student_id
         WHERE a.id = :assessment_id
           AND e.school_year = :school_year
           AND ${sql.snippet.groupFilters}
@@ -141,6 +155,7 @@ sql:
           JOIN school isch on st.inferred_school_id = isch.id
           JOIN exam_target_score ets on ets.exam_id = e.id
           JOIN target t on t.id = ets.target_id
+          JOIN ${sql.snippet.selectFromBothGroupTypes} sg ON sg.student_id = e.student_id
          WHERE a.id = :assessment_id
             AND e.school_year = :school_year
             AND ${sql.snippet.groupFilters}
@@ -174,26 +189,28 @@ sql:
           SELECT
             e1.id
           FROM (
-                 SELECT ex1.id, ex1.student_id, ex1.asmt_id, ex1.school_year, ex1.completed_at
-                 FROM exam ex1
-                   JOIN asmt a ON a.id = ex1.asmt_id
-                   JOIN student st ON st.id = ex1.student_id
-                 WHERE ex1.type_id = 2
-                       AND ex1.school_year = :school_year
-                       AND ex1.scale_score IS NOT NULL
-                       AND ex1.scale_score_std_err IS NOT NULL
-                       AND ex1.performance_level IS NOT NULL
+                 SELECT e.id, e.student_id, e.asmt_id, e.school_year, e.completed_at
+                 FROM exam e
+                   JOIN asmt a ON a.id = e.asmt_id
+                   JOIN student st ON st.id = e.student_id
+                   JOIN ${sql.snippet.selectFromBothGroupTypes} sg ON sg.student_id = e.student_id
+                 WHERE e.type_id = 2
+                       AND e.school_year = :school_year
+                       AND e.scale_score IS NOT NULL
+                       AND e.scale_score_std_err IS NOT NULL
+                       AND e.performance_level IS NOT NULL
                        AND ${sql.snippet.groupFilters}
                ) AS e1 LEFT OUTER JOIN
-            ( SELECT ex2.id, ex2.student_id, ex2.asmt_id, ex2.school_year, ex2.completed_at
-              FROM exam ex2
-                JOIN asmt a ON a.id = ex2.asmt_id
-                JOIN student st ON st.id = ex2.student_id
-            WHERE ex2.type_id = 2
-                  AND ex2.school_year = :school_year
-                  AND ex2.scale_score IS NOT NULL
-                  AND ex2.scale_score_std_err IS NOT NULL
-                  AND ex2.performance_level IS NOT NULL
+            ( SELECT e.id, e.student_id, e.asmt_id, e.school_year, e.completed_at
+              FROM exam e
+                JOIN asmt a ON a.id = e.asmt_id
+                JOIN student st ON st.id = e.student_id
+                JOIN ${sql.snippet.selectFromBothGroupTypes} sg ON sg.student_id = e.student_id
+            WHERE e.type_id = 2
+                  AND e.school_year = :school_year
+                  AND e.scale_score IS NOT NULL
+                  AND e.scale_score_std_err IS NOT NULL
+                  AND e.performance_level IS NOT NULL
                   AND ${sql.snippet.groupFilters}
             ) AS e2
               ON e1.student_id = e2.student_id  AND e1.asmt_id = e2.asmt_id AND e1.school_year = e2.school_year
@@ -206,6 +223,7 @@ sql:
     examItem:
         findAllExamItemScoresForAssessment:
           ${sql.reporting.snippet.selectFromExamItem}
+          JOIN ${sql.snippet.selectFromBothGroupTypes} sg ON sg.student_id = e.student_id
           WHERE e.asmt_id = :assessment_id
             AND e.school_year = :school_year
             AND ${sql.snippet.groupFilters}
@@ -326,46 +344,6 @@ sql:
             
       studentExamPermissionWithEmbargo: >-
         ${sql.snippet.studentExamPermissionWithoutEmbargo}
-        AND
-        (
-           e.school_year < ${reporting.school-year}
-           OR e.type_id <> 3
-           OR s.embargo_enabled = 0
-           OR 1 = :state_embargo_admin
-           OR s.district_id IN (:district_embargo_admin_ids)
-        )
-
-      studentSearchPermissions: >-
-        (
-           # Individual permissions
-          (
-            (1 = :individual_statewide OR s.district_group_id IN (:individual_district_group_ids) OR s.district_id IN (:individual_district_ids) OR s.school_group_id IN (:individual_school_group_ids) OR e.school_id IN (:individual_school_ids))
-            OR
-            (
-             # this flag represents a combination of the system setting and a user choice to turn it off when available
-              1 = :allow_transfer_access AND (isch.district_group_id IN (:individual_district_group_ids) OR isch.district_id IN (:individual_district_ids) OR isch.school_group_id IN (:individual_school_group_ids) OR isch.id IN (:individual_school_ids))
-            )
-          )
-          OR
-          # Group permissions
-          (
-            EXISTS(
-               SELECT 1 FROM student_group_membership gm
-                     JOIN student_group sg ON sg.id = gm.student_group_id
-                     JOIN user_student_group usg ON usg.student_group_id = gm.student_group_id
-                        WHERE gm.student_id = e.student_id AND usg.user_login = :user_login
-            )
-            AND
-            (
-              (1 = :group_statewide OR s.district_group_id IN (:group_district_group_ids) OR s.district_id IN (:group_district_ids) OR s.school_group_id IN (:group_school_group_ids) OR e.school_id IN (:group_school_ids))
-              OR
-              (
-                # this flag represents a combination of the system setting and a user choice to turn it off when available
-                1 = :allow_transfer_access AND (isch.district_group_id IN (:group_district_group_ids) OR isch.district_id IN (:group_district_ids) OR isch.school_group_id IN (:group_school_group_ids) OR isch.id IN (:group_school_ids))
-              )
-            )
-          )
-        )
         AND
         (
            e.school_year < ${reporting.school-year}

@@ -30,7 +30,9 @@
                      [(ngModel)]="organizations"
                      formControlName="organizations">
               <div *ngIf="showErrors('organizations')">
-                <p *ngIf="getControl('organizations').errors.invalid" class="help-block small red">
+                <p *ngIf="getControl('organizations').errors.invalid"
+                   aria-live="polite"
+                   class="help-block small red">
                   {{getControl('organizations').errors.invalid.messageId | translate}}</p>
               </div>
             </div>
@@ -182,7 +184,9 @@
                                    [(ngModel)]="settings.generalPopulation.assessmentGrades"
                                    (change)="onSettingsChange()"></sb-button-group>
                   <div *ngIf="showErrors('assessmentGrades')">
-                    <p *ngIf="getControl('assessmentGrades').errors.notEmpty" class="help-block small red">
+                    <p *ngIf="getControl('assessmentGrades').errors.notEmpty"
+                       aria-live="polite"
+                       class="help-block small red">
                       {{getControl('assessmentGrades').errors.notEmpty.messageId | translate}}</p>
                   </div>
                 </div>
@@ -212,7 +216,9 @@
                                    [(ngModel)]="settings.generalPopulation.schoolYears"
                                    (change)="onSettingsChange()"></sb-button-group>
                   <div *ngIf="showErrors('schoolYears')">
-                    <p *ngIf="getControl('schoolYears').errors.notEmpty" class="help-block small red">
+                    <p *ngIf="getControl('schoolYears').errors.notEmpty"
+                       aria-live="polite"
+                       class="help-block small red">
                       {{getControl('schoolYears').errors.notEmpty.messageId | translate}}</p>
                   </div>
                 </div>
@@ -447,7 +453,9 @@
                      maxlength="255"
                      placeholder="{{'aggregate-report-form.default-report-name' | translate}}">
               <div *ngIf="showErrors('reportName')">
-                <p *ngIf="getControl('reportName').errors.fileName" class="help-block small red">
+                <p *ngIf="getControl('reportName').errors.fileName"
+                   aria-live="polite"
+                   class="help-block small red">
                   {{getControl('reportName').errors.fileName.messageId | translate}}</p>
               </div>
             </div>

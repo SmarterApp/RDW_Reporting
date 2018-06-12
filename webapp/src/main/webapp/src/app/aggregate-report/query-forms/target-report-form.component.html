@@ -263,9 +263,12 @@
                      [(ngModel)]="settings.name"
                      required="false"
                      maxlength="255"
+                     [attr.aria-invalid]="showErrors('reportName') && getControl('reportName').errors.fileName"
                      placeholder="{{'aggregate-report-form.default-report-name' | translate}}">
               <div *ngIf="showErrors('reportName')">
-                <p *ngIf="getControl('reportName').errors.fileName" class="help-block small red">
+                <p *ngIf="getControl('reportName').errors.fileName"
+                   aria-live="polite"
+                   class="help-block small red">
                   {{getControl('reportName').errors.fileName.messageId | translate}}</p>
               </div>
             </div>

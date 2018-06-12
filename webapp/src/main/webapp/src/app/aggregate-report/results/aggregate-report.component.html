@@ -115,6 +115,7 @@
                  triggers="{{ isEmbargoed() ? 'mouseenter:mouseleave': '' }}"
                  placement="top"
                  container="body"
+                 href="javascript:void(0)"
                  (click)="!isEmbargoed() && reportTable.exportTable(getExportName(view))"><i class="fa fa-cloud-download"></i>
                 {{'common.export' | translate}}
               </a>

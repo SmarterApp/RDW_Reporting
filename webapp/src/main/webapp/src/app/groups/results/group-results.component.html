@@ -7,7 +7,8 @@
   <ng-template #content>
     <ul class="list-unstyled list-inline" *ngIf="group">
       <li>
-        <a (click)="viewDashboard()"
+        <a href="javascript:void(0)"
+           (click)="viewDashboard()"
            class="btn btn-sm btn-default"><i class="fa fa-bars"></i> {{'groups.view-dashboard' | translate}}</a>
       </li>
       <li *hasPermission="'INDIVIDUAL_PII_READ'">

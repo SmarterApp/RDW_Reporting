@@ -73,6 +73,7 @@
       <div class="col-md-12">
         <div class="flex-children">
           <a *ngFor="let assessment of selectedAssessments"
+             href="javascript:void(0)"
              (click)="removeAssessment(assessment)"
              angulartics2On="click"
              angularticsEvent="RemoveAssessment"

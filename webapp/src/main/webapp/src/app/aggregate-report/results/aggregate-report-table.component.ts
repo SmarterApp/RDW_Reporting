@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Ordering, ordering } from '@kourge/ordering';
 import { AggregateReportItem } from './aggregate-report-item';
 import { byNumber, byString, Comparator, join, ranking } from '@kourge/ordering/comparator';
@@ -56,7 +56,7 @@ const TargetOrdering: Ordering<AggregateReportItem> = ordering(byNumericString)
     '[class.disabled-table]': 'preview'
   }
 })
-export class AggregateReportTableComponent {
+export class AggregateReportTableComponent implements OnInit {
 
   @Input()
   public preview: boolean = false;
@@ -71,15 +71,37 @@ export class AggregateReportTableComponent {
   public columns: Column[];
 
   private _previousSortEvent: any;
-  private _table: AggregateReportTable;
-  private _identityColumns: string[] = IdentityColumnOptions.concat();
   private _orderingByColumnField: { [ key: string ]: Ordering<AggregateReportItem> } = {};
-  private _valueDisplayType: string = ValueDisplayTypes.Percent;
-  private _performanceLevelDisplayType: string = PerformanceLevelDisplayTypes.Separate;
+
+  private _initialTable: AggregateReportTable;
+  private _table: AggregateReportTable;
+
+  private _initialIdentityColumns: string[] = IdentityColumnOptions.concat();
+  private _identityColumns: string[];
+
+  private _initialValueDisplayType: string = ValueDisplayTypes.Percent;
+  private _valueDisplayType: string;
+
+  private _initialPerformanceLevelDisplayType: string = PerformanceLevelDisplayTypes.Separate;
+  private _performanceLevelDisplayType: string;
+
+  private _initialized: boolean = false;
 
   constructor(public colorService: ColorService,
               private translate: TranslateService,
               private exportService: AggregateReportTableExportService) {
+  }
+
+  ngOnInit(): void {
+    if (this._initialTable == null) {
+      throw new Error('AggregateReportTableComponent.table must be set');
+    }
+    this._table = this.parseTable(this._initialTable);
+    this._identityColumns = this._initialIdentityColumns.concat();
+    this._valueDisplayType = this._initialValueDisplayType;
+    this._performanceLevelDisplayType = this._initialPerformanceLevelDisplayType;
+    this.buildAndRender(this._table);
+    this._initialized = true;
   }
 
   get valueDisplayType(): string {
@@ -88,6 +110,10 @@ export class AggregateReportTableComponent {
 
   @Input()
   set valueDisplayType(value: string) {
+    if (!this._initialized) {
+      this._initialValueDisplayType = value;
+      return;
+    }
     this._valueDisplayType = ValueDisplayTypes.valueOf(value);
     this.updatePerformanceLevelColumns();
   }
@@ -110,6 +136,10 @@ export class AggregateReportTableComponent {
 
   @Input()
   set performanceLevelDisplayType(value: string) {
+    if (!this._initialized) {
+      this._initialPerformanceLevelDisplayType = value;
+      return;
+    }
     this._performanceLevelDisplayType = PerformanceLevelDisplayTypes.valueOf(value);
     this.updatePerformanceLevelColumns();
   }
@@ -119,16 +149,23 @@ export class AggregateReportTableComponent {
    */
   @Input()
   set table(value: AggregateReportTable) {
+    if (!this._initialized) {
+      this._initialTable = value;
+      return;
+    }
     if (this._table !== value) {
-      this._table = {
-        rows: value.rows ? value.rows.concat() : [],
-        assessmentDefinition: value.assessmentDefinition,
-        options: value.options,
-        reportType: value.reportType || AggregateReportType.GeneralPopulation
-      };
+      this._table = this.parseTable(value);
       this.buildAndRender(this._table);
     }
+  }
 
+  private parseTable(value: AggregateReportTable): AggregateReportTable {
+    return {
+      rows: value.rows ? value.rows.concat() : [],
+      assessmentDefinition: value.assessmentDefinition,
+      options: value.options,
+      reportType: value.reportType || AggregateReportType.GeneralPopulation
+    };
   }
 
   get table(): AggregateReportTable {
@@ -141,6 +178,10 @@ export class AggregateReportTableComponent {
    */
   @Input()
   set identityColumns(value: string[]) {
+    if (!this._initialized) {
+      this._initialIdentityColumns = value;
+      return;
+    }
     const previousColumns = this._identityColumns;
     const newColumns = value ? value.concat() : [];
 
@@ -355,7 +396,6 @@ export class AggregateReportTableComponent {
     ];
 
     this.calculateTreeColumns();
-
     this.sortRows();
   }
 
@@ -365,11 +405,9 @@ export class AggregateReportTableComponent {
   private sortRows(): void {
     // Latest TurboTable version (1.5.7) does not sort when row data
     // changes.  Manually trigger a sort after setting row data.
-    setTimeout(() => {
-      this.sort({data: this._table.rows});
-      // reset any sort indicators
-      this.dataTable.reset();
-    });
+    this.sort({data: this._table.rows});
+    // reset any sort indicators
+    this.dataTable.reset();
   }
 
   private renderWithPreviousRowSorting(): void {

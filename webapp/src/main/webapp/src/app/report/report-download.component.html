@@ -31,10 +31,12 @@
                      type="text"
                      maxlength="255"
                      [(ngModel)]="options.name"
+                     [attr.aria-invalid]="resourceControl.invalid && (resourceControl.dirty || resourceControl.touched) && resourceControl.errors.required"
                      required>
             </div>
             <div *ngIf="resourceControl.invalid && (resourceControl.dirty || resourceControl.touched)">
               <p *ngIf="resourceControl.errors.required"
+                 aria-live="polite"
                  class="help-block small red">{{'common.form-field-message.required' | translate}}</p>
             </div>
 
