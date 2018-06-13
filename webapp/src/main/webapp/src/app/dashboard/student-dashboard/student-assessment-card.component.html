@@ -1,6 +1,7 @@
-<button class="card assessment-aggregate"
-        [ngClass]="{selected: latestExam.selected}"
-        (click)="selectCard()">
+<a class="card assessment-aggregate"
+   href="javascript:void(0)"
+   [ngClass]="{selected: latestExam.selected}"
+   (click)="selectCard()">
 
   <div class="check">
     <i class="fa fa-check"></i>
@@ -38,4 +39,4 @@
   <div class="result-count center-block mt-sm">
     {{'student-assessment-card.results' | translate:{resultCount: resultCount} }}
   </div>
-</button>
+</a>

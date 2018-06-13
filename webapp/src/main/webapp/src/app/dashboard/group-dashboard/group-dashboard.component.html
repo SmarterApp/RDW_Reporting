@@ -36,7 +36,8 @@
                   [(ngModel)]="group"
                   (change)="onGroupChange()">
             <option *ngFor="let group of groups"
-                    [ngValue]="group">{{group.name}}</option>
+                    [ngValue]="group">{{group.name}}
+            </option>
           </select>
         </div>
       </div>
@@ -48,7 +49,8 @@
                   [(ngModel)]="schoolYear"
                   (change)="onSchoolYearChange()">
             <option *ngFor="let year of filterOptions.schoolYears"
-                    [ngValue]="year">{{year | schoolYear}}</option>
+                    [ngValue]="year">{{year | schoolYear}}
+            </option>
           </select>
         </div>
       </div>
@@ -71,8 +73,10 @@
           <div class="pull-right">
             <label>&nbsp;</label>
             <a class="btn btn-primary form-control"
+               href="javascript:void(0)"
                [ngClass]="{'disabled': !cardViewEnabled}"
-               (click)="viewAssessments()">{{'assessment-card.view-assessments' | translate }}<i class="ml-xs fa fa-angle-right"></i>
+               (click)="viewAssessments()">{{'assessment-card.view-assessments' | translate }}
+              <i class="ml-xs fa fa-angle-right"></i>
             </a>
           </div>
         </div>
