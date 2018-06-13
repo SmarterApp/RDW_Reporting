@@ -82,7 +82,7 @@
         </div>
 
         <div *ngSwitchCase="'status'">
-          <span *ngIf="exam.administrativeCondition !== 'Valid'" class="label border-only maroon">{{ 'common.administration-condition.' + exam.administrativeCondition | translate }}</span>
+          <span *ngIf="exam.administrativeCondition && exam.administrativeCondition !== 'Valid'" class="label border-only maroon">{{ 'common.administration-condition.' + exam.administrativeCondition | translate }}</span>
           <span *ngIf="exam.completeness == 'Partial'" class="label border-only maroon">{{ 'common.completeness.' + exam.completeness | translate }}</span>
         </div>
 

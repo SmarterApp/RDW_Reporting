@@ -127,7 +127,7 @@
             </div>
 
             <div *ngSwitchCase="'status'">
-              <span class="label border-only maroon">{{ 'common.administration-condition.' + rowData.exam.administrativeCondition | translate }}</span>
+              <span *ngIf="rowData.exam.administrativeCondition" class="label border-only maroon">{{ 'common.administration-condition.' + rowData.exam.administrativeCondition | translate }}</span>
               <span *ngIf="rowData.exam.completeness == 'Partial'" class="label border-only maroon">{{ 'common.completeness.Partial' | translate }}</span>
             </div>
 
