@@ -13,15 +13,7 @@
     'item-viewer.response-not-included' ) | translate}}
   </p>
 
-  <div *ngIf="irisIsLoading"
-       class="loader">
-    <div class="inner">
-      <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-      <span class="text">
-        {{ 'common.messages.loading' | translate }}
-      </span>
-    </div>
-  </div>
+  <spinner *ngIf="irisIsLoading" text="{{'common.messages.loading' | translate}}"></spinner>
 
   <iframe title="{{'item-viewer.title' | translate }}"
           class="center"
