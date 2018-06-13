@@ -94,13 +94,13 @@
              [ngSwitch]="column.score"
              class="text-center">
           <div *ngSwitchCase="'evidence'">
-            {{ (score.writingTraitScores ? score.writingTraitScores.evidence : null) | optional }}
+            {{ (score.score >= 0 && score.writingTraitScores ? score.writingTraitScores.evidence : null) | optional }}
           </div>
           <div *ngSwitchCase="'organization'">
-            {{ (score.writingTraitScores ? score.writingTraitScores.organization : null) | optional }}
+            {{ (score.score >= 0 && score.writingTraitScores ? score.writingTraitScores.organization : null) | optional }}
           </div>
           <div *ngSwitchCase="'conventions'">
-            {{ (score.writingTraitScores ? score.writingTraitScores.conventions : null) | optional }}
+            {{ (score.score >= 0 && score.writingTraitScores ? score.writingTraitScores.conventions : null) | optional }}
           </div>
           <div *ngSwitchCase="'total'">
             {{ score.score | optional }}
