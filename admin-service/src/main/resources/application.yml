@@ -22,11 +22,15 @@ spring:
       &useLegacyDatetimeCode=${spring.reporting_datasource.use-legacy-datetime-code:false}\
       &characterEncoding=${spring.reporting_datasource.character-encoding:utf8}\
       &rewriteBatchedStatements=${spring.reporting_datasource.rewrite-batched-statements:true}\
+      &connectTimeout=${spring.reporting_datasource.connect-timeout:10000}\
+      &socketTimeout=${spring.reporting_datasource.socket-timeout:40000}\
       "
+    jdbcInterceptors: "QueryTimeoutInterceptor(queryTimeout=${spring.reporting_datasource.query-timeout:30})"
     username: root
     password:
     testWhileIdle: true
     validationQuery: SELECT 1
+    validationQueryTimeout: 10000
     driverClassName: com.mysql.jdbc.Driver
     initialize: false
     maxActive: 10
@@ -38,11 +42,15 @@ spring:
       ?useSSL=${spring.warehouse_datasource.use-ssl:false}\
       &useLegacyDatetimeCode=${spring.warehouse_datasource.use-legacy-datetime-code:false}\
       &characterEncoding=${spring.warehouse_datasource.character-encoding:utf8}\
+      &connectTimeout=${spring.warehouse_datasource.connect-timeout:10000}\
+      &socketTimeout=${spring.warehouse_datasource.socket-timeout:70000}\
       "
+    jdbcInterceptors: "QueryTimeoutInterceptor(queryTimeout=${spring.warehouse_datasource.query-timeout:60})"
     username: root
     password:
     testWhileIdle: true
     validationQuery: SELECT 1
+    validationQueryTimeout: 10000
     driverClassName: com.mysql.jdbc.Driver
     initialize: false
     maxActive: 10

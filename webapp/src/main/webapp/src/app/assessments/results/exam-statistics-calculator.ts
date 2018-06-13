@@ -121,7 +121,7 @@ export class ExamStatisticsCalculator {
 
     assessmentItems.forEach(assessmentItem => {
       let summary = new WritingTraitScoreSummary();
-      let itemsWithTraitScores = assessmentItem.scores.filter(x => x.writingTraitScores != null);
+      let itemsWithTraitScores = assessmentItem.scores.filter(x => x.points >= 0 && x.writingTraitScores != null);
       let totalAnswers = itemsWithTraitScores.length;
 
       itemsWithTraitScores.forEach((score, index) => {

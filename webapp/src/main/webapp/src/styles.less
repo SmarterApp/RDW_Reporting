@@ -1318,7 +1318,6 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
   will-change: transform, border-color;
   transition-duration: @duration-exit;
   transition-timing-function: @easing-decel;
-  width: 100%;
   .check {
     position: absolute;
     top: @spacer / 1.7;
@@ -1340,7 +1339,7 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
     transition-duration: @duration-exit;
     transition-timing-function: @easing-decel;
   }
-  &:hover, &:focus {
+  &:hover {
     border-color: @gray-light;
     cursor: pointer;
     .check {
@@ -1494,7 +1493,7 @@ wide-radio-group {
 
   .toggle-group .btn.disabled {
     pointer-events: auto;
-    &:hover, &:focus, &:active {
+    &:hover, &:active {
       background-color: @white;
       border-color: @gray-light;
       color: @gray-mid;

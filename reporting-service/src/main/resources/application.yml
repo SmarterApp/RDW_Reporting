@@ -22,11 +22,15 @@ spring:
       &useLegacyDatetimeCode=${spring.datasource.use-legacy-datetime-code:false}\
       &characterEncoding=${spring.datasource.character-encoding:utf8}\
       &useCompression=${spring.datasource.use-compression:true}\
+      &connectTimeout=${spring.datasource.connect-timeout:10000}\
+      &socketTimeout=${spring.datasource.socket-timeout:40000}\
       "
+    jdbcInterceptors: "QueryTimeoutInterceptor(queryTimeout=${spring.datasource.query-timeout:30})"
     username: root
     password:
     testWhileIdle: true
     validationQuery: SELECT 1
+    validationQueryTimeout: 10000
     driverClassName: com.mysql.jdbc.Driver
     initialize: false
     initialSize: 4
@@ -40,15 +44,20 @@ spring:
       &characterEncoding=${spring.writable_datasource.character-encoding:utf8}\
       &rewriteBatchedStatements=${spring.writable_datasource.rewrite-batched-statements:true}\
       &useCompression=${spring.writable_datasource.use-compression:true}\
+      &connectTimeout=${spring.writable_datasource.connect-timeout:10000}\
+      &socketTimeout=${spring.writable_datasource.socket-timeout:40000}\
       "
+    jdbcInterceptors: "QueryTimeoutInterceptor(queryTimeout=${spring.writable_datasource.query-timeout:30})"
     username: root
     password:
     testWhileIdle: true
     validationQuery: SELECT 1
+    validationQueryTimeout: 10000
     driverClassName: com.mysql.jdbc.Driver
     initialize: false
     initialSize: 4
     maxActive: 10
+
   jackson:
     default-property-inclusion: non_null
     serialization:

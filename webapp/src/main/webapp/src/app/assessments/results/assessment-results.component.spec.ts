@@ -136,6 +136,27 @@ describe('AssessmentResultsComponent', () => {
     expect(component.exams.length).toBe(0);
   });
 
+  it('should handle all null sessions', () => {
+    let assessmentExam = new AssessmentExam();
+    assessmentExam.exams.push(buildExam("Benoit", null, "2017-03-01T17:05:26Z"));
+    assessmentExam.exams.push(buildExam("Wood", null, "2017-03-01T17:05:26Z"));
+
+    component.assessmentExam = assessmentExam;
+    expect(component.sessions[ 0 ].filter).toBeTruthy();
+  });
+
+  it('should handle some null sessions', () => {
+    let assessmentExam = new AssessmentExam();
+    assessmentExam.exams.push(buildExam("Benoit", null, "2017-03-01T17:05:26Z"));
+    assessmentExam.exams.push(buildExam("Wood", "ma-12", "2017-03-01T17:05:26Z"));
+
+    component.assessmentExam = assessmentExam;
+    expect(component.sessions[ 0 ].filter).toBeTruthy();
+    expect(component.sessions[ 0 ].id).toBeNull();
+    expect(component.sessions[ 1 ].filter).toBeFalsy();
+    expect(component.sessions[ 1 ].id).toEqual("ma-12");
+  });
+
   function buildExam(studentName: string, session: string, date: any) {
     let exam = new Exam();
     exam.student = new Student();

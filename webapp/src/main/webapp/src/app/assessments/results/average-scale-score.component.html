@@ -99,8 +99,8 @@
                   </div>
                 </div>
 
-                <div class="perc-container" [ngClass]="'grid-' + claimStats.levels.length" >
-                  <div class="bar" *ngFor="let level of claimStats.levels; let i = index">
+                <div class="perc-container row">
+                  <div class="bar col-xs-4" *ngFor="let level of claimStats.levels; let i = index">
                     <span class="square"
                           [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode('iab', i + 1)"></span>
                     {{ getClaimValue(claimStats, i) }}{{ getClaimSuffix(claimStats, i) }}
@@ -109,8 +109,8 @@
                   </div>
                 </div>
 
-                <div class="perc-container mt-xs" [ngClass]="'grid-' + claimStats.levels.length">
-                  <div class="bar description" *ngFor="let level of claimStats.levels; let i = index">
+                <div class="perc-container row mt-xs">
+                  <div class="bar col-xs-4 description" *ngFor="let level of claimStats.levels; let i = index">
                     {{ 'common.assessment-type.iab.performance-level.' + (i+1) + '.name' | translate }}
                   </div>
                 </div>
