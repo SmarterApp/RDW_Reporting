@@ -1,17 +1,26 @@
-import { Component, ViewChild } from "@angular/core";
-import { UserService } from "./user/user.service";
-import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from "@angular/router";
-import { Location, PopStateEvent, registerLocaleData } from "@angular/common";
-import { User } from "./user/user";
-import { LanguageStore } from "./shared/i18n/language.store";
-import { SpinnerModal } from "./shared/loading/spinner.modal";
+import { Component, ViewChild } from '@angular/core';
+import { UserService } from './user/user.service';
+import {
+  ActivatedRoute,
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router
+} from '@angular/router';
+import { Location, PopStateEvent, registerLocaleData } from '@angular/common';
+import { User } from './user/user';
+import { LanguageStore } from './shared/i18n/language.store';
+import { SpinnerModal } from './shared/loading/spinner.modal';
 import { ApplicationSettings } from './app-settings';
 import { ApplicationSettingsService } from './app-settings.service';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { catchError } from 'rxjs/operators';
 import { _throw } from 'rxjs/observable/throw';
-import { Angulartics2GoogleAnalytics } from "angulartics2";
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 import localeEs from '@angular/common/locales/es';
+import { stripRouteParameters } from './shared/support/support';
+
 
 @Component({
   selector: 'app-component',
@@ -23,12 +32,14 @@ export class AppComponent {
   spinnerModal: SpinnerModal;
 
   private _lastPoppedUrl: string;
+  private _previousUrlWithoutParams: string;
   private _doNotDeleteThisAnalytics: Angulartics2GoogleAnalytics;
 
   user: User;
   applicationSettings: ApplicationSettings;
 
   constructor(public languageStore: LanguageStore,
+              private route: ActivatedRoute,
               private router: Router,
               private location: Location,
               private userService: UserService,
@@ -86,13 +97,18 @@ export class AppComponent {
         return;
       }
 
+      const currentUrlWithoutParams = stripRouteParameters(event.url);
+
       // if the user is going back, don't do the window scroll
       // let the browser take the user back to the position where they last were
-      if (event.url == this._lastPoppedUrl) {
+      if (event.url === this._lastPoppedUrl) {
         this._lastPoppedUrl = undefined;
-      } else {
+
+      // do not scroll to the top if the route params are the only change to the route
+      } else if (currentUrlWithoutParams !== this._previousUrlWithoutParams) {
         window.scrollTo(0, 0);
       }
+      this._previousUrlWithoutParams = currentUrlWithoutParams;
     });
   }
 
@@ -105,7 +121,7 @@ export class AppComponent {
         || event instanceof NavigationError) {
         this.spinnerModal.loading = false;
       }
-    })
+    });
   }
 
   /**

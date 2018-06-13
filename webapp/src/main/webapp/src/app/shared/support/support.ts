@@ -251,3 +251,24 @@ export class Utils {
   }
 
 }
+
+/**
+ * @param {string} url the URL to transform
+ * @returns {string} the provided URL without the tailing URL parameters
+ */
+export function stripRouteParameters(url: string): string {
+  if (url == null) {
+    return url;
+  }
+  const indexOfLastSlash = url.lastIndexOf('/');
+  if (indexOfLastSlash === -1) {
+    return url;
+  }
+  const indexOfParams = url.indexOf(';', indexOfLastSlash);
+  if (indexOfParams === -1) {
+    return url;
+  }
+  const queryStartIndex = url.lastIndexOf('?');
+  const query = queryStartIndex !== -1 ? url.substring(queryStartIndex) : '';
+  return url.substring(0, indexOfParams) + query;
+}
