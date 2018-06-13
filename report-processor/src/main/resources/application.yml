@@ -88,6 +88,7 @@ spring:
           group: default
           producer:
             requiredGroups: default
+
   datasource:
     url: "\
       jdbc:mysql://${spring.datasource.url-server:localhost:3306}/${spring.datasource.url-schema:reporting}\
@@ -95,13 +96,21 @@ spring:
       &useLegacyDatetimeCode=${spring.datasource.use-legacy-datetime-code:false}\
       &characterEncoding=${spring.datasource.character-encoding:utf8}\
       &rewriteBatchedStatements=${spring.reporting_datasource.rewrite-batched-statements:true}\
+      &connectTimeout=${spring.reporting_datasource.connect-timeout:10000}\
+      &socketTimeout=${spring.reporting_datasource.socket-timeout:130000}\
       "
     username: root
     password:
     testWhileIdle: true
     validationQuery: SELECT 1
+    validationQueryTimeout: 10000
     driverClassName: com.mysql.jdbc.Driver
     initialize: false
+    maxActive: 20
+    initialSize: 4
+    maxWait: 10000
+    jdbcInterceptors: "QueryTimeoutInterceptor(queryTimeout=120)"
+
   jackson:
       default-property-inclusion: non_null
       serialization:

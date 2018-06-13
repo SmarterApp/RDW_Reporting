@@ -19,11 +19,11 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = {
   selector: 'toggle',
   template: `
     <div class="btn-group btn-group-xs toggle-group">
-      <label *ngFor="let option of options"
-             class="btn btn-primary"
-             [(ngModel)]="value"
-             [btnRadio]="option.value"
-             [ngClass]="{disabled: disabled}">{{option.text}}</label>
+      <button *ngFor="let option of options"
+         class="btn btn-primary"
+         [(ngModel)]="value"
+         [btnRadio]="option.value"
+         [ngClass]="{disabled: disabled}">{{option.text}}</button>
     </div>
   `
 })

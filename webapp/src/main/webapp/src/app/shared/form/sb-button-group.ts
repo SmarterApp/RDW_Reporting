@@ -124,22 +124,25 @@ const ControllerByInputType: {[inpuType: string]: InputController} = {
   selector: 'sb-button-group',
   template: `
     <ng-template #button let-option let-isAllOption="isAllOption">
-      <label class="btn"
-             [ngClass]="computeStylesInternal(buttonStyles, { 
-                 active: isAllOption ? stateInternal.selectedAllOption : stateInternal.selectedOptions.has(option), 
-                 disabled: disabled 
-             })">
+      <a class="btn"
+         href="javascript:void(0)"
+         (click)="isAllOption ? onAllOptionClickInternal() : onOptionClickInternal(option)"
+         [ngClass]="computeStylesInternal(buttonStyles, { 
+             active: isAllOption ? stateInternal.selectedAllOption : stateInternal.selectedOptions.has(option), 
+             disabled: disabled 
+         })">
         <input type="checkbox"
                [attr.checked]="isAllOption ? stateInternal.selectedAllOption : stateInternal.selectedOptions.has(option)"
                [name]="name"
+               notab="notab"
+               tabindex="-1"
                [disabled]="disabled"
-               (click)="isAllOption ? onAllOptionClickInternal() : onOptionClickInternal(option)"
                angulartics2On="click"
                angularticsEvent="{{analyticsEvent}}"
                angularticsCategory="{{analyticsCategory}}"
                [angularticsProperties]="isAllOption ? allOptionAnalyticsProperties : option.analyticsProperties">
         {{option.text}}
-      </label>
+      </a>
     </ng-template>
 
     <div *ngIf="initializedInternal"

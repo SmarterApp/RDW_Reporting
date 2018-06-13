@@ -5,25 +5,6 @@ management:
   security:
     enabled: false
 
-server:
-  # tomcat settings for reasonable performance: adjust for tiny/huge configurations
-  tomcat:
-    max-connections: 0
-    max-threads: 4
-    accept-count: 10
-
-cloud:
-  aws:
-    # there must be a default region when running locally
-    region:
-      auto: false
-      static: us-west-2
-    # disable CloudFormation stuff
-    stack:
-      auto: false
-    credentials:
-      instance-profile: false
-
 app:
   aggregate-reports:
     assessment-types: ica,sum,iab
@@ -42,6 +23,40 @@ app:
     repository:
       # every day at 2:00 am (GMT)
       refresh-cron: "0 0 2 * * *"
+
+cloud:
+  aws:
+    # there must be a default region when running locally
+    region:
+      auto: false
+      static: us-west-2
+    # disable CloudFormation stuff
+    stack:
+      auto: false
+    credentials:
+      instance-profile: false
+
+jwt:
+  secret: ${rdw.reporting.jwt.secret:secret}
+
+reporting:
+  # english-learners should be lep or elas
+  english-learners:
+    - elas
+  school-year: 2018
+  state:
+    code: CA
+    name: California
+  target-report:
+    insufficient-data-cutoff: 0.2
+    min-number-of-students: 0
+
+server:
+  # tomcat settings for reasonable performance: adjust for tiny/huge configurations
+  tomcat:
+    max-connections: 0
+    max-threads: 4
+    accept-count: 10
 
 spring:
   cache:
@@ -70,26 +85,14 @@ spring:
 
   olap_datasource:
     url: "\
-       jdbc:redshift://${spring.olap_datasource.url-server:localhost:5432}/${spring.olap_datasource.url-db:dev}\
-       ?ApplicationName=rdw-reporting-aggregate-service\
-       "
+      jdbc:redshift://${spring.olap_datasource.url-server:localhost:5432}/${spring.olap_datasource.url-db:dev}\
+      ?ApplicationName=rdw-reporting-aggregate-service\
+      &loginTimeout=${spring.olap_datasource.connect-timeout:10}\
+      &socketTimeout=${spring.olap_datasource.socket-timeout:0}\
+      "
     username: root
     password:
     testWhileIdle: true
     validationQuery: SELECT 1
+    validationQueryTimeout: 30000
     driverClassName: com.amazon.redshift.jdbc42.Driver
-
-jwt:
-  secret: ${rdw.reporting.jwt.secret:secret}
-
-reporting:
-  # english-learners should be lep or elas
-  english-learners:
-    - elas
-  school-year: 2018
-  state:
-    code: CA
-    name: California
-  target-report:
-    insufficient-data-cutoff: 0.2
-    min-number-of-students: 0

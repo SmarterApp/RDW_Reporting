@@ -137,7 +137,11 @@ insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, oppo
   (-23, 2, -2, 'g2', -5, -50, 1, 0, 0, 0, 0, 1997, -8, 'v1', 'Complete', 'Valid', 'session2', null, null, null, '1997-01-01 00:00:00.000000', 1, 1000, 100, 2, 2000, 200, 3, 3000, 300, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
   (-24, 2, -2, 'g2', -6, -50, 1, 0, 0, 0, 0, 1997, -9, 'v1', 'Complete', 'Valid', 'session2', 2050, 25, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
   (-25, 2, -2, 'g2', -6, -50, 1, 0, 0, 0, 0, 1997, -9, 'v1', 'Partial', 'Valid', 'session2', null, null, null, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
-  (-26, 2, -2, 'g2', -5, -50, 1, 0, 0, 0, 0, 1997, -9, 'v1', 'Complete', 'Valid', 'session2', 2150, 28, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1);
+  (-26, 2, -2, 'g2', -5, -50, 1, 0, 0, 0, 0, 1997, -9, 'v1', 'Complete', 'Valid', 'session2', 2150, 28, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
+
+  (-100, 1, -1, 'g1', -100, -30, 0, 0, 0, 0, 0, 1998, -1, 'v1', 'Complete', 'Valid', 'session1', 2000, 20, 1, '1998-10-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, -1, '1997-07-18 20:14:34.000000', -1),
+  (-101, 2, -1, 'g2', -100, -40, 1, 0, 0, 0, 0, 1998, -2, 'v1', 'Complete', 'Valid', 'session1', 2100, 21, 2, '1999-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1);
+
 
 INSERT INTO exam_target_score (id, target_id, exam_id, student_relative_residual_score, standard_met_relative_residual_score) VALUES
   (-11,  -11, -7,  -1,    -1     ),
@@ -176,7 +180,10 @@ insert into exam_item (id, exam_id, item_id, score, position, response, trait_ev
   (-1, -1, -1, 0, 1, 'A', null, null, null),
   (-2, -1, -2, 1, 2, 'D', 2, 3, 1),
   (-3, -8, -1, 0, 1, 'A', null, null, null),
-  (-4, -8, -2, 1, 2, 'D', 2, 3, 1);
+  (-4, -8, -2, 1, 2, 'D', 2, 3, 1),
+  (-100, -100, -1, 0, 1, 'A', null, null, null),
+  (-101, -101, -1, 1, 1, 'D', 3, 4, 1);
+
 
 insert into common_core_standard (id, natural_id, subject_id, description) values
   (-1, 'ABC.223.1', 1, 'test-description1'),
@@ -232,42 +239,27 @@ insert into user_student_group(student_group_id, user_login) values
 
 -- user groups
 insert into teacher_student_group (id, name, school_year, subject_id, user_login) values
-  (-10, 'group1', 1997, 1, 'someone-10@somewhere.com'),
-  (-20, 'group_ela', 1997, 2, 'someone-20@somewhere.com'),
-  (-30, 'group_all', 1997, null, 'someone-10@somewhere.com'),
-  (-40, 'group4', 1997, null, 'someone-10@somewhere.com'),
-  (-50, 'group5', 1997, null, 'someone-10@somewhere.com'),
-  (-60, 'group6', 1997, null, 'someone-10@somewhere.com'),
-  (-70, 'group7', 1997, null, 'someone-10@somewhere.com'),
-  (-80, 'group8', 1997, null, 'someone-10@somewhere.com'),
-  (-90, 'group9', 1997, 2, 'someone-10@somewhere.com'),
-  (-100, 'transfer group', 1998, 1, 'someone-10@somewhere.com');
+  (-100, 'group1', 1997, 1, 'someone-10@somewhere.com'),
+  (-200, 'group_ela', 1997, 2, 'someone-20@somewhere.com'),
+  (-300, 'group_all', 1997, null, 'someone-10@somewhere.com'),
+  (-400, 'group4', 1997, null, 'someone-10@somewhere.com'),
+  (-500, 'group5', 1997, null, 'someone-10@somewhere.com'),
+  (-600, 'group6', 1997, null, 'someone-10@somewhere.com'),
+  (-700, 'group7', 1997, null, 'someone-10@somewhere.com'),
+  (-800, 'group8', 1997, null, 'someone-10@somewhere.com'),
+  (-900, 'group9', 1997, 2, 'someone-10@somewhere.com'),
+  (-1000, 'transfer group', 1998, 1, 'someone-10@somewhere.com');
 
 insert into teacher_student_group_membership (teacher_student_group_id, student_id) values
-  (-10, -1),
-  (-20, -2),
-  (-30, -2),
-  (-40, -4),
-  (-50, -5),
-  (-60, -6),
-  (-70, -5),
-  (-70, -6),
-  (-80, -6),
-  (-80, -7),
-  (-90, -2),
-  (-100, -100);
-
-insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, opportunity, iep, lep, section504, economic_disadvantage,
-                  school_year, asmt_id, asmt_version, completeness_code, administration_condition_code, session_id,
-                  scale_score, scale_score_std_err, performance_level, completed_at,
-                  claim1_category, claim1_scale_score, claim1_scale_score_std_err,
-                  claim2_category, claim2_scale_score, claim2_scale_score_std_err,
-                  claim3_category, claim3_scale_score, claim3_scale_score_std_err,
-                  claim4_category, claim4_scale_score, claim4_scale_score_std_err,
-                  update_import_id, updated, migrate_id) values
-  (-100, 1, -1, 'g1', -100, -30, 0, 0, 0, 0, 0, 1998, -1, 'v1', 'Complete', 'Valid', 'session1', 2000, 20, 1, '1998-10-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, -1, '1997-07-18 20:14:34.000000', -1),
-  (-101, 2, -1, 'g2', -100, -40, 1, 0, 0, 0, 0, 1998, -2, 'v1', 'Complete', 'Valid', 'session1', 2100, 21, 2, '1999-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1);
-
-insert into exam_item (id, exam_id, item_id, score, position, response, trait_evidence_elaboration_score, trait_organization_purpose_score, trait_conventions_score) values
-  (-100, -100, -1, 0, 1, 'A', null, null, null),
-  (-101, -101, -1, 1, 1, 'D', 3, 4, 1);
+  (-100, -1),
+  (-200, -2),
+  (-300, -2),
+  (-400, -4),
+  (-500, -5),
+  (-600, -6),
+  (-700, -5),
+  (-700, -6),
+  (-800, -6),
+  (-800, -7),
+  (-900, -2),
+  (-1000, -100);

@@ -29,7 +29,15 @@ insert into school_year (year) values
 
 insert into student (id, ssid, last_or_surname, first_name, gender_id, gender_code, birthday, inferred_school_id, update_import_id, updated, migrate_id) values
   (-1, 'student1_ssid', 'student1_lastName', 'student1_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -10, -1, '1997-07-18 20:14:34.000000', -1),
-  (-2, 'student2_ssid', 'student2_lastName', 'student2_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -12, -1, '1997-07-18 20:14:34.000000', -1);
+  (-2, 'student2_ssid', 'student2_lastName', 'student2_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -12, -1, '1997-07-18 20:14:34.000000', -1),
+  -- transfer student test data
+ (-100, 'transfer_1',    'from_school3',      'to_school4',        -1, 'g1', '1997-01-01 00:00:00.000000', -13, -1, '1997-07-18 20:14:34.000000', -1);
+
+insert into ethnicity (id, code) values
+  (8, 'Filipino');
+
+insert into student_ethnicity (ethnicity_id, ethnicity_code, student_id) values
+  (8, 'Filipino', -2);
 
 insert into asmt (id, type_id, natural_id, grade_id, grade_code, subject_id, school_year, name, label, version,
   claim1_score_code, claim2_score_code, claim3_score_code, claim4_score_code,
@@ -93,14 +101,14 @@ insert into item (id, natural_id, claim_id, claim_code, target_id, target_code, 
   (-1, '200-3391', -1, 'c1', -1, 't1', -1, -1, '-1', -1,'-1_1', 'E', 3, 'S-ID.1');
 
 insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, opportunity, migrant_status, iep, lep, section504, economic_disadvantage,
-  school_year, asmt_id, asmt_version, completeness_code, administration_condition_code, session_id,
-  scale_score, scale_score_std_err, performance_level, completed_at,
-  claim1_category, claim1_scale_score, claim1_scale_score_std_err,
-  claim2_category, claim2_scale_score, claim2_scale_score_std_err,
-  claim3_category, claim3_scale_score, claim3_scale_score_std_err,
-  claim4_category, claim4_scale_score, claim4_scale_score_std_err,
-  available_accommodation_codes, elas_code, elas_start_at,
-  update_import_id, updated, migrate_id) values
+                  school_year, asmt_id, asmt_version, completeness_code, administration_condition_code, session_id,
+                  scale_score, scale_score_std_err, performance_level, completed_at,
+                  claim1_category, claim1_scale_score, claim1_scale_score_std_err,
+                  claim2_category, claim2_scale_score, claim2_scale_score_std_err,
+                  claim3_category, claim3_scale_score, claim3_scale_score_std_err,
+                  claim4_category, claim4_scale_score, claim4_scale_score_std_err,
+                  available_accommodation_codes, elas_code, elas_start_at,
+                  update_import_id, updated, migrate_id) values
   (-1, 1, -2, 'g2', -1, -10, 0, null, 0, 0, 0, 0, 1997, -1, 'v1', 'Complete', 'Valid', 'session1', 2000, 20, 1, '1997-01-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, '123|456', 'EO', null, -1, '1997-07-18 20:14:34.000000', -1),
   (-2, 1, -1, 'g1', -1, -10, 0, null, 0, 0, 0, 0, 1996, -1, 'v1', 'Complete', 'Valid', 'session2', 2000, 20, 1, '2016-01-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, null, 'EO', null, -1, '1997-07-18 20:14:34.000000', -1),
   (-3, 2, -2, 'g2', -1, -10, 1, null, 0, 0, 0, 0, 1997, -2, 'v1', 'Complete', 'Valid', 'session3', 2100, 21, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, 'EO', null, -1, '1997-07-18 20:14:34.000000', -1),
@@ -120,51 +128,8 @@ insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, oppo
   (-17, 2, -2, 'g2', -2, -11, 1, null, 0, 1, 0, 0, 1997, -2, 'v1', 'Complete', 'Valid', 'session3', 2100, 21, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, 'TDS_BT_UCT|NEA0|NEA_Abacus', 'RFEP', '1996-08-01', -1, '1997-07-18 20:14:34.000000', -1),
   (-18, 2, -2, 'g2', -2, -12, 1, null, 0, 0, 0, 0, 1997, -2, 'v1', 'Complete', 'Valid', 'session3', 2100, 21, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, 'EO', null, -1, '1997-07-18 20:14:34.000000', -1),
   (-19, 3, -2, 'g2', -2, -10, 0, null, 0, 0, 0, 0, 1997, -8, 'v1', 'Complete', 'Valid', 'session12', 2000, 20, 1, '1997-01-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, null, 'EO', null, -1, '1997-07-18 20:14:34.000000', -1);
-
--- groups
-insert into student_group (id, name, school_id, school_year, subject_id, update_import_id, updated, migrate_id) values
-  (-10, 'group1', -10, 1997, 1, -1, '1997-07-18 20:14:34.000000', -1),
-  (-20, 'group2', -10, 1997, null, -1, '1997-07-18 20:14:34.000000', -1),
-  (-30, 'group3', -10, 1997, null, -1, '1997-07-18 20:14:34.000000', -1),
-  (-40, 'group4', -10, 1997, null, -1, '1997-07-18 20:14:34.000000', -1);
-
-insert into student_group_membership (student_group_id, student_id) values
-  (-10, -1),
-  (-20, -1),
-  (-30, -1),
-  (-40, -2);
-
-insert into user_student_group(student_group_id, user_login) values
-  (-10, 'someone@somewhere.com'),
-  (-20, 'someone@somewhere.com'),
-  (-30, 'someoneelse@somewhere.com'),
-  (-40, 'someone@somewhere.com');
-
--- user groups
-insert into teacher_student_group (id, name, school_year, subject_id, user_login) values
-  (-10, 'group1', 1997, 1, 'someone@somewhere.com'),
-  (-20, 'group2', 1997, null, 'someone@somewhere.com'),
-  (-30, 'group3', 1997, null, 'someoneelse@somewhere.com'),
-  (-40, 'group4', 1997, null, 'someone@somewhere.com');
-
-insert into teacher_student_group_membership (teacher_student_group_id, student_id) values
-  (-10, -1),
-  (-20, -1),
-  (-30, -1),
-  (-40, -2);
-
-insert into ethnicity (id, code) values
-  (8, 'Filipino');
-
-insert into student_ethnicity (ethnicity_id, ethnicity_code, student_id) values
-  (8, 'Filipino', -2);
-
--- transfer student test data
-insert into student (id, ssid, last_or_surname, first_name, gender_id, gender_code,
-                     birthday, inferred_school_id, update_import_id, updated, migrate_id) values
-  (-100, 'transfer_1', 'from_school3', 'to_school4', -1, 'g1', '1997-01-01 00:00:00.000000', -13, -1, '1997-07-18 20:14:34.000000', -1);
-
-insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, opportunity, iep, lep, section504, economic_disadvantage,
+  -- transfer student test data
+  insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, opportunity, iep, lep, section504, economic_disadvantage,
                   school_year, asmt_id, asmt_version, completeness_code, administration_condition_code, session_id,
                   scale_score, scale_score_std_err, performance_level, completed_at,
                   claim1_category, claim1_scale_score, claim1_scale_score_std_err,
@@ -183,17 +148,39 @@ insert into exam_item (id, exam_id, item_id, score, position, response) values
   (-102, -102, -1, 0, 1, 'A'),
   (-103, -103, -1, 1, 1, 'D');
 
+-- groups
 insert into student_group (id, name, school_id, school_year, subject_id, update_import_id, updated, migrate_id) values
+  (-10, 'group1', -10, 1997, 1, -1, '1997-07-18 20:14:34.000000', -1),
+  (-20, 'group2', -10, 1997, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-30, 'group3', -10, 1997, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-40, 'group4', -10, 1997, null, -1, '1997-07-18 20:14:34.000000', -1),
   (-100, 'transfer groupSomeone', -13, 1998, null, -1, '1997-07-18 20:14:34.000000', -1);
 
 insert into student_group_membership (student_group_id, student_id) values
+  (-10, -1),
+  (-20, -1),
+  (-30, -1),
+  (-40, -2),
   (-100, -100);
 
 insert into user_student_group(student_group_id, user_login) values
+  (-10, 'someone@somewhere.com'),
+  (-20, 'someone@somewhere.com'),
+  (-30, 'someoneelse@somewhere.com'),
+  (-40, 'someone@somewhere.com'),
   (-100, 'someone@somewhere.com');
 
-insert into teacher_student_group(id, name, school_year, subject_id, user_login) values
-  (-100, 'transfer groupSomeone', 1998, null, 'someone@somewhere.com');
+-- user groups
+insert into teacher_student_group (id, name, school_year, subject_id, user_login) values
+  (-100, 'group1', 1997, 1, 'someone@somewhere.com'),
+  (-200, 'group2', 1997, null, 'someone@somewhere.com'),
+  (-300, 'group3', 1997, null, 'someoneelse@somewhere.com'),
+  (-400, 'group4', 1997, null, 'someone@somewhere.com'),
+  (-1000, 'transfer groupSomeone', 1998, null, 'someone@somewhere.com');
 
 insert into teacher_student_group_membership (teacher_student_group_id, student_id) values
-  (-100, -100);
+  (-100, -1),
+  (-200, -1),
+  (-300, -1),
+  (-400, -2),
+  (-1000, -100);

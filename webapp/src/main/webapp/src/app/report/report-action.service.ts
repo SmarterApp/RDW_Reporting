@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { Report } from "./report.model";
-import { ReportService } from "./report.service";
-import { Router } from "@angular/router";
+import { Injectable } from '@angular/core';
+import { Report } from './report.model';
+import { ReportService } from './report.service';
+import { Router } from '@angular/router';
 
-export const AggregateReportType: string = "AggregateReportRequest";
+export const AggregateReportType: string = 'AggregateReportRequest';
 
 /**
  * This service is responsible for providing the actions available for a given
@@ -43,10 +43,10 @@ export class ReportActionService {
       return;
     }
 
-    if (action.type == ActionType.Download) {
+    if (action.type === ActionType.Download) {
       this.performDownload(action);
     }
-    if (action.type == ActionType.Navigate) {
+    if (action.type === ActionType.Navigate) {
       this.performNavigate(action);
     }
   }
@@ -118,13 +118,14 @@ class DefaultActionProvider implements ActionProvider {
 class AggregateReportActionProvider extends DefaultActionProvider {
 
   public supports(report: Report): boolean {
-    return report.reportType.startsWith(AggregateReportType)
+    return report.reportType != null
+      && report.reportType.startsWith(AggregateReportType)
       && !report.processing;
   }
 
   public getActions(report: Report): ReportAction[] {
     const disableViewAndDownload: boolean = !report.completed && !report.processing;
-    const embargoed: boolean = report.metadata.createdWhileDataEmbargoed === "true";
+    const embargoed: boolean = report.metadata.createdWhileDataEmbargoed === 'true';
     return [
       {
         type: ActionType.Navigate,

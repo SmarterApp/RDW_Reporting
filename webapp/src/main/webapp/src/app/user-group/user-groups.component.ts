@@ -5,6 +5,7 @@ import { FilterOptionsService } from '../shared/filter/filter-options.service';
 import { PermissionService } from '../shared/security/permission.service';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Router } from '@angular/router';
+import { Group } from '../groups/group';
 
 @Component({
   selector: 'user-groups',
@@ -12,6 +13,15 @@ import { Router } from '@angular/router';
 })
 export class UserGroupsComponent implements OnInit {
 
+  /**
+   * The assigned groups
+   */
+  @Input()
+  assignedGroups: Group[];
+
+  /**
+   * The user created groups
+   */
   @Input()
   groups: UserGroup[];
 
@@ -37,11 +47,11 @@ export class UserGroupsComponent implements OnInit {
       this.permissionService.getPermissions()
     ).subscribe(([ options, permissions ]) => {
       this.filteredGroups = this.groups.concat();
-      if (this.groups.length) {
+      if (this.groups.length !== 0) {
         this.defaultGroup = this.groups[ 0 ];
       }
       this.subjects = options.subjects;
-      this.createButtonDisabled = this.groups.length === 0
+      this.createButtonDisabled = this.assignedGroups.length === 0
         && permissions.indexOf('INDIVIDUAL_PII_READ') === -1;
       this.initialized = true;
     });
