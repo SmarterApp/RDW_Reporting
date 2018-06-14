@@ -13,7 +13,6 @@ export class FilterOptionsService {
 
   getFilterOptions(): Observable<FilterOptions> {
 
-    const StrictBooleans = ['yes', 'no'];
     const Booleans = ['yes', 'no', 'undefined'];
 
     return this.dataService.get(`${ReportingServiceRoute}/examFilterOptions`).pipe(
@@ -30,7 +29,7 @@ export class FilterOptionsService {
         genders: serverOptions.genders,
         ethnicities: serverOptions.ethnicities,
         englishLanguageAcquisitionStatuses: serverOptions.elasCodes,
-        individualEducationPlans: StrictBooleans,
+        individualEducationPlans: Booleans,
         limitedEnglishProficiencies: Booleans,
         section504s: Booleans,
         migrantStatuses: Booleans
