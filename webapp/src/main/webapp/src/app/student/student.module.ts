@@ -26,6 +26,7 @@ import { StudentHistoryTableComponent } from "./results/tables/student-history-t
 import { TableModule } from "primeng/table";
 import { GroupAssessmentCardComponent } from '../dashboard/group-dashboard/group-assessment-card.component';
 import { DashboardModule } from '../dashboard/dashboard.module';
+import { StudentResultsFilterService } from './results/student-results-filter.service';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { DashboardModule } from '../dashboard/dashboard.module';
     StudentHistoryResponsesAssessmentResolve,
     StudentHistoryResponsesExamResolve,
     StudentHistoryResponsesStudentResolve,
+    StudentResultsFilterService,
     StudentResponsesResolve,
     StudentResponsesService
   ]

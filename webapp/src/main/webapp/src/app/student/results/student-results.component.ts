@@ -14,6 +14,7 @@ import { ApplicationSettingsService } from '../../app-settings.service';
 import { AssessmentTypeOrdering, SubjectOrdering } from '../../shared/ordering/orderings';
 import { FilterBy } from '../../assessments/model/filter-by.model';
 import * as _ from 'lodash';
+import { StudentResultsFilterService } from './student-results-filter.service';
 
 @Component({
   selector: 'student-results',
@@ -37,7 +38,8 @@ export class StudentResultsComponent implements OnInit {
               private angulartics2: Angulartics2,
               private applicationSettingsService: ApplicationSettingsService,
               private examFilterService: ExamFilterService,
-              private embargoService: ReportingEmbargoService) {
+              private embargoService: ReportingEmbargoService,
+              private studentResultsFilterService: StudentResultsFilterService) {
   }
 
   ngOnInit(): void {
@@ -107,6 +109,7 @@ export class StudentResultsComponent implements OnInit {
    * Apply the current filter state to the exams.
    */
   private applyFilter(): void {
+    this.studentResultsFilterService.filterChanged();
     const examsFilteredByYearAndSubject = this.examHistory.exams
       .filter(wrapper => {
         const { schoolYear, subject, assessmentType } = this.filterState;

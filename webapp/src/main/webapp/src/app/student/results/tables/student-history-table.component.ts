@@ -9,6 +9,7 @@ import { InstructionalResource } from '../../../assessments/model/instructional-
 import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
+import { StudentResultsFilterService } from '../student-results-filter.service';
 
 @Component({
   selector: 'student-history-table',
@@ -43,11 +44,16 @@ export class StudentHistoryTableComponent implements OnInit {
 
   constructor(private actionBuilder: MenuActionBuilder,
               private instructionalResourcesService: InstructionalResourcesService,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,
+              private studentResultsFilterService: StudentResultsFilterService) {
     this.createColumns();
   }
 
   ngOnInit(): void {
+    this.studentResultsFilterService.filterChange.subscribe(() => {
+      // Deselect
+      this.selectedCardRowIndex = -1;
+    });
   }
 
   get exams(): StudentHistoryExamWrapper[] {
