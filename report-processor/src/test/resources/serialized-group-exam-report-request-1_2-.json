@@ -1,0 +1,12 @@
+{
+  "assessmentTypeCode": "sum",
+  "subjectCode": "ELA",
+  "schoolYear": 2018,
+  "language": "en",
+  "name": "Grade 8 Students",
+  "accommodationsVisible": true,
+  "disableTransferAccess": false,
+  "order": "STUDENT_NAME",
+  "groupId": 1378,
+  "reportType": "Group"
+}

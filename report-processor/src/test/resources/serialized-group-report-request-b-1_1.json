@@ -1,0 +1,13 @@
+{
+  "schoolYear": 2018,
+  "language": "en",
+  "name": "0463-S0D",
+  "accommodationsVisible": false,
+  "disableTransferAccess": false,
+  "order": "STUDENT_NAME",
+  "groupGrant": {
+    "id": 151642,
+    "subjectId": 1
+  },
+  "reportType": "Group"
+}

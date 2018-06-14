@@ -1,0 +1,12 @@
+{
+  "schoolYear": 2018,
+  "name": "SFHS Expoet",
+  "accommodationsVisible": false,
+  "disableTransferAccess": false,
+  "schoolIds": [
+    1344
+  ],
+  "schoolGroupIds": [],
+  "districtIds": [],
+  "reportType": "ExamExport"
+}

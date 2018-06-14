@@ -1,0 +1,13 @@
+{
+  "assessmentType": "IAB",
+  "subject": "ELA",
+  "schoolYear": 2018,
+  "language": "en",
+  "name": "Santa Fe High HS",
+  "accommodationsVisible": false,
+  "disableTransferAccess": false,
+  "order": "STUDENT_NAME",
+  "schoolId": 1344,
+  "gradeId": 11,
+  "reportType": "SchoolGrade"
+}
