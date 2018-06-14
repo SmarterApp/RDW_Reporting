@@ -98,8 +98,7 @@ sql:
     assessment:
       findAll: >-
           SELECT distinct
-            ${sql.reporting.snippet.assessmentColumns},
-            EXISTS(SELECT 1 FROM item i WHERE i.asmt_id = a.id AND i.type = 'WER') as has_wer_item
+            ${sql.reporting.snippet.assessmentColumns}
           FROM asmt a
             JOIN exam e ON e.asmt_id = a.id
             JOIN school s ON e.school_id = s.id
@@ -112,9 +111,8 @@ sql:
             AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
       findLatestExam: >-
-          SELECT distinct
+          SELECT
            ${sql.reporting.snippet.assessmentColumns},
-           EXISTS(SELECT 1 FROM item i WHERE i.asmt_id = a.id AND i.type = 'WER') as has_wer_item,
            max(e.completed_at) as max_completed
           FROM exam e
             JOIN asmt a ON e.asmt_id=a.id
@@ -125,7 +123,7 @@ sql:
           WHERE e.school_year = :school_year
             AND $[groupFilterPlaceholder]
             AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
-          GROUP BY ${sql.reporting.snippet.assessmentColumns}, has_wer_item
+          GROUP BY a.id
           ORDER BY max_completed desc
           LIMIT 1
 
@@ -237,8 +235,7 @@ sql:
     assessment:
       findAll: >-
         SELECT distinct
-          ${sql.reporting.snippet.assessmentColumns},
-          EXISTS(SELECT 1 FROM item i WHERE i.asmt_id = a.id AND i.type = 'WER') as has_wer_item
+          ${sql.reporting.snippet.assessmentColumns}
         FROM asmt a
         WHERE EXISTS (
             SELECT e.asmt_id
@@ -254,9 +251,8 @@ sql:
         AND a.grade_id = :grade_id
 
       findLatestExam: >-
-        SELECT distinct
+        SELECT
           ${sql.reporting.snippet.assessmentColumns},
-          EXISTS(SELECT 1 FROM item i WHERE i.asmt_id = a.id AND i.type = 'WER') as has_wer_item,
           max(e.completed_at) as max_completed
         FROM exam e
           JOIN asmt a ON e.asmt_id=a.id
@@ -267,7 +263,7 @@ sql:
         AND e.school_id = :school_id
         AND a.grade_id = :grade_id
         AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
-        GROUP BY ${sql.reporting.snippet.assessmentColumns}, has_wer_item
+        GROUP BY a.id
         ORDER BY max_completed desc
         LIMIT 1
 
@@ -329,7 +325,9 @@ sql:
         a.max_score,
         a.cut_point_1,
         a.cut_point_2,
-        a.cut_point_3
+        a.cut_point_3,
+        EXISTS(SELECT 1 FROM item i WHERE i.asmt_id = a.id AND i.type = 'WER') as has_wer_item
+
 
       selectFromExamItem: >-
        SELECT
