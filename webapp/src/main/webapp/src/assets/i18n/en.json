@@ -477,8 +477,8 @@
       "2": "Problem Solving",
       "3": "Communicating Reasoning",
       "4": "Modeling and Data Analysis",
-      "1-IT": "Reading",
-      "1-LT": "Reading",
+      "1-IT": "Reading - Informational Text",
+      "1-LT": "Reading - Literary Text",
       "2-W": "Writing",
       "3-L": "Listening",
       "3-S": "Listening",
@@ -1350,6 +1350,7 @@
     "title": "Search by Student"
   },
   "student-assessment-card": {
+    "result": "{{resultCount}} result",
     "results": "{{resultCount}} results"
   },
   "student-exam-history-table": {
