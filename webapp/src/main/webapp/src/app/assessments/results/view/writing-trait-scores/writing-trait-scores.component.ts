@@ -148,7 +148,7 @@ export class WritingTraitScoresComponent implements OnInit, ExportResults {
     this.traitScoreSummaries.forEach((summary) => {
       const columns = [
         new Column({id: 'category', sortable: false}),
-        new Column({id: 'average-max', sortable: false, styleClass: "level-up"}),
+        new Column({id: 'average-max', sortable: false, styleClass: 'level-up'}),
         ...this.toTraitSummaryColumns(summary)
       ];
       this._columnsByTraitSummary.set(summary, columns);
