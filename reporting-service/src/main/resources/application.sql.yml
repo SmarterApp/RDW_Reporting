@@ -110,6 +110,8 @@ sql:
             AND $[groupFilterPlaceholder]
             AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
+      # NOTE that we're grouping by a.id and selecting the max(e.completed_at) timestamp
+      # to improve final ordering performance
       findLatestExam: >-
           SELECT
            ${sql.reporting.snippet.assessmentColumns},
@@ -250,6 +252,8 @@ sql:
         )
         AND a.grade_id = :grade_id
 
+      # NOTE that we're grouping by a.id and selecting the max(e.completed_at) timestamp
+      # to improve final ordering performance
       findLatestExam: >-
         SELECT
           ${sql.reporting.snippet.assessmentColumns},
