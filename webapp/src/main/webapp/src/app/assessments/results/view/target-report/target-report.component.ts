@@ -124,12 +124,12 @@ export class TargetReportComponent implements OnInit, ExportResults {
   private dataTable: Table;
 
   columns: Column[] = [
-    new Column({ id: 'claim' }),
-    new Column({ id: 'target' }),
+    new Column({ id: 'claim', headerInfoText: 'common.info.claim' }),
+    new Column({ id: 'target', headerInfoText: 'common.info.target' }),
     new Column({ id: 'subgroup' }),
     new Column({ id: 'studentsTested' }),
-    new Column({ id: 'student-relative-residual-scores-level', headerInfo: true }),
-    new Column({ id: 'standard-met-relative-residual-level', headerInfo: true })
+    new Column({ id: 'student-relative-residual-scores-level', headerInfoText: 'target-report.columns.student-relative-residual-scores-level-info' }),
+    new Column({ id: 'standard-met-relative-residual-level', headerInfoText: 'target-report.columns.standard-met-relative-residual-level-info' })
   ];
 
   allTargets: Target[] = [];
@@ -423,14 +423,16 @@ class Column implements BaseColumn {
   id: string;
   field: string;
   headerInfo: boolean;
+  headerInfoText: string;
 
   constructor({
                 id,
                 field = '',
-                headerInfo = false
+                headerInfoText = ''
               }) {
     this.id = id;
     this.field = field ? field : id;
-    this.headerInfo = headerInfo;
+    this.headerInfo = headerInfoText != '';
+    this.headerInfoText = headerInfoText;
   }
 }

@@ -43,6 +43,18 @@
           <div>{{ 'aggregate-report-table.columns.performance-level-suffix' | translate }}</div>
         </div>
 
+        <span *ngSwitchCase="'claim'"
+              info-button
+              title="{{'target-report.columns.claim' | translate}}"
+              content="{{('common.info.claim') | translate}}">
+        </span>
+
+        <span *ngSwitchCase="'target'"
+              info-button
+              title="{{'target-report.columns.target' | translate}}"
+              content="{{('common.info.target') | translate}}">
+        </span>
+
         <span *ngSwitchCase="'studentRelativeResidualScoresLevel'"
               info-button
               title="{{'target-report.columns.' + toDash(column.id) | translate}}"

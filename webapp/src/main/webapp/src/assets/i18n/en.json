@@ -633,6 +633,10 @@
       "Male": "Male",
       "Nonbinary": "Nonbinary"
     },
+    "info": {
+      "claim": "Claims are a way of classifying test content. The claim is the major topic area. For example, in English language arts, reading is a claim and in Math, Concepts and Procedures is a claim.",
+      "target": "Within each claim, there are targets that describe the particular knowledge and skills that the test measures. Each target may encompass one or more standards from the Common Core State Standards. Within the Reading claim, for example, one of the targets is concerned with finding the central idea in a text. For more information, see the Smarter Balanced Content Specifications."
+    },
     "instructional-resource": {
       "columns": {
         "assessment-label": "Assessment Label(s)",
