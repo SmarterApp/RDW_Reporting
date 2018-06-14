@@ -111,8 +111,9 @@ sql:
             AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
       findLatestExam: >-
-          SELECT
-           ${sql.reporting.snippet.assessmentColumns}
+          SELECT distinct
+           ${sql.reporting.snippet.assessmentColumns},
+           max(e.completed_at) as max_completed
           FROM exam e
             JOIN asmt a ON e.asmt_id=a.id
             JOIN school s ON e.school_id=s.id
@@ -122,7 +123,8 @@ sql:
           WHERE e.school_year = :school_year
             AND $[groupFilterPlaceholder]
             AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
-          ORDER BY e.completed_at desc
+          GROUP BY a.id
+          ORDER BY max_completed desc
           LIMIT 1
 
     exam:
@@ -232,7 +234,8 @@ sql:
   schoolgrade:
     assessment:
       findAll: >-
-        SELECT ${sql.reporting.snippet.assessmentColumns}
+        SELECT distinct
+          ${sql.reporting.snippet.assessmentColumns}
         FROM asmt a
         WHERE EXISTS (
             SELECT e.asmt_id
@@ -248,8 +251,9 @@ sql:
         AND a.grade_id = :grade_id
 
       findLatestExam: >-
-        SELECT 
-          ${sql.reporting.snippet.assessmentColumns}
+        SELECT distinct
+          ${sql.reporting.snippet.assessmentColumns},
+          max(e.completed_at) as max_completed
         FROM exam e
           JOIN asmt a ON e.asmt_id=a.id
           JOIN school s ON e.school_id=s.id
@@ -259,7 +263,8 @@ sql:
         AND e.school_id = :school_id
         AND a.grade_id = :grade_id
         AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
-        ORDER BY e.completed_at desc
+        GROUP BY a.id
+        ORDER BY max_completed desc
         LIMIT 1
 
     exam:
