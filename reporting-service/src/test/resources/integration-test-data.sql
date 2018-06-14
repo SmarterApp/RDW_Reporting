@@ -139,8 +139,8 @@ insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, oppo
   (-25, 2, -2, 'g2', -6, -50, 1, 0, 0, 0, 0, 1997, -9, 'v1', 'Partial', 'Valid', 'session2', null, null, null, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
   (-26, 2, -2, 'g2', -5, -50, 1, 0, 0, 0, 0, 1997, -9, 'v1', 'Complete', 'Valid', 'session2', 2150, 28, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
 
-  (-100, 1, -1, 'g1', -100, -30, 0, 0, 0, 0, 0, 1998, -1, 'v1', 'Complete', 'Valid', 'session1', 2000, 20, 1, '1998-10-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, -1, '1997-07-18 20:14:34.000000', -1),
-  (-101, 2, -1, 'g2', -100, -40, 1, 0, 0, 0, 0, 1998, -2, 'v1', 'Complete', 'Valid', 'session1', 2100, 21, 2, '1999-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1);
+  (-100, 1, -1, 'g1', -100, -30, 0, null, null, null, 0, 1998, -1, 'v1', 'Complete', 'Valid', 'session1', 2000, 20, 1, '1998-10-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, -1, '1997-07-18 20:14:34.000000', -1),
+  (-101, 2, -1, 'g2', -100, -40, 1, null, null, null, 0, 1998, -2, 'v1', 'Complete', 'Valid', 'session1', 2100, 21, 2, '1999-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1);
 
 
 INSERT INTO exam_target_score (id, target_id, exam_id, student_relative_residual_score, standard_met_relative_residual_score) VALUES
