@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AssessmentItem } from "../../../model/assessment-item.model";
-import { Exam } from "../../../model/exam.model";
-import { DynamicItemField } from "../../../model/item-point-field.model";
-import { ExamStatisticsCalculator } from "../../exam-statistics-calculator";
-import { AssessmentProvider } from "../../../assessment-provider.interface";
-import { ExportItemsRequest } from "../../../model/export-items-request.model";
-import { Assessment } from "../../../model/assessment.model";
-import { RequestType } from "../../../../shared/enum/request-type.enum";
-import { ExportResults } from "../../assessment-results.component";
-import { AssessmentExporter } from "../../../assessment-exporter.interface";
+import { AssessmentItem } from '../../../model/assessment-item.model';
+import { Exam } from '../../../model/exam.model';
+import { DynamicItemField } from '../../../model/item-point-field.model';
+import { ExamStatisticsCalculator } from '../../exam-statistics-calculator';
+import { AssessmentProvider } from '../../../assessment-provider.interface';
+import { ExportItemsRequest } from '../../../model/export-items-request.model';
+import { Assessment } from '../../../model/assessment.model';
+import { RequestType } from '../../../../shared/enum/request-type.enum';
+import { ExportResults } from '../../assessment-results.component';
+import { AssessmentExporter } from '../../../assessment-exporter.interface';
 
 @Component({
   selector: 'distractor-analysis',
@@ -56,11 +56,11 @@ export class DistractorAnalysisComponent implements OnInit, ExportResults {
     return this._exams;
   }
 
-  loading: boolean = true;
+  loading = true;
   columns: Column[];
   filteredMultipleChoiceItems: AssessmentItem[] = [];
 
-  private _multipleChoiceItems: AssessmentItem[];
+  private _multipleChoiceItems: AssessmentItem[] = [];
   private _exams: Exam[];
   private _choiceColumns: DynamicItemField[] = [];
 
@@ -68,11 +68,11 @@ export class DistractorAnalysisComponent implements OnInit, ExportResults {
   }
 
   ngOnInit() {
-    this.assessmentProvider.getAssessmentItems(this.assessment.id, ['MC', 'MS']).subscribe(assessmentItems => {
+    this.assessmentProvider.getAssessmentItems(this.assessment.id, [ 'MC', 'MS' ]).subscribe(assessmentItems => {
 
-      let numOfScores = assessmentItems.reduce((x, y) => x + y.scores.length, 0);
+      const numOfScores = assessmentItems.reduce((x, y) => x + y.scores.length, 0);
 
-      if (numOfScores != 0) {
+      if (numOfScores !== 0) {
         this._multipleChoiceItems = assessmentItems;
         this._choiceColumns = this.examCalculator.getChoiceFields(assessmentItems);
 
@@ -81,15 +81,15 @@ export class DistractorAnalysisComponent implements OnInit, ExportResults {
       }
 
       this.columns = [
-        new Column({id: 'number', field: 'position'}),
-        new Column({id: 'claim', field: 'claimTarget', headerInfo: true}),
-        new Column({id: 'difficulty', sortField: 'difficultySortOrder', headerInfo: true}),
-        new Column({id: 'standard', field: 'commonCoreStandardIds', headerInfo: true}),
-        new Column({id: 'full-credit', field: 'fullCredit', styleClass: 'level-up', headerInfo: true}),
+        new Column({ id: 'number', field: 'position' }),
+        new Column({ id: 'claim', field: 'claimTarget', headerInfo: true }),
+        new Column({ id: 'difficulty', sortField: 'difficultySortOrder', headerInfo: true }),
+        new Column({ id: 'standard', field: 'commonCoreStandardIds', headerInfo: true }),
+        new Column({ id: 'full-credit', field: 'fullCredit', styleClass: 'level-up', headerInfo: true }),
         ...this._choiceColumns.map(this.toColumn)
       ];
 
-      this.loading = false
+      this.loading = false;
     });
   }
 
@@ -98,7 +98,7 @@ export class DistractorAnalysisComponent implements OnInit, ExportResults {
   }
 
   exportToCsv(): void {
-    let exportRequest = new ExportItemsRequest();
+    const exportRequest = new ExportItemsRequest();
     exportRequest.assessment = this.assessment;
     exportRequest.showAsPercent = this.showValuesAsPercent;
     exportRequest.assessmentItems = this.filteredMultipleChoiceItems;
@@ -113,10 +113,10 @@ export class DistractorAnalysisComponent implements OnInit, ExportResults {
   }
 
   private filterMultipleChoiceItems(items: AssessmentItem[]) {
-    let filtered = [];
+    const filtered = [];
 
-    for (let item of items) {
-      let filteredItem = Object.assign(new AssessmentItem(), item);
+    for (const item of items) {
+      const filteredItem = Object.assign(new AssessmentItem(), item);
       filteredItem.scores = item.scores.filter(score => this._exams.some(exam => exam.id == score.examId));
       filtered.push(filteredItem);
     }
@@ -129,7 +129,7 @@ export class DistractorAnalysisComponent implements OnInit, ExportResults {
       id: 'choice',
       label: choice.label,
       field: choice.numberField,
-      styleClass:  index == 0 ? 'level-down' : '',
+      styleClass: index === 0 ? 'level-down' : '',
       numberField: choice.numberField,
       percentField: choice.percentField
     });
