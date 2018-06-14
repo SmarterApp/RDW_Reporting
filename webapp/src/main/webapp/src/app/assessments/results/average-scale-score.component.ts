@@ -40,9 +40,7 @@ export class AverageScaleScoreComponent {
       return;
     }
 
-    if (!isNaN(value.average)) {
-      this.averageScore = Math.round(value.average);
-    }
+    this.averageScore = !isNaN(value.average) ? Math.round(value.average) : value.average;
 
     if (value.levels) {
       this._totalCount = value.levels
