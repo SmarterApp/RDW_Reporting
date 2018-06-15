@@ -145,16 +145,15 @@
                 <label for="subjects">{{'aggregate-report-form.field.subjects-label' | translate}}</label>
               </div>
               <div class="col-md-3">
-                <sb-button-group id="subjects"
-                                 name="subjects"
-                                 [vertical]="true"
-                                 analyticsEvent="FilterClick"
-                                 analyticsCategory="AggregateQueryBuilder"
-                                 [allOptionAnalyticsProperties]="{label: 'Subject: All'}"
-                                 [options]="filteredOptions.subjects"
-                                 [(ngModel)]="settings.subjects"
-                                 [ngModelOptions]="{standalone: true}"
-                                 (change)="onSubjectsChange()"></sb-button-group>
+                <sb-checkbox-group id="subjects"
+                                   name="subjects"
+                                   analyticsEvent="FilterClick"
+                                   analyticsCategory="AggregateQueryBuilder"
+                                   [allOptionAnalyticsProperties]="{label: 'Subject: All'}"
+                                   [options]="filteredOptions.subjects"
+                                   [(ngModel)]="settings.subjects"
+                                   [ngModelOptions]="{standalone: true}"
+                                   (change)="onSettingsChange()"></sb-checkbox-group>
               </div>
               <div class="col-md-3">
                 <button class="form-control btn btn-default pull-right"
@@ -181,15 +180,14 @@
               </div>
 
               <div class="col-md-3">
-                <sb-button-group type="checkbox"
-                                 [vertical]="true"
+                <sb-checkbox-group type="checkbox"
                                  [options]="claimsBySubject[subject]"
                                  [(ngModel)]="selectionBySubject[subject]"
                                  [ngModelOptions]="{standalone: true}"
                                  (change)="onClaimChange()"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
-                                 [allOptionAnalyticsProperties]="{label: 'Claims: All'}"></sb-button-group>
+                                 [allOptionAnalyticsProperties]="{label: 'Claims: All'}"></sb-checkbox-group>
               </div>
             </fieldset>
           </div>
