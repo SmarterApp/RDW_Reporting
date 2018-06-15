@@ -16,10 +16,10 @@ import * as _ from 'lodash';
 import { organizationOrdering, subgroupOrdering } from '../support';
 import { TranslateService } from '@ngx-translate/core';
 import { BaseColumn } from '../../shared/datatable/base-column.model';
-import { byNumericString, SubjectClaimOrderings } from "../../shared/ordering/orderings";
+import { byNumericString, ClaimReportElaClaimOrder, SubjectClaimOrderings } from '../../shared/ordering/orderings';
 import { IdentityColumnOptions } from '../assessment/assessment-definition.service';
-import { AggregateReportType } from "../aggregate-report-form-settings";
-import { byTargetReportingLevel } from "../../assessments/model/aggregate-target-score-row.model";
+import { AggregateReportType } from '../aggregate-report-form-settings';
+import { byTargetReportingLevel } from '../../assessments/model/aggregate-target-score-row.model';
 
 export const SupportedRowCount = 10000;
 export const DefaultRowsPerPageOptions = [ 100, 500, 1000 ];
@@ -311,7 +311,7 @@ export class AggregateReportTableComponent implements OnInit {
     return this.translate.instant(this.getClaimCodeTranslationKey(row));
   }
 
-  getTargetDisplay(row: AggregateReportItem): {name: string, description: string} {
+  getTargetDisplay(row: AggregateReportItem): { name: string, description: string } {
     const targetName: string = row.targetCode
       ? row.targetCode
       : this.translate.instant('common.unknown') + ' (' + row.targetNaturalId + ')';
@@ -333,8 +333,13 @@ export class AggregateReportTableComponent implements OnInit {
     this._orderingByColumnField[ 'assessmentGradeCode' ] = assessmentGradeOrdering;
     this._orderingByColumnField[ 'schoolYear' ] = SchoolYearOrdering;
     this._orderingByColumnField[ 'claimCode' ] = reportType === AggregateReportType.Target
-      ? OrganizationalClaimOrderingProvider(rows[0].subjectCode, this.preview)
-      : ordering(ranking(options.claims.map(claim => claim.code))).on<AggregateReportItem>(item => item.claimCode);
+      ? OrganizationalClaimOrderingProvider(rows[ 0 ].subjectCode, this.preview)
+      : ordering(
+        join(
+          ranking(options.claims.filter(claim => claim.subject !== 'ELA').map(claim => claim.code)),
+          ClaimReportElaClaimOrder.compare
+        )
+      ).on<AggregateReportItem>(item => item.claimCode);
     this._orderingByColumnField[ 'subgroup.id' ] = subgroupOrdering(item => item.subgroup, options);
     this._orderingByColumnField[ 'targetNaturalId' ] = TargetOrdering;
     this._orderingByColumnField[ 'studentRelativeResidualScoresLevel' ] = ordering(byTargetReportingLevel)
@@ -363,7 +368,7 @@ export class AggregateReportTableComponent implements OnInit {
     };
 
     const dataColumns: Column[] = [];
-    switch(reportType) {
+    switch (reportType) {
       case AggregateReportType.GeneralPopulation:
       case AggregateReportType.LongitudinalCohort:
         dataColumns.push(
@@ -405,7 +410,7 @@ export class AggregateReportTableComponent implements OnInit {
   private sortRows(): void {
     // Latest TurboTable version (1.5.7) does not sort when row data
     // changes.  Manually trigger a sort after setting row data.
-    this.sort({data: this._table.rows});
+    this.sort({ data: this._table.rows });
     // reset any sort indicators
     this.dataTable.reset();
   }

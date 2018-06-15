@@ -9,6 +9,8 @@ export const BooleanOrdering = ordering(ranking([ 'yes', 'no', 'undefined' ]));
 
 export const CompletenessOrdering = ordering(ranking([ 'Complete', 'Partial' ]));
 
+export const ClaimReportElaClaimOrder = ordering(ranking(['SOCK_R', '2-W', 'SOCK_LS', '4-CR']));
+
 export const SubjectClaimOrder: Map<string, string[]> = new Map([
   ['Math', ['1', '2', '3', '4']],
   ['ELA', ['1-LT', '1-IT', '2-W', '3-L', '3-S', '4-CR']]
