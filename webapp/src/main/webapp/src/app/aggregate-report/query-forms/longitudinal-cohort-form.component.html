@@ -145,15 +145,16 @@
                 <label for="subjects">{{'aggregate-report-form.field.subjects-label' | translate}}</label>
               </div>
               <div class="col-md-6">
-                <sb-checkbox-group id="subjects"
-                                   name="subjects"
-                                   analyticsEvent="FilterClick"
-                                   analyticsCategory="AggregateQueryBuilder"
-                                   [allOptionAnalyticsProperties]="{label: 'Subject: All'}"
-                                   [options]="filteredOptions.subjects"
-                                   [(ngModel)]="settings.subjects"
-                                   [ngModelOptions]="{standalone: true}"
-                                   (change)="onSettingsChange()"></sb-checkbox-group>
+                <sb-button-group id="subjects"
+                                 name="subjects"
+                                 analyticsEvent="FilterClick"
+                                 analyticsCategory="AggregateQueryBuilder"
+                                 [vertical]="true"
+                                 [allOptionAnalyticsProperties]="{label: 'Subject: All'}"
+                                 [options]="filteredOptions.subjects"
+                                 [(ngModel)]="settings.subjects"
+                                 [ngModelOptions]="{standalone: true}"
+                                 (change)="onSettingsChange()"></sb-button-group>
               </div>
             </div>
           </fieldset>
