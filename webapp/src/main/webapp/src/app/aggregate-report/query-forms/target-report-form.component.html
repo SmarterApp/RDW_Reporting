@@ -68,16 +68,14 @@
                 <label for="subject">{{'aggregate-report-form.field.subject-label' | translate}}</label>
               </div>
               <div class="col-md-6">
-                <sb-button-group id="subjects"
+                <sb-radio-group id="subjects"
                                  name="subjects"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
-                                 [vertical]="true"
-                                 [allOptionAnalyticsProperties]="{label: 'Subject: All'}"
                                  [options]="filteredOptions.subjects"
                                  [(ngModel)]="settings.subjects"
                                  [ngModelOptions]="{standalone: true}"
-                                 (change)="onSettingsChange()"></sb-button-group>
+                                 (change)="onSettingsChange()"></sb-radio-group>
               </div>
             </div>
           </fieldset>
