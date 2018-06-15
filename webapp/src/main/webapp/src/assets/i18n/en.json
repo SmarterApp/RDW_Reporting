@@ -458,7 +458,7 @@
       "all": "All",
       "display-claim": "Claim Scores",
       "display-overall": "Overall Scores",
-      "student-reports": "Printable Reports"
+      "printable-student-reports": "Printable Reports"
     },
     "claim-description": {
       "1": "Concepts and Procedures - Students can explain and apply mathematical concepts and interpret and carry out mathematical procedures with precision and fluency.",
