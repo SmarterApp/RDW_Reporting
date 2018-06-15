@@ -11,7 +11,7 @@ export const SummativeAssessmentIconsBySubject = {
   'ELA': 'ELA/Summative'
 };
 
-export const IabAssessmentIconsByAssessmentName = {
+export const AssessmentIconsByAssessmentName = {
   'SBAC-IAB-FIXED-G3M-G-MATH-3': 'Math/3-5/Geometry',
   'SBAC-IAB-FIXED-G3M-MD-MATH-3': 'Math/3-5/Measurement and Data',
   'SBAC-IAB-FIXED-G3M-NBT-MATH-3': 'Math/3-5/Number and Operations in Base 10',
@@ -175,7 +175,7 @@ export class AssessmentIconComponent {
         this._icon = SummativeAssessmentIconsBySubject[ value.subject ];
         break;
       default:
-        this._icon = IabAssessmentIconsByAssessmentName[ value.name ];
+        this._icon = AssessmentIconsByAssessmentName[ value.name ];
         break;
     }
 
