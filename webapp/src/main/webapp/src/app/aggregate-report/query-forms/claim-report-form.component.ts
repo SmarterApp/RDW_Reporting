@@ -19,7 +19,7 @@ import { Utils } from '../../shared/support/support';
 import { AggregateReportFormOptions } from '../aggregate-report-form-options';
 import { Claim } from '../aggregate-report-options.service';
 import { AggregateReportType } from '../aggregate-report-form-settings';
-import { ScorableClaimOrderingProvider, ScorableClaimOrderings } from '../../shared/ordering/orderings';
+import { ScorableClaimOrderings } from '../../shared/ordering/orderings';
 import { Option } from '../../shared/form/option';
 
 @Component({
