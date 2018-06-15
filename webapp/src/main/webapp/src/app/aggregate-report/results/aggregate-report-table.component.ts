@@ -16,7 +16,7 @@ import * as _ from 'lodash';
 import { organizationOrdering, subgroupOrdering } from '../support';
 import { TranslateService } from '@ngx-translate/core';
 import { BaseColumn } from '../../shared/datatable/base-column.model';
-import { byNumericString, ClaimReportElaClaimOrder, SubjectClaimOrderings } from '../../shared/ordering/orderings';
+import { byNumericString, ScorableClaimOrderings, SubjectClaimOrderings } from '../../shared/ordering/orderings';
 import { IdentityColumnOptions } from '../assessment/assessment-definition.service';
 import { AggregateReportType } from '../aggregate-report-form-settings';
 import { byTargetReportingLevel } from '../../assessments/model/aggregate-target-score-row.model';
@@ -33,6 +33,13 @@ const AssessmentLabelOrdering: Ordering<AggregateReportItem> = ordering(byString
 const OrganizationalClaimOrderingProvider: (subjectCode: string, preview: boolean) => Ordering<AggregateReportItem> = (subjectCode, preview) => {
   const currentOrdering: Ordering<string> = !preview && SubjectClaimOrderings.has(subjectCode)
     ? SubjectClaimOrderings.get(subjectCode)
+    : ordering(byString);
+  return currentOrdering.on(item => item.claimCode);
+};
+
+const ScorableClaimOrderingProvider: (subjectCode: string, preview: boolean) => Ordering<any> = (subjectCode, preview) => {
+  const currentOrdering: Ordering<string> = !preview && ScorableClaimOrderings.has(subjectCode)
+    ? ScorableClaimOrderings.get(subjectCode)
     : ordering(byString);
   return currentOrdering.on(item => item.claimCode);
 };
@@ -334,12 +341,9 @@ export class AggregateReportTableComponent implements OnInit {
     this._orderingByColumnField[ 'schoolYear' ] = SchoolYearOrdering;
     this._orderingByColumnField[ 'claimCode' ] = reportType === AggregateReportType.Target
       ? OrganizationalClaimOrderingProvider(rows[ 0 ].subjectCode, this.preview)
-      : ordering(
-        join(
-          ranking(options.claims.filter(claim => claim.subject !== 'ELA').map(claim => claim.code)),
-          ClaimReportElaClaimOrder.compare
-        )
-      ).on<AggregateReportItem>(item => item.claimCode);
+      : ordering(join(...rows.map(row => {
+        return ScorableClaimOrderingProvider(row.subjectCode, this.preview).compare;
+      })));
     this._orderingByColumnField[ 'subgroup.id' ] = subgroupOrdering(item => item.subgroup, options);
     this._orderingByColumnField[ 'targetNaturalId' ] = TargetOrdering;
     this._orderingByColumnField[ 'studentRelativeResidualScoresLevel' ] = ordering(byTargetReportingLevel)

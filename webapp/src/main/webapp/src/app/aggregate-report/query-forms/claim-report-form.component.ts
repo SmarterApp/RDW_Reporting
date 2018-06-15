@@ -19,7 +19,7 @@ import { Utils } from '../../shared/support/support';
 import { AggregateReportFormOptions } from '../aggregate-report-form-options';
 import { Claim } from '../aggregate-report-options.service';
 import { AggregateReportType } from '../aggregate-report-form-settings';
-import { ClaimReportElaClaimOrder } from '../../shared/ordering/orderings';
+import { ScorableClaimOrderingProvider, ScorableClaimOrderings } from '../../shared/ordering/orderings';
 import { Option } from '../../shared/form/option';
 
 @Component({
@@ -173,11 +173,10 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
       const subjectCode = subject.value;
       this.claimsBySubject[ subjectCode ] = this.filteredOptions.claimCodes
         .filter(claim => claim.value.subject === subjectCode
-          && claim.value.assessmentType === this.settings.assessmentType);
-      if (subjectCode === 'ELA') {
-        this.claimsBySubject[ subjectCode ] = this.claimsBySubject[ subjectCode ]
-          .sort(ClaimReportElaClaimOrder.on<Option>(claim => claim.value.code).compare);
-      }
+          && claim.value.assessmentType === this.settings.assessmentType)
+        .sort(
+          ScorableClaimOrderings.get(subjectCode).on<Option>(claimOption => claimOption.value.code).compare
+        );
     });
 
     this.initializeSelectionBySubject();

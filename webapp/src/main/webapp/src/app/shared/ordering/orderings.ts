@@ -1,5 +1,6 @@
-import { ranking } from '@kourge/ordering/comparator';
+import { byString, ranking } from '@kourge/ordering/comparator';
 import { Ordering, ordering } from '@kourge/ordering';
+import { AggregateReportItem } from '../../aggregate-report/results/aggregate-report-item';
 
 export const AssessmentTypeOrdering = ordering(ranking(['sum', 'ica', 'iab']));
 
@@ -9,7 +10,15 @@ export const BooleanOrdering = ordering(ranking([ 'yes', 'no', 'undefined' ]));
 
 export const CompletenessOrdering = ordering(ranking([ 'Complete', 'Partial' ]));
 
-export const ClaimReportElaClaimOrder = ordering(ranking(['SOCK_R', '2-W', 'SOCK_LS', '4-CR']));
+export const ScorableClaimOrder: Map<string, string[]> = new Map([
+  ['Math', ['1', 'SOCK_2', '3']],
+  ['ELA', ['SOCK_R', '2-W', 'SOCK_LS', '4-CR']]
+]);
+
+export const ScorableClaimOrderings: Map<string, Ordering<string>> = new Map([
+  ['Math', ordering(ranking(ScorableClaimOrder.get('Math')))],
+  ['ELA', ordering(ranking(ScorableClaimOrder.get('ELA')))]
+]);
 
 export const SubjectClaimOrder: Map<string, string[]> = new Map([
   ['Math', ['1', '2', '3', '4']],
@@ -37,3 +46,4 @@ export const byNumericString = (a: string, b: string) => {
 
   return a.localeCompare(b);
 };
+
