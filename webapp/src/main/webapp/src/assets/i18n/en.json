@@ -125,6 +125,7 @@
       "report-type-heading": "Report Type",
       "review-heading": "Report Review",
       "preview-heading": "Report Preview",
+      "preview-heading-subtext": "Select the Generate Report button to view the actual report.",
       "custom-subgroup": {
         "heading": "Custom Subgroups",
         "description": "Create multiple custom subgroups by selecting a combination of attributes below and clicking \"Create Subgroup.\" Each custom subgroup will represent a row in your report. The Report Preview section below shows how it will look.",

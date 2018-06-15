@@ -173,8 +173,6 @@ export class AggregateReportTableDataService {
           }, {
             getValues: (context) => [ {
               claimCode: 'A'
-            }, {
-              claimCode: 'B'
             } ]
           }, {
             getValues: (context) => [ {
@@ -193,10 +191,6 @@ export class AggregateReportTableDataService {
               targetNaturalId: 'D',
               studentRelativeResidualScoresLevel: 'InsufficientData',
               standardMetRelativeResidualLevel: 'InsufficientData'
-            }, {
-              targetNaturalId: 'E',
-              studentRelativeResidualScoresLevel: 'Excluded',
-              standardMetRelativeResidualLevel: 'Excluded'
             } ]
           });
     }
