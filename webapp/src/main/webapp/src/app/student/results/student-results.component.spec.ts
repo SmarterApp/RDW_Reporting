@@ -1,24 +1,25 @@
-import { StudentResultsComponent } from "./student-results.component";
-import { ComponentFixture, inject, TestBed } from "@angular/core/testing";
-import { CommonModule } from "../../shared/common.module";
-import { ActivatedRoute } from "@angular/router";
-import { StudentExamHistory } from "../model/student-exam-history.model";
-import { Student } from "../model/student.model";
-import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { StudentHistoryExamWrapper } from "../model/student-history-exam-wrapper.model";
-import { Exam } from "../../assessments/model/exam.model";
-import { Assessment } from "../../assessments/model/assessment.model";
-import { ClaimScore } from "../../assessments/model/claim-score.model";
-import { MockRouter } from "../../../test/mock.router";
-import { CsvExportService } from "../../csv-export/csv-export.service";
-import { Angulartics2 } from "angulartics2";
-import { ExamFilterService } from "../../assessments/filters/exam-filters/exam-filter.service";
+import { StudentResultsComponent } from './student-results.component';
+import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { CommonModule } from '../../shared/common.module';
+import { ActivatedRoute } from '@angular/router';
+import { StudentExamHistory } from '../model/student-exam-history.model';
+import { Student } from '../model/student.model';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { StudentHistoryExamWrapper } from '../model/student-history-exam-wrapper.model';
+import { Exam } from '../../assessments/model/exam.model';
+import { Assessment } from '../../assessments/model/assessment.model';
+import { ClaimScore } from '../../assessments/model/claim-score.model';
+import { MockRouter } from '../../../test/mock.router';
+import { CsvExportService } from '../../csv-export/csv-export.service';
+import { Angulartics2 } from 'angulartics2';
+import { ExamFilterService } from '../../assessments/filters/exam-filters/exam-filter.service';
 import { of } from 'rxjs/observable/of';
 import { ApplicationSettingsService } from '../../app-settings.service';
 import { MockUserService } from '../../../test/mock.user.service';
-import { TestModule } from "../../../test/test.module";
-import { ReportingEmbargoService } from "../../shared/embargo/reporting-embargo.service";
+import { TestModule } from '../../../test/test.module';
+import { ReportingEmbargoService } from '../../shared/embargo/reporting-embargo.service';
 import { MockActivatedRoute } from '../../shared/test/mock.activated-route';
+import { StudentResultsFilterService } from './student-results-filter.service';
 
 describe('StudentResultsComponent', () => {
   let component: StudentResultsComponent;
@@ -30,19 +31,19 @@ describe('StudentResultsComponent', () => {
 
   beforeEach(() => {
     exportService = {};
-    embargoService = jasmine.createSpyObj('ReportingEmbargoService', ['isEmbargoed']);
+    embargoService = jasmine.createSpyObj('ReportingEmbargoService', [ 'isEmbargoed' ]);
     embargoService.isEmbargoed.and.returnValue(of(false));
 
-    let mockRouteSnapshot: any = {};
+    const mockRouteSnapshot: any = {};
     mockRouteSnapshot.data = {};
     mockRouteSnapshot.data.examHistory = MockBuilder.history();
     mockRouteSnapshot.params = {};
 
-    let mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', [ 'eventTrack' ]);
+    const mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', [ 'eventTrack' ]);
     mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', [ 'next' ]);
 
-    const mockApplicationSettingsService = jasmine.createSpyObj('ApplicationSettingsService', ['getSettings']);
-    mockApplicationSettingsService.getSettings.and.callFake(() => of({minItemDataYear: 2016}));
+    const mockApplicationSettingsService = jasmine.createSpyObj('ApplicationSettingsService', [ 'getSettings' ]);
+    mockApplicationSettingsService.getSettings.and.callFake(() => of({ minItemDataYear: 2016 }));
 
     const mockUserService = new MockUserService();
 
@@ -61,6 +62,7 @@ describe('StudentResultsComponent', () => {
         { provide: Angulartics2, useValue: mockAngulartics2 },
         { provide: ApplicationSettingsService, useValue: mockApplicationSettingsService },
         { provide: ReportingEmbargoService, useValue: embargoService },
+        StudentResultsFilterService,
         ExamFilterService
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
@@ -81,7 +83,7 @@ describe('StudentResultsComponent', () => {
   it('should create without error when history is null', () => {
     let snapshot = route.snapshot;
     snapshot.params[ 'schoolYear' ] = '2017';
-    snapshot.data['examHistory'] = null;
+    snapshot.data[ 'examHistory' ] = null;
 
     component.ngOnInit();
     fixture.detectChanges();

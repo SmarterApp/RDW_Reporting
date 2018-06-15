@@ -6,7 +6,7 @@ export class StudentResultsFilterService {
 
   filterChange = new Subject();
 
-  filterChanged() {
+  filterChanged(): void {
     this.filterChange.next();
   }
 }
