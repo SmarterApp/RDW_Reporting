@@ -457,7 +457,8 @@
     "buttons": {
       "all": "All",
       "display-claim": "Claim Scores",
-      "display-overall": "Overall Scores"
+      "display-overall": "Overall Scores",
+      "student-reports": "Printable Reports"
     },
     "claim-description": {
       "1": "Concepts and Procedures - Students can explain and apply mathematical concepts and interpret and carry out mathematical procedures with precision and fluency.",
@@ -741,7 +742,7 @@
       "form": {
         "report-name": "Report Name",
         "title": {
-          "multiple": "Create {{name}} Student Reports"
+          "multiple": "Create Printable {{name}} Student Reports"
         }
       }
     },
@@ -1072,7 +1073,6 @@
     "warning-html": "<p><strong class=\"mr-xs\">WARNING:</strong> Groups in the uploaded file will replace existing groups if they have the same school ID, school year and group name.</p><p>All other groups will not be deleted or changed.</p>"
   },
   "group-results": {
-    "group-button-label": "Student Reports",
     "null-group": "This group is unavailable.  Contact your building administrator if you think you should have access to this group.",
     "select-group": "Group"
   },
@@ -1337,8 +1337,7 @@
   "school-results": {
     "current-grade-select-label": "Assessment Grade",
     "no-results": "No results.",
-    "null-school": "This school is unavailable.  Contact your building administrator if you think you should have access to this school.",
-    "school-grade-button-label": "Student Reports"
+    "null-school": "This school is unavailable.  Contact your building administrator if you think you should have access to this school."
   },
   "school-typeahead": {
     "no-matches": "No schools found.",
