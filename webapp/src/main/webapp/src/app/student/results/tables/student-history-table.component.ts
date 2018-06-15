@@ -51,8 +51,7 @@ export class StudentHistoryTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.studentResultsFilterService.filterChange.subscribe(() => {
-      // Deselect
-      this.selectedCardRowIndex = -1;
+      delete this.selectedCardRowIndex;
     });
   }
 
