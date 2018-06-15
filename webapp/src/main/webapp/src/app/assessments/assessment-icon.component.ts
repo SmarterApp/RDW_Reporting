@@ -1,4 +1,15 @@
 import { Component, Input } from '@angular/core';
+import { Assessment } from './model/assessment.model';
+
+export const IcaAssessmentIconsBySubject = {
+  'Math': 'Math/ICA',
+  'ELA': 'ELA/ICA'
+};
+
+export const SummativeAssessmentIconsBySubject = {
+  'Math': 'Math/Summative',
+  'ELA': 'ELA/Summative'
+};
 
 export const IabAssessmentIconsByAssessmentName = {
   'SBAC-IAB-FIXED-G3M-G-MATH-3': 'Math/3-5/Geometry',
@@ -154,8 +165,20 @@ export class AssessmentIconComponent {
   }
 
   @Input()
-  set assessmentName(value: string) {
-    this._icon = IabAssessmentIconsByAssessmentName[ value ];
+  set assessment(value: Assessment) {
+
+    switch (value.type) {
+      case 'ica':
+        this._icon = IcaAssessmentIconsBySubject[ value.subject ];
+        break;
+      case 'sum':
+        this._icon = SummativeAssessmentIconsBySubject[ value.subject ];
+        break;
+      default:
+        this._icon = IabAssessmentIconsByAssessmentName[ value.name ];
+        break;
+    }
+
   }
 
 }
