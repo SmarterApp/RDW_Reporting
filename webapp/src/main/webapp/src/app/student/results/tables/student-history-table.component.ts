@@ -45,13 +45,13 @@ export class StudentHistoryTableComponent implements OnInit {
   constructor(private actionBuilder: MenuActionBuilder,
               private instructionalResourcesService: InstructionalResourcesService,
               private translateService: TranslateService,
-       private studentResultsFilterService: StudentResultsFilterService) {
+              private studentResultsFilterService: StudentResultsFilterService) {
   }
 
   ngOnInit(): void {
-  this.studentResultsFilterService.filterChange.subscribe(() => {
+    this.studentResultsFilterService.filterChange.subscribe(() => {
       delete this.selectedCardRowIndex;
-  });
+    });
     this.columns = [
       new Column({ id: 'date', field: 'exam.date' }),
       new Column({ id: 'assessment', field: 'assessment.label' }),
