@@ -12,7 +12,7 @@
       <li>
         <button class="btn btn-default btn-sm"
                 (click)="reportDownloader.modal.show()">
-          <i class="fa fa-cloud-download" aria-hidden="true"></i> {{'group-results.group-button-label' | translate}}
+          <i class="fa fa-cloud-download" aria-hidden="true"></i> {{'common.buttons.printable-student-reports' | translate}}
         </button>
       </li>
     </ul>
@@ -26,7 +26,7 @@
 <ng-template #loaded>
   <ng-container *ngIf="group; else groupNotFound">
 
-    <div class="row">
+    <div class="row top-sticky iab-dashboard-filters pb-xs">
       <div class="col-md-3">
         <div class="form-group">
           <label for="select-group">{{'group-results.select-group' | translate}}</label>
@@ -74,7 +74,7 @@
             <label>&nbsp;</label>
             <a class="btn btn-primary form-control"
                href="javascript:void(0)"
-               [ngClass]="{'disabled': !cardViewEnabled}"
+               [ngClass]="{'disabled': !viewAssessmentsButtonEnabled}"
                (click)="viewAssessments()">{{'assessment-card.view-assessments' | translate }}
               <i class="ml-xs fa fa-angle-right"></i>
             </a>
@@ -106,9 +106,9 @@
   </ng-container>
   <ng-template #hasMeasuredAssessments>
 
-    <div class="row" *ngFor="let row of rows">
+    <div class="row mt-sm" *ngFor="let row of rows">
       <div *ngFor="let measuredAssessment of row"
-           class="col-md-4 mt-md">
+           class="col-md-4 mb-md">
         <group-assessment-card (selectedAssessment)="onCardSelection($event)"
                                [group]="group"
                                [measuredAssessment]="measuredAssessment"></group-assessment-card>

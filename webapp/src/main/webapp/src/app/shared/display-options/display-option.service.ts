@@ -39,7 +39,7 @@ export class DisplayOptionService {
   getLongitudinalDisplayTypeOptions(): any[] {
     return LongitudinalDisplayType.values()
       .map(this.createOptionMapper(
-        value => this.translateService.instant(`common.longitudinal-display-type.${value}`),
+        value => this.translateService.instant(`longitudinal-cohort-chart.display-type.${value}`),
         value => `Longitudinal Report Display Type: ${value}`
       ));
   }

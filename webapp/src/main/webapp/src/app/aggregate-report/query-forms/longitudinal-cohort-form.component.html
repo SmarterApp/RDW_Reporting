@@ -149,6 +149,7 @@
                                  name="subjects"
                                  analyticsEvent="FilterClick"
                                  analyticsCategory="AggregateQueryBuilder"
+                                 [vertical]="true"
                                  [allOptionAnalyticsProperties]="{label: 'Subject: All'}"
                                  [options]="filteredOptions.subjects"
                                  [(ngModel)]="settings.subjects"
@@ -470,6 +471,7 @@
     <div class="well-group wide-content-container">
       <div class="well inline-headings">
         <h3>{{'aggregate-report-form.section.preview-heading' | translate}}</h3>
+        <p class="text-muted small">{{'aggregate-report-form.section.preview-heading-subtext' | translate}}</p>
         <ng-container *ngIf="estimatedRowCountIsLarge">
           <ng-container
             *ngTemplateOutlet="warning; context: {$implicit: ('aggregate-report-form.preview' | translate)}"></ng-container>

@@ -1,0 +1,9 @@
+{
+  "@class": "org.opentestsystem.rdw.reporting.common.report.SchoolGradeExamReportRequest",
+  "schoolYear": 2017,
+  "language": "eng",
+  "name": "Aardvark Cypress Elem G5 2017",
+  "order": "STUDENT_NAME",
+  "schoolId": 279,
+  "gradeId": 5
+}

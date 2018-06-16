@@ -6,14 +6,19 @@
 
     <div *ngIf="reportView && isLongitudinal" class="pull-right flex-child ml-xs">
       <fieldset>
-        <label for="longitudinal-type-toggle" class="mr-xs">{{'common.longitudinal-type-input-label' | translate}}</label>
+        <label for="longitudinal-type-toggle"
+               info-button
+               title="{{'longitudinal-cohort-chart.population-toggle-label' | translate}}"
+               content="{{'longitudinal-cohort-chart.population-toggle-label-info' | translate}}"
+               placement="bottom"
+               class="mr-xs"></label>
         <sb-radio-button-group id="longitudinal-type-toggle"
                                name="longitudinal-type-toggle"
                                [options]="displayOptions.longitudinalDisplayTypes"
                                [(ngModel)]="longitudinalDisplayType"
                                (ngModelChange)="onLongitudinalDisplayTypeChange()"
-                               buttonGroupStyles="btn-group-xs"
-                               buttonStyles="btn-default"
+                               buttonGroupStyles="btn-group-sm"
+                               buttonStyles="btn-primary"
                                analyticsCategory="AggregateReportControl"
                                analyticsEvent="Change"></sb-radio-button-group>
       </fieldset>

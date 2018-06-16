@@ -72,9 +72,9 @@
                                 name="subject"
                                 analyticsEvent="FilterClick"
                                 analyticsCategory="AggregateQueryBuilder"
-                                [ngModelOptions]="{standalone: true}"
                                 [options]="filteredOptions.subjects"
                                 [(ngModel)]="settings.targetReport.subjectCode"
+                                [ngModelOptions]="{standalone: true}"
                                 (change)="onSettingsChange()"></sb-radio-group>
               </div>
             </div>
@@ -89,6 +89,11 @@
                        info-button
                        title="{{'aggregate-report-form.field.assessment-grade-label' | translate}}"
                        content="{{'aggregate-report-form.field.assessment-grades-info' | translate}}"></label>
+                <p class="small mb-0"
+                   [ngClass]="showErrors('assessmentGrade') ? 'red' : 'gray-darker'">
+                  {{'common.form-field-message.required' | translate}}
+                  {{'common.form-field-message.select-one' | translate}}
+                </p>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
@@ -111,6 +116,11 @@
             <div class="row">
               <div class="col-md-6">
                 <label for="schoolYear">{{'aggregate-report-form.field.school-year-label' | translate}}</label>
+                <p class="small mb-0"
+                   [ngClass]="showErrors('schoolYear') ? 'red' : 'gray-darker'">
+                  {{'common.form-field-message.required' | translate}}
+                  {{'common.form-field-message.select-one' | translate}}
+                </p>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
@@ -295,6 +305,7 @@
     <div class="well-group wide-content-container">
       <div class="well inline-headings">
         <h3>{{'aggregate-report-form.section.preview-heading' | translate}}</h3>
+        <p class="text-muted small">{{'aggregate-report-form.section.preview-heading-subtext' | translate}}</p>
       </div>
       <div class="well">
         <div>

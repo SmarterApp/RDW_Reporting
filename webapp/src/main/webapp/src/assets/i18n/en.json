@@ -125,6 +125,7 @@
       "report-type-heading": "Report Type",
       "review-heading": "Report Review",
       "preview-heading": "Report Preview",
+      "preview-heading-subtext": "Select the Generate Report button to view the actual report.",
       "custom-subgroup": {
         "heading": "Custom Subgroups",
         "description": "Create multiple custom subgroups by selecting a combination of attributes below and clicking \"Create Subgroup.\" Each custom subgroup will represent a row in your report. The Report Preview section below shows how it will look.",
@@ -287,12 +288,12 @@
     },
     "aggregate-report-type": {
       "Claim": {
-        "description": "Compare claim-level performance across groups.",
+        "description": "Compare claim-level performance across subgroups.",
         "disabled": "Claim Reports are only available for ICA and Summative assessments.",
         "label": "Claim Report"
       },
       "GeneralPopulation": {
-        "description": "Compare performance across groups.",
+        "description": "Compare performance across subgroups.",
         "label": "Yearly Report"
       },
       "LongitudinalCohort": {
@@ -301,7 +302,7 @@
         "label": "Longitudinal Report"
       },
       "Target": {
-        "description": "Compare target-level performance across groups.",
+        "description": "Compare target-level performance across subgroups for a single assessment.",
         "label": "Target Report"
       }
     },
@@ -457,7 +458,8 @@
     "buttons": {
       "all": "All",
       "display-claim": "Claim Scores",
-      "display-overall": "Overall Scores"
+      "display-overall": "Overall Scores",
+      "printable-student-reports": "Printable Reports"
     },
     "claim-description": {
       "1": "Concepts and Procedures - Students can explain and apply mathematical concepts and interpret and carry out mathematical procedures with precision and fluency.",
@@ -626,7 +628,8 @@
       }
     },
     "form-field-message": {
-      "required": "* Required"
+      "required": "* Required",
+      "select-one": "(select one)"
     },
     "gender": {
       "Female": "Female",
@@ -689,11 +692,6 @@
         "System": "Smarter Balanced Instructional Resource"
       }
     },
-    "longitudinal-type-input-label": "Show",
-    "longitudinal-display-type": {
-      "GeneralPopulation": "General Population",
-      "Cohort": "Cohort"
-    },
     "menus": {
       "resources": "Instructional Resources",
       "responses": "{{firstName}}'s Responses",
@@ -741,7 +739,7 @@
       "form": {
         "report-name": "Report Name",
         "title": {
-          "multiple": "Create {{name}} Student Reports"
+          "multiple": "Create Printable {{name}} Student Reports"
         }
       }
     },
@@ -1072,7 +1070,6 @@
     "warning-html": "<p><strong class=\"mr-xs\">WARNING:</strong> Groups in the uploaded file will replace existing groups if they have the same school ID, school year and group name.</p><p>All other groups will not be deleted or changed.</p>"
   },
   "group-results": {
-    "group-button-label": "Student Reports",
     "null-group": "This group is unavailable.  Contact your building administrator if you think you should have access to this group.",
     "select-group": "Group"
   },
@@ -1213,7 +1210,13 @@
       "text": "Achievement Level",
       "subtext": ""
     },
-    "instructions": "To view the graph for only some groups, select the name(s) in the legend."
+    "display-type": {
+      "GeneralPopulation": "All Students",
+      "Cohort": "Cohort"
+    },
+    "instructions": "To view the graph for only some groups, select the name(s) in the legend.",
+    "population-toggle-label": "Select population",
+    "population-toggle-label-info": "The All Students Longitudinal Report includes test results for all students who tested during the selected years, regardless of where they tested. The Cohort Report includes test results for only those students who tested at the same school or district during the selected years. Users should consider this limitation when making inferences about student performance."
   },
   "order-selector": {
     "move-left": "Move Left",
@@ -1321,7 +1324,7 @@
   },
   "results-by-student": {
     "assessment-exams-empty-message": "No test results are available for the sessions and advanced filters selected.",
-    "create-single-prepopulated-report": "Create {{name}}'s {{schoolYear}} {{subject}} {{assessmentType}} Report"
+    "create-single-prepopulated-report": "Create {{name}}'s {{schoolYear}} {{subject}} {{assessmentType}} Printable Report"
   },
   "sample-aggregate-table-data-service": {
     "assessment-label": "Assessment 1",
@@ -1337,8 +1340,7 @@
   "school-results": {
     "current-grade-select-label": "Assessment Grade",
     "no-results": "No results.",
-    "null-school": "This school is unavailable.  Contact your building administrator if you think you should have access to this school.",
-    "school-grade-button-label": "Student Reports"
+    "null-school": "This school is unavailable.  Contact your building administrator if you think you should have access to this school."
   },
   "school-typeahead": {
     "no-matches": "No schools found.",
@@ -1371,7 +1373,7 @@
     "title": "Student's Responses"
   },
   "student-results": {
-    "create-report": "Create {{firstName}}'s Report",
+    "create-report": "Create {{firstName}}'s Printable Report",
     "crumb": "Student: {{lastName}}, {{firstName}}",
     "empty-filtered-results-message": "No test results are available for the filters selected.",
     "student-button-label": "Student Report",

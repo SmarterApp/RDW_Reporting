@@ -1,0 +1,14 @@
+{
+  "assessmentType": "SUMMATIVE",
+  "schoolYear": 2018,
+  "language": "en",
+  "name": "5E",
+  "accommodationsVisible": false,
+  "disableTransferAccess": false,
+  "order": "STUDENT_NAME",
+  "groupGrant": {
+    "id": 23602,
+    "subjectId": 1
+  },
+  "reportType": "Group"
+}

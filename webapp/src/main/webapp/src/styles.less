@@ -430,6 +430,23 @@ body .select-menu-group {
 }
 
 /**
+ * TODO move to UI Kit
+ */
+.nested-btn-group {
+  > a:first-child {
+    display: table-cell;
+  }
+  &.vertical {
+    > a:first-child {
+      display: flex;
+      align-self: flex-start;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
+/**
  * Removes left border for vertical checkbox groups without the all option
  */
 .nested-btn-group.vertical:not(.all-option) .btn-group {
@@ -958,6 +975,33 @@ h6 {
 
 a.btn.disabled.with-pointer {
   pointer-events: auto;
+}
+
+sb-button-group,
+sb-checkbox-group {
+  .btn {
+    &:focus-within {
+      .tab-focus();
+    }
+  }
+}
+
+sb-radio-button-group .btn-group {
+  &:focus-within {
+    .tab-focus();
+  }
+}
+
+// Make the div behave like a button
+.btn-group,
+.btn-group-vertical {
+  > .btn {
+    // Bring the "focused" button to the front
+    &:focus,
+    &:focus-within {
+      z-index: 3;
+    }
+  }
 }
 
 //TODO move to SBAC UI kit
@@ -1578,4 +1622,15 @@ user-group {
 
 tr.highlight {
   background-color: lighten(@yellow, 45%) !important;
+}
+
+.top-sticky {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+.iab-dashboard-filters {
+  background-color: @gray-lightest;
 }

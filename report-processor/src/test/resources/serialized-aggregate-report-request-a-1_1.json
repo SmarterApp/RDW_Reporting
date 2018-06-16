@@ -1,0 +1,51 @@
+{
+  "subject": "MATH",
+  "schoolYear": 2018,
+  "name": "Custom Aggregate Report",
+  "accommodationsVisible": false,
+  "disableTransferAccess": false,
+  "reportQuery": {
+    "assessmentTypeCode": "ica",
+    "subjectCodes": [
+      "Math"
+    ],
+    "schoolYears": [
+      2018
+    ],
+    "assessmentGradeCodes": [
+      "03",
+      "05"
+    ],
+    "includeState": false,
+    "includeAllDistricts": false,
+    "includeAllSchoolsOfDistricts": false,
+    "includeAllDistrictsOfSchools": true,
+    "districtIds": [
+      1173
+    ],
+    "schoolIds": [],
+    "dimensionTypes": [],
+    "valueDisplayType": "Percent",
+    "achievementLevelDisplayType": "Separate",
+    "columnOrder": [
+      "organization",
+      "assessmentGrade",
+      "schoolYear",
+      "dimension"
+    ],
+    "completenessCodes": [
+      "Complete"
+    ],
+    "administrativeConditionCodes": [
+      "SD"
+    ],
+    "genderCodes": [],
+    "ethnicityCodes": [],
+    "lepCodes": [],
+    "migrantStatusCodes": [],
+    "section504Codes": [],
+    "iepCodes": [],
+    "economicDisadvantageCodes": []
+  },
+  "reportType": "AggregateReportRequest"
+}

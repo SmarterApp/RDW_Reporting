@@ -1,0 +1,17 @@
+{
+  "@class": "org.opentestsystem.rdw.reporting.common.report.ExportExamReportRequest",
+  "schoolYear": 2017,
+  "language": "en_US",
+  "options": {
+    "@class": "org.opentestsystem.rdw.reporting.common.report.ExamExportQueryOptions",
+    "schoolYear": 2018,
+    "districtIds": [
+      "java.util.HashSet",
+      [
+        30
+      ]
+    ]
+  },
+  "accommodationsVisible": false,
+  "reportType": "ExamExport"
+}

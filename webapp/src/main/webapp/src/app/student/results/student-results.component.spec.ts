@@ -34,10 +34,14 @@ describe('StudentResultsComponent', () => {
     embargoService = jasmine.createSpyObj('ReportingEmbargoService', [ 'isEmbargoed' ]);
     embargoService.isEmbargoed.and.returnValue(of(false));
 
-    const mockRouteSnapshot: any = {};
-    mockRouteSnapshot.data = {};
-    mockRouteSnapshot.data.examHistory = MockBuilder.history();
-    mockRouteSnapshot.params = {};
+    const mockRouteSnapshot = {
+      params: {},
+      data: {
+        examHistory: MockBuilder.history()
+      }
+    };
+
+    const mockRoute = new MockActivatedRoute();
 
     const mockAngulartics2 = jasmine.createSpyObj<Angulartics2>('angulartics2', [ 'eventTrack' ]);
     mockAngulartics2.eventTrack = jasmine.createSpyObj('angulartics2', [ 'next' ]);
@@ -62,6 +66,7 @@ describe('StudentResultsComponent', () => {
         { provide: Angulartics2, useValue: mockAngulartics2 },
         { provide: ApplicationSettingsService, useValue: mockApplicationSettingsService },
         { provide: ReportingEmbargoService, useValue: embargoService },
+        { provide: ActivatedRoute, useValue: mockRoute },
         StudentResultsFilterService,
         ExamFilterService
       ],
@@ -81,22 +86,17 @@ describe('StudentResultsComponent', () => {
   });
 
   it('should create without error when history is null', () => {
-    let snapshot = route.snapshot;
-    snapshot.params[ 'schoolYear' ] = '2017';
+    const snapshot = route.snapshot;
     snapshot.data[ 'examHistory' ] = null;
-
-    component.ngOnInit();
-    fixture.detectChanges();
+    route.params.emit({ schoolYear: 2017 });
 
     expect(component).toBeTruthy();
   });
 
+  /* Temporary Ignore */
   it('should filter by year on initialization', inject([ ActivatedRoute ], (route: MockActivatedRoute) => {
     // Filter to the single 2017 exam
-    const snapshot = route.snapshot;
-    snapshot.params[ 'schoolYear' ] = '2017';
-
-    component.ngOnInit();
+    route.params.emit({ schoolYear: 2017 });
 
     const filteredExams = component.sections.reduce((exams, section) => {
       exams.push(...section.filteredExams);
@@ -114,11 +114,9 @@ describe('StudentResultsComponent', () => {
 
   }));
 
-  it('should filter by subject on initialization', inject([ ActivatedRoute ], (route: MockActivatedRoute) => {
-    const snapshot = route.snapshot;
-    snapshot.params[ 'subject' ] = 'MATH';
 
-    component.ngOnInit();
+  it('should filter by subject on initialization', inject([ ActivatedRoute ], (route: MockActivatedRoute) => {
+    route.params.emit({ subject: 'MATH' });
 
     const filteredExams = component.sections.reduce((exams, section) => {
       exams.push(...section.filteredExams);
@@ -142,34 +140,33 @@ class MockBuilder {
     MockBuilder.examIdx = 0;
     MockBuilder.oddExam = false;
 
-    let student: Student = new Student();
+    const student: Student = new Student();
     student.id = 123;
     student.ssid = 'ssid';
     student.firstName = 'first';
     student.lastName = 'last';
 
-    let exams: StudentHistoryExamWrapper[] = [];
+    const exams: StudentHistoryExamWrapper[] = [];
     exams.push(MockBuilder.examWrapper('ica', 'MATH'));
     exams.push(MockBuilder.examWrapper('ica', 'ELA'));
     exams.push(MockBuilder.examWrapper('iab', 'MATH'));
     exams.push(MockBuilder.examWrapper('sum', 'ELA'));
 
-    let history: StudentExamHistory = new StudentExamHistory();
+    const history: StudentExamHistory = new StudentExamHistory();
     history.student = student;
     history.exams = exams;
     return history;
   }
 
   private static examWrapper(assessmentType: string, subject: string): StudentHistoryExamWrapper {
-    let wrapper: StudentHistoryExamWrapper = new StudentHistoryExamWrapper();
+    const wrapper: StudentHistoryExamWrapper = new StudentHistoryExamWrapper();
     wrapper.exam = MockBuilder.exam(assessmentType);
     wrapper.assessment = MockBuilder.assessment(assessmentType, subject);
-
     return wrapper;
   }
 
   private static exam(type: string): Exam {
-    let exam: Exam = new Exam();
+    const exam: Exam = new Exam();
     exam.date = new Date();
     exam.id = MockBuilder.examIdx++;
     exam.iep = false;
@@ -181,13 +178,13 @@ class MockBuilder {
     exam.session = 'PRI-6888';
     exam.standardError = 52;
 
-    //Give each exam an earlier year than the one before.
+    // Give each exam an earlier year than the one before.
     exam.schoolYear = 2017 - exam.id;
 
-    //toggle whether we're off-grade on each exam
+    // toggle whether we're off-grade on each exam
     exam.enrolledGrade = MockBuilder.oddExam ? '04' : '05';
 
-    //toggle completeness on each exam
+    // toggle completeness on each exam
     exam.completeness = MockBuilder.oddExam ? 'Partial' : 'Complete';
 
     MockBuilder.oddExam = !MockBuilder.oddExam;
@@ -204,7 +201,7 @@ class MockBuilder {
   }
 
   private static assessment(type: string, subject: string): Assessment {
-    let assessment: Assessment = new Assessment();
+    const assessment: Assessment = new Assessment();
     assessment.grade = '05';
     assessment.id = MockBuilder.assessmentIdx++;
     assessment.label = 'Grade 5 ELA';
@@ -221,11 +218,10 @@ class MockBuilder {
   }
 
   private static claimScore(level: number): ClaimScore {
-    let score: ClaimScore = new ClaimScore();
+    const score: ClaimScore = new ClaimScore();
     score.level = level;
     score.score = 1234;
     score.standardError = 25;
-
     return score;
   }
 }

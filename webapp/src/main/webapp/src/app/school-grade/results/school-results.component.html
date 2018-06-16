@@ -1,9 +1,5 @@
 <reporting-embargo-alert *hasPermission="'EMBARGO_READ'"></reporting-embargo-alert>
 
-<div *ngIf="!schoolIsAvailable" class="alert alert-danger">
-  {{'school-results.null-school' | translate }}
-</div>
-
 <div *ngIf="currentSchool">
 
   <page-heading>
@@ -19,7 +15,7 @@
         <li>
           <button class="btn btn-default btn-sm"
                   (click)="reportDownloader.modal.show()">
-            <i class="fa fa-cloud-download" aria-hidden="true"></i> {{'school-results.school-grade-button-label' | translate}}
+            <i class="fa fa-cloud-download" aria-hidden="true"></i> {{'common.buttons.printable-student-reports' | translate}}
           </button>
         </li>
       </ul>
@@ -42,8 +38,7 @@
         <school-typeahead #schoolTypeahead
                           [school]="currentSchool"
                           [options]="schoolOptions"
-                          (schoolChange)="schoolSelectChanged($event)"
-                          ></school-typeahead>
+                          (schoolChange)="onSchoolChange($event)"></school-typeahead>
         <div>
           <span [hidden]="!schoolTypeahead.loading"><i class="fa fa-spinner fa-pulse"></i></span>
           <br [hidden]="schoolTypeahead.noResults">
@@ -54,7 +49,7 @@
                      *ngIf="!aboveLimit"
                      [options]="schoolOptions"
                      [value]="currentSchool"
-                     (selected)="schoolSelectChanged($event)"
+                     (selected)="onSchoolChange($event)"
                      placeholder="{{'common.action.select' | translate}}"></sb-typeahead>
 
     </div>
@@ -63,21 +58,31 @@
     <div class="col-md-2">
       <label for="current-grade">{{'school-results.current-grade-select-label' | translate}}</label>
 
-      <select *ngIf="gradesAreUnavailable" id="current-dsiabled-grade" class="form-control"
+      <select *ngIf="gradesAreUnavailable"
+              id="current-dsiabled-grade"
+              class="form-control"
               [disabled]="true">
         <option selected>{{'school-results.no-results' | translate}}</option>
       </select>
-      <select *ngIf="!gradesAreUnavailable" id="current-grade" class="form-control"
-              [(ngModel)]="currentGrade" (change)="updateRoute('Grade')">
-        <option *ngFor="let grade of availableGrades" [ngValue]="grade">{{'common.assessment-grade-label.' + grade.code | translate }}</option>
+      <select *ngIf="!gradesAreUnavailable"
+              id="current-grade"
+              class="form-control"
+              [(ngModel)]="currentGrade"
+              (change)="onGradeChange()">
+        <option *ngFor="let grade of grades" [ngValue]="grade">{{'common.assessment-grade-label.' + grade.code | translate }}</option>
       </select>
     </div>
 
     <!-- School Year -->
     <div class="col-md-2">
       <label for="school-year">{{'common.school-year-select-label' | translate}}</label>
-      <select id="school-year" [disabled]="gradesAreUnavailable" [(ngModel)]="currentSchoolYear" (change)="updateRoute('Year')" class="form-control">
-        <option *ngFor="let year of filterOptions.schoolYears" [ngValue]="year">{{year | schoolYear}}</option>
+      <select id="school-year"
+              [disabled]="gradesAreUnavailable"
+              [(ngModel)]="currentSchoolYear"
+              (change)="onSchoolYearChange()"
+              class="form-control">
+        <option *ngFor="let year of filterOptions.schoolYears"
+                [ngValue]="year">{{year | schoolYear}}</option>
         <option *ngIf="gradesAreUnavailable" selected>{{'school-results.no-results' | translate}}</option>
       </select>
     </div>

@@ -18,7 +18,7 @@
       <li>
         <button class="btn btn-default btn-sm"
                 (click)="reportDownloader.modal.show()">
-          <i class="fa fa-cloud-download" aria-hidden="true"></i> {{'group-results.group-button-label' | translate}}
+          <i class="fa fa-cloud-download" aria-hidden="true"></i> {{'common.buttons.printable-student-reports' | translate}}
         </button>
       </li>
     </ul>
@@ -44,17 +44,24 @@
       <div class="col-md-3">
         <label for="select-group">{{'group-results.select-group' | translate}}</label>
         <!--TODO: type ahead? -->
-        <select id="select-group" [(ngModel)]="group" (change)="updateRoute('Group')" class="form-control">
-          <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
+        <select id="select-group"
+                class="form-control"
+                [(ngModel)]="group"
+                (change)="onGroupChange()">
+          <option *ngFor="let group of groups"
+                  [ngValue]="group">{{group.name}}</option>
         </select>
       </div>
 
       <!-- School Year -->
       <div class="col-md-3">
         <label for="school-year">{{'common.school-year-select-label' | translate}}</label>
-        <select id="school-year" [(ngModel)]="schoolYear" (change)="updateRoute('Year')"
-                class="form-control">
-          <option *ngFor="let year of filterOptions.schoolYears" [ngValue]="year">{{year | schoolYear}}</option>
+        <select id="school-year"
+                class="form-control"
+                [(ngModel)]="schoolYear"
+                (change)="onSchoolYearChange()">
+          <option *ngFor="let year of filterOptions.schoolYears"
+                  [ngValue]="year">{{year | schoolYear}}</option>
         </select>
       </div>
 

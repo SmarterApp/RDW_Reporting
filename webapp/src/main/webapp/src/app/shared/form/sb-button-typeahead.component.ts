@@ -23,6 +23,7 @@ import { Utils } from "../support/support";
              (ngModelChange)="onChangeInternal()"
              typeaheadWaitMs="300"
              [(ngModel)]="search"
+             autocomplete="off"
              [placeholder]="placeholder">
       
       <span class="input-group-btn">
