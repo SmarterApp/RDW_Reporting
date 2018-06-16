@@ -3,24 +3,24 @@
     <h1>{{'home.title' | translate}}</h1>
   </ng-template>
   <ng-template #content>
-    <ul class="list-unstyled list-inline">
-      <li *hasPermission="'CUSTOM_AGGREGATE_READ'">
-        <a routerLink="/aggregate-reports"
-           class="btn btn-xs btn-default">
-          {{'aggregate-report-form.heading' | translate}}
-        </a>
-      </li>
-      <li *hasPermission="'INDIVIDUAL_PII_READ'">
-        <a routerLink="/custom-export"
-           class="btn btn-xs btn-default">
-          <i class="fa fa-bold fa-table"></i>
-          {{'organization-export.title' | translate}}
-        </a>
-      </li>
-      <li *hasAnyPermission="['GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE']">
-        <admin-dropdown></admin-dropdown>
-      </li>
-    </ul>
+    <!--<ul class="list-unstyled list-inline">-->
+      <!--<li *hasPermission="'CUSTOM_AGGREGATE_READ'">-->
+        <!--<a routerLink="/aggregate-reports"-->
+           <!--class="btn btn-xs btn-default">-->
+          <!--{{'aggregate-report-form.heading' | translate}}-->
+        <!--</a>-->
+      <!--</li>-->
+      <!--<li *hasPermission="'INDIVIDUAL_PII_READ'">-->
+        <!--<a routerLink="/custom-export"-->
+           <!--class="btn btn-xs btn-default">-->
+          <!--<i class="fa fa-bold fa-table"></i>-->
+          <!--{{'organization-export.title' | translate}}-->
+        <!--</a>-->
+      <!--</li>-->
+      <!--<li *hasAnyPermission="['GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE']">-->
+        <!--<admin-dropdown buttonStyles="btn-sm btn-info"></admin-dropdown>-->
+      <!--</li>-->
+    <!--</ul>-->
   </ng-template>
 </page-heading>
 
@@ -29,21 +29,24 @@
   <!-- Left Column Content Area -->
   <div class="col-md-9">
 
-    <div *hasAnyPermission="['GROUP_PII_READ', 'INDIVIDUAL_PII_READ', 'GROUP_PII_READ']; else noPermissions">
-      <div *hasPermission="'GROUP_PII_READ'"
-           class="well">
-        <student-search></student-search>
-      </div>
-
-      <div *hasPermission="'INDIVIDUAL_PII_READ'"
-           class="well">
-        <school-grade></school-grade>
-      </div>
-
-      <ng-container *hasPermission="'GROUP_PII_READ'">
-        <group-tabs></group-tabs>
-      </ng-container>
+    <div *hasAnyPermission="['CUSTOM_AGGREGATE_READ', 'INDIVIDUAL_PII_READ', 'GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE']"
+         class="well">
+      <admin-tools></admin-tools>
     </div>
+
+    <div *hasPermission="'GROUP_PII_READ'"
+         class="well">
+      <student-search></student-search>
+    </div>
+
+    <div *hasPermission="'INDIVIDUAL_PII_READ'"
+         class="well">
+      <school-grade></school-grade>
+    </div>
+
+    <ng-container *hasPermission="'GROUP_PII_READ'">
+      <group-tabs></group-tabs>
+    </ng-container>
 
   </div>
 

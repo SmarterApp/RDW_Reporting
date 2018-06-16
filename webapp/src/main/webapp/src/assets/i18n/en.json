@@ -1088,6 +1088,9 @@
     "view-dashboard": "View IAB Dashboard"
   },
   "home": {
+    "administrator": {
+      "title": "Administrator Tools"
+    },
     "groups-well": {
       "assigned-groups-heading": "Assigned Groups",
       "created-groups-heading": "My Groups"

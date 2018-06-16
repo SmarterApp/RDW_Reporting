@@ -7,11 +7,13 @@ import { SchoolGradeModule } from '../school-grade/school-grade.module';
 import { GroupsModule } from '../groups/groups.module';
 import { StudentModule } from '../student/student.module';
 import { BsDropdownModule } from 'ngx-bootstrap';
+import { AdminToolsComponent } from './admin-tools.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    AdminDropdownComponent
+    AdminDropdownComponent,
+    AdminToolsComponent
   ],
   imports: [
     BrowserModule,

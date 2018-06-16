@@ -4,12 +4,13 @@
 
   <a dropdownToggle
      href="javascript:void(0)"
-     class="btn btn-xs btn-info"
+     [ngClass]="buttonStyles"
+     class="btn btn-default btn-block"
      title="{{'admin-dropdown.button' | translate}}">
     {{'admin-dropdown.button' | translate}} <i class="fa fa-chevron-down"></i></a>
 
   <ul *dropdownMenu
-      class="dropdown-menu dropdown-menu-right"
+      class="dropdown-menu"
       role="menu">
 
     <li *hasPermission="'GROUP_WRITE'">

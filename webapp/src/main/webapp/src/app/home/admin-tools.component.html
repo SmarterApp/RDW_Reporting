@@ -1,0 +1,25 @@
+<label>{{'home.administrator.title' | translate}}</label>
+<div class="row">
+  <div *hasPermission="'CUSTOM_AGGREGATE_READ'"
+       class="col-xs-4">
+    <a routerLink="/aggregate-reports"
+       class="btn btn-block btn-default">
+      {{'aggregate-report-form.heading' | translate}}
+    </a>
+    <p class="text-muted small">Create some sort of report description.</p>
+  </div>
+  <div *hasPermission="'INDIVIDUAL_PII_READ'"
+       class="col-xs-4">
+    <a routerLink="/custom-export"
+       class="btn btn-block btn-default">
+      <i class="fa fa-bold fa-table"></i>
+      {{'organization-export.title' | translate}}
+    </a>
+    <p class="text-muted small">Export all district or school data.</p>
+  </div>
+  <div *hasAnyPermission="['GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE']"
+       class="col-xs-4">
+    <admin-dropdown buttonStyles="btn-block btn-default"></admin-dropdown>
+    <p class="text-muted small">Manage various parts of the application.</p>
+  </div>
+</div>
