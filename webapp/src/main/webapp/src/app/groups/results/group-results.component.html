@@ -31,7 +31,8 @@
 
 <ng-template #loaded>
   <ng-container *ngIf="group; else groupNotFound">
-    <assessments [assessmentExams]="assessmentExams"
+    <assessments [latestAssessmentExam]="latestAssessmentExam"
+                 [assessmentExams]="assessmentExams"
                  [assessmentProvider]="assessmentProvider"
                  [assessmentExporter]="assessmentExporter"
                  [isDefaultCollapsed]="false"

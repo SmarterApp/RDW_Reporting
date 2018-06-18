@@ -39,7 +39,7 @@ export class GroupResultsComponent implements OnInit, StateProvider {
 
   private _group: any;
   private _schoolYear: number;
-  private _latestAssessmentExam: AssessmentExam;
+  latestAssessmentExam: AssessmentExam;
 
   get group(): Group {
     return this._group;
@@ -117,15 +117,14 @@ export class GroupResultsComponent implements OnInit, StateProvider {
     // update latest assessment when resolved route data changes
     // this and the resolve could be replaced later by a manual invocation when the route params change
     this.route.data.subscribe(({ assessment }) => {
-      this._latestAssessmentExam = assessment;
-      if (!this._latestAssessmentExam) {
+      this.latestAssessmentExam = assessment;
+      if (!this.latestAssessmentExam) {
         this.assessmentProvider.getMostRecentAssessment().subscribe(
           assessmentExam => {
-            this._latestAssessmentExam = assessmentExam;
-            this.updateAssessment(this._latestAssessmentExam);
+            this.latestAssessmentExam = assessmentExam;
           });
       } else {
-        this.updateAssessment(this._latestAssessmentExam);
+        this.updateAssessment(assessment);
       }
     });
   }
