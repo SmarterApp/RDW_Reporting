@@ -122,10 +122,7 @@ export class GroupResultsComponent implements OnInit, StateProvider {
         this.assessmentService.getMostRecentAssessment(<Search> {
           groupId: this.group.id,
           schoolYear: this.schoolYear
-        }).subscribe(
-          assessmentExam => {
-            this.latestAssessmentExam = assessmentExam;
-          });
+        }).subscribe(assessmentExam => this.latestAssessmentExam = assessmentExam);
       } else {
         this.updateAssessment(assessment);
       }

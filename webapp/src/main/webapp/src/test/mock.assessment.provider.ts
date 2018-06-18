@@ -7,7 +7,6 @@ import { of } from 'rxjs/observable/of';
 import { TargetScoreExam } from '../app/assessments/model/target-score-exam.model';
 
 export class MockAssessmentProvider implements AssessmentProvider {
-
   getAvailableAssessments(): Observable<Assessment[]> {
     return of([]);
   }
