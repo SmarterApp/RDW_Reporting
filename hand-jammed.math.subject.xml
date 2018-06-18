@@ -1,0 +1,199 @@
+<Subject code="Math" name="Math">
+  <!-- Optional? -->
+  <CommonCoreStandardStandardDescription><![CDATA[This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  Items that assess mathematical practices (problem solving, modeling and data analysis, and communicating reasoning) are also aligned to standards that describe the mathematical content with which students engage. For example, an item may ask students to communicate their reasoning when solving a problem about geometry or fractions. For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf\" target=\"_blank\">Mathematics Content Specifications</a>.]]></CommonCoreStandardStandardDescription>
+  <AssessmentTypes>
+    <AssessmentType code="iab">
+      <PerformanceLevels>
+        <!-- Notice no 'rollup' attribute since rollup isn't supported for Math IABs -->
+        <PerformanceLevel level="1" name="Below Standard"/>
+        <PerformanceLevel level="2" name="Near Standard"/>
+        <PerformanceLevel level="3" name="Above Standard"/>
+      </PerformanceLevels>
+    </AssessmentType>
+    <AssessmentType code="ica">
+      <PerformanceLevels>
+        <PerformanceLevel level="1" name="Did Not Meet Standard"/>
+        <PerformanceLevel level="2" name="Nearly Met Standard"/>
+        <PerformanceLevel level="3" name="Met Standard" rollup="true"/>
+        <PerformanceLevel level="4" name="Exceeded Standard"/>
+      </PerformanceLevels>
+      <SubScorePerformanceLevels>
+        <PerformanceLevel level="1" name="Below Standard"/>
+        <PerformanceLevel level="2" name="Near Standard"/>
+        <PerformanceLevel level="3" name="Above Standard"/>
+      </SubScorePerformanceLevels>
+      <SubScores>
+        <SubScore code="1" name="Concepts &amp; Procedures">
+          <Bindings>
+            <Binding claimCode="1"></Binding>
+          </Bindings>
+          <!-- Optional? -->
+          <Icon>fa-book</Icon>
+        </SubScore>
+        <SubScore code="SOCK_2" name="Problem Solving &amp; Modeling / Data Analysis">
+          <Bindings>
+            <Binding claimCode="2"></Binding>
+            <Binding claimCode="4"></Binding>
+          </Bindings>
+          <Icon>fa-edit</Icon>
+        </SubScore>
+        <SubScore code="3" name="Communicating Reasoning">
+          <Bindings>
+            <Binding claimCode="3"></Binding>
+          </Bindings>
+          <Icon>fa-question</Icon>
+        </SubScore>
+      </SubScores>
+    </AssessmentType>
+    <AssessmentType code="sum">
+      <PerformanceLevels>
+        <PerformanceLevel level="1" name="Did Not Meet Standard"/>
+        <PerformanceLevel level="2" name="Nearly Met Standard"/>
+        <PerformanceLevel level="3" name="Met Standard" rollup="true"/>
+        <PerformanceLevel level="4" name="Exceeded Standard"/>
+      </PerformanceLevels>
+      <SubScorePerformanceLevels>
+        <PerformanceLevel level="1" name="Below Standard"/>
+        <PerformanceLevel level="2" name="Near Standard"/>
+        <PerformanceLevel level="3" name="Above Standard"/>
+      </SubScorePerformanceLevels>
+      <SubScores>
+        <SubScore code="1" name="Concepts &amp; Procedures">
+          <!-- Optional? -->
+          <Icon>fa-book</Icon>
+          <TertiaryScores>
+            <TertiaryScore code="A" name="My target X"></TertiaryScore>
+            <TertiaryScore code="A-1" name="My target X"></TertiaryScore>
+            <TertiaryScore code="A-2" name="My target X"></TertiaryScore>
+          </TertiaryScores>
+        </SubScore>
+        <SubScore code="SOCK_2" name="Problem Solving &amp; Modeling / Data Analysis">
+          <Icon>fa-edit</Icon>
+        </SubScore>
+        <SubScore code="3" name="Communicating Reasoning">
+          <Icon>fa-question</Icon>
+        </SubScore>
+      </SubScores>
+    </AssessmentType>
+  </AssessmentTypes>
+  <Reports>
+    <ReportGrade code="03">
+      <ReportOverallAchievement>{0} took a Smarter Balanced assessment based on the grade three California academic standards for mathematics and received an overall score that ranges from about 2000 to 3000. This overall score falls into one of the four achievement levels shown here. Sample test items may be included that exemplify the kinds of passages and questions that students at different levels of achievement would likely answer correctly.</ReportOverallAchievement>
+      <ReportPerformanceLevels>
+        <ReportPerformanceLevel level="1">{0} did not meet the grade three standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.</ReportPerformanceLevel>
+        <ReportPerformanceLevel level="2">{0} nearly met the grade three standard for mathematics needed for likely success in future coursework. Please discuss with {0}''s teacher(s) ways to help {0} improve.</ReportPerformanceLevel>
+        <ReportPerformanceLevel level="3">{0} has made progress and met the grade three standard for mathematics. {0} appears ready for future coursework.</ReportPerformanceLevel>
+        <ReportPerformanceLevel level="4">{0} has made progress and exceeded the grade three standard for mathematics. {0} appears ready for future coursework.</ReportPerformanceLevel>
+      </ReportPerformanceLevels>
+      <ReportClaims>
+        <ReportClaim code="1">
+          <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to explain and apply mathematical concepts, or the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
+          <ReportPerformanceLevel level="2">{0} demonstrates some ability to explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
+          <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to consistently explain and apply mathematical concepts, and the ability to interpret and carry out mathematical procedures with ease and accuracy.</ReportPerformanceLevel>
+        </ReportClaim>
+        <ReportClaim code="SOCK_2">
+          <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to solve a variety of mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} does not yet demonstrate the ability to analyze real-world problems, or build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
+          <ReportPerformanceLevel level="2">{0} demonstrates some ability to solve well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates some ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
+          <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to consistently solve a variety of well-posed mathematics problems by applying his or her knowledge of problem-solving skills and strategies. {0} also demonstrates a strong ability to analyze real-world problems, and can build and use mathematical models to interpret and solve problems.</ReportPerformanceLevel>
+        </ReportClaim>
+        <ReportClaim code="3">
+          <ReportPerformanceLevel level="1">{0} does not yet demonstrate the ability to put together valid arguments to support his or her own mathematical thinking or to critique the reasoning of others.</ReportPerformanceLevel>
+          <ReportPerformanceLevel level="2">{0} demonstrates some ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.</ReportPerformanceLevel>
+          <ReportPerformanceLevel level="3">{0} demonstrates a thorough ability to clearly and precisely put together valid arguments to support his or her own mathematical thinking and to critique the reasoning of others.</ReportPerformanceLevel>
+        </ReportClaim>
+      </ReportClaims>
+    </ReportGrade>
+  </Reports>
+  <ItemClaims>
+    <ItemClaim code="1" name="Concepts and Procedures">
+      <!-- Optional? -->
+      <Description>Concepts and Procedures - Students can explain and apply mathematical concepts and interpret and carry out mathematical procedures with precision and fluency.</Description>
+      <!-- Optional? -->
+      <Targets>
+        <!-- NOTE: Dropping target "code" since it is unused by the system and is always contained in naturalId -->
+        <Target id="A-APR|F">
+          <!-- Optional? -->
+          <Description>Algebra: Perform arithmetic operations on polynomials.</Description>
+        </Target>
+        <Target id="A-APR|X">
+          <Description>Algebra: Understand the relationship between zeros and factors of polynomials.</Description>
+        </Target>
+        <Target id="A-APR|XX">
+          <Description>Algebra: Use polynomial identities to solve problems.</Description>
+        </Target>
+        <Target id="A-APR|XXX">
+          <Description>Algebra: Rewrite rational expressions.</Description>
+        </Target>
+        <Target id="A-CED|G">
+          <Description>Algebra: Create equations that describe numbers or relationships</Description>
+        </Target>
+        <Target id="A-REI|H">
+          <Description>Algebra: Understand solving equations as a process of reasoning and explain the reasoning.</Description>
+        </Target>
+        <Target id="A-REI|I">
+          <Description>Algebra: Solve equations and inequalities in one variable.</Description>
+        </Target>
+        <Target id="A-REI|J">
+          <Description>Algebra: Represent and solve equations and inequalities graphically.</Description>
+        </Target>
+        <Target id="A-REI|X">
+          <Description>Algebra: Solve systems of equations.</Description>
+        </Target>
+        <Target id="A-SSE|D">
+          <Description>Algebra: Interpret the structure of expressions.</Description>
+        </Target>
+        <Target id="A-SSE|E">
+          <Description>Algebra: Write expressions in equivalent forms to solve problems.</Description>
+        </Target>
+        <Target id="CC|A-KG">
+          <Description>Know number names and the count sequence</Description>
+        </Target>
+        <Target id="CC|B-KG">
+          <Description>Count to tell the number of objects.</Description>
+        </Target>
+        <Target id="CC|C-KG">
+          <Description>Compare Numbers</Description>
+        </Target>
+        <Target id="EE|B-8">
+          <Description>Work with radicals and integer exponents.</Description>
+        </Target>
+        <Target id="EE|C-7">
+          <Description>Use properties of operations to generate equivalent expressions.</Description>
+        </Target>
+        <Target id="EE|C-8">
+          <Description>Understand the connections between proportional relationships, lines, and linear equations.</Description>
+        </Target>
+        <Target id="EE|D-7">
+          <Description>Solve real-life and mathematical problems using numerical and algebraic expressions and equations.</Description>
+        </Target>
+        <Target id="EE|D-8">
+          <Description>Analyze and solve linear equations and pairs of simultaneous linear equations.</Description>
+        </Target>
+        <Target id="EE|E-6">
+          <Description>Apply and extend previous understandings of arithmetic to algebraic expressions.</Description>
+        </Target>
+        <Target id="EE|F-6">
+          <Description>Reason about and solve one-variable equations and inequalities.</Description>
+        </Target>
+        <Target id="EE|G-6">
+          <Description>Represent and analyze quantitative relationships between dependent and independent variables.</Description>
+        </Target>
+        <Target id="F-BF|N">
+          <Description>Functions: Build a function that models a relationship between two quantities.</Description>
+        </Target>
+        <Target id="F-BF|X">
+          <Description>Functions: Build new functions from existing functions.</Description>
+        </Target>
+      </Targets>
+    </ItemClaim>
+    <ItemClaim code="2" name="Problem Solving">
+      <Description>Problem Solving - Students can solve a range of complex well-posed problems in pure and applied mathematics, making productive use of knowledge and problem solving strategies.</Description>
+    </ItemClaim>
+    <ItemClaim code="3" name="Communicating Reasoning">
+      <Description>Communicating Reasoning - Students can clearly and precisely construct viable arguments to support their own reasoning and to critique the reasoning of others.</Description>
+    </ItemClaim>
+    <ItemClaim code="4" name="Modeling and Data Analysis">
+      <Description>Modeling and Data Analysis - Students can analyze complex, real-world scenarios and can construct and use mathematical models to interpret and solve problems.</Description>
+    </ItemClaim>
+  </ItemClaims>
+</Subject>
