@@ -22,8 +22,8 @@ export class EmbargoTable implements OnInit {
   @Output()
   toggle: EventEmitter<EmbargoToggleEvent> = new EventEmitter<EmbargoToggleEvent>();
 
-  // TODO later this will be provided by a service and will be the actual subject codes: ELA, Math
-  subjectCodes: string[] = [ 'ELA', 'Math' ];
+  // TODO:ConfigurableSubjects later this will be provided by a service and will be the actual subject codes: ELA, Math
+  subjectCodes: string[] = [ 'Math', 'ELA' ];
   columns: Column[];
 
   get hasMultipleEmbargoes(): boolean {
@@ -31,7 +31,7 @@ export class EmbargoTable implements OnInit {
   }
 
   get overridingEmbargoReleasedIndividual(): boolean {
-    return this.overridingEmbargo && !this.overridingEmbargo.individualEnabled
+    return this.overridingEmbargo && !this.overridingEmbargo.individualEnabled;
   }
 
   get overridingEmbargoReleasedAggregate(): boolean {

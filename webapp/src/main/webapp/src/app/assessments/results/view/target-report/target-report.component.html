@@ -144,6 +144,7 @@
           <div *ngSwitchCase="'standard-met-relative-residual-level'" class="text-center">
 
             <!-- pick the label color -->
+            <!-- TODO:ConfigurableSubjects hardcoded performance level codes/colors -->
             <span [ngSwitch]="getTargetReportingLevelString(rowData.standardMetRelativeLevel)">
               <span *ngSwitchCase="'Above'"
                     class="label label-lg sb-iab-green">

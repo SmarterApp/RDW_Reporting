@@ -152,8 +152,7 @@ export class AggregateReportTableDataService {
                 .find(subject => true);
 
               return claims
-                // do not filter on assessment type
-                .filter(claim => claim.subject === subjectCode)
+                .filter(claim => claim.subject === subjectCode && claim.assessmentType == assessmentTypeCode)
                 .map(claim => <any>{
                   subjectCode: subjectCode,
                   claimCode: claim.code
@@ -173,8 +172,6 @@ export class AggregateReportTableDataService {
           }, {
             getValues: (context) => [ {
               claimCode: 'A'
-            }, {
-              claimCode: 'B'
             } ]
           }, {
             getValues: (context) => [ {
@@ -193,10 +190,6 @@ export class AggregateReportTableDataService {
               targetNaturalId: 'D',
               studentRelativeResidualScoresLevel: 'InsufficientData',
               standardMetRelativeResidualLevel: 'InsufficientData'
-            }, {
-              targetNaturalId: 'E',
-              studentRelativeResidualScoresLevel: 'Excluded',
-              standardMetRelativeResidualLevel: 'Excluded'
             } ]
           });
     }

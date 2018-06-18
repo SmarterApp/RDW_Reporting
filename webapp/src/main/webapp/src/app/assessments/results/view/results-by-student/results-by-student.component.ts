@@ -46,6 +46,7 @@ export class ResultsByStudentComponent implements OnInit {
   hasTransferStudent: boolean = false;
 
   get performanceLevelHeader() {
+    // TODO why not just `common.results.assessment-exam-columns.${assessment.type}.performance`
     return 'common.results.assessment-exam-columns.' +
       (this.assessment.isIab ? 'iab' : 'ica') + '.performance';
   }

@@ -125,6 +125,7 @@
       "report-type-heading": "Report Type",
       "review-heading": "Report Review",
       "preview-heading": "Report Preview",
+      "preview-heading-subtext": "Select the Generate Report button to view the actual report.",
       "custom-subgroup": {
         "heading": "Custom Subgroups",
         "description": "Create multiple custom subgroups by selecting a combination of attributes below and clicking \"Create Subgroup.\" Each custom subgroup will represent a row in your report. The Report Preview section below shows how it will look.",
@@ -1323,7 +1324,7 @@
   },
   "results-by-student": {
     "assessment-exams-empty-message": "No test results are available for the sessions and advanced filters selected.",
-    "create-single-prepopulated-report": "Create {{name}}'s {{schoolYear}} {{subject}} {{assessmentType}} Report"
+    "create-single-prepopulated-report": "Create {{name}}'s {{schoolYear}} {{subject}} {{assessmentType}} Printable Report"
   },
   "sample-aggregate-table-data-service": {
     "assessment-label": "Assessment 1",
@@ -1372,10 +1373,9 @@
     "title": "Student's Responses"
   },
   "student-results": {
-    "create-report": "Create {{firstName}}'s Report",
+    "create-report": "Create {{firstName}}'s Printable Report",
     "crumb": "Student: {{lastName}}, {{firstName}}",
     "empty-filtered-results-message": "No test results are available for the filters selected.",
-    "student-button-label": "Student Report",
     "title": "Student Test History Report"
   },
   "target-report": {

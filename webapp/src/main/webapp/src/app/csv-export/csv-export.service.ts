@@ -48,6 +48,7 @@ export class CsvExportService {
     let getAssessment = (item) => item.assessment;
     let getIABExam = (item) => item.assessment.isIab ? item.exam : null;
     let getNonIABExam = (item) => item.assessment.isIab ? null: item.exam;
+    // TODO:ConfigurableSubjects needs to support configurable subjects
     let getNonIABMathExam = (item) => !item.assessment.isIab && item.assessment.subject === 'MATH' ? item.exam : null;
     let getNonIABElaExam = (item) => !item.assessment.isIab && item.assessment.subject === 'ELA' ? item.exam : null;
 
@@ -86,6 +87,7 @@ export class CsvExportService {
     let getAssessment = (wrapper: StudentHistoryExamWrapper) => wrapper.assessment;
     let getIABExam = (wrapper: StudentHistoryExamWrapper) => wrapper.assessment.isIab ? wrapper.exam : null;
     let getNonIABExam = (wrapper: StudentHistoryExamWrapper) => wrapper.assessment.isIab ? null: wrapper.exam;
+    // TODO:ConfigurableSubjects needs to support configurable subjects
     let getNonIABMathExam = (wrapper: StudentHistoryExamWrapper) => !wrapper.assessment.isIab && wrapper.assessment.subject === 'Math' ? wrapper.exam : null;
     let getNonIABElaExam = (wrapper: StudentHistoryExamWrapper) => !wrapper.assessment.isIab && wrapper.assessment.subject === 'ELA' ? wrapper.exam : null;
 

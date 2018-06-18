@@ -30,6 +30,7 @@ const SchoolYearOrdering: Ordering<AggregateReportItem> = ordering(byNumber)
 const AssessmentLabelOrdering: Ordering<AggregateReportItem> = ordering(byString)
   .on(item => item.assessmentLabel);
 
+// TODO:ConfigurableSubjects this needs to be provided by the backend
 const OrganizationalClaimOrderingProvider: (subjectCode: string, preview: boolean) => Ordering<AggregateReportItem> = (subjectCode, preview) => {
   const currentOrdering: Ordering<string> = !preview && SubjectClaimOrderings.has(subjectCode)
     ? SubjectClaimOrderings.get(subjectCode)

@@ -9,6 +9,7 @@ import { InstructionalResource } from '../../../assessments/model/instructional-
 import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
+import { StudentResultsFilterService } from '../student-results-filter.service';
 
 @Component({
   selector: 'student-history-table',
@@ -43,15 +44,37 @@ export class StudentHistoryTableComponent implements OnInit {
 
   constructor(private actionBuilder: MenuActionBuilder,
               private instructionalResourcesService: InstructionalResourcesService,
-              private translateService: TranslateService) {
-    this.createColumns();
+              private translateService: TranslateService,
+              private studentResultsFilterService: StudentResultsFilterService) {
   }
 
   ngOnInit(): void {
+    this.studentResultsFilterService.filterChange.subscribe(() => {
+      delete this.selectedCardRowIndex;
+    });
+    this.columns = [
+      new Column({ id: 'date', field: 'exam.date' }),
+      new Column({ id: 'assessment', field: 'assessment.label' }),
+      new Column({ id: 'school-year', field: 'exam.schoolYear' }),
+      new Column({ id: 'school', field: 'exam.school.name' }),
+      new Column({ id: 'enrolled-grade', field: 'exam.enrolledGrade' }),
+      new Column({ id: 'status', commonHeader: true, field: 'exam.administrativeCondition', overall: true }),
+      new Column({ id: 'performance', field: 'exam.level', overall: true }),
+      new Column({ id: 'score', commonHeader: true, field: 'exam.score', overall: true }),
+      ...this.getClaimColumns()
+    ];
   }
 
   get exams(): StudentHistoryExamWrapper[] {
     return this._exams;
+  }
+
+  @Input()
+  set exams(exams: StudentHistoryExamWrapper[]) {
+    this._exams = exams;
+    this.originalExams = Array.from(exams);
+    this.studentHistoryCards = this.getLatestStudentHistoryCards();
+    this.rows = _.chunk(this.studentHistoryCards, this.itemsPerRow);
   }
 
   /**
@@ -83,29 +106,7 @@ export class StudentHistoryTableComponent implements OnInit {
     return builder.build();
   }
 
-  createColumns() {
-    this.columns = [
-      new Column({ id: 'date', field: 'exam.date' }),
-      new Column({ id: 'assessment', field: 'assessment.label' }),
-      new Column({ id: 'school-year', field: 'exam.schoolYear' }),
-      new Column({ id: 'school', field: 'exam.school.name' }),
-      new Column({ id: 'enrolled-grade', field: 'exam.enrolledGrade' }),
-      new Column({ id: 'status', commonHeader: true, field: 'exam.administrativeCondition', overall: true }),
-      new Column({ id: 'performance', field: 'exam.level', overall: true }),
-      new Column({ id: 'score', commonHeader: true, field: 'exam.score', overall: true }),
-      ...this.getClaimColumns()
-    ];
-  }
-
-  @Input()
-  set exams(exams: StudentHistoryExamWrapper[]) {
-    this._exams = exams;
-    this.originalExams = Array.from(exams);
-    this.studentHistoryCards = this.getLatestStudentHistoryCards();
-    this.rows = _.chunk(this.studentHistoryCards, this.itemsPerRow);
-  }
-
-  updateSelectedCardRowIndex(): void {
+  private updateSelectedCardRowIndex(): void {
     const selectedCardIndex = this.studentHistoryCards
       .indexOf(this.studentHistoryCards.find(studentHistoryCard => studentHistoryCard.selected));
 
@@ -133,18 +134,16 @@ export class StudentHistoryTableComponent implements OnInit {
     const exam = studentHistoryExam.exam;
     this.instructionalResourcesProvider = () =>
       this.instructionalResourcesService.getInstructionalResources(
-        studentHistoryExam.assessment.id, exam.school.id)
-        .pipe(
-          map(resources => resources.getResourcesByPerformance(exam.level))
-        );
+        studentHistoryExam.assessment.id, exam.school.id).pipe(
+        map(resources => resources.getResourcesByPerformance(exam.level))
+      );
   }
 
   loadAssessmentInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): Observable<InstructionalResource[]> {
     const exam = studentHistoryExam.exam;
-    return this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id)
-      .pipe(
-        map(resources => resources.getResourcesByPerformance(0))
-      );
+    return this.instructionalResourcesService.getInstructionalResources(studentHistoryExam.assessment.id, exam.school.id).pipe(
+      map(resources => resources.getResourcesByPerformance(0))
+    );
   }
 
   getLatestStudentHistoryCards(): StudentHistoryExamWrapper[] {
@@ -152,13 +151,18 @@ export class StudentHistoryTableComponent implements OnInit {
     const assessmentTitles = new Set(this.exams.map(exam => exam.assessment.label));
     assessmentTitles.forEach((title) => {
       // get the most recent exam
-      const examsByTitle = this.exams.filter((exam: StudentHistoryExamWrapper) =>
-        exam.assessment.label === title && exam.exam.date)
+      const examsByTitle = this.exams
+        .filter(exam => exam.assessment.label === title && exam.exam.date)
         .sort((a, b) => a.exam.date >= b.exam.date ? -1 : 1)[ 0 ];
+
       returnExams.push(examsByTitle);
     });
-    // set all to not selected
+
+    // deselect all cards
+    // TODO consider maintaining selected state accross filter application
     returnExams.forEach((exam: StudentHistoryExamWrapper) => exam.selected = false);
+    delete this.selectedCardRowIndex;
+
     return returnExams;
   }
 

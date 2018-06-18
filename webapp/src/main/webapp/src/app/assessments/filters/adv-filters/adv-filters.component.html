@@ -15,13 +15,15 @@
                 title="{{ 'common.filters.test.off-grade-assessment' | translate }}"
                 content="{{ 'common.filters.test.off-grade-assessment-info' | translate }}"></span>
         </label>
-        <sb-radio-button-group id="off-grade-assessment-toggle"
-                               name="off-grade-assessment-toggle"
-                               [(ngModel)]="filterBy.offGradeAssessment"
-                               [options]="[
-                             {value: false, text: 'common.action.show' | translate, analyticsProperties: {label: 'Off-Grade: Show'}},
-                             {value: true, text: 'common.action.hide' | translate, analyticsProperties: {label: 'Off-Grade: Hide'}}
-                           ]"></sb-radio-button-group>
+        <div class="mb-xs">
+          <sb-radio-button-group id="off-grade-assessment-toggle"
+                                 name="off-grade-assessment-toggle"
+                                 [(ngModel)]="filterBy.offGradeAssessment"
+                                 [options]="[
+                               {value: false, text: 'common.action.show' | translate, analyticsProperties: {label: 'Off-Grade: Show'}},
+                               {value: true, text: 'common.action.hide' | translate, analyticsProperties: {label: 'Off-Grade: Hide'}}
+                             ]"></sb-radio-button-group>
+        </div>
       </fieldset>
     </div>
     <!-- Transfer Assessments -->
@@ -32,13 +34,15 @@
                 title="{{ 'common.filters.test.transfer-assessment' | translate }}"
                 content="{{ 'common.filters.test.transfer-assessment-info' | translate }}"></span>
         </label>
-        <sb-radio-button-group id="transfer-assessment-toggle"
-                               name="transfer-assessment-toggle"
-                               [(ngModel)]="filterBy.transferAssessment"
-                               [options]="[
-                             {value: false, text: 'common.action.show' | translate, analyticsProperties: {label: 'Transfer-Assessment: Show'}},
-                             {value: true, text: 'common.action.hide' | translate, analyticsProperties: {label: 'Transfer-Assessment: Hide'}}
-                           ]"></sb-radio-button-group>
+        <div class="mb-xs">
+          <sb-radio-button-group id="transfer-assessment-toggle"
+                                 name="transfer-assessment-toggle"
+                                 [(ngModel)]="filterBy.transferAssessment"
+                                 [options]="[
+                               {value: false, text: 'common.action.show' | translate, analyticsProperties: {label: 'Transfer-Assessment: Show'}},
+                               {value: true, text: 'common.action.hide' | translate, analyticsProperties: {label: 'Transfer-Assessment: Hide'}}
+                             ]"></sb-radio-button-group>
+        </div>
       </fieldset>
     </div>
   </div>

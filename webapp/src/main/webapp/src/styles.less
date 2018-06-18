@@ -982,6 +982,33 @@ a.btn.disabled.with-pointer {
   pointer-events: auto;
 }
 
+sb-button-group,
+sb-checkbox-group {
+  .btn {
+    &:focus-within {
+      .tab-focus();
+    }
+  }
+}
+
+sb-radio-button-group .btn-group {
+  &:focus-within {
+    .tab-focus();
+  }
+}
+
+// Make the div behave like a button
+.btn-group,
+.btn-group-vertical {
+  > .btn {
+    // Bring the "focused" button to the front
+    &:focus,
+    &:focus-within {
+      z-index: 3;
+    }
+  }
+}
+
 //TODO move to SBAC UI kit
 distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
   color: contrast(@green, darken(@green, 100%), lighten(@green, 100%));
@@ -1600,4 +1627,15 @@ user-group {
 
 tr.highlight {
   background-color: lighten(@yellow, 45%) !important;
+}
+
+.top-sticky {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+.iab-dashboard-filters {
+  background-color: @gray-lightest;
 }

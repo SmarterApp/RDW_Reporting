@@ -35,7 +35,7 @@ describe('GroupResultsComponent', () => {
       permissions: []
     };
     const groups = [
-      { name: 'Group 1', id: 2, schoolName: '', schoolId: 123, subjectCode: 'ELA' }
+      { name: 'Group 1', id: 2, schoolName: '', schoolId: 123, subjectCode: 'ELA', userCreated: false }
     ];
 
     const mockGroupService = {

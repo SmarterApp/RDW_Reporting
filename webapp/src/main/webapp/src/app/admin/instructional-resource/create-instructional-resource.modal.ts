@@ -161,6 +161,7 @@ export class CreateInstructionalResourceModal implements OnDestroy {
     });
   }
 
+  // TODO:ConfigurableSubjects deliver from backend
   private getPerformanceLevels(assessmentType: string): number[] {
     return assessmentType === 'iab' ? [ 1, 2, 3 ] : [ 1, 2, 3, 4 ];
   }

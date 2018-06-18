@@ -31,6 +31,7 @@ export class Assessment {
     return this.type === 'sum';
   }
 
+  // TODO:ConfigurableSubjects we need to change from using Assessment.isELA to AssessmentAndSubject.isXYZSupported
   get isEla(): boolean {
     return this.subject === 'ELA';
   }

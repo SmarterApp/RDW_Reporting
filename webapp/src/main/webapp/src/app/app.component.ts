@@ -67,6 +67,12 @@ export class AppComponent {
     this.initializeNavigationLoadingSpinner();
   }
 
+  scrollToMainContent() {
+    setTimeout(() => {
+      document.getElementById('maincontent').scrollIntoView();
+    }, 0);
+  }
+
   private initializeAnalytics(trackingId: string): void {
     const googleAnalyticsProvider: Function = window[ 'ga' ];
     if (googleAnalyticsProvider && trackingId) {

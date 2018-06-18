@@ -40,7 +40,7 @@ describe('GroupDashboardComponent', () => {
 
   it('should respect card view enabled property',
     inject([ GroupDashboardComponent ], (builder: GroupDashboardComponent) => {
-      expect(builder.cardViewEnabled).toBeFalsy();
+      expect(builder.viewAssessmentsButtonEnabled).toBeFalsy();
     }));
 });
 

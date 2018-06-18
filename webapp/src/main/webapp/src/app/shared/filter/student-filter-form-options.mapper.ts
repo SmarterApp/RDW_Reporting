@@ -30,7 +30,7 @@ export class StudentFilterFormOptionsMapper {
         value => `English Language Acquisition Status: ${value}`
       )),
       individualEducationPlans: options.individualEducationPlans.map(optionMapper(
-        value => translate(`common.strict-boolean.${value}`),
+        value => translate(`common.boolean.${value}`),
         value => `Individual Education Plan: ${value}`
       )),
       limitedEnglishProficiencies: options.limitedEnglishProficiencies.map(optionMapper(
