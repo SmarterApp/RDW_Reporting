@@ -18,8 +18,10 @@ permissionservice:
 
 reporting:
   analytics-tracking-id: ${rdw.reporting.analytics.trackingId:}
+  access-denied-url:
   interpretive-guide-url: https://portal.smarterbalanced.org/library/en/reporting-system-interpretive-guide.pdf
   iris-vendor-id: ${rdw.reporting.iris.vendorId}
+  landing-page-url:
   min-item-data-year: 2016
   school-year: 2018
   state:
