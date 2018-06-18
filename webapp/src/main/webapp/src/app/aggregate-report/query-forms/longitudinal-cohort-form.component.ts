@@ -81,7 +81,6 @@ export class LongitudinalCohortFormComponent extends MultiOrganizationQueryFormC
         this.settings.longitudinalCohort.assessmentGrades, [
           isGreaterThan(1, { messageId: 'aggregate-report-form.field.assessment-grades-less-than-minimum-error' }),
           withinBounds(this.settings.longitudinalCohort.toSchoolYear,
-            this.settings.longitudinalCohort.assessmentGrades,
             this.lowestAvailableSchoolYear,
             { messageId: 'aggregate-report-form.field.assessment-grades-exceed-available-school-years-error' })
         ]

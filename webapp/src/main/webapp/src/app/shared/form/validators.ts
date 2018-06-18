@@ -48,11 +48,10 @@ export function isGreaterThan(greaterThanNumber: number, properties: any): Valid
  * @returns {ValidatorFn}
  */
 export function withinBounds(toSchoolYear: number,
-                             assessmentGrades: string[],
                              lowestAvailableSchoolYear: number,
                              properties: any): ValidatorFn {
   return control => {
-    const effectiveSchoolYears = computeEffectiveYears(toSchoolYear, assessmentGrades);
+    const effectiveSchoolYears = computeEffectiveYears(toSchoolYear, control.value);
     if (lowestAvailableSchoolYear > Math.min(...effectiveSchoolYears)) {
       return { withinBounds: properties };
     }
