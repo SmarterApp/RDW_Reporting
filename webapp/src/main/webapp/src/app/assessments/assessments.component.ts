@@ -18,6 +18,7 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Utils } from '../shared/support/support';
 import { Exam } from './model/exam.model';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 
 /**
  * This component encompasses all the functionality for displaying and filtering
@@ -184,6 +185,7 @@ export class AssessmentsComponent implements OnInit {
   private _showOnlyMostRecent = true;
   private _assessmentExams: AssessmentExam[];
   private _isAllSelected = false;
+  private _allAvailableAssessments: Assessment[];
 
   constructor(public colorService: ColorService,
               private route: ActivatedRoute,
@@ -210,10 +212,12 @@ export class AssessmentsComponent implements OnInit {
       this.showOnlyMostRecent = true;
       this.loadingInitialResults = false;
     } else {
-      this.assessmentProvider.getAvailableAssessments().subscribe((availableAssessment) => {
+      this.assessmentProvider.getAvailableAssessments().subscribe((availableAssessments) => {
+        this._allAvailableAssessments = availableAssessments;
+
         const loadingObservables: Observable<Exam[]>[] = [];
 
-        const preselectedAssessments = availableAssessment.filter((assessment) => assessmentIds.split(',').indexOf(assessment.id.toString()) >= 0);
+        const preselectedAssessments = availableAssessments.filter((assessment) => assessmentIds.split(',').indexOf(assessment.id.toString()) >= 0);
         preselectedAssessments.forEach((assessment) => {
           assessment.selected = true;
           loadingObservables.push(this.loadAssessmentExam(assessment));
@@ -351,9 +355,13 @@ export class AssessmentsComponent implements OnInit {
 
   private getAvailableAssessments() {
     if (this._expandAssessments) {
-      const observable = this.assessmentProvider.getAvailableAssessments().pipe(share());
+      const observable = this._allAvailableAssessments != null && this._allAvailableAssessments.length != 0
+        ? of(this._allAvailableAssessments)
+        : this.assessmentProvider.getAvailableAssessments().pipe(share());
 
       observable.subscribe(result => {
+        this._allAvailableAssessments = result;
+
         // TODO fix this so that we don't need an Array.map callback with side-effects
         this.availableAssessments = result.map(available => {
           available.selected = this._assessmentExams.some(assessmentExam => assessmentExam.assessment.id == available.id);

@@ -29,7 +29,7 @@
             [innerHTML]="'assessment-card.student-count' | translate: {studentsTested: measuredAssessment.studentsTested, groupCount: group.totalStudents }"></span>
   </div>
   <div class="aggregate-graph row">
-    <!-- TODO: custom subjects need to dynamically pull performance levels for the current assessment type -->
+    <!-- TODO:ConfigurableSubjects custom subjects need to dynamically pull performance levels for the current assessment type -->
     <div class="perc-container col-xs-4"
          *ngFor="let i of [1, 2, 3]">
       <div class="bar">

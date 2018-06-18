@@ -152,8 +152,7 @@ export class AggregateReportTableDataService {
                 .find(subject => true);
 
               return claims
-                // do not filter on assessment type
-                .filter(claim => claim.subject === subjectCode)
+                .filter(claim => claim.subject === subjectCode && claim.assessmentType == assessmentTypeCode)
                 .map(claim => <any>{
                   subjectCode: subjectCode,
                   claimCode: claim.code

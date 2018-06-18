@@ -1379,7 +1379,6 @@
     "create-report": "Create {{firstName}}'s Printable Report",
     "crumb": "Student: {{lastName}}, {{firstName}}",
     "empty-filtered-results-message": "No test results are available for the filters selected.",
-    "student-button-label": "Student Report",
     "title": "Student Test History Report"
   },
   "target-report": {

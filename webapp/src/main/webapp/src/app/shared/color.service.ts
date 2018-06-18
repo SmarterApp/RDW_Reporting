@@ -50,6 +50,7 @@ export class ColorService {
    * @param {number} performanceLevel (1-based)
    * @returns {string} the class of the color
    */
+  // TODO:ConfigurableSubjects drive through subject service
   getPerformanceLevelColorsByAssessmentTypeCode(code: string, performanceLevel: number): string {
     return PerformanceLevelColorsByAssessmentTypeCode.get(code)[ performanceLevel - 1 ];
   }
@@ -61,6 +62,7 @@ export class ColorService {
    * @param {number} performanceLevel (1-based)
    * @returns {string} the class of the color
    */
+  // TODO:ConfigurableSubjects drive through subject service
   getPerformanceLevelColorsByNumberOfPerformanceLevels(levels: number, performanceLevel: number): string {
     return PerformanceLevelColorsNumberOfPerformanceLevels.get(levels)[ performanceLevel - 1 ];
   }

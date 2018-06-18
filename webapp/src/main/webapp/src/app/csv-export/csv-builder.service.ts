@@ -258,10 +258,12 @@ export class CsvBuilder {
     );
   }
 
+  // TODO:ConfigurableSubjects needs to support configurable subjects
   withMathClaimScores(getExam: (item: any) => Exam) {
     return this.withClaimScores([ '1', 'SOCK_2', '3' ], getExam);
   }
 
+  // TODO:ConfigurableSubjects needs to support configurable subjects
   withELAClaimScores(getExam: (item: any) => Exam) {
     return this.withClaimScores([ 'SOCK_R', 'SOCK_LS', '2-W', '4-CR' ], getExam);
   }

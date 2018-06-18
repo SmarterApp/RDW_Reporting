@@ -147,6 +147,7 @@
             {{rowData.studentsTested}}
           </div>
 
+          <!-- TODO:ConfigurableSubjects do all claims have 3 levels? -->
           <div *ngSwitchCase="'achievementComparison'">
             <performance-level-distribution-chart
               [percentages]="rowData.performanceLevelByDisplayTypes.Separate.Percent"
@@ -214,6 +215,7 @@
             <span *ngIf="!rowData.studentsTested">{{ "common.missing" | translate }}</span>
             <ng-container *ngIf="rowData.studentsTested">
               <!-- pick the label color -->
+              <!-- TODO:ConfigurableSubjects hardcoded performance level codes/colors? -->
               <span [ngSwitch]="rowData.standardMetRelativeResidualLevel">
                 <span *ngSwitchCase="'Above'"
                       class="label label-lg performance-label sb-iab-green">

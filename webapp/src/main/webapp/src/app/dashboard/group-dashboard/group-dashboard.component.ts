@@ -34,6 +34,7 @@ export class GroupDashboardComponent implements OnInit {
   rows: MeasuredAssessment[][] = [];
 
   private selectedAssessments: MeasuredAssessment[] = [];
+  private _previousRouteParameters: any;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -63,12 +64,14 @@ export class GroupDashboardComponent implements OnInit {
     this.route.params.pipe(
       mergeMap(parameters => {
         const { groupId, userGroupId, schoolYear } = parameters;
-        const { params: currentParameters } = this.route.snapshot;
+        const previousParameters = this._previousRouteParameters;
 
-        const reload = this.group == null
-          || currentParameters.schoolYear != schoolYear
-          || (currentParameters.groupId != null && currentParameters.groupId != groupId)
-          || (currentParameters.userGroupId != null && currentParameters.userGroupId != userGroupId);
+        const reload = previousParameters == null
+          || previousParameters.schoolYear != schoolYear
+          || (previousParameters.groupId != null && previousParameters.groupId != groupId)
+          || (previousParameters.userGroupId != null && previousParameters.userGroupId != userGroupId);
+
+        this._previousRouteParameters = parameters;
 
         // exit early if we don't need to re fetch the assessment data
         if (!reload) {
@@ -142,6 +145,8 @@ export class GroupDashboardComponent implements OnInit {
     });
     if (subject) {
       parameters.subject = subject;
+    } else {
+      delete parameters.subject;
     }
     if (group) {
       if (group.userCreated) {

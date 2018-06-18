@@ -82,6 +82,7 @@
       <sb-button-group [options]="optionsInternal.individualEducationPlans"
                        [(ngModel)]="value.individualEducationPlans"
                        (ngModelChange)="onChange()"
+                       [vertical]="true"
                        allOptionReturnsUndefined="true"
                        analyticsEvent="FilterClick"
                        analyticsCategory="AdvancedFilters"></sb-button-group>
