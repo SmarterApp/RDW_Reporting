@@ -5,13 +5,8 @@ import { Assessment } from '../app/assessments/model/assessment.model';
 import { AssessmentProvider } from '../app/assessments/assessment-provider.interface';
 import { of } from 'rxjs/observable/of';
 import { TargetScoreExam } from '../app/assessments/model/target-score-exam.model';
-import { AssessmentExam } from '../app/assessments/model/assessment-exam.model';
 
 export class MockAssessmentProvider implements AssessmentProvider {
-
-  getMostRecentAssessment(): Observable<AssessmentExam> {
-    return null;
-  }
 
   getAvailableAssessments(): Observable<Assessment[]> {
     return of([]);

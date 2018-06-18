@@ -10,7 +10,6 @@ import { AssessmentExam } from './model/assessment-exam.model';
  */
 export interface AssessmentProvider {
 
-  getMostRecentAssessment(orgId?: number, gradeId?: number, schoolYear?: number): Observable<AssessmentExam>;
   getAvailableAssessments(): Observable<Assessment[]>;
   getExams(assessmentId: number): Observable<Exam[]>;
   getAssessmentItems(assessmentId: number, itemTypes?: string[]): Observable<AssessmentItem[]>;

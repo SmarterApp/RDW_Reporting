@@ -4,7 +4,6 @@ import { AssessmentItem } from '../../assessments/model/assessment-item.model';
 import { Exam } from '../../assessments/model/exam.model';
 import { GroupAssessmentService, Search } from './group-assessment.service';
 import { Assessment } from '../../assessments/model/assessment.model';
-import { AssessmentExam } from '../../assessments/model/assessment-exam.model';
 
 export interface StateProvider {
   group: { id, schoolId? };
@@ -17,32 +16,24 @@ export class GroupAssessmentProvider implements AssessmentProvider {
               private stateProvider: StateProvider) {
   }
 
-  getMostRecentAssessment(): Observable<AssessmentExam> {
-    const { group, schoolYear } = this.stateProvider;
-    return this.service.getMostRecentAssessment(<Search>{
-      groupId: group.id,
-      schoolYear: schoolYear
-    });
-  }
-
   getAssessmentItems(assessmentId: number, types?: string[]): Observable<AssessmentItem[]> {
     const { group, schoolYear } = this.stateProvider;
-    return this.service.getAssessmentItems(this.addGroup({schoolYear, assessmentId, types}, group));
+    return this.service.getAssessmentItems(this.addGroup({ schoolYear, assessmentId, types }, group));
   }
 
   getAvailableAssessments(): Observable<Assessment[]> {
     const { group, schoolYear } = this.stateProvider;
-    return this.service.getAvailableAssessments(this.addGroup({schoolYear}, group));
+    return this.service.getAvailableAssessments(this.addGroup({ schoolYear }, group));
   }
 
   getExams(assessmentId: number): Observable<Exam[]> {
     const { group, schoolYear } = this.stateProvider;
-    return this.service.getExams(this.addGroup({schoolYear, assessmentId}, group));
+    return this.service.getExams(this.addGroup({ schoolYear, assessmentId }, group));
   }
 
   getTargetScoreExams(assessmentId: number) {
     const { group, schoolYear } = this.stateProvider;
-    return this.service.getTargetScoreExams(this.addGroup({schoolYear, assessmentId}, group));
+    return this.service.getTargetScoreExams(this.addGroup({ schoolYear, assessmentId }, group));
   }
 
   getSchoolId(): number {

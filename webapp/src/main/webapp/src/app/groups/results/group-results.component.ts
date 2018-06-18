@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExamFilterOptionsService } from '../../assessments/filters/exam-filters/exam-filter-options.service';
-import { GroupAssessmentService } from './group-assessment.service';
+import { GroupAssessmentService, Search } from './group-assessment.service';
 import { Angulartics2 } from 'angulartics2';
 import { CsvExportService } from '../../csv-export/csv-export.service';
 import { Group } from '../group';
@@ -78,7 +78,7 @@ export class GroupResultsComponent implements OnInit, StateProvider {
               private csvExportService: CsvExportService,
               private groupService: GroupService,
               private userGroupService: UserGroupService,
-              assessmentService: GroupAssessmentService,
+              private assessmentService: GroupAssessmentService,
               assessmentExportService: GroupAssessmentExportService,
               translateService: TranslateService) {
 
@@ -119,7 +119,10 @@ export class GroupResultsComponent implements OnInit, StateProvider {
     this.route.data.subscribe(({ assessment }) => {
       this.latestAssessmentExam = assessment;
       if (!this.latestAssessmentExam) {
-        this.assessmentProvider.getMostRecentAssessment().subscribe(
+        this.assessmentService.getMostRecentAssessment(<Search> {
+          groupId: this.group.id,
+          schoolYear: this.schoolYear
+        }).subscribe(
           assessmentExam => {
             this.latestAssessmentExam = assessmentExam;
           });
