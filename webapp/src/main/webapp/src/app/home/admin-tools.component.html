@@ -1,25 +1,59 @@
-<label>{{'home.administrator.title' | translate}}</label>
-<div class="row">
-  <div *hasPermission="'CUSTOM_AGGREGATE_READ'"
-       class="col-xs-4">
-    <a routerLink="/aggregate-reports"
-       class="btn btn-block btn-default">
-      {{'aggregate-report-form.heading' | translate}}
-    </a>
-    <p class="text-muted small">Create some sort of report description.</p>
-  </div>
-  <div *hasPermission="'INDIVIDUAL_PII_READ'"
-       class="col-xs-4">
-    <a routerLink="/custom-export"
-       class="btn btn-block btn-default">
-      <i class="fa fa-bold fa-table"></i>
-      {{'organization-export.title' | translate}}
-    </a>
-    <p class="text-muted small">Export all district or school data.</p>
-  </div>
-  <div *hasAnyPermission="['GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE']"
-       class="col-xs-4">
-    <admin-dropdown buttonStyles="btn-block btn-default"></admin-dropdown>
-    <p class="text-muted small">Manage various parts of the application.</p>
+<div *hasAnyPermission="['CUSTOM_AGGREGATE_READ', 'INDIVIDUAL_PII_READ', 'GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE']"
+class="well admin-tools-well">
+  <div class="row">
+    <div class="col-xs-6">
+      <h3>{{ 'home.administrator.titles.analyze' | translate }}</h3>
+
+      <div class="row">
+        <div *hasPermission="'CUSTOM_AGGREGATE_READ'" class="col-xs-6">
+          <p class="small">{{'home.administrator.custom-aggregate.description' | translate}}</p>
+          <a routerLink="/aggregate-reports"
+             class="btn btn-primary btn-xs">
+            <i class="fa fa-table"></i>
+            {{'home.administrator.custom-aggregate.button' | translate}}
+          </a>
+        </div>
+        <div *hasPermission="'INDIVIDUAL_PII_READ'" class="col-xs-6">
+          <p class="small">{{'home.administrator.organizational-export.description' | translate}}</p>
+          <a routerLink="/custom-export"
+             class="btn btn-primary btn-xs">
+            <i class="fa fa-cloud-download"></i>
+            {{'home.administrator.organizational-export.button' | translate}}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div *hasAnyPermission="['GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE']"
+         class="col-xs-6">
+      <h3>{{ 'home.administrator.titles.manage' | translate }}</h3>
+
+      <div class="row">
+        <div *hasPermission="'GROUP_WRITE'" class="col-xs-6">
+          <p class="small">{{ 'home.administrator.student-groups.description' | translate}}</p>
+          <a routerLink="/admin-groups"
+             class="btn btn-primary btn-xs">
+            <i class="fa fa-edit"></i>
+            {{ 'home.administrator.student-groups.button' | translate}}
+          </a>
+        </div>
+        <div *hasPermission="'INSTRUCTIONAL_RESOURCE_WRITE'" class="col-xs-6">
+          <p class="small">{{ 'home.administrator.instructional-resources.description' | translate}}</p>
+          <a routerLink="/instructional-resource"
+             class="btn btn-primary btn-xs">
+            <i class="fa fa-bold fa-calendar"></i>
+            {{ 'home.administrator.instructional-resources.button' | translate}}
+          </a>
+        </div>
+        <div *hasPermission="'EMBARGO_WRITE'" class="col-xs-6">
+          <p class="small">{{ 'home.administrator.embargo.description' | translate}}</p>
+          <a routerLink="/embargoes"
+             class="btn btn-primary btn-xs">
+            <i class="fa fa-eye-slash"></i>
+            {{ 'home.administrator.embargo.button' | translate}}
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

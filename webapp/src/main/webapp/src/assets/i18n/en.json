@@ -1089,7 +1089,30 @@
   },
   "home": {
     "administrator": {
-      "title": "Administrator Tools"
+      "custom-aggregate": {
+        "button": "Custom Aggregate Report",
+        "description": "Create a customized report of student performance."
+      },
+      "embargo": {
+        "button": "Embargo",
+        "description": "Manage embargoed summative results."
+      },
+      "instructional-resources": {
+        "button": "Instructional Resources",
+        "description": "Upload instructional resources in the system."
+      },
+      "organizational-export": {
+        "button": "District / School Exports",
+        "description": "Export data for analysis in another application."
+      },
+      "student-groups": {
+        "button": "Student Groups",
+        "description": "Create and manage student groups for teachers."
+      },
+      "titles": {
+        "analyze": "Analyze Data",
+        "manage": "Manage"
+      }
     },
     "groups-well": {
       "assigned-groups-heading": "Assigned Groups",

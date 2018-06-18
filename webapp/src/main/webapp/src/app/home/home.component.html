@@ -28,11 +28,7 @@
 
   <!-- Left Column Content Area -->
   <div class="col-md-9">
-
-    <div *hasAnyPermission="['CUSTOM_AGGREGATE_READ', 'INDIVIDUAL_PII_READ', 'GROUP_WRITE', 'INSTRUCTIONAL_RESOURCE_WRITE', 'EMBARGO_WRITE']"
-         class="well">
-      <admin-tools></admin-tools>
-    </div>
+    <admin-tools></admin-tools>
 
     <div *hasPermission="'GROUP_PII_READ'"
          class="well">
