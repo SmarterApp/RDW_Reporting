@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExamFilterOptionsService } from '../../assessments/filters/exam-filters/exam-filter-options.service';
-import { GroupAssessmentService } from './group-assessment.service';
+import { GroupAssessmentService, Search } from './group-assessment.service';
 import { Angulartics2 } from 'angulartics2';
 import { CsvExportService } from '../../csv-export/csv-export.service';
 import { Group } from '../group';
@@ -39,6 +39,7 @@ export class GroupResultsComponent implements OnInit, StateProvider {
 
   private _group: any;
   private _schoolYear: number;
+  latestAssessmentExam: AssessmentExam;
 
   get group(): Group {
     return this._group;
@@ -77,7 +78,7 @@ export class GroupResultsComponent implements OnInit, StateProvider {
               private csvExportService: CsvExportService,
               private groupService: GroupService,
               private userGroupService: UserGroupService,
-              assessmentService: GroupAssessmentService,
+              private assessmentService: GroupAssessmentService,
               assessmentExportService: GroupAssessmentExportService,
               translateService: TranslateService) {
 
@@ -116,7 +117,15 @@ export class GroupResultsComponent implements OnInit, StateProvider {
     // update latest assessment when resolved route data changes
     // this and the resolve could be replaced later by a manual invocation when the route params change
     this.route.data.subscribe(({ assessment }) => {
-      this.updateAssessment(assessment);
+      this.latestAssessmentExam = assessment;
+      if (!this.latestAssessmentExam) {
+        this.assessmentService.getMostRecentAssessment(<Search> {
+          groupId: this.group.id,
+          schoolYear: this.schoolYear
+        }).subscribe(assessmentExam => this.latestAssessmentExam = assessmentExam);
+      } else {
+        this.updateAssessment(assessment);
+      }
     });
   }
 

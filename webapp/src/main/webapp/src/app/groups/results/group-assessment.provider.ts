@@ -18,22 +18,22 @@ export class GroupAssessmentProvider implements AssessmentProvider {
 
   getAssessmentItems(assessmentId: number, types?: string[]): Observable<AssessmentItem[]> {
     const { group, schoolYear } = this.stateProvider;
-    return this.service.getAssessmentItems(this.addGroup({schoolYear, assessmentId, types}, group));
+    return this.service.getAssessmentItems(this.addGroup({ schoolYear, assessmentId, types }, group));
   }
 
   getAvailableAssessments(): Observable<Assessment[]> {
     const { group, schoolYear } = this.stateProvider;
-    return this.service.getAvailableAssessments(this.addGroup({schoolYear}, group));
+    return this.service.getAvailableAssessments(this.addGroup({ schoolYear }, group));
   }
 
   getExams(assessmentId: number): Observable<Exam[]> {
     const { group, schoolYear } = this.stateProvider;
-    return this.service.getExams(this.addGroup({schoolYear, assessmentId}, group));
+    return this.service.getExams(this.addGroup({ schoolYear, assessmentId }, group));
   }
 
   getTargetScoreExams(assessmentId: number) {
     const { group, schoolYear } = this.stateProvider;
-    return this.service.getTargetScoreExams(this.addGroup({schoolYear, assessmentId}, group));
+    return this.service.getTargetScoreExams(this.addGroup({ schoolYear, assessmentId }, group));
   }
 
   getSchoolId(): number {

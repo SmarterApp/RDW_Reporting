@@ -53,6 +53,9 @@ export class AssessmentsComponent implements OnInit {
   @Input()
   assessmentProvider: AssessmentProvider;
 
+  @Input()
+  latestAssessmentExam: AssessmentExam;
+
   /**
    * The provider which implements the AssessmentExporter interface in order
    * to export data.
@@ -142,7 +145,10 @@ export class AssessmentsComponent implements OnInit {
 
     if (value) {
       this.availableAssessments = [];
-      this.updateAssessment(this.route.snapshot.data[ 'assessment' ]);
+      if (!this.latestAssessmentExam) {
+        this.latestAssessmentExam = this.route.snapshot.data[ 'assessment' ];
+      }
+      this.updateAssessment(this.latestAssessmentExam);
     }
   }
 
