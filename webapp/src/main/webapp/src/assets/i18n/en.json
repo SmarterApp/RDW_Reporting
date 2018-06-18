@@ -1088,7 +1088,7 @@
     "view-dashboard": "View IAB Dashboard"
   },
   "home": {
-    "administrator": {
+    "admin-tools": {
       "custom-aggregate": {
         "button": "Custom Aggregate Report",
         "description": "Create a customized report of student performance."
