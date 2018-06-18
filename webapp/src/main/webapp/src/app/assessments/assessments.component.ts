@@ -102,6 +102,7 @@ export class AssessmentsComponent implements OnInit {
   minimumItemDataYear: number;
   exportDisabled = true;
   loadingInitialResults = true;
+  private _latestAssessmentExam: AssessmentExam;
 
   get assessmentExams(): AssessmentExam[] {
     return this._assessmentExams;
@@ -142,7 +143,16 @@ export class AssessmentsComponent implements OnInit {
 
     if (value) {
       this.availableAssessments = [];
-      this.updateAssessment(this.route.snapshot.data[ 'assessment' ]);
+      this._latestAssessmentExam = this.route.snapshot.data[ 'assessment' ];
+      if (!this._latestAssessmentExam) {
+        this.assessmentProvider.getMostRecentAssessment().subscribe(
+          assessmentExam => {
+            this._latestAssessmentExam = assessmentExam;
+            this.updateAssessment(this._latestAssessmentExam);
+          });
+      } else {
+        this.updateAssessment(this._latestAssessmentExam);
+      }
     }
   }
 
@@ -209,7 +219,8 @@ export class AssessmentsComponent implements OnInit {
   ngOnInit() {
     const { assessmentIds } = this.route.snapshot.params;
     if (!assessmentIds) {
-      this.showOnlyMostRecent = true;
+      this._showOnlyMostRecent = true;
+      // this.showOnlyMostRecent = true;
       this.loadingInitialResults = false;
     } else {
       this.assessmentProvider.getAvailableAssessments().subscribe((availableAssessments) => {

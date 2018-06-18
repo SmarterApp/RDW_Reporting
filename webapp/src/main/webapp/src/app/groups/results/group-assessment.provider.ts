@@ -4,6 +4,7 @@ import { AssessmentItem } from '../../assessments/model/assessment-item.model';
 import { Exam } from '../../assessments/model/exam.model';
 import { GroupAssessmentService, Search } from './group-assessment.service';
 import { Assessment } from '../../assessments/model/assessment.model';
+import { AssessmentExam } from '../../assessments/model/assessment-exam.model';
 
 export interface StateProvider {
   group: { id, schoolId? };
@@ -14,6 +15,14 @@ export class GroupAssessmentProvider implements AssessmentProvider {
 
   constructor(private service: GroupAssessmentService,
               private stateProvider: StateProvider) {
+  }
+
+  getMostRecentAssessment(): Observable<AssessmentExam> {
+    const { group, schoolYear } = this.stateProvider;
+    return this.service.getMostRecentAssessment(<Search>{
+      groupId: group.id,
+      schoolYear: schoolYear
+    });
   }
 
   getAssessmentItems(assessmentId: number, types?: string[]): Observable<AssessmentItem[]> {
