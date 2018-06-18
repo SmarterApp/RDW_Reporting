@@ -38,8 +38,8 @@ const OrganizationalClaimOrderingProvider: (subjectCode: string, preview: boolea
   return currentOrdering.on(item => item.claimCode);
 };
 
-const ScorableClaimOrderingProvider: (subjectCode: string, preview: boolean) => Ordering<any> = (subjectCode, preview) => {
-  const currentOrdering: Ordering<string> = !preview && ScorableClaimOrderings.has(subjectCode)
+const ScorableClaimOrderingProvider: (subjectCode: string) => Ordering<any> = (subjectCode) => {
+  const currentOrdering: Ordering<string> = ScorableClaimOrderings.has(subjectCode)
     ? ScorableClaimOrderings.get(subjectCode)
     : ordering(byString);
   return currentOrdering.on(item => item.claimCode);
@@ -343,7 +343,7 @@ export class AggregateReportTableComponent implements OnInit {
     this._orderingByColumnField[ 'claimCode' ] = reportType === AggregateReportType.Target
       ? OrganizationalClaimOrderingProvider(rows[ 0 ].subjectCode, this.preview)
       : ordering(join(...rows.map(row => {
-        return ScorableClaimOrderingProvider(row.subjectCode, this.preview).compare;
+        return ScorableClaimOrderingProvider(row.subjectCode).compare;
       })));
     this._orderingByColumnField[ 'subgroup.id' ] = subgroupOrdering(item => item.subgroup, options);
     this._orderingByColumnField[ 'targetNaturalId' ] = TargetOrdering;
