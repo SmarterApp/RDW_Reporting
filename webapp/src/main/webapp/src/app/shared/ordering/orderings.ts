@@ -20,11 +20,10 @@ export const ScorableClaimOrderings: Map<string, Ordering<string>> = new Map([
   [ 'ELA', ordering(ranking(ScorableClaimOrder.get('ELA'))) ]
 ]);
 
-export const ScorableClaimOrderingProvider: (subjectCode: string, f: (data: any) => string) => Ordering<any> = (subjectCode, f) => {
-  const currentOrdering: Ordering<string> = ScorableClaimOrderings.has(subjectCode)
+export const createScorableClaimOrdering: (subjectCode: string) => Ordering<any> = (subjectCode) => {
+  return ScorableClaimOrderings.has(subjectCode)
     ? ScorableClaimOrderings.get(subjectCode)
     : ordering(byString);
-  return currentOrdering.on(f);
 };
 
 // TODO:ConfigurableSubjects this needs to be provided by the backend

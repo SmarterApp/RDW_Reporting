@@ -19,7 +19,7 @@ import { Utils } from '../../shared/support/support';
 import { AggregateReportFormOptions } from '../aggregate-report-form-options';
 import { Claim } from '../aggregate-report-options.service';
 import { AggregateReportType } from '../aggregate-report-form-settings';
-import { ScorableClaimOrderingProvider } from '../../shared/ordering/orderings';
+import { createScorableClaimOrdering } from '../../shared/ordering/orderings';
 
 @Component({
   selector: 'claim-report-form',
@@ -173,7 +173,7 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
       this.claimsBySubject[ subjectCode ] = this.filteredOptions.claimCodes
         .filter(claim => claim.value.subject === subjectCode
           && claim.value.assessmentType === this.settings.assessmentType)
-        .sort(ScorableClaimOrderingProvider(subjectCode, claim => claim.value.code).compare);
+        .sort(createScorableClaimOrdering(subjectCode).on<any>(claim => claim.value.code).compare);
     });
 
     this.initializeSelectionBySubject();

@@ -26,7 +26,7 @@
 <ng-template #tableTemplate>
 
     <div *ngIf="assessmentType !== 'iab'"
-         class="btn-group btn-group-xs pull-right mb-xs"
+         class="btn-group btn-group-xs mb-xs "
          role="group">
       <button (click)="viewState = 'overall'"
               class="btn btn-default"
@@ -36,7 +36,7 @@
               [ngClass]="{'active': viewState === 'overall'}">
         {{'common.buttons.display-overall' | translate}}
       </button>
-      <button (click)="viewState = 'claim'; createColumns()"
+      <button (click)="viewState = 'claim';"
               class="btn btn-default"
               angulartics2On="click"
               angularticsEvent="ViewClaimScores"

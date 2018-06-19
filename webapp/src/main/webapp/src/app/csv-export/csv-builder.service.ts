@@ -276,17 +276,17 @@ export class CsvBuilder {
       ['SOCK_R', 0], ['SOCK_LS', 1], ['2-W', 2], ['4-CR', 3]
     ]);
 
-    claims.forEach((claim, idx) => {
+    claims.forEach((claim) => {
       this.withColumn(
         this.translateService.instant(`common.subject-claim-code.${claim}`),
         (item) => {
           const exam: Exam = getExam(item);
-          const idx = claimCodeToDatabaseIndex.get(claim);
-          if (!exam || !exam.claimScores[ idx ].level) {
+          const index = claimCodeToDatabaseIndex.get(claim);
+          if (!exam || !exam.claimScores[ index ].level) {
             return '';
           }
-          return this.translateService.instant(exam.claimScores[ idx ].level
-            ? `common.assessment-type.iab.performance-level.${exam.claimScores[ idx ].level}.name`
+          return this.translateService.instant(exam.claimScores[ index ].level
+            ? `common.assessment-type.iab.performance-level.${exam.claimScores[ index ].level}.name`
             : 'common.missing'
           );
         }

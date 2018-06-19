@@ -17,7 +17,7 @@ import { organizationOrdering, subgroupOrdering } from '../support';
 import { TranslateService } from '@ngx-translate/core';
 import { BaseColumn } from '../../shared/datatable/base-column.model';
 import {
-  byNumericString, ScorableClaimOrderingProvider, SubjectClaimOrderings
+  byNumericString, createScorableClaimOrdering, SubjectClaimOrderings
 } from '../../shared/ordering/orderings';
 import { IdentityColumnOptions } from '../assessment/assessment-definition.service';
 import { AggregateReportType } from '../aggregate-report-form-settings';
@@ -338,7 +338,7 @@ export class AggregateReportTableComponent implements OnInit {
     this._orderingByColumnField[ 'claimCode' ] = reportType === AggregateReportType.Target
       ? OrganizationalClaimOrderingProvider(rows[ 0 ].subjectCode, this.preview)
       : ordering(join(...rows.map(row => {
-        return ScorableClaimOrderingProvider(row.subjectCode, row => row.claimCode).compare;
+        return createScorableClaimOrdering(row.subjectCode).on<any>(row => row.claimCode).compare;
       })));
     this._orderingByColumnField[ 'subgroup.id' ] = subgroupOrdering(item => item.subgroup, options);
     this._orderingByColumnField[ 'targetNaturalId' ] = TargetOrdering;
