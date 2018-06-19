@@ -61,7 +61,10 @@
           <th *ngFor="let column of columns"
               [pSortableColumn]="column.field"
               [hidden]="(viewState !== 'overall' && column.overall) || (viewState !== 'claim' && column.claim)"
-              [ngSwitch]="column.id">
+              [ngSwitch]="column.id"
+              [ngClass]="{
+                'wrapping wrapping-max-width-sm': column.claim
+              }">
 
             <span *ngSwitchCase="'performance'"
                   info-button
