@@ -9,9 +9,7 @@ import { InstructionalResourcesService } from "../../instructional-resources.ser
 import { InstructionalResource } from "../../../model/instructional-resources.model";
 import { Observable } from "rxjs/Observable";
 import { PopupMenuAction } from "../../../../shared/menu/popup-menu-action.model";
-import { ScorableClaimOrderings } from '../../../../shared/ordering/orderings';
-import { Ordering, ordering } from '@kourge/ordering';
-import { byString } from '@kourge/ordering/comparator';
+import { ScorableClaimOrderingProvider } from '../../../../shared/ordering/orderings';
 
 @Component({
   selector: 'results-by-student',
@@ -93,15 +91,8 @@ export class ResultsByStudentComponent implements OnInit {
       return [];
     }
 
-    const ScorableClaimOrderingProvider: (subjectCode: string) => Ordering<any> = (subjectCode) => {
-      const currentOrdering: Ordering<string> = ScorableClaimOrderings.has(subjectCode)
-        ? ScorableClaimOrderings.get(subjectCode)
-        : ordering(byString);
-      return currentOrdering.on(claim => claim);
-    };
-
     return this.assessment.claimCodes
-      .sort(ScorableClaimOrderingProvider(this.assessment.subject).compare)
+      .sort(ScorableClaimOrderingProvider(this.assessment.subject, code => code).compare)
       .map((code, index) =>
         new Column({id: 'claim', field: `claimScores.${index}.level`, index: index, claim: code})
       );

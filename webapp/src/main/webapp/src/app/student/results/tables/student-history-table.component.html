@@ -26,7 +26,7 @@
 <ng-template #tableTemplate>
 
     <div *ngIf="assessmentType !== 'iab'"
-         class="btn-group btn-group-md"
+         class="btn-group btn-group-xs pull-right mb-xs"
          role="group">
       <button (click)="viewState = 'overall'"
               class="btn btn-default"
@@ -63,33 +63,33 @@
               [hidden]="(viewState !== 'overall' && column.overall) || (viewState !== 'claim' && column.claim)"
               [ngSwitch]="column.id">
 
-        <span *ngSwitchCase="'performance'"
-              info-button
-              title="{{('common.results.assessment-exam-columns.' + assessmentType + '.performance') | translate}}"
-              content="{{('common.results.assessment-exam-columns.' + assessmentType + '.performance-info') | translate}}">
-        </span>
+            <span *ngSwitchCase="'performance'"
+                  info-button
+                  title="{{('common.results.assessment-exam-columns.' + assessmentType + '.performance') | translate}}"
+                  content="{{('common.results.assessment-exam-columns.' + assessmentType + '.performance-info') | translate}}">
+            </span>
 
             <span *ngSwitchCase="'claim'">
-          {{ 'common.subject-claim-code.' + column.claim | translate }}
-        </span>
+              {{ 'common.subject-claim-code.' + column.claim | translate }}
+            </span>
 
             <span *ngSwitchCase="'score'"
                   info-button
                   title="{{('common.results.assessment-exam-columns.' + column.id) | translate}}"
                   content="{{('common.results.assessment-exam-columns.' + column.id + '-info') | translate}}"
                   placement="left">
-        </span>
+            </span>
 
             <span *ngSwitchDefault>
-          <span *ngIf="!column.commonHeader">
-            {{('student-exam-history-table.columns.' + column.id) | translate}}
-          </span>
-          <span *ngIf="column.commonHeader"
-                info-button
-                title="{{('common.results.assessment-exam-columns.' + column.id) | translate}}"
-                content="{{('common.results.assessment-exam-columns.' + column.id + '-info') | translate}}">
-          </span>
-        </span>
+              <span *ngIf="!column.commonHeader">
+                {{('student-exam-history-table.columns.' + column.id) | translate}}
+              </span>
+              <span *ngIf="column.commonHeader"
+                    info-button
+                    title="{{('common.results.assessment-exam-columns.' + column.id) | translate}}"
+                    content="{{('common.results.assessment-exam-columns.' + column.id + '-info') | translate}}">
+              </span>
+            </span>
 
             <p-sortIcon [field]="column.field"></p-sortIcon>
           </th>

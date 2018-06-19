@@ -16,7 +16,9 @@ import * as _ from 'lodash';
 import { organizationOrdering, subgroupOrdering } from '../support';
 import { TranslateService } from '@ngx-translate/core';
 import { BaseColumn } from '../../shared/datatable/base-column.model';
-import { byNumericString, ScorableClaimOrderings, SubjectClaimOrderings } from '../../shared/ordering/orderings';
+import {
+  byNumericString, ScorableClaimOrderingProvider, SubjectClaimOrderings
+} from '../../shared/ordering/orderings';
 import { IdentityColumnOptions } from '../assessment/assessment-definition.service';
 import { AggregateReportType } from '../aggregate-report-form-settings';
 import { byTargetReportingLevel } from '../../assessments/model/aggregate-target-score-row.model';
@@ -34,13 +36,6 @@ const AssessmentLabelOrdering: Ordering<AggregateReportItem> = ordering(byString
 const OrganizationalClaimOrderingProvider: (subjectCode: string, preview: boolean) => Ordering<AggregateReportItem> = (subjectCode, preview) => {
   const currentOrdering: Ordering<string> = !preview && SubjectClaimOrderings.has(subjectCode)
     ? SubjectClaimOrderings.get(subjectCode)
-    : ordering(byString);
-  return currentOrdering.on(item => item.claimCode);
-};
-
-const ScorableClaimOrderingProvider: (subjectCode: string) => Ordering<any> = (subjectCode) => {
-  const currentOrdering: Ordering<string> = ScorableClaimOrderings.has(subjectCode)
-    ? ScorableClaimOrderings.get(subjectCode)
     : ordering(byString);
   return currentOrdering.on(item => item.claimCode);
 };
@@ -343,7 +338,7 @@ export class AggregateReportTableComponent implements OnInit {
     this._orderingByColumnField[ 'claimCode' ] = reportType === AggregateReportType.Target
       ? OrganizationalClaimOrderingProvider(rows[ 0 ].subjectCode, this.preview)
       : ordering(join(...rows.map(row => {
-        return ScorableClaimOrderingProvider(row.subjectCode).compare;
+        return ScorableClaimOrderingProvider(row.subjectCode, row => row.claimCode).compare;
       })));
     this._orderingByColumnField[ 'subgroup.id' ] = subgroupOrdering(item => item.subgroup, options);
     this._orderingByColumnField[ 'targetNaturalId' ] = TargetOrdering;

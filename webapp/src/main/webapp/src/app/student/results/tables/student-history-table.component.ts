@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
 import { StudentResultsFilterService } from '../student-results-filter.service';
+import { ScorableClaimOrderingProvider } from '../../../shared/ordering/orderings';
 
 @Component({
   selector: 'student-history-table',
@@ -175,14 +176,16 @@ export class StudentHistoryTableComponent implements OnInit {
       return [];
     }
 
-    return this.exams[ 0 ].assessment.claimCodes.map((claim: string, index: number) => {
-      return new Column({
-        id: 'claim',
-        field: 'exam.claimScores.' + index + '.level',
-        claim: claim,
-        index: index
+    return this.exams[ 0 ].assessment.claimCodes
+      .sort(ScorableClaimOrderingProvider(this.exams[ 0 ].assessment.subject, code => code).compare)
+      .map((claim: string, index: number) => {
+        return new Column({
+          id: 'claim',
+          field: 'exam.claimScores.' + index + '.level',
+          claim: claim,
+          index: index
+        });
       });
-    });
   }
 
 }
