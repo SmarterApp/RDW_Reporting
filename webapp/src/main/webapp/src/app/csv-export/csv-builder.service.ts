@@ -14,6 +14,7 @@ import { TranslateDatePipe } from "../shared/i18n/translate-date.pipe";
 import { TranslateNumberPipe } from "../shared/i18n/translate-number.pipe";
 import { ApplicationSettingsService } from "../app-settings.service";
 import { AggregateTargetScoreRow, TargetReportingLevel } from '../assessments/model/aggregate-target-score-row.model';
+import { ScorableClaimOrder } from '../shared/ordering/orderings';
 
 @Injectable()
 export class CsvBuilder {
@@ -260,20 +261,27 @@ export class CsvBuilder {
 
   // TODO:ConfigurableSubjects needs to support configurable subjects
   withMathClaimScores(getExam: (item: any) => Exam) {
-    return this.withClaimScores([ '1', 'SOCK_2', '3' ], getExam);
+    return this.withClaimScores(ScorableClaimOrder.get('Math'), getExam);
   }
 
   // TODO:ConfigurableSubjects needs to support configurable subjects
   withELAClaimScores(getExam: (item: any) => Exam) {
-    return this.withClaimScores([ 'SOCK_R', 'SOCK_LS', '2-W', '4-CR' ], getExam);
+    return this.withClaimScores(ScorableClaimOrder.get('ELA'), getExam);
   }
 
   withClaimScores(claims: string[], getExam: (item: any) => Exam) {
+    // TODO:ConfigurableSubjects
+    const claimCodeToDatabaseIndex: Map<string, number> = new Map([
+      ['1', 0], ['SOCK_2', 1], ['3', 2],
+      ['SOCK_R', 0], ['SOCK_LS', 1], ['2-W', 2], ['4-CR', 3]
+    ]);
+
     claims.forEach((claim, idx) => {
       this.withColumn(
         this.translateService.instant(`common.subject-claim-code.${claim}`),
         (item) => {
           const exam: Exam = getExam(item);
+          const idx = claimCodeToDatabaseIndex.get(claim);
           if (!exam || !exam.claimScores[ idx ].level) {
             return '';
           }
