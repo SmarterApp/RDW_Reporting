@@ -425,8 +425,10 @@
 <div th:fragment="student-header">
     <div class="row">
         <div class="col-xs-3">
-            <span class="student-name h3"
-                  th:text="#{report.student.name(${report.student.firstName}, ${report.student.lastName})}"></span></span>
+            <span class="student-name h3" th:if="${report.student.firstName != null}"
+                  th:text="#{report.student.name(${report.student.firstName}, ${report.student.lastName})}"></span>
+            <span class="student-name h3" th:if="${report.student.firstName == null}"
+                  th:text="#{report.student.ssid(${report.student.ssid})}"></span>
         </div>
         <div class="col-xs-9 text-right">
                 <span class="student-enrollment pull-right">

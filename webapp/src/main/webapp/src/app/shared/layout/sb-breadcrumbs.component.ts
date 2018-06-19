@@ -1,10 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { Title } from "@angular/platform-browser";
-import { ActivatedRoute, NavigationEnd, PRIMARY_OUTLET, Router } from "@angular/router";
-import * as _ from "lodash";
-import { TranslateService } from "@ngx-translate/core";
-import { Utils } from "../support/support";
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, NavigationEnd, PRIMARY_OUTLET, Router } from '@angular/router';
+import * as _ from 'lodash';
+import { TranslateService } from '@ngx-translate/core';
+import { Utils } from '../support/support';
 import { filter } from 'rxjs/operators';
+import { StudentNameService } from '../format/student-name.service';
 
 export const BreadCrumbsRouteDataKey = 'breadcrumb';
 export const BreadCrumbsTitleDelimiter = ' < ';
@@ -18,7 +19,7 @@ export const BreadCrumbsTitleDelimiter = ' < ';
  * data: { breadcrumb: { resolve: 'path.to.property.in.route.data' }
  */
 export interface BreadcrumbOptions {
-  translate?: string;
+  translate?: string | Array<string>;
   translateResolve?: string;
   resolve?: string;
 }
@@ -69,7 +70,8 @@ export class SbBreadcrumbs implements OnInit {
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private title: Title,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,
+              private studentNameService: StudentNameService) {
   }
 
   ngOnInit(): void {
@@ -78,7 +80,7 @@ export class SbBreadcrumbs implements OnInit {
     ).subscribe(() => {
       this.breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root);
     });
-    this.translateService.onLangChange.subscribe( () => {
+    this.translateService.onLangChange.subscribe(() => {
       this.breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root);
     })
   }
@@ -101,8 +103,8 @@ export class SbBreadcrumbs implements OnInit {
       return breadcrumbs;
     }
 
-    for (let child of children) {
-      if (child.outlet != PRIMARY_OUTLET) {
+    for (const child of children) {
+      if (child.outlet !== PRIMARY_OUTLET) {
         continue;
       }
 
@@ -134,20 +136,28 @@ export class SbBreadcrumbs implements OnInit {
 
   private createBreadcrumb(options: BreadcrumbOptions, routeData: any, routerLinkParameters: any[]): Breadcrumb {
     if (options.translate) {
-      let text = options.translateResolve
-        ? this.translateService.instant(options.translate, Utils.getPropertyValue(options.translateResolve, routeData))
-        : this.translateService.instant(options.translate);
-
+      let text: string;
+      if (typeof options.translate === 'string') {
+        text = options.translateResolve
+          ? this.translateService.instant(options.translate, Utils.getPropertyValue(<string>options.translateResolve, routeData))
+          : this.translateService.instant(options.translate);
+      } else {
+        // secondary translation available. Attempt translations until we translate the text or until we run out of translation keys
+        let i = 0;
+        do {
+          text = this.translateService.instant(options.translate[ i ], Utils.getPropertyValue(options.translateResolve, routeData));
+        } while (options.translate[ i + 1 ] && text === this.translateService.instant(options.translate[ i++ ]));
+      }
       return {
         text: text,
         routerLinkParameters: routerLinkParameters
-      }
+      };
     }
     if (options.resolve) {
       return {
         text: Utils.getPropertyValue(options.resolve, routeData),
         routerLinkParameters: routerLinkParameters
-      }
+      };
     }
     throw new Error('Invalid route breadcrumb options. You must provide a "translate" or "resolve" property.');
   }

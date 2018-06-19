@@ -10,7 +10,7 @@ export class StudentExamHistoryResolve implements Resolve<StudentExamHistory> {
   constructor(private service: StudentExamHistoryService) {
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<StudentExamHistory> {
     const { studentId } = route.params;
     return this.service.findOneById(studentId);
   }

@@ -24,7 +24,8 @@
         <div class="container">
             <div class="overview row">
                 <div class="info col-xs-2">
-                    <div class="name" th:text="#{report.student.name(${report.student.firstName}, ${report.student.lastName})}"></div>
+                    <div class="name" th:if="${report.student.firstName != null}" th:text="#{report.student.name(${report.student.firstName}, ${report.student.lastName})}"></div>
+                    <div class="name" th:if="${report.student.firstName == null}" th:text="#{report.student.ssid(${report.student.ssid})}"></div>
                     <div class="grade">
                         <span th:text="#{report.student.grade.label}" th:remove="tag"></span>
                         <span th:text="#{'report.enrollment-grade.' + ${report.studentEnrollment.gradeCode}}" th:remove="tag"></span>
@@ -49,7 +50,7 @@
                               th:remove="tag"></span>
                     </span>
                     <p class="description mt-sm"
-                       th:text="#{('report.overall-achievement.grade.' + ${report.assessment.gradeCode} + '.subject.' + ${report.assessment.subject} + '.level.' + ${report.exam.scaleScore.level})(${report.student.firstName})}"></p>
+                       th:text="#{('report.overall-achievement.grade.' + ${report.assessment.gradeCode} + '.subject.' + ${report.assessment.subject} + '.level.' + ${report.exam.scaleScore.level})(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></p>
                 </div>
                 <div th:if="${scored}" class="performance col-xs-6"
                      th:with="scaleScoreView=${support.getScaleScoreView(report.exam, report.assessment)}">
@@ -92,7 +93,7 @@
             <div class="achievement-descriptions">
                 <div class="overall">
                     <span class="title" th:text="#{report.sum.section.claim.header}"></span>
-                    <p th:text="#{('report.student-achievement-by-claim.grade.' + ${report.assessment.gradeCode} + '.subject.' + ${report.assessment.subject})(${report.student.firstName})}"></p>
+                    <p th:text="#{('report.student-achievement-by-claim.grade.' + ${report.assessment.gradeCode} + '.subject.' + ${report.assessment.subject})(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></p>
                 </div>
                 <div class="level-description" th:each="claimCode : ${#lists.sort(report.assessment.claimCodes, support.getClaimCodeComparator())}"
                      th:classappend="${support.isWritingTraitScoreClaim(claimCodeStat.last, report.exam.writingTraitScores)} ? 'level-description-writing-traits' : ''">
@@ -109,14 +110,14 @@
                               th:if="${report.exam.claimScaleScores[claimCodeStat.index] == null}"
                               th:text="#{'report.not-scored'}"></span>
                         <div class="description">
-                            <p th:text="#{('report.claim.' + ${claimCode} + '.grade.' + ${report.assessment.gradeCode} + '.level.' + ${report.exam.claimScaleScores[claimCodeStat.index].level})(${report.student.firstName})}"></p>
+                            <p th:text="#{('report.claim.' + ${claimCode} + '.grade.' + ${report.assessment.gradeCode} + '.level.' + ${report.exam.claimScaleScores[claimCodeStat.index].level})(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></p>
                         </div>
                     </div>
 
                     <div class="writing-traits" th:if="${support.isWritingTraitScoreClaim(claimCodeStat.last, report.exam.writingTraitScores)}"
                          th:with="scored=true,assessment=${report.assessment},exam=${report.exam}">
                         <span class="title" th:text="#{('report.writing.trait.purpose')(${exam.performanceWritingType})}"></span>
-                        <div class="description" th:text="#{('report.writing.description')(${report.student.firstName})}"></div>
+                        <div class="description" th:text="#{('report.writing.description')(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></div>
                         <div class="trait">
                             <span class="title" th:text="#{'report.writing.trait.Evidence'}"></span>
                             <span class="score">

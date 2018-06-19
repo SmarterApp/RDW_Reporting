@@ -6,13 +6,15 @@ import { SchoolYearsPipe } from "./school-years.pipe";
 import { SessionPipe } from './session.pipe';
 import { StudentNamePipe } from './student-name.pipe';
 import { StudentNameService } from './student-name.service';
+import { StudentNameTranslationPipe } from './student-name-translation.pipe';
 
 @NgModule({
   declarations: [
     SchoolYearPipe,
     SchoolYearsPipe,
     SessionPipe,
-    StudentNamePipe
+    StudentNamePipe,
+    StudentNameTranslationPipe
   ],
   imports: [
     BrowserModule,
@@ -22,13 +24,15 @@ import { StudentNameService } from './student-name.service';
     SchoolYearPipe,
     SchoolYearsPipe,
     SessionPipe,
-    StudentNamePipe
+    StudentNamePipe,
+    StudentNameTranslationPipe
   ],
   providers: [
     SchoolYearPipe,
     SchoolYearsPipe,
     SessionPipe,
     StudentNamePipe,
+    StudentNameTranslationPipe,
     StudentNameService
   ]
 })

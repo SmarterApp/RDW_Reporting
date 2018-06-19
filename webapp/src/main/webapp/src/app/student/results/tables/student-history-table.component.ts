@@ -87,7 +87,11 @@ export class StudentHistoryTableComponent implements OnInit {
     if (this.assessmentType === 'sum') {
       const menuAction: PopupMenuAction = new PopupMenuAction();
       menuAction.displayName = () => {
-        return this.translateService.instant('common.menus.responses', this.student);
+        if (this.student.firstName) {
+          return this.translateService.instant('common.menus.responses', this.student);
+        } else {
+          return this.translateService.instant('common.menus.responses-ssid', this.student);
+        }
       };
       menuAction.tooltip = () => {
         return this.translateService.instant('common.messages.no-responses-for-summative-exams');

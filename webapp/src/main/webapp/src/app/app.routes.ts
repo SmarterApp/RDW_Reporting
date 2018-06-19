@@ -168,7 +168,7 @@ const studentTestHistoryChildRoute = {
   resolve: { examHistory: StudentExamHistoryResolve },
   data: {
     breadcrumb: {
-      translate: 'student-results.crumb',
+      translate: ['student-results.crumb', 'student-results.ssid-crumb'],
       translateResolve: 'examHistory.student'
     }
   },

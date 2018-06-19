@@ -38,7 +38,12 @@ export class MenuActionBuilder {
     let action: PopupMenuAction = new PopupMenuAction();
 
     action.displayName = ((actionable: any) => {
-      return this.translateService.instant('common.menus.test-history', getStudent(actionable));
+      const student = getStudent(actionable);
+      if (student.firstName) {
+        return this.translateService.instant('common.menus.test-history', student);
+      } else {
+        return this.translateService.instant('common.menus.test-history-ssid', student);
+      }
     }).bind(this);
     action.perform = ((actionable: any) => {
       this.router.navigate([ 'students', getStudent(actionable).id ], { relativeTo: this.route });
@@ -59,7 +64,12 @@ export class MenuActionBuilder {
     let responsesAction: PopupMenuAction = new PopupMenuAction();
 
     responsesAction.displayName = ((actionable: any) => {
-      return this.translateService.instant('common.menus.responses', getStudent(actionable));
+      const student = getStudent(actionable);
+      if (student.firstName) {
+        return this.translateService.instant('common.menus.responses', student);
+      } else {
+        return this.translateService.instant('common.menus.responses-ssid', student);
+      }
     }).bind(this);
 
     responsesAction.perform = ((actionable: any) => {
@@ -125,7 +135,12 @@ export class MenuActionBuilder {
     const action: PopupMenuAction = new PopupMenuAction();
 
     action.displayName = ((actionable: any) => {
-      return this.translateService.instant(`common.menus.student-report.${getAssessmentType(actionable)}`, getStudent(actionable));
+      const student = getStudent(actionable);
+      if (student.firstName) {
+        return this.translateService.instant(`common.menus.student-report.${getAssessmentType(actionable)}`, student);
+      } else {
+        return this.translateService.instant(`common.menus.student-report.${getAssessmentType(actionable)}-ssid`, student);
+      }
     }).bind(this);
 
     action.perform = ((actionable: any) => {
