@@ -5,7 +5,6 @@ import * as _ from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
 import { Utils } from '../support/support';
 import { filter } from 'rxjs/operators';
-import { StudentNameService } from '../format/student-name.service';
 
 export const BreadCrumbsRouteDataKey = 'breadcrumb';
 export const BreadCrumbsTitleDelimiter = ' < ';
@@ -70,8 +69,7 @@ export class SbBreadcrumbs implements OnInit {
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private title: Title,
-              private translateService: TranslateService,
-              private studentNameService: StudentNameService) {
+              private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
