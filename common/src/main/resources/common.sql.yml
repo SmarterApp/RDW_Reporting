@@ -1,9 +1,17 @@
 sql:
   translation:
     findAllForLanguage: >-
-        select label_code, label
-        from accommodation_translation
-        where language_code=:language_code
+        SELECT
+          label_code,
+          label
+        FROM accommodation_translation
+        WHERE language_code=:language_code
+        UNION
+        SELECT
+          label_code,
+          label
+        FROM subject_translation
+        WHERE 'eng' = :language_code
 
   organization:
     reporting:
