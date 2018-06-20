@@ -372,7 +372,7 @@ export class AggregateReportTableComponent implements OnInit {
         dataColumns.push(
           new Column({ id: 'studentsTested' }),
           new Column({ id: 'achievementComparison', sortable: false }),
-          new Column({ id: 'avgScaleScore' }),
+          new Column({ id: 'avgScaleScore', valueColumn: true }),
           ...this.createPerformanceLevelColumns(performanceLevelsByDisplayType, assessmentDefinition)
         );
         break;
@@ -386,8 +386,8 @@ export class AggregateReportTableComponent implements OnInit {
       case AggregateReportType.Target:
         dataColumns.push(
           new Column({ id: 'studentsTested' }),
-          new Column({ id: 'studentRelativeResidualScoresLevel' }),
-          new Column({ id: 'standardMetRelativeResidualLevel' })
+          new Column({ id: 'studentRelativeResidualScoresLevel', valueColumn: true }),
+          new Column({ id: 'standardMetRelativeResidualLevel', valueColumn: true })
         );
         break;
     }
@@ -459,7 +459,18 @@ export class AggregateReportTableComponent implements OnInit {
     if (!ascending) {
       rowOrdering = rowOrdering.reverse();
     }
-    return this.getNoResultsLastComparator(rowOrdering.compare, order);
+
+    return this.getColumn(field).valueColumn
+      ? this.getNoResultsLastComparator(rowOrdering.compare, order)
+      : rowOrdering.compare;
+  }
+
+  private getColumn(field: string): Column {
+    for (let column of this.columns) {
+      if (column.field === field) {
+        return column;
+      }
+    }
   }
 
   private getNoResultsLastComparator(comparator: Comparator<any>, order: number): Comparator<AggregateReportItem> {
@@ -547,7 +558,8 @@ export class AggregateReportTableComponent implements OnInit {
             index: index,
             field: `performanceLevelByDisplayTypes.${displayType}.${this.valueDisplayType}.${index}`,
             headerKey: this.getPerformanceLevelColumnHeaderTranslationCode(displayType, level, index),
-            headerColor: this.colorService.getPerformanceLevelColorsByNumberOfPerformanceLevels(assessmentDefinition.performanceLevelCount, level)
+            headerColor: this.colorService.getPerformanceLevelColorsByNumberOfPerformanceLevels(assessmentDefinition.performanceLevelCount, level),
+            valueColumn: true
           }));
         });
       });
@@ -593,6 +605,10 @@ class Column implements BaseColumn {
   // True if the column is displayed (default true)
   visible: boolean;
 
+  // True if the column represents a data value that has no meaning when there are no results
+  // (Example: displays as '-' when there are no results)
+  valueColumn: boolean;
+
   // The following properties are only used by performance level columns
   displayType?: string;
   level?: number;
@@ -609,12 +625,14 @@ class Column implements BaseColumn {
                 level = -1,
                 index = -1,
                 headerKey = '',
-                headerColor = ''
+                headerColor = '',
+                valueColumn = false
               }) {
     this.id = id;
     this.field = field ? field : id;
     this.sortable = sortable;
     this.visible = visible;
+    this.valueColumn = valueColumn;
 
     if (displayType) {
       this.displayType = displayType;
