@@ -1400,7 +1400,6 @@
   },
   "student-results": {
     "create-report": "Create {{value}}'s Printable Report",
-    "create-report-ssid": "Create {{ssid}}'s Printable Report",
     "crumb": "Student: {{value}}",
     "empty-filtered-results-message": "No test results are available for the filters selected.",
     "title": "Student Test History Report"
