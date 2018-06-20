@@ -19,16 +19,4 @@ export class StudentNameService {
 
     return this.translate.instant('common.person-name', student);
   }
-
-  getTranslation(key: string, student: Student) {
-    if (student == null) {
-      return null;
-    }
-
-    if (student.firstName == null && student.lastName == null) {
-      return this.translate.instant(key, {value: student.ssid});
-    }
-
-    return this.translate.instant(key, {value: student.firstName});
-  }
 }
