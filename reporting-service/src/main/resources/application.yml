@@ -15,6 +15,10 @@ server:
     mime-types: application/json,application/xml,text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,text/csv
 
 spring:
+  cache:
+    type: SIMPLE
+    cache-names: subjectdefinitions
+
   datasource:
     url: "\
       jdbc:mysql://${spring.datasource.url-server:localhost:3306}/${spring.datasource.url-schema:reporting}\
