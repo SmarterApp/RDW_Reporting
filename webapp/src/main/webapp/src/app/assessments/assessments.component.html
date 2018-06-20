@@ -176,14 +176,14 @@
 
 <!-- Results Container -->
 <ng-container *ngIf="!hideAssessments">
-  <div *ngFor="let assessment of assessmentExams"
+  <div *ngFor="let assessmentExam of assessmentExams"
        class="groups-results-wrapper">
-    <assessment-results [assessmentExam]="assessment"
+    <assessment-results [assessmentExam]="assessmentExam"
                         [showValuesAsPercent]="showValuesAsPercent"
                         [isDefaultCollapsed]="isDefaultCollapsed"
                         [displayedFor]="displayedFor"
                         [filterBy]="clientFilterBy"
-                        [allowFilterBySessions]="allowFilterBySessions"
+                        [allowFilterBySessions]="allowFilterBySessions && !assessmentExam.assessment.isSummative"
                         [allowTargetReport]="allowTargetReport"
                         [assessmentProvider]="assessmentProvider"
                         [assessmentExporter]="assessmentExporter"
