@@ -17,7 +17,7 @@ server:
 spring:
   cache:
     type: SIMPLE
-    cache-names: subjectdefinitions
+    cache-names: subjects, subjectdefinitions
 
   datasource:
     url: "\
