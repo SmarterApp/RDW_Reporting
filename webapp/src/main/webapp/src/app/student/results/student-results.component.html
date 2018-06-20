@@ -83,7 +83,7 @@
   </div>
 
   <span student-report-download #reportDownloader
-        [title]="'student-results.create-report' | studentNameTranslation:examHistory.student"
+        [title]="'student-results.create-report' | translate: {value: getStudent(examHistory.student)}"
         [student]="examHistory.student"
         [schoolYears]="filterState.schoolYears"
         (onShow)="initializeDownloader(reportDownloader)"></span>

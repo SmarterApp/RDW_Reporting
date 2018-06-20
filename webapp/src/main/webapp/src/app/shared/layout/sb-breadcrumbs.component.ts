@@ -18,9 +18,10 @@ export const BreadCrumbsTitleDelimiter = ' < ';
  * data: { breadcrumb: { resolve: 'path.to.property.in.route.data' }
  */
 export interface BreadcrumbOptions {
-  translate?: string | Array<string>;
+  translate?: string;
   translateResolve?: string;
   resolve?: string;
+  transform?: (parameter) => string;
 }
 
 /**
@@ -101,8 +102,8 @@ export class SbBreadcrumbs implements OnInit {
       return breadcrumbs;
     }
 
-    for (const child of children) {
-      if (child.outlet !== PRIMARY_OUTLET) {
+    for (let child of children) {
+      if (child.outlet != PRIMARY_OUTLET) {
         continue;
       }
 
@@ -135,27 +136,27 @@ export class SbBreadcrumbs implements OnInit {
   private createBreadcrumb(options: BreadcrumbOptions, routeData: any, routerLinkParameters: any[]): Breadcrumb {
     if (options.translate) {
       let text: string;
-      if (typeof options.translate === 'string') {
-        text = options.translateResolve
-          ? this.translateService.instant(options.translate, Utils.getPropertyValue(<string>options.translateResolve, routeData))
-          : this.translateService.instant(options.translate);
+      if (options.translateResolve) {
+        if (options.transform) {
+          text = this.translateService.instant(options.translate,
+            { value: options.transform(Utils.getPropertyValue(options.translateResolve, routeData)) });
+        } else {
+          text = Utils.getPropertyValue(options.translateResolve, routeData);
+        }
       } else {
-        // secondary translation available. Attempt translations until we translate the text or until we run out of translation keys
-        let i = 0;
-        do {
-          text = this.translateService.instant(options.translate[ i ], Utils.getPropertyValue(options.translateResolve, routeData));
-        } while (options.translate[ i + 1 ] && text === this.translateService.instant(options.translate[ i++ ]));
+        text = this.translateService.instant(options.translate);
       }
+
       return {
         text: text,
         routerLinkParameters: routerLinkParameters
-      };
+      }
     }
     if (options.resolve) {
       return {
         text: Utils.getPropertyValue(options.resolve, routeData),
         routerLinkParameters: routerLinkParameters
-      };
+      }
     }
     throw new Error('Invalid route breadcrumb options. You must provide a "translate" or "resolve" property.');
   }

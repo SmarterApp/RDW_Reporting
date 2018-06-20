@@ -40,7 +40,9 @@ import { GroupDashboardComponent } from './dashboard/group-dashboard/group-dashb
 import { UserGroupComponent } from './user-group/user-group.component';
 import { UserGroupResolve } from './user-group/user-group.resolve';
 import { AggregateQueryFormContainerComponent } from './aggregate-report/query-forms/aggregate-query-form-container.component';
+import { StudentPipe } from './shared/format/student.pipe';
 
+const studentPipe = new StudentPipe();
 const adminRoute = {
   path: '',
   data: {
@@ -168,8 +170,9 @@ const studentTestHistoryChildRoute = {
   resolve: { examHistory: StudentExamHistoryResolve },
   data: {
     breadcrumb: {
-      translate: ['student-results.crumb', 'student-results.ssid-crumb'],
-      translateResolve: 'examHistory.student'
+      translate: 'student-results.crumb',
+      translateResolve: 'examHistory.student',
+      transform: (student) => studentPipe.transform(student)
     }
   },
   children: [

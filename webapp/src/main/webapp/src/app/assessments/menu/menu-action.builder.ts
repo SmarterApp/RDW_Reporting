@@ -1,11 +1,12 @@
-import { Injectable } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Student } from "../../student/model/student.model";
-import { InstructionalResource } from "../model/instructional-resources.model";
-import { Observable } from "rxjs/Observable";
-import { PopupMenuAction } from "../../shared/menu/popup-menu-action.model";
+import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Student } from '../../student/model/student.model';
+import { InstructionalResource } from '../model/instructional-resources.model';
+import { Observable } from 'rxjs/Observable';
+import { PopupMenuAction } from '../../shared/menu/popup-menu-action.model';
 import { map } from 'rxjs/operators';
+import { StudentPipe } from '../../shared/format/student.pipe';
 
 /**
  * This builder will create the menu actions used by the PopupMenuComponent.
@@ -21,11 +22,12 @@ export class MenuActionBuilder {
 
   constructor(private translateService: TranslateService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private studentPipe: StudentPipe) {
   }
 
   newActions(): MenuActionBuilder {
-    return new MenuActionBuilder(this.translateService, this.route, this.router);
+    return new MenuActionBuilder(this.translateService, this.route, this.router, this.studentPipe);
   }
 
   /**
@@ -38,12 +40,7 @@ export class MenuActionBuilder {
     let action: PopupMenuAction = new PopupMenuAction();
 
     action.displayName = ((actionable: any) => {
-      const student = getStudent(actionable);
-      if (student.firstName) {
-        return this.translateService.instant('common.menus.test-history', student);
-      } else {
-        return this.translateService.instant('common.menus.test-history-ssid', student);
-      }
+      return this.translateService.instant('common.menus.test-history', { name: this.studentPipe.transform(getStudent(actionable), true) });
     }).bind(this);
     action.perform = ((actionable: any) => {
       this.router.navigate([ 'students', getStudent(actionable).id ], { relativeTo: this.route });
@@ -60,22 +57,18 @@ export class MenuActionBuilder {
    * @param getExamId lambda which accesses the examId from the actionable object.
    * @returns the builder
    */
-  withResponses(getExamId: (x:any) => number, getStudent: (x:any) => Student, hasItemLevelData: (x:any) => boolean): MenuActionBuilder {
+  withResponses(getExamId: (x: any) => number, getStudent: (x: any) => Student, hasItemLevelData: (x: any) => boolean): MenuActionBuilder {
     let responsesAction: PopupMenuAction = new PopupMenuAction();
 
     responsesAction.displayName = ((actionable: any) => {
-      const student = getStudent(actionable);
-      if (student.firstName) {
-        return this.translateService.instant('common.menus.responses', student);
-      } else {
-        return this.translateService.instant('common.menus.responses-ssid', student);
-      }
+      return this.translateService.instant('common.menus.responses',
+        { name: this.studentPipe.transform(getStudent(actionable), true) });
     }).bind(this);
 
     responsesAction.perform = ((actionable: any) => {
       let commands = [];
 
-      if (this.router.url.indexOf("/students/") === -1) {
+      if (this.router.url.indexOf('/students/') === -1) {
         commands = [ 'students', getStudent(actionable).id ];
       }
 
@@ -117,7 +110,7 @@ export class MenuActionBuilder {
               let noResourcesAction = new PopupMenuAction();
               noResourcesAction.isDisabled = () => true;
               noResourcesAction.displayName = () => this.translateService.instant('common.results.assessment.no-instruct-found');
-              return [noResourcesAction];
+              return [ noResourcesAction ];
             }
             return this.asInstructionalResourceActions.call(this, resources);
           })
@@ -125,7 +118,8 @@ export class MenuActionBuilder {
     });
 
     resourcesAction.displayName = (() => resourcesLabel);
-    resourcesAction.perform = (() => {});
+    resourcesAction.perform = (() => {
+    });
 
     this.actions.push(resourcesAction);
     return this;
@@ -135,12 +129,8 @@ export class MenuActionBuilder {
     const action: PopupMenuAction = new PopupMenuAction();
 
     action.displayName = ((actionable: any) => {
-      const student = getStudent(actionable);
-      if (student.firstName) {
-        return this.translateService.instant(`common.menus.student-report.${getAssessmentType(actionable)}`, student);
-      } else {
-        return this.translateService.instant(`common.menus.student-report.${getAssessmentType(actionable)}-ssid`, student);
-      }
+      return this.translateService.instant(`common.menus.student-report.${getAssessmentType(actionable)}`,
+        { name: this.studentPipe.transform(getStudent(actionable), true) });
     }).bind(this);
 
     action.perform = ((actionable: any) => {
@@ -165,7 +155,7 @@ export class MenuActionBuilder {
       return this.translateService.instant(`common.instructional-resources.link.${resource.organizationLevel}`, resource);
     });
     action.perform = (() => {
-      window.open(resource.url, "_blank");
+      window.open(resource.url, '_blank');
     });
 
     return action;

@@ -11,6 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
 import { StudentResultsFilterService } from '../student-results-filter.service';
 import { createScorableClaimOrdering } from '../../../shared/ordering/orderings';
+import { StudentPipe } from '../../../shared/format/student.pipe';
 
 @Component({
   selector: 'student-history-table',
@@ -46,7 +47,8 @@ export class StudentHistoryTableComponent implements OnInit {
   constructor(private actionBuilder: MenuActionBuilder,
               private instructionalResourcesService: InstructionalResourcesService,
               private translateService: TranslateService,
-              private studentResultsFilterService: StudentResultsFilterService) {
+              private studentResultsFilterService: StudentResultsFilterService,
+              private studentPipe: StudentPipe) {
   }
 
   ngOnInit(): void {
@@ -87,11 +89,7 @@ export class StudentHistoryTableComponent implements OnInit {
     if (this.assessmentType === 'sum') {
       const menuAction: PopupMenuAction = new PopupMenuAction();
       menuAction.displayName = () => {
-        if (this.student.firstName) {
-          return this.translateService.instant('common.menus.responses', this.student);
-        } else {
-          return this.translateService.instant('common.menus.responses-ssid', this.student);
-        }
+        return this.translateService.instant('common.menus.responses', { name: this.studentPipe.transform(this.student, true) });
       };
       menuAction.tooltip = () => {
         return this.translateService.instant('common.messages.no-responses-for-summative-exams');

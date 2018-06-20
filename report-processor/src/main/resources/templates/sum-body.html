@@ -25,7 +25,7 @@
             <div class="overview row">
                 <div class="info col-xs-2">
                     <div class="name" th:if="${report.student.firstName != null}" th:text="#{report.student.name(${report.student.firstName}, ${report.student.lastName})}"></div>
-                    <div class="name" th:if="${report.student.firstName == null}" th:text="#{report.student.ssid(${report.student.ssid})}"></div>
+                    <div class="name" th:if="${report.student.firstName == null}" th:text="${report.student.ssid}"></div>
                     <div class="grade">
                         <span th:text="#{report.student.grade.label}" th:remove="tag"></span>
                         <span th:text="#{'report.enrollment-grade.' + ${report.studentEnrollment.gradeCode}}" th:remove="tag"></span>

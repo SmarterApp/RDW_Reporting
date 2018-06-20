@@ -15,6 +15,8 @@ import { AssessmentTypeOrdering, SubjectOrdering } from '../../shared/ordering/o
 import { FilterBy } from '../../assessments/model/filter-by.model';
 import * as _ from 'lodash';
 import { StudentResultsFilterService } from './student-results-filter.service';
+import { Student } from '../model/student.model';
+import { StudentPipe } from '../../shared/format/student.pipe';
 
 @Component({
   selector: 'student-results',
@@ -39,7 +41,8 @@ export class StudentResultsComponent implements OnInit {
               private applicationSettingsService: ApplicationSettingsService,
               private examFilterService: ExamFilterService,
               private embargoService: ReportingEmbargoService,
-              private studentResultsFilterService: StudentResultsFilterService) {
+              private studentResultsFilterService: StudentResultsFilterService,
+              private studentPipe: StudentPipe) {
   }
 
   ngOnInit(): void {
@@ -67,6 +70,10 @@ export class StudentResultsComponent implements OnInit {
       });
 
     }
+  }
+
+  getStudent(student: Student): string {
+    return this.studentPipe.transform(student, true);
   }
 
   private subscribeToRouteChanges(): void {

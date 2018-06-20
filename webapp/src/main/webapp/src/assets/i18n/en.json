@@ -694,18 +694,13 @@
     },
     "menus": {
       "resources": "Instructional Resources",
-      "responses": "{{firstName}}'s Responses",
-      "responses-ssid": "{{ssid}}'s Responses",
+      "responses": "{{name}}'s Responses",
       "student-report": {
-        "iab": "Print {{firstName}}'s Full IAB Report",
-        "iab-ssid": "Print {{ssid}}'s Full IAB Report",
-        "ica": "Print {{firstName}}'s ICA Report",
-        "ica-ssid": "Print {{ssid}}'s ICA Report",
-        "sum": "Print {{firstName}}'s Summative Report",
-        "sum-ssid": "Print {{ssid}}'s Summative Report"
+        "iab": "Print {{name}}'s Full IAB Report",
+        "ica": "Print {{name}}'s ICA Report",
+        "sum": "Print {{name}}'s Summative Report"
       },
-      "test-history": "{{firstName}}'s Test History",
-      "test-history-ssid": "{{ssid}}'s Test History"
+      "test-history": "{{name}}'s Test History"
     },
     "messages": {
       "loading": "Loading",
@@ -1406,9 +1401,8 @@
   "student-results": {
     "create-report": "Create {{value}}'s Printable Report",
     "create-report-ssid": "Create {{ssid}}'s Printable Report",
-    "crumb": "Student: {{lastName}}, {{firstName}}",
+    "crumb": "Student: {{value}}",
     "empty-filtered-results-message": "No test results are available for the filters selected.",
-    "ssid-crumb": "Student: {{ssid}}",
     "title": "Student Test History Report"
   },
   "target-report": {
