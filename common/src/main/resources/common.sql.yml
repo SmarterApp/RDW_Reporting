@@ -6,7 +6,7 @@ sql:
           label
         FROM accommodation_translation
         WHERE language_code=:language_code
-        UNION
+        UNION ALL
         SELECT
           label_code,
           label
