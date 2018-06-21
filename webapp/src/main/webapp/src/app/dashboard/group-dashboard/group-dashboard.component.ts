@@ -91,7 +91,7 @@ export class GroupDashboardComponent implements OnInit {
       const { reload, group, schoolYear, subject, measuredAssessments } = resolvedParameters;
       if (reload) {
         this.group = group;
-        this.schoolYear = Number.parseInt(schoolYear) || undefined;
+        this.schoolYear = Number.parseInt(schoolYear) || this.schoolYear;
         this.updateMeasuredAssessments(measuredAssessments);
       }
       this.subject = subject;
