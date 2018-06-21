@@ -146,7 +146,7 @@ export class AverageScaleScoreComponent {
   }
 
   private levelCountPercent(levelCount: number): number {
-    return Math.floor(levelCount / this._totalCount * 100);
+    return this._totalCount !== 0 ? Math.floor(levelCount / this._totalCount * 100) : 0;
   }
 
   loadInstructionalResources(level: number): void {
