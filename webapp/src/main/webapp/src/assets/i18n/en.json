@@ -87,72 +87,72 @@
 
   "subject.ELA.asmt-type.iab.level.1.color": "aqua",
   "subject.ELA.asmt-type.iab.level.1.name": "Below Standard",
-  "subject.ELA.asmt-type.iab.level.1.name": "Below",
-  "subject.ELA.asmt-type.iab.level.1.name": "Standard",
+  "subject.ELA.asmt-type.iab.level.1.short-name": "Below",
+  "subject.ELA.asmt-type.iab.level.1.suffix": "Standard",
   "subject.ELA.asmt-type.iab.level.2.color": "textured-blue",
   "subject.ELA.asmt-type.iab.level.2.name": "Near Standard",
-  "subject.ELA.asmt-type.iab.level.2.name": "Near",
-  "subject.ELA.asmt-type.iab.level.2.name": "Standard",
+  "subject.ELA.asmt-type.iab.level.2.short-name": "Near",
+  "subject.ELA.asmt-type.iab.level.2.suffix": "Standard",
   "subject.ELA.asmt-type.iab.level.3.color": "blue-dark",
   "subject.ELA.asmt-type.iab.level.3.name": "Above Standard",
-  "subject.ELA.asmt-type.iab.level.3.name": "Above",
-  "subject.ELA.asmt-type.iab.level.3.name": "Standard",
+  "subject.ELA.asmt-type.iab.level.3.short-name": "Above",
+  "subject.ELA.asmt-type.iab.level.3.suffix": "Standard",
   "subject.ELA.asmt-type.ica.claim-score.level.1.color": "sb-iab-red",
   "subject.ELA.asmt-type.ica.claim-score.level.1.name": "Below Standard",
-  "subject.ELA.asmt-type.ica.claim-score.level.1.name": "Below",
-  "subject.ELA.asmt-type.ica.claim-score.level.1.name": "Standard",
+  "subject.ELA.asmt-type.ica.claim-score.level.1.short-name": "Below",
+  "subject.ELA.asmt-type.ica.claim-score.level.1.suffix": "Standard",
   "subject.ELA.asmt-type.ica.claim-score.level.2.color": "sb-iab-yellow",
   "subject.ELA.asmt-type.ica.claim-score.level.2.name": "Near Standard",
-  "subject.ELA.asmt-type.ica.claim-score.level.2.name": "Near",
-  "subject.ELA.asmt-type.ica.claim-score.level.2.name": "Standard",
+  "subject.ELA.asmt-type.ica.claim-score.level.2.short-name": "Near",
+  "subject.ELA.asmt-type.ica.claim-score.level.2.suffix": "Standard",
   "subject.ELA.asmt-type.ica.claim-score.level.3.color": "sb-iab-green",
   "subject.ELA.asmt-type.ica.claim-score.level.3.name": "Above Standard",
-  "subject.ELA.asmt-type.ica.claim-score.level.3.name": "Above",
-  "subject.ELA.asmt-type.ica.claim-score.level.3.name": "Standard",
+  "subject.ELA.asmt-type.ica.claim-score.level.3.short-name": "Above",
+  "subject.ELA.asmt-type.ica.claim-score.level.3.suffix": "Standard",
   "subject.ELA.asmt-type.ica.level.1.color": "maroon",
   "subject.ELA.asmt-type.ica.level.1.name": "Did Not Meet Standard",
-  "subject.ELA.asmt-type.ica.level.1.name": "Did Not Meet",
-  "subject.ELA.asmt-type.ica.level.1.name": "Standard",
+  "subject.ELA.asmt-type.ica.level.1.short-name": "Did Not Meet",
+  "subject.ELA.asmt-type.ica.level.1.suffix": "Standard",
   "subject.ELA.asmt-type.ica.level.2.color": "gray-darkest",
   "subject.ELA.asmt-type.ica.level.2.name": "Nearly Met Standard",
-  "subject.ELA.asmt-type.ica.level.2.name": "Nearly Met",
-  "subject.ELA.asmt-type.ica.level.2.name": "Standard",
+  "subject.ELA.asmt-type.ica.level.2.short-name": "Nearly Met",
+  "subject.ELA.asmt-type.ica.level.2.suffix": "Standard",
   "subject.ELA.asmt-type.ica.level.3.color": "green-dark",
   "subject.ELA.asmt-type.ica.level.3.name": "Met Standard",
-  "subject.ELA.asmt-type.ica.level.3.name": "Met",
-  "subject.ELA.asmt-type.ica.level.3.name": "Standard",
+  "subject.ELA.asmt-type.ica.level.3.short-name": "Met",
+  "subject.ELA.asmt-type.ica.level.3.suffix": "Standard",
   "subject.ELA.asmt-type.ica.level.4.color": "blue-dark",
   "subject.ELA.asmt-type.ica.level.4.name": "Exceeded Standard",
-  "subject.ELA.asmt-type.ica.level.4.name": "Exceeded",
-  "subject.ELA.asmt-type.ica.level.4.name": "Standard",
+  "subject.ELA.asmt-type.ica.level.4.short-name": "Exceeded",
+  "subject.ELA.asmt-type.ica.level.4.suffix": "Standard",
   "subject.ELA.asmt-type.sum.claim-score.level.1.color": "sb-iab-red",
   "subject.ELA.asmt-type.sum.claim-score.level.1.name": "Below Standard",
-  "subject.ELA.asmt-type.sum.claim-score.level.1.name": "Below",
-  "subject.ELA.asmt-type.sum.claim-score.level.1.name": "Standard",
+  "subject.ELA.asmt-type.sum.claim-score.level.1.short-name": "Below",
+  "subject.ELA.asmt-type.sum.claim-score.level.1.suffix": "Standard",
   "subject.ELA.asmt-type.sum.claim-score.level.2.color": "sb-iab-yellow",
   "subject.ELA.asmt-type.sum.claim-score.level.2.name": "Near Standard",
-  "subject.ELA.asmt-type.sum.claim-score.level.2.name": "Near",
-  "subject.ELA.asmt-type.sum.claim-score.level.2.name": "Standard",
+  "subject.ELA.asmt-type.sum.claim-score.level.2.short-name": "Near",
+  "subject.ELA.asmt-type.sum.claim-score.level.2.suffix": "Standard",
   "subject.ELA.asmt-type.sum.claim-score.level.3.color": "sb-iab-green",
   "subject.ELA.asmt-type.sum.claim-score.level.3.name": "Above Standard",
-  "subject.ELA.asmt-type.sum.claim-score.level.3.name": "Above",
-  "subject.ELA.asmt-type.sum.claim-score.level.3.name": "Standard",
+  "subject.ELA.asmt-type.sum.claim-score.level.3.short-name": "Above",
+  "subject.ELA.asmt-type.sum.claim-score.level.3.suffix": "Standard",
   "subject.ELA.asmt-type.sum.level.1.color": "maroon",
   "subject.ELA.asmt-type.sum.level.1.name": "Did Not Meet Standard",
-  "subject.ELA.asmt-type.sum.level.1.name": "Did Not Meet",
-  "subject.ELA.asmt-type.sum.level.1.name": "Standard",
+  "subject.ELA.asmt-type.sum.level.1.short-name": "Did Not Meet",
+  "subject.ELA.asmt-type.sum.level.1.suffix": "Standard",
   "subject.ELA.asmt-type.sum.level.2.color": "gray-darkest",
   "subject.ELA.asmt-type.sum.level.2.name": "Nearly Met Standard",
-  "subject.ELA.asmt-type.sum.level.2.name": "Nearly Met",
-  "subject.ELA.asmt-type.sum.level.2.name": "Standard",
+  "subject.ELA.asmt-type.sum.level.2.short-name": "Nearly Met",
+  "subject.ELA.asmt-type.sum.level.2.suffix": "Standard",
   "subject.ELA.asmt-type.sum.level.3.color": "green-dark",
   "subject.ELA.asmt-type.sum.level.3.name": "Met Standard",
-  "subject.ELA.asmt-type.sum.level.3.name": "Met",
-  "subject.ELA.asmt-type.sum.level.3.name": "Standard",
+  "subject.ELA.asmt-type.sum.level.3.short-name": "Met",
+  "subject.ELA.asmt-type.sum.level.3.suffix": "Standard",
   "subject.ELA.asmt-type.sum.level.4.color": "blue-dark",
   "subject.ELA.asmt-type.sum.level.4.name": "Exceeded Standard",
-  "subject.ELA.asmt-type.sum.level.4.name": "Exceeded",
-  "subject.ELA.asmt-type.sum.level.4.name": "Standard",
+  "subject.ELA.asmt-type.sum.level.4.short-name": "Exceeded",
+  "subject.ELA.asmt-type.sum.level.4.suffix": "Standard",
   "subject.ELA.claim.1-IT.description": "Read Analytically: Informational Text - Students can read closely and analytically to comprehend a range of increasingly complex literary and informational texts.",
   "subject.ELA.claim.1-IT.name": "Reading",
   "subject.ELA.claim.1-LT.description": "Read Analytically: Literary Text - Students can read closely and analytically to comprehend a range of increasingly complex literary and informational texts.",
@@ -443,10 +443,12 @@
     "action": {
       "cancel": "Cancel",
       "close": "Close",
-      "collapse": "Collapse Results",
+      "collapse": "Collapse",
+      "collapse-results": "Collapse Results",
       "create": "Create",
       "delete": "Delete",
-      "expand": "Expand Results",
+      "expand": "Expand",
+      "expand-results": "Expand Results",
       "go-home": "Go Home",
       "hide": "Hide",
       "save": "Save",
@@ -553,73 +555,12 @@
     },
     "assessment-type": {
       "iab": {
-        "performance-level": {
-          "1": {
-            "name": "Below Standard",
-            "name-prefix": "Below",
-            "short-name": "Below Standard"
-          },
-          "2": {
-            "name": "Near Standard",
-            "name-prefix": "Near",
-            "short-name": "Near Standard"
-          },
-          "3": {
-            "name": "Above Standard",
-            "name-prefix": "Above",
-            "short-name": "Above Standard"
-          }
-        },
         "short-name": "IAB"
       },
       "ica": {
-        "performance-level": {
-          "1": {
-            "name": "Did Not Meet Standard",
-            "name-prefix": "Did Not Meet",
-            "short-name": "Did Not Meet"
-          },
-          "2": {
-            "name": "Nearly Met Standard",
-            "name-prefix": "Nearly Met",
-            "short-name": "Nearly Met"
-          },
-          "3": {
-            "name": "Met Standard",
-            "name-prefix": "Met",
-            "short-name": "Met"
-          },
-          "4": {
-            "name": "Exceeded Standard",
-            "name-prefix": "Exceeded",
-            "short-name": "Exceeded"
-          }
-        },
         "short-name": "ICA"
       },
       "sum": {
-        "performance-level": {
-          "1": {
-            "name": "Did Not Meet Standard",
-            "name-prefix": "Did Not Meet",
-            "short-name": "Did Not Meet"
-          },
-          "2": {
-            "name": "Nearly Met Standard",
-            "name-prefix": "Nearly Met",
-            "short-name": "Nearly Met"
-          },
-          "3": {
-            "name": "Met Standard",
-            "name-prefix": "Met",
-            "short-name": "Met"
-          },
-          "4": {
-            "name": "Exceeded Standard",
-            "name-prefix": "Exceeded",
-            "short-name": "Exceeded"
-          }
-        },
         "short-name": "Summative"
       }
     },
@@ -920,11 +861,6 @@
         "number": "Item #",
         "purpose": "Writing Purpose",
         "purpose-info": "Students write extended responses that that have one of the following purposes: narrative, opinion, informational, explanatory, or argumentative. Writing purpose varies by grade of assessment. For more information, see the Interpretive Guide.",
-        "standard": "Standard",
-        "standard-info": {
-          "ELA": "This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  For example, a question that asks students to evaluate research sources may assess both reading and research skills.  For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/english-language-artsliteracy-content-specifications.pdf\" target=\"_blank\">English Language Arts Content Specifications</a>.",
-          "Math": "This column reflects the Common Core State Standard(s) associated with a test item. Test items may be associated with more than one standard.  Items that assess mathematical practices (problem solving, modeling and data analysis, and communicating reasoning) are also aligned to standards that describe the mathematical content with which students engage. For example, an item may ask students to communicate their reasoning when solving a problem about geometry or fractions. For more information, see the <a href=\"https://portal.smarterbalanced.org/library/en/mathematics-content-specifications.pdf\" target=\"_blank\">Mathematics Content Specifications</a>."
-        },
         "x-points": "{{id}}"
       },
       "assessment-item-target": "Target {{target}}"

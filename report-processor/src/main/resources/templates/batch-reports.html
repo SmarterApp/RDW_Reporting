@@ -8,25 +8,41 @@
         <div th:replace="fragments::styles-general"></div>
     </head>
     <body class="pdf">
-        <div th:each="studentCompositeReport : ${studentCompositeReports}">
+        <div th:each="studentCompositeReport, iStat : ${studentCompositeReports}"
+             th:class="${iStat.last}? '' : 'break-page'">
             <div th:if="${studentCompositeReport.iabMath != null}"
-                 th:with="report=${studentCompositeReport.iabMath}">
+                 th:with="report=${studentCompositeReport.iabMath}"
+                 th:class="${studentCompositeReport.iabEla != null ||
+                             studentCompositeReport.icaMath != null ||
+                             studentCompositeReport.icaEla != null ||
+                             studentCompositeReport.summativeMath != null ||
+                             studentCompositeReport.summativeEla != null}? 'break-page'">
                 <div th:replace="iab-body::body"></div>
             </div>
             <div th:if="${studentCompositeReport.iabEla != null}"
-                 th:with="report=${studentCompositeReport.iabEla}">
+                 th:with="report=${studentCompositeReport.iabEla}"
+                 th:class="${studentCompositeReport.icaMath != null ||
+                             studentCompositeReport.icaEla != null ||
+                             studentCompositeReport.summativeMath != null ||
+                             studentCompositeReport.summativeEla != null}? 'break-page'">
                 <div th:replace="iab-body::body"></div>
             </div>
             <div th:if="${studentCompositeReport.icaMath != null}"
-                 th:with="report=${studentCompositeReport.icaMath}">
+                 th:with="report=${studentCompositeReport.icaMath}"
+                 th:class="${studentCompositeReport.icaEla != null ||
+                             studentCompositeReport.summativeMath != null ||
+                             studentCompositeReport.summativeEla != null}? 'break-page'">
                 <div th:replace="ica-body::body"></div>
             </div>
             <div th:if="${studentCompositeReport.icaEla != null}"
-                 th:with="report=${studentCompositeReport.icaEla}">
+                 th:with="report=${studentCompositeReport.icaEla}"
+                 th:class="${studentCompositeReport.summativeMath != null ||
+                             studentCompositeReport.summativeEla != null}? 'break-page'">
                 <div th:replace="ica-body::body"></div>
             </div>
             <div th:if="${studentCompositeReport.summativeMath != null}"
-                 th:with="report=${studentCompositeReport.summativeMath}">
+                 th:with="report=${studentCompositeReport.summativeMath}"
+                 th:class="${studentCompositeReport.summativeEla != null}? 'break-page'">
                 <div th:replace="sum-body::body"></div>
             </div>
             <div th:if="${studentCompositeReport.summativeEla != null}"

@@ -222,7 +222,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
   }
 
   get isMath(): boolean {
-    return this.assessment.subject == 'Math';
+    return this.assessment.subject === 'Math';
   }
 
   /**

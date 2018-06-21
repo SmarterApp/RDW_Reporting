@@ -1,21 +1,26 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { Exam } from "../../../model/exam.model";
-import { StudentReportDownloadComponent } from "../../../../report/student-report-download.component";
-import { ReportOptions } from "../../../../report/report-options.model";
-import { TranslateService } from "@ngx-translate/core";
-import { MenuActionBuilder } from "../../../menu/menu-action.builder";
-import { Assessment } from "../../../model/assessment.model";
-import { InstructionalResourcesService } from "../../instructional-resources.service";
-import { InstructionalResource } from "../../../model/instructional-resources.model";
-import { Observable } from "rxjs/Observable";
-import { PopupMenuAction } from "../../../../shared/menu/popup-menu-action.model";
-import { createScorableClaimOrdering } from '../../../../shared/ordering/orderings';
+import { Exam } from '../../../model/exam.model';
+import { StudentReportDownloadComponent } from '../../../../report/student-report-download.component';
+import { ReportOptions } from '../../../../report/report-options.model';
+import { TranslateService } from '@ngx-translate/core';
+import { MenuActionBuilder } from '../../../menu/menu-action.builder';
+import { Assessment } from '../../../model/assessment.model';
+import { InstructionalResourcesService } from '../../instructional-resources.service';
+import { InstructionalResource } from '../../../model/instructional-resources.model';
+import { Observable } from 'rxjs/Observable';
+import { PopupMenuAction } from '../../../../shared/menu/popup-menu-action.model';
+import {
+  createRankingOrStringOrdering,
+} from '../../../../shared/ordering/orderings';
+import { SubjectService } from '../../../../subject/subject.service';
+import { Ordering } from '@kourge/ordering';
 
 @Component({
   selector: 'results-by-student',
   templateUrl: './results-by-student.component.html'
 })
 export class ResultsByStudentComponent implements OnInit {
+
   /**
    * The exams to display
    */
@@ -46,51 +51,47 @@ export class ResultsByStudentComponent implements OnInit {
   instructionalResourcesProvider: () => Observable<InstructionalResource[]>;
   hasTransferStudent: boolean = false;
 
-  get performanceLevelHeader() {
-    // TODO why not just `common.results.assessment-exam-columns.${assessment.type}.performance`
-    return 'common.results.assessment-exam-columns.' +
-      (this.assessment.isIab ? 'iab' : 'ica') + '.performance';
-  }
-
-  get performanceLevelHeaderInfo() {
-    return this.performanceLevelHeader + '-info';
-  }
-
   constructor(private actionBuilder: MenuActionBuilder,
               private translate: TranslateService,
-              private instructionalResourcesService: InstructionalResourcesService) {
+              private instructionalResourcesService: InstructionalResourcesService,
+              private subjectService: SubjectService) {
   }
 
   ngOnInit() {
-    this.columns = [
-      new Column({id: 'name', field: 'student.lastName'}),
-      new Column({id: 'date'}),
-      new Column({id: 'session'}),
-      new Column({id: 'grade', field: 'enrolledGrade', overall: true}),
-      new Column({id: 'school', field: 'school.name'}),
-      new Column({id: 'status', headerInfo: true, overall: true}),
-      new Column({id: 'level', overall: true}),
-      new Column({id: 'score', headerInfo: true, overall: true}),
-      ...this.getClaimColumns()
-    ];
-    this.actions = this.createActions();
-    this.hasTransferStudent = this.exams.some(x => x.transfer);
+    this.subjectService.getScorableClaimsBySubject().subscribe(scorableClaimsBySubject => {
+      this.columns = [
+        new Column({ id: 'name', field: 'student.lastName' }),
+        new Column({ id: 'date' }),
+        new Column({ id: 'session' }),
+        new Column({ id: 'grade', field: 'enrolledGrade', overall: true }),
+        new Column({ id: 'school', field: 'school.name' }),
+        new Column({ id: 'status', headerInfo: true, overall: true }),
+        new Column({ id: 'level', overall: true }),
+        new Column({ id: 'score', headerInfo: true, overall: true }),
+        ...this.createClaimColumns(
+          createRankingOrStringOrdering(scorableClaimsBySubject.get(this.assessment.subject))
+        )
+      ];
+      this.actions = this.createActions();
+      this.hasTransferStudent = this.exams.some(x => x.transfer);
+    });
   }
 
-  loadInstructionalResources(exam: Exam) {
+  loadInstructionalResources(exam: Exam): void {
     this.instructionalResourcesProvider = () => this.instructionalResourcesService.getInstructionalResources(this.assessment.id, exam.school.id)
       .map(resources => resources.getResourcesByPerformance(exam.level));
   }
 
-  private getClaimColumns(): Column[] {
+  private createClaimColumns(ordering: Ordering<string>): Column[] {
     if (!this.assessment.claimCodes) {
       return [];
     }
 
     return this.assessment.claimCodes
-      .sort(createScorableClaimOrdering(this.assessment.subject).compare)
+      // TODO add .concat() as sort() is an in-place sort
+      .sort(ordering.compare)
       .map((code, index) =>
-        new Column({id: 'claim', field: `claimScores.${index}.level`, index: index, claim: code})
+        new Column({ id: 'claim', field: `claimScores.${index}.level`, index: index, claim: code })
       );
   }
 
@@ -138,7 +139,7 @@ class Column {
   headerInfo: boolean;
   overall: boolean;
 
-  //Claim properties
+  // Claim properties
   index?: number;
   claim?: string;
 

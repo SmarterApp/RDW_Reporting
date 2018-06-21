@@ -26,7 +26,6 @@
 <div th:fragment="styles-general">
     <style>
         footer {
-            page-break-after: always;
             page-break-inside: avoid;
         }
         .row, .well-group {
@@ -369,8 +368,11 @@
             text-align: right;
             font-size: 1rem;
             color: #64666a;
-            page-break-after: always;
             page-break-inside: avoid;
+        }
+
+        .break-page {
+            page-break-after: always;
         }
 
         .overview .standard .score.maroon,

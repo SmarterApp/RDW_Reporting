@@ -79,7 +79,12 @@ export class ReportService {
    * @returns {Observable<Report>} the handle used the get status on the download
    */
   public createGroupExamReport(group: Group, options: ReportOptions): Observable<Report> {
-    const search = Object.assign(group.userCreated ? {userGroupId: group.id} : {groupId: group.id}, options);
+    const search = Object.assign({
+      groupId: {
+        id: group.id,
+        type: group.userCreated ? 'Teacher' : 'Admin'
+      }
+    }, options);
     return this.createExamReport(`${ServiceRoute}/student-exam-reports`, search);
   }
 
