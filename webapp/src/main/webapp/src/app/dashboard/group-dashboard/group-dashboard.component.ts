@@ -94,10 +94,11 @@ export class GroupDashboardComponent implements OnInit {
         this.schoolYear = Number.parseInt(schoolYear) || undefined;
         this.updateMeasuredAssessments(measuredAssessments);
       }
-      if (group == null || group.subjectCode && group.subjectCode === subject) {
+      if (group == null || group.subjectCode == null || group.subjectCode === subject) {
         this.subject = subject;
       } else {
         delete this.subject;
+        this.updateRoute(true);
       }
       this.updateRows();
       this.loadingMeasuredAssessments = false;
