@@ -8,6 +8,11 @@ import { ordering } from '@kourge/ordering';
 const Subjects = [ 'Math', 'ELA' ];
 const MathScorableClaims = [ '1', 'SOCK_2', '3' ];
 const ELAScorableClaims = [ 'SOCK_R', 'SOCK_LS', '2-W', '4-CR' ];
+const ScorableClaimsBySubject: Map<string, string[]>  = new Map([
+  [ 'Math', MathScorableClaims ],
+  [ 'ELA', ELAScorableClaims ]
+]);
+
 
 const SubjectDefinitions: SubjectDefinition[] = [
   {
@@ -73,6 +78,10 @@ export class SubjectService {
 
   getSubjectDefinitions(): Observable<SubjectDefinition[]> {
     return of(SubjectDefinitions);
+  }
+
+  getScorableClaimsBySubject(): Observable<Map<string, string[]>> {
+    return of(ScorableClaimsBySubject);
   }
 
 }

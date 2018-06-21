@@ -15,14 +15,14 @@ export class GroupsComponent implements OnInit {
   searchThreshold: number = 10;
   filteredGroups: Group[] = [];
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.filteredGroups = this.groups.concat();
     if (this.groups.length) {
       this.defaultGroup = this.groups[ 0 ];
     }
   }
 
-  onSearchChange() {
+  onSearchChange(): void {
     this.filteredGroups = this.groups.filter( group =>
       group.name.toLowerCase().indexOf(this.search.toLowerCase()) >= 0);
   }
