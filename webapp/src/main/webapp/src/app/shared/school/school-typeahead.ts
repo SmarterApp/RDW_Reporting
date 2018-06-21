@@ -24,7 +24,7 @@ import { TypeaheadMatch } from "ngx-bootstrap";
 
     <ng-template #schoolTemplate let-school="item" let-index="index" let-query="query">
       <p class="mb-0">{{school.name}}</p>
-      <p class="h6"><span class="label label-default">{{'school-typeahead.district-label' | translate}}</span>
+      <p *ngIf="school.districtName" class="h6"><span class="label label-default">{{'school-typeahead.district-label' | translate}}</span>
         {{ school.districtName }}</p>
     </ng-template>
   `
