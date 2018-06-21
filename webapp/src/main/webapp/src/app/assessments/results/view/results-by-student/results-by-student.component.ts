@@ -9,9 +9,7 @@ import { InstructionalResourcesService } from '../../instructional-resources.ser
 import { InstructionalResource } from '../../../model/instructional-resources.model';
 import { Observable } from 'rxjs/Observable';
 import { PopupMenuAction } from '../../../../shared/menu/popup-menu-action.model';
-import {
-  createRankingOrStringOrdering,
-} from '../../../../shared/ordering/orderings';
+import { createRankingOrStringOrdering, } from '../../../../shared/ordering/orderings';
 import { SubjectService } from '../../../../subject/subject.service';
 import { Ordering } from '@kourge/ordering';
 

@@ -5,6 +5,7 @@ import { CachingDataService } from "../shared/data/caching-data.service";
 import { ReportingServiceRoute } from "../shared/service-route";
 import { ResponseUtils } from "../shared/response-utils";
 import { catchError, map } from "rxjs/operators";
+import { of } from "rxjs/observable/of";
 
 const ServiceRoute = ReportingServiceRoute;
 
