@@ -92,10 +92,17 @@ export class ResultsByStudentComponent implements OnInit {
     }
 
     return this.assessment.claimCodes
-      .sort(createScorableClaimOrdering(this.assessment.subject).compare)
       .map((code, index) =>
-        new Column({id: 'claim', field: `claimScores.${index}.level`, index: index, claim: code})
-      );
+        new Column({
+          id: 'claim',
+          field: `claimScores.${index}.level`,
+          index: index,
+          claim: code
+        })
+      )
+      .sort(createScorableClaimOrdering(this.assessment.subject)
+        .on((column: Column) => column.claim)
+        .compare);
   }
 
   private createActions(): PopupMenuAction[] {

@@ -190,15 +190,17 @@ export class StudentHistoryTableComponent implements OnInit {
     }
 
     return this.exams[ 0 ].assessment.claimCodes
-      .sort(createScorableClaimOrdering(this.exams[ 0 ].assessment.subject).compare)
-      .map((claim: string, index: number) => {
-        return new Column({
+      .map((claim: string, index: number) =>
+        new Column({
           id: 'claim',
           field: `exam.claimScores.${index}.level`,
           claim: claim,
           index: index
-        });
-      });
+        })
+      )
+      .sort(createScorableClaimOrdering(this.exams[ 0 ].assessment.subject)
+        .on((column: Column) => column.claim)
+        .compare);
   }
 
 }
