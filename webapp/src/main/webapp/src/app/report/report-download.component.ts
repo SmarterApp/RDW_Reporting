@@ -48,8 +48,7 @@ export abstract class ReportDownloadComponent implements OnInit {
   onShow: EventEmitter<any> = new EventEmitter<any>();
 
   assessmentTypes: string[] = [ undefined, 'ica', 'iab', 'sum' ];
-  // TODO:ConfigurableSubjects these should be provided by the backend
-  subjectTypes: string[] = [ undefined, 'Math', 'ELA' ];
+  subjectTypes: string[] = [ ];
   orders: ReportOrder[] = [ ReportOrder.STUDENT_NAME, ReportOrder.STUDENT_SSID ];
   options: ReportOptions;
   reportLanguages: string[] = [ 'en' ];
