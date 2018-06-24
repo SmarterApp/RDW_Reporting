@@ -248,7 +248,6 @@ sql:
         a.label as asmt_label,
         a.grade_code as asmt_grade_code,
         a.type_id as asmt_type_id,
-        a.subject_id as asmt_subject_id,
         su.code as asmt_subject_code,
         a.school_year as asmt_school_year,
         a.min_score as asmt_min_score,
