@@ -5,9 +5,9 @@ import { NotificationService } from "../shared/notification/notification.service
 import { Student } from "../student/model/student.model";
 import { Report } from "./report.model";
 import { Observable } from "rxjs/Observable";
-import { TranslateService } from "@ngx-translate/core";
 import { ApplicationSettingsService } from "../app-settings.service";
 import { StudentNameService } from '../shared/format/student-name.service';
+import { SubjectService } from '../subject/subject.service';
 
 /**
  * Component used for single-student exam report download
@@ -23,9 +23,10 @@ export class StudentReportDownloadComponent extends ReportDownloadComponent {
 
   constructor(notificationService: NotificationService,
               applicationSettingsService: ApplicationSettingsService,
+              subjectService: SubjectService,
               private service: ReportService,
               private studentNameService: StudentNameService) {
-    super(notificationService, applicationSettingsService);
+    super(notificationService, applicationSettingsService, subjectService);
     this.displayOrder = false;
   }
 

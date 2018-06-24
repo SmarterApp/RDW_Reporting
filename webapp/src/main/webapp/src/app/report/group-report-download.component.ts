@@ -6,6 +6,7 @@ import { Report } from "./report.model";
 import { Group } from "../groups/group";
 import { Observable } from "rxjs/Observable";
 import { ApplicationSettingsService } from '../app-settings.service';
+import { SubjectService } from '../subject/subject.service';
 
 /**
  * Component used for single-student exam report download
@@ -21,8 +22,9 @@ export class GroupReportDownloadComponent extends ReportDownloadComponent {
 
   constructor(notificationService: NotificationService,
               applicationSettingsService: ApplicationSettingsService,
+              subjectService: SubjectService,
               private service: ReportService) {
-    super(notificationService, applicationSettingsService);
+    super(notificationService, applicationSettingsService, subjectService);
   }
 
   createReport(): Observable<Report> {

@@ -8,6 +8,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs/Observable";
 import { ApplicationSettingsService } from '../app-settings.service';
 import { School } from "../shared/organization/organization";
+import { SubjectService } from '../subject/subject.service';
 
 /**
  * Component used for single-student exam report download
@@ -26,9 +27,10 @@ export class SchoolGradeDownloadComponent extends ReportDownloadComponent {
 
   constructor(notificationService: NotificationService,
               applicationSettingsService: ApplicationSettingsService,
+              subjectService: SubjectService,
               private service: ReportService,
               private translate: TranslateService) {
-    super(notificationService, applicationSettingsService);
+    super(notificationService, applicationSettingsService, subjectService);
   }
 
   createReport(): Observable<Report> {
