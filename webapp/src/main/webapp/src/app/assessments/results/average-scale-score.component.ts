@@ -33,14 +33,16 @@ export class AverageScaleScoreComponent {
 
   @Input()
   set statistics(value: ExamStatistics) {
+    if (!value) {
+      return;
+    }
+
     // reverse percents and levels so scale score statistics appear in descending order ("good" statistics levels comes before "bad")
     // TODO refactor - this has side-effects on the provided value
     value.percents = value.percents.reverse();
     value.levels = value.levels.reverse();
     this._statistics = value;
-    if (!value) {
-      return;
-    }
+
 
     this.averageScore = !isNaN(value.average) ? Math.round(value.average) : value.average;
 
@@ -124,6 +126,10 @@ export class AverageScaleScoreComponent {
   }
 
   get performanceLevels(): ExamStatisticsLevel[] {
+    if (this.statistics == null) {
+      return [];
+    }
+
     return this.showValuesAsPercent ? this.statistics.percents : this.statistics.levels;
   }
 

@@ -304,6 +304,8 @@ export class AssessmentResultsComponent implements OnInit {
       this.percentileDisplayEnabled = settings.percentileDisplayEnabled;
       this.subjectDefinition = subjectDefinition;
       this.setCurrentView(this.resultsByStudentView);
+
+      this.updateExamSessions();
     });
   }
 
@@ -408,7 +410,7 @@ export class AssessmentResultsComponent implements OnInit {
 
   private updateExamSessions(): void {
     this.exams = this.filterExams();
-    this.statistics = this.calculateStats();
+    this.statistics = this.subjectDefinition != null ? this.calculateStats() : null;
   }
 
   private filterExams(): Exam[] {
@@ -432,10 +434,9 @@ export class AssessmentResultsComponent implements OnInit {
     stats.average = this.examCalculator.calculateAverage(scores);
     stats.standardError = this.examCalculator.calculateStandardErrorOfTheMean(scores);
 
-    // TODO: determine a different way for configurable subjects
-    stats.levels = this.examCalculator.groupLevels(this.exams, this.assessmentExam.assessment.isIab ? 3 : 4);
+    stats.levels = this.examCalculator.groupLevels(this.exams, this.subjectDefinition.performanceLevelCount);
     stats.percents = this.examCalculator.mapGroupLevelsToPercents(stats.levels);
-    stats.claims = this.examCalculator.calculateClaimStatistics(this.exams, 3);
+    stats.claims = this.examCalculator.calculateClaimStatistics(this.exams, this.subjectDefinition.scorableClaimPerformanceLevelCount);
 
     return stats;
   }

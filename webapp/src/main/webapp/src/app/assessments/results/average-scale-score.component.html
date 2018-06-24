@@ -27,7 +27,7 @@
                 </div>
               </td>
               <td class="">
-                <span class="text-left gray-darkest">
+                <span *ngIf="statistics" class="text-left gray-darkest">
                   <span class="score font-large">{{ statistics.total }}</span>
                   <span class="ml-xs">{{ (statistics.total == 1 ? 'average-scale-score.result' : 'average-scale-score.results') | translate }}</span>
                 </span>
