@@ -36,7 +36,7 @@
 
         <div *ngSwitchCase="'subject'"
              class="text-right">
-          {{embargo.examCountsBySubject[column.serverSubjectCode] | number}}
+          {{getExamCount(embargo, column.code) | number}}
         </div>
 
         <div *ngSwitchCase="'individualEnabled'"

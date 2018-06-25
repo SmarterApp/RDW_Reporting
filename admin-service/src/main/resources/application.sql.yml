@@ -42,12 +42,12 @@ sql:
         st.*,
         coalesce(se.individual, 0) as individual,
         coalesce(se.aggregate, 1) as aggregate,
-        cnt.subject_id,
+        cnt.subject_code,
         cnt.count
       FROM (SELECT 'State' AS org_type, NULL AS org_id, NULL AS org_name, :school_year AS school_year) st
         LEFT JOIN state_embargo se ON se.school_year = :school_year
-        LEFT JOIN (SELECT a.subject_id, count(e.id) AS count
-                     FROM exam e JOIN asmt a ON a.id = e.asmt_id
+        LEFT JOIN (SELECT su.code as subject_code, count(e.id) AS count
+                     FROM exam e JOIN asmt a ON a.id = e.asmt_id JOIN subject su ON a.subject_id = su.id
                      WHERE a.type_id = 3 AND e.deleted = 0 AND e.school_year = :school_year
                      GROUP BY a.subject_id) cnt ON 1=1
       UNION ALL
@@ -58,15 +58,16 @@ sql:
         :school_year AS school_year,
         IF(se.individual = 0 OR de.individual = 0 OR (se.individual IS NULL and de.individual IS NULL), 0, 1) as individual,
         IF(se.aggregate = 0 OR de.aggregate = 0, 0, 1) as aggregate,
-        cnt.subject_id,
+        cnt.subject_code,
         cnt.count
       FROM district d
         LEFT JOIN state_embargo se ON se.school_year = :school_year
         LEFT JOIN district_embargo de ON d.id = de.district_id and de.school_year = :school_year
-        LEFT JOIN (SELECT s.district_id, a.subject_id, count(e.id) AS count
+        LEFT JOIN (SELECT s.district_id, su.code as subject_code, count(e.id) AS count
                    FROM school s
                      JOIN exam e ON e.school_id = s.id
                      JOIN asmt a ON a.id = e.asmt_id
+                     JOIN subject su ON a.subject_id = su.id
                    WHERE s.district_id IN (:district_ids) AND e.deleted = 0 AND a.type_id = 3 AND e.school_year = :school_year
                    GROUP BY s.district_id, a.subject_id) cnt ON d.id = cnt.district_id
       WHERE d.id IN (:district_ids)
