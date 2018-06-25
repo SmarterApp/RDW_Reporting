@@ -254,7 +254,9 @@ sql:
         a.max_score as asmt_max_score,
         a.cut_point_1 as asmt_cut_point_1,
         a.cut_point_2 as asmt_cut_point_2,
-        a.cut_point_3 as asmt_cut_point_3
+        a.cut_point_3 as asmt_cut_point_3,
+        a.cut_point_4 as asmt_cut_point_4,
+        a.cut_point_5 as asmt_cut_point_5
         from exam e
           join student st on st.id = e.student_id
           join asmt a on e.asmt_id = a.id

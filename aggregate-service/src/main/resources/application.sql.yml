@@ -18,6 +18,8 @@ sql:
         a.cut_point_1,
         a.cut_point_2,
         a.cut_point_3,
+        a.cut_point_4,
+        a.cut_point_5,
         a.max_score
       FROM asmt a
         JOIN asmt_type at on at.id = a.type_id

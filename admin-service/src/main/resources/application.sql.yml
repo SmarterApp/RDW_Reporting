@@ -24,6 +24,8 @@ sql:
           a.cut_point_1,
           a.cut_point_2,
           a.cut_point_3,
+          a.cut_point_4,
+          a.cut_point_5,
           su.code as subject_code
         FROM asmt a
         JOIN subject su on a.subject_id = su.id
