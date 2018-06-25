@@ -48,7 +48,7 @@ export class AssessmentItem {
     const scoreCount = this.scores.reduce((count, score) =>
       score.points >= 0 ? count + 1 : count,
       0);
-    return this.scores.length > 0
+    return this.scores.length > 0 && scoreCount > 0
       ? this.fullCredit / scoreCount * 100
       : 0;
   }

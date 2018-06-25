@@ -91,7 +91,7 @@ export class ExamStatisticsCalculator {
         if (item.scores.length > 0) {
           let count = item.scores.filter(x => x.points == i).length;
           item[ this.NumberFieldPrefix + i ] = count;
-          item[ this.PercentFieldPrefix + i ] = count / scoreCount * 100;
+          item[ this.PercentFieldPrefix + i ] = scoreCount > 0 ? count / scoreCount * 100 : 0;
         }
         else {
           item[ this.NumberFieldPrefix + i ] = 0;
