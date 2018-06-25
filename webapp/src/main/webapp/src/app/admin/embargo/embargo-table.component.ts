@@ -65,8 +65,7 @@ export class EmbargoTable implements OnInit {
   }
 
   getExamCount(embargo: Embargo, subjectCode) {
-    const examCount = embargo.examCountsBySubject[subjectCode];
-    return examCount || 0;
+    return embargo.examCountsBySubject[subjectCode] || 0;
   }
 
   private getSubjectColumns(): Column[] {
