@@ -126,7 +126,7 @@ export class StudentResultsComponent implements OnInit {
         return exams;
       }, []),
       () => this.examHistory.student,
-      `${student.lastName}-${student.firstName}-${student.ssid}-${new Date().toDateString()}`
+      `${student.lastName ? student.lastName + '-' : ''}${student.firstName ? student.firstName + '-' : ''}${student.ssid}-${new Date().toDateString()}`
     );
   }
 

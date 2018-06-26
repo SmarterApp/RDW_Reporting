@@ -104,10 +104,10 @@ export class CsvBuilder {
   withStudentName(getStudent: (item: any) => Student) {
     return this.withColumn(
       this.translateService.instant('csv-builder.student-first-name'),
-      (item) => getStudent(item).firstName
+      (item) => getStudent(item).firstName ? getStudent(item).firstName : ''
     ).withColumn(
       this.translateService.instant('csv-builder.student-last-name'),
-      (item) => getStudent(item).lastName
+      (item) => getStudent(item).lastName ? getStudent(item).lastName : ''
     );
   }
 
