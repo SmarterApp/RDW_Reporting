@@ -31,6 +31,7 @@ import { TargetReportComponent } from './view/target-report/target-report.compon
 import { SubjectService } from '../../subject/subject.service';
 import { SubjectDefinition } from '../../subject/subject';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { OrderingService } from '../../shared/ordering/ordering.service';
 
 enum ResultsViewState {
   ByStudent = 1,
@@ -291,7 +292,8 @@ export class AssessmentResultsComponent implements OnInit {
               private instructionalResourcesService: InstructionalResourcesService,
               private percentileService: AssessmentPercentileService,
               private subjectService: SubjectService,
-              private angulartics2: Angulartics2) {
+              private angulartics2: Angulartics2,
+              private orderingService: OrderingService) {
   }
 
   ngOnInit(): void {
@@ -299,11 +301,13 @@ export class AssessmentResultsComponent implements OnInit {
 
     forkJoin(
       this.applicationSettingsService.getSettings(),
-      this.subjectService.getSubjectDefinitionForAssessment(this.assessmentExam.assessment)
-    ).subscribe(([ settings, subjectDefinition ]) => {
+      this.subjectService.getSubjectDefinitionForAssessment(this.assessmentExam.assessment),
+      this.orderingService.getScorableClaimOrdering(this.assessmentExam.assessment.subject, this.assessmentExam.assessment.type)
+    ).subscribe(([ settings, subjectDefinition, order ]) => {
       this.percentileDisplayEnabled = settings.percentileDisplayEnabled;
       this.subjectDefinition = subjectDefinition;
       this.setCurrentView(this.resultsByStudentView);
+      this.assessmentExam.assessment.claimCodes.sort(order.compare);
 
       this.updateExamSessions();
     });
