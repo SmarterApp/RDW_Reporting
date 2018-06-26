@@ -28,6 +28,7 @@ import { Utils } from '../../shared/support/support';
 import { ApplicationSettingsService } from '../../app-settings.service';
 import { Angulartics2 } from 'angulartics2';
 import { TargetReportComponent } from './view/target-report/target-report.component';
+import { createScorableClaimOrdering } from '../../shared/ordering/orderings';
 
 enum ResultsViewState {
   ByStudent = 1,
@@ -68,6 +69,8 @@ export class AssessmentResultsComponent implements OnInit {
   @Input()
   set assessmentExam(assessment: AssessmentExam) {
     this._assessmentExam = assessment;
+
+    this.sortClaimCodes();
 
     // if we aren't going to display the sessions, don't waste resources computing them
     if (this.allowFilterBySessions) {
@@ -430,6 +433,11 @@ export class AssessmentResultsComponent implements OnInit {
     stats.claims = this.examCalculator.calculateClaimStatistics(this.exams, 3);
 
     return stats;
+  }
+
+  sortClaimCodes(): void {
+    // sort claim codes
+    this._assessmentExam.assessment.claimCodes.sort(createScorableClaimOrdering(this._assessmentExam.assessment.subject).compare);
   }
 }
 
