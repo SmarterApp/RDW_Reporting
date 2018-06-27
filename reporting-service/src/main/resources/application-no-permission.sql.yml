@@ -199,6 +199,34 @@ sql:
       where iccs.item_id = :item_id
 
   instructionalResource:
+    findAllByAssessmentId: >-
+      SELECT
+        ir.performance_level,
+        ir.resource,
+        ir.org_level,
+        coalesce(district_group.name, district.name, school_group.name) AS org_name
+      FROM instructional_resource ir
+        JOIN asmt
+          ON asmt.name = ir.asmt_name
+        LEFT JOIN district_group
+          ON ir.org_level = 'DistrictGroup'
+          AND district_group.id = ir.org_id
+        LEFT JOIN district
+          ON ir.org_level = 'District'
+          AND district.id = ir.org_id
+        LEFT JOIN school_group
+          ON ir.org_level = 'SchoolGroup'
+          AND school_group.id = ir.org_id
+      WHERE asmt.id = :asmt_id
+        AND
+        (
+          ir.org_level = 'System'
+          OR ir.org_level = 'State'
+          OR (ir.org_level = 'DistrictGroup' AND district_group.id IS NOT NULL)
+          OR (ir.org_level = 'District' AND district.id IS NOT NULL)
+          OR (ir.org_level = 'SchoolGroup' AND school_group.id IS NOT NULL)
+        )
+
     findAllByAssessmentIdAndSchoolId: >-
       SELECT
         ir.performance_level,
@@ -223,33 +251,6 @@ sql:
           AND school_group.id = ir.org_id
       WHERE asmt.id = :asmt_id
         AND school.id = :school_id
-        AND
-        (
-          ir.org_level = 'System'
-          OR ir.org_level = 'State'
-          OR (ir.org_level = 'DistrictGroup' AND district_group.id IS NOT NULL)
-          OR (ir.org_level = 'District' AND district.id IS NOT NULL)
-          OR (ir.org_level = 'SchoolGroup' AND school_group.id IS NOT NULL)
-        )
-      UNION SELECT
-        ir.performance_level,
-        ir.resource,
-        ir.org_level,
-        coalesce(district_group.name, district.name, school_group.name) AS org_name
-      FROM instructional_resource ir
-        JOIN asmt
-          ON asmt.name = ir.asmt_name
-        LEFT JOIN district_group
-          ON ir.org_level = 'DistrictGroup'
-          AND district_group.id = ir.org_id
-        LEFT JOIN district
-          ON ir.org_level = 'District'
-          AND district.id = ir.org_id
-        LEFT JOIN school_group
-          ON ir.org_level = 'SchoolGroup'
-          AND school_group.id = ir.org_id
-      WHERE asmt.id = :asmt_id
-        AND :school_id IS NULL
         AND
         (
           ir.org_level = 'System'
