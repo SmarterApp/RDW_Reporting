@@ -27,8 +27,7 @@
     </span>
   </div>
 
-  <p-table *ngIf="assessmentItems"
-           #responsesTable
+  <p-table #responsesTable
            [columns]="columns"
            [value]="assessmentItems"
            sortField="assessmentItem.position"
