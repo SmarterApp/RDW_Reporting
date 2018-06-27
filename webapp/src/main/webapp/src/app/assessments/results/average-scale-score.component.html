@@ -44,7 +44,7 @@
              class="score-distribution-container">
           <div class="text-right gray-lighter grid-item">
             {{ level.id | optional:('subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.level.' + level.id + '.name' | translate) }}
-            <button *ngIf="assessmentExam.assessment.isIab"
+            <button *ngIf="assessment.isIab"
                     class="btn btn-borderless btn-xs icon-only pull-right"
                     angulartics2On="click"
                     angularticsEvent="InstructionalResource"

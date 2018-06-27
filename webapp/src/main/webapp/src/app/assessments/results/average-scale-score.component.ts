@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AssessmentExam } from '../model/assessment-exam.model';
 import { ExamStatistics, ExamStatisticsLevel } from '../model/exam-statistics.model';
 import { InstructionalResource } from '../model/instructional-resources.model';
@@ -23,13 +23,17 @@ enum ScoreViewState {
   selector: 'average-scale-score',
   templateUrl: './average-scale-score.component.html'
 })
-export class AverageScaleScoreComponent implements OnInit {
+export class AverageScaleScoreComponent {
 
   @Input()
   showValuesAsPercent: boolean = true;
 
   @Input()
-  public assessmentExam: AssessmentExam;
+  set assessmentExam(value: AssessmentExam) {
+    this._assessmentExam = value;
+
+    this.setScorableClaims();
+  }
 
   @Input()
   set statistics(value: ExamStatistics) {
@@ -58,6 +62,8 @@ export class AverageScaleScoreComponent implements OnInit {
     this._claimDataWidths = value.claims.map(claimStatistics =>
       this.examCalculator.getDataWidths(claimStatistics.percents.map(percent => percent.value))
     );
+
+    this.setScorableClaims();
   }
 
   @Input()
@@ -77,6 +83,7 @@ export class AverageScaleScoreComponent implements OnInit {
   private _statistics: ExamStatistics;
   private _totalCount: number;
   private _claimDataWidths: Array<number[]>;
+  private _assessmentExam: AssessmentExam;
 
   constructor(public colorService: ColorService,
               private instructionalResourcesService: InstructionalResourcesService,
@@ -84,23 +91,12 @@ export class AverageScaleScoreComponent implements OnInit {
               private orderingService: OrderingService) {
   }
 
-  ngOnInit(): void {
-    this.orderingService.getScorableClaimOrdering(this.assessment.subject, this.assessment.type)
-      .subscribe(ordering => {
-        this.claimReferences = this.assessment.claimCodes.map((code, idx) => <ClaimReference>{
-          code: code,
-          dataIndex: idx,
-          stats: this.statistics.claims[idx]
-        }).sort(ordering.on((reference: ClaimReference) => reference.code).compare);
-      });
-  }
-
   get statistics(): ExamStatistics {
     return this._statistics;
   }
 
   get assessment(): Assessment {
-    return this.assessmentExam.assessment;
+    return this._assessmentExam.assessment;
   }
 
   getClaimDataWidth(claimIndex: number, levelIndex: number): number {
@@ -130,7 +126,7 @@ export class AverageScaleScoreComponent implements OnInit {
   }
 
   get showClaimToggle(): boolean {
-    return !this.assessmentExam.assessment.isIab;
+    return !this._assessmentExam.assessment.isIab;
   }
 
   get hasAverageScore(): boolean {
@@ -168,8 +164,23 @@ export class AverageScaleScoreComponent implements OnInit {
   }
 
   loadInstructionalResources(level: number): void {
-    this.instructionalResourcesProvider = () => this.instructionalResourcesService.getInstructionalResources(this.assessmentExam.assessment.id, this.assessmentProvider.getSchoolId())
+    this.instructionalResourcesProvider = () => this.instructionalResourcesService.getInstructionalResources(this._assessmentExam.assessment.id, this.assessmentProvider.getSchoolId())
       .map(resources => resources.getResourcesByPerformance(level));
+  }
+
+  private setScorableClaims() {
+    if (this.assessment == null || this.statistics == null) {
+      return;
+    }
+
+    this.orderingService.getScorableClaimOrdering(this.assessment.subject, this.assessment.type)
+      .subscribe(ordering => {
+        this.claimReferences = this.assessment.claimCodes.map((code, idx) => <ClaimReference>{
+          code: code,
+          dataIndex: idx,
+          stats: this.statistics.claims[idx]
+        }).sort(ordering.on((reference: ClaimReference) => reference.code).compare);
+      });
   }
 }
 
