@@ -34,7 +34,9 @@
   <tab *ngIf="showItemDetails" (select)="selectTab('Item Information')"
        heading="{{'item-info.title' | translate }}">
     <div class="tab-content well">
-      <item-info *ngIf="loadInfo" [item]="item"></item-info>
+      <item-info *ngIf="loadInfo"
+                 [item]="item"
+                 [subject]="subject"></item-info>
     </div>
   </tab>
 </tabset>

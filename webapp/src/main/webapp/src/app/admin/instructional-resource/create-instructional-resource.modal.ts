@@ -14,6 +14,8 @@ import { Subscription } from "rxjs/Subscription";
 import { NavigationStart, Router } from "@angular/router";
 import { filter, mergeMap } from 'rxjs/operators';
 import { Utils } from "../../shared/support/support";
+import { SubjectService } from '../../subject/subject.service';
+import { SubjectDefinition } from '../../subject/subject';
 
 /**
  * This modal component displays an instructional resource creation form.
@@ -44,6 +46,8 @@ export class CreateInstructionalResourceModal implements OnDestroy {
   performanceLevels: number[];
   performanceLevel: number = -1;
 
+  subjectDefinitions: SubjectDefinition[] = [];
+
   resourceUrl: string;
 
   private _subscription: Subscription;
@@ -52,6 +56,7 @@ export class CreateInstructionalResourceModal implements OnDestroy {
               private assessmentService: AssessmentService,
               private organizationService: OrganizationService,
               private resourceService: InstructionalResourceService,
+              private subjectService: SubjectService,
               private router: Router) {
 
     this.assessmentSource = Observable.create((observer: any) => {
@@ -71,6 +76,11 @@ export class CreateInstructionalResourceModal implements OnDestroy {
     ).subscribe(() => {
       this.cancel();
     });
+
+    this.subjectService.getSubjectDefinitions()
+      .subscribe(subjectDefinitions => {
+        this.subjectDefinitions = subjectDefinitions;
+      });
   }
 
   ngOnDestroy(): void {
@@ -108,7 +118,7 @@ export class CreateInstructionalResourceModal implements OnDestroy {
 
   onAssessmentSelect(assessment: Assessment): void {
     this.assessment = assessment;
-    this.performanceLevels = this.getPerformanceLevels(this.assessment.type);
+    this.performanceLevels = this.getPerformanceLevels(this.assessment.subject, this.assessment.type);
     this.validateExisting();
   }
 
@@ -161,8 +171,8 @@ export class CreateInstructionalResourceModal implements OnDestroy {
     });
   }
 
-  // TODO:ConfigurableSubjects deliver from backend
-  private getPerformanceLevels(assessmentType: string): number[] {
-    return assessmentType === 'iab' ? [ 1, 2, 3 ] : [ 1, 2, 3, 4 ];
+  private getPerformanceLevels(subject: string, assessmentType: string): number[] {
+    const subjectDefinition = this.subjectDefinitions.find(x => x.assessmentType == assessmentType && x.subject == subject);
+    return subjectDefinition.performanceLevels;
   }
 }

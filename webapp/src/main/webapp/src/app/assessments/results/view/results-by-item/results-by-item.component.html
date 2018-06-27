@@ -19,7 +19,7 @@
         <span *ngSwitchCase="'standard'"
               info-button
               title="{{'common.results.assessment-item-columns.standard' | translate}}"
-              content="{{'common.results.assessment-item-columns.standard-info.' + assessment.subject | translate}}">
+              content="{{'subject.' + assessment.subject + '.standard-description' | translate}}">
         </span>
 
         <span *ngSwitchCase="'point'">
@@ -56,7 +56,8 @@
                             [text]="item.position"></table-row-expander>
 
         <claim-target *ngSwitchCase="'claim'"
-                      [item]="item"></claim-target>
+                      [item]="item"
+                      [subject]="assessment.subject"></claim-target>
 
         <span *ngSwitchCase="'difficulty'">
           {{ 'common.difficulty.' + item.difficulty | translate }}
@@ -90,7 +91,8 @@
         <item-tab [item]="item"
                   [showResponse]="false"
                   [exams]="exams"
-                  [showItemDetails]="assessment.isInterim">
+                  [showItemDetails]="assessment.isInterim"
+                  [subject]="assessment.subject">
         </item-tab>
       </td>
     </tr>

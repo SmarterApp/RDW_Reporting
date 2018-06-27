@@ -10,9 +10,6 @@ import { AssessmentService } from './assessment/assessment.service';
 import { map } from 'rxjs/operators';
 import { Assessment } from './assessment/assessment';
 import { AssessmentDefinition } from './assessment/assessment-definition';
-import { TargetService } from "../shared/target/target.service";
-import { Target } from "../assessments/model/target.model";
-import { of } from "rxjs/observable/of";
 import { AggregateReportType } from "./aggregate-report-form-settings";
 
 export interface BasicReport {
@@ -33,8 +30,7 @@ export class AggregateReportService {
 
   constructor(private dataService: DataService,
               private reportService: ReportService,
-              private assessmentService: AssessmentService,
-              private targetService: TargetService) {
+              private assessmentService: AssessmentService) {
   }
 
   /**
@@ -105,40 +101,4 @@ export class AggregateReportService {
         )
       });
   }
-
-  /**
-   *
-   * @param {number} id
-   * @returns {Observable<BasicReport>}
-   * @deprecated With configurable subjects, we should get target display text via translation
-   */
-  getTargetReport(id: number): Observable<BasicReport> {
-    return this.getAggregateReport(id)
-      .flatMap((report) => {
-        return report.rows.length === 0
-          ? of({report: report, targets: []})
-          : this.targetService.getTargetsForAssessment(report.rows[0].assessment.id)
-            .pipe(
-              map((targets) => <any>{report: report, targets: targets})
-            );
-      })
-      .pipe(
-        map(({report, targets}) => {
-          const targetByClaimAndNaturalId: Map<string, Target> = targets.reduce((targetMap, target) => {
-            targetMap.set(target.claimCode + "|" + target.naturalId, target);
-            return targetMap;
-          }, new Map<string, Target>());
-
-          for (let row of report.rows) {
-            const target: Target = targetByClaimAndNaturalId.get(row.claimCode  + "|" + row.targetNaturalId);
-            if (target) {
-              row.targetCode = target.code;
-              row.targetDescription = target.description;
-            }
-          }
-          return report;
-        })
-      );
-  }
-
 }

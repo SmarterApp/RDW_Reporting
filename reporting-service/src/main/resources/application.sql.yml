@@ -102,6 +102,7 @@ sql:
           FROM asmt a
             JOIN exam e ON e.asmt_id = a.id
             JOIN school s ON e.school_id = s.id
+            JOIN subject su ON a.subject_id = su.id
             JOIN student st ON e.student_id = st.id
             JOIN school isch ON st.inferred_school_id = isch.id
             $[groupJoinPlaceholder]
@@ -119,6 +120,7 @@ sql:
           FROM exam e
             JOIN asmt a ON e.asmt_id=a.id
             JOIN school s ON e.school_id=s.id
+            JOIN subject su ON a.subject_id = su.id
             JOIN student st ON e.student_id = st.id
             JOIN school isch ON st.inferred_school_id = isch.id
             $[groupJoinPlaceholder]
@@ -171,7 +173,7 @@ sql:
           count(*) as tested,
           a.name as asmt_name,
           a.label as asmt_label,
-          a.subject_id as asmt_subject_id,
+          su.code as asmt_subject_code,
           a.type_id as asmt_type_id,
           a.school_year as asmt_school_year,
           g.code as asmt_grade_code,
@@ -186,6 +188,7 @@ sql:
           JOIN asmt a ON a.id = e.asmt_id
           JOIN grade g ON g.id = a.grade_id
           JOIN school s ON e.school_id=s.id
+          JOIN subject su ON a.subject_id=su.id
           JOIN student st ON st.id=e.student_id
           JOIN school isch ON st.inferred_school_id = isch.id
         WHERE e.id in (
@@ -239,6 +242,7 @@ sql:
         SELECT distinct
           ${sql.reporting.snippet.assessmentColumns}
         FROM asmt a
+        JOIN subject su ON a.subject_id = su.id
         WHERE EXISTS (
             SELECT e.asmt_id
             FROM exam e
@@ -261,6 +265,7 @@ sql:
         FROM exam e
           JOIN asmt a ON e.asmt_id=a.id
           JOIN school s ON e.school_id=s.id
+          JOIN subject su ON a.subject_id = su.id
           JOIN student st ON e.student_id = st.id
           JOIN school isch ON st.inferred_school_id = isch.id
         WHERE e.school_year = :school_year
@@ -319,18 +324,22 @@ sql:
         a.label,
         a.grade_code,
         a.type_id,
-        a.subject_id,
         a.school_year,
         a.claim1_score_code,
         a.claim2_score_code,
         a.claim3_score_code,
         a.claim4_score_code,
+        a.claim5_score_code,
+        a.claim6_score_code,
         a.min_score,
         a.max_score,
         a.cut_point_1,
         a.cut_point_2,
         a.cut_point_3,
-        EXISTS(SELECT 1 FROM item i WHERE i.asmt_id = a.id AND i.type = 'WER') as has_wer_item
+        a.cut_point_4,
+        a.cut_point_5,
+        EXISTS(SELECT 1 FROM item i WHERE i.asmt_id = a.id AND i.type = 'WER') as has_wer_item,
+        su.code as subject_code
 
 
       selectFromExamItem: >-

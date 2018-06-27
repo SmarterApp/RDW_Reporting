@@ -22,7 +22,7 @@ describe("Groups Service", () => {
         { id: 2, name: "Coral Park" },
       ],
       subjects: [
-        "MATH"
+        "Math"
       ],
       schoolYears: [ 2017, 2018 ]
     };
@@ -65,8 +65,8 @@ describe("Groups Service", () => {
     let school = new School();
     school.id = 1;
 
-    let query = new GroupQuery([ "MATH", "ELA" ]);
-    query.subject = "ALL";
+    let query = new GroupQuery([ "Math", "ELA" ]);
+    query.subject = "Math";
     query.school = school;
     query.schoolYear = 2017;
 
@@ -86,7 +86,6 @@ describe("Groups Service", () => {
       expect(actual[ 0 ].name).toBe(mockApiResult[ 0 ].name);
       expect(actual[ 0 ].schoolName).toBe(mockApiResult[ 0 ].schoolName);
       expect(actual[ 0 ].schoolYear).toBe(mockApiResult[ 0 ].schoolYear);
-      expect(actual[ 0 ].subject).toBe(mockApiResult[ 0 ].subject);
       expect(actual[ 0 ].isDeleted).toBe(mockApiResult[ 0 ].deleted);
     });
 
@@ -95,8 +94,6 @@ describe("Groups Service", () => {
     let actualParams = optionsSpy.search.paramsMap;
 
     expect(actualParams.get("schoolId")).toContain("1");
-    expect(actualParams.get("subject")).toContain("MATH");
-    expect(actualParams.get("subject")).toContain("ELA");
     expect(actualParams.get("schoolYear")).toContain("2017");
   });
 

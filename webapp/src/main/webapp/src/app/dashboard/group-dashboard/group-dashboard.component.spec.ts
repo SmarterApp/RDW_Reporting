@@ -8,6 +8,7 @@ import { MockActivatedRoute } from '../../shared/test/mock.activated-route';
 import { GroupDashboardComponent } from './group-dashboard.component';
 import { MockRouter } from '../../shared/test/mock.router';
 import { UserGroupService } from '../../user-group/user-group.service';
+import { SubjectService } from '../../subject/subject.service';
 
 describe('GroupDashboardComponent', () => {
 
@@ -24,6 +25,7 @@ describe('GroupDashboardComponent', () => {
         { provide: GroupService, useClass: MockGroupService },
         { provide: GroupDashboardService, useClass: MockGroupDashboardService },
         { provide: ExamFilterOptionsService, useClass: MockExamFilterOptionsService },
+        { provide: SubjectService, useClass: MockSubjectService }
       ]
     });
   });
@@ -57,6 +59,10 @@ class MockExamFilterOptionsService {
 }
 
 class MockUserGroupService {
+
+}
+
+class MockSubjectService {
 
 }
 

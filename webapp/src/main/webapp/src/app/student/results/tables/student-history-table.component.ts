@@ -10,8 +10,10 @@ import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
 import { StudentResultsFilterService } from '../student-results-filter.service';
-import { createScorableClaimOrdering } from '../../../shared/ordering/orderings';
 import { StudentPipe } from '../../../shared/format/student.pipe';
+import { of } from "rxjs/observable/of";
+import { OrderingService } from "../../../shared/ordering/ordering.service";
+import { Assessment } from "../../../assessments/model/assessment.model";
 
 @Component({
   selector: 'student-history-table',
@@ -51,24 +53,29 @@ export class StudentHistoryTableComponent implements OnInit {
               private instructionalResourcesService: InstructionalResourcesService,
               private translateService: TranslateService,
               private studentResultsFilterService: StudentResultsFilterService,
-              private studentPipe: StudentPipe) {
+              private studentPipe: StudentPipe,
+              private orderingService: OrderingService) {
   }
 
   ngOnInit(): void {
     this.studentResultsFilterService.filterChange.subscribe(() => {
       delete this.selectedCardRowIndex;
     });
-    this.columns = [
-      new Column({ id: 'date', field: 'exam.date' }),
-      new Column({ id: 'assessment', field: 'assessment.label' }),
-      new Column({ id: 'school-year', field: 'exam.schoolYear' }),
-      new Column({ id: 'school', field: 'exam.school.name' }),
-      new Column({ id: 'enrolled-grade', field: 'exam.enrolledGrade' }),
-      new Column({ id: 'status', commonHeader: true, field: 'exam.administrativeCondition', overall: true }),
-      new Column({ id: 'performance', field: 'exam.level', overall: true }),
-      new Column({ id: 'score', commonHeader: true, field: 'exam.score', overall: true }),
-      ...this.getClaimColumns()
-    ];
+
+    this.getClaimColumns(this.exams[ 0 ].assessment)
+      .subscribe(claimColumns => {
+        this.columns = [
+          new Column({ id: 'date', field: 'exam.date' }),
+          new Column({ id: 'assessment', field: 'assessment.label' }),
+          new Column({ id: 'school-year', field: 'exam.schoolYear' }),
+          new Column({ id: 'school', field: 'exam.school.name' }),
+          new Column({ id: 'enrolled-grade', field: 'exam.enrolledGrade' }),
+          new Column({ id: 'status', commonHeader: true, field: 'exam.administrativeCondition', overall: true }),
+          new Column({ id: 'performance', field: 'exam.level', overall: true }),
+          new Column({ id: 'score', commonHeader: true, field: 'exam.score', overall: true }),
+          ...claimColumns
+        ];
+      });
   }
 
   get exams(): StudentHistoryExamWrapper[] {
@@ -135,18 +142,22 @@ export class StudentHistoryTableComponent implements OnInit {
 
     this.updateSelectedCardRowIndex();
 
-    // build the columns based off the selected assessment since it impacts the claim columns used
-    this.columns = [
-      new Column({ id: 'date', field: 'exam.date' }),
-      new Column({ id: 'assessment', field: 'assessment.label' }),
-      new Column({ id: 'school-year', field: 'exam.schoolYear' }),
-      new Column({ id: 'school', field: 'exam.school.name' }),
-      new Column({ id: 'enrolled-grade', field: 'exam.enrolledGrade' }),
-      new Column({ id: 'status', commonHeader: true, field: 'exam.administrativeCondition', overall: true }),
-      new Column({ id: 'performance', field: 'exam.level', overall: true }),
-      new Column({ id: 'score', commonHeader: true, field: 'exam.score', overall: true }),
-      ...this.getClaimColumns()
-    ];
+    this.getClaimColumns(event.assessment)
+      .subscribe(claimColumns => {
+        // build the columns based off the selected assessment since it impacts the claim columns used
+        this.columns = [
+          new Column({ id: 'date', field: 'exam.date' }),
+          new Column({ id: 'assessment', field: 'assessment.label' }),
+          new Column({ id: 'school-year', field: 'exam.schoolYear' }),
+          new Column({ id: 'school', field: 'exam.school.name' }),
+          new Column({ id: 'enrolled-grade', field: 'exam.enrolledGrade' }),
+          new Column({ id: 'status', commonHeader: true, field: 'exam.administrativeCondition', overall: true }),
+          new Column({ id: 'performance', field: 'exam.level', overall: true }),
+          new Column({ id: 'score', commonHeader: true, field: 'exam.score', overall: true }),
+          ...claimColumns
+        ];
+      });
+
   }
 
   loadInstructionalResources(studentHistoryExam: StudentHistoryExamWrapper): void {
@@ -189,13 +200,12 @@ export class StudentHistoryTableComponent implements OnInit {
     return this.exams !== undefined && this.exams.length && this.exams[ 0 ].assessment.claimCodes !== undefined;
   }
 
-  private getClaimColumns(): Column[] {
+  private getClaimColumns(assessment: Assessment): Observable<Column[]> {
     if (!this.hasClaimColumns()) {
-      return [];
+      return of([]);
     }
 
-    return this.exams[ 0 ].assessment.claimCodes
-      .sort(createScorableClaimOrdering(this.exams[ 0 ].assessment.subject).compare)
+    const columns: Column[] = assessment.claimCodes
       .map((claim: string, index: number) => {
         return new Column({
           id: 'claim',
@@ -204,6 +214,14 @@ export class StudentHistoryTableComponent implements OnInit {
           index: index
         });
       });
+
+    return this.orderingService
+      .getScorableClaimOrdering(assessment.subject, assessment.type)
+      .pipe(
+        map(ordering =>
+          columns.sort(ordering.on((column: Column) => column.claim).compare)
+        )
+      );
   }
 
 }

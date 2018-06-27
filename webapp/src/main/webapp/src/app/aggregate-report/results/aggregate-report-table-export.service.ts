@@ -145,9 +145,7 @@ export class AggregateReportTableExportService {
         .withColumn(
           this.translateService.instant('aggregate-report-table.columns.target'),
           (item: AggregateReportItem) => {
-            return item.targetCode
-              ? item.targetCode
-              : this.translateService.instant('common.unknown') + ' (' + item.targetNaturalId + ')';
+            return this.translateService.instant(`subject.${item.subjectCode}.claim.${item.claimCode}.target.${item.targetNaturalId}.name`);
           }
         )
     }

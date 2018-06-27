@@ -80,8 +80,10 @@ describe('TargetReportComponent', () => {
 @Component({
   selector: 'test-component-wrapper',
   template: `<target-report [assessmentProvider]="{}"
-                            [assessment]="assessment"></target-report>`
+                            [assessment]="assessment"
+                            [subjectDefinition]="subjectDefinition"></target-report>`
 })
 class TestComponentWrapper {
   assessment = new Assessment();
+  subjectDefinition = { performanceLevelStandardCutoff: 3 };
 }

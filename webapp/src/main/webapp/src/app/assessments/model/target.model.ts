@@ -3,7 +3,5 @@ export interface Target {
   readonly assessmentId: number;
   readonly claimCode: string;
   readonly naturalId: string;
-  readonly code: string;
-  readonly description: string;
   readonly includeInReport: boolean;
 }

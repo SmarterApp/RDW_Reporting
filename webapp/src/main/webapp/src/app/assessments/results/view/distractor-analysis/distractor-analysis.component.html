@@ -63,7 +63,8 @@
                             [text]="item.position"></table-row-expander>
 
         <claim-target *ngSwitchCase="'claim'"
-                      [item]="item"></claim-target>
+                      [item]="item"
+                      [subject]="assessment.subject"></claim-target>
 
         <span *ngSwitchCase="'difficulty'">
           {{ 'common.difficulty.' + item.difficulty | translate }}
@@ -98,7 +99,8 @@
                   [showResponse]="false"
                   [exams]="exams"
                   [includeResponseInStudentScores]="true"
-                  [showItemDetails]="assessment.isInterim">
+                  [showItemDetails]="assessment.isInterim"
+                  [subject]="assessment.subject">
         </item-tab>
       </td>
     </tr>

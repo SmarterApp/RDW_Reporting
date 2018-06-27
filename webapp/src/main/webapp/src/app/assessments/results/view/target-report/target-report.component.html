@@ -1,15 +1,14 @@
-<!-- modal flyweight for student reports -->
-<student-report-download #menuReportDownloader
-                         [lockAssessmentType]="true"
-                         [lockSubject]="true"
-                         [lockSchoolYear]="true"></student-report-download>
+<div [hidden]="!loading">
+  <spinner></spinner>
+</div>
 
+<div [hidden]="loading">
 
-<div *ngIf="showResults" class="row mb-xs">
-  <div class="col-md-10">
-    <p class="small">{{ 'target-report.caution-message' | translate }}</p>
-  </div>
-  <div class="col-md-2 text-right">
+  <div *ngIf="showResults" class="row mb-xs">
+    <div class="col-md-10">
+      <p class="small">{{ 'target-report.caution-message' | translate }}</p>
+    </div>
+    <div class="col-md-2 text-right">
     <span>
       <a (click)="toggleSubgroupOptions()"
          class="btn btn-xs"
@@ -20,10 +19,10 @@
         {{ 'target-report.subgroup-options' | translate }}
       </a>
     </span>
+    </div>
   </div>
-</div>
-<div *ngIf="showSubgroupOptions" class="row mb-xs">
-  <div class="col-md-12 text-right">
+  <div *ngIf="showSubgroupOptions" class="row mb-xs">
+    <div class="col-md-12 text-right">
     <span>
       <a (click)="toggleSubgroupOptions()"
          class="btn btn-xs btn-default">
@@ -40,81 +39,86 @@
               </span>
       </a>
     </span>
+    </div>
   </div>
-</div>
 
-<!-- Target Report Table -->
-<p-table #dataTable
-         [columns]="columns"
-         [value]="showResults ? aggregateTargetScoreRows : []"
-         [autoLayout]="true"
-         (sortFunction)="sort($event)"
-         [customSort]="true"
-         styleClass="table table-striped table-hover overflow">
-  <ng-template pTemplate="header"
-               let-columns>
-    <tr>
-      <th *ngFor="let column of columns"
-          [pSortableColumn]="column.field"
-          [ngSwitch]="column.id"
-          class="wrapping">
+  <!-- Target Report Table -->
+  <p-table #dataTable
+           [columns]="columns"
+           [value]="showResults ? aggregateTargetScoreRows : []"
+           [autoLayout]="true"
+           (sortFunction)="sort($event)"
+           [customSort]="true"
+           styleClass="table table-striped table-hover overflow">
+    <ng-template pTemplate="header"
+                 let-columns>
+      <tr>
+        <th *ngFor="let column of columns"
+            [pSortableColumn]="column.field"
+            [ngSwitch]="column.id"
+            class="wrapping">
 
         <span *ngSwitchDefault>
-          <span *ngIf="!column.headerInfo">
-            {{('target-report.columns.' + column.id) | translate}}
+          <span *ngIf="!column.headerInfoTranslationCode">
+            {{'target-report.columns.' + column.id | translate:column.headerResolve }}
           </span>
-          <span *ngIf="column.headerInfo"
+          <span *ngIf="column.headerInfoTranslationCode"
                 info-button
-                title="{{('target-report.columns.' + column.id) | translate}}"
-                content="{{column.headerInfoText | translate}}">
+                title="{{'target-report.columns.' + column.id | translate:column.headerResolve }}"
+                content="{{column.headerInfoTranslationCode | translate:column.headerResolve }}">
           </span>
         </span>
 
-        <p-sortIcon [field]="column.field"></p-sortIcon>
-      </th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body"
-               let-rowData
-               let-i="rowIndex"
-               let-columns="columns">
-    <tr>
-      <td *ngFor="let column of columns; let columnIdx = index;"
-          style="vertical-align: top">
-        <div [ngSwitch]="column.id"
-             class="full-cell"
-             [ngClass]="{
+          <p-sortIcon [field]="column.field"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body"
+                 let-rowData
+                 let-i="rowIndex"
+                 let-columns="columns">
+      <tr>
+        <td *ngFor="let column of columns; let columnIdx = index;"
+            style="vertical-align: top">
+          <div [ngSwitch]="column.id"
+               class="full-cell"
+               [ngClass]="{
               'hidden': treeColumns[i] > columnIdx,
               'border-top': treeColumns[i] <= columnIdx && treeColumns[i] < identityColumns.length - 1
              }">
 
-          <div *ngSwitchCase="'claim'">
+            <div *ngSwitchCase="'claim'">
             <span>
-              {{ getClaimCodeTranslation(rowData) }}
+              {{ 'subject.' + assessment.subject + '.claim.' + rowData.claim + '.name' | translate }}
             </span>
-          </div>
+            </div>
 
-          <div *ngSwitchCase="'target'"
-               class="text-right wrapping-max-width-xl">
-            <span [innerHTML]="'aggregate-report-table.target-description' | translate: getTargetDisplay(rowData)">
-            </span>
-          </div>
+            <div *ngSwitchCase="'target'"
+                 class="text-right wrapping-max-width-xl">
+              <strong>
+                {{'common.results.assessment-item-target' | translate:{
+                    target: 'subject.' + assessment.subject + '.claim.' + rowData.claim + '.target.' + rowData.targetNaturalId + '.name' | translate
+                  }
+                }}
+              </strong>
+              {{ 'subject.' + assessment.subject + '.claim.' + rowData.claim + '.target.' + rowData.targetNaturalId + '.description' | translate }}
+            </div>
 
-          <div *ngSwitchCase="'subgroup'"
-               class="label-max-width"
-               title="{{rowData.subgroup.name}}">
-            <subgroup [subgroup]="rowData.subgroup"></subgroup>
-          </div>
+            <div *ngSwitchCase="'subgroup'"
+                 class="label-max-width"
+                 title="{{rowData.subgroup.name}}">
+              <subgroup [subgroup]="rowData.subgroup"></subgroup>
+            </div>
 
-          <div *ngSwitchCase="'studentsTested'"
-               class="text-right">
-            {{rowData.studentsTested}}
-          </div>
+            <div *ngSwitchCase="'studentsTested'"
+                 class="text-right">
+              {{rowData.studentsTested}}
+            </div>
 
-          <div *ngSwitchCase="'student-relative-residual-scores-level'" class="text-center">
+            <div *ngSwitchCase="'student-relative-residual-scores-level'" class="text-center">
 
-            <!-- pick the icon -->
-            <span [ngSwitch]="getTargetReportingLevelString(rowData.studentRelativeLevel)">
+              <!-- pick the icon -->
+              <span [ngSwitch]="getTargetReportingLevelString(rowData.studentRelativeLevel)">
               <span *ngSwitchCase="'Above'">
                 <span class="blue"><i class="fa fa-lg fa-arrow-up"></i></span>
                 {{'aggregate-report-table.target.overall.Above' | translate}}
@@ -139,13 +143,13 @@
                 {{'aggregate-report-table.target.overall.' + getTargetReportingLevelString(rowData.studentRelativeLevel) | translate}}
               </span>
             </span>
-          </div>
+            </div>
 
-          <div *ngSwitchCase="'standard-met-relative-residual-level'" class="text-center">
+            <div *ngSwitchCase="'standard-met-relative-residual-level'" class="text-center">
 
-            <!-- pick the label color -->
-            <!-- TODO:ConfigurableSubjects hardcoded performance level codes/colors -->
-            <span [ngSwitch]="getTargetReportingLevelString(rowData.standardMetRelativeLevel)">
+              <!-- pick the label color -->
+              <!-- TODO:ConfigurableSubjects hardcoded performance level codes/colors -->
+              <span [ngSwitch]="getTargetReportingLevelString(rowData.standardMetRelativeLevel)">
               <span *ngSwitchCase="'Above'"
                     class="label label-lg sb-iab-green">
                 {{'aggregate-report-table.target.standard.Above' | translate}}
@@ -171,18 +175,23 @@
               </span>
             </span>
 
+            </div>
           </div>
-        </div>
-      </td>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="emptymessage" let-columns>
-    <tr>
-      <td [attr.colspan]="columns.length">
-        {{'target-report.not-enough-results' | translate}}
-      </td>
-    </tr>
-  </ng-template>
-</p-table>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td [attr.colspan]="columns.length">
+          {{'target-report.not-enough-results' | translate}}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 
-<p *ngIf="isMath" class="small mt-sm">{{ 'target-report.math-claim-caution-message' | translate }}</p>
+  <p *ngIf="isMath" class="small mt-sm">{{ 'target-report.math-claim-caution-message' | translate }}</p>
+
+</div>
+
+
+

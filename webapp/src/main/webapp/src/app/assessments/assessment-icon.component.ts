@@ -139,7 +139,21 @@ export const AssessmentIconsByAssessmentName = {
   'SBAC-IAB-FIXED-G11E-ReadInfo-ELA-11': 'ELA/Read Informational Texts',
   'SBAC-IAB-FIXED-G11E-ReadLit-ELA-11': 'ELA/Read Literary Texts',
   'SBAC-IAB-FIXED-G11E-Research-ELA-11': 'ELA/Research',
-  'SBAC-IAB-FIXED-G11E-Revision-ELA-11': 'ELA/Revise'
+  'SBAC-IAB-FIXED-G11E-Revision-ELA-11': 'ELA/Revise',
+
+  // IRP assessments (used in demo site)
+  'SBAC-IRP-B1-ELA-3': 'ELA/Read Literary Texts',
+  'SBAC-IRP-B2-ELA-3': 'ELA/Read Informational Texts',
+  'SBAC-IRP-ELA-3-IAB-PT': 'ELA/Performance Task',
+  'SBAC-IRP-MATH-3-IAB-PT': 'Math/3-5/Mathematics Performance Task',
+
+  'SBAC-IRP-B1-ELA-7': 'ELA/Read Literary Texts',
+  'SBAC-IRP-B2-ELA-7': 'ELA/Read Informational Texts',
+  'SBAC-IRP-ELA-7-IAB-PT': 'ELA/Performance Task',
+  'SBAC-IRP-MATH-7-IAB-PT': 'Math/6-7/Mathematics Performance Task',
+
+  'SBAC-IRP-ELA-11-IAB-PT': 'ELA/Performance Task',
+  'SBAC-IRP-MATH-11-IAB-PT': 'Math/HS/Performance Task',
 };
 
 @Component({

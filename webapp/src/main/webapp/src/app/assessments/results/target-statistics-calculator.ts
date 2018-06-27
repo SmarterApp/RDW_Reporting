@@ -8,7 +8,6 @@ import { Target } from '../model/target.model';
 import * as deepEqual from "fast-deep-equal";
 import { ExamFilterOptions } from '../model/exam-filter-options.model';
 import { Subgroup } from '../../aggregate-report/subgroup/subgroup';
-import { SubjectClaimOrder } from '../../shared/ordering/orderings';
 
 @Injectable()
 export class TargetStatisticsCalculator {
@@ -89,8 +88,7 @@ export class TargetStatisticsCalculator {
     return <AggregateTargetScoreRow>{
       targetId: groupedScore.targetId,
       claim: groupedScore.claim,
-      claimOrder: (SubjectClaimOrder.get(groupedScore.subject) || []).indexOf(groupedScore.claim),
-      target: groupedScore.target,
+      targetNaturalId: groupedScore.targetNaturalId,
       subgroup: groupedScore.subgroup,
       studentsTested: numStudents,
       standardMetRelativeLevel: groupedScore.includeInReport
@@ -113,7 +111,7 @@ export class TargetStatisticsCalculator {
     return allTargets.map(target => <GroupedTargetScore>{
       subject: subjectCode,
       targetId: target.id,
-      target: target.code,
+      targetNaturalId: target.naturalId,
       claim: target.claimCode,
       subgroup: overallSubgroup,
       standardMetScores: [],
@@ -161,7 +159,7 @@ export class TargetStatisticsCalculator {
           ...allTargets.map(target => <GroupedTargetScore>{
             subject: subjectCode,
             targetId: target.id,
-            target: target.code,
+            targetNaturalId: target.naturalId,
             claim: target.claimCode,
             subgroup: subgroup,
             standardMetScores: [],
@@ -217,6 +215,7 @@ export interface GroupedTargetScore {
   subject: string;
   targetId: number;
   target: string;
+  targetNaturalId: string;
   claim: string;
   subgroup: Subgroup;
   standardMetScores: number[];

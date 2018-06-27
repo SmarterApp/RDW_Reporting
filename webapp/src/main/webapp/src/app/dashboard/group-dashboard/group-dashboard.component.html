@@ -108,11 +108,10 @@
   <ng-template #hasMeasuredAssessments>
 
     <div class="row mt-sm" *ngFor="let row of rows">
-      <div *ngFor="let measuredAssessment of row"
+      <div *ngFor="let card of row"
            class="col-md-4 mb-md">
         <group-assessment-card (selectedAssessment)="onCardSelection($event)"
-                               [group]="group"
-                               [measuredAssessment]="measuredAssessment"></group-assessment-card>
+                               [card]="card"></group-assessment-card>
       </div>
     </div>
 

@@ -29,22 +29,22 @@
 
         <span *ngSwitchCase="'level'"
               info-button
-              title="{{performanceLevelHeader | translate}}"
-              content="{{performanceLevelHeaderInfo | translate}}">
+              title="{{'common.results.assessment-exam-columns.' + assessment.type + '.performance' | translate}}"
+              content="{{'common.results.assessment-exam-columns.' + assessment.type + '.performance-info' | translate}}">
         </span>
 
         <span *ngSwitchCase="'claim'">
-          {{('subject.' + assessment.subject + '.claim.' + column.claim + '.name') | translate}}
+          {{'subject.' + assessment.subject + '.claim.' + column.claim + '.name' | translate}}
         </span>
 
         <span *ngSwitchDefault>
           <span *ngIf="!column.headerInfo">
-            {{('common.results.assessment-exam-columns.' + column.id) | translate}}
+            {{'common.results.assessment-exam-columns.' + column.id | translate}}
           </span>
           <span *ngIf="column.headerInfo"
                 info-button
-                title="{{('common.results.assessment-exam-columns.' + column.id) | translate}}"
-                content="{{('common.results.assessment-exam-columns.' + column.id + '-info') | translate}}">
+                title="{{'common.results.assessment-exam-columns.' + column.id | translate}}"
+                content="{{'common.results.assessment-exam-columns.' + column.id + '-info' | translate}}">
           </span>
         </span>
 
@@ -85,13 +85,15 @@
         </div>
 
         <div *ngSwitchCase="'status'">
-          <span *ngIf="exam.administrativeCondition && exam.administrativeCondition !== 'Valid'" class="label border-only maroon">{{ 'common.administration-condition.' + exam.administrativeCondition | translate }}</span>
-          <span *ngIf="exam.completeness == 'Partial'" class="label border-only maroon">{{ 'common.completeness.' + exam.completeness | translate }}</span>
+          <span *ngIf="exam.administrativeCondition && exam.administrativeCondition !== 'Valid'"
+                class="label border-only maroon">{{ 'common.administration-condition.' + exam.administrativeCondition | translate }}</span>
+          <span *ngIf="exam.completeness === 'Partial'"
+                class="label border-only maroon">{{ 'common.completeness.' + exam.completeness | translate }}</span>
         </div>
 
         <div *ngSwitchCase="'level'">
           <span class="pull-left">
-            {{ exam.label | optional:('subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.level.' + exam.level + '.name' | translate) }}
+            {{ exam.level | optional:('subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.level.' + exam.level + '.name' | translate) }}
           </span>
           <span class="pull-right" *ngIf="assessment.isIab">
             <button
@@ -101,7 +103,7 @@
               angularticsCategory="AssessmentResults"
               [popover]="buttonPopover"
               popoverTitle="{{ 'common.results.assessment.instruct-button' | translate:{ level:(
-                exam.label | optional:('subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.level.' + exam.level + '.name' | translate)
+                exam.level | optional:('subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.level.' + exam.level + '.name' | translate)
               ) } }}"
               container="body"
               (click)="loadInstructionalResources(exam)"

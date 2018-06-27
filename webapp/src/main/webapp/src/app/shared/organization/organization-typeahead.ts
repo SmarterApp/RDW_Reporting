@@ -18,6 +18,9 @@ import { TypeaheadMatch } from "ngx-bootstrap";
            (typeaheadNoResults)="noResults = $event"
            (typeaheadOnSelect)="onTypeaheadSelectInternal($event)"
            [typeaheadMinLength]="3"
+           [typeaheadOptionsLimit]="100"
+           [typeaheadOptionsInScrollableView]="20"
+           [typeaheadScrollable]="true"
            typeaheadOptionField="name"
            typeaheadWaitMs="300"
            placeholder="{{'organization-typeahead.placeholder' | translate}}">

@@ -69,7 +69,7 @@
                   class="form-control"
                   (change)="updateRoute()">
             <option *ngFor="let subject of filterOptions.subjects"
-                    [ngValue]="subject">{{'subject.' + subject + '.name' | translate}}
+                    [ngValue]="subject">{{(subject != null ? 'subject.' + subject + '.name' : 'common.collection-selection.all') | translate}}
             </option>
           </select>
         </div>

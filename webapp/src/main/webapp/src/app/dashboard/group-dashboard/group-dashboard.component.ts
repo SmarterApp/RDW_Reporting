@@ -7,7 +7,7 @@ import { GroupDashboardService } from './group-dashboard.service';
 import { ExamFilterOptionsService } from '../../assessments/filters/exam-filters/exam-filter-options.service';
 import { ExamFilterOptions } from '../../assessments/model/exam-filter-options.model';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { AssessmentCardEvent } from './group-assessment-card.component';
+import { AssessmentCardEvent, GroupCard } from './group-assessment-card.component';
 import { GroupReportDownloadComponent } from '../../report/group-report-download.component';
 import { byString } from '@kourge/ordering/comparator';
 import { ordering } from '@kourge/ordering';
@@ -15,6 +15,8 @@ import { UserGroupService } from '../../user-group/user-group.service';
 import * as _ from 'lodash';
 import { map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
+import { SubjectService } from '../../subject/subject.service';
+import { SubjectDefinition } from '../../subject/subject';
 
 @Component({
   selector: 'group-dashboard',
@@ -31,25 +33,29 @@ export class GroupDashboardComponent implements OnInit {
   subject: string;
   loadingMeasuredAssessments: boolean = true;
   itemsPerRow: number = 3;
-  rows: MeasuredAssessment[][] = [];
+  rows: GroupCard[][] = [];
 
   private selectedAssessments: MeasuredAssessment[] = [];
   private _previousRouteParameters: any;
+  private _subjectDefinitions: SubjectDefinition[];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private groupService: GroupService,
               private userGroupService: UserGroupService,
               private groupDashboardService: GroupDashboardService,
-              private filterOptionsService: ExamFilterOptionsService) {
+              private filterOptionsService: ExamFilterOptionsService,
+              private subjectService: SubjectService) {
   }
 
   ngOnInit() {
     forkJoin(
+      this.subjectService.getSubjectDefinitions(),
       this.filterOptionsService.getExamFilterOptions(),
       this.groupService.getGroups(),
       this.userGroupService.safelyGetUserGroupsAsGroups()
-    ).subscribe(([ filterOptions, groups, userGroups ]) => {
+    ).subscribe(([ subjectDefinitions, filterOptions, groups, userGroups ]) => {
+      this._subjectDefinitions = subjectDefinitions;
       this.filterOptions = filterOptions;
       this.groups = groups
         .concat(userGroups)
@@ -94,7 +100,12 @@ export class GroupDashboardComponent implements OnInit {
         this.schoolYear = Number.parseInt(schoolYear) || this.schoolYear;
         this.updateMeasuredAssessments(measuredAssessments);
       }
-      this.subject = subject;
+      if (group == null || group.subjectCode == null || group.subjectCode === subject) {
+        this.subject = subject;
+      } else {
+        delete this.subject;
+        this.updateRoute(true);
+      }
       this.updateRows();
       this.loadingMeasuredAssessments = false;
     });
@@ -129,9 +140,15 @@ export class GroupDashboardComponent implements OnInit {
   }
 
   updateRows(): void {
-    const filteredAssessments = this.measuredAssessments
-      .filter(measuredAssessment => this.subject == null || measuredAssessment.assessment.subject === this.subject);
-    this.rows = _.chunk(filteredAssessments, this.itemsPerRow);
+    const filteredCards = this.measuredAssessments
+      .filter(measuredAssessment => this.subject == null || measuredAssessment.assessment.subject === this.subject)
+      .map(measuredAssessment => <GroupCard>{
+        group: this.group,
+        measuredAssessment: measuredAssessment,
+        performanceLevels: this._subjectDefinitions.find(definition => definition.subject === measuredAssessment.assessment.subject
+          && definition.assessmentType === measuredAssessment.assessment.type).performanceLevels
+      });
+    this.rows = _.chunk(filteredCards, this.itemsPerRow);
   }
 
   get viewAssessmentsButtonEnabled(): boolean {

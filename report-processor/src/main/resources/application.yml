@@ -95,11 +95,11 @@ spring:
       ?useSSL=${spring.datasource.use-ssl:false}\
       &useLegacyDatetimeCode=${spring.datasource.use-legacy-datetime-code:false}\
       &characterEncoding=${spring.datasource.character-encoding:utf8}\
-      &rewriteBatchedStatements=${spring.reporting_datasource.rewrite-batched-statements:true}\
-      &connectTimeout=${spring.reporting_datasource.connect-timeout:10000}\
-      &socketTimeout=${spring.reporting_datasource.socket-timeout:130000}\
+      &rewriteBatchedStatements=${spring.datasource.rewrite-batched-statements:true}\
+      &connectTimeout=${spring.datasource.connect-timeout:10000}\
+      &socketTimeout=${spring.datasource.socket-timeout:130000}\
       "
-    jdbcInterceptors: "QueryTimeoutInterceptor(queryTimeout=${spring.reporting_datasource.query-timeout:120})"
+    jdbcInterceptors: "QueryTimeoutInterceptor(queryTimeout=${spring.datasource.query-timeout:120})"
     username: root
     password:
     testWhileIdle: true

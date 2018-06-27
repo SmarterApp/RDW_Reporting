@@ -57,4 +57,25 @@ export class AggregateQueryFormContainerComponent {
   submitQuery($event): void {
     this.submitActionsByReportType[this.reportType].emit($event);
   }
+
+  get hasGeneralPopulationReport(): boolean {
+    return this.hasReportType(AggregateReportType.GeneralPopulation)
+  }
+
+  get hasLongitudinalReport(): boolean {
+    return this.hasReportType(AggregateReportType.LongitudinalCohort)
+  }
+
+  get hasClaimReport(): boolean {
+    return this.hasReportType(AggregateReportType.Claim)
+  }
+
+  get hasTargetReport(): boolean {
+    return this.hasReportType(AggregateReportType.Target)
+  }
+
+  private hasReportType(type: AggregateReportType): boolean {
+    return this.filteredOptions.reportTypes.some(x => x.value == type);
+  }
+
 }

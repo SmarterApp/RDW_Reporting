@@ -78,6 +78,7 @@ export class InstructionalResourceService {
     resource.assessmentLabel = serverResource.assessmentLabel;
     resource.assessmentName = serverResource.assessmentName;
     resource.assessmentType = serverResource.assessmentTypeCode;
+    resource.assessmentSubjectCode = serverResource.assessmentSubjectCode;
     resource.resource = serverResource.resource;
     resource.performanceLevel = serverResource.performanceLevel;
     return resource;

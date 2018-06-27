@@ -5,7 +5,6 @@ import { AssessmentDefinition } from '../assessment/assessment-definition';
 import { OrganizationMapper } from '../../shared/organization/organization.mapper';
 import { SubgroupMapper } from '../subgroup/subgroup.mapper';
 import { AggregateReportQuery } from '../../report/aggregate-report-request';
-import { Utils } from "../../shared/support/support";
 
 /**
  * Maps server modeled aggregate report rows into client friendly table rows
@@ -40,12 +39,6 @@ export class AggregateReportItemMapper {
     item.targetNaturalId = row.targetNaturalId;
     item.studentRelativeResidualScoresLevel = row.studentRelativeResidualScoresLevel;
     item.standardMetRelativeResidualLevel = row.standardMetRelativeResidualLevel;
-    item.targetDescription = row.targetDescription;
-
-    const dashIndex = Utils.isNullOrUndefined(row.targetCode) ? -1 : row.targetCode.indexOf('-');
-    item.targetCode = dashIndex === -1
-      ? row.targetCode
-      : row.targetCode.substring(0, dashIndex);
 
     item.subgroup = this.subgroupMapper.fromAggregateReportRow(query, row);
 

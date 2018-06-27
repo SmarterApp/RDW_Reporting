@@ -18,6 +18,8 @@ sql:
         a.cut_point_1,
         a.cut_point_2,
         a.cut_point_3,
+        a.cut_point_4,
+        a.cut_point_5,
         a.max_score
       FROM asmt a
         JOIN asmt_type at on at.id = a.type_id
@@ -39,11 +41,12 @@ sql:
       SELECT id, code FROM asmt_type ORDER BY id
 
   claim:
-    findAll: >-
-      SELECT scs.id, scs.code, s.code as subject_code, at.code as asmt_type_code
-        FROM subject_claim_score scs
-          JOIN subject s ON scs.subject_id = s.id
-          JOIN asmt_type at ON at.id = scs.asmt_type_id
+    aggregate:
+      findAll: >-
+        SELECT scs.id, scs.code, s.code as subject_code, at.code as asmt_type_code
+          FROM subject_claim_score scs
+            JOIN subject s ON scs.subject_id = s.id
+            JOIN asmt_type at ON at.id = scs.asmt_type_id
 
   target:
     findAll: >-

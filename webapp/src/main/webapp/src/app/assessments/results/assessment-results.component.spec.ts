@@ -21,6 +21,7 @@ import { AssessmentPercentileService } from "../percentile/assessment-percentile
 import { MockUserService } from "../../../test/mock.user.service";
 import { ApplicationSettingsService } from '../../app-settings.service';
 import { of } from 'rxjs/observable/of';
+import { SubjectService } from '../../subject/subject.service';
 
 describe('AssessmentResultsComponent', () => {
   let component: AssessmentResultsComponent;
@@ -37,6 +38,9 @@ describe('AssessmentResultsComponent', () => {
 
   const mockApplicationSettingsService = jasmine.createSpyObj('ApplicationSettingsService', [ 'getSettings' ]);
   mockApplicationSettingsService.getSettings.and.callFake(() => of(settings));
+
+  const mockSubjectService = jasmine.createSpyObj('SubjectService', [ 'getSubjectDefinitionForAssessment' ]);
+  mockSubjectService.getSubjectDefinitionForAssessment.and.callFake(() => of(null));
 
   beforeEach(async(() => {
     dataService = new MockDataService();
@@ -63,7 +67,8 @@ describe('AssessmentResultsComponent', () => {
         CachingDataService,
         DataService,
         AssessmentPercentileService,
-        { provide: ApplicationSettingsService, useValue: mockApplicationSettingsService }
+        { provide: ApplicationSettingsService, useValue: mockApplicationSettingsService },
+        { provide: SubjectService, useValue: mockSubjectService }
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();

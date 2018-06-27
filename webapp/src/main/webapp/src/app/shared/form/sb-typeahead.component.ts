@@ -19,6 +19,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
            (ngModelChange)="onChangeInternal()"
            [(ngModel)]="search"
            placeholder="{{placeholder}}"
+           [typeaheadOptionsLimit]="100"
+           [typeaheadOptionsInScrollableView]="20"
+           [typeaheadScrollable]="true"
            autocomplete="off">
   `
 })

@@ -62,19 +62,23 @@
       </div>
     </div>
 
-    <general-population-form [hidden]="reportType !== 'GeneralPopulation'"
+    <general-population-form *ngIf="hasGeneralPopulationReport"
+                             [hidden]="reportType !== 'GeneralPopulation'"
                              (navItemChange)="setNavItems('GeneralPopulation', $event)"
                              [submitAction]="submitActionsByReportType['GeneralPopulation']"></general-population-form>
 
-    <longitudinal-cohort-form [hidden]="reportType !== 'LongitudinalCohort'"
+    <longitudinal-cohort-form *ngIf="hasLongitudinalReport"
+                              [hidden]="reportType !== 'LongitudinalCohort'"
                               (navItemChange)="setNavItems('LongitudinalCohort', $event)"
                               [submitAction]="submitActionsByReportType['LongitudinalCohort']"></longitudinal-cohort-form>
 
-    <claim-report-form [hidden]="reportType !== 'Claim'"
-                              (navItemChange)="setNavItems('Claim', $event)"
-                              [submitAction]="submitActionsByReportType['Claim']"></claim-report-form>
+    <claim-report-form *ngIf="hasClaimReport"
+                       [hidden]="reportType !== 'Claim'"
+                       (navItemChange)="setNavItems('Claim', $event)"
+                       [submitAction]="submitActionsByReportType['Claim']"></claim-report-form>
 
-    <target-report-form [hidden]="reportType !== 'Target'"
+    <target-report-form *ngIf="hasTargetReport"
+                        [hidden]="reportType !== 'Target'"
                         (navItemChange)="setNavItems('Target', $event)"
                         [submitAction]="submitActionsByReportType['Target']"></target-report-form>
   </div>

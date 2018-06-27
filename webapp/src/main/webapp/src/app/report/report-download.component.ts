@@ -6,6 +6,8 @@ import { ModalDirective } from "ngx-bootstrap";
 import { Observable } from "rxjs/Observable";
 import { Report } from "./report.model";
 import { ApplicationSettingsService } from '../app-settings.service';
+import { SubjectService } from '../subject/subject.service';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 /**
  * Abstract class used to carry the common logic between all exam report download components
@@ -46,30 +48,37 @@ export abstract class ReportDownloadComponent implements OnInit {
   onShow: EventEmitter<any> = new EventEmitter<any>();
 
   assessmentTypes: string[] = [ undefined, 'ica', 'iab', 'sum' ];
-  // TODO:ConfigurableSubjects these should be provided by the backend
-  subjectTypes: string[] = [ undefined, 'Math', 'ELA' ];
+  subjectTypes: string[] = [];
   orders: ReportOrder[] = [ ReportOrder.STUDENT_NAME, ReportOrder.STUDENT_SSID ];
   options: ReportOptions;
   reportLanguages: string[] = [ 'en' ];
   transferAccess: boolean;
 
   constructor(protected notificationService: NotificationService,
-              protected applicationSettingsService: ApplicationSettingsService) {
+              protected applicationSettingsService: ApplicationSettingsService,
+              protected subjectService: SubjectService) {
   }
 
   ngOnInit(): void {
-    const defaultOptions: ReportOptions = new ReportOptions();
-    defaultOptions.assessmentType = this.assessmentType != null ? this.assessmentType : this.assessmentTypes[ 0 ];
-    defaultOptions.subject = this.subject != null ? this.subject : this.subjectTypes[ 0 ];
-    defaultOptions.schoolYear = this.schoolYear != null ? this.schoolYear : this.schoolYears[ 0 ];
-    defaultOptions.language = this.reportLanguages[ 0 ];
-    defaultOptions.accommodationsVisible = false;
-    defaultOptions.order = this.orders[ 0 ];
-    defaultOptions.grayscale = false;
-    defaultOptions.disableTransferAccess = false;
-    this.options = defaultOptions;
 
-    this.applicationSettingsService.getSettings().subscribe(settings => {
+    forkJoin(
+      this.subjectService.getSubjectCodes(),
+      this.applicationSettingsService.getSettings()
+    ).subscribe(([subjectCodes, settings]) => {
+      // undefined represents the All option and is included first
+      this.subjectTypes = [undefined, ...subjectCodes];
+
+      const defaultOptions: ReportOptions = new ReportOptions();
+      defaultOptions.assessmentType = this.assessmentType != null ? this.assessmentType : this.assessmentTypes[ 0 ];
+      defaultOptions.subject = this.subject != null ? this.subject : this.subjectTypes[ 0 ];
+      defaultOptions.schoolYear = this.schoolYear != null ? this.schoolYear : this.schoolYears[ 0 ];
+      defaultOptions.language = this.reportLanguages[ 0 ];
+      defaultOptions.accommodationsVisible = false;
+      defaultOptions.order = this.orders[ 0 ];
+      defaultOptions.grayscale = false;
+      defaultOptions.disableTransferAccess = false;
+      this.options = defaultOptions;
+
       this.reportLanguages = this.reportLanguages.concat(settings.reportLanguages);
       this.transferAccess = settings.transferAccess;
     });

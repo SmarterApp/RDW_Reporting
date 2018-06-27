@@ -94,6 +94,7 @@ describe('Instructional Resource Service', () => {
       assessmentLabel: `asmt label ${id}`,
       assessmentName: `asmt name ${id}`,
       assessmentTypeCode: `asmt type ${id}`,
+      assessmentSubjectCode: `asmt subject ${id}`,
       performanceLevel: id,
       resource: `resource ${id}`
     };
@@ -107,6 +108,7 @@ describe('Instructional Resource Service', () => {
     resource.assessmentLabel = `asmt label ${id}`;
     resource.assessmentName = `asmt name ${id}`;
     resource.assessmentType = `asmt type ${id}`;
+    resource.assessmentSubjectCode = `asmt subject ${id}`;
     resource.performanceLevel = id;
     resource.resource = `resource ${id}`;
     return resource;

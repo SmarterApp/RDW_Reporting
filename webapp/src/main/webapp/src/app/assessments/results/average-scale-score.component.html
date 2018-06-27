@@ -27,7 +27,7 @@
                 </div>
               </td>
               <td class="">
-                <span class="text-left gray-darkest">
+                <span *ngIf="statistics" class="text-left gray-darkest">
                   <span class="score font-large">{{ statistics.total }}</span>
                   <span class="ml-xs">{{ (statistics.total == 1 ? 'average-scale-score.result' : 'average-scale-score.results') | translate }}</span>
                 </span>
@@ -88,38 +88,38 @@
         <table class="table table-striped table-hover student-claim-distribution">
           <thead class="ui-table-thead">
           <tr>
-            <th *ngFor="let claimStats of statistics.claims; let i = index">
-              <i class="fa {{ 'subject.' + assessment.subject + '.claim.' + assessment.claimCodes[i] + '.icon' | translate }}"></i>
-              {{ 'subject.' + assessment.subject + '.claim.' + assessment.claimCodes[i] + '.name' | translate}}
+            <th *ngFor="let claimReference of claimReferences">
+              <i class="fa {{ 'subject.' + assessment.subject + '.claim.' + claimReference.code + '.icon' | translate }}"></i>
+              {{ 'subject.' + assessment.subject + '.claim.' + claimReference.code + '.name' | translate}}
             </th>
           </tr>
           </thead>
           <tbody>
           <tr>
-            <td *ngFor="let claimStats of statistics.claims; let claimIndex = index" class="claim-distribution">
+            <td *ngFor="let claimReference of claimReferences" class="claim-distribution">
               <div class="assessment-aggregate">
                 <div class="scale-score-graph rounded blend-middle mb-sm">
                   <div class="bar-container">
-                    <div *ngFor="let level of claimStats.levels; let i = index">
-                      <div *ngIf="claimStats.percents[i].value != 0"
+                    <div *ngFor="let percent of claimReference.stats.percents; let i = index">
+                      <div *ngIf="percent.value != 0"
                            class="bar"
                            [ngClass]="'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.color' | translate"
-                           [attr.data-width]="getClaimDataWidth(claimIndex, i)"></div>
+                           [attr.data-width]="getClaimDataWidth(claimReference.dataIndex, i)"></div>
                     </div>
                   </div>
                 </div>
 
                 <div class="perc-container row">
-                  <div class="bar col-xs-4" *ngFor="let level of claimStats.levels; let i = index">
+                  <div class="bar col-xs-4" *ngFor="let level of claimReference.stats.levels; let i = index">
                     <span class="square"
                           [ngClass]="'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.color' | translate"></span>
-                    {{ getClaimValue(claimStats, i) }}{{ getClaimSuffix(claimStats, i) }}
+                    {{ getClaimValue(claimReference.stats, i) }}{{ getClaimSuffix(claimReference.stats, i) }}
                     <span class="sr-only">{{ 'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.name' | translate }}</span>
                   </div>
                 </div>
 
                 <div class="perc-container row mt-xs">
-                  <div class="bar col-xs-4 description" *ngFor="let level of claimStats.levels; let i = index">
+                  <div class="bar col-xs-4 description" *ngFor="let level of claimReference.stats.levels; let i = index">
                     {{ 'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.name' | translate }}
                   </div>
                 </div>

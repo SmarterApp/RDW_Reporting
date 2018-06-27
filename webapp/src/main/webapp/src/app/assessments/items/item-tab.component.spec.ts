@@ -50,7 +50,7 @@ describe('ItemTabComponent', () => {
 
 @Component({
   selector: 'test-component-wrapper',
-  template: '<item-tab [item]="item" [exams]="exams"></item-tab>'
+  template: '<item-tab [item]="item" [exams]="exams" subject="Math"></item-tab>'
 })
 class TestComponentWrapper {
   item = new AssessmentItem();

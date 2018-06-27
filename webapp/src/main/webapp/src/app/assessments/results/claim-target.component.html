@@ -1,15 +1,19 @@
 <a href="javascript:void(0)"
-   [popover]="'common.claim-description.' + item.claim | translate"
-   popoverTitle="{{'common.claim-name.' + item.claim | translate}}"
-   outsideClick="true">{{'common.claim-name.' + item.claim | translate}}</a>
+   [popover]="'subject.' + subject + '.claim.' + item.claim + '.description' | translate"
+   popoverTitle="{{'subject.' + subject + '.claim.' + item.claim + '.name' | translate}}"
+   outsideClick="true">{{'subject.' + subject + '.claim.' + item.claim + '.name' | translate}}</a>
 /
 <a href="javascript:void(0)"
-   (click)="loadTargetDescription()"
-   [popover]="targetPopover"
-   popoverTitle="{{'common.results.assessment-item-target' | translate:item}}"
-   outsideClick="true">{{'common.results.assessment-item-target' | translate:item}}</a>
-
-<ng-template #targetPopover>
-  <i *ngIf="!target" class="fa fa-spinner fa-pulse"></i>
-  <span *ngIf="target">{{target}}</span>
-</ng-template>
+   [popover]="'subject.' + subject + '.claim.' + item.claim + '.target.' + item.targetNaturalId + '.description' | translate"
+   popoverTitle="{{
+    'common.results.assessment-item-target' | translate:{
+      target: 'subject.' + subject + '.claim.' + item.claim + '.target.' + item.targetNaturalId + '.name' | translate
+     }
+   }}"
+   outsideClick="true">
+    {{
+        'common.results.assessment-item-target' | translate:{
+            target: 'subject.' + subject + '.claim.' + item.claim + '.target.' + item.targetNaturalId + '.name' | translate
+        }
+    }}
+</a>

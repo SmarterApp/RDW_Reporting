@@ -11,6 +11,9 @@ import { StudentResponsesAssessmentItem } from "../../student/responses/student-
 })
 export class ItemTabComponent implements OnInit {
 
+  @Input()
+  subject: string;
+
   /**
    * The assessment item to show in this tab.
    */

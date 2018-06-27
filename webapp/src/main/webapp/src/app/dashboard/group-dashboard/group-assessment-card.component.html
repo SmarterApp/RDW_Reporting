@@ -29,16 +29,15 @@
             [innerHTML]="'assessment-card.student-count' | translate: {studentsTested: measuredAssessment.studentsTested, groupCount: group.totalStudents }"></span>
   </div>
   <div class="aggregate-graph row">
-    <!-- TODO:ConfigurableSubjects custom subjects need to dynamically pull performance levels for the current assessment type -->
     <div class="perc-container col-xs-4"
-         *ngFor="let i of [1, 2, 3]">
+         *ngFor="let level of performanceLevels; let i = index">
       <div class="bar">
         <span class="square"
-              [ngClass]="colorService.getPerformanceLevelColorsByAssessmentTypeCode('iab', i)"></span>
-        <strong>{{ 'common.value-display-type-format.Percent' | translate: { value: percents[i-1] } }}</strong>
+              [ngClass]="'subject.' + measuredAssessment.assessment.subject + '.asmt-type.' + measuredAssessment.assessment.type + '.level.' + level + '.color' | translate"></span>
+        <strong>{{ 'common.value-display-type-format.Percent' | translate: { value: percents[i] } }}</strong>
       </div>
       <div class="bar description">
-        <span>{{ 'common.assessment-type.iab.performance-level.' + i + '.name' | translate }}</span>
+        <span>{{ 'subject.' + measuredAssessment.assessment.subject + '.asmt-type.' + measuredAssessment.assessment.type + '.level.' + level + '.name' | translate }}</span>
       </div>
     </div>
   </div>

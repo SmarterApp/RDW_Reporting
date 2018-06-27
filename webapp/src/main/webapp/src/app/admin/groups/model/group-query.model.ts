@@ -5,7 +5,6 @@ export class GroupQuery {
   schoolYear: number;
   subject: string;
 
-  // TODO:ConfigurableSubjects the service you send the request to should provide this
   // a nicity might even be that the backend fills this in when nothing is sent
   get availableSubjects() {
     return this._availableSubjects;

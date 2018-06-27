@@ -16,10 +16,14 @@ import * as _ from 'lodash';
 import { organizationOrdering, subgroupOrdering } from '../support';
 import { TranslateService } from '@ngx-translate/core';
 import { BaseColumn } from '../../shared/datatable/base-column.model';
-import { byNumericString, createScorableClaimOrdering, SubjectClaimOrderings } from '../../shared/ordering/orderings';
+import { byNumericString, getOrganizationalClaimOrdering, } from '../../shared/ordering/orderings';
 import { IdentityColumnOptions } from '../assessment/assessment-definition.service';
 import { AggregateReportType } from '../aggregate-report-form-settings';
 import { byTargetReportingLevel } from '../../assessments/model/aggregate-target-score-row.model';
+import { OrderingService } from "../../shared/ordering/ordering.service";
+import { map } from "rxjs/operators";
+import { Observable } from "rxjs/Observable";
+import { forkJoin } from "rxjs/observable/forkJoin";
 
 export const SupportedRowCount = 10000;
 export const DefaultRowsPerPageOptions = [ 100, 500, 1000 ];
@@ -30,16 +34,12 @@ const SchoolYearOrdering: Ordering<AggregateReportItem> = ordering(byNumber)
 const AssessmentLabelOrdering: Ordering<AggregateReportItem> = ordering(byString)
   .on(item => item.assessmentLabel);
 
-// TODO:ConfigurableSubjects this needs to be provided by the backend
 const OrganizationalClaimOrderingProvider: (subjectCode: string, preview: boolean) => Ordering<AggregateReportItem> = (subjectCode, preview) => {
-  const currentOrdering: Ordering<string> = !preview && SubjectClaimOrderings.has(subjectCode)
-    ? SubjectClaimOrderings.get(subjectCode)
+  const currentOrdering: Ordering<string> = !preview
+    ? getOrganizationalClaimOrdering(subjectCode)
     : ordering(byString);
   return currentOrdering.on(item => item.claimCode);
 };
-
-const TargetOrdering: Ordering<AggregateReportItem> = ordering(byNumericString)
-  .on(item => item.targetCode || item.targetNaturalId);
 
 /**
  * This component is responsible for displaying a table of aggregate report results
@@ -90,7 +90,8 @@ export class AggregateReportTableComponent implements OnInit {
 
   constructor(public colorService: ColorService,
               private translate: TranslateService,
-              private exportService: AggregateReportTableExportService) {
+              private exportService: AggregateReportTableExportService,
+              private orderingService: OrderingService) {
   }
 
   ngOnInit(): void {
@@ -312,17 +313,6 @@ export class AggregateReportTableComponent implements OnInit {
     return this.translate.instant(this.getClaimCodeTranslationKey(row));
   }
 
-  getTargetDisplay(row: AggregateReportItem): { name: string, description: string } {
-    const targetName: string = row.targetCode
-      ? row.targetCode
-      : this.translate.instant('common.unknown') + ' (' + row.targetNaturalId + ')';
-
-    return {
-      name: targetName,
-      description: row.targetDescription || ''
-    };
-  }
-
   private buildAndRender({ rows, options, assessmentDefinition, reportType }: AggregateReportTable): void {
 
     // configure row sorting
@@ -333,13 +323,9 @@ export class AggregateReportTableComponent implements OnInit {
     this._orderingByColumnField[ 'organization.name' ] = organizationOrdering(item => item.organization, rows);
     this._orderingByColumnField[ 'assessmentGradeCode' ] = assessmentGradeOrdering;
     this._orderingByColumnField[ 'schoolYear' ] = SchoolYearOrdering;
-    this._orderingByColumnField[ 'claimCode' ] = reportType === AggregateReportType.Target
-      ? OrganizationalClaimOrderingProvider(rows[ 0 ].subjectCode, this.preview)
-      : ordering(join(...rows.map(row => {
-        return createScorableClaimOrdering(row.subjectCode).on<any>(row => row.claimCode).compare;
-      })));
     this._orderingByColumnField[ 'subgroup.id' ] = subgroupOrdering(item => item.subgroup, options);
-    this._orderingByColumnField[ 'targetNaturalId' ] = TargetOrdering;
+    this._orderingByColumnField[ 'targetNaturalId' ] = ordering(byNumericString)
+      .on(item => this.translate.instant(`subject.${item.subjectCode}.claim.${item.claimCode}.target.${item.targetNaturalId}.name`));
     this._orderingByColumnField[ 'studentRelativeResidualScoresLevel' ] = ordering(byTargetReportingLevel)
       .on(item => item.studentRelativeResidualScoresLevel);
     this._orderingByColumnField[ 'standardMetRelativeResidualLevel' ] = ordering(byTargetReportingLevel)
@@ -384,6 +370,7 @@ export class AggregateReportTableComponent implements OnInit {
         );
         break;
       case AggregateReportType.Target:
+        this._orderingByColumnField[ 'claimCode' ] = OrganizationalClaimOrderingProvider(rows[ 0 ].subjectCode, this.preview);
         dataColumns.push(
           new Column({ id: 'studentsTested' }),
           new Column({ id: 'studentRelativeResidualScoresLevel', valueColumn: true }),
@@ -398,8 +385,35 @@ export class AggregateReportTableComponent implements OnInit {
       ...dataColumns
     ];
 
-    this.calculateTreeColumns();
-    this.sortRows();
+    if (reportType === AggregateReportType.Claim) {
+      //Get subjects in report
+      const subjects = rows.reduce((rowSubjects, row) => {
+        if (rowSubjects.indexOf(row.subjectCode) < 0) {
+          rowSubjects.push(row.subjectCode);
+        }
+        return rowSubjects;
+      }, []);
+
+      //Get claim comparators for subjects in report
+      const orderingObservables: Observable<Comparator<AggregateReportItem>>[] = subjects.map(subject =>
+        this.orderingService.getScorableClaimOrdering(subject, assessmentDefinition.typeCode)
+          .pipe(
+            map(ordering => ordering
+              .on((row: AggregateReportItem) =>
+                row.subjectCode === subject ? row.claimCode : null
+              ).compare
+            )
+          ));
+      forkJoin(orderingObservables)
+        .subscribe(comparators => {
+          this._orderingByColumnField[ 'claimCode' ] = ordering(join(...comparators));
+          this.sortRows();
+        });
+
+    } else {
+      this.sortRows();
+    }
+
   }
 
   /**

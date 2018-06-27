@@ -132,7 +132,7 @@ sql:
 
     target:
       findAllForAssessment: >-
-         SELECT t.id, t.natural_id, t.code, t.description, c.code as claim_code, at.asmt_id, at.include_in_report
+         SELECT t.id, t.natural_id, c.code as claim_code, at.asmt_id, at.include_in_report
             FROM asmt_target at
               JOIN target t ON at.target_id =  t.id
               JOIN claim c ON c.id = t.claim_id
@@ -187,17 +187,6 @@ sql:
     readTest: >-
       SELECT code FROM asmt_type
 
-  target:
-    findOneById: >-
-      SELECT id, description FROM target where id=:target_id
-
-  commonCoreStandard:
-    findAllByItemId: >-
-      select ccs.id, ccs.natural_id, ccs.description
-      from common_core_standard ccs
-        join item_common_core_standard iccs on iccs.common_core_standard_id = ccs.id
-      where iccs.item_id = :item_id
-
   instructionalResource:
     findAllByAssessmentId: >-
       SELECT
@@ -235,21 +224,24 @@ sql:
   reporting:
     snippet:
         selectFromItem: >-
-           select
+           SELECT
               i.id,
               i.natural_id,
               i.position,
               i.difficulty_code,
               i.max_points,
               i.claim_code,
-              i.target_code,
               i.target_id,
-              i.dok_level_subject_id,
+              t.natural_id as target_natural_id,
               i.math_practice_code,
               i.allow_calc,
               i.common_core_standard_ids,
               i.answer_key,
               i.options_count,
               i.type,
-              i.performance_task_writing_type
-            from item i
+              i.performance_task_writing_type,
+              dok.level as dok_level,
+              dok.reference as dok_reference
+            FROM item i
+              JOIN depth_of_knowledge dok ON dok.id = i.dok_id
+              JOIN target t ON t.id = i.target_id

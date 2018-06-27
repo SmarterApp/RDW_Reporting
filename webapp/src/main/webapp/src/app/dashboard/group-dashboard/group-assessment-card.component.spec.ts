@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { GroupAssessmentCardComponent } from './group-assessment-card.component';
+import { GroupAssessmentCardComponent, GroupCard } from './group-assessment-card.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '../../shared/common.module';
 import { DetailsByPerformanceLevel, MeasuredAssessment } from '../measured-assessment';
@@ -34,7 +34,8 @@ describe('GroupAssessmentCardComponent', () => {
 
   it('should create', () => {
     createComponent();
-    const studentCountByPerformanceLevel: DetailsByPerformanceLevel[] = <DetailsByPerformanceLevel[]>[  {
+    const studentCountByPerformanceLevel: DetailsByPerformanceLevel[] = <DetailsByPerformanceLevel[]>[
+      {
         percent: 20,
         studentCount: 2
       },
@@ -45,14 +46,18 @@ describe('GroupAssessmentCardComponent', () => {
       {
         percent: 50,
         studentCount: 5
-      } ];
+      }
+    ];
     const measuredAssessment = getMeasuredAssessment(studentCountByPerformanceLevel);
-    component.measuredAssessment = measuredAssessment;
-    component.group = <Group>{
-      id: 1,
-      name: 'name',
-      schoolId: 123,
-      totalStudents: 10
+    component.card = {
+      measuredAssessment,
+      group: <Group>{
+        id: 1,
+        name: 'name',
+        schoolId: 123,
+        totalStudents: 10
+      },
+      performanceLevels: []
     };
     fixture.detectChanges();
     expect(component.dataWidths).toBeTruthy();
@@ -61,10 +66,7 @@ describe('GroupAssessmentCardComponent', () => {
 
   it('should have percents of 33.33 have a data width sum to 100', () => {
     createComponent();
-    const studentCountByPerformanceLevel: DetailsByPerformanceLevel[] = <DetailsByPerformanceLevel[]>[ {
-        percent: (1 / 3) * 100,
-        studentCount: 1
-      },
+    const studentCountByPerformanceLevel: DetailsByPerformanceLevel[] = <DetailsByPerformanceLevel[]>[
       {
         percent: (1 / 3) * 100,
         studentCount: 1
@@ -72,14 +74,22 @@ describe('GroupAssessmentCardComponent', () => {
       {
         percent: (1 / 3) * 100,
         studentCount: 1
-      } ];
+      },
+      {
+        percent: (1 / 3) * 100,
+        studentCount: 1
+      }
+    ];
     const measuredAssessment = getMeasuredAssessment(studentCountByPerformanceLevel);
-    component.measuredAssessment = measuredAssessment;
-    component.group = <Group>{
-      id: 1,
-      name: 'name',
-      schoolId: 123,
-      totalStudents: 3
+    component.card = {
+      measuredAssessment,
+      group: <Group>{
+        id: 1,
+        name: 'name',
+        schoolId: 123,
+        totalStudents: 3
+      },
+      performanceLevels: []
     };
     fixture.detectChanges();
     expect(component.percents).toEqual(([ 33, 33, 33 ]));
@@ -88,10 +98,11 @@ describe('GroupAssessmentCardComponent', () => {
 
   it('should have rounded percents sum of 101 and a data width sum to 100', () => {
     createComponent();
-    const studentCountByPerformanceLevel = <DetailsByPerformanceLevel[]>[ {
-        percent: (2 / 7) * 100,
-        studentCount: 2
-      },
+    const studentCountByPerformanceLevel = <DetailsByPerformanceLevel[]>[
+      {
+      percent: (2 / 7) * 100,
+      studentCount: 2
+    },
       {
         percent: (3 / 7) * 100,
         studentCount: 3
@@ -99,14 +110,18 @@ describe('GroupAssessmentCardComponent', () => {
       {
         percent: (2 / 7) * 100,
         studentCount: 2
-      } ];
+      }
+      ];
     const measuredAssessment = getMeasuredAssessment(studentCountByPerformanceLevel);
-    component.measuredAssessment = measuredAssessment;
-    component.group = <Group>{
-      id: 1,
-      name: 'name',
-      schoolId: 123,
-      totalStudents: 7
+    component.card = {
+      measuredAssessment,
+      group: <Group>{
+        id: 1,
+        name: 'name',
+        schoolId: 123,
+        totalStudents: 7
+      },
+      performanceLevels: []
     };
     fixture.detectChanges();
     expect(component.percents).toEqual(([ 29, 43, 29 ]));

@@ -128,8 +128,14 @@
 
           <div *ngSwitchCase="'target'"
                class="text-right wrapping-max-width">
-            <span *ngIf="!preview; else targetPreview"
-                  [innerHTML]="'aggregate-report-table.target-description' | translate: getTargetDisplay(rowData)">
+            <span *ngIf="!preview; else targetPreview">
+              <strong>
+                {{'common.results.assessment-item-target' | translate:{
+                    target: 'subject.' + rowData.subjectCode + '.claim.' + rowData.claimCode + '.target.' + rowData.targetNaturalId + '.name' | translate
+                  }
+                }}
+              </strong>
+              {{ 'subject.' + rowData.subjectCode + '.claim.' + rowData.claimCode + '.target.' + rowData.targetNaturalId + '.description' | translate }}
             </span>
             <ng-template #targetPreview>
               <span [innerHTML]="'aggregate-report-table.sample.target' | translate:{name: rowData.targetNaturalId}"></span>

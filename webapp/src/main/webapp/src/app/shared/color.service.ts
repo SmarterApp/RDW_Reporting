@@ -52,7 +52,8 @@ export class ColorService {
    */
   // TODO:ConfigurableSubjects drive through subject service
   getPerformanceLevelColorsByAssessmentTypeCode(code: string, performanceLevel: number): string {
-    return PerformanceLevelColorsByAssessmentTypeCode.get(code)[ performanceLevel - 1 ];
+    return 'gray-darkest';
+    // return PerformanceLevelColorsByAssessmentTypeCode.get(code)[ performanceLevel - 1 ];
   }
 
   /**
@@ -64,7 +65,8 @@ export class ColorService {
    */
   // TODO:ConfigurableSubjects drive through subject service
   getPerformanceLevelColorsByNumberOfPerformanceLevels(levels: number, performanceLevel: number): string {
-    return PerformanceLevelColorsNumberOfPerformanceLevels.get(levels)[ performanceLevel - 1 ];
+    return 'gray-darkest';
+    // return PerformanceLevelColorsNumberOfPerformanceLevels.get(levels)[ performanceLevel - 1 ];
   }
 
 }

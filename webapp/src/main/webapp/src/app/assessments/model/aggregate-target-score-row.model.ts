@@ -3,9 +3,8 @@ import { ranking } from '@kourge/ordering/comparator';
 
 export class AggregateTargetScoreRow {
   targetId: number;
-  target: string;
+  targetNaturalId: string;
   claim: string;
-  claimOrder: number;
   subgroup: Subgroup;
   studentsTested: number;
   standardMetRelativeLevel: TargetReportingLevel;

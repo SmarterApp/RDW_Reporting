@@ -33,8 +33,8 @@
         </div>
         <div class="form-group row">
           <label class="col-xs-4 control-label">{{'common.instructional-resource.columns.performance-level' | translate}}</label>
-          <span *ngIf="resource.performanceLevel == 0" class="col-xs-8 text-overflow-ellipsis">{{ 'common.instructional-resource.performance-levels.all' | translate }}</span>
-          <span *ngIf="resource.performanceLevel > 0" class="col-xs-8 text-overflow-ellipsis">{{ ('common.instructional-resource.performance-levels.' + resource.assessmentType + '.' + resource.performanceLevel) | translate }}</span>
+          <span *ngIf="resource.performanceLevel == 0" class="col-xs-8 text-overflow-ellipsis">{{ 'common.instructional-resource.all-performance-levels' | translate }}</span>
+          <span *ngIf="resource.performanceLevel > 0" class="col-xs-8 text-overflow-ellipsis">{{ ('subject.' + resource.assessmentSubjectCode + '.asmt-type.' + resource.assessmentType + '.level.' + resource.performanceLevel + '.name') | translate }}</span>
         </div>
         <div class="form-group row"
              [ngClass]="{'has-error': resourceControl.invalid && (resourceControl.dirty || resourceControl.touched)}">

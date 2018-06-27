@@ -9,15 +9,15 @@ describe('Target Calculator', () => {
   let mockSubgroupMapper = jasmine.createSpyObj<SubgroupMapper>('subgroupMapper', ['createOverall', 'fromTypeAndCode']);
   let fixture = new TargetStatisticsCalculator(new ExamStatisticsCalculator(), mockSubgroupMapper);
   let allTargets = [
-    <Target>{ id: 1, assessmentId: 2, claimCode: "1-LT", naturalId: "1", code: "1", description: "", includeInReport: true },
-    { id: 2, assessmentId: 2, claimCode: "1-LT", naturalId: "2", code: "2", description: "", includeInReport: true },
-    { id: 3, assessmentId: 2, claimCode: "1-IT", naturalId: "3", code: "3", description: "", includeInReport: false },
-    { id: 4, assessmentId: 2, claimCode: "1-IT", naturalId: "4", code: "4", description: "", includeInReport: true }
+    <Target>{ id: 1, assessmentId: 2, claimCode: "1-LT", naturalId: "1", includeInReport: true },
+    { id: 2, assessmentId: 2, claimCode: "1-LT", naturalId: "2", includeInReport: true },
+    { id: 3, assessmentId: 2, claimCode: "1-IT", naturalId: "3", includeInReport: false },
+    { id: 4, assessmentId: 2, claimCode: "1-IT", naturalId: "4", includeInReport: true }
     ];
 
   it('should handle null for aggregate target calculation', () => {
     expect(fixture.aggregateOverallScores('ELA', [], null)).toEqual([]);
-  })
+  });
 
   it ('should aggregate target scores handling exclusions', () => {
     let exams: TargetScoreExam[] = [

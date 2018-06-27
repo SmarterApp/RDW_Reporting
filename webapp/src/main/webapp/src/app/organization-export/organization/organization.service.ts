@@ -5,10 +5,7 @@ import { OrganizationMapper } from "./organization.mapper";
 import { CachingDataService } from "../../shared/data/caching-data.service";
 import { map } from 'rxjs/operators';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { ReportingServiceRoute } from '../../shared/service-route';
 import { OrganizationService as ExtendOrganizationService } from "../../shared/organization/organization.service";
-
-const ServiceRoute = ReportingServiceRoute;
 
 @Injectable()
 export class OrganizationService extends ExtendOrganizationService {

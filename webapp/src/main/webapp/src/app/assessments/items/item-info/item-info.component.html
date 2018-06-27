@@ -1,37 +1,46 @@
 <div class="white-space-normal">
   <p>
-    <b>{{ 'item-info.claim' | translate}}</b>
-    {{ 'common.claim-description.' + item.claim | translate }}
+    <strong>{{ 'item-info.claim' | translate}}</strong>
+    {{ 'subject.' + subject + '.claim.' + item.claim + '.description' | translate }}
   </p>
   <p>
-    <b>{{ 'common.results.assessment-item-target' | translate:item}}: </b>
-    {{ targetDescription }}
+    <strong>
+      {{
+        'common.results.assessment-item-target' | translate:{
+            target: 'subject.' + subject + '.claim.' + item.claim + '.target.' + item.targetNaturalId + '.name' | translate
+        }
+      }}:
+    </strong>
+    {{ 'subject.' + subject + '.claim.' + item.claim + '.target.' + item.targetNaturalId + '.description' | translate }}
+  </p>
+  <p *ngIf="item.depthOfKnowledge">
+    <strong>{{ 'item-info.dok-label' | translate}}</strong>
+    {{ 'subject.' + subject + '.dok.' + item.depthOfKnowledge.level + '.name' | translate }}
+    <a href="{{item.depthOfKnowledge.referenceUrl}}" target="_blank">{{ 'item-info.view-ref' | translate}}</a>
   </p>
   <p>
-    <b>{{ 'item-info.dok-label' | translate}}</b>
-    {{ 'item-info.dok-description.' + item.depthOfKnowledge | translate }}
-    <a href="{{ 'item-info.dok-reference.' + item.depthOfKnowledge | translate }}" target="_blank">{{ 'item-info.view-ref' | translate}}</a>
-  </p>
-  <p>
-    <b>{{ 'item-info.difficulty' | translate}}</b>
+    <strong>{{ 'item-info.difficulty' | translate}}</strong>
     {{ 'common.difficulty.' + item.difficulty | translate }}
   </p>
-  <span *ngIf="commonCoreStandards">
-    <p><b>{{ 'item-info.ccs' | translate}}</b></p>
-    <p *ngFor="let standard of commonCoreStandards; let i = index">
-      <span class="label border-only blue mr-xs">{{ standard.code }}</span> {{ standard.description }}
+  <span *ngIf="item.commonCoreStandardIds">
+    <p><strong>{{ 'item-info.ccs' | translate}}</strong></p>
+    <p *ngFor="let standard of item.commonCoreStandardIds">
+      <span class="label border-only blue mr-xs">
+        {{ standard }}
+      </span>
+      {{ 'subject.' + subject + '.standard.' + standard + '.description' | translate }}
     </p>
   </span>
   <p *ngIf="item.mathPractice">
-    <b>{{ 'item-info.math' | translate}}</b>
+    <strong>{{ 'item-info.math' | translate}}</strong>
     {{ 'item-info.math-practice.description.' + item.mathPractice | translate }}
   </p>
   <p *ngIf="item.allowCalculator">
-    <b>{{ 'item-info.calculator' | translate}}</b>
+    <strong>{{ 'item-info.calculator' | translate}}</strong>
     {{ 'common.polar.' + item.allowCalculator | translate }}
   </p>
   <p>
-    <b>{{ 'item-info.docs' | translate}}</b>
+    <strong>{{ 'item-info.docs' | translate}}</strong>
     <a href="{{interpretiveGuideUrl}}" target="_blank">{{ 'item-info.guide' | translate}}</a>
   </p>
 </div>

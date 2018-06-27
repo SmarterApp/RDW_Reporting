@@ -12,18 +12,23 @@ sql:
           a.name,
           a.grade_code,
           a.type_id,
-          a.subject_id,
           a.school_year,
           a.claim1_score_code,
           a.claim2_score_code,
           a.claim3_score_code,
           a.claim4_score_code,
+          a.claim5_score_code,
+          a.claim6_score_code,
           a.min_score,
           a.max_score,
           a.cut_point_1,
           a.cut_point_2,
-          a.cut_point_3
+          a.cut_point_3,
+          a.cut_point_4,
+          a.cut_point_5,
+          su.code as subject_code
         FROM asmt a
+        JOIN subject su on a.subject_id = su.id
         WHERE (:label_query IS NULL OR a.label LIKE concat('%', :label_query, '%'))
           AND (:name_query IS NULL OR a.name LIKE concat('%', :name_query, '%'))
         ORDER BY a.school_year DESC
@@ -37,12 +42,12 @@ sql:
         st.*,
         coalesce(se.individual, 0) as individual,
         coalesce(se.aggregate, 1) as aggregate,
-        cnt.subject_id,
+        cnt.subject_code,
         cnt.count
       FROM (SELECT 'State' AS org_type, NULL AS org_id, NULL AS org_name, :school_year AS school_year) st
         LEFT JOIN state_embargo se ON se.school_year = :school_year
-        LEFT JOIN (SELECT a.subject_id, count(e.id) AS count
-                     FROM exam e JOIN asmt a ON a.id = e.asmt_id
+        LEFT JOIN (SELECT su.code as subject_code, count(e.id) AS count
+                     FROM exam e JOIN asmt a ON a.id = e.asmt_id JOIN subject su ON a.subject_id = su.id
                      WHERE a.type_id = 3 AND e.deleted = 0 AND e.school_year = :school_year
                      GROUP BY a.subject_id) cnt ON 1=1
       UNION ALL
@@ -53,15 +58,16 @@ sql:
         :school_year AS school_year,
         IF(se.individual = 0 OR de.individual = 0 OR (se.individual IS NULL and de.individual IS NULL), 0, 1) as individual,
         IF(se.aggregate = 0 OR de.aggregate = 0, 0, 1) as aggregate,
-        cnt.subject_id,
+        cnt.subject_code,
         cnt.count
       FROM district d
         LEFT JOIN state_embargo se ON se.school_year = :school_year
         LEFT JOIN district_embargo de ON d.id = de.district_id and de.school_year = :school_year
-        LEFT JOIN (SELECT s.district_id, a.subject_id, count(e.id) AS count
+        LEFT JOIN (SELECT s.district_id, su.code as subject_code, count(e.id) AS count
                    FROM school s
                      JOIN exam e ON e.school_id = s.id
                      JOIN asmt a ON a.id = e.asmt_id
+                     JOIN subject su ON a.subject_id = su.id
                    WHERE s.district_id IN (:district_ids) AND e.deleted = 0 AND a.type_id = 3 AND e.school_year = :school_year
                    GROUP BY s.district_id, a.subject_id) cnt ON d.id = cnt.district_id
       WHERE d.id IN (:district_ids)
@@ -113,10 +119,10 @@ sql:
         s.code AS subject_code
       FROM student_group sg
         JOIN school sc ON sc.id = sg.school_id
-        left JOIN subject s ON s.id = sg.subject_id
+        LEFT JOIN subject s ON s.id = sg.subject_id
       WHERE sg.school_id = :school_id
         and sg.deleted = 0
-        and (sg.subject_id is null or sg.subject_id in (:subject_ids))
+        and (sg.subject_id is null or s.code in (:subject_codes))
         and sg.school_year = :school_year
         and ${sql.snippet.basicPermission}
 
@@ -171,6 +177,7 @@ sql:
       SELECT DISTINCT
         GROUP_CONCAT(DISTINCT a.label ORDER BY a.id DESC SEPARATOR ', ') AS asmt_label,
         a.type_id AS asmt_type_id,
+        su.code as asmt_subject_code,
         ir.asmt_name,
         ir.performance_level,
         ir.org_level,
@@ -180,6 +187,8 @@ sql:
       FROM instructional_resource ir
         JOIN asmt a
           ON a.name = ir.asmt_name
+        JOIN subject su
+          ON su.id = a.subject_id
         LEFT JOIN district_group
           ON ir.org_level = 'DistrictGroup'
           AND district_group.id = ir.org_id
@@ -221,12 +230,13 @@ sql:
             )
           )
         )
-      GROUP BY a.type_id, ir.asmt_name, ir.performance_level, ir.org_level, ir.resource, ir.org_id, district_group.name, district.name, school_group.name
+      GROUP BY a.type_id, su.code, ir.asmt_name, ir.performance_level, ir.org_level, ir.resource, ir.org_id, district_group.name, district.name, school_group.name
 
     findOne: >-
       SELECT
         GROUP_CONCAT(DISTINCT a.label ORDER BY a.id DESC SEPARATOR ', ') AS asmt_label,
         a.type_id AS asmt_type_id,
+        su.code as asmt_subject_code,
         ir.asmt_name,
         ir.performance_level,
         ir.org_level,
@@ -236,6 +246,8 @@ sql:
       FROM instructional_resource ir
         JOIN asmt a
           ON a.name = ir.asmt_name
+        JOIN subject su
+          ON su.id = a.subject_id
         LEFT JOIN district_group
           ON ir.org_level = 'DistrictGroup'
           AND district_group.id = ir.org_id
@@ -245,9 +257,9 @@ sql:
         LEFT JOIN school_group
           ON ir.org_level = 'SchoolGroup'
           AND school_group.id = ir.org_id
-      LEFT JOIN school sch
-        ON sch.district_id = ir.org_id
-        OR sch.school_group_id = ir.org_id
+        LEFT JOIN school sch
+          ON sch.district_id = ir.org_id
+          OR sch.school_group_id = ir.org_id
       WHERE ir.org_level != 'System'
         AND ir.org_level = :org_level
         AND ir.asmt_name = :asmt_name
@@ -281,7 +293,7 @@ sql:
             )
           )
         )
-      GROUP BY a.type_id, ir.asmt_name, ir.performance_level, ir.org_level, ir.resource, ir.org_id, district_group.name, district.name, school_group.name
+      GROUP BY a.type_id, su.code, ir.asmt_name, ir.performance_level, ir.org_level, ir.resource, ir.org_id, district_group.name, district.name, school_group.name
 
     update: >-
       UPDATE instructional_resource ir

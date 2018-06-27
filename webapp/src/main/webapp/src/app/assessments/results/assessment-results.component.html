@@ -21,11 +21,11 @@
               angulartics2On="click"
               angularticsEvent="ToggleCollapseResults"
               angularticsCategory="AssessmentResults">
-        {{'common.action.' + (collapsed ? 'expand' : 'collapse') | translate}}
+        {{'common.action.' + (collapsed ? 'expand-results' : 'collapse-results') | translate}}
         <i class="fa"
            [ngClass]="{'fa-caret-square-o-up': !collapsed, 'fa-caret-square-o-down': collapsed}"
            aria-hidden="true"></i>
-        <span class="sr-only">{{'common.action.collapse' | translate}}</span>
+        <span class="sr-only">{{'common.action.' + (collapsed ? 'expand-results' : 'collapse-results') | translate}}</span>
       </button>
     </div>
   </div>
@@ -71,7 +71,11 @@
 
   <!-- Student Results -->
   <ng-container *ngIf="!collapsed" @fadeAnimation>
-    <div class="row">
+
+    <spinner *ngIf="!currentResultsView"></spinner>
+
+    <div *ngIf="currentResultsView"
+         class="row">
       <div class="col-md-12">
 
         <!-- Result view selector -->
@@ -237,7 +241,8 @@
                          [exams]="exams"
                          [studentsTested]="statistics.total"
                          [sessions]="sessions"
-                         [filterBy]="filterBy"></target-report>
+                         [filterBy]="filterBy"
+                         [subjectDefinition]="subjectDefinition"></target-report>
         </ng-container>
       </div>
     </div>

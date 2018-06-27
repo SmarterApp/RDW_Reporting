@@ -57,7 +57,7 @@ export class ResultsByItemComponent implements OnInit, ExportResults {
   }
 
   columns: Column[];
-  loading: boolean = false;
+  loading: boolean = true;
   filteredAssessmentItems: AssessmentItem[];
 
   private _assessmentItems: AssessmentItem[];
@@ -68,12 +68,11 @@ export class ResultsByItemComponent implements OnInit, ExportResults {
   }
 
   ngOnInit() {
-    this.loading = true;
     this.assessmentProvider.getAssessmentItems(this.assessment.id).subscribe(assessmentItems => {
 
-      let numOfScores = assessmentItems.reduce((x, y) => x + y.scores.length, 0);
+      const numOfScores = assessmentItems.reduce((x, y) => x + y.scores.length, 0);
 
-      if (numOfScores != 0) {
+      if (numOfScores !== 0) {
         // todo: move?
         this._pointColumns = this.examCalculator.getPointFields(assessmentItems);
 
@@ -101,23 +100,22 @@ export class ResultsByItemComponent implements OnInit, ExportResults {
   }
 
   exportToCsv(): void {
-    let exportRequest = new ExportItemsRequest();
-    exportRequest.assessment = this.assessment;
-    exportRequest.assessmentItems = this.filteredAssessmentItems;
-    exportRequest.pointColumns = this._pointColumns;
-    exportRequest.showAsPercent = this.showValuesAsPercent;
-    exportRequest.type = RequestType.ResultsByItems;
-
-    this.assessmentExporter.exportItemsToCsv(exportRequest);
+    const request = new ExportItemsRequest();
+    request.assessment = this.assessment;
+    request.assessmentItems = this.filteredAssessmentItems;
+    request.pointColumns = this._pointColumns;
+    request.showAsPercent = this.showValuesAsPercent;
+    request.type = RequestType.ResultsByItems;
+    this.assessmentExporter.exportItemsToCsv(request);
   }
 
-  private filterAssessmentItems(assessmentItems: AssessmentItem[]) {
-    let filtered = [];
+  private filterAssessmentItems(assessmentItems: AssessmentItem[]): AssessmentItem[] {
+    const filtered = [];
 
-    for (let assessmentItem of assessmentItems) {
-      let filteredItem = Object.assign(new AssessmentItem(), assessmentItem);
+    for (const assessmentItem of assessmentItems) {
+      const filteredItem = Object.assign(new AssessmentItem(), assessmentItem);
       filteredItem.scores = assessmentItem.scores.filter(score =>
-        this._exams.some(exam => exam.id == score.examId));
+        this._exams.some(exam => exam.id === score.examId));
       filtered.push(filteredItem);
     }
 
@@ -129,7 +127,7 @@ export class ResultsByItemComponent implements OnInit, ExportResults {
       id: 'point',
       label: pointColumn.label,
       field: pointColumn.numberField,
-      styleClass:  index == 0 ? 'level-down' : '',
+      styleClass:  index === 0 ? 'level-down' : '',
       numberField: pointColumn.numberField,
       percentField: pointColumn.percentField
     });

@@ -11,12 +11,14 @@ import { Angulartics2 } from 'angulartics2';
 import { StudentReportDownloadComponent } from '../../report/student-report-download.component';
 import { ReportingEmbargoService } from '../../shared/embargo/reporting-embargo.service';
 import { ApplicationSettingsService } from '../../app-settings.service';
-import { AssessmentTypeOrdering, SubjectOrdering } from '../../shared/ordering/orderings';
+import { AssessmentTypeOrdering } from '../../shared/ordering/orderings';
 import { FilterBy } from '../../assessments/model/filter-by.model';
 import * as _ from 'lodash';
 import { StudentResultsFilterService } from './student-results-filter.service';
 import { Student } from '../model/student.model';
 import { StudentPipe } from '../../shared/format/student.pipe';
+import { OrderingService } from "../../shared/ordering/ordering.service";
+import { Ordering } from "@kourge/ordering";
 
 @Component({
   selector: 'student-results',
@@ -33,6 +35,8 @@ export class StudentResultsComponent implements OnInit {
   hasResults: boolean;
   exportDisabled: boolean = true;
 
+  private _subjectOrdering: Ordering<string>;
+
   constructor(private colorService: ColorService,
               private csvExportService: CsvExportService,
               private route: ActivatedRoute,
@@ -42,33 +46,37 @@ export class StudentResultsComponent implements OnInit {
               private examFilterService: ExamFilterService,
               private embargoService: ReportingEmbargoService,
               private studentResultsFilterService: StudentResultsFilterService,
-              private studentPipe: StudentPipe) {
+              private studentPipe: StudentPipe,
+              private orderingService: OrderingService) {
   }
 
   ngOnInit(): void {
 
     const { examHistory } = this.route.snapshot.data;
     if (examHistory) {
-      this.examHistory = examHistory;
+      this.orderingService.getSubjectOrdering()
+        .subscribe(subjectOrdering => {
+          this.examHistory = examHistory;
+          this._subjectOrdering = subjectOrdering;
 
-      const { exams } = examHistory;
-      this.filterState = this.createFilterState(exams);
-      this.filterOptions.hasSummative = exams.some(wrapper => wrapper.assessment.isSummative);
-      this.filterOptions.hasInterim = exams.some(wrapper => wrapper.assessment.isInterim);
-      this.advancedFilters.onChanges.subscribe(property => this.onAdvancedFilterChange());
-      this.sections = this.createSections(exams);
+          const { exams } = examHistory;
+          this.filterState = this.createFilterState(exams);
+          this.filterOptions.hasSummative = exams.some(wrapper => wrapper.assessment.isSummative);
+          this.filterOptions.hasInterim = exams.some(wrapper => wrapper.assessment.isInterim);
+          this.advancedFilters.onChanges.subscribe(property => this.onAdvancedFilterChange());
+          this.sections = this.createSections(exams);
 
-      this.subscribeToRouteChanges();
-      this.updateRouteWithDefaultFilters();
+          this.subscribeToRouteChanges();
+          this.updateRouteWithDefaultFilters();
 
-      this.applicationSettingsService.getSettings().subscribe(settings => {
-        this.minimumItemDataYear = settings.minItemDataYear;
-      });
+          this.applicationSettingsService.getSettings().subscribe(settings => {
+            this.minimumItemDataYear = settings.minItemDataYear;
+          });
 
-      this.embargoService.isEmbargoed().subscribe(embargoed => {
-        this.exportDisabled = embargoed;
-      });
-
+          this.embargoService.isEmbargoed().subscribe(embargoed => {
+            this.exportDisabled = embargoed;
+          });
+        });
     }
   }
 
@@ -118,7 +126,7 @@ export class StudentResultsComponent implements OnInit {
         return exams;
       }, []),
       () => this.examHistory.student,
-      `${student.lastName}-${student.firstName}-${student.ssid}-${new Date().toDateString()}`
+      `${student.lastName ? student.lastName + '-' : ''}${student.firstName ? student.firstName + '-' : ''}${student.ssid}-${new Date().toDateString()}`
     );
   }
 
@@ -199,7 +207,7 @@ export class StudentResultsComponent implements OnInit {
         });
       }
       return sections;
-    }, []).sort(SubjectOrdering.on<Section>(section => section.subjectCode).compare);
+    }, []).sort(this._subjectOrdering.on<Section>(section => section.subjectCode).compare);
   }
 
   /**
@@ -226,7 +234,7 @@ export class StudentResultsComponent implements OnInit {
     );
 
     filterState.schoolYears.sort((a, b) => b - a);
-    filterState.subjects.sort(SubjectOrdering.compare);
+    filterState.subjects.sort(this._subjectOrdering.compare);
     filterState.assessmentTypes.sort(AssessmentTypeOrdering.compare);
 
     return filterState;

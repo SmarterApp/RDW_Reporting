@@ -257,8 +257,6 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     let observable;
     if (this.effectiveReportType === AggregateReportType.LongitudinalCohort) {
       observable = this.reportService.getLongitudinalReport(this.report.id);
-    } else if (this.effectiveReportType === AggregateReportType.Target) {
-      observable = this.reportService.getTargetReport(this.report.id);
     } else {
       observable = this.reportService.getAggregateReport(this.report.id);
     }

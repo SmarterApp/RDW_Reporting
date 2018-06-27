@@ -155,6 +155,8 @@ sql:
         'Claim2ScoreAchievementLevel',
         'Claim3ScoreAchievementLevel',
         'Claim4ScoreAchievementLevel',
+        'Claim5ScoreAchievementLevel',
+        'Claim6ScoreAchievementLevel',
 
         'Sex',
         'MigrantStatus',
@@ -208,6 +210,8 @@ sql:
         COALESCE(e.claim2_category, ''),
         COALESCE(e.claim3_category, ''),
         COALESCE(e.claim4_category, ''),
+        COALESCE(e.claim5_category, ''),
+        COALESCE(e.claim6_category, ''),
 
         COALESCE(st.gender_code, '') AS student_gender_code,
 

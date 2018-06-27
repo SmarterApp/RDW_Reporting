@@ -3,40 +3,32 @@ import { Ordering, ordering } from '@kourge/ordering';
 
 export const AssessmentTypeOrdering = ordering(ranking(['sum', 'ica', 'iab']));
 
-// TODO:ConfigurableSubjects these should be provided by the backend
-export const SubjectOrdering = ordering(ranking(['Math', 'ELA']));
-
 export const BooleanOrdering = ordering(ranking([ 'yes', 'no', 'undefined' ]));
 
 export const CompletenessOrdering = ordering(ranking([ 'Complete', 'Partial' ]));
 
-export const ScorableClaimOrder: Map<string, string[]> = new Map([
-  [ 'Math', [ '1', 'SOCK_2', '3' ] ],
-  [ 'ELA', [ 'SOCK_R', '2-W', 'SOCK_LS', '4-CR' ] ]
-]);
-
-export const ScorableClaimOrderings: Map<string, Ordering<string>> = new Map([
-  [ 'Math', ordering(ranking(ScorableClaimOrder.get('Math'))) ],
-  [ 'ELA', ordering(ranking(ScorableClaimOrder.get('ELA'))) ]
-]);
-
-export const createScorableClaimOrdering: (subjectCode: string) => Ordering<any> = (subjectCode) => {
-  return ScorableClaimOrderings.has(subjectCode)
-    ? ScorableClaimOrderings.get(subjectCode)
-    : ordering(byString);
-};
-
-// TODO:ConfigurableSubjects this needs to be provided by the backend
-export const SubjectClaimOrder: Map<string, string[]> = new Map([
+const SubjectClaimOrder: Map<string, string[]> = new Map([
   ['Math', ['1', '2', '3', '4']],
   ['ELA', ['1-LT', '1-IT', '2-W', '3-L', '3-S', '4-CR']]
 ]);
-
-// TODO:ConfigurableSubjects this needs to be provided by the backend
-export const SubjectClaimOrderings: Map<string, Ordering<string>> = new Map([
+const SubjectClaimOrderings: Map<string, Ordering<string>> = new Map([
   ['Math', ordering(ranking(SubjectClaimOrder.get('Math')))],
   ['ELA', ordering(ranking(SubjectClaimOrder.get('ELA')))]
 ]);
+
+/**
+ * Create an Ordering for the given subject's organizational claims.
+ * NOTE that only SBAC organizational claims are explicitly sorted, configurable
+ * subjects will order organizational claims alphabetically.
+ *
+ * @param {string} subject      A subject code
+ * @returns {Ordering<string>}  The ordering for the subject's organizational claim codes
+ */
+export function getOrganizationalClaimOrdering(subject: string): Ordering<string> {
+  return SubjectClaimOrderings.has(subject)
+    ? SubjectClaimOrderings.get(subject)
+    : ordering(byString);
+}
 
 /**
  * Comparator for ordering two strings which may represent numbers such that

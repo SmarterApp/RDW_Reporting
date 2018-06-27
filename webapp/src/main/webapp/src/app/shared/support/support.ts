@@ -266,3 +266,11 @@ export function serializeURLParameters(parameters: any): string {
     .map(([ key, value ]) => key + '=' + value) // TODO add explicit support for array values
     .join('&');
 }
+
+export function range(start: number, end: number): number[] {
+  const values = [];
+  for (let i = start; i <= end; i++) {
+    values.push(i);
+  }
+  return values;
+}

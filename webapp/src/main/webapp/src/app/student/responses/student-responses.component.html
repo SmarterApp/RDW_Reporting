@@ -86,11 +86,11 @@
           </table-row-expander>
 
           <claim-target *ngSwitchCase="'claim'"
-                        [item]="item.assessmentItem">
-          </claim-target>
+                        [item]="item.assessmentItem"
+                        [subject]="assessment.subject"></claim-target>
 
           <ng-container *ngSwitchCase="'difficulty'">
-            {{ ('common.difficulty.' + item.assessmentItem.difficulty) | translate }}
+            {{ 'common.difficulty.' + item.assessmentItem.difficulty | translate }}
           </ng-container>
 
           <ng-container *ngSwitchCase="'standard'">
@@ -125,7 +125,8 @@
                     [response]="item.response"
                     [position]="item.assessmentItem.position"
                     [showItemDetails]="assessment.isInterim"
-                    [showStudentScores]="false"></item-tab>
+                    [showStudentScores]="false"
+                    [subject]="assessment.subject"></item-tab>
         </td>
       </tr>
     </ng-template>

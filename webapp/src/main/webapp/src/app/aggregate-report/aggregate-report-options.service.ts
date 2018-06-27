@@ -36,7 +36,9 @@ export class AggregateReportOptionsService {
         dimensionTypes: serverOptions.dimensionTypes.concat(),
         interimAdministrationConditions: serverOptions.interimAdministrationConditions.concat(),
         queryTypes: [ 'Basic', 'FilteredSubgroup' ],
-        reportTypes: [ AggregateReportType.GeneralPopulation, AggregateReportType.LongitudinalCohort, AggregateReportType.Claim, AggregateReportType.Target ],
+        reportTypes: serverOptions.assessmentTypes.some(x => x == 'sum')
+          ? [ AggregateReportType.GeneralPopulation, AggregateReportType.LongitudinalCohort, AggregateReportType.Claim, AggregateReportType.Target ]
+          : [ AggregateReportType.GeneralPopulation, AggregateReportType.Claim ],
         schoolYears: serverOptions.schoolYears.concat(),
         statewideReporter: serverOptions.statewideReporter,
         subjects: serverOptions.subjects.concat(),

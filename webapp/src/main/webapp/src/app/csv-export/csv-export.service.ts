@@ -138,23 +138,24 @@ export class CsvExportService {
     const getAssessment = () => exportRequest.assessment;
     const getAssessmentItem = (item) => item;
 
-    let builder = this.csvBuilder
+    const builder = this.csvBuilder
       .newBuilder()
       .withFilename(filename)
       .withAssessmentTypeNameAndSubject(getAssessment)
       .withItemNumber(getAssessmentItem)
-      .withClaim(getAssessmentItem)
+      .withClaim(getAssessment, getAssessmentItem)
       .withTarget(getAssessmentItem)
       .withItemDifficulty(getAssessmentItem)
       .withStandards(getAssessmentItem)
       .withFullCredit(getAssessmentItem, exportRequest.showAsPercent);
 
-      if (exportRequest.type == RequestType.DistractorAnalysis) {
-        builder = builder.withItemAnswerKey(getAssessmentItem);
+      if (exportRequest.type === RequestType.DistractorAnalysis) {
+        builder.withItemAnswerKey(getAssessmentItem);
       }
 
-      builder.withPoints(getAssessmentItem, exportRequest.pointColumns, exportRequest.showAsPercent)
-      .build(exportRequest.assessmentItems);
+      builder
+        .withPoints(getAssessmentItem, exportRequest.pointColumns, exportRequest.showAsPercent)
+        .build(exportRequest.assessmentItems);
   }
 
   exportWritingTraitScores(exportRequest: ExportWritingTraitsRequest,
@@ -176,13 +177,14 @@ export class CsvExportService {
 
     });
 
+    const getAssessment = () => exportRequest.assessment;
     const getAssessmentItem = (item) => item.assessmentItem;
 
     this.csvBuilder
       .newBuilder()
       .withFilename(filename)
-      .withAssessmentTypeNameAndSubject(() => exportRequest.assessment)
-      .withClaim(getAssessmentItem)
+      .withAssessmentTypeNameAndSubject(getAssessment)
+      .withClaim(getAssessment, getAssessmentItem)
       .withTarget(getAssessmentItem)
       .withItemDifficulty(getAssessmentItem)
       .withStandards(getAssessmentItem)
@@ -195,14 +197,15 @@ export class CsvExportService {
   exportTargetScoresToCsv(exportRequest: ExportTargetReportRequest,
                            filename: string) {
 
+    const getAssessment = () => exportRequest.assessment;
     this.csvBuilder
       .newBuilder()
       .withFilename(filename)
       .withGroupName(() => exportRequest.group)
       .withSchoolYear(() => <Exam>{ schoolYear: exportRequest.schoolYear})
-      .withAssessmentTypeNameAndSubject(() => exportRequest.assessment)
+      .withAssessmentTypeNameAndSubject(getAssessment)
       .withScoreAndErrorBand(() => <Exam>{ score: exportRequest.averageScaleScore, standardError: exportRequest.standardError})
-      .withTargetReportAggregate((item) => item)
+      .withTargetReportAggregate(getAssessment, (item) => item)
       .build(exportRequest.targetScoreRows);
 
   }

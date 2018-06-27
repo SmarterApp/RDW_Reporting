@@ -1,4 +1,12 @@
 sql:
+  claim:
+    findAll: >-
+      SELECT scs.id, scs.code, s.code as subject_code, at.code as asmt_type_code
+      FROM subject_claim_score scs
+        JOIN subject s ON scs.subject_id = s.id
+        JOIN asmt_type at ON at.id = scs.asmt_type_id
+      ORDER BY scs.display_order
+
   translation:
     findAllForLanguage: >-
         SELECT
@@ -191,10 +199,14 @@ sql:
         a.claim2_score_code,
         a.claim3_score_code,
         a.claim4_score_code,
+        a.claim5_score_code,
+        a.claim6_score_code,
         a.claim1_score_code as asmt_claim1_score_code,
         a.claim2_score_code as asmt_claim2_score_code,
         a.claim3_score_code as asmt_claim3_score_code,
-        a.claim4_score_code as asmt_claim4_score_code
+        a.claim4_score_code as asmt_claim4_score_code,
+        a.claim5_score_code as asmt_claim5_score_code,
+        a.claim6_score_code as asmt_claim6_score_code
 
     claimColumns: >-
        ${sql.snippet.examClaimColumns},
@@ -236,16 +248,19 @@ sql:
         a.label as asmt_label,
         a.grade_code as asmt_grade_code,
         a.type_id as asmt_type_id,
-        a.subject_id as asmt_subject_id,
+        su.code as asmt_subject_code,
         a.school_year as asmt_school_year,
         a.min_score as asmt_min_score,
         a.max_score as asmt_max_score,
         a.cut_point_1 as asmt_cut_point_1,
         a.cut_point_2 as asmt_cut_point_2,
-        a.cut_point_3 as asmt_cut_point_3
+        a.cut_point_3 as asmt_cut_point_3,
+        a.cut_point_4 as asmt_cut_point_4,
+        a.cut_point_5 as asmt_cut_point_5
         from exam e
           join student st on st.id = e.student_id
           join asmt a on e.asmt_id = a.id
+          join subject su on a.subject_id=su.id
           join school s on e.school_id = s.id
           join school isch on st.inferred_school_id = isch.id
 

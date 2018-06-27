@@ -44,8 +44,8 @@ import { RdwFilterModule } from './filter/rdw-filter.module';
 import { RdwIconModule } from "./icon/rdw-icon.module";
 import { TargetService } from './target/target.service';
 import { DataTableService } from './datatable/datatable-service';
-import { Subject } from 'rxjs/Subject';
 import { SubjectModule } from '../subject/subject.module';
+import { OrderingService } from "./ordering/ordering.service";
 
 
 @NgModule({
@@ -132,6 +132,7 @@ import { SubjectModule } from '../subject/subject.module';
     ColorService,
     DataTableService,
     NotificationService,
+    OrderingService,
     TargetService
   ]
 })
