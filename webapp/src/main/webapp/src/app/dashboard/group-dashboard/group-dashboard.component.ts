@@ -77,11 +77,13 @@ export class GroupDashboardComponent implements OnInit {
           || (previousParameters.groupId != null && previousParameters.groupId != groupId)
           || (previousParameters.userGroupId != null && previousParameters.userGroupId != userGroupId);
 
+        const isNan = isNaN(Number(schoolYear)) || schoolYear === '';
+
         this._previousRouteParameters = parameters;
 
         // exit early if we don't need to re fetch the assessment data
-        if (!reload) {
-          return of({ ...parameters, reload });
+        if (!reload || isNan) {
+          return of({ ...parameters, reload, isNan });
         }
 
         return forkJoin(
@@ -90,11 +92,14 @@ export class GroupDashboardComponent implements OnInit {
             : this.userGroupService.getUserGroupAsGroup(userGroupId),
           this.groupDashboardService.getAvailableMeasuredAssessments(<any>parameters)
         ).pipe(
-          map(([ group, measuredAssessments ]) => <any>{ ...parameters, group, measuredAssessments, reload })
+          map(([ group, measuredAssessments ]) => <any>{ ...parameters, group, measuredAssessments, reload, isNan })
         );
       })
     ).subscribe(resolvedParameters => {
-      const { reload, group, schoolYear, subject, measuredAssessments } = resolvedParameters;
+      const { isNan, reload, group, schoolYear, subject, measuredAssessments } = resolvedParameters;
+      if (isNan) {
+        return;
+      }
       if (reload) {
         this.group = group;
         this.schoolYear = Number.parseInt(schoolYear) || this.schoolYear;
@@ -113,7 +118,8 @@ export class GroupDashboardComponent implements OnInit {
 
   private updateRouteWithDefaultFilters(): void {
     const { schoolYear } = this.route.snapshot.params;
-    if (schoolYear == null) {
+    const schoolYearNumber = Number(schoolYear);
+    if (isNaN(schoolYearNumber) || this.filterOptions.schoolYears.indexOf(schoolYearNumber) < 0) {
       this.schoolYear = this.filterOptions.schoolYears[ 0 ];
       this.updateRoute(true);
     }
