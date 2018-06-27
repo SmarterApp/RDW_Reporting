@@ -17,13 +17,23 @@ export class InstructionalResourcesService {
   constructor(private dataService: CachingDataService) {
   }
 
-  getInstructionalResources(assessmentId: number, schoolId: number): Observable<InstructionalResources> {
-    return this.dataService.get(`${ServiceRoute}/instructional-resources`, {
-      params: {
-        assessmentId: assessmentId,
-        schoolId: schoolId
+  private createParams(assessmentId: number, schoolId: number) {
+    return schoolId == null
+      ? {
+        params: {
+          assessmentId: assessmentId
+        }
       }
-    }).pipe(
+      : {
+        params: {
+          assessmentId: assessmentId,
+          schoolId: schoolId
+        }
+      };
+  }
+
+  getInstructionalResources(assessmentId: number, schoolId: number): Observable<InstructionalResources> {
+    return this.dataService.get(`${ServiceRoute}/instructional-resources`, this.createParams(assessmentId, schoolId)).pipe(
       catchError(ResponseUtils.badResponseToNull),
       map(instructionalResources => {
         return (!instructionalResources || instructionalResources.length === 0)
