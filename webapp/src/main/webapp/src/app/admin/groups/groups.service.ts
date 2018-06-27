@@ -43,7 +43,7 @@ export class GroupService {
   private mapQueryToParams(query: GroupQuery) {
     let params = new URLSearchParams();
 
-    let subjects = query.subject == ALL
+    let subjects = query.subject == null
       ? query.availableSubjects
       : [ query.subject ];
 

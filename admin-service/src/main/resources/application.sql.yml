@@ -119,10 +119,10 @@ sql:
         s.code AS subject_code
       FROM student_group sg
         JOIN school sc ON sc.id = sg.school_id
-        left JOIN subject s ON s.id = sg.subject_id
+        LEFT JOIN subject s ON s.id = sg.subject_id
       WHERE sg.school_id = :school_id
         and sg.deleted = 0
-        and (sg.subject_id is null or sg.subject_id in (:subject_ids))
+        and (sg.subject_id is null or s.code in (:subject_codes))
         and sg.school_year = :school_year
         and ${sql.snippet.basicPermission}
 

@@ -7,6 +7,8 @@ import { Group } from "./model/group.model";
 import { DeleteGroupModalComponent } from "./delete-group.modal";
 import { BsModalRef, BsModalService } from "ngx-bootstrap";
 import { Subscription } from "rxjs/Subscription";
+import { SubjectService } from '../../subject/subject.service';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 
 @Component({
@@ -34,6 +36,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private service: GroupService,
+              private subjectService: SubjectService,
               private modalService: BsModalService) {
   }
 
@@ -47,9 +50,14 @@ export class GroupsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.service.getFilterOptions().subscribe((filterOptions: GroupFilterOptions) => {
+    forkJoin(
+      this.subjectService.getSubjectCodes(),
+      this.service.getFilterOptions()
+    )
+    .subscribe(([subjectCodes, filterOptions]) => {
 
       this.filterOptions = filterOptions;
+      this.filterOptions.subjects = [undefined, ...subjectCodes];
 
       this.query = new GroupQuery(this.filterOptions.subjects);
 
