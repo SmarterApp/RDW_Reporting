@@ -103,7 +103,7 @@ export class GroupDashboardComponent implements OnInit {
       }
       if (reload) {
         this.group = group;
-        this.schoolYear = Number.parseInt(schoolYear) || this.schoolYear;
+        this.schoolYear = Number.parseInt(schoolYear) || undefined;
         this.updateMeasuredAssessments(measuredAssessments);
       }
       if (group == null || group.subjectCode == null || group.subjectCode === subject) {
