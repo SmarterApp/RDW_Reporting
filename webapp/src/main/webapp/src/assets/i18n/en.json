@@ -598,6 +598,7 @@
     "messages": {
       "loading": "Loading",
       "no-exams-matching-criteria": "There are no exams matching this criteria.",
+      "no-responses-for-exam": "There are no responses available for this exam.",
       "no-responses-for-summative-exams": "Summative assessment responses are not made available by this system.",
       "null-student": "This student is unavailable.  Contact your building administrator if you think you should have access to this student.",
       "submission-failed": "Error creating report. See <a href=\"/reports\">status</a>.",
