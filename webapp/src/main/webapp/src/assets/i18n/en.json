@@ -646,16 +646,13 @@
         "date": "Date",
         "grade": "Enrolled Grade",
         "iab": {
-          "performance": "Reporting Category",
-          "performance-info": "Student scores on each Interim Assessment Block are assigned to one of three reporting categories (Below Standard, Near Standard, Above Standard).  The standard is based on the minimum scale score for the 'Met Standard' achievement level on the Interim Comprehensive and summative assessments (the score that separates Levels 2 and 3).  See the Interpretive Guide for more information on how placement into the reporting categories is determined."
+          "performance": "Reporting Category"
         },
         "ica": {
-          "performance": "Achievement Level",
-          "performance-info": "Student scores on the Summative and Interim Comprehensive assessments are assigned to one of four achievement levels (Standard Not Met, Standard Nearly Met, Standard Met, and Standard Exceeded) based on the scale score."
+          "performance": "Achievement Level"
         },
         "sum": {
-          "performance": "Achievement Level",
-          "performance-info": "Student scores on the Summative and Interim Comprehensive assessments are assigned to one of four achievement levels (Standard Not Met, Standard Nearly Met, Standard Met, and Standard Exceeded) based on the scale score."
+          "performance": "Achievement Level"
         },
         "name": "Student",
         "school": "School",
