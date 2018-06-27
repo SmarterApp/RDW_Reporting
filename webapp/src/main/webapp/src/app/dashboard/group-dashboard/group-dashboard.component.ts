@@ -77,13 +77,13 @@ export class GroupDashboardComponent implements OnInit {
           || (previousParameters.groupId != null && previousParameters.groupId != groupId)
           || (previousParameters.userGroupId != null && previousParameters.userGroupId != userGroupId);
 
-        const isNan = isNaN(Number(schoolYear)) || schoolYear === '';
+        const exit = isNaN(Number(schoolYear)) || schoolYear === '';
 
         this._previousRouteParameters = parameters;
 
-        // exit early if we don't need to re fetch the assessment data
-        if (!reload || isNan) {
-          return of({ ...parameters, reload, isNan });
+        // exit early if we don't need to re fetch the assessment data or we need to update route with default parameters
+        if (!reload || exit) {
+          return of({ ...parameters, reload, exit });
         }
 
         return forkJoin(
@@ -92,12 +92,13 @@ export class GroupDashboardComponent implements OnInit {
             : this.userGroupService.getUserGroupAsGroup(userGroupId),
           this.groupDashboardService.getAvailableMeasuredAssessments(<any>parameters)
         ).pipe(
-          map(([ group, measuredAssessments ]) => <any>{ ...parameters, group, measuredAssessments, reload, isNan })
+          map(([ group, measuredAssessments ]) => <any>{ ...parameters, group, measuredAssessments, reload, exit })
         );
       })
     ).subscribe(resolvedParameters => {
-      const { isNan, reload, group, schoolYear, subject, measuredAssessments } = resolvedParameters;
-      if (isNan) {
+      const { exit, reload, group, schoolYear, subject, measuredAssessments } = resolvedParameters;
+      // exit method
+      if (exit) {
         return;
       }
       if (reload) {
