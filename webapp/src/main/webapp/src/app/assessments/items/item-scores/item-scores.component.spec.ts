@@ -5,7 +5,6 @@ import { Component, NO_ERRORS_SCHEMA } from "@angular/core";
 import { AssessmentItem } from "../../model/assessment-item.model";
 import { CommonModule } from "../../../shared/common.module";
 import { TestModule } from "../../../../test/test.module";
-import { RdwFormatModule } from '../../../shared/format/rdw-format.module';
 
 describe('ItemScoresComponent', () => {
   let mockScoreService: any;

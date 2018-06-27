@@ -16,6 +16,9 @@ export class ItemScoresComponent implements OnInit {
   @Input()
   item: AssessmentItem;
 
+  @Input()
+  subject: string;
+
   /**
    * The exam results for this item.
    */

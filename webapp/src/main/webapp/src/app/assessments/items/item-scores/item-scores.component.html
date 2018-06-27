@@ -1,4 +1,4 @@
-<p>{{ 'item-scores.student-scores-intro-text' | translate }}</p>
+<p *ngIf="subject === 'Math' || subject === 'ELA'">{{ 'item-scores.student-scores-intro-text' | translate }}</p>
 <p-table #itemScores
          [columns]="columns"
          [value]="scores"
@@ -49,11 +49,17 @@
           [ngSwitch]="column.id"
           [hidden]="!column.visible">
 
-        <table-row-expander *ngSwitchCase="'name'"
-                            [table]="itemScores"
-                            [row]="score"
-                            [text]="score.student | studentName">
-        </table-row-expander>
+        <ng-container *ngSwitchCase="'name'">
+          <ng-container *ngIf="subject === 'Math' || subject === 'ELA'; else textOnly">
+            <table-row-expander *ngSwitchCase="'name'"
+                                [table]="itemScores"
+                                [row]="score"
+                                [text]="score.student | studentName"></table-row-expander>
+          </ng-container>
+          <ng-template #textOnly>
+            {{score.student | studentName}}
+          </ng-template>
+        </ng-container>
 
         <div *ngSwitchCase="'date'">
           {{ score.date | date }}
