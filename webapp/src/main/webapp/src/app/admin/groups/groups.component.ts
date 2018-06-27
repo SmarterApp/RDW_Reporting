@@ -96,6 +96,11 @@ export class GroupsComponent implements OnInit, OnDestroy {
       schoolYear: this.query.schoolYear,
       subject: this.query.subject
     };
+
+    if (params.subject == null) {
+      delete params.subject;
+    }
+
     this.router.navigate([ '/admin-groups', params ]);
   }
 
