@@ -18,6 +18,7 @@ export class StudentAssessmentCardComponent implements OnInit {
 
   level: number;
   resultCount: number;
+  hasIcon: boolean = true;
 
   constructor(public colorService: ColorService) {
   }

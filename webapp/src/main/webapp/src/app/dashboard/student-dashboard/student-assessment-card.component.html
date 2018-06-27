@@ -8,12 +8,14 @@
   </div>
 
   <div class="row">
-    <div class="col-xs-4">
+    <div class="col-xs-4"
+         [hidden]="!hasIcon">
       <div class="icon-wrapper">
-        <assessment-icon [assessment]="latestExam.assessment"></assessment-icon>
+        <assessment-icon [assessment]="latestExam.assessment"
+                         (missingIcon)="hasIcon = !$event"></assessment-icon>
       </div>
     </div>
-    <div class="col-xs-8">
+    <div [ngClass]="hasIcon ? 'col-xs-8' : 'col-xs-12'">
       <div class="label"
            [ngClass]="getGradeColor()">
         {{'common.assessment-grade-short-label.' + latestExam.assessment.grade | translate}}

@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Assessment } from './model/assessment.model';
+import { Utils } from "../shared/support/support";
 
 export const IcaAssessmentIconsBySubject = {
   'Math': 'Math/ICA',
@@ -172,6 +173,9 @@ export class AssessmentIconComponent {
   @Input()
   styles: any;
 
+  @Output()
+  missingIcon: EventEmitter<boolean> = new EventEmitter(true);
+
   private _icon: string;
 
   get icon(): string {
@@ -191,6 +195,10 @@ export class AssessmentIconComponent {
       default:
         this._icon = AssessmentIconsByAssessmentName[ value.name ];
         break;
+    }
+
+    if (Utils.isNullOrUndefined(this._icon)) {
+      this.missingIcon.emit(true);
     }
 
   }
