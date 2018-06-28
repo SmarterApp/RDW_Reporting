@@ -376,9 +376,8 @@ export class CsvBuilder {
       (item) => {
         const assessment = getAssessment(item);
         const assessmentItem = getAssessmentItem(item);
-        const target = this.translateService
+        return this.translateService
           .instant(`subject.${assessment.subject}.claim.${assessmentItem.claim}.target.${assessmentItem.targetNaturalId}.name`);
-        return this.translateService.instant('common.results.assessment-item-target', { target: target });
       }
     );
   }
