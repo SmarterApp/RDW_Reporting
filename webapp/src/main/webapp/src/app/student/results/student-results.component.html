@@ -17,14 +17,12 @@
       <ul class="list-unstyled list-inline">
         <li>
           <!-- Note: we have 'ml-md' as a class here to avoid an issue with flickering popovers -->
-          <button class="btn btn-default btn-sm ml-md"
-                  [ngClass]="{disabled: exportDisabled}"
+          <button *ngIf="!exportDisabled" class="btn btn-default btn-sm ml-md"
+                  (click)="exportCsv()"><i class="fa fa-bold fa-table"></i> {{'common.export-csv' | translate}}</button>
+          <button *ngIf="exportDisabled" class="btn btn-default btn-sm ml-md disabled"
                   popover="{{'common.embargo-export-disabled' | translate}}"
-                  [triggers]="exportDisabled ? 'mouseenter:mouseleave' : ''"
-                  placement="left"
-                  (click)="!exportDisabled && exportCsv()">
-            <i class="fa fa-bold fa-table"></i> {{'common.export-csv' | translate}}
-          </button>
+                  triggers="mouseenter:mouseleave"
+                  placement="left"><i class="fa fa-bold fa-table"></i> {{'common.export-csv' | translate}}</button>
         </li>
         <li>
           <button class="btn btn-default btn-sm"

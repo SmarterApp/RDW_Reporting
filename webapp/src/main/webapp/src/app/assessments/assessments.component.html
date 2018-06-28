@@ -163,12 +163,12 @@
         </button>
       </li>
       <li>
-        <button class="btn btn-default btn-xs"
-                [ngClass]="{disabled: exportDisabled}"
+        <button *ngIf="!exportDisabled" class="btn btn-default btn-xs"
+                (click)="callExport()"><i class="fa fa-bold fa-table"></i> {{'common.export-csv' | translate}}</button>
+        <button *ngIf="exportDisabled" class="btn btn-default btn-xs disabled"
                 popover="{{'common.embargo-export-disabled' | translate}}"
-                [triggers]="exportDisabled ? 'mouseenter:mouseleave' : ''"
-                placement="left"
-                (click)="!exportDisabled && callExport()"><i class="fa fa-bold fa-table"></i> {{'common.export-csv' | translate}}</button>
+                triggers="mouseenter:mouseleave"
+                placement="left"><i class="fa fa-bold fa-table"></i> {{'common.export-csv' | translate}}</button>
       </li>
     </ul>
   </ng-template>
