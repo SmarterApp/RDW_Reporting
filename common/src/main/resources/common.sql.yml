@@ -192,7 +192,13 @@ sql:
         e.claim3_scale_score_std_err,
         e.claim4_category,
         e.claim4_scale_score,
-        e.claim4_scale_score_std_err
+        e.claim4_scale_score_std_err,
+        e.claim5_category,
+        e.claim5_scale_score,
+        e.claim5_scale_score_std_err,
+        e.claim6_category,
+        e.claim6_scale_score,
+        e.claim6_scale_score_std_err
 
     asmtClaimColumns: >-
         a.claim1_score_code,
