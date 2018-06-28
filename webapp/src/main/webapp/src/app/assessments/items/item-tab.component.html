@@ -3,6 +3,7 @@
        heading="{{ 'item-tab.student-scores' | translate }}">
     <div class="tab-content well">
       <item-scores [item]="item"
+                   [subject]="subject"
                    [exams]="exams"
                    [includeResponse]="includeResponseInStudentScores"
                    [includeWritingTraitScores]="includeWritingTraitScores">
@@ -15,7 +16,8 @@
       <item-writing-trait-scores [responsesAssessmentItem]="responsesAssessmentItem"></item-writing-trait-scores>
     </div>
   </tab>
-  <tab *ngIf="showItemDetails" (select)="selectTab('Item Viewer')"
+  <tab *ngIf="showItemDetails && (subject === 'ELA' || subject === 'Math')"
+       (select)="selectTab('Item Viewer')"
        heading="{{'item-viewer.title' | translate }}">
     <div class="tab-content well">
       <item-viewer *ngIf="loadItemViewer"
@@ -25,7 +27,7 @@
                    [position]="position"></item-viewer>
     </div>
   </tab>
-  <tab *ngIf="showItemDetails" (select)="selectTab('Rubric Exemplar')"
+  <tab *ngIf="showItemDetails && (subject === 'ELA' || subject === 'Math')" (select)="selectTab('Rubric Exemplar')"
        heading="{{ 'item-exemplar.title' | translate }}">
     <div class="tab-content well">
       <item-exemplar *ngIf="loadExemplar" [item]="item"></item-exemplar>

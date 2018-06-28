@@ -188,8 +188,22 @@ sql:
       SELECT code FROM asmt_type
 
   instructionalResource:
-    findAllByAssessmentId: >-
+    findAllByAssessmentIdAndSchoolId: >-
       SELECT
+        ir.performance_level,
+        ir.resource,
+        ir.org_level,
+        NULL AS org_name
+      FROM instructional_resource ir
+        JOIN asmt
+          ON asmt.name = ir.asmt_name
+      WHERE asmt.id = :asmt_id
+        AND
+        (
+          ir.org_level = 'System'
+          OR ir.org_level = 'State'
+        )
+      UNION SELECT
         ir.performance_level,
         ir.resource,
         ir.org_level,
@@ -214,9 +228,7 @@ sql:
         AND school.id = :school_id
         AND
         (
-          ir.org_level = 'System'
-          OR ir.org_level = 'State'
-          OR (ir.org_level = 'DistrictGroup' AND district_group.id IS NOT NULL)
+          (ir.org_level = 'DistrictGroup' AND district_group.id IS NOT NULL)
           OR (ir.org_level = 'District' AND district.id IS NOT NULL)
           OR (ir.org_level = 'SchoolGroup' AND school_group.id IS NOT NULL)
         )

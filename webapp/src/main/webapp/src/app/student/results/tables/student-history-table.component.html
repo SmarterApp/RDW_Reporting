@@ -69,7 +69,7 @@
             <span *ngSwitchCase="'performance'"
                   info-button
                   title="{{('common.results.assessment-exam-columns.' + assessmentType + '.performance') | translate}}"
-                  content="{{('common.results.assessment-exam-columns.' + assessmentType + '.performance-info') | translate}}">
+                  content="{{('subject.' + subject + '.' + assessmentType + '.performance-info') | translate}}">
             </span>
 
             <span *ngSwitchCase="'claim'">

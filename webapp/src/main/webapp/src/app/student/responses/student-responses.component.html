@@ -27,8 +27,7 @@
     </span>
   </div>
 
-  <p-table *ngIf="assessmentItems"
-           #responsesTable
+  <p-table #responsesTable
            [columns]="columns"
            [value]="assessmentItems"
            sortField="assessmentItem.position"
@@ -134,7 +133,7 @@
     <ng-template pTemplate="emptymessage" let-columns>
       <tr>
         <td [attr.colspan]="columns.length">
-          {{'common.messages.no-exams-matching-criteria' | translate}}
+          {{'common.messages.no-responses-for-exam' | translate}}
         </td>
       </tr>
     </ng-template>
