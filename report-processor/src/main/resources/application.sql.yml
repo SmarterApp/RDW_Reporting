@@ -199,8 +199,8 @@ sql:
         su.code AS asmt_subject_code,
 
         e.grade_code,
-        e.completeness_code,
-        e.administration_condition_code,
+        COALESCE(e.completeness_code, ''),
+        COALESCE(e.administration_condition_code, ''),
 
         COALESCE(e.performance_level, ''),
         COALESCE(e.scale_score, ''),
@@ -215,21 +215,21 @@ sql:
 
         COALESCE(st.gender_code, '') AS student_gender_code,
 
-        (CASE WHEN e.migrant_status = 1 THEN 'Yes' when e.migrant_status = 0 THEN 'No' ELSE '' END),
-        (CASE WHEN e.section504 = 1 THEN 'Yes' when e.section504 = 0 THEN 'No' ELSE '' END),
-        (CASE WHEN e.iep THEN 'Yes' ELSE 'No' END),
-        (CASE WHEN e.lep THEN 'Yes' ELSE 'No' END),
+        (CASE WHEN e.migrant_status = 1 THEN 'Yes' WHEN e.migrant_status = 0 THEN 'No' ELSE '' END),
+        (CASE WHEN e.section504 = 1 THEN 'Yes' WHEN e.section504 = 0 THEN 'No' ELSE '' END),
+        (CASE WHEN e.iep = 1 THEN 'Yes' WHEN e.iep = 0 THEN 'No' ELSE '' END),
+        (CASE WHEN e.lep = 1 THEN 'Yes' WHEN e.lep = 0 THEN 'No' ELSE '' END),
         COALESCE(e.elas_code, ''),
         COALESCE(e.elas_start_at, ''),
 
-        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'HispanicOrLatinoEthnicity') THEN 'Yes' ELSE 'No' END ),
-        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'AmericanIndianOrAlaskaNative') THEN 'Yes' ELSE 'No' END ),
-        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'Asian') THEN 'Yes' ELSE 'No' END ),
-        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'BlackOrAfricanAmerican') THEN 'Yes' ELSE 'No' END ),
-        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'White') THEN 'Yes' ELSE 'No' END ),
-        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'NativeHawaiianOrOtherPacificIslander') THEN 'Yes' ELSE 'No' END ),
-        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'TwoOrMoreRaces') THEN 'Yes' ELSE 'No' END ),
-        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'Filipino') THEN 'Yes' ELSE 'No' END ),
+        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'HispanicOrLatinoEthnicity') THEN 'Yes'  WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id) THEN 'No' ELSE '' END ),
+        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'AmericanIndianOrAlaskaNative') THEN 'Yes' WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id) THEN 'No' ELSE '' END ),
+        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'Asian') THEN 'Yes' WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id) THEN 'No' ELSE '' END ),
+        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'BlackOrAfricanAmerican') THEN 'Yes' WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id) THEN 'No' ELSE '' END ),
+        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'White') THEN 'Yes' WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id) THEN 'No' ELSE '' END ),
+        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'NativeHawaiianOrOtherPacificIslander') THEN 'Yes' WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id) THEN 'No' ELSE '' END ),
+        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'TwoOrMoreRaces') THEN 'Yes' WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id) THEN 'No' ELSE '' END ),
+        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'Filipino') THEN 'Yes' WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id) THEN 'No' ELSE '' END ),
 
         COALESCE(e.available_accommodation_codes, '')
       INTO OUTFILE ::EXPORT_DESTINATION:: :export_location
