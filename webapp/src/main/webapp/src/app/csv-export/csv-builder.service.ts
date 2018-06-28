@@ -370,10 +370,16 @@ export class CsvBuilder {
     );
   }
 
-  withTarget(getAssessmentItem: (item: any) => AssessmentItem) {
+  withTarget(getAssessment: (item: any) => Assessment, getAssessmentItem: (item: any) => AssessmentItem) {
     return this.withColumn(
       this.translateService.instant('csv-builder.target'),
-      (item) => this.translateService.instant('common.results.assessment-item-target', getAssessmentItem(item))
+      (item) => {
+        const assessment = getAssessment(item);
+        const assessmentItem = getAssessmentItem(item);
+        const target = this.translateService
+          .instant(`subject.${assessment.subject}.claim.${assessmentItem.claim}.target.${assessmentItem.targetNaturalId}.name`);
+        return this.translateService.instant('common.results.assessment-item-target', { target: target });
+      }
     );
   }
 
@@ -394,7 +400,7 @@ export class CsvBuilder {
   withStandards(getAssessmentItem: (item: any) => AssessmentItem) {
     return this.withColumn(
       this.translateService.instant('common.results.assessment-item-columns.standard'),
-      (item) => getAssessmentItem(item).commonCoreStandardIds.join(", ")
+      (item) => getAssessmentItem(item).commonCoreStandardIds.join(', ')
     );
   }
 

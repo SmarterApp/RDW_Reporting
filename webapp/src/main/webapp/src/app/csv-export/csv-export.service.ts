@@ -144,7 +144,7 @@ export class CsvExportService {
       .withAssessmentTypeNameAndSubject(getAssessment)
       .withItemNumber(getAssessmentItem)
       .withClaim(getAssessment, getAssessmentItem)
-      .withTarget(getAssessmentItem)
+      .withTarget(getAssessment, getAssessmentItem)
       .withItemDifficulty(getAssessmentItem)
       .withStandards(getAssessmentItem)
       .withFullCredit(getAssessmentItem, exportRequest.showAsPercent);
@@ -185,7 +185,7 @@ export class CsvExportService {
       .withFilename(filename)
       .withAssessmentTypeNameAndSubject(getAssessment)
       .withClaim(getAssessment, getAssessmentItem)
-      .withTarget(getAssessmentItem)
+      .withTarget(getAssessment, getAssessmentItem)
       .withItemDifficulty(getAssessmentItem)
       .withStandards(getAssessmentItem)
       .withFullCredit(getAssessmentItem, exportRequest.showAsPercent)
