@@ -294,10 +294,11 @@ export class CsvBuilder {
     return this.withColumn(
       this.translateService.instant('csv-builder.migrant-status'),
       (item) => {
-        if (getExam(item).migrantStatus == null) {
+        const migrantStatus = getExam(item).migrantStatus;
+        if (migrantStatus == null) {
           return '';
         }
-        const polarEnum = getExam(item).migrantStatus ? 1 : 2;
+        const polarEnum = migrantStatus ? 1 : 2;
         return this.getPolarTranslation(polarEnum);
       }
     );
@@ -307,10 +308,11 @@ export class CsvBuilder {
     return this.withColumn(
       this.translateService.instant('csv-builder.504-plan'),
       (item) => {
-        if (getExam(item).plan504 == null) {
+        const plan504 = getExam(item).plan504;
+        if (plan504 == null) {
           return '';
         }
-        const polarEnum = getExam(item).plan504 ? 1 : 2;
+        const polarEnum = plan504 ? 1 : 2;
         return this.getPolarTranslation(polarEnum);
       }
     );
@@ -320,10 +322,11 @@ export class CsvBuilder {
     return this.withColumn(
       this.translateService.instant('csv-builder.iep'),
       (item) => {
-        if (getExam(item).iep == null) {
+        const iep = getExam(item).iep;
+        if (iep == null) {
           return '';
         }
-        const polarEnum = getExam(item).iep ? 1 : 2;
+        const polarEnum = iep ? 1 : 2;
         return this.getPolarTranslation(polarEnum);
       }
     );
@@ -333,10 +336,11 @@ export class CsvBuilder {
     return this.withColumn(
       this.translateService.instant('csv-builder.limited-english'),
       (item) => {
-        if (getExam(item).limitedEnglishProficiency == null) {
+        const limitedEnglishProficiency = getExam(item).limitedEnglishProficiency;
+        if (limitedEnglishProficiency == null) {
           return '';
         }
-        const polarEnum = getExam(item).limitedEnglishProficiency ? 1 : 2;
+        const polarEnum = limitedEnglishProficiency ? 1 : 2;
         return this.getPolarTranslation(polarEnum);
       }
     );
@@ -357,11 +361,11 @@ export class CsvBuilder {
       this.withColumn(
         ethnicity,
         (item) => {
-          if (getExam(item).student.ethnicityCodes.length === 0) {
+          if (getExam(item).student.ethnicityCodes.some(code => code == ethnicity)) {
+            return this.getPolarTranslation(1);
+          } else {
             return '';
           }
-          const polarEnum = getExam(item).student.ethnicityCodes.some(code => code == ethnicity) ? 1 : 2;
-          return this.getPolarTranslation(polarEnum);
         });
     }
     return this;

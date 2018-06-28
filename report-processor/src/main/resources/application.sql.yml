@@ -222,14 +222,14 @@ sql:
         COALESCE(e.elas_code, ''),
         COALESCE(e.elas_start_at, ''),
 
-        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'HispanicOrLatinoEthnicity') THEN 'Yes'  WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id) THEN 'No' ELSE '' END ),
-        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'AmericanIndianOrAlaskaNative') THEN 'Yes' WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id) THEN 'No' ELSE '' END ),
-        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'Asian') THEN 'Yes' WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id) THEN 'No' ELSE '' END ),
-        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'BlackOrAfricanAmerican') THEN 'Yes' WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id) THEN 'No' ELSE '' END ),
-        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'White') THEN 'Yes' WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id) THEN 'No' ELSE '' END ),
-        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'NativeHawaiianOrOtherPacificIslander') THEN 'Yes' WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id) THEN 'No' ELSE '' END ),
-        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'TwoOrMoreRaces') THEN 'Yes' WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id) THEN 'No' ELSE '' END ),
-        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'Filipino') THEN 'Yes' WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id) THEN 'No' ELSE '' END ),
+        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'HispanicOrLatinoEthnicity') THEN 'Yes' ELSE '' END ),
+        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'AmericanIndianOrAlaskaNative') THEN 'Yes' ELSE '' END ),
+        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'Asian') THEN 'Yes' ELSE '' END ),
+        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'BlackOrAfricanAmerican') THEN 'Yes' ELSE '' END ),
+        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'White') THEN 'Yes' ELSE '' END ),
+        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'NativeHawaiianOrOtherPacificIslander') THEN 'Yes' ELSE '' END ),
+        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'TwoOrMoreRaces') THEN 'Yes' ELSE '' END ),
+        (CASE WHEN EXISTS (SELECT 1 from student_ethnicity WHERE student_id = st.id AND ethnicity_code = 'Filipino') THEN 'Yes' ELSE '' END ),
 
         COALESCE(e.available_accommodation_codes, '')
       INTO OUTFILE ::EXPORT_DESTINATION:: :export_location
