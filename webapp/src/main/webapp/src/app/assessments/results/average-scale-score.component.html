@@ -111,25 +111,21 @@
                     </div>
                   </div>
 
-                  <div class="perc-container row">
-                    <ng-container *ngIf="claimReference.stats">
-                      <div class="bar col-xs-4" *ngFor="let level of claimReference.stats.levels; let i = index">
-                        <span class="square"
-                              [ngClass]="'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.color' | translate"></span>
-                        {{ getClaimValue(claimReference.stats, i) }}{{ getClaimSuffix(claimReference.stats, i) }}
-                        <span class="sr-only">{{ 'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.name' | translate }}</span>
+                  <ng-container *ngIf="claimReference.stats">
+                    <div class="perc-container row" *ngFor="let row of claimLevelRows">
+                      <div class="col-xs-4" *ngFor="let i of row">
+                        <div class="bar">
+                          <span class="square"
+                                [ngClass]="'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.color' | translate"></span>
+                          {{ getClaimValue(claimReference.stats, i) }}{{ getClaimSuffix(claimReference.stats, i) }}
+                          <span class="sr-only">{{ 'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.name' | translate }}</span>
+                        </div>
+                        <div class="bar description mt-xs">
+                          {{ 'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.name' | translate }}
+                        </div>
                       </div>
-                    </ng-container>
-                  </div>
-
-                  <div class="perc-container row mt-xs">
-                    <ng-container *ngIf="claimReference.stats">
-                      <div class="bar col-xs-4 description"
-                           *ngFor="let level of claimReference.stats.levels; let i = index">
-                        {{ 'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.name' | translate }}
-                      </div>
-                    </ng-container>
-                  </div>
+                    </div>
+                  </ng-container>
                 </div>
               </td>
             </tr>

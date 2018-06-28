@@ -168,6 +168,31 @@ export class AverageScaleScoreComponent {
       .map(resources => resources.getResourcesByPerformance(level));
   }
 
+  get claimLevelRows(): any[] {
+    // get array from 0 to levels-1
+    const indexes = Array.apply(null, {length: this.claimReferences[0].stats.levels.length})
+      .map(Function.call, Number);
+
+    // now split into rows with up to 3 per row
+    return this.chunkArray(indexes, 3);
+  }
+
+  /**
+   * Returns an array with arrays of the given size.
+   *
+   * @param myArray {Array} Array to split
+   * @param chunkSize {Integer} Size of every group
+   */
+  private chunkArray(myArray, chunk_size){
+    var results = [];
+
+    while (myArray.length) {
+      results.push(myArray.splice(0, chunk_size));
+    }
+
+    return results;
+  }
+
   private setScorableClaims() {
     if (this.assessment == null || this.statistics == null) {
       return;
