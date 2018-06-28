@@ -141,8 +141,8 @@ describe('CsvBuilder', () => {
 
       expect(tabularData.length).toBe(3);
       expect(tabularData[0]).toEqual(ethnicityOptions);
-      expect(tabularData[1]).toEqual(["common.polar.1", "common.polar.1", "common.polar.1", "common.polar.2", "common.polar.2", "common.polar.2", "common.polar.2"]);
-      expect(tabularData[2]).toEqual(["common.polar.2", "common.polar.2", "common.polar.2", "common.polar.2", "common.polar.2", "common.polar.2", "common.polar.1"]);
+      expect(tabularData[1]).toEqual(["common.polar.1", "common.polar.1", "common.polar.1", "", "", "", ""]);
+      expect(tabularData[2]).toEqual(["", "", "", "", "", "", "common.polar.1"]);
     }));
 });
 
