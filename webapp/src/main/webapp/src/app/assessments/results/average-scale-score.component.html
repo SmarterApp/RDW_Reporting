@@ -95,37 +95,44 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td *ngFor="let claimReference of claimReferences" class="claim-distribution">
-              <div class="assessment-aggregate">
-                <div class="scale-score-graph rounded blend-middle mb-sm">
-                  <div class="bar-container">
-                    <div *ngFor="let percent of claimReference.stats.percents; let i = index">
-                      <div *ngIf="percent.value != 0"
-                           class="bar"
-                           [ngClass]="'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.color' | translate"
-                           [attr.data-width]="getClaimDataWidth(claimReference.dataIndex, i)"></div>
+            <tr>
+              <td *ngFor="let claimReference of claimReferences" class="claim-distribution">
+                <div class="assessment-aggregate">
+                  <div class="scale-score-graph rounded blend-middle mb-sm">
+                    <div class="bar-container">
+                      <ng-container *ngIf="claimReference.stats">
+                        <ng-container *ngFor="let percent of claimReference.stats.percents; let i = index">
+                          <div *ngIf="percent.value != 0"
+                               class="bar"
+                               [ngClass]="'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.color' | translate"
+                               [attr.data-width]="getClaimDataWidth(claimReference.dataIndex, i)"></div>
+                        </ng-container>
+                      </ng-container>
                     </div>
                   </div>
-                </div>
 
-                <div class="perc-container row">
-                  <div class="bar col-xs-4" *ngFor="let level of claimReference.stats.levels; let i = index">
-                    <span class="square"
-                          [ngClass]="'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.color' | translate"></span>
-                    {{ getClaimValue(claimReference.stats, i) }}{{ getClaimSuffix(claimReference.stats, i) }}
-                    <span class="sr-only">{{ 'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.name' | translate }}</span>
+                  <div class="perc-container row">
+                    <ng-container *ngIf="claimReference.stats">
+                      <div class="bar col-xs-4" *ngFor="let level of claimReference.stats.levels; let i = index">
+                        <span class="square"
+                              [ngClass]="'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.color' | translate"></span>
+                        {{ getClaimValue(claimReference.stats, i) }}{{ getClaimSuffix(claimReference.stats, i) }}
+                        <span class="sr-only">{{ 'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.name' | translate }}</span>
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <div class="perc-container row mt-xs">
+                    <ng-container *ngIf="claimReference.stats">
+                      <div class="bar col-xs-4 description"
+                           *ngFor="let level of claimReference.stats.levels; let i = index">
+                        {{ 'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.name' | translate }}
+                      </div>
+                    </ng-container>
                   </div>
                 </div>
-
-                <div class="perc-container row mt-xs">
-                  <div class="bar col-xs-4 description" *ngFor="let level of claimReference.stats.levels; let i = index">
-                    {{ 'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.name' | translate }}
-                  </div>
-                </div>
-              </div>
-            </td>
-          </tr>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
