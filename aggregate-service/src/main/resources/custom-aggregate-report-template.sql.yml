@@ -132,10 +132,10 @@ sqlbuilder:
                 select: >-
                      'Gender' AS dimension,
                       s.gender_id  AS dimension_id,
-                      gn.code AS dimension_code
+                      CASE WHEN s.gender_id IS NULL THEN 'undefined' ELSE gn.code END AS dimension_code
                 join: >-
                      JOIN student s ON e.student_id = s.id
-                     JOIN gender gn on gn.id = s.gender_id
+                     LEFT JOIN gender gn on gn.id = s.gender_id
                 where: >-
                      ( true = :all_genders OR s.gender_id in (:gender_ids) )
                 groupBy: >-
@@ -177,7 +177,7 @@ sqlbuilder:
                 select: >-
                      'IEP' AS dimension,
                      e.iep AS dimension_id,
-                     CASE WHEN e.iep = 1 THEN 'yes' ELSE 'no' END AS dimension_code
+                     CASE WHEN e.iep = 1 THEN 'yes' WHEN e.iep = 0 THEN 'no' ELSE 'undefined' END AS dimension_code
                 where: >-
                      ( true = :all_ieps OR e.iep in (:iep_ids) )
                 groupBy: >-
@@ -188,7 +188,7 @@ sqlbuilder:
                 select: >-
                      'LEP' AS dimension,
                      e.lep AS dimension_id,
-                     CASE WHEN e.lep = 1 THEN 'yes' ELSE 'no' END AS dimension_code
+                     CASE WHEN e.lep = 1 THEN 'yes' WHEN e.lep = 0 THEN 'no' ELSE 'undefined' END AS dimension_code
                 where: >-
                      ( true = :all_leps OR e.lep in (:lep_ids) )
                 groupBy: >-
@@ -199,7 +199,7 @@ sqlbuilder:
                 select: >-
                      'EconomicDisadvantage' AS dimension,
                      e.economic_disadvantage AS dimension_id,
-                     CASE WHEN e.economic_disadvantage = 1 THEN 'yes' ELSE 'no' END AS dimension_code
+                     CASE WHEN e.economic_disadvantage = 1 THEN 'yes' WHEN e.economic_disadvantage = 0 THEN 'no' ELSE 'undefined' END AS dimension_code
                 where: >-
                      ( true = :all_economic_disadvantages OR e.economic_disadvantage in (:economic_disadvantage_ids) )
                 groupBy: >-

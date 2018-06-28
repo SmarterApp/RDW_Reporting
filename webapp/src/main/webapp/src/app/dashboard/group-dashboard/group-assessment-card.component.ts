@@ -31,6 +31,7 @@ export class GroupAssessmentCardComponent implements OnInit {
   percents: number[] = [];
   dataWidths: number[] = [];
   selected = false;
+  hasIcon: boolean = true;
 
   constructor(public colorService: ColorService, private examCalculator: ExamStatisticsCalculator) {
   }

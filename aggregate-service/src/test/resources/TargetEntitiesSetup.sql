@@ -30,18 +30,18 @@ INSERT INTO asmt (id, grade_id, subject_id, type_id, school_year, name, label, c
   (-12, -3, 2, 2, 1888, 'asmt-iab-12', 'asmt-iab-12', 2300, 2500, 2700, 2000, 2800, '2016-08-14 19:05:33.000000', -1, -1),
   (-13, -3, 2, 2, 1999, 'asmt-iab-13', 'asmt-iab-13', 2300, 2500, 2700, 2000, 2800, '2016-08-14 19:05:33.000000', -1, -1);
 
-INSERT INTO target(id, natural_id, claim_code) VALUES
-  (-11,  'NBT|E-3','1'),
-  (-12,  'MD|J-3','1'),
-  (-21,  'OA|D',  '2'),
-  (-22,  'OA|A',  '2'),
-  (-31,  'NF|C',  '3'),
-  (-32,  'MD|D',  '3'),
-  (-33,  'MD|E',  '3'),
-  (-34,  'OA|E',  '3'),
-  (-41,  'OA|E',  '4'),
-  (-42,  'MD|D',  '4'),
-  (-43,  'OA|A',  '4');
+INSERT INTO target(id, natural_id, claim_code, subject_id) VALUES
+  (-11,  'NBT|E-3','1', 1),
+  (-12,  'MD|J-3','1',  1),
+  (-21,  'OA|D',  '2',  1),
+  (-22,  'OA|A',  '2',  1),
+  (-31,  'NF|C',  '3',  1),
+  (-32,  'MD|D',  '3',  1),
+  (-33,  'MD|E',  '3',  1),
+  (-34,  'OA|E',  '3',  1),
+  (-41,  'OA|E',  '4',  1),
+  (-42,  'MD|D',  '4',  1),
+  (-43,  'OA|A',  '4',  1);
 
 INSERT INTO asmt_target (target_id, asmt_id, include_in_report) VALUES
   (-11, -18, 1),
