@@ -77,13 +77,13 @@ export class GroupDashboardComponent implements OnInit {
           || (previousParameters.groupId != null && previousParameters.groupId != groupId)
           || (previousParameters.userGroupId != null && previousParameters.userGroupId != userGroupId);
 
-        const exit = isNaN(Number(schoolYear)) || schoolYear === '';
+        const defaultsParametersRequired = isNaN(Number(schoolYear)) || schoolYear === '';
 
         this._previousRouteParameters = parameters;
 
         // exit early if we don't need to re fetch the assessment data or we need to update route with default parameters
-        if (!reload || exit) {
-          return of({ ...parameters, reload, exit });
+        if (!reload || defaultsParametersRequired) {
+          return of({ ...parameters, reload, defaultsParametersRequired });
         }
 
         return forkJoin(
@@ -92,13 +92,13 @@ export class GroupDashboardComponent implements OnInit {
             : this.userGroupService.getUserGroupAsGroup(userGroupId),
           this.groupDashboardService.getAvailableMeasuredAssessments(<any>parameters)
         ).pipe(
-          map(([ group, measuredAssessments ]) => <any>{ ...parameters, group, measuredAssessments, reload, exit })
+          map(([ group, measuredAssessments ]) => <any>{ ...parameters, group, measuredAssessments, reload, defaultsParametersRequired })
         );
       })
     ).subscribe(resolvedParameters => {
-      const { exit, reload, group, schoolYear, subject, measuredAssessments } = resolvedParameters;
-      // exit method
-      if (exit) {
+      const { defaultsParametersRequired, reload, group, schoolYear, subject, measuredAssessments } = resolvedParameters;
+      // exit method. Default parameters will be handled outside the method and will reload the page
+      if (defaultsParametersRequired) {
         return;
       }
       if (reload) {
