@@ -111,7 +111,6 @@ export class AggregateReportTableComponent implements OnInit {
 
   @Input()
   set subjectDefinition(value: SubjectDefinition) {
-    console.log('subjectDefinition', value);
     this._subjectDefinition = value;
   }
 
@@ -139,17 +138,14 @@ export class AggregateReportTableComponent implements OnInit {
 
   get cutPoint(): number {
     return this.subjectDefinition.performanceLevelStandardCutoff;
-    //return this.table.assessmentDefinition.performanceLevelGroupingCutPoint;
   }
 
   get assessmentTypeCode(): string {
     return this.subjectDefinition.assessmentType;
-    //return this.table.assessmentDefinition.typeCode;
   }
 
   get center(): boolean {
     return this.cutPoint != null;
-    //return this.table.assessmentDefinition.performanceLevelGroupingCutPoint != null;
   }
 
   @Input()

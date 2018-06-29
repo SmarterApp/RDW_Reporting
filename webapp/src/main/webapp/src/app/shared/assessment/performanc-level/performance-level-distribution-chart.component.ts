@@ -192,11 +192,11 @@ export class PerformanceLevelDistributionChart implements OnInit {
     const groupedBars: PerformanceLevelBar[] = [
       {
         width: this.percentages.slice(0, cutPointIndex).reduce(sum),
-        classes: this.getPerformanceLevelColor(cutPoint)
+        classes: this.getPerformanceLevelColor(cutPoint-1)
       },
       {
         width: this.percentages.slice(cutPointIndex).reduce(sum),
-        classes: this.getPerformanceLevelColor(cutPoint+1)
+        classes: this.getPerformanceLevelColor(cutPoint)
       }
     ];
 
