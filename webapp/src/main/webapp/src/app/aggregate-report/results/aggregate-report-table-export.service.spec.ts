@@ -28,7 +28,10 @@ describe('AggregateReportTableExportService', () => {
         performanceLevels: [ 1, 2, 3, 4 ],
         performanceLevelCount: 4,
         performanceLevelStandardCutoff: 3,
-        subject: 'Math'
+        subject: 'Math',
+        scorableClaims: ['claim1', 'claim2', 'claim3'],
+        scorableClaimPerformanceLevelCount: 3,
+        scorableClaimPerformanceLevels: [1, 2, 3]
       },
       name: 'my_export',
       reportType: AggregateReportType.GeneralPopulation

@@ -169,6 +169,8 @@ export class AggregateReportTableExportService {
       };
 
     const headerForPerformanceLevel = (level: number) => {
+      if (options.subjectDefinition == null) return '';
+
       let header: string;
       if (options.performanceLevelDisplayType === PerformanceLevelDisplayTypes.Grouped) {
         header = this.translateService.instant(`aggregate-report-table.columns.grouped-performance-level-prefix.${level}`);
