@@ -564,6 +564,8 @@ export class AggregateReportTableComponent implements OnInit {
   }
 
   private createPerformanceLevelColumns(): Column[] {
+    if (this.subjectDefinition == null) return [];
+
     const performanceLevelsByDisplayType = {
       Separate: this.subjectDefinition.performanceLevels,
       Grouped: [
