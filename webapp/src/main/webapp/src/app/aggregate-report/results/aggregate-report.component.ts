@@ -101,7 +101,11 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   }
 
   getSubjectDefinitionForView(view: AggregateReportView): SubjectDefinition {
-    return this._subjectDefinitions.find(x => x.subject == view.subjectCode && x.assessmentType == view.table.assessmentDefinition.typeCode);
+    return this.getSubjectDefinition(view.subjectCode, view.table.assessmentDefinition.typeCode);
+  }
+
+  getSubjectDefinition(subject: string, assessmentType: string): SubjectDefinition {
+    return this._subjectDefinitions.find(x => x.subject == subject && x.assessmentType == assessmentType);
   }
 
   get effectiveReportType() {
@@ -295,8 +299,8 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     const measuresGetter = hasLongitudinalData && this.longitudinalDisplayType == LongitudinalDisplayType.Cohort
       ? (row) => row.cohortMeasures : (row) => row.measures;
 
-    const rowMapper: (query, assessmentDefinition, row, index) => AggregateReportItem =
-      (query, assessmentDefinition, row, index) => this.itemMapper.createRow(query, assessmentDefinition, row, index, measuresGetter);
+    const rowMapper: (query, subjectDefinition, row, index) => AggregateReportItem =
+      (query, subjectDefinition, row, index) => this.itemMapper.createRow(query, subjectDefinition, row, index, measuresGetter);
 
     // Preserve existing display type choices if they exist
     const displayBySubject: Map<string, any> = (this.reportViews || []).reduce((map, view) => {
@@ -308,8 +312,8 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
     }, new Map());
 
     this.reportViews = rows.reduce((views, row, index) => {
-      const item = rowMapper(query, this.assessmentDefinition, row, index);
       const subjectCode = row.assessment.subjectCode;
+      const item = rowMapper(query, this.getSubjectDefinition(subjectCode, this.assessmentDefinition.typeCode), row, index);
       let view = views.find(wrapper => wrapper.subjectCode === subjectCode);
       const columnOrder: string[] = Utils.isNullOrEmpty(this.report.request.query.columnOrder)
         ? this.assessmentDefinition.aggregateReportIdentityColumns.concat()

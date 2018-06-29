@@ -5,6 +5,7 @@ import { AssessmentDefinition } from '../assessment/assessment-definition';
 import { OrganizationMapper } from '../../shared/organization/organization.mapper';
 import { SubgroupMapper } from '../subgroup/subgroup.mapper';
 import { AggregateReportQuery } from '../../report/aggregate-report-request';
+import { SubjectDefinition } from '../../subject/subject';
 
 /**
  * Maps server modeled aggregate report rows into client friendly table rows
@@ -17,7 +18,7 @@ export class AggregateReportItemMapper {
   }
 
   createRow(query: AggregateReportQuery,
-            assessmentDefinition: AssessmentDefinition,
+            subjectDefinition: SubjectDefinition,
             row: any,
             uuid: number,
             measuresGetter: (row: AggregateReportRow) => AggregateReportRowMeasure): AggregateReportItem {
@@ -47,7 +48,7 @@ export class AggregateReportItemMapper {
     item.avgStdErr = measures.avgStdErr || 0;
     item.studentsTested = measures.studentCount;
 
-    for (let level = 1; level <= assessmentDefinition.performanceLevelCount; level++) {
+    for (let level = 1; level <= subjectDefinition.performanceLevelCount; level++) {
       const count = measures[ `level${level}Count` ] || 0;
       itemPerformanceLevelCounts.push(count);
     }
@@ -58,11 +59,11 @@ export class AggregateReportItemMapper {
     }
 
     // If there is a rollup level, calculate the grouped values
-    if (assessmentDefinition.performanceLevelGroupingCutPoint > 0) {
+    if (subjectDefinition.performanceLevelStandardCutoff > 0) {
       let belowCount = 0;
       let aboveCount = 0;
       for (let level = 0; level < itemPerformanceLevelCounts.length; level++) {
-        if (level < assessmentDefinition.performanceLevelGroupingCutPoint - 1) {
+        if (level < subjectDefinition.performanceLevelStandardCutoff - 1) {
           belowCount += itemPerformanceLevelCounts[ level ];
         } else {
           aboveCount += itemPerformanceLevelCounts[ level ];
