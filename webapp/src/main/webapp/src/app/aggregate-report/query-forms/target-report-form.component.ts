@@ -20,6 +20,7 @@ import { Utils } from "../../shared/support/support";
 import { BaseAggregateQueryFormComponent } from "./base-aggregate-query-form.component";
 import { ScrollNavItem } from "../../shared/nav/scroll-nav.component";
 import { AggregateReportType } from "../aggregate-report-form-settings";
+import { SubjectService } from '../../subject/subject.service';
 
 @Component({
   selector: 'target-report-form',
@@ -67,6 +68,7 @@ export class TargetReportFormComponent extends BaseAggregateQueryFormComponent {
               protected notificationService: NotificationService,
               protected optionMapper: AggregateReportOptionsMapper,
               protected reportService: AggregateReportService,
+              protected subjectService: SubjectService,
               protected requestMapper: AggregateReportRequestMapper,
               protected route: ActivatedRoute,
               protected router: Router,
@@ -74,7 +76,7 @@ export class TargetReportFormComponent extends BaseAggregateQueryFormComponent {
               @Inject(FormBuilder) formBuilder: FormBuilder,
               protected organizationService: AggregateReportOrganizationService,
               protected assessmentDefinitionService: AssessmentDefinitionService) {
-    super(columnOrderableItemProvider, notificationService, optionMapper, reportService, requestMapper, route, router, tableDataService);
+    super(columnOrderableItemProvider, notificationService, optionMapper, reportService, subjectService, requestMapper, route, router, tableDataService);
 
     this.settings.reportType = AggregateReportType.Target;
 

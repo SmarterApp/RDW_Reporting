@@ -21,7 +21,7 @@ export class OrderingService {
   public getScorableClaimOrdering(subject: string, assessmentType: string): Observable<Ordering<any>> {
     return this.subjectService.getSubjectDefinition(subject, assessmentType)
       .pipe(
-        map(definition => ordering(ranking(definition.scorableClaims)))
+        map(definition => ordering(ranking(definition == null ? [] : definition.scorableClaims)))
       );
   }
 }

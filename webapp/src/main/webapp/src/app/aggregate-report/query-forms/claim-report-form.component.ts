@@ -23,6 +23,7 @@ import { OrderingService } from "../../shared/ordering/ordering.service";
 import { Observable } from "rxjs/Observable";
 import { map } from "rxjs/operators";
 import { forkJoin } from "rxjs/observable/forkJoin";
+import { SubjectService } from '../../subject/subject.service';
 
 @Component({
   selector: 'claim-report-form',
@@ -53,6 +54,7 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
               protected optionMapper: AggregateReportOptionsMapper,
               protected organizationService: AggregateReportOrganizationService,
               protected reportService: AggregateReportService,
+              protected subjectService: SubjectService,
               protected requestMapper: AggregateReportRequestMapper,
               protected route: ActivatedRoute,
               protected router: Router,
@@ -61,7 +63,7 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
               @Inject(FormBuilder) formBuilder: FormBuilder,
               protected assessmentDefinitionService: AssessmentDefinitionService,
               protected orderingService: OrderingService) {
-    super(columnOrderableItemProvider, notificationService, optionMapper, organizationService, reportService, requestMapper, route, router, subgroupMapper, tableDataService);
+    super(columnOrderableItemProvider, notificationService, optionMapper, organizationService, reportService, subjectService, requestMapper, route, router, subgroupMapper, tableDataService);
     this.settings.reportType = AggregateReportType.Claim;
     this.options = optionMapper.map(this.aggregateReportOptions);
 

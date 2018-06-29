@@ -21,6 +21,9 @@ import { Observer } from "rxjs/Observer";
 import { Observable } from "rxjs/Observable";
 import { AggregateReportColumnOrderItemProvider } from "../aggregate-report-column-order-item.provider";
 import { OrderableItem } from "../../shared/order-selector/order-selector.component";
+import { SubjectDefinition } from '../../subject/subject';
+import { SubjectService } from '../../subject/subject.service';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 /**
  * Base query component implementation for all aggregate report types.
@@ -78,11 +81,13 @@ export abstract class BaseAggregateQueryFormComponent implements OnInit, OnDestr
   previewSectionViewInvalidator: Observable<void> = Observable.create(observer => this.previewSectionInvalid = observer);
 
   private _submitSubscription: Subscription;
+  private _subjectDefinitions: SubjectDefinition[] = [];
 
   constructor(protected columnOrderableItemProvider: AggregateReportColumnOrderItemProvider,
               protected notificationService: NotificationService,
               protected optionMapper: AggregateReportOptionsMapper,
               protected reportService: AggregateReportService,
+              protected subjectService: SubjectService,
               protected requestMapper: AggregateReportRequestMapper,
               protected route: ActivatedRoute,
               protected router: Router,
@@ -100,9 +105,16 @@ export abstract class BaseAggregateQueryFormComponent implements OnInit, OnDestr
   abstract getFormGroup(): FormGroup;
 
   /**
-   * Responsible for tracking form validity
+   * Get the assessment definition
    */
   abstract getAssessmentDefinition(): AssessmentDefinition;
+
+  /**
+   * Get the subject definition
+   */
+  protected get subjectDefinition(): SubjectDefinition {
+    return this._subjectDefinitions.find(x => x.subject == this.settings.subjects[0] && x.assessmentType == this.settings.assessmentType);
+  }
 
   /**
    * Get the navigation items that can be scrolled to.
@@ -116,6 +128,11 @@ export abstract class BaseAggregateQueryFormComponent implements OnInit, OnDestr
 
   ngOnInit(): void {
     this.navItemChange.emit(this.getNavItems());
+
+    this.subjectService.getSubjectDefinitions().subscribe(subjectDefinitions => {
+      this._subjectDefinitions = subjectDefinitions;
+    });
+
     this._submitSubscription = this.submitAction.subscribe(() => {
       this.onGenerateButtonClick();
     });
@@ -179,6 +196,7 @@ export abstract class BaseAggregateQueryFormComponent implements OnInit, OnDestr
       options: this.aggregateReportOptions,
       rows: this.tableDataService.createSampleData(
         this.getAssessmentDefinition(),
+        this.subjectDefinition,
         this.settings,
         this.aggregateReportOptions
       ),

@@ -24,6 +24,7 @@ import { OrderingService } from "../../shared/ordering/ordering.service";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs/Observable";
 import { forkJoin } from "rxjs/observable/forkJoin";
+import { SubjectDefinition } from '../../subject/subject';
 
 export const SupportedRowCount = 10000;
 export const DefaultRowsPerPageOptions = [ 100, 500, 1000 ];
@@ -88,6 +89,8 @@ export class AggregateReportTableComponent implements OnInit {
 
   private _initialized: boolean = false;
 
+  private _subjectDefinition: SubjectDefinition;
+
   constructor(public colorService: ColorService,
               private translate: TranslateService,
               private exportService: AggregateReportTableExportService,
@@ -104,6 +107,16 @@ export class AggregateReportTableComponent implements OnInit {
     this._performanceLevelDisplayType = this._initialPerformanceLevelDisplayType;
     this.buildAndRender(this._table);
     this._initialized = true;
+  }
+
+  @Input()
+  set subjectDefinition(value: SubjectDefinition) {
+    console.log('subjectDefinition', value);
+    this._subjectDefinition = value;
+  }
+
+  get subjectDefinition(): SubjectDefinition {
+    return this._subjectDefinition;
   }
 
   get valueDisplayType(): string {
@@ -343,14 +356,6 @@ export class AggregateReportTableComponent implements OnInit {
       new Column({ id: 'target', field: 'targetNaturalId' })
     ];
 
-    const performanceLevelsByDisplayType = {
-      Separate: assessmentDefinition.performanceLevels,
-      Grouped: [
-        assessmentDefinition.performanceLevelGroupingCutPoint - 1,
-        assessmentDefinition.performanceLevelGroupingCutPoint
-      ]
-    };
-
     const dataColumns: Column[] = [];
     switch (reportType) {
       case AggregateReportType.GeneralPopulation:
@@ -359,14 +364,14 @@ export class AggregateReportTableComponent implements OnInit {
           new Column({ id: 'studentsTested' }),
           new Column({ id: 'achievementComparison', sortable: false }),
           new Column({ id: 'avgScaleScore', valueColumn: true }),
-          ...this.createPerformanceLevelColumns(performanceLevelsByDisplayType, assessmentDefinition)
+          ...this.createPerformanceLevelColumns(assessmentDefinition)
         );
         break;
       case AggregateReportType.Claim:
         dataColumns.push(
           new Column({ id: 'studentsTested' }),
           new Column({ id: 'achievementComparison', sortable: false }),
-          ...this.createPerformanceLevelColumns(performanceLevelsByDisplayType, assessmentDefinition)
+          ...this.createPerformanceLevelColumns(assessmentDefinition)
         );
         break;
       case AggregateReportType.Target:
@@ -559,7 +564,15 @@ export class AggregateReportTableComponent implements OnInit {
     return index;
   }
 
-  private createPerformanceLevelColumns(performanceLevelsByDisplayType: any, assessmentDefinition: AssessmentDefinition): Column[] {
+  private createPerformanceLevelColumns(assessmentDefinition: AssessmentDefinition): Column[] {
+    const performanceLevelsByDisplayType = {
+      Separate: this.subjectDefinition.performanceLevels,
+      Grouped: [
+        this.subjectDefinition.performanceLevelStandardCutoff - 1,
+        this.subjectDefinition.performanceLevelStandardCutoff
+      ]
+    };
+
     const performanceColumns: Column[] = [];
     Object.keys(performanceLevelsByDisplayType)
       .forEach(displayType => {
@@ -571,8 +584,9 @@ export class AggregateReportTableComponent implements OnInit {
             visible: this.performanceLevelDisplayType === displayType,
             index: index,
             field: `performanceLevelByDisplayTypes.${displayType}.${this.valueDisplayType}.${index}`,
-            headerKey: this.getPerformanceLevelColumnHeaderTranslationCode(displayType, level, index),
-            headerColor: this.colorService.getPerformanceLevelColorsByNumberOfPerformanceLevels(assessmentDefinition.performanceLevelCount, level),
+            headerText: this.getPerformanceLevelColumnHeaderText(displayType, level, index),
+            headerSuffix: this.getPerformanceLevelColumnHeaderSuffix(displayType, level),
+            headerColor: this.getPerformanceLevelColors(level),
             valueColumn: true
           }));
         });
@@ -587,16 +601,29 @@ export class AggregateReportTableComponent implements OnInit {
       .forEach((column: Column) => {
         column.visible = column.displayType === this.performanceLevelDisplayType;
         column.field = `performanceLevelByDisplayTypes.${column.displayType}.${this.valueDisplayType}.${column.index}`;
-        column.headerKey = this.getPerformanceLevelColumnHeaderTranslationCode(column.displayType, column.level, column.index);
+        column.headerText = this.getPerformanceLevelColumnHeaderText(column.displayType, column.level, column.index);
+        column.headerSuffix = this.getPerformanceLevelColumnHeaderSuffix(column.displayType, column.level);
+        column.headerColor = this.getPerformanceLevelColors(column.level);
       });
   }
 
-  private getPerformanceLevelColumnHeaderTranslationCode(displayType: string, level: number, index: number) {
-    return displayType === 'Separate'
-      ? `common.assessment-type.${this.table.reportType === AggregateReportType.Claim ? 'iab' : this.table.assessmentDefinition.typeCode}.performance-level.${level}.name-prefix`
-      : `aggregate-report-table.columns.grouped-performance-level-prefix.${index}`;
+  private getPerformanceLevelColumnHeaderText(displayType: string, level: number, index: number) {
+    return this.translate.instant(
+      displayType === 'Separate'
+        ? `subject.${this.subjectDefinition.subject}.asmt-type.${this.subjectDefinition.assessmentType}.${this.table.reportType === AggregateReportType.Claim ? 'claim-score.' : ''}level.${level}.short-name`
+        : `aggregate-report-table.columns.grouped-performance-level-prefix.${index}`
+    );
   }
 
+  private getPerformanceLevelColumnHeaderSuffix(displayType: string, level: number) {
+    return displayType === 'Separate'
+      ? this.translate.instant(`subject.${this.subjectDefinition.subject}.asmt-type.${this.subjectDefinition.assessmentType}.${this.table.reportType === AggregateReportType.Claim ? 'claim-score.' : ''}level.${level}.suffix`)
+      : '';
+  }
+
+  private getPerformanceLevelColors(level: number) {
+    return this.translate.instant(`subject.${this.subjectDefinition.subject}.asmt-type.${this.subjectDefinition.assessmentType}.${this.table.reportType === AggregateReportType.Claim ? 'claim-score.' : ''}level.${level}.color`);
+  }
 }
 
 export interface AggregateReportTable {
@@ -627,7 +654,8 @@ class Column implements BaseColumn {
   displayType?: string;
   level?: number;
   index?: number;
-  headerKey?: string;
+  headerText?: string;
+  headerSuffix?: string;
   headerColor?: string;
 
   constructor({
@@ -638,7 +666,8 @@ class Column implements BaseColumn {
                 displayType = '',
                 level = -1,
                 index = -1,
-                headerKey = '',
+                headerText = '',
+                headerSuffix = '',
                 headerColor = '',
                 valueColumn = false
               }) {
@@ -660,8 +689,12 @@ class Column implements BaseColumn {
       this.index = index;
     }
 
-    if (headerKey) {
-      this.headerKey = headerKey;
+    if (headerText) {
+      this.headerText = headerText;
+    }
+
+    if (headerSuffix) {
+      this.headerSuffix = headerSuffix;
     }
 
     if (headerColor) {

@@ -38,9 +38,9 @@
              class="text-center">
           <div class="label"
                [ngClass]="column.headerColor">
-            {{ column.headerKey | translate }}
+            {{ column.headerText }}
           </div>
-          <div>{{ 'aggregate-report-table.columns.performance-level-suffix' | translate }}</div>
+          <div *ngIf="column.headerSuffix">{{ column.headerSuffix }}</div>
         </div>
 
         <span *ngSwitchCase="'claim'"
@@ -159,7 +159,7 @@
               [percentages]="rowData.performanceLevelByDisplayTypes.Separate.Percent"
               [cutPoint]="cutPoint"
               [performanceLevels]="rowData.claimCode ? 3 : null"
-              [assessmentTypeCode]="assessmentTypeCode"
+              [subjectDefinition]="subjectDefinition"
               [displayType]="performanceLevelDisplayType"
               [center]="center"></performance-level-distribution-chart>
           </div>

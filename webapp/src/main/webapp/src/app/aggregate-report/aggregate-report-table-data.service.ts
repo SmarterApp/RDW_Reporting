@@ -19,6 +19,7 @@ import { Subgroup } from './subgroup/subgroup';
 import { Claim } from './aggregate-report-options.service';
 import { AggregateReportService } from './aggregate-report.service';
 import { Utils } from "../shared/support/support";
+import { SubjectDefinition } from '../subject/subject';
 
 const MaximumOrganizations = 3;
 
@@ -53,9 +54,9 @@ export class AggregateReportTableDataService {
       const studentsTested = context.row.studentsTested;
       const performanceLevelCounts = [];
       const performanceLevelPercents = [];
-      const performanceLevelCount = Math.floor(studentsTested / context.assessmentDefinition.performanceLevelCount);
-      const performanceLevelPercent = Math.floor(100 / context.assessmentDefinition.performanceLevelCount);
-      for (let i = 0; i < context.assessmentDefinition.performanceLevelCount; i++) {
+      const performanceLevelCount = Math.floor(studentsTested / context.subjectDefinition.performanceLevelCount);
+      const performanceLevelPercent = Math.floor(100 / context.subjectDefinition.performanceLevelCount);
+      for (let i = 0; i < context.subjectDefinition.performanceLevelCount; i++) {
         performanceLevelCounts.push(performanceLevelCount);
         performanceLevelPercents.push(performanceLevelPercent);
       }
@@ -83,6 +84,7 @@ export class AggregateReportTableDataService {
   }
 
   createSampleData(assessmentDefinition: AssessmentDefinition,
+                    subjectDefinition: SubjectDefinition,
                     settings: AggregateReportFormSettings,
                     options: AggregateReportOptions): AggregateReportItem[] {
 
@@ -197,6 +199,7 @@ export class AggregateReportTableDataService {
     const rowTemplate: AggregateReportItem = this.createRowTemplate();
     return this.createRows(rowTemplate, valueProviders, {
       assessmentDefinition: assessmentDefinition,
+      subjectDefinition: subjectDefinition,
       settings: settings,
       options: options,
       itemId: 1
@@ -299,6 +302,7 @@ interface ValueProvider {
 
 class RowContext {
   assessmentDefinition: AssessmentDefinition;
+  subjectDefinition: SubjectDefinition;
   settings: AggregateReportFormSettings;
   options: AggregateReportOptions;
   itemId: number;

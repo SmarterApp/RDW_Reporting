@@ -27,6 +27,9 @@ import { organizationOrdering, subgroupOrdering } from '../support';
 import { LongitudinalDisplayType } from '../../shared/display-options/longitudinal-display-type';
 import { AssessmentDefinitionService } from '../assessment/assessment-definition.service';
 import { AggregateReportType } from "../aggregate-report-form-settings";
+import { SubjectService } from '../../subject/subject.service';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { SubjectDefinition } from '../../subject/subject';
 
 const PollingInterval = 4000;
 
@@ -57,6 +60,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   private _displayOptions: AggregateReportTableDisplayOptions;
   private _viewState: ViewState;
   private _aggregateReport: any;
+  private _subjectDefinitions: SubjectDefinition[] = [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -67,6 +71,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
               private translateService: TranslateService,
               private definitionService: AssessmentDefinitionService,
               private columnOrderableItemProvider: AggregateReportColumnOrderItemProvider,
+              private subjectService: SubjectService,
               private chartMapper: LongitudinalCohortChartMapper) {
 
     this.options = this.route.snapshot.data[ 'options' ];
@@ -80,12 +85,23 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
       performanceLevelDisplayTypes: this.displayOptionService.getPerformanceLevelDisplayTypeOptions(),
       longitudinalDisplayTypes: this.displayOptionService.getLongitudinalDisplayTypeOptions()
     };
-    this.requestMapper.toSettings(this.report.request, this.options)
-      .subscribe(settings => this.summary = {
+
+    forkJoin(
+      this.subjectService.getSubjectDefinitions(),
+      this.requestMapper.toSettings(this.report.request, this.options)
+    ).subscribe(([subjectDefinitions, settings]) => {
+      this.summary = {
         assessmentDefinition: this.assessmentDefinition,
         options: this.options,
         settings: settings
-      });
+      };
+
+      this._subjectDefinitions = subjectDefinitions;
+    });
+  }
+
+  getSubjectDefinitionForView(view: AggregateReportView): SubjectDefinition {
+    return this._subjectDefinitions.find(x => x.subject == view.subjectCode && x.assessmentType == view.table.assessmentDefinition.typeCode);
   }
 
   get effectiveReportType() {

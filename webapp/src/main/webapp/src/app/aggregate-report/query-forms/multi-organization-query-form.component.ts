@@ -17,6 +17,7 @@ import { SubgroupFilters, SubgroupFilterSupport } from "../subgroup/subgroup-fil
 import { SubgroupMapper } from "../subgroup/subgroup.mapper";
 import { SubgroupItem } from "../subgroup/subgroup-item";
 import { SupportedRowCount } from "../results/aggregate-report-table.component";
+import { SubjectService } from '../../subject/subject.service';
 
 const OrganizationComparator = (a: Organization, b: Organization) => a.name.localeCompare(b.name);
 
@@ -67,12 +68,13 @@ export abstract class MultiOrganizationQueryFormComponent extends BaseAggregateQ
               protected optionMapper: AggregateReportOptionsMapper,
               protected organizationService: AggregateReportOrganizationService,
               protected reportService: AggregateReportService,
+              protected subjectService: SubjectService,
               protected requestMapper: AggregateReportRequestMapper,
               protected route: ActivatedRoute,
               protected router: Router,
               protected subgroupMapper: SubgroupMapper,
               protected tableDataService: AggregateReportTableDataService) {
-    super(columnOrderableItemProvider, notificationService, optionMapper, reportService, requestMapper, route, router, tableDataService);
+    super(columnOrderableItemProvider, notificationService, optionMapper, reportService, subjectService, requestMapper, route, router, tableDataService);
 
     this.customSubgroup = SubgroupFilterSupport.copy(this.aggregateReportOptions.studentFilters);
     this.subgroupItems = this.settings.subgroups
