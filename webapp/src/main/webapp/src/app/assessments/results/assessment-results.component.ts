@@ -181,7 +181,7 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   get displayWritingTraitScores(): boolean {
-    return this._assessmentExam.assessment.hasWerItem;
+    return this._assessmentExam.assessment.hasWerItem && this._assessmentExam.assessment.subject === 'ELA';
   }
 
   get enableWritingTraitScores(): boolean {
