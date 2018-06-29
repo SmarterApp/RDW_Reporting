@@ -174,26 +174,28 @@
         </div>
 
         <div class="well gray-lighter" *ngIf="!claimsCollapsed">
-          <div class="row mt-md" *ngFor="let subject of settings.subjects">
-            <fieldset>
-              <div class="col-md-6">
-                <label>{{'subject.' + subject + '.name' | translate}}</label>
-              </div>
+          <ng-container *ngFor="let subject of settings.subjects">
+            <div class="row mt-md" *ngIf="claimsBySubject[subject].length != 0">
+              <fieldset>
+                <div class="col-md-6">
+                  <label>{{'subject.' + subject + '.name' | translate}}</label>
+                </div>
 
-              <div class="col-md-3">
-                <sb-button-group class="claim-button-group"
-                                 type="checkbox"
-                                 [vertical]="true"
-                                 [options]="claimsBySubject[subject]"
-                                 [(ngModel)]="selectionBySubject[subject]"
-                                 [ngModelOptions]="{standalone: true}"
-                                 (change)="onClaimChange()"
-                                 analyticsEvent="FilterClick"
-                                 analyticsCategory="AggregateQueryBuilder"
-                                 [allOptionAnalyticsProperties]="{label: 'Claims: All'}"></sb-button-group>
-              </div>
-            </fieldset>
-          </div>
+                <div class="col-md-3">
+                  <sb-button-group class="claim-button-group"
+                                   type="checkbox"
+                                   [vertical]="true"
+                                   [options]="claimsBySubject[subject]"
+                                   [(ngModel)]="selectionBySubject[subject]"
+                                   [ngModelOptions]="{standalone: true}"
+                                   (change)="onClaimChange()"
+                                   analyticsEvent="FilterClick"
+                                   analyticsCategory="AggregateQueryBuilder"
+                                   [allOptionAnalyticsProperties]="{label: 'Claims: All'}"></sb-button-group>
+                </div>
+              </fieldset>
+            </div>
+          </ng-container>
         </div>
         <div class="well">
           <fieldset>
@@ -562,6 +564,7 @@
           <aggregate-report-table *ngIf="previewTable"
                                   [preview]="true"
                                   [table]="previewTable"
+                                  [subjectDefinition]="subjectDefinition"
                                   [valueDisplayType]="settings.valueDisplayType"
                                   [performanceLevelDisplayType]="
                                       assessmentDefinition.performanceLevelDisplayTypes.includes(settings.performanceLevelDisplayType)
