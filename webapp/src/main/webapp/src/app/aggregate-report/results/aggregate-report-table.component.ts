@@ -138,15 +138,18 @@ export class AggregateReportTableComponent implements OnInit {
   }
 
   get cutPoint(): number {
-    return this.table.assessmentDefinition.performanceLevelGroupingCutPoint;
+    return this.subjectDefinition.performanceLevelStandardCutoff;
+    //return this.table.assessmentDefinition.performanceLevelGroupingCutPoint;
   }
 
   get assessmentTypeCode(): string {
-    return this.table.assessmentDefinition.typeCode;
+    return this.subjectDefinition.assessmentType;
+    //return this.table.assessmentDefinition.typeCode;
   }
 
   get center(): boolean {
-    return this.table.assessmentDefinition.performanceLevelGroupingCutPoint != null;
+    return this.cutPoint != null;
+    //return this.table.assessmentDefinition.performanceLevelGroupingCutPoint != null;
   }
 
   @Input()
@@ -297,7 +300,7 @@ export class AggregateReportTableComponent implements OnInit {
       valueDisplayType: this.valueDisplayType,
       performanceLevelDisplayType: this.performanceLevelDisplayType,
       columnOrdering: this.identityColumns,
-      assessmentDefinition: this.table.assessmentDefinition,
+      subjectDefinition: this.subjectDefinition,
       reportType: this.table.reportType,
       name: name
     };
@@ -364,14 +367,14 @@ export class AggregateReportTableComponent implements OnInit {
           new Column({ id: 'studentsTested' }),
           new Column({ id: 'achievementComparison', sortable: false }),
           new Column({ id: 'avgScaleScore', valueColumn: true }),
-          ...this.createPerformanceLevelColumns(assessmentDefinition)
+          ...this.createPerformanceLevelColumns()
         );
         break;
       case AggregateReportType.Claim:
         dataColumns.push(
           new Column({ id: 'studentsTested' }),
           new Column({ id: 'achievementComparison', sortable: false }),
-          ...this.createPerformanceLevelColumns(assessmentDefinition)
+          ...this.createPerformanceLevelColumns()
         );
         break;
       case AggregateReportType.Target:
@@ -564,7 +567,7 @@ export class AggregateReportTableComponent implements OnInit {
     return index;
   }
 
-  private createPerformanceLevelColumns(assessmentDefinition: AssessmentDefinition): Column[] {
+  private createPerformanceLevelColumns(): Column[] {
     const performanceLevelsByDisplayType = {
       Separate: this.subjectDefinition.performanceLevels,
       Grouped: [

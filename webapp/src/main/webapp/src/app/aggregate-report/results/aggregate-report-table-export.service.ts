@@ -6,6 +6,7 @@ import { AssessmentDefinition } from "../assessment/assessment-definition";
 import { PerformanceLevelDisplayTypes } from "../../shared/display-options/performance-level-display-type";
 import { ValueDisplayTypes } from "../../shared/display-options/value-display-type";
 import { AggregateReportType } from "../aggregate-report-form-settings";
+import { SubjectDefinition } from '../../subject/subject';
 
 /**
  * Service responsible for exporting the currently-viewed aggregate report table
@@ -172,15 +173,15 @@ export class AggregateReportTableExportService {
       if (options.performanceLevelDisplayType === PerformanceLevelDisplayTypes.Grouped) {
         header = this.translateService.instant(`aggregate-report-table.columns.grouped-performance-level-prefix.${level}`);
       } else {
-        // TODO:ConfigurableSubjects hardcoded Math here for now
-        header = this.translateService.instant(`subject.Math.asmt-type.${options.assessmentDefinition.typeCode}.level.${level}.short-name`);
+        header = this.translateService.instant(`subject.${options.subjectDefinition.subject}.asmt-type.${options.subjectDefinition.assessmentType}.level.${level}.short-name`);
       }
-      return header + ' ' + this.translateService.instant(`subject.Math.asmt-type.${options.assessmentDefinition.typeCode}.level.${level}.suffix`);
+      const suffix = this.translateService.instant(`subject.${options.subjectDefinition.subject}.asmt-type.${options.subjectDefinition.assessmentType}.level.${level}.suffix`);
+      return header + (suffix ? ' ' + suffix : '');
     };
 
     const levels: number[] = options.performanceLevelDisplayType === PerformanceLevelDisplayTypes.Grouped
       ? [0, 1]
-      : options.assessmentDefinition.performanceLevels;
+      : options.subjectDefinition.performanceLevels;
 
     for (let levelIndex = 0; levelIndex < levels.length; levelIndex++) {
       builder = builder
@@ -198,7 +199,7 @@ export interface ExportOptions {
   readonly valueDisplayType: string;
   readonly performanceLevelDisplayType: string;
   readonly columnOrdering: string[];
-  readonly assessmentDefinition: AssessmentDefinition;
+  readonly subjectDefinition: SubjectDefinition;
   readonly name: string;
   readonly reportType: AggregateReportType
 }
