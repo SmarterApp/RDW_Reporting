@@ -191,7 +191,7 @@ sql:
 
         e.completed_at,
         e.school_year,
-        e.session_id,
+        COALESCE(e.session_id, ''),
 
         CASE WHEN at.code = 'sum' THEN 'Summative' ELSE 'Interim' END,
         upper(at.code),

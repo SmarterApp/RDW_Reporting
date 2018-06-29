@@ -121,7 +121,10 @@ export class CsvBuilder {
   withExamSession(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.assessment-session-id'),
-      (item) => getExam(item).session
+      (item) => {
+        const session = getExam(item).session;
+        return session ? session : '';
+      }
     );
   }
 
