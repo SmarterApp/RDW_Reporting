@@ -23,16 +23,12 @@ describe('AggregateReportTableExportService', () => {
       valueDisplayType: ValueDisplayTypes.Percent,
       performanceLevelDisplayType: PerformanceLevelDisplayTypes.Separate,
       columnOrdering: [ 'organization', 'assessmentGrade', 'schoolYear', 'dimension' ],
-      assessmentDefinition: {
-        typeCode: 'ica',
-        interim: true,
+      subjectDefinition: {
+        assessmentType: 'ica',
         performanceLevels: [ 1, 2, 3, 4 ],
         performanceLevelCount: 4,
-        performanceLevelDisplayTypes: [],
-        performanceLevelGroupingCutPoint: 3,
-        aggregateReportIdentityColumns: [ 'columnA' ],
-        aggregateReportStateResultsEnabled: false,
-        aggregateReportTypes: [ null ]
+        performanceLevelStandardCutoff: 3,
+        subject: 'Math'
       },
       name: 'my_export',
       reportType: AggregateReportType.GeneralPopulation
