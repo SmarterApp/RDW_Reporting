@@ -322,7 +322,7 @@ export class LongitudinalCohortChartComponent implements OnInit {
         const height = yScale(levelRange.scaleScoreRange.maximum) - yScale(levelRange.scaleScoreRange.minimum);
         const margin = { left: 5, top: -2, right: 0, bottom: 2 };
         return <PerformanceLevelPathLabel>{
-          text: levelRange.level.namePrefix,
+          text: levelRange.level.name,
           styles: ``,
           margin: margin,
           y: yScale(levelRange.scaleScoreRange.minimum),

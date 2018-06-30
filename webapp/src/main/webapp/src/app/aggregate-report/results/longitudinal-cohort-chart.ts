@@ -24,7 +24,6 @@ export interface LongitudinalCohortChart {
 export interface PerformanceLevel {
   readonly id: number;
   readonly name: string;
-  readonly namePrefix: string;
   readonly color: string;
   readonly yearGradeScaleScoreRanges: YearGradeScaleScoreRange[];
 }

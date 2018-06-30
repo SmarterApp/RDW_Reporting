@@ -313,7 +313,8 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
 
     this.reportViews = rows.reduce((views, row, index) => {
       const subjectCode = row.assessment.subjectCode;
-      const item = rowMapper(query, this.getSubjectDefinition(subjectCode, this.assessmentDefinition.typeCode), row, index);
+      const subjectDefinition = this.getSubjectDefinition(subjectCode, this.assessmentDefinition.typeCode);
+      const item = rowMapper(query, subjectDefinition, row, index);
       let view = views.find(wrapper => wrapper.subjectCode === subjectCode);
       const columnOrder: string[] = Utils.isNullOrEmpty(this.report.request.query.columnOrder)
         ? this.assessmentDefinition.aggregateReportIdentityColumns.concat()
@@ -343,7 +344,7 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
           view.chart = this.chartMapper.fromReport(this.query, <LongitudinalReport>{
             rows: rows.filter(row => row.assessment.subjectCode === subjectCode),
             assessments: assessments.filter(assessment => assessment.subject === subjectCode)
-          }, measuresGetter);
+          }, measuresGetter, subjectDefinition);
 
           view.chart.organizationPerformances.sort(
             join(

@@ -25,7 +25,6 @@ import { AggregateReportSummary } from './aggregate-report-summary.component';
 import { AggregateReportColumnOrderItemProvider } from './aggregate-report-column-order-item.provider';
 import { TableModule } from 'primeng/table';
 import { LongitudinalCohortChartComponent } from './results/longitudinal-cohort-chart.component';
-import { LongitudinalPlaygroundComponent } from './results/longitudinal-playground.component';
 import { SubgroupModule } from './subgroup/subgroup.module';
 import { LongitudinalCohortChartMapper } from './results/longitudinal-cohort-chart.mapper';
 import { WideRadioGroupComponent } from './wide-radio-group.component';
@@ -47,7 +46,6 @@ import { AggregateTargetOverviewComponent } from "./results/aggregate-target-ove
     GeneralPopulationFormComponent,
     LongitudinalCohortChartComponent,
     LongitudinalCohortFormComponent,
-    LongitudinalPlaygroundComponent,
     StickyDirective,
     TargetReportFormComponent,
     WideRadioGroupComponent
@@ -87,7 +85,6 @@ import { AggregateTargetOverviewComponent } from "./results/aggregate-target-ove
     AggregateReportItemMapper,
     AggregateReportFormSettingsResolve,
     AggregateReportColumnOrderItemProvider,
-    LongitudinalPlaygroundComponent,
     LongitudinalCohortChartMapper
   ]
 })

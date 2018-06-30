@@ -8,7 +8,6 @@ import {
   YearGradeScaleScore,
   YearGradeScaleScoreRange
 } from './longitudinal-cohort-chart';
-import { DefaultSchool, Organization } from '../../shared/organization/organization';
 import { ColorService } from '../../shared/color.service';
 import { LongitudinalReport } from '../aggregate-report.service';
 import { AggregateReportRow, AggregateReportRowMeasure } from '../../report/aggregate-report';
@@ -18,99 +17,8 @@ import { AggregateReportQuery } from '../../report/aggregate-report-request';
 import { Assessment } from '../assessment/assessment';
 import { ordering } from '@kourge/ordering';
 import { byNumber, join } from '@kourge/ordering/comparator';
+import { SubjectDefinition } from '../../subject/subject';
 
-
-function createStubGradeYears(first: YearGrade, count: number, step: number = 1, initialGap: number = 0) {
-  const yearsAndGrades = [ first ];
-  for (let i = 1 + initialGap; i < count; i++) {
-    yearsAndGrades.push({
-      year: first.year + i * step,
-      grade: String(Number.parseInt(first.grade) + i * step)
-    });
-  }
-  return yearsAndGrades;
-}
-
-function createStubPerformanceLevels(count: number,
-                                     yearGrades: YearGrade[],
-                                     scaleScoreRange: number[],
-                                     performanceLevelNameProvider: (level: number) => string,
-                                     performanceLevelNamePrefixProvider: (level: number) => string,
-                                     performanceLevelColorProvider: (level: number) => string): PerformanceLevel[] {
-
-  const [ minimumScaleScore ] = scaleScoreRange;
-  const areas = [];
-  for (let i = 0; i < count; i++) {
-    const area = [];
-    for (let j = 0; j < yearGrades.length; j++) {
-
-      const previous = areas[ i - 1 ] != null
-      && areas[ i - 1 ].yearGradeScaleScoreRanges != null
-      && areas[ i - 1 ].yearGradeScaleScoreRanges[ j ] != null
-        ? areas[ i - 1 ].yearGradeScaleScoreRanges[ j ].scaleScoreRange.maximum
-        : Math.floor(minimumScaleScore + 10 * j + 25 * Math.random());
-
-      const gradeYear = yearGrades[ j ];
-      area.push(<YearGradeScaleScoreRange>{
-        yearGrade: gradeYear,
-        scaleScoreRange: {
-          minimum: previous,
-          maximum: Math.floor(previous + 125 + 50 * Math.random())
-        }
-      });
-    }
-    const level = i + 1;
-    areas.push(<PerformanceLevel>{
-      id: level,
-      name: performanceLevelNameProvider(level),
-      namePrefix: performanceLevelNamePrefixProvider(level),
-      color: performanceLevelColorProvider(level),
-      yearGradeScaleScoreRanges: area
-    });
-  }
-  return areas;
-}
-
-function createStubOrganizationPerformances(count: number,
-                                            yearGrades: YearGrade[],
-                                            scaleScoreRange: number[]): OrganizationPerformance[] {
-
-  const [ minimumScaleScore, maximumScaleScore ] = scaleScoreRange;
-  const spread = maximumScaleScore - minimumScaleScore;
-  const lines = [];
-  for (let i = 0; i < count; i++) {
-    const line = [];
-    for (let j = 0; j < yearGrades.length; j++) {
-      const yearGrade = yearGrades[ j ];
-
-      const previous = lines[ i - 1 ] != null
-      && lines[ i - 1 ].yearGradeScaleScores != null
-      && lines[ i - 1 ].yearGradeScaleScores[ j ] != null
-        ? lines[ i - 1 ].yearGradeScaleScores[ j ].scaleScore
-        : minimumScaleScore + spread * 0.2 + spread * 0.02 * j + spread * 0.2 * Math.random();
-
-      line.push(<YearGradeScaleScore>{
-        yearGrade: yearGrade,
-        scaleScore: Math.floor(previous + 50 + 25 * Math.random()),
-        standardError: Math.floor(Math.max(maximumScaleScore - this.scaleScore, minimumScaleScore + this.scaleScore))
-      });
-
-    }
-    lines.push(<OrganizationPerformance>{
-      organization: createOrganization(i + 1),
-      yearGradeScaleScores: line
-    });
-  }
-
-  return lines;
-}
-
-function createOrganization(id: number): Organization {
-  const organization = new DefaultSchool();
-  organization.id = id;
-  organization.name = `School name ${id}`;
-  return organization;
-}
 
 const rowYearAscending = ordering(byNumber).on<AggregateReportRow>(row => row.assessment.examSchoolYear).compare;
 const assessmentGradeAscending = ordering(byNumber).on<Assessment>(assessment => assessment.gradeSequence).compare;
@@ -121,24 +29,7 @@ export class LongitudinalCohortChartMapper {
 
   constructor(private translate: TranslateService,
               private organizationMapper: OrganizationMapper,
-              private subgroupMapper: SubgroupMapper,
-              private colorService: ColorService) {
-  }
-
-  createStubChart(assessmentTypeCode: string = 'sum'): LongitudinalCohortChart {
-    const scaleScoreRange = [ 2000, 2800 ];
-    const yearGrades = createStubGradeYears({ year: 2000, grade: '03' }, 10, 1, 4);
-    const nameProvider = (level) => this.translate
-      .instant(`common.assessment-type.${assessmentTypeCode}.performance-level.${level}.name`);
-    const namePrefixProvider = (level) => this.translate
-      .instant(`common.assessment-type.${assessmentTypeCode}.performance-level.${level}.name-prefix`);
-    const colorProvider = (level) => this.colorService
-      .getPerformanceLevelColorsByAssessmentTypeCode(assessmentTypeCode, level);
-
-    return {
-      performanceLevels: createStubPerformanceLevels(4, yearGrades, scaleScoreRange, nameProvider, namePrefixProvider, colorProvider),
-      organizationPerformances: createStubOrganizationPerformances(3, yearGrades, scaleScoreRange)
-    };
+              private subgroupMapper: SubgroupMapper) {
   }
 
   /**
@@ -149,14 +40,14 @@ export class LongitudinalCohortChartMapper {
    * @param measuresGetter defines whether to get the measures or the cohortMeasures from the row
    * @returns {LongitudinalCohortChart} the resulting chart
    */
-  fromReport(query: AggregateReportQuery, report: LongitudinalReport, measuresGetter: (row: AggregateReportRow) => AggregateReportRowMeasure): LongitudinalCohortChart {
+  fromReport(query: AggregateReportQuery, report: LongitudinalReport, measuresGetter: (row: AggregateReportRow) => AggregateReportRowMeasure, subjectDefinition: SubjectDefinition): LongitudinalCohortChart {
     if (report.rows.length === 0
       || report.assessments.length === 0) {
       return { performanceLevels: [], organizationPerformances: [] };
     }
     return {
       organizationPerformances: this.createOrganizationPerformances(query, report.rows, measuresGetter),
-      performanceLevels: this.createPerformanceLevels(report.assessments)
+      performanceLevels: this.createPerformanceLevels(report.assessments, subjectDefinition)
     };
   }
 
@@ -199,7 +90,7 @@ export class LongitudinalCohortChartMapper {
     return Array.from(performanceByOrganizationSubgroup.values());
   }
 
-  private createPerformanceLevels(assessments: Assessment[]): PerformanceLevel[] {
+  private createPerformanceLevels(assessments: Assessment[], subjectDefinition: SubjectDefinition): PerformanceLevel[] {
 
     const performanceLevels = [];
     const assessmentType = assessments[ 0 ].type;
@@ -237,9 +128,8 @@ export class LongitudinalCohortChartMapper {
             const level = index + 1;
             performanceLevels.push(<PerformanceLevel>{
               id: level,
-              name: this.translate.instant(`common.assessment-type.${assessmentType}.performance-level.${level}.name`),
-              namePrefix: this.translate.instant(`common.assessment-type.${assessmentType}.performance-level.${level}.name-prefix`),
-              color: this.colorService.getPerformanceLevelColorsByAssessmentTypeCode(assessmentType, level),
+              name: this.translate.instant(`subject.${subjectDefinition.subject}.asmt-type.${assessmentType}.level.${level}.short-name`),
+              color: this.translate.instant(`subject.${subjectDefinition.subject}.asmt-type.${assessmentType}.level.${level}.color`),
               yearGradeScaleScoreRanges: [ range ]
             });
           }
