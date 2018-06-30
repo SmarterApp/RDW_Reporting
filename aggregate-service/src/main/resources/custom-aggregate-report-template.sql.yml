@@ -33,7 +33,9 @@ sqlbuilder:
             icaOrSummative:
               clauses:
                 select: >-
-                  sum(CASE WHEN performance_level = 4 THEN 1 ELSE 0 END) AS level4
+                  sum(CASE WHEN performance_level = 4 THEN 1 ELSE 0 END) AS level4,
+                  sum(CASE WHEN performance_level = 5 THEN 1 ELSE 0 END) AS level5,
+                  sum(CASE WHEN performance_level = 6 THEN 1 ELSE 0 END) AS level6
                 from: >-
                    exam e
 

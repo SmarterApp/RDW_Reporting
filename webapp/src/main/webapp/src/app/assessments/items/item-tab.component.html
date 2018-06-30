@@ -10,7 +10,7 @@
       </item-scores>
     </div>
   </tab>
-  <tab *ngIf="item.performanceTaskWritingType && responsesAssessmentItem && subject === 'ELA'" (select)="selectTab('Writing Trait Scores')"
+  <tab *ngIf="item.performanceTaskWritingType && responsesAssessmentItem" (select)="selectTab('Writing Trait Scores')"
        heading="{{'item-tab.writing-trait-scores' | translate }}">
     <div class="tab-content well">
       <item-writing-trait-scores [responsesAssessmentItem]="responsesAssessmentItem"></item-writing-trait-scores>
