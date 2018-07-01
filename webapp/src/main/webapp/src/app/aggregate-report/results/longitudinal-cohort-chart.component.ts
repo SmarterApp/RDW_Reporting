@@ -98,9 +98,6 @@ export class LongitudinalCohortChartComponent implements OnInit {
   @Input()
   linePallet: string = 'pallet-a';
 
-  @Input()
-  areaPallet: string = 'pallet-b';
-
   private _initialized: boolean = false;
   private _chart: LongitudinalCohortChart;
   private _chartView: ChartView;
@@ -306,7 +303,7 @@ export class LongitudinalCohortChartComponent implements OnInit {
           subgroup: performance.subgroup
         }),
       performanceLevelPaths: this._chart.performanceLevels.map((level, i) => <PerformanceLevelPath>{
-        styles: `scale-score-area color-${i % 4}`,
+        styles: `scale-score-area ${level.color}`,
         pathData: d3area(level.yearGradeScaleScoreRanges.map(({ scaleScoreRange }, j) => <any>{
           x: j,
           y0: scaleScoreRange.minimum,
@@ -382,7 +379,7 @@ export class LongitudinalCohortChartComponent implements OnInit {
     // Draw second y axis
 
     const bands = this.axesContainer.append('g')
-      .classed(`scale-score-area-labels ${this.areaPallet}`, true)
+      .classed(`scale-score-area-labels`, true)
       .attr('transform', `translate(${width}, 0)`);
 
     const bandData = this._chartView.performanceLevelPathLabels;
@@ -392,7 +389,7 @@ export class LongitudinalCohortChartComponent implements OnInit {
       .enter()
       .append('g')
       .attr('transform', d => `translate(0, ${d.y})`)
-      .attr('class', (d, i) => `scale-score-area-label color-${i}`);
+      .attr('class', (d, i) => `scale-score-area-label ${this._chart.performanceLevels[i].color}`);
 
     const bandTitle = band
       .filter((d, i) => i === bandData.length - 1)

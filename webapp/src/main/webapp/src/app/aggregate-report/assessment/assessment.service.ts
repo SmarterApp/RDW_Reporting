@@ -40,7 +40,7 @@ export class AssessmentService {
         grade: serverAssessment.gradeCode,
         gradeSequence: serverAssessment.gradeSequence,
         schoolYear: serverAssessment.schoolYear,
-        cutPoints: serverAssessment.cutPoints.filter(point => point != null && point != 0)
+        cutPoints: serverAssessment.cutPoints.filter(point => point != null)
       }))
     );
   }

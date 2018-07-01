@@ -29,8 +29,7 @@
       <g [attr.transform]="'translate(' + display.padding.left + ', ' + display.padding.top + ')'">
 
         <g *ngIf="chartView"
-           class="scale-score-areas"
-           [ngClass]="areaPallet">
+           class="scale-score-areas">
 
           <g *ngFor="let levelPath of chartView.performanceLevelPaths"
              [ngClass]="levelPath.styles">
