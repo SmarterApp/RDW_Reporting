@@ -145,7 +145,7 @@ export class AggregateReportTableComponent implements OnInit {
   }
 
   get center(): boolean {
-    return this.cutPoint != null;
+    return this.table.reportType !== AggregateReportType.Claim && this.cutPoint != null;
   }
 
   @Input()
@@ -567,7 +567,9 @@ export class AggregateReportTableComponent implements OnInit {
     if (this.subjectDefinition == null) return [];
 
     const performanceLevelsByDisplayType = {
-      Separate: this.subjectDefinition.performanceLevels,
+      Separate: this.table.reportType === AggregateReportType.Claim
+        ? this.subjectDefinition.scorableClaimPerformanceLevels
+        : this.subjectDefinition.performanceLevels,
       Grouped: [
         this.subjectDefinition.performanceLevelStandardCutoff - 1,
         this.subjectDefinition.performanceLevelStandardCutoff

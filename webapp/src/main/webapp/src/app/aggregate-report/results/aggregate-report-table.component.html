@@ -153,12 +153,10 @@
             {{rowData.studentsTested}}
           </div>
 
-          <!-- TODO:ConfigurableSubjects do all claims have 3 levels? -->
           <div *ngSwitchCase="'achievementComparison'">
             <performance-level-distribution-chart
               [percentages]="rowData.performanceLevelByDisplayTypes.Separate.Percent"
               [cutPoint]="cutPoint"
-              [performanceLevels]="rowData.claimCode ? 3 : null"
               [subjectDefinition]="subjectDefinition"
               [displayType]="performanceLevelDisplayType"
               [center]="center"></performance-level-distribution-chart>

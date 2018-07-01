@@ -16,7 +16,6 @@ export class PerformanceLevelDistributionChart implements OnInit {
 
   private _percentages: number[] = [];
   private _subjectDefinition: SubjectDefinition;
-  private _performanceLevels?: number = null;
   private _cutPoint: number;
   private _center: boolean = false;
   private _displayType: string = PerformanceLevelDisplayTypes.Separate;
@@ -25,15 +24,6 @@ export class PerformanceLevelDistributionChart implements OnInit {
   private _performanceLevelBarsByDisplayType: Map<string, Map<boolean, PerformanceLevelBars>> = new Map();
 
   constructor(private translateService: TranslateService) {
-  }
-
-  get performanceLevels(): number {
-    return this._performanceLevels;
-  }
-
-  @Input()
-  set performanceLevels(value: number) {
-    this._performanceLevels = value;
   }
 
   /**
@@ -162,7 +152,7 @@ export class PerformanceLevelDistributionChart implements OnInit {
     if (this.percentages.length < 2) {
       throw new Error('value size must not be less than 2');
     }
-    if (Utils.isUndefined(this.assessmentTypeCode || this.performanceLevels)) {
+    if (Utils.isUndefined(this.assessmentTypeCode)) {
       throw new Error('assessment type code undefined');
     }
     if (Utils.isUndefined(this.displayType)) {
