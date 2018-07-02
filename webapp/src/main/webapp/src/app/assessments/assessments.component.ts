@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ordering } from '@kourge/ordering';
 import { FilterBy } from './model/filter-by.model';
@@ -31,7 +31,7 @@ import { empty } from 'rxjs/observable/empty';
   selector: 'assessments',
   templateUrl: './assessments.component.html'
 })
-export class AssessmentsComponent implements OnInit {
+export class AssessmentsComponent implements OnChanges {
 
   /**
    * The array of asssessment exams to show.
@@ -213,7 +213,7 @@ export class AssessmentsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnChanges() {
     const { assessmentIds } = this.route.snapshot.params;
     if (!assessmentIds) {
       this.showOnlyMostRecent = true;
