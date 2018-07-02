@@ -685,12 +685,6 @@
     },
     "school-typeahead-label": "School",
     "school-year-select-label": "School Year",
-    "strict-boolean": {
-      "false": "No",
-      "no": "No",
-      "true": "Yes",
-      "yes": "Yes"
-    },
     "student-response-columns": {
       "correctness": "Correctness",
       "correctness-info": "A value for the degree of correctness in a student's response to a test question. The correctness value is calculated by dividing the student's score on a particular question by the maximum score for that question.",

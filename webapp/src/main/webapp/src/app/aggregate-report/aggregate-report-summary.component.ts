@@ -315,7 +315,7 @@ export class AggregateReportSummary {
           values: inline(orAll(
             optionFilters.individualEducationPlans,
             settingFilters.individualEducationPlans,
-            code => translate(`common.strict-boolean.${code}`)
+            code => translate(`common.boolean.${code}`)
           ))
         });
       }

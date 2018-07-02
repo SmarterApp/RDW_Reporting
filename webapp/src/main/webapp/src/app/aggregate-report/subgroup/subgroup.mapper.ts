@@ -145,7 +145,7 @@ const DimensionConfigurations: DimensionConfiguration[] = [
   {
     type: 'LEP',
     getDimensionValueCodes: settings => settings.limitedEnglishProficiencies,
-    getTranslationCode: value => `common.strict-boolean.${value}`
+    getTranslationCode: value => `common.boolean.${value}`
   },
   {
     type: 'ELAS',
@@ -165,12 +165,12 @@ const DimensionConfigurations: DimensionConfiguration[] = [
   {
     type: 'IEP',
     getDimensionValueCodes: settings => settings.individualEducationPlans,
-    getTranslationCode: value => `common.strict-boolean.${value}`
+    getTranslationCode: value => `common.boolean.${value}`
   },
   {
     type: 'EconomicDisadvantage',
     getDimensionValueCodes: settings => settings.economicDisadvantages,
-    getTranslationCode: value => `common.strict-boolean.${value}`
+    getTranslationCode: value => `common.boolean.${value}`
   },
   {
     type: 'StudentEnrolledGrade',

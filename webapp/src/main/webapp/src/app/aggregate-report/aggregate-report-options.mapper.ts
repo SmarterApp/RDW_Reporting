@@ -101,7 +101,7 @@ export class AggregateReportOptionsMapper {
       studentFilters: {
         economicDisadvantages: options.studentFilters.economicDisadvantages
           .map(optionMapper(
-            value => translate(`common.strict-boolean.${value}`),
+            value => translate(`common.boolean.${value}`),
             value => `Economic Disadvantage: ${value}`
           )),
         ethnicities: options.studentFilters.ethnicities
@@ -116,12 +116,12 @@ export class AggregateReportOptionsMapper {
           )),
         individualEducationPlans: options.studentFilters.individualEducationPlans
           .map(optionMapper(
-            value => translate(`common.strict-boolean.${value}`),
+            value => translate(`common.boolean.${value}`),
             value => `Individual Education Plan: ${value}`
           )),
         limitedEnglishProficiencies: options.studentFilters.limitedEnglishProficiencies
           .map(optionMapper(
-            value => translate(`common.strict-boolean.${value}`),
+            value => translate(`common.boolean.${value}`),
             value => `Limited English Proficiency: ${value}`
           )),
         englishLanguageAcquisitionStatuses: options.studentFilters.englishLanguageAcquisitionStatuses
