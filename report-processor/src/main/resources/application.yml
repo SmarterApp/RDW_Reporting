@@ -11,7 +11,7 @@ spring:
       enabled: false
   cache:
     type: SIMPLE
-    cache-names: translations
+    cache-names: translations, subjects, subjectdefinitions
   cloud:
     stream:
       bindings:

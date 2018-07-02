@@ -3,6 +3,7 @@
 <head>
 </head>
 <body>
+<!--/*@thymesVar id="report" type="org.opentestsystem.rdw.reporting.processor.model.IabReport"*/-->
 <div th:fragment="body">
     <div th:replace="fragments::header(prefix='report.iab')"></div>
     <section class="mt-lg mb-lg">
@@ -15,7 +16,7 @@
                     <div>
                         <span class="h3 label-group green">
                             <span class="label" th:text="#{report.iab.short-name}"></span><span class="label"
-                                                                                                th:text="#{'report.subject.' + ${assessment.subject} + '.name'}"></span>
+                                                                                                th:text="#{'subject.' + ${report.subject} + '.name'}"></span>
                         </span>
                     </div>
                     <div class="h4"
@@ -62,24 +63,24 @@
                                         <span class="scale-score"
                                               th:attr="data-left=${scaleScoreView.position}"><span
                                                 class="score label"
-                                                th:classappend="#{'report.iab.level.' + ${exam.scaleScore.level} + '.color'}"
+                                                th:classappend="#{'subject.' + ${report.subject} + '.asmt-type.iab.level.' + ${exam.scaleScore.level} + '.color'}"
                                                 th:text="${exam.scaleScore.value}"></span> <span class="error-band">&plusmn;
                                             <span th:text="${support.round(exam.scaleScore.standardError)}"
                                                   th:remove="tag"></span></span></span>
                                         <div class="bar"
-                                             th:classappend="#{'report.iab.level.1.color'}"
+                                             th:classappend="#{'subject.' + ${report.subject} + '.asmt-type.iab.level.1.color'}"
                                              th:attr="data-width=${scaleScoreView.levels[0].width}">
-                                            <span class="bar-label" th:text="#{'report.iab.level.1.label'}"></span>
+                                            <span class="bar-label" th:text="#{'subject.' + ${report.subject} + '.asmt-type.iab.level.1.name'}"></span>
                                         </div>
                                         <div class="bar"
-                                             th:classappend="#{'report.iab.level.2.color'}"
+                                             th:classappend="#{'subject.' + ${report.subject} + '.asmt-type.iab.level.2.color'}"
                                              th:attr="data-width=${scaleScoreView.levels[1].width}">
-                                            <span class="bar-label" th:text="#{'report.iab.level.2.label'}"></span>
+                                            <span class="bar-label" th:text="#{'subject.' + ${report.subject} + '.asmt-type.iab.level.2.name'}"></span>
                                         </div>
                                         <div class="bar"
-                                             th:classappend="#{'report.iab.level.3.color'}"
+                                             th:classappend="#{'subject.' + ${report.subject} + '.asmt-type.iab.level.3.color'}"
                                              th:attr="data-width=${scaleScoreView.levels[2].width}">
-                                            <span class="bar-label" th:text="#{'report.iab.level.3.label'}"></span>
+                                            <span class="bar-label" th:text="#{'subject.' + ${report.subject} + '.asmt-type.iab.level.3.name'}"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -91,7 +92,7 @@
                                 <div class="date" th:text="${#instants.formatDate(exam.dateTime)}"></div>
                                 <div class="performance-level"
                                      th:if="${exam.scaleScore != null}"
-                                     th:text="#{'report.iab.level.' + ${exam.scaleScore.level} + '.label'}"></div>
+                                     th:text="#{'subject.' + ${report.subject} + '.asmt-type.iab.level.' + ${exam.scaleScore.level} + '.name'}"></div>
                             </div>
                         </div>
 
@@ -113,7 +114,7 @@
                                 <span th:text="${support.round(exam.scaleScore.standardError)}"
                                       th:remove="tag"></span></span></span> <span
                                     class="performance-level"
-                                    th:text="${exam.scaleScore != null} ? #{'report.iab.level.' + ${exam.scaleScore.level} + '.label'} : #{report.not-scored}"></span></span></span>
+                                    th:text="${exam.scaleScore != null} ? #{'subject.' + ${report.subject} + '.asmt-type.iab.level.' + ${exam.scaleScore.level} + '.name'} : #{report.not-scored}"></span></span></span>
                             </li>
                         </ul>
                     </div>

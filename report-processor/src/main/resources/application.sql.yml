@@ -272,6 +272,13 @@ sql:
         AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
       GROUP BY st.id
 
+  subject:
+    findAll: >-
+      SELECT
+        code
+      FROM subject
+      ORDER BY id
+
   reportProcessor:
     snippet:
 #    nobody is allowed to export the data or generated PDFs for embargoed data, including the embargo admins
