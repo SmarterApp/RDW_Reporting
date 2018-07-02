@@ -85,10 +85,6 @@ export function organizationOrdering<T>(organizationGetter: (item: T) => Organiz
 
 export function subgroupOrdering<T>(subgroupGetter: (item: T) => Subgroup, options: AggregateReportOptions): Ordering<T> {
 
-  function getNullableOption(option: string[]) {
-    return option.concat('undefined');
-  }
-
   const dimensionOptionsByDimensionType = {
     Gender: getNullableOption(options.studentFilters.genders),
     Ethnicity: options.studentFilters.ethnicities,
@@ -149,4 +145,8 @@ export function subgroupOrdering<T>(subgroupGetter: (item: T) => Subgroup, optio
     },
     ordering(byString).on((item: T) => subgroupGetter(item).id).compare
   ));
+}
+
+function getNullableOption(option: string[]) {
+  return option.concat('undefined');
 }
