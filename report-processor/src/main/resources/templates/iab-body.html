@@ -22,8 +22,8 @@
                     <div class="h4"
                          th:text="#{('report.iab.grade.title.' + ${assessment.gradeCode})(${#strings.toString(exam.schoolYear - 1)}, ${support.getLastTwoDigits(exam.schoolYear)})}"></div>
                 </div>
-                <div class="col-xs-3 pr-0 text-right">
-                    <div class="scale-score-legend"></div>
+                <div class="col-xs-3 pr-xs text-right">
+                    <div th:replace="fragments::error-band-chart"></div>
                 </div>
                 <div class="col-xs-3 pl-0 pt-xs text-left error-band">
                     <p><strong th:text="#{report.scale-score.error-band}"></strong> <span

@@ -42,7 +42,7 @@
                     <h2 th:text="#{report.not-scored}"></h2>
                 </div>
                 <div th:if="${scored}" class="standard col-xs-4">
-                    <span class="score"
+                    <span class="score label"
                           th:classappend="#{'subject.' + ${report.subject} + '.asmt-type.ica.level.' + ${report.exam.scaleScore.level} + '.color'}"
                           th:text="${report.exam.scaleScore.value}"></span>
                     <span class="level">
@@ -57,7 +57,7 @@
                         th:with="scaleScoreView=${support.getScaleScoreView(report.exam, report.assessment)}">
                     <div class="graph clearfix">
                         <span class="score" th:attr="data-left=${scaleScoreView.position}">
-                            <span class="num"
+                            <span class="num label"
                                   th:classappend="#{'subject.' + ${report.subject} + '.asmt-type.ica.level.' + ${report.exam.scaleScore.level} + '.color'}">
                                 <span th:text="${report.exam.scaleScore.value}" th:remove="tag"></span>
                                 <span class="error">±
@@ -99,11 +99,11 @@
                                th:classappend="#{'subject.' + ${report.subject} + '.claim.' + ${claimCode} + '.icon'}"></i>
                             <span th:text="#{'subject.' + ${report.subject} + '.claim.' + ${claimCode} + '.name'}" th:remove="tag"></span>
                         </span>
-                        <span class="level-label"
+                        <span class="level-label label"
                               th:if="${report.exam.claimScaleScores[claimCodeStat.index] != null}"
                               th:classappend="#{'subject.' + ${report.subject} + '.asmt-type.ica.claim-score.level.' + ${report.exam.claimScaleScores[claimCodeStat.index].level} + '.color'}"
                               th:text="#{'subject.' + ${report.subject} + '.asmt-type.ica.claim-score.level.' + ${report.exam.claimScaleScores[claimCodeStat.index].level} + '.name'}"></span>
-                        <span class="level-label"
+                        <span class="label gray"
                               th:if="${report.exam.claimScaleScores[claimCodeStat.index] == null}"
                               th:text="#{'report.not-scored'}"></span>
                         <div class="description"

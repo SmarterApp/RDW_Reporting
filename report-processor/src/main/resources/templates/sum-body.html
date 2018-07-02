@@ -3,10 +3,11 @@
 <head>
 </head>
 <body>
+<!--/*@thymesVar id="report" type="org.opentestsystem.rdw.reporting.processor.model.IcaSummativeReport"*/-->
 <div th:fragment="body">
     <div class="header container">
         <div class="block-group blue right">
-            <span th:text="#{'report.subject.' + ${report.assessment.subject} + '.name'}"></span>
+            <span th:text="#{'subject.' + ${report.subject} + '.name'}"></span>
             <span>
                 <span th:text="${#strings.toString(report.exam.schoolYear - 1)}" th:remove="tag"></span> -
                 <span th:text="${support.getLastTwoDigits(report.exam.schoolYear)}" th:remove="tag"></span>
@@ -41,23 +42,23 @@
                     <h2 th:text="#{report.not-scored}"></h2>
                 </div>
                 <div th:if="${scored}" class="standard col-xs-4">
-                    <span class="score"
-                          th:classappend="#{'report.sum.level.' + ${report.exam.scaleScore.level} + '.color'}"
+                    <span class="score label"
+                          th:classappend="#{'subject.' + ${report.subject} + '.asmt-type.sum.level.' + ${report.exam.scaleScore.level} + '.color'}"
                           th:text="${report.exam.scaleScore.value}"></span>
                     <span class="level">
-                        <strong th:text="#{'report.sum.level.' + ${report.exam.scaleScore.level} + '.description'}"></strong>
+                        <strong th:text="#{'subject.' + ${report.subject} + '.asmt-type.sum.level.' + ${report.exam.scaleScore.level} + '.name'}"></strong>
                         <span th:text="#{('report.sum.score-range')(${support.round(report.exam.scaleScore.value - report.exam.scaleScore.standardError)}, ${support.round(report.exam.scaleScore.value + report.exam.scaleScore.standardError)})}"
                               th:remove="tag"></span>
                     </span>
                     <p class="description mt-sm"
-                       th:text="#{('report.overall-achievement.grade.' + ${report.assessment.gradeCode} + '.subject.' + ${report.assessment.subject} + '.level.' + ${report.exam.scaleScore.level})(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></p>
+                       th:text="#{('subject.' + ${report.subject} + '.report-grade.' + ${report.assessment.gradeCode} + '.asmt-type.sum.overall.level.' + ${report.exam.scaleScore.level})(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></p>
                 </div>
                 <div th:if="${scored}" class="performance col-xs-6"
                      th:with="scaleScoreView=${support.getScaleScoreView(report.exam, report.assessment)}">
                     <div class="graph clearfix">
                         <span class="score" th:attr="data-left=${scaleScoreView.position}">
-                            <span class="num"
-                                  th:classappend="#{'report.sum.level.' + ${report.exam.scaleScore.level} + '.color'}">
+                            <span class="num label"
+                                  th:classappend="#{'subject.' + ${report.subject} + '.asmt-type.sum.level.' + ${report.exam.scaleScore.level} + '.color'}">
                                 <span th:text="${report.exam.scaleScore.value}" th:remove="tag"></span>
                                 <span class="error">±
                                     <span th:text="${support.round(report.exam.scaleScore.standardError)}"
@@ -67,23 +68,18 @@
                         </span>
                         <span class="bound" th:text="${report.assessment.cutPoints[0]}"></span>
                         <div class="bar"
-                             th:classappend="#{'report.sum.level.1.color'}"
-                             th:attr="data-width=${scaleScoreView.levels[0].width}"><span class="bound" th:text="${report.assessment.cutPoints[1]}"></span></div>
-                        <div class="bar"
-                             th:classappend="#{'report.sum.level.2.color'}"
-                             th:attr="data-width=${scaleScoreView.levels[1].width}"><span class="bound" th:text="${report.assessment.cutPoints[2]}"></span></div>
-                        <div class="bar"
-                             th:classappend="#{'report.sum.level.3.color'}"
-                             th:attr="data-width=${scaleScoreView.levels[2].width}"><span class="bound" th:text="${report.assessment.cutPoints[3]}"></span></div>
-                        <div class="bar"
-                             th:classappend="#{'report.sum.level.4.color'}"
-                             th:attr="data-width=${scaleScoreView.levels[3].width}"><span class="bound" th:text="${report.assessment.cutPoints[4]}"></span></div>
+                             th:each="level, levelStat : ${#numbers.sequence( 1, __${report.subjectDefinition.performanceLevelCount}__)}"
+                             th:classappend="#{'subject.' + ${report.subject} + '.asmt-type.sum.level.' + ${level} + '.color'}"
+                             th:attr="data-width=${scaleScoreView.levels[(level - 1)].width}"><span class="bound" th:text="${report.assessment.cutPoints[(levelStat.last ? 6 : level)]}"></span></div>
                     </div>
                     <div class="legend">
-                        <span><i class="fa fa-square" style="color: #8D1135;"></i> <span th:text="#{'report.sum.level.1.description'}" th:remove="tag"></span></span>
-                        <span><i class="fa fa-square" style="color: #353538;"></i> <span th:text="#{'report.sum.level.2.description'}" th:remove="tag"></span></span>
-                        <span><i class="fa fa-square" style="color: #406934;"></i> <span th:text="#{'report.sum.level.3.description'}" th:remove="tag"></span></span>
-                        <span><i class="fa fa-square" style="color: #104564;"></i> <span th:text="#{'report.sum.level.4.description'}" th:remove="tag"></span></span>
+                        <span th:each="level : ${#numbers.sequence( 1, __${report.subjectDefinition.performanceLevelCount}__)}">
+                            <span class="tag mr-0 pr-0"
+                                  th:classappend="#{'subject.' + ${report.subject} + '.asmt-type.sum.level.' + ${level} + '.color'}">
+                                <span><i class="fa fa-square"></i></span>
+                            </span>
+                            <span th:text="#{'subject.' + ${report.subject} + '.asmt-type.sum.level.' + ${level} + '.name'}" th:remove="tag"></span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -93,24 +89,26 @@
             <div class="achievement-descriptions">
                 <div class="overall">
                     <span class="title" th:text="#{report.sum.section.claim.header}"></span>
-                    <p th:text="#{('report.student-achievement-by-claim.grade.' + ${report.assessment.gradeCode} + '.subject.' + ${report.assessment.subject})(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></p>
+                    <p th:text="#{('subject.' + ${report.subject} + '.report-grade.' + ${report.assessment.gradeCode} + '.asmt-type.sum.claim.title')(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></p>
                 </div>
-                <div class="level-description" th:each="claimCode : ${#lists.sort(report.assessment.claimCodes, support.getClaimCodeComparator())}"
+                <div class="level-description" th:each="claimCode : ${#lists.sort(report.assessment.claimCodes, support.getClaimCodeComparator(report))}"
                      th:classappend="${support.isWritingTraitScoreClaim(claimCodeStat.last, report.exam.writingTraitScores)} ? 'level-description-writing-traits' : ''">
                     <div class="main-claim">
                         <span class="title">
-                            <i class="fa" th:classappend="#{'report.claim.' + ${claimCode} + '.icon'}"></i>
-                            <span th:text="#{'report.claim.' + ${claimCode} + '.name'}" th:remove="tag"></span>
+                            <i class="fa"
+                               th:classappend="#{'subject.' + ${report.subject} + '.claim.' + ${claimCode} + '.icon'}"></i>
+                            <span th:text="#{'subject.' + ${report.subject} + '.claim.' + ${claimCode} + '.name'}" th:remove="tag"></span>
                         </span>
-                        <span class="level-label"
+                        <span class="level-label label"
                               th:if="${report.exam.claimScaleScores[claimCodeStat.index] != null}"
-                              th:classappend="#{'report.iab.level.' + ${report.exam.claimScaleScores[claimCodeStat.index].level} + '.color'}"
-                              th:text="#{'report.claim.level.' + ${report.exam.claimScaleScores[claimCodeStat.index].level} + '.label'}"></span>
-                        <span class="level-label"
+                              th:classappend="#{'subject.' + ${report.subject} + '.asmt-type.sum.claim-score.level.' + ${report.exam.claimScaleScores[claimCodeStat.index].level} + '.color'}"
+                              th:text="#{'subject.' + ${report.subject} + '.asmt-type.sum.claim-score.level.' + ${report.exam.claimScaleScores[claimCodeStat.index].level} + '.name'}"></span>
+                        <span class="level-label label gray"
                               th:if="${report.exam.claimScaleScores[claimCodeStat.index] == null}"
                               th:text="#{'report.not-scored'}"></span>
-                        <div class="description">
-                            <p th:text="#{('report.claim.' + ${claimCode} + '.grade.' + ${report.assessment.gradeCode} + '.level.' + ${report.exam.claimScaleScores[claimCodeStat.index].level})(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></p>
+                        <div class="description"
+                             th:if="${report.exam.claimScaleScores[claimCodeStat.index] != null}">
+                            <p th:text="#{('subject.' + ${report.subject} + '.report-grade.' + ${report.assessment.gradeCode} + '.asmt-type.sum.claim.' + ${claimCode} + '.level.' + ${report.exam.claimScaleScores[claimCodeStat.index].level})(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></p>
                         </div>
                     </div>
 
