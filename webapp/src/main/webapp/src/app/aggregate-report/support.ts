@@ -85,15 +85,19 @@ export function organizationOrdering<T>(organizationGetter: (item: T) => Organiz
 
 export function subgroupOrdering<T>(subgroupGetter: (item: T) => Subgroup, options: AggregateReportOptions): Ordering<T> {
 
+  function getNullableOption(option: string[]) {
+    return option.concat('undefined');
+  }
+
   const dimensionOptionsByDimensionType = {
-    Gender: options.studentFilters.genders,
+    Gender: getNullableOption(options.studentFilters.genders.concat('undefined')),
     Ethnicity: options.studentFilters.ethnicities,
-    LEP: options.studentFilters.limitedEnglishProficiencies,
+    LEP: getNullableOption(options.studentFilters.limitedEnglishProficiencies),
     ELAS: options.studentFilters.englishLanguageAcquisitionStatuses,
     MigrantStatus: options.studentFilters.migrantStatuses,
-    Section504: options.studentFilters.migrantStatuses,
-    IEP: options.studentFilters.individualEducationPlans,
-    EconomicDisadvantage: options.studentFilters.economicDisadvantages
+    Section504: options.studentFilters.section504s,
+    IEP: getNullableOption(options.studentFilters.individualEducationPlans),
+    EconomicDisadvantage: getNullableOption(options.studentFilters.economicDisadvantages)
   };
 
   const dimensionTypeAndCodeRankingValues = options.dimensionTypes.reduce((ranking, dimensionType) => {

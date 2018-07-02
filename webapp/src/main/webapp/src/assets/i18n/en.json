@@ -547,7 +547,8 @@
     "gender": {
       "Female": "Female",
       "Male": "Male",
-      "Nonbinary": "Nonbinary"
+      "Nonbinary": "Nonbinary",
+      "undefined": "Not Stated"
     },
     "info": {
       "claim": "Claims are a way of classifying test content. The claim is the major topic area. For example, in English language arts, reading is a claim and in Math, Concepts and Procedures is a claim.",
@@ -685,6 +686,12 @@
     },
     "school-typeahead-label": "School",
     "school-year-select-label": "School Year",
+    "strict-boolean": {
+      "false": "No",
+      "no": "No",
+      "true": "Yes",
+      "yes": "Yes"
+    },
     "student-response-columns": {
       "correctness": "Correctness",
       "correctness-info": "A value for the degree of correctness in a student's response to a test question. The correctness value is calculated by dividing the student's score on a particular question by the maximum score for that question.",

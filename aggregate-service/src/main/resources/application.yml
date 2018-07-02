@@ -61,7 +61,7 @@ server:
 spring:
   cache:
     type: SIMPLE
-    cache-names: internalTranslationsByCode, reportOptions, administrationConditions, assessments, assessmentGrades, assessmentTypes, booleans, organizations, completenessCodes, claims, targets, ethnicities, genders, elases, schoolYears, subjects, activeAssessments, embargo
+    cache-names: internalTranslationsByCode, reportOptions, administrationConditions, assessments, assessmentGrades, assessmentTypes, booleans, strictBooleans, organizations, completenessCodes, claims, targets, ethnicities, genders, elases, schoolYears, subjects, activeAssessments, embargo
 
   cloud:
     stream:
