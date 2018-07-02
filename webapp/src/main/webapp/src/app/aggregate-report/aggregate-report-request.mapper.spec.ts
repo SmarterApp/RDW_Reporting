@@ -225,6 +225,7 @@ describe('AggregateReportRequestMapper', () => {
 
   function mockOptions(): AggregateReportOptions {
     const booleans = [ 'yes', 'no', 'undefined' ];
+    const strictBooleans = [ 'yes', 'no' ];
     return {
       assessmentGrades: [ '03', '04', '05' ],
       assessmentTypes: [ 'ica', 'iab', 'sum' ],
@@ -249,11 +250,11 @@ describe('AggregateReportRequestMapper', () => {
       subjects: [ 'Math', 'ELA' ],
       summativeAdministrationConditions: [ 'Valid', 'IN' ],
       studentFilters: {
-        economicDisadvantages: booleans,
+        economicDisadvantages: strictBooleans,
         ethnicities: [ 'Asian', 'White' ],
         genders: [ 'Male', 'Female' ],
-        individualEducationPlans: booleans,
-        limitedEnglishProficiencies: booleans,
+        individualEducationPlans: strictBooleans,
+        limitedEnglishProficiencies: strictBooleans,
         englishLanguageAcquisitionStatuses: [ 'EO' ],
         migrantStatuses: booleans,
         section504s: booleans

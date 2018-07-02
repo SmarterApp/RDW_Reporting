@@ -90,7 +90,7 @@ export function subgroupOrdering<T>(subgroupGetter: (item: T) => Subgroup, optio
   }
 
   const dimensionOptionsByDimensionType = {
-    Gender: getNullableOption(options.studentFilters.genders.concat('undefined')),
+    Gender: getNullableOption(options.studentFilters.genders),
     Ethnicity: options.studentFilters.ethnicities,
     LEP: getNullableOption(options.studentFilters.limitedEnglishProficiencies),
     ELAS: options.studentFilters.englishLanguageAcquisitionStatuses,
