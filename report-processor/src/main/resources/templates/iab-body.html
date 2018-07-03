@@ -5,7 +5,16 @@
 <body>
 <!--/*@thymesVar id="report" type="org.opentestsystem.rdw.reporting.processor.model.IabReport"*/-->
 <div th:fragment="body">
-    <div th:replace="fragments::header(prefix='report.iab')"></div>
+    <header>
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <div class="navbar-brand"></div>
+                    <span class="application-title text-right pull-right mt-sm" th:text="#{('report.title')(#{'subject.' + ${report.subject} + '.asmt-type.iab.long-name'})}"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
     <section class="mt-lg mb-lg">
         <div class="container">
             <div th:replace="fragments::student-header"></div>
@@ -15,12 +24,11 @@
                      th:with="assessment=${report.examsByAssessment.firstEntry().key},exam=${report.examsByAssessment.firstEntry().value[0]}">
                     <div>
                         <span class="h3 label-group green">
-                            <span class="label" th:text="#{report.iab.short-name}"></span><span class="label"
-                                                                                                th:text="#{'subject.' + ${report.subject} + '.name'}"></span>
+                            <span class="label" th:text="#{'subject.' + ${report.subject} + '.asmt-type.iab.name'}"></span><span class="label" th:text="#{'subject.' + ${report.subject} + '.name'}"></span>
                         </span>
                     </div>
                     <div class="h4"
-                         th:text="#{('report.iab.grade.title.' + ${assessment.gradeCode})(${#strings.toString(exam.schoolYear - 1)}, ${support.getLastTwoDigits(exam.schoolYear)})}"></div>
+                         th:text="#{('report.grade.' + ${assessment.gradeCode} + '.title')(#{'subject.' + ${report.subject} + '.asmt-type.iab.long-name'}, ${#strings.toString(exam.schoolYear - 1)}, ${support.getLastTwoDigits(exam.schoolYear)})}"></div>
                 </div>
                 <div class="col-xs-3 pr-xs text-right">
                     <div th:replace="fragments::error-band-chart"></div>

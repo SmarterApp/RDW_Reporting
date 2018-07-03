@@ -74,31 +74,38 @@
     "grade": {
       "03": {
         "color": "blue-dark",
-        "label": "G3"
+        "label": "G3",
+        "title": "Grade 3 {0} {1}-{2}"
       },
       "04": {
         "color": "maroon",
-        "label": "G4"
+        "label": "G4",
+        "title": "Grade 4 {0} {1}-{2}"
       },
       "05": {
         "color": "green-dark",
-        "label": "G5"
+        "label": "G5",
+        "title": "Grade 5 {0} {1}-{2}"
       },
       "06": {
         "color": "blue-dark",
-        "label": "G6"
+        "label": "G6",
+        "title": "Grade 6 {0} {1}-{2}"
       },
       "07": {
         "color": "teal",
-        "label": "G7"
+        "label": "G7",
+        "title": "Grade 7 {0} {1}-{2}"
       },
       "08": {
         "color": "green",
-        "label": "G8"
+        "label": "G8",
+        "title": "Grade 8 {0} {1}-{2}"
       },
       "11": {
         "color": "maroon",
-        "label": "HS"
+        "label": "HS",
+        "title": "High School {0} {1}-{2}"
       }
     },
     "generic": {
@@ -166,38 +173,14 @@
       }
     },
     "iab": {
-      "grade": {
-        "title": {
-          "03": "Grade 3 Interim Assessment Blocks {0}-{1}",
-          "04": "Grade 4 Interim Assessment Blocks {0}-{1}",
-          "05": "Grade 5 Interim Assessment Blocks {0}-{1}",
-          "06": "Grade 6 Interim Assessment Blocks {0}-{1}",
-          "07": "Grade 7 Interim Assessment Blocks {0}-{1}",
-          "08": "Grade 8 Interim Assessment Blocks {0}-{1}",
-          "11": "High School Interim Assessment Blocks {0}-{1}"
-        }
-      },
       "result-category": {
         "current": "Current Results",
         "previous": "Previous Results"
-      },
-      "short-name": "IAB",
-      "title": "Interim Assessment Blocks Report"
+      }
     },
     "ica": {
       "date": {
         "label": "Date Taken:"
-      },
-      "grade": {
-        "title": {
-          "03": "Grade 3 Interim Comprehensive Assessment {0}-{1}",
-          "04": "Grade 4 Interim Comprehensive Assessment {0}-{1}",
-          "05": "Grade 5 Interim Comprehensive Assessment {0}-{1}",
-          "06": "Grade 6 Interim Comprehensive Assessment {0}-{1}",
-          "07": "Grade 7 Interim Comprehensive Assessment {0}-{1}",
-          "08": "Grade 8 Interim Comprehensive Assessment {0}-{1}",
-          "11": "High School Interim Comprehensive Assessment {0}-{1}"
-        }
       },
       "section": {
         "claim": {
@@ -207,9 +190,7 @@
           "header": "Overall Achievement"
         }
       },
-      "score-range": " ({0}-{1})",
-      "short-name": "ICA",
-      "title": "Interim Comprehensive Assessment Report"
+      "score-range": " ({0}-{1})"
     },
     "important-information": {
       "header": "Important Information About Interim Assessments",
@@ -244,17 +225,6 @@
       "date": {
         "label": "Date Taken:"
       },
-      "grade": {
-        "title": {
-          "03": "Grade 3 Summative Assessment {0}-{1}",
-          "04": "Grade 4 Summative Assessment {0}-{1}",
-          "05": "Grade 5 Summative Assessment {0}-{1}",
-          "06": "Grade 6 Summative Assessment {0}-{1}",
-          "07": "Grade 7 Summative Assessment {0}-{1}",
-          "08": "Grade 8 Summative Assessment {0}-{1}",
-          "11": "High School Summative Assessment {0}-{1}"
-        }
-      },
       "section": {
         "claim": {
           "header": "Student Achievement by Claim"
@@ -263,9 +233,7 @@
           "header": "Overall Achievement"
         }
       },
-      "score-range": "{0}-{1}",
-      "short-name": "SUM",
-      "title": "Summative Assessment Report"
+      "score-range": "{0}-{1}"
     },
     "target": {
       "overall": {
@@ -285,6 +253,7 @@
         "NoResults": "-"
       }
     },
+    "title": "{0} Report",
     "writing": {
       "description": "Students write an extended response (i.e., essay) with one of the following purposes: narrative, opinion, informational, explanatory, or argumentative. {0} received the following scores on the essay:",
       "trait": {
