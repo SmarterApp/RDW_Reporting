@@ -121,6 +121,7 @@ export class GeneralPopulationFormComponent extends MultiOrganizationQueryFormCo
 
     this.updateColumnOrder();
     this.markOrganizationsControlTouched();
+    this.updateSubjectsEnabled();
     this.onSettingsChange();
   }
 

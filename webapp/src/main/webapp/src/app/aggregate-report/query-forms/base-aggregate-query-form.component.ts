@@ -24,6 +24,7 @@ import { OrderableItem } from "../../shared/order-selector/order-selector.compon
 import { SubjectDefinition } from '../../subject/subject';
 import { SubjectService } from '../../subject/subject.service';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { Option } from '../../shared/form/option';
 
 /**
  * Base query component implementation for all aggregate report types.
@@ -81,7 +82,7 @@ export abstract class BaseAggregateQueryFormComponent implements OnInit, OnDestr
   previewSectionViewInvalidator: Observable<void> = Observable.create(observer => this.previewSectionInvalid = observer);
 
   private _submitSubscription: Subscription;
-  private _subjectDefinitions: SubjectDefinition[] = [];
+  protected subjectDefinitions: SubjectDefinition[] = [];
 
   constructor(protected columnOrderableItemProvider: AggregateReportColumnOrderItemProvider,
               protected notificationService: NotificationService,
@@ -113,7 +114,7 @@ export abstract class BaseAggregateQueryFormComponent implements OnInit, OnDestr
    * Get the subject definition
    */
   protected get subjectDefinition(): SubjectDefinition {
-    return this._subjectDefinitions.find(x => x.subject == this.settings.subjects[0] && x.assessmentType == this.settings.assessmentType);
+    return this.subjectDefinitions.find(x => x.subject == this.settings.subjects[0] && x.assessmentType == this.settings.assessmentType);
   }
 
   /**
@@ -130,7 +131,9 @@ export abstract class BaseAggregateQueryFormComponent implements OnInit, OnDestr
     this.navItemChange.emit(this.getNavItems());
 
     this.subjectService.getSubjectDefinitions().subscribe(subjectDefinitions => {
-      this._subjectDefinitions = subjectDefinitions;
+      this.subjectDefinitions = subjectDefinitions;
+
+      this.updateSubjectsEnabled();
     });
 
     this._submitSubscription = this.submitAction.subscribe(() => {
@@ -171,6 +174,26 @@ export abstract class BaseAggregateQueryFormComponent implements OnInit, OnDestr
           }
         );
     });
+  }
+
+  updateSubjectsEnabled(): void {
+    const validSubjectDefinitions = this.subjectDefinitions.filter(x => x.assessmentType == this.settings.assessmentType);
+
+    // disable subjects that don't have a definition for the assessment type
+    let updatedOptions: Option[] = [];
+    this.filteredOptions.subjects.forEach(option => {
+      updatedOptions.push(
+        Object.assign(option, {
+          disabled: !validSubjectDefinitions.some(x => x.subject == option.value)
+        })
+      );
+    });
+
+    this.filteredOptions.subjects = updatedOptions;
+
+    // remove any disabled ones from the subject selection
+    const disabledOptions = updatedOptions.filter(x => x.disabled).map(x => x.value);
+    this.settings.subjects = this.settings.subjects.filter(subject => !disabledOptions.includes(subject));
   }
 
   /**

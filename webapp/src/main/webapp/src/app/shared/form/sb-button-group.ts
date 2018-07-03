@@ -127,12 +127,12 @@ const ControllerByInputType: {[inpuType: string]: InputController} = {
       <label class="btn"
              [ngClass]="computeStylesInternal(buttonStyles, { 
                  active: isAllOption ? stateInternal.selectedAllOption : stateInternal.selectedOptions.has(option), 
-                 disabled: disabled 
+                 disabled: option.disabled 
              })">
         <input type="checkbox"
                [attr.checked]="isAllOption ? stateInternal.selectedAllOption : stateInternal.selectedOptions.has(option)"
                [name]="name"
-               [disabled]="disabled"
+               [disabled]="option.disabled"
                (click)="isAllOption ? onAllOptionClickInternal() : onOptionClickInternal(option)"
                angulartics2On="click"
                angularticsEvent="{{analyticsEvent}}"
@@ -367,7 +367,7 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
     const values = state.selectedAllOption && this._allOptionReturnsUndefined
       ? undefined
       : options
-        .filter(option => state.selectedAllOption || state.selectedOptions.has(option))
+        .filter(option => !option.disabled && (state.selectedAllOption || state.selectedOptions.has(option)))
         .map(option => option.value);
 
     this.setValueAndNotifyChanges(values);
@@ -390,7 +390,8 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
     return options.map(option => <Option>{
       value: option.value,
       text: option.text ? option.text : option.value,
-      analyticsProperties: option.analyticsProperties
+      analyticsProperties: option.analyticsProperties,
+      disabled: option.disabled
     });
   }
 
@@ -424,8 +425,9 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
    */
   private computeState(options: Option[], values: any[]): State {
     if (this.allOptionEnabled) {
-      const effectiveOptions = options.filter(option => values.includes(option.value));
-      const effectivelySelectedAllOption = values.length === options.length || options.length === effectiveOptions.length;
+      let enabledOptions = options.filter(x => !x.disabled);
+      const effectiveOptions = enabledOptions.filter(option => values.includes(option.value));
+      const effectivelySelectedAllOption = values.length === enabledOptions.length || enabledOptions.length === effectiveOptions.length;
       return {
         selectedAllOption: effectivelySelectedAllOption,
         selectedOptions: effectivelySelectedAllOption

@@ -20,13 +20,13 @@ const DefaultButtonStyles = 'btn-primary';
              class="btn"
              [ngClass]="computeStylesInternal(buttonStyles, {
                  active: option.value === value, 
-                 disabled: disabled
+                 disabled: option.disabled
              })">
         <input type="radio"
                id="{{name}}"
                name="{{name}}"
                [attr.selected]="option.value === value"
-               [disabled]="disabled"
+               [disabled]="option.disabled"
                [value]="option.value"
                [(ngModel)]="value"
                angulartics2On="click"
@@ -121,7 +121,8 @@ export class SBRadioGroup extends AbstractControlValueAccessor<any> implements O
     return options.map(option => <Option>{
       value: option.value,
       text: option.text ? option.text : option.value,
-      analyticsProperties: option.analyticsProperties
+      analyticsProperties: option.analyticsProperties,
+      disabled: option.disabled
     });
   }
 
