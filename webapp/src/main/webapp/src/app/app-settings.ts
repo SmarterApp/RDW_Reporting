@@ -3,6 +3,7 @@ export interface ApplicationSettings {
   readonly irisVendorId: string;
   readonly analyticsTrackingId: string;
   readonly interpretiveGuideUrl: string;
+  readonly accessDeniedUrl: string;
   readonly userGuideUrl: string;
   readonly minItemDataYear: number;
   readonly reportLanguages: string[];

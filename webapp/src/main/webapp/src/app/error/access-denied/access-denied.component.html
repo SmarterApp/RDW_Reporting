@@ -4,8 +4,14 @@
   </ng-template>
 </page-heading>
 
+
+
 <div class="well">
-  <p>{{'access-denied.message' | translate}}</p>
-  <a class="btn btn-primary" href="javascript:void(0)" onclick="window.document.logout.submit()">{{'access-denied.logout' | translate}}</a>
-  <form name="logout" method="post" action="/saml/logout" class="hidden"></form>
+  <spinner *ngIf="loading"></spinner>
+
+  <div *ngIf="!loading">
+    <p>{{'access-denied.message' | translate}}</p>
+    <a class="btn btn-primary" href="javascript:void(0)" onclick="window.document.logout.submit()">{{'access-denied.logout' | translate}}</a>
+    <form name="logout" method="post" action="/saml/logout" class="hidden"></form>
+  </div>
 </div>

@@ -1,14 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { ApplicationSettingsService } from '../../app-settings.service';
 
 @Component({
   selector: 'access-denied',
   templateUrl: './access-denied.component.html'
 })
 export class AccessDeniedComponent implements OnInit {
+  loading: boolean = true;
 
-  constructor() { }
+  constructor(private service: ApplicationSettingsService) { }
 
   ngOnInit() {
+    this.loading = true;
+    this.service.getSettings().subscribe(settings => {
+      if (settings.accessDeniedUrl.startsWith('redirect:')) {
+        window.location.href = settings.accessDeniedUrl.substring(9);
+      }
+      else {
+        this.loading = false;
+      }
+    });
   }
 
 }

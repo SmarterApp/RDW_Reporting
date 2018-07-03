@@ -19,6 +19,7 @@ export class ApplicationSettingsService {
         analyticsTrackingId: serverSettings.analyticsTrackingId,
         elasEnabled: serverSettings.englishLanguageAcquisitionStatusEnabled,
         interpretiveGuideUrl: serverSettings.interpretiveGuideUrl,
+        accessDeniedUrl: serverSettings.accessDeniedUrl,
         irisVendorId: serverSettings.irisVendorId,
         lepEnabled: serverSettings.limitedEnglishProficienciesEnabled,
         minItemDataYear: serverSettings.minItemDataYear,
