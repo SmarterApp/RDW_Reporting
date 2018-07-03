@@ -13,8 +13,8 @@ export class AccessDeniedComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.service.getSettings().subscribe(settings => {
-      if (settings.accessDeniedUrl.startsWith('redirect:')) {
-        window.location.href = settings.accessDeniedUrl.substring(9);
+      if (settings.accessDeniedUrl != null) {
+        window.location.href = settings.accessDeniedUrl;
       }
       else {
         this.loading = false;

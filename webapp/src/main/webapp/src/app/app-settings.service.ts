@@ -19,7 +19,7 @@ export class ApplicationSettingsService {
         analyticsTrackingId: serverSettings.analyticsTrackingId,
         elasEnabled: serverSettings.englishLanguageAcquisitionStatusEnabled,
         interpretiveGuideUrl: serverSettings.interpretiveGuideUrl,
-        accessDeniedUrl: serverSettings.accessDeniedUrl,
+        accessDeniedUrl: serverSettings.accessDeniedUrl.startsWith('redirect:') ? serverSettings.accessDeniedUrl.substring(9) : undefined,
         irisVendorId: serverSettings.irisVendorId,
         lepEnabled: serverSettings.limitedEnglishProficienciesEnabled,
         minItemDataYear: serverSettings.minItemDataYear,
