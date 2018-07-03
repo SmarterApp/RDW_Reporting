@@ -1038,28 +1038,6 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
 }
 
 /**
- * New IAB Colors
- */
-@sb-iab-green: #2c7f3e;
-@sb-iab-yellow: #eccb1a;
-@sb-iab-red: #750f2c;
-
-// Create color classes
-// List the colors
-@colorVars: sb-iab-green, sb-iab-yellow, sb-iab-red;
-// Call the generator mixin
-// Yes, it's supposed to be called in recursive order
-.generate-color-classes(@colorVars, 1);
-// Generate color classes based on declared names above
-.generate-color-classes(@colorName, @i) when (@i =< length(@colorName)) {
-  @name: extract(@colorName, @i);
-  .@{name} {
-    .colorElement(@@name);
-  }
-  .generate-color-classes(@colorName, (@i + 1));
-}
-
-/**
  * ICA/Summative PDF Report
  */
 .overview .standard .score.maroon,
