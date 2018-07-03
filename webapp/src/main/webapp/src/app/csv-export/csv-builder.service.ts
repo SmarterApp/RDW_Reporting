@@ -145,7 +145,10 @@ export class CsvBuilder {
   withAssessmentType(getAssessment: (item: any) => Assessment) {
     return this.withColumn(
       this.translateService.instant('csv-builder.assessment-type'),
-      (item) => this.translateService.instant(`common.assessment-type.${getAssessment(item).type}.short-name`)
+      (item) => {
+        const assessment: Assessment = getAssessment(item);
+        return this.translateService.instant(`subject.${assessment.subject}.asmt-type.${assessment.type}.name`);
+      }
     );
   }
 
