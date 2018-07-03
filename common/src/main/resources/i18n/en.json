@@ -199,22 +199,6 @@
           "11": "High School Interim Comprehensive Assessment {0}-{1}"
         }
       },
-      "level": {
-        "cohort": {
-          "1": {
-            "description": "Cohort - Did Not Meet Standard"
-          },
-          "2": {
-            "description": "Cohort - Nearly Met Standard"
-          },
-          "3": {
-            "description": "Cohort - Met Standard"
-          },
-          "4": {
-            "description": "Cohort - Exceeded Standard"
-          }
-        }
-      },
       "section": {
         "claim": {
           "header": "Student Achievement by Claim"
@@ -269,22 +253,6 @@
           "07": "Grade 7 Summative Assessment {0}-{1}",
           "08": "Grade 8 Summative Assessment {0}-{1}",
           "11": "High School Summative Assessment {0}-{1}"
-        }
-      },
-      "level": {
-        "cohort": {
-          "1": {
-            "description": "Cohort - Did Not Meet Standard"
-          },
-          "2": {
-            "description": "Cohort - Nearly Met Standard"
-          },
-          "3": {
-            "description": "Cohort - Met Standard"
-          },
-          "4": {
-            "description": "Cohort - Exceeded Standard"
-          }
         }
       },
       "section": {
