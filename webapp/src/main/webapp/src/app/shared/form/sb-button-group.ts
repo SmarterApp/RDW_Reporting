@@ -241,7 +241,9 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
         if (!this.effectiveNoneStateEnabled && (!this._value || this._value.length === 0)) {
           this._value = this.parseInputValues(this._initialValues);
         }
-        this._state = this.computeState(this._options, this._value);
+        if (!this.preserveAll()) {
+          this._state = this.computeState(this._options, this._value);
+        }
       } else {
         this._initialOptions = options;
       }
@@ -408,8 +410,10 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
       if (this.effectiveNoneStateEnabled) {
         return [];
       }
-      // If the component does not allow a no-value state, set the value to all values
-      return this.options.map(option => option.value);
+      // If the component does not allow a no-value state, set the value to all enabled values
+      return this.options
+        .filter(option => !option.disabled)
+        .map(option => option.value);
     }
     // Make a copy of the value to avoid side effects
     return values.concat();
@@ -450,6 +454,18 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
 
   private throwError(message: string): void {
     throw new Error(`${this.constructor.name} ${message}`);
+  }
+
+  /**
+   * If All was previously selected and the underlying options have changed
+   * preserve the selection of All.
+   */
+  private preserveAll(): boolean {
+    if (this._state && this._state.selectedAllOption) {
+      this.setValueAndNotifyChanges(this.parseInputValues(null));
+      return true;
+    }
+    return false;
   }
 
 }
