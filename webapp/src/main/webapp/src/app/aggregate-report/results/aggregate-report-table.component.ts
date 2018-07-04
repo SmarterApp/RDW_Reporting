@@ -383,10 +383,7 @@ export class AggregateReportTableComponent implements OnInit {
         dataColumns.push(
           new Column({ id: 'studentsTested' }),
           new Column({ id: 'studentRelativeResidualScoresLevel', valueColumn: true }),
-          new Column({
-            id: 'standardMetRelativeResidualLevel',
-            valueColumn: true
-          })
+          new Column({ id: 'standardMetRelativeResidualLevel', valueColumn: true })
         );
         break;
     }
