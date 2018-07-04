@@ -21,6 +21,7 @@ import { BaseAggregateQueryFormComponent } from "./base-aggregate-query-form.com
 import { ScrollNavItem } from "../../shared/nav/scroll-nav.component";
 import { AggregateReportType } from "../aggregate-report-form-settings";
 import { SubjectService } from '../../subject/subject.service';
+import { SubjectDefinition } from '../../subject/subject';
 
 @Component({
   selector: 'target-report-form',
@@ -61,7 +62,8 @@ export class TargetReportFormComponent extends BaseAggregateQueryFormComponent {
    */
   showAdvancedFilters = false;
 
-  private assessmentDefinition: AssessmentDefinition;
+  assessmentDefinition: AssessmentDefinition;
+
   private _organizationTypeahead: OrganizationTypeahead;
 
   constructor(protected columnOrderableItemProvider: AggregateReportColumnOrderItemProvider,
@@ -154,6 +156,11 @@ export class TargetReportFormComponent extends BaseAggregateQueryFormComponent {
 
   getSupportedAssessmentTypes(): string[] {
     return ['sum'];
+  }
+
+  // override the base implementat since the target report stores subject code differently
+  get subjectDefinition(): SubjectDefinition {
+    return this.subjectDefinitions.find(x => x.subject == this.settings.targetReport.subjectCode && x.assessmentType == this.settings.assessmentType);
   }
 
   /**

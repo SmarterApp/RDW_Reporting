@@ -316,13 +316,18 @@ export class AggregateReportTableComponent implements OnInit {
   }
 
   private getClaimCodeTranslationKey(row: AggregateReportItem): string {
-    return this.table.reportType === AggregateReportType.Target
-      ? `common.claim-name.${row.claimCode}`
-      : `subject.${row.subjectCode}.claim.${row.claimCode}.name`;
+    return `subject.${row.subjectCode}.claim.${row.claimCode}.name`;
   }
 
   getClaimCodeTranslation(row: AggregateReportItem): string {
     return this.translate.instant(this.getClaimCodeTranslationKey(row));
+  }
+
+  get standardMetRelativeResidualLevelResolve() {
+    return {
+      name: this.translate.instant(`subject.${this.subjectDefinition.subject}.asmt-type.${this.subjectDefinition.assessmentType}.level.${this.subjectDefinition.performanceLevelStandardCutoff}.name`),
+      id: this.subjectDefinition.performanceLevelStandardCutoff
+    };
   }
 
   private buildAndRender({ rows, options, assessmentDefinition, reportType }: AggregateReportTable): void {
@@ -378,7 +383,10 @@ export class AggregateReportTableComponent implements OnInit {
         dataColumns.push(
           new Column({ id: 'studentsTested' }),
           new Column({ id: 'studentRelativeResidualScoresLevel', valueColumn: true }),
-          new Column({ id: 'standardMetRelativeResidualLevel', valueColumn: true })
+          new Column({
+            id: 'standardMetRelativeResidualLevel',
+            valueColumn: true
+          })
         );
         break;
     }

@@ -57,14 +57,14 @@
 
         <span *ngSwitchCase="'studentRelativeResidualScoresLevel'"
               info-button
-              title="{{'target-report.columns.' + toDash(column.id) | translate}}"
-              content="{{('target-report.columns.' + toDash(column.id) + '-info') | translate}}">
+              title="{{'target-report.columns.student-relative-residual-scores-level' | translate}}"
+              content="{{('target-report.columns.student-relative-residual-scores-level-info') | translate}}">
         </span>
 
         <span *ngSwitchCase="'standardMetRelativeResidualLevel'"
               info-button
-              title="{{'target-report.columns.' + toDash(column.id) | translate}}"
-              content="{{('target-report.columns.' + toDash(column.id) + '-info') | translate}}">
+              title="{{'target-report.columns.standard-met-relative-residual-level' | translate:standardMetRelativeResidualLevelResolve}}"
+              content="{{('target-report.columns.standard-met-relative-residual-level-info') | translate}}">
         </span>
 
         <span *ngSwitchDefault>

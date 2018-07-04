@@ -133,10 +133,7 @@ export class AggregateReportTableExportService {
         .withColumn(
           this.translateService.instant('aggregate-report-table.columns.claim'),
           (item: AggregateReportItem) => {
-            const translationKey: string = options.reportType === AggregateReportType.Target
-              ? `common.claim-name.${item.claimCode}`
-              : `subject.${item.subjectCode}.claim.${item.claimCode}.name`;
-            return this.translateService.instant(translationKey);
+            return this.translateService.instant(`subject.${item.subjectCode}.claim.${item.claimCode}.name`);
           }
         )
     }
