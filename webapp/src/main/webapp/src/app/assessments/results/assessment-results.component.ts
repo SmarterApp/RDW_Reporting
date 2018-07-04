@@ -339,11 +339,6 @@ export class AssessmentResultsComponent implements OnInit {
 
   toggleSession(session): void {
     session.filter = !session.filter;
-
-    if (this.showTargetReport) {
-      this.targetReport.sessions = this.sessions;
-    }
-
     this.updateExamSessions();
   }
 

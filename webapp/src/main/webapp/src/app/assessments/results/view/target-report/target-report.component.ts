@@ -86,12 +86,6 @@ export class TargetReportComponent implements OnInit, ExportResults {
 
   schoolYear: number;
 
-  @Input()
-  set sessions(value: any) {
-    this._sessions = value;
-    this.updateTargetScoreExamFilters();
-  }
-
   /**
    * Exam filters applied, if any.
    */
@@ -143,7 +137,6 @@ export class TargetReportComponent implements OnInit, ExportResults {
 
   allSubgroups: any[] = [];
 
-  private _sessions: any[];
   private _filterBy: FilterBy;
   private _filterBySubscription: Subscription;
   private _orderingByIdentityField: { [ key: string ]: Ordering<AggregateTargetScoreRow> } = {};
@@ -390,11 +383,8 @@ export class TargetReportComponent implements OnInit, ExportResults {
       return [];
     }
 
-    const exams: TargetScoreExam[] = <TargetScoreExam[]>this.examFilterService
+    return <TargetScoreExam[]>this.examFilterService
       .filterExams(this.originalTargetScoreExams, this.assessment, this._filterBy);
-
-    // this is only for Groups so always filter by sessions
-    return exams.filter(x => this._sessions.some(y => y.filter && y.id === x.session));
   }
 
   private createAllSubgroups(settings: any): any[] {
