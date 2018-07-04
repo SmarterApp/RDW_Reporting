@@ -317,7 +317,7 @@ sql:
             JOIN asmt a ON e.asmt_id = a.id
             JOIN school s ON e.school_id = s.id
             JOIN school isch ON st.inferred_school_id = isch.id
-            LEFT JOIN subject sub ON sub.id=a.subject_id
+            JOIN subject sub ON sub.id=a.subject_id
 
       exportExamsFilter: >-
         e.school_year = :school_year
