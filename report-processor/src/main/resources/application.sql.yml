@@ -22,12 +22,13 @@ sql:
         ${sql.snippet.writingTraits},
         ${sql.snippet.exam}
       JOIN district d ON s.district_id=d.id
+      LEFT JOIN subject sub ON sub.id=a.subject_id
       LEFT JOIN exam_item ei ON ei.exam_id=e.id
       LEFT JOIN item i ON i.id = ei.item_id
       ${sql.reportProcessor.snippet.percentileLeftJoin}
       WHERE e.student_id in (:student_ids)
         AND (:school_year is null or e.school_year=:school_year)
-        AND (:subject_id is null or a.subject_id=:subject_id)
+        AND (:subject_code is null or sub.code=:subject_code)
         AND (:grade_id is null or a.grade_id=:grade_id)
         AND a.type_id = 2
         AND ${sql.reportProcessor.snippet.schoolFilter}
@@ -44,13 +45,14 @@ sql:
         ${sql.snippet.exam}
       JOIN district d ON s.district_id=d.id
       $[groupJoinPlaceholder]
+      LEFT JOIN subject sub ON sub.id=a.subject_id
       LEFT JOIN exam_item ei ON ei.exam_id=e.id
       LEFT JOIN item i ON i.id=ei.item_id
       ${sql.reportProcessor.snippet.percentileLeftJoin}
       WHERE e.student_id in (:student_ids)
         AND $[groupFilterPlaceholder]
         AND (:school_year is null or e.school_year=:school_year)
-        AND (:subject_id is null or a.subject_id=:subject_id)
+        AND (:subject_code is null or sub.code=:subject_code)
         AND (:grade_id is null or a.grade_id=:grade_id)
         AND a.type_id=2
         AND ${sql.reportProcessor.snippet.schoolFilter}
@@ -68,6 +70,8 @@ sql:
         wt.performance_task_writing_type,
         ${sql.snippet.exam}
       JOIN district d ON s.district_id=d.id
+      LEFT JOIN subject sub ON sub.id=a.subject_id
+      LEFT JOIN asmt_type asmt_t ON asmt_t.id=a.type_id
       LEFT JOIN (
         SELECT
           ei.exam_id,
@@ -81,9 +85,9 @@ sql:
       ) as wt on wt.exam_id = e.id
       WHERE e.student_id in (:student_ids)
         AND (:school_year is null or e.school_year=:school_year)
-        AND (:subject_id is null or a.subject_id=:subject_id)
+        AND (:subject_code is null or sub.code=:subject_code)
         AND (:grade_id is null or a.grade_id=:grade_id)
-        AND a.type_id=:type_id
+        AND asmt_t.code=:asmt_type_code
         AND ${sql.reportProcessor.snippet.schoolFilter}
         AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
       ORDER BY e.completed_at asc
@@ -98,6 +102,8 @@ sql:
         wt.performance_task_writing_type,
         ${sql.snippet.exam}
       JOIN district d ON s.district_id=d.id
+      LEFT JOIN subject sub ON sub.id=a.subject_id
+      LEFT JOIN asmt_type asmt_t ON asmt_t.id=a.type_id
       LEFT JOIN (
         SELECT
           ei.exam_id,
@@ -112,10 +118,10 @@ sql:
       $[groupJoinPlaceholder]
       WHERE e.student_id in (:student_ids)
         AND $[groupFilterPlaceholder]
+        AND (:subject_code is null or sub.code=:subject_code)
         AND (:school_year is null or e.school_year=:school_year)
-        AND (:subject_id is null or a.subject_id=:subject_id)
         AND (:grade_id is null or a.grade_id=:grade_id)
-        AND a.type_id=:type_id
+        AND asmt_t.code=:asmt_type_code
         AND ${sql.reportProcessor.snippet.schoolFilter}
         AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
       ORDER BY e.completed_at asc
@@ -252,9 +258,9 @@ sql:
       ${sql.reportProcessor.snippet.selectFromStudent}
       WHERE (:student_id is null or st.id = :student_id)
         AND (:school_year is null or e.school_year = :school_year)
-        AND (:subject_id is null or a.subject_id = :subject_id)
+        AND (:subject_code is null or sub.code = :subject_code)
         AND (:grade_id is null or a.grade_id = :grade_id)
-        AND (:assessment_type is null or a.type_id = :assessment_type)
+        AND (:asmt_type_code is null or asmt_t.code = :asmt_type_code)
         AND ${sql.reportProcessor.snippet.schoolFilter}
         AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
       group by st.id
@@ -265,9 +271,9 @@ sql:
       WHERE $[groupFilterPlaceholder]
         AND (:student_id is null or st.id = :student_id)
         AND (:school_year is null or e.school_year = :school_year)
-        AND (:subject_id is null or a.subject_id = :subject_id)
+        AND (:subject_code is null or sub.code = :subject_code)
         AND (:grade_id is null or a.grade_id = :grade_id)
-        AND (:assessment_type is null or a.type_id = :assessment_type)
+        AND (:asmt_type_code is null or asmt_t.code = :asmt_type_code)
         AND ${sql.reportProcessor.snippet.schoolFilter}
         AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
       GROUP BY st.id
@@ -317,6 +323,8 @@ sql:
             JOIN asmt a ON e.asmt_id = a.id
             JOIN school s ON e.school_id = s.id
             JOIN school isch ON st.inferred_school_id = isch.id
+            LEFT JOIN subject sub ON sub.id=a.subject_id
+            LEFT JOIN asmt_type asmt_t ON asmt_t.code=a.type_id
 
       exportExamsFilter: >-
         e.school_year = :school_year
