@@ -79,7 +79,7 @@ export class GroupDashboardComponent implements OnInit {
           || (previousParameters.userGroupId != null && previousParameters.userGroupId != userGroupId);
 
         const defaultsParametersRequired = (isNaN(Number(schoolYear)) || schoolYear === '')
-          || (subject != null && (!this.subjects || this.subjects.indexOf(subject) < 0));
+          || (subject != null && (!this.subjects || !this.subjects.includes(subject)));
 
         this._previousRouteParameters = parameters;
 
@@ -127,7 +127,7 @@ export class GroupDashboardComponent implements OnInit {
       this.schoolYear = this.filterOptions.schoolYears[ 0 ];
       update = true;
     }
-    if (subject != null && (!this.subjects || this.subjects.indexOf(subject) < 0)) {
+    if (subject != null && (!this.subjects || !this.subjects.includes(subject))) {
       this.subject = null;
       update = true;
     }
