@@ -243,7 +243,9 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
         const enabledOptions = options.filter(x => !x.disabled);
         let updatedValues: any[] = this._value;
         if (updatedValues) {
-          updatedValues = enabledOptions.filter(option => this._value.includes(option.value));
+          updatedValues = enabledOptions
+            .map(option => option.value)
+            .filter(value => this._value.includes(value));
         }
 
         //Optionally allow no selection

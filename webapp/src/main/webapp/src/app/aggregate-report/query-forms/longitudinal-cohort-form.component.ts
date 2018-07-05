@@ -19,6 +19,8 @@ import { Utils } from "../../shared/support/support";
 import { AggregateReportType } from "../aggregate-report-form-settings";
 import { SubjectService } from '../../subject/subject.service';
 
+const DisallowedDimensions = ['StudentEnrolledGrade'];
+
 @Component({
   selector: 'longitudinal-cohort-form',
   templateUrl: './longitudinal-cohort-form.component.html'
@@ -55,6 +57,15 @@ export class LongitudinalCohortFormComponent extends MultiOrganizationQueryFormC
     super(columnOrderableItemProvider, notificationService, optionMapper, organizationService, reportService, subjectService, requestMapper, route, router, subgroupMapper, tableDataService);
     this.settings.reportType = AggregateReportType.LongitudinalCohort;
     this.settings.assessmentType = 'sum';
+    console.log("subjects", this.settings.subjects);
+
+    //Strip disallowed dimension types
+    this.filteredOptions.dimensionTypes = this.filteredOptions.dimensionTypes
+      .filter(({value}) => DisallowedDimensions.indexOf(value) < 0);
+    if (this.settings.dimensionTypes) {
+      this.settings.dimensionTypes = this.settings.dimensionTypes
+        .filter(value => DisallowedDimensions.indexOf(value) < 0);
+    }
 
     this.assessmentDefinition = this.assessmentDefinitionService.get(this.settings.assessmentType, this.settings.reportType);
 
