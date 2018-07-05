@@ -93,11 +93,14 @@ export class TargetReportFormComponent extends BaseAggregateQueryFormComponent {
     this.settings.includeAllDistrictsOfSelectedSchools = false;
     this.settings.includeAllSchoolsOfSelectedDistricts = false;
 
-    this.organization = this.settings.districts.length
-      ? this.settings.districts[0]
-      : this.settings.schools.length
-        ? this.settings.schools[0]
-        : undefined;
+    if (this.settings.districts.length > 0) {
+      this.organization = this.settings.districts[0];
+      this.settings.districts = [<District>this.organization];
+      this.settings.schools = [];
+    } else if (this.settings.schools.length > 0) {
+      this.organization = this.settings.schools[0];
+      this.settings.schools = [<School>this.organization];
+    }
 
     const defaultOrganization = this.aggregateReportOptions.defaultOrganization;
     if (!this.organization && defaultOrganization) {
