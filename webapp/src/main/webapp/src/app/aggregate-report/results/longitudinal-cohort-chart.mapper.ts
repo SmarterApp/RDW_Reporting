@@ -8,7 +8,6 @@ import {
   YearGradeScaleScore,
   YearGradeScaleScoreRange
 } from './longitudinal-cohort-chart';
-import { ColorService } from '../../shared/color.service';
 import { LongitudinalReport } from '../aggregate-report.service';
 import { AggregateReportRow, AggregateReportRowMeasure } from '../../report/aggregate-report';
 import { OrganizationMapper } from '../../shared/organization/organization.mapper';
@@ -60,6 +59,10 @@ export class LongitudinalCohortChartMapper {
       ? row => `${row.organization.id}:${row.organization.organizationType}:${row.dimension.type}:${row.dimension.code}`
       : row => `${row.organization.id}:${row.organization.organizationType}:${row.dimension.code}`;
 
+    const firstYear: number = query.toSchoolYear - query.assessmentGradeCodes.length + 1;
+    const years: number[] = query.assessmentGradeCodes.map((code, i) => firstYear + i);
+    const yearGradeScaleScoresTemplate: YearGradeScaleScore[] = [].fill({}, 0, years.length);
+
     rows.concat()
       .sort(rowYearAscending)
       .forEach((row: AggregateReportRow) => {
@@ -75,16 +78,17 @@ export class LongitudinalCohortChartMapper {
         };
 
         const key = keyGenerator(row);
-        const performance = performanceByOrganizationSubgroup.get(key);
-        if (performance != null) {
-          performance.yearGradeScaleScores.push(yearGradeScaleScore);
-        } else {
-          performanceByOrganizationSubgroup.set(key, <OrganizationPerformance>{
+        let performance = performanceByOrganizationSubgroup.get(key);
+        if (performance == null) {
+          performance = <OrganizationPerformance>{
             organization: this.organizationMapper.map(row.organization),
             subgroup: this.subgroupMapper.fromAggregateReportRow(query, row, overall),
-            yearGradeScaleScores: [ yearGradeScaleScore ]
-          });
+            yearGradeScaleScores: yearGradeScaleScoresTemplate.concat()
+          };
+          performanceByOrganizationSubgroup.set(key, performance);
         }
+
+        performance.yearGradeScaleScores[years.indexOf(yearGradeScaleScore.yearGrade.year)] = yearGradeScaleScore;
       });
 
     return Array.from(performanceByOrganizationSubgroup.values());
