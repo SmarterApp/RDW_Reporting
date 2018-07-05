@@ -264,12 +264,12 @@ export abstract class BaseAggregateQueryFormComponent implements OnInit, OnDestr
     const supportedTypes: string[] = this.getSupportedAssessmentTypes();
 
     this.filteredOptions.assessmentTypes = this.filteredOptions.assessmentTypes
-      .filter((type) => supportedTypes.indexOf(type.value) >= 0);
+      .filter((type) => supportedTypes.includes(type.value));
 
     const allowedTypes: string[] = this.filteredOptions.assessmentTypes
       .map(option => option.value);
 
-    this.settings.assessmentType = allowedTypes.indexOf(this.settings.assessmentType) >= 0
+    this.settings.assessmentType = allowedTypes.includes(this.settings.assessmentType)
       ? this.settings.assessmentType
       : allowedTypes[0];
   }

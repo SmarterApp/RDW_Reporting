@@ -62,14 +62,13 @@ export class LongitudinalCohortFormComponent extends MultiOrganizationQueryFormC
     super(columnOrderableItemProvider, notificationService, optionMapper, organizationService, reportService, subjectService, requestMapper, route, router, subgroupMapper, tableDataService);
     this.settings.reportType = AggregateReportType.LongitudinalCohort;
     this.settings.assessmentType = 'sum';
-    console.log("subjects", this.settings.subjects);
 
     //Strip disallowed dimension types
     this.filteredOptions.dimensionTypes = this.filteredOptions.dimensionTypes
-      .filter(({value}) => DisallowedDimensions.indexOf(value) < 0);
+      .filter(({value}) => !DisallowedDimensions.includes(value));
     if (this.settings.dimensionTypes) {
       this.settings.dimensionTypes = this.settings.dimensionTypes
-        .filter(value => DisallowedDimensions.indexOf(value) < 0);
+        .filter(value => !DisallowedDimensions.includes(value));
     }
 
     this.assessmentDefinition = this.assessmentDefinitionService.get(this.settings.assessmentType, this.settings.reportType);
