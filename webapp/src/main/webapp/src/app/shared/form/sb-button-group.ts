@@ -125,7 +125,7 @@ class Range implements InputController {
   }
 }
 
-const ControllerByInputType: { [ inpuType: string ]: InputController } = {
+const ControllerByInputType: { [ inputType: string ]: InputController } = {
   checkbox: new Checkbox(),
   radio: new Radio(),
   range: new Range()
