@@ -78,8 +78,8 @@ export class GroupDashboardComponent implements OnInit {
           || (previousParameters.groupId != null && previousParameters.groupId != groupId)
           || (previousParameters.userGroupId != null && previousParameters.userGroupId != userGroupId);
 
-        const defaultsParametersRequired = isNaN(Number(schoolYear)) || schoolYear === ''
-          || subject != null && (!this.subjects  || this.subjects.indexOf(subject) < 0);
+        const defaultsParametersRequired = (isNaN(Number(schoolYear)) || schoolYear === '')
+          || (subject != null && (!this.subjects || this.subjects.indexOf(subject) < 0));
 
         this._previousRouteParameters = parameters;
 
