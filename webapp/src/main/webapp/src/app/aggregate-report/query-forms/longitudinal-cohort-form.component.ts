@@ -19,6 +19,11 @@ import { Utils } from "../../shared/support/support";
 import { AggregateReportType } from "../aggregate-report-form-settings";
 import { SubjectService } from '../../subject/subject.service';
 
+/**
+ * Disable StudentEnrolledGrade as a longitudinal dimension type
+ * because the value varies year-over-year.
+ * @type {[string]}
+ */
 const DisallowedDimensions = ['StudentEnrolledGrade'];
 
 @Component({
