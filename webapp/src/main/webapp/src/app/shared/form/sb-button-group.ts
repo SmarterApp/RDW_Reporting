@@ -8,7 +8,7 @@ import { Option } from './option';
 /**
  * All input types that can be used to change the component click behavior
  */
-export type InputType = 'checkbox' | 'range';
+export type InputType = 'checkbox' | 'radio' | 'range';
 
 /**
  * Default component styles
@@ -55,6 +55,19 @@ class Checkbox implements InputController {
 }
 
 /**
+ * Makes the button group behave as a radio group with an optional "All" option
+ */
+class Radio implements InputController {
+  onButtonClick(context: SBButtonGroup, state: State, option: Option): void {
+    const { selectedOptions } = state;
+    if (!selectedOptions.has(option)) {
+      selectedOptions.clear();
+      selectedOptions.add(option);
+    }
+  }
+}
+
+/**
  * Makes the button group behave as a range selector
  */
 class Range implements InputController {
@@ -88,7 +101,7 @@ class Range implements InputController {
     });
     if (firstIndex != null && lastIndex != null && firstIndex !== lastIndex) {
       for (let i = firstIndex + 1; i < lastIndex; i++) {
-        selectedOptions.add(options[i]);
+        selectedOptions.add(options[ i ]);
       }
     }
   }
@@ -112,8 +125,9 @@ class Range implements InputController {
   }
 }
 
-const ControllerByInputType: {[inpuType: string]: InputController} = {
+const ControllerByInputType: { [ inpuType: string ]: InputController } = {
   checkbox: new Checkbox(),
+  radio: new Radio(),
   range: new Range()
 };
 
@@ -221,7 +235,7 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
 
   @Input()
   set type(value: InputType) {
-    const controller = ControllerByInputType[value];
+    const controller = ControllerByInputType[ value ];
     if (controller == null) {
       this.throwError(`Unknown input type: "${value}"`);
     }

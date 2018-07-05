@@ -24,6 +24,7 @@
     <label for="subjects">{{'user-group-form.field.subjects.label' | translate}}</label>
     <sb-button-group id="subjects"
                      name="subjects"
+                     type="radio"
                      [vertical]="options.subjects.length > 2"
                      [options]="options.subjects"
                      [(ngModel)]="group.subjects"

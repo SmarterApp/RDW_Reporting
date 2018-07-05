@@ -204,7 +204,7 @@ export class UserGroupComponent implements OnInit, OnDestroy {
     this.updateSaveButtonDisabled();
   }
 
-  onGroupStudentsChange(students: Student[]): void {
+  onGroupStudentsChange(): void {
     this.updateFormStudents();
     this.updateSaveButtonDisabled();
   }
