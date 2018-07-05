@@ -238,12 +238,26 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
     if (options.length) {
       if (this._initialized) {
         this._options = this.parseInputOptions(options);
-        if (!this.effectiveNoneStateEnabled && (!this._value || this._value.length === 0)) {
-          this._value = this.parseInputValues(this._initialValues);
+
+        //Only allow enabled values
+        const enabledOptions = options.filter(x => !x.disabled);
+        let updatedValues: any[] = this._value;
+        if (updatedValues) {
+          updatedValues = enabledOptions.filter(option => this._value.includes(option.value));
         }
-        if (!this.preserveAll()) {
-          this._state = this.computeState(this._options, this._value);
+
+        //Optionally allow no selection
+        if (!this.effectiveNoneStateEnabled && (!updatedValues || updatedValues.length === 0)) {
+          updatedValues = this.parseInputValues(this._initialValues);
         }
+
+        //Preserve "All" selection state
+        if (this._state && this._state.selectedAllOption) {
+          updatedValues = this.parseInputValues(null);
+        }
+
+        this.setValueAndNotifyChanges(updatedValues);
+        this._state = this.computeState(this._options, this._value);
       } else {
         this._initialOptions = options;
       }
@@ -454,18 +468,6 @@ export class SBButtonGroup extends AbstractControlValueAccessor<any[]> implement
 
   private throwError(message: string): void {
     throw new Error(`${this.constructor.name} ${message}`);
-  }
-
-  /**
-   * If All was previously selected and the underlying options have changed
-   * preserve the selection of All.
-   */
-  private preserveAll(): boolean {
-    if (this._state && this._state.selectedAllOption) {
-      this.setValueAndNotifyChanges(this.parseInputValues(null));
-      return true;
-    }
-    return false;
   }
 
 }
