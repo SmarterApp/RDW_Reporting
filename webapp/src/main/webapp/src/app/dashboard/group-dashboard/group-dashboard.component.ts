@@ -69,15 +69,17 @@ export class GroupDashboardComponent implements OnInit {
   private subscribeToRouteChanges(): void {
     this.route.params.pipe(
       mergeMap(parameters => {
-        const { groupId, userGroupId, schoolYear } = parameters;
+        const { groupId, userGroupId, schoolYear, subject } = parameters;
         const previousParameters = this._previousRouteParameters;
 
         const reload = previousParameters == null
           || previousParameters.schoolYear != schoolYear
+          || (previousParameters.subject != null && previousParameters.subject != subject)
           || (previousParameters.groupId != null && previousParameters.groupId != groupId)
           || (previousParameters.userGroupId != null && previousParameters.userGroupId != userGroupId);
 
-        const defaultsParametersRequired = isNaN(Number(schoolYear)) || schoolYear === '';
+        const defaultsParametersRequired = isNaN(Number(schoolYear)) || schoolYear === ''
+          || subject != null && (!this.subjects  || this.subjects.indexOf(subject) < 0);
 
         this._previousRouteParameters = parameters;
 
@@ -118,10 +120,18 @@ export class GroupDashboardComponent implements OnInit {
   }
 
   private updateRouteWithDefaultFilters(): void {
-    const { schoolYear } = this.route.snapshot.params;
+    const { schoolYear, subject } = this.route.snapshot.params;
     const schoolYearNumber = Number(schoolYear);
+    let update = false;
     if (isNaN(schoolYearNumber) || this.filterOptions.schoolYears.indexOf(schoolYearNumber) < 0) {
       this.schoolYear = this.filterOptions.schoolYears[ 0 ];
+      update = true;
+    }
+    if (subject != null && (!this.subjects || this.subjects.indexOf(subject) < 0)) {
+      this.subject = null;
+      update = true;
+    }
+    if (update) {
       this.updateRoute(true);
     }
   }
