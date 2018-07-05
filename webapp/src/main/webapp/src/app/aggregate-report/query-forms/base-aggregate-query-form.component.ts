@@ -23,7 +23,6 @@ import { AggregateReportColumnOrderItemProvider } from "../aggregate-report-colu
 import { OrderableItem } from "../../shared/order-selector/order-selector.component";
 import { SubjectDefinition } from '../../subject/subject';
 import { SubjectService } from '../../subject/subject.service';
-import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Option } from '../../shared/form/option';
 
 /**
@@ -263,11 +262,16 @@ export abstract class BaseAggregateQueryFormComponent implements OnInit, OnDestr
 
   protected setDefaultAssessmentType(): void {
     const supportedTypes: string[] = this.getSupportedAssessmentTypes();
+
     this.filteredOptions.assessmentTypes = this.filteredOptions.assessmentTypes
       .filter((type) => supportedTypes.indexOf(type.value) >= 0);
-    this.settings.assessmentType = supportedTypes.indexOf(this.settings.assessmentType) >= 0
+
+    const allowedTypes: string[] = this.filteredOptions.assessmentTypes
+      .map(option => option.value);
+
+    this.settings.assessmentType = allowedTypes.indexOf(this.settings.assessmentType) >= 0
       ? this.settings.assessmentType
-      : supportedTypes[0];
+      : allowedTypes[0];
   }
 
   /**
