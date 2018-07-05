@@ -92,8 +92,8 @@ export class StudentResultsComponent implements OnInit {
   }
 
   private updateRouteWithDefaultFilters(): void {
-    const { schoolYear } = this.route.snapshot.params;
-    if (schoolYear == null) {
+    const { historySchoolYear } = this.route.snapshot.params;
+    if (historySchoolYear == null) {
       this.filterState.schoolYear = this.filterState.schoolYears[ 0 ];
       this.updateRoute(true);
     }
@@ -169,7 +169,7 @@ export class StudentResultsComponent implements OnInit {
   private updateRoute(replaceUrl: boolean = false): void {
     const parameters: any = {};
     if (this.filterState.schoolYear) {
-      parameters.schoolYear = this.filterState.schoolYear;
+      parameters.historySchoolYear = this.filterState.schoolYear;
     }
     if (this.filterState.subject) {
       parameters.subject = this.filterState.subject;
@@ -241,9 +241,9 @@ export class StudentResultsComponent implements OnInit {
   }
 
   private updateFilterState(parameters: any): void {
-    const { schoolYear, subject, assessmentType } = parameters;
+    const { historySchoolYear, subject, assessmentType } = parameters;
     const filterState = this.filterState;
-    filterState.schoolYear = schoolYear != null ? Number.parseInt(schoolYear) : undefined;
+    filterState.schoolYear = historySchoolYear != null ? Number.parseInt(historySchoolYear) : undefined;
     filterState.subject = subject;
     filterState.assessmentType = assessmentType;
   }

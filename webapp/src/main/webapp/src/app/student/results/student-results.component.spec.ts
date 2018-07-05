@@ -103,7 +103,7 @@ describe('StudentResultsComponent', () => {
   /* Temporary Ignore */
   it('should filter by year on initialization', inject([ ActivatedRoute ], (route: MockActivatedRoute) => {
     // Filter to the single 2017 exam
-    route.params.emit({ schoolYear: 2017 });
+    route.params.emit({ historySchoolYear: 2017 });
 
     const filteredExams = component.sections.reduce((exams, section) => {
       exams.push(...section.filteredExams);
