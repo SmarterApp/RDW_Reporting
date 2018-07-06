@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Target } from '../../../model/target.model';
 import { Ordering, ordering } from '@kourge/ordering';
-import { byNumber, Comparator, join } from '@kourge/ordering/comparator';
+import { byNumber, Comparator, join, ranking } from '@kourge/ordering/comparator';
 import { TargetService } from '../../../../shared/target/target.service';
 import { BaseColumn } from '../../../../shared/datatable/base-column.model';
 import { Table } from 'primeng/table';
@@ -35,17 +35,6 @@ import { SortEvent } from 'primeng/api';
 import { AggregateReportItem } from '../../../../aggregate-report/results/aggregate-report-item';
 import { Utils } from '../../../../shared/support/support';
 import { SubjectDefinition } from '../../../../subject/subject';
-
-const SubgroupOrdering = ordering((a: Subgroup, b: Subgroup) => {
-  // Overall should be first
-  if (a.name.startsWith('Overall') && !b.name.startsWith('Overall')) {
-    return -1;
-  }
-  if (!a.name.startsWith('Overall') && b.name.startsWith('Overall')) {
-    return 1;
-  }
-  return a.name.localeCompare(b.name);
-});
 
 @Component({
   selector: 'target-report',
@@ -149,10 +138,6 @@ export class TargetReportComponent implements OnInit, ExportResults {
               private dataTableService: DataTableService,
               private filterOptionService: ExamFilterOptionsService,
               private applicationSettingsService: ApplicationSettingsService) {
-
-    applicationSettingsService.getSettings().subscribe(settings => {
-      this.allSubgroups = this.createAllSubgroups(settings);
-    });
   }
 
   ngOnInit(): void {
@@ -187,19 +172,20 @@ export class TargetReportComponent implements OnInit, ExportResults {
       return;
     }
 
-    this.identityColumns.forEach(column => {
-      this._orderingByIdentityField[ column ] = this.createOrdering(column);
-    });
-
     forkJoin(
       this.targetService.getTargetsForAssessment(this.assessment.id),
       this.assessmentProvider.getTargetScoreExams(this.assessment.id),
       this.filterOptionService.getExamFilterOptions(),
       this.applicationSettingsService.getSettings()
     ).subscribe(([ allTargets, targetScoreExams, subgroupOptions, applicationSettings ]) => {
+      this.allSubgroups = this.createAllSubgroups(applicationSettings);
       this.originalTargetScoreExams = this.targetScoreExams = targetScoreExams;
       this.subgroupOptions = subgroupOptions;
       this.allTargets = allTargets;
+
+      this.identityColumns.forEach(column => {
+        this._orderingByIdentityField[ column ] = this.createOrdering(column);
+      });
 
       this.minimumStudentCount = applicationSettings.targetReport.minimumStudentCount;
       this.targetStatisticsCalculator.insufficientDataCutoff = applicationSettings.targetReport.insufficientDataCutoff;
@@ -284,7 +270,8 @@ export class TargetReportComponent implements OnInit, ExportResults {
           this.translate.instant(`subject.${this.assessment.subject}.claim.${row.claim}.target.${row.targetNaturalId}.name`)
         );
       case 'subgroup':
-        return SubgroupOrdering.on<AggregateTargetScoreRow>(row => row.subgroup);
+        const subgroupOrdering: Ordering<Subgroup> = this.getSubgroupOrdering();
+        return subgroupOrdering.on<AggregateTargetScoreRow>(row => row.subgroup);
       case 'studentsTested':
         return ordering(byNumber).on<AggregateTargetScoreRow>(row => row.studentsTested);
       case 'student-relative-residual-scores-level':
@@ -367,6 +354,41 @@ export class TargetReportComponent implements OnInit, ExportResults {
     this.aggregateTargetScoreRows.push(
       ...this.targetStatisticsCalculator.aggregateSubgroupScores(this.assessment.subject, this.allTargets, this.targetScoreExams, subgroupCodes, this.subgroupOptions)
     );
+  }
+
+  private getSubgroupOrdering(): Ordering<Subgroup> {
+    const toDimension = (subgroup: Subgroup) => <any>{
+      type: subgroup.dimensionGroups[0].type,
+      value: subgroup.dimensionGroups[0].values[0] ? subgroup.dimensionGroups[0].values[0].code : null
+    };
+    const dimensionTypes: string[] = this.allSubgroups
+      .map(subgroup => subgroup.code);
+    dimensionTypes.unshift("Overall");
+
+    const typeComparator: Comparator<Subgroup> = ordering(ranking(dimensionTypes))
+      .on((subgroup: Subgroup) => toDimension(subgroup).type)
+      .compare;
+
+    const booleanOptions: any[] = [true, false, undefined];
+    const dimensionValuesByType: Map<string, any[]> = new Map();
+    dimensionValuesByType.set("Gender", this.subgroupOptions.genders);
+    dimensionValuesByType.set("Ethnicity", this.subgroupOptions.ethnicities);
+    dimensionValuesByType.set("ELAS", this.subgroupOptions.elasCodes);
+    dimensionValuesByType.set("LEP", booleanOptions);
+    dimensionValuesByType.set("Section504", booleanOptions);
+    dimensionValuesByType.set("IEP", booleanOptions);
+    dimensionValuesByType.set("MigrantStatus", booleanOptions);
+
+    const valueComparator: Comparator<Subgroup> = (a: Subgroup, b: Subgroup) => {
+      const dimensionA = toDimension(a);
+      const dimensionB = toDimension(b);
+      const orderedValues: any[] = dimensionValuesByType.get(dimensionA.type);
+      if (!orderedValues) return 0;
+
+      return orderedValues.indexOf(dimensionA.value) - orderedValues.indexOf(dimensionB.value);
+    };
+
+    return ordering(join(typeComparator, valueComparator));
   }
 
   private updateTargetScoreTable(): void {
