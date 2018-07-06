@@ -205,7 +205,7 @@ export class CsvExportService {
       .withSchoolYear(() => <Exam>{ schoolYear: exportRequest.schoolYear})
       .withAssessmentTypeNameAndSubject(getAssessment)
       .withScoreAndErrorBand(() => <Exam>{ score: exportRequest.averageScaleScore, standardError: exportRequest.standardError})
-      .withTargetReportAggregate(getAssessment, (item) => item)
+      .withTargetReportAggregate(exportRequest.subjectDefinition, getAssessment, (item) => item)
       .build(exportRequest.targetScoreRows);
 
   }

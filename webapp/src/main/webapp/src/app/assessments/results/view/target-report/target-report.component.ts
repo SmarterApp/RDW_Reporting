@@ -305,6 +305,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
     exportRequest.schoolYear = this.schoolYear;
     exportRequest.averageScaleScore = Math.round(this.statistics.average);
     exportRequest.standardError = Math.round(this.statistics.standardError);
+    exportRequest.subjectDefinition = this.subjectDefinition;
 
     this.assessmentExporter.exportTargetScoresToCsv(exportRequest);
   }

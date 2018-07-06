@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { AggregateReportItem } from "./aggregate-report-item";
 import { CsvBuilder } from "../../csv-export/csv-builder.service";
 import { TranslateService } from "@ngx-translate/core";
-import { AssessmentDefinition } from "../assessment/assessment-definition";
 import { PerformanceLevelDisplayTypes } from "../../shared/display-options/performance-level-display-type";
 import { ValueDisplayTypes } from "../../shared/display-options/value-display-type";
 import { AggregateReportType } from "../aggregate-report-form-settings";
@@ -42,6 +41,10 @@ export class AggregateReportTableExportService {
       );
 
     if (options.reportType === AggregateReportType.Target) {
+      const standardMetHeaderResolve: any = {
+        name: this.translateService.instant(`subject.${options.subjectDefinition.subject}.asmt-type.${options.subjectDefinition.assessmentType}.level.${options.subjectDefinition.performanceLevelStandardCutoff}.name`),
+        id: options.subjectDefinition.performanceLevelStandardCutoff
+      };
       builder
         .withColumn(
           this.translateService.instant('target-report.columns.student-relative-residual-scores-level'),
@@ -52,7 +55,7 @@ export class AggregateReportTableExportService {
           }
         )
         .withColumn(
-          this.translateService.instant('target-report.columns.standard-met-relative-residual-level'),
+          this.translateService.instant('target-report.columns.standard-met-relative-residual-level', standardMetHeaderResolve),
           (item: AggregateReportItem) => {
             if (!item.studentsTested) return '';
 
