@@ -68,6 +68,7 @@
       "assessment-grades-info": "The grade of the assessment that was administered",
       "assessment-grades-empty-error": "Please select an assessment grade.",
       "assessment-grades-exceed-available-school-years-error": "You've selected too many grades. There are no results prior to {{lowestAvailableSchoolYear}}.",
+      "assessment-grades-exceed-selected-school-years-error": "You've selected an academic year that is too low with the number of grades selected. There are no results prior to {{lowestAvailableSchoolYear}}.",
       "assessment-grades-less-than-minimum-error": "Please select more than one assessment grade.",
       "assessment-type-label": "Assessment Type",
       "elas-label": "English Language Acquisition Status",

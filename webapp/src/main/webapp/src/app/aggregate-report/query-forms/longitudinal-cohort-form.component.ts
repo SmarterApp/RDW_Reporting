@@ -1,30 +1,31 @@
-import { Component, Inject } from "@angular/core";
-import { AggregateReportColumnOrderItemProvider } from "../aggregate-report-column-order-item.provider";
-import { AssessmentDefinitionService } from "../assessment/assessment-definition.service";
-import { AggregateReportOrganizationService } from "../aggregate-report-organization.service";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { AggregateReportTableDataService } from "../aggregate-report-table-data.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { AggregateReportRequestMapper } from "../aggregate-report-request.mapper";
-import { AggregateReportService } from "../aggregate-report.service";
-import { AggregateReportOptionsMapper } from "../aggregate-report-options.mapper";
-import { NotificationService } from "../../shared/notification/notification.service";
-import { AssessmentDefinition } from "../assessment/assessment-definition";
-import { ScrollNavItem } from "../../shared/nav/scroll-nav.component";
-import { SubgroupFilterSupport } from "../subgroup/subgroup-filters";
-import { SubgroupMapper } from "../subgroup/subgroup.mapper";
-import { MultiOrganizationQueryFormComponent } from "./multi-organization-query-form.component";
-import { fileName, isGreaterThan, withinBounds } from "../../shared/form/validators";
-import { Utils } from "../../shared/support/support";
-import { AggregateReportType } from "../aggregate-report-form-settings";
+import { Component, Inject } from '@angular/core';
+import { AggregateReportColumnOrderItemProvider } from '../aggregate-report-column-order-item.provider';
+import { AssessmentDefinitionService } from '../assessment/assessment-definition.service';
+import { AggregateReportOrganizationService } from '../aggregate-report-organization.service';
+import { FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
+import { AggregateReportTableDataService } from '../aggregate-report-table-data.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AggregateReportRequestMapper } from '../aggregate-report-request.mapper';
+import { AggregateReportService } from '../aggregate-report.service';
+import { AggregateReportOptionsMapper } from '../aggregate-report-options.mapper';
+import { NotificationService } from '../../shared/notification/notification.service';
+import { AssessmentDefinition } from '../assessment/assessment-definition';
+import { ScrollNavItem } from '../../shared/nav/scroll-nav.component';
+import { SubgroupFilterSupport } from '../subgroup/subgroup-filters';
+import { SubgroupMapper } from '../subgroup/subgroup.mapper';
+import { MultiOrganizationQueryFormComponent } from './multi-organization-query-form.component';
+import { fileName, isGreaterThan } from '../../shared/form/validators';
+import { Utils } from '../../shared/support/support';
+import { AggregateReportType } from '../aggregate-report-form-settings';
 import { SubjectService } from '../../subject/subject.service';
+import { computeEffectiveYears } from '../support';
 
 /**
  * Disable StudentEnrolledGrade as a longitudinal dimension type
  * because the value varies year-over-year.
  * @type {[string]}
  */
-const DisallowedDimensions = ['StudentEnrolledGrade'];
+const DisallowedDimensions = [ 'StudentEnrolledGrade' ];
 
 @Component({
   selector: 'longitudinal-cohort-form',
@@ -65,7 +66,7 @@ export class LongitudinalCohortFormComponent extends MultiOrganizationQueryFormC
 
     //Strip disallowed dimension types
     this.filteredOptions.dimensionTypes = this.filteredOptions.dimensionTypes
-      .filter(({value}) => !DisallowedDimensions.includes(value));
+      .filter(({ value }) => !DisallowedDimensions.includes(value));
     if (this.settings.dimensionTypes) {
       this.settings.dimensionTypes = this.settings.dimensionTypes
         .filter(value => !DisallowedDimensions.includes(value));
@@ -97,12 +98,15 @@ export class LongitudinalCohortFormComponent extends MultiOrganizationQueryFormC
       assessmentGradeRange: [
         this.settings.longitudinalCohort.assessmentGrades, [
           isGreaterThan(1, { messageId: 'aggregate-report-form.field.assessment-grades-less-than-minimum-error' }),
-          withinBounds(this.settings.longitudinalCohort.toSchoolYear,
-            this.lowestAvailableSchoolYear,
+          this.withinBounds(this.lowestAvailableSchoolYear,
             { messageId: 'aggregate-report-form.field.assessment-grades-exceed-available-school-years-error' })
         ]
       ],
-      toSchoolYear: [ this.settings.longitudinalCohort.toSchoolYear ],
+      toSchoolYear: [ this.settings.longitudinalCohort.toSchoolYear, [
+        this.withinBounds(this.lowestAvailableSchoolYear,
+          { messageId: 'aggregate-report-form.field.assessment-grades-exceed-selected-school-years-error' })
+      ]
+      ]
     });
   }
 
@@ -134,7 +138,7 @@ export class LongitudinalCohortFormComponent extends MultiOrganizationQueryFormC
   }
 
   getSupportedAssessmentTypes(): string[] {
-    return ['sum'];
+    return [ 'sum' ];
   }
 
   onAssessmentTypeChange(): void {
@@ -158,6 +162,28 @@ export class LongitudinalCohortFormComponent extends MultiOrganizationQueryFormC
       // and has at least one schools years
       && this.settings.longitudinalCohort.toSchoolYear > 0
     );
+  }
+
+  /**
+   * Form control validator that makes sure the computed effective years does not go below the selected school year
+   *
+   * @param {number} lowestAvailableSchoolYear the lowest school year we allow in the application
+   * @param properties the properties to propagate when the control value is invalid
+   * @returns {ValidatorFn}
+   */
+  private withinBounds(lowestAvailableSchoolYear: number,
+                       properties: any): ValidatorFn {
+    return control => {
+      if ((control.root.get('toSchoolYear') || control.root.get('assessmentGradeRange')) === null) {
+        return null;
+      }
+      const effectiveSchoolYears = computeEffectiveYears(control.root.get('toSchoolYear').value,
+        control.root.get('assessmentGradeRange').value);
+      if (lowestAvailableSchoolYear > Math.min(...effectiveSchoolYears)) {
+        return { withinBounds: properties };
+      }
+      return null;
+    };
   }
 
 }

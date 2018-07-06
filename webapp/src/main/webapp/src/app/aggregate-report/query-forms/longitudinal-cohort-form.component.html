@@ -197,22 +197,35 @@
           </fieldset>
         </div>
         <div class="well">
-          <div class="row">
-            <div class="col-md-6">
-              <label info-button
-                     title="{{'aggregate-report-form.field.to-school-year-label' | translate}}"
-                     content="{{'aggregate-report-form.field.to-school-year-info' | translate}}"></label>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <sb-radio-group name="toSchoolYear"
-                                formControlName="toSchoolYear"
-                                [options]="filteredOptions.schoolYears"
-                                [(ngModel)]="settings.longitudinalCohort.toSchoolYear"
-                                (change)="onSettingsChange()"></sb-radio-group>
+          <fieldset>
+            <div class="row">
+              <div class="col-md-6">
+                <label info-button
+                       title="{{'aggregate-report-form.field.to-school-year-label' | translate}}"
+                       content="{{'aggregate-report-form.field.to-school-year-info' | translate}}"></label>
+                <p class="small mb-0"
+                   [ngClass]="showErrors('toSchoolYear') ? 'red' : 'gray-darker'">
+                  {{'common.form-field-message.required' | translate}}
+                </p>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <sb-radio-group name="toSchoolYear"
+                                  formControlName="toSchoolYear"
+                                  [options]="filteredOptions.schoolYears"
+                                  [(ngModel)]="settings.longitudinalCohort.toSchoolYear"
+                                  (change)="onSettingsChange()"></sb-radio-group>
+                  <div *ngIf="showErrors('toSchoolYear')">
+                    <p *ngIf="getControl('toSchoolYear').errors.withinBounds"
+                       aria-live="polite"
+                       class="help-block small red">
+                      {{getControl('toSchoolYear').errors.withinBounds.messageId | translate:
+                      {lowestAvailableSchoolYear: lowestAvailableSchoolYear | schoolYear} }}</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </fieldset>
         </div>
 
         <div class="well" [hidden]="!assessmentDefinition.interim">

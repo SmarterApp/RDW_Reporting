@@ -1,5 +1,4 @@
 import { ValidatorFn } from '@angular/forms';
-import { computeEffectiveYears } from '../../aggregate-report/support';
 
 /**
  * Form control validator that makes sure the control value is not an empty array
@@ -35,27 +34,6 @@ export function notIncluded(valueProvider: () => any[], properties: any): Valida
 export function isGreaterThan(greaterThanNumber: number, properties: any): ValidatorFn {
   return control => {
     return control.value.length > greaterThanNumber ? null : { isGreaterThan: properties };
-  };
-}
-
-/**
- * Form control validator that makes sure the computed effective years does not go below the lowest available school year
- *
- * @param {number} toSchoolYear a school year
- * @param {string[]} assessmentGrades a list of selected assessment grades
- * @param {number} lowestAvailableSchoolYear the lowest school year we allow in the application
- * @param properties the properties to propagate when the control value is invalid
- * @returns {ValidatorFn}
- */
-export function withinBounds(toSchoolYear: number,
-                             lowestAvailableSchoolYear: number,
-                             properties: any): ValidatorFn {
-  return control => {
-    const effectiveSchoolYears = computeEffectiveYears(toSchoolYear, control.value);
-    if (lowestAvailableSchoolYear > Math.min(...effectiveSchoolYears)) {
-      return { withinBounds: properties };
-    }
-    return null;
   };
 }
 
