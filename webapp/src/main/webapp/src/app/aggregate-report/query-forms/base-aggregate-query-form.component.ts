@@ -198,8 +198,8 @@ export abstract class BaseAggregateQueryFormComponent implements OnInit, OnDestr
   /**
    * @returns {boolean} true if the control has errors and has been touched or dirtied
    */
-  showErrors(name?: string, formGroup: boolean = false): boolean {
-    return Forms.showErrors(formGroup ? this.getFormGroup() : this.getControl(name));
+  showErrors(name?: string): boolean {
+    return Forms.showErrors(this.getControl(name));
   }
 
   onReviewSectionInView(): void {

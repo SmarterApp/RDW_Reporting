@@ -210,7 +210,7 @@
                                   [options]="filteredOptions.schoolYears"
                                   [(ngModel)]="settings.longitudinalCohort.toSchoolYear"
                                   (change)="onSettingsChange()"></sb-radio-group>
-                  <div *ngIf="showErrors(false)">
+                  <div *ngIf="showErrors()">
                     <p *ngIf="getFormGroup().errors && getFormGroup().errors.withinBounds"
                        aria-live="polite"
                        class="help-block small red">
