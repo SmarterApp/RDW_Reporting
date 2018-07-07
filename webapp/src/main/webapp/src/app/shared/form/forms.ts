@@ -1,5 +1,5 @@
-import { AbstractControl, FormControl, FormGroup, NG_VALUE_ACCESSOR, ValidationErrors } from "@angular/forms";
-import { forwardRef, ForwardRefFn } from "@angular/core";
+import { AbstractControl, FormGroup, NG_VALUE_ACCESSOR, ValidationErrors } from '@angular/forms';
+import { forwardRef } from '@angular/core';
 
 /**
  * Holds common methods for dealing with angular form components
@@ -38,8 +38,12 @@ export class Forms {
     Object.keys(formGroup.controls).forEach(key => {
       const errors: ValidationErrors = formGroup.get(key).errors || {};
       Object.keys(errors).forEach(errorId => {
-        holders.push({ controlId: key, id: errorId, properties: errors[errorId] });
+        holders.push({ controlId: key, id: errorId, properties: errors[ errorId ] });
       });
+    });
+    const errors: ValidationErrors = formGroup.errors || {};
+    Object.keys(errors).forEach(errorId => {
+      holders.push({ controlId: '', id: errorId, properties: errors[ errorId ] });
     });
     return holders;
   }
@@ -76,7 +80,7 @@ export class Forms {
 export interface ValidationErrorHolder {
   controlId: string;
   id: string;
-  properties?: {[key: string]: any};
+  properties?: { [ key: string ]: any };
 }
 
 

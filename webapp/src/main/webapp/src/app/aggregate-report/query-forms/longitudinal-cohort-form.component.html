@@ -185,11 +185,6 @@
                        aria-live="polite"
                        class="help-block small red">
                       {{getControl('assessmentGradeRange').errors.isGreaterThan.messageId | translate}}</p>
-                    <p *ngIf="getControl('assessmentGradeRange').errors.withinBounds"
-                       aria-live="polite"
-                       class="help-block small red">
-                      {{getControl('assessmentGradeRange').errors.withinBounds.messageId | translate:
-                      {lowestAvailableSchoolYear: lowestAvailableSchoolYear | schoolYear} }}</p>
                   </div>
                 </div>
               </div>
@@ -215,11 +210,11 @@
                                   [options]="filteredOptions.schoolYears"
                                   [(ngModel)]="settings.longitudinalCohort.toSchoolYear"
                                   (change)="onSettingsChange()"></sb-radio-group>
-                  <div *ngIf="showErrors('toSchoolYear')">
-                    <p *ngIf="getControl('toSchoolYear').errors.withinBounds"
+                  <div *ngIf="showErrors(false)">
+                    <p *ngIf="getFormGroup().errors && getFormGroup().errors.withinBounds"
                        aria-live="polite"
                        class="help-block small red">
-                      {{getControl('toSchoolYear').errors.withinBounds.messageId | translate:
+                      {{getFormGroup().errors.withinBounds.messageId | translate:
                       {lowestAvailableSchoolYear: lowestAvailableSchoolYear | schoolYear} }}</p>
                   </div>
                 </div>

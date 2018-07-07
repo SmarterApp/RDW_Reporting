@@ -1,5 +1,5 @@
 import { AggregateReportRequest } from "../../report/aggregate-report-request";
-import { FormGroup } from "@angular/forms";
+import { AbstractControl, FormGroup } from '@angular/forms';
 import { Forms } from "../../shared/form/forms";
 import { NotificationService } from "../../shared/notification/notification.service";
 import { AggregateReportRequestMapper } from "../aggregate-report-request.mapper";
@@ -144,8 +144,8 @@ export abstract class BaseAggregateQueryFormComponent implements OnInit, OnDestr
     this._submitSubscription.unsubscribe();
   }
 
-  getControl(name: string) {
-    return this.getFormGroup().get(name);
+  getControl(name: string): AbstractControl {
+    return this.getFormGroup().contains(name) ? this.getFormGroup().get(name) : this.getFormGroup();
   }
 
   onColumnOrderChange(items: OrderableItem[]): void {
@@ -198,8 +198,8 @@ export abstract class BaseAggregateQueryFormComponent implements OnInit, OnDestr
   /**
    * @returns {boolean} true if the control has errors and has been touched or dirtied
    */
-  showErrors(name: string): boolean {
-    return Forms.showErrors(this.getControl(name));
+  showErrors(name?: string, formGroup: boolean = false): boolean {
+    return Forms.showErrors(formGroup ? this.getFormGroup() : this.getControl(name));
   }
 
   onReviewSectionInView(): void {
@@ -296,7 +296,7 @@ export abstract class BaseAggregateQueryFormComponent implements OnInit, OnDestr
     } else {
       // Notify user of all form errors to correct
       Forms.errors(this.getFormGroup()).forEach(error => {
-        this.notificationService.error({ id: error.properties.messageId });
+        this.notificationService.error({ id: error.properties.messageId, args: error.properties.args });
       });
     }
   }

@@ -19,6 +19,7 @@ import { Utils } from '../../shared/support/support';
 import { AggregateReportType } from '../aggregate-report-form-settings';
 import { SubjectService } from '../../subject/subject.service';
 import { computeEffectiveYears } from '../support';
+import { SchoolYearPipe } from '../../shared/format/school-year.pipe';
 
 /**
  * Disable StudentEnrolledGrade as a longitudinal dimension type
@@ -59,7 +60,8 @@ export class LongitudinalCohortFormComponent extends MultiOrganizationQueryFormC
               protected subgroupMapper: SubgroupMapper,
               protected tableDataService: AggregateReportTableDataService,
               @Inject(FormBuilder) formBuilder: FormBuilder,
-              protected assessmentDefinitionService: AssessmentDefinitionService) {
+              protected assessmentDefinitionService: AssessmentDefinitionService,
+              private schoolYearPipe: SchoolYearPipe) {
     super(columnOrderableItemProvider, notificationService, optionMapper, organizationService, reportService, subjectService, requestMapper, route, router, subgroupMapper, tableDataService);
     this.settings.reportType = AggregateReportType.LongitudinalCohort;
     this.settings.assessmentType = 'sum';
@@ -81,33 +83,32 @@ export class LongitudinalCohortFormComponent extends MultiOrganizationQueryFormC
     this.lowestAvailableSchoolYear = Math.min(...this.filteredOptions.schoolYears.map(schoolYear => schoolYear.value));
 
     this.formGroup = formBuilder.group({
-      organizations: [
-        this.organizations,
-        control => {
-          return this.includeStateResults
-          || this.settings.includeAllDistricts
-          || control.value.length
-            ? null
-            : { invalid: { messageId: 'aggregate-report-form.field.organization-invalid-error' } };
-        }
-      ],
-      reportName: [
-        this.settings.name,
-        fileName({ messageId: 'aggregate-report-form.field.report-name-file-name-error' })
-      ],
-      assessmentGradeRange: [
-        this.settings.longitudinalCohort.assessmentGrades, [
-          isGreaterThan(1, { messageId: 'aggregate-report-form.field.assessment-grades-less-than-minimum-error' }),
-          this.withinBounds(this.lowestAvailableSchoolYear,
-            { messageId: 'aggregate-report-form.field.assessment-grades-exceed-available-school-years-error' })
+        organizations: [
+          this.organizations,
+          control => {
+            return this.includeStateResults
+            || this.settings.includeAllDistricts
+            || control.value.length
+              ? null
+              : { invalid: { messageId: 'aggregate-report-form.field.organization-invalid-error' } };
+          }
+        ],
+        reportName: [
+          this.settings.name,
+          fileName({ messageId: 'aggregate-report-form.field.report-name-file-name-error' })
+        ],
+        assessmentGradeRange: [
+          this.settings.longitudinalCohort.assessmentGrades, [
+            isGreaterThan(1, { messageId: 'aggregate-report-form.field.assessment-grades-less-than-minimum-error' })
+          ]
+        ],
+        toSchoolYear: [ this.settings.longitudinalCohort.toSchoolYear ]
+      }, {
+        validator: [ this.withinBounds(this.lowestAvailableSchoolYear,
+          { messageId: 'aggregate-report-form.field.assessment-grades-exceed-available-school-years-error', args: { lowestAvailableSchoolYear: this.schoolYearPipe.transform(this.lowestAvailableSchoolYear)} })
         ]
-      ],
-      toSchoolYear: [ this.settings.longitudinalCohort.toSchoolYear, [
-        this.withinBounds(this.lowestAvailableSchoolYear,
-          { messageId: 'aggregate-report-form.field.assessment-grades-exceed-selected-school-years-error' })
-      ]
-      ]
-    });
+      }
+    );
   }
 
   getFormGroup(): FormGroup {
@@ -174,11 +175,11 @@ export class LongitudinalCohortFormComponent extends MultiOrganizationQueryFormC
   private withinBounds(lowestAvailableSchoolYear: number,
                        properties: any): ValidatorFn {
     return control => {
-      if ((control.root.get('toSchoolYear') || control.root.get('assessmentGradeRange')) === null) {
+      if ((control.get('toSchoolYear') || control.get('assessmentGradeRange')) === null) {
         return null;
       }
-      const effectiveSchoolYears = computeEffectiveYears(control.root.get('toSchoolYear').value,
-        control.root.get('assessmentGradeRange').value);
+      const effectiveSchoolYears = computeEffectiveYears(control.get('toSchoolYear').value,
+        control.get('assessmentGradeRange').value);
       if (lowestAvailableSchoolYear > Math.min(...effectiveSchoolYears)) {
         return { withinBounds: properties };
       }
