@@ -218,6 +218,10 @@ export class AggregateReportTableComponent implements OnInit {
     return this._identityColumns;
   }
 
+  get isClaimReportType(): boolean {
+    return this.table.reportType === AggregateReportType.Claim;
+  }
+
   get rowSortingEnabled(): boolean | string {
     return this.preview ? false : 'custom';
   }
