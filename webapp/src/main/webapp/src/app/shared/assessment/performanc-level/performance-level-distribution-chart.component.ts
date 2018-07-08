@@ -23,7 +23,7 @@ export class PerformanceLevelDistributionChart implements OnInit {
   private _loaded: boolean = false;
   private _visible: boolean = true;
   private _performanceLevelBarsByDisplayType: Map<string, Map<boolean, PerformanceLevelBars>> = new Map();
-  private _isClaimColors: boolean = false;
+  private _useClaimColors: boolean = false;
 
   constructor(private translateService: TranslateService) {
   }
@@ -113,13 +113,13 @@ export class PerformanceLevelDistributionChart implements OnInit {
     }
   }
 
-  get isClaimColors(): boolean {
-    return this._isClaimColors;
+  get useClaimColors(): boolean {
+    return this._useClaimColors;
   }
 
   @Input()
-  set isClaimColors(value: boolean) {
-    this._isClaimColors = value;
+  set useClaimColors(value: boolean) {
+    this._useClaimColors = value;
   }
 
   /**
@@ -218,7 +218,7 @@ export class PerformanceLevelDistributionChart implements OnInit {
   }
 
   private getPerformanceLevelColor(level: number) {
-    const claimPlaceholder = this.isClaimColors ? 'claim-score.' : '';
+    const claimPlaceholder = this.useClaimColors ? 'claim-score.' : '';
     return this.translateService.instant(`subject.${this.subjectDefinition.subject}.asmt-type.${this.subjectDefinition.assessmentType}.${claimPlaceholder}level.${level}.color`);
   }
 
