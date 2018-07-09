@@ -74,12 +74,10 @@ export class GroupDashboardComponent implements OnInit {
 
         const reload = previousParameters == null
           || previousParameters.schoolYear != schoolYear
-          || (previousParameters.subject != null && previousParameters.subject != subject)
           || (previousParameters.groupId != null && previousParameters.groupId != groupId)
           || (previousParameters.userGroupId != null && previousParameters.userGroupId != userGroupId);
 
-        const defaultsParametersRequired = (isNaN(Number(schoolYear)) || schoolYear === '')
-          || (subject != null && (!this.subjects || !this.subjects.includes(subject)));
+        const defaultsParametersRequired = isNaN(Number(schoolYear)) || schoolYear === '';
 
         this._previousRouteParameters = parameters;
 
@@ -108,7 +106,7 @@ export class GroupDashboardComponent implements OnInit {
         this.schoolYear = Number.parseInt(schoolYear) || undefined;
         this.updateMeasuredAssessments(measuredAssessments);
       }
-      if (group == null || group.subjectCode == null || group.subjectCode === subject) {
+      if (this.subjects && this.subjects.includes(subject)) {
         this.subject = subject;
       } else {
         delete this.subject;
@@ -120,15 +118,11 @@ export class GroupDashboardComponent implements OnInit {
   }
 
   private updateRouteWithDefaultFilters(): void {
-    const { schoolYear, subject } = this.route.snapshot.params;
+    const { schoolYear } = this.route.snapshot.params;
     const schoolYearNumber = Number(schoolYear);
     let update = false;
     if (isNaN(schoolYearNumber) || this.filterOptions.schoolYears.indexOf(schoolYearNumber) < 0) {
       this.schoolYear = this.filterOptions.schoolYears[ 0 ];
-      update = true;
-    }
-    if (subject != null && (!this.subjects || !this.subjects.includes(subject))) {
-      this.subject = null;
       update = true;
     }
     if (update) {
