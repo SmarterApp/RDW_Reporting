@@ -1,5 +1,10 @@
 ## Change Log
 
+#### 1.2.1 - 2018-07-06
+
+* Configurable Subjects.
+* Improve handling of optional fields.
+
 #### 1.2.0 - 2018-06-23
 
 * Extend Custom Aggregate Reports to include IABs.

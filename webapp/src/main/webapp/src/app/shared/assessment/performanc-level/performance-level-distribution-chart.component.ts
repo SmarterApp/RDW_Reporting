@@ -3,6 +3,7 @@ import { Utils } from '../../support/support';
 import { PerformanceLevelDisplayTypes } from '../../display-options/performance-level-display-type';
 import { SubjectDefinition } from '../../../subject/subject';
 import { TranslateService } from '@ngx-translate/core';
+import { AggregateReportType } from '../../../aggregate-report/aggregate-report-form-settings';
 
 /**
  * Performance level distribution chart view
@@ -22,6 +23,7 @@ export class PerformanceLevelDistributionChart implements OnInit {
   private _loaded: boolean = false;
   private _visible: boolean = true;
   private _performanceLevelBarsByDisplayType: Map<string, Map<boolean, PerformanceLevelBars>> = new Map();
+  private _useClaimColors: boolean = false;
 
   constructor(private translateService: TranslateService) {
   }
@@ -109,6 +111,15 @@ export class PerformanceLevelDistributionChart implements OnInit {
       this._cutPoint = value;
       this._loaded && this.update();
     }
+  }
+
+  get useClaimColors(): boolean {
+    return this._useClaimColors;
+  }
+
+  @Input()
+  set useClaimColors(value: boolean) {
+    this._useClaimColors = value;
   }
 
   /**
@@ -207,7 +218,8 @@ export class PerformanceLevelDistributionChart implements OnInit {
   }
 
   private getPerformanceLevelColor(level: number) {
-    return this.translateService.instant(`subject.${this.subjectDefinition.subject}.asmt-type.${this.subjectDefinition.assessmentType}.level.${level}.color`);
+    const claimPlaceholder = this.useClaimColors ? 'claim-score.' : '';
+    return this.translateService.instant(`subject.${this.subjectDefinition.subject}.asmt-type.${this.subjectDefinition.assessmentType}.${claimPlaceholder}level.${level}.color`);
   }
 
   /**
