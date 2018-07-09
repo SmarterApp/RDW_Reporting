@@ -14,7 +14,7 @@ import { TranslateDatePipe } from '../shared/i18n/translate-date.pipe';
 import { TranslateNumberPipe } from '../shared/i18n/translate-number.pipe';
 import { ApplicationSettingsService } from '../app-settings.service';
 import { AggregateTargetScoreRow, TargetReportingLevel } from '../assessments/model/aggregate-target-score-row.model';
-import { SubjectDefinition } from "../subject/subject";
+import { SubjectDefinition } from '../subject/subject';
 
 @Injectable()
 export class CsvBuilder {
@@ -505,7 +505,13 @@ export class CsvBuilder {
 
     this.withColumn(
       this.translateService.instant('target-report.columns.student-relative-residual-scores-level'),
-      (item) => this.translateService.instant('aggregate-report-table.target.overall.' + TargetReportingLevel[ getTargetReportAggregate(item).studentRelativeLevel ])
+      (item) => {
+        const studentRelativeLevel = TargetReportingLevel[ getTargetReportAggregate(item).studentRelativeLevel ];
+        if (studentRelativeLevel === TargetReportingLevel.NoResults) {
+          return '';
+        }
+        return this.translateService.instant('aggregate-report-table.target.overall.' + studentRelativeLevel);
+      }
     );
 
     const standardMetHeaderResolve: any = {
@@ -515,7 +521,13 @@ export class CsvBuilder {
 
     this.withColumn(
       this.translateService.instant('target-report.columns.standard-met-relative-residual-level', standardMetHeaderResolve),
-      (item) => this.translateService.instant('aggregate-report-table.target.standard.' + TargetReportingLevel[ getTargetReportAggregate(item).standardMetRelativeLevel ])
+      (item) => {
+        const standardMetRelativeLevel = TargetReportingLevel[ getTargetReportAggregate(item).standardMetRelativeLevel ];
+        if (standardMetRelativeLevel === TargetReportingLevel.NoResults) {
+          return '';
+        }
+        return this.translateService.instant('aggregate-report-table.target.standard.' + standardMetRelativeLevel);
+      }
     );
 
     return this;

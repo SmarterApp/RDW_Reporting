@@ -1,11 +1,12 @@
-import { Injectable } from "@angular/core";
-import { AggregateReportItem } from "./aggregate-report-item";
-import { CsvBuilder } from "../../csv-export/csv-builder.service";
-import { TranslateService } from "@ngx-translate/core";
-import { PerformanceLevelDisplayTypes } from "../../shared/display-options/performance-level-display-type";
-import { ValueDisplayTypes } from "../../shared/display-options/value-display-type";
-import { AggregateReportType } from "../aggregate-report-form-settings";
+import { Injectable } from '@angular/core';
+import { AggregateReportItem } from './aggregate-report-item';
+import { CsvBuilder } from '../../csv-export/csv-builder.service';
+import { TranslateService } from '@ngx-translate/core';
+import { PerformanceLevelDisplayTypes } from '../../shared/display-options/performance-level-display-type';
+import { ValueDisplayTypes } from '../../shared/display-options/value-display-type';
+import { AggregateReportType } from '../aggregate-report-form-settings';
 import { SubjectDefinition } from '../../subject/subject';
+import { TargetReportingLevel } from '../../assessments/model/aggregate-target-score-row.model';
 
 /**
  * Service responsible for exporting the currently-viewed aggregate report table
@@ -49,7 +50,9 @@ export class AggregateReportTableExportService {
         .withColumn(
           this.translateService.instant('target-report.columns.student-relative-residual-scores-level'),
           (item: AggregateReportItem) => {
-            if (!item.studentsTested) return '';
+            if (!item.studentsTested || item.studentRelativeResidualScoresLevel === TargetReportingLevel.NoResults) {
+              return '';
+            }
 
             return this.translateService.instant(`aggregate-report-table.target.overall.${item.studentRelativeResidualScoresLevel}`);
           }
@@ -57,7 +60,9 @@ export class AggregateReportTableExportService {
         .withColumn(
           this.translateService.instant('target-report.columns.standard-met-relative-residual-level', standardMetHeaderResolve),
           (item: AggregateReportItem) => {
-            if (!item.studentsTested) return '';
+            if (!item.studentsTested || item.standardMetRelativeResidualLevel === TargetReportingLevel.NoResults) {
+              return '';
+            }
 
             return this.translateService.instant(`aggregate-report-table.target.standard.${item.standardMetRelativeResidualLevel}`);
           }
@@ -160,9 +165,9 @@ export class AggregateReportTableExportService {
         }
 
         const value: number = item.performanceLevelByDisplayTypes
-          [options.performanceLevelDisplayType]
-          [options.valueDisplayType]
-          [levelIndex];
+          [ options.performanceLevelDisplayType ]
+          [ options.valueDisplayType ]
+          [ levelIndex ];
         return options.valueDisplayType === ValueDisplayTypes.Percent
           ? value + '%'
           : value;
@@ -185,13 +190,13 @@ export class AggregateReportTableExportService {
     };
 
     const levels: number[] = options.performanceLevelDisplayType === PerformanceLevelDisplayTypes.Grouped
-      ? [0, 1]
+      ? [ 0, 1 ]
       : options.subjectDefinition.performanceLevels;
 
     for (let levelIndex = 0; levelIndex < levels.length; levelIndex++) {
       builder = builder
         .withColumn(
-          headerForPerformanceLevel(levels[levelIndex]),
+          headerForPerformanceLevel(levels[ levelIndex ]),
           dataProviderForPerformanceLevel(levelIndex)
         );
     }
