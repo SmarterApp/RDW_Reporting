@@ -162,7 +162,7 @@ sql:
         'MigrantStatus',
         'Section504Status',
         'IDEAIndicator',
-        'LEPStatus',
+        'EnglishLearner',
         'EnglishLanguageAcquisitionStatus',
         'EnglishLanguageAcquisitionStatusStartDate',
 

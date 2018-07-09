@@ -527,7 +527,7 @@
         "iep": "IEP",
         "iep-info": "Indicates that a student has an approved Individual Education Plan (IEP).  These plans are for students with disabilities who require specialized instruction.",
         "label": "Student",
-        "limited-english-proficiency": "Limited English Proficiency",
+        "limited-english-proficiency": "English Learner",
         "limited-english-proficiency-info": "Students who use a language other than English as their primary language and who have been assessed as not possessing the English language skills necessary to succeed in the regular instructional program.",
         "migrant-status": "Migrant Status",
         "migrant-status-info": "A child is considered \"migratory\" if the parent or guardian is a migratory worker in the agricultural, dairy, lumber, or fishing industries and the child's family has moved during the past three years. A young adult may also qualify if he or she has moved on his or her own for the same reasons."
@@ -772,7 +772,7 @@
     "error-band-min": "Error Band Min",
     "gender": "Sex",
     "iep": "IDEAIndicator",
-    "limited-english": "LEPStatus",
+    "limited-english": "EnglishLearner",
     "migrant-status": "MigrantStatus",
     "scale-score": "ScaleScore",
     "school": "SchoolName",
