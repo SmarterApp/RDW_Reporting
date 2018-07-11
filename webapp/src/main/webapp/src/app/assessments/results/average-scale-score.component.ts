@@ -213,6 +213,8 @@ export class AverageScaleScoreComponent {
           stats: this.statistics.claims[ idx ]
         }).sort(ordering.on((reference: ClaimReference) => reference.code).compare);
 
+        // create an array [0, ...n] where n is the largest number where claimReferenceSingleArray.length % 4 === 0.
+        // This used to determine how many chunks (of size <= 4) there are
         this.claimReferenceRows = claimReferenceSingleArray.filter((value, index) => index % 4 === 0).map((value, index) => index);
         while (claimReferenceSingleArray.length) {
           this.claimReferences.push(claimReferenceSingleArray.splice(0, 4));
