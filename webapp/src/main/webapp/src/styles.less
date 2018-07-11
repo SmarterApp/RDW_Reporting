@@ -1639,6 +1639,18 @@ adv-filters {
 table.student-claim-distribution {
   table-layout: fixed;
 
+  &.limit-width {
+    &.column-count-1 {
+      width: 25%
+    }
+    &.column-count-2 {
+      width: 50%
+    }
+    &.column-count-3 {
+      width: 75%;
+    }
+  }
+
   thead {
     tr {
       th {

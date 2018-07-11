@@ -85,10 +85,12 @@
               title="{{'average-scale-score.student-claim-distribution' | translate}}"
               content="{{'common.info.claim' | translate}}"></strong>
       <div class="ui-table-wrapper">
-        <table class="table table-striped table-hover student-claim-distribution">
+        <table *ngFor="let index of claimReferenceRows"
+               class="table table-striped table-hover student-claim-distribution"
+               [ngClass]="{'limit-width': index > 0, 'column-count-1': claimReferences[index].length === 1, 'column-count-2': claimReferences[index].length === 2, 'column-count-3': claimReferences[index].length === 3}">
           <thead class="ui-table-thead">
           <tr>
-            <th *ngFor="let claimReference of claimReferences">
+            <th *ngFor="let claimReference of claimReferences[index]">
               <i class="fa {{ 'subject.' + assessment.subject + '.claim.' + claimReference.code + '.icon' | translate }}"></i>
               {{ 'subject.' + assessment.subject + '.claim.' + claimReference.code + '.name' | translate}}
             </th>
@@ -96,7 +98,7 @@
           </thead>
           <tbody>
             <tr>
-              <td *ngFor="let claimReference of claimReferences" class="claim-distribution">
+              <td *ngFor="let claimReference of claimReferences[index]" class="claim-distribution">
                 <div class="assessment-aggregate">
                   <div class="scale-score-graph rounded blend-middle mb-sm">
                     <div class="bar-container">
@@ -115,8 +117,8 @@
                     <div class="perc-container row" *ngFor="let row of claimLevelRows">
                       <div class="col-xs-4" *ngFor="let i of row">
                         <div class="bar">
-                          <span class="square"
-                                [ngClass]="'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.color' | translate"></span>
+                            <span class="square"
+                                  [ngClass]="'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.color' | translate"></span>
                           {{ getClaimValue(claimReference.stats, i) }}{{ getClaimSuffix(claimReference.stats, i) }}
                           <span class="sr-only">{{ 'subject.' + assessment.subject + '.asmt-type.' + assessment.type + '.claim-score.level.' + (i + 1) + '.name' | translate }}</span>
                         </div>

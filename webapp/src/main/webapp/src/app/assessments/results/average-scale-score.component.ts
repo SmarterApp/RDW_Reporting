@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { ClaimStatistics } from '../model/claim-score.model';
 import { ExamStatisticsCalculator } from './exam-statistics-calculator';
 import { Assessment } from '../model/assessment.model';
-import { OrderingService } from "../../shared/ordering/ordering.service";
+import { OrderingService } from '../../shared/ordering/ordering.service';
 
 enum ScoreViewState {
   OVERALL = 1,
@@ -78,7 +78,9 @@ export class AverageScaleScoreComponent {
   displayState: any = {
     showClaim: ScoreViewState.OVERALL
   };
-  claimReferences: ClaimReference[] = [];
+
+  claimReferences: ClaimReference[][] = [];
+  claimReferenceRows = [ 0 ];
 
   private _statistics: ExamStatistics;
   private _totalCount: number;
@@ -90,6 +92,7 @@ export class AverageScaleScoreComponent {
               private examCalculator: ExamStatisticsCalculator,
               private orderingService: OrderingService) {
   }
+
 
   get statistics(): ExamStatistics {
     return this._statistics;
@@ -170,7 +173,7 @@ export class AverageScaleScoreComponent {
 
   get claimLevelRows(): any[] {
     // get array from 0 to levels-1
-    const indexes = Array.apply(null, {length: this.claimReferences[0].stats.levels.length})
+    const indexes = Array.apply(null, { length: this.claimReferences[ 0 ][ 0 ].stats.levels.length })
       .map(Function.call, Number);
 
     // now split into rows with up to 3 per row
@@ -183,8 +186,8 @@ export class AverageScaleScoreComponent {
    * @param myArray {Array} Array to split
    * @param chunkSize {Integer} Size of every group
    */
-  private chunkArray(myArray, chunk_size){
-    var results = [];
+  private chunkArray(myArray, chunk_size) {
+    const results = [];
 
     while (myArray.length) {
       results.push(myArray.splice(0, chunk_size));
@@ -200,11 +203,16 @@ export class AverageScaleScoreComponent {
 
     this.orderingService.getScorableClaimOrdering(this.assessment.subject, this.assessment.type)
       .subscribe(ordering => {
-        this.claimReferences = this.assessment.claimCodes.map((code, idx) => <ClaimReference>{
+        const claimReferenceSingleArray = this.assessment.claimCodes.map((code, idx) => <ClaimReference>{
           code: code,
           dataIndex: idx,
-          stats: this.statistics.claims[idx]
+          stats: this.statistics.claims[ idx ]
         }).sort(ordering.on((reference: ClaimReference) => reference.code).compare);
+
+        this.claimReferenceRows = claimReferenceSingleArray.filter((value, index) => index % 4 === 0).map((value, index) => index);
+        while (claimReferenceSingleArray.length) {
+          this.claimReferences.push(claimReferenceSingleArray.splice(0, 4));
+        }
       });
   }
 }
