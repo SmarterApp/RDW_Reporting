@@ -196,9 +196,8 @@ export class AverageScaleScoreComponent {
     return results;
   }
 
-  getClaimScoreClass(index): string {
-    return 'table table-striped table-hover student-claim-distribution ' +
-      (index > 0 ? `limit-width column-count-${this.claimReferences[ index ].length}` : '');
+  getClaimColumnCountClass(index): string {
+    return index > 0 ? `limit-width column-count-${this.claimReferences[ index ].length}` : '';
   }
 
   private setScorableClaims() {
