@@ -86,8 +86,7 @@
               content="{{'common.info.claim' | translate}}"></strong>
       <div class="ui-table-wrapper">
         <table *ngFor="let index of claimReferenceRows"
-               class="table table-striped table-hover student-claim-distribution"
-               [ngClass]="{'limit-width': index > 0, 'column-count-1': claimReferences[index].length === 1, 'column-count-2': claimReferences[index].length === 2, 'column-count-3': claimReferences[index].length === 3}">
+               [class]="getClaimScoreClass(index)">
           <thead class="ui-table-thead">
           <tr>
             <th *ngFor="let claimReference of claimReferences[index]">
