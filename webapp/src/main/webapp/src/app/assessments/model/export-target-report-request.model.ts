@@ -16,5 +16,5 @@ export class ExportTargetReportRequest implements ExportRequest {
   subjectDefinition: SubjectDefinition;
 
   targetScoreRows: AggregateTargetScoreRow[];
-  type: RequestType = RequestType.WritingTraitScores;
+  type: RequestType = RequestType.TargetReport;
 }
