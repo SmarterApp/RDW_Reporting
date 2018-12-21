@@ -3,8 +3,8 @@ insert into ethnicity VALUES (-29,'ethnicity-29'),(-28,'ethnicity-28'),(-27, 'et
 insert into subject (id, code, updated, update_import_id, migrate_id) values
   (-1, 'NEW', now(), -1, -1);
 
-insert into subject_asmt_type (asmt_type_id, subject_id, performance_level_count, performance_level_standard_cutoff, claim_score_performance_level_count) values
-  (1, -1, 6, 3, 6);
+insert into subject_asmt_type (asmt_type_id, subject_id, performance_level_count, performance_level_standard_cutoff, claim_score_performance_level_count, target_report) values
+  (1, -1, 6, 3, 6, 0);
 
 insert into subject_claim_score (id, subject_id, asmt_type_id, code, display_order, data_order) values
   (-1, -1, 1, 'claim1', 1, 1),
