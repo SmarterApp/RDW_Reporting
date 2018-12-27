@@ -9,17 +9,11 @@ sql:
 
   translation:
     findAllForLanguage: >-
-        SELECT
-          label_code,
-          label
-        FROM accommodation_translation
-        WHERE language_code=:language_code
+        SELECT label_code, label FROM accommodation_translation WHERE language_code = :language_code
         UNION ALL
-        SELECT
-          label_code,
-          label
-        FROM subject_translation
-        WHERE 'eng' = :language_code
+        SELECT label_code, label FROM subject_translation WHERE 'eng' = :language_code
+        UNION ALL
+        SELECT CONCAT('common.languages.', code) AS label_code, name AS label FROM language WHERE 'eng' = :language_code
 
   organization:
     reporting:

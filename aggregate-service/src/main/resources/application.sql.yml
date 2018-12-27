@@ -62,6 +62,10 @@ sql:
     findAll: >-
       SELECT id, code FROM elas ORDER BY id
 
+  language:
+    findAll: >-
+      SELECT id, code FROM language ORDER BY id
+
   gender:
     findAll: >-
       SELECT id, code FROM gender ORDER BY id
