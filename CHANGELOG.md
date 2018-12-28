@@ -1,11 +1,12 @@
 ## Change Log
 
-#### 1.3.1
-* Upgraded node modules (Angular 5 to Angular 7, RxJs 5 to 6)
+#### 1.3.0
+
+* Add language as a filter and subgroup for reports.
+* Honor target report flag for subject summative assessments.
 * Change administrator tools in landing page
     * home.admin-tools.titles.{analyze,manage} replaced with home.admin-tools.titles.administrator-tools.
-    
-#### 1.3.0
+* Upgraded node modules (Angular 5 to Angular 7, RxJs 5 to 6)
 
 #### 1.2.4 - 2018-11-19
 
