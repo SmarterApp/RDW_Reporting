@@ -131,6 +131,20 @@ sqlbuilder:
                      e.elas_id,
                      el.code
 
+            Language:
+              clauses:
+                select: >-
+                  'Language' AS dimension,
+                  e.language_id AS dimension_id,
+                  lng.code AS dimension_code
+                join: >-
+                  JOIN language lng ON lng.id = e.language_id
+                where: >-
+                  ( true = :all_languages OR e.language_id in (:language_ids) )
+                groupBy: >-
+                  e.language_id,
+                  lng.code
+
             IEP:
               clauses:
                 select: >-
@@ -221,6 +235,11 @@ sqlbuilder:
               clauses:
                 where: >-
                   e.elas_id in (:elas_ids)
+
+            Language_filter:
+              clauses:
+                where: >-
+                  e.language_id in (:language_ids)
 
             Ethnicity_filter:
                clauses:
