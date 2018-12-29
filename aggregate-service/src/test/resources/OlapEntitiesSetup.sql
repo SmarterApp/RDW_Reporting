@@ -1,6 +1,6 @@
 INSERT INTO grade (id, code, sequence) VALUES (-3,'-3', 3),(-4 ,'-4', 4),(-5, '-5', 5),(-6, '-6', 6);
 INSERT INTO elas (id, code) VALUES (-11, 'EL'), (-14, 'RFEP');
-INSERT INTO language (id, code) VALUES (-21, 'abc'), (-22, 'cba'), (-23, 'a23'), (-24, 'a23'), (-25, 'a25');
+INSERT INTO language (id, code) VALUES (-21, 'abc'), (-22, 'cba'), (-23, 'a23'), (-24, 'a24'), (-25, 'a25');
 INSERT INTO completeness (id, code) VALUES (-9, 'Complete'), (-8, 'Partial');
 INSERT INTO administration_condition VALUES (-99,'IN'),(-98,'SD'),(-97,'NS'),(-96,'Valid');
 INSERT INTO ethnicity VALUES (-29,'ethnicity-29'),(-28,'ethnicity-28'),(-27, 'ethnicity-27'), (-26, 'ethnicity-26');
