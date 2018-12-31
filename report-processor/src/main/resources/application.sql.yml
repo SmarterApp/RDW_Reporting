@@ -163,6 +163,7 @@ sql:
         'Section504Status',
         'IDEAIndicator',
         'LEPStatus',
+        'LanguageCode',
         'EnglishLanguageAcquisitionStatus',
         'EnglishLanguageAcquisitionStatusStartDate',
 
@@ -219,6 +220,7 @@ sql:
         (CASE WHEN e.section504 = 1 THEN 'Yes' WHEN e.section504 = 0 THEN 'No' ELSE '' END),
         (CASE WHEN e.iep = 1 THEN 'Yes' WHEN e.iep = 0 THEN 'No' ELSE '' END),
         (CASE WHEN e.lep = 1 THEN 'Yes' WHEN e.lep = 0 THEN 'No' ELSE '' END),
+        COALESCE(e.language_code, ''),
         COALESCE(e.elas_code, ''),
         COALESCE(e.elas_start_at, ''),
 

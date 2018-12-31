@@ -177,6 +177,12 @@ sql:
       from gender
       order by id
 
+  language:
+    findAll: >-
+      select code
+      from language
+      order by id
+
   subject:
     findAll: >-
       select code

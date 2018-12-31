@@ -20,6 +20,7 @@ sql:
         st.gender_code,
         e.iep,
         e.lep,
+        e.language_code,
         e.elas_code,
         e.section504,
         e.migrant_status

@@ -225,6 +225,7 @@ sql:
         e.available_accommodation_codes,
         e.iep,
         e.lep,
+        e.language_code,
         e.elas_code,
         e.section504,
         e.migrant_status,
