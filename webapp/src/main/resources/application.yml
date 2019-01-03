@@ -87,6 +87,8 @@ spring:
     initialize: false
     initialSize: 4
     maxActive: 10
+    minIdle: ${spring.datasource.initialSize}
+    maxIdle: ${spring.datasource.maxActive}
 
   resources:
     chain:

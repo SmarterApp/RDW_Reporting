@@ -33,8 +33,10 @@ spring:
     validationQueryTimeout: 10000
     driverClassName: com.mysql.jdbc.Driver
     initialize: false
-    maxActive: 10
     initialSize: 4
+    maxActive: 10
+    minIdle: ${spring.reporting_datasource.initialSize}
+    maxIdle: ${spring.reporting_datasource.maxActive}
 
   warehouse_datasource:
     url: "\
@@ -53,8 +55,10 @@ spring:
     validationQueryTimeout: 10000
     driverClassName: com.mysql.jdbc.Driver
     initialize: false
-    maxActive: 10
     initialSize: 4
+    maxActive: 10
+    minIdle: ${spring.warehouse_datasource.initialSize}
+    maxIdle: ${spring.warehouse_datasource.maxActive}
 
   http:
     multipart:

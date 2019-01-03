@@ -39,6 +39,8 @@ spring:
     initialize: false
     initialSize: 4
     maxActive: 10
+    minIdle: ${spring.datasource.initialSize}
+    maxIdle: ${spring.datasource.maxActive}
 
   writable_datasource:
     url: "\
@@ -61,6 +63,8 @@ spring:
     initialize: false
     initialSize: 4
     maxActive: 10
+    minIdle: ${spring.writable_datasource.initialSize}
+    maxIdle: ${spring.writable_datasource.maxActive}
 
   jackson:
     default-property-inclusion: non_null
