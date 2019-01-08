@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { SBIconComponent } from "./sb-icon.component";
-import { InlineSVGModule } from 'ng-inline-svg';
-import { BrowserModule } from '@angular/platform-browser';
+import { InlineSVGModule } from "ng-inline-svg";
+import { BrowserModule } from "@angular/platform-browser";
 
 @NgModule({
   declarations: [
@@ -9,7 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
   ],
   imports: [
     BrowserModule,
-    InlineSVGModule
+    InlineSVGModule.forRoot()
   ],
   exports: [
     SBIconComponent

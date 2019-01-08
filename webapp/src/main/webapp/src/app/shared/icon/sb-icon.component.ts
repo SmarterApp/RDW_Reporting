@@ -5,7 +5,7 @@ import { Component, Input } from "@angular/core";
   template: `
     <i class="icon sbac"
        [ngClass]="styles"
-       [inlineSVG]="svgUrl"></i>
+       [inlineSVG]="'/assets/svgs/' + icon + '.svg'"></i>
   `
 })
 export class SBIconComponent {
@@ -15,9 +15,5 @@ export class SBIconComponent {
 
   @Input()
   styles: any;
-
-  get svgUrl(): string {
-    return `/assets/svgs/${this.icon}.svg`;
-  }
 
 }
