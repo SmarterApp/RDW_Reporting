@@ -181,7 +181,7 @@ sql:
     findAll: >-
       select code
       from language
-      order by id
+      order by display_order
 
   subject:
     findAll: >-
