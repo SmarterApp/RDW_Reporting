@@ -13,19 +13,19 @@ import { Location } from "@angular/common";
 import { WindowRefService } from "../core/window-ref.service";
 import { SBStorage, StorageService, StorageType } from "../core/storage.service";
 
-let mockWindow = {
-  location: {
-    href: 'https://awsqa/groups',
-    pathname: '/groups'
-  }
-};
-
-
 describe('AuthenticationService', () => {
   let storageService: MockStorageService;
+  let mockWindow: any;
 
   beforeEach(() => {
     storageService = new MockStorageService();
+
+    mockWindow = {
+      location: {
+        href: 'https://awsqa/groups',
+        pathname: '/groups'
+      }
+    };
 
     TestBed.configureTestingModule({
       providers: [
@@ -47,16 +47,15 @@ describe('AuthenticationService', () => {
       expect(service).toBeTruthy();
     }));
 
-  //TODO: Investigate/fix intermittent unit test failure
-  // it('should record the browser location on authentication failure',
-  //   inject([ AuthenticationService, Router ], (service: AuthenticationService, router: Router) => {
-  //
-  //     service.navigateToAuthenticationExpiredRoute();
-  //
-  //     expect(storageService.getStorage).toHaveBeenCalledWith(StorageType.Session);
-  //     expect(service.urlWhenSessionExpired).toBe("https://awsqa/groups");
-  //     expect(router.navigate).toHaveBeenCalledWith([ "session-expired" ]);
-  //   }));
+  it('should record the browser location on authentication failure',
+    inject([ AuthenticationService, Router ], (service: AuthenticationService, router: Router) => {
+
+      service.navigateToAuthenticationExpiredRoute();
+
+      expect(storageService.getStorage).toHaveBeenCalledWith(StorageType.Session);
+      expect(service.urlWhenSessionExpired).toBe("https://awsqa/groups");
+      expect(router.navigate).toHaveBeenCalledWith([ "session-expired" ]);
+    }));
 
   it('should never record the browser location of session-expired',
     inject([ AuthenticationService, Router ], (service: AuthenticationService, router: Router) => {

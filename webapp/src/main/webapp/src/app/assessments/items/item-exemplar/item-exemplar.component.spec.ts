@@ -46,15 +46,15 @@ describe('ItemExemplarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  //TODO: Investigate/fix intermittent unit test failure
-  // it('should display not found when item scoring guide is empty', () => {
-  //   component.ngOnInit();
-  //   expect(component.notFound).toBeTruthy();
-  //   expect(component.errorLoading).toBeFalsy();
-  //   expect(component.model.answerKeyValue).toBeUndefined();
-  //   expect(component.model.exemplars).toEqual([]);
-  //   expect(component.model.rubrics).toEqual([]);
-  // });
+  it('should display not found when item scoring guide is empty', () => {
+    mockItemScoringGuide.itemScoringGuide.answerKeyValue = undefined;
+    component.ngOnInit();
+    expect(component.notFound).toBeTruthy();
+    expect(component.errorLoading).toBeFalsy();
+    expect(component.model.answerKeyValue).toBeUndefined();
+    expect(component.model.exemplars).toEqual([]);
+    expect(component.model.rubrics).toEqual([]);
+  });
 
   it('should display answer key when item scoring guide has answer key', () => {
     mockItemScoringGuide.itemScoringGuide.answerKeyValue = "Answer";

@@ -7,7 +7,19 @@ ng build
 ```
 #!bash
 ng test
+
+# or, disable watching to run them once
+ng test --watch=false
 ```
+
+To run a single set of tests, i modify the test.ts file. Change the regex for the context
+from the checked-in value to the test suite you want to focus on, e.g.:
+```
+// const context = require.context('./', true, /\.spec\.ts$/);
+const context = require.context('./', true, /organization-grouping\.service\.spec\.ts$/);
+```
+Then run tests as usual.
+
 ### Run ###
 ```
 #!bash

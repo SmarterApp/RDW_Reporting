@@ -47,7 +47,7 @@ export class OrganizationGroupingService {
    * Adds the given organization's ID to the appropriate ID collection in the given grouped organization ID holder.
    *
    * @param {Organization} organization the organization to add
-   * @param {GroupedOrganizationIds} groupedOrganizationIds the ID collection holder to add the organization ID to
+   * @param {GroupedOrganizationIds} ids the ID collection holder to add the organization ID to
    */
   private groupOrganization(organization: Organization, ids: GroupedOrganizationIds) {
     switch (organization.type) {
