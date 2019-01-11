@@ -104,6 +104,11 @@ sql:
       WHERE teacher_student_group_id = :group_id
 
   assessment:
+    findTargetReportEnabled: >-
+      SELECT sat.target_report
+        FROM asmt a JOIN subject_asmt_type sat ON sat.subject_id = a.subject_id AND sat.asmt_type_id = a.type_id
+        WHERE a.id = :asmt_id
+
     item:
       findAllForAssessment: >-
         ${sql.reporting.snippet.selectFromItem}
@@ -132,11 +137,11 @@ sql:
 
     target:
       findAllForAssessment: >-
-         SELECT t.id, t.natural_id, c.code as claim_code, at.asmt_id, at.include_in_report
-            FROM asmt_target at
-              JOIN target t ON at.target_id =  t.id
-              JOIN claim c ON c.id = t.claim_id
-            WHERE at.asmt_id = :asmt_id
+        SELECT t.id, t.natural_id, c.code as claim_code, at.asmt_id, at.include_in_report
+          FROM asmt_target at
+            JOIN target t ON at.target_id =  t.id
+            JOIN claim c ON c.id = t.claim_id
+          WHERE at.asmt_id = :asmt_id
 
   student:
     findOneById: >-

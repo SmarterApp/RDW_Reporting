@@ -72,18 +72,6 @@ export class GroupAssessmentService {
     );
   }
 
-  // TODO move to another service
-  getTargetsForAssessment(assessmentId: number) {
-    return this.dataService.get(`${ServiceRoute}/assessment-targets`, {
-      params: {
-        id: assessmentId
-      }
-    }).pipe(
-      catchError(ResponseUtils.badResponseToNull),
-      map(serverTargets => this.mapper.mapTargetsFromApi(serverTargets))
-    );
-  }
-
   getAssessmentItems(search: ExamItemSearch) {
     return this.dataService.get(`${ServiceRoute}/examitems`, {
       params: <any>search
