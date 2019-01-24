@@ -164,6 +164,7 @@ sql:
         'IDEAIndicator',
         'LEPStatus',
         'LanguageCode',
+        'LanguageAltCode',
         'EnglishLanguageAcquisitionStatus',
         'EnglishLanguageAcquisitionStatusStartDate',
 
@@ -221,6 +222,7 @@ sql:
         (CASE WHEN e.iep = 1 THEN 'Yes' WHEN e.iep = 0 THEN 'No' ELSE '' END),
         (CASE WHEN e.lep = 1 THEN 'Yes' WHEN e.lep = 0 THEN 'No' ELSE '' END),
         COALESCE(e.language_code, ''),
+        COALESCE(lan.altcode, ''),
         COALESCE(e.elas_code, ''),
         COALESCE(e.elas_start_at, ''),
 
@@ -245,6 +247,7 @@ sql:
         JOIN school s ON e.school_id = s.id
         JOIN district d ON d.id = s.district_id
         JOIN school isch ON st.inferred_school_id = isch.id
+        LEFT JOIN language lan ON e.language_code = lan.code
       WHERE
         ${sql.reportProcessor.snippet.exportExamsFilter}
         AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
