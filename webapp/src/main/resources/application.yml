@@ -117,7 +117,8 @@ spring:
 zuul:
   set-content-length: true
   FormBodyWrapperFilter:
-    pre: disable
+    pre:
+      disable: true
   host:
     socket-timeout-millis: 100000
   routes:
