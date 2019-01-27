@@ -6,7 +6,7 @@ import { DataService } from '../../shared/data/data.service';
 import { map } from 'rxjs/operators';
 import { AdminServiceRoute } from '../../shared/service-route';
 
-const ServiceRoute = AdminServiceRoute;
+const ResourceContext = `${AdminServiceRoute}/assessments`;
 
 /**
  * This service is responsible for interacting with assessments.
@@ -18,7 +18,7 @@ export class AssessmentService {
   }
 
   find(query: AssessmentQuery): Observable<Assessment[]> {
-    return this.dataService.get(`${ServiceRoute}/assessments`, { params: <any>query }).pipe(
+    return this.dataService.get(`${ResourceContext}`, { params: <any>query }).pipe(
       map(serverAssessments => serverAssessments.map(serverAssessment => {
         const assessment = new Assessment();
         assessment.id = serverAssessment.id;

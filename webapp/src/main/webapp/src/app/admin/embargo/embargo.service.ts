@@ -6,8 +6,9 @@ import { OrganizationType } from "./organization-type.enum";
 import { DataService } from "../../shared/data/data.service";
 import { ResponseContentType } from "@angular/http";
 import { map } from 'rxjs/operators';
+import { AdminServiceRoute } from '../../shared/service-route';
 
-const ResourceContext = '/admin-service/embargoes';
+const ResourceContext = `${AdminServiceRoute}/embargoes`;
 
 /**
  * Service responsible for managing organization embargo settings
@@ -28,7 +29,7 @@ export class EmbargoService {
       .pipe(
         map((sourceEmbargoes: any[]) => {
           return sourceEmbargoes.reduce((embargoesByOrganizationType, sourceEmbargo) => {
-            const embargo = this.toEmbargo(sourceEmbargo),
+            const embargo = EmbargoService.toEmbargo(sourceEmbargo),
               type = embargo.organization.type;
 
             embargoesByOrganizationType.set(type, (embargoesByOrganizationType.get(type) || []).concat(embargo));
@@ -60,7 +61,7 @@ export class EmbargoService {
    * @param source the API embargo model
    * @returns {Embargo} a UI embargo model
    */
-  private toEmbargo(source: any): Embargo {
+  private static toEmbargo(source: any): Embargo {
     return {
       organization: {
         id: source.organizationId,

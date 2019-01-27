@@ -5,7 +5,7 @@ import { DataService } from '../../shared/data/data.service';
 import { map } from 'rxjs/operators';
 import { AdminServiceRoute } from '../../shared/service-route';
 
-const ServiceRoute = AdminServiceRoute;
+const ResourceContext = `${AdminServiceRoute}/instructional-resources`;
 
 /**
  * This service is responsible for interacting with instructional resources.
@@ -22,7 +22,7 @@ export class InstructionalResourceService {
    * @returns {Observable<InstructionalResource[]>} The user's instructional resources
    */
   findAll(): Observable<InstructionalResource[]> {
-    return this.dataService.get(`${ServiceRoute}/instructional-resources`).pipe(
+    return this.dataService.get(`${ResourceContext}`).pipe(
       map(InstructionalResourceService.mapResourcesFromApi)
     );
   }
@@ -34,7 +34,7 @@ export class InstructionalResourceService {
    * @returns {Observable<InstructionalResource>} The created instructional resource
    */
   create(resource: InstructionalResource): Observable<InstructionalResource> {
-    return this.dataService.post(`${ServiceRoute}/instructional-resources`, resource).pipe(
+    return this.dataService.post(`${ResourceContext}`, resource).pipe(
       map(InstructionalResourceService.mapResourceFromApi)
     );
   }
@@ -46,7 +46,7 @@ export class InstructionalResourceService {
    * @returns {Observable<InstructionalResource>} The updated instructional resource
    */
   update(resource: InstructionalResource): Observable<InstructionalResource> {
-    return this.dataService.put(`${ServiceRoute}/instructional-resources`, this.toServerFormat(resource)).pipe(
+    return this.dataService.put(`${ResourceContext}`, InstructionalResourceService.toServerFormat(resource)).pipe(
       map(InstructionalResourceService.mapResourceFromApi)
     );
   }
@@ -58,14 +58,14 @@ export class InstructionalResourceService {
    * @returns {Observable<any>} Empty if the action was successful
    */
   delete(resource: InstructionalResource): Observable<any> {
-    return this.dataService.delete(`${ServiceRoute}/instructional-resources`, { params: <any>this.toServerFormat(resource) });
+    return this.dataService.delete(`${ResourceContext}`, { params: <any>InstructionalResourceService.toServerFormat(resource) });
   }
 
   private static mapResourcesFromApi(serverResources) {
     return serverResources.map(serverResource => InstructionalResourceService.mapResourceFromApi(serverResource));
   }
 
-  private toServerFormat(resource: InstructionalResource): InstructionalResource {
+  private static toServerFormat(resource: InstructionalResource): InstructionalResource {
     resource.assessmentType = AssessmentType[resource.assessmentType] ? AssessmentType[resource.assessmentType] : resource.assessmentType;
     return resource;
   }

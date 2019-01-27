@@ -11,7 +11,7 @@ import { DataService } from "../../shared/data/data.service";
 import { map } from 'rxjs/operators';
 import { AdminServiceRoute } from '../../shared/service-route';
 
-const ServiceRoute = AdminServiceRoute;
+const ResourceContext = `${AdminServiceRoute}/groups`;
 const ALL = 'ALL';
 
 @Injectable()
@@ -22,7 +22,7 @@ export class GroupService {
 
   getFilterOptions(): Observable<GroupFilterOptions> {
     return this.dataService
-      .get(`${ServiceRoute}/groups/filters`)
+      .get(`${ResourceContext}/filters`)
       .pipe(
         map(this.mapFilterOptionsFromApi.bind(this))
       );
@@ -30,14 +30,14 @@ export class GroupService {
 
   getGroups(query: GroupQuery): Observable<Group[]> {
     return this.dataService
-      .get(`${ServiceRoute}/groups`, { search: this.mapQueryToParams(query) })
+      .get(`${ResourceContext}`, { search: this.mapQueryToParams(query) })
       .pipe(
-        map(groups => groups.map(this.mapGroupFromApi))
+        map(groups => groups.map(GroupService.mapGroupFromApi))
       );
   }
 
   delete(group: Group): Observable<any> {
-    return this.dataService.delete(`${ServiceRoute}/groups/${group.id}`);
+    return this.dataService.delete(`${ResourceContext}/${group.id}`);
   }
 
   private mapQueryToParams(query: GroupQuery) {
@@ -55,7 +55,7 @@ export class GroupService {
     return params;
   }
 
-  private mapGroupFromApi(apiModel): Group {
+  private static mapGroupFromApi(apiModel): Group {
     let uiModel = new Group();
     uiModel.id = apiModel.id;
     uiModel.schoolYear = apiModel.schoolYear;
@@ -81,10 +81,10 @@ export class GroupService {
     uiModel.schoolYears = apiModel.schoolYears || [];
     uiModel.subjects = (apiModel.subjects && apiModel.subjects.map(subject => subject.toUpperCase())) || [];
 
-    return this.adaptFilterOptions(uiModel);
+    return GroupService.adaptFilterOptions(uiModel);
   }
 
-  private adaptFilterOptions(filterOptions: GroupFilterOptions): GroupFilterOptions {
+  private static adaptFilterOptions(filterOptions: GroupFilterOptions): GroupFilterOptions {
     if (filterOptions.schoolYears.length == 0) {
       filterOptions.schoolYears = [ new Date().getFullYear() ];
     }
