@@ -200,6 +200,13 @@ subprojects {
         doFirst {
             jacocoTestReport.executionData(test, IT)
             jacocoTestReport.reports.html.destination = file("${reporting.baseDir}/${name}")
+
+            // Only include execution data that exists (handle projects without integration tests)
+            jacocoTestReport {
+                executionData = files(executionData.findAll {
+                    it.exists()
+                })
+            }
         }
         finalizedBy(jacocoTestReport)
     }
