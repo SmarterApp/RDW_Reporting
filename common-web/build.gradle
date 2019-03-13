@@ -7,11 +7,11 @@ bootRun.enabled = false
 
 dependencies {
     compile project(':rdw-reporting-common')
+    compile 'io.jsonwebtoken:jjwt'
+    compile 'org.springframework:spring-messaging'
     compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-security'
-    compile 'io.jsonwebtoken:jjwt'
-    provided 'org.springframework:spring-messaging'
 
     testCompile project(path: ':rdw-reporting-common', configuration: 'tests')
     testCompile('org.springframework.boot:spring-boot-starter-test') {

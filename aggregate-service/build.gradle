@@ -5,8 +5,6 @@ createDockerfile {
 }
 
 dependencies {
-    optional 'org.springframework.boot:spring-boot-configuration-processor'
-
     compile 'com.amazon.redshift:redshift-jdbc42-no-awssdk:1.2.8.1005'
 
     // fixes java 8 time marshaling

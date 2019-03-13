@@ -7,7 +7,6 @@ dependencies {
     compile 'org.opentestsystem.rdw.common:rdw-common-security'
     compile 'org.opentestsystem.rdw.common:rdw-common-status'
     compile 'org.opentestsystem.rdw.common:rdw-common-utils'
-    optional 'org.springframework.boot:spring-boot-configuration-processor'
     runtime 'org.springframework.boot:spring-boot-devtools'
     compile 'org.springframework.cloud:spring-cloud-starter-aws'
     compile 'org.springframework.cloud:spring-cloud-starter-config'

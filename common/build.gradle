@@ -19,8 +19,6 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-jdbc'
     compile 'com.healthmarketscience.sqlbuilder:sqlbuilder:2.1.7'
 
-    optional 'org.springframework.boot:spring-boot-configuration-processor'
-
     testCompile('org.springframework.boot:spring-boot-starter-test') {
         exclude(module: 'commons-logging')
     }

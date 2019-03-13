@@ -6,13 +6,11 @@ buildscript {
     repositories {
         mavenLocal()
         jcenter()
-        maven { url 'http://repo.spring.io/plugins-release' }
     }
     dependencies {
         classpath("com.bmuschko:gradle-docker-plugin:3.6.2")
         classpath("io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE")
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.18.RELEASE")
-        classpath('org.springframework.build.gradle:propdeps-plugin:0.0.7')
     }
 }
 
@@ -23,7 +21,7 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 
 // Set version dependencies. This allows the cli to force version, e.g. `-Pcommon=1.1.0-SNAPSHOT`
-String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "1.4.0-107"
+String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "1.4.0-108"
 String rdwSchemaVersion = project.hasProperty("schema") ? project.property("schema") : "1.4.0-411"
 String dockerPrefix = "smarterbalanced"
 
@@ -32,9 +30,6 @@ allprojects {
     version = '1.4.0-SNAPSHOT'
 
     apply plugin: 'idea'
-    apply plugin: 'propdeps'
-    apply plugin: 'propdeps-maven'
-    apply plugin: 'propdeps-idea'
     apply plugin: "com.jfrog.artifactory"
 
     if (project.hasProperty("buildNumber")) {
@@ -92,6 +87,9 @@ subprojects {
     }
 
     dependencies {
+        // handy for creating metadata with @ConfigurationProperties
+        compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
+
         compile "org.slf4j:slf4j-api"
 
         testCompile 'junit:junit'
