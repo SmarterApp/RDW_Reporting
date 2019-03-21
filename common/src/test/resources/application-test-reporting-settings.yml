@@ -1,0 +1,16 @@
+reporting:
+  state:
+    code: CA
+  iris-vendor-id: bob
+  studentFilters:
+    EconomicDisadvantage: disabled
+    EnglishLanguageAcquisitionStatus: admin
+    Ethnicity: enabled
+    Gender: enabled
+    IndividualEducationPlan: admin
+    LimitedEnglishProficiencies: disabled
+    MigrantStatus: admin
+    MilitaryStudentIdentifier: admin
+    PrimaryLanguage: admin
+    Section504: admin
+
