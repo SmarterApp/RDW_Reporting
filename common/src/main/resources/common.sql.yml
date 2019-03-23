@@ -1,10 +1,12 @@
 sql:
   claim:
+    # TODO - deal with ALT scores and remove "WHERE scs.score_type_id=3"
     findAll: >-
       SELECT scs.id, scs.code, s.code as subject_code, at.code as asmt_type_code
       FROM subject_score scs
         JOIN subject s ON scs.subject_id = s.id
         JOIN asmt_type at ON at.id = scs.asmt_type_id
+      WHERE scs.score_type_id=3
       ORDER BY scs.display_order
 
   translation:
