@@ -43,10 +43,11 @@ sql:
   claim:
     aggregate:
       findAll: >-
-        SELECT scs.id, scs.code, s.code as subject_code, at.code as asmt_type_code
-          FROM subject_claim_score scs
-            JOIN subject s ON scs.subject_id = s.id
-            JOIN asmt_type at ON at.id = scs.asmt_type_id
+        SELECT ss.id, ss.code, s.code as subject_code, at.code as asmt_type_code
+          FROM subject_score ss
+            JOIN subject s ON ss.subject_id = s.id
+            JOIN asmt_type at ON at.id = ss.asmt_type_id
+          WHERE ss.score_type_id = 3
 
   target:
     findAll: >-

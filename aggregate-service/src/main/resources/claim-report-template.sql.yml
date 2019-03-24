@@ -16,12 +16,12 @@ sqlbuilder:
               e.school_year,
               e.asmt_id,
               ecs.subject_claim_score_id,
-              scs.code as claim_code
+              ss.code as claim_code
 
           from: >-
               exam_claim_score ecs
               JOIN exam e on e.id = ecs.exam_id
-              JOIN subject_claim_score scs ON scs.id = ecs.subject_claim_score_id
+              JOIN subject_score ss ON ss.id = ecs.subject_claim_score_id
               JOIN asmt a ON a.id = e.asmt_id
 
           where: >-
@@ -29,13 +29,13 @@ sqlbuilder:
               a.grade_id IN (:asmt_grade_ids) AND
               a.subject_id in (:subject_ids) AND
               a.type_id = :asmt_type_id AND
-              scs.code in (:subject_claim_score_codes)
+              ss.code in (:subject_claim_score_codes)
 
           groupBy: >-
               e.school_year,
               e.asmt_id,
               ecs.subject_claim_score_id,
-              scs.code
+              ss.code
 
       # ------------ organization parts -------------------------------------------------------------
         addons:
