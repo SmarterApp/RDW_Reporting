@@ -1,6 +1,5 @@
 sql:
   claim:
-    # TODO - deal with ALT scores and remove "WHERE scs.score_type_id=3"
     findAll: >-
       SELECT scs.id, scs.code, s.code as subject_code, at.code as asmt_type_code
       FROM subject_score scs
@@ -136,10 +135,19 @@ sql:
         sat.performance_level_count,
         sat.performance_level_standard_cutoff,
         sat.claim_score_performance_level_count,
-        sat.target_report
+        sat.alt_score_performance_level_count,
+        sat.target_report,
+        sat.printed_report
       FROM subject_asmt_type sat
         JOIN asmt_type at ON at.id = sat.asmt_type_id
         JOIN subject s ON s.id = sat.subject_id
+
+    findAllScorables: >-
+      SELECT scs.id, scs.score_type_id, scs.code, s.code as subject_code, at.code as asmt_type_code
+      FROM subject_score scs
+        JOIN subject s ON scs.subject_id = s.id
+        JOIN asmt_type at ON at.id = scs.asmt_type_id
+      ORDER BY scs.display_order
 
   snippet:
     basicPermission: >-
