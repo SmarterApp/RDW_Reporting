@@ -65,7 +65,7 @@ sql:
   exam:
     findAllByStudentId: >-
       SELECT
-        ${sql.snippet.claimColumns},
+        ${sql.snippet.claimAndAltScoreColumns},
         ${sql.snippet.exam}
       WHERE e.student_id = :student_id
        AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
@@ -134,7 +134,7 @@ sql:
     exam:
       findAllForAssessment: >-
         SELECT
-          ${sql.snippet.claimColumns},
+          ${sql.snippet.claimAndAltScoreColumns},
           ${sql.snippet.exam}
           $[groupJoinPlaceholder]
         WHERE a.id = :assessment_id
@@ -167,13 +167,13 @@ sql:
       findAll: >-
         SELECT
           count(*) as tested,
-          a.name as asmt_name,
-          a.label as asmt_label,
-          su.code as asmt_subject_code,
-          a.type_id as asmt_type_id,
-          a.school_year as asmt_school_year,
-          g.code as asmt_grade_code,
-          e.asmt_id as asmt_id,
+          a.name,
+          a.label,
+          su.code as subject_code,
+          a.type_id,
+          a.school_year,
+          g.code as grade_code,
+          e.asmt_id as id,
           max(e.completed_at) as completed_at,
           round(avg(e.scale_score)) AS score,
           round(stddev_samp(e.scale_score)/sqrt(count(*))) as std_err,
@@ -277,7 +277,7 @@ sql:
     exam:
       findAllForAssessment: >-
         SELECT
-          ${sql.snippet.claimColumns},
+          ${sql.snippet.claimAndAltScoreColumns},
           ${sql.snippet.exam}
         WHERE a.id = :assessment_id
         AND a.grade_id = :grade_id
@@ -319,12 +319,7 @@ sql:
         a.grade_code,
         a.type_id,
         a.school_year,
-        a.claim1_score_code,
-        a.claim2_score_code,
-        a.claim3_score_code,
-        a.claim4_score_code,
-        a.claim5_score_code,
-        a.claim6_score_code,
+        ${sql.snippet.asmtScoreCodeColumns},
         a.min_score,
         a.max_score,
         a.cut_point_1,
@@ -334,7 +329,8 @@ sql:
         a.cut_point_5,
         EXISTS(SELECT 1 FROM item i WHERE i.asmt_id = a.id AND i.type = 'WER') as has_wer_item,
         su.code as subject_code,
-        sat.target_report
+        sat.target_report,
+        sat.printed_report
 
 
       selectFromExamItem: >-

@@ -3,8 +3,8 @@ insert into ethnicity VALUES (-29,'ethnicity-29'),(-28,'ethnicity-28'),(-27, 'et
 insert into subject (id, code, updated, update_import_id, migrate_id) values
   (-1, 'NEW', now(), -1, -1);
 
-insert into subject_asmt_type (asmt_type_id, subject_id, performance_level_count, performance_level_standard_cutoff, claim_score_performance_level_count, target_report, printed_report) values
-  (1, -1, 6, 3, 6, 0, 0);
+insert into subject_asmt_type (subject_id, asmt_type_id, performance_level_count, performance_level_standard_cutoff, claim_score_performance_level_count, alt_score_performance_level_count, target_report, printed_report) values
+  (-1, 1, 6, 3, 6, 3, 0, 0);
 
 insert into subject_score (id, subject_id, asmt_type_id, score_type_id, code, display_order, data_order) values
   (-1, -1, 1, 3, 'claim1', 1, 1),
@@ -12,7 +12,8 @@ insert into subject_score (id, subject_id, asmt_type_id, score_type_id, code, di
   (-3, -1, 1, 3, 'claim3', 3, 3),
   (-4, -1, 1, 3, 'claim4', 4, 4),
   (-5, -1, 1, 3, 'claim5', 5, 5),
-  (-6, -1, 1, 3, 'claim6', 6, 6);
+  (-6, -1, 1, 3, 'claim6', 6, 6),
+  (-9, -1, 1, 2, 'alt1', 1, 1);
 
 insert into school_group (id, natural_id, name) values
   (-10, 'schoolGroup1', 'schoolGroup1'),
@@ -67,17 +68,17 @@ insert into student_ethnicity(student_id, ethnicity_id, ethnicity_code ) values
   (-2, -27,'ethnicity-27');
 
 insert into asmt (id, type_id, natural_id, grade_id, grade_code, subject_id, school_year, name, label, version,
-  claim1_score_code, claim2_score_code, claim3_score_code, claim4_score_code, claim5_score_code, claim6_score_code,
+  claim1_score_code, claim2_score_code, claim3_score_code, claim4_score_code, claim5_score_code, claim6_score_code, alt1_score_code,
   min_score, cut_point_1, cut_point_2, cut_point_3, cut_point_4, cut_point_5, max_score, update_import_id, updated, migrate_id) values
-  (-1, 1, 'ica1', -1, 'g1', 1, 1997, 'ica1', 'ica1', 'v1', 'ica_claim1', 'ica_claim2', 'ica_claim3', 'ica_claim4', null, null, 100, 200, 300, 400, null, null, 500, -1, '1997-07-18 20:14:34.000000', -1),
-  (-2, 2, 'iab1', -1, 'g1', 1, 1997, 'iab1', 'iab1', 'v1', null, null, null, null, null, null, 1, null, 2, null, null, null, 3, -1, '1997-07-18 20:14:34.000000', -1),
-  (-3, 3, 'sum1', -1, 'g1', 1, 1997, 'sum1', 'sum1', 'v1', 'sum_claim1', 'sum_claim2', 'sum_claim3', null, null, null, 1000, 2000, 3000, 4000, null, null, 5000, -1, '1997-07-18 20:14:34.000000', -1),
-  (-4, 3, 'sum2', -1, 'g1', 2, 1997, 'sum2', 'sum2', 'v1', 'sum_claim1', 'sum_claim2', 'sum_claim3', null, null, null, 1000, 2000, 3000, 4000, null, null, 5000, -1, '1997-07-18 20:14:34.000000', -1),
-  (-6, 2, 'iab4', -1, 'g1', 2, 1997, 'iab2', 'iab4', 'v1', null, null, null, null, null, null, 1, null, 2, null, null, null, 3, -1, '1997-07-18 20:14:34.000000', -1),
-  (-7, 2, 'iab5', -1, 'g1', 2, 1997, 'iab3', 'iab5', 'v1', null, null, null, null, null, null, 1, null, 2, null, null, null, 3, -1, '1997-07-18 20:14:34.000000', -1),
-  (-8, 2, 'iab8', -1, 'g1', 1, 1997, 'iab8', 'iab8', 'v1', null, null, null, null, null, null, 1, null, 2, null, null, null, 3, -1, '1997-07-18 20:14:34.000000', -1),
-  (-9, 2, 'iab9', -1, 'g1', 1, 1997, 'iab9', 'iab9', 'v1', null, null, null, null, null, null, 1, null, 2, null, null, null, 3, -1, '1997-07-18 20:14:34.000000', -1),
-  (-10, 1, 'newica1', -1, 'g1', 1, 1997, 'newica1', 'newica1', 'v1', 'claim1', 'claim2', 'claim3', 'claim4', 'claim5', 'claim6', 100, 200, 300, 400, 500, 600, 700, -1, '1997-07-18 20:14:34.000000', -1);
+  (-1, 1, 'ica1', -1, 'g1', 1, 1997, 'ica1', 'ica1', 'v1', 'ica_claim1', 'ica_claim2', 'ica_claim3', 'ica_claim4', null, null, null, 100, 200, 300, 400, null, null, 500, -1, '1997-07-18 20:14:34.000000', -1),
+  (-2, 2, 'iab1', -1, 'g1', 1, 1997, 'iab1', 'iab1', 'v1', null, null, null, null, null, null, null, 1, null, 2, null, null, null, 3, -1, '1997-07-18 20:14:34.000000', -1),
+  (-3, 3, 'sum1', -1, 'g1', 1, 1997, 'sum1', 'sum1', 'v1', 'sum_claim1', 'sum_claim2', 'sum_claim3', null, null, null, 'sum_alt1', 1000, 2000, 3000, 4000, null, null, 5000, -1, '1997-07-18 20:14:34.000000', -1),
+  (-4, 3, 'sum2', -1, 'g1', 2, 1997, 'sum2', 'sum2', 'v1', 'sum_claim1', 'sum_claim2', 'sum_claim3', null, null, null, 'sum_alt1', 1000, 2000, 3000, 4000, null, null, 5000, -1, '1997-07-18 20:14:34.000000', -1),
+  (-6, 2, 'iab4', -1, 'g1', 2, 1997, 'iab2', 'iab4', 'v1', null, null, null, null, null, null, null, 1, null, 2, null, null, null, 3, -1, '1997-07-18 20:14:34.000000', -1),
+  (-7, 2, 'iab5', -1, 'g1', 2, 1997, 'iab3', 'iab5', 'v1', null, null, null, null, null, null, null, 1, null, 2, null, null, null, 3, -1, '1997-07-18 20:14:34.000000', -1),
+  (-8, 2, 'iab8', -1, 'g1', 1, 1997, 'iab8', 'iab8', 'v1', null, null, null, null, null, null, null, 1, null, 2, null, null, null, 3, -1, '1997-07-18 20:14:34.000000', -1),
+  (-9, 2, 'iab9', -1, 'g1', 1, 1997, 'iab9', 'iab9', 'v1', null, null, null, null, null, null, null, 1, null, 2, null, null, null, 3, -1, '1997-07-18 20:14:34.000000', -1),
+  (-10, 1, 'newica1', -1, 'g1', 1, 1997, 'newica1', 'newica1', 'v1', 'claim1', 'claim2', 'claim3', 'claim4', 'claim5', 'claim6', null, 100, 200, 300, 400, 500, 600, 700, -1, '1997-07-18 20:14:34.000000', -1);
 
 INSERT INTO percentile (id, asmt_id, start_date, end_date, count, mean, standard_deviation, min_score, max_score, update_import_id, updated, migrate_id) VALUES
   (1, -2, '1996-01-01', '1997-01-07', 11, 2410.1, 88.9, 1, 1, -1, '1997-07-18 20:14:34.000000', -1),
@@ -138,27 +139,28 @@ insert into exam (id, type_id, grade_id, grade_code, student_id, school_id, oppo
   claim4_category, claim4_scale_score, claim4_scale_score_std_err,
   claim5_category, claim5_scale_score, claim5_scale_score_std_err,
   claim6_category, claim6_scale_score, claim6_scale_score_std_err,
+  alt1_performance_level, alt1_scale_score, alt1_scale_score_std_err,
   update_import_id, updated, migrate_id) values
-  (-1, 1, -1, 'g1', -1, -10, 0, 0, 0, 0, 0, 1997, -1, 'v1', 'Complete', 'Valid', 'session1', 2000, 20, 1, '1997-01-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, 5, 500, 50, 6, 600, 60, -1, '1997-07-18 20:14:34.000000', -1),
-  (-2, 2, -2, 'g2', -1, -10, 1, 0, 0, 0, 0, 1997, -2, 'v1', 'Complete', 'Valid', 'session2', 2100, 21, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
-  (-3, 3, -3, 'g3', -1, -20, 2, 0, 0, 0, 0, 1997, -3, 'v1', 'Complete', 'Valid', 'session3', 2200, 22, 3, '1997-01-01 00:00:00.000000', 1, 1000, 100, 2, 2000, 200, 3, 3000, 300, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
-  (-4, 3, -1, 'g1', -1, -30, 3, 0, 0, 0, 0, 1997, -3, 'v1', 'Complete', 'Valid', 'session4', 2300, 23, 1, '1997-01-02 00:00:00.000000', 1, 1100, 110, 2, 2100, 210, 3, 3100, 310, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
-  (-5, 3, -1, 'g1', -1, -30, 4, 0, 0, 0, 0, 1997, -3, 'v1', 'Complete', 'Valid', 'session5', 2400, 24, 2, '1997-01-05 00:00:00.000000', 1, 1200, 120, 2, 2200, 220, 3, 3200, 320, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
-  (-6, 3, -1, 'g1', -1, -30, null, 1, 1, 1, 1, 1997, -3, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
-  (-7, 3, -1, 'g1', -2, -20, null, 1, 1, 1, 1, 1997, -4, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
-  (-17, 3, -1, 'g1', -2, -30, null, 1, 1, 1, 1, 1997, -1, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-04 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
-  (-8, 3, -1, 'g1', -1, -30, null, 1, 1, 1, 1, 1997, -4, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
-  (-9, 1, -1, 'g1', -1, -10, 0, 0, 0, 0, 0, 1997, -10, 'v1', 'Complete', 'Valid', 'session1', 2000, 20, 1, '1997-01-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, 5, 500, 50, 6, 600, 60, -1, '1997-07-18 20:14:34.000000', -1),
-  (-20, 2, -2, 'g2', -4, -10, 1, 0, 0, 0, 0, 1997, -2, 'v1', 'Complete', 'Valid', 'session2', 2500, 25, 2, '1996-12-31 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
-  (-21, 2, -2, 'g2', -4, -10, 1, 0, 0, 0, 0, 1998, -2, 'v1', 'Complete', 'Valid', 'session2', 2500, 25, 2, '1998-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1998-07-18 20:14:34.000000', -1),
-  (-22, 2, -2, 'g2', -5, -50, 1, 0, 0, 0, 0, 1997, -8, 'v1', 'Complete', 'Valid', 'session2', 2555, 25, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
-  (-23, 2, -2, 'g2', -5, -50, 1, 0, 0, 0, 0, 1997, -8, 'v1', 'Complete', 'Valid', 'session2', null, null, null, '1997-01-01 00:00:00.000000', 1, 1000, 100, 2, 2000, 200, 3, 3000, 300, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
-  (-24, 2, -2, 'g2', -6, -50, 1, 0, 0, 0, 0, 1997, -9, 'v1', 'Complete', 'Valid', 'session2', 2050, 25, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
-  (-25, 2, -2, 'g2', -6, -50, 1, 0, 0, 0, 0, 1997, -9, 'v1', 'Partial', 'Valid', 'session2', null, null, null, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
-  (-26, 2, -2, 'g2', -5, -50, 1, 0, 0, 0, 0, 1997, -9, 'v1', 'Complete', 'Valid', 'session2', 2150, 28, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-1, 1, -1, 'g1', -1, -10, 0, 0, 0, 0, 0, 1997, -1, 'v1', 'Complete', 'Valid', 'session1', 2000, 20, 1, '1997-01-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, 5, 500, 50, 6, 600, 60, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-2, 2, -2, 'g2', -1, -10, 1, 0, 0, 0, 0, 1997, -2, 'v1', 'Complete', 'Valid', 'session2', 2100, 21, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-3, 3, -3, 'g3', -1, -20, 2, 0, 0, 0, 0, 1997, -3, 'v1', 'Complete', 'Valid', 'session3', 2200, 22, 3, '1997-01-01 00:00:00.000000', 1, 1000, 100, 2, 2000, 200, 3, 3000, 300, null, null, null, null, null, null, null, null, null, 1, 50, 5, -1, '1997-06-18 20:14:34.000000', -1),
+  (-4, 3, -1, 'g1', -1, -30, 3, 0, 0, 0, 0, 1997, -3, 'v1', 'Complete', 'Valid', 'session4', 2300, 23, 1, '1997-01-02 00:00:00.000000', 1, 1100, 110, 2, 2100, 210, 3, 3100, 310, null, null, null, null, null, null, null, null, null, 2, 80, 8, -1, '1997-06-18 20:14:34.000000', -1),
+  (-5, 3, -1, 'g1', -1, -30, 4, 0, 0, 0, 0, 1997, -3, 'v1', 'Complete', 'Valid', 'session5', 2400, 24, 2, '1997-01-05 00:00:00.000000', 1, 1200, 120, 2, 2200, 220, 3, 3200, 320, null, null, null, null, null, null, null, null, null, 3, 90, 9, -1, '1997-06-18 20:14:34.000000', -1),
+  (-6, 3, -1, 'g1', -1, -30, null, 1, 1, 1, 1, 1997, -3, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
+  (-7, 3, -1, 'g1', -2, -20, null, 1, 1, 1, 1, 1997, -4, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
+  (-17, 3, -1, 'g1', -2, -30, null, 1, 1, 1, 1, 1997, -1, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-04 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
+  (-8, 3, -1, 'g1', -1, -30, null, 1, 1, 1, 1, 1997, -4, 'v1', 'Partial', 'Standardized', 'session6', null, null, null, '1997-01-03 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-06-18 20:14:34.000000', -1),
+  (-9, 1, -1, 'g1', -1, -10, 0, 0, 0, 0, 0, 1997, -10, 'v1', 'Complete', 'Valid', 'session1', 2000, 20, 1, '1997-01-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, 5, 500, 50, 6, 600, 60, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-20, 2, -2, 'g2', -4, -10, 1, 0, 0, 0, 0, 1997, -2, 'v1', 'Complete', 'Valid', 'session2', 2500, 25, 2, '1996-12-31 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-21, 2, -2, 'g2', -4, -10, 1, 0, 0, 0, 0, 1998, -2, 'v1', 'Complete', 'Valid', 'session2', 2500, 25, 2, '1998-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1998-07-18 20:14:34.000000', -1),
+  (-22, 2, -2, 'g2', -5, -50, 1, 0, 0, 0, 0, 1997, -8, 'v1', 'Complete', 'Valid', 'session2', 2555, 25, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-23, 2, -2, 'g2', -5, -50, 1, 0, 0, 0, 0, 1997, -8, 'v1', 'Complete', 'Valid', 'session2', null, null, null, '1997-01-01 00:00:00.000000', 1, 1000, 100, 2, 2000, 200, 3, 3000, 300, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-24, 2, -2, 'g2', -6, -50, 1, 0, 0, 0, 0, 1997, -9, 'v1', 'Complete', 'Valid', 'session2', 2050, 25, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-25, 2, -2, 'g2', -6, -50, 1, 0, 0, 0, 0, 1997, -9, 'v1', 'Partial', 'Valid', 'session2', null, null, null, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-26, 2, -2, 'g2', -5, -50, 1, 0, 0, 0, 0, 1997, -9, 'v1', 'Complete', 'Valid', 'session2', 2150, 28, 2, '1997-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
 
-  (-100, 1, -1, 'g1', -100, -30, 0, null, null, null, 0, 1998, -1, 'v1', 'Complete', 'Valid', 'session1', 2000, 20, 1, '1998-10-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
-  (-101, 2, -1, 'g2', -100, -40, 1, null, null, null, 0, 1998, -2, 'v1', 'Complete', 'Valid', 'session1', 2100, 21, 2, '1999-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1);
+  (-100, 1, -1, 'g1', -100, -30, 0, null, null, null, 0, 1998, -1, 'v1', 'Complete', 'Valid', 'session1', 2000, 20, 1, '1998-10-01 00:00:00.000000', 1, 100, 10, 2, 200, 20, 3, 300, 30, 4, 400, 40, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1),
+  (-101, 2, -1, 'g2', -100, -40, 1, null, null, null, 0, 1998, -2, 'v1', 'Complete', 'Valid', 'session1', 2100, 21, 2, '1999-01-01 00:00:00.000000', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, '1997-07-18 20:14:34.000000', -1);
 
 
 INSERT INTO exam_target_score (id, target_id, exam_id, student_relative_residual_score, standard_met_relative_residual_score) VALUES

@@ -203,25 +203,43 @@ sql:
         e.claim5_scale_score_std_err,
         e.claim6_category,
         e.claim6_scale_score,
-        e.claim6_scale_score_std_err
+        e.claim6_scale_score_std_err,
+        e.alt1_scale_score,
+        e.alt1_scale_score_std_err,
+        e.alt1_performance_level,
+        e.alt2_scale_score,
+        e.alt2_scale_score_std_err,
+        e.alt2_performance_level,
+        e.alt3_scale_score,
+        e.alt3_scale_score_std_err,
+        e.alt3_performance_level,
+        e.alt4_scale_score,
+        e.alt4_scale_score_std_err,
+        e.alt4_performance_level,
+        e.alt5_scale_score,
+        e.alt5_scale_score_std_err,
+        e.alt5_performance_level,
+        e.alt6_scale_score,
+        e.alt6_scale_score_std_err,
+        e.alt6_performance_level
 
-    asmtClaimColumns: >-
+    asmtScoreCodeColumns: >-
         a.claim1_score_code,
         a.claim2_score_code,
         a.claim3_score_code,
         a.claim4_score_code,
         a.claim5_score_code,
         a.claim6_score_code,
-        a.claim1_score_code as asmt_claim1_score_code,
-        a.claim2_score_code as asmt_claim2_score_code,
-        a.claim3_score_code as asmt_claim3_score_code,
-        a.claim4_score_code as asmt_claim4_score_code,
-        a.claim5_score_code as asmt_claim5_score_code,
-        a.claim6_score_code as asmt_claim6_score_code
+        a.alt1_score_code,
+        a.alt2_score_code,
+        a.alt3_score_code,
+        a.alt4_score_code,
+        a.alt5_score_code,
+        a.alt6_score_code
 
-    claimColumns: >-
+    claimAndAltScoreColumns: >-
        ${sql.snippet.examClaimColumns},
-       ${sql.snippet.asmtClaimColumns}
+       ${sql.snippet.asmtScoreCodeColumns}
 
     examColumns: >-
         e.id,

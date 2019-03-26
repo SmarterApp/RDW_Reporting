@@ -8,7 +8,7 @@ sql:
         e.section504,
         e.economic_disadvantage,
         e.migrant_status,
-        ${sql.snippet.claimColumns},
+        ${sql.snippet.claimAndAltScoreColumns},
         ${sql.snippet.exam}
       WHERE e.student_id = :student_id
        AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
@@ -61,7 +61,7 @@ sql:
     findAllIcasOrSummativesByStudentIdsAndQueryParamsUnknownPermissions: >-
       SELECT
         d.name AS district_name,
-        ${sql.snippet.claimColumns},
+        ${sql.snippet.claimAndAltScoreColumns},
         wt.trait_evidence_elaboration_score as ei_trait_evidence_elaboration_score,
         wt.trait_organization_purpose_score as ei_trait_organization_purpose_score,
         wt.trait_conventions_score as ei_trait_conventions_score,
@@ -91,7 +91,7 @@ sql:
     findAllIcasOrSummativesByStudentIdsAndQueryParamsGroupPermissions: >-
       SELECT
         d.name AS district_name,
-        ${sql.snippet.claimColumns},
+        ${sql.snippet.claimAndAltScoreColumns},
         wt.trait_evidence_elaboration_score as ei_trait_evidence_elaboration_score,
         wt.trait_organization_purpose_score as ei_trait_organization_purpose_score,
         wt.trait_conventions_score as ei_trait_conventions_score,
