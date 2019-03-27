@@ -7,7 +7,7 @@ reporting:
     EnglishLanguageAcquisitionStatus: admin
     Ethnicity: enabled
     IndividualEducationPlan: admin
-    LimitedEnglishProficiencies: disabled
+    LimitedEnglishProficiency: disabled
     MigrantStatus: admin
     MilitaryStudentIdentifier: admin
     PrimaryLanguage: admin
