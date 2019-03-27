@@ -174,7 +174,7 @@ export class AggregateReportOptionsMapper {
         militaryConnectedCodes: options.studentFilters.militaryConnectedCodes.map(
           optionMapper(
             value => translate(`common.military-connected-code.${value}`),
-            value => `Military Student Identifier Codes: ${value}`
+            value => `Military Student Identifier: ${value}`
           )
         )
       }
