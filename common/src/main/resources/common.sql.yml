@@ -185,7 +185,7 @@ sql:
           )
         )
 
-    examClaimColumns: >-
+    examScoreColumns: >-
         e.claim1_category,
         e.claim1_scale_score,
         e.claim1_scale_score_std_err,
@@ -238,7 +238,7 @@ sql:
         a.alt6_score_code
 
     claimAndAltScoreColumns: >-
-       ${sql.snippet.examClaimColumns},
+       ${sql.snippet.examScoreColumns},
        ${sql.snippet.asmtScoreCodeColumns}
 
     examColumns: >-
