@@ -1,0 +1,45 @@
+﻿<assessmentItem xmlns="http://www.imsglobal.org/xsd/apip/apipv1p0/qtiitem/imsqti_v2p1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/1998/Math/MathML http://www.w3.org/Math/XMLSchema/mathml2/mathml2.xsd http://www.imsglobal.org/xsd/apip/apipv1p0/qtiitem/imsqti_v2p1 http://www.imsglobal.org/profile/apip/apipv1p0/apipv1p0_qtiitemv2p1_v1p0.xsd http://www.imsglobal.org/xsd/apip/apipv1p0/imsapip_qtiv1p0 http://www.imsglobal.org/profile/apip/apipv1p0/apipv1p0_qtiextv2p1_v1p0.xsd" identifier="item_37119" title="Item 37119" adaptive="false" timeDependent="false" xmlns:apip="http://www.imsglobal.org/xsd/apip/apipv1p0/imsapip_qtiv1p0">
+                    <responseDeclaration identifier="EBSR1" baseType="identifier" cardinality="single">
+                        <correctResponse>
+                                <value>D</value>
+
+                        </correctResponse>
+                    </responseDeclaration>
+                    <responseDeclaration identifier="EBSR2" baseType="identifier" cardinality="single">
+                        <correctResponse>
+                                <value>B</value>
+
+                        </correctResponse>
+                    </responseDeclaration>
+                    <outcomeDeclaration identifier="SCORE" baseType="float" cardinality="single" />
+                    <outcomeDeclaration identifier="FEEDBACK" cardinality="single" baseType="identifier" />
+                    <itemBody />
+                    <responseProcessing>
+                    <responseCondition>
+                    <responseIf>
+	                    <and>
+		                    <match>
+			                    <variable identifier="EBSR1"/>
+			                    <correct identifier="EBSR1"/>
+		                    </match>
+		                    <match>
+			                    <variable identifier="EBSR2"/>
+			                    <correct identifier="EBSR2"/>
+		                    </match>
+	                    </and>
+                    <setOutcomeValue identifier="SCORE">
+                      <baseValue baseType="float">1</baseValue>
+                    </setOutcomeValue>
+                    </responseIf>
+                    <responseElse>
+	                    <setOutcomeValue identifier="SCORE">
+		                    <baseValue baseType="float">0</baseValue>
+	                    </setOutcomeValue>
+                    </responseElse>
+                    </responseCondition>
+                    </responseProcessing>
+                     <modalFeedback outcomeIdentifier="FEEDBACK" showHide="show" identifier="solution">
+                       <p id="" />
+                     </modalFeedback>
+                     <apip:apipAccessibility />
+                </assessmentItem>

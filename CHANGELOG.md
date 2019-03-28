@@ -1,5 +1,9 @@
 ## Change Log
 
+#### 1.3.1 - 2019-03-
+
+* Extract both answer key parts for EBSR items (reporting-service).
+
 #### 1.3.0
 
 * Fix issue with claim levels in the ISR (PDF report).

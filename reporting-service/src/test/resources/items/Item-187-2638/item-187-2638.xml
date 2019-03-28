@@ -79,66 +79,66 @@
         <rubric scorepoint="4">
           <name>
         Rubric 4</name>
-          <val><![CDATA[<p style="">&#xA0;</p><p><dl><dt style="float: left; margin-top: 1px; margin-bottom: -1em;">a)</dt><dd style="float: top;padding-left:1.5000em; padding-left:1.5000em; "><p style="font-style:normal; font-weight:normal; ">Inference here.</p></dd><dt style="float: left; margin-top: 1px; margin-bottom: -1em;">b)</dt><dd style="float: top;padding-left:1.5000em; padding-left:1.5000em; "><p style="font-style:normal; font-weight:normal; ">Text-supported example: “....” (paragraph reference)</p></dd><dt style="float: left; margin-top: 1px; margin-bottom: -1em;">c)</dt><dd style="float: top;padding-left:1.5000em; padding-left:1.5000em; "><p style="font-style:normal; font-weight:normal; ">Inference here.</p></dd><dt style="float: left; margin-top: 1px; margin-bottom: -1em;">d)</dt><dd style="float: top;padding-left:1.5000em; padding-left:1.5000em; "><p style="font-style:normal; font-weight:normal; ">Text-supported example: “....” (paragraph reference)</p></dd></dl></p>]]></val>
+          <val><![CDATA[<p style=""> </p><p><dl><dt style="float: left; margin-top: 1px; margin-bottom: -1em;">a)</dt><dd style="float: top;padding-left:1.5000em; padding-left:1.5000em; "><p style="font-style:normal; font-weight:normal; ">Inference here.</p></dd><dt style="float: left; margin-top: 1px; margin-bottom: -1em;">b)</dt><dd style="float: top;padding-left:1.5000em; padding-left:1.5000em; "><p style="font-style:normal; font-weight:normal; ">Text-supported example: “....” (paragraph reference)</p></dd><dt style="float: left; margin-top: 1px; margin-bottom: -1em;">c)</dt><dd style="float: top;padding-left:1.5000em; padding-left:1.5000em; "><p style="font-style:normal; font-weight:normal; ">Inference here.</p></dd><dt style="float: left; margin-top: 1px; margin-bottom: -1em;">d)</dt><dd style="float: top;padding-left:1.5000em; padding-left:1.5000em; "><p style="font-style:normal; font-weight:normal; ">Text-supported example: “....” (paragraph reference)</p></dd></dl></p>]]></val>
         </rubric>
         <samplelist maxval="4" minval="4">
           <sample purpose="OtherExemplar" scorepoint="4">
             <name>4-Point Other Official Sample Answers
       </name>
             <annotation />
-            <samplecontent><![CDATA[<p style="">&#xA0;</p>]]></samplecontent>
+            <samplecontent><![CDATA[<p style=""> </p>]]></samplecontent>
           </sample>
         </samplelist>
         <rubric scorepoint="3">
           <name>
         Rubric 3</name>
-          <val><![CDATA[<p style="">&#xA0;</p>]]></val>
+          <val><![CDATA[<p style=""> </p>]]></val>
         </rubric>
         <samplelist maxval="3" minval="3">
           <sample purpose="Exemplar" scorepoint="3">
             <name>3-Point Official Sample Answer
       </name>
             <annotation />
-            <samplecontent><![CDATA[<p style="">&#xA0;</p>]]></samplecontent>
+            <samplecontent><![CDATA[<p style=""> </p>]]></samplecontent>
           </sample>
         </samplelist>
         <rubric scorepoint="2">
           <name>
         Rubric 2</name>
-          <val><![CDATA[<p style="">&#xA0;</p>]]></val>
+          <val><![CDATA[<p style=""> </p>]]></val>
         </rubric>
         <samplelist maxval="2" minval="2">
           <sample purpose="Exemplar" scorepoint="2">
             <name>2-Point Official Sample Answer
       </name>
             <annotation />
-            <samplecontent><![CDATA[<p style="">&#xA0;</p>]]></samplecontent>
+            <samplecontent><![CDATA[<p style=""> </p>]]></samplecontent>
           </sample>
         </samplelist>
         <rubric scorepoint="1">
           <name>
         Rubric 1</name>
-          <val><![CDATA[<p style="">&#xA0;</p>]]></val>
+          <val><![CDATA[<p style=""> </p>]]></val>
         </rubric>
         <samplelist maxval="1" minval="1">
           <sample purpose="Exemplar" scorepoint="1">
             <name>1-Point Official Sample Answer
       </name>
             <annotation />
-            <samplecontent><![CDATA[<p style="">&#xA0;</p>]]></samplecontent>
+            <samplecontent><![CDATA[<p style=""> </p>]]></samplecontent>
           </sample>
         </samplelist>
         <rubric scorepoint="0">
           <name>
         Rubric 0</name>
-          <val><![CDATA[<p style="">&#xA0;</p>]]></val>
+          <val><![CDATA[<p style=""> </p>]]></val>
         </rubric>
         <samplelist maxval="0" minval="0">
           <sample purpose="Exemplar" scorepoint="0">
             <name>0-Point Official Sample Answer
       </name>
             <annotation />
-            <samplecontent><![CDATA[<p style="">&#xA0;</p>]]></samplecontent>
+            <samplecontent><![CDATA[<p style=""> </p>]]></samplecontent>
           </sample>
         </samplelist>
       </rubriclist>

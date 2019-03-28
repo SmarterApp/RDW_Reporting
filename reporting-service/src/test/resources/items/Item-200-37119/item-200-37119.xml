@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<itemrelease version="2.0">
+  <item format="EBSR" id="37119" version="7" bankkey="200">
+    <associatedpassage>1175</associatedpassage>
+    <attriblist>
+      <attrib attid="itm_item_id">
+        <name>Item: ITS ID</name>
+        <val>37119</val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_item_subject">
+        <name>Item: Subject</name>
+        <val>ELA</val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_item_desc">
+        <name>Item: Item Description</name>
+        <val>Wild in the City/7100</val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_FTUse">
+        <name>Fieldtest Use</name>
+        <val>Platform::ELAG6::1.7 (196);</val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_OPUse">
+        <name>Operational Use</name>
+        <val>CAT::ELAG6::ON-S1-A1::SP14 (138); CAT::ELAG6::ON-D::SP14 (260); FAKE ELA FORM (3583);</val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_att_Answer Key">
+        <name>Item: Answer Key</name>
+        <val>D</val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_att_Grade">
+        <name>Item: Grade</name>
+        <val>6</val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_att_Item Format">
+        <name>Item: Item Format</name>
+        <val>EBSR</val>
+        <desc>Evidence-Based Selected Response 4</desc>
+      </attrib>
+      <attrib attid="itm_att_Page Layout">
+        <name>Item: Page Layout</name>
+        <val>21</val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_att_Response Type">
+        <name>Item: Response Type</name>
+        <val>EBSR</val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_att_Item Point">
+        <name>Item: Item Point</name>
+        <val>1 pt.</val>
+        <desc>1 Point</desc>
+      </attrib>
+      <attrib attid="stm_pass_id">
+        <name>Stim: ITS ID</name>
+        <val>1175</val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_att_Answer Key (Part II)">
+        <name>Item: Answer Key (Part II)</name>
+        <val>B</val>
+        <desc></desc>
+      </attrib>
+    </attriblist>
+    <tutorial id="67861" bankkey="200" />
+    <resourceslist />
+    <statistic />
+    <MachineRubric filename="Item_37119_v7.qrx" />
+    <content language="ENU" version="2.0" approvedVersion="7">
+      <qti spec="itemBody"><![CDATA[<itemBody><p style=""><p style="">The following question has two parts. First, answer part <span id="item_37119_TAG_2_BEGIN">A.</span> Then, answer part <span id="item_37119_TAG_3_BEGIN">B.</span> </p></p><choiceInteraction responseIdentifier="EBSR1" shuffle="false" maxChoice="1"><prompt><p style="">The following question has two parts. First, answer part <span id="item_37119_TAG_4_BEGIN">A.</span> Then, answer part <span id="item_37119_TAG_5_BEGIN">B.</span></p><p style=""><br /><span id="item_37119_TAG_1_BEGIN"><span style="font-style:italic; font-weight:bold; ">Part A</span></span></p><p style=""><br />What inference can be made about the author's opinion of animals living in the city?</p></prompt><simpleChoice identifier="A"><p style="">The author believes that people may be frightened by wild animals.</p></simpleChoice><simpleChoice identifier="B"><p style="">The author believes that wild animals living in the city struggle to survive.</p></simpleChoice><simpleChoice identifier="C"><p style="">The author believes that animals should stay in the wild and out of the city.</p></simpleChoice><simpleChoice identifier="D"><p style="">The author believes that people can benefit from wild animals living in the city.</p></simpleChoice></choiceInteraction><choiceInteraction responseIdentifier="EBSR2" shuffle="false" maxChoice="1"><prompt><p style="font-style:italic; font-weight:bold; "><span id="item_37119_TAG_11_BEGIN">Part B</span></p><p style=""><br />Which sentence from the text <span id="item_37119_TAG_6_BEGIN"><span style="font-weight:bold; ">best</span></span> supports your answer in part A?</p></prompt><simpleChoice identifier="A"><p style=""><span id="item_37119_TAG_7_BEGIN">“Wild animals need food, water, space to hunt or hide, and a place to raise young.”</span></p></simpleChoice><simpleChoice identifier="B"><p style=""><span id="item_37119_TAG_8_BEGIN">“These winged mammals can eat eight mosquitoes, flies, or moths a minute.”</span></p></simpleChoice><simpleChoice identifier="C"><p style=""><span id="item_37119_TAG_9_BEGIN">“These animals nest in sewers, attics, and in the ventilation systems of buildings.”</span></p></simpleChoice><simpleChoice identifier="D"><p style=""><span id="item_37119_TAG_10_BEGIN">“Bald eagles, which were once endangered, can now be spotted flying over Central Park.”</span></p></simpleChoice></choiceInteraction></itemBody>]]></qti>
+      <attachmentlist>
+        <attachment id="braillefile1" type="BRF" subtype="contracted" file="item_37119_enu_contracted.brf" />
+        <attachment id="braillefile2" type="BRF" subtype="uncontracted" file="item_37119_enu_uncontracted.brf" />
+      </attachmentlist>
+      <apipAccessibility>
+        <accessibilityInfo>
+          <accessElement identifier="ae1">
+            <contentLinkInfo itsLinkIdentifierRef="item_37119_TAG_2_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>A. ;</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>A.</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString></brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae2">
+            <contentLinkInfo itsLinkIdentifierRef="item_37119_TAG_3_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>B;</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>B.</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString></brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae3">
+            <contentLinkInfo itsLinkIdentifierRef="item_37119_TAG_4_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>A. ;</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>A.</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString></brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae4">
+            <contentLinkInfo itsLinkIdentifierRef="item_37119_TAG_5_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>B;</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>B.</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString></brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae5">
+            <contentLinkInfo itsLinkIdentifierRef="item_37119_TAG_1_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>Part A;</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>Part A</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString></brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae6">
+            <contentLinkInfo itsLinkIdentifierRef="item_37119_TAG_11_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>Part B;</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>Part B</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString></brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae7">
+            <contentLinkInfo itsLinkIdentifierRef="item_37119_TAG_6_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>, best,</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>best</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString></brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae8">
+            <contentLinkInfo itsLinkIdentifierRef="item_37119_TAG_7_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>Quote, Wild animals need food, water, space to hunt or hide, and a place to raise young. End Quote.</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>“Wild animals need food, water, space to hunt or hide, and a place to raise young.”</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString></brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae9">
+            <contentLinkInfo itsLinkIdentifierRef="item_37119_TAG_8_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>Quote, These winged mammals can eat eight mosquitoes, flies, or moths a minute. End quote.</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>“These winged mammals can eat eight mosquitoes, flies, or moths a minute.”</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString></brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae10">
+            <contentLinkInfo itsLinkIdentifierRef="item_37119_TAG_9_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>Quote, These animals nest in sewers, attics, and in the ventilation systems of buildings. End Quote.</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>“These animals nest in sewers, attics, and in the ventilation systems of buildings.”</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString></brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+          <accessElement identifier="ae11">
+            <contentLinkInfo itsLinkIdentifierRef="item_37119_TAG_10_BEGIN" type="Text">
+              <objectLink />
+            </contentLinkInfo>
+            <relatedElementInfo>
+              <readAloud>
+                <textToSpeechPronunciation>Quote, Bald eagles, which were once endangered, can now be spotted flying over Central Park. End quote.</textToSpeechPronunciation>
+                <textToSpeechPronunciationAlternate>“Bald eagles, which were once endangered, can now be spotted flying over Central Park.”</textToSpeechPronunciationAlternate>
+              </readAloud>
+              <brailleText>
+                <brailleTextString></brailleTextString>
+              </brailleText>
+            </relatedElementInfo>
+          </accessElement>
+        </accessibilityInfo>
+      </apipAccessibility>
+    </content>
+  </item>
+</itemrelease>

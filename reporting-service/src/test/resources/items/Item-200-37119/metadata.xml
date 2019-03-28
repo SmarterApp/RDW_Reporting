@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<metadata>
+  <smarterAppMetadata xmlns="http://www.smarterapp.org/ns/1/assessment_item_metadata">
+    <Identifier>37119</Identifier>
+    <SecurityStatus>Non-secure</SecurityStatus>
+    <SmarterAppItemDescriptor>Wild in the City/7100</SmarterAppItemDescriptor>
+    <StimulusFormat>Standard</StimulusFormat>
+    <Subject>ELA</Subject>
+    <Version>7</Version>
+    <AssociatedStimulus>1175</AssociatedStimulus>
+    <ItemAuthorIdentifier>Sridhar_Ravva</ItemAuthorIdentifier>
+    <ItemSpecFormat>SmarterApp</ItemSpecFormat>
+    <LastModifiedBy>Sridhar_Ravva</LastModifiedBy>
+    <IntendedGrade>6</IntendedGrade>
+    <MinimumGrade>6</MinimumGrade>
+    <MaximumGrade>6</MaximumGrade>
+    <DepthOfKnowledge>3</DepthOfKnowledge>
+    <AchievementQuintile>3</AchievementQuintile>
+    <ContentTaskModel>1</ContentTaskModel>
+    <InteractionType>EBSR</InteractionType>
+    <MaximumNumberOfPoints>1</MaximumNumberOfPoints>
+    <ScorePoints>"0,1"</ScorePoints>
+    <PresentationFormat>Text</PresentationFormat>
+    <BrailleType>BRF</BrailleType>
+    <StimulusLength>Short</StimulusLength>
+    <AdministrationDate>Field Test</AdministrationDate>
+    <ScoringEngine>Automatic with Key(s)</ScoringEngine>
+    <PerformanceTaskComponentItem>N</PerformanceTaskComponentItem>
+    <AccessibilityTagsASLLanguage>N</AccessibilityTagsASLLanguage>
+    <StandardPublication>
+      <Publication>SBAC-ELA-v1</Publication>
+      <PrimaryStandard>SBAC-ELA-v1:1-IT|11-6|6.RI.6</PrimaryStandard>
+    </StandardPublication>
+    <IrtDimension>
+      <IrtStatDomain>Online</IrtStatDomain>
+      <IrtModelType>IRT3PLN</IrtModelType>
+      <IrtDimensionPurpose></IrtDimensionPurpose>
+      <IrtScore>1</IrtScore>
+      <IrtWeight>1</IrtWeight>
+      <IrtParameter>
+        <Name>a</Name>
+        <Value>0.70775</Value>
+      </IrtParameter>
+      <IrtParameter>
+        <Name>b</Name>
+        <Value>1.56195</Value>
+      </IrtParameter>
+      <IrtParameter>
+        <Name>c</Name>
+        <Value>0</Value>
+      </IrtParameter>
+    </IrtDimension>
+    <Status>Operational</Status>
+    <AssociatedTutorial>67861</AssociatedTutorial>
+    <Language>eng</Language>
+  </smarterAppMetadata>
+</metadata>

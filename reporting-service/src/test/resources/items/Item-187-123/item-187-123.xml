@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<itemrelease version="2.0">
+  <item format="EBSR" id="37119" version="7" bankkey="200">
+    <associatedpassage>1175</associatedpassage>
+    <attriblist>
+      <attrib attid="itm_item_id">
+        <name>Item: ITS ID</name>
+        <val>37119</val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_att_Answer Key">
+        <name>Item: Answer Key</name>
+        <val></val>
+        <desc></desc>
+      </attrib>
+      <attrib attid="itm_att_Answer Key (Part II)">
+        <name>Item: Answer Key (Part II)</name>
+        <val></val>
+        <desc></desc>
+      </attrib>
+    </attriblist>
+    <tutorial id="67861" bankkey="200" />
+    <resourceslist />
+    <statistic />
+    <MachineRubric filename="Item_37119_v7.qrx" />
+    <content language="ENU" version="2.0" approvedVersion="7">
+      <qti spec="itemBody"><![CDATA[<itemBody><p style=""><p style="">The following question has two parts. First, answer part <span id="item_37119_TAG_2_BEGIN">A.</span> Then, answer part <span id="item_37119_TAG_3_BEGIN">B.</span> </p></p><choiceInteraction responseIdentifier="EBSR1" shuffle="false" maxChoice="1"><prompt><p style="">The following question has two parts. First, answer part <span id="item_37119_TAG_4_BEGIN">A.</span> Then, answer part <span id="item_37119_TAG_5_BEGIN">B.</span></p><p style=""><br /><span id="item_37119_TAG_1_BEGIN"><span style="font-style:italic; font-weight:bold; ">Part A</span></span></p><p style=""><br />What inference can be made about the author's opinion of animals living in the city?</p></prompt><simpleChoice identifier="A"><p style="">The author believes that people may be frightened by wild animals.</p></simpleChoice><simpleChoice identifier="B"><p style="">The author believes that wild animals living in the city struggle to survive.</p></simpleChoice><simpleChoice identifier="C"><p style="">The author believes that animals should stay in the wild and out of the city.</p></simpleChoice><simpleChoice identifier="D"><p style="">The author believes that people can benefit from wild animals living in the city.</p></simpleChoice></choiceInteraction><choiceInteraction responseIdentifier="EBSR2" shuffle="false" maxChoice="1"><prompt><p style="font-style:italic; font-weight:bold; "><span id="item_37119_TAG_11_BEGIN">Part B</span></p><p style=""><br />Which sentence from the text <span id="item_37119_TAG_6_BEGIN"><span style="font-weight:bold; ">best</span></span> supports your answer in part A?</p></prompt><simpleChoice identifier="A"><p style=""><span id="item_37119_TAG_7_BEGIN">“Wild animals need food, water, space to hunt or hide, and a place to raise young.”</span></p></simpleChoice><simpleChoice identifier="B"><p style=""><span id="item_37119_TAG_8_BEGIN">“These winged mammals can eat eight mosquitoes, flies, or moths a minute.”</span></p></simpleChoice><simpleChoice identifier="C"><p style=""><span id="item_37119_TAG_9_BEGIN">“These animals nest in sewers, attics, and in the ventilation systems of buildings.”</span></p></simpleChoice><simpleChoice identifier="D"><p style=""><span id="item_37119_TAG_10_BEGIN">“Bald eagles, which were once endangered, can now be spotted flying over Central Park.”</span></p></simpleChoice></choiceInteraction></itemBody>]]></qti>
+      <attachmentlist>
+        <attachment id="braillefile1" type="BRF" subtype="contracted" file="item_37119_enu_contracted.brf" />
+        <attachment id="braillefile2" type="BRF" subtype="uncontracted" file="item_37119_enu_uncontracted.brf" />
+      </attachmentlist>
+      <apipAccessibility/>
+    </content>
+  </item>
+</itemrelease>
