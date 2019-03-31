@@ -973,7 +973,7 @@
       },
       "instructional-resources": {
         "button": "Instructional Resources",
-        "description": "Upload instructional resources in the system."
+        "description": "Upload links to instructional resources in the system."
       },
       "organizational-export": {
         "button": "District / School Exports",
