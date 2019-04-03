@@ -285,7 +285,7 @@ export class CsvBuilder {
       this.translateService.instant('csv-builder.error-band-min'),
       item => {
         const exam: Exam = getExam(item);
-        return exam.score && exam.standardError
+        return exam.score && exam.standardError != null
           ? exam.score - exam.standardError
           : '';
       }
@@ -297,7 +297,7 @@ export class CsvBuilder {
       this.translateService.instant('csv-builder.error-band-max'),
       item => {
         const exam: Exam = getExam(item);
-        return exam.score && exam.standardError
+        return exam.score && exam.standardError != null
           ? exam.score + exam.standardError
           : '';
       }
