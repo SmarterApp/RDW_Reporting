@@ -6,7 +6,7 @@
     }"
     >{{ score ? score : '-' }}</span
   >
-  <span *ngIf="score" class="error-band pl-xs">{{
+  <span *ngIf="score && standardError" class="error-band pl-xs">{{
     'common.error-band-value'
       | translate: { errorBand: standardError | number: '1.0-0' }
   }}</span>

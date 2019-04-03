@@ -13,7 +13,10 @@ import { WritingTraitAggregate } from '../assessments/model/writing-trait-aggreg
 import { TranslateDatePipe } from '../shared/i18n/translate-date.pipe';
 import { TranslateNumberPipe } from '../shared/i18n/translate-number.pipe';
 import { ApplicationSettingsService } from '../app-settings.service';
-import { AggregateTargetScoreRow, TargetReportingLevel } from '../assessments/model/aggregate-target-score-row.model';
+import {
+  AggregateTargetScoreRow,
+  TargetReportingLevel
+} from '../assessments/model/aggregate-target-score-row.model';
 import { SubjectDefinition } from '../subject/subject';
 
 @Injectable()
@@ -23,13 +26,14 @@ export class CsvBuilder {
   private showElas: boolean = false;
   private showLep: boolean = false;
 
-  constructor(private angular2csv: Angular2CsvProvider,
-              private translateService: TranslateService,
-              private datePipe: TranslateDatePipe,
-              private schoolYearPipe: SchoolYearPipe,
-              private numberPipe: TranslateNumberPipe,
-              private applicationSettingsService: ApplicationSettingsService) {
-
+  constructor(
+    private angular2csv: Angular2CsvProvider,
+    private translateService: TranslateService,
+    private datePipe: TranslateDatePipe,
+    private schoolYearPipe: SchoolYearPipe,
+    private numberPipe: TranslateNumberPipe,
+    private applicationSettingsService: ApplicationSettingsService
+  ) {
     // TODO technically there can be a race condition here.
     applicationSettingsService.getSettings().subscribe(settings => {
       this.showElas = settings.elasEnabled;
@@ -61,10 +65,13 @@ export class CsvBuilder {
    * @param rows An array of source items
    */
   build(rows: any[]): void {
-    this.angular2csv.export([
-      this.columns.map(column => column.label),
-      ...rows.map(row => this.columns.map(column => column.dataProvider(row)))
-    ], this.filename);
+    this.angular2csv.export(
+      [
+        this.columns.map(column => column.label),
+        ...rows.map(row => this.columns.map(column => column.dataProvider(row)))
+      ],
+      this.filename
+    );
   }
 
   /**
@@ -98,31 +105,31 @@ export class CsvBuilder {
   withStudentId(getStudent: (item: any) => Student) {
     return this.withColumn(
       this.translateService.instant('csv-builder.student-id'),
-      (item) => getStudent(item).ssid
+      item => getStudent(item).ssid
     );
   }
 
   withStudentName(getStudent: (item: any) => Student) {
     return this.withColumn(
       this.translateService.instant('csv-builder.student-first-name'),
-      (item) => getStudent(item).firstName ? getStudent(item).firstName : ''
+      item => (getStudent(item).firstName ? getStudent(item).firstName : '')
     ).withColumn(
       this.translateService.instant('csv-builder.student-last-name'),
-      (item) => getStudent(item).lastName ? getStudent(item).lastName : ''
+      item => (getStudent(item).lastName ? getStudent(item).lastName : '')
     );
   }
 
   withExamDate(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.submit-date-time'),
-      (item) => this.datePipe.transform(getExam(item).date)
+      item => this.datePipe.transform(getExam(item).date)
     );
   }
 
   withExamSession(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.assessment-session-id'),
-      (item) => {
+      item => {
         const session = getExam(item).session;
         return session ? session : '';
       }
@@ -132,23 +139,25 @@ export class CsvBuilder {
   withSchool(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.school'),
-      (item) => getExam(item).school.name
+      item => getExam(item).school.name
     );
   }
 
   withSchoolYear(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.school-year'),
-      (item) => this.schoolYearPipe.transform(getExam(item).schoolYear)
+      item => this.schoolYearPipe.transform(getExam(item).schoolYear)
     );
   }
 
   withAssessmentType(getAssessment: (item: any) => Assessment) {
     return this.withColumn(
       this.translateService.instant('csv-builder.assessment-type'),
-      (item) => {
+      item => {
         const assessment: Assessment = getAssessment(item);
-        return this.translateService.instant(`subject.${assessment.subject}.asmt-type.${assessment.type}.name`);
+        return this.translateService.instant(
+          `subject.${assessment.subject}.asmt-type.${assessment.type}.name`
+        );
       }
     );
   }
@@ -156,23 +165,28 @@ export class CsvBuilder {
   withAssessmentName(getAssessment: (item: any) => Assessment) {
     return this.withColumn(
       this.translateService.instant('csv-builder.assessment-name'),
-      (item) => getAssessment(item).label
+      item => getAssessment(item).label
     );
   }
 
   withAssessmentSubject(getAssessment: (item: any) => Assessment) {
     return this.withColumn(
       this.translateService.instant('csv-builder.subject'),
-      (item) => this.translateService.instant(`subject.${getAssessment(item).subject}.name`)
+      item =>
+        this.translateService.instant(
+          `subject.${getAssessment(item).subject}.name`
+        )
     );
   }
 
   withExamGrade(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.enrolled-grade'),
-      (item) => {
+      item => {
         const gradeCode: string = getExam(item).enrolledGrade;
-        return this.translateService.instant(`common.enrolled-grade-label.${gradeCode}`);
+        return this.translateService.instant(
+          `common.enrolled-grade-label.${gradeCode}`
+        );
       }
     );
   }
@@ -180,31 +194,42 @@ export class CsvBuilder {
   // TODO - Split out -- ?
   withExamStatus(getExam: (item: any) => Exam) {
     return this.withColumn(
-      this.translateService.instant('common.results.assessment-exam-columns.status'),
-      (item) => {
+      this.translateService.instant(
+        'common.results.assessment-exam-columns.status'
+      ),
+      item => {
         const exam: Exam = getExam(item);
         const adminCondition: string = exam.administrativeCondition;
-        let status: string = adminCondition ? this.translateService.instant(`common.administration-condition.${adminCondition}`) : '';
+        let status: string = adminCondition
+          ? this.translateService.instant(
+              `common.administration-condition.${adminCondition}`
+            )
+          : '';
         if (exam.completeness === 'Partial') {
-          status += ' ' + this.translateService.instant('common.completeness.Partial');
+          status +=
+            ' ' + this.translateService.instant('common.completeness.Partial');
         }
         return status;
       }
     );
   }
 
-  withAchievementLevel(getAssessment: (item: any) => Assessment, getExam: (item: any) => Exam) {
+  withAchievementLevel(
+    getAssessment: (item: any) => Assessment,
+    getExam: (item: any) => Exam
+  ) {
     return this.withColumn(
       this.translateService.instant('csv-builder.achievement-level'),
-      (item) => {
+      item => {
         const exam: Exam = getExam(item);
         if (!exam || !exam.level) {
           return '';
         }
         const { subject, type } = getAssessment(item);
-        return this.translateService.instant(exam.level
-          ? `subject.${subject}.asmt-type.${type}.level.${exam.level}.name`
-          : 'common.missing'
+        return this.translateService.instant(
+          exam.level
+            ? `subject.${subject}.asmt-type.${type}.level.${exam.level}.name`
+            : 'common.missing'
         );
       }
     );
@@ -213,7 +238,7 @@ export class CsvBuilder {
   withAccommodationCodes(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.accommodation-codes'),
-      (item) => {
+      item => {
         const exam: Exam = getExam(item);
         if (!exam || !exam.accommodationCodes) {
           return '';
@@ -224,17 +249,23 @@ export class CsvBuilder {
   }
 
   // TODO - Is this different than AchievementLevel now -- ?
-  withReportingCategory(getAssessment: (item: any) => Assessment, getExam: (item: any) => Exam) {
+  withReportingCategory(
+    getAssessment: (item: any) => Assessment,
+    getExam: (item: any) => Exam
+  ) {
     return this.withColumn(
-      this.translateService.instant('common.results.assessment-exam-columns.iab.performance'),
-      (item) => {
+      this.translateService.instant(
+        'common.results.assessment-exam-columns.iab.performance'
+      ),
+      item => {
         const exam: Exam = getExam(item);
         if (!exam || !exam.level) {
           return '';
         }
         const { subject, type } = getAssessment(item);
         return this.translateService.instant(
-          `subject.${subject}.asmt-type.${type}.level.${exam.level}.name`);
+          `subject.${subject}.asmt-type.${type}.level.${exam.level}.name`
+        );
       }
     );
   }
@@ -242,7 +273,7 @@ export class CsvBuilder {
   withScaleScore(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.scale-score'),
-      (item) => {
+      item => {
         const score = getExam(item).score;
         return score ? score : '';
       }
@@ -252,9 +283,11 @@ export class CsvBuilder {
   withErrorBandMin(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.error-band-min'),
-      (item) => {
+      item => {
         const exam: Exam = getExam(item);
-        return !exam.score ? '' : exam.score - exam.standardError;
+        return exam.score && exam.standardError
+          ? exam.score - exam.standardError
+          : '';
       }
     );
   }
@@ -262,27 +295,41 @@ export class CsvBuilder {
   withErrorBandMax(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.error-band-max'),
-      (item) => {
+      item => {
         const exam: Exam = getExam(item);
-        return exam.score ? exam.score + exam.standardError : '';
+        return exam.score && exam.standardError
+          ? exam.score + exam.standardError
+          : '';
       }
     );
   }
 
-  withClaimScores(subject: string, claims: string[], getAssessment: (item: any) => Assessment, getExam: (item: any) => Exam) {
+  withClaimScores(
+    subject: string,
+    claims: string[],
+    getAssessment: (item: any) => Assessment,
+    getExam: (item: any) => Exam
+  ) {
     claims.forEach((claim, index) => {
       this.withColumn(
-        `${this.translateService.instant(`subject.${subject}.name`)}: ${this.translateService.instant(`subject.${subject}.claim.${claim}.name`)}`,
-        (item) => {
+        `${this.translateService.instant(
+          `subject.${subject}.name`
+        )}: ${this.translateService.instant(
+          `subject.${subject}.claim.${claim}.name`
+        )}`,
+        item => {
           const exam: Exam = getExam(item);
-          if (!exam || !exam.claimScores[ index ].level) {
+          if (!exam || !exam.claimScores[index].level) {
             return '';
           }
           const assessment = getAssessment(item);
-          const level = exam.claimScores[ index ].level;
-          return this.translateService.instant(level
-            ? `subject.${assessment.subject}.asmt-type.${assessment.type}.claim-score.level.${level}.name`
-            : 'common.missing'
+          const level = exam.claimScores[index].level;
+          return this.translateService.instant(
+            level
+              ? `subject.${assessment.subject}.asmt-type.${
+                  assessment.type
+                }.claim-score.level.${level}.name`
+              : 'common.missing'
           );
         }
       );
@@ -293,14 +340,19 @@ export class CsvBuilder {
   withGender(getStudent: (item: any) => Student) {
     return this.withColumn(
       this.translateService.instant('csv-builder.gender'),
-      (item) => getStudent(item).genderCode ? this.translateService.instant(`common.gender.${getStudent(item).genderCode}`) : ''
+      item =>
+        getStudent(item).genderCode
+          ? this.translateService.instant(
+              `common.gender.${getStudent(item).genderCode}`
+            )
+          : ''
     );
   }
 
   withMigrantStatus(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.migrant-status'),
-      (item) => {
+      item => {
         const migrantStatus = getExam(item).migrantStatus;
         if (migrantStatus == null) {
           return '';
@@ -314,7 +366,7 @@ export class CsvBuilder {
   with504Plan(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.504-plan'),
-      (item) => {
+      item => {
         const plan504 = getExam(item).plan504;
         if (plan504 == null) {
           return '';
@@ -328,7 +380,7 @@ export class CsvBuilder {
   withIep(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.iep'),
-      (item) => {
+      item => {
         const iep = getExam(item).iep;
         if (iep == null) {
           return '';
@@ -342,8 +394,9 @@ export class CsvBuilder {
   withLimitedEnglish(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.limited-english'),
-      (item) => {
-        const limitedEnglishProficiency = getExam(item).limitedEnglishProficiency;
+      item => {
+        const limitedEnglishProficiency = getExam(item)
+          .limitedEnglishProficiency;
         if (limitedEnglishProficiency == null) {
           return '';
         }
@@ -356,9 +409,13 @@ export class CsvBuilder {
   withElas(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.elas'),
-      (item) => {
+      item => {
         const elasCode = getExam(item).elasCode;
-        return elasCode ? this.translateService.instant(`common.elas.${getExam(item).elasCode}`) : '';
+        return elasCode
+          ? this.translateService.instant(
+              `common.elas.${getExam(item).elasCode}`
+            )
+          : '';
       }
     );
   }
@@ -366,9 +423,13 @@ export class CsvBuilder {
   withLanguage(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.language'),
-      (item) => {
+      item => {
         const languageCode = getExam(item).languageCode;
-        return languageCode ? this.translateService.instant(`common.languages.${getExam(item).languageCode}`) : '';
+        return languageCode
+          ? this.translateService.instant(
+              `common.languages.${getExam(item).languageCode}`
+            )
+          : '';
       }
     );
   }
@@ -376,7 +437,7 @@ export class CsvBuilder {
   withLanguageCode(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.language-code'),
-      (item) => {
+      item => {
         const languageCode = getExam(item).languageCode;
         return languageCode ? languageCode : '';
       }
@@ -386,208 +447,297 @@ export class CsvBuilder {
   withMilitaryConnectedCode(getExam: (item: any) => Exam) {
     return this.withColumn(
       this.translateService.instant('csv-builder.military-connected-code'),
-      (item) => {
+      item => {
         const militaryConnectedCode = getExam(item).militaryConnectedCode;
-        return militaryConnectedCode ? this.translateService.instant(`common.military-connected-code.${getExam(item).militaryConnectedCode}`) : '';
+        return militaryConnectedCode
+          ? this.translateService.instant(
+              `common.military-connected-code.${
+                getExam(item).militaryConnectedCode
+              }`
+            )
+          : '';
       }
     );
   }
 
   withEthnicity(getExam: (item: any) => Exam, ethnicities: string[]) {
     for (const ethnicity of ethnicities) {
-      this.withColumn(
-        ethnicity,
-        (item) => {
-          if (getExam(item).student.ethnicityCodes.some(code => code == ethnicity)) {
-            return this.getPolarTranslation(1);
-          } else {
-            return '';
-          }
-        });
+      this.withColumn(ethnicity, item => {
+        if (
+          getExam(item).student.ethnicityCodes.some(code => code == ethnicity)
+        ) {
+          return this.getPolarTranslation(1);
+        } else {
+          return '';
+        }
+      });
     }
     return this;
   }
 
   withItemNumber(getAssessmentItem: (item: any) => AssessmentItem) {
     return this.withColumn(
-      this.translateService.instant('common.results.assessment-item-columns.number'),
-      (item) => getAssessmentItem(item).position
+      this.translateService.instant(
+        'common.results.assessment-item-columns.number'
+      ),
+      item => getAssessmentItem(item).position
     );
   }
 
-  withClaim(getAssessment: (item: any) => Assessment, getAssessmentItem: (item: any) => AssessmentItem) {
+  withClaim(
+    getAssessment: (item: any) => Assessment,
+    getAssessmentItem: (item: any) => AssessmentItem
+  ) {
     return this.withColumn(
       this.translateService.instant('csv-builder.claim'),
-      (item) => {
+      item => {
         const assessment = getAssessment(item);
         const assessmentItem = getAssessmentItem(item);
-        return this.translateService.instant(`subject.${assessment.subject}.claim.${assessmentItem.claim}.name`);
+        return this.translateService.instant(
+          `subject.${assessment.subject}.claim.${assessmentItem.claim}.name`
+        );
       }
     );
   }
 
-  withTarget(getAssessment: (item: any) => Assessment, getAssessmentItem: (item: any) => AssessmentItem) {
+  withTarget(
+    getAssessment: (item: any) => Assessment,
+    getAssessmentItem: (item: any) => AssessmentItem
+  ) {
     return this.withColumn(
       this.translateService.instant('csv-builder.target'),
-      (item) => {
+      item => {
         const assessment = getAssessment(item);
         const assessmentItem = getAssessmentItem(item);
-        return this.translateService
-          .instant(`subject.${assessment.subject}.claim.${assessmentItem.claim}.target.${assessmentItem.targetNaturalId}.name`);
+        return this.translateService.instant(
+          `subject.${assessment.subject}.claim.${assessmentItem.claim}.target.${
+            assessmentItem.targetNaturalId
+          }.name`
+        );
       }
     );
   }
 
   withItemDifficulty(getAssessmentItem: (item: any) => AssessmentItem) {
     return this.withColumn(
-      this.translateService.instant('common.results.assessment-item-columns.difficulty'),
-      (item) => this.translateService.instant(`common.difficulty.${getAssessmentItem(item).difficulty}`)
+      this.translateService.instant(
+        'common.results.assessment-item-columns.difficulty'
+      ),
+      item =>
+        this.translateService.instant(
+          `common.difficulty.${getAssessmentItem(item).difficulty}`
+        )
     );
   }
 
   withItemAnswerKey(getAssessmentItem: (item: any) => AssessmentItem) {
     return this.withColumn(
-      this.translateService.instant('common.results.assessment-item-columns.answer-key'),
-      (item) => getAssessmentItem(item).answerKey
+      this.translateService.instant(
+        'common.results.assessment-item-columns.answer-key'
+      ),
+      item => getAssessmentItem(item).answerKey
     );
   }
 
   withStandards(getAssessmentItem: (item: any) => AssessmentItem) {
     return this.withColumn(
-      this.translateService.instant('common.results.assessment-item-columns.standard'),
-      (item) => getAssessmentItem(item).commonCoreStandardIds.join(', ')
+      this.translateService.instant(
+        'common.results.assessment-item-columns.standard'
+      ),
+      item => getAssessmentItem(item).commonCoreStandardIds.join(', ')
     );
   }
 
-  withFullCredit(getAssessmentItem: (item: any) => AssessmentItem,
-                 showAsPercent: boolean) {
+  withFullCredit(
+    getAssessmentItem: (item: any) => AssessmentItem,
+    showAsPercent: boolean
+  ) {
     return this.withColumn(
-      this.translateService.instant('common.results.assessment-item-columns.full-credit'),
-      (item) => {
+      this.translateService.instant(
+        'common.results.assessment-item-columns.full-credit'
+      ),
+      item => {
         const assessmentItem: AssessmentItem = getAssessmentItem(item);
-        const fullCredit: number = showAsPercent ? assessmentItem.fullCreditAsPercent : assessmentItem.fullCredit;
+        const fullCredit: number = showAsPercent
+          ? assessmentItem.fullCreditAsPercent
+          : assessmentItem.fullCredit;
         return this.numberAsString(fullCredit, showAsPercent);
       }
     );
   }
 
-  withPoints(getAssessmentItem: (item: any) => AssessmentItem,
-             pointColumns: DynamicItemField[],
-             showAsPercent: boolean) {
+  withPoints(
+    getAssessmentItem: (item: any) => AssessmentItem,
+    pointColumns: DynamicItemField[],
+    showAsPercent: boolean
+  ) {
     pointColumns.forEach(column => {
-      this.withColumn(
-        column.label,
-        (item) => {
-          const field = showAsPercent ? column.percentField : column.numberField;
-          const value: number = getAssessmentItem(item)[ field ];
-          if (Utils.isNullOrUndefined(value)) {
-            return '';
-          }
-          return this.numberAsString(value, showAsPercent);
+      this.withColumn(column.label, item => {
+        const field = showAsPercent ? column.percentField : column.numberField;
+        const value: number = getAssessmentItem(item)[field];
+        if (Utils.isNullOrUndefined(value)) {
+          return '';
         }
-      );
+        return this.numberAsString(value, showAsPercent);
+      });
     });
     return this;
   }
 
-  withPerformanceTaskWritingType(getAssessmentItem: (item: any) => AssessmentItem) {
+  withPerformanceTaskWritingType(
+    getAssessmentItem: (item: any) => AssessmentItem
+  ) {
     return this.withColumn(
-      this.translateService.instant('common.results.assessment-item-columns.purpose'),
-      (item) => getAssessmentItem(item).performanceTaskWritingType
+      this.translateService.instant(
+        'common.results.assessment-item-columns.purpose'
+      ),
+      item => getAssessmentItem(item).performanceTaskWritingType
     );
   }
 
   withGroupName(getGroupName: (item: any) => string) {
     return this.withColumn(
       this.translateService.instant('groups.columns.group'),
-      (item) => getGroupName(item)
+      item => getGroupName(item)
     );
   }
 
-  withTargetReportAggregate(subjectDefinition: SubjectDefinition,
-                            getAssessment: (item: any) => Assessment,
-                            getTargetReportAggregate: (item: any) => AggregateTargetScoreRow) {
+  withTargetReportAggregate(
+    subjectDefinition: SubjectDefinition,
+    getAssessment: (item: any) => Assessment,
+    getTargetReportAggregate: (item: any) => AggregateTargetScoreRow
+  ) {
     this.withColumn(
       this.translateService.instant('target-report.columns.claim'),
-      (item) => {
+      item => {
         const assessment = getAssessment(item);
         const row = getTargetReportAggregate(item);
-        return this.translateService.instant(`subject.${assessment.subject}.claim.${row.claim}.name`);
+        return this.translateService.instant(
+          `subject.${assessment.subject}.claim.${row.claim}.name`
+        );
       }
     );
     this.withColumn(
       this.translateService.instant('target-report.columns.target'),
-      (item) => {
+      item => {
         const assessment = getAssessment(item);
         const row = getTargetReportAggregate(item);
-        return this.translateService.instant(`subject.${assessment.subject}.claim.${row.claim}.target.${row.targetNaturalId}.name`);
+        return this.translateService.instant(
+          `subject.${assessment.subject}.claim.${row.claim}.target.${
+            row.targetNaturalId
+          }.name`
+        );
       }
     );
     this.withColumn(
       this.translateService.instant('target-report.columns.subgroup'),
-      (item) => getTargetReportAggregate(item).subgroup.name
+      item => getTargetReportAggregate(item).subgroup.name
     );
 
     this.withColumn(
       this.translateService.instant('target-report.columns.studentsTested'),
-      (item) => getTargetReportAggregate(item).studentsTested
+      item => getTargetReportAggregate(item).studentsTested
     );
 
     this.withColumn(
-      this.translateService.instant('target-report.columns.student-relative-residual-scores-level'),
-      (item) => {
-        const studentRelativeLevel = TargetReportingLevel[ getTargetReportAggregate(item).studentRelativeLevel ];
+      this.translateService.instant(
+        'target-report.columns.student-relative-residual-scores-level'
+      ),
+      item => {
+        const studentRelativeLevel =
+          TargetReportingLevel[
+            getTargetReportAggregate(item).studentRelativeLevel
+          ];
         if (studentRelativeLevel === TargetReportingLevel.NoResults) {
           return '';
         }
-        return this.translateService.instant('aggregate-report-table.target.overall.' + studentRelativeLevel);
+        return this.translateService.instant(
+          'aggregate-report-table.target.overall.' + studentRelativeLevel
+        );
       }
     );
 
     const standardMetHeaderResolve: any = {
-      name: this.translateService.instant(`subject.${subjectDefinition.subject}.asmt-type.${subjectDefinition.assessmentType}.level.${subjectDefinition.performanceLevelStandardCutoff}.name`),
+      name: this.translateService.instant(
+        `subject.${subjectDefinition.subject}.asmt-type.${
+          subjectDefinition.assessmentType
+        }.level.${subjectDefinition.performanceLevelStandardCutoff}.name`
+      ),
       id: subjectDefinition.performanceLevelStandardCutoff
     };
 
     this.withColumn(
-      this.translateService.instant('target-report.columns.standard-met-relative-residual-level', standardMetHeaderResolve),
-      (item) => {
-        const standardMetRelativeLevel = TargetReportingLevel[ getTargetReportAggregate(item).standardMetRelativeLevel ];
+      this.translateService.instant(
+        'target-report.columns.standard-met-relative-residual-level',
+        standardMetHeaderResolve
+      ),
+      item => {
+        const standardMetRelativeLevel =
+          TargetReportingLevel[
+            getTargetReportAggregate(item).standardMetRelativeLevel
+          ];
         if (standardMetRelativeLevel === TargetReportingLevel.NoResults) {
           return '';
         }
-        return this.translateService.instant('aggregate-report-table.target.standard.' + standardMetRelativeLevel);
+        return this.translateService.instant(
+          'aggregate-report-table.target.standard.' + standardMetRelativeLevel
+        );
       }
     );
 
     return this;
   }
 
-  withWritingTraitAggregate(getWritingTraitAggregate: (item: any) => WritingTraitAggregate,
-                            maxPoints: number,
-                            showAsPercent: boolean) {
-
+  withWritingTraitAggregate(
+    getWritingTraitAggregate: (item: any) => WritingTraitAggregate,
+    maxPoints: number,
+    showAsPercent: boolean
+  ) {
     this.withColumn(
-      this.translateService.instant('common.results.assessment-item-columns.category'),
-      (item) => this.translateService.instant('common.writing-trait.' + getWritingTraitAggregate(item).trait.type)
+      this.translateService.instant(
+        'common.results.assessment-item-columns.category'
+      ),
+      item =>
+        this.translateService.instant(
+          'common.writing-trait.' + getWritingTraitAggregate(item).trait.type
+        )
     );
 
     this.withColumn(
-      this.translateService.instant('common.results.assessment-item-columns.average'),
-      (item) => this.numberPipe.transform(getWritingTraitAggregate(item).average, '1.0-1')
+      this.translateService.instant(
+        'common.results.assessment-item-columns.average'
+      ),
+      item =>
+        this.numberPipe.transform(
+          getWritingTraitAggregate(item).average,
+          '1.0-1'
+        )
     );
 
     this.withColumn(
-      this.translateService.instant('common.results.assessment-item-columns.max-points'),
-      (item) => this.numberAsString(getWritingTraitAggregate(item).trait.maxPoints, false)
+      this.translateService.instant(
+        'common.results.assessment-item-columns.max-points'
+      ),
+      item =>
+        this.numberAsString(
+          getWritingTraitAggregate(item).trait.maxPoints,
+          false
+        )
     );
 
     for (let i = 0; i <= maxPoints; i++) {
       this.withColumn(
-        this.translateService.instant('common.results.assessment-item-columns.x-points', { id: i }),
-        (item) => {
-          const value = showAsPercent ? getWritingTraitAggregate(item).percents[ i ] : getWritingTraitAggregate(item).numbers[ i ];
-          return Utils.isNullOrUndefined(value) ? '' : this.numberAsString(value, showAsPercent);
+        this.translateService.instant(
+          'common.results.assessment-item-columns.x-points',
+          { id: i }
+        ),
+        item => {
+          const value = showAsPercent
+            ? getWritingTraitAggregate(item).percents[i]
+            : getWritingTraitAggregate(item).numbers[i];
+          return Utils.isNullOrUndefined(value)
+            ? ''
+            : this.numberAsString(value, showAsPercent);
         }
       );
     }
@@ -598,40 +748,31 @@ export class CsvBuilder {
   // Combination methods for commonly-associated columns
 
   withStudent(getStudent: (item: any) => Student) {
-    return this
-      .withStudentId(getStudent)
-      .withStudentName(getStudent);
+    return this.withStudentId(getStudent).withStudentName(getStudent);
   }
 
   withScoreAndErrorBand(getExam: (item: any) => Exam) {
-    return this
-      .withScaleScore(getExam)
+    return this.withScaleScore(getExam)
       .withErrorBandMin(getExam)
       .withErrorBandMax(getExam);
   }
 
   withAssessmentTypeNameAndSubject(getAssessment: (item: any) => Assessment) {
-    return this
-      .withAssessmentType(getAssessment)
+    return this.withAssessmentType(getAssessment)
       .withAssessmentName(getAssessment)
       .withAssessmentSubject(getAssessment);
   }
 
   withExamGradeAndStatus(getExam: (item: any) => Exam) {
-    return this
-      .withExamGrade(getExam)
-      .withExamStatus(getExam);
+    return this.withExamGrade(getExam).withExamStatus(getExam);
   }
 
   withExamDateAndSession(getExam: (item: any) => Exam) {
-    return this
-      .withExamDate(getExam)
-      .withExamSession(getExam);
+    return this.withExamDate(getExam).withExamSession(getExam);
   }
 
   withStudentContext(getExam: (item: any) => Exam, ethnicities) {
-    let studentContext = this
-      .withMigrantStatus(getExam)
+    let studentContext = this.withMigrantStatus(getExam)
       .with504Plan(getExam)
       .withIep(getExam);
 
@@ -642,19 +783,20 @@ export class CsvBuilder {
       studentContext = studentContext.withElas(getExam);
     }
 
-    studentContext = studentContext.withLanguage(getExam)
+    studentContext = studentContext
+      .withLanguage(getExam)
       .withMilitaryConnectedCode(getExam)
       .withEthnicity(getExam, ethnicities);
     return studentContext;
   }
 
   private numberAsString(value: Number, showAsPercent: boolean) {
-    return this.numberPipe.transform(value, '1.0-0') +
-      (showAsPercent ? '%' : '');
+    return (
+      this.numberPipe.transform(value, '1.0-0') + (showAsPercent ? '%' : '')
+    );
   }
 
   private getPolarTranslation(polar: number): string {
     return this.translateService.instant(`common.polar.${polar}`);
   }
-
 }
