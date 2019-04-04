@@ -1,3 +1,8 @@
+logging:
+  level:
+    # emit statistics for the underlying context cache
+    org.springframework.test.context.cache: debug
+
 artifacts:
   root: "classpath:"
   exam-item:

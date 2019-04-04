@@ -54,8 +54,16 @@ services:
     depends_on:
       config-server:
         condition: service_healthy
+# if running other services from IntelliJ, comment out the links entry (above) and
+# change the zuul route to use the mac docker bridge; for example:
+#        - zuul.routes.report-processor.url=http://host.docker.internal:8085
     environment:
       - spring.profiles.active=local-docker
+      - spring.datasource.url-server=host.docker.internal:3306
+      - zuul.routes.admin-service.url=http://admin-service:8080
+      - zuul.routes.aggregate-service.url=http://aggregate-service:8080
+      - zuul.routes.report-processor.url=http://report-processor-service:8080
+      - zuul.routes.reporting-service.url=http://reporting-service:8080
       - CONFIG_SERVICE_ENABLED=true
       - CONFIG_SERVICE_URL=http://config-server:8888
 
