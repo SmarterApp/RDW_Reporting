@@ -5,7 +5,10 @@
   angularticsAction="ToggleCollapseResults"
   angularticsCategory="AssessmentResults"
 >
-  {{ 'common.action.' + (collapsed ? 'show-more' : 'show-less') | translate }}
+  {{
+    'assessment-results.' + (collapsed ? 'show-results' : 'hide-results')
+      | translate
+  }}
   <i
     aria-hidden="true"
     class="fa"
@@ -15,7 +18,8 @@
     }"
   ></i>
   <span class="sr-only">{{
-    'common.action.' + (collapsed ? 'show-more' : 'show-less') | translate
+    'assessment-results.' + (collapsed ? 'show-results' : 'hide-results')
+      | translate
   }}</span>
 </a>
 <hr />

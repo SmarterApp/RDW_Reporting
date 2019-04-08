@@ -7,12 +7,12 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'show-more-divider',
-  templateUrl: './show-more-divider.component.html',
-  styleUrls: ['./show-more-divider.component.less'],
+  selector: 'show-results-divider',
+  templateUrl: './show-results-divider.component.html',
+  styleUrls: ['./show-results-divider.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ShowMoreDividerComponent {
+export class ShowResultsDividerComponent {
   @Input()
   collapsed: boolean;
 

@@ -227,6 +227,7 @@
   },
   "assessment-results": {
     "distractor-analysis-instructions": "The shaded responses below indicate the correct answer for each item.",
+    "hide-results": "Hide Results",
     "no-distractor-analysis": "Key / Distractor Analysis is not available for assessments administered prior to 2017-18 school year.",
     "no-results-by-item": "Results By Item is not available for assessments administered prior to 2017-18 school year.",
     "no-writing-trait-scores": "Writing trait scores are not available for assessments administered prior to 2017-18 school year.",
@@ -234,6 +235,7 @@
     "select-view": "Select View",
     "session-unknown": "Not provided",
     "sessions-title": "Sessions",
+    "show-results": "Show Results",
     "transfer-student-instructions": "The highlighted row(s) indicate test results from a previous school.",
     "view": {
       "ByItem": "Results By Item",
@@ -281,8 +283,6 @@
       "search": "Search",
       "select": "Select",
       "show": "Show",
-      "show-more": "Show more",
-      "show-less": "Show less",
       "update": "Update"
     },
     "administration-condition": {
