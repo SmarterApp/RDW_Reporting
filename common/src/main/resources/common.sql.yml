@@ -292,6 +292,7 @@ sql:
           join student st on st.id = e.student_id
           join asmt a on e.asmt_id = a.id
           join subject su on a.subject_id=su.id
+          join subject_asmt_type sat on a.subject_id=sat.subject_id and a.type_id=sat.asmt_type_id
           join school s on e.school_id = s.id
           join school isch on st.inferred_school_id = isch.id
 

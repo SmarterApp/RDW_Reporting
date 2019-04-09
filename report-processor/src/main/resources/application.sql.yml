@@ -14,6 +14,7 @@ sql:
        AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
 
   exam:
+    # this is used to query for IABs for report generation
     findAllIabsByStudentIdsAndQueryParamsUnknownPermissions: >-
       SELECT
         d.name AS district_name,
@@ -27,7 +28,7 @@ sql:
       ${sql.reportProcessor.snippet.percentileLeftJoin}
       WHERE e.student_id in (:student_ids)
         AND (:school_year is null or e.school_year=:school_year)
-        AND (:subject_code is null or su.code=:subject_code)
+        AND (:subject_code is null or su.code=:subject_code) AND sat.printed_report=1
         AND (:grade_id is null or a.grade_id=:grade_id)
         AND a.type_id = 2
         AND ${sql.reportProcessor.snippet.schoolFilter}
@@ -35,6 +36,7 @@ sql:
       ORDER BY e.completed_at DESC,
         i.performance_task_writing_type DESC
 
+    # this is used to query for IABs for report generation
     findAllIabsByStudentIdsAndQueryParamsGroupPermissions: >-
       SELECT
         d.name AS district_name,
@@ -50,7 +52,7 @@ sql:
       WHERE e.student_id in (:student_ids)
         AND $[groupFilterPlaceholder]
         AND (:school_year is null or e.school_year=:school_year)
-        AND (:subject_code is null or su.code=:subject_code)
+        AND (:subject_code is null or su.code=:subject_code) AND sat.printed_report=1
         AND (:grade_id is null or a.grade_id=:grade_id)
         AND a.type_id=2
         AND ${sql.reportProcessor.snippet.schoolFilter}
@@ -58,6 +60,7 @@ sql:
       ORDER BY e.completed_at DESC,
               i.performance_task_writing_type DESC
 
+    # this is used to query for results for report generation
     findAllIcasOrSummativesByStudentIdsAndQueryParamsUnknownPermissions: >-
       SELECT
         d.name AS district_name,
@@ -81,13 +84,14 @@ sql:
       ) as wt on wt.exam_id = e.id
       WHERE e.student_id in (:student_ids)
         AND (:school_year is null or e.school_year=:school_year)
-        AND (:subject_code is null or su.code=:subject_code)
+        AND (:subject_code is null or su.code=:subject_code) AND sat.printed_report=1
         AND (:grade_id is null or a.grade_id=:grade_id)
         AND a.type_id=:type_id
         AND ${sql.reportProcessor.snippet.schoolFilter}
         AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
       ORDER BY e.completed_at asc
 
+    # this is used to query for results for report generation
     findAllIcasOrSummativesByStudentIdsAndQueryParamsGroupPermissions: >-
       SELECT
         d.name AS district_name,
@@ -112,7 +116,7 @@ sql:
       $[groupJoinPlaceholder]
       WHERE e.student_id in (:student_ids)
         AND $[groupFilterPlaceholder]
-        AND (:subject_code is null or su.code=:subject_code)
+        AND (:subject_code is null or su.code=:subject_code) AND sat.printed_report=1
         AND (:school_year is null or e.school_year=:school_year)
         AND (:grade_id is null or a.grade_id=:grade_id)
         AND a.type_id=:type_id
