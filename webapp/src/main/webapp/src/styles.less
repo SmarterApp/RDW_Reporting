@@ -1789,19 +1789,6 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
       font-size: 11px;
       color: @gray-mid;
     }
-    .square {
-      display: inline-block;
-      width: 1em;
-      height: 1em;
-      margin-right: 0.25em;
-      background-color: currentcolor;
-      border-radius: 3px;
-      position: relative;
-      top: 2px;
-      &.blue-dark.aqua {
-        .textured-blue;
-      }
-    }
   }
   .scale-score-graph {
     .bar-container {
@@ -1814,6 +1801,20 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
         top: @spacer * -1;
       }
     }
+  }
+}
+
+.square {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.25em;
+  background-color: currentcolor;
+  border-radius: 3px;
+  position: relative;
+  top: 2px;
+  &.blue-dark.aqua {
+    .textured-blue;
   }
 }
 

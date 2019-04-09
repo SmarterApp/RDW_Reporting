@@ -16,10 +16,11 @@
       }}"
       content="{{ 'common.info.claim' | translate }}"
     ></strong>
+
     <div class="ui-table-wrapper">
       <table
         *ngFor="let index of claimReferenceRows"
-        class="table table-striped table-hover student-claim-distribution"
+        class="student-claim-distribution table table-striped table-hover"
         [ngClass]="getClaimColumnCountClass(index)"
       >
         <thead class="ui-table-thead">
@@ -112,17 +113,6 @@
                             '.name' | translate
                         }}</span>
                       </div>
-                      <div class="bar description mt-xs">
-                        {{
-                          'subject.' +
-                            _subjectDefinition.subject +
-                            '.asmt-type.' +
-                            _subjectDefinition.assessmentType +
-                            '.claim-score.level.' +
-                            (i + 1) +
-                            '.name' | translate
-                        }}
-                      </div>
                     </div>
                   </div>
                 </ng-container>
@@ -131,6 +121,37 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="performance-level-legend">
+      <div class="levels">
+        <span
+          class="level"
+          *ngFor="let level of _subjectDefinition.claimScore.levels"
+        >
+          <span
+            class="square"
+            [ngClass]="
+              'subject.' +
+                _subjectDefinition.subject +
+                '.asmt-type.' +
+                _subjectDefinition.assessmentType +
+                '.claim-score.level.' +
+                level +
+                '.color' | translate
+            "
+          ></span>
+          {{
+            'subject.' +
+              _subjectDefinition.subject +
+              '.asmt-type.' +
+              _subjectDefinition.assessmentType +
+              '.claim-score.level.' +
+              level +
+              '.name' | translate
+          }}
+        </span>
+      </div>
     </div>
   </div>
 </div>
