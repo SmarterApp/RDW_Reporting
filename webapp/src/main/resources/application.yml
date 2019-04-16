@@ -23,7 +23,7 @@ reporting:
   iris-vendor-id: ${rdw.reporting.iris.vendorId}
   landing-page-url: forward:/landing.html
   min-item-data-year: 2016
-  school-year: 2018
+  school-year: 2019
   state:
     code: CA
     name: California
