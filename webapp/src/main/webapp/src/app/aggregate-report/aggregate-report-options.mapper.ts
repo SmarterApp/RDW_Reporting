@@ -210,7 +210,7 @@ export class AggregateReportOptionsMapper {
     return of(<AggregateReportFormSettings>{
       assessmentType: defaultAssessmentType,
       columnOrder: assessmentDefinition.aggregateReportIdentityColumns.concat(),
-      completenesses: options.completenesses,
+      completenesses: options.completenesses.concat(),
       dimensionTypes: [],
       districts: [],
       includeStateResults: true,
@@ -224,8 +224,7 @@ export class AggregateReportOptionsMapper {
         assessmentDefinition.performanceLevelDisplayTypes[0],
       queryType: options.queryTypes[0],
       reportType: options.reportTypes[0],
-      summativeAdministrationConditions:
-        options.summativeAdministrationConditions,
+      summativeAdministrationConditions: options.summativeAdministrationConditions.concat(),
       schools: [],
       showEmpty: true,
       generalPopulation: {
