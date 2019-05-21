@@ -1,0 +1,23 @@
+#Used for testing
+#simulating core tenant file
+tenant-properties:
+  tenants:
+    - id: CA
+      key: CA
+      display-name: California
+    - id: NV
+      key: NV
+      display-name: Nevada
+
+#simulating base + two tenants
+aggregate-reporting:
+  assessment-types: iab,ica,sum
+  statewide-user-assessment-types: none
+  state-aggregate-assessment-types: ica,sum
+  tenants:
+    CA:
+      assessment-types: ica
+      statewide-user-assessment-types: ica
+      state-aggregate-assessment-types: none
+    NV:
+      assessment-types: ica, sum

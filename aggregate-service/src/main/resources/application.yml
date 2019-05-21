@@ -7,9 +7,9 @@ management:
 
 app:
   aggregate-reports:
-    assessment-types: ica,sum,iab
-    statewide-user-assessment-types: sum
-    state-aggregate-assessment-types: sum
+    #    assessment-types: ica,sum,iab
+    #    statewide-user-assessment-types: sum
+    #    state-aggregate-assessment-types: sum
     custom-aggregate-report-repository:
       organization-partition-size: 10
       jdbc-fetch-size: -1
@@ -20,6 +20,12 @@ app:
     repository:
       # every day at 2:00 am (GMT)
       refresh-cron: "0 0 2 * * *"
+
+#Per tenant configuration options
+aggregate-reporting:
+  assessment-types: ica,sum,iab
+  statewide-user-assessment-types: sum
+  state-aggregate-assessment-types: sum
 
 #TODO: This cloud.aws section is probably no longer needed
 cloud:

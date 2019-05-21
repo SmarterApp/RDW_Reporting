@@ -143,11 +143,12 @@ export class PipelineService {
     return this.dataService.post(`${ResourceRoute}/compile`, scriptBody);
   }
 
-  publishPipeline(pipelineId: number): Observable<String> {
-    return this.dataService.post(
-      `${ResourceRoute}/${pipelineId}/publish`,
-      null
-    );
+  publishPipeline(pipelineId: number): Observable<PublishedPipeline> {
+    return this.dataService.post(`${ResourceRoute}/${pipelineId}/publish`, '');
+  }
+
+  activatePipeline(pipeline: Pipeline): Observable<String> {
+    return this.dataService.put(`${ResourceRoute}`, pipeline);
   }
 
   getPublishedPipelines(pipelineCode: string): Observable<PublishedPipeline[]> {

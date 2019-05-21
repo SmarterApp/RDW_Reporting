@@ -141,7 +141,11 @@ export class PipelineComponent implements ComponentCanDeactivate, OnDestroy {
               pipeline.activeVersion != null
                 ? this.pipelineService
                     .getPublishedPipeline(pipeline.code, pipeline.activeVersion)
-                    .pipe(map(pipelines => pipelines[0].userScripts[0]))
+                    .pipe(
+                      map(published =>
+                        published != null ? published.userScripts[0] : null
+                      )
+                    )
                 : of(null)
             )
           )
@@ -279,19 +283,20 @@ export class PipelineComponent implements ComponentCanDeactivate, OnDestroy {
           this.pipelineService
             .runPipelineTests(this.pipeline.id)
             .subscribe(runs => {
-              this.testRuns = runs;
-
-              // TODO add validation step
-
               if (runs.every(({ result }) => result.passed)) {
                 this.publishState = 'Publishing';
                 this.pipelineService
                   .publishPipeline(this.pipeline.id)
-                  .subscribe(() => {
+                  .subscribe(published => {
+                    this.publishedScript = published.userScripts[0];
                     this.publishButtonDisabled = true;
                     this.publishState = null;
+                    this.router.navigate(['history'], {
+                      relativeTo: this.route
+                    });
                   });
               } else {
+                this.testRuns = runs;
                 this.publishState = null;
               }
             });

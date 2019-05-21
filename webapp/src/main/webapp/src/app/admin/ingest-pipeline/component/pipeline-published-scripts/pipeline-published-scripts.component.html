@@ -18,27 +18,28 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<ng-container *ngIf="pipelines.length > 0; else noScripts">
+<ng-container *ngIf="pipelines != null && pipelines.length > 0; else noScripts">
   <div class="body">
     <div class="scripts-container">
       <ul>
         <li *ngFor="let published of pipelines">
           <pipeline-item
+            name="{{
+              'pipeline-published-scripts.version' | translate: published
+            }}"
+            description="{{ published.publishedOn | date: 'medium' }}"
             [active]="published === selectedPipeline"
             (click)="pipelineSelect.emit(published)"
           >
-            <div name>
-              {{ published.publishedOn | date: 'medium' }}
-            </div>
             <div caption>
               <div>
-                {{ 'pipeline-item.published-by' | translate: pipeline }}
+                {{ 'pipeline-item.published-by' | translate: published }}
               </div>
               <div
                 *ngIf="published.active"
                 class="label border-only blue published-tag"
               >
-                {{ 'pipeline-publish-state.Published' | translate }}
+                {{ 'pipeline-published-scripts.active-pipeline' | translate }}
               </div>
             </div>
           </pipeline-item>

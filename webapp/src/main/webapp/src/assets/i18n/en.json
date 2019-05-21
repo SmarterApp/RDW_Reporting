@@ -1486,7 +1486,7 @@
   },
   "ingest-pipeline": {
     "assessment": {
-      "name": "Assessments",
+      "name": "Test Packages",
       "description": "Shaman raw denim umami deep v wayfarers mumblecore, try-hard williamsburg la croix affogato fam narwhal selfies."
     },
     "exam": {
@@ -1575,7 +1575,9 @@
     "heading": "{{pipelineName}} Publishing History"
   },
   "pipeline-published-scripts": {
-    "no-scripts": "No user scripts have been published"
+    "no-scripts": "No user scripts have been published",
+    "active-pipeline": "Active",
+    "version": "Version {{version}}"
   },
   "score-table": {
     "average-scale-score": "Average Scale Score",
