@@ -476,7 +476,10 @@ export class AssessmentResultsComponent implements OnInit {
     this.showPercentileHistory = !this.showPercentileHistory;
     if (Utils.isNullOrUndefined(this.percentileGroups)) {
       const results = this.assessmentExam;
-      const dates = results.exams.map(exam => new Date(exam.date)).sort();
+      // sort dates ascending
+      const dates = results.exams
+        .map(exam => exam.date)
+        .sort((a, b) => (a > b ? 1 : a < b ? -1 : 0));
       const request = <AssessmentPercentileRequest>{
         assessmentId: results.assessment.id,
         from: dates[0],
