@@ -1,0 +1,14 @@
+logging:
+  level:
+    org.opentestsystem.rdw.admin: debug
+
+tenant-configuration-lookup-test:
+  services:
+    admin-service:
+      url: http://localhost:8208
+    #    aggregate-service:
+    #      url: http://aggregate-service:8308
+    report-processor:
+      url: http://localhost:8086
+    reporting-service:
+      url: http://localhost:8108

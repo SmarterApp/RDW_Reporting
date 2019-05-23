@@ -1,0 +1,59 @@
+{
+  "scopedTarget.reportingSystemSettings": {
+    "prefix": "reporting",
+    "properties": {
+      "irisVendorId": null,
+      "tenants": {
+        "CA": {
+          "analyticsTrackingId": null,
+          "interpretiveGuideUrl": null,
+          "accessDeniedUrl": null,
+          "irisVendorId": null,
+          "minItemDataYear": null,
+          "percentileDisplayEnabled": null,
+          "reportLanguages": [],
+          "schoolYear": 2019,
+          "state": {
+            "name": "California",
+            "code": "CA"
+          },
+          "transferAccessEnabled": null,
+          "translationLocation": null,
+          "uiLanguages": [],
+          "userGuideUrl": null,
+          "targetReport": {
+            "insufficientDataCutoff": null,
+            "minNumberOfStudents": null
+          },
+          "studentFields": {},
+          "effectiveReportLanguages": [
+            "en"
+          ]
+        }
+      },
+      "transferAccessEnabled": null,
+      "reportLanguages": [],
+      "effectiveReportLanguages": [
+        "en"
+      ],
+      "interpretiveGuideUrl": null,
+      "accessDeniedUrl": null,
+      "uiLanguages": [],
+      "translationLocation": null,
+      "userGuideUrl": null,
+      "schoolYear": 2019,
+      "minItemDataYear": null,
+      "percentileDisplayEnabled": null,
+      "state": {
+        "name": "California",
+        "code": "CA"
+      },
+      "targetReport": {
+        "insufficientDataCutoff": null,
+        "minNumberOfStudents": null
+      },
+      "studentFields": {},
+      "analyticsTrackingId": null
+    }
+  }
+}

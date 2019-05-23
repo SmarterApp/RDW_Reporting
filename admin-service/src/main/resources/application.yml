@@ -126,3 +126,15 @@ reporting:
   state:
     code: CA
     name: California
+
+#used to gather configuration data from actuator endpoint
+tenant-configuration-lookup:
+  services:
+    admin-service:
+      url: http://admin-service:8008
+    aggregate-service:
+      url: http://aggregate-service:8008
+    report-processor:
+      url: http://report-processor-service:8008
+    reporting-service:
+      url: http://reporting-service:8008

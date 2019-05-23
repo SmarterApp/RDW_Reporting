@@ -1,0 +1,48 @@
+{
+  "scopedTarget.writableDataSourceElementsProperties": {
+    "prefix": "datasources.reporting_rw",
+    "properties": {
+      "urlParts": {
+        "protocol": "jdbc:mysql:",
+        "hosts": "host.docker.internal:3306",
+        "database": "reporting",
+        "properties": "useSSL=false&useLegacyDatetimeCode=false&characterEncoding=utf8&rewriteBatchedStatements=true&useCompression=true&connectTimeout=10000&socketTimeout=40000"
+      },
+      "tenants": {
+        "CA": {
+          "url": null,
+          "urlParts": null,
+          "jdbcInterceptors": null,
+          "username": null,
+          "password": null,
+          "testWhileIdle": null,
+          "validationQuery": null,
+          "validationQueryTimeout": null,
+          "driverClassName": null,
+          "initialSize": 1,
+          "maxActive": 2,
+          "minIdle": null,
+          "maxIdle": null,
+          "removeAbandoned": null,
+          "removeAbandonedTimeout": null,
+          "logAbandoned": null
+        }
+      },
+      "jdbcInterceptors": "QueryTimeoutInterceptor(queryTimeout=30)",
+      "minIdle": 4,
+      "validationQuery": "SELECT 1",
+      "initialSize": 4,
+      "url": "jdbc:mysql://host.docker.internal:3306/reporting?useSSL=false&useLegacyDatetimeCode=false&characterEncoding=utf8&rewriteBatchedStatements=true&useCompression=true&connectTimeout=10000&socketTimeout=40000",
+      "logAbandoned": false,
+      "password": "******",
+      "testWhileIdle": true,
+      "maxIdle": 10,
+      "removeAbandoned": false,
+      "driverClassName": "com.mysql.jdbc.Driver",
+      "removeAbandonedTimeout": 60,
+      "username": "root",
+      "validationQueryTimeout": 10000,
+      "maxActive": 10
+    }
+  }
+}
