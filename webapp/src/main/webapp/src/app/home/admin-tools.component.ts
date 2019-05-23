@@ -42,7 +42,19 @@ const links: Link[] = [
     id: 'ingest-pipelines',
     path: '/ingest-pipelines',
     icon: 'fa-filter',
-    permission: 'INDIVIDUAL_PII_READ'
+    permission: 'PIPELINE_READ'
+  },
+  {
+    id: 'sandbox-config',
+    path: '/sandboxes',
+    icon: 'fa-cog',
+    permission: 'TENANT_READ'
+  },
+  {
+    id: 'tenant-config',
+    path: '/tenants',
+    icon: 'fa-cog',
+    permission: 'TENANT_READ'
   }
 ];
 

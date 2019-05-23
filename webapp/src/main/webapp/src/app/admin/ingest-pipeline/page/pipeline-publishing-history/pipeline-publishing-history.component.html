@@ -11,6 +11,7 @@
     [pipelines]="pipelines | async"
     [selectedPipeline]="selectedPipeline"
     (pipelineSelect)="onPipelineSelect($event)"
+    (pipelineActivate)="onPipelineActivate($event)"
   ></pipeline-published-scripts>
 </ng-container>
 <ng-template #loading>

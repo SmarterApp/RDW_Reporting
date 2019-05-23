@@ -363,6 +363,7 @@ export class AssessmentResultsComponent implements OnInit {
 
   _overallScoreTable: ScoreTable;
   _alternateScoreTable: ScoreTable;
+  _claimScoreTable: ScoreTable;
 
   private _filterBy: FilterBy;
   private _assessmentExam: AssessmentExamView;
@@ -476,7 +477,10 @@ export class AssessmentResultsComponent implements OnInit {
     this.showPercentileHistory = !this.showPercentileHistory;
     if (Utils.isNullOrUndefined(this.percentileGroups)) {
       const results = this.assessmentExam;
-      const dates = results.exams.map(exam => new Date(exam.date)).sort();
+      // sort dates ascending
+      const dates = results.exams
+        .map(exam => exam.date)
+        .sort((a, b) => (a > b ? 1 : a < b ? -1 : 0));
       const request = <AssessmentPercentileRequest>{
         assessmentId: results.assessment.id,
         from: dates[0],
@@ -539,7 +543,11 @@ export class AssessmentResultsComponent implements OnInit {
       this.subjectDefinition != null ? this.calculateStats() : null;
 
     // compute table when ready
-    if (this.exams != null && this.subjectDefinition != null) {
+    if (
+      this.exams != null &&
+      this.subjectDefinition != null &&
+      this.assessmentExam != null
+    ) {
       this._overallScoreTable = toScoreTable(
         this.exams,
         this.subjectDefinition,
@@ -550,7 +558,17 @@ export class AssessmentResultsComponent implements OnInit {
         this._alternateScoreTable = toScoreTable(
           this.exams,
           this.subjectDefinition,
-          'Alternate'
+          'Alternate',
+          this.assessmentExam.assessment.alternateScoreCodes
+        );
+      }
+
+      if (this.subjectDefinition.claimScore != null) {
+        this._claimScoreTable = toScoreTable(
+          this.exams,
+          this.subjectDefinition,
+          'Claim',
+          this.assessmentExam.assessment.claimCodes
         );
       }
     }

@@ -2,6 +2,7 @@ import { ScoreDefinition } from '../../subject/subject';
 import { ScaleScore } from './scale-score';
 import { isNullOrEmpty } from '../../shared/support/support';
 import * as math from 'mathjs';
+import { isScored } from './scale-scores';
 
 /**
  * Declares all the different score types
@@ -180,11 +181,7 @@ export function scoreStatistics(
 ): ScoreStatistics[] {
   // should this validation be responsibility of the caller?
   const scoredExamScaleScores = examScaleScores.filter(
-    scaleScores =>
-      !isNullOrEmpty(scaleScores) &&
-      scaleScores.every(
-        score => score != null && score.level != null && score.score != null
-      )
+    scaleScores => !isNullOrEmpty(scaleScores) && scaleScores.every(isScored)
   );
 
   // group exam scale scores by code index
@@ -202,7 +199,9 @@ export function scoreStatistics(
 
   return (scoreDefinition.codes || [null]).map((code, index) => {
     const scaleScores = scaleScoresByCodeIndex[index] || [];
-    const scores = scaleScores.map(({ score }) => score);
+    const scores = scaleScores
+      .map(({ score }) => score)
+      .filter(value => value != null);
     return {
       code,
       averageScaleScore: average(scores),

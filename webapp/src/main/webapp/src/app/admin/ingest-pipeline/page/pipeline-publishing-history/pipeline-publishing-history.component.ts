@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Pipeline } from '../../model/pipeline';
 import { PipelineService } from '../../service/pipeline.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { PublishedPipelineView } from '../../component/pipeline-published-script
   templateUrl: './pipeline-publishing-history.component.html'
 })
 export class PipelinePublishingHistoryComponent {
-  pipeline: Observable<Pipeline>;
+  pipeline: BehaviorSubject<Pipeline> = new BehaviorSubject(undefined);
   pipelines: Observable<PublishedPipelineView[]>;
   selectedPipeline: PublishedPipelineView;
 
@@ -25,9 +25,6 @@ export class PipelinePublishingHistoryComponent {
 
   ngOnInit(): void {
     const pipelineId = this.route.params.pipe(map(({ id }) => Number(id)));
-    this.pipeline = pipelineId.pipe(
-      mergeMap(id => this.pipelineService.getPipeline(id))
-    );
     this.pipelines = this.pipeline.pipe(
       mergeMap(pipeline =>
         this.pipelineService.getPublishedPipelines(pipeline.code).pipe(
@@ -43,9 +40,19 @@ export class PipelinePublishingHistoryComponent {
         this.selectedPipeline = first;
       })
     );
+
+    pipelineId
+      .pipe(mergeMap(id => this.pipelineService.getPipeline(id)))
+      .subscribe(value => this.pipeline.next(value));
   }
 
   onPipelineSelect(pipeline: PublishedPipelineView): void {
     this.selectedPipeline = pipeline;
+  }
+
+  onPipelineActivate(pipeline: Pipeline): void {
+    this.pipelineService.updatePipeline(pipeline).subscribe(value => {
+      this.pipeline.next(value);
+    });
   }
 }

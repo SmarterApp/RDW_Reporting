@@ -8,6 +8,9 @@ import { Exam } from '../../../assessments/model/exam';
 import { ScaleScore } from '../../model/scale-score';
 import { ScoreTable } from './score-table';
 import { isNullOrEmpty } from '../../../shared/support/support';
+import { ordering } from '@kourge/ordering';
+import { ranking } from '@kourge/ordering/comparator';
+import { isScored } from '../../model/scale-scores';
 
 /**
  * Metadata associated with score types used to assemble data from exams around certain score types
@@ -15,7 +18,6 @@ import { isNullOrEmpty } from '../../../shared/support/support';
 interface ScoreTypeMetadata {
   /**
    * Gets the score definition for the score type from the subject definition
-   * TODO should we just store in the score definitions in a map already?
    *
    * @param subjectDefinition The subject/assessment configuration to get the score configuration from
    */
@@ -60,8 +62,6 @@ const ScoreTypeMetadataByType: Map<string, ScoreTypeMetadata> = new Map<
   ScoreTypeMetadata
 >([
   [
-    // TODO cut over to use this to aggregate overall score data
-    // TODO fill in when cutting over
     'Overall',
     {
       scoreDefinition: ({ overallScore }) => <any>overallScore,
@@ -84,7 +84,6 @@ const ScoreTypeMetadataByType: Map<string, ScoreTypeMetadata> = new Map<
     }
   ],
   [
-    // TODO cut over to use this for claim score aggregation
     'Claim',
     {
       scoreDefinition: ({ claimScore }) => claimScore,
@@ -107,7 +106,8 @@ const ScoreTypeMetadataByType: Map<string, ScoreTypeMetadata> = new Map<
 export function toScoreTable(
   exams: Exam[],
   subjectDefinition: SubjectDefinition,
-  scoreType: ScoreType
+  scoreType: ScoreType,
+  dataOrderedScoreCodes?: string[] // TODO this info should be in the subject definition
 ): ScoreTable {
   const {
     subject: subjectCode,
@@ -118,50 +118,65 @@ export function toScoreTable(
   const examScaleScores = exams
     .map(exam => metadata.scaleScores(exam))
     .filter(
-      scaleScores =>
-        !isNullOrEmpty(scaleScores) &&
-        scaleScores.every(
-          scaleScore =>
-            scaleScore != null &&
-            scaleScore.level != null &&
-            scaleScore.score != null
+      scaleScores => !isNullOrEmpty(scaleScores) && scaleScores.every(isScored)
+    );
+
+  const scoreDefinitionWithDisplayOrderedCodes = metadata.scoreDefinition(
+    subjectDefinition
+  );
+
+  // correct code order to data order so data is not mis-assigned
+  const scoreDefinition =
+    dataOrderedScoreCodes != null
+      ? {
+          ...scoreDefinitionWithDisplayOrderedCodes,
+          codes: scoreDefinitionWithDisplayOrderedCodes.codes
+            .slice()
+            .sort(ordering(ranking(dataOrderedScoreCodes)).compare)
+        }
+      : scoreDefinitionWithDisplayOrderedCodes;
+
+  const statistics = scoreStatistics(examScaleScores, scoreDefinition).map(
+    value => {
+      const roundedPercentages = roundPercentages(
+        value.performanceLevelScores.map(({ percent }) => percent)
+      );
+
+      return {
+        ...value,
+        performanceLevelScores: value.performanceLevelScores.map(
+          (score, index) => ({
+            ...score,
+            percent: roundedPercentages[index],
+            nameCode: metadata.performanceLevelName(
+              score.level,
+              subjectCode,
+              assessmentTypeCode
+            ),
+            colorCode: metadata.performanceLevelColor(
+              score.level,
+              subjectCode,
+              assessmentTypeCode
+            )
+          })
         )
-    );
-
-  const statistics = scoreStatistics(
-    examScaleScores,
-    metadata.scoreDefinition(subjectDefinition)
-  ).map(value => {
-    const roundedPercentages = roundPercentages(
-      value.performanceLevelScores.map(({ percent }) => percent)
-    );
-
-    return {
-      ...value,
-      performanceLevelScores: value.performanceLevelScores.map(
-        (score, index) => ({
-          ...score,
-          percent: roundedPercentages[index],
-          nameCode: metadata.performanceLevelName(
-            score.level,
-            subjectCode,
-            assessmentTypeCode
-          ),
-          colorCode: metadata.performanceLevelColor(
-            score.level,
-            subjectCode,
-            assessmentTypeCode
-          )
-        })
-      )
-    };
-  });
+      };
+    }
+  );
 
   return {
     scoreType,
     subjectCode,
     assessmentTypeCode,
     resultCount: examScaleScores.length,
-    scoreStatistics: statistics
+    // restore order of statistics to display order for display
+    scoreStatistics:
+      scoreDefinitionWithDisplayOrderedCodes.codes != null
+        ? statistics.sort(
+            ordering(ranking(scoreDefinitionWithDisplayOrderedCodes.codes)).on(
+              ({ code }) => code
+            ).compare
+          )
+        : statistics
   };
 }

@@ -61,9 +61,8 @@
       </ng-container>
       <ng-container *ngSwitchCase="'Claim'">
         <claim-score-summary
-          [statistics]="statistics"
-          [subjectDefinition]="subjectDefinition"
-          [showCount]="!showValuesAsPercent"
+          [table]="_claimScoreTable"
+          [displayCount]="!showValuesAsPercent"
         ></claim-score-summary>
       </ng-container>
       <ng-container *ngSwitchCase="'Alternate'">

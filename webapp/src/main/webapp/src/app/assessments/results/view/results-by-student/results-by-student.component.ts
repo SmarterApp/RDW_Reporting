@@ -50,12 +50,12 @@ class Column {
 }
 
 function createAlternateScoreColumns(
-  scoreCodes: string[],
-  subjectDefinitionCodes: string[]
+  dataOrderedScoreCodes: string[],
+  displayOrderedScoreCodes: string[]
 ): Column[] {
   const columns = [];
   const scoreType = 'Alternate';
-  scoreCodes.forEach((code, index) => {
+  dataOrderedScoreCodes.forEach((code, index) => {
     columns.push(
       new Column({
         id: `alternateScaleScoreLevel`,
@@ -74,15 +74,15 @@ function createAlternateScoreColumns(
     );
   });
   return columns.sort(
-    ordering(ranking(subjectDefinitionCodes)).on(({ code }) => code).compare
+    ordering(ranking(displayOrderedScoreCodes)).on(({ code }) => code).compare
   );
 }
 
 function createClaimColumns(
-  scoreCodes: string[],
-  subjectDefinitionCodes: string[]
+  dataOrderedScoreCodes: string[],
+  displayOrderedScoreCodes: string[]
 ): Column[] {
-  return scoreCodes
+  return dataOrderedScoreCodes
     .map(
       (code, index) =>
         new Column({
@@ -94,7 +94,7 @@ function createClaimColumns(
         })
     )
     .sort(
-      ordering(ranking(subjectDefinitionCodes)).on(({ code }) => code).compare
+      ordering(ranking(displayOrderedScoreCodes)).on(({ code }) => code).compare
     );
 }
 

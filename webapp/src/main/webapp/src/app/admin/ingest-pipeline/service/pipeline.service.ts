@@ -64,6 +64,10 @@ export class PipelineService {
     return this.dataService.get(`${ResourceRoute}/${pipelineId}`);
   }
 
+  updatePipeline(pipeline: Pipeline): Observable<Pipeline> {
+    return this.dataService.put(`${ResourceRoute}`, pipeline);
+  }
+
   getPipelineScripts(pipelineId: number): Observable<PipelineScript[]> {
     return this.dataService
       .get(`${ResourceRoute}/${pipelineId}/scripts`)
@@ -131,7 +135,7 @@ export class PipelineService {
   runPipelineTest(
     pipelineId: number,
     testId: number
-  ): Observable<PipelineTestRun> {
+  ): Observable<PipelineTestRun[]> {
     return this.dataService.post(`${ResourceRoute}/${pipelineId}/test`, '', {
       params: {
         testId

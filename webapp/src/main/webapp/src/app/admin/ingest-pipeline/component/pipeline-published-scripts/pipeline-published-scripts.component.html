@@ -11,6 +11,17 @@
   </h3>
   <button
     type="button"
+    class="btn btn-primary btn-outlined"
+    [disabled]="selectedPipeline.active"
+    (click)="onPipelineActivate(selectedPipeline)"
+  >
+    {{
+      'pipeline-published-scripts.activation-button-state.' +
+        (selectedPipeline.active ? 'active' : 'inactive') | translate
+    }}
+  </button>
+  <button
+    type="button"
     class="close fa-3x"
     title="{{ 'common.action.close' | translate }}"
     [routerLink]="['..']"
@@ -32,15 +43,13 @@
             (click)="pipelineSelect.emit(published)"
           >
             <div caption>
-              <div>
-                {{ 'pipeline-item.published-by' | translate: published }}
-              </div>
-              <div
-                *ngIf="published.active"
-                class="label border-only blue published-tag"
-              >
-                {{ 'pipeline-published-scripts.active-pipeline' | translate }}
-              </div>
+              {{ 'pipeline-item.published-by' | translate: published }}
+            </div>
+            <div
+              *ngIf="published.active"
+              class="label border-only blue published-tag"
+            >
+              {{ 'pipeline-published-scripts.active-pipeline' | translate }}
             </div>
           </pipeline-item>
         </li>

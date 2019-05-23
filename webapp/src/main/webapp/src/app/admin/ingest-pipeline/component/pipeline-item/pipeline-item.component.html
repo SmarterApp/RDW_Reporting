@@ -21,8 +21,11 @@
   </div>
   <p *ngIf="description" class="item-description">
     {{ description }}
+    <ng-content select="[description]"></ng-content>
   </p>
   <div class="item-caption">
     <ng-content select="[caption]"></ng-content>
   </div>
+
+  <ng-content></ng-content>
 </a>

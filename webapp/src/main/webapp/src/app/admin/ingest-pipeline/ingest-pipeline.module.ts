@@ -9,7 +9,12 @@ import { PipelineCardComponent } from './component/pipeline-card/pipeline-card.c
 import { PipelineComponent } from './page/pipeline/pipeline.component';
 import { CommonModule } from '../../shared/common.module';
 import { PipelineEditorComponent } from './component/pipeline-editor/pipeline-editor.component';
-import { BsDropdownModule, ButtonsModule, TooltipModule } from 'ngx-bootstrap';
+import {
+  BsDropdownModule,
+  ButtonsModule,
+  ModalModule,
+  TooltipModule
+} from 'ngx-bootstrap';
 import { PipelineExplorerComponent } from './component/pipeline-explorer/pipeline-explorer.component';
 import { PipelineTestResultsComponent } from './component/pipeline-test-results/pipeline-test-results.component';
 import { PipelineItemComponent } from './component/pipeline-item/pipeline-item.component';
@@ -29,6 +34,7 @@ import { PipelinePublishedScriptsComponent } from './component/pipeline-publishe
     ReactiveFormsModule,
     ButtonsModule,
     BsDropdownModule.forRoot(),
+    ModalModule,
     TooltipModule.forRoot()
   ],
   declarations: [

@@ -35,6 +35,9 @@ import { UserService } from '../../../../user/user.service';
 import { isNullOrBlank } from '../../../../shared/support/support';
 import { of } from 'rxjs/internal/observable/of';
 import { TranslateService } from '@ngx-translate/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { DeleteModalComponent } from '../../../../report/component/delete-modal/delete-modal.component';
+import { DatePipe } from '@angular/common';
 
 const defaultCompileDebounceTime = 2000;
 
@@ -74,7 +77,8 @@ function createItem<T>(type: ItemType, value: T, changed = false): Item<T> {
 @Component({
   selector: 'pipeline',
   templateUrl: './pipeline.component.html',
-  styleUrls: ['./pipeline.component.less']
+  styleUrls: ['./pipeline.component.less'],
+  providers: [DatePipe]
 })
 export class PipelineComponent implements ComponentCanDeactivate, OnDestroy {
   pipeline: Pipeline;
@@ -115,7 +119,9 @@ export class PipelineComponent implements ComponentCanDeactivate, OnDestroy {
     private router: Router,
     private pipelineService: PipelineService,
     private userService: UserService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private datePipe: DatePipe,
+    private modalService: BsModalService
   ) {
     const pipeline = this.route.params.pipe(
       mergeMap(({ id }) => this.pipelineService.getPipeline(Number(id)))
@@ -240,6 +246,10 @@ export class PipelineComponent implements ComponentCanDeactivate, OnDestroy {
 
     observable.subscribe(script => {
       this.saving = false;
+      script = {
+        ...script,
+        name: item.value.name
+      };
       item.value = script;
       item.lastSavedValue = cloneDeep(script);
       item.changed = false;
@@ -330,8 +340,8 @@ export class PipelineComponent implements ComponentCanDeactivate, OnDestroy {
           this.testState = 'Testing';
           this.pipelineService
             .runPipelineTest(pipeline.id, test.id)
-            .subscribe(run => {
-              this.testRuns = [run];
+            .subscribe(runs => {
+              this.testRuns = runs;
               this.testState = null;
             });
         } else {
@@ -389,9 +399,15 @@ export class PipelineComponent implements ComponentCanDeactivate, OnDestroy {
     const deletedTestIndex = this.items.findIndex(x => x === item);
 
     const onDelete = () => {
-      // remove the item and test
-      this.setPipelineTests(this.pipeline.tests.filter(x => x !== item.value));
+      // remove the item
       this.items = this.items.filter(x => x !== item);
+
+      // remove test from pipeline (TODO not sure this is needed anymore)
+      this.setPipelineTests(
+        this.pipeline.tests.filter(
+          x => x !== item.value && x.id !== item.value.id
+        )
+      );
 
       // select the next available item
       const nextTestItem = this.items.find(
@@ -402,9 +418,18 @@ export class PipelineComponent implements ComponentCanDeactivate, OnDestroy {
     };
 
     if (item.value.id != null) {
-      // TODO launch modal
-      this.pipelineService.deletePipelineTest(item.value).subscribe(() => {
-        onDelete();
+      const modalReference: BsModalRef = this.modalService.show(
+        DeleteModalComponent
+      );
+      const modal: DeleteModalComponent = modalReference.content;
+      modal.messageId = 'delete-modal.body-generic';
+      modal.name = isNullOrBlank(item.value.name)
+        ? this.datePipe.transform(item.value.createdOn, 'medium')
+        : item.value.name;
+      modal.deleted.subscribe(() => {
+        this.pipelineService.deletePipelineTest(item.value).subscribe(() => {
+          onDelete();
+        });
       });
     } else {
       onDelete();
@@ -416,7 +441,7 @@ export class PipelineComponent implements ComponentCanDeactivate, OnDestroy {
     // lazy load item content
     if (
       item.type === 'Script' &&
-      (item.value.id != null || item.value.body == null)
+      (item.value.id != null && item.value.body == null)
     ) {
       this.selectedItemLoading = true;
       this.pipelineService
@@ -434,7 +459,7 @@ export class PipelineComponent implements ComponentCanDeactivate, OnDestroy {
         });
     } else if (
       item.type === 'Test' &&
-      (item.value.id != null || item.value.input == null)
+      (item.value.id != null && item.value.input == null)
     ) {
       this.selectedItemLoading = true;
       this.pipelineService
@@ -469,31 +494,32 @@ export class PipelineComponent implements ComponentCanDeactivate, OnDestroy {
 
     this.saveButtonDisabledTooltipCode = '';
 
+    const scripts = this.items.filter(({ type }) => type === 'Script');
+    const tests = this.items.filter(({ type }) => type === 'Test');
+
     // The complication here is that when editing the script we should enforce everything be saved before allowing "run tests"
     // however, in the case that you are editing a single test you would want to allow the test to be run if the script and that test are saved
     const hasUnsavedChanges =
-      this.items.some(({ type, changed }) => type === 'Script' && changed) ||
+      scripts.some(({ changed }) => changed) ||
       (this.selectedItem.type === 'Script'
-        ? this.items.some(({ type, changed }) => type === 'Test' && changed)
+        ? tests.some(({ changed }) => changed)
         : this.selectedItem.changed);
 
     // dont run
     const hasInvalidTests =
       this.selectedItem.type === 'Test'
         ? !isValidPipelineTest(this.selectedItem.value)
-        : this.items.some(
-            ({ type, value }) => type === 'Test' && !isValidPipelineTest(value)
-          );
+        : tests.some(({ value }) => !isValidPipelineTest(value));
 
     this.testButtonDisabled =
       this.testState != null ||
-      this.pipeline.tests.length === 0 ||
+      tests.length === 0 ||
       hasInvalidTests ||
       hasUnsavedChanges;
 
     this.testButtonDisabledTooltipCode = !this.testButtonDisabled
       ? ''
-      : this.pipeline.tests.length === 0
+      : tests.length === 0
       ? 'pipeline.no-tests'
       : hasInvalidTests
       ? 'pipeline.invalid-tests'
@@ -504,7 +530,7 @@ export class PipelineComponent implements ComponentCanDeactivate, OnDestroy {
     this.publishButtonDisabled =
       this.publishState != null ||
       this.published ||
-      this.pipeline.tests.length === 0 ||
+      tests.length === 0 ||
       hasInvalidTests ||
       this.items.some(({ changed }) => changed);
 

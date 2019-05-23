@@ -5,11 +5,7 @@ import {
   Input,
   Output
 } from '@angular/core';
-import {
-  Pipeline,
-  PipelineScript,
-  PublishedPipeline
-} from '../../model/pipeline';
+import { Pipeline, PublishedPipeline } from '../../model/pipeline';
 
 export interface PublishedPipelineView extends PublishedPipeline {
   active: boolean;
@@ -33,4 +29,14 @@ export class PipelinePublishedScriptsComponent {
 
   @Output()
   pipelineSelect: EventEmitter<PublishedPipelineView> = new EventEmitter();
+
+  @Output()
+  pipelineActivate: EventEmitter<Pipeline> = new EventEmitter();
+
+  onPipelineActivate(publishedPipeline: PublishedPipelineView): void {
+    this.pipelineActivate.emit({
+      ...this.pipeline,
+      activeVersion: publishedPipeline.version
+    });
+  }
 }

@@ -1,7 +1,9 @@
+@space-unit: 15px;
+
 :host {
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: 15px;
+  gap: @space-unit;
 }
 
 .head {
@@ -11,7 +13,7 @@
     flex: 1;
   }
   > :not(:first-child) {
-    margin-left: 15px;
+    margin-left: @space-unit;
   }
 }
 
@@ -33,6 +35,7 @@
 
 .published-tag {
   display: inline-block;
-  font-size: 100%;
-  margin-top: 5px;
+  position: absolute;
+  top: @space-unit;
+  right: @space-unit;
 }

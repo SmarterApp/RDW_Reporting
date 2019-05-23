@@ -1,157 +1,103 @@
-<div class="row" *ngIf="_initialized">
-  <div class="col-md-12">
-    <strong
-      info-button
-      title="{{
-        'average-scale-score.other-score-distribution'
-          | translate
-            : {
-                scoreName:
-                  'subject.' +
-                    _subjectDefinition.subject +
-                    '.asmt-type.' +
-                    _subjectDefinition.assessmentType +
-                    '.claim-score.name' | translate
-              }
-      }}"
-      content="{{ 'common.info.claim' | translate }}"
-    ></strong>
-
-    <div class="ui-table-wrapper">
-      <table
-        *ngFor="let index of claimReferenceRows"
-        class="student-claim-distribution table table-striped table-hover"
-        [ngClass]="getClaimColumnCountClass(index)"
-      >
-        <thead class="ui-table-thead">
-          <tr>
-            <th *ngFor="let claimReference of getLatestClaimReferences()">
-              <i
-                class="fa {{
-                  'subject.' +
-                    _subjectDefinition.subject +
-                    '.claim.' +
-                    claimReference.code +
-                    '.icon' | translate
-                }}"
-              ></i>
-              {{
+<ng-container *ngIf="table">
+  <strong
+    info-button
+    title="{{
+      'average-scale-score.other-score-distribution'
+        | translate
+          : {
+              scoreName:
                 'subject.' +
-                  _subjectDefinition.subject +
+                  table.subjectCode +
+                  '.asmt-type.' +
+                  table.assessmentTypeCode +
+                  '.claim-score.name' | translate
+            }
+    }}"
+    content="{{ 'common.info.claim' | translate }}"
+  ></strong>
+
+  <div class="ui-table-wrapper">
+    <table class="student-claim-distribution table table-striped table-hover">
+      <thead class="ui-table-thead">
+        <tr>
+          <th *ngFor="let statistic of table.scoreStatistics">
+            <i
+              class="fa {{
+                'subject.' +
+                  table.subjectCode +
                   '.claim.' +
-                  claimReference.code +
-                  '.name' | translate
-              }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td
-              *ngFor="let claimReference of getLatestClaimReferences()"
-              class="claim-distribution"
-            >
-              <div class="assessment-aggregate">
-                <div class="scale-score-graph rounded blend-middle mb-sm">
-                  <div class="bar-container">
-                    <ng-container *ngIf="claimReference.stats">
-                      <ng-container
-                        *ngFor="
-                          let percent of claimReference.stats.percents;
-                          let i = index
-                        "
-                      >
-                        <div
-                          *ngIf="percent.value != 0"
-                          class="bar"
-                          [ngClass]="
-                            'subject.' +
-                              _subjectDefinition.subject +
-                              '.asmt-type.' +
-                              _subjectDefinition.assessmentType +
-                              '.claim-score.level.' +
-                              (i + 1) +
-                              '.color' | translate
-                          "
-                          [attr.data-width]="
-                            getClaimDataWidth(claimReference.dataIndex, i)
-                          "
-                        ></div>
-                      </ng-container>
-                    </ng-container>
+                  statistic.code +
+                  '.icon' | translate
+              }}"
+            ></i>
+            {{
+              'subject.' +
+                table.subjectCode +
+                '.claim.' +
+                statistic.code +
+                '.name' | translate
+            }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td
+            *ngFor="let statistic of table.scoreStatistics"
+            class="claim-distribution"
+          >
+            <div class="assessment-aggregate">
+              <div class="scale-score-graph rounded blend-middle mb-sm">
+                <div class="bar-container">
+                  <ng-container
+                    *ngFor="let score of statistic.performanceLevelScores"
+                  >
+                    <div
+                      *ngIf="score.percent != 0"
+                      class="bar"
+                      [ngClass]="score.colorCode | translate"
+                      [attr.data-width]="score.percent"
+                    ></div>
+                  </ng-container>
+                </div>
+              </div>
+
+              <div class="perc-container row">
+                <div
+                  class="col-xs-4"
+                  *ngFor="let score of statistic.performanceLevelScores"
+                >
+                  <div class="bar">
+                    <span
+                      class="square"
+                      [ngClass]="score.colorCode | translate"
+                    ></span>
+                    <span [hidden]="displayCount"> {{ score.percent }}% </span>
+                    <span [hidden]="!displayCount">
+                      {{ score.count }}
+                    </span>
+                    <span class="sr-only">
+                      {{ score.nameCode | translate }}
+                    </span>
                   </div>
                 </div>
-
-                <ng-container *ngIf="claimReference.stats">
-                  <div
-                    class="perc-container row"
-                    *ngFor="let row of claimLevelRows"
-                  >
-                    <div class="col-xs-4" *ngFor="let i of row">
-                      <div class="bar">
-                        <span
-                          class="square"
-                          [ngClass]="
-                            'subject.' +
-                              _subjectDefinition.subject +
-                              '.asmt-type.' +
-                              _subjectDefinition.assessmentType +
-                              '.claim-score.level.' +
-                              (i + 1) +
-                              '.color' | translate
-                          "
-                        ></span>
-                        {{ getClaimValue(claimReference.stats, i)
-                        }}{{ getClaimSuffix(claimReference.stats, i) }}
-                        <span class="sr-only">{{
-                          'subject.' +
-                            _subjectDefinition.subject +
-                            '.asmt-type.' +
-                            _subjectDefinition.assessmentType +
-                            '.claim-score.level.' +
-                            (i + 1) +
-                            '.name' | translate
-                        }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </ng-container>
               </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    <div class="performance-level-legend">
-      <div class="levels">
-        <span
-          class="level"
-          *ngFor="let level of _subjectDefinition.claimScore.levels"
-        >
-          <span
-            class="square"
-            [ngClass]="
-              'subject.' +
-                _subjectDefinition.subject +
-                '.asmt-type.' +
-                _subjectDefinition.assessmentType +
-                '.claim-score.level.' +
-                level +
-                '.color' | translate
-            "
-          ></span>
-          {{
-            'subject.' +
-              _subjectDefinition.subject +
-              '.asmt-type.' +
-              _subjectDefinition.assessmentType +
-              '.claim-score.level.' +
-              level +
-              '.name' | translate
-          }}
-        </span>
-      </div>
+  <div class="performance-level-legend">
+    <div class="levels">
+      <span
+        class="level"
+        *ngFor="let score of table.scoreStatistics[0].performanceLevelScores"
+      >
+        <span class="square" [ngClass]="score.colorCode | translate"></span>
+        {{ score.nameCode | translate }}
+      </span>
     </div>
   </div>
-</div>
+</ng-container>
