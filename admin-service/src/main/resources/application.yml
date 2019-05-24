@@ -82,6 +82,8 @@ spring:
 
   jackson:
     default-property-inclusion: non_null
+    deserialization:
+      fail-on-unknown-properties: false
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
 
@@ -138,3 +140,5 @@ tenant-configuration-lookup:
       url: http://report-processor-service:8008
     reporting-service:
       url: http://reporting-service:8008
+
+
