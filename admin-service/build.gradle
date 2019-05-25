@@ -5,7 +5,6 @@ ext['groovy.version'] = '2.5.6'
 dependencies {
     compile project(':rdw-reporting-common')
     compile project(':rdw-reporting-common-web')
-    compile project(':rdw-reporting-aggregate-service')
     compile 'org.opentestsystem.rdw.common:rdw-common-archive'
     compile 'org.opentestsystem.rdw.common:rdw-common-group'
     compile 'org.opentestsystem.rdw.common:rdw-common-model'
