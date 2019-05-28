@@ -1,4 +1,12 @@
 #simulating the spring cloud config search path feature with "tenant_ca" profile for testing purposes
+tenantProperties:
+  tenants:
+    CA:
+      id: CA
+      key: CA
+      name: California
+      description: Some Descriptive Text For CA
+
 spring:
   datasource:
     tenants:

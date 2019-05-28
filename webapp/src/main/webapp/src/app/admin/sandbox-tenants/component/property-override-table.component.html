@@ -9,6 +9,7 @@
       [globalFilterFields]="['key', 'value']"
       styleClass="table table-striped table-hover overflow rdw-scrollable-table"
       [paginator]="true"
+      [(first)]="first"
       [alwaysShowPaginator]="false"
       [rows]="20"
     >
@@ -44,7 +45,7 @@
           <th>Value</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-overrides let-i="rowIndex">
+      <ng-template pTemplate="body" let-overrides>
         <tr
           [ngClass]="{
             modified: overrides.value !== overrides.originalValue
@@ -57,14 +58,18 @@
               #overrideInput
               type="text"
               [value]="overrides.value"
-              [formControlName]="i"
+              [formControlName]="overrides.key"
               class="property-input"
-              (change)="updateOverride(overrides, i)"
+              (change)="updateOverride(overrides)"
             />
             <i
               class="fa fa-undo fa-md"
               *ngIf="overrides.value !== overrides.originalValue"
               (click)="resetClicked(overrides)"
+              popover="{{ 'tenant-config.reset-info' | translate }}"
+              placement="left"
+              container="body"
+              triggers="mouseenter:mouseleave"
             ></i>
           </td>
         </tr>

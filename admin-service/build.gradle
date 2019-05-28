@@ -30,7 +30,7 @@ dependencies {
     compile 'com.google.guava:guava'
     compile 'mysql:mysql-connector-java'
     compile 'commons-io:commons-io'
-
+    compile 'org.eclipse.jgit:org.eclipse.jgit'
     compile 'org.apache.commons:commons-csv:+'
 
     compile 'com.google.code.gson:gson'

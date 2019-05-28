@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SandboxConfigurationComponent } from './pages/sandbox.component';
 import { SandboxConfigurationDetailsComponent } from './component/sandbox-details.component';
-import { ButtonsModule, ModalModule } from 'ngx-bootstrap';
+import { ButtonsModule, ModalModule, PopoverModule } from 'ngx-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '../../shared/common.module';
 import { SandboxService } from './service/sandbox.service';
@@ -21,6 +21,7 @@ import { NewTenantConfigurationComponent } from './pages/new-tenant.component';
 import { TenantConfigurationComponent } from './pages/tenant.component';
 import { TenantConfigurationDetailsComponent } from './component/tenant-details.component';
 import { PropertyOverrideTreeTableComponent } from './component/property-override-tree-table.component';
+import { TenantStore } from './store/tenant.store';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { PropertyOverrideTreeTableComponent } from './component/property-overrid
     HttpClientModule,
     TableModule,
     TreeTableModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    PopoverModule.forRoot()
   ],
   exports: [
     SandboxConfigurationComponent,
@@ -62,6 +64,6 @@ import { PropertyOverrideTreeTableComponent } from './component/property-overrid
     TenantConfigurationComponent,
     NewTenantConfigurationComponent
   ],
-  providers: [SandboxService, TenantService]
+  providers: [SandboxService, TenantService, TenantStore]
 })
 export class SandboxTenantsModule {}

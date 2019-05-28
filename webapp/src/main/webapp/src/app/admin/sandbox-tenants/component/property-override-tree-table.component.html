@@ -103,6 +103,10 @@
                 rowNode.node.data.value !== rowNode.node.data.originalValue
               "
               (click)="resetClicked(rowNode.node.data)"
+              popover="{{ 'tenant-config.reset-info' | translate }}"
+              placement="left"
+              container="body"
+              triggers="mouseenter:mouseleave"
             ></i>
           </td>
         </tr>

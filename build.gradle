@@ -21,7 +21,7 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 
 // Set version dependencies. This allows the cli to force version, e.g. `-Pcommon=1.1.0-SNAPSHOT`
-String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "1.4.0-129"
+String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "1.4.0-139"
 String rdwSchemaVersion = project.hasProperty("schema") ? project.property("schema") : "1.4.0-421"
 String dockerPrefix = "smarterbalanced"
 
@@ -89,6 +89,9 @@ subprojects {
 
             // used for pipeline user test running
             dependency 'org.xmlunit:xmlunit-core:2.6.2'
+
+            //for multitenant admin
+            dependency 'org.eclipse.jgit:org.eclipse.jgit:5.3.1.201904271842-r'
         }
         imports {
             // https://github.com/spring-projects/spring-cloud/wiki/Spring-Cloud-Edgware-Release-Notes

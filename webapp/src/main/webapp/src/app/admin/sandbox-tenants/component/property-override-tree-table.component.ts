@@ -9,8 +9,20 @@ import { forOwn, cloneDeep, get } from 'lodash';
   templateUrl: './property-override-tree-table.component.html'
 })
 export class PropertyOverrideTreeTableComponent implements OnInit {
+  _configurationProperties: any;
+
+  get configurationProperties(): any {
+    return this._configurationProperties;
+  }
+
   @Input()
-  configurationProperties: any;
+  set configurationProperties(properties: any) {
+    this._configurationProperties = properties;
+    if (this.form) {
+      this.createConfigurationPropertyTree();
+    }
+  }
+
   @Input()
   propertiesArrayName: string;
   @Input()
@@ -18,13 +30,11 @@ export class PropertyOverrideTreeTableComponent implements OnInit {
 
   showModifiedPropertiesOnly = false;
   configurationPropertiesTreeNodes: TreeNode[] = [];
-  filteredConfigurationPropertiesTreeNodes: TreeNode[] = [];
 
   constructor() {}
 
   ngOnInit(): void {
     this.createConfigurationPropertyTree();
-    this.filteredConfigurationPropertiesTreeNodes = this.configurationPropertiesTreeNodes;
   }
 
   updateOverride(override: ConfigurationProperty): void {
@@ -36,12 +46,12 @@ export class PropertyOverrideTreeTableComponent implements OnInit {
     const key = override.formControlName.split(/\.(.+)/)[1];
 
     configurationProperties = <ConfigurationProperty[]>(
-      this.configurationProperties[group]
+      this._configurationProperties[group]
     );
 
     if (!configurationProperties) {
       // If we couldn't find the group within the top-level property groups, lets peek at datasources...
-      const datasources = this.configurationProperties['datasources'];
+      const datasources = this._configurationProperties['datasources'];
       configurationProperties = <ConfigurationProperty[]>datasources[group];
     }
 
@@ -54,7 +64,7 @@ export class PropertyOverrideTreeTableComponent implements OnInit {
 
   expandOrCollapse(node: TreeNode): void {
     node.expanded = !node.expanded;
-    // Change detection is not triggered unless the TreeNode array is replaced
+    // Change detection is not triggered unless the TreeNode array is replaced due to framework using setter-based change detection
     this.configurationPropertiesTreeNodes = cloneDeep(
       this.configurationPropertiesTreeNodes
     );
@@ -80,7 +90,9 @@ export class PropertyOverrideTreeTableComponent implements OnInit {
   }
 
   private createConfigurationPropertyTree(): void {
-    forOwn(this.configurationProperties, (configGroup, groupKey) => {
+    const groupNodes: TreeNode[] = [];
+
+    forOwn(this._configurationProperties, (configGroup, groupKey) => {
       const childrenNodes: TreeNode[] = [];
       // For each configuration group, create a root-level node
 
@@ -113,8 +125,10 @@ export class PropertyOverrideTreeTableComponent implements OnInit {
         expanded: false,
         leaf: false
       };
-      this.configurationPropertiesTreeNodes.push(groupNode);
+      groupNodes.push(groupNode);
     });
+
+    this.configurationPropertiesTreeNodes = groupNodes;
   }
 
   private mapLeafNodes(

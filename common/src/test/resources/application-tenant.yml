@@ -1,9 +1,11 @@
 #simulating core tenant file
-tenant-properties:
+tenantProperties:
   tenants:
-    - id: CA
+    CA:
+      id: CA
       key: CA
       display-name: California
-    - id: NV
+    NV:
+      id: NV
       key: NV
       display-name: Nevada

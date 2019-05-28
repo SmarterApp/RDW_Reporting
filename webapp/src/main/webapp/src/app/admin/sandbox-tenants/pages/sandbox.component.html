@@ -11,9 +11,9 @@
   </ng-template>
 </page-heading>
 
-<div class="well sandbox-config">
-  <div class="well-body mt-sm">
-    <div *ngFor="let sandbox of sandboxes">
+<div class="sandbox-config">
+  <div class="well-group mt-sm">
+    <div *ngFor="let sandbox of sandboxes" class="well">
       <sandbox-details-config
         [sandbox]="sandbox"
         (deleteClicked)="openDeleteSandboxModal(sandbox)"
@@ -21,7 +21,7 @@
         (resetDataClicked)="openResetDataModal(sandbox)"
       ></sandbox-details-config>
     </div>
-    <div *ngIf="sandboxes.length === 0">
+    <div *ngIf="sandboxes.length === 0" class="well">
       <h3>{{ 'sandbox-config.empty' | translate }}</h3>
     </div>
   </div>

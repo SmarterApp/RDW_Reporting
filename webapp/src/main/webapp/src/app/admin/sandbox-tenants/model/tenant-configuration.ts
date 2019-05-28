@@ -5,9 +5,14 @@ import { ConfigurationProperty } from './configuration-property';
 
 export interface TenantConfiguration {
   /**
-   * The unique (generated) key for the tenant
+   * The unique internal key for the tenant
    */
   code: string;
+
+  /**
+   * The unique external id for the tenant
+   */
+  id: string;
 
   /**
    * A human readable label, name, or description of the tenant

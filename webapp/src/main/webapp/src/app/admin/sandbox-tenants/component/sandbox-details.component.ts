@@ -43,7 +43,7 @@ export class SandboxConfigurationDetailsComponent implements OnInit {
       label: [this.sandbox.label, CustomValidators.notBlank],
       description: [this.sandbox.description],
       configurationProperties: this.formBuilder.group({}),
-      localizationOverrides: this.formBuilder.array([])
+      localizationOverrides: this.formBuilder.group({})
     });
     this.mapLocalizationOverrides();
     this.configureMenuItems();
@@ -55,7 +55,7 @@ export class SandboxConfigurationDetailsComponent implements OnInit {
       .getFlattenedTranslations('en')
       .subscribe(translations => {
         for (let key in translations) {
-          let locationOverrideFormArray = <FormArray>(
+          let locationOverrideFormGroup = <FormGroup>(
             this.sandboxForm.controls['localizationOverrides']
           );
           if (translations.hasOwnProperty(key)) {
@@ -73,14 +73,14 @@ export class SandboxConfigurationDetailsComponent implements OnInit {
                   override.originalValue
                 )
               );
-              locationOverrideFormArray.controls.push(
-                new FormControl(override.value)
+              locationOverrideFormGroup.controls[key] = new FormControl(
+                override.value
               );
             } else {
               this.localizationOverrides.push(
                 new ConfigurationProperty(key, value)
               );
-              locationOverrideFormArray.controls.push(new FormControl(value));
+              locationOverrideFormGroup.controls[key] = new FormControl(value);
             }
           }
         }

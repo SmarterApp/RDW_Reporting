@@ -3,6 +3,8 @@ import { flattenJsonObject } from '../../../shared/support/support';
 import { forOwn, get } from 'lodash';
 import { TenantConfiguration } from '../model/tenant-configuration';
 import { SandboxConfiguration } from '../model/sandbox-configuration';
+import { TreeNode } from 'primeng/api';
+import { FormControl, FormGroup } from '@angular/forms';
 
 export function mapTenant(
   tenant: any,
@@ -10,15 +12,14 @@ export function mapTenant(
 ): TenantConfiguration {
   return <TenantConfiguration>{
     code: tenant.tenant['key'],
+    id: tenant.tenant['id'],
     label: tenant.tenant['name'],
     description: tenant.tenant['description'],
     configurationProperties: mapConfigurationProperties(
       defaultApplicationTenantConfiguration,
       tenant.applicationTenantConfiguration
     ),
-    localizationOverrides: [
-      //TODO: Map localization overrides
-    ]
+    localizationOverrides: mapLocalizationOverrides(tenant.localization)
   };
 }
 
@@ -39,9 +40,7 @@ export function mapSandbox(
       defaultApplicationTenantConfiguration,
       sandbox.applicationTenantConfiguration
     ),
-    localizationOverrides: [
-      //TODO: Map localization overrides
-    ]
+    localizationOverrides: mapFromLocalizationOverrides(sandbox.localization)
   };
 }
 
@@ -57,9 +56,7 @@ export function mapFromSandbox(sandbox: SandboxConfiguration): any {
       applicationTenantConfiguration: mapFromConfigurationProperties(
         sandbox.configurationProperties
       ),
-      localizationOverrides: {
-        //TODO: Map localization overrides
-      }
+      localization: sandbox.localizationOverrides
     }
   };
 }
@@ -68,16 +65,14 @@ export function mapFromTenant(tenant: TenantConfiguration): any {
   return {
     tenant: {
       key: tenant.code,
-      id: tenant.code,
+      id: tenant.id,
       description: tenant.description,
       name: tenant.label
     },
     applicationTenantConfiguration: mapFromConfigurationProperties(
       tenant.configurationProperties
     ),
-    localizationOverrides: {
-      //TODO: Map localization overrides
-    }
+    localization: mapFromLocalizationOverrides(tenant.localizationOverrides)
   };
 }
 
@@ -177,4 +172,21 @@ export function mapConfigurationProperties(
   });
 
   return groupedProperties;
+}
+
+function mapLocalizationOverrides(overrides: any): ConfigurationProperty[] {
+  const configProperties: ConfigurationProperty[] = [];
+  forOwn(overrides, (value, key) =>
+    configProperties.push(new ConfigurationProperty(key, value))
+  );
+  return configProperties;
+}
+
+function mapFromLocalizationOverrides(overrides: ConfigurationProperty[]): any {
+  return overrides
+    ? overrides.reduce((localizationOverrides, { key, value }) => {
+        localizationOverrides[key] = value;
+        return localizationOverrides;
+      }, {})
+    : [];
 }

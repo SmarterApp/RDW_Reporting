@@ -904,6 +904,7 @@
       "body": "Are you sure you wish to delete the tenant <strong>{{label}}</strong>?"
     },
     "fields": {
+      "id": "Tenant ID",
       "key": "Tenant Key",
       "label": "Tenant Name / Label:",
       "description": "Description:",
@@ -912,12 +913,19 @@
       "search": "Search by key or value"
     },
     "empty": "No tenant configurations found. Create a new tenant by clicking the \"Create New Tenant\" button",
+    "reset-info": "Click this button to reset the value back to its original default value",
     "properties": {
       "reporting": "Reporting",
       "datasources": "Data Sources",
       "task": "Task",
       "archive": "Archive",
       "aggregator": "Aggregator"
+    },
+    "errors": {
+      "duplicate-key": "A tenant with the same tenant key or ID already exists",
+      "update": "An unknown error occurred when attempting to update the tenant",
+      "create": "An unknown error occurred when attempting to create the tenant",
+      "delete": "An unknown error occurred when attempting to delete the tenant"
     }
   },
   "embargo-alert": {

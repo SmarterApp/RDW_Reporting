@@ -7,6 +7,9 @@ management:
     redis:
       enabled: false
 
+endpoints:
+  sensitive: false
+
 jwt:
   secret: ${rdw.reporting.jwt.secret:secret}
   producer: true
@@ -146,3 +149,4 @@ zuul:
       path: /api/reporting-service/**
       url: http://localhost:8180
       stripPrefix: true
+

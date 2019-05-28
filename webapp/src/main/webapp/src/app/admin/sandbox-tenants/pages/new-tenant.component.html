@@ -13,10 +13,25 @@
         </div>
         <div class="col-md-8">
           <input
+            #tenantKeyInput
+            onkeyup="this.value = this.value.toUpperCase();"
             type="text"
             class="form-control"
             name="key"
             formControlName="key"
+          />
+        </div>
+      </div>
+      <div class="row mb-xs">
+        <div class="col-md-4">
+          <label>{{ 'tenant-config.fields.id' | translate }}</label>
+        </div>
+        <div class="col-md-8">
+          <input
+            type="text"
+            class="form-control"
+            name="id"
+            formControlName="id"
           />
         </div>
       </div>
