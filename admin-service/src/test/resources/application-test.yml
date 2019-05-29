@@ -7,9 +7,6 @@ datasources:
 artifacts:
   root: "classpath:"
 
-app:
-  test-mode: true
-
 reporting:
   school-year: 2018
   state:
