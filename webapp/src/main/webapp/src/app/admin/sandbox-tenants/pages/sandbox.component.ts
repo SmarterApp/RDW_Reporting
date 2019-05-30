@@ -1,30 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SandboxConfiguration } from '../model/sandbox-configuration';
+import { DataSet, SandboxConfiguration } from '../model/sandbox-configuration';
 import { SandboxService } from '../service/sandbox.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { Subscription } from 'rxjs';
 import { DeleteSandboxConfigurationModalComponent } from '../modal/delete-sandbox.modal';
 import { ArchiveSandboxConfigurationModalComponent } from '../modal/archive-sandbox.modal';
 import { ResetDataModalComponent } from '../modal/reset-data.modal';
+import { RdwTranslateLoader } from '../../../shared/i18n/rdw-translate-loader';
+import { SandboxStore } from '../store/sandbox.store';
 
 @Component({
   selector: 'sandbox-config',
   templateUrl: './sandbox.component.html'
 })
-export class SandboxConfigurationComponent {
+export class SandboxConfigurationComponent implements OnInit {
   sandboxes: SandboxConfiguration[];
+  localizationDefaults: any;
 
   private _modalSubscriptions: Subscription[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private service: SandboxService,
+    private store: SandboxStore,
+    private translationLoader: RdwTranslateLoader,
     private modalService: BsModalService
   ) {}
 
   ngOnInit(): void {
-    this.service.getAll().subscribe(sandboxes => (this.sandboxes = sandboxes));
+    this.getSandboxes();
+    this.getTranslations();
   }
 
   openDeleteSandboxModal(sandbox: SandboxConfiguration) {
@@ -35,8 +41,10 @@ export class SandboxConfigurationComponent {
       modalReference.content;
     modal.sandbox = sandbox;
     this._modalSubscriptions.push(
-      modal.deleted.subscribe(sandbox => {
-        console.log(sandbox);
+      modal.deleted.subscribe(() => {
+        this.store.setState(
+          this.store.state.filter(({ code }) => code !== sandbox.code)
+        );
       })
     );
   }
@@ -68,10 +76,25 @@ export class SandboxConfigurationComponent {
     );
   }
 
+  getTranslations() {
+    this.translationLoader
+      //TODO: Get the correct language code from somewhere, do not hardcode
+      .getFlattenedTranslations('en')
+      .subscribe(translations => (this.localizationDefaults = translations));
+  }
+
   unsubscribe() {
     this._modalSubscriptions.forEach(subscription =>
       subscription.unsubscribe()
     );
     this._modalSubscriptions = [];
+  }
+
+  private getSandboxes(): void {
+    this.service.getAll().subscribe(sandboxes => {
+      this.store.setState(sandboxes);
+    });
+
+    this.store.getState().subscribe(sandboxes => (this.sandboxes = sandboxes));
   }
 }

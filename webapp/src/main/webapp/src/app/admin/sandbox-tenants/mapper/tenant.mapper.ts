@@ -1,10 +1,9 @@
 import { ConfigurationProperty } from '../model/configuration-property';
 import { flattenJsonObject } from '../../../shared/support/support';
-import { forOwn, get } from 'lodash';
+import { forOwn, get, isString } from 'lodash';
 import { TenantConfiguration } from '../model/tenant-configuration';
-import { SandboxConfiguration } from '../model/sandbox-configuration';
-import { TreeNode } from 'primeng/api';
-import { FormControl, FormGroup } from '@angular/forms';
+import { DataSet, SandboxConfiguration } from '../model/sandbox-configuration';
+import { object as expand } from 'dot-object';
 
 export function mapTenant(
   tenant: any,
@@ -25,43 +24,41 @@ export function mapTenant(
 
 export function mapSandbox(
   sandbox: any,
-  defaultApplicationTenantConfiguration: any
+  defaultApplicationSandboxConfiguration: any,
+  dataSets: DataSet[]
 ): SandboxConfiguration {
   return <SandboxConfiguration>{
-    code: sandbox.tenant['key'],
-    label: sandbox.tenant['name'],
-    description: sandbox.tenant['description'],
-    dataSet: {
-      //TODO: Do not hardcode this
-      key: 'dataSet2',
-      label: 'SBAC Interim Data Set'
-    },
-    configurationProperties: mapConfigurationProperties(
-      defaultApplicationTenantConfiguration,
-      sandbox.applicationTenantConfiguration
+    code: sandbox.sandbox['key'],
+    label: sandbox.sandbox['name'],
+    description: sandbox.sandbox['description'],
+    dataSet: dataSets.find(
+      dataSet => sandbox.sandbox['dataSetId'] === dataSet.id
     ),
-    localizationOverrides: mapFromLocalizationOverrides(sandbox.localization)
+    configurationProperties: mapConfigurationProperties(
+      defaultApplicationSandboxConfiguration,
+      sandbox.applicationSandboxConfiguration
+    ),
+    localizationOverrides: mapLocalizationOverrides(sandbox.localization)
   };
 }
 
-export function mapFromSandbox(sandbox: SandboxConfiguration): any {
+export function toSandboxApiModel(sandbox: SandboxConfiguration): any {
   return {
-    tenantConfiguration: {
-      sandbox: {
-        key: sandbox.code,
-        id: sandbox.code,
-        description: sandbox.description,
-        name: sandbox.label
-      },
-      applicationTenantConfiguration: mapFromConfigurationProperties(
-        sandbox.configurationProperties
-      ),
-      localization: sandbox.localizationOverrides
-    }
+    sandbox: {
+      key: sandbox.code,
+      id: sandbox.code,
+      description: sandbox.description,
+      name: sandbox.label,
+      dataSetId: sandbox.dataSet.id
+    },
+    applicationSandboxConfiguration: toConfigurationPropertiesApiModel(
+      sandbox.configurationProperties
+    ),
+    localization: toLocalizationOverridesApiModel(sandbox.localizationOverrides)
   };
 }
 
-export function mapFromTenant(tenant: TenantConfiguration): any {
+export function toTenantApiModel(tenant: TenantConfiguration): any {
   return {
     tenant: {
       key: tenant.code,
@@ -69,22 +66,22 @@ export function mapFromTenant(tenant: TenantConfiguration): any {
       description: tenant.description,
       name: tenant.label
     },
-    applicationTenantConfiguration: mapFromConfigurationProperties(
+    applicationTenantConfiguration: toConfigurationPropertiesApiModel(
       tenant.configurationProperties
     ),
-    localization: mapFromLocalizationOverrides(tenant.localizationOverrides)
+    localization: toLocalizationOverridesApiModel(tenant.localizationOverrides)
   };
 }
 
-function mapFromConfigurationProperties(configProperties: any): any {
-  let mappedGroup = {};
+function toConfigurationPropertiesApiModel(configProperties: any): any {
+  const mappedGroup = {};
 
   forOwn(configProperties, (group, groupKey) => {
     if (groupKey === 'datasources') {
-      let datasourceGroup = {};
+      const datasourceGroup = {};
 
       forOwn(group, (configurationProperties, datasourceKey) => {
-        let configGroup = {};
+        const configGroup = {};
         configurationProperties.forEach(
           configurationProperty =>
             (configGroup[configurationProperty.key] =
@@ -95,12 +92,20 @@ function mapFromConfigurationProperties(configProperties: any): any {
 
       mappedGroup[groupKey] = datasourceGroup;
     } else {
-      let configGroup = {};
+      const configGroup = {};
       // group is the list of configuration properties
-      group.forEach(
-        configurationProperty =>
-          (configGroup[configurationProperty.key] = configurationProperty.value)
-      );
+      group.forEach(configurationProperty => {
+        if (
+          isString(configurationProperty.value) &&
+          configurationProperty.value.indexOf(',') > -1
+        ) {
+          configGroup[
+            configurationProperty.key
+          ] = configurationProperty.value.split(',');
+        } else {
+          configGroup[configurationProperty.key] = configurationProperty.value;
+        }
+      });
       mappedGroup[groupKey] = configGroup;
     }
   });
@@ -116,18 +121,29 @@ export function mapConfigurationProperties(
 
   forOwn(configProperties, (configGroup, groupKey) => {
     if (groupKey !== 'datasources') {
-      let configProps: ConfigurationProperty[] = [];
+      const configProps: ConfigurationProperty[] = [];
 
       forOwn(flattenJsonObject(configGroup), (value, key) => {
         if (!overrides) {
-          configProps.push(new ConfigurationProperty(key, value));
+          configProps.push(
+            new ConfigurationProperty(key, joinIfArray(value), groupKey)
+          );
         } else {
           const groupOverrides = overrides[groupKey] || {};
           const override = get(groupOverrides, key);
           if (override) {
-            configProps.push(new ConfigurationProperty(key, override, value));
+            configProps.push(
+              new ConfigurationProperty(
+                key,
+                joinIfArray(override),
+                groupKey,
+                joinIfArray(value)
+              )
+            );
           } else {
-            configProps.push(new ConfigurationProperty(key, value));
+            configProps.push(
+              new ConfigurationProperty(key, joinIfArray(value), groupKey)
+            );
           }
         }
       });
@@ -142,18 +158,29 @@ export function mapConfigurationProperties(
 
       // Iterate over the group of databases
       forOwn(configGroup, (databaseProperties, databaseName) => {
-        let configProps: ConfigurationProperty[] = [];
+        const configProps: ConfigurationProperty[] = [];
 
         forOwn(flattenJsonObject(databaseProperties), (value, key) => {
           if (!overrides) {
-            configProps.push(new ConfigurationProperty(key, value));
+            configProps.push(
+              new ConfigurationProperty(key, joinIfArray(value), databaseName)
+            );
           } else {
             const groupOverrides = overrides[groupKey] || {};
             const override = get(groupOverrides, `${databaseName}.${key}`);
             if (override) {
-              configProps.push(new ConfigurationProperty(key, override, value));
+              configProps.push(
+                new ConfigurationProperty(
+                  key,
+                  joinIfArray(override),
+                  databaseName,
+                  joinIfArray(value)
+                )
+              );
             } else {
-              configProps.push(new ConfigurationProperty(key, value));
+              configProps.push(
+                new ConfigurationProperty(key, joinIfArray(value), databaseName)
+              );
             }
           }
         });
@@ -175,18 +202,27 @@ export function mapConfigurationProperties(
 }
 
 function mapLocalizationOverrides(overrides: any): ConfigurationProperty[] {
+  const flattenedOverrides = flattenJsonObject(overrides);
   const configProperties: ConfigurationProperty[] = [];
-  forOwn(overrides, (value, key) =>
+  forOwn(flattenedOverrides, (value, key) =>
     configProperties.push(new ConfigurationProperty(key, value))
   );
   return configProperties;
 }
 
-function mapFromLocalizationOverrides(overrides: ConfigurationProperty[]): any {
-  return overrides
+function toLocalizationOverridesApiModel(
+  overrides: ConfigurationProperty[]
+): any {
+  const flattenedOverrides = overrides
     ? overrides.reduce((localizationOverrides, { key, value }) => {
         localizationOverrides[key] = value;
         return localizationOverrides;
       }, {})
     : [];
+
+  return expand(flattenedOverrides);
+}
+
+function joinIfArray(value: any): string {
+  return Array.isArray(value) ? value.join(',') : value;
 }

@@ -17,7 +17,6 @@ import { RdwTranslateLoader } from '../../../shared/i18n/rdw-translate-loader';
 import { ConfigurationProperty } from '../model/configuration-property';
 import { CustomValidators } from '../../../shared/validator/custom-validators';
 import { mapConfigurationProperties } from '../mapper/tenant.mapper';
-import { PropertyOverrideTreeTableComponent } from '../component/property-override-tree-table.component';
 import { NotificationService } from '../../../shared/notification/notification.service';
 import { TenantStore } from '../store/tenant.store';
 
@@ -26,17 +25,14 @@ import { TenantStore } from '../store/tenant.store';
   templateUrl: './new-tenant.component.html'
 })
 export class NewTenantConfigurationComponent implements OnInit, AfterViewInit {
+  @ViewChild('tenantKeyInput')
+  tenantKeyInput: ElementRef;
+
   tenantForm: FormGroup;
   // Contains the full list of localization overrides, with default values
   localizationOverrides: ConfigurationProperty[] = [];
   // Contains the full list of configuration properties, with default values
   configurationProperties: any;
-
-  @ViewChild('configurationPropertiesTable')
-  configurationPropertiesTable: PropertyOverrideTreeTableComponent;
-
-  @ViewChild('tenantKeyInput')
-  tenantKeyInput: ElementRef;
 
   constructor(
     private service: TenantService,
@@ -104,7 +100,7 @@ export class NewTenantConfigurationComponent implements OnInit, AfterViewInit {
     this.translationLoader
       .getFlattenedTranslations('en')
       .subscribe(translations => {
-        let locationOverrideFormGroup = <FormGroup>(
+        const locationOverrideFormGroup = <FormGroup>(
           this.tenantForm.controls['localizationOverrides']
         );
         for (let key in translations) {

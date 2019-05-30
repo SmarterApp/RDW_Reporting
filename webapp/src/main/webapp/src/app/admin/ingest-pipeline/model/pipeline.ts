@@ -89,21 +89,6 @@ export interface PipelineScript extends Script {
    * The user who updated the script last
    */
   updatedBy?: string;
-
-  /**
-   * True if this script is published
-   */
-  published?: boolean;
-
-  /**
-   * The script publish time
-   */
-  publishedOn?: Date;
-
-  /**
-   * The user who published the script
-   */
-  publishedBy?: string;
 }
 
 /**
@@ -169,7 +154,7 @@ export interface PipelineTestResult {
   /**
    * The fatal runtime execution error if any
    */
-  scriptError?: ScriptError;
+  scriptErrors?: ScriptError[];
 
   /**
    * The actual test output if different than the expected output

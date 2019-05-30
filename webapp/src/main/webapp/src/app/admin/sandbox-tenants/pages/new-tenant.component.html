@@ -20,6 +20,17 @@
             name="key"
             formControlName="key"
           />
+          <span
+            class="text-danger"
+            *ngIf="
+              tenantForm.invalid &&
+              tenantForm.controls['key'].errors &&
+              tenantForm.controls['key'].touched &&
+              tenantForm.controls['key'].errors['tenantKeyInvalid']
+            "
+          >
+            {{ 'tenant-config.errors.invalid-key' | translate }}
+          </span>
         </div>
       </div>
       <div class="row mb-xs">
@@ -33,6 +44,17 @@
             name="id"
             formControlName="id"
           />
+          <span
+            class="text-danger"
+            *ngIf="
+              tenantForm.invalid &&
+              tenantForm.controls['id'].errors &&
+              tenantForm.controls['id'].touched &&
+              tenantForm.controls['id'].errors['tenantKeyInvalid']
+            "
+          >
+            {{ 'tenant-config.errors.invalid-id' | translate }}
+          </span>
         </div>
       </div>
       <div class="row mb-xs">

@@ -16,6 +16,7 @@
     <div *ngFor="let sandbox of sandboxes" class="well">
       <sandbox-details-config
         [sandbox]="sandbox"
+        [localizationDefaults]="localizationDefaults"
         (deleteClicked)="openDeleteSandboxModal(sandbox)"
         (archiveClicked)="openArchiveSandboxModal(sandbox)"
         (resetDataClicked)="openResetDataModal(sandbox)"

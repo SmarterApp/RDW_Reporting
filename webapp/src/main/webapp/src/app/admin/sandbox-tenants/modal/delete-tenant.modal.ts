@@ -28,6 +28,9 @@ export class DeleteTenantConfigurationModalComponent implements OnDestroy {
     this.service.delete(this.tenant.code).subscribe(
       () => {
         this.deleted.emit(this.tenant);
+        this.notificationService.success({
+          id: 'tenant-config.delete-modal.success'
+        });
         this.modal.hide();
       },
       error => {

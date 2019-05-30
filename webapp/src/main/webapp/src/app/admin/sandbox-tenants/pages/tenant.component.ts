@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { Subscription } from 'rxjs';
@@ -12,7 +12,7 @@ import { TenantStore } from '../store/tenant.store';
   selector: 'tenant-config',
   templateUrl: './tenant.component.html'
 })
-export class TenantConfigurationComponent {
+export class TenantConfigurationComponent implements OnInit {
   tenants: TenantConfiguration[];
   localizationDefaults: any;
   private _modalSubscriptions: Subscription[] = [];
@@ -32,7 +32,7 @@ export class TenantConfigurationComponent {
 
   getTranslations() {
     this.translationLoader
-      //TODO: Get the correct language code from somewhere, do not hardcode
+      // TODO: Get the correct language code from somewhere, do not hardcode
       .getFlattenedTranslations('en')
       .subscribe(translations => (this.localizationDefaults = translations));
   }

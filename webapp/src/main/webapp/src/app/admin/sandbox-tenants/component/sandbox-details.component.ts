@@ -1,19 +1,30 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SandboxConfiguration } from '../model/sandbox-configuration';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
+import { DataSet, SandboxConfiguration } from '../model/sandbox-configuration';
 import { ConfigurationProperty } from '../model/configuration-property';
-import { RdwTranslateLoader } from '../../../shared/i18n/rdw-translate-loader';
 import { MenuItem } from 'primeng/api';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { cloneDeep } from 'lodash';
 import { SandboxService } from '../service/sandbox.service';
 import { TranslateService } from '@ngx-translate/core';
 import { CustomValidators } from '../../../shared/validator/custom-validators';
+import { SandboxStore } from '../store/sandbox.store';
+import { NotificationService } from '../../../shared/notification/notification.service';
 
 @Component({
   selector: 'sandbox-details-config',
   templateUrl: './sandbox-details.component.html'
 })
-export class SandboxConfigurationDetailsComponent implements OnInit {
+export class SandboxConfigurationDetailsComponent implements OnInit, OnChanges {
+  @Input()
+  localizationDefaults: any;
   @Input()
   sandbox: SandboxConfiguration;
   @Output()
@@ -32,59 +43,68 @@ export class SandboxConfigurationDetailsComponent implements OnInit {
   tempForm: FormGroup;
 
   constructor(
-    private translationLoader: RdwTranslateLoader,
+    private store: SandboxStore,
+    private notificationService: NotificationService,
     private translateService: TranslateService,
     private service: SandboxService,
     private formBuilder: FormBuilder
   ) {}
 
+  ngOnChanges(changes: SimpleChanges): void {
+    /*
+      Both `sandbox` and `localizationDefaults` are provided by the parent component and fetched with asynchronous
+      service calls, so he we need to ensure that the sandbox and defaults have been defined, and that the form is
+      initialized.
+     */
+    if (this.sandbox && this.localizationDefaults) {
+      // Make sure a form has been initialized before mapping and processing overrides
+      if (!this.sandboxForm) {
+        this.initializeForm();
+      }
+      this.mapLocalizationOverrides(this.localizationDefaults);
+    }
+  }
+
   ngOnInit(): void {
-    this.sandboxForm = this.formBuilder.group({
-      label: [this.sandbox.label, CustomValidators.notBlank],
-      description: [this.sandbox.description],
-      configurationProperties: this.formBuilder.group({}),
-      localizationOverrides: this.formBuilder.group({})
-    });
-    this.mapLocalizationOverrides();
+    this.initializeForm();
     this.configureMenuItems();
   }
 
-  private mapLocalizationOverrides() {
-    this.translationLoader
-      //TODO: Get the correct language code from somewhere, do not hardcode
-      .getFlattenedTranslations('en')
-      .subscribe(translations => {
-        for (let key in translations) {
-          let locationOverrideFormGroup = <FormGroup>(
-            this.sandboxForm.controls['localizationOverrides']
-          );
-          if (translations.hasOwnProperty(key)) {
-            const value = translations[key];
-            const localizationOverrides =
-              this.sandbox.localizationOverrides || [];
-            const override = localizationOverrides.find(
-              override => override.key === key
-            );
-            if (override) {
-              this.localizationOverrides.push(
-                new ConfigurationProperty(
-                  key,
-                  override.value,
-                  override.originalValue
-                )
-              );
-              locationOverrideFormGroup.controls[key] = new FormControl(
-                override.value
-              );
-            } else {
-              this.localizationOverrides.push(
-                new ConfigurationProperty(key, value)
-              );
-              locationOverrideFormGroup.controls[key] = new FormControl(value);
-            }
-          }
-        }
+  private initializeForm() {
+    if (!this.sandboxForm) {
+      this.sandboxForm = this.formBuilder.group({
+        label: [this.sandbox.label, CustomValidators.notBlank],
+        description: [this.sandbox.description],
+        configurationProperties: this.formBuilder.group({}),
+        localizationOverrides: this.formBuilder.group({})
       });
+    }
+  }
+
+  private mapLocalizationOverrides(localizationDefaults: any): void {
+    for (let key in localizationDefaults) {
+      const locationOverrideFormGroup = <FormGroup>(
+        this.sandboxForm.controls['localizationOverrides']
+      );
+      if (localizationDefaults.hasOwnProperty(key)) {
+        const value = localizationDefaults[key];
+        const localizationOverrides = this.sandbox.localizationOverrides || [];
+        const override = localizationOverrides.find(o => o.key === key);
+        if (override) {
+          this.localizationOverrides.push(
+            new ConfigurationProperty(key, override.value, value)
+          );
+          locationOverrideFormGroup.controls[key] = new FormControl(
+            override.value
+          );
+        } else {
+          this.localizationOverrides.push(
+            new ConfigurationProperty(key, value)
+          );
+          locationOverrideFormGroup.controls[key] = new FormControl(value);
+        }
+      }
+    }
   }
 
   editClicked(): void {
@@ -109,7 +129,17 @@ export class SandboxConfigurationDetailsComponent implements OnInit {
       localizationOverrides: modifiedLocalizationOverrides,
       configurationProperties: this.sandbox.configurationProperties
     };
-    this.service.update(updatedSandbox);
+    this.service.update(updatedSandbox).subscribe(
+      () => {
+        this.store.setState(
+          this.store.state.map(existing =>
+            existing.code === updatedSandbox.code ? updatedSandbox : existing
+          )
+        );
+      },
+      error =>
+        this.notificationService.error({ id: 'sandbox-config.errors.update' })
+    );
     this.editMode = false;
   }
 

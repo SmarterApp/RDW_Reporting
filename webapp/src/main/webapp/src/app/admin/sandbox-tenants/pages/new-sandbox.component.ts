@@ -18,6 +18,8 @@ import { RdwTranslateLoader } from '../../../shared/i18n/rdw-translate-loader';
 import { ConfigurationProperty } from '../model/configuration-property';
 import { CustomValidators } from '../../../shared/validator/custom-validators';
 import { mapConfigurationProperties } from '../mapper/tenant.mapper';
+import { SandboxStore } from '../store/sandbox.store';
+import { NotificationService } from '../../../shared/notification/notification.service';
 
 @Component({
   selector: 'new-sandbox',
@@ -36,6 +38,8 @@ export class NewSandboxConfigurationComponent implements OnInit, AfterViewInit {
 
   constructor(
     private service: SandboxService,
+    private store: SandboxStore,
+    private notificationService: NotificationService,
     private formBuilder: FormBuilder,
     private translationLoader: RdwTranslateLoader,
     private router: Router
@@ -45,7 +49,7 @@ export class NewSandboxConfigurationComponent implements OnInit, AfterViewInit {
     this.sandboxForm = this.formBuilder.group({
       label: [null, CustomValidators.notBlank],
       description: [null],
-      dataSet: [null, Validators.required],
+      dataSetId: [null, Validators.required],
       configurationProperties: this.formBuilder.group({}),
       localizationOverrides: this.formBuilder.group({})
     });
@@ -92,18 +96,22 @@ export class NewSandboxConfigurationComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit(): void {
-    //TODO: This key should be generated in the database. Remove this once the backend is in place
-    const randomCode = Math.floor(Math.random() * 9999999) + 1000000;
     const modifiedLocalizationOverrides = this.localizationOverrides.filter(
       override => override.originalValue !== override.value
     );
     const newSandbox = {
       ...this.sandboxForm.value,
-      code: randomCode,
       localizationOverrides: modifiedLocalizationOverrides,
       configurationProperties: this.configurationProperties
     };
-    this.service.create(newSandbox);
-    this.router.navigate(['sandboxes']);
+
+    this.service.create(newSandbox, this.dataSets).subscribe(
+      createdTenant => {
+        this.store.setState([createdTenant, ...this.store.state]);
+        this.router.navigate(['sandboxes']);
+      },
+      error =>
+        this.notificationService.error({ id: 'sandbox-config.errors.create' })
+    );
   }
 }

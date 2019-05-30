@@ -865,7 +865,8 @@
     },
     "delete-modal": {
       "header": "Delete <strong>{{label}}</strong>?",
-      "body": "Are you sure you wish to delete the sandbox <strong>{{label}}</strong>?"
+      "body": "Are you sure you wish to delete the sandbox <strong>{{label}}</strong>?",
+      "success": "Sandbox was successfully deleted"
     },
     "archive-modal": {
       "header": "Archive <strong>{{label}}</strong>?",
@@ -873,7 +874,8 @@
     },
     "reset-modal": {
       "header": "Reset data for <strong>{{label}}</strong>?",
-      "body": "Are you sure you wish to reset the data for the the sandbox <strong>{{label}}</strong>?"
+      "body": "Are you sure you wish to reset the data for the the sandbox <strong>{{label}}</strong>?",
+      "success": "Sandbox data was successfully reset"
     },
     "fields": {
       "label": "Sandbox Name / Label:",
@@ -892,7 +894,13 @@
       "modified": "Show modified properties only",
       "empty": "No configuration properties found"
     },
-    "empty": "No sandbox configurations found. Create a new tenant by clicking the \"Create New Sandbox\" button"
+    "empty": "No sandbox configurations found. Create a new tenant by clicking the \"Create New Sandbox\" button",
+    "errors": {
+      "reset": "An unknown error occurred when attempting to reset the sandbox data",
+      "update": "An unknown error occurred when attempting to update the sandbox",
+      "create": "An unknown error occurred when attempting to create the sandbox",
+      "delete": "An unknown error occurred when attempting to delete the sandbox"
+    }
   },
   "tenant-config": {
     "title": "Tenant Configuration",
@@ -901,7 +909,8 @@
     },
     "delete-modal": {
       "header": "Delete <strong>{{label}}</strong>?",
-      "body": "Are you sure you wish to delete the tenant <strong>{{label}}</strong>?"
+      "body": "Are you sure you wish to delete the tenant <strong>{{label}}</strong>?",
+      "success": "Tenant was successfully deleted"
     },
     "fields": {
       "id": "Tenant ID",
@@ -923,6 +932,8 @@
     },
     "errors": {
       "duplicate-key": "A tenant with the same tenant key or ID already exists",
+      "invalid-key": "The tenant key that was entered is not valid. Only alphanumeric characters, underscores ('_'), and hyphens ('-') are allowed",
+      "invalid-id": "The tenant id that was entered is not valid. Only alphanumeric characters, underscores ('_'), and hyphens ('-') are allowed",
       "update": "An unknown error occurred when attempting to update the tenant",
       "create": "An unknown error occurred when attempting to create the tenant",
       "delete": "An unknown error occurred when attempting to delete the tenant"
@@ -1508,7 +1519,8 @@
     }
   },
   "pipeline": {
-    "no-tests": "Please create a test",
+    "no-script": "A script is required to test and publish a pipeline",
+    "no-tests": "One or more tests are required to test and publish a pipeline",
     "invalid-tests": "One or more tests are invalid. Please enter all required test fields.",
     "unsaved-changes": "Please save all changes before running tests",
     "publish-unsaved-changes": "Please save all changes before publishing",

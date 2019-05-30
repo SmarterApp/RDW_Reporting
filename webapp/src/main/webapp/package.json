@@ -38,6 +38,7 @@
     "angulartics2": "^7.2.3",
     "bootstrap": "^4.1.2",
     "d3": "^5.1.0",
+    "dot-object": "^1.7.1",
     "fast-deep-equal": "^2.0.1",
     "file-saver": "^2.0.0",
     "font-awesome": "^4.7.0",

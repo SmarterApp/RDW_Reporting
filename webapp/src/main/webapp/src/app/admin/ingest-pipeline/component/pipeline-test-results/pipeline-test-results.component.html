@@ -42,7 +42,7 @@
               class="failed-icon fa fa-close"
             ></i>
 
-            <div name>
+            <div name *ngIf="run.test.createdOn">
               {{ run.test.createdOn | date }}
               <span class="ml-sm" *ngIf="showTime(run)">
                 <i class="fa fa-clock-o small"></i>

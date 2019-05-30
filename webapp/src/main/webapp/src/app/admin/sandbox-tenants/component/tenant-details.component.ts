@@ -90,7 +90,6 @@ export class TenantConfigurationDetailsComponent implements OnInit, OnChanges {
 
     this.service.update(updatedTenant).subscribe(
       () => {
-        // this.store.state.find()
         this.store.setState(
           this.store.state.map(existing =>
             existing.code === updatedTenant.code ? updatedTenant : existing

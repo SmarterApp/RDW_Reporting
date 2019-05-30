@@ -1,274 +1,106 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { DataService } from '../../../shared/data/data.service';
+import { toSandboxApiModel, mapSandbox } from '../mapper/tenant.mapper';
+import { catchError, map } from 'rxjs/operators';
+import { AdminServiceRoute } from '../../../shared/service-route';
+import { ResponseUtils } from '../../../shared/response-utils';
 import { DataSet, SandboxConfiguration } from '../model/sandbox-configuration';
-import { mapFromSandbox, mapSandbox } from '../mapper/tenant.mapper';
+
+const ResourceRoute = `${AdminServiceRoute}/sandboxes`;
 
 /**
- * Service responsible for managing organization embargo settings
+ * Service responsible for sandboxes
  */
 @Injectable({
   providedIn: 'root'
 })
 export class SandboxService {
-  mockData: SandboxConfiguration[];
+  constructor(private dataService: DataService) {}
 
-  constructor(private dataService: DataService) {
-    // TODO: Remove mock object, make call to backend API to fetch sandboxes
-    if (!this.mockData) {
-      let mockResponse = {
-        applicationTenantConfiguration: {
-          datasources: {
-            reporting_ro_datasource: {
-              'url-server': 'rdw-aurora-',
-              username: 'sbac',
-              password: '****'
-            },
-            warehouse_rw_datasource: {
-              'url-server': 'rdw-aurora-',
-              username: 'sbac',
-              password: '****'
-            },
-            olap_ro_datasource: {
-              'url-server': 'rdw-aurora-',
-              username: 'sbac',
-              password: '****'
-            },
-            reporting_rw_datasource: {
-              'url-server': 'rdw-aurora-',
-              username: 'sbac',
-              password: '****'
-            }
-          },
-          reporting: {
-            'school-year': '2018',
-            'transfer-access-enabled': 'true',
-            'translation-location': 'binary-',
-            'analytics-tracking-id': 'UA-102446884-4',
-            'interpretive-guide-url':
-              'https://portal.smarterbalanced.org/library/en/reporting-system-interpretive-guide.pdf',
-            'user-guide-url':
-              'https://portal.smarterbalanced.org/library/en/reporting-system-user-guide.pdf',
-            'access-denied-url': 'forward:/assets/public/access-denied.html',
-            'landing-page-url': 'forward:/landing.html',
-            'percentile-display-enabled': 'true',
-            'report-languages': 'es',
-            'ui-languages': 'es',
-            'student-fields': {
-              EconomicDisadvantage: 'disabled',
-              LimitedEnglishProficiency: 'disabled',
-              MigrantStatus: 'enabled',
-              EnglishLanguageAcquisitionStatus: 'enabled',
-              PrimaryLanguage: 'enabled',
-              Ethnicity: 'enabled',
-              Gender: 'admin',
-              IndividualEducationPlan: 'admin',
-              Section504: 'admin'
-            },
-            state: {
-              code: 'CA',
-              name: 'California'
-            }
-          },
-          task: {
-            'remove-stale-reports': {
-              cron: '0 0 8 * * *',
-              'max-report-lifetime-days': '30',
-              'max-random-minutes': '20'
-            }
-          }
-        },
-        tenants: [
-          {
-            tenant: {
-              id: 'CA',
-              key: 'CA',
-              name: 'California',
-              description: 'This is a description'
-            },
-            applicationTenantConfiguration: {
-              datasources: {
-                reporting_ro_datasource: {
-                  initialSize: '1',
-                  maxActive: '2',
-                  password: 'password123'
-                },
-                warehouse_rw_datasource: {
-                  initialSize: '1',
-                  maxActive: '2'
-                },
-                olap_ro_datasource: {
-                  initialSize: '1',
-                  maxActive: '2'
-                },
-                reporting_rw_datasource: {
-                  initialSize: '1',
-                  maxActive: '2'
-                }
-              },
-              reporting: {
-                'percentile-display-enabled': 'false',
-                'student-fields': {
-                  EconomicDisadvantage: 'enabled'
-                },
-                state: {
-                  code: 'SBAC',
-                  name: 'Smarter Balanced'
-                }
-              }
-            }
-          },
-          {
-            tenant: {
-              id: 'MI',
-              key: 'MI',
-              name: 'Michigan',
-              description: 'A tenant for the state of Michigan'
-            }
-          },
-          {
-            tenant: {
-              id: 'SBAC',
-              key: 'SBAC',
-              name: 'Smarter Balanced',
-              description:
-                'A tenant for the Smarter Balanced Assessment Consortium'
-            }
-          }
-        ]
-      };
+  /**
+   * Gets default configuration properties for a sandbox
+   */
+  getDefaultConfigurationProperties(): Observable<any> {
+    return this.dataService.get(`${ResourceRoute}`).pipe(
+      map(
+        apiSandboxes =>
+          apiSandboxes.sandboxConfigurationPackage
+            .applicationSandboxConfiguration
+      ),
+      catchError(ResponseUtils.throwError)
+    );
+  }
 
-      this.mockData = mockResponse.tenants.map(tenant =>
-        mapSandbox(tenant, mockResponse.applicationTenantConfiguration)
-      );
-    }
+  getAvailableDataSets(): Observable<DataSet[]> {
+    return this.dataService.get(`${ResourceRoute}`).pipe(
+      map(apiSandboxes => apiSandboxes.sandboxConfigurationPackage.dataSets),
+      catchError(ResponseUtils.throwError)
+    );
   }
 
   /**
    * Gets all sandbox configurations for the system
    */
   getAll(): Observable<SandboxConfiguration[]> {
-    return new Observable(observer => observer.next(this.mockData));
+    return this.dataService
+      .get(`${ResourceRoute}`)
+      .pipe(
+        map(apiSandboxes =>
+          apiSandboxes.sandboxes.map(apiSandbox =>
+            mapSandbox(
+              apiSandbox,
+              apiSandboxes.sandboxConfigurationPackage
+                .applicationSandboxConfiguration,
+              apiSandboxes.sandboxConfigurationPackage.dataSets
+            )
+          )
+        )
+      );
   }
 
   /**
-   * Gets default configuration properties for a sandbox
+   * Creates a new sandbox
+   * @param sandbox - The sandbox to create
    */
-  getDefaultConfigurationProperties(): Observable<any> {
-    //TODO: Actually call getAll() and read applicationTenantConfiguration
-    const mockProperties = {
-      datasources: {
-        reporting_ro_datasource: {
-          'url-server': 'rdw-aurora-',
-          username: 'sbac',
-          password: '****'
-        },
-        warehouse_rw_datasource: {
-          'url-server': 'rdw-aurora-',
-          username: 'sbac',
-          password: '****'
-        },
-        olap_ro_datasource: {
-          'url-server': 'rdw-aurora-',
-          username: 'sbac',
-          password: '****'
-        },
-        reporting_rw_datasource: {
-          'url-server': 'rdw-aurora-',
-          username: 'sbac',
-          password: '****'
-        }
-      },
-      reporting: {
-        'school-year': '2018',
-        'transfer-access-enabled': 'true',
-        'translation-location': 'binary-',
-        'analytics-tracking-id': 'UA-102446884-4',
-        'interpretive-guide-url':
-          'https://portal.smarterbalanced.org/library/en/reporting-system-interpretive-guide.pdf',
-        'user-guide-url':
-          'https://portal.smarterbalanced.org/library/en/reporting-system-user-guide.pdf',
-        'access-denied-url': 'forward:/assets/public/access-denied.html',
-        'landing-page-url': 'forward:/landing.html',
-        'percentile-display-enabled': 'true',
-        'report-languages': 'es',
-        'ui-languages': 'es',
-        'student-fields': {
-          EconomicDisadvantage: 'disabled',
-          LimitedEnglishProficiency: 'disabled',
-          MigrantStatus: 'enabled',
-          EnglishLanguageAcquisitionStatus: 'enabled',
-          PrimaryLanguage: 'enabled',
-          Ethnicity: 'enabled',
-          Gender: 'admin',
-          IndividualEducationPlan: 'admin',
-          Section504: 'admin'
-        },
-        state: {
-          code: 'CA',
-          name: 'California'
-        }
-      },
-      task: {
-        'remove-stale-reports': {
-          cron: '0 0 8 * * *',
-          'max-report-lifetime-days': '30',
-          'max-random-minutes': '20'
-        }
-      }
-    };
-    return new Observable(observer => observer.next(mockProperties));
+  create(
+    sandbox: SandboxConfiguration,
+    dataSets = []
+  ): Observable<SandboxConfiguration> {
+    return this.dataService
+      .post(`${ResourceRoute}`, toSandboxApiModel(sandbox))
+      .pipe(
+        map(createdSandbox => mapSandbox(createdSandbox, {}, dataSets)),
+        catchError(ResponseUtils.throwError)
+      );
   }
 
-  create(sandbox: SandboxConfiguration): void {
-    // TODO: Call the create API
-    this.mockData.push(sandbox);
+  /**
+   * Updates an existing sandbox
+   * @param sandbox - The sandbox to update
+   */
+  update(sandbox: SandboxConfiguration): Observable<SandboxConfiguration> {
+    return this.dataService
+      .put(`${ResourceRoute}`, toSandboxApiModel(sandbox))
+      .pipe(
+        map(() => sandbox),
+        catchError(ResponseUtils.throwError)
+      );
   }
 
-  update(sandbox: SandboxConfiguration): void {
-    // TODO: Call the update API
-    let mappedSandbox = mapFromSandbox(sandbox);
-    let index = this.mockData.findIndex(s => s.code === sandbox.code);
-    this.mockData[index] = sandbox;
+  /**
+   * Deletes an existing sandbox
+   * @param sandboxCode - The code or "key" of the sandbox to delete
+   */
+  delete(sandboxCode: string): Observable<void> {
+    return this.dataService
+      .delete(`${ResourceRoute}/${sandboxCode}`)
+      .pipe(catchError(ResponseUtils.throwError));
   }
 
-  delete(sandboxCode: string): Observable<boolean> {
-    //TODO: Call the delete API
-    let index = this.mockData.findIndex(s => s.code === sandboxCode);
-    if (index !== -1) {
-      this.mockData.splice(index, 1);
-      return Observable.create(true);
-    } else {
-      return Observable.create(false);
-    }
-  }
-
-  archive(sandboxCode: string): Observable<boolean> {
-    //TODO: Call the archive API
-    return Observable.create(true);
-  }
-
-  resetData(sandboxCode: string): Observable<boolean> {
-    //TODO: Call the reset data API
-    return Observable.create(true);
-  }
-
-  getAvailableDataSets(): Observable<DataSet[]> {
-    //TODO: Pull these from database or other repository
-    let mockDataSets = [
-      {
-        key: 'dataSet0',
-        label: 'California Interim Data Set'
-      },
-      {
-        key: 'dataSet1',
-        label: 'Michigan Summative Data Set'
-      },
-      {
-        key: 'dataSet2',
-        label: 'SBAC Interim Data Set'
-      }
-    ];
-    return new Observable(observer => observer.next(mockDataSets));
+  resetData(sandboxCode: string): Observable<void> {
+    return this.dataService
+      .put(`${ResourceRoute}/${sandboxCode}/reset`, {})
+      .pipe(catchError(ResponseUtils.throwError));
   }
 }

@@ -39,7 +39,7 @@ export interface DataSet {
   /**
    * The unique key for a given data template
    */
-  key: string;
+  id: string;
 
   /**
    * A more human-readable label for a data template

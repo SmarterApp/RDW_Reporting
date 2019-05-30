@@ -56,14 +56,18 @@ export function removeHtml(value: string): string {
 
 /**
  * True if both dates have the same year, month and day
+ *
  * @param a The first date
  * @param b The second date
  */
 export function equalDate(a: Date, b: Date): boolean {
   return (
-    a.getDay() === b.getDay() &&
-    a.getMonth() === b.getMonth() &&
-    a.getFullYear() === b.getFullYear()
+    a === b ||
+    (a != null &&
+      b != null &&
+      a.getDay() === b.getDay() &&
+      a.getMonth() === b.getMonth() &&
+      a.getFullYear() === b.getFullYear())
   );
 }
 
@@ -354,17 +358,22 @@ export function range(start: number, end: number): number[] {
 export function flattenJsonObject(ob: any): any {
   const toReturn = {};
 
-  for (let i in ob) {
-    if (!ob.hasOwnProperty(i)) continue;
+  for (const i in ob) {
+    if (!ob.hasOwnProperty(i)) {
+      continue;
+    }
 
     if (typeof ob[i] == 'object') {
-      const flatObject = flattenJsonObject(ob[i]);
-      for (let x in flatObject) {
-        if (!flatObject.hasOwnProperty(x)) {
-          continue;
+      if (Array.isArray(ob[i])) {
+        toReturn[i] = ob[i].join();
+      } else {
+        const flatObject = flattenJsonObject(ob[i]);
+        for (const x in flatObject) {
+          if (!flatObject.hasOwnProperty(x)) {
+            continue;
+          }
+          toReturn[i + '.' + x] = flatObject[x];
         }
-
-        toReturn[i + '.' + x] = flatObject[x];
       }
     } else {
       toReturn[i] = ob[i];

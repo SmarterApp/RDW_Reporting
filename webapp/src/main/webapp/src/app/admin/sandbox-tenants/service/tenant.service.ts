@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { DataService } from '../../../shared/data/data.service';
 import { TenantConfiguration } from '../model/tenant-configuration';
-import { mapFromTenant, mapTenant } from '../mapper/tenant.mapper';
+import { toTenantApiModel, mapTenant } from '../mapper/tenant.mapper';
 import { catchError, map } from 'rxjs/operators';
 import { AdminServiceRoute } from '../../../shared/service-route';
 import { ResponseUtils } from '../../../shared/response-utils';
@@ -10,14 +10,12 @@ import { ResponseUtils } from '../../../shared/response-utils';
 const ResourceRoute = `${AdminServiceRoute}/tenants`;
 
 /**
- * Service responsible for managing organization embargo settings
+ * Service responsible for managing tenants
  */
 @Injectable({
   providedIn: 'root'
 })
 export class TenantService {
-  mockData: TenantConfiguration[];
-
   constructor(private dataService: DataService) {}
 
   /**
@@ -50,7 +48,7 @@ export class TenantService {
    */
   create(tenant: TenantConfiguration): Observable<TenantConfiguration> {
     return this.dataService
-      .post(`${ResourceRoute}`, mapFromTenant(tenant))
+      .post(`${ResourceRoute}`, toTenantApiModel(tenant))
       .pipe(
         map(() => tenant),
         catchError(ResponseUtils.throwError)
@@ -62,10 +60,12 @@ export class TenantService {
    * @param tenant - The tenant to update
    */
   update(tenant: TenantConfiguration): Observable<TenantConfiguration> {
-    return this.dataService.put(`${ResourceRoute}`, mapFromTenant(tenant)).pipe(
-      map(() => tenant),
-      catchError(ResponseUtils.throwError)
-    );
+    return this.dataService
+      .put(`${ResourceRoute}`, toTenantApiModel(tenant))
+      .pipe(
+        map(() => tenant),
+        catchError(ResponseUtils.throwError)
+      );
   }
 
   /**
