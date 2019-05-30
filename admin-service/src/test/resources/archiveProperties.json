@@ -1,0 +1,23 @@
+{
+  "archivePropertiesRoot": {
+    "prefix": "archive",
+    "properties": {
+      "tenants": {
+        "TS": {
+          "uriRoot": null,
+          "pathPrefix": "TS",
+          "s3AccessKey": null,
+          "s3SecretKey": null,
+          "s3RegionStatic": null,
+          "s3Sse": null
+        }
+      },
+      "s3SecretKey": null,
+      "s3AccessKey": null,
+      "s3Sse": null,
+      "s3RegionStatic": "us-west-2",
+      "uriRoot": "file:///tmp/",
+      "pathPrefix": null
+    }
+  }
+}

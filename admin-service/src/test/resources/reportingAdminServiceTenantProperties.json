@@ -1,21 +1,27 @@
 {
   "scopedTarget.tenantProperties": {
-    "prefix": "tenant-properties",
+    "prefix": "tenantProperties",
     "properties": {
-      "tenants": [
-        {
+      "tenants": {
+        "CA": {
           "id": "CA",
           "key": "******",
-          "name": null,
+          "name": "California",
           "description": null
         },
-        {
-          "id": "NV",
+        "TS": {
+          "id": "TS",
           "key": "******",
-          "name": null,
+          "name": "Test Tenant",
           "description": null
         }
-      ]
+      },
+      "status": {
+        "tenantKeys": [
+          "CA",
+          "TS"
+        ]
+      }
     }
   }
 }

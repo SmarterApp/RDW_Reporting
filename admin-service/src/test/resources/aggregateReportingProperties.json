@@ -1,0 +1,19 @@
+{
+  "scopedTarget.aggregateReportingPropertiesRoot": {
+    "prefix": "aggregate-reporting",
+    "properties": {
+      "stateAggregateAssessmentTypes": [
+        "sum"
+      ],
+      "tenants": {},
+      "assessmentTypes": [
+        "ica",
+        "sum",
+        "iab"
+      ],
+      "statewideUserAssessmentTypes": [
+        "sum"
+      ]
+    }
+  }
+}
