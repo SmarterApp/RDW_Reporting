@@ -48,7 +48,7 @@ services:
       - 8081:8008
     links:
       - config-server
-      - admin-service
+#      - admin-service
 # uncomment to enable aggregate service
 #      - aggregate-service
       - report-processor-service
@@ -62,7 +62,8 @@ services:
     environment:
       - spring.profiles.active=local-docker
       - datasources.reporting_ro.url-server=host.docker.internal:3306
-      - zuul.routes.admin-service.url=http://admin-service:8080
+      - zuul.routes.admin-service.url=http://host.docker.internal:8280
+##      - zuul.routes.admin-service.url=http://admin-service:8080
       - zuul.routes.aggregate-service.url=http://aggregate-service:8080
       - zuul.routes.report-processor.url=http://report-processor-service:8080
       - zuul.routes.reporting-service.url=http://reporting-service:8080

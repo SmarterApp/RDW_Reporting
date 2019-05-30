@@ -150,3 +150,9 @@ zuul:
       url: http://localhost:8180
       stripPrefix: true
 
+tenantProperties:
+  tenants:
+    CA:
+      id: CA
+      key: CA
+      name: California
