@@ -4,6 +4,10 @@ management:
   port: 8008
   security:
     enabled: false
+  # disable health check for tenant-specific features
+  health:
+    db:
+      enabled: false
 
 app:
   aggregate-reports:
