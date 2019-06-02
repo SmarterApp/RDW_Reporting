@@ -101,19 +101,6 @@ spring:
           destination: GROUPS
           group: default
 
-#TODO: This cloud.aws section is probably no longer needed
-cloud:
-  aws:
-    # there must be a default region when running locally
-    region:
-      auto: false
-      static: us-west-2
-    # disable CloudFormation stuff
-    stack:
-      auto: false
-    credentials:
-      instance-profile: false
-
 archive:
   uri-root: "file:///tmp/"
   #path-prefix:

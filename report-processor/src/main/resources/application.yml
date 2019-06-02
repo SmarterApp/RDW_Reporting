@@ -132,18 +132,6 @@ datasources:
     removeAbandonedTimeout: 60
     logAbandoned: false
 
-#TODO: This cloud.aws section is probably no longer needed
-cloud:
-  aws:
-    region:
-      auto: false
-      static: us-west-2
-    # disable CloudFormation stuff
-    stack:
-      auto: false
-    credentials:
-      instance-profile: false
-
 archive:
   uri-root: "file:///tmp/"
   #path-prefix:
