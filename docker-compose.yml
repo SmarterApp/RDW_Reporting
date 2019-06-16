@@ -79,11 +79,21 @@ services:
     links:
       - config-server
       - rabbitmq
+#      - aggregate-service
+      - report-processor-service
+      - reporting-service
     depends_on:
       config-server:
         condition: service_healthy
+# if running other services from IntelliJ, comment out the links entry (above) and
+# change the service route to use the mac docker bridge; for example:
+#        - tenant-configuration-lookup.service.report-processor.url=http://host.docker.internal:8086
     environment:
       - spring.profiles.active=local-docker
+      - tenant-configuration-lookup.service.admin-service.url=http://admin-service:8008
+      - tenant-configuration-lookup.service.aggregate-service.url=http://aggregate-service:8008
+      - tenant-configuration-lookup.service.report-processor.url=http://report-processor-service:8008
+      - tenant-configuration-lookup.service.reporting-service.url=http://reporting-service:8008
       - CONFIG_SERVICE_ENABLED=true
       - CONFIG_SERVICE_URL=http://config-server:8888
 
@@ -104,7 +114,6 @@ services:
 #      - spring.profiles.active=local-docker
 #      - CONFIG_SERVICE_ENABLED=true
 #      - CONFIG_SERVICE_URL=http://config-server:8888
-
 
   reporting-service:
     image: smarterbalanced/rdw-reporting-service
