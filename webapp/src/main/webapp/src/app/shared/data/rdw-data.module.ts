@@ -3,7 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { DATA_CONTEXT_URL, DataService } from './data.service';
 import { CachingDataService } from './caching-data.service';
-import { HttpModule } from '@angular/http';
+import { HttpModule, RequestOptions } from '@angular/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NoCacheHttpInterceptor } from './no-cache-http-interceptor';
+import { DataRequestOptions } from './data-request-options';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpModule]
@@ -31,7 +34,14 @@ export class RdwDataModule {
       providers: [
         DataService,
         CachingDataService,
-        { provide: DATA_CONTEXT_URL, useValue: '/api' }
+        { provide: RequestOptions, useClass: DataRequestOptions },
+        { provide: DATA_CONTEXT_URL, useValue: '/api' },
+        // for when we upgrade to HttpClient
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: NoCacheHttpInterceptor,
+          multi: true
+        }
       ]
     };
   }
