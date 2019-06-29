@@ -3,18 +3,13 @@ sql:
     readTest: >-
       SELECT code FROM asmt_type
 
+  # this relies on the student groups being named with school name first, "Demo Elementary blah blah"
   user-student-group:
     create:
-      INSERT IGNORE INTO user_student_group
-      (
-        user_login,
-        student_group_id
-      )
-      SELECT
-        :user_login,
-        id
+      INSERT IGNORE INTO user_student_group ( user_login, student_group_id )
+      SELECT :user_login, id
       FROM student_group
-      WHERE name LIKE CONCAT(:organization_name, ' (%,', :grade_code, ')')
+      WHERE name LIKE CONCAT(:organization_name, '%')
 
   sandboxRoles:
     findAll: >-
@@ -22,21 +17,16 @@ sql:
         SELECT
           'Teacher' as type,
           1 as type_order,
-          CONCAT('teacher_', s.natural_id, '_', g.code) AS id,
+          CONCAT('teacher_', s.natural_id) AS id,
           'School' as organization_type,
           s.natural_id as organization_natural_id,
           s.id as organization_id,
           s.name as organization_name,
-          g.code as grade_code,
-          g.sequence as grade_order
+          max(g.sequence) as grade_order
         FROM school s
-          JOIN (
-            SELECT DISTINCT
-              school_id,
-              grade_id
-            FROM exam
-          ) e ON e.school_id = s.id
-          JOIN grade g ON e.grade_id = g.id
+        JOIN exam e ON s.id = e.school_id
+        JOIN grade g ON e.grade_id = g.id
+        GROUP BY s.id
       )
       UNION ALL
       (
@@ -48,7 +38,6 @@ sql:
             s.natural_id as organization_natural_id,
             s.id as organization_id,
             s.name as organization_name,
-            g.code as grade_code,
             MAX(g.sequence) as grade_order
         FROM school s
         JOIN exam e ON s.id = e.school_id
@@ -65,7 +54,6 @@ sql:
           natural_id as organization_natural_id,
           id as organization_id,
           name as organization_name,
-          null as grade_code,
           null as grade_order
         FROM district
       )
