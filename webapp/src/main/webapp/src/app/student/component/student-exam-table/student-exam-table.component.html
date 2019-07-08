@@ -167,7 +167,10 @@
 
         <div *ngSwitchCase="'status'">
           <span
-            *ngIf="rowData.exam.administrativeCondition"
+            *ngIf="
+              rowData.exam.administrativeCondition &&
+              rowData.exam.administrativeCondition !== 'Valid'
+            "
             class="label border-only maroon"
             >{{
               'common.administration-condition.' +
