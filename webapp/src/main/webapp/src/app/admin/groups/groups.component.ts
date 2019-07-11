@@ -4,10 +4,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GroupService } from './groups.service';
 import { GroupQuery } from './model/group-query.model';
 import { Group } from './model/group.model';
-import { DeleteGroupModalComponent } from './delete-group.modal';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { Subscription, forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import { SubjectService } from '../../subject/subject.service';
+import { UserService } from '../../shared/security/service/user.service';
+import { map } from 'rxjs/operators';
+import { ConfirmationModalComponent } from '../../shared/component/confirmation-modal/confirmation-modal.component';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificationService } from '../../shared/notification/notification.service';
 
 @Component({
   selector: 'admin-groups',
@@ -35,7 +39,10 @@ export class GroupsComponent implements OnInit, OnDestroy {
     private router: Router,
     private service: GroupService,
     private subjectService: SubjectService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private userService: UserService,
+    private translateService: TranslateService,
+    private notificationService: NotificationService
   ) {}
 
   get groups(): Group[] {
@@ -47,7 +54,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
     this.updateFilteredGroups();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     forkJoin(
       this.subjectService.getSubjectCodes(),
       this.service.getFilterOptions()
@@ -93,15 +100,15 @@ export class GroupsComponent implements OnInit, OnDestroy {
     this.unsubscribe();
   }
 
-  unsubscribe() {
+  unsubscribe(): void {
     this._modalSubscriptions.forEach(subscription =>
       subscription.unsubscribe()
     );
     this._modalSubscriptions = [];
   }
 
-  updateRoute() {
-    let params = {
+  updateRoute(): void {
+    const params = {
       schoolId: this.query.school.id,
       schoolYear: this.query.schoolYear,
       subject: this.query.subject
@@ -130,22 +137,53 @@ export class GroupsComponent implements OnInit, OnDestroy {
     );
   }
 
-  openDeleteGroupModal(group: Group) {
-    let modalReference: BsModalRef = this.modalService.show(
-      DeleteGroupModalComponent
-    );
-    let modal: DeleteGroupModalComponent = modalReference.content;
-    modal.group = group;
-    this._modalSubscriptions.push(
-      modal.deleted.subscribe(group => {
-        this.groups = this.groups.filter(g => g.id != group.id);
-      })
-    );
-    this._modalSubscriptions.push(
-      this.modalService.onHidden.subscribe(() => {
-        this.unsubscribe();
-      })
-    );
+  openDeleteGroupModal(group: Group): void {
+    this.userService
+      .getUser()
+      .pipe(map(user => user.sessionRefreshUrl.includes('sandbox')))
+      .subscribe(sandboxUser => {
+        const { translateService, modalService } = this;
+        const modalReference: BsModalRef = modalService.show(
+          ConfirmationModalComponent
+        );
+        const modal: ConfirmationModalComponent = modalReference.content;
+        modal.head = translateService.instant(
+          'delete-group-modal.title',
+          group
+        );
+        if (sandboxUser) {
+          modal.body = translateService.instant(
+            'delete-group-modal.sandbox-body'
+          );
+          modal.declineButton = translateService.instant(
+            'common.action.cancel'
+          );
+          modal.acceptButtonClass = 'hidden';
+        } else {
+          modal.body = translateService.instant(
+            'delete-group-modal.content-html'
+          );
+          modal.declineButton = translateService.instant(
+            'delete-group-modal.button-cancel'
+          );
+          modal.acceptButton = translateService.instant(
+            'delete-group-modal.button-save'
+          );
+          modal.acceptButtonClass = 'btn-danger';
+          modal.accept.subscribe(() => {
+            this.service.delete(group).subscribe(
+              () => {
+                this.groups = this.groups.filter(({ id }) => id != group.id);
+              },
+              () => {
+                this.notificationService.error({
+                  id: 'delete-group-modal.error'
+                });
+              }
+            );
+          });
+        }
+      });
   }
 }
 

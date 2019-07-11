@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { GroupsComponent } from './groups.component';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap';
-import { DeleteGroupModalComponent } from './delete-group.modal';
 import { DropdownModule } from 'primeng/primeng';
 import { ReportingCommonModule } from '../../shared/reporting-common.module';
 import { TableModule } from 'primeng/table';
@@ -27,7 +26,6 @@ import { FileFormatModule } from './import/fileformat/file-format.module';
     TranslateModule.forChild(translateModuleConfiguration),
     RouterModule.forChild(groupRoutes)
   ],
-  declarations: [GroupsComponent, DeleteGroupModalComponent],
-  entryComponents: [DeleteGroupModalComponent]
+  declarations: [GroupsComponent]
 })
 export class GroupsModule {}
