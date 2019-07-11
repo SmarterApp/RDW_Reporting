@@ -13,6 +13,18 @@ import { ConfirmationModalComponent } from '../../shared/component/confirmation-
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationService } from '../../shared/notification/notification.service';
 
+class Column {
+  id: string;
+  field: string;
+  sortable: boolean;
+
+  constructor({ id, field = '', sortable = true }) {
+    this.id = id;
+    this.field = field ? field : id;
+    this.sortable = sortable;
+  }
+}
+
 @Component({
   selector: 'admin-groups',
   templateUrl: './groups.component.html'
@@ -151,23 +163,16 @@ export class GroupsComponent implements OnInit, OnDestroy {
           'delete-group-modal.title',
           group
         );
+        modal.acceptButton = translateService.instant('common.action.delete');
+        modal.declineButton = translateService.instant('common.action.cancel');
         if (sandboxUser) {
           modal.body = translateService.instant(
             'delete-group-modal.sandbox-body'
-          );
-          modal.declineButton = translateService.instant(
-            'common.action.cancel'
           );
           modal.acceptButtonClass = 'hidden';
         } else {
           modal.body = translateService.instant(
             'delete-group-modal.content-html'
-          );
-          modal.declineButton = translateService.instant(
-            'delete-group-modal.button-cancel'
-          );
-          modal.acceptButton = translateService.instant(
-            'delete-group-modal.button-save'
           );
           modal.acceptButtonClass = 'btn-danger';
           modal.accept.subscribe(() => {
@@ -184,17 +189,5 @@ export class GroupsComponent implements OnInit, OnDestroy {
           });
         }
       });
-  }
-}
-
-class Column {
-  id: string;
-  field: string;
-  sortable: boolean;
-
-  constructor({ id, field = '', sortable = true }) {
-    this.id = id;
-    this.field = field ? field : id;
-    this.sortable = sortable;
   }
 }
