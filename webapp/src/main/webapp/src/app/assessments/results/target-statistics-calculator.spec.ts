@@ -75,9 +75,8 @@ describe('Target Calculator', () => {
       },
       <TargetScoreExam>{
         id: 2,
-        targetId: 2,
-        standardMetRelativeResidualScore: 0.6,
-        studentRelativeResidualScore: 0.3
+        targetId: 2
+        // include one with no target scores
       },
       <TargetScoreExam>{
         id: 2,

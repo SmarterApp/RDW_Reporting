@@ -261,7 +261,7 @@ export class TargetStatisticsCalculator {
 
     return this.mapTargetScoreDeltaToReportingLevel(
       average(scored),
-      standardErrorOfMean(scores)
+      standardErrorOfMean(scored)
     );
   }
 
