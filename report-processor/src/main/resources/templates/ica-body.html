@@ -47,8 +47,7 @@
                           th:text="${report.exam.scaleScore.value}"></span>
                     <span class="level">
                         <strong th:text="#{'subject.' + ${report.subject} + '.asmt-type.ica.level.' + ${report.exam.scaleScore.level} + '.name'}"></strong>
-                        <span th:text="#{('report.ica.score-range')(${support.round(report.exam.scaleScore.value - report.exam.scaleScore.standardError)}, ${support.round(report.exam.scaleScore.value + report.exam.scaleScore.standardError)})}"
-                                  th:remove="tag"></span>
+                        <span th:if="${report.exam.scaleScore.standardError != null}" th:text="#{('report.ica.score-range')(${support.round(report.exam.scaleScore.value - report.exam.scaleScore.standardError)}, ${support.round(report.exam.scaleScore.value + report.exam.scaleScore.standardError)})}" th:remove="tag"></span>
                     </span>
                     <p class="description mt-sm"
                        th:text="#{('subject.' + ${report.subject} + '.report-grade.' + ${report.assessment.gradeCode} + '.asmt-type.ica.overall.level.' + ${report.exam.scaleScore.level})(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></p>
@@ -60,9 +59,8 @@
                             <span class="num label"
                                   th:classappend="#{'subject.' + ${report.subject} + '.asmt-type.ica.level.' + ${report.exam.scaleScore.level} + '.color'}">
                                 <span th:text="${report.exam.scaleScore.value}" th:remove="tag"></span>
-                                <span class="error">±
-                                    <span th:text="${support.round(report.exam.scaleScore.standardError)}"
-                                          th:remove="tag"></span>*
+                                <span th:if="${report.exam.scaleScore.standardError != null}" class="error">±
+                                    <span th:text="${support.round(report.exam.scaleScore.standardError)}" th:remove="tag"></span>*
                                 </span>
                             </span>
                         </span>
@@ -184,7 +182,7 @@
                     </p>
                 </div>
                 <div class="col-xs-4">
-                    <p>
+                    <p th:if="${report.exam.scaleScore.standardError != null}">
                         <strong>*</strong>
                         <strong th:text="#{report.scale-score.error-band}"></strong>
                         <br>
