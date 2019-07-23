@@ -1,11 +1,3 @@
-#tenantProperties:
-#  tenants:
-#    NVX:
-#      id: AZ
-#      key: NVX
-#      name: Arizona
-#      description: Some Descriptive Text For AZ
-
 archive:
   tenants:
     AZX:
