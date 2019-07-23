@@ -1,0 +1,19 @@
+#tenantProperties:
+#  tenants:
+#    NVX:
+#      id: AZ
+#      key: NVX
+#      name: Arizona
+#      description: Some Descriptive Text For AZ
+
+archive:
+  tenants:
+    AZX:
+      uriRoot: "s3://rdw"
+      pathPrefix: "azx"
+    CAX:
+      uri_root: "s3://tmp"
+      path_prefix: "cax"
+    NVX:
+      uri-root: "file://tmp"
+      path-prefix: "nvx"

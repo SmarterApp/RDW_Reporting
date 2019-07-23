@@ -8,7 +8,7 @@ dependencies {
     compile 'com.amazon.redshift:redshift-jdbc42-no-awssdk:1.2.8.1005'
 
     // fixes java 8 time marshaling
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.7'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
     compile 'org.apache.commons:commons-csv:+'
     compile 'org.opentestsystem.rdw.common:rdw-common-archive'
