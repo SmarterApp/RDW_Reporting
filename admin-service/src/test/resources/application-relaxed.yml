@@ -1,3 +1,42 @@
+# test at least a couple properties in each section
+tenant-properties:
+  tenants:
+    CAX:
+      id: CAX
+      key: CAX
+
+reporting:
+  tenants:
+    AZX:
+      percentileDisplayEnabled: false
+      reportLanguages:
+        - en
+      schoolYear: 2019
+    CAX:
+      percentile_display_enabled: true
+      report_languages:
+        - en
+        - sp
+      school_year: 2020
+    NVX:
+      percentile-display-enabled: true
+      report-languages:
+        - sp
+      school-year: 2018
+
+datasources:
+  reporting_ro:
+    tenants:
+      AZX:
+        initialSize: 4
+        schemaSearchPath: "azx"
+      CAX:
+        initialSize: 10
+        schema_search_path: "cax"
+      NVX:
+        initialSize: 5
+        schema-search-path: "nvx"
+
 archive:
   tenants:
     AZX:
@@ -6,6 +45,7 @@ archive:
     CAX:
       uri_root: "s3://tmp"
       path_prefix: "cax"
+      s3-sse: SHA256
     NVX:
       uri-root: "file://tmp"
       path-prefix: "nvx"
