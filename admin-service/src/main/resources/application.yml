@@ -135,7 +135,7 @@ spring:
     url-parts:
       #This is the generic format of the connection URL protocol//[hosts][/database][?properties]
       protocol: "jdbc:mysql:"
-      hosts: "${spring.admin_datasource.url-server:localhost:3306}"
+      hosts: "${spring.admin_warehouse_datasource.url-server:localhost:3306}"
       properties: "useSSL=${spring.admin_warehouse_datasource.use-ssl:false}\
                    &useLegacyDatetimeCode=${spring.admin_warehouse_datasource.use-legacy-datetime-code:false}\
                    &characterEncoding=${spring.admin_warehouse_datasource.character-encoding:utf8}\
