@@ -45,12 +45,11 @@ datasources:
                    &socketTimeout=${datasources.reporting_ro.socket-timeout:40000}\
                    "
     url: "${datasources.reporting_ro.url-parts.protocol}//${datasources.reporting_ro.url-parts.hosts}/${datasources.reporting_ro.url-parts.database}?${datasources.reporting_ro.url-parts.properties}"
-    jdbcInterceptors: "QueryTimeoutInterceptor(queryTimeout=${datasources.reporting_ro.query-timeout:30})"
     username: root
     password:
     testWhileIdle: true
     validationQuery: SELECT 1
-    validationQueryTimeout: 10000
+    validationInterval: 35000
     driverClassName: com.mysql.jdbc.Driver
     initialize: false
     initialSize: 4
@@ -74,12 +73,11 @@ datasources:
                    &socketTimeout=${datasources.warehouse_rw.socket-timeout:70000}\
                    "
     url: "${datasources.warehouse_rw.url-parts.protocol}//${datasources.warehouse_rw.url-parts.hosts}/${datasources.warehouse_rw.url-parts.database}?${datasources.warehouse_rw.url-parts.properties}"
-    jdbcInterceptors: "QueryTimeoutInterceptor(queryTimeout=${datasources.warehouse_rw.query-timeout:60})"
     username: root
     password:
     testWhileIdle: true
     validationQuery: SELECT 1
-    validationQueryTimeout: 10000
+    validationInterval: 35000
     driverClassName: com.mysql.jdbc.Driver
     initialize: false
     initialSize: 4
@@ -144,12 +142,11 @@ spring:
                    "
     #not connecting to a specific schema for admin requires scoping for each query
     url: "${spring.admin_warehouse_datasource.url-parts.protocol}//${spring.admin_warehouse_datasource.url-parts.hosts}?${spring.admin_warehouse_datasource.url-parts.properties}"
-    jdbcInterceptors: "QueryTimeoutInterceptor(queryTimeout=${spring.admin_warehouse_datasource.query-timeout:240})"
     username: root
     password:
     testWhileIdle: true
     validationQuery: SELECT 1
-    validationQueryTimeout: 10000
+    validationInterval: 35000
     driverClassName: com.mysql.jdbc.Driver
     initialize: false
     initialSize: 0
@@ -173,12 +170,11 @@ spring:
                    "
     #not connecting to a specific schema for admin requires scoping for each query
     url: "${spring.admin_reporting_datasource.url-parts.protocol}//${spring.admin_reporting_datasource.url-parts.hosts}?${spring.admin_reporting_datasource.url-parts.properties}"
-    jdbcInterceptors: "QueryTimeoutInterceptor(queryTimeout=${spring.admin_reporting_datasource.query-timeout:240})"
     username: root
     password:
     testWhileIdle: true
     validationQuery: SELECT 1
-    validationQueryTimeout: 10000
+    validationInterval: 35000
     driverClassName: com.mysql.jdbc.Driver
     initialize: false
     initialSize: 0
@@ -203,7 +199,7 @@ spring:
     password:
     testWhileIdle: true
     validationQuery: SELECT 1
-    validationQueryTimeout: 30000
+    validationInterval: 35000
     driverClassName: com.amazon.redshift.jdbc42.Driver
     initialize: false
     initialSize: 0

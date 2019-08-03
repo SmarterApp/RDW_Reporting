@@ -12,7 +12,6 @@
       "tenants":{
 
       },
-      "jdbcInterceptors":null,
       "minIdle":null,
       "validationQuery":"SELECT 1",
       "initialSize":null,
@@ -25,7 +24,7 @@
       "driverClassName":"com.amazon.redshift.jdbc42.Driver",
       "removeAbandonedTimeout":null,
       "username":"root",
-      "validationQueryTimeout":30000,
+      "validationInterval":30000,
       "maxActive":null
     }
   }

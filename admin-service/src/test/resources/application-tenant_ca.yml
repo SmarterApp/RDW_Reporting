@@ -15,7 +15,6 @@ spring:
           database: "tenant_ca"
         username: "tenant_ca_user"
         password: "tenant_ca_password"
-        validationQueryTimeout: 50
 archive:
   tenants:
     CA:

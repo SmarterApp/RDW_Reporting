@@ -126,12 +126,11 @@ datasources:
                    &socketTimeout=${datasources.reporting_ro.socket-timeout:600000}\
                    "
     url: "${datasources.reporting_ro.url-parts.protocol}//${datasources.reporting_ro.url-parts.hosts}/${datasources.reporting_ro.url-parts.database}?${datasources.reporting_ro.url-parts.properties}"
-    jdbcInterceptors: "QueryTimeoutInterceptor(queryTimeout=${datasources.reporting_ro.query-timeout:120})"
     username: root
     password:
     testWhileIdle: true
     validationQuery: SELECT 1
-    validationQueryTimeout: 10000
+    validationInterval: 35000
     driverClassName: com.mysql.jdbc.Driver
     initialize: false
     initialSize: 4

@@ -1223,7 +1223,6 @@
         "properties": "ApplicationName=rdw-reporting-aggregate-service&loginTimeout=10&socketTimeout=0"
       },
       "tenants": {},
-      "jdbcInterceptors": null,
       "minIdle": null,
       "validationQuery": "SELECT 1",
       "initialSize": null,
@@ -1236,7 +1235,7 @@
       "driverClassName": "com.amazon.redshift.jdbc42.Driver",
       "removeAbandonedTimeout": null,
       "username": "root",
-      "validationQueryTimeout": 30000,
+      "validationInterval": 30000,
       "maxActive": null
     }
   },

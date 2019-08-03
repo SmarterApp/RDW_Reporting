@@ -117,5 +117,5 @@ datasources:
     password:
     testWhileIdle: true
     validationQuery: SELECT 1
-    validationQueryTimeout: 30000
+    validationInterval: 35000
     driverClassName: com.amazon.redshift.jdbc42.Driver

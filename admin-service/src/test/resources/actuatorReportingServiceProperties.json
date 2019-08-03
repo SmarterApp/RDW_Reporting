@@ -406,13 +406,12 @@
             "database":"reporting",
             "properties":null
           },
-          "jdbcInterceptors":null,
           "username":null,
           "password":null,
           "schemaSearchPath":null,
           "testWhileIdle":null,
           "validationQuery":null,
-          "validationQueryTimeout":null,
+          "validationInterval":null,
           "driverClassName":null,
           "initialSize":null,
           "maxActive":null,
@@ -430,13 +429,12 @@
             "database":"ts_reporting",
             "properties":null
           },
-          "jdbcInterceptors":null,
           "username":null,
           "password":null,
           "schemaSearchPath":null,
           "testWhileIdle":null,
           "validationQuery":null,
-          "validationQueryTimeout":null,
+          "validationInterval":null,
           "driverClassName":null,
           "initialSize":null,
           "maxActive":null,
@@ -447,7 +445,6 @@
           "logAbandoned":null
         }
       },
-      "jdbcInterceptors":"QueryTimeoutInterceptor(queryTimeout=30)",
       "minIdle":4,
       "validationQuery":"SELECT 1",
       "initialSize":4,
@@ -460,7 +457,7 @@
       "driverClassName":"com.mysql.jdbc.Driver",
       "removeAbandonedTimeout":60,
       "username":"root",
-      "validationQueryTimeout":10000,
+      "validationInterval":10000,
       "maxActive":10
     }
   },
@@ -666,13 +663,12 @@
             "database":"reporting",
             "properties":null
           },
-          "jdbcInterceptors":null,
           "username":null,
           "password":null,
           "schemaSearchPath":null,
           "testWhileIdle":null,
           "validationQuery":null,
-          "validationQueryTimeout":null,
+          "validationInterval":null,
           "driverClassName":null,
           "initialSize":null,
           "maxActive":null,
@@ -690,13 +686,12 @@
             "database":"ts_reporting",
             "properties":null
           },
-          "jdbcInterceptors":null,
           "username":null,
           "password":null,
           "schemaSearchPath":null,
           "testWhileIdle":null,
           "validationQuery":null,
-          "validationQueryTimeout":null,
+          "validationInterval":null,
           "driverClassName":null,
           "initialSize":null,
           "maxActive":null,
@@ -707,7 +702,6 @@
           "logAbandoned":null
         }
       },
-      "jdbcInterceptors":"QueryTimeoutInterceptor(queryTimeout=30)",
       "minIdle":4,
       "validationQuery":"SELECT 1",
       "initialSize":4,
@@ -720,7 +714,7 @@
       "driverClassName":"com.mysql.jdbc.Driver",
       "removeAbandonedTimeout":60,
       "username":"root",
-      "validationQueryTimeout":10000,
+      "validationInterval":10000,
       "maxActive":10
     }
   },
