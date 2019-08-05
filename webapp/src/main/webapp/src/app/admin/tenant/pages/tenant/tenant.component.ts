@@ -1,7 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-  catchError,
   finalize,
   map,
   mapTo,
@@ -15,15 +14,15 @@ import {
 } from 'rxjs/operators';
 import { TenantService } from '../../service/tenant.service';
 import { DataSet, TenantConfiguration } from '../../model/tenant-configuration';
-import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { UserService } from '../../../../shared/security/service/user.service';
 import { LanguageStore } from '../../../../shared/i18n/language.store';
 import { NotificationService } from '../../../../shared/notification/notification.service';
 import { RdwTranslateLoader } from '../../../../shared/i18n/rdw-translate-loader';
 import { of } from 'rxjs/internal/observable/of';
 import {
-  FormState,
-  FormMode
+  FormMode,
+  FormState
 } from '../../component/tenant-form/tenant-form.component';
 import { TenantType } from '../../model/tenant-type';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
@@ -32,7 +31,6 @@ import { flatten } from '../../../../shared/support/support';
 import { TenantModalService } from '../../service/tenant-modal.service';
 import { ordering } from '@kourge/ordering';
 import { byString } from '@kourge/ordering/comparator';
-import { findAll } from '@angular/compiler-cli/src/ngcc/src/utils';
 
 const byLabel = ordering(byString).on<TenantConfiguration | DataSet>(
   ({ label }) => label

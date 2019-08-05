@@ -99,11 +99,9 @@ export class TenantService {
    * @param code - The code or "key" of the tenant to delete
    */
   delete(code: string): Observable<void> {
-    return of(undefined).pipe(delay(2000));
-
-    // return this.dataService
-    //   .delete(`${ResourceRoute}/${code}`)
-    //   .pipe(catchError(ResponseUtils.throwError));
+    return this.dataService
+      .delete(`${ResourceRoute}/${code}`)
+      .pipe(catchError(ResponseUtils.throwError));
   }
 
   /**
