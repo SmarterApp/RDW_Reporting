@@ -13,7 +13,7 @@
     [requiredConfiguration]="
       (type$ | async) === 'TENANT' && (mode$ | async) === 'create'
     "
-    [submitting]="submitting$ | async"
+    [state]="state$ | async"
     (create)="onCreate($event)"
     (update)="onUpdate($event)"
     (delete)="onDelete($event)"

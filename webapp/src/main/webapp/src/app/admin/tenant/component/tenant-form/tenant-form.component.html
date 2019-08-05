@@ -25,17 +25,15 @@
               <button
                 type="submit"
                 class="btn btn-primary"
-                [disabled]="submitting || (loadingTenant$ | async)"
+                [disabled]="state || (loadingTenant$ | async)"
               >
-                <i *ngIf="submitting" class="fa fa-spinner fa-pulse"></i>
+                <i *ngIf="state" class="fa fa-spinner fa-pulse"></i>
                 {{
                   'common.action.' +
-                    (mode === 'create'
-                      ? submitting
-                        ? 'creating'
-                        : 'create'
-                      : submitting
-                      ? 'saving'
+                    (state != null
+                      ? state
+                      : mode === 'create'
+                      ? 'create'
                       : 'save') | translate
                 }}
               </button>
@@ -48,7 +46,7 @@
                   class="btn btn-primary dropdown-toggle"
                   dropdownToggle
                   aria-controls="tenant-dropdown"
-                  [disabled]="submitting || (loadingTenant$ | async)"
+                  [disabled]="state || (loadingTenant$ | async)"
                 >
                   <i class="fa fa-ellipsis-v"></i>
                 </button>
@@ -421,11 +419,8 @@
       </div>
     </div>
 
-    <div class="mask" [hidden]="!submitting">
-      <spinner>{{
-        'common.action.' + (mode === 'create' ? 'creating' : 'saving')
-          | translate
-      }}</spinner>
+    <div class="mask" [hidden]="state == null">
+      <spinner>{{ 'common.action.' + state | translate }}</spinner>
     </div>
   </div>
 </form>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, throwError } from 'rxjs';
-import { catchError, map, mapTo } from 'rxjs/operators';
+import { catchError, delay, map, mapTo } from 'rxjs/operators';
 import { DataService } from '../../../shared/data/data.service';
 import { ResponseUtils } from '../../../shared/response-utils';
 import { AdminServiceRoute } from '../../../shared/service-route';
@@ -99,9 +99,11 @@ export class TenantService {
    * @param code - The code or "key" of the tenant to delete
    */
   delete(code: string): Observable<void> {
-    return this.dataService
-      .delete(`${ResourceRoute}/${code}`)
-      .pipe(catchError(ResponseUtils.throwError));
+    return of(undefined).pipe(delay(2000));
+
+    // return this.dataService
+    //   .delete(`${ResourceRoute}/${code}`)
+    //   .pipe(catchError(ResponseUtils.throwError));
   }
 
   /**

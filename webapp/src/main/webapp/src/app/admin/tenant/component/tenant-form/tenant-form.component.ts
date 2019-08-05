@@ -55,6 +55,7 @@ import { byString } from '@kourge/ordering/comparator';
 import { TenantService } from '../../service/tenant.service';
 
 export type FormMode = 'create' | 'update';
+export type FormState = 'creating' | 'saving' | 'deleting';
 const keyboardDebounceInMilliseconds = 300;
 const updateModeWritableConfigurationsPattern = /^(aggregate|reporting)\..+$/;
 
@@ -373,7 +374,7 @@ export class TenantFormComponent implements OnChanges, OnDestroy {
   requiredConfiguration: boolean;
 
   @Input()
-  submitting: boolean;
+  state: FormState;
 
   configurationControlsFormGroup: FormGroup = new FormGroup({
     search: new FormControl(''),
@@ -416,11 +417,11 @@ export class TenantFormComponent implements OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const { submitting } = changes;
+    const { state } = changes;
 
-    // do not re-initialize when submitting state changes
+    // do not re-initialize when state changes
     // this also shows that the form controls should lie outside of this form
-    if (submitting != null && Object.keys(changes).length === 1) {
+    if (state != null && Object.keys(changes).length === 1) {
       return;
     }
 

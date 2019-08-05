@@ -255,6 +255,7 @@
       "create": "Create",
       "creating": "Creating",
       "delete": "Delete",
+      "deleting": "Deleting",
       "expand": "Expand",
       "expand-results": "Expand Results",
       "go-home": "Go Home",
@@ -1431,8 +1432,8 @@
       "TENANT": "Create Tenant"
     },
     "empty": {
-      "SANDBOX": "There are currently no sandboxes configured. You can create a new sandbox by clicking the \"Create Sandbox\" button",
-      "TENANT": "There are currently no tenants configured. You can create a new tenant by clicking the \"Create Tenant\" button"
+      "SANDBOX": "There are currently no sandboxes configured. You can create a new sandbox by clicking the \"Create Sandbox\" button. If the application was recently restarted please wait a few minutes and refresh the page to view the system sandboxes.",
+      "TENANT": "There are currently no tenants configured. You can create a new tenant by clicking the \"Create Tenant\" button. If the application was recently restarted please wait a few minutes and refresh the page to view the system tenants."
     }
   },
   "tenant-form": {
