@@ -1,5 +1,9 @@
 ## Change Log
 
+#### 1.3.2 - 2019-08-07
+
+* Added support for exams and reports missing data for standard error
+
 #### 1.3.1 - 2019-04-05
 
 * Extract both answer key parts for EBSR items (reporting-service).
