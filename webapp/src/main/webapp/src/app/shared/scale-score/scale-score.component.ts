@@ -14,6 +14,6 @@ export class ScaleScoreComponent {
   public score: number;
 
   @Input()
-  public standardError: number;
+  public standardError?: number;
 
 }

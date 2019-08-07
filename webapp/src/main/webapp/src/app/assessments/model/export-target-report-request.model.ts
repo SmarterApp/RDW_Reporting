@@ -12,7 +12,7 @@ export class ExportTargetReportRequest implements ExportRequest {
   group: string;
   schoolYear: number;
   averageScaleScore: number;
-  standardError: number;
+  standardError?: number;
   subjectDefinition: SubjectDefinition;
 
   targetScoreRows: AggregateTargetScoreRow[];

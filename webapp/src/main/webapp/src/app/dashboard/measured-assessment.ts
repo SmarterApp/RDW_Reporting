@@ -4,7 +4,7 @@ export interface MeasuredAssessment {
   readonly assessment: Assessment;
   readonly studentCountByPerformanceLevel: DetailsByPerformanceLevel[];
   readonly averageScaleScore: number;
-  readonly averageStandardError: number;
+  readonly averageStandardError?: number;
   readonly date: Date;
   readonly studentsTested: number;
 }

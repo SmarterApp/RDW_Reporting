@@ -45,7 +45,7 @@ export class AggregateReportItemMapper {
 
     const measures: any = measuresGetter(row) || {};
     item.avgScaleScore = measures.avgScaleScore || 0;
-    item.avgStdErr = measures.avgStdErr || 0;
+    item.avgStdErr = measures.avgStdErr;
     item.studentsTested = measures.studentCount;
 
     for (let level = 1; level <= subjectDefinition.performanceLevelCount; level++) {

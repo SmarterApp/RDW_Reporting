@@ -45,7 +45,7 @@ export interface AggregateReportRowAssessment {
 
 export interface AggregateReportRowMeasure {
   readonly avgScaleScore: number;
-  readonly avgStdErr: number;
+  readonly avgStdErr?: number;
   readonly level1Count: number;
   readonly level2Count: number;
   readonly level3Count: number;

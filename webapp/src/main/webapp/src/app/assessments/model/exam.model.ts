@@ -12,7 +12,7 @@ export class Exam {
   level: number;
   administrativeCondition: string;
   completeness: string;
-  standardError: number;
+  standardError?: number;
   migrantStatus: boolean;
   plan504: boolean;
   iep: boolean;

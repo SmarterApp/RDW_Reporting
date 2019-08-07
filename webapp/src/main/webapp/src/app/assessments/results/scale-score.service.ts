@@ -105,12 +105,13 @@ export class ScaleScoreService {
     //  if the score + (1.5 * standardError) < cutScore then level 1
     //  else level 2
 
-    let cutScore = assessment.cutPoints[2];
-    if (score - (1.5 * standardError) > cutScore) {
+    const mathSafeStandardError = standardError || 0;
+    const cutScore = assessment.cutPoints[2];
+    if (score - (1.5 * mathSafeStandardError) > cutScore) {
       return 3;
     }
 
-    if (score + (1.5 * standardError) < cutScore) {
+    if (score + (1.5 * mathSafeStandardError) < cutScore) {
       return 1;
     }
 

@@ -212,9 +212,10 @@ export class TargetStatisticsCalculator {
    * @returns {TargetReportingLevel}
    */
   mapTargetScoreDeltaToReportingLevel(delta: number, standardError: number): TargetReportingLevel {
-    if (standardError > this._insufficientDataCutoff) return TargetReportingLevel.InsufficientData;
-    if (delta >= standardError) return TargetReportingLevel.Above;
-    if (delta <= -standardError) return TargetReportingLevel.Below;
+    const mathSafeStandardError = standardError || 0; // TODO should this return InsufficientData?
+    if (mathSafeStandardError > this._insufficientDataCutoff) return TargetReportingLevel.InsufficientData;
+    if (delta >= mathSafeStandardError) return TargetReportingLevel.Above;
+    if (delta <= -mathSafeStandardError) return TargetReportingLevel.Below;
     return TargetReportingLevel.Near;
   }
 }

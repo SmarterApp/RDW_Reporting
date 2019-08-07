@@ -45,9 +45,10 @@
                     <span class="score label"
                           th:classappend="#{'subject.' + ${report.subject} + '.asmt-type.sum.level.' + ${report.exam.scaleScore.level} + '.color'}"
                           th:text="${report.exam.scaleScore.value}"></span>
-                    <span class="level">
+                    <span class="level"
+                          th:with="additionSafeStandardError=${report.exam.scaleScore.standardError != null ? report.exam.scaleScore.standardError : 0}">
                         <strong th:text="#{'subject.' + ${report.subject} + '.asmt-type.sum.level.' + ${report.exam.scaleScore.level} + '.name'}"></strong>
-                        <span th:text="#{('report.sum.score-range')(${support.round(report.exam.scaleScore.value - report.exam.scaleScore.standardError)}, ${support.round(report.exam.scaleScore.value + report.exam.scaleScore.standardError)})}"
+                        <span th:text="#{('report.sum.score-range')(${support.round(report.exam.scaleScore.value - additionSafeStandardError)}, ${support.round(report.exam.scaleScore.value + additionSafeStandardError)})}"
                               th:remove="tag"></span>
                     </span>
                     <p class="description mt-sm"
@@ -60,7 +61,8 @@
                             <span class="num label"
                                   th:classappend="#{'subject.' + ${report.subject} + '.asmt-type.sum.level.' + ${report.exam.scaleScore.level} + '.color'}">
                                 <span th:text="${report.exam.scaleScore.value}" th:remove="tag"></span>
-                                <span class="error">±
+                                <span th:if="${report.exam.scaleScore.standardError != null}"
+                                      class="error">±
                                     <span th:text="${support.round(report.exam.scaleScore.standardError)}"
                                           th:remove="tag"></span>*
                                 </span>
@@ -181,7 +183,7 @@
                     
                 </div>
                 <div class="col-xs-4">
-                    <p>
+                    <p th:if="${report.exam.scaleScore.standardError != null}">
                         <strong>*</strong>
                         <strong th:text="#{report.scale-score.error-band}"></strong>
                         <br>

@@ -292,8 +292,8 @@ export class LongitudinalCohortChartComponent implements OnInit {
                 styles: `point color-stroke`,
                 x: xScale(j),
                 y: yScale(scaleScore),
-                scaleScore: scaleScore,
-                standardError: standardError || 0,
+                scaleScore,
+                standardError,
                 levelRange: findPerformanceLevelRange(levelRangesByYearGradeIndex, j, scaleScore)
               });
             }

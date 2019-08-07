@@ -76,7 +76,9 @@ export class AggregateReportTableExportService {
         .withColumn(
           this.translateService.instant('aggregate-report-table.columns.avg-scale-score'),
           (item: AggregateReportItem) => item.studentsTested
-            ? `${item.avgScaleScore} ± ${item.avgStdErr}`
+            ? item.avgStdErr != null
+              ? `${item.avgScaleScore} ± ${item.avgStdErr}`
+              : item.avgScaleScore
             : ''
         );
 

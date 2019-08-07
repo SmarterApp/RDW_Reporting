@@ -13,7 +13,7 @@ export class AggregateReportItem {
   subjectCode: string;
   schoolYear: number;
   avgScaleScore: number;
-  avgStdErr: number;
+  avgStdErr?: number;
   studentsTested: any;
   performanceLevelByDisplayTypes: {
     [ performanceLevelDisplayType: string ]: {

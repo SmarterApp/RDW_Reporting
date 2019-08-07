@@ -79,7 +79,7 @@
 <ng-template #dataPointPopoverTemplate let-point>
   <div class="text-center">
     <span class="label label-lg {{point.levelRange.level.color}}">{{point.scaleScore}}</span>
-    <span>{{ 'common.error-band-value' | translate: {errorBand: point.standardError | number:'1.0-0'} }}</span>
+    <span *ngIf="point.standardError != null">{{ 'common.error-band-value' | translate: {errorBand: point.standardError | number:'1.0-0'} }}</span>
   </div>
   <div class="mt-xs text-center">{{point.levelRange.level.name}}</div>
 </ng-template>

@@ -2,7 +2,7 @@ import { ExamStatisticsLevel } from './exam-statistics.model';
 
 export class ClaimScore {
   level: number;
-  standardError: number;
+  standardError?: number;
   score: number;
 }
 

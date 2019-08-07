@@ -12,7 +12,7 @@
           <td>
             <div class="scale-score font-large text-left">
               <span class="score label label-primary">{{ overallRow.avgScaleScore }}</span>
-              <span class="error-band black"> {{'common.error-band-value' | translate: {errorBand: overallRow.avgStdErr | number:'1.0-0'} }}</span>
+              <span *ngIf="overallRow.avgStdErr != null" class="error-band black"> {{'common.error-band-value' | translate: {errorBand: overallRow.avgStdErr | number:'1.0-0'} }}</span>
             </div>
           </td>
         </tr>

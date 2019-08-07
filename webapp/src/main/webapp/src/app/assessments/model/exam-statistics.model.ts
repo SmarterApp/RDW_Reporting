@@ -3,7 +3,7 @@ import { ClaimStatistics } from './claim-score.model';
 export class ExamStatistics {
   total: number;
   average: number;
-  standardError: number;
+  standardError?: number;
   levels: ExamStatisticsLevel[];
   percents: ExamStatisticsLevel[];
 
