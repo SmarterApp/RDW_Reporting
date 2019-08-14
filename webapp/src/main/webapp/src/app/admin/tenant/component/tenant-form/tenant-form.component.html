@@ -343,6 +343,12 @@
               class="text-danger"
               *ngIf="showErrors(control, form.submitted)"
             >
+              <p *ngIf="control.errors.oauth2s">
+                {{
+                  'tenant-form.field.configurations.error.oauth2s'
+                    | translate: control.errors.oauth2s
+                }}
+              </p>
               <p *ngIf="control.errors.onePasswordPerUser">
                 {{
                   'tenant-form.field.configurations.error.onePasswordPerUser'
