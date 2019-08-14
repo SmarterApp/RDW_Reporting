@@ -1,4 +1,5 @@
 import {
+  oauth2s,
   oneDatabasePerDataSource,
   onePasswordPerUser,
   uniqueDatabasePerInstance
@@ -138,5 +139,52 @@ describe('uniqueDatabasePerInstance', () => {
         })
       )
     ).toBeNull();
+  });
+});
+
+describe('oauth2s', () => {
+  it('should return null when form is validly empty', () => {
+    expect(
+      oauth2s(
+        new FormGroup({
+          'g1.oauth2.clientSecret': new FormControl(''),
+          'g1.oauth2.password': new FormControl(''),
+          'g1.oauth2.ignored': new FormControl('ignored'),
+          'g2.oauth2.clientSecret': new FormControl(''),
+          'g2.oauth2.password': new FormControl(''),
+          'g2.oauth2.ignored': new FormControl('ignored')
+        })
+      )
+    ).toBeNull();
+  });
+
+  it('should return null when form is validly filled', () => {
+    expect(
+      oauth2s(
+        new FormGroup({
+          'g1.oauth2.clientSecret': new FormControl('a'),
+          'g1.oauth2.password': new FormControl('a'),
+          'g1.oauth2.ignored': new FormControl(''),
+          'g2.oauth2.clientSecret': new FormControl('a'),
+          'g2.oauth2.password': new FormControl('a'),
+          'g2.oauth2.ignored': new FormControl('')
+        })
+      )
+    ).toBeNull();
+  });
+
+  it('should return errors when form is invalid', () => {
+    expect(
+      oauth2s(
+        new FormGroup({
+          'g1.oauth2.clientSecret': new FormControl('a'),
+          'g1.oauth2.password': new FormControl(' '),
+          'g2.oauth2.clientSecret': new FormControl('a'),
+          'g2.oauth2.password': new FormControl('')
+        })
+      )
+    ).toEqual({
+      oauth2s: ['g1', 'g2']
+    });
   });
 });

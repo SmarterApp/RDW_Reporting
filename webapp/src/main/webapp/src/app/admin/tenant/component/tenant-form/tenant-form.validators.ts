@@ -6,6 +6,12 @@ import {
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { isNullOrBlank } from '../../../../shared/support/support';
+
+const passwordKeyPattern = /^datasources\.(\w+)\.password$/;
+const auroraDatabaseNamePattern = /^datasources\.(\w+)_r[ow]\.urlParts\.database$/;
+const redshiftDatabaseNamePattern = /^datasources\.(\w+)_r[ow]\.schemaSearchPath$/;
+const oauth2Pattern = /((\w+)\.oauth2)\.\w+/;
 
 export const tenantKey = Validators.pattern(/^\w+$/);
 
@@ -20,10 +26,6 @@ export function available(
     );
   };
 }
-
-const passwordKeyPattern = /^datasources\.(\w+)\.password$/;
-const auroraDatabaseNamePattern = /^datasources\.(\w+)_r[ow]\.urlParts\.database$/;
-const redshiftDatabaseNamePattern = /^datasources\.(\w+)_r[ow]\.schemaSearchPath$/;
 
 export function onePasswordPerUser(
   formGroup: FormGroup
@@ -138,4 +140,31 @@ export function uniqueDatabasePerInstance(
   return duplicates.length > 0
     ? { uniqueDatabasePerInstance: { duplicates } }
     : null;
+}
+
+export function oauth2s(formGroup: FormGroup): { oauth2s: string[] } | null {
+  const oauth2s = Object.keys(formGroup.controls)
+    .filter(key => oauth2Pattern.test(key))
+    .reduce((paths, key) => {
+      const path = oauth2Pattern.exec(key)[1];
+      if (!paths.includes(path)) {
+        return [...paths, path];
+      }
+      return paths;
+    }, [])
+    .reduce((prefixes, path) => {
+      const values = [
+        // because it is flat
+        formGroup.getRawValue()[`${path}.clientSecret`],
+        formGroup.getRawValue()[`${path}.password`]
+      ];
+      const everyValuePresent = values.every(value => !isNullOrBlank(value));
+      const everyValueAbsent = values.every(value => isNullOrBlank(value));
+      if (everyValuePresent || everyValueAbsent) {
+        return prefixes;
+      }
+      return [...prefixes, path.replace(/\.oauth2$/, '')];
+    }, []);
+
+  return oauth2s.length > 0 ? { oauth2s } : null;
 }
