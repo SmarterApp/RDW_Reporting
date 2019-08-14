@@ -1498,6 +1498,7 @@
       "configurations": {
         "label": "Configurations",
         "error": {
+          "oauth2s": "Please enter both clientSecret and password for all OAuth2 forms OR leave both blank.",
           "onePasswordPerUser": "Please provide only one password for each unique datasource username.",
           "uniqueDatabasePerInstance": "Please provide unique database and schemaSearchPath for each unique datasource.",
           "oneDatabasePerDataSource": "Please provide only one database or schemaSearchPath for each unique datasource."
