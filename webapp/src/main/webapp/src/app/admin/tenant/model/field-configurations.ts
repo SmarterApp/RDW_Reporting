@@ -144,7 +144,6 @@ function oauth2(basePath: string): { [key: string]: FieldConfiguration } {
     },
     [`${basePath}.clientSecret`]: {
       dataType: 'string',
-      required: true,
       hidden: sandboxHidden
     },
     [`${basePath}.username`]: {
@@ -154,7 +153,6 @@ function oauth2(basePath: string): { [key: string]: FieldConfiguration } {
     },
     [`${basePath}.password`]: {
       dataType: 'string',
-      required: true,
       hidden: sandboxHidden
     }
   };

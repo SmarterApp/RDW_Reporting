@@ -43,6 +43,7 @@ import { TreeNode } from 'primeng/api';
 import { keyBy } from 'lodash';
 import {
   available,
+  oauth2s,
   oneDatabasePerDataSource,
   onePasswordPerUser,
   tenantKey,
@@ -85,6 +86,7 @@ export function tenantFormGroup(
     value.configurations,
     mode === 'create'
       ? [
+          oauth2s,
           onePasswordPerUser,
           oneDatabasePerDataSource,
           uniqueDatabasePerInstance
