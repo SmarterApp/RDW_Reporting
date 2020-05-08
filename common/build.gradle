@@ -1,46 +1,33 @@
-//Any subproject specific plugins go here
-
-apply plugin: 'org.springframework.boot'
-
-bootRepackage.enabled = false
-bootRun.enabled = false
-
 dependencies {
-    compile 'org.opentestsystem.rdw.common:rdw-common-model'
-    compile 'org.opentestsystem.rdw.common:rdw-common-multi-tenant'
-    compile 'org.opentestsystem.rdw.common:rdw-common-security'
-    compile 'org.opentestsystem.rdw.common:rdw-common-utils'
-    compile 'javax.validation:validation-api'
-    compile 'commons-io:commons-io'
-    compile 'com.google.guava:guava'
-    compile 'com.fasterxml.jackson.core:jackson-annotations'
-    compile 'com.fasterxml.jackson.core:jackson-databind'
-    compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-properties'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-guava'
-    compile 'com.healthmarketscience.sqlbuilder:sqlbuilder:2.1.7'
-    compile 'org.springframework.boot:spring-boot-starter-jdbc'
-    compile 'org.springframework.security:spring-security-core'
-    compile 'org.springframework.cloud:spring-cloud-starter-config'
-    compile 'org.springframework:spring-messaging'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-model'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-multi-tenant'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-security'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-utils'
 
-    testCompile('org.springframework.boot:spring-boot-starter-test') {
+    implementation 'com.fasterxml.jackson.core:jackson-annotations'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-properties'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-guava'
+    implementation 'com.healthmarketscience.sqlbuilder:sqlbuilder:2.1.7'
+    implementation 'commons-io:commons-io'
+    implementation 'javax.validation:validation-api'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.security:spring-security-core'
+    implementation 'org.springframework:spring-messaging'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude(module: 'commons-logging')
     }
 
     // IT test complained about not having this
-    testCompile 'org.hibernate:hibernate-validator:5.4.1.Final'
-    testCompile 'mysql:mysql-connector-java'
-    testCompile 'org.springframework.security:spring-security-test'
+    testImplementation 'org.hibernate:hibernate-validator:5.4.1.Final'
+    testImplementation 'mysql:mysql-connector-java'
+    testImplementation 'org.springframework.security:spring-security-test'
 }
 
-// generate coverage report automatically (./build/reports/jacoco/test/html/index.html)
-test.finalizedBy(jacocoTestReport)
-
-// trigger creation of build-info.properties
-classes.dependsOn(createBuildInfoFile)
-
 task testsJar(type: Jar, dependsOn: testClasses) {
-    classifier = 'tests'
+    archiveClassifier.set('tests')
     from sourceSets.test.output
 }
 configurations {

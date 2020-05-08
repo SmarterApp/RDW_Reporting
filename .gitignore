@@ -1,6 +1,6 @@
 build/
 out/
-!.mvn/wrapper/maven-wrapper.jar
+.gradle/
 
 ### STS ###
 .apt_generated
@@ -24,3 +24,6 @@ nbdist/
 .nb-gradle/
 .gradle/
 classes/
+
+# local configuration files that should never be checked in
+.env

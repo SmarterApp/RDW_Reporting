@@ -1,43 +1,41 @@
-apply plugin: 'org.springframework.boot'
-
 createDockerfile {
     environmentVariable("MAX_HEAP_SIZE", "-Xmx768m")
 }
 
 dependencies {
-    compile 'com.amazon.redshift:redshift-jdbc42-no-awssdk:1.2.8.1005'
+    implementation project(':rdw-reporting-common')
+    implementation project(':rdw-reporting-common-web')
 
-    // fixes java 8 time marshaling
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-archive'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-model'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-security'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-status'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-utils'
 
-    compile 'org.apache.commons:commons-csv:+'
-    compile 'org.opentestsystem.rdw.common:rdw-common-archive'
-    compile 'org.opentestsystem.rdw.common:rdw-common-status'
-    compile 'org.opentestsystem.rdw.common:rdw-common-utils'
-    compile 'org.opentestsystem.rdw.common:rdw-common-model'
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.cloud:spring-cloud-starter-aws'
-    compile 'org.springframework.cloud:spring-cloud-starter-bus-amqp'    
-    compile 'org.springframework.boot:spring-boot-starter-jdbc'
-    compile 'org.springframework.boot:spring-boot-starter-security'
-    compile 'org.springframework.cloud:spring-cloud-starter-config'
-    compile 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
-    compile 'org.springframework.integration:spring-integration-security'
+    implementation 'com.amazon.redshift:redshift-jdbc42-no-awssdk:1.2.8.1005'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation 'com.healthmarketscience.sqlbuilder:sqlbuilder:2.1.7'  // this shouldn't be necessary, why??
+    implementation 'org.apache.commons:commons-csv'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws'
+    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
+    implementation 'org.springframework.integration:spring-integration-security'
 
     // this is for retrying connection to config server
-    compile 'org.springframework.boot:spring-boot-starter-aop'
-    compile 'org.springframework.retry:spring-retry'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.retry:spring-retry'
 
-    compile project(':rdw-reporting-common')
-    compile project(':rdw-reporting-common-web')
-
-    testCompile project(path: ':rdw-reporting-common', configuration: 'tests')
-    testCompile project(path: ':rdw-reporting-common-web', configuration: 'tests')
-    testCompile 'org.apache.commons:commons-math3:3.6.1'
-    testCompile('org.springframework.boot:spring-boot-starter-test') {
+    testImplementation project(path: ':rdw-reporting-common', configuration: 'tests')
+    testImplementation project(path: ':rdw-reporting-common-web', configuration: 'tests')
+    testImplementation 'org.apache.commons:commons-math3:3.6.1'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude(module: 'commons-logging')
     }
-    testCompile 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.security:spring-security-test'
 }
 
 // Task to run RST (redshift integration tests).

@@ -8,6 +8,13 @@ Additional documentation:
 1. [License](LICENSE)
 
 ### Prerequisites
+Java 8.
+
+Gradle. The project uses bundled gradle so no explicit installation is required. However, it is highly 
+recommended to install gdub (https://github.com/dougborg/gdub) because it handles some shortcomings of 
+gradle's commandline behavior. The instructions assume this, using `gw` instead of `./gradlew` of `gradle`.
+
+Node
 ```bash
 # Install node.js
 # Download the most current from https://nodejs.org/en/
@@ -17,70 +24,18 @@ npm install @angular/cli
 ```
 
 #### MySQL
-MySQL is required for building (integration tests) and running this application. To better match production, MySQL
-should be run as a native app outside the container framework . There are various ways to install it; please be sure 
-to install version 5.6 which is older and not the default! Here are the basic brew instructions:
+MySQL is required for building, testing, and running these applications locally. Please refer to the
+[RDW Schema](https://github.com/SmarterApp/RDW_Schema) project for instructions on setting up MySQL.
+RDW_Reporting ITs (integration tests) use RDW_Schema. If you are developing RDW_Schema and would like
+to test your local changes in this project, you can build RDW_Schema locally, install your changes
+to the local repository, and specify the SNAPSHOT version of RDW_Schema when building RDW_Reporting:
 ```bash
-brew update
-brew install mysql@5.6
-```
-At the end of the install, there is a suggestion to add the mysql location to the path:
-```bash
-echo 'export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"' >> ~/.bash_profile
-```
+cd ../RDW_Schema
+# make local changes
+gw install
 
-Because brew isn't cool and directly sets the bind address you must modify `/usr/local/Cellar/mysql@5.6/5.6.34/homebrew.mxcl.mysql@5.6.plist` 
-(make sure to use your minor version of the installation) and set `--bind-address=*`. 
-You'll need to restart mysql after that, `brew services restart mysql@5.6`. You may need to fully stop and start
-the service if you get a `mysql.sock` error at this point:
-```bash
-brew services stop mysql@5.6
-brew services start mysql@5.6 
-```
-
-You may need to grant permissions to 'root'@'%':
-```bash
-mysql -uroot
-mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
-mysql> exit
-```
-
-You should load your timezone info, because we'll be forcing the timezone to 'UTC' in the next step. You may see 
-some warnings of skipped files but no errors when you do this:
-```bash
-mysql_tzinfo_to_sql /usr/share/zoneinfo | sed -e "s/Local time zone must be set--see zic manual page/local/" | mysql -u root mysql
-```
-
-Finally, you need to configure MySQL settings in `my.cnf` file. Locate the file (for a brew install it will be
-`/usr/local/Cellar/mysql@5.6/5.6.34/my.cnf` but if you can't find it try `sudo find -name my.cnf -print`) 
-and add the following lines:
-```
-[mysqld]
-explicit_defaults_for_timestamp=1
-default-time-zone='UTC'
-secure_file_priv=/tmp/
-```
-
-Restart MySQL:
-```bash
-brew services restart mysql@5.6
-```
-
-To verify the settings, run a mysql client:
-```bash
-mysql> SELECT @@explicit_defaults_for_timestamp;
-+-----------------------------------+
-| @@explicit_defaults_for_timestamp |
-+-----------------------------------+
-|                                 1 |
-+-----------------------------------+
-
-mysql> SELECT @@system_time_zone, @@global.time_zone, @@session.time_zone;
-+--------------------+--------------------+---------------------+
-| @@system_time_zone | @@global.time_zone | @@session.time_zone |
-+--------------------+--------------------+---------------------+
-| PDT                | UTC                | UTC                 |
-+--------------------+--------------------+---------------------+
+cd ../RDW_Reporting
+gw build it -Pschema=2.4.0-SNAPSHOT
 ```
 
 The service depends on the database being configured properly. See instructions below under [Running](#running) 
@@ -95,7 +50,7 @@ For running the application, wkhtmltopdf is bundled as a service and is run in a
 ### Building
 After cloning the repository run:
 ```bash
-./gradlew build it
+gw build it
 ```
 The `it` task will trigger the integration tests.
 
@@ -116,7 +71,7 @@ by the Spring Boot ITs. And the temporary variables are just to avoid some dupli
  export DATASOURCES_REPORTING_RW_URL_SERVER=$SERVER; \
  export DATASOURCES_REPORTING_RW_USERNAME=$USER; export DATASOURCES_REPORTING_RW_PASSWORD=$PSWD; \
  export TEST_AURORA=true
- ./gradlew it)
+ gw it)
 ```
 
 The integration tests dealing with Redshift have been separated out because they require remote AWS resources
@@ -124,45 +79,44 @@ and they take a while to run. To run these tests you must set credentials -- ple
 aggregate-service/build.gradle. By default it uses the CI database instances:
 ```bash
 (export DATASOURCES_OLAP_RO_PASSWORD=password; \
- ./gradlew rst)
+ gw rst)
 ```
 
 #### Building with locally modified RDW_Common
-RDW_Reporting makes use of RDW_Common modules. If you are developing RDW_Common and would like to test changes in this 
-project, you can build RDW_Common locally and install your changes to the local repository:
+RDW_Reporting makes use of RDW_Common modules. If you are developing RDW_Common and would like to 
+test your local changes in this project, you can build RDW_Common locally, install your changes to 
+the local repository, and specify the SNAPSHOT version of RDW_Common when building RDW_Reporting:
 ```bash
-git clone https://github.com/SmarterApp/RDW_Common
-cd RDW_Common
-# make code changes
-./gradlew install
-```
-Then to use those new changes, you can specify the SNAPSHOT version of RDW_Common
-```bash
-./gradlew build it -Pcommon=1.1.0-SNAPSHOT
+cd ../RDW_Common
+# make local changes
+gw install
+
+cd ../RDW_Reporting
+gw build it -Pcommon=1.1.0-SNAPSHOT
 ```
 
 #### Docker Images
 To build the docker images run:
 ```bash
-./gradlew buildImage
+gw buildImage
 ```
 
 ### Coverage Reports
 Code coverage reports can be found under each project in `./build/reports/coverage/index.html` after explicitly 
 generating them using:
 ```bash
-./gradlew coverage
+gw coverage
 ``` 
 
 ### Running
 Running the application locally depends on the local database being configured properly.
 ```bash
 # To completely clean out any existing data you might have and start fresh:
-./gradlew cleanallprod migrateallprod
+gw cleanallprod migrateallprod
 # or, if you want to use a different version of the schema, say version 1.1.0-68 of RDW_Schema
-./gradlew -Pschema=1.1.0-68 cleannallprod migrateallprod
+gw -Pschema=1.1.0-68 cleannallprod migrateallprod
 # or, SNAPSHOT version of RDW_Schema if you are doing simultaneous development with RDW_Schema
-./gradlew -Pschema=SNAPSHOT cleanallprod migriateallprod
+gw -Pschema=SNAPSHOT cleanallprod migriateallprod
 ```
 
 There is also a dev mysql dump file available with preloaded data. Ask for the latest version and then load, e.g.:

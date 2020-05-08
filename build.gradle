@@ -2,23 +2,22 @@ import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
 import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 
-buildscript {
-    repositories {
-        mavenLocal()
-        jcenter()
-    }
-    dependencies {
-        classpath("com.bmuschko:gradle-docker-plugin:3.6.2")
-        classpath("io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE")
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.18.RELEASE")
-    }
-}
-
 plugins {
-    id 'com.jfrog.artifactory' version '4.8.1'
+    id 'idea'
+
+    // these plugins will be selectively applied
+    id 'com.bmuschko.docker-remote-api' version '3.6.2' apply false
+    id 'org.springframework.boot' version '1.5.21.RELEASE' apply false
 }
 
-apply plugin: 'io.spring.dependency-management'
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+project.ext.apps = subprojects.findAll { !'lib'.equalsIgnoreCase(it.findProperty('moduleType') as String) }
 
 // Set version dependencies. This allows the cli to force version, e.g. `-Pcommon=1.1.0-SNAPSHOT`
 String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "2.4.0-7"
@@ -27,10 +26,6 @@ String dockerPrefix = "smarterbalanced"
 
 allprojects {
     group = 'org.opentestsystem.rdw.reporting'
-    version = '2.4.0-SNAPSHOT'
-
-    apply plugin: 'idea'
-    apply plugin: "com.jfrog.artifactory"
 
     if (project.hasProperty("buildNumber")) {
         project.setVersion(project.version.toString().replaceAll("SNAPSHOT", "${buildNumber}"))
@@ -41,7 +36,6 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'maven'
     apply plugin: 'jacoco'
-    apply plugin: 'io.spring.dependency-management'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
@@ -50,142 +44,93 @@ subprojects {
         mavenLocal()
         mavenCentral()
         maven { url 'http://redshift-maven-repository.s3-website-us-east-1.amazonaws.com/release' }
-    }
-
-    dependencyManagement {
-
-        dependencies {
-            dependency "org.opentestsystem.rdw.common:rdw-common-archive:${rdwCommonVersion}"
-            dependency "org.opentestsystem.rdw.common:rdw-common-group:${rdwCommonVersion}"
-            dependency "org.opentestsystem.rdw.common:rdw-common-messaging:${rdwCommonVersion}"
-            dependency "org.opentestsystem.rdw.common:rdw-common-model:${rdwCommonVersion}"
-            dependency "org.opentestsystem.rdw.common:rdw-common-multi-tenant:${rdwCommonVersion}"
-            dependency "org.opentestsystem.rdw.common:rdw-common-script:${rdwCommonVersion}"
-            dependency "org.opentestsystem.rdw.common:rdw-common-security:${rdwCommonVersion}"
-            dependency "org.opentestsystem.rdw.common:rdw-common-status:${rdwCommonVersion}"
-            dependency "org.opentestsystem.rdw.common:rdw-common-utils:${rdwCommonVersion}"
-            dependency "org.opentestsystem.rdw.schema:rdw-schema:${rdwSchemaVersion}"
-
-            // commonly used libraries
-            dependency 'com.google.guava:guava:27.0.1-jre'
-            dependency 'commons-io:commons-io:2.6'
-            dependency 'io.jsonwebtoken:jjwt:0.9.0'
-            dependency 'mysql:mysql-connector-java:5.1.46'
-            dependency 'org.apache.pdfbox:pdfbox:2.0.7'
-            dependency 'org.slf4j:slf4j-api:1.7.25'
-            dependency 'org.thymeleaf:thymeleaf:3.0.6.RELEASE'
-            dependency "org.flywaydb:flyway-core:5.2.4"
-
-            // jackson
-            dependency 'com.fasterxml.jackson.core:jackson-annotations:2.9.9'
-            dependency 'com.fasterxml.jackson.core:jackson-core:2.9.9'
-            dependency 'com.fasterxml.jackson.core:jackson-databind:2.9.9.1'
-            dependency 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.9'
-            dependency 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.9'
-            dependency 'com.fasterxml.jackson.datatype:jackson-datatype-guava:2.9.9'
-
-            // spring extensions aren't included in the the bom
-            dependency 'org.springframework.security.extensions:spring-security-saml2-core:1.0.3.RELEASE'
-            
-            // security for messaging
-            dependency 'org.springframework.security:spring-security-core:4.2.10.RELEASE'
-            dependency 'org.springframework.integration:spring-integration-security:4.3.18.RELEASE'
-
-            // security for art client
-            dependency 'org.springframework.security.oauth:spring-security-oauth2:2.0.16.RELEASE'
-
-            // commonly used test libraries
-            dependency 'junit:junit:4.12'
-            dependency 'org.assertj:assertj-core:3.11.1'
-            dependency 'org.mockito:mockito-core:2.23.4'
-
-            // used for pipeline user test running
-            dependency 'org.xmlunit:xmlunit-core:2.6.2'
-
-            //for multitenant admin
-            dependency 'org.eclipse.jgit:org.eclipse.jgit:5.3.1.201904271842-r'
-        }
-        imports {
-            // https://github.com/spring-projects/spring-cloud/wiki/Spring-Cloud-Edgware-Release-Notes
-            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Edgware.SR5'
-        }
+        maven { url 'https://artifactory.smarterbalanced.org/artifactory/libs-releases' }
     }
 
     dependencies {
+        // For any library brought in by spring-boot-dependencies, if we want a
+        // different version, this is how to set it. You can see the options in
+        // https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-dependencies/1.5.21.RELEASE/spring-boot-dependencies-1.5.21.RELEASE.pom
+        // Also useful for non-spring-related dependency versions.
+        rootProject.ext['assertj.version'] = '3.14.0'
+        rootProject.ext['mockito.version'] = '2.28.2'
+        rootProject.ext['jackson.version'] = '2.9.9'
+        rootProject.ext['thymeleaf.version'] = '3.0.6.RELEASE'
+        rootProject.ext['thymeleaf-layout-dialect.version'] = '2.1.1'
+        rootProject.ext['groovy.version'] = '2.5.6'
+
+        constraints {
+            implementation "org.opentestsystem.rdw.common:rdw-common-archive:${rdwCommonVersion}"
+            implementation "org.opentestsystem.rdw.common:rdw-common-group:${rdwCommonVersion}"
+            implementation "org.opentestsystem.rdw.common:rdw-common-messaging:${rdwCommonVersion}"
+            implementation "org.opentestsystem.rdw.common:rdw-common-model:${rdwCommonVersion}"
+            implementation "org.opentestsystem.rdw.common:rdw-common-multi-tenant:${rdwCommonVersion}"
+            implementation "org.opentestsystem.rdw.common:rdw-common-script:${rdwCommonVersion}"
+            implementation "org.opentestsystem.rdw.common:rdw-common-security:${rdwCommonVersion}"
+            implementation "org.opentestsystem.rdw.common:rdw-common-status:${rdwCommonVersion}"
+            implementation "org.opentestsystem.rdw.common:rdw-common-utils:${rdwCommonVersion}"
+            implementation "org.opentestsystem.rdw.schema:rdw-schema:${rdwSchemaVersion}"
+
+            // commonly used libraries
+            implementation 'com.google.guava:guava:27.0.1-jre'
+            implementation 'commons-io:commons-io:2.6'
+            implementation 'io.jsonwebtoken:jjwt:0.9.0'
+            implementation 'mysql:mysql-connector-java:5.1.46'
+            implementation 'org.apache.commons:commons-csv:1.6'
+            implementation 'org.apache.commons:commons-lang3:3.8.1'
+            implementation 'org.apache.pdfbox:pdfbox:2.0.7'
+            implementation 'org.slf4j:slf4j-api:1.7.25'
+            implementation 'org.thymeleaf:thymeleaf:3.0.6.RELEASE'
+            implementation "org.flywaydb:flyway-core:5.2.4"
+
+            // jackson
+            implementation "com.fasterxml.jackson.core:jackson-annotations:${rootProject.ext['jackson.version']}"
+            implementation "com.fasterxml.jackson.core:jackson-core:${rootProject.ext['jackson.version']}"
+            implementation "com.fasterxml.jackson.core:jackson-databind:${rootProject.ext['jackson.version']}.1"
+            implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${rootProject.ext['jackson.version']}"
+            implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${rootProject.ext['jackson.version']}"
+            implementation "com.fasterxml.jackson.datatype:jackson-datatype-guava:${rootProject.ext['jackson.version']}"
+
+            // spring extensions aren't included in the the bom
+            implementation 'org.springframework.security.extensions:spring-security-saml2-core:1.0.3.RELEASE'
+
+            // security for messaging
+            implementation 'org.springframework.security:spring-security-core:4.2.10.RELEASE'
+            implementation 'org.springframework.integration:spring-integration-security:4.3.18.RELEASE'
+
+            // security for art client
+            implementation 'org.springframework.security.oauth:spring-security-oauth2:2.0.16.RELEASE'
+
+            // commonly used test libraries
+            implementation 'junit:junit:4.12'
+            implementation "org.assertj:assertj-core:${rootProject.ext['assertj.version']}"
+            implementation "org.mockito:mockito-core:${rootProject.ext['mockito.version']}"
+
+            // used for pipeline user test running
+            implementation 'org.xmlunit:xmlunit-core:2.6.2'
+
+            //for multitenant admin
+            implementation 'org.eclipse.jgit:org.eclipse.jgit:5.3.1.201904271842-r'
+        }
+
+        implementation platform('org.springframework.boot:spring-boot-dependencies:1.5.21.RELEASE')
+        implementation platform('org.springframework.cloud:spring-cloud-dependencies:Dalston.RELEASE')
+
+        implementation 'com.google.guava:guava'
+        implementation 'org.slf4j:slf4j-api'
+
         // handy for creating metadata with @ConfigurationProperties
         compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
 
-        compile "org.slf4j:slf4j-api"
+        runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 
-        testCompile 'junit:junit'
-        testCompile 'org.assertj:assertj-core'
-        testCompile 'org.mockito:mockito-core'
+        testImplementation 'junit:junit'
+        testImplementation 'org.assertj:assertj-core'
+        testImplementation 'org.mockito:mockito-core'
     }
 
-    // task to generate build-info.properties with build.version, build.timestamp
-    // using this approach instead of resource filtering to avoid modifying source
-    task createBuildInfoFile(dependsOn: processResources) {
-        doLast {
-            def buildInfoFile = new File("${buildDir}/resources/main/build-info.properties")
-            buildInfoFile.parentFile.mkdirs()
-            Properties props = new Properties()
-            props.setProperty('build.version', project.version.toString())
-            props.store(buildInfoFile.newWriter(), null)
-        }
-    }
-
-    /***************************************************************
-     * Docker setup for all subprojects except rdw-reporting-common,
-     *  which doesn't have a docker image
-     ***************************************************************/
-
-    if (!it.hasProperty('skipDocker')) {
-        apply plugin: 'com.bmuschko.docker-remote-api'
-
-        // trigger creation of build-info.properties
-        classes.dependsOn(createBuildInfoFile)
-
-        docker {
-            registryCredentials {
-                username = dockerHubUser
-                password = dockerHubPassword
-                email = dockerHubEmail
-            }
-        }
-
-        // task to create Dockerfile
-        // (http://bmuschko.github.io/gradle-docker-plugin/docs/groovydoc/com/bmuschko/gradle/docker/tasks/image/Dockerfile.html)
-        task createDockerfile(type: Dockerfile) {
-            destFile = project.file('build/docker/Dockerfile')
-            from('openjdk:8-jre-alpine')
-            volume('/tmp')
-            label([maintainer: 'Fairway Technologies'])
-            copyFile("${jar.archivePath.name}", "${jar.archivePath.name}")
-            exposePort(8008, 8080)
-            runCommand("apk add --no-cache tini curl jq")
-            entryPoint("/sbin/tini", "--")
-            environmentVariable("MAX_HEAP_SIZE", "-Xmx384m")
-            instruction('CMD exec java $MAX_HEAP_SIZE $JAVA_OPTS -jar ' + "${jar.archivePath.name}")
-        }
-
-        // task to build the docker image
-        task buildImage(type: DockerBuildImage, dependsOn: [build, createDockerfile]) {
-            dockerFile = createDockerfile.destFile
-            inputDir = project.file('build/docker/')
-            tag = "${dockerPrefix}/${project.name}" + (project.hasProperty("release") ? ":${project.version}" : "")
-            doFirst {
-                copy {
-                    from jar
-                    into inputDir
-                }
-            }
-        }
-
-        // to use this, you must use valid docker credentials, which can be set in the gradle.properties file
-        task dockerPushImage(type: DockerPushImage, dependsOn: buildImage) {
-            imageName = "${dockerPrefix}/${project.name}"
-        }
-    }
+    // this is for creating metadata
+    compileJava.dependsOn(processResources)
 
     // Skip running integration and system tests automatically, because they take a long time
     test.exclude '**/*IT.*', '**/*RST.*'
@@ -200,22 +145,13 @@ subprojects {
         }
     }
 
-    task IT(type: Test, dependsOn:[":cleanReportingTest", ":migrateReportingTest"]) {
+    task IT(type: Test, dependsOn: ':cleanAndMigrateTestSchema') {
         include '**/*IT.*'
         group = 'Verification'
         description = 'Runs the integration tests.'
         outputs.upToDateWhen { false }
         doLast {
             println "Running Integration Tests..."
-        }
-    }
-
-    //Specific integration test task that will automatically migrate the test database schemas
-    task moIT(type: Test, dependsOn:[":migrateReportingTest"]) {
-        include '**/*IT.*'
-        outputs.upToDateWhen { false }
-        doFirst {
-            println "Running Integration Tests without cleaning database (flyway migrate only)..."
         }
     }
 
@@ -235,87 +171,130 @@ subprojects {
     }
 }
 
+configure(project.ext.apps) {
+    apply plugin: 'org.springframework.boot'
+
+    springBoot {
+        buildInfo {
+            additionalProperties = [
+                    by: System.properties['user.name'],
+                    targetCompatibility: project.targetCompatibility,
+                    sourceCompatibility: project.sourceCompatibility
+            ]
+        }
+    }
+
+    // The spring boot 1.5.x gradle plugin defaults to using the 'runtime' configuration
+    // to get the libraries to stuff into the fat jar. That worked fine for gradle 4.x.
+    // However, gradle 5 changed all that and those libraries now land in 'runtimeClasspath'.
+    bootRepackage.customConfiguration = 'runtimeClasspath'
+
+    /***********************************************************
+     * Docker setup for all apps that need it
+     ***********************************************************/
+    if (!it.hasProperty('skipDocker')) {
+        apply plugin: 'com.bmuschko.docker-remote-api'
+
+        docker {
+            registryCredentials {
+                username = dockerHubUser
+                password = dockerHubPassword
+                email = dockerHubEmail
+            }
+        }
+
+        // Task to create Dockerfile based on (http://bmuschko.github.io/gradle-docker-plugin/docs/groovydoc/com/bmuschko/gradle/docker/tasks/image/Dockerfile.html)
+        // Add tini to help with things (https://github.com/krallin/tini).
+        // Use environment variables so the orchestration environment can adjust max heap and other java opts.
+        // Sub-projects can adjust their default max heap size by setting the environment variable, e.g.
+        // createDockerfile {
+        //   environmentVariable("MAX_HEAP_SIZE", "-Xmx512m")
+        // }
+        task createDockerfile(type: Dockerfile) {
+            destFile = project.file('build/docker/Dockerfile')
+            from('openjdk:8-jre-alpine')
+            volume('/tmp')
+            label([maintainer: 'Fairway Technologies'])
+            copyFile("${jar.archivePath.name}", "${jar.archivePath.name}")
+            exposePort(8008, 8080)
+            runCommand("apk add --no-cache tini curl jq")
+            entryPoint("/sbin/tini", "--")
+            environmentVariable("MAX_HEAP_SIZE", "-Xmx384m")
+            instruction('CMD exec java $MAX_HEAP_SIZE $JAVA_OPTS -jar ' + "${jar.archivePath.name}")
+        }
+
+        task dockerBuildImage(type:DockerBuildImage, dependsOn:[build, createDockerfile]) {
+            dockerFile = createDockerfile.destFile
+            inputDir = project.file('build/docker/')
+            tag = "${dockerPrefix}/${project.name}" + (project.hasProperty("release") ? ":${project.version}" : "")
+            doFirst {
+                copy {
+                    from jar
+                    into inputDir
+                }
+            }
+        }
+
+        // to use this, you must use valid docker credentials
+        // which can be set in the gradle.properties file or environment variables
+        task dockerPushImage(type: DockerPushImage, dependsOn: dockerBuildImage) {
+            imageName = "${dockerPrefix}/${project.name}" + (project.hasProperty("release") ? ":${project.version}" : "")
+        }
+    }
+}
+
 /********************************************
- * RDW_Schema artifact dependency setup
+ RDW_Schema artifact dependency setup
+
+ The RDW_Schema project is extracted into place (from the published zip) and
+ the clean and migrate tasks are wrapped. A custom configuration is used to
+ set the repositories and conditionally do all the work.
+
+ NOTE: previously there were multiple tasks wrapping each RDW_Schema task
+ individually. With Gradle 6 this stopped working so it has been reduced to a
+ single task that does just what we need.
  *******************************************/
 
-//Initializing some properties for use in extracting schema dependency and finding schema tasks
 project.ext.schemaBaseDir =  "$buildDir/schema/"
 
-//Creating a schema configuration for facilitating unzipping and copying sql scripts
 configurations {
-    rdwSchema
+    testSchema
     repositories {
         mavenLocal()
+        maven { url 'https://artifactory.smarterbalanced.org/artifactory/libs-releases' }
     }
 }
 
-//Declaring root project dependency on schema
 dependencies {
-    rdwSchema("org.opentestsystem.rdw.schema:rdw-schema:${rdwSchemaVersion}@zip")
+    testSchema "org.opentestsystem.rdw.schema:rdw-schema:${rdwSchemaVersion}@zip"
 }
 
-// Helper function to get the unzipped schema directory path at runtime.
 def schemaDir() {
-    schemaBaseDir + configurations.rdwSchema.singleFile.name.take(configurations.rdwSchema.singleFile.name.lastIndexOf('.'))
+    def schemaZipName = configurations.testSchema.singleFile.name
+    schemaBaseDir + schemaZipName.take(schemaZipName.lastIndexOf('.'))
 }
 
-//Schema extraction task
-task extractSchema(type: Sync) {
-    dependsOn configurations.rdwSchema
-
-    from { // use of closure defers evaluation until execution time
-        zipTree(configurations.rdwSchema.singleFile)
-    }
+task extractSchema(type: Sync, dependsOn: configurations.testSchema) {
+    // use of closure defers evaluation until execution time
+    from { zipTree(configurations.testSchema.singleFile) }
     into schemaBaseDir
-}
 
-/**********************************************************************
- * Dynamically creating the tasks to run against the database schema
- * The rdw-schema dependency contains a build.gradle file that defines
- *   specific tasks related to the schemas
- *********************************************************************/
-
-//These are the tasks available in the Schema dependency that we would want to use in this project
-def taskMap = [
-        "cleanReporting": "Cleans the schemas that are required for running locally",
-        "migrateReporting": "Migrates the schemas that are required for running locally",
-        "cleanWarehouse": "Cleans the schemas that are required for running locally",
-        "migrateWarehouse": "Migrates the schemas that are required for running locally",
-        "cleanReporting_test": "Cleans the schemas that integration tests depend on",
-        "migrateReporting_test": "Migrates the schemas that integration tests depend on",
-        "cleanWarehouse_test": "Cleans the schemas that integration tests depend on",
-        "migrateWarehouse_test": "Migrates the schemas that integration tests depend on",
-        "cleanReporting_olap_test": "Cleans the schemas that redshift tests depend on",
-        "migrateReporting_olap_test": "Migrates the schemas that redshift tests depend on",
-        "cleanAll_test": "Cleans the schemas that integration tests depend on",
-        "migrateAll_test": "Migrates the schemas that integration tests depend on",
-]
-
-taskMap.keySet().each { key ->
-    def taskName = key.replaceAll("_test", "Test").replaceAll("_olap", "Olap")
-    if (!taskName.endsWith("Test")) taskName += "Prod"
-    task(taskName, type: GradleBuild, dependsOn: extractSchema) {
-        group = "Schema"
-        description = taskMap[key]
-        doFirst {
-            dir { schemaDir() }
-            // need to copy any command-line properties for sub-build
-            startParameter.projectProperties = gradle.startParameter.projectProperties
-        }
-        tasks = [key]
-    }
-}
-
-/****************************
- * JFrog Artifactory setup
- *****************************/
-artifactory {
-    contextUrl = "https://airdev.jfrog.io/airdev"
-    resolve {
-        repository {
-            repoKey = 'libs-releases'
-            maven = true
+    // older versions of RDW_Schema didn't have a settings.gradle file in the archive
+    // but GradleBuild tasks insist on it being there so create an empty one ...
+    doLast {
+        def settingsFile = file(schemaDir() + '/settings.gradle')
+        if (!settingsFile.exists()) {
+            settingsFile.setText('')
         }
     }
 }
+
+task cleanAndMigrateTestSchema(type: GradleBuild, dependsOn: extractSchema) {
+    group = "Schema"
+    description = "Cleans and migrates the schemas that integration tests depend on"
+    buildFile = schemaDir() + '/build.gradle'
+    tasks = ['cleanAll_test', 'migrateAll_test']
+}
+
+// TODO - delete "${schemaBaseDir}" during clean
+// (not quite the slam dunk you might think it is, ruminate for a while)
