@@ -5,10 +5,14 @@
 # CONFIG_SERVICE_REPO - git repo url, e.g. https://gitlab.com/fairwaytech/rdw_config.git
 # GIT_USER - user with rights to access CONFIG_SERVICE_REPO
 # GIT_PASSWORD - password for GIT_USER
+# A good way to do this is to create a .env file in the same location as the docker-compose file,
+# which will be read automagically. Obviously that file shouldn't be checked in.
+# Alternatively you may use environment variables.
 #
-# This configuration maps the config folder as outlined in CONTRIBUTING.md and the application.yml file from the config
-# server local-docker profile points to that folder so developers should be able to reuse the saml.jks file
-# (NOTE: developers may have to explicitly share the /opt folder in Docker, Preferences, File Sharing)
+# This configuration maps the config folder as outlined in CONTRIBUTING.md and the application.yml
+# file from the config server local-docker profile points to that folder so developers should be
+# able to reuse the saml.jks file
+# NOTE: developers may have to explicitly share the /opt folder in Docker, Preferences, File Sharing
 
 version: '2.1'
 services:

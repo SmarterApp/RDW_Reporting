@@ -87,6 +87,7 @@ subprojects {
             implementation "com.fasterxml.jackson.core:jackson-annotations:${rootProject.ext['jackson.version']}"
             implementation "com.fasterxml.jackson.core:jackson-core:${rootProject.ext['jackson.version']}"
             implementation "com.fasterxml.jackson.core:jackson-databind:${rootProject.ext['jackson.version']}.1"
+            implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-properties:${rootProject.ext['jackson.version']}"
             implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${rootProject.ext['jackson.version']}"
             implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${rootProject.ext['jackson.version']}"
             implementation "com.fasterxml.jackson.datatype:jackson-datatype-guava:${rootProject.ext['jackson.version']}"

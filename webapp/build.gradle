@@ -15,6 +15,7 @@ dependencies {
     implementation 'org.opentestsystem.rdw.common:rdw-common-status'
     implementation 'org.opentestsystem.rdw.common:rdw-common-utils'
 
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-properties'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     implementation 'commons-io:commons-io'
     implementation 'mysql:mysql-connector-java'
@@ -37,49 +38,70 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
 }
 
+/***************************************************************************************
+ frontend tasks
+
+ These tasks do the angular build and copy the result to resources/static. This
+ is hooked into the build at the 'processResources' stage.
+
+ Poke around angular.json and the file structure to fully grok this: the angular
+ 'webapp' folder is under 'src/main' and it builds into 'webapp/dist'. Those
+ resources need to be under 'src/main/resources' for the app build so, after
+ doing the front-end build, they are moved.
+
+ This may be a bit confusing (case-in-point: /webapp/src/main/webapp/src) but i
+ believe the idea is the front-end "sub project" should exist and build blissfully
+ unaware that it is going to be delivered in a spring boot app as static resources.
+ ***************************************************************************************/
+
 node {
     version = '8.9.1'
     npmVersion = '5.5.1'
     download = true
-//    workDir = file("${project.projectDir}/src/main/webapp")
-//    nodeModulesDir = file("${project.projectDir}/src/main/webapp")
 }
 
-//Hopefully this allows us to hot add resources
-bootRun {
-    addResources = true
-    if (project.hasProperty('jvmArgs')) {
-        jvmArgs project.jvmArgs.split('\\s+')
-    }
+npm_install {
+    workingDir = file('src/main/webapp')
 }
 
-//This is the build task for the Front End (Fe) and only compiles when the inputs change
-task buildFe(type: NpmTask) {
-    inputs.files(fileTree("src/main/webapp/src"))
-    inputs.file("src/main/webapp/package.json")
-    workingDir = file("src/main/webapp")
+task buildFe(type: NpmTask, dependsOn: npm_install) {
+    group = 'FrontEnd'
+    description = 'Build front-end and move files to src/main/resources/static'
+
+    inputs.files(fileTree('src/main/webapp/src'))
+    inputs.file('src/main/webapp/package.json')
     outputs.dir('build/resources/static')
-    dependsOn npm_install
-    args = project.hasProperty('prod')
-            ? ['run', 'build-prod']
-            : ['run', 'build']
+    workingDir = file('src/main/webapp')
+    args = ['run', project.hasProperty('release') ? 'build-prod' : 'build']
     // move build from dist to static resources
     doLast {
-        copy { from "src/main/webapp/dist" into "src/main/resources/static" }
-        delete "src/main/webapp/dist"
+        copy { from 'src/main/webapp/dist' into 'src/main/resources/static' }
+        delete 'src/main/webapp/dist'
     }
 }
 
-task testFe(type: NpmTask) {
-    inputs.files(fileTree("src/main/webapp/src"))
-    inputs.file("src/main/webapp/package.json")
-    workingDir = file("src/main/webapp")
+task cleanFe(type: Delete) {
+    group = 'FrontEnd'
+    description = 'Delete front-end files from src/main/resources/static'
+
+    delete "src/main/resources/static"
+}
+
+task testFe(type: NpmTask, dependsOn: npm_install) {
+    group = 'FrontEnd'
+    description = 'Run front-end CI tests'
+
+    inputs.files(fileTree('src/main/webapp/src'))
+    inputs.file('src/main/webapp/package.json')
     outputs.dir('build/resources/static')
-    dependsOn npm_install
+    workingDir = file('src/main/webapp')
     args = ['run', 'test-ci']
 }
 
 task gzipBundles(dependsOn: buildFe) {
+    group = 'FrontEnd'
+    description = 'gzip resource bundles (in place)'
+
     doLast {
         def tree = fileTree(dir: "${project.projectDir}/src/main/resources/static/", includes: ["**/*.bundle.js", "**/*.bundle.css"])
         tree.each { File file ->
@@ -94,3 +116,13 @@ task gzipBundles(dependsOn: buildFe) {
 // In order to get the front end resources in to the final jar, the front end needs to be built
 // before all of the other resources are processed in order to get the static resources in the right place
 processResources.dependsOn gzipBundles
+clean.dependsOn cleanFe
+
+//Hopefully this allows us to hot add resources
+bootRun {
+    addResources = true
+    if (project.hasProperty('jvmArgs')) {
+        jvmArgs project.jvmArgs.split('\\s+')
+    }
+}
+
