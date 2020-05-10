@@ -8,14 +8,17 @@ dependencies {
 
     implementation 'org.opentestsystem.rdw.common:rdw-common-archive'
     implementation 'org.opentestsystem.rdw.common:rdw-common-model'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-multi-tenant'
     implementation 'org.opentestsystem.rdw.common:rdw-common-security'
     implementation 'org.opentestsystem.rdw.common:rdw-common-status'
     implementation 'org.opentestsystem.rdw.common:rdw-common-utils'
 
     implementation 'com.amazon.redshift:redshift-jdbc42-no-awssdk:1.2.8.1005'
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-guava"
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     implementation 'com.healthmarketscience.sqlbuilder:sqlbuilder:2.1.7'  // this shouldn't be necessary, why??
     implementation 'org.apache.commons:commons-csv'
+    implementation 'org.apache.commons:commons-lang3'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'

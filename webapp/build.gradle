@@ -11,14 +11,17 @@ dependencies {
     implementation project(':rdw-reporting-common-web')
 
     implementation 'org.opentestsystem.rdw.common:rdw-common-model'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-multi-tenant'
     implementation 'org.opentestsystem.rdw.common:rdw-common-security'
     implementation 'org.opentestsystem.rdw.common:rdw-common-status'
     implementation 'org.opentestsystem.rdw.common:rdw-common-utils'
 
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-properties'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-guava'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     implementation 'commons-io:commons-io'
     implementation 'mysql:mysql-connector-java'
+    implementation 'org.apache.commons:commons-lang3'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'

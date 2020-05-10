@@ -12,6 +12,13 @@ dependencies {
     implementation 'org.opentestsystem.rdw.common:rdw-common-status'
     implementation 'org.opentestsystem.rdw.common:rdw-common-utils'
 
+    // for rdw-common-script
+    //implementation 'commons-io:commons-io'
+    implementation 'jaxen:jaxen:1.1.4'
+    //implementation 'org.apache.commons:commons-csv'
+    implementation 'org.codehaus.groovy:groovy:2.5.6'
+    implementation 'org.jdom:jdom2:2.0.6'
+
     implementation 'com.amazon.redshift:redshift-jdbc42-no-awssdk:1.2.8.1005'
     implementation 'com.fasterxml.jackson.core:jackson-annotations'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
@@ -21,6 +28,7 @@ dependencies {
     implementation 'mysql:mysql-connector-java'
     implementation 'org.apache.commons:commons-csv'
     implementation 'org.apache.commons:commons-lang3'
+    implementation 'org.apache.commons:commons-text'
     implementation 'org.eclipse.jgit:org.eclipse.jgit'
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.opentestsystem.rdw.schema:rdw-schema'
@@ -36,6 +44,7 @@ dependencies {
     implementation 'org.springframework.security.oauth:spring-security-oauth2'
     implementation 'org.springframework:spring-context-support'
     implementation 'org.xmlunit:xmlunit-core'
+
 
     testImplementation 'org.javers:javers-core:5.6.0'
     testImplementation project(path: ':rdw-reporting-common', configuration: 'tests')

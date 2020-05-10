@@ -78,6 +78,7 @@ subprojects {
             implementation 'mysql:mysql-connector-java:5.1.46'
             implementation 'org.apache.commons:commons-csv:1.6'
             implementation 'org.apache.commons:commons-lang3:3.8.1'
+            implementation 'org.apache.commons:commons-text:1.6'
             implementation 'org.apache.pdfbox:pdfbox:2.0.7'
             implementation 'org.slf4j:slf4j-api:1.7.25'
             implementation 'org.thymeleaf:thymeleaf:3.0.6.RELEASE'
@@ -133,8 +134,15 @@ subprojects {
     // this is for creating metadata
     compileJava.dependsOn(processResources)
 
-    // Skip running integration and system tests automatically, because they take a long time
-    test.exclude '**/*IT.*', '**/*RST.*'
+    test {
+        // Skip running integration and system tests automatically, because they take a long time
+        exclude '**/*IT.*', '**/*RST.*'
+
+        // log non-passing test results to the console
+        testLogging {
+            events 'skipped', 'failed'
+        }
+    }
 
     //This task for for manually running the integration tests against schemas being developed simultaneously with this
     // project, versus the schemas that are "fixed" under the RDW_Schema submodule in this project
@@ -166,7 +174,7 @@ subprojects {
 
     task coverage(type: Task, dependsOn: [test, IT]) {
         doFirst {
-            jacocoTestReport.executionData(test, IT)
+            jacocoTestReport.executionData(test)
             if (IT.enabled) {
                 jacocoTestReport.executionData(IT)
             }

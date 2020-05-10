@@ -1,10 +1,13 @@
 dependencies {
     implementation project(':rdw-reporting-common')
     implementation project(':rdw-reporting-common-web')
+
     implementation 'org.opentestsystem.rdw.common:rdw-common-model'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-multi-tenant'
     implementation 'org.opentestsystem.rdw.common:rdw-common-security'
     implementation 'org.opentestsystem.rdw.common:rdw-common-status'
     implementation 'org.opentestsystem.rdw.common:rdw-common-utils'
+
     implementation 'org.springframework.cloud:spring-cloud-starter-aws'
     implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
@@ -13,9 +16,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.retry:spring-retry'
+
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-    implementation 'mysql:mysql-connector-java'
     implementation 'commons-io:commons-io'
+    implementation 'mysql:mysql-connector-java'
+    implementation 'org.apache.commons:commons-lang3'
+
 
     testImplementation project(path: ':rdw-reporting-common', configuration: 'tests')
     testImplementation project(path: ':rdw-reporting-common-web', configuration: 'tests')

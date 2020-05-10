@@ -4,6 +4,7 @@ dependencies {
 
     implementation 'org.opentestsystem.rdw.common:rdw-common-archive'
     implementation 'org.opentestsystem.rdw.common:rdw-common-model'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-multi-tenant'
     implementation 'org.opentestsystem.rdw.common:rdw-common-security'
     implementation 'org.opentestsystem.rdw.common:rdw-common-status'
     implementation 'org.opentestsystem.rdw.common:rdw-common-utils'
