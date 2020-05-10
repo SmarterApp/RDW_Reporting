@@ -12,7 +12,7 @@ Java 8.
 
 Gradle. The project uses bundled gradle so no explicit installation is required. However, it is highly 
 recommended to install gdub (https://github.com/dougborg/gdub) because it handles some shortcomings of 
-gradle's commandline behavior. The instructions assume this, using `gw` instead of `./gradlew` of `gradle`.
+gradle's commandline behavior. The instructions assume this, using `gw` instead of `./gradlew` or `gradle`.
 
 Node
 ```bash
