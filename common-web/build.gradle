@@ -18,6 +18,12 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
 }
 
+// no ITs in this module
+IT {
+    enabled = false
+    dependsOn = []
+}
+
 task testsJar(type: Jar, dependsOn: testClasses) {
     archiveClassifier.set('tests')
     from sourceSets.test.output

@@ -146,6 +146,14 @@ subprojects {
         }
     }
 
+    // Specific integration test task that will automatically clean and migrate
+    // the test database schemas before running.
+    // If a module has no ITs, to avoid running the cleanAndMigrateTestSchema
+    // task needlessly, it should completely disable this by doing:
+    //    IT {
+    //        enabled = false
+    //        dependsOn = []
+    //    }
     task IT(type: Test, dependsOn: ':cleanAndMigrateTestSchema') {
         include '**/*IT.*'
         group = 'Verification'
@@ -159,14 +167,10 @@ subprojects {
     task coverage(type: Task, dependsOn: [test, IT]) {
         doFirst {
             jacocoTestReport.executionData(test, IT)
-            jacocoTestReport.reports.html.destination = file("${reporting.baseDir}/${name}")
-
-            // Only include execution data that exists (handle projects without integration tests)
-            jacocoTestReport {
-                executionData = files(executionData.findAll {
-                    it.exists()
-                })
+            if (IT.enabled) {
+                jacocoTestReport.executionData(IT)
             }
+            jacocoTestReport.reports.html.destination = file("${reporting.baseDir}/${name}")
         }
         finalizedBy(jacocoTestReport)
     }
@@ -294,6 +298,8 @@ task cleanAndMigrateTestSchema(type: GradleBuild, dependsOn: extractSchema) {
     group = "Schema"
     description = "Cleans and migrates the schemas that integration tests depend on"
     buildFile = schemaDir() + '/build.gradle'
+    // copy any command-line properties for sub-build
+    startParameter.projectProperties = gradle.startParameter.projectProperties
     tasks = ['cleanAll_test', 'migrateAll_test']
 }
 
