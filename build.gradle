@@ -20,7 +20,7 @@ idea {
 project.ext.apps = subprojects.findAll { !'lib'.equalsIgnoreCase(it.findProperty('moduleType') as String) }
 
 // Set version dependencies. This allows the cli to force version, e.g. `-Pcommon=1.1.0-SNAPSHOT`
-String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "2.4.0-11"
+String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "2.4.0-13"
 String rdwSchemaVersion = project.hasProperty("schema") ? project.property("schema") : "2.4.0-8"
 String dockerPrefix = "smarterbalanced"
 
@@ -53,12 +53,12 @@ subprojects {
         // https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-dependencies/1.5.21.RELEASE/spring-boot-dependencies-1.5.21.RELEASE.pom
         // Also useful for non-spring-related dependency versions.
         rootProject.ext['assertj.version'] = '3.14.0'
-        rootProject.ext['mockito.version'] = '2.28.2'
+        rootProject.ext['groovy.version'] = '2.5.6'
         rootProject.ext['jackson.version'] = '2.9.9'
+        rootProject.ext['mockito.version'] = '2.28.2'
+        rootProject.ext['mysql.version'] = '5.1.46'  // 5.1.47 causes problems
         rootProject.ext['thymeleaf.version'] = '3.0.6.RELEASE'
         rootProject.ext['thymeleaf-layout-dialect.version'] = '2.1.1'
-        rootProject.ext['groovy.version'] = '2.5.6'
-        rootProject.ext['mysql.version'] = '5.1.46'
 
         constraints {
             implementation "org.opentestsystem.rdw.common:rdw-common-archive:${rdwCommonVersion}"
@@ -104,16 +104,16 @@ subprojects {
             // security for art client
             implementation 'org.springframework.security.oauth:spring-security-oauth2:2.0.16.RELEASE'
 
-            // commonly used test libraries
-            implementation 'junit:junit:4.12'
-            implementation "org.assertj:assertj-core:${rootProject.ext['assertj.version']}"
-            implementation "org.mockito:mockito-core:${rootProject.ext['mockito.version']}"
-
             // used for pipeline user test running
             implementation 'org.xmlunit:xmlunit-core:2.6.2'
 
             //for multitenant admin
             implementation 'org.eclipse.jgit:org.eclipse.jgit:5.3.1.201904271842-r'
+
+            // commonly used test libraries
+            testImplementation 'junit:junit:4.12'
+            testImplementation "org.assertj:assertj-core:${rootProject.ext['assertj.version']}"
+            testImplementation "org.mockito:mockito-core:${rootProject.ext['mockito.version']}"
         }
 
         implementation platform('org.springframework.boot:spring-boot-dependencies:1.5.21.RELEASE')
