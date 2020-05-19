@@ -30,13 +30,14 @@ dependencies {
     implementation 'org.springframework.retry:spring-retry'
 
     testImplementation project(path: ':rdw-reporting-common', configuration: 'tests')
-    testImplementation 'org.assertj:assertj-core'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude(module: 'commons-logging')
     }
     testImplementation 'org.springframework.cloud:spring-cloud-stream-test-support'
     testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind'
     testImplementation 'com.opencsv:opencsv:4.0'
+
 }
 
 //This will allow for running of the multithreaded test application
