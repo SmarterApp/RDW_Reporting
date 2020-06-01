@@ -8,6 +8,24 @@ Work done as part of RDW Phase 6.
     * Upgrade gradle, including plugins
     * Upgrade SpringFramework and other libraries (most recent minor revs only, no major upgrades)
 
+#### 2.3.3 - 2020-02-19
+
+* Fix translation provider cache to handle edge-case where file locations change
+* Screen reader fixes
+
+#### 2.3.2 - 2020-02-04
+
+* Fix accessibility issues in tenant admin pages
+
+#### 2.3.1 - 2019-12-02
+
+* Update SVG icons
+
+#### 2.3.0 - 2019-11-13
+
+* Fix Okta-related bugs
+* Fix minor UI bugs
+
 #### 2.2.0 - 2019-10-15
 
 * RP-726 Show summary metrics about each tenant in UI (Part 2)
