@@ -6,7 +6,7 @@
     "aggregate": {
       "export": {
         "header": {
-          "alt-score": "Alt",
+          "alt-score": "Alt Score",
           "assessment": "AssessmentName",
           "assessment-type": "AssessmentType",
           "attributes": "Attributes",
