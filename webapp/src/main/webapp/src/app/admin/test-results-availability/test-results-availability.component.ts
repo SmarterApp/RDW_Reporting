@@ -67,7 +67,7 @@ export class TestResultsAvailabilityComponent
   showDistrictFilter: boolean; // set false if districtAdmin
   showAudit: boolean; // only DevOps has ability
   state: string; // state of tenant or sandbox logged into
-  numOfRows: number = 10; // todo set to be configurable
+  numOfRows: number = 20; // TODO: set to be configurable
 
   // results of change request
   successfulChange: boolean;

@@ -95,11 +95,35 @@ export class MockTestResultsAvailability {
         status: 'Released'
       },
       {
-        schoolYear: 2019,
-        district: 'QA Test District',
+        schoolYear: 2020,
+        district: 'Magnet District',
+        subject: 'Math',
+        reportType: 'Individual',
+        resultCount: 0,
+        status: 'Loading'
+      },
+      {
+        schoolYear: 2020,
+        district: 'Magnet District',
         subject: 'Math',
         reportType: 'Aggregate',
-        resultCount: 80214,
+        resultCount: 9811,
+        status: 'Reviewing'
+      },
+      {
+        schoolYear: 2020,
+        district: 'QA Test District',
+        subject: 'ELA',
+        reportType: 'Individual',
+        resultCount: 85546,
+        status: 'Loading'
+      },
+      {
+        schoolYear: 2020,
+        district: 'QA Test District',
+        subject: 'Science',
+        reportType: 'Individual',
+        resultCount: 3029,
         status: 'Released'
       },
       {
@@ -107,8 +131,56 @@ export class MockTestResultsAvailability {
         district: 'QA Test District',
         subject: 'Math',
         reportType: 'Aggregate',
-        resultCount: 80214,
+        resultCount: 8765,
         status: 'Released'
+      },
+      {
+        schoolYear: 2020,
+        district: 'Alpaca Nunbird District',
+        subject: 'Science',
+        reportType: 'Aggregate',
+        resultCount: 8514,
+        status: 'Reviewing'
+      },
+      {
+        schoolYear: 2020,
+        district: 'Alpaca Nunbird District',
+        subject: 'Math',
+        reportType: 'Aggregate',
+        resultCount: 214,
+        status: 'Loading'
+      },
+      {
+        schoolYear: 2020,
+        district: 'Alpaca Nunbird District',
+        subject: 'Math',
+        reportType: 'Individual',
+        resultCount: 467,
+        status: 'Loading'
+      },
+      {
+        schoolYear: 2020,
+        district: 'Igen District',
+        subject: 'Math',
+        reportType: 'Aggregate',
+        resultCount: 2031,
+        status: 'Reviewing'
+      },
+      {
+        schoolYear: 2020,
+        district: 'Igen District',
+        subject: 'ELA',
+        reportType: 'Aggregate',
+        resultCount: 6721,
+        status: 'Released'
+      },
+      {
+        schoolYear: 2020,
+        district: 'Igen District',
+        subject: 'Science',
+        reportType: 'Aggregate',
+        resultCount: 0,
+        status: 'Loading'
       }
     ];
   }
