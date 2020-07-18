@@ -32,9 +32,9 @@
           [ngTemplateOutletContext]="row"
         ></ng-template>
 
-        <ng-container *ngSwitchCase="'type'">
+        <span *ngSwitchCase="'type'" style="width: 285px;">
           {{ 'reports.report-type.' + row.report.query.type | translate }}
-        </ng-container>
+        </span>
 
         <ng-container *ngSwitchCase="'assessmentTypes'">
           {{
@@ -46,26 +46,13 @@
           }}
         </ng-container>
 
-        <ng-container *ngSwitchCase="'subjects'">
-          <ng-container *ngIf="row.subjectCodes.length === 0">
-            {{ 'reports.all' | translate }}
-          </ng-container>
-          <ng-container
-            *ngFor="let subjectCode of row.subjectCodes; let last = last"
-          >
-            {{ 'subject.' + subjectCode + '.name' | translate
-            }}<ng-container *ngIf="!last">, </ng-container>
-          </ng-container>
-        </ng-container>
+        <span *ngSwitchCase="'subjects'" [title]="subjectName(row)">
+          {{ subjectName(row) }}
+        </span>
 
-        <ng-container *ngSwitchCase="'schoolYears'">
-          <ng-container
-            *ngFor="let schoolYear of row.schoolYears; let last = last"
-          >
-            {{ schoolYear | schoolYear
-            }}<ng-container *ngIf="!last">, </ng-container>
-          </ng-container>
-        </ng-container>
+        <span *ngSwitchCase="'schoolYears'" [title]="academicYears(row)">
+          {{ academicYears(row) | translate }}
+        </span>
 
         <span
           *ngSwitchCase="'status'"

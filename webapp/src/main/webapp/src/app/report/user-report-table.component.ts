@@ -1,6 +1,7 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 import { UserReport } from './report';
 import { getSchoolYears, getSubjectCodes } from './reports';
+import { TranslateService } from '@ngx-translate/core';
 
 class Column {
   id: string;
@@ -58,5 +59,23 @@ export class UserReportTableComponent {
   @Input()
   set userReports(values: UserReport[]) {
     this.rows = (values || []).map(toUserReportTableRow);
+  }
+
+  constructor(private translate: TranslateService) {}
+
+  academicYears(row): string {
+    // use prev year of school year to create academic year : example 2019 => 2018-19
+    return row.schoolYears
+      .map(y => y - 1 + '-' + y.toString().slice(-2))
+      .join(',');
+  }
+
+  subjectName(row) {
+    if (row.subjectCodes.length === 0) {
+      return `${this.translate.instant('reports.all')}`;
+    }
+    return row.subjectCodes.map(
+      c => `${this.translate.instant('subject.' + c + '.name')}`
+    );
   }
 }
