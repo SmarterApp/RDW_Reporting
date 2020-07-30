@@ -1,5 +1,5 @@
 import { AssessmentItem } from './assessment-item.model';
-import { WritingTraitScoreSummary } from './writing-trait-score-summary.model';
+import { TraitScoreSummary } from './trait-score-summary.model';
 import { ExportRequest } from './export-request.interface';
 
 /**
@@ -7,6 +7,6 @@ import { ExportRequest } from './export-request.interface';
  */
 export interface ExportWritingTraitsRequest extends ExportRequest {
   assessmentItems: AssessmentItem[];
-  summaries: Map<String, WritingTraitScoreSummary>[];
+  summaries: Map<String, TraitScoreSummary>[];
   showAsPercent: boolean;
 }

@@ -3,18 +3,6 @@
   text="{{ 'common.messages.loading' | translate }}"
 ></spinner>
 <ng-template #loaded>
-  <div class="row" *ngIf="!loading">
-    <div class="col-md-12">
-      <span class="pull-right"
-        ><em>
-          {{
-            'assessment-results.writing-trait-scores-purpose-instructions'
-              | translate
-          }}</em
-        ></span
-      >
-    </div>
-  </div>
   <ng-template
     [ngTemplateOutlet]="view"
     [ngTemplateOutletContext]="{
@@ -30,6 +18,11 @@
   ></ng-template>
 </ng-template>
 
+<!-- Template for just the table displaying the trait category scores.
+   It has columns for "category", "avg/max score", and each possible score value.
+   It has rows for each category (which may include "total").
+   It is used appropriately by the main template, based on the assessment type.
+ -->
 <ng-template
   #traitScoreSummaryTable
   let-type="type"
@@ -62,7 +55,6 @@
                 | translate: { id: column.index }
             }}
           </span>
-
           <span *ngSwitchDefault>
             {{
               'common.results.assessment-item-columns.' + column.id | translate
@@ -78,19 +70,25 @@
       let-i="rowIndex"
       let-columns="columns"
     >
-      <tr *ngIf="!(type === 'sum' && item.trait.type == totalType)">
+      <tr>
         <td *ngFor="let column of columns" [ngSwitch]="column.id">
+          <!-- category translations have different sources: for interims, use the hard-coded
+               values for legacy (ELA); for summatives, use values from subject definition.
+               And "total" is a special case.
+           -->
           <div *ngSwitchCase="'category'">
-            <span *ngIf="type === 'sum'">{{
-              'subject.' +
-                subject +
-                '.trait.category.' +
-                item.trait.type +
-                '.name' | translate
-            }}</span>
-            <span *ngIf="item.trait.type != totalType && type !== 'sum'">{{
-              'common.writing-trait.' + item.trait.type | translate
-            }}</span>
+            <span *ngIf="type === 'sum'">
+              {{
+                'subject.' +
+                  subject +
+                  '.trait.category.' +
+                  item.trait.type +
+                  '.name' | translate
+              }}
+            </span>
+            <span *ngIf="item.trait.type != totalType && type !== 'sum'">
+              {{ 'common.writing-trait.' + item.trait.type | translate }}
+            </span>
             <span
               *ngIf="item.trait.type == totalType && type !== 'sum'"
               info-button
@@ -105,20 +103,22 @@
           </div>
 
           <div *ngSwitchCase="'item-point'">
-            <span [hidden]="showValuesAsPercent">{{
-              item.numbers[column.index]
-            }}</span>
+            <span [hidden]="showValuesAsPercent">
+              {{ item.numbers[column.index] }}</span
+            >
             <span
               [hidden]="
                 !showValuesAsPercent || item.percents[column.index] == null
               "
-              >{{ item.percents[column.index] | number: '1.0-0' }}%</span
             >
+              {{ item.percents[column.index] | number: '1.0-0' }}%
+            </span>
           </div>
         </td>
       </tr>
     </ng-template>
 
+    <!-- TODO - how is this used??? -->
     <ng-template pTemplate="emptymessage" let-columns>
       <tr>
         <td [attr.colspan]="columns.length">
@@ -129,6 +129,18 @@
   </p-table>
 </ng-template>
 
+<!-- The main template for the component.
+  For summative assessments:
+    * instruction info text about selecting a purpose
+    * a tabbed view, each a purpose with a trait score table
+    * the trait score table does not have a total row
+  For interim assessments
+    * item detail table for the WER item
+    * single trait score table with a title ("Points Distribution")
+    * the trait score table has a total row
+
+  TODO - perhaps instead have two templates, one for interims, one for summatives?
+ -->
 <ng-template
   #view
   let-assessment="assessment"
@@ -140,6 +152,7 @@
   let-writingTraits="writingTraits"
   let-writingTraitType="writingTraitType"
 >
+  <!-- table showing WER item (interim-only) -->
   <p-table
     #writingTraitTable
     *ngIf="assessment.type !== 'sum'"
@@ -269,6 +282,7 @@
       </tr>
     </ng-template>
 
+    <!-- TODO - how is this used??? -->
     <ng-template pTemplate="emptymessage" let-columns>
       <tr>
         <td [attr.colspan]="columns.length">
@@ -278,8 +292,9 @@
     </ng-template>
   </p-table>
 
+  <!-- trait summary table(s) -->
   <div *ngFor="let traitScoreSummary of traitScoreSummaries">
-    <!-- Interim type assessments have single table for writing traits-->
+    <!-- Interim type assessments have single table for writing traits (expects to loop just once) -->
     <ng-container *ngIf="assessment.type !== 'sum'">
       <h4 *ngIf="hasWritingTraitItems" class="pt-md">
         {{ 'writing-trait-scores.aggregate-header' | translate }}
@@ -297,6 +312,19 @@
     </ng-container>
 
     <!-- Summative type assessments have a table for each writing purpose on a tabbed panel-->
+    <div
+      class="row"
+      *ngIf="assessment.type === 'sum' && traitScoreSummary.size > 0"
+    >
+      <div class="col-md-12">
+        <span class="pull-right">
+          <em>{{
+            'assessment-results.writing-trait-scores-purpose-instructions'
+              | translate
+          }}</em>
+        </span>
+      </div>
+    </div>
     <tabset *ngIf="assessment.type === 'sum' && traitScoreSummary.size > 0">
       <tab *ngFor="let purpose of purposes(traitScoreSummary)">
         <ng-template tabHeading>

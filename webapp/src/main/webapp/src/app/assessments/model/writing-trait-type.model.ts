@@ -1,5 +1,5 @@
 /**
- * This various writing trait types
+ * The legacy ELA writing trait types.
  */
 export enum WritingTraitType {
   Evidence = 'evidence',

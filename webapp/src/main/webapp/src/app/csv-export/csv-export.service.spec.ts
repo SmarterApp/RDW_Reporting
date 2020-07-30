@@ -12,11 +12,11 @@ import { Student } from '../student/model/student.model';
 import { ExportItemsRequest } from '../assessments/model/export-items-request.model';
 import { ExportWritingTraitsRequest } from '../assessments/model/export-writing-trait-request.model';
 import { ExportTargetReportRequest } from '../assessments/model/export-target-report-request.model';
-import { WritingTraitScoreSummary } from '../assessments/model/writing-trait-score-summary.model';
+import { TraitScoreSummary } from '../assessments/model/trait-score-summary.model';
 import { AssessmentItem } from '../assessments/model/assessment-item.model';
 import { RequestType } from '../shared/enum/request-type.enum';
-import { WritingTrait } from '../assessments/model/writing-trait.model';
-import { WritingTraitAggregate } from '../assessments/model/writing-trait-aggregate.model';
+import { TraitCategoryInfo } from '../assessments/model/trait-category-info.model';
+import { TraitCategoryAggregate } from '../assessments/model/trait-category-aggregate.model';
 
 function mockitoStyleSpy<T>(prototype: any): T {
   return jasmine.createSpyObj(
@@ -44,12 +44,12 @@ function spyOnBuilderMethods<T extends any>(
 
 function buildSampleRequest(interim = false) {
   const purpose = 'test';
-  const trait: WritingTrait = { type: 'trait', maxPoints: 100 };
+  const trait: TraitCategoryInfo = { type: 'trait', maxPoints: 100 };
   const scoreSummary = interim
-    ? WritingTraitScoreSummary.InterimScoreSummary()
-    : new WritingTraitScoreSummary([trait]);
+    ? TraitScoreSummary.InterimTraitScoreSummary()
+    : TraitScoreSummary.of([trait]);
 
-  const summaries: Map<string, WritingTraitScoreSummary>[] = [
+  const summaries: Map<string, TraitScoreSummary>[] = [
     new Map([[purpose, scoreSummary]])
   ];
 
@@ -66,12 +66,12 @@ function buildSampleRequest(interim = false) {
 
 // TODO refactor csv export service and separate out filtering logic so it can be tested independently
 describe('CsvExportService', () => {
-  let csvBuilder: CsvBuilder = new CsvBuilder(null, null, null, null, null);
-  let subjectService: SubjectService = new SubjectService(null);
-  let examSearchFilterService: ExamSearchFilterService = new ExamSearchFilterService(
+  const csvBuilder: CsvBuilder = new CsvBuilder(null, null, null, null, null);
+  const subjectService: SubjectService = new SubjectService(null);
+  const examSearchFilterService: ExamSearchFilterService = new ExamSearchFilterService(
     null
   );
-  let embargoService: ReportingEmbargoService = new ReportingEmbargoService(
+  const embargoService: ReportingEmbargoService = new ReportingEmbargoService(
     null,
     null,
     null
@@ -273,7 +273,7 @@ describe('CsvExportService', () => {
       {
         assessmentItem: <AssessmentItem>{ id: 1 },
         purpose: 'test',
-        writingTraitAggregate: new WritingTraitAggregate(trait)
+        writingTraitAggregate: new TraitCategoryAggregate(trait)
       }
     ]);
   });

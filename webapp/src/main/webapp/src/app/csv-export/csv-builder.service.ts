@@ -9,7 +9,7 @@ import { AssessmentItem } from '../assessments/model/assessment-item.model';
 import { DynamicItemField } from '../assessments/model/item-point-field.model';
 import { SchoolYearPipe } from '../shared/format/school-year.pipe';
 import { removeHtml, Utils } from '../shared/support/support';
-import { WritingTraitAggregate } from '../assessments/model/writing-trait-aggregate.model';
+import { TraitCategoryAggregate } from '../assessments/model/trait-category-aggregate.model';
 import { TranslateDatePipe } from '../shared/i18n/translate-date.pipe';
 import { TranslateNumberPipe } from '../shared/i18n/translate-number.pipe';
 import {
@@ -765,7 +765,7 @@ export class CsvBuilder {
   }
 
   withWritingTraitAggregate(
-    getWritingTraitAggregate: (item: any) => WritingTraitAggregate,
+    getWritingTraitAggregate: (item: any) => TraitCategoryAggregate,
     maxPoints: number,
     showAsPercent: boolean
   ) {
