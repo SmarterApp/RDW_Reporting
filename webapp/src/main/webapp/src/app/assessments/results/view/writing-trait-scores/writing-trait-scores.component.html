@@ -12,8 +12,7 @@
       itemViews: itemViews$ | async,
       summaryColumnsBySummary: summaryColumnsBySummary$ | async,
       traitScoreSummaries: traitScoreSummaries$ | async,
-      writingTraits: writingTraits$ | async,
-      writingTraitType: writingTraitType$ | async
+      writingTraitInfo: writingTraitInfo$ | async
     }"
   ></ng-template>
 </ng-template>
@@ -131,15 +130,11 @@
 
 <!-- The main template for the component.
   For summative assessments:
-    * instruction info text about selecting a purpose
+    * instruction info text about selecting a purpose tab
     * a tabbed view, each a purpose with a trait score table
-    * the trait score table does not have a total row
-  For interim assessments
+  For interim assessments:
     * item detail table for the WER item
     * single trait score table with a title ("Points Distribution")
-    * the trait score table has a total row
-
-  TODO - perhaps instead have two templates, one for interims, one for summatives?
  -->
 <ng-template
   #view
@@ -149,8 +144,7 @@
   let-itemViews="itemViews"
   let-summaryColumnsBySummary="summaryColumnsBySummary"
   let-traitScoreSummaries="traitScoreSummaries"
-  let-writingTraits="writingTraits"
-  let-writingTraitType="writingTraitType"
+  let-writingTraitInfo="writingTraitInfo"
 >
   <!-- table showing WER item (interim-only) -->
   <p-table
@@ -233,8 +227,8 @@
 
           <span *ngSwitchCase="'purpose'">
             {{
-              writingTraitType != null
-                ? writingTraitType
+              writingTraitInfo?.purpose != null
+                ? writingTraitInfo.purpose
                 : ('common.results.assessment-item-columns.purpose-not-specified'
                   | translate)
             }}
@@ -275,7 +269,7 @@
             [exams]="exams"
             [showItemDetails]="assessment.type !== 'sum'"
             [subject]="assessment.subject"
-            [writingTraits]="writingTraits"
+            [writingTraits]="writingTraitInfo.categories"
           >
           </item-tab>
         </td>
@@ -292,7 +286,7 @@
     </ng-template>
   </p-table>
 
-  <!-- trait summary table(s) -->
+  <!-- trait summary table -->
   <div *ngFor="let traitScoreSummary of traitScoreSummaries">
     <!-- Interim type assessments have single table for writing traits (expects to loop just once) -->
     <ng-container *ngIf="assessment.type !== 'sum'">
@@ -313,8 +307,8 @@
 
     <!-- Summative type assessments have a table for each writing purpose on a tabbed panel-->
     <div
-      class="row"
       *ngIf="assessment.type === 'sum' && traitScoreSummary.size > 0"
+      class="row"
     >
       <div class="col-md-12">
         <span class="pull-right">

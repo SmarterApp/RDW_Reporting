@@ -30,6 +30,13 @@ interface ItemView {
   fullCreditPercent: number;
 }
 
+// used to supplement the data for the WER item
+// (used only for interims that derive trait scores from item-level data)
+interface WritingTraitInfo {
+  purpose: string;
+  categories: string[];
+}
+
 class Column {
   id: string;
   field: string;
@@ -150,8 +157,7 @@ export class WritingTraitScoresComponent
   itemViews$: Observable<ItemView[]>;
   hasWritingTraitItems$: Observable<boolean>;
   traitScoreSummaries$: Observable<Map<string, TraitScoreSummary>[]>;
-  writingTraits$: Observable<string[]>;
-  writingTraitType$: Observable<string>;
+  writingTraitInfo$: Observable<WritingTraitInfo>;
   summaryColumnsBySummary$: Observable<
     Map<string, Map<TraitScoreSummary, Column[]>>
   >;
@@ -178,16 +184,6 @@ export class WritingTraitScoresComponent
   ngOnInit() {
     // this.assessment$.subscribe(val => console.log(val));
 
-    // TODO - this hard-coding needs to go away, what are they used for?
-    // TODO   if needed, the summative values should be pulled from exams
-    this.writingTraits$ = this.assessment$.pipe(
-      map(({ type }) =>
-        type === 'sum'
-          ? []
-          : ['evidence', 'organization', 'conventions', 'total']
-      )
-    );
-
     this.items$ = combineLatest(
       this.assessment$,
       this.assessmentProvider$
@@ -203,11 +199,19 @@ export class WritingTraitScoresComponent
       map(items => items.length > 0)
     );
 
-    // TODO - where is this used? if only for interims, document that
-    this.writingTraitType$ = this.items$.pipe(
-      map(items =>
-        items.length > 0 ? items[0].performanceTaskWritingType : undefined
-      )
+    // create supplementary writing trait info (for interims only)
+    this.writingTraitInfo$ = combineLatest(this.assessment$, this.items$).pipe(
+      takeUntil(this.destroyed$),
+      map(([assessment, items]) =>
+        assessment.type === 'sum' || items.length === 0
+          ? undefined
+          : {
+              // yes, these are just hard-coded
+              categories: ['evidence', 'organization', 'conventions', 'total'],
+              purpose: items[0].performanceTaskWritingType
+            }
+      ),
+      share()
     );
 
     this.itemViews$ = combineLatest(this.items$, this.exams$).pipe(
@@ -231,11 +235,12 @@ export class WritingTraitScoresComponent
       shareReplay(1)
     );
 
-    // traitScoreSummaries is an array of maps of {purpose -> TraitScoreSummary}.
-    // For summatives, this is derived from exam-level trait scores.
-    // For interims it comes from item-level data.
-    //
-    // TODO - Why is it an array? Darn good question. I think it shouldn't be.
+    // traitScoreSummaries is an array of maps of {purpose -> TraitScoreSummary}. It is
+    // an array, but the system might misbehave if there is more than one entry.
+    // For summatives, this is derived from exam-level trait scores, and there will
+    // always be exactly one summary in the array.
+    // For interims it comes from item-level data, and, since they can technically be
+    // more than one WER item in an assessment, the array could have more than one entry.
     this.traitScoreSummaries$ = combineLatest(
       this.assessment$,
       this.itemViews$,
@@ -251,10 +256,6 @@ export class WritingTraitScoresComponent
       }),
       shareReplay(1)
     );
-
-    // TODO - remove this
-    console.log('Trait score summaries:');
-    this.traitScoreSummaries$.subscribe(val => console.log(val));
 
     this.summaryColumnsBySummary$ = combineLatest(
       this.traitScoreSummaries$
