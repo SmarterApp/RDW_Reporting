@@ -16,9 +16,7 @@ import { SubjectService } from '../subject/subject.service';
 import { isNullOrEmpty } from '../shared/support/support';
 import { ExamSearchFilterService } from '../exam/service/exam-search-filter.service';
 import { ReportingEmbargoService } from '../shared/embargo/reporting-embargo.service';
-import { map } from 'rxjs/operators';
 import { createFilter } from '../shared/embargo/embargoes';
-import { AssessmentType } from '../shared/model/assessment-type';
 
 /**
  * Represents a specific type of score for an assessment (e.g. claim, alternate)
@@ -38,7 +36,7 @@ interface AssessmentScoreType {
  * @param getAssessment Method to get the assessment from the value
  * @param getScoreCodes Method to get the score codes from the assessment
  */
-function getScoreCodes<T>(
+function scoreCodesHelper<T>(
   values: T[],
   subjectCodes: string[],
   getAssessment: (value: T) => Assessment,
@@ -50,7 +48,7 @@ function getScoreCodes<T>(
       if (assessment != null && !isNullOrEmpty(getScoreCodes(assessment))) {
         const { subject: subjectCode, type: assessmentTypeCode } = assessment;
         const score = scoreCodes.find(
-          score => score.subjectCode === subjectCode
+          scoreType => scoreType.subjectCode === subjectCode
         );
         if (score == null) {
           scoreCodes.push({
@@ -81,7 +79,6 @@ export class CsvExportService {
    * Export a filtered collection of AssessmentExams as a CSV download.
    *
    * @param assessmentExams The source AssessmentExam instances
-   * @param filterBy        The filter criteria
    * @param filename        The export file name
    */
   exportAssessmentExams(assessmentExams: AssessmentExam[], filename: string) {
@@ -137,7 +134,7 @@ export class CsvExportService {
           .withScoreAndErrorBand(getExam);
 
         // alternate score codes
-        getScoreCodes(
+        scoreCodesHelper(
           sourceData,
           subjectCodes,
           getAssessment,
@@ -166,7 +163,7 @@ export class CsvExportService {
         });
 
         // claim scores
-        getScoreCodes(
+        scoreCodesHelper(
           sourceData,
           subjectCodes,
           getAssessment,
@@ -256,7 +253,7 @@ export class CsvExportService {
         .withScoreAndErrorBand(getExam);
 
       // alternate score codes
-      getScoreCodes(
+      scoreCodesHelper(
         wrappers,
         subjectCodes,
         getAssessment,
@@ -285,7 +282,7 @@ export class CsvExportService {
       });
 
       // claim scores
-      getScoreCodes(
+      scoreCodesHelper(
         wrappers,
         subjectCodes,
         getAssessment,
@@ -368,32 +365,22 @@ export class CsvExportService {
 
     exportRequest.assessmentItems.forEach((item, i) => {
       exportRequest.summaries[i].forEach((summary, purpose) => {
-        summary.rows
-          .filter(
-            row =>
-              exportRequest.assessment.type !== 'sum' ||
-              row.trait.type !== 'total'
-          )
-          .forEach(row => {
-            compositeRows.push({
-              assessmentItem: item,
-              purpose: purpose,
-              writingTraitAggregate: row
-            });
-
-            if (row.trait.maxPoints > maxPoints) {
-              maxPoints = row.trait.maxPoints;
-            }
+        summary.rows.forEach(row => {
+          compositeRows.push({
+            assessmentItem: item,
+            purpose: purpose,
+            traitCategoryAggregate: row
           });
+
+          if (row.trait.maxPoints > maxPoints) {
+            maxPoints = row.trait.maxPoints;
+          }
+        });
       });
     });
 
     const getAssessment = () => exportRequest.assessment;
     const getAssessmentItem = item => item.assessmentItem;
-    const getPurpose = item =>
-      exportRequest.assessment.type === 'sum'
-        ? item.purpose
-        : item.assessmentItem.performanceTaskWritingType;
 
     this.embargoService.getEmbargo().subscribe(embargo => {
       // filter out embargoed results
@@ -417,13 +404,11 @@ export class CsvExportService {
         .withItemDifficulty(getAssessmentItem)
         .withStandards(getAssessmentItem)
         .withFullCredit(getAssessmentItem, exportRequest.showAsPercent)
-        .withPerformanceTaskWritingType(
-          getPurpose,
+        .withCategoryTraitAggregate(
           exportRequest.assessment.subject,
-          exportRequest.assessment.type === 'sum'
-        )
-        .withWritingTraitAggregate(
-          item => item.writingTraitAggregate,
+          exportRequest.assessment.type === 'sum',
+          item => item.purpose,
+          item => item.traitCategoryAggregate,
           maxPoints,
           exportRequest.showAsPercent
         )

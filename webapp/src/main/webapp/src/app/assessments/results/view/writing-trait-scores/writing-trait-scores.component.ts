@@ -223,7 +223,7 @@ export class WritingTraitScoresComponent
               exams.some(exam => exam.id === score.examId)
             )
           }),
-          // TODO Uncomment to enable the writing trait tab
+          // Uncomment to enable the writing trait tab
           // responsesAssessmentItem: toStudentResponsesAssessmentItem(item),
           fullCreditCount: fullCreditItemCount(item.scores, item.maxPoints),
           fullCreditPercent: fullCreditItemPercent(item.scores, item.maxPoints)
@@ -296,7 +296,7 @@ export class WritingTraitScoresComponent
           assessmentItems,
           summaries: summaries,
           showAsPercent: this.showValuesAsPercent,
-          type: RequestType.WritingTraitScores
+          type: RequestType.TraitScores
         };
       })
     );

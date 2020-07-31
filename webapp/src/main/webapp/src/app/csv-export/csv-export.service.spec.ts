@@ -55,7 +55,7 @@ function buildSampleRequest(interim = false) {
 
   const request: ExportWritingTraitsRequest = {
     assessment: <Assessment>{ type: interim ? 'ica' : 'sum', schoolYear: 1000 },
-    type: RequestType.WritingTraitScores,
+    type: RequestType.TraitScores,
     assessmentItems: [<AssessmentItem>{ id: 1 }],
     summaries: summaries,
     showAsPercent: true
@@ -273,7 +273,7 @@ describe('CsvExportService', () => {
       {
         assessmentItem: <AssessmentItem>{ id: 1 },
         purpose: 'test',
-        writingTraitAggregate: new TraitCategoryAggregate(trait)
+        traitCategoryAggregate: new TraitCategoryAggregate(trait)
       }
     ]);
   });

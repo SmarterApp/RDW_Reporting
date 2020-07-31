@@ -651,26 +651,6 @@ export class CsvBuilder {
     return this;
   }
 
-  withPerformanceTaskWritingType(
-    getPurpose: (item: any) => string,
-    subject: string,
-    isSummative: boolean
-  ) {
-    return this.withColumn(
-      this.translateService.instant(
-        'common.results.assessment-item-columns.purpose'
-      ),
-      item => {
-        const purpose = getPurpose(item);
-        return isSummative
-          ? this.translateService.instant(
-              'subject.' + subject + '.trait.purpose.' + purpose + '.name'
-            )
-          : purpose;
-      }
-    );
-  }
-
   withGroupName(getGroupName: (item: any) => string) {
     return this.withColumn(
       this.translateService.instant('groups.columns.group'),
@@ -764,21 +744,56 @@ export class CsvBuilder {
     return this;
   }
 
-  withWritingTraitAggregate(
-    getWritingTraitAggregate: (item: any) => TraitCategoryAggregate,
+  /**
+   * Emit trait columns: purpose, category, avg/max points, and counts per point.
+   * Note: translation keys for purpose and category are different for interims
+   * and summatives: for interims use the legacy hard-coded keys; for summatives
+   * use the newer subject-specific trait keys.
+   *
+   * This is a larger-than-typical csv-builder method. It could be broken up a bit
+   * but then there would be 2-5 methods with similar arguments.
+   *
+   * @param subject                    subject code, e.g. ELA
+   * @param isSummative                true if this assessment is summative
+   * @param getPurpose                 functor to get purpose from row
+   * @param getTraitCategoryAggregate  functor to get category aggregate from row
+   * @param maxPoints                  max points across all rows
+   * @param showAsPercent              to show percent, false to show counts
+   */
+  withCategoryTraitAggregate(
+    subject: string,
+    isSummative: boolean,
+    getPurpose: (item: any) => string,
+    getTraitCategoryAggregate: (item: any) => TraitCategoryAggregate,
     maxPoints: number,
     showAsPercent: boolean
   ) {
     this.withColumn(
       this.translateService.instant(
+        'common.results.assessment-item-columns.purpose'
+      ),
+      item => {
+        const purpose = getPurpose(item);
+        return isSummative
+          ? this.translateService.instant(
+              'subject.' + subject + '.trait.purpose.' + purpose + '.name'
+            )
+          : purpose;
+      }
+    );
+
+    this.withColumn(
+      this.translateService.instant(
         'common.results.assessment-item-columns.category'
       ),
-      item =>
-        this.translateService.instant(
-          'subject.ELA.trait.category.' +
-            getWritingTraitAggregate(item).trait.type +
-            '.name'
-        )
+      item => {
+        const category = getTraitCategoryAggregate(item).trait.type;
+        return this.translateService.instant(
+          isSummative
+            ? 'subject.' + subject + '.trait.category.' + category + '.name'
+            : 'common.writing-trait.' + category
+        );
+      }
     );
 
     this.withColumn(
@@ -787,7 +802,7 @@ export class CsvBuilder {
       ),
       item =>
         this.numberPipe.transform(
-          getWritingTraitAggregate(item).average,
+          getTraitCategoryAggregate(item).average,
           '1.0-1'
         )
     );
@@ -798,7 +813,7 @@ export class CsvBuilder {
       ),
       item =>
         this.numberAsString(
-          getWritingTraitAggregate(item).trait.maxPoints,
+          getTraitCategoryAggregate(item).trait.maxPoints,
           false
         )
     );
@@ -811,8 +826,8 @@ export class CsvBuilder {
         ),
         item => {
           const value = showAsPercent
-            ? getWritingTraitAggregate(item).percents[i]
-            : getWritingTraitAggregate(item).numbers[i];
+            ? getTraitCategoryAggregate(item).percents[i]
+            : getTraitCategoryAggregate(item).numbers[i];
           return value == null ? '' : this.numberAsString(value, showAsPercent);
         }
       );

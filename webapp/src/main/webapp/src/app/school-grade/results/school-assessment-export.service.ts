@@ -24,7 +24,7 @@ export class SchoolAssessmentExportService implements AssessmentExporter {
   ) {}
 
   exportItemsToCsv(exportRequest: ExportItemsRequest) {
-    let filename: string = this.getFilename(exportRequest);
+    const filename: string = this.getFilename(exportRequest);
 
     this.angulartics2.eventTrack.next({
       action: 'Export School/Grade Results by Items',
@@ -37,10 +37,10 @@ export class SchoolAssessmentExportService implements AssessmentExporter {
   }
 
   exportWritingTraitScoresToCsv(exportRequest: ExportWritingTraitsRequest) {
-    let filename: string = this.getFilename(exportRequest);
+    const filename: string = this.getFilename(exportRequest);
 
     this.angulartics2.eventTrack.next({
-      action: 'Export School/Grade Writing Trait Scores',
+      action: 'Export School/Grade Trait Scores',
       properties: {
         category: 'Export'
       }
@@ -50,7 +50,7 @@ export class SchoolAssessmentExportService implements AssessmentExporter {
   }
 
   exportTargetScoresToCsv(exportRequest: ExportTargetReportRequest) {
-    let filename: string = this.getFilename(exportRequest);
+    const filename: string = this.getFilename(exportRequest);
 
     this.angulartics2.eventTrack.next({
       action: 'Export School/Grade Target Report Scores',
@@ -63,7 +63,7 @@ export class SchoolAssessmentExportService implements AssessmentExporter {
   }
 
   private getFilename(exportRequest: ExportRequest) {
-    let assessment: Assessment = exportRequest.assessment;
+    const assessment: Assessment = exportRequest.assessment;
     return (
       this.schoolName +
       '-' +
