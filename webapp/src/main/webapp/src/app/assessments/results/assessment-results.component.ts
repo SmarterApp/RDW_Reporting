@@ -246,6 +246,11 @@ export class AssessmentResultsComponent implements OnInit {
     );
   }
 
+  /**
+   * The writing trait scores view should be listed for summative assessments
+   * that have trait report enabled (exam-level), and for ELA assessments that
+   * have WER items (item-level).
+   */
   get displayWritingTraitScores(): boolean {
     return (
       (this._assessmentExam.assessment.subject === 'ELA' &&
@@ -255,8 +260,19 @@ export class AssessmentResultsComponent implements OnInit {
     );
   }
 
+  /**
+   * The writing trait scores view should be enabled for all exam-level (summative)
+   * assessments, and for item-level assessments only if item-level data is being
+   * displayed (which is based on the exam having a date after item-level data was
+   * introduced).
+   *
+   * NOTE: the "enable" flag is checked only if the "display" flag is true.
+   */
   get enableWritingTraitScores(): boolean {
-    return this.hasExamsAfterMinimumItemYear;
+    return (
+      this._assessmentExam.assessment.type === 'sum' ||
+      this.displayItemLevelData
+    );
   }
 
   get displayDistractorAnalysis(): boolean {
