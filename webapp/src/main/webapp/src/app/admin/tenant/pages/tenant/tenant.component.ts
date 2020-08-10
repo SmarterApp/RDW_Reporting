@@ -126,13 +126,24 @@ export class TenantComponent implements OnInit, OnDestroy {
       refCount()
     );
 
-    this.localizationDefaults$ = this.translationLoader
-      .getTranslation(this.languageStore.currentLanguage)
-      .pipe(
-        map(defaults => flatten(defaults)),
-        publishReplay(),
-        refCount()
-      );
+    // If editing an existing tenant then load the localizations and details
+    // (if not, this is the create path so get default localizations and tenant)
+
+    this.localizationDefaults$ = this.route.params.pipe(
+      mergeMap(({ id }) =>
+        (id != null
+          ? this.translationLoader.getTenantTranslation(
+              this.languageStore.currentLanguage,
+              id
+            )
+          : this.translationLoader.getTranslation(
+              this.languageStore.currentLanguage
+            )
+        ).pipe(map(translations => flatten(translations)))
+      ),
+      publishReplay(),
+      refCount()
+    );
 
     this.tenant$ = this.route.params.pipe(
       mergeMap(({ id }) =>
