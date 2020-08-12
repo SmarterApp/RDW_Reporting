@@ -279,6 +279,45 @@ tenantProperties:
       name: Test Tenant
 ```
 
+#### Remote Debugging (from IDE)
+There may be times when it is necessary (or just easier) to remote debug instead of running from the IDE.
+
+If you are running docker locally, this is straightforward:
+1. Modify the docker-compose.yml file to enable the jvm debug client in the application of interest.
+There are examples in the checked in file, but you'll be adding an environment variable and a port
+mapping; example snippet:
+```yaml
+    ports:
+      - 5007:5007
+    environment:
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5007
+```
+2. Configure your IDE to remote debug to localhost on the specified port, `5007` in this example.
+
+If you want to remote debug a kubernetes instance, there is an extra step.
+1. Modify the k8s deployment configuration and add an environment variable and container port;
+example snippet:
+```yaml
+kind: Deployment
+spec:
+  template:
+    spec:
+      containers:
+        env:
+        - name: JAVA_OPTS
+          value: "<other settings> -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5007"
+        ports:
+        - containerPort: 5007
+```
+2. Use `kubectl` to port forward the jvm debug port for the pod of interest. This needs a dedicated terminal
+(or you need to background the process). 
+```bash
+kubectl get po | grep myapp
+myapp-deployment-6d9f7fb7b-qmd5k     1/1     Running   0          17h
+
+kubectl port-forward myapp-deployment-6d9f7fb7b-qmd5k 5007:5007
+``` 
+3. Configure your IDE to remote debug to localhost on the specified port, `5007` in this example.
 
 #### Misc
 It would be great if somebody could provide instructions for running the micro-services without the fronting webapp.
