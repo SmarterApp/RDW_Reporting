@@ -322,7 +322,7 @@ export class WritingTraitScoresComponent
   }
 
   purposes(traitScoreSummary: Map<string, any>) {
-    return Array.from(traitScoreSummary.keys());
+    return Array.from(traitScoreSummary.keys()).sort();
   }
 
   getNameForPurpose(subjectCode: string, purposeCode: string) {

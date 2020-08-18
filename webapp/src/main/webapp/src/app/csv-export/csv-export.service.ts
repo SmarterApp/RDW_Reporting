@@ -364,19 +364,26 @@ export class CsvExportService {
     let maxPoints = 0;
 
     exportRequest.assessmentItems.forEach((item, i) => {
-      exportRequest.summaries[i].forEach((summary, purpose) => {
-        summary.rows.forEach(row => {
-          compositeRows.push({
-            assessmentItem: item,
-            purpose: purpose,
-            traitCategoryAggregate: row
-          });
+      const summaryMap = exportRequest.summaries[i];
+      // sort the summary map by purpose, then sort the rows by category (type)
+      Array.from(summaryMap.keys())
+        .sort()
+        .forEach(purpose => {
+          summaryMap
+            .get(purpose)
+            .rows.sort((r1, r2) => r1.trait.type.localeCompare(r2.trait.type))
+            .forEach(row => {
+              compositeRows.push({
+                assessmentItem: item,
+                purpose: purpose,
+                traitCategoryAggregate: row
+              });
 
-          if (row.trait.maxPoints > maxPoints) {
-            maxPoints = row.trait.maxPoints;
-          }
+              if (row.trait.maxPoints > maxPoints) {
+                maxPoints = row.trait.maxPoints;
+              }
+            });
         });
-      });
     });
 
     const getAssessment = () => exportRequest.assessment;
