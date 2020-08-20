@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<!--/*
+This is a reference template for custom ISR templates. The intent is to demonstrate all
+the available context data, and general Thymeleaf techniques and RDW-specific helper
+functions for rendering that data. Please refer to the RDW Admin Guide and Thymeleaf 3
+documentation for more help and guidance.
+
+Note that this is not a "pretty" template; it leaves aesthetics to the report designer.
+
+An ISR template is included in the report as a fragment via th:replace. The template
+name is generated dynamically from the subject code and assessment type. The selector
+is always "body". Without using variables, the inclusion looks something like:
+<div th:replace="ela-iab :: body"></div>
+That requires ISR templates always have content wrapped like this:
+<div th:fragment="body">
+  report content goes here
+</div>
+
+As encouraged in the admin guide, this reference uses Thymeleaf Natural Templating.
+This makes it easier to do design and layout when the context data is incomplete
+because the template may be viewed as a valid HTML document with sample data even
+without Thymeleaf processing.
+*/-->
+
+<!--/* IntelliJ can validate data elements given the class definitions: */-->
+<!--/*@thymesVar id="request" type="org.opentestsystem.rdw.reporting.common.model.StudentPrintableReportQuery"*/-->
+<!--/*@thymesVar id="report" type="org.opentestsystem.rdw.reporting.processor.model.IcaSummativeReport"*/-->
+<!--/*@thymesVar id="support" type="org.opentestsystem.rdw.reporting.processor.service.ReviewViewSupport"*/-->
+
+<!--/* As noted above, all ISR templates must have this wrapper div, exactly like this */-->
+<div th:fragment="body">
+  <!--/* ************************************************************************************ */-->
+  <!--/* This section demonstrates all the data fields available in the report context.       */-->
+  <!--/* ************************************************************************************ */-->
+
+  <!--/* The report object has two direct fields, the subject and assessment, each with
+         a display name available as thymeleaf messages. It is usually safer to use the
+         report object data but, because templates are typically built for a single
+         subject and assessment type, the values may be hard-coded. */-->
+  <span th:text="|Subject code: ${report.subject}|">Subject code: Math</span>
+  <span th:text="|Assessment type code: ${report.assessmentType}|">Assessment type code: sum</span>
+  <span th:text="#{'subject.' + ${report.subject} + '.name'}">Math</span>
+  <span th:text="#{'subject.' + ${report.subject} + '.asmt-type.' + ${report.assessmentType} + '.name'}">Summative</span>
+  <span th:text="#{'subject.' + ${report.subject} + '.asmt-type.' + ${report.assessmentType} + '.long-name'}">SummativeAssessment</span>
+
+  <!--/* The subject definition object has some information about the subject/assessment.
+         Take note of which fields are optional and protected with th:if. */-->
+  <table th:object="${report.subjectDefinition}">
+    <caption>Subject Definition Fields</caption>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+      <th>Translation</th>
+    </tr>
+    <tr>
+      <td>Subject Code</td>
+      <td th:text="*{subjectCode}">Math</td>
+      <td th:text="#{'subject.' + *{subjectCode} + '.name'}">Math</td>
+    </tr>
+    <tr>
+      <td>Assessment Type Code</td>
+      <td th:text="*{asmtTypeCode}">sum</td>
+      <td th:text="#{'subject.' + *{subjectCode} + '.asmt-type.' + *{asmtTypeCode} + '.name'}">Summative</td>
+    </tr>
+    <tr>
+      <td>Performance Levels (Overall)</td>
+      <td th:text="*{performanceLevelCount}">4</td>
+      <td></td>
+    </tr>
+    <tr th:if="*{performanceLevelStandardCutoff}">
+      <td>Standard Cutoff Level (Overall)</td>
+      <td th:text="*{performanceLevelStandardCutoff}">3</td>
+      <td></td>
+    </tr>
+    <tr th:if="*{claimScorePerformanceLevelCount}">
+      <td>Performance Levels (Claim)</td>
+      <td th:text="*{claimScorePerformanceLevelCount}">3</td>
+      <td></td>
+    </tr>
+    <tr th:if="*{altScorePerformanceLevelCount}">
+      <td>Performance Levels (Alt)</td>
+      <td th:text="*{altScorePerformanceLevelCount}">2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Target Report Enabled</td>
+      <td th:text="*{targetReport}">true</td>
+      <td></td>
+    </tr>
+    <tr>
+      <!--/* Yes: if this is false then this template should never be invoked */-->
+      <td>ISR Enabled</td>
+      <td th:text="*{printedReport}">true</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Trait Report Enabled</td>
+      <td th:text="*{traitReport}">false</td>
+      <td></td>
+    </tr>
+    <tr th:unless="*{#lists.isEmpty(scorableClaims)}">
+      <td>Scoreable Claim Codes</td>
+      <td th:utext="*{#strings.listJoin(scorableClaims, '<br/>')}">1<br/>SOCK_2<br/>3</td>
+      <!-- explanation for this mess: for the prototype (viewing without thymeleaf)
+           we want the example text, while, for the template we want the th:block -->
+      <td th:remove="all">Concepts and Procedures<br/>Problem Solving and Modeling &amp; Data Analysis<br/>Communicating Reasoning<br/></td>
+      <!--/*/ <td><th:block th:each="claim : *{scorableClaims}" th:utext="#{'subject.' + *{subjectCode} + '.claim.' + ${claim} + '.name'} + '<br/>'" /></td> /*/-->
+    </tr>
+    <tr th:unless="*{#lists.isEmpty(altScores)}">
+      <td>Alt Score Codes</td>
+      <td th:utext="*{#strings.listJoin(altScores, '<br/>')}"></td>
+      <td><!--/*/ <th:block th:each="alt : *{altScores}" th:utext="#{'subject.' + *{subjectCode} + '.alt.' + ${alt} + '.name'} + '<br/>'" /> /*/--></td>
+    </tr>
+    <tr th:unless="*{#lists.isEmpty(traits)}">
+      <td>Traits</td>
+      <!-- TODO - trait has id, purpose, category, maxScore; translations for purpose and category -->
+      <td th:text="*{traits}"></td>
+      <td></td>
+    </tr>
+  </table>
+
+  <!--/* The student object has basic student info.
+         Note that ethnicity codes is a collection, a student may have more than one.
+  */-->
+  <table th:object="${report.student}">
+    <caption>Student Fields</caption>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+      <th>Translation</th>
+    </tr>
+    <tr>
+      <td>SSID</td>
+      <td th:text="*{ssid}">123456</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>First Name</td>
+      <td th:text="*{firstName}">Alice</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Last Name</td>
+      <td th:text="*{lastName}">Jones</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Gender Code</td>
+      <td th:text="*{genderCode}">Female</td>
+      <td th:text="#{'common.gender.' + *{genderCode}}">Female</td>
+    </tr>
+    <tr th:unless="*{#lists.isEmpty(ethnicityCodes)}">
+      <td>Ethnicity Codes</td>
+      <td th:text="*{#strings.listJoin(ethnicityCodes, ',')}">Asian,BlackOrAfricanAmerican</td>
+      <!-- explanation for this mess: for the prototype (viewing without thymeleaf)
+           we want the example text, while, for the template we want the th:block -->
+      <td th:remove="all">Asian, Black or African American</td>
+      <!--/*/ <td><th:block th:each="code : *{ethnicityCodes}" th:text="#{'common.ethnicity.' + ${code}} + ','" /></td> /*/-->
+    </tr>
+  </table>
+
+  <!--/* The student enrollment object.
+  */-->
+  <table th:object="${report.studentEnrollment}">
+    <caption>Student Enrollment Fields</caption>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+      <th>Translation</th>
+    </tr>
+    <tr>
+      <td>Grade Code</td>
+      <td th:text="*{gradeCode}">08</td>
+      <td th:text="#{'report.enrollment-grade.' + *{gradeCode}}">8</td>
+    </tr>
+    <tr>
+      <td>School Name</td>
+      <td th:text="*{schoolName}">Lincoln Middle School</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>District Name</td>
+      <td th:text="*{districtName}">County District</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>State</td>
+      <td th:text="*{stateCode}">NV</td>
+      <td></td>
+    </tr>
+  </table>
+
+  <!--/* ICA and Summative reports have different data than IAB reports.
+         ICA and Summative reports have a single assessment and a single exam.
+         IAB reports have multiple assessments, each with multiple exams.
+
+         The next sections are for ICA and Summative reports.
+  */-->
+
+  <!--/* The assessment object has information about the assessment definition.
+  */-->
+  <table th:object="${report.assessment}">
+    <caption>Assessment Fields</caption>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+      <th>Translation</th>
+    </tr>
+    <tr>
+      <td>Label</td>
+      <td th:text="*{label}">Grade 8 Math</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td th:text="*{label}">SBAC-SUM-FIXED-G8M-COMBINED-2019</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Grade Code</td>
+      <td th:text="*{gradeCode}">08</td>
+      <td th:text="#{'report.enrollment-grade.' + *{gradeCode}}">8</td>
+    </tr>
+    <tr>
+      <td>Assessment Type</td>
+      <!--/* This field is the enum AssessmentType which is different than asmtTypeCode, a
+             string. If used directly it will be an uppercase string ICA, IAB, or SUMMATIVE.
+             That's a bit quirky and probably only type.code() should be used. */-->
+      <td th:text="*{type.code() + ', ' + type}">sum, SUMMATIVE</td>
+      <td th:text="#{'subject.' + *{subjectCode} + '.asmt-type.' + *{type.code()} + '.name'}">Summative</td>
+    </tr>
+    <tr>
+      <td>Subject Code</td>
+      <td th:text="*{subjectCode}">Math</td>
+      <td th:text="#{'subject.' + *{subjectCode} + '.name'}">Math</td>
+    </tr>
+    <tr>
+      <td>School Year</td>
+      <td th:text="*{schoolYear}">2019</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Cut Points</td>
+      <td th:text="*{#strings.listJoin(cutPoints, ',')}">2543,2628,2718</td>
+      <td></td>
+    </tr>
+    <tr th:unless="*{#lists.isEmpty(claimCodes)}">
+      <td>Scorable Claim Codes</td>
+      <td th:utext="*{#strings.listJoin(claimCodes, '<br/>')}">1<br/>SOCK_2<br/>3</td>
+      <!-- explanation for this mess: for the prototype (viewing without thymeleaf)
+           we want the example text, while, for the template we want the th:block -->
+      <td th:remove="all">Concepts and Procedures<br/>Problem Solving and Modeling &amp; Data Analysis<br/>Communicating Reasoning<br/></td>
+      <!--/*/ <td><th:block th:each="claim : *{claimCodes}" th:utext="#{'subject.' + *{subjectCode} + '.claim.' + ${claim} + '.name'} + '<br/>'" /></td> /*/-->
+    </tr>
+    <tr th:unless="*{#lists.isEmpty(altScoreCodes)}">
+      <td>Alt Score Codes</td>
+      <td th:utext="*{#strings.listJoin(altScoreCodes, '<br/>')}"></td>
+      <td><!--/*/ <th:block th:each="alt : *{altScoreCodes}" th:utext="#{'subject.' + *{subjectCode} + '.alt.' + ${alt} + '.name'} + '<br/>'" /> /*/--></td>
+    </tr>
+    <tr>
+      <td>WER Item</td>
+      <td th:text="*{werItem}">false</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Target Report Enabled</td>
+      <td th:text="*{targetReportEnabled}">true</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>ISR Enabled</td>
+      <td th:text="*{printedReportEnabled}">true</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Trait Report Enabled</td>
+      <td th:text="*{traitReportEnabled}">false</td>
+      <td></td>
+    </tr>
+  </table>
+
+  <!--/* The exam object has information about the test results.
+         Finally, the actual student score(s)!
+  */-->
+
+  <table th:object="${report.exam}">
+    <caption>Exam Fields</caption>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+      <th>Translation</th>
+    </tr>
+    <!--/* Each score is represented by a ScaleScore object which has the performance
+           level, the score value, and the standard error */-->
+    <tr th:if="*{scaleScore}" th:with="score=*{scaleScore}">
+      <td>Overall Scale Score</td>
+      <td th:text="${score.value} + ' ±' + ${score.standardError}">2709 ±42</td>
+      <td></td>
+    </tr>
+    <tr th:if="*{scaleScore}" th:with="score=*{scaleScore}">
+      <td>Overall Performance Level</td>
+      <td th:text="${score.level}">3</td>
+      <td th:text="#{'subject.' + ${report.subject} + '.asmt-type.' + ${report.assessmentType} + '.level.' + ${score.level} + '.name'}">Met Standard</td>
+    </tr>
+    <tr th:each="score : *{claimScaleScores}">
+      <td>Claim Scale Score</td>
+      <td th:text="${score.value} + ' ±' + ${score.standardError}">2790 ±28</td>
+      <td th:text="#{'subject.' + ${report.subject} + '.asmt-type.' + ${report.assessmentType} + '.claim-score.level.' + ${score.level} + '.name'}">Above Standard</td>
+    </tr>
+    <tr th:each="score : *{altScaleScores}">
+      <td>Alt Scale Score</td>
+      <td th:text="${score.value} + ' ±' + ${score.standardError}">1400 ±0</td>
+      <td th:text="#{'subject.' + ${report.subject} + '.asmt-type.' + ${report.assessmentType} + '.alt-score.level.' + ${score.level} + '.name'}">No So Great</td>
+    </tr>
+    <!--/* Trait scores are represented by TraitScore objects.
+           Not shown here is the (long) subject translation text associated with the score:
+           #{'subject.' + ${report.subject} + '.trait.category.' + ${score.category} + '.' + ${score.score}}
+    */-->
+    <tr th:each="score : *{traitScores}">
+      <td>Trait Score</td>
+      <td th:text="${score.score} + '/' + ${score.maxScore}"></td>
+      <td th:text="#{'subject.' + ${report.subject} + '.trait.purpose.' + ${score.purpose} + '.name'} + ', ' + #{'subject.' + ${report.subject} + '.trait.category.' + ${score.category} + '.name'}"></td>
+    </tr>
+    <tr th:if="*{accommodationCodes}">
+      <td>Accommodation Codes</td>
+      <td th:text="*{#strings.listJoin(accommodationCodes, ', ')}"></td>
+      <td th:text="${#strings.listJoin(support.getSortedAccommodationNames(report.exam, request.language), ', ')}"></td>
+    </tr>
+    <tr>
+      <td>Session Id</td>
+      <td th:text="*{sessionId}">SMI-5fc7</td>
+      <td></td>
+    </tr>
+    <tr>
+      <!--/* There are no helpers (neither Thymeleaf nor RDW-specific) for dealing with
+             Instant values. The date/time will default to this format.
+      */-->
+      <td>Date/Time</td>
+      <td th:text="*{dateTime}">2019-03-14T21:34:00Z</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>School Year</td>
+      <td th:text="*{schoolYear}">2019</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Grade Code</td>
+      <td th:text="*{gradeCode}">08</td>
+      <td th:text="#{'report.enrollment-grade.' + *{gradeCode}}">8</td>
+    </tr>
+    <tr>
+      <td>Administrative Condition Code</td>
+      <td th:text="*{administrativeConditionCode}">NS</td>
+      <td th:text="#{'common.administration-condition.' + *{administrativeConditionCode}}"></td>
+    </tr>
+    <tr>
+      <td>Completeness Code</td>
+      <td th:text="*{completenessCode}">Complete</td>
+      <td th:text="#{'common.completeness.' + *{completenessCode}}"></td>
+    </tr>
+    <!--/* The Student object is repeated here for convenience. These are the same values
+           found in report.student. */-->
+    <tr>
+      <td>Student</td>
+      <td>(same as report.student, see above)</td>
+      <td></td>
+    </tr>
+    <!--/* The StudentContext fields are slowly changing student characteristics. They may
+           change from test to test, so are distinct from the more permanent student data. */-->
+    <!--/*/ <th:block th:object="${report.exam.studentContext}"> /*/-->
+      <tr>
+        <td>Student Economic Disadvantage</td>
+        <td th:text="*{economicDisadvantage}">false</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Student IEP</td>
+        <td th:text="*{iep}">false</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Student LEP</td>
+        <td th:text="*{lep}">false</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Student Section 504</td>
+        <td th:text="*{section504}">false</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Student Migrant</td>
+        <td th:text="*{migrantStatus}">false</td>
+        <td></td>
+      </tr>
+      <tr th:if="*{elasCode}">
+        <td>Student ELAS</td>
+        <td th:text="*{elasCode}">EO</td>
+        <td th:text="#{'common.elas.' + *{elasCode}}">English Only</td>
+      </tr>
+      <tr th:if="*{languageCode}">
+        <td>Student Language</td>
+        <td th:text="*{languageCode}">jpn</td>
+        <td></td>
+      </tr>
+      <tr th:if="*{militaryConnectedCode}">
+        <td>Student Military Connected Status</td>
+        <td th:text="*{militaryConnectedCode}">NotMilitaryConnected</td>
+        <td th:text="#{'common.military-connected-code.' + *{militaryConnectedCode}}">Not Military Connected</td>
+      </tr>
+    <!--/*/ </th:block> /*/-->
+    <!--/* The School object has basic info on the school where the test was administered. */-->
+    <!--/*/ <th:block th:if="${report.exam.school}" th:object="${report.exam.school}"> /*/-->
+      <tr>
+        <td>School Name</td>
+        <td th:text="*{name}">Lincoln Middle School</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>School Id</td>
+        <td th:text="*{naturalId}">43694506047211</td>
+        <td></td>
+      </tr>
+    <!--/*/ </th:block> /*/-->
+    <tr>
+      <td>Transfer</td>
+      <td th:text="*{transfer}">false</td>
+      <td></td>
+    </tr>
+  </table>
+
+  <!--/* ICA and Summative reports have different data than IAB reports.
+       ICA and Summative reports have a single assessment and a single exam.
+       IAB reports have multiple assessments, each with multiple exams.
+
+       The next sections are for IAB reports. The data is only slightly different but it
+       is organized completely differently: instead of a single assessment and exam, there
+       is a map of assessments to exams. This is because there are lots of IAB assessments
+       and students can take the same IAB multiple times during the year. To demonstrate
+       this difference, please examine the following template code; it isn't meant to render
+       well, just show how the data is organized.
+
+       TODO - template won't compile for unit test, temporarily commenting this out
+  */-->
+<!--  <div th:if="${report.assessmentType=='iab'}" th:each="entry : ${report.examsByAssessment}">-->
+<!--    <div th:with="assessment=${entry.key},exams=${entry.value}">-->
+      <!-- assessment is exactly as described above for ICA and Summative exams -->
+      <!-- the exams are ordered by date, the most recent is ${exams[0]} -->
+<!--      <div th:each="exam : ${exams}">-->
+        <!-- exam is the same as described above for ICA and Summative exams
+             and adds two fields: percentileMean and percentileRank, both integers -->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <!--/* ************************************************************************************ */-->
+  <!--/* This section demonstrates all the data fields available in the request context.      */-->
+  <!--/* ************************************************************************************ */-->
+  <!--/* The request object has a few fields that define the assessments query for the report.
+         These include schoolYear, assessmentTypeCode, subjectCode, and studentId. The values
+         are available in the report object so won't be documented here. There are two fields
+         that are important to know about: accommodationsVisible is set true if the report
+         should show the accommodations that were available during testing, and language is
+         set to the language code for the report. In the original report templates these were
+         used together ...
+   */-->
+  <div th:if="${request.accommodationsVisible && !report.exam.accommodationCodes.isEmpty()}">
+    <p th:each="accommodation : ${support.getSortedAccommodationNames(report.exam, request.language)}">
+      <strong th:text="${accommodation}"></strong>
+    </p>
+  </div>
+
+
+  <!--/* ************************************************************************************ */-->
+  <!--/* This section demonstrates all the RDW-specific support functionality                 */-->
+  <!--/* ************************************************************************************ */-->
+  <!--/* RDW-specific support provides useful functions for dealing with report data.
+         These are all documented in the Admin Guide. This section shows the usage with
+         the appropriate context data.
+   */-->
+  <table>
+    <caption>Support Functions</caption>
+    <tr>
+      <th>Function</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>getLastTwoDigits(int)</td>
+      <td th:text="${#strings.toString(report.exam.schoolYear - 1) + '-' + support.getLastTwoDigits(report.exam.schoolYear)}">2019-20</td>
+    </tr>
+    <tr>
+      <td>round(float)</td>
+      <td th:text="${support.round(32.7)}">33</td>
+    </tr>
+    <tr>
+      <td>floor(float)</td>
+      <td th:text="${support.floor(32.7)}">32</td>
+    </tr>
+    <tr>
+      <td>ceil(float)</td>
+      <td th:text="${support.ceil(32.7)}">33</td>
+    </tr>
+    <tr>
+      <td>getSortedAccommodationNames(exam, locale)</td>
+      <td th:text="${support.getSortedAccommodationNames(report.exam, request.language)}"></td>
+    </tr>
+    <tr th:with="scaleScoreView=${support.getScaleScoreView(report.exam, report.assessment)}">
+      <td>getScaleScoreView(exam, assessment)</td>
+      <!-- TODO -->
+      <td></td>
+    </tr>
+    <tr>
+      <td>getClaimCodeComparator(report)</td>
+      <!-- TODO -->
+      <td th:text="${support.getClaimCodeComparator(report)}"></td>
+    </tr>
+    <tr>
+      <td>traitScoresByPurpose(traitScores)</td>
+      <!-- TODO -->
+      <td th:text="${support.traitScoresByPurpose(report.exam.traitScores)}"></td>
+    </tr>
+  </table>
+
+
+  <!--/* ************************************************************************************ */-->
+  <!--/* This section has some typical access patterns for the context data                   */-->
+  <!--/* ************************************************************************************ */-->
+
+
+
+  <!--/* ************************************************************************************ */-->
+  <!--/* Additional notes                                                                     */-->
+  <!--/* ************************************************************************************ */-->
+
+  <!--/* Subject / Assessment Type Specificity.
+         This reference template checks for optional elements because it is generic.
+         A subject/assessment-specific template can be less rigorous because it knows exactly
+         which fields will be populated. For example, ELPAC tests will have alternate scores
+         so there is no need to protect against the assessment definition having a null or
+         empty alt-score list.
+         However, assuming every field is properly populated can be problematic. For example,
+         a student test result may not have a scale score set. Assuming it is set and trying
+         to display it may result in a report failure. Consider this when writing the template. */-->
+
+  <!--/* Images.
+         There is no mechanism for including assets other than the template. If there is need
+         to show an image or other "external" resource, it must be inlined. For example,
+         a logo image can be base64 encoded and directly included. */-->
+  <img src="data:image/png;base64,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" alt="Smarter Balanced Assessment Consortium" />
+
+  <!--/* Timestamp.
+         To put a timestamp on a report, use "${#dates.createNowForTimeZone()}" */-->
+
+</div>
+</body>

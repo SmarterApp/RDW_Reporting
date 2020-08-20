@@ -294,7 +294,8 @@ mapping; example snippet:
 ```
 2. Configure your IDE to remote debug to localhost on the specified port, `5007` in this example.
 
-If you want to remote debug a kubernetes instance, there is an extra step.
+If you want to remote debug a kubernetes instance, the setup is just slightly more complicated.
+Also note that care should be taken when working with shared environments.
 1. Modify the k8s deployment configuration and add an environment variable and container port;
 example snippet:
 ```yaml

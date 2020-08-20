@@ -90,7 +90,7 @@
                     <span class="title" th:text="#{report.sum.section.claim.header}"></span>
                     <p th:text="#{('subject.' + ${report.subject} + '.report-grade.' + ${report.assessment.gradeCode} + '.asmt-type.sum.claim.title')(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></p>
                 </div>
-                <!-- SmarterBalanced assessments have either 3 (Math) or 4 (ELA) claims.
+                <!-- SmarterBalanced assessments have either 3 (Math) or 4 (ELA) scorable claims.
                      Each claim is presented with the icon, name, description, and the student's achievement level.
                      For ELA, the 4th claim is expected to be Writing and it may have trait scores. So, if it is
                      the last claim and the trait scores are set, then assume those trait scores apply to that claim.
