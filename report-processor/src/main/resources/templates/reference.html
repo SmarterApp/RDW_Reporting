@@ -38,9 +38,14 @@ without Thymeleaf processing.
   <!--/* ************************************************************************************ */-->
 
   <!--/* The report object has two direct fields, the subject and assessment type, each with
-         a display name available as thymeleaf messages. It is usually safer to use the
-         report object data but, because templates are typically built for a single
-         subject and assessment type, the values may be hard-coded. */-->
+         a display name available as thymeleaf messages. Because templates are typically built
+         for a single subject and assessment type, these values may be hard coded, but it is
+         preferable to use the report object data.
+
+         Thymeleaf has a mechanism for accessing external text, called "messages" which is
+         invoked with the "#{key}" syntax. RDW makes all its localization strings, including
+         translations, available through this.
+          */-->
   <span th:text="|Subject code: ${report.subject}|">Subject code: Math</span>
   <span th:text="|Assessment type code: ${report.assessmentType}|">Assessment type code: sum</span>
   <span th:text="#{'subject.' + ${report.subject} + '.name'}">Math</span>
