@@ -211,6 +211,13 @@ sql:
       SELECT id, code
       FROM subject;
 
+  reportTemplateInfo:
+    findAll: >-
+      SELECT s.code AS subject_code, a.code AS assessment_type, sat.printed_report
+      FROM subject_asmt_type sat
+        JOIN subject s on sat.subject_id = s.id
+        JOIN asmt_type a on sat.asmt_type_id = a.id
+
   import:
     createQuery: >-
       INSERT INTO import (status, content, contentType, digest, batch) VALUES
