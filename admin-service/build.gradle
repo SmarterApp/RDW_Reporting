@@ -45,6 +45,7 @@ dependencies {
     implementation 'org.springframework:spring-context-support'
     implementation 'org.xmlunit:xmlunit-core'
 
+    compileOnly 'javax.servlet:javax.servlet-api'
 
     testImplementation 'org.javers:javers-core:5.6.0'
     testImplementation project(path: ':rdw-reporting-common', configuration: 'tests')

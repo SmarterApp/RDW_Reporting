@@ -16,7 +16,7 @@ export class IsrTemplateService {
   ) {}
 
   formatAsLocalDate(date: Date): string {
-    return this.datePipe.transform(date, 'MMM d, y, hh:mm:ss a');
+    return this.datePipe.transform(date, 'MMM d, y');
   }
 
   getNotConfigured(): string {
@@ -108,6 +108,7 @@ export class IsrTemplateService {
 
   public getTemplateFile(): Observable<any> {
     // TODO: Replace with call to real file location
+    // TODO - hmm, need the real reference template in a common lib i guess
     const referenceTemplate = '/assets/template/reference-template.html';
     return this.http
       .get(referenceTemplate)

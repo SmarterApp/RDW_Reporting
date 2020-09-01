@@ -81,7 +81,7 @@ services:
     ports:
       - 8280:8080
       - 8208:8008
-#      - 5005:5005 #debug
+      - 5008:5008 #debug
     volumes:
       - /tmp:/tmp
     links:
@@ -97,7 +97,7 @@ services:
 # change the service route to use the mac docker bridge; for example:
 #        - tenant-configuration-lookup.services.report-processor.url=http://host.docker.internal:8086
     environment:
-#      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 #debug
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5008 #debug
       - spring.profiles.active=local-docker
       - tenant-configuration-lookup.services.admin-service.url=http://localhost:8008
       - tenant-configuration-lookup.services.aggregate-service.url=http://aggregate-service:8008
