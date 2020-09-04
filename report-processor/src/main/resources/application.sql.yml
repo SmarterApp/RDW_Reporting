@@ -322,6 +322,7 @@ sql:
         JOIN district d ON d.id = s.district_id
         JOIN school isch ON st.inferred_school_id = isch.id
         LEFT JOIN language lan ON e.language_code = lan.code
+        LEFT JOIN district_embargo de ON de.id = s.district_id AND de.school_year = e.school_year AND de.subject_id = a.subject_id
       WHERE
         ${sql.reportProcessor.snippet.exportExamsFilter}
         AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
@@ -361,15 +362,16 @@ sql:
 
   reportProcessor:
     snippet:
-#    nobody is allowed to export the data or generated PDFs for embargoed data, including the embargo admins
       studentExamPermissionWithEmbargo: >-
-            ${sql.snippet.studentExamPermissionWithoutEmbargo}
-            AND
-            (
-               e.school_year < :system_school_year
-               OR e.type_id <> 3
-               OR s.embargo_enabled = 0
-            )
+        ${sql.snippet.studentExamPermissionWithoutEmbargo}
+        AND (
+          e.type_id <> 3
+          OR CASE coalesce(de.individual, 0)
+          WHEN 0 THEN :state_embargo_loading = 1 OR s.district_id IN (:district_ids_embargo_loading)
+          WHEN 1 THEN :state_embargo_loading = 1 OR :state_embargo_reviewing = 1 OR s.district_id IN (:district_ids_embargo_loading) OR s.district_id IN (:district_ids_embargo_reviewing)
+          WHEN 2 THEN 1
+          END
+        )
 
       schoolFilter:
             (
@@ -399,6 +401,7 @@ sql:
             JOIN school isch ON st.inferred_school_id = isch.id
             JOIN subject sub ON sub.id=a.subject_id
             JOIN subject_asmt_type sat on a.subject_id=sat.subject_id and a.type_id=sat.asmt_type_id
+            LEFT JOIN district_embargo de ON de.district_id = s.district_id AND de.school_year = e.school_year AND de.subject_id = a.subject_id
 
       exportExamsFilter: >-
         e.school_year = :school_year

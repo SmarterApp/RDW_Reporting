@@ -293,6 +293,7 @@ sql:
           join subject_asmt_type sat on a.subject_id=sat.subject_id and a.type_id=sat.asmt_type_id
           join school s on e.school_id = s.id
           join school isch on st.inferred_school_id = isch.id
+          left join district_embargo de on de.district_id = s.district_id and de.school_year = e.school_year and de.subject_id = a.subject_id
 
     # There are multiple group related queries that need to join to either admin created groups or teacher groups.
     # To avoid duplicate queries we use 'placeholder' that at run time get replaced by these snippets.
