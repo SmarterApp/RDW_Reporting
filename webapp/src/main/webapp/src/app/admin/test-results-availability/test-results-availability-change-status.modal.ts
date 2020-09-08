@@ -16,17 +16,13 @@ export class TestResultsAvailabilityChangeStatusModal implements OnInit {
   private _subscription: Subscription;
   public changeStatusEvent: EventEmitter<any> = new EventEmitter();
 
-  // Set by initial state on show modal
+  // The following are set by initial state on show modal
   sandboxUser: boolean;
   selectedFilters: TestResultAvailabilityFilters;
   statusOptions: { label: string; value: string }[];
   selectedStatus: { label: string; value: string };
 
-  // below determine which if any alert need to be displayed
-  unableToChange: boolean;
-  successfulChange: boolean;
-  showSandboxAlert: boolean; // if sandbox and user tries to change status
-  private successChangeMessage: string;
+  showSandboxAlert = false;
 
   constructor(
     private modal: BsModalRef,
@@ -41,10 +37,7 @@ export class TestResultsAvailabilityChangeStatusModal implements OnInit {
       });
   }
 
-  ngOnInit(): void {
-    this.showSandboxAlert = false;
-    this.successfulChange = false;
-  }
+  ngOnInit(): void {}
 
   cancel() {
     this.modal.hide();
@@ -56,28 +49,24 @@ export class TestResultsAvailabilityChangeStatusModal implements OnInit {
       // keep modal up to display message to user
       this.showSandboxAlert = true;
     } else {
-      this.service.changeTestResults(this.selectedFilters, this.selectedStatus);
-
-      if (!this.service.successfulChange) {
-        this.unableToChange = true;
-        this.successfulChange = false;
-      } else {
-        this.unableToChange = false;
-        this.successfulChange = true;
-        this.successChangeMessage = this.getSuccessfulChangeMessage();
-      }
-      this.triggerEventStatus(
-        this.unableToChange,
-        this.successChangeMessage,
-        this.selectedStatus
-      );
-      this.modal.hide();
+      this.service
+        .changeTestResults(this.selectedFilters, this.selectedStatus)
+        .subscribe(
+          () => {
+            this.triggerEventStatus(true, this.getSuccessfulChangeMessage());
+            this.modal.hide();
+          },
+          err => {
+            this.triggerEventStatus(false, this.getFailedChangeMessage(err));
+            this.modal.hide();
+          }
+        );
     }
   }
 
   // build up message that expects to go between msgs test-results-availability-change-status.successful-change-1
   // and test-results-availability-change-status.successful-change-3
-  getSuccessfulChangeMessage(): string {
+  private getSuccessfulChangeMessage(): string {
     return (
       '"' +
       `${this.translate.instant(this.selectedStatus.label)}` +
@@ -104,21 +93,30 @@ export class TestResultsAvailabilityChangeStatusModal implements OnInit {
         'test-results-availability.filter-report-type'
       )}: ` +
       `${this.translate.instant(this.selectedFilters.reportType.label)}` +
+      ', ' +
+      `${this.translate.instant('test-results-availability.filter-status')}: ` +
+      `${this.translate.instant(this.selectedFilters.status.label)}` +
       ').'
     );
   }
 
-  private triggerEventStatus(
-    unableToChange: boolean,
-    successChangeMsgOptions: string,
-    selectedStatus: { label: string; value: string }
-  ) {
+  private getFailedChangeMessage(err: any): string {
+    return (
+      this.translate.instant(
+        'test-results-availability-change-status.error-changing-results'
+      ) +
+      ': ' +
+      err._body
+    );
+  }
+
+  private triggerEventStatus(successful: boolean, message: string) {
     this.changeStatusEvent.emit({
       // return the selected filters and status of the successful change
-      data: successChangeMsgOptions,
-      updatedStatus: selectedStatus,
-      res: 200,
-      error: unableToChange
+      successful: successful,
+      message: message,
+      status: this.selectedStatus,
+      res: successful ? 202 : 400
     });
   }
 

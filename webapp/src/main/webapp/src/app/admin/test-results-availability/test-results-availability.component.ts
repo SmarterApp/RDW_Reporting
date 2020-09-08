@@ -90,13 +90,11 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
 
   // results of change request
   successfulChange: boolean;
-  unableToChange: boolean;
+  failedChange: boolean;
+  changeMessage: string;
 
   // Filter options for the dropdowns based on user permissions.
   userOptions: UserOptions;
-
-  // need to save each selected Option to filtered Group
-  successChangeMsgOptions: string;
 
   private toSubjectKey = label => 'subject.' + label + '.name';
   private toReportTypeKey = label =>
@@ -152,8 +150,20 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
         );
 
         modalReference.content.changeStatusEvent.subscribe(res => {
-          this.changeSuccessful(res.data, res.updatedStatus, res.error);
-          this.changeFailed(res.error);
+          this.changeMessage = res.message;
+          if (res.successful) {
+            this.alertFailure = null;
+            this.successfulChange = true;
+            this.testResultAvailabilityFilters.status = res.status;
+
+            // This needs a slight delay to work properly
+            setTimeout(() => {
+              this.updateFilters();
+            }, 1000);
+          } else {
+            this.alertSuccess = null;
+            this.failedChange = true;
+          }
         });
       });
   }
@@ -297,41 +307,12 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
 
   closeSuccessAlert() {
     this.successfulChange = false;
+    this.changeMessage = null;
   }
 
   closeErrorAlert() {
-    this.unableToChange = false;
-  }
-
-  private changeSuccessful(
-    data: string,
-    updatedStatus: { label: string; value: string },
-    error: boolean
-  ) {
-    if (error) {
-      this.changeFailed(error);
-      this.successfulChange = false;
-    } else {
-      this.successChangeMsgOptions = data;
-      this.successfulChange = true;
-      this.alertFailure = null;
-      this.grabFocusToAlert = true;
-      this.testResultAvailabilityFilters.status = updatedStatus;
-
-      // This needs a slight delay to work properly
-      setTimeout(() => {
-        this.updateFilters();
-      }, 1000);
-    }
-  }
-
-  private changeFailed(error: any) {
-    this.unableToChange = error;
-    if (this.unableToChange) {
-      this.alertSuccess = null;
-      this.successfulChange = false;
-      this.grabFocusToAlert = true;
-    }
+    this.failedChange = false;
+    this.changeMessage = null;
   }
 
   ngDoCheck(): void {

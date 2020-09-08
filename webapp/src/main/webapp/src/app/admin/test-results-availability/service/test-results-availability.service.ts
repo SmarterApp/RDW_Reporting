@@ -34,8 +34,6 @@ export class TestResultsAvailabilityService implements OnInit {
     value: null
   };
 
-  successfulChange: boolean;
-
   /**
    * Converts an embargo record from the backend into a typescript object.
    * @param source one record returned from the finder as json
@@ -192,37 +190,28 @@ export class TestResultsAvailabilityService implements OnInit {
     window.open(`${this.contextUrl}${ServiceRoute}/audit`, '_blank');
   }
 
-  // TODO:  log changes and no need to persist
+  /**
+   * Update the embargo statuses based on the given filters.
+   * @param testResultFilters filters to limit the scope of the update
+   * @param newStatus the new status of the updated records
+   */
   changeTestResults(
     testResultFilters: TestResultAvailabilityFilters,
     newStatus: any
-  ) {
-    console.log('Change Request Log Info:', newStatus, testResultFilters);
-    this.successfulChange = false;
-    this.logTestResults(testResultFilters, newStatus.value);
-    this.successfulChange = true;
-  }
-
-  logTestResults(
-    testResultFilters: TestResultAvailabilityFilters,
-    newStatus: string
-  ) {
+  ): Observable<any> {
     const asArray = el => (el === null ? null : [el]);
 
-    this.dataService
-      .put(
-        `${ResourceContext}`,
-        {
-          schoolYear: testResultFilters.schoolYear.value,
-          districtIds: asArray(testResultFilters.district.value),
-          subjectId: testResultFilters.subject.value,
-          reportType: testResultFilters.reportType.value,
-          status: testResultFilters.status.value,
-          newStatus: newStatus
-        },
-        { responseType: ResponseContentType.Text }
-      )
-      .pipe()
-      .subscribe();
+    return this.dataService.put(
+      `${ResourceContext}`,
+      {
+        schoolYear: testResultFilters.schoolYear.value,
+        districtIds: asArray(testResultFilters.district.value),
+        subjectId: testResultFilters.subject.value,
+        reportType: testResultFilters.reportType.value,
+        status: testResultFilters.status.value,
+        newStatus: newStatus.value
+      },
+      { responseType: ResponseContentType.Text }
+    );
   }
 }
