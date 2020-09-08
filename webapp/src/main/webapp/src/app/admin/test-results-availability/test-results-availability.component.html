@@ -24,7 +24,7 @@
   <ng-container>
     <div
       #alertFailure
-      *ngIf="unableToChange"
+      *ngIf="failedChange"
       tabindex="0"
       class="alert alert-danger"
     >
@@ -36,10 +36,7 @@
       >
         <span aria-hidden="true">&times;</span>
       </button>
-      {{
-        'test-results-availability-change-status.error-changing-results'
-          | translate
-      }}
+      {{ changeMessage }}
     </div>
     <div
       #alertSuccess
@@ -60,7 +57,7 @@
           'test-results-availability-change-status.successful-change-1'
             | translate
         }}
-        {{ successChangeMsgOptions | translate }}
+        {{ changeMessage }}
         {{
           'test-results-availability-change-status.successful-change-3'
             | translate
