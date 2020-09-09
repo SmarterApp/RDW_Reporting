@@ -42,7 +42,7 @@ const links: Link[] = [
     id: 'test-results-availability',
     path: '/test-results-availability',
     icon: 'fa-eye-slash',
-    permission: 'EMBARGO_WRITE'
+    permission: 'TEST_DATA_REVIEWING_WRITE||TEST_DATA_LOADING_WRITE'
   },
   {
     id: 'ingest-pipelines',
@@ -68,7 +68,7 @@ const links: Link[] = [
     id: 'isr-template',
     path: '/isr-template',
     icon: 'fa-cog',
-    permission: 'EMBARGO_WRITE'
+    permission: 'ISR_TEMPLATE_WRITE'
   }
 ];
 
@@ -95,7 +95,9 @@ export class AdminToolsComponent {
           link =>
             (link.disabled == null || !link.disabled(settings)) &&
             (link.permission == null ||
-              user.permissions.includes(link.permission))
+              link.permission
+                .split('||')
+                .some(perm => user.permissions.includes(perm)))
         )
       )
     );

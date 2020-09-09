@@ -120,7 +120,7 @@ export const adminRoutes: Route[] = [
         canActivate: [HasAnyPermissionCanActivate],
         data: {
           breadcrumb: testResultsAvailabilityBreadcrumb,
-          permissions: ['EMBARGO_WRITE']
+          permissions: ['TEST_DATA_REVIEWING_WRITE', 'TEST_DATA_LOADING_WRITE']
         }
       },
       {
@@ -130,7 +130,7 @@ export const adminRoutes: Route[] = [
         canActivate: [HasAnyPermissionCanActivate],
         data: {
           breadcrumb: isrTemplateBreadcrumb,
-          permissions: ['EMBARGO_WRITE']
+          permissions: ['ISR_TEMPLATE_WRITE']
         }
       }
     ]
