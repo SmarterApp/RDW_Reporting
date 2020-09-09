@@ -14,7 +14,7 @@ import { TestResultsAvailabilityService } from './service/test-results-availabil
 import { TestResultAvailabilityFilters } from './model/test-result-availability-filters';
 import { TestResultsAvailabilityChangeStatusModal } from './test-results-availability-change-status.modal';
 import { UserService } from '../../shared/security/service/user.service';
-import { delay, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { UserOptions } from './model/user-options';
 
 class Column {
@@ -353,11 +353,18 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
     const filters = new TestResultAvailabilityFilters();
     filters.schoolYear = userOptions.schoolYears[1];
 
+    // For most fields, set the default filter to All.
     ['status', 'reportType', 'district', 'schoolYear', 'subject'].forEach(
       field => {
         filters[field] = TestResultsAvailabilityService.FilterIncludeAll;
       }
     );
+
+    // For the case of a district admin with exactly one district, set that district
+    // to be the filter selection.
+    if (userOptions.districtAdmin && userOptions.districts.length === 1) {
+      filters.district = userOptions.districts[0];
+    }
 
     // For school years and subjects, set default to first filter after "Select All" if there is one.
     if (userOptions.schoolYears.length > 1) {
