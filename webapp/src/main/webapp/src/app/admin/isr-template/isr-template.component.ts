@@ -3,28 +3,28 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationService } from '../../shared/notification/notification.service';
-import { FileItem, FileUploader, ParsedResponseHeaders } from 'ng2-file-upload';
+import { FileUploader } from 'ng2-file-upload';
 import { IsrTemplate } from './model/isr-template';
 import { IsrTemplateService } from './service/isr-template.service';
 import { IsrTemplateDeleteModal } from './isr-template-delete.modal';
-import { Download } from '../../shared/data/download.model';
-import { saveAs } from 'file-saver';
 import { UserService } from '../../shared/security/service/user.service';
 import { map } from 'rxjs/operators';
 import { IsrTemplateSandboxModal } from './isr-template-sandbox.modal';
 import { AdminServiceRoute } from '../../shared/service-route';
-import { Utils } from '../../shared/support/support';
 
 const URL = '/api' + AdminServiceRoute + '/templates';
+const AllowedMimeTypes = ['text/html'];
 
 class Column {
   id: string; // en.json name
   field: string; // isr-template field
+  sortField: string;
   sortable: boolean;
 
-  constructor({ id, field = '', sortable = true }) {
+  constructor({ id, field = '', sortField = '', sortable = true }) {
     this.id = id;
     this.field = field ? field : id;
+    this.sortField = sortField ? sortField : field;
     this.sortable = sortable;
   }
 }
@@ -34,17 +34,23 @@ class Column {
 })
 export class IsrTemplateComponent implements OnInit {
   columns: Column[] = [
-    new Column({ id: 'subject' }),
-    new Column({ id: 'assessment-type', field: 'assessmentType' }),
-    new Column({ id: 'status' })
+    new Column({ id: 'subject', sortField: 'subjectSort' }),
+    new Column({
+      id: 'assessment-type',
+      field: 'assessmentType',
+      sortField: 'assessmentTypeSort'
+    }),
+    new Column({ id: 'status', sortField: 'uploadedDate' })
   ];
 
   isrTemplates: IsrTemplate[];
   visible = true;
+  initialized = false;
 
   // below determine which if any alert need to be displayed
   successfulDelete: boolean;
   unableToUpload: boolean;
+  errorKey: string;
   isSandbox: boolean;
 
   fileUploader: FileUploader = new FileUploader({
@@ -53,7 +59,8 @@ export class IsrTemplateComponent implements OnInit {
     autoUpload: true,
     method: 'post',
     itemAlias: 'template',
-    allowedFileType: ['html']
+    allowedFileType: ['html'],
+    allowedMimeType: AllowedMimeTypes
   });
 
   constructor(
@@ -68,6 +75,7 @@ export class IsrTemplateComponent implements OnInit {
 
   ngOnInit(): void {
     this.unableToUpload = false;
+    this.errorKey = null;
     this.userService
       .getUser()
       .pipe(map(user => user.sandboxUser))
@@ -77,6 +85,7 @@ export class IsrTemplateComponent implements OnInit {
 
     this.isrTemplateService.getIsrTemplates().subscribe(isrTemplates => {
       this.isrTemplates = isrTemplates;
+      this.initialized = true;
     });
   }
 
@@ -92,6 +101,7 @@ export class IsrTemplateComponent implements OnInit {
 
   clearErrors() {
     this.unableToUpload = false;
+    this.errorKey = null;
   }
 
   openDeleteTemplateModal(rowData: IsrTemplate) {
@@ -129,6 +139,12 @@ export class IsrTemplateComponent implements OnInit {
    */
   onFileSelected(event: EventEmitter<File[]>, rowData: IsrTemplate) {
     const file: File = event[0];
+    if (!AllowedMimeTypes.includes(file.type)) {
+      this.unableToUpload = true;
+      this.errorKey = 'isr-template.bad-file-type';
+      return;
+    }
+
     this.isrTemplateService
       .uploadTemplateFile(
         file,
@@ -196,10 +212,9 @@ export class IsrTemplateComponent implements OnInit {
 
   getTemplateMessage(rowData: IsrTemplate): string {
     return (
-      rowData.subject +
-      ' ' +
-      rowData.assessmentType +
-      `${this.translateService.instant('isr-template.label-aria-template')}`
+      `${this.translateService.instant(rowData.subject.label)}` +
+      ` ${this.translateService.instant(rowData.assessmentType.label)}` +
+      ` ${this.translateService.instant('isr-template.label-aria-template')}`
     );
   }
 }

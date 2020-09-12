@@ -28,11 +28,17 @@
         <span aria-hidden="true">&times;</span>
       </button>
       {{ 'isr-template.upload-error' | translate }}
+      <span *ngIf="errorKey">{{ errorKey | translate }}</span>
     </div>
 
     <div class="well well-results">
       <div class="table-list-container">
+        <ng-container *ngIf="!initialized">
+          <spinner></spinner>
+        </ng-container>
+
         <p-table
+          *ngIf="initialized"
           [columns]="columns"
           [value]="isrTemplates"
           sortField="name"
@@ -42,7 +48,7 @@
             <tr>
               <th
                 *ngFor="let column of columns"
-                [pSortableColumn]="column.field"
+                [pSortableColumn]="column.sortField"
                 [pSortableColumnDisabled]="!column.sortable"
                 [ngSwitch]="column.id"
               >
@@ -52,7 +58,7 @@
 
                 <p-sortIcon
                   *ngIf="column.sortable"
-                  [field]="column.field"
+                  [field]="column.sortField"
                 ></p-sortIcon>
               </th>
               <th style="width:15%;">

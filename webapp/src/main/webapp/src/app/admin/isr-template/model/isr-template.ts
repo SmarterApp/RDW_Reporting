@@ -4,4 +4,6 @@ export class IsrTemplate {
   status: string;
   templateName: string;
   uploadedDate: Date;
+  assessmentTypeSort?: string;
+  subjectSort?: string;
 }
