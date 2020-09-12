@@ -9,7 +9,6 @@ import {
   DATA_CONTEXT_URL,
   DataService
 } from '../../../shared/data/data.service';
-import { RequestOptions, Headers } from '@angular/http';
 
 const ResourceContext = `${AdminServiceRoute}/templates`;
 const toSubjectKey = subject => 'subject.' + subject + '.name';
@@ -103,9 +102,9 @@ export class IsrTemplateService {
   private toIsrTemplate(sourceTemplateInfo: any): IsrTemplate {
     const rawDateString = sourceTemplateInfo.lastModified;
     const uploadedDate = rawDateString ? new Date(rawDateString) : null;
-    const formattedDate = uploadedDate
+    const status = uploadedDate
       ? this.getConfigured(uploadedDate)
-      : null;
+      : this.getNotConfigured();
 
     const subjectCode = sourceTemplateInfo.subjectCode;
     const assessmentType = sourceTemplateInfo.assessmentType;
@@ -115,8 +114,10 @@ export class IsrTemplateService {
         label: toAssmtTypeKey(subjectCode, assessmentType),
         value: assessmentType
       },
+      assessmentTypeSort: assessmentType,
       subject: { label: toSubjectKey(subjectCode), value: subjectCode },
-      status: formattedDate,
+      subjectSort: subjectCode,
+      status: status,
       templateName: this.getTemplateReportName(subjectCode, assessmentType),
       uploadedDate: uploadedDate
     };

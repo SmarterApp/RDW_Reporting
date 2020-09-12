@@ -2098,6 +2098,7 @@
     "template-name": ".html",
     "title": "Manage Individual Student Report (ISR) Templates",
     "upload-template-title": "Upload new template",
-    "upload-error": "Template could not be uploaded."
+    "upload-error": "Template could not be uploaded.",
+    "bad-file-type": "Only HTML files are allowed."
   }
 }
