@@ -930,6 +930,7 @@
       "CREATE_PUBLISHING_CONFIGURATION_CHANGES": "Creating {{tenantType}}: Publishing Configuration Changes",
       "CREATE_RUNNING_MIGRATIONS": "Creating {{tenantType}}: Running Database Migrations",
       "CREATE_CLEARING_CACHES": "Creating {{tenantType}}: Clearing Caches",
+      "CREATE_INHERITED_TEMPLATE": "Inheriting ISR Templates from Parent Tenant",
       "CREATE_FAILED": "Creation Failed",
       "DELETE_STARTED": "Deleting {{tenantType}}",
       "DELETE_PERSISTING_CONFIGURATION": "Deleting {{tenantType}}: Saving Configurations",
