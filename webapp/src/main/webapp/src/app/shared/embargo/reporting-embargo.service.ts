@@ -28,21 +28,9 @@ export class ReportingEmbargoService {
   /**
    * Gets the current embargo settings
    */
-  getEmbargo(): Observable<Embargo> {
-    return forkJoin(
-      this.getEmbargoEnabled(),
-      this.settingsService
-        .getSettings()
-        .pipe(map(({ schoolYear }) => schoolYear))
-    ).pipe(
-      map(([enabled, schoolYear]) => ({
-        enabled,
-        schoolYear
-      }))
-    );
-  }
+  getEmbargo(schoolYear = null, districtId = null): Observable<Embargo> {
+    console.log('getEmbargoed', schoolYear, districtId);
 
-  private getEmbargoEnabled(): Observable<boolean> {
     return this.dataService
       .get(`${ReportingServiceRoute}/organizations/embargoed`)
       .pipe(catchError(() => of(false)));
