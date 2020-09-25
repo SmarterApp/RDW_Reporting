@@ -9,13 +9,20 @@ import WritingTraitUtils from './writing-trait-utils';
  */
 export class TraitScoreSummary {
   aggregators: Map<string, TraitCategoryAggregate>;
+  sorter: (t1: TraitCategoryAggregate, t2: TraitCategoryAggregate) => number;
 
-  constructor() {
+  constructor(sort = true) {
     this.aggregators = new Map();
+    if (sort) {
+      this.sorter = (t1, t2) =>
+        t2.trait.maxPoints - t1.trait.maxPoints ||
+        t1.trait.type.localeCompare(t2.trait.type);
+    }
   }
 
   get rows(): TraitCategoryAggregate[] {
-    return Array.from(this.aggregators.values());
+    const allRows = Array.from(this.aggregators.values());
+    return this.sorter ? allRows.sort(this.sorter) : allRows;
   }
 
   /**
@@ -54,7 +61,7 @@ export class TraitScoreSummary {
  */
 class InterimTraitScoreSummary extends TraitScoreSummary {
   constructor() {
-    super();
+    super(false);
     [
       WritingTraitUtils.evidence(),
       WritingTraitUtils.organization(),
