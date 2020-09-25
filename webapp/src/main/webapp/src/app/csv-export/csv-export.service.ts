@@ -363,6 +363,8 @@ export class CsvExportService {
     const compositeRows: any[] = [];
     let maxPoints = 0;
 
+    const isSummative = exportRequest.assessment.type === 'sum';
+
     exportRequest.assessmentItems.forEach((item, i) => {
       const summaryMap = exportRequest.summaries[i];
       // sort the summary map by purpose, then sort the rows by category (type)
@@ -402,18 +404,27 @@ export class CsvExportService {
         return;
       }
 
-      this.csvBuilder
-        .newBuilder()
+      const csvBuilder = this.csvBuilder.newBuilder();
+      csvBuilder
         .withFilename(filename)
-        .withAssessmentTypeNameAndSubject(getAssessment)
-        .withClaim(getAssessment, getAssessmentItem)
-        .withTarget(getAssessment, getAssessmentItem)
-        .withItemDifficulty(getAssessmentItem)
-        .withStandards(getAssessmentItem)
-        .withFullCredit(getAssessmentItem, exportRequest.showAsPercent)
+        .withAssessmentSchoolYear(getAssessment)
+        .withAssessmentGrade(getAssessment)
+        .withAssessmentTypeNameAndSubject(getAssessment);
+
+      // Per Smarter feedback: suppress claim through full credit columns for sum reports.
+      if (!isSummative) {
+        csvBuilder
+          .withClaim(getAssessment, getAssessmentItem)
+          .withTarget(getAssessment, getAssessmentItem)
+          .withItemDifficulty(getAssessmentItem)
+          .withStandards(getAssessmentItem)
+          .withFullCredit(getAssessmentItem, exportRequest.showAsPercent);
+      }
+
+      csvBuilder
         .withCategoryTraitAggregate(
           exportRequest.assessment.subject,
-          exportRequest.assessment.type === 'sum',
+          isSummative,
           item => item.purpose,
           item => item.traitCategoryAggregate,
           maxPoints,
