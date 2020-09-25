@@ -1020,6 +1020,7 @@
     "assessment-name": "AssessmentName",
     "assessment-session-id": "TestSessionId",
     "assessment-type": "AssessmentType",
+    "assessment-grade": "AssessmentGradeLevel",
     "claim": "Claim",
     "EconomicDisadvantage": "EconomicDisadvantage",
     "elas": "EnglishLanguageAcquisitionStatus",

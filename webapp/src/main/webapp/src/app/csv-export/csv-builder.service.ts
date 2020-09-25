@@ -152,6 +152,25 @@ export class CsvBuilder {
     );
   }
 
+  withAssessmentSchoolYear(getAssessment: (item: any) => Assessment) {
+    return this.withColumn(
+      this.translateService.instant('csv-builder.school-year'),
+      item => this.schoolYearPipe.transform(getAssessment(item).schoolYear)
+    );
+  }
+
+  withAssessmentGrade(getAssessment: (item: any) => Assessment) {
+    return this.withColumn(
+      this.translateService.instant('csv-builder.assessment-grade'),
+      item => {
+        const gradeCode: string = getAssessment(item).grade;
+        return this.translateService.instant(
+          `common.enrolled-grade-label.${gradeCode}`
+        );
+      }
+    );
+  }
+
   withAssessmentName(getAssessment: (item: any) => Assessment) {
     return this.withColumn(
       this.translateService.instant('csv-builder.assessment-name'),
