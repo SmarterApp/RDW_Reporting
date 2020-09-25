@@ -411,6 +411,7 @@ export class CsvExportService {
         .withAssessmentGrade(getAssessment)
         .withAssessmentTypeNameAndSubject(getAssessment);
 
+      // Per Smarter feedback: suppress claim through full credit columns for sum reports.
       if (!isSummative) {
         csvBuilder
           .withClaim(getAssessment, getAssessmentItem)
