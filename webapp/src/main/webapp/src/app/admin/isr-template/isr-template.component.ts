@@ -53,6 +53,10 @@ export class IsrTemplateComponent implements OnInit {
   errorKey: string;
   isSandbox: boolean;
 
+  // Set to true if user has permission to upload or delete templates respectively
+  canUpload: boolean;
+  canDelete: boolean;
+
   fileUploader: FileUploader = new FileUploader({
     url: URL,
     disableMultipart: false,
@@ -76,12 +80,13 @@ export class IsrTemplateComponent implements OnInit {
   ngOnInit(): void {
     this.unableToUpload = false;
     this.errorKey = null;
-    this.userService
-      .getUser()
-      .pipe(map(user => user.sandboxUser))
-      .subscribe(sandboxUser => {
-        this.isSandbox = sandboxUser;
-      });
+    this.userService.getUser().subscribe(user => {
+      this.isSandbox = user.sandboxUser;
+
+      // Both upload and delete enabled by ISR Write permissions.
+      this.canUpload = user.permissions.includes('ISR_TEMPLATE_WRITE');
+      this.canDelete = user.permissions.includes('ISR_TEMPLATE_WRITE');
+    });
 
     this.isrTemplateService.getIsrTemplates().subscribe(isrTemplates => {
       this.isrTemplates = isrTemplates;

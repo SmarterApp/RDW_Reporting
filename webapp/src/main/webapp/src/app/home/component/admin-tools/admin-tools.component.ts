@@ -74,7 +74,7 @@ const links: Link[] = [
     id: 'isr-template',
     path: '/isr-template',
     icon: 'fa-cog',
-    permission: 'ISR_TEMPLATE_WRITE'
+    permission: 'ISR_TEMPLATE_READ'
   }
 ];
 

@@ -130,7 +130,7 @@ export const adminRoutes: Route[] = [
         canActivate: [HasAnyPermissionCanActivate],
         data: {
           breadcrumb: isrTemplateBreadcrumb,
-          permissions: ['ISR_TEMPLATE_WRITE']
+          permissions: ['ISR_TEMPLATE_READ']
         }
       }
     ]

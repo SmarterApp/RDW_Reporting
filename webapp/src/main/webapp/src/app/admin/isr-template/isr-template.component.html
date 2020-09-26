@@ -99,6 +99,7 @@
                       (onFileSelected)="onFileSelected($event, rowData)"
                     />
                     <a
+                      *ngIf="canUpload"
                       href="javascript:void(0)"
                       (click)="fileInput.click()"
                       [attr.aria-label]="getUploadLabel(rowData)"
@@ -134,6 +135,7 @@
 
                   <span *ngIf="showIcons(rowData)">
                     <a
+                      *ngIf="canDelete"
                       href="javascript:void(0);"
                       (click)="openDeleteTemplateModal(rowData)"
                       [attr.aria-label]="getDeletedLabel(rowData)"
