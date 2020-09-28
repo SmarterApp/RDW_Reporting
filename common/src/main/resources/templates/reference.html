@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 </head>
@@ -328,7 +329,7 @@ without Thymeleaf processing.
     <tr th:each="score : *{traitScores}">
       <td>Trait Score</td>
       <td th:text="${score.score} + '/' + ${score.maxScore}"></td>
-      <td th:text="#{'subject.' + ${report.subject} + '.trait.purpose.' + ${score.purpose} + '.name'} + ', ' + #{'subject.' + ${report.subject} + '.trait.category.' + ${score.category} + '.name'}"></td>
+      <td th:text="#{'subject.' + ${report.subject} + '.trait.purpose.' + ${score.purpose} + '.name'} + ', ' + #{'subject.' + ${report.subject} + '.trait.category.' + ${score.category} + '.name'}, + ', ' + ${score.conditionCode} + ', ' + ${score.score}"></td>
     </tr>
     <tr th:if="*{accommodationCodes}">
       <td>Accommodation Codes</td>
