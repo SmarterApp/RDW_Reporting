@@ -91,7 +91,7 @@ sql:
       FROM exam_trait_score ets
         JOIN subject_trait st on ets.trait_id = st.id
       WHERE ets.exam_id IN (:exam_ids)
-      ORDER BY exam_id, purpose, category
+      ORDER BY exam_id, purpose, max_score DESC, category
 
     # TODO - check performance with large dataset (if not good might have to move some logic into java)
     findItemLevelTraitScoresByExamIds: >-
@@ -114,7 +114,7 @@ sql:
       ) sub
       JOIN wer_purpose wp ON wp.wer_type = sub.performance_task_writing_type
       JOIN subject_trait st ON st.purpose = wp.purpose AND st.category = sub.category
-      ORDER BY exam_id, purpose, category;
+      ORDER BY exam_id, purpose, max_score DESC, category;
 
   export:
     exams: >-
