@@ -1,38 +1,36 @@
 import { Injectable } from '@angular/core';
 import { CachingDataService } from '../data/caching-data.service';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { ReportingServiceRoute } from '../service-route';
 import { Embargo } from './embargo';
-import { ApplicationSettingsService } from '../../app-settings.service';
-import { forkJoin } from 'rxjs/internal/observable/forkJoin';
-import { UserService } from '../security/service/user.service';
 
 @Injectable()
 export class ReportingEmbargoService {
-  constructor(
-    private dataService: CachingDataService,
-    private userService: UserService,
-    private settingsService: ApplicationSettingsService
-  ) {}
+  constructor(private dataService: CachingDataService) {}
 
   /**
-   * @deprecated use {@link #getEmbargo}
-   *
-   * Gets user organization exam embargo status
+   * @deprecated('Uses old embargo system')
+   * Gets the current embargo settings
    */
-  isEmbargoed(): Observable<boolean> {
-    return this.getEmbargo().pipe(map(({ enabled }) => enabled));
+  getEmbargo(): Observable<Embargo> {
+    return this.dataService
+      .get(`${ReportingServiceRoute}/organizations/embargoed`)
+      .pipe(catchError(() => of(false)));
   }
 
   /**
    * Gets the current embargo settings
    */
-  getEmbargo(schoolYear = null, districtId = null): Observable<Embargo> {
-    console.log('getEmbargoed', schoolYear, districtId);
+  isEmbargoed(schoolYear = null, districtId = null): Observable<boolean> {
+    if (!schoolYear || !districtId) {
+      return of(null);
+    }
 
     return this.dataService
-      .get(`${ReportingServiceRoute}/organizations/embargoed`)
+      .get(
+        `${ReportingServiceRoute}/organizations/${schoolYear}/${districtId}/embargoed`
+      )
       .pipe(catchError(() => of(false)));
   }
 }

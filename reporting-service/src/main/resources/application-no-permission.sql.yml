@@ -10,6 +10,7 @@ sql:
         sg.name,
         sc.name as school_name,
         sc.id as school_id,
+        sc.district_id as district_id,
         s.code as subject_code
       from user_student_group usg
         join student_group sg on sg.id = usg.student_group_id
@@ -23,6 +24,7 @@ sql:
         sg.name,
         sc.name as school_name,
         sc.id as school_id,
+        sc.district_id as district_id,
         s.code as subject_code,
         count(sgm.student_id) as students
       from user_student_group usg
