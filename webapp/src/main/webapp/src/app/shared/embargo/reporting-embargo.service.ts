@@ -15,7 +15,7 @@ export class ReportingEmbargoService {
    */
   getEmbargo(): Observable<Embargo> {
     return this.dataService
-      .get(`${ReportingServiceRoute}/organizations/embargoed`)
+      .get(`${ReportingServiceRoute}/organizations/embargoedxxx`)
       .pipe(catchError(() => of(false)));
   }
 

@@ -3,6 +3,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Output,
   ViewChild
 } from '@angular/core';
@@ -16,7 +17,6 @@ import { ExamFilterOptionsService } from './filters/exam-filters/exam-filter-opt
 import { byGradeThenByName } from './assessment.comparator';
 import { AssessmentProvider } from './assessment-provider.interface';
 import { AssessmentExporter } from './assessment-exporter.interface';
-import { ReportingEmbargoService } from '../shared/embargo/reporting-embargo.service';
 import { share, tap } from 'rxjs/operators';
 import { ApplicationSettingsService } from '../app-settings.service';
 import { forkJoin, Observable, of, empty } from 'rxjs';
@@ -28,7 +28,6 @@ import { Exam } from './model/exam';
 import { AdvFiltersComponent } from './filters/adv-filters/adv-filters.component';
 import { AssessmentExamView } from './results/assessment-results.component';
 import { gradeColor } from '../shared/colors';
-import { Embargo } from '../shared/embargo/embargo';
 
 /**
  * This component encompasses all the functionality for displaying and filtering
@@ -41,7 +40,7 @@ import { Embargo } from '../shared/embargo/embargo';
   templateUrl: './assessments.component.html',
   styleUrls: ['./assessments.component.less']
 })
-export class AssessmentsComponent implements OnChanges {
+export class AssessmentsComponent implements OnInit, OnChanges {
   readonly gradeColor = gradeColor;
 
   /**
@@ -119,8 +118,6 @@ export class AssessmentsComponent implements OnChanges {
   assessmentsLoading: Map<number, Assessment> = new Map<number, Assessment>();
   minimumItemDataYear: number;
   currentSchoolYear: number;
-  embargo: Embargo;
-  exportDisabled = true;
   loadingInitialResults = true;
 
   get assessmentExams(): AssessmentExamView[] {
@@ -219,20 +216,17 @@ export class AssessmentsComponent implements OnChanges {
   constructor(
     private route: ActivatedRoute,
     private applicationSettingsService: ApplicationSettingsService,
-    private filterOptionService: ExamFilterOptionsService,
-    private embargoService: ReportingEmbargoService
+    private filterOptionService: ExamFilterOptionsService
   ) {}
 
   ngOnInit(): void {
     forkJoin(
       this.applicationSettingsService.getSettings(),
-      this.filterOptionService.getExamFilterOptions(),
-      this.embargoService.getEmbargo()
-    ).subscribe(([settings, filterOptions, embargo]) => {
+      this.filterOptionService.getExamFilterOptions()
+    ).subscribe(([settings, filterOptions]) => {
       this.minimumItemDataYear = settings.minItemDataYear;
       this.currentSchoolYear = settings.schoolYear;
       this.filterOptions = filterOptions;
-      this.embargo = embargo;
       this.updateFilterOptions();
     });
   }
@@ -403,13 +397,6 @@ export class AssessmentsComponent implements OnChanges {
   }
 
   private updateFilterOptions() {
-    this.exportDisabled =
-      this.embargo != null &&
-      this.embargo.enabled &&
-      this.selectedAssessments.every(
-        ({ type, schoolYear }) =>
-          type === 'sum' && schoolYear === this.embargo.schoolYear
-      );
     this.filterOptions.hasInterim = this.selectedAssessments.some(
       ({ type }) => type !== 'sum'
     );

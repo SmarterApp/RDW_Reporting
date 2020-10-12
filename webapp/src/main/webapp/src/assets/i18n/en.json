@@ -457,7 +457,6 @@
       "TBD": "To Be Determined",
       "null": "Not Stated"
     },
-    "embargo-export-disabled": "Embargoed results can be viewed online, but may not be exported.",
     "enrolled-grade": {
       "10": "10",
       "11": "11",
@@ -1085,7 +1084,7 @@
     "title": "Manage Embargo"
   },
   "embargo-alert": {
-    "message": "Summative test results in your region of administration are not yet released. These results may be viewed online but not downloaded."
+    "message": "Some or all of summative test results shown here are not yet released."
   },
   "embargo-confirmation-modal": {
     "accept": {

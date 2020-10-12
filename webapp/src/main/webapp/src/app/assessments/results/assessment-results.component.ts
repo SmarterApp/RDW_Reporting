@@ -38,8 +38,6 @@ import {
 } from '../../exam/model/score-statistics';
 import { toScoreTable } from '../../exam/component/score-table/score-tables';
 import { ScoreTable } from '../../exam/component/score-table/score-table';
-import { ReportingEmbargoService } from '../../shared/embargo/reporting-embargo.service';
-import { Embargo } from '../../shared/embargo/embargo';
 import { ExportResults } from './view/export-results';
 
 enum ResultsViewState {
@@ -341,9 +339,7 @@ export class AssessmentResultsComponent implements OnInit {
   get exportButtonDisabled(): boolean {
     return (
       this.currentExportResults == null ||
-      !this.currentExportResults.hasDataToExport() ||
-      (this.embargo.enabled &&
-        this.embargo.schoolYear === this.assessmentExam.assessment.schoolYear)
+      !this.currentExportResults.hasDataToExport()
     );
   }
 
@@ -381,7 +377,6 @@ export class AssessmentResultsComponent implements OnInit {
   subjectDefinition: SubjectDefinition;
   scoreTypeOptions: Option[] = [];
   showInstructionalResources: boolean;
-  embargo: Embargo;
   uuid: String = Utils.newGuid();
 
   /**
@@ -406,8 +401,7 @@ export class AssessmentResultsComponent implements OnInit {
     private percentileService: AssessmentPercentileService,
     private subjectService: SubjectService,
     private angulartics2: Angulartics2,
-    private translateService: TranslateService,
-    private embargoService: ReportingEmbargoService
+    private translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -418,12 +412,10 @@ export class AssessmentResultsComponent implements OnInit {
       this.applicationSettingsService.getSettings(),
       this.subjectService.getSubjectDefinitionForAssessment(
         this.assessmentExam.assessment
-      ),
-      this.embargoService.getEmbargo()
-    ).subscribe(([settings, subjectDefinition, embargo]) => {
+      )
+    ).subscribe(([settings, subjectDefinition]) => {
       this.percentileDisplayEnabled = settings.percentileDisplayEnabled;
       this.subjectDefinition = subjectDefinition;
-      this.embargo = embargo;
 
       this.scoreTypeOptions = createScoreTypeOptions(
         subjectDefinition,

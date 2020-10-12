@@ -47,7 +47,6 @@ export class StudentResultsComponent implements OnInit {
   advancedFilters: FilterBy = new FilterBy();
   minimumItemDataYear: number;
   hasResults: boolean;
-  exportDisabled: boolean = true;
   subjectDefinitions: SubjectDefinition[];
 
   private _subjectOrdering: Ordering<string>;
@@ -95,16 +94,6 @@ export class StudentResultsComponent implements OnInit {
 
         this.applicationSettingsService.getSettings().subscribe(settings => {
           this.minimumItemDataYear = settings.minItemDataYear;
-        });
-
-        this.embargoService.getEmbargo().subscribe(embargo => {
-          this.exportDisabled =
-            embargo.enabled &&
-            examHistory.exams.every(
-              ({ assessment }) =>
-                assessment.type === 'sum' &&
-                assessment.schoolYear === embargo.schoolYear
-            );
         });
       });
     }
