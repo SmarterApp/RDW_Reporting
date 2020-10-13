@@ -100,7 +100,7 @@
                             <div class="col-xs-3 bottom-right-aligned text-right">
                                 <div class="date" th:text="${#instants.formatDate(exam.dateTime)}"></div>
                                 <div class="performance-level"
-                                     th:if="${exam.scaleScore != null}"
+                                     th:if="${scored}"
                                      th:text="#{'subject.' + ${report.subject} + '.asmt-type.iab.level.' + ${exam.scaleScore.level} + '.name'}"></div>
                             </div>
                         </div>
