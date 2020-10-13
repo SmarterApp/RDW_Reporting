@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <section class="mt-md mb-md" th:with="scored=${report.exam.scaleScore != null}">
+    <section class="mt-md mb-md" th:with="scored=${report.exam.scaleScore != null and report.exam.scaleScore.value != null}">
         <div class="container">
             <div class="overview row">
                 <div class="info col-xs-2">
