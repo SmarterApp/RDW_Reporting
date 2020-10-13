@@ -1,8 +1,15 @@
 sql:
-
   administrationCondition:
     findAll: >-
       SELECT id, code FROM administration_condition ORDER BY id
+
+  altScore:
+    findAll: >-
+      SELECT ss.id, ss.code, s.code as subject_code, at.code as asmt_type_code
+        FROM subject_score ss
+          JOIN subject s ON ss.subject_id = s.id
+          JOIN asmt_type at ON at.id = ss.asmt_type_id
+        WHERE ss.score_type_id = 2
 
   assessment:
     findAll: >-
@@ -41,13 +48,12 @@ sql:
       SELECT id, code FROM asmt_type ORDER BY id
 
   claim:
-    aggregate:
-      findAll: >-
-        SELECT ss.id, ss.code, s.code as subject_code, at.code as asmt_type_code
-          FROM subject_score ss
-            JOIN subject s ON ss.subject_id = s.id
-            JOIN asmt_type at ON at.id = ss.asmt_type_id
-          WHERE ss.score_type_id = 3
+    findAll: >-
+      SELECT ss.id, ss.code, s.code as subject_code, at.code as asmt_type_code
+        FROM subject_score ss
+          JOIN subject s ON ss.subject_id = s.id
+          JOIN asmt_type at ON at.id = ss.asmt_type_id
+        WHERE ss.score_type_id = 3
 
   target:
     findAll: >-

@@ -12,6 +12,11 @@ import { Student } from '../student/model/student.model';
 import { ExportItemsRequest } from '../assessments/model/export-items-request.model';
 import { ExportWritingTraitsRequest } from '../assessments/model/export-writing-trait-request.model';
 import { ExportTargetReportRequest } from '../assessments/model/export-target-report-request.model';
+import { TraitScoreSummary } from '../assessments/model/trait-score-summary.model';
+import { AssessmentItem } from '../assessments/model/assessment-item.model';
+import { RequestType } from '../shared/enum/request-type.enum';
+import { TraitCategoryInfo } from '../assessments/model/trait-category-info.model';
+import { TraitCategoryAggregate } from '../assessments/model/trait-category-aggregate.model';
 
 function mockitoStyleSpy<T>(prototype: any): T {
   return jasmine.createSpyObj(
@@ -37,14 +42,36 @@ function spyOnBuilderMethods<T extends any>(
     });
 }
 
+function buildSampleRequest(interim = false) {
+  const purpose = 'test';
+  const trait: TraitCategoryInfo = { type: 'trait', maxPoints: 100 };
+  const scoreSummary = interim
+    ? TraitScoreSummary.InterimTraitScoreSummary()
+    : TraitScoreSummary.of([trait]);
+
+  const summaries: Map<string, TraitScoreSummary>[] = [
+    new Map([[purpose, scoreSummary]])
+  ];
+
+  const request: ExportWritingTraitsRequest = {
+    assessment: <Assessment>{ type: interim ? 'ica' : 'sum', schoolYear: 1000 },
+    type: RequestType.TraitScores,
+    assessmentItems: [<AssessmentItem>{ id: 1 }],
+    summaries: summaries,
+    showAsPercent: true
+  };
+
+  return { trait, request };
+}
+
 // TODO refactor csv export service and separate out filtering logic so it can be tested independently
 describe('CsvExportService', () => {
-  let csvBuilder: CsvBuilder = new CsvBuilder(null, null, null, null, null);
-  let subjectService: SubjectService = new SubjectService(null);
-  let examSearchFilterService: ExamSearchFilterService = new ExamSearchFilterService(
+  const csvBuilder: CsvBuilder = new CsvBuilder(null, null, null, null, null);
+  const subjectService: SubjectService = new SubjectService(null);
+  const examSearchFilterService: ExamSearchFilterService = new ExamSearchFilterService(
     null
   );
-  let embargoService: ReportingEmbargoService = new ReportingEmbargoService(
+  const embargoService: ReportingEmbargoService = new ReportingEmbargoService(
     null,
     null,
     null
@@ -239,33 +266,14 @@ describe('CsvExportService', () => {
       })
     );
 
-    service.exportWritingTraitScores(
-      <ExportWritingTraitsRequest>{
-        assessment: <Assessment>{ type: 'sum', schoolYear: 1000 },
-        assessmentItems: [{ id: 1 }],
-        summaries: [
-          {
-            rows: [
-              {
-                trait: {
-                  maxPoints: 100
-                }
-              }
-            ]
-          }
-        ]
-      },
-      'name'
-    );
+    const { trait, request } = buildSampleRequest();
+    service.exportWritingTraitScores(request, 'name');
 
     expect(csvBuilder.build).toHaveBeenCalledWith([
       {
-        assessmentItem: { id: 1 },
-        writingTraitAggregate: {
-          trait: {
-            maxPoints: 100
-          }
-        }
+        assessmentItem: <AssessmentItem>{ id: 1 },
+        purpose: 'test',
+        traitCategoryAggregate: new TraitCategoryAggregate(trait)
       }
     ]);
   });
@@ -278,24 +286,8 @@ describe('CsvExportService', () => {
       })
     );
 
-    service.exportWritingTraitScores(
-      <ExportWritingTraitsRequest>{
-        assessment: <Assessment>{ type: 'sum', schoolYear: 1000 },
-        assessmentItems: [{ id: 1 }],
-        summaries: [
-          {
-            rows: [
-              {
-                trait: {
-                  maxPoints: 100
-                }
-              }
-            ]
-          }
-        ]
-      },
-      'name'
-    );
+    const { trait, request } = buildSampleRequest();
+    service.exportWritingTraitScores(request, 'name');
 
     expect(csvBuilder.build).not.toHaveBeenCalled();
   });
@@ -308,35 +300,10 @@ describe('CsvExportService', () => {
       })
     );
 
-    service.exportWritingTraitScores(
-      <ExportWritingTraitsRequest>{
-        assessment: <Assessment>{ type: 'ica', schoolYear: 1000 },
-        assessmentItems: [{ id: 1 }],
-        summaries: [
-          {
-            rows: [
-              {
-                trait: {
-                  maxPoints: 100
-                }
-              }
-            ]
-          }
-        ]
-      },
-      'name'
-    );
+    const { trait, request } = buildSampleRequest(true);
+    service.exportWritingTraitScores(request, 'name');
 
-    expect(csvBuilder.build).toHaveBeenCalledWith([
-      {
-        assessmentItem: { id: 1 },
-        writingTraitAggregate: {
-          trait: {
-            maxPoints: 100
-          }
-        }
-      }
-    ]);
+    expect(csvBuilder.build).toHaveBeenCalled();
   });
 
   it('exportTargetScoresToCsv should not filter out embargoed results when flag is not set', () => {

@@ -4,7 +4,11 @@ import { AggregateReportFormSettings } from './aggregate-report-form-settings';
 import { AggregateReportFormOptions } from './aggregate-report-form-options';
 import { TranslateService } from '@ngx-translate/core';
 import { AssessmentDefinition } from './assessment/assessment-definition';
-import { AggregateReportOptions, Claim } from './aggregate-report-options';
+import {
+  AggregateReportOptions,
+  AltScore,
+  Claim
+} from './aggregate-report-options';
 import { Observable, forkJoin, of } from 'rxjs';
 import {
   District,
@@ -20,6 +24,7 @@ import { AggregateReportService } from './aggregate-report.service';
 import {
   AggregateReportQueryType,
   ClaimReportQuery,
+  AltScoreReportQuery,
   CustomAggregateReportQuery,
   LongitudinalReportQuery,
   TargetReportQuery
@@ -175,6 +180,18 @@ export class AggregateReportRequestMapper {
       this.reportService.getEffectiveReportType(
         settings.reportType,
         assessmentDefinition
+      ) === 'AltScore'
+    ) {
+      query.assessmentGradeCodes = settings.altScoreReport.assessmentGrades;
+      query.schoolYears = settings.altScoreReport.schoolYears;
+      query.altScoreCodesBySubject = this.altScoresBySubjectMapping(
+        settings.subjects.map(subject => subject.code),
+        settings.altScoreReport.altScoreCodesBySubject
+      );
+    } else if (
+      this.reportService.getEffectiveReportType(
+        settings.reportType,
+        assessmentDefinition
       ) === 'Target'
     ) {
       query.schoolYear = settings.targetReport.schoolYear;
@@ -304,6 +321,12 @@ export class AggregateReportRequestMapper {
       claimCodesBySubject: []
     };
 
+    const defaultAltScoreReport = {
+      assessmentGrades: [],
+      schoolYears: [options.schoolYears[0]],
+      altScoreCodesBySubject: []
+    };
+
     const defaultLongitudinalCohort = {
       assessmentGrades: [],
       toSchoolYear: options.schoolYears[0]
@@ -319,6 +342,7 @@ export class AggregateReportRequestMapper {
     let generalPopulation = defaultGeneralPopulation,
       longitudinalCohort = defaultLongitudinalCohort,
       claimReport = defaultClaimReport,
+      altScoreReport = defaultAltScoreReport,
       targetReport = defaultTargetReport;
 
     if (query.type === 'CustomAggregate') {
@@ -351,6 +375,20 @@ export class AggregateReportRequestMapper {
           query.assessmentTypeCode,
           options.claims,
           claimQuery.claimCodesBySubject
+        )
+      };
+    } else if (query.type === 'AltScore') {
+      const altScoreQuery = <AltScoreReportQuery>query;
+      altScoreReport = {
+        assessmentGrades: sort(
+          query.assessmentGradeCodes,
+          options.assessmentGrades
+        ),
+        schoolYears: altScoreQuery.schoolYears.sort((a, b) => b - a),
+        altScoreCodesBySubject: this.getAltScores(
+          query.assessmentTypeCode,
+          options.altScores,
+          altScoreQuery.altScoreCodesBySubject
         )
       };
     } else if (query.type === 'Target') {
@@ -420,6 +458,7 @@ export class AggregateReportRequestMapper {
           generalPopulation,
           longitudinalCohort,
           claimReport,
+          altScoreReport,
           targetReport
         };
       })
@@ -453,6 +492,35 @@ export class AggregateReportRequestMapper {
       }
     }
     return claims;
+  }
+
+  private getAltScores(
+    assessmentType: string,
+    altScoreOptions: AltScore[],
+    selectedAltScores: any
+  ): AltScore[] {
+    const altScores: AltScore[] = [];
+    for (const subject in selectedAltScores) {
+      if (selectedAltScores[subject].length) {
+        altScores.push(
+          ...altScoreOptions.filter(
+            altScoreOption =>
+              altScoreOption.assessmentType === assessmentType &&
+              altScoreOption.subject === subject &&
+              selectedAltScores[subject].includes(altScoreOption.code)
+          )
+        );
+      } else {
+        altScores.push(
+          ...altScoreOptions.filter(
+            altScoreOption =>
+              altScoreOption.assessmentType === assessmentType &&
+              altScoreOption.subject === subject
+          )
+        );
+      }
+    }
+    return altScores;
   }
 
   private createStudentFilters(settingFilters, optionFilters): StudentFilters {
@@ -622,6 +690,19 @@ export class AggregateReportRequestMapper {
     for (const claim of claims) {
       if (obj[claim.subject] != null) {
         obj[claim.subject].push(claim.code);
+      }
+    }
+    return obj;
+  }
+
+  altScoresBySubjectMapping(subjects: string[], altScores: AltScore[]) {
+    const obj = {};
+    for (const subject of subjects) {
+      obj[subject] = [];
+    }
+    for (const altScore of altScores) {
+      if (obj[altScore.subject] != null) {
+        obj[altScore.subject].push(altScore.code);
       }
     }
     return obj;

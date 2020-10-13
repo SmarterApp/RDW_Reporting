@@ -99,6 +99,19 @@ export class AggregateReportTableExportService {
         );
     } else if (options.reportType === 'Claim') {
       this.addPerformanceLevelColumns(builder, options);
+    } else if (options.reportType === 'AltScore') {
+      builder.withColumn(
+        this.translateService.instant(
+          'aggregate-report-table.columns.avg-scale-score'
+        ),
+        (item: AggregateReportItem) =>
+          item.studentsTested
+            ? item.avgStdErr != null
+              ? `${item.avgScaleScore} ± ${item.avgStdErr}`
+              : item.avgScaleScore
+            : ''
+      );
+      this.addPerformanceLevelColumns(builder, options);
     } else {
       builder.withColumn(
         this.translateService.instant(
@@ -193,6 +206,19 @@ export class AggregateReportTableExportService {
         (item: AggregateReportItem) => {
           return this.translateService.instant(
             `subject.${item.subjectCode}.claim.${item.claimCode}.name`
+          );
+        }
+      );
+    }
+
+    if ('altScore' === column) {
+      return builder.withColumn(
+        this.translateService.instant(
+          'aggregate-report-table.columns.alt-score'
+        ),
+        (item: AggregateReportItem) => {
+          return this.translateService.instant(
+            `subject.${item.subjectCode}.alt.${item.altScoreCode}.name`
           );
         }
       );

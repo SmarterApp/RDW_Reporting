@@ -32,6 +32,16 @@ Then run tests as usual.
 ng start
 ```
 
+There are many ways to set up for development of the UI. One way that eliminates some set up
+complexity is to use docker-compose to run all the applications, including the webapp on port
+8080, then use npm to run the app "beside" it:
+
+1. Run all applications: `docker-compose up -d`
+1. Log in to the app at `http://localhost:8080`
+1. Run the webapp separately: `npm start`
+1. Connect to the npm-backed app by navigating to `http://localhost:4200`
+   Any changes made to the angular code will be reflected in the localhost:4200 session.
+
 ### Integration Test
 
 ```

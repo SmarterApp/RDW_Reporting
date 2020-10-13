@@ -1,0 +1,38 @@
+# Alt scores are stored in table exam_alt_score table. When querying, be careful to get
+# score values from that table, not the exam table which contains the overall score.
+sqlbuilder:
+  templates:
+    altScoreAggregate:
+      clauses:
+        select: >-
+            round(avg(eas.scale_score)) AS score,
+            round(stddev_samp(eas.scale_score)/sqrt(count(*))) as std_err,
+            sum(CASE WHEN eas.performance_level = 1 THEN 1 ELSE 0 END) AS level1,
+            sum(CASE WHEN eas.performance_level = 2 THEN 1 ELSE 0 END) AS level2,
+            sum(CASE WHEN eas.performance_level = 3 THEN 1 ELSE 0 END) AS level3,
+            sum(CASE WHEN eas.performance_level = 4 THEN 1 ELSE 0 END) AS level4,
+            sum(CASE WHEN eas.performance_level = 5 THEN 1 ELSE 0 END) AS level5,
+            sum(CASE WHEN eas.performance_level = 6 THEN 1 ELSE 0 END) AS level6,
+            e.school_year,
+            e.asmt_id,
+            eas.subject_score_id,
+            ss.code as alt_score_code
+
+        from: >-
+            exam_alt_score eas
+            JOIN exam e on e.id = eas.exam_id
+            JOIN subject_score ss ON ss.id = eas.subject_score_id
+            JOIN asmt a ON a.id = e.asmt_id
+
+        where: >-
+            e.school_year IN (:school_years) AND
+            a.grade_id IN (:asmt_grade_ids) AND
+            a.subject_id in (:subject_ids) AND
+            a.type_id = :asmt_type_id AND
+            ss.code in (:subject_alt_score_codes)
+
+        groupBy: >-
+            e.school_year,
+            e.asmt_id,
+            eas.subject_score_id,
+            ss.code

@@ -24,6 +24,7 @@ import { UserQueryService } from '../../report/user-query.service';
 import { canGetEstimatedRowCount } from '../support';
 import { Claim } from '../aggregate-report-options';
 import { SubgroupFilterSupport } from '../../shared/model/subgroup-filters';
+import { SubjectDefinition } from '../../subject/subject';
 
 @Component({
   selector: 'claim-report-form',
@@ -127,6 +128,27 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
     });
 
     this.initializeClaimsForAssessmentType();
+    this.onClaimChange();
+  }
+
+  get subjectDefinition(): SubjectDefinition {
+    function getOptimalSubject(_settings) {
+      for (const subject of _settings.subjects) {
+        for (const claimCode of _settings.claimReport.claimCodesBySubject) {
+          if (subject.code === claimCode.subject) {
+            return subject;
+          }
+        }
+      }
+      return _settings.subjects[0];
+    }
+
+    const { settings } = this;
+    return this.subjectDefinitions.find(
+      x =>
+        x.subject === getOptimalSubject(settings).code &&
+        x.assessmentType === settings.assessmentType
+    );
   }
 
   getFormGroup(): FormGroup {
@@ -179,8 +201,8 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
 
     this.updateColumnOrder();
     this.markOrganizationsControlTouched();
-    this.initializeClaimsForAssessmentType();
     this.updateSubjectsEnabled();
+    this.initializeClaimsForAssessmentType();
     this.onSubjectsChange();
   }
 
@@ -239,28 +261,43 @@ export class ClaimReportFormComponent extends MultiOrganizationQueryFormComponen
         );
     });
 
-    //Once the orderings have been fetched, continue initialization
+    // Once the orderings have been fetched, continue initialization
     forkJoin(...orderingObservables).subscribe(() => {
       this.initializeSelectionBySubject();
     });
   }
 
   private initializeSelectionBySubject(): void {
+    // Selections must match exactly with the values used as options.
+    const findMatching = input => {
+      return this.claimsBySubject[input.subject]
+        .map(opt => opt.value)
+        .find(
+          claim =>
+            claim.code === input.code &&
+            claim.assessmentType === input.assessmentType
+        );
+    };
+
     // Map selected claims by subject
     const selections: Map<
       string,
       Claim[]
     > = this.settings.claimReport.claimCodesBySubject
       .filter(claim => claim.assessmentType === this.settings.assessmentType)
-      .reduce((map, claim) => {
-        const subjectClaims = map.get(claim.subject) || [];
-        subjectClaims.push(claim);
-        map.set(claim.subject, subjectClaims);
-        return map;
+      .reduce((subjectMap, claim) => {
+        const subjectClaims = subjectMap.get(claim.subject) || [];
+        const claimFromOption = findMatching(claim);
+        if (claimFromOption) {
+          subjectClaims.push(claimFromOption);
+          subjectMap.set(claim.subject, subjectClaims);
+        }
+        subjectMap.set(claim.subject, subjectClaims);
+        return subjectMap;
       }, new Map());
 
     const subjectCodes = this.settings.subjects.map(subject => subject.code);
-    for (let subject of subjectCodes) {
+    for (const subject of subjectCodes) {
       if (selections.has(subject)) {
         // Initialize selection based on settings values
         this.selectionBySubject[subject] = selections.get(subject);

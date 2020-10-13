@@ -52,6 +52,7 @@ function createOptions(
     case 'CustomAggregate':
     case 'Longitudinal':
     case 'Claim':
+    case 'AltScore':
     case 'Target':
       const viewAndDownloadDisabled: boolean =
         userReport.status !== 'COMPLETED' &&

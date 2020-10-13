@@ -133,7 +133,14 @@ function createOrderingByColumnField(
                 ? subjectDefinition.claimScore.codes
                 : []
             )
-          ).on(row => row.claimCode)
+          ).on(row => row.claimCode),
+    altScoreCode: ordering(
+      ranking(
+        subjectDefinition.alternateScore != null
+          ? subjectDefinition.alternateScore.codes
+          : []
+      )
+    ).on(row => row.altScoreCode)
   };
 }
 
@@ -155,6 +162,7 @@ function createColumns(
     new Column({ id: 'assessmentLabel' }),
     new Column({ id: 'schoolYear' }),
     new Column({ id: 'claim', field: 'claimCode', classes: 'wrapping' }),
+    new Column({ id: 'altScore', field: 'altScoreCode', classes: 'wrapping' }),
     new Column({ id: 'dimension', field: 'subgroup.id', classes: 'wrapping' }),
     new Column({ id: 'target', field: 'targetNaturalId', classes: 'wrapping' })
   ];
@@ -197,6 +205,24 @@ function createColumns(
         )
       );
       break;
+    case 'AltScore':
+      dataColumns.push(
+        new Column({ id: 'studentsTested' }),
+        new Column({
+          id: 'achievementComparison',
+          sortable: false,
+          classes: 'wrapping'
+        }),
+        new Column({ id: 'avgScaleScore', valueColumn: true }),
+        ...createPerformanceLevelColumns(
+          translate,
+          subjectDefinition,
+          reportType,
+          valueDisplayType,
+          performanceLevelDisplayType
+        )
+      );
+      break;
     case 'Target':
       dataColumns.push(
         new Column({ id: 'studentsTested' }),
@@ -220,6 +246,31 @@ function createColumns(
   ];
 }
 
+function levelsByReportType(
+  reportType: ReportQueryType,
+  subjectDefinition: SubjectDefinition
+): number[] {
+  let levels: number[] = null;
+
+  switch (reportType) {
+    case 'Claim':
+      if (subjectDefinition.claimScore != null) {
+        levels = subjectDefinition.claimScore.levels;
+      }
+      break;
+    case 'AltScore':
+      if (subjectDefinition.alternateScore != null) {
+        levels = subjectDefinition.alternateScore.levels;
+      }
+      break;
+    default:
+      levels = subjectDefinition.overallScore.levels;
+      break;
+  }
+
+  return levels || [];
+}
+
 function createPerformanceLevelColumns(
   translate: TranslateService,
   subjectDefinition: SubjectDefinition,
@@ -228,12 +279,7 @@ function createPerformanceLevelColumns(
   performanceLevelDisplayType: string
 ): Column[] {
   const performanceLevelsByDisplayType = {
-    Separate:
-      reportType === 'Claim'
-        ? subjectDefinition.claimScore != null
-          ? subjectDefinition.claimScore.levels
-          : []
-        : subjectDefinition.overallScore.levels,
+    Separate: levelsByReportType(reportType, subjectDefinition),
     Grouped: [
       subjectDefinition.overallScore.standardCutoff - 1,
       subjectDefinition.overallScore.standardCutoff
@@ -306,6 +352,18 @@ function createPerformanceLevelColumnDynamicFields(
   };
 }
 
+function getModifier(reportType) {
+  // Used to get proper key for translating level colors, headings, and suffixes.
+  switch (reportType) {
+    case 'Claim':
+      return 'claim-score.';
+    case 'AltScore':
+      return 'alt-score.';
+    default:
+      return '';
+  }
+}
+
 function getPerformanceLevelColumnHeaderText(
   translate: TranslateService,
   subjectDefinition: SubjectDefinition,
@@ -318,9 +376,7 @@ function getPerformanceLevelColumnHeaderText(
     displayType === 'Separate'
       ? `subject.${subjectDefinition.subject}.asmt-type.${
           subjectDefinition.assessmentType
-        }.${
-          reportType === 'Claim' ? 'claim-score.' : ''
-        }level.${level}.short-name`
+        }.${getModifier(reportType)}level.${level}.short-name`
       : `aggregate-report-table.columns.grouped-performance-level-prefix.${index}`
   );
 }
@@ -336,7 +392,7 @@ function getPerformanceLevelColumnHeaderSuffix(
     ? translate.instant(
         `subject.${subjectDefinition.subject}.asmt-type.${
           subjectDefinition.assessmentType
-        }.${reportType === 'Claim' ? 'claim-score.' : ''}level.${level}.suffix`
+        }.${getModifier(reportType)}level.${level}.suffix`
       )
     : '';
 }
@@ -350,7 +406,7 @@ function getPerformanceLevelColors(
   return translate.instant(
     `subject.${subjectDefinition.subject}.asmt-type.${
       subjectDefinition.assessmentType
-    }.${reportType === 'Claim' ? 'claim-score.' : ''}level.${level}.color`
+    }.${getModifier(reportType)}level.${level}.color`
   );
 }
 
@@ -614,7 +670,6 @@ export class AggregateReportTableComponent implements OnInit {
   treeColumns: number[] = [];
   columns: Column[];
   sortMode: boolean | string;
-  claimReport: boolean;
   center: boolean;
 
   constructor(
@@ -624,9 +679,8 @@ export class AggregateReportTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.sortMode = this.preview ? false : 'single';
-    this.claimReport = this.reportType === 'Claim';
     this.center =
-      this.reportType !== 'Claim' &&
+      !(this.claimReport || this.altScoreReport) &&
       this.subjectDefinition.performanceLevelStandardCutoff != null;
     this.buildAndRender();
     this._initialized = true;
@@ -636,13 +690,21 @@ export class AggregateReportTableComponent implements OnInit {
     return this._subjectDefinition;
   }
 
+  get claimReport(): boolean {
+    return this.reportType && this.reportType === 'Claim';
+  }
+
+  get altScoreReport(): boolean {
+    return this.reportType && this.reportType === 'AltScore';
+  }
+
   @Input()
   set subjectDefinition(value: SubjectDefinition) {
     const previousValue = this._subjectDefinition;
     this._subjectDefinition = value;
     if (this._initialized && previousValue !== value) {
       this.center =
-        this.reportType !== 'Claim' &&
+        !(this.claimReport || this.altScoreReport) &&
         this.subjectDefinition.performanceLevelStandardCutoff != null;
       this.buildAndRender();
     }
@@ -657,9 +719,8 @@ export class AggregateReportTableComponent implements OnInit {
     const previousValue = this._reportType;
     this._reportType = value;
     if (this._initialized && previousValue !== value) {
-      this.claimReport = this.reportType === 'Claim';
       this.center =
-        this.reportType !== 'Claim' &&
+        !(this.claimReport || this.altScoreReport) &&
         this.subjectDefinition.overallScore.standardCutoff != null;
       this.buildAndRender();
     }

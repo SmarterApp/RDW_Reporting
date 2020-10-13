@@ -228,6 +228,23 @@ body .ui-treetable {
   }
 }
 
+// Tab View p-tabView
+body
+  .ui-tabview.ui-tabview-top
+  .ui-tabview-nav
+  li:not(.ui-state-active):not(.ui-state-disabled)
+  &:focus {
+  border-color: @blue;
+  border-bottom: none;
+  background-color: @gray-lighter;
+}
+body
+  .ui-tabview.ui-tabview-top
+  .ui-tabview-nav
+  li:not(.ui-state-active):not(.ui-state-disabled):-moz-focusring {
+  outline: 2px solid @blue;
+}
+
 // Dropdowns
 .school-and-grade-search-container {
   .ui-dropdown,
@@ -281,6 +298,202 @@ body {
       }
       &.ui-state-highlight {
         //background-color: @blue;
+      }
+    }
+  }
+}
+/**Writing Trait Scores UI Updates **/
+writing-trait-scores {
+  a.nav-link.active {
+    background-color: #f8f8f8;
+  }
+  .ui-table .ui-table-thead > tr > th.level-down,
+  .ui-table .ui-table-tbody > tr > td.level-down {
+    padding-left: 8px !important;
+  }
+}
+
+body .ui-widget {
+  font-family: inherit;
+}
+body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active {
+  color: @blue;
+  background-color: @white;
+  border-color: @gray-light;
+  border-bottom: none;
+  position: relative;
+  &:hover {
+    background-color: @white;
+  }
+}
+body
+  .ui-tabview.ui-tabview-top
+  .ui-tabview-nav
+  li:not(.ui-state-active):not(.ui-state-disabled):hover {
+  border-color: @gray-light;
+  border-bottom: none;
+  background-color: @gray-lighter;
+}
+body .ui-tabview.ui-tabview-top .ui-tabview-nav {
+  margin-left: 7.5px;
+  border-bottom: none;
+}
+body .ui-tabview .ui-tabview-panel {
+  padding: 20px;
+  border: 1px solid @gray-light;
+  border-radius: 5px;
+}
+body .ui-tabview.ui-tabview-top .ui-tabview-nav li {
+  border-bottom: none;
+}
+
+body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-default a {
+  padding: 10px 15px;
+  color: @blue;
+  margin-top: -1px;
+}
+body li.ui-state-active span.ui-tabview-title.ng-star-inserted {
+  color: @black;
+}
+body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-default {
+  margin-right: 8px;
+}
+
+.table tr th.level-up,
+.table tr td.level-up {
+  background-image: none;
+}
+.ui-table .ui-table-thead > tr > th.level-down,
+.ui-table .ui-table-tbody > tr > td.level-down {
+  padding-left: 0;
+}
+.ui-sortable-column:-moz-focusring {
+  outline: 2px solid @blue;
+}
+.table tr th.level-down:before {
+  display: none;
+}
+.writing-trait-scores > .ui-table-wrapper {
+  display: inline-block;
+  min-width: 100% !important;
+}
+
+//ISR Template UI Overrides
+isr-template .ui-table-wrapper td i.fa {
+  font-size: 21px;
+  padding: 4px;
+}
+td span a {
+  margin-right: 16px;
+}
+td i.fa {
+  &.fa-upload {
+    color: @green;
+  }
+  &.fa-cloud-download {
+    color: @blue;
+  }
+  &.fa-ban {
+    color: @red;
+  }
+}
+span.configuredTemplate {
+  color: @green;
+}
+span.notConfiguredTemplate {
+  color: @red;
+}
+.download-ref-temp {
+  background: white;
+  border: 1px solid #d5d5d5;
+  &:hover {
+    color: @white;
+    background: @blue;
+    border-color: @blue;
+  }
+  &:focus {
+    color: @blue;
+  }
+}
+.download-ref-temp:focus.download-ref-temp:hover {
+  color: #fff;
+}
+.modal-dialog .alert {
+  margin-bottom: 0;
+}
+.well-empty {
+  background-color: #f8f8f8;
+  box-shadow: none;
+}
+/**Test Results Table Color UI Updates **/
+.loadingColor {
+  background-color: #d9edf7 !important;
+  &:hover {
+    color: @black;
+    background-color: #d9edf7 !important;
+    opacity: 0.8 !important;
+  }
+}
+.reviewingColor {
+  background-color: #fcf8e3 !important;
+  &:hover {
+    color: @black;
+    background-color: #fcf8e3 !important;
+    opacity: 0.8 !important;
+  }
+}
+.releasedColor {
+  background-color: #dff0d8 !important;
+  &:hover {
+    color: @black;
+    background-color: #dff0d8 !important;
+    opacity: 0.8 !important;
+  }
+}
+.well-results {
+  padding: 20px;
+}
+.set-status {
+  padding-left: 0px;
+}
+hr {
+  margin: 15px;
+  border-top: 1px solid #d5d5d5;
+}
+.table-footer {
+  padding: 20px 0 5px;
+}
+.ui-table {
+  .ui-paginator-bottom {
+    border: none;
+  }
+}
+.ui-paginator-pages {
+  font-size: 14px;
+}
+.ui-paginator-bottom.ui-paginator.ui-widget.ui-widget-header.ui-unselectable-text.ui-helper-clearfix {
+  margin: 0.5em;
+}
+body {
+  .ui-paginator {
+    .ui-paginator-first,
+    .ui-paginator-prev,
+    .ui-paginator-next,
+    .ui-paginator-last {
+      color: @gray-darker;
+      transition: background-color 0.3s;
+      min-height: 1em;
+      min-width: 1em;
+      padding: 1em;
+      vertical-align: middle;
+    }
+    .ui-paginator-pages {
+      .ui-paginator-page {
+        padding: 10px;
+        min-width: 0;
+        color: @gray-darkest;
+        transition: background-color 0.3s;
+        border-radius: 0;
       }
     }
   }

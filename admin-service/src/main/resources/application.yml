@@ -20,6 +20,12 @@ endpoints:
 flyway:
   enabled: false
 
+embargo:
+  # Number of days to include in audit log of embargo changes
+  audit-log-days: 7
+  # File name for audit log
+  audit-log-file-name: testResultsAudit.csv
+
 server:
   # tomcat settings for reasonable performance: adjust for tiny/huge configurations
   tomcat:

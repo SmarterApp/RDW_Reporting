@@ -1,7 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { SchoolYearPipe } from '../shared/format/school-year.pipe';
-import { AggregateReportOptions, Claim } from './aggregate-report-options';
+import {
+  AggregateReportOptions,
+  AltScore,
+  Claim
+} from './aggregate-report-options';
 import { AggregateReportFormSettings } from './aggregate-report-form-settings';
 import { AssessmentDefinition } from './assessment/assessment-definition';
 import { isNullOrEmpty, Utils } from '../shared/support/support';
@@ -113,7 +117,12 @@ export class AggregateReportSummary {
 
     const { assessmentDefinition, options, settings } = this.summary;
 
-    const translate = code => this.translate.instant(code);
+    const effectiveReportType = this.reportService.getEffectiveReportType(
+      settings.reportType,
+      assessmentDefinition
+    );
+
+    const translate = code => (code ? this.translate.instant(code) : '');
 
     const All = translate('common.collection-selection.all');
     const None = translate('common.collection-selection.none');
@@ -175,128 +184,108 @@ export class AggregateReportSummary {
     }
 
     let assessmentAttributes = [];
-    if (
-      this.reportService.getEffectiveReportType(
-        settings.reportType,
-        assessmentDefinition
-      ) === 'CustomAggregate'
-    ) {
-      assessmentAttributes = [
-        {
-          label: translate('aggregate-report-form.field.subjects-label'),
-          values: orAll(options.subjects, settings.subjects, subject =>
-            translate(`subject.${subject.code}.name`)
-          )
-        },
-        {
-          label: translate(
-            'aggregate-report-form.field.assessment-grades-label'
-          ),
-          values: inline(
-            orAll(
-              this.options.assessmentGrades,
-              this.settings.generalPopulation.assessmentGrades,
-              code => translate(`common.assessment-grade.${code}`)
+
+    const getReportSettings = (reportType: string) => {
+      switch (reportType) {
+        case 'Claim':
+          return this.settings.claimReport;
+        case 'AltScore':
+          return this.settings.altScoreReport;
+        default:
+          return this.settings.generalPopulation;
+      }
+    };
+
+    switch (effectiveReportType) {
+      case 'CustomAggregate':
+      case 'Claim':
+      case 'AltScore':
+        const reportSettings = getReportSettings(effectiveReportType);
+
+        assessmentAttributes = [
+          {
+            label: translate('aggregate-report-form.field.subjects-label'),
+            values: orAll(options.subjects, settings.subjects, subject =>
+              translate(`subject.${subject.code}.name`)
             )
-          )
-        },
-        {
-          label: translate('aggregate-report-form.field.school-years-label'),
-          values: this.settings.generalPopulation.schoolYears.map(value =>
-            this.schoolYearPipe.transform(value)
-          )
-        }
-      ];
-    } else if (
-      this.reportService.getEffectiveReportType(
-        settings.reportType,
-        assessmentDefinition
-      ) === 'Claim'
-    ) {
-      assessmentAttributes = [
-        {
-          label: translate('aggregate-report-form.field.subjects-label'),
-          values: orAll(options.subjects, settings.subjects, subject =>
-            translate(`subject.${subject.code}.name`)
-          )
-        },
-        {
-          label: translate(
-            'aggregate-report-form.field.assessment-grades-label'
-          ),
-          values: inline(
-            orAll(
-              this.options.assessmentGrades,
-              this.settings.claimReport.assessmentGrades,
-              code => translate(`common.assessment-grade.${code}`)
+          },
+          {
+            label: translate(
+              'aggregate-report-form.field.assessment-grades-label'
+            ),
+            values: inline(
+              orAll(
+                this.options.assessmentGrades,
+                reportSettings.assessmentGrades,
+                code => translate(`common.assessment-grade.${code}`)
+              )
             )
-          )
-        },
-        {
-          label: translate('aggregate-report-form.field.school-years-label'),
-          values: this.settings.claimReport.schoolYears.map(value =>
-            this.schoolYearPipe.transform(value)
-          )
-        }
-      ];
-    } else if (
-      this.reportService.getEffectiveReportType(
-        settings.reportType,
-        assessmentDefinition
-      ) === 'Target'
-    ) {
-      assessmentAttributes = [
-        {
-          label: translate('aggregate-report-form.field.subject-label'),
-          values: [
-            translate(`subject.${settings.targetReport.subjectCode}.name`)
-          ]
-        },
-        {
-          label: translate(
-            'aggregate-report-form.field.assessment-grade-label'
-          ),
-          values: [
-            translate(
-              `common.assessment-grade.${settings.targetReport.assessmentGrade}`
+          },
+          {
+            label: translate('aggregate-report-form.field.school-years-label'),
+            values: reportSettings.schoolYears.map(value =>
+              this.schoolYearPipe.transform(value)
             )
-          ]
-        },
-        {
-          label: translate('aggregate-report-form.field.school-year-label'),
-          values: [
-            this.schoolYearPipe.transform(settings.targetReport.schoolYear)
-          ]
-        }
-      ];
-    } else {
-      assessmentAttributes = [
-        {
-          label: translate('aggregate-report-form.field.subjects-label'),
-          values: orAll(options.subjects, settings.subjects, subject =>
-            translate(`subject.${subject.code}.name`)
-          )
-        },
-        {
-          label: translate(
-            'aggregate-report-form.field.assessment-grades-label'
-          ),
-          values: inline(
-            orAll(
-              this.options.assessmentGrades,
-              this.settings.longitudinalCohort.assessmentGrades,
-              code => translate(`common.assessment-grade.${code}`)
+          }
+        ];
+        break;
+      case 'Target':
+        assessmentAttributes = [
+          {
+            label: translate('aggregate-report-form.field.subject-label'),
+            values: [
+              translate(`subject.${settings.targetReport.subjectCode}.name`)
+            ]
+          },
+          {
+            label: translate(
+              'aggregate-report-form.field.assessment-grade-label'
+            ),
+            values: [
+              translate(
+                `common.assessment-grade.${
+                  settings.targetReport.assessmentGrade
+                }`
+              )
+            ]
+          },
+          {
+            label: translate('aggregate-report-form.field.school-year-label'),
+            values: [
+              this.schoolYearPipe.transform(settings.targetReport.schoolYear)
+            ]
+          }
+        ];
+        break;
+      default:
+        assessmentAttributes = [
+          {
+            label: translate('aggregate-report-form.field.subjects-label'),
+            values: orAll(options.subjects, settings.subjects, subject =>
+              translate(`subject.${subject.code}.name`)
             )
-          )
-        },
-        {
-          label: translate('aggregate-report-form.field.school-years-label'),
-          values: computeEffectiveYears(
-            this.settings.longitudinalCohort.toSchoolYear,
-            this.settings.longitudinalCohort.assessmentGrades
-          ).map(value => this.schoolYearPipe.transform(value))
-        }
-      ];
+          },
+          {
+            label: translate(
+              'aggregate-report-form.field.assessment-grades-label'
+            ),
+            values: inline(
+              orAll(
+                this.options.assessmentGrades,
+                this.settings.longitudinalCohort.assessmentGrades,
+                code => translate(`common.assessment-grade.${code}`)
+              )
+            )
+          },
+          {
+            label: translate('aggregate-report-form.field.school-years-label'),
+            values: computeEffectiveYears(
+              this.settings.longitudinalCohort.toSchoolYear,
+              this.settings.longitudinalCohort.assessmentGrades
+            ).map(value => this.schoolYearPipe.transform(value))
+          }
+        ];
+        break;
     }
 
     const assessmentRows = [
@@ -342,17 +331,20 @@ export class AggregateReportSummary {
       }
     ];
 
-    const claimRows = [];
-    if (
-      this.reportService.getEffectiveReportType(
-        settings.reportType,
-        assessmentDefinition
-      ) === 'Claim'
-    ) {
+    const claimOrAltScoreRows = [];
+    let claimOrAltScoreHeader = '';
+
+    if (effectiveReportType === 'Claim') {
+      // TODO: figure out the desired behavior here.
+      //  This is effectively always false because it compares the total set of claim codes
+      //  from sum and ica against the currently selected ones from either sum or ica.
+      //  I suspect it's meant to suppress display if all claims are selected, but it's not
+      //  doing that as written.
       if (
         !equalSize(options.claims, settings.claimReport.claimCodesBySubject)
       ) {
-        claimRows.push({
+        claimOrAltScoreHeader = 'aggregate-report-form.section.claim-heading';
+        claimOrAltScoreRows.push({
           label: translate('aggregate-report-form.field.claim-codes-label'),
           values: defaultAllOrAll(
             this.options.claims,
@@ -362,6 +354,19 @@ export class AggregateReportSummary {
           )
         });
       }
+    }
+
+    if (effectiveReportType === 'AltScore') {
+      claimOrAltScoreHeader = 'aggregate-report-form.section.alt-score-heading';
+      claimOrAltScoreRows.push({
+        label: translate('aggregate-report-form.field.alt-score-codes-label'),
+        values: defaultAllOrAll(
+          this.options.altScores,
+          this.settings.altScoreReport.altScoreCodesBySubject,
+          (altScore: AltScore) =>
+            translate(`subject.${altScore.subject}.alt.${altScore.code}.name`)
+        )
+      });
     }
 
     let variableSections: Section[];
@@ -471,7 +476,7 @@ export class AggregateReportSummary {
         )
       ) {
         filterRows.push({
-          label: translate('common.student-field.IndividualEdcuationPlan'),
+          label: translate('common.student-field.IndividualEducationPlan'),
           values: inline(
             orAll(
               optionFilters.individualEducationPlans,
@@ -600,8 +605,8 @@ export class AggregateReportSummary {
         rows: assessmentRows
       },
       {
-        label: translate('aggregate-report-form.section.claim-heading'),
-        rows: claimRows
+        label: translate(claimOrAltScoreHeader),
+        rows: claimOrAltScoreRows
       },
       ...variableSections
     )

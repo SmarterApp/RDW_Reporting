@@ -1,0 +1,164 @@
+<page-heading>
+  <h1 class="h2" heading>{{ 'isr-template.title' | translate }}</h1>
+  <ul class="list-unstyled list-inline" controls>
+    <li>
+      <a
+        class="btn btn-secondary download-ref-temp"
+        (click)="downloadReferenceTemplate()"
+        href="javascript:void(0)"
+        tooltip="{{ 'isr-template.reference-tooltip' | translate }}"
+        aria-label="Download the reference template"
+        ><i class="fa fa-cloud-download" aria-hidden="false"></i>
+        {{ 'isr-template.reference-template' | translate }}</a
+      >
+    </li>
+  </ul>
+</page-heading>
+
+<ng-container>
+  <ng-container>
+    <div *ngIf="unableToUpload" class="alert alert-danger">
+      <button
+        type="button"
+        class="close"
+        title="{{ 'common.action.close' | translate }}"
+        (click)="clearErrors()"
+        aria-label="Close error alert"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{ 'isr-template.upload-error' | translate }}
+      <span *ngIf="errorKey">{{ errorKey | translate }}</span>
+    </div>
+
+    <div class="well well-results">
+      <div class="table-list-container">
+        <ng-container *ngIf="!initialized">
+          <spinner></spinner>
+        </ng-container>
+
+        <p-table
+          *ngIf="initialized"
+          [columns]="columns"
+          [value]="isrTemplates"
+          sortField="name"
+          [autoLayout]="true"
+        >
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th
+                *ngFor="let column of columns"
+                [pSortableColumn]="column.sortField"
+                [pSortableColumnDisabled]="!column.sortable"
+                [ngSwitch]="column.id"
+              >
+                <span *ngSwitchDefault>
+                  {{ 'isr-template.columns.' + column.id | translate }}
+                </span>
+
+                <p-sortIcon
+                  *ngIf="column.sortable"
+                  [field]="column.sortField"
+                ></p-sortIcon>
+              </th>
+              <th style="width:15%;">
+                {{ 'isr-template.action-header' | translate }}
+              </th>
+            </tr>
+          </ng-template>
+
+          <ng-template
+            *ngIf="visible"
+            pTemplate="body"
+            let-group
+            let-rowData
+            let-columns="columns"
+          >
+            <tr>
+              <td *ngFor="let column of columns" [ngSwitch]="column.id">
+                <span *ngSwitchDefault>
+                  {{
+                    group[column.field].hasOwnProperty('label')
+                      ? (group[column.field].label | translate)
+                      : group[column.field]
+                  }}
+                </span>
+                <span *ngSwitchCase="'status'" [ngClass]="getStatus(rowData)">
+                  {{ group[column.field] }}
+                </span>
+              </td>
+              <td>
+                <span>
+                  <ng-container *ngIf="!isSandbox">
+                    <input
+                      type="file"
+                      #fileInput
+                      style="display:none;"
+                      ng2FileSelect
+                      [uploader]="fileUploader"
+                      (onFileSelected)="onFileSelected($event, rowData)"
+                    />
+                    <a
+                      *ngIf="canUpload"
+                      href="javascript:void(0)"
+                      (click)="fileInput.click()"
+                      [attr.aria-label]="getUploadLabel(rowData)"
+                      title="{{
+                        'isr-template.upload-template-title' | translate
+                      }}"
+                      ><i class="fa fa-upload"></i>
+                    </a>
+                  </ng-container>
+                  <ng-container *ngIf="isSandbox">
+                    <a
+                      href="javascript:void(0)"
+                      (click)="openForSandboxModal('upload')"
+                      [attr.aria-label]="getUploadLabel(rowData)"
+                      title="{{
+                        'isr-template.upload-template-title' | translate
+                      }}"
+                      ><i class="fa fa-upload"></i>
+                    </a>
+                  </ng-container>
+
+                  <span *ngIf="showIcons(rowData)">
+                    <a
+                      href="javascript:void(0)"
+                      (click)="downloadReportTemplate(rowData)"
+                      [attr.aria-label]="getDownloadLabel(rowData)"
+                      title="{{
+                        'isr-template.download-template-title' | translate
+                      }}"
+                      ><i class="fa fa-cloud-download"></i>
+                    </a>
+                  </span>
+
+                  <span *ngIf="showIcons(rowData)">
+                    <a
+                      *ngIf="canDelete"
+                      href="javascript:void(0);"
+                      (click)="openDeleteTemplateModal(rowData)"
+                      [attr.aria-label]="getDeletedLabel(rowData)"
+                      title="{{
+                        'isr-template.remove-template-title' | translate
+                      }}"
+                      ><i class="fa fa-ban"></i>
+                    </a>
+                  </span>
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+              <td [attr.colspan]="columns.length">
+                {{ 'isr-template.empty-message' | translate }}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

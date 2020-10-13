@@ -8,6 +8,7 @@ const ColumnToLabel: { [key: string]: string } = {
   schoolYear: 'aggregate-report-table.columns.school-year',
   dimension: 'aggregate-report-table.columns.dimension',
   claim: 'aggregate-report-table.columns.claim',
+  altScore: 'aggregate-report-table.columns.alt-score',
   target: 'aggregate-report-table.columns.target'
 };
 

@@ -19,6 +19,14 @@ export const ClaimIdentityColumnOptions: string[] = [
   'dimension'
 ];
 
+export const AltScoreIdentityColumnOptions: string[] = [
+  'organization',
+  'assessmentGrade',
+  'schoolYear',
+  'altScore',
+  'dimension'
+];
+
 const Iab: AssessmentDefinition = {
   typeCode: 'iab',
   interim: true,
@@ -41,7 +49,7 @@ const Ica: AssessmentDefinition = {
     option => option !== 'assessmentLabel'
   ),
   aggregateReportStateResultsEnabled: false,
-  aggregateReportTypes: ['Claim']
+  aggregateReportTypes: ['Claim', 'AltScore']
 };
 
 const Summative: AssessmentDefinition = {
@@ -55,7 +63,7 @@ const Summative: AssessmentDefinition = {
     option => option !== 'assessmentLabel'
   ),
   aggregateReportStateResultsEnabled: true,
-  aggregateReportTypes: ['Claim', 'Longitudinal']
+  aggregateReportTypes: ['Claim', 'AltScore', 'Longitudinal']
 };
 
 const ClaimIca: AssessmentDefinition = {
@@ -78,6 +86,28 @@ const ClaimSummative: AssessmentDefinition = {
   aggregateReportIdentityColumns: ClaimIdentityColumnOptions.concat(),
   aggregateReportStateResultsEnabled: true,
   aggregateReportTypes: ['Claim', 'Longitudinal']
+};
+
+const AltScoreIca: AssessmentDefinition = {
+  typeCode: 'ica',
+  interim: true,
+  performanceLevels: [1, 2, 3],
+  performanceLevelCount: 3,
+  performanceLevelDisplayTypes: [PerformanceLevelDisplayTypes.Separate],
+  aggregateReportIdentityColumns: AltScoreIdentityColumnOptions.concat(),
+  aggregateReportStateResultsEnabled: false,
+  aggregateReportTypes: ['AltScore']
+};
+
+const AltScoreSummative: AssessmentDefinition = {
+  typeCode: 'sum',
+  interim: false,
+  performanceLevels: [1, 2, 3],
+  performanceLevelCount: 3,
+  performanceLevelDisplayTypes: [PerformanceLevelDisplayTypes.Separate],
+  aggregateReportIdentityColumns: AltScoreIdentityColumnOptions.concat(),
+  aggregateReportStateResultsEnabled: true,
+  aggregateReportTypes: ['AltScore']
 };
 
 const TargetSummative: AssessmentDefinition = {
@@ -106,6 +136,11 @@ export const ClaimIcaKey: DefinitionKey = <DefinitionKey>{
   reportType: 'Claim'
 };
 
+export const AltScoreIcaKey: DefinitionKey = <DefinitionKey>{
+  assessmentType: 'ica',
+  reportType: 'AltScore'
+};
+
 export const GeneralPopulationSumKey: DefinitionKey = <DefinitionKey>{
   assessmentType: 'sum',
   reportType: 'CustomAggregate'
@@ -120,6 +155,11 @@ export const ClaimSumKey: DefinitionKey = <DefinitionKey>{
   reportType: 'Claim'
 };
 
+export const AltScoreSumKey: DefinitionKey = <DefinitionKey>{
+  assessmentType: 'sum',
+  reportType: 'AltScore'
+};
+
 export const TargetSummativeKey: DefinitionKey = <DefinitionKey>{
   assessmentType: 'sum',
   reportType: 'Target'
@@ -129,9 +169,11 @@ export const definitions = [
   { key: GeneralPopulationIabKey, value: Iab },
   { key: GeneralPopulationIcaKey, value: Ica },
   { key: ClaimIcaKey, value: ClaimIca },
+  { key: AltScoreIcaKey, value: AltScoreIca },
   { key: GeneralPopulationSumKey, value: Summative },
   { key: LongitudinalCohortSumKey, value: Summative },
   { key: ClaimSumKey, value: ClaimSummative },
+  { key: AltScoreSumKey, value: AltScoreSummative },
   { key: TargetSummativeKey, value: TargetSummative }
 ];
 

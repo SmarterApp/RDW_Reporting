@@ -33,4 +33,25 @@ export class OrderingService {
         )
       );
   }
+
+  /**
+   * @deprecated use getSubjectDefinitions() directly
+   *
+   * @param subject
+   * @param assessmentType
+   */
+  public getAltScoreOrdering(
+    subject: string,
+    assessmentType: string
+  ): Observable<Ordering<any>> {
+    return this.subjectService
+      .getSubjectDefinition(subject, assessmentType)
+      .pipe(
+        map(definition =>
+          ordering(
+            ranking(definition == null ? [] : definition.alternateScoreCodes)
+          )
+        )
+      );
+  }
 }

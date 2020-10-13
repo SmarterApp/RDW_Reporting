@@ -144,6 +144,7 @@
                         </ng-container>
                         <ng-container *ngSwitchCase="'multiselect'">
                           <sb-button-group
+                            *ngIf="(getOptions(data) | async).length > 1"
                             id="{{ configuration.name }}"
                             name="{{ configuration.name }}"
                             [options]="getOptions(data) | async"

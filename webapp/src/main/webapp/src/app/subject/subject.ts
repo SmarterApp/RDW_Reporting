@@ -20,18 +20,18 @@ export interface SubjectDefinition {
   /** @deprecated use overallScores */
   readonly performanceLevelStandardCutoff: number;
 
-  /** @deprecated use claimScaleScores */
+  /** @deprecated use claimScore  */
   readonly scorableClaims: string[];
-  /** @deprecated use claimScaleScores */
+  /** @deprecated use claimScore */
   readonly scorableClaimPerformanceLevels: number[];
-  /** @deprecated use claimScaleScores */
+  /** @deprecated use claimScore */
   readonly scorableClaimPerformanceLevelCount: number;
 
-  /** @deprecated use alternateScores */
+  /** @deprecated use alternateScore */
   readonly alternateScoreCodes?: string[];
-  /** @deprecated use alternateScores */
+  /** @deprecated use alternateScore */
   readonly alternateScorePerformanceLevels?: number[];
-  /** @deprecated use alternateScores */
+  /** @deprecated use alternateScore */
   readonly alternateScorePerformanceLevelCount?: number;
 
   /**
@@ -45,7 +45,7 @@ export interface SubjectDefinition {
   readonly alternateScore?: ScoreDefinition;
 
   /**
-   * Claim score informatino
+   * Claim score information
    */
   readonly claimScore?: ScoreDefinition;
 

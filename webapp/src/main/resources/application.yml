@@ -4,6 +4,15 @@ app:
       # every 2 mins (2 * 60 * 1000)
       refresh-delay: "120000"
 
+cloud:
+  aws:
+    region:
+      auto: false
+      static: us-west-2
+    # disable CloudFormation stuff
+    stack:
+      auto: false
+
 # actuator end-points should be served from a different port than the API/web content
 management:
   port: 8008

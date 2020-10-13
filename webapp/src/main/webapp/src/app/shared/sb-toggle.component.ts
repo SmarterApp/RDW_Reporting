@@ -23,6 +23,7 @@ const DefaultButtonStyles = 'btn-primary';
       <label
         *ngFor="let option of options"
         class="btn"
+        [tabindex]="0"
         [ngClass]="
           computeStylesInternal(buttonStyles, {
             active: option.value === value,
@@ -34,6 +35,7 @@ const DefaultButtonStyles = 'btn-primary';
           type="radio"
           id="{{ name }}"
           name="{{ name }}"
+          [tabindex]="-1"
           [disabled]="disabled"
           [value]="option.value"
           [(ngModel)]="value"

@@ -86,6 +86,13 @@ sql:
       AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
       LIMIT 1
 
+    findExamLevelTraitScoresByExamIds: >-
+      SELECT ets.exam_id, ets.trait_id, st.purpose, st.category, st.max_score, ets.score, ets.condition_code
+      FROM exam_trait_score ets
+        JOIN subject_trait st on ets.trait_id = st.id
+      WHERE ets.exam_id IN (:exam_ids)
+      ORDER BY exam_id, purpose, category
+
   examItem:
     findAllForExam: >-
       ${sql.reporting.snippet.selectFromExamItem}
@@ -331,8 +338,8 @@ sql:
         EXISTS(SELECT 1 FROM item i WHERE i.asmt_id = a.id AND i.type = 'WER') as has_wer_item,
         su.code as subject_code,
         sat.target_report,
-        sat.printed_report
-
+        sat.printed_report,
+        sat.trait_report
 
       selectFromExamItem: >-
        SELECT

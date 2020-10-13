@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DataService } from '../shared/data/data.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AggregateServiceRoute } from '../shared/service-route';
 import { AggregateReportRow } from '../report/aggregate-report';
 import { AssessmentService } from './assessment/assessment.service';

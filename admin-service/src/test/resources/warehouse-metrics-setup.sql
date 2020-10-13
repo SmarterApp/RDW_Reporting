@@ -96,11 +96,11 @@ SET created = '2017-07-18 19:06:30.966000',
 WHERE id IN (1, 2);
 
 -- add subjects' related data for the new subjects
-INSERT INTO subject_asmt_type (subject_id, asmt_type_id, target_report, printed_report)
-VALUES (-1, 1, 0, 1),
-       (-2, 1, 0, 1),
-       (-3, 1, 0, 1), -- new entry
-       (-3, 2, 0, 1); -- updated entry
+INSERT INTO subject_asmt_type (subject_id, asmt_type_id, target_report, printed_report, trait_report)
+VALUES (-1, 1, 0, 1, 0),
+       (-2, 1, 0, 1, 0),
+       (-3, 1, 0, 1, 0), -- new entry
+       (-3, 2, 0, 1, 0); -- updated entry
 
 INSERT INTO subject_asmt_scoring (subject_id, asmt_type_id, score_type_id, performance_level_count,
                                   performance_level_standard_cutoff)

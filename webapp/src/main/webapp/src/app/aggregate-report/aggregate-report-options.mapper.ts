@@ -1,4 +1,8 @@
-import { AggregateReportOptions, Claim } from './aggregate-report-options';
+import {
+  AggregateReportOptions,
+  AltScore,
+  Claim
+} from './aggregate-report-options';
 import { AggregateReportFormOptions } from './aggregate-report-form-options';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -61,6 +65,13 @@ export class AggregateReportOptionsMapper {
           (value: Claim) =>
             translate(`subject.${value.subject}.claim.${value.code}.name`),
           (value: Claim) => `Claim Code: ${value.code}`
+        )
+      ),
+      altScoreCodes: options.altScores.map(
+        optionMapper(
+          (value: AltScore) =>
+            translate(`subject.${value.subject}.alt.${value.code}.name`),
+          (value: AltScore) => `Alternate Score Code: ${value.code}`
         )
       ),
       completenesses: options.completenesses.map(
@@ -236,6 +247,11 @@ export class AggregateReportOptionsMapper {
         assessmentGrades: [],
         schoolYears: [options.schoolYears[0]],
         claimCodesBySubject: []
+      },
+      altScoreReport: {
+        assessmentGrades: [],
+        schoolYears: [options.schoolYears[0]],
+        altScoreCodesBySubject: []
       },
       longitudinalCohort: {
         assessmentGrades: [],

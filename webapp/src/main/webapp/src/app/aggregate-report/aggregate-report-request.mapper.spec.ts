@@ -132,6 +132,11 @@ describe('AggregateReportRequestMapper', () => {
         schoolYears: query.schoolYears,
         claimCodesBySubject: []
       },
+      altScoreReport: {
+        assessmentGrades: [],
+        schoolYears: query.schoolYears,
+        altScoreCodesBySubject: []
+      },
       longitudinalCohort: {
         assessmentGrades: [],
         toSchoolYear: options.schoolYears[0]
@@ -217,6 +222,11 @@ describe('AggregateReportRequestMapper', () => {
         schoolYears: query.schoolYears,
         claimCodesBySubject: []
       },
+      altScoreReport: {
+        assessmentGrades: [],
+        schoolYears: query.schoolYears,
+        altScoreCodesBySubject: []
+      },
       longitudinalCohort: {
         assessmentGrades: [],
         toSchoolYear: options.schoolYears[0]
@@ -243,7 +253,13 @@ describe('AggregateReportRequestMapper', () => {
       dimensionTypes: ['Gender', 'Ethnicity'],
       interimAdministrationConditions: ['SD', 'NS'],
       queryTypes: ['Basic', 'FilteredSubgroup'],
-      reportTypes: ['CustomAggregate', 'Longitudinal', 'Claim', 'Target'],
+      reportTypes: [
+        'CustomAggregate',
+        'Longitudinal',
+        'Claim',
+        'AltScore',
+        'Target'
+      ],
       schoolYears: [2000, 1999],
       claims: [
         {
@@ -257,6 +273,7 @@ describe('AggregateReportRequestMapper', () => {
           code: '4'
         }
       ],
+      altScores: [],
       statewideReporter: false,
       subjects: [
         {

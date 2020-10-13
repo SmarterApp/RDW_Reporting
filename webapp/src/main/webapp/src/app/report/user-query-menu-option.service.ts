@@ -46,6 +46,7 @@ function createViewQueryOptionHandler(
     case 'CustomAggregate':
     case 'Longitudinal':
     case 'Claim':
+    case 'AltScore':
     case 'Target':
       return () =>
         router.navigateByUrl(`/aggregate-reports?userQueryId=${userQuery.id}`);

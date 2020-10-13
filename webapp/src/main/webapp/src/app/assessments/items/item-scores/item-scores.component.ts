@@ -108,7 +108,7 @@ class Column {
   field: string;
   visible: boolean;
 
-  //Item score / Writing trait score properties
+  // Item score / Writing trait score properties
   score?: string;
 
   constructor({ id, field = '', visible = true, score = '' }) {

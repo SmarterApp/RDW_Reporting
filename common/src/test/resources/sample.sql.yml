@@ -1,62 +1,69 @@
 sqlbuilder:
   templates:
-      # ------------ achievement level report t  -----------------------------------------------------------------------------
-      achievementLevels:
-        clauses:
-          select:  >-
-               count(*) AS count,
-               avg(scale_score) AS score,
-               sum(CASE WHEN performance_level = 1 THEN 1 ELSE 0 END) AS level1,
-               sum(CASE WHEN performance_level = 2 THEN 1 ELSE 0 END) AS level2,
-               sum(CASE WHEN performance_level = 3 THEN 1 ELSE 0 END) AS level3,
-               sum(CASE WHEN performance_level = 4 THEN 1 ELSE 0 END) AS level4,
-               fe.asmt_grade_id,
-               fe.school_year,
-               a.subject_id
+    # ------------ default addons -----------------------------------------------------------------
+    # NOTE: having this file in the common tests jar is problematic because it will override
+    #       the default entries in default-report-template-addons.sql.yml values; see build.gradle
+    default:
+      addons:
+        state:
+          clauses:
+            select:  >-
+              'state' AS type
+        # bogus default addon for districts to demo that overriding works
+        districts:
+          clauses:
+            select: >-
+              'district' AS type
 
-          from: >-
-              fact_student_ica_exam fe
+    # ------------ achievement level report -------------------------------------------------------
+    achievementLevels:
+      clauses:
+        select:  >-
+             count(*) AS count,
+             avg(scale_score) AS score,
+             sum(CASE WHEN performance_level = 1 THEN 1 ELSE 0 END) AS level1,
+             sum(CASE WHEN performance_level = 2 THEN 1 ELSE 0 END) AS level2,
+             sum(CASE WHEN performance_level = 3 THEN 1 ELSE 0 END) AS level3,
+             sum(CASE WHEN performance_level = 4 THEN 1 ELSE 0 END) AS level4,
+             fe.asmt_grade_id,
+             fe.school_year,
+             a.subject_id
 
-          join: >-
-              JOIN ica_asmt a ON a.id = fe.asmt_id
+        from: >-
+            fact_student_ica_exam fe
 
-          where: >-
-              fe.school_year IN (:school_years) AND
-              fe.asmt_grade_id IN (:asmt_grade_ids) AND
-              a.grade_id IN (:asmt_grade_ids)
+        join: >-
+            JOIN ica_asmt a ON a.id = fe.asmt_id
 
-          groupBy: >-
-              fe.school_year,
-              fe.asmt_grade_id,
-              a.subject_id
+        where: >-
+            fe.school_year IN (:school_years) AND
+            fe.asmt_grade_id IN (:asmt_grade_ids) AND
+            a.grade_id IN (:asmt_grade_ids)
 
-      # ------------ achievement level by state ---------------------------------------------------------------------------
-        addons:
-            state:
-              clauses:
-                select:  >-
-                   'state' AS type
+        groupBy: >-
+            fe.school_year,
+            fe.asmt_grade_id,
+            a.subject_id
 
-      # ------------ achievement level - all districts  -------------------------------------------------------------------
-            allDistricts:
-              clauses:
-                select:  >-
-                      sch.district_id,
-                      'district' AS type
+      addons:
+        allDistricts:
+          clauses:
+            select:  >-
+                  sch.district_id,
+                  'district' AS type
 
-                join: >-
-                    JOIN school sch ON sch.id = fe.school_id
+            join: >-
+                JOIN school sch ON sch.id = fe.school_id
 
-                groupBy: >-
-                    sch.district_id
+            groupBy: >-
+                sch.district_id
 
-      # ------------ achievement level by selected district(s)  -----------------------------------------------------------
-            districts:
-              clauses:
-                select: >-
-                    district_column
-                join: >-
-                    JOIN another_join
-                where: >-
-                   district_id in (:district_ids)
+        districts:
+          clauses:
+            select: >-
+                district_column
+            join: >-
+                JOIN another_join
+            where: >-
+               district_id in (:district_ids)
 

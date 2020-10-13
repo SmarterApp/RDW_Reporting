@@ -56,6 +56,7 @@
     "subheading": "Select the attributes to include in the report. Then click \"Create Report.\"",
     "field": {
       "claim-codes-label": "Claims",
+      "alt-score-codes-label": "Alternate Scores",
       "assessment-grade-range-label": "Assessment Grades",
       "to-school-year-label": "Most Recent Academic Year",
       "to-school-year-info": "The year for the highest assessment grade selected",
@@ -89,6 +90,7 @@
     },
     "section": {
       "claim-heading": "Claim",
+      "alt-score-heading": "Alternate Score",
       "organization": {
         "heading": "Schools and Districts",
         "subtext": "Select schools and districts to compare.",
@@ -132,6 +134,7 @@
       "avg-scale-score": "Average Scale Score",
       "avg-scale-score-suffix": "± Error Band",
       "claim": "Claim",
+      "alt-score": "Alternate Score",
       "dimension": "Subgroup",
       "grouped-performance-level-prefix": {
         "0": "Below",
@@ -205,6 +208,7 @@
   },
   "assessment-results": {
     "distractor-analysis-instructions": "The shaded responses below indicate the correct answer for each item.",
+    "writing-trait-scores-purpose-instructions": "Select a tab below to view the writing trait score data by purpose.",
     "hide-results": "Hide Results",
     "no-distractor-analysis": "Key / Distractor Analysis is not available for assessments administered prior to 2017-18 school year.",
     "no-results-by-item": "Results By Item is not available for assessments administered prior to 2017-18 school year.",
@@ -282,6 +286,11 @@
         "description": "Compare Claim-level performance on available assessments.",
         "disabled": "Claim Reports are only available for ICA and summative assessments.",
         "label": "Claim Report"
+      },
+      "AltScore": {
+        "description": "Compare alternate score-level performance on available assessments.",
+        "disabled": "Alternate Score Reports are only available for ICA and summative assessments.",
+        "label": "Alternate Score Report"
       },
       "CustomAggregate": {
         "description": "Compare performance by selected school years.",
@@ -537,6 +546,7 @@
     },
     "info": {
       "claim": "Claims are a way of classifying test content. The claim is the major topic area. For example, in English language arts, reading is a claim and in Math, Concepts and Procedures is a claim.",
+      "alt-score": "Alternate Scores are scores that consist of performance measures not included in Overall or Claim scores.",
       "target": "Within each claim, there are targets that describe the particular knowledge and skills that the test measures. Each target may encompass one or more standards from the Common Core State Standards. Within the Reading claim, for example, one of the targets is concerned with finding the central idea in a text. For more information, see the Smarter Balanced Content Specifications."
     },
     "instructional-resource": {
@@ -911,6 +921,7 @@
       "max-points": "Max Points",
       "student-points": "Student Points"
     },
+
     "subject-select-label": "Subject",
     "tenant-status": {
       "CREATE_STARTED": "Creating {{tenantType}}",
@@ -919,6 +930,7 @@
       "CREATE_PUBLISHING_CONFIGURATION_CHANGES": "Creating {{tenantType}}: Publishing Configuration Changes",
       "CREATE_RUNNING_MIGRATIONS": "Creating {{tenantType}}: Running Database Migrations",
       "CREATE_CLEARING_CACHES": "Creating {{tenantType}}: Clearing Caches",
+      "CREATE_INHERITED_TEMPLATE": "Inheriting ISR Templates from Parent Tenant",
       "CREATE_FAILED": "Creation Failed",
       "DELETE_STARTED": "Deleting {{tenantType}}",
       "DELETE_PERSISTING_CONFIGURATION": "Deleting {{tenantType}}: Saving Configurations",
@@ -950,7 +962,9 @@
       "evidence": "Evidence / Elaboration",
       "organization": "Organization / Purpose",
       "total": "Transformed Points",
-      "total-info": "The Transformed Points value is calculated by adding the Conventions score to the average of the Organization/Purpose and Evidence/Elaboration scores. These two values represent two dimensions that are used to compute the student’s overall scale score and Claim 2 – Writing score. For more information, see the Interpretive Guide."
+      "total-info": "The Transformed Points value is calculated by adding the Conventions score to the average of the Organization/Purpose and Evidence/Elaboration scores. These two values represent two dimensions that are used to compute the student’s overall scale score and Claim 2 – Writing score. For more information, see the Interpretive Guide.",
+      "no-data": "No writing trait results are available for the student group and advanced filters selected.",
+      "default-purpose-description": "Insert popup text for {{name}} here."
     }
   },
   "common-ngx": {
@@ -1006,6 +1020,7 @@
     "assessment-name": "AssessmentName",
     "assessment-session-id": "TestSessionId",
     "assessment-type": "AssessmentType",
+    "assessment-grade": "AssessmentGradeLevel",
     "claim": "Claim",
     "EconomicDisadvantage": "EconomicDisadvantage",
     "elas": "EnglishLanguageAcquisitionStatus",
@@ -1197,6 +1212,10 @@
         "button": "Instructional Resources",
         "description": "Upload links to instructional resources in the system."
       },
+      "isr-template": {
+        "button": "ISR Templates",
+        "description": "Manage Individual Student Report (ISR) templates."
+      },
       "organizational-export": {
         "button": "District / School Exports",
         "description": "Export data for analysis in another application."
@@ -1212,6 +1231,10 @@
       "tenants": {
         "button": "Tenants",
         "description": "Manage Reporting System Tenants"
+      },
+      "test-results-availability": {
+        "button": "Test Results Availability",
+        "description": "Manage summative test results availability."
       },
       "titles": {
         "administrator-tools": "Administrator Tools"
@@ -1686,6 +1709,7 @@
     "report-type": {
       "CustomAggregate": "Aggregate Report: Yearly",
       "Claim": "Aggregate Report: Claims",
+      "AltScore": "Aggregate Report: Alternate Scores",
       "DistrictSchoolExport": "District / School Export",
       "Longitudinal": "Aggregate Report: Longitudinal",
       "Target": "Aggregate Report: Target",
@@ -1769,6 +1793,7 @@
     "caution-message": "Assessment target scores based on fewer than 50 students may be less reliable and will have fewer unique items contributing to the overall target summary.",
     "columns": {
       "claim": "Claim",
+      "alt-score": "Alternate Score",
       "target": "Target",
       "subgroup": "Subgroup",
       "studentsTested": "Students Tested",
@@ -1987,5 +2012,95 @@
     "head": "Deactivate pipeline",
     "body": "Are you sure you want to deactivate the {{pipelineName}} pipeline? By deactivating this script, no user transformations will be applied in the {{pipelineName}} pipeline.",
     "accept": "Deactivate"
+  },
+  "test-results-availability": {
+    "all-text": "All",
+    "audit-filename": "test_results_availability_audit",
+    "change-results-tooltip": "Change status of selected test results availability (all pages).",
+    "change-status": "Change Status",
+    "columns": {
+      "school-year": "School Year",
+      "district": "District",
+      "subject": "Subject",
+      "report-type": "Report Type",
+      "result-count": "Result Count",
+      "status": "Status"
+    },
+    "reportType": {
+      "Individual": "Individual",
+      "Aggregate": "Aggregate"
+    },
+    "status": {
+      "Loading": "Loading",
+      "Reviewing": "Reviewing",
+      "Released": "Released"
+    },
+    "district-admin": "District Admin",
+    "empty-message": "There are no test results that match your search.  Please try again.",
+    "filter-district": "District",
+    "filter-title": "Filter Test Results",
+    "filter-report-type": "Report Type",
+    "filter-school-year": "School Year",
+    "filter-status": "Status",
+    "filter-subject": "Subject",
+    "history-link": "Audit History",
+    "is-sandbox": "Changing status is not permitted in sandboxes. ",
+    "no-test-results": "No results match your filter settings. Try adjusting your selections to see test results.",
+    "report-type-tooltip": "Filter your results by report type.",
+    "selected-title": "Selected Test Results",
+    "state-header": "State",
+    "status-tooltip": "Filter your results by current status.",
+    "title": "Manage Test Results Availability"
+  },
+  "test-results-availability-change-status": {
+    "breadcrumb": "Change Test Results Availability Status",
+    "change-status-link": "Change Status",
+    "dismiss": "Dismiss",
+    "district": "District:",
+    "error-changing-results": "Failed to change the selected test results availability",
+    "header": "Change Test Results Availability Status",
+    "review-text": "You are about to change the availability status for these test results:",
+    "report-type": "Report Type:",
+    "school-year": "School Year:",
+    "status": "Status",
+    "set-status-text": "Set status to:",
+    "subjects": "Subjects:",
+    "successful-change-1": "Successfully submitted request to change the selected test results availability to ",
+    "successful-change-2": " status.  (",
+    "successful-change-3": " It can take up to 24 hours to see these changes.",
+    "state": "State:"
+  },
+  "isr-template": {
+    "action-header": "Actions",
+    "columns": {
+      "subject": "Subject",
+      "assessment-type": "Assessment Type",
+      "status": "ISR Template",
+      "template-name": "Template Name",
+      "uploaded-date": "Uploaded Date",
+      "location": "Location"
+    },
+    "configured": "✓ Uploaded ",
+    "delete-header": "Are you sure?",
+    "delete-body": "You are about to delete this template. This cannot be undone.",
+    "download-template-title": "Download current template",
+    "empty-message": "There are no templates results.",
+    "error-deleting-template": "Failed to delete the template.",
+    "is-sandbox-delete": "Deleting ISR templates is not available for Sandboxes.",
+    "is-sandbox-upload": "Uploading or changing ISR templates is not available for Sandboxes.",
+    "label-aria-delete": "Delete current ",
+    "label-aria-download": "Download current  ",
+    "label-aria-template": " template",
+    "label-aria-upload": "Upload new ",
+    "not-configured": "✕ Not Configured",
+    "reference-template": "Reference Template",
+    "reference-tooltip": "Download the reference template to create new report templates.",
+    "remove-template-title": "Remove current template",
+    "subject-tooltip": "The subject's tooltip",
+    "template-name": ".html",
+    "title": "Manage Individual Student Report (ISR) Templates",
+    "upload-template-title": "Upload new template",
+    "upload-error": "Template could not be uploaded.",
+    "bad-file-type": "Only HTML files are allowed."
   }
 }

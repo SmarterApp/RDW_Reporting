@@ -12,6 +12,7 @@ import { ErrorComponent } from './shared/component/error/error.component';
 import { AccessDeniedComponent } from './shared/security/component/access-denied/access-denied.component';
 import { SessionExpiredComponent } from './shared/security/component/session-expired/session-expired.component';
 import { sandboxLoginRoutes } from './sandbox/sandbox-login.routes';
+import { ColorPaletteComponent } from './shared/test/color-palette/color-palette.component';
 
 /**
  * Routes accessible without permissions
@@ -34,6 +35,13 @@ export const publicRoutes: Route[] = [
   {
     path: 'session-expired',
     component: SessionExpiredComponent,
+    resolve: {
+      translateComplete: TranslateResolve
+    }
+  },
+  {
+    path: 'colors',
+    component: ColorPaletteComponent,
     resolve: {
       translateComplete: TranslateResolve
     }

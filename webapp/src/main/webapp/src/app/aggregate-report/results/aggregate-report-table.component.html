@@ -65,6 +65,14 @@
         </span>
 
         <span
+          *ngSwitchCase="'altScore'"
+          info-button
+          title="{{ 'target-report.columns.alt-score' | translate }}"
+          content="{{ 'common.info.alt-score' | translate }}"
+        >
+        </span>
+
+        <span
           *ngSwitchCase="'target'"
           info-button
           title="{{ 'target-report.columns.target' | translate }}"
@@ -201,6 +209,18 @@
             </ng-template>
           </div>
 
+          <div *ngSwitchCase="'altScore'" class="text-right">
+            <span *ngIf="!preview || _reportType !== 'Target'">
+              {{
+                'subject.' +
+                  rowData.subjectCode +
+                  '.alt.' +
+                  rowData.altScoreCode +
+                  '.name' | translate
+              }}
+            </span>
+          </div>
+
           <div *ngSwitchCase="'target'" class="text-right wrapping-max-width">
             <span *ngIf="!preview; else targetPreview">
               <strong>
@@ -260,6 +280,7 @@
               [subjectDefinition]="_subjectDefinition"
               [displayType]="_performanceLevelDisplayType"
               [useClaimColors]="claimReport"
+              [useAltScoreColors]="altScoreReport"
               [center]="center"
             ></performance-level-distribution-chart>
           </div>

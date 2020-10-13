@@ -16,7 +16,6 @@ import { SubjectService } from '../subject/subject.service';
 import { isNullOrEmpty } from '../shared/support/support';
 import { ExamSearchFilterService } from '../exam/service/exam-search-filter.service';
 import { ReportingEmbargoService } from '../shared/embargo/reporting-embargo.service';
-import { map } from 'rxjs/operators';
 import { createFilter } from '../shared/embargo/embargoes';
 
 /**
@@ -37,7 +36,7 @@ interface AssessmentScoreType {
  * @param getAssessment Method to get the assessment from the value
  * @param getScoreCodes Method to get the score codes from the assessment
  */
-function getScoreCodes<T>(
+function scoreCodesHelper<T>(
   values: T[],
   subjectCodes: string[],
   getAssessment: (value: T) => Assessment,
@@ -49,7 +48,7 @@ function getScoreCodes<T>(
       if (assessment != null && !isNullOrEmpty(getScoreCodes(assessment))) {
         const { subject: subjectCode, type: assessmentTypeCode } = assessment;
         const score = scoreCodes.find(
-          score => score.subjectCode === subjectCode
+          scoreType => scoreType.subjectCode === subjectCode
         );
         if (score == null) {
           scoreCodes.push({
@@ -80,7 +79,6 @@ export class CsvExportService {
    * Export a filtered collection of AssessmentExams as a CSV download.
    *
    * @param assessmentExams The source AssessmentExam instances
-   * @param filterBy        The filter criteria
    * @param filename        The export file name
    */
   exportAssessmentExams(assessmentExams: AssessmentExam[], filename: string) {
@@ -136,7 +134,7 @@ export class CsvExportService {
           .withScoreAndErrorBand(getExam);
 
         // alternate score codes
-        getScoreCodes(
+        scoreCodesHelper(
           sourceData,
           subjectCodes,
           getAssessment,
@@ -165,7 +163,7 @@ export class CsvExportService {
         });
 
         // claim scores
-        getScoreCodes(
+        scoreCodesHelper(
           sourceData,
           subjectCodes,
           getAssessment,
@@ -255,7 +253,7 @@ export class CsvExportService {
         .withScoreAndErrorBand(getExam);
 
       // alternate score codes
-      getScoreCodes(
+      scoreCodesHelper(
         wrappers,
         subjectCodes,
         getAssessment,
@@ -284,7 +282,7 @@ export class CsvExportService {
       });
 
       // claim scores
-      getScoreCodes(
+      scoreCodesHelper(
         wrappers,
         subjectCodes,
         getAssessment,
@@ -363,23 +361,27 @@ export class CsvExportService {
     filename: string
   ) {
     const compositeRows: any[] = [];
-    let maxPoints: number = 0;
+    let maxPoints = 0;
+
+    const isSummative = exportRequest.assessment.type === 'sum';
 
     exportRequest.assessmentItems.forEach((item, i) => {
-      exportRequest.summaries[i].rows
-        .filter(
-          row =>
-            exportRequest.assessment.type !== 'sum' ||
-            row.trait.type !== 'total'
-        )
-        .forEach(summary => {
-          compositeRows.push({
-            assessmentItem: item,
-            writingTraitAggregate: summary
-          });
+      const summaryMap = exportRequest.summaries[i];
+      // sort the summary map by purpose. Category rows are already sorted.
+      Array.from(summaryMap.keys())
+        .sort()
+        .forEach(purpose => {
+          summaryMap.get(purpose).rows.forEach(row => {
+            compositeRows.push({
+              assessmentItem: item,
+              purpose: purpose,
+              traitCategoryAggregate: row
+            });
 
-          if (summary.trait.maxPoints > maxPoints)
-            maxPoints = summary.trait.maxPoints;
+            if (row.trait.maxPoints > maxPoints) {
+              maxPoints = row.trait.maxPoints;
+            }
+          });
         });
     });
 
@@ -399,18 +401,29 @@ export class CsvExportService {
         return;
       }
 
-      this.csvBuilder
-        .newBuilder()
+      const csvBuilder = this.csvBuilder.newBuilder();
+      csvBuilder
         .withFilename(filename)
-        .withAssessmentTypeNameAndSubject(getAssessment)
-        .withClaim(getAssessment, getAssessmentItem)
-        .withTarget(getAssessment, getAssessmentItem)
-        .withItemDifficulty(getAssessmentItem)
-        .withStandards(getAssessmentItem)
-        .withFullCredit(getAssessmentItem, exportRequest.showAsPercent)
-        .withPerformanceTaskWritingType(getAssessmentItem)
-        .withWritingTraitAggregate(
-          item => item.writingTraitAggregate,
+        .withAssessmentSchoolYear(getAssessment)
+        .withAssessmentGrade(getAssessment)
+        .withAssessmentTypeNameAndSubject(getAssessment);
+
+      // Per Smarter feedback: suppress claim through full credit columns for sum reports.
+      if (!isSummative) {
+        csvBuilder
+          .withClaim(getAssessment, getAssessmentItem)
+          .withTarget(getAssessment, getAssessmentItem)
+          .withItemDifficulty(getAssessmentItem)
+          .withStandards(getAssessmentItem)
+          .withFullCredit(getAssessmentItem, exportRequest.showAsPercent);
+      }
+
+      csvBuilder
+        .withCategoryTraitAggregate(
+          exportRequest.assessment.subject,
+          isSummative,
+          item => item.purpose,
+          item => item.traitCategoryAggregate,
           maxPoints,
           exportRequest.showAsPercent
         )

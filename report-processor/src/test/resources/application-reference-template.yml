@@ -1,0 +1,15 @@
+# ReferenceTemplateIT renders the reference template which has lots of message
+# references to subject translations. The reporting_test schema doesn't have
+# any subject translations loaded so the rendered template sucks. Point to the
+# regular local database. This probably won't work in CI.
+datasources:
+  reporting_ro:
+    url-schema: reporting
+
+# The tenant must be defined so JdbcTranslationProvider works.
+tenantProperties:
+  tenants:
+    CA:
+      id: CA
+      key: CA
+      display-name: California

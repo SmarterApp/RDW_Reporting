@@ -1,44 +1,43 @@
-apply plugin: 'org.springframework.boot'
-apply plugin: 'org.springframework.boot'
-
-// fixes spring boot 1.5 auto configuration from thymeleaf 2 to 3
-ext['thymeleaf.version'] = '3.0.6.RELEASE'
-ext['thymeleaf-layout-dialect.version'] = '2.1.1'
-
 dependencies {
-    compile project(':rdw-reporting-common')
-    compile project(':rdw-reporting-common-web')
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-    compile 'com.google.guava:guava'
-    compile 'mysql:mysql-connector-java'
-    compile 'org.apache.commons:commons-csv:+'
-    compile 'commons-io:commons-io'
-    compile 'org.apache.pdfbox:pdfbox'
-    compile 'org.opentestsystem.rdw.common:rdw-common-archive'
-    compile 'org.opentestsystem.rdw.common:rdw-common-security'
-    compile 'org.opentestsystem.rdw.common:rdw-common-status'
-    compile 'org.opentestsystem.rdw.common:rdw-common-utils'
-    compile 'org.springframework.boot:spring-boot-starter-aop'
-    compile 'org.springframework.boot:spring-boot-starter-cache'
-    compile 'org.springframework.boot:spring-boot-starter-security'
-    compile 'org.springframework.boot:spring-boot-starter-jdbc'
-    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.cloud:spring-cloud-starter-aws'
-    compile 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
-    compile 'org.springframework.cloud:spring-cloud-starter-config'
-    compile 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
-    compile 'org.springframework.retry:spring-retry'
-    compile 'org.springframework.integration:spring-integration-security'
+    implementation project(':rdw-reporting-common')
+    implementation project(':rdw-reporting-common-web')
 
-    testCompile project(path: ':rdw-reporting-common', configuration: 'tests')
-    testCompile 'org.assertj:assertj-core'
-    testCompile('org.springframework.boot:spring-boot-starter-test') {
+    implementation 'org.opentestsystem.rdw.common:rdw-common-archive'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-model'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-multi-tenant'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-security'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-status'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-utils'
+
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-guava'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation 'commons-io:commons-io'
+    implementation 'mysql:mysql-connector-java'
+    implementation 'org.apache.commons:commons-csv'
+    implementation 'org.apache.commons:commons-lang3'
+    implementation 'org.apache.pdfbox:pdfbox'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws'
+    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
+    implementation 'org.springframework.integration:spring-integration-security'
+    implementation 'org.springframework.retry:spring-retry'
+
+    testImplementation project(path: ':rdw-reporting-common', configuration: 'tests')
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude(module: 'commons-logging')
     }
-    testCompile 'org.springframework.cloud:spring-cloud-stream-test-support'
-    testCompile 'org.springframework.security:spring-security-test'
-    testCompile 'com.opencsv:opencsv:4.0'
+    testImplementation 'org.springframework.cloud:spring-cloud-stream-test-support'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind'
+    testImplementation 'com.opencsv:opencsv:4.0'
+
 }
 
 //This will allow for running of the multithreaded test application

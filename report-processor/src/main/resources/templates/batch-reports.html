@@ -12,12 +12,7 @@
              th:class="${studentStat.last}? '' : 'break-page'">
             <div th:each="report, reportStat : ${studentCompositeReport.reports}"
                  th:class="${reportStat.last}? '' : 'break-page'">
-                <div th:if="${report.assessmentType == 'iab'}"
-                     th:include="iab-body::body"></div>
-                <div th:if="${report.assessmentType == 'ica'}"
-                     th:include="ica-body::body"></div>
-                <div th:if="${report.assessmentType == 'sum'}"
-                     th:include="sum-body::body"></div>
+                <div th:include="|${report.subject}_${report.assessmentType}| :: body"></div>
             </div>
         </div>
     </body>

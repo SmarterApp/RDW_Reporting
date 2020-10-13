@@ -45,6 +45,12 @@ const links: Link[] = [
     permission: 'EMBARGO_WRITE'
   },
   {
+    id: 'test-results-availability',
+    path: '/test-results-availability',
+    icon: 'fa-eye-slash',
+    permission: 'TEST_DATA_REVIEWING_WRITE||TEST_DATA_LOADING_WRITE'
+  },
+  {
     id: 'ingest-pipelines',
     path: '/ingest-pipelines',
     icon: 'fa-filter',
@@ -63,6 +69,12 @@ const links: Link[] = [
     icon: 'fa-cog',
     permission: 'TENANT_READ',
     disabled: ({ tenantAdministrationDisabled }) => tenantAdministrationDisabled
+  },
+  {
+    id: 'isr-template',
+    path: '/isr-template',
+    icon: 'fa-cog',
+    permission: 'ISR_TEMPLATE_READ'
   }
 ];
 
@@ -89,7 +101,9 @@ export class AdminToolsComponent {
           link =>
             (link.disabled == null || !link.disabled(settings)) &&
             (link.permission == null ||
-              user.permissions.includes(link.permission))
+              link.permission
+                .split('||')
+                .some(perm => user.permissions.includes(perm)))
         )
       )
     );

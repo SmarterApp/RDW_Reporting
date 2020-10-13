@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { ReportingCommonModule } from '../shared/reporting-common.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { DataTableModule, SharedModule } from 'primeng/primeng';
+import { DataTableModule, SharedModule, TabViewModule } from 'primeng/primeng';
 import { AssessmentResultsComponent } from './results/assessment-results.component';
 import { AssessmentExamMapper } from './assessment-exam.mapper';
 import { ExamStatisticsCalculator } from './results/exam-statistics-calculator';
@@ -78,7 +78,8 @@ import { CommonModule } from '@angular/common';
     SharedModule,
     SubgroupModule,
     TableModule,
-    TabsModule
+    TabsModule,
+    TabViewModule
   ],
   exports: [
     AdvFiltersComponent,

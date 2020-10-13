@@ -28,7 +28,7 @@ export class GroupAssessmentExportService {
     filename: string
   ) {
     this.angulartics2.eventTrack.next({
-      action: 'Export Group Writing Trait Scores',
+      action: 'Export Group Trait Scores',
       properties: {
         category: 'Export'
       }

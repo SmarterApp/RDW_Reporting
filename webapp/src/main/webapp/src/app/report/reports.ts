@@ -1,5 +1,6 @@
 import {
   AggregateReportQuery,
+  AltScoreReportQuery,
   ClaimReportQuery,
   CustomAggregateReportQuery,
   DistrictSchoolExportReportQuery,
@@ -26,6 +27,7 @@ const AggregateReportQueryTypes = [
   'CustomAggregate',
   'Longitudinal',
   'Claim',
+  'AltScore',
   'Target'
 ];
 
@@ -52,8 +54,12 @@ export function getSubjectCodes(query: ReportQuery): string[] {
     case 'CustomAggregate':
     case 'Longitudinal':
     case 'Claim':
+    case 'AltScore':
       subjectCodes = (<
-        CustomAggregateReportQuery | LongitudinalReportQuery | ClaimReportQuery
+        | CustomAggregateReportQuery
+        | LongitudinalReportQuery
+        | ClaimReportQuery
+        | AltScoreReportQuery
       >query).subjectCodes;
       break;
   }
@@ -79,6 +85,9 @@ export function getSchoolYears(query: ReportQuery): number[] {
     case 'CustomAggregate':
     case 'Claim':
       return (<CustomAggregateReportQuery | ClaimReportQuery>query).schoolYears;
+    case 'AltScore':
+      return (<CustomAggregateReportQuery | AltScoreReportQuery>query)
+        .schoolYears;
     case 'Longitudinal':
       return [(<LongitudinalReportQuery>query).toSchoolYear];
     default:
@@ -117,6 +126,16 @@ function normalizeClaimReportQuery(query: ClaimReportQuery): ClaimReportQuery {
     ...query,
     ...normalizeAggregateReportQuery(query),
     claimCodesBySubject: normalizeArrayHolder(query.claimCodesBySubject)
+  };
+}
+
+function normalizeAltScoreReportQuery(
+  query: AltScoreReportQuery
+): AltScoreReportQuery {
+  return {
+    ...query,
+    ...normalizeAggregateReportQuery(query),
+    altScoreCodesBySubject: normalizeArrayHolder(query.altScoreCodesBySubject)
   };
 }
 
@@ -193,6 +212,11 @@ export function isEqualReportQuery(a: ReportQuery, b: ReportQuery): boolean {
       return deepEqualsIgnoringNullAndFalse(
         normalizeClaimReportQuery(l),
         normalizeClaimReportQuery(r)
+      );
+    case 'AltScore':
+      return deepEqualsIgnoringNullAndFalse(
+        normalizeAltScoreReportQuery(l),
+        normalizeAltScoreReportQuery(r)
       );
   }
   return false;

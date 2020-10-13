@@ -7,6 +7,9 @@ export const aggregateReportBreadcrumb = ({ translateService }) =>
 export const embargoBreadcrumb = ({ translateService }) =>
   translateService.instant('embargo.title');
 
+export const testResultsAvailabilityBreadcrumb = ({ translateService }) =>
+  translateService.instant('test-results-availability.title');
+
 export const organizationExportBreadcrumb = ({ translateService }) =>
   translateService.instant('organization-export.title');
 
@@ -24,6 +27,9 @@ export const sandboxesBreadcrumb = ({ translateService }) =>
 
 export const tenantsBreadcrumb = ({ translateService }) =>
   translateService.instant('tenants.heading.TENANT');
+
+export const isrTemplateBreadcrumb = ({ translateService }) =>
+  translateService.instant('isr-template.title');
 
 export const adminRoutes: Route[] = [
   {
@@ -105,6 +111,26 @@ export const adminRoutes: Route[] = [
           breadcrumb: tenantsBreadcrumb,
           permissions: ['TENANT_READ'],
           type: 'TENANT'
+        }
+      },
+      {
+        path: 'test-results-availability',
+        loadChildren:
+          'app/admin/test-results-availability/test-results-availability.module#TestResultsAvailabilityModule',
+        canActivate: [HasAnyPermissionCanActivate],
+        data: {
+          breadcrumb: testResultsAvailabilityBreadcrumb,
+          permissions: ['TEST_DATA_REVIEWING_WRITE', 'TEST_DATA_LOADING_WRITE']
+        }
+      },
+      {
+        path: 'isr-template',
+        loadChildren:
+          'app/admin/isr-template/isr-template.module#IsrTemplateModule',
+        canActivate: [HasAnyPermissionCanActivate],
+        data: {
+          breadcrumb: isrTemplateBreadcrumb,
+          permissions: ['ISR_TEMPLATE_READ']
         }
       }
     ]

@@ -5,10 +5,14 @@
 # CONFIG_SERVICE_REPO - git repo url, e.g. https://gitlab.com/fairwaytech/rdw_config.git
 # GIT_USER - user with rights to access CONFIG_SERVICE_REPO
 # GIT_PASSWORD - password for GIT_USER
+# A good way to do this is to create a .env file in the same location as the docker-compose file,
+# which will be read automagically. Obviously that file shouldn't be checked in.
+# Alternatively you may use environment variables.
 #
-# This configuration maps the config folder as outlined in CONTRIBUTING.md and the application.yml file from the config
-# server local-docker profile points to that folder so developers should be able to reuse the saml.jks file
-# (NOTE: developers may have to explicitly share the /opt folder in Docker, Preferences, File Sharing)
+# This configuration maps the config folder as outlined in CONTRIBUTING.md and the application.yml
+# file from the config server local-docker profile points to that folder so developers should be
+# able to reuse the saml.jks file
+# NOTE: developers may have to explicitly share the /opt folder in Docker, Preferences, File Sharing
 
 version: '2.1'
 services:
@@ -48,7 +52,7 @@ services:
     ports:
       - 8080:8080
       - 8081:8008
-#      - 5007:5007 #debug
+      - 5007:5007 #debug
     links:
       - config-server
       - admin-service
@@ -62,7 +66,7 @@ services:
 # change the zuul route to use the mac docker bridge; for example:
 #        - zuul.routes.report-processor.url=http://host.docker.internal:8085
     environment:
-#      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5007 #debug
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5007 #debug
       - spring.profiles.active=local-docker
       - datasources.reporting_ro.url-server=host.docker.internal:3306
       - zuul.routes.admin-service.url=http://admin-service:8080
@@ -77,7 +81,7 @@ services:
     ports:
       - 8280:8080
       - 8208:8008
-#      - 5005:5005 #debug
+      - 5008:5008 #debug
     volumes:
       - /tmp:/tmp
     links:
@@ -93,30 +97,13 @@ services:
 # change the service route to use the mac docker bridge; for example:
 #        - tenant-configuration-lookup.services.report-processor.url=http://host.docker.internal:8086
     environment:
-#      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 #debug
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5008 #debug
       - spring.profiles.active=local-docker
       - tenant-configuration-lookup.services.admin-service.url=http://localhost:8008
       - tenant-configuration-lookup.services.aggregate-service.url=http://aggregate-service:8008
       - tenant-configuration-lookup.services.report-processor.url=http://report-processor-service:8008
       - tenant-configuration-lookup.services.reporting-service.url=http://reporting-service:8008
       - tenant-configuration-lookup.services.reporting-webapp.url=http://reporting-webapp:8008
-      #     setup for tenant & sandbox administration local dev - needed to retrieve service configprops status
-      #     all of these services were started up in intellij - and since adminService is running in docker
-      #     needed to use the mac docker bridge and specific port used set in the VM config of each service
-      #       rdw-ingest-import-service
-#      - tenant-configuration-lookup.services.rdw-ingest-import-service.url=http://host.docker.internal:8089
-#      #       rdw-ingest-exam-processor
-#      - tenant-configuration-lookup.services.rdw-ingest-exam-processor.url=http://host.docker.internal:8090
-#      #         rdw-ingest-group-processor
-#      - tenant-configuration-lookup.services.rdw-ingest-group-processor.url=http://host.docker.internal:8087
-#      #       rdw-ingest-package-processor
-#      - tenant-configuration-lookup.services.rdw-ingest-package-processor.url=http://host.docker.internal:8083
-#      #       rdw-ingest-task-service:
-#      - tenant-configuration-lookup.services.rdw-ingest-task-service.url=http://host.docker.internal:8084
-#      #       rdw-ingest-migrate-reporting
-#      - tenant-configuration-lookup.services.rdw-ingest-migrate-reporting.url=http://host.docker.internal:8088
-#      #       rdw-ingest-migrate-olap
-#      - tenant-configuration-lookup.services.rdw-ingest-migrate-olap.url=http://host.docker.internal:8091
       - CONFIG_SERVICE_ENABLED=true
       - CONFIG_SERVICE_URL=http://config-server:8888
       - RDW_REPORTING_ART_CLIENT_OAUTH2_CLIENT_SECRET
@@ -145,14 +132,14 @@ services:
     ports:
       - 8180:8080
       - 8108:8008
-#      - 5006:5006 # debug
+      - 5006:5006 # debug
     links:
       - config-server
     depends_on:
       config-server:
         condition: service_healthy
     environment:
-#      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5006 #debug
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5006 #debug
       - spring.profiles.active=local-docker
       - CONFIG_SERVICE_ENABLED=true
       - CONFIG_SERVICE_URL=http://config-server:8888

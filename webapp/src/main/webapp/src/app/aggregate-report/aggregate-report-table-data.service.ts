@@ -14,7 +14,11 @@ import { AggregateReportItem } from './results/aggregate-report-item';
 import { TranslateService } from '@ngx-translate/core';
 import { SubgroupMapper } from './subgroup/subgroup.mapper';
 import { computeEffectiveYears } from './support';
-import { AggregateReportOptions, Claim } from './aggregate-report-options';
+import {
+  AggregateReportOptions,
+  AltScore,
+  Claim
+} from './aggregate-report-options';
 import { AggregateReportService } from './aggregate-report.service';
 import { Utils } from '../shared/support/support';
 import { SubjectDefinition } from '../subject/subject';
@@ -115,6 +119,19 @@ export class AggregateReportTableDataService {
     maximumRows: number = DefaultMaximumRowCount
   ): AggregateReportItem[] {
     let valueProviders: ValueProvider[] = [];
+
+    function getOptimalSubject(subjects, codesBySubject) {
+      for (const subject of subjects) {
+        for (const code of codesBySubject) {
+          if (subject.code === code.subject) {
+            return subject;
+          }
+        }
+      }
+
+      return subjects[0];
+    }
+
     switch (
       this.reportService.getEffectiveReportType(
         settings.reportType,
@@ -186,7 +203,12 @@ export class AggregateReportTableDataService {
           },
           {
             getValues: context => [
-              { subjectCode: context.settings.subjects[0] }
+              {
+                subjectCode: getOptimalSubject(
+                  context.settings.subjects,
+                  context.settings.claimReport.claimCodesBySubject
+                )
+              }
             ]
           },
           {
@@ -231,6 +253,80 @@ export class AggregateReportTableDataService {
                     <any>{
                       subjectCode: subjectCode,
                       claimCode: claim.code
+                    }
+                );
+            }
+          }
+        );
+        break;
+
+      case 'AltScore':
+        valueProviders.push(
+          this.defaultOrganizationProvider,
+          this.defaultSubgroupProvider,
+          {
+            getValues: context => {
+              // Strip out grouped performance level results
+              const bothDisplayTypes = this.defaultPerformanceLevelProvider.getValues(
+                context
+              )[0];
+              delete bothDisplayTypes.performanceLevelByDisplayTypes.Grouped;
+              return [bothDisplayTypes];
+            }
+          },
+          {
+            getValues: context => [
+              {
+                subjectCode: getOptimalSubject(
+                  context.settings.subjects,
+                  context.settings.altScoreReport.altScoreCodesBySubject
+                )
+              }
+            ]
+          },
+          {
+            getValues: context =>
+              context.settings.altScoreReport.assessmentGrades.map(
+                grade => <any>{ assessmentGradeCode: grade }
+              )
+          },
+          {
+            getValues: context =>
+              context.settings.altScoreReport.schoolYears.map(
+                year => <any>{ schoolYear: year }
+              )
+          },
+          {
+            getValues: context => {
+              const assessmentTypeCode: string =
+                context.settings.assessmentType;
+              const altScores: AltScore[] =
+                context.settings.altScoreReport.altScoreCodesBySubject
+                  .length === 0
+                  ? options.altScores
+                  : settings.altScoreReport.altScoreCodesBySubject;
+
+              const subjectCode: string = context.settings.subjects
+                .map(subject => subject.code)
+                .filter(
+                  subject =>
+                    !Utils.isNullOrUndefined(
+                      altScores.find(altScore => altScore.subject === subject)
+                    )
+                )
+                .find(subject => true);
+
+              return altScores
+                .filter(
+                  altScore =>
+                    altScore.subject === subjectCode &&
+                    altScore.assessmentType === assessmentTypeCode
+                )
+                .map(
+                  altScore =>
+                    <any>{
+                      subjectCode: subjectCode,
+                      altScoreCode: altScore.code
                     }
                 );
             }

@@ -1,0 +1,10 @@
+State,School Year,District Name,Subject,Report Type,User Name,Date of Status Change,New Status
+California,2020,QA Test District,Math,Aggregate,userDevOps,2020-06-03 06:03:08 UTC,Reviewing
+California,2020,Magnet District,ELA,Individual,userDevOps,2020-06-03 06:03:12 UTC,Reviewing
+California,2020,Alpaca Nunbird District,Science,Aggregate,userStateAdmin,2020-06-02 15:28:29 UTC,Released
+California,2020,QA Test District,ELPAC,Aggregate,userDistrict4Admin,2020-06-01 19:45:84 UTC,Released
+California,2020,QA Test District,ELPAC,Individual,userStateAdmin,2020-05-12 06:05:19 UTC,Reviewing
+California,2020,QA Test District,ELA,Aggregate,userDevOps,2020-03-21 01:34:03 UTC,Loading
+California,2020,Alpaca Nunbird District,ELPAC,Aggregate,userDistrict4Admin,2020-03-10 20:21:32 UTC,Released
+California,2020,Igen District,Science,Aggregate,userDevOps,2020-01-28 20:21:04 UTC,Released
+California,2019,Igen District,ELPAC,Aggregate,userAdminIgenDIstrict,2019-12-18 12:13:27 UTC,Released

@@ -4,6 +4,7 @@ import { Assessment } from './model/assessment';
 import { Exam } from './model/exam';
 import { AssessmentItem } from './model/assessment-item.model';
 import { ExamItemScore } from './model/exam-item-score.model';
+import { ExamTraitScore } from './model/exam-trait-score.model';
 import { byGradeThenByName } from './assessment.comparator';
 import { ordering } from '@kourge/ordering';
 import { byNumber } from '@kourge/ordering/comparator';
@@ -24,6 +25,18 @@ export function toScaleScore(serverScaleScore: any): ScaleScore {
   };
 }
 
+export function toExamTraitScore(serverTraitScore: any): ExamTraitScore {
+  // server scale scores are nullable
+  serverTraitScore = serverTraitScore || {};
+  return {
+    score: serverTraitScore.score,
+    conditionCode: serverTraitScore.conditionCode,
+    purpose: serverTraitScore.purpose,
+    category: serverTraitScore.category,
+    maxScore: serverTraitScore.maxScore
+  };
+}
+
 export function toAssessment(serverAssessment: any): Assessment {
   return {
     id: serverAssessment.id,
@@ -38,7 +51,8 @@ export function toAssessment(serverAssessment: any): Assessment {
     cutPoints: serverAssessment.cutPoints || [],
     resourceUrl: serverAssessment.resourceUrl,
     hasWerItem: serverAssessment.werItem,
-    targetReportEnabled: serverAssessment.targetReportEnabled
+    targetReportEnabled: serverAssessment.targetReportEnabled,
+    traitReportEnabled: serverAssessment.traitReportEnabled
   };
 }
 
@@ -89,6 +103,9 @@ export function toExam(serverExam: any): Exam {
   );
   exam.claimScaleScores = (serverExam.claimScaleScores || []).map(
     serverScaleScore => toScaleScore(serverScaleScore)
+  );
+  exam.traitScores = (serverExam.traitScores || []).map(serverTraitScore =>
+    toExamTraitScore(serverTraitScore)
   );
 
   if (serverExam.studentContext) {

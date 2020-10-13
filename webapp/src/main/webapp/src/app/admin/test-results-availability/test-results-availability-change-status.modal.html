@@ -1,0 +1,111 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">
+    {{ 'test-results-availability-change-status.header' | translate }}
+  </h4>
+  <button
+    type="button"
+    class="close pull-right"
+    title="{{'common.action.close' | translate}}"
+    (click)="cancel()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div *ngIf="showSandboxAlert" class="alert alert-dismissable">
+  {{ 'test-results-availability.is-sandbox' | translate }}
+</div>
+
+<div class="modal-body form-horizontal" *ngIf="!showSandboxAlert">
+  <div class="form-group row mt-sm mb-md">
+    <p class="text-info ml-md">
+      {{ 'test-results-availability-change-status.review-text' | translate }}
+    </p>
+    <label class="col-xs-4 control-label">
+      {{ 'test-results-availability-change-status.set-status-text' | translate
+      }}
+    </label>
+    <div class="col-xs-6 set-status">
+      <select
+        [ngModel]="selectedStatus"
+        [disabled]="statusOptions.length <= 1"
+        class="form-control"
+        (ngModelChange)="onChangeStatusFilter($event)"
+      >
+        <option *ngFor="let status of statusOptions" [ngValue]="status">
+          {{ status.label | translate }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <hr />
+  <div class="form-group row">
+    <label class="col-xs-4 control-label">
+      {{ 'test-results-availability-change-status.school-year' | translate }}
+    </label>
+    <span class="col-xs-8 text-overflow-ellipsis">
+      {{ selectedFilters.schoolYear.label | translate }}
+    </span>
+  </div>
+  <div class="form-group row">
+    <label class="col-xs-4 control-label">
+      {{ 'test-results-availability-change-status.state' | translate }}
+    </label>
+    <span class="col-xs-8 text-overflow-ellipsis">
+      California
+    </span>
+  </div>
+  <div class="form-group row">
+    <label class="col-xs-4 control-label">
+      {{ 'test-results-availability-change-status.district' | translate }}
+    </label>
+    <span class="col-xs-8 text-overflow-ellipsis">
+      {{ selectedFilters.district.label | translate }}
+    </span>
+  </div>
+  <div class="form-group row">
+    <label class="col-xs-4 control-label">
+      {{ 'test-results-availability-change-status.subjects' | translate }}
+    </label>
+    <span class="col-xs-8 text-overflow-ellipsis">
+      {{ selectedFilters.subject.label | translate }}
+    </span>
+  </div>
+  <div class="form-group row">
+    <label class="col-xs-4 control-label">
+      {{ 'test-results-availability-change-status.report-type' | translate }}
+    </label>
+    <span class="col-xs-8 text-overflow-ellipsis">
+      {{ selectedFilters.reportType.label | translate }}
+    </span>
+  </div>
+  <div class="form-group row">
+    <label class="col-xs-4 control-label">
+      {{ 'test-results-availability-change-status.status' | translate }}
+    </label>
+    <span class="col-xs-8 text-overflow-ellipsis">
+      {{ selectedFilters.status.label | translate }}
+    </span>
+  </div>
+</div>
+<div class="modal-footer">
+  <span>
+    <button
+      type="button"
+      class="btn btn-default"
+      (click)="cancel()"
+      title="{{'common.action.cancel' | translate}}"
+    >
+      {{ 'common.action.cancel' | translate }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      *ngIf="!showSandboxAlert"
+      (click)="changeTestResults()"
+      title="{{'test-results-availability-change-status.change-status-link' | translate}}"
+    >
+      {{ 'test-results-availability-change-status.change-status-link' |
+      translate }}
+    </button>
+  </span>
+</div>

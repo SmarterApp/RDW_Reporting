@@ -1,13 +1,4 @@
 sql:
-  claim:
-    findAll: >-
-      SELECT scs.id, scs.code, s.code as subject_code, at.code as asmt_type_code
-      FROM subject_score scs
-        JOIN subject s ON scs.subject_id = s.id
-        JOIN asmt_type at ON at.id = scs.asmt_type_id
-      WHERE scs.score_type_id=3
-      ORDER BY scs.display_order
-
   translation:
     findAllForLanguage: >-
         SELECT label_code, label FROM accommodation_translation WHERE language_code = :language_code
@@ -137,7 +128,8 @@ sql:
         sat.claim_score_performance_level_count,
         sat.alt_score_performance_level_count,
         sat.target_report,
-        sat.printed_report
+        sat.printed_report,
+        sat.trait_report
       FROM subject_asmt_type sat
         JOIN asmt_type at ON at.id = sat.asmt_type_id
         JOIN subject s ON s.id = sat.subject_id
@@ -148,6 +140,11 @@ sql:
         JOIN subject s ON scs.subject_id = s.id
         JOIN asmt_type at ON at.id = scs.asmt_type_id
       ORDER BY scs.display_order
+
+    findAllTraits: >-
+      SELECT s.code AS subject_code, st.id, st.purpose, st.category, st.max_score
+      FROM subject_trait st
+        JOIN subject s ON st.subject_id = s.id
 
   snippet:
     basicPermission: >-

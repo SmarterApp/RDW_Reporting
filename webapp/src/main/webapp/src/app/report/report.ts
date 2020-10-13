@@ -40,6 +40,7 @@ export type ReportQueryType =
   | 'CustomAggregate'
   | 'Longitudinal'
   | 'Claim'
+  | 'AltScore'
   | 'Target';
 
 /**
@@ -251,6 +252,14 @@ export interface ClaimReportQuery extends AggregateReportQuery {
 }
 
 /**
+ * An alt-score aggregate report query
+ */
+export interface AltScoreReportQuery extends AggregateReportQuery {
+  schoolYears: number[];
+  altScoreCodesBySubject?: any;
+}
+
+/**
  * A target aggregate report query
  */
 export interface TargetReportQuery extends AggregateReportQuery {
@@ -265,4 +274,5 @@ export type AggregateReportQueryType =
   | CustomAggregateReportQuery
   | LongitudinalReportQuery
   | ClaimReportQuery
+  | AltScoreReportQuery
   | TargetReportQuery;

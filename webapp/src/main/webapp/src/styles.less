@@ -1858,7 +1858,6 @@ distractor-analysis .ui-widget.ui-table table .ui-table-tbody td.green {
     .btn;
     width: 100%;
     pointer-events: none;
-    color: @white;
     &.blue-dark.aqua {
       .textured-blue;
     }
@@ -2130,6 +2129,7 @@ fieldset.marginLeft50 {
 @agg-SchoolYear-width: 82px;
 @agg-assessmentLabel-width: 225px;
 @agg-studentsTested-width: 75px;
+@agg-altScore-width: 150px;
 
 .rdw-scrollable-table {
   table,
@@ -2156,6 +2156,9 @@ fieldset.marginLeft50 {
           }
           &.aggregate-report-schoolYear {
             width: @agg-SchoolYear-width;
+          }
+          &.aggregate-report-altScore {
+            width: @agg-altScore-width;
           }
           &.aggregate-report-dimension {
             width: @agg-dimension-width;
@@ -2194,7 +2197,9 @@ fieldset.marginLeft50 {
             text-align: left;
             overflow: hidden;
           }
-
+          &.aggregate-report-altScore {
+            width: @agg-altScore-width;
+          }
           &.aggregate-report-assessmentGrade {
             width: @agg-assessmentGrade-width;
           }

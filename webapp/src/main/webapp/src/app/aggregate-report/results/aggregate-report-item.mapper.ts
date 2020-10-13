@@ -44,6 +44,7 @@ export class AggregateReportItemMapper {
     item.schoolYear = row.assessment.examSchoolYear;
     item.organization = this.organizationMapper.map(row.organization);
     item.claimCode = row.claimCode;
+    item.altScoreCode = row.altScoreCode;
     item.targetNaturalId = row.targetNaturalId;
     item.studentRelativeResidualScoresLevel =
       row.studentRelativeResidualScoresLevel;

@@ -20,19 +20,8 @@ sql:
         d.name AS district_name,
         round(p.mean) AS percentile_mean,
         ps.percentile_rank,
-        ei.trait_evidence_elaboration_score as ei_trait_evidence_elaboration_score,
-        ei.trait_organization_purpose_score as ei_trait_organization_purpose_score,
-        ei.trait_conventions_score as ei_trait_conventions_score,
-        i.performance_task_writing_type,
         ${sql.snippet.exam}
       JOIN district d ON s.district_id=d.id
-      LEFT JOIN exam_item ei ON ei.exam_id=e.id
-        AND (
-          ei.trait_evidence_elaboration_score IS NOT NULL
-          OR ei.trait_organization_purpose_score IS NOT NULL
-          OR ei.trait_conventions_score IS NOT NULL
-        )
-      LEFT JOIN item i ON i.id = ei.item_id
       ${sql.reportProcessor.snippet.percentileLeftJoin}
       WHERE e.student_id in (:student_ids)
         AND (:school_year is null or e.school_year=:school_year)
@@ -49,20 +38,9 @@ sql:
         d.name AS district_name,
         round(p.mean) AS percentile_mean,
         ps.percentile_rank,
-        ei.trait_evidence_elaboration_score as ei_trait_evidence_elaboration_score,
-        ei.trait_organization_purpose_score as ei_trait_organization_purpose_score,
-        ei.trait_conventions_score as ei_trait_conventions_score,
-        i.performance_task_writing_type,
         ${sql.snippet.exam}
       JOIN district d ON s.district_id=d.id
       $[groupJoinPlaceholder]
-      LEFT JOIN exam_item ei ON ei.exam_id=e.id
-        AND (
-          ei.trait_evidence_elaboration_score IS NOT NULL
-          OR ei.trait_organization_purpose_score IS NOT NULL
-          OR ei.trait_conventions_score IS NOT NULL
-        )
-      LEFT JOIN item i ON i.id=ei.item_id
       ${sql.reportProcessor.snippet.percentileLeftJoin}
       WHERE e.student_id in (:student_ids)
         AND $[groupFilterPlaceholder]
@@ -79,23 +57,8 @@ sql:
       SELECT
         d.name AS district_name,
         ${sql.snippet.claimAndAltScoreColumns},
-        wt.trait_evidence_elaboration_score as ei_trait_evidence_elaboration_score,
-        wt.trait_organization_purpose_score as ei_trait_organization_purpose_score,
-        wt.trait_conventions_score as ei_trait_conventions_score,
-        wt.performance_task_writing_type,
         ${sql.snippet.exam}
       JOIN district d ON s.district_id=d.id
-      LEFT JOIN (
-        SELECT
-          ei.exam_id,
-          ei.trait_evidence_elaboration_score,
-          ei.trait_organization_purpose_score,
-          ei.trait_conventions_score,
-          i.performance_task_writing_type
-        FROM exam_item ei
-        JOIN item i ON i.id=ei.item_id
-        WHERE i.performance_task_writing_type is not null
-      ) as wt on wt.exam_id = e.id
       WHERE e.student_id in (:student_ids)
         AND (:school_year is null or e.school_year=:school_year)
         AND (:subject_code is null or su.code=:subject_code) AND sat.printed_report=1
@@ -110,23 +73,8 @@ sql:
       SELECT
         d.name AS district_name,
         ${sql.snippet.claimAndAltScoreColumns},
-        wt.trait_evidence_elaboration_score as ei_trait_evidence_elaboration_score,
-        wt.trait_organization_purpose_score as ei_trait_organization_purpose_score,
-        wt.trait_conventions_score as ei_trait_conventions_score,
-        wt.performance_task_writing_type,
         ${sql.snippet.exam}
       JOIN district d ON s.district_id=d.id
-      LEFT JOIN (
-        SELECT
-          ei.exam_id,
-          ei.trait_evidence_elaboration_score,
-          ei.trait_organization_purpose_score,
-          ei.trait_conventions_score,
-          i.performance_task_writing_type
-        FROM exam_item ei
-        JOIN item i ON i.id=ei.item_id
-        WHERE i.performance_task_writing_type is not null
-      ) wt ON wt.exam_id = e.id
       $[groupJoinPlaceholder]
       WHERE e.student_id in (:student_ids)
         AND $[groupFilterPlaceholder]
@@ -137,6 +85,36 @@ sql:
         AND ${sql.reportProcessor.snippet.schoolFilter}
         AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
       ORDER BY e.completed_at asc
+
+    findExamLevelTraitScoresByExamIds: >-
+      SELECT ets.exam_id, ets.trait_id, st.purpose, st.category, st.max_score, ets.score, ets.condition_code
+      FROM exam_trait_score ets
+        JOIN subject_trait st on ets.trait_id = st.id
+      WHERE ets.exam_id IN (:exam_ids)
+      ORDER BY exam_id, purpose, max_score DESC, category
+
+    # TODO - check performance with large dataset (if not good might have to move some logic into java)
+    findItemLevelTraitScoresByExamIds: >-
+      SELECT sub.exam_id, st.id AS trait_id, st.purpose, st.category, st.max_score, sub.score, NULL AS condition_code
+      FROM (
+        SELECT exam_id, performance_task_writing_type, 'EVI' AS category, trait_evidence_elaboration_score AS score
+        FROM (SELECT ei.exam_id, ei.trait_evidence_elaboration_score, i.performance_task_writing_type
+              FROM exam_item ei JOIN item i ON i.id=ei.item_id
+              WHERE ei.exam_id in (:exam_ids) AND i.performance_task_writing_type IS NOT NULL) i1
+        UNION
+        SELECT exam_id, performance_task_writing_type, 'ORG' AS category, trait_organization_purpose_score AS score
+        FROM (SELECT ei.exam_id, ei.trait_organization_purpose_score, i.performance_task_writing_type
+              FROM exam_item ei JOIN item i ON i.id=ei.item_id
+              WHERE ei.exam_id in (:exam_ids) AND i.performance_task_writing_type IS NOT NULL) i2
+        UNION
+        SELECT exam_id, performance_task_writing_type, 'CON' AS category, trait_conventions_score AS score
+        FROM (SELECT ei.exam_id, ei.trait_conventions_score, i.performance_task_writing_type
+              FROM exam_item ei JOIN item i ON i.id=ei.item_id
+              WHERE ei.exam_id in (:exam_ids) AND i.performance_task_writing_type IS NOT NULL) i3
+      ) sub
+      JOIN wer_purpose wp ON wp.wer_type = sub.performance_task_writing_type
+      JOIN subject_trait st ON st.purpose = wp.purpose AND st.category = sub.category
+      ORDER BY exam_id, purpose, max_score DESC, category;
 
   export:
     exams: >-

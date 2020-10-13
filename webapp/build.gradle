@@ -1,92 +1,112 @@
 plugins {
-    id "com.moowork.node" version "1.1.1"
+    id 'com.github.node-gradle.node' version '2.2.0'
 }
-
-apply plugin: 'org.springframework.boot'
 
 createDockerfile {
     environmentVariable("MAX_HEAP_SIZE", "-Xmx768m")
 }
 
 dependencies {
-    compile project(':rdw-reporting-common')
-    compile project(':rdw-reporting-common-web')
-    compile 'org.opentestsystem.rdw.common:rdw-common-model'
-    compile 'org.opentestsystem.rdw.common:rdw-common-security'
-    compile 'org.opentestsystem.rdw.common:rdw-common-status'
-    compile 'org.opentestsystem.rdw.common:rdw-common-utils'
-    runtime 'org.springframework.boot:spring-boot-devtools'
-    compile 'org.springframework.boot:spring-boot-starter-aop'
-    compile 'org.springframework.boot:spring-boot-starter-jdbc'
-    compile 'org.springframework.boot:spring-boot-starter-security'
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-data-redis'
-    compile 'org.springframework.cloud:spring-cloud-starter-config'
-    compile 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
-    compile 'org.springframework.cloud:spring-cloud-starter-zuul'
-    compile 'org.springframework.security.extensions:spring-security-saml2-core'
-    compile 'org.springframework.session:spring-session'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-    compile 'com.google.guava:guava'
-    compile 'mysql:mysql-connector-java'
-    compile 'commons-io:commons-io'
+    implementation project(':rdw-reporting-common')
+    implementation project(':rdw-reporting-common-web')
 
-    testCompile project(path: ':rdw-reporting-common', configuration: 'tests')
-    testCompile project(path: ':rdw-reporting-common-web', configuration: 'tests')
-    testCompile('org.springframework.boot:spring-boot-starter-test') {
+    implementation 'org.opentestsystem.rdw.common:rdw-common-model'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-multi-tenant'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-security'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-status'
+    implementation 'org.opentestsystem.rdw.common:rdw-common-utils'
+
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-properties'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-guava'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation 'commons-io:commons-io'
+    implementation 'mysql:mysql-connector-java'
+    implementation 'org.apache.commons:commons-lang3'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.cloud:spring-cloud-starter-zuul'
+    implementation 'org.springframework.security.extensions:spring-security-saml2-core'
+    implementation 'org.springframework.session:spring-session'
+
+    testImplementation project(path: ':rdw-reporting-common', configuration: 'tests')
+    testImplementation project(path: ':rdw-reporting-common-web', configuration: 'tests')
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude(module: 'commons-logging')
     }
-    testCompile 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.security:spring-security-test'
 }
+
+/***************************************************************************************
+ frontend tasks
+
+ These tasks do the angular build and copy the result to resources/static. This
+ is hooked into the build at the 'processResources' stage.
+
+ Poke around angular.json and the file structure to fully grok this: the angular
+ 'webapp' folder is under 'src/main' and it builds into 'webapp/dist'. Those
+ resources need to be under 'src/main/resources' for the app build so, after
+ doing the front-end build, they are moved.
+
+ This may be a bit confusing (case-in-point: /webapp/src/main/webapp/src) but i
+ believe the idea is the front-end "sub project" should exist and build blissfully
+ unaware that it is going to be delivered in a spring boot app as static resources.
+ ***************************************************************************************/
 
 node {
-    version = '8.9.1'
-    npmVersion = '5.5.1'
+    version = '12.11.1'
+    npmVersion = '6.11.3'
     download = true
-    workDir = file("${project.projectDir}/src/main/webapp")
-    nodeModulesDir = file("${project.projectDir}/src/main/webapp")
 }
 
-//Hopefully this allows us to hot add resources
-bootRun {
-    addResources = true
-    if (project.hasProperty('jvmArgs')) {
-        jvmArgs project.jvmArgs.split('\\s+')
-    }
+npm_install {
+    workingDir = file('src/main/webapp')
 }
 
-// generate coverage report automatically (./build/reports/jacoco/test/html/index.html)
-test.finalizedBy(jacocoTestReport)
+task buildFe(type: NpmTask, dependsOn: npm_install) {
+    group = 'FrontEnd'
+    description = 'Build front-end and move files to src/main/resources/static'
 
-//This is the build task for the Front End (Fe) and only compiles when the inputs change
-task buildFe(type: NpmTask) {
-    inputs.files(fileTree("src/main/webapp/src"))
-    inputs.file("src/main/webapp/package.json")
-    workingDir = file("src/main/webapp")
+    inputs.files(fileTree('src/main/webapp/src'))
+    inputs.file('src/main/webapp/package.json')
     outputs.dir('build/resources/static')
-    dependsOn npm_install
-    args = project.hasProperty('prod')
-            ? ['run', 'build-prod']
-            : ['run', 'build']
+    workingDir = file('src/main/webapp')
+    args = ['run', project.hasProperty('release') ? 'build-prod' : 'build']
     // move build from dist to static resources
     doLast {
-        copy { from "src/main/webapp/dist" into "src/main/resources/static" }
-        delete "src/main/webapp/dist"
+        copy { from 'src/main/webapp/dist' into 'src/main/resources/static' }
+        delete 'src/main/webapp/dist'
     }
 }
 
-task testFe(type: NpmTask) {
-    inputs.files(fileTree("src/main/webapp/src"))
-    inputs.file("src/main/webapp/package.json")
-    workingDir = file("src/main/webapp")
+task cleanFe(type: Delete) {
+    group = 'FrontEnd'
+    description = 'Delete front-end files from src/main/resources/static'
+
+    delete "src/main/resources/static"
+}
+
+task testFe(type: NpmTask, dependsOn: npm_install) {
+    group = 'FrontEnd'
+    description = 'Run front-end CI tests'
+
+    inputs.files(fileTree('src/main/webapp/src'))
+    inputs.file('src/main/webapp/package.json')
     outputs.dir('build/resources/static')
-    dependsOn npm_install
+    workingDir = file('src/main/webapp')
     args = ['run', 'test-ci']
 }
 
 task gzipBundles(dependsOn: buildFe) {
+    group = 'FrontEnd'
+    description = 'gzip resource bundles (in place)'
+
     doLast {
-        FileTree tree = fileTree(dir: "${project.projectDir}/src/main/resources/static/", includes: ["**/*.bundle.js", "**/*.bundle.css"])
+        def tree = fileTree(dir: "${project.projectDir}/src/main/resources/static/", includes: ["**/*.bundle.js", "**/*.bundle.css"])
         tree.each { File file ->
             String fileName = file.getName()
             println "$fileName => ${fileName}.gz"
@@ -97,5 +117,15 @@ task gzipBundles(dependsOn: buildFe) {
 
 // The processResources task takes care of gathering all of the resources in the project to the target directory.
 // In order to get the front end resources in to the final jar, the front end needs to be built
-// before all of the other resources are processed in order to get the static resouces in the right place
+// before all of the other resources are processed in order to get the static resources in the right place
 processResources.dependsOn gzipBundles
+clean.dependsOn cleanFe
+
+//Hopefully this allows us to hot add resources
+bootRun {
+    addResources = true
+    if (project.hasProperty('jvmArgs')) {
+        jvmArgs project.jvmArgs.split('\\s+')
+    }
+}
+

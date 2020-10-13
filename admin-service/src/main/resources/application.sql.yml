@@ -29,6 +29,16 @@ sql:
         ORDER BY a.school_year DESC
         LIMIT :limit
 
+  district:
+    count:
+      SELECT count(*) FROM district;
+
+    findAllWithLimit: >-
+      SELECT id, name, natural_id
+      FROM district d
+      ORDER BY d.name
+      LIMIT :limit;
+
   embargo:
     # query to find all embargo records given a school year and a list of (user's) districts
     # this includes counts of summative exams grouped by each org so it has performance implications
@@ -75,6 +85,87 @@ sql:
       FROM district d
         JOIN district_embargo de ON d.id = de.district_id
       WHERE de.school_year = :school_year AND d.id = :district_id
+
+    findTestResultsAvailability: >-
+      SELECT  y.year                     AS school_year,
+              d.id                       AS district_id,
+              d.name                     AS district_name,
+              s.id                       AS subject_id,
+              s.code                     AS subject_code,
+              ert.name                   AS report_type,
+              coalesce(de.individual, 0) AS individual,
+              coalesce(de.aggregate, 0)  AS aggregate,
+              coalesce(ec.count, 0)      AS exam_count
+      FROM school_year y
+            JOIN district d
+            JOIN subject s
+            JOIN embargo_report_type ert
+            LEFT JOIN district_embargo de ON
+                  y.year = de.school_year and
+                  d.id = de.district_id and
+                  s.id = de.subject_id
+            LEFT JOIN exam_count ec ON
+                  y.year = ec.school_year and
+                  d.id = ec.district_id and
+                  s.id = ec.subject_id
+      WHERE ((ert.name = 'Individual' AND coalesce(de.individual, 0) IN (:statuses)) OR
+              (ert.name = 'Aggregate' AND coalesce(de.aggregate, 0) IN (:statuses)))
+              AND (:filter_by_year = 0 OR y.year = :year)
+              AND (:filter_by_district = 0 OR d.id IN (:district_ids))
+              AND (:filter_by_subject = 0 OR s.id = :subject_id)
+              AND (:filter_by_report_type = 0 OR ert.name = :report_type)
+      {ORDER_BY_PLACEHOLDER}
+      LIMIT :page_size OFFSET :offset
+
+    findTestResultsAvailabilityDefaultOrdering: >-
+      ORDER BY
+        school_year DESC,
+        district_name ASC,
+        subject_code ASC,
+        report_type ASC
+
+    createEmbargo: >-
+      INSERT IGNORE INTO district_embargo (school_year, district_id, subject_id, individual, aggregate, updated_by)
+      SELECT  y.year, d.id, s.id, :individual, :aggregate, :updated_by
+      FROM school_year y
+          JOIN district d
+          JOIN subject s
+      WHERE (:school_year IS NULL OR y.year = :school_year)
+          AND (:subject_id IS NULL OR s.id = :subject_id)
+          AND (:filter_by_district = 0 OR d.id IN (:district_ids));
+
+    updateEmbargoIndividualStatus: >-
+      UPDATE district_embargo
+      SET individual = :new_status, updated_by = :updated_by
+      WHERE (:school_year IS NULL OR school_year = :school_year)
+          AND (:subject_id IS NULL OR subject_id = :subject_id)
+          AND (:filter_by_district = 0 OR district_id IN (:district_ids))
+          AND individual = :current_status;
+
+    updateEmbargoAggregateStatus: >-
+      UPDATE district_embargo
+      SET aggregate = :new_status, updated_by = :updated_by
+      WHERE (:school_year IS NULL OR school_year = :school_year)
+          AND (:subject_id IS NULL OR subject_id = :subject_id)
+          AND (:filter_by_district = 0 OR district_id IN (:district_ids))
+          AND aggregate = :current_status;
+
+    findEmbargoAuditRecords: >-
+      SELECT
+        ade.school_year AS school_year,
+        d.name AS district,
+        s.code AS subject,
+        individual,
+        previous_individual,
+        aggregate,
+        previous_aggregate,
+        updated_by AS user,
+        ade.updated AS updated
+      FROM audit_district_embargo ade
+      LEFT JOIN district d ON ade.district_id = d.id
+      LEFT JOIN subject s ON ade.subject_id = s.id
+      WHERE ade.updated > :start_date
+      ORDER BY ade.updated DESC;
 
     createState: >-
       INSERT INTO state_embargo (school_year, individual, aggregate, updated_by)
@@ -140,6 +231,18 @@ sql:
   status:
     readTest: >-
       SELECT ist.name FROM import_status ist
+
+  subject:
+    findAll: >-
+      SELECT id, code
+      FROM subject;
+
+  reportTemplateInfo:
+    findAll: >-
+      SELECT s.code AS subject_code, a.code AS assessment_type, sat.printed_report
+      FROM subject_asmt_type sat
+        JOIN subject s on sat.subject_id = s.id
+        JOIN asmt_type a on sat.asmt_type_id = a.id
 
   import:
     createQuery: >-

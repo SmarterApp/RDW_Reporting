@@ -1,0 +1,307 @@
+<page-heading>
+  <h1 class="h2" heading>
+    {{ 'test-results-availability.title' | translate }}
+  </h1>
+  <ul
+    class="list-unstyled list-inline"
+    controls
+    *ngIf="userOptions && userOptions.viewAudit"
+  >
+    <li>
+      <a
+        class="btn btn-default"
+        href="javascript:void(0);"
+        (click)="downloadAuditFile()"
+        title="{{ 'test-results-availability.history-link' | translate }}"
+        ><i class="fa fa-cloud-download" aria-hidden="true"></i>
+        {{ 'test-results-availability.history-link' | translate }}</a
+      >
+    </li>
+  </ul>
+</page-heading>
+
+<ng-container>
+  <ng-container>
+    <div
+      #alertFailure
+      *ngIf="failedChange"
+      tabindex="0"
+      class="alert alert-danger"
+    >
+      <button
+        type="button"
+        class="close"
+        title="{{ 'common.action.close' | translate }}"
+        (click)="closeErrorAlert()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{ changeMessage }}
+    </div>
+    <div
+      #alertSuccess
+      *ngIf="successfulChange"
+      tabindex="0"
+      class="alert alert-info"
+    >
+      <button
+        type="button"
+        class="close"
+        title="{{ 'common.action.close' | translate }}"
+        (click)="closeSuccessAlert()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <ng-container class="alert alert-info">
+        {{
+          'test-results-availability-change-status.successful-change-1'
+            | translate
+        }}
+        {{ changeMessage }}
+        {{
+          'test-results-availability-change-status.successful-change-3'
+            | translate
+        }}
+        <br />
+      </ng-container>
+    </div>
+
+    <div class="well well-results">
+      {{ 'test-results-availability.filter-title' | translate }}
+      <div class="row">
+        <div class="col-md-2" *ngIf="state">
+          <label for="select-state">
+            {{ 'test-results-availability.state-header' | translate }}
+          </label>
+          <select
+            id="select-state"
+            class="form-control"
+            [(ngModel)]="state"
+            disabled
+          >
+            <option>
+              {{ state }}
+            </option>
+          </select>
+        </div>
+
+        <!-- School Year Select -->
+        <div class="col-md-2 test-left">
+          <label for="select-schoolyear">{{
+            'test-results-availability.filter-school-year' | translate
+          }}</label>
+          <select
+            *ngIf="userOptions"
+            id="select-schoolyear"
+            [(ngModel)]="testResultAvailabilityFilters.schoolYear"
+            class="form-control"
+            (ngModelChange)="onChangeSchoolYearFilter($event)"
+          >
+            <option
+              *ngFor="let schoolYear of userOptions.schoolYears"
+              [ngValue]="schoolYear"
+            >
+              {{ schoolYear.label | translate }}
+            </option>
+          </select>
+        </div>
+
+        <!-- District Select  -->
+        <div class="col-md-2 text-left">
+          <label
+            for="select-district"
+            *ngIf="userOptions && userOptions.districtAdmin"
+          >
+            {{ 'test-results-availability.district-admin' | translate }}
+          </label>
+          <label
+            for="select-district"
+            *ngIf="!(userOptions && userOptions.districtAdmin)"
+          >
+            {{ 'test-results-availability.filter-district' | translate }}
+          </label>
+          <select
+            *ngIf="userOptions"
+            id="select-district"
+            [(ngModel)]="testResultAvailabilityFilters.district"
+            class="form-control"
+            (ngModelChange)="onChangeDistrictFilter($event)"
+            [disabled]="userOptions.districts.length == 1"
+          >
+            <option
+              *ngFor="let district of userOptions.districts"
+              [ngValue]="district"
+            >
+              {{ district.label | translate }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Subject Select  -->
+        <div *ngIf="userOptions" class="col-md-2">
+          <label for="select-subject"
+            >{{ 'test-results-availability.filter-subject' | translate }}
+          </label>
+          <select
+            *ngIf="userOptions"
+            id="select-subject"
+            [(ngModel)]="testResultAvailabilityFilters.subject"
+            class="form-control"
+            (ngModelChange)="onChangeSubjectFilter($event)"
+          >
+            <option
+              *ngFor="let subject of userOptions.subjects"
+              [ngValue]="subject"
+            >
+              {{ subject.label | translate }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Report Type Select -->
+        <div class="col-md-2">
+          <label for="select-report-type">
+            <span
+              info-button
+              title="{{
+                'test-results-availability.filter-report-type' | translate
+              }}"
+              content="{{
+                'test-results-availability.report-type-tooltip' | translate
+              }}"
+            ></span>
+          </label>
+          <select
+            *ngIf="userOptions"
+            id="select-report-type"
+            [(ngModel)]="testResultAvailabilityFilters.reportType"
+            class="form-control"
+            (ngModelChange)="onChangeReportTypeFilter($event)"
+          >
+            <option
+              *ngFor="let reportType of userOptions.reportTypes"
+              [ngValue]="reportType"
+            >
+              {{ reportType.label | translate }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Status Type Select  -->
+        <div class="col-md-2">
+          <label for="select-status">
+            <span
+              info-button
+              title="{{
+                'test-results-availability.filter-status' | translate
+              }}"
+              content="{{
+                'test-results-availability.status-tooltip' | translate
+              }}"
+            ></span
+          ></label>
+          <select
+            *ngIf="userOptions"
+            id="select-status"
+            [(ngModel)]="testResultAvailabilityFilters.status"
+            class="form-control"
+            (ngModelChange)="onChangeStatusFilter($event)"
+          >
+            <option
+              *ngFor="let status of userOptions.statuses"
+              [ngValue]="status"
+            >
+              {{ status.label | translate }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-container>
+  <ng-container>
+    <div class="well well-results">
+      {{ 'test-results-availability.selected-title' | translate }}
+
+      <div
+        *ngIf="testResultAvailabilityFilters"
+        class="table-list-container mt-sm"
+      >
+        <p-table
+          [columns]="columns"
+          [value]="displayData || []"
+          [lazy]="true"
+          (onLazyLoad)="resultsTablePageChange($event)"
+          [paginator]="true"
+          [rows]="pageSettings.pageSize"
+          [first]="pageSettings.offset"
+          [totalRecords]="rowCount || 0"
+          [loading]="loading"
+          sortField="default"
+          [autoLayout]="true"
+          [showCurrentPageReport]="false"
+        >
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th
+                *ngFor="let column of columns"
+                [pSortableColumn]="column.field"
+                [pSortableColumnDisabled]="!column.sortable"
+                [ngSwitch]="column.id"
+              >
+                <span *ngSwitchCase="'deleted'"></span>
+
+                <span *ngSwitchDefault>
+                  {{
+                    'test-results-availability.columns.' + column.id | translate
+                  }}
+                </span>
+
+                <p-sortIcon
+                  *ngIf="column.sortable"
+                  [field]="column.field"
+                ></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+
+          <ng-template
+            pTemplate="body"
+            let-group
+            let-rowData
+            let-columns="columns"
+          >
+            <tr [ngClass]="testResultsRowStyleClass(rowData)">
+              <td *ngFor="let column of columns">
+                {{ group[column.field] }}
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+              <td [attr.colspan]="columns.length">
+                {{ 'test-results-availability.no-test-results' | translate }}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div class="modal-footer table-footer">
+        <button
+          [disabled]="!rowCount || !testResultAvailabilityFilters.status.value"
+          (click)="openChangeResultsModal()"
+          class="btn btn-primary"
+          type="button"
+          [tooltip]="changeResultsTooltip"
+          title="{{ 'test-results-availability.change-status' | translate }}"
+        >
+          <i class="fa fa-pencil-square"></i>
+          {{ 'test-results-availability.change-status' | translate }}
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

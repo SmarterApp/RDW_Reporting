@@ -63,7 +63,7 @@
               [options]="filteredOptions.reportTypes"
               [(ngModel)]="queryType"
               [ngModelOptions]="{ standalone: true }"
-              rowCount="2"
+              rowCount="3"
               (change)="onReportTypeChange()"
             ></wide-radio-group>
           </div>
@@ -89,6 +89,11 @@
             *ngSwitchCase="'Claim'"
             #reportForm
           ></claim-report-form>
+
+          <alt-score-report-form
+            *ngSwitchCase="'AltScore'"
+            #reportForm
+          ></alt-score-report-form>
 
           <target-report-form
             *ngSwitchCase="'Target'"

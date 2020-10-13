@@ -6,9 +6,11 @@
     "aggregate": {
       "export": {
         "header": {
+          "alt-score": "Alternate Score",
           "assessment": "AssessmentName",
           "assessment-type": "AssessmentType",
           "attributes": "Attributes",
+          "claim": "Claim",
           "cohort": {
             "score": "CohortScaleScore",
             "standard-deviation": "CohortScaleScoreStandardDeviation",
@@ -25,9 +27,8 @@
           "student-relative-residual-scores-level": "StudentRelativeResidualScoresLevel",
           "standard-met-relative-residual-level": "StandardMetRelativeResidualLevel",
           "subject": "Subject",
-          "year": "SchoolYear",
-          "claim": "Claim",
-          "target": "Target"
+          "target": "Target",
+          "year": "SchoolYear"
         }
       }
     },
@@ -257,138 +258,8 @@
     "writing": {
       "description": "Students write an extended response (i.e., essay) with one of the following purposes: narrative, opinion, informational, explanatory, or argumentative. {0} received the following scores on the essay:",
       "trait": {
-        "Argumentative": {
-          "Conventions": {
-            "0": "The response demonstrates little or no command of conventions.",
-            "1": "The response demonstrates a partial command of conventions.",
-            "2": "The response demonstrates an adequate command of conventions."
-          },
-          "Evidence": {
-            "0": "The evidence in the response is insufficient.",
-            "1": "The response provides minimal elaboration of the support/evidence for the claim and argument(s) that includes little or no use of source material. The response is vague, lacks clarity, or is confusing.",
-            "2": "The response provides uneven, cursory elaboration of the support/evidence for the claim and argument(s) that includes some reasoned analysis and partial or uneven use of source material. The response  develops ideas unevenly, using simplistic language.",
-            "3": "The response provides adequate elaboration of the support/evidence for the claim and argument(s) that includes reasoned analysis and the use of source material. The response adequately develops ideas,  employing a mix of precise with more general language.",
-            "4": "The response provides thorough and convincing elaboration of the support/evidence for the claim and argument(s) including reasoned, in depth analysis and the effective use of source material. The response clearly and effectively develops ideas, using precise language."
-          },
-          "Organization": {
-            "0": "The organization of the response is insufficient.",
-            "1": "The response has little or no discernible organizational structure. The response may be related to the claim but may provide little or no focus.",
-            "2": "The response has an inconsistent organizational structure. Some flaws are evident, and some ideas may be loosely connected. The organization is somewhat sustained between and within paragraphs. The response may have a minor drift in focus.",
-            "3": "The response has an evident organizational structure and a sense of completeness. Though there may be minor flaws, they do not interfere with the overall coherence. The organization is adequately  sustained between and within paragraphs. The response is generally focused.",
-            "4": "The response has a clear and effective organizational structure, creating a sense of unity and completeness. The organization is fully sustained between and within paragraphs. The response is consistently and purposefully focused."
-          }
-        },
-        "Conventions": "Conventions",
-        "Evidence": "Evidence / Elaboration",
-        "Explanatory": {
-          "Conventions": {
-            "0": "The response demonstrates little or no command of conventions.",
-            "1": "The response demonstrates a partial command of conventions.",
-            "2": "The response demonstrates an adequate command of conventions."
-          },
-          "Evidence": {
-            "0": "The evidence in the response is insufficient.",
-            "1": "The response provides minimal elaboration of the support/evidence for the thesis/controlling idea that includes little or no use of source material. The response is vague, lacks clarity, or is confusing.",
-            "2": "The response provides uneven, cursory elaboration of the support/evidence for the thesis/controlling idea that includes uneven or limited use of source material. The response develops ideas unevenly, using simplistic language.",
-            "3": "The response provides adequate elaboration of the support/evidence for the thesis/controlling idea that includes the use of source material. The response adequately develops ideas, employing a mix of precise and more general language.",
-            "4": "The response provides thorough elaboration of the support/evidence for the thesis/controlling idea that includes the effective use of source material. The response clearly and effectively develops ideas, using precise language."
-          },
-          "Organization": {
-            "0": "The organization of the response is insufficient.",
-            "1": "The response has little or no discernible organizational structure. The response may be related to the topic but may provide little or no focus.",
-            "2": "The response has an inconsistent organizational structure. Some flaws are evident, and some ideas may be loosely connected. The organization is somewhat sustained between and within paragraphs. The response may have a minor drift in focus.",
-            "3": "The response has an evident organizational structure and a sense of completeness. Though there may be minor flaws, they do not interfere with the overall coherence. The organization is adequately sustained between and within paragraphs. The response is generally focused.",
-            "4": "The response has a clear and effective organizational structure, creating a sense of unity and completeness. The organization is fully sustained between and within paragraphs. The response is consistently and purposefully focused."
-          }
-        },
-        "Informational": {
-          "Conventions": {
-            "0": "The response demonstrates little or no command of conventions.",
-            "1": "The response demonstrates a partial command of conventions.",
-            "2": "The response demonstrates an adequate command of conventions."
-          },
-          "Evidence": {
-            "0": "The evidence in the response is insufficient.",
-            "1": "The response provides minimal elaboration of the support/evidence for the controlling/main idea that includes little or no use of source material. The response is vague, lacks clarity, or is confusing.",
-            "2": "The response provides uneven, cursory elaboration of the support/evidence for the controlling/main idea that includes uneven or limited use of source material. The response develops ideas unevenly, using simplistic language.",
-            "3": "The response provides adequate elaboration of the support/evidence for the controlling/main idea that includes the use of source material. The response adequately develops ideas, employing a mix of precise and more general language.",
-            "4": "The response provides thorough elaboration of the support/evidence for the controlling/main idea that includes the effective use of source material. The response clearly and effectively develops ideas, using precise language."
-          },
-          "Organization": {
-            "0": "The organization of the response is insufficient.",
-            "1": "The response has little or no discernible organizational structure. The response may be related to the topic but may provide little or no focus.",
-            "2": "The response has an inconsistent organizational structure. Some flaws are evident, and some ideas may be loosely connected. The organization is somewhat sustained between and within paragraphs. The response may have a minor drift in focus.",
-            "3": "The response has an evident organizational structure and a sense of completeness. Though there may be minor flaws, they do not interfere with the overall coherence. The organization is adequately sustained between and within paragraphs. The response is generally focused.",
-            "4": "The response has a clear and effective organizational structure, creating a sense of unity and completeness. The organization is sustained between and within paragraphs. The response is consistently and purposefully focused."
-          }
-        },
-        "Narrative": {
-          "Conventions": {
-            "0": "The response demonstrates little or no command of conventions.",
-            "1": "The response demonstrates a partial command of conventions.",
-            "2": "The response demonstrates an adequate command of conventions."
-          },
-          "Evidence": {
-            "0": "The evidence in the narrative is insufficient.",
-            "1": "The narrative, real or imagined, provides minimal elaboration using few or no details, dialogue, and/or description.",
-            "2": "The narrative, real or imagined, provides uneven, cursory elaboration using partial and uneven details, dialogue, and/or description.",
-            "3": "The narrative, real or imagined, provides adequate elaboration using details, dialogue, and/or description.",
-            "4": "The narrative, real or imagined, provides thorough, effective elaboration using relevant details, dialogue, and/or description."
-          },
-          "Organization": {
-            "0": "The organization of the narrative is insufficient.",
-            "1": "The organization of the narrative, real or imagined, may be maintained but may provide little or no focus.",
-            "2": "The organization of the narrative, real or imagined, is somewhat sustained and may have an uneven focus.",
-            "3": "The organization of the narrative, real or imagined, is adequately sustained, and the focus is adequate and generally maintained.",
-            "4": "The organization of the narrative, real or imagined, is fully sustained and the focus is clear and maintained throughout."
-          }
-        },
-        "Opinion": {
-          "Conventions": {
-            "0": "The response demonstrates little or no command of conventions.",
-            "1": "The response demonstrates a partial command of conventions.",
-            "2": "The response demonstrates an adequate command of conventions."
-          },
-          "Evidence": {
-            "0": "The evidence in the response is insufficient.",
-            "1": "The response provides minimal elaboration of the support/evidence for the opinion and supporting idea(s) that includes little or no use of source material. The response is vague, lacks clarity, or is confusing.",
-            "2": "The response provides uneven, cursory elaboration of the support/evidence for the opinion and supporting idea(s) that includes partial or uneven use of source material. The response develops ideas unevenly, using simplistic language.",
-            "3": "The response provides adequate elaboration of the support/evidence for the opinion and supporting idea(s) that includes the use of source material. The response adequately develops ideas, employing a mix of precise with more general language.",
-            "4": "The response provides thorough and convincing elaboration of the support/evidence for the opinion and supporting idea(s) that includes the effective use of source material. The response clearly and effectively develops ideas, using precise language."
-          },
-          "Organization": {
-            "0": "The organization of the response is insufficient.",
-            "1": "The response has little or no discernible organizational structure. The response may be related to the opinion but may provide little or no focus.",
-            "2": "The response has an inconsistent organizational structure. Some flaws are evident, and some ideas may be loosely connected. The organization is somewhat sustained between and within paragraphs. The response may have a minor drift in focus.",
-            "3": "The response has an evident organizational structure and a sense of completeness. Though there may be minor flaws, they do not interfere with the overall coherence. The organization is adequately sustained between and within paragraphs. The response is generally focused.",
-            "4": "The response has a clear and effective organizational structure, creating a sense of unity and completeness. The organization is sustained between and within paragraphs. The response is consistently and purposefully focused."
-          }
-        },
-        "Organization": "Organization / Purpose",
-        "Unknown": {
-          "Conventions": {
-            "0": "",
-            "1": "",
-            "2": ""
-          },
-          "Evidence": {
-            "0": "",
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": ""
-          },
-          "Organization": {
-            "0": "",
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": ""
-          }
-        },
         "outof": "of {0}",
-        "purpose": "Writing Purpose: {0}",
-        "purpose-not-specified": "Writing Purpose: Not Specified"
+        "purpose": "Writing Purpose: {0}"
       }
     }
   }

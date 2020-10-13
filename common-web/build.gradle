@@ -1,33 +1,31 @@
-//Any subproject specific plugins go here
-
-apply plugin: 'org.springframework.boot'
-
-bootRepackage.enabled = false
-bootRun.enabled = false
-
 dependencies {
-    compile project(':rdw-reporting-common')
-    compile 'io.jsonwebtoken:jjwt'
-    compile 'org.springframework:spring-messaging'
-    compile 'org.springframework.boot:spring-boot-starter-actuator'
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-security'
+    implementation project(':rdw-reporting-common')
 
-    testCompile project(path: ':rdw-reporting-common', configuration: 'tests')
-    testCompile('org.springframework.boot:spring-boot-starter-test') {
+    implementation 'org.opentestsystem.rdw.common:rdw-common-security'
+
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-guava'
+    implementation 'io.jsonwebtoken:jjwt'
+    implementation 'org.apache.commons:commons-lang3'
+    implementation 'org.springframework:spring-messaging'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    testImplementation project(path: ':rdw-reporting-common', configuration: 'tests')
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude(module: 'commons-logging')
     }
-    testCompile 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.security:spring-security-test'
 }
 
-// generate coverage report automatically (./build/reports/jacoco/test/html/index.html)
-test.finalizedBy(jacocoTestReport)
-
-// trigger creation of build-info.properties
-classes.dependsOn(createBuildInfoFile)
+// no ITs in this module
+IT {
+    enabled = false
+    dependsOn = []
+}
 
 task testsJar(type: Jar, dependsOn: testClasses) {
-    classifier = 'tests'
+    archiveClassifier.set('tests')
     from sourceSets.test.output
 }
 configurations {

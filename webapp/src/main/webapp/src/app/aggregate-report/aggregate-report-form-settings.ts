@@ -1,6 +1,6 @@
 import { District, School } from '../shared/organization/organization';
 import { ReportQueryType } from '../report/report';
-import { Claim, Subject } from './aggregate-report-options';
+import { AltScore, Claim, Subject } from './aggregate-report-options';
 import { SubgroupFilters } from '../shared/model/subgroup-filters';
 
 /**
@@ -146,6 +146,26 @@ export interface AggregateReportFormSettings {
      * The claim codes
      */
     claimCodesBySubject: Claim[];
+  };
+
+  /**
+   * AltScore report assessment settings
+   */
+  altScoreReport: {
+    /**
+     * Assessment grades to be covered on the report
+     */
+    assessmentGrades: string[];
+
+    /**
+     * The school years to be covered on the report
+     */
+    schoolYears: number[];
+
+    /**
+     * The alt score codes
+     */
+    altScoreCodesBySubject: AltScore[];
   };
 
   /**

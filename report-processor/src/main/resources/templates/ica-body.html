@@ -89,9 +89,15 @@
                     <span class="title" th:text="#{report.ica.section.claim.header}"></span>
                     <p th:text="#{('subject.' + ${report.subject} + '.report-grade.' + ${report.assessment.gradeCode} + '.asmt-type.ica.claim.title')(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></p>
                 </div>
-                <div class="level-description" th:each="claimCode, claimCodeStat : ${#lists.sort(report.assessment.claimCodes, support.getClaimCodeComparator(report))}"
-                    th:with="claimIdx=${report.assessment.claimCodes.indexOf(claimCode)}, writingClaim=${support.isWritingTraitScoreClaim(claimCodeStat.last, report.exam.writingTraitScores)}"
-                    th:classappend="${writingClaim} ? 'level-description-writing-traits' : ''">
+                <!-- SmarterBalanced assessments have either 3 (Math) or 4 (ELA) claims.
+                     Each claim is presented with the icon, name, description, and the student's achievement level.
+                     For ELA, the 4th claim is expected to be Writing and it may have trait scores. So, if it is
+                     the last claim and the trait scores are set, then assume those trait scores apply to that claim.
+                -->
+                <div class="level-description"
+                     th:each="claimCode, claimCodeStat : ${#lists.sort(report.assessment.claimCodes, support.getClaimCodeComparator(report))}"
+                     th:with="claimIdx=${report.assessment.claimCodes.indexOf(claimCode)},writingClaim=${claimCodeStat.last and (report.exam.traitScores != null)}"
+                     th:classappend="${writingClaim} ? 'level-description-writing-traits' : ''">
                     <div class="main-claim">
                         <span class="title">
                             <i class="fa"
@@ -111,47 +117,24 @@
                         </div>
                     </div>
 
-                    <div class="writing-traits"
-                         th:if="${writingClaim}"
-                         th:with="scored=true,assessment=${report.assessment},exam=${report.exam}">
-                        <span class="title"
-                              th:if="${exam.performanceWritingType != null}"
-                              th:text="#{('report.writing.trait.purpose')(${exam.performanceWritingType})}"></span>
-                        <span class="title"
-                              th:if="${exam.performanceWritingType == null}"
-                              th:text="#{'report.writing.trait.purpose-not-specified'}"></span>
-                        <div class="description" th:text="#{('report.writing.description')(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></div>
-                        <div class="trait">
-                            <span class="title" th:text="#{'report.writing.trait.Evidence'}"></span>
-                            <span class="score">
-                            <span style="background-color: #104564;"
-                                  th:text="${exam.writingTraitScores.evidence}"></span>
-                            <span th:text="#{('report.writing.trait.outof')(4)}" th:remove="tag"></span>
-                        </span>
-                            <div class="description">
-                                <p th:text="#{'report.writing.trait.' + (${exam.performanceWritingType != null} ? ${exam.performanceWritingType} : 'Unknown') + '.Evidence.' + ${exam.writingTraitScores.evidence}}"></p>
-                            </div>
-                        </div>
-                        <div class="trait">
-                            <span class="title" th:text="#{'report.writing.trait.Organization'}"></span>
-                            <span class="score">
-                            <span style="background-color: #104564;"
-                                  th:text="${exam.writingTraitScores.organization}"></span>
-                            <span th:text="#{('report.writing.trait.outof')(4)}" th:remove="tag"></span>
-                        </span>
-                            <div class="description">
-                                <p th:text="#{'report.writing.trait.' + (${exam.performanceWritingType != null} ? ${exam.performanceWritingType} : 'Unknown') + '.Organization.' + ${exam.writingTraitScores.organization}}"></p>
-                            </div>
-                        </div>
-                        <div class="trait">
-                            <span class="title" th:text="#{'report.writing.trait.Conventions'}"></span>
-                            <span class="score">
-                                <span style="background-color: #104564;"
-                                      th:text="${exam.writingTraitScores.conventions}"></span>
-                                <span th:text="#{('report.writing.trait.outof')(2)}" th:remove="tag"></span>
-                            </span>
-                            <div class="description">
-                                <p th:text="#{'report.writing.trait.' + (${exam.performanceWritingType != null} ? ${exam.performanceWritingType} : 'Unknown') + '.Conventions.' + ${exam.writingTraitScores.conventions}}"></p>
+                    <div class="writing-traits" th:if="${writingClaim}">
+                        <!-- there should be only one purpose in the map but force single "iteration" -->
+                        <div th:each="entry, iter : ${support.traitScoresByPurpose(report.exam.traitScores)}"
+                             th:if="${iter.first}"
+                             th:with="purpose=${entry.key},traitScores=${entry.value}">
+                            <span class="title"
+                                  th:text="#{('report.writing.trait.purpose')(#{'subject.' + ${report.subject} + '.trait.purpose.' + ${purpose} + '.name'})}"></span>
+                            <div class="description" th:text="#{('report.writing.description')(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></div>
+
+                            <div class="trait" th:each="traitScore : ${traitScores}">
+                                <span class="title" th:text="#{'subject.' + ${report.subject} + '.trait.category.' + ${traitScore.category} + '.name'}"></span>
+                                <span class="score">
+                                    <span style="background-color: #104564;" th:text="${traitScore.score}"></span>
+                                    <span th:text="#{('report.writing.trait.outof')(${traitScore.maxScore})}" th:remove="tag"></span>
+                                </span>
+                                <div class="description">
+                                    <p th:text="#{'subject.' + ${report.subject} + '.trait.category.' + ${traitScore.category} + '.' + ${traitScore.score}}"></p>
+                                </div>
                             </div>
                         </div>
                     </div>

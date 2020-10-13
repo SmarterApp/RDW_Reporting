@@ -1,0 +1,869 @@
+<ng-container *ngIf="formGroup">
+  <form #form [formGroup]="formGroup">
+    <!-- Organization -->
+    <div id="altScoreOrganizationSection">
+      <div class="well-group">
+        <div class="well">
+          <h3>
+            {{
+              'aggregate-report-form.section.organization.heading' | translate
+            }}
+          </h3>
+          <p *ngIf="!hasDefaultSchoolOrganization" class="small">
+            {{
+              'aggregate-report-form.section.organization.subtext' | translate
+            }}
+          </p>
+        </div>
+        <div class="well pb-0">
+          <!-- Typeahead -->
+          <div *ngIf="!hasDefaultSchoolOrganization">
+            <fieldset>
+              <label for="organizationTypeahead">{{
+                'aggregate-report-form.field.organization-label' | translate
+              }}</label>
+              <span [hidden]="!organizationTypeahead.loading"
+                ><i class="fa fa-spinner fa-pulse"></i
+              ></span>
+              <organization-typeahead
+                #organizationTypeahead
+                name="organization-selector"
+                [options]="organizationTypeaheadOptions"
+                (selected)="onOrganizationTypeaheadSelect($event)"
+              ></organization-typeahead>
+            </fieldset>
+            <div>
+              <br [hidden]="organizationTypeahead.noResults" />
+              <span
+                [hidden]="!organizationTypeahead.noResults"
+                class="small gray-darker"
+                >{{ 'organization-typeahead.no-matches' | translate }}</span
+              >
+            </div>
+            <div class="form-group">
+              <input
+                type="hidden"
+                [(ngModel)]="organizations"
+                formControlName="organizations"
+              />
+              <div *ngIf="showErrors('organizations')">
+                <p
+                  *ngIf="getControl('organizations').errors.invalid"
+                  aria-live="polite"
+                  class="help-block small red"
+                >
+                  {{
+                    getControl('organizations').errors.invalid.messageId
+                      | translate
+                  }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Selections -->
+          <div [hidden]="!settings.districts.length" class="mb-sm">
+            <label>{{
+              'aggregate-report-form.section.organization.district-list-heading'
+                | translate
+            }}</label>
+            <editable-list-group
+              [items]="settings.districts"
+              [itemTemplate]="organizationListItemTemplate"
+              (itemRemoveButtonClick)="onOrganizationListItemClose($event)"
+            ></editable-list-group>
+          </div>
+          <div [hidden]="!settings.schools.length" class="mb-sm">
+            <label>{{
+              'aggregate-report-form.section.organization.school-list-heading'
+                | translate
+            }}</label>
+            <editable-list-group
+              [items]="settings.schools"
+              [itemTemplate]="organizationListItemTemplate"
+              (itemRemoveButtonClick)="onOrganizationListItemClose($event)"
+              [disabled]="hasDefaultSchoolOrganization"
+            ></editable-list-group>
+          </div>
+
+          <ng-template #organizationListItemTemplate let-item>
+            {{ item.name }}
+          </ng-template>
+          <!-- Settings -->
+          <div>
+            <label>{{
+              'aggregate-report-form.section.organization.include.heading'
+                | translate
+            }}</label>
+            <ul class="list-group list-group-sm small mb-0">
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label class="inline-label">
+                      <input
+                        type="checkbox"
+                        [disabled]="assessmentDefinition.interim"
+                        [(ngModel)]="includeStateResults"
+                        [ngModelOptions]="{ standalone: true }"
+                        (ngModelChange)="onIncludeStateResultsChange()"
+                      />
+                      <span
+                        class="ml-xs"
+                        [ngClass]="{
+                          'text-muted': assessmentDefinition.interim
+                        }"
+                        >{{
+                          'aggregate-report-form.section.organization.include.state-results'
+                            | translate
+                        }}</span
+                      >
+                    </label>
+                  </div>
+                  <div
+                    class="col-sm-6"
+                    *ngIf="filteredOptions.statewideReporter"
+                  >
+                    <label class="inline-label">
+                      <input
+                        type="checkbox"
+                        [(ngModel)]="settings.includeAllDistricts"
+                        [ngModelOptions]="{ standalone: true }"
+                        (ngModelChange)="onIncludeAllDistrictsChange()"
+                      />
+                      <span class="ml-xs">{{
+                        'aggregate-report-form.section.organization.include.all-districts'
+                          | translate
+                      }}</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label class="inline-label">
+                      <input
+                        type="checkbox"
+                        [(ngModel)]="
+                          settings.includeAllSchoolsOfSelectedDistricts
+                        "
+                        [ngModelOptions]="{ standalone: true }"
+                        (ngModelChange)="onSettingsChange()"
+                      />
+                      <span class="ml-xs">{{
+                        'aggregate-report-form.section.organization.include.all-schools-of-districts'
+                          | translate
+                      }}</span>
+                    </label>
+                  </div>
+                  <div class="col-sm-6">
+                    <label class="inline-label">
+                      <input
+                        type="checkbox"
+                        [(ngModel)]="
+                          settings.includeAllDistrictsOfSelectedSchools
+                        "
+                        [ngModelOptions]="{ standalone: true }"
+                        (ngModelChange)="onSettingsChange()"
+                      />
+                      <span class="ml-xs">{{
+                        'aggregate-report-form.section.organization.include.all-districts-of-schools'
+                          | translate
+                      }}</span>
+                    </label>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Assessment Attributes -->
+    <div id="altScoreAssessmentSection">
+      <div class="well-group">
+        <div class="well">
+          <h3>
+            {{ 'aggregate-report-form.section.assessment-heading' | translate }}
+          </h3>
+        </div>
+        <div class="well">
+          <fieldset>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="assessmentType">{{
+                  'aggregate-report-form.field.assessment-type-label'
+                    | translate
+                }}</label>
+              </div>
+              <div class="col-md-6">
+                <span
+                  class="gray-darker"
+                  *ngIf="filteredOptions.assessmentTypes.length == 1"
+                  >{{ filteredOptions.assessmentTypes[0].text }}</span
+                >
+                <sb-radio-button-group
+                  *ngIf="filteredOptions.assessmentTypes.length > 1"
+                  id="assessmentType"
+                  name="assessmentType"
+                  [options]="filteredOptions.assessmentTypes"
+                  [(ngModel)]="settings.assessmentType"
+                  [ngModelOptions]="{ standalone: true }"
+                  (change)="onAssessmentTypeChange()"
+                ></sb-radio-button-group>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="well">
+          <fieldset>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="subjects">{{
+                  'aggregate-report-form.field.subjects-label' | translate
+                }}</label>
+              </div>
+              <div class="col-md-3">
+                <sb-button-group
+                  id="subjects"
+                  name="subjects"
+                  analyticsEvent="FilterClick"
+                  analyticsCategory="AggregateQueryBuilder"
+                  [vertical]="true"
+                  [allOptionAnalyticsProperties]="{ label: 'Subject: All' }"
+                  [options]="filteredOptions.subjects"
+                  [(ngModel)]="settings.subjects"
+                  [ngModelOptions]="{ standalone: true }"
+                  (change)="onSubjectsChange()"
+                ></sb-button-group>
+              </div>
+              <div class="col-md-3">
+                <button
+                  class="form-control btn btn-default pull-right"
+                  (click)="altScoresCollapsed = !altScoresCollapsed"
+                  angulartics2On="click"
+                  angularticsAction="ToggleAltScoreResults"
+                  angularticsCategory="AggregateQueryBuilder"
+                >
+                  {{
+                    'aggregate-report-form.field.alt-score-codes-label'
+                      | translate
+                  }}
+                  <i
+                    class="fa"
+                    [ngClass]="{
+                      'fa-caret-square-o-up': !altScoresCollapsed,
+                      'fa-caret-square-o-down': altScoresCollapsed
+                    }"
+                    aria-hidden="true"
+                  ></i>
+                  <span class="sr-only">{{
+                    'common.action.collapse' | translate
+                  }}</span>
+                </button>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="well gray-lighter" *ngIf="!altScoresCollapsed">
+          <ng-container *ngFor="let subject of settings.subjects">
+            <div
+              class="row mt-md"
+              *ngIf="altScoresBySubject[subject.code].length != 0"
+            >
+              <fieldset>
+                <div class="col-md-6">
+                  <label>{{
+                    'subject.' + subject.code + '.name' | translate
+                  }}</label>
+                </div>
+
+                <div class="col-md-3">
+                  <sb-button-group
+                    class="alt-score-button-group"
+                    type="checkbox"
+                    [vertical]="true"
+                    [options]="altScoresBySubject[subject.code]"
+                    [(ngModel)]="selectionBySubject[subject.code]"
+                    [ngModelOptions]="{ standalone: true }"
+                    (change)="onAltScoreChange()"
+                    analyticsEvent="FilterClick"
+                    analyticsCategory="AggregateQueryBuilder"
+                    [allOptionAnalyticsProperties]="{
+                      label: 'Alternate Scores: All'
+                    }"
+                  ></sb-button-group>
+                </div>
+              </fieldset>
+            </div>
+          </ng-container>
+        </div>
+        <div class="well">
+          <fieldset>
+            <div class="row">
+              <div class="col-md-6">
+                <label
+                  for="assessmentGrades"
+                  info-button
+                  title="{{
+                    'aggregate-report-form.field.assessment-grades-label'
+                      | translate
+                  }}"
+                  content="{{
+                    'aggregate-report-form.field.assessment-grades-info'
+                      | translate
+                  }}"
+                ></label>
+                <p
+                  class="small mb-0"
+                  [ngClass]="
+                    showErrors('assessmentGrades') ? 'red' : 'gray-darker'
+                  "
+                >
+                  {{ 'common.form-field-message.required' | translate }}
+                </p>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <sb-button-group
+                    id="assessmentGrades"
+                    name="assessmentGrades"
+                    formControlName="assessmentGrades"
+                    analyticsEvent="FilterClick"
+                    analyticsCategory="AggregateQueryBuilder"
+                    [allOptionEnabled]="false"
+                    [options]="filteredOptions.assessmentGrades"
+                    [(ngModel)]="settings.altScoreReport.assessmentGrades"
+                    (change)="onSettingsChange()"
+                  ></sb-button-group>
+                  <div *ngIf="showErrors('assessmentGrades')">
+                    <p
+                      *ngIf="getControl('assessmentGrades').errors.notEmpty"
+                      aria-live="polite"
+                      class="help-block small red"
+                    >
+                      {{
+                        getControl('assessmentGrades').errors.notEmpty
+                          .messageId | translate
+                      }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="well">
+          <fieldset>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="schoolYears">{{
+                  'aggregate-report-form.field.school-years-label' | translate
+                }}</label>
+                <p
+                  class="small mb-0"
+                  [ngClass]="showErrors('schoolYears') ? 'red' : 'gray-darker'"
+                >
+                  {{ 'common.form-field-message.required' | translate }}
+                </p>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <sb-button-group
+                    id="schoolYears"
+                    name="schoolYears"
+                    formControlName="schoolYears"
+                    analyticsEvent="FilterClick"
+                    analyticsCategory="AggregateQueryBuilder"
+                    [allOptionEnabled]="false"
+                    [options]="filteredOptions.schoolYears"
+                    [(ngModel)]="settings.altScoreReport.schoolYears"
+                    (change)="onSettingsChange()"
+                  ></sb-button-group>
+                  <div *ngIf="showErrors('schoolYears')">
+                    <p
+                      *ngIf="getControl('schoolYears').errors.notEmpty"
+                      aria-live="polite"
+                      class="help-block small red"
+                    >
+                      {{
+                        getControl('schoolYears').errors.notEmpty.messageId
+                          | translate
+                      }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="well" [hidden]="!assessmentDefinition.interim">
+          <fieldset>
+            <div class="row">
+              <div class="col-md-6">
+                <label
+                  for="interimAdministrationConditions"
+                  info-button
+                  title="{{
+                    'aggregate-report-form.field.interim-administration-condition-label'
+                      | translate
+                  }}"
+                  content="{{
+                    'aggregate-report-form.field.interim-administration-condition-info'
+                      | translate
+                  }}"
+                ></label>
+              </div>
+              <div class="col-md-6">
+                <sb-checkbox-group
+                  id="interimAdministrationConditions"
+                  name="interimAdministrationConditions"
+                  [horizontal]="true"
+                  [options]="filteredOptions.interimAdministrationConditions"
+                  [(ngModel)]="settings.interimAdministrationConditions"
+                  [ngModelOptions]="{ standalone: true }"
+                  analyticsEvent="FilterClick"
+                  analyticsCategory="AggregateQueryBuilder"
+                  [allOptionAnalyticsProperties]="{
+                    label: 'Manner of Administration: All'
+                  }"
+                  (change)="onSettingsChange()"
+                ></sb-checkbox-group>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="well" [hidden]="assessmentDefinition.interim">
+          <fieldset>
+            <div class="row">
+              <div class="col-md-6">
+                <label
+                  for="summativeAdministrationConditions"
+                  info-button
+                  title="{{
+                    'aggregate-report-form.field.summative-administration-condition-label'
+                      | translate
+                  }}"
+                  content="{{
+                    'aggregate-report-form.field.summative-administration-condition-info'
+                      | translate
+                  }}"
+                ></label>
+              </div>
+              <div class="col-md-6">
+                <sb-checkbox-group
+                  id="summativeAdministrationConditions"
+                  name="summativeAdministrationConditions"
+                  [horizontal]="true"
+                  [options]="filteredOptions.summativeAdministrationConditions"
+                  [(ngModel)]="settings.summativeAdministrationConditions"
+                  [ngModelOptions]="{ standalone: true }"
+                  analyticsEvent="FilterClick"
+                  analyticsCategory="AggregateQueryBuilder"
+                  [allOptionAnalyticsProperties]="{ label: 'Validity: All' }"
+                  (change)="onSettingsChange()"
+                ></sb-checkbox-group>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="well">
+          <fieldset>
+            <div class="row">
+              <div class="col-md-6">
+                <label
+                  for="completenesses"
+                  info-button
+                  title="{{
+                    'common.completeness-form-control.label' | translate
+                  }}"
+                  content="{{
+                    'common.completeness-form-control.info' | translate
+                  }}"
+                ></label>
+              </div>
+              <div class="col-md-6">
+                <sb-checkbox-group
+                  id="completenesses"
+                  name="completenesses"
+                  [horizontal]="true"
+                  [options]="filteredOptions.completenesses"
+                  [(ngModel)]="settings.completenesses"
+                  [ngModelOptions]="{ standalone: true }"
+                  analyticsEvent="FilterClick"
+                  analyticsCategory="AggregateQueryBuilder"
+                  [allOptionAnalyticsProperties]="{
+                    label: 'Completeness: All'
+                  }"
+                  (change)="onSettingsChange()"
+                ></sb-checkbox-group>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+
+    <!-- Query Type Tabs -->
+    <div id="altScoreSubgroupSection">
+      <tabset>
+        <tab
+          [heading]="
+            'aggregate-report-form.tab.subgroup-and-filter' | translate
+          "
+          [active]="settings.queryType === 'Basic'"
+          (select)="onTabChange('Basic')"
+        >
+          <!-- Subgroups -->
+          <div class="well-group">
+            <div class="well">
+              <p class="small">
+                {{
+                  'aggregate-report-form.section.comparative-subgroups-subtext'
+                    | translate
+                }}
+              </p>
+            </div>
+            <div class="well">
+              <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                  <sb-checkbox-group
+                    [options]="filteredOptions.dimensionTypes"
+                    [(ngModel)]="settings.dimensionTypes"
+                    [ngModelOptions]="{ standalone: true }"
+                    name="dimensionTypes"
+                    [allOptionEnabled]="false"
+                    analyticsEvent="FilterClick"
+                    analyticsCategory="AggregateQueryBuilder"
+                    [allOptionAnalyticsProperties]="{
+                      label: 'Comparative Subgroups: All'
+                    }"
+                    (change)="onSettingsChange()"
+                  ></sb-checkbox-group>
+                </div>
+              </div>
+            </div>
+            <div class="well">
+              <div class="flex-children">
+                <div class="flex-child grow">
+                  <h3>
+                    {{
+                      'aggregate-report-form.section.subgroup-filters-heading'
+                        | translate
+                    }}
+                  </h3>
+                  <p class="small">
+                    {{
+                      'aggregate-report-form.section.subgroup-filters-subtext'
+                        | translate
+                    }}
+                  </p>
+                </div>
+                <div class="flex-child">
+                  <button
+                    class="form-control btn btn-sm btn-default pull-right"
+                    (click)="showAdvancedFilters = !showAdvancedFilters"
+                  >
+                    {{
+                      'common.action.' +
+                        (showAdvancedFilters ? 'hide' : 'show') | translate
+                    }}
+                    <i
+                      class="fa ml-xs"
+                      [ngClass]="{
+                        'fa-caret-square-o-up': showAdvancedFilters,
+                        'fa-caret-square-o-down': !showAdvancedFilters
+                      }"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <subgroup-filters
+              *ngIf="showAdvancedFilters"
+              [options]="filteredOptions.studentFilters"
+              [settings]="settings.studentFilters"
+              (changed)="onSettingsChange()"
+            ></subgroup-filters>
+          </div>
+        </tab>
+
+        <tab
+          [heading]="'aggregate-report-form.tab.custom-subgroup' | translate"
+          [active]="settings.queryType === 'FilteredSubgroup'"
+          (select)="onTabChange('FilteredSubgroup')"
+        >
+          <div class="well-group">
+            <div class="well">
+              <p class="small">
+                {{
+                  'aggregate-report-form.section.custom-subgroup.description'
+                    | translate
+                }}
+              </p>
+            </div>
+
+            <subgroup-filters
+              [options]="filteredOptions.studentFilters"
+              [settings]="customSubgroup"
+            ></subgroup-filters>
+
+            <div class="well">
+              <div class="clearfix">
+                <div class="pull-right">
+                  <button
+                    class="btn btn-primary btn-xs"
+                    [disabled]="createCustomSubgroupButtonDisabled"
+                    (click)="onCreateCustomSubgroupButtonClick()"
+                  >
+                    <i class="fa fa-plus"></i>
+                    {{
+                      'aggregate-report-form.section.custom-subgroup.add-button'
+                        | translate
+                    }}
+                  </button>
+                </div>
+              </div>
+              <ng-container *ngIf="subgroupItems.length">
+                <label>{{
+                  'aggregate-report-form.section.custom-subgroup.list-label'
+                    | translate
+                }}</label>
+                <editable-list-group
+                  [items]="subgroupItems"
+                  [itemTemplate]="subgroupListItemTemplate"
+                  (itemRemoveButtonClick)="
+                    onCustomSubgroupItemRemoveButtonClick($event)
+                  "
+                ></editable-list-group>
+                <ng-template #subgroupListItemTemplate let-item>
+                  <subgroup [subgroup]="item.subgroup"></subgroup>
+                </ng-template>
+              </ng-container>
+            </div>
+          </div>
+        </tab>
+      </tabset>
+    </div>
+
+    <!-- Summary -->
+    <div
+      id="altScoreReviewSection"
+      (inView)="onReviewSectionInView()"
+      [inViewInvalidator]="reviewSectionViewInvalidator"
+    >
+      <div class="well-group">
+        <div class="well">
+          <h3>
+            {{ 'aggregate-report-form.section.review-heading' | translate }}
+          </h3>
+          <ng-container *ngIf="formGroup.valid && capableOfRowEstimation()">
+            <ng-container
+              *ngIf="estimatedRowCount != null; else estimatedRowCountSpinner"
+            >
+              <div class="flex-children">
+                <p>
+                  <span class="small">{{
+                    'aggregate-report-form.estimated-row-count.label'
+                      | translate
+                  }}</span>
+                  <strong class="label gray-darker">{{
+                    estimatedRowCount | number
+                  }}</strong>
+                </p>
+                <ng-container *ngIf="estimatedRowCountIsLarge">
+                  <ng-container
+                    *ngTemplateOutlet="
+                      warning;
+                      context: {
+                        $implicit:
+                          'aggregate-report-form.estimated-row-count.warning'
+                          | translate
+                      }
+                    "
+                  ></ng-container>
+                </ng-container>
+              </div>
+            </ng-container>
+            <ng-template #estimatedRowCountSpinner>
+              <p class="small">
+                {{
+                  'aggregate-report-form.estimated-row-count.loading'
+                    | translate
+                }}
+                <i class="fa fa-spinner fa-pulse"></i>
+              </p>
+            </ng-template>
+          </ng-container>
+        </div>
+        <div class="well">
+          <aggregate-report-summary
+            *ngIf="summary"
+            narrow="true"
+            [summary]="summary"
+          ></aggregate-report-summary>
+        </div>
+        <div class="well">
+          <div class="controls">
+            <div class="form-group">
+              <label for="reportName">{{
+                'aggregate-report-form.field.report-name-label' | translate
+              }}</label>
+              <input
+                id="reportName"
+                type="text"
+                class="form-control"
+                formControlName="reportName"
+                [(ngModel)]="settings.name"
+                required="false"
+                maxlength="255"
+                placeholder="{{
+                  'aggregate-report-form.default-report-name' | translate
+                }}"
+              />
+            </div>
+            <div *ngIf="initialQuery != null">
+              <br />
+              <button
+                type="button"
+                class="btn btn-primary btn-sm btn-outlined"
+                [disabled]="saveQueryButtonDisabled"
+                (click)="onSaveQueryButtonClick()"
+              >
+                {{ 'user-query.action.update.label' | translate }}
+              </button>
+            </div>
+            <div>
+              <br />
+              <ng-container
+                [ngTemplateOutlet]="submitButtonTemplate"
+              ></ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div
+    id="altScorePreviewSection"
+    (inView)="onPreviewSectionInView()"
+    [inViewInvalidator]="previewSectionViewInvalidator"
+  >
+    <div class="well-group aggregate-report-content-container">
+      <div class="well inline-headings">
+        <h3>
+          {{ 'aggregate-report-form.section.preview-heading' | translate }}
+        </h3>
+        <p class="small">
+          {{
+            'aggregate-report-form.section.preview-heading-subtext' | translate
+          }}
+        </p>
+        <ng-container *ngIf="estimatedRowCountIsLarge">
+          <ng-container
+            *ngTemplateOutlet="
+              warning;
+              context: {
+                $implicit: 'aggregate-report-form.preview' | translate
+              }
+            "
+          ></ng-container>
+        </ng-container>
+      </div>
+      <div class="well">
+        <div class="aggregate-report-table-controls">
+          <span>
+            <label for="column-order">
+              <info-button
+                title="{{ 'common.aggregate-report.column-order' | translate }}"
+                content="{{
+                  'common.aggregate-report.column-order-info' | translate
+                }}"
+              >
+              </info-button>
+            </label>
+            <order-selector
+              id="column-order"
+              [items]="columnItems"
+              (itemsChange)="onColumnOrderChange($event)"
+            ></order-selector>
+          </span>
+          <span class="aggregate-report-table-controls-right">
+            <span>
+              <label for="show-empty">
+                {{ 'common.show-empty-input-label-preview' | translate }}
+              </label>
+              <sb-radio-button-group
+                id="show-empty"
+                [options]="[
+                  { value: true, text: 'common.action.show' | translate },
+                  { value: false, text: 'common.action.hide' | translate }
+                ]"
+                [(ngModel)]="settings.showEmpty"
+                buttonGroupStyles="btn-group-xs"
+                buttonStyles="btn-default"
+                analyticsCategory="AggregateQueryBuilder"
+                analyticsEvent="Change"
+              ></sb-radio-button-group>
+            </span>
+            <span>
+              <label for="value-display-type">
+                {{ 'common.value-display-type-input-label' | translate }}
+              </label>
+              <sb-radio-button-group
+                id="value-display-type"
+                [options]="filteredOptions.valueDisplayTypes"
+                [(ngModel)]="settings.valueDisplayType"
+                buttonGroupStyles="btn-group-xs"
+                buttonStyles="btn-default"
+                analyticsCategory="AggregateQueryBuilder"
+                analyticsEvent="Change"
+              ></sb-radio-button-group>
+            </span>
+          </span>
+        </div>
+        <div class="mt-sm">
+          <aggregate-report-table
+            *ngIf="previewTableRows"
+            [preview]="true"
+            [options]="aggregateReportOptions"
+            [subjectDefinition]="subjectDefinition"
+            [reportType]="settings.reportType"
+            [rows]="previewTableRows"
+            [identityColumns]="settings.columnOrder"
+            [valueDisplayType]="settings.valueDisplayType"
+            [performanceLevelDisplayType]="
+              assessmentDefinition.performanceLevelDisplayTypes.includes(
+                settings.performanceLevelDisplayType
+              )
+                ? settings.performanceLevelDisplayType
+                : assessmentDefinition.performanceLevelDisplayTypes[0]
+            "
+          ></aggregate-report-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #submitButtonTemplate>
+  <button
+    class="btn btn-success btn-sm"
+    [disabled]="userReportSubscription"
+    (click)="onGenerateButtonClick()"
+  >
+    {{ 'aggregate-report-form.submit' | translate }}
+  </button>
+</ng-template>
+
+<ng-template #warning let-text>
+  <span class="alert alert-warning small pt-xs pr-xs pb-xs pl-xs ml-sm">
+    <i class="fa fa-exclamation-triangle"></i>
+    {{ text }}
+  </span>
+</ng-template>

@@ -44,6 +44,7 @@ import { ConfirmationModalComponent } from './component/confirmation-modal/confi
 import { ErrorComponent } from './component/error/error.component';
 import { NavigationComponent } from './component/navigation/navigation.component';
 import { ReportingCommonComponentModule } from './component/component.module';
+import { ColorPaletteComponent } from './test/color-palette/color-palette.component';
 
 @NgModule({
   imports: [
@@ -92,7 +93,8 @@ import { ReportingCommonComponentModule } from './component/component.module';
     ScaleScoreComponent,
     InViewDirective,
     InstructionalResourcePopoverComponent,
-    NavigationComponent
+    NavigationComponent,
+    ColorPaletteComponent
   ],
   entryComponents: [ConfirmationModalComponent],
   exports: [

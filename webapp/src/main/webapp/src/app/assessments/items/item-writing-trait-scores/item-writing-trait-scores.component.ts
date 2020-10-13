@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { WritingTrait } from '../../model/writing-trait.model';
 import { StudentResponsesAssessmentItem } from '../../model/student-responses-item.model';
+import WritingTraitUtils from '../../model/writing-trait-utils';
 
 @Component({
   selector: 'item-writing-trait-scores',
@@ -32,7 +32,7 @@ export class ItemWritingTraitScoresComponent {
    * @returns {number}
    */
   get evidenceMaxPoints(): number {
-    return WritingTrait.evidence().maxPoints;
+    return WritingTraitUtils.evidence().maxPoints;
   }
 
   /**
@@ -51,8 +51,9 @@ export class ItemWritingTraitScoresComponent {
     if (
       this.responsesAssessmentItem == null ||
       this.responsesAssessmentItem.writingTraitScores == null
-    )
+    ) {
       return null;
+    }
 
     return this.responsesAssessmentItem.writingTraitScores.organization;
   }
@@ -62,7 +63,7 @@ export class ItemWritingTraitScoresComponent {
    * @returns {number}
    */
   get organizationMaxPoints(): number {
-    return WritingTrait.organization().maxPoints;
+    return WritingTraitUtils.organization().maxPoints;
   }
 
   /**
@@ -83,8 +84,9 @@ export class ItemWritingTraitScoresComponent {
     if (
       this.responsesAssessmentItem == null ||
       this.responsesAssessmentItem.writingTraitScores == null
-    )
+    ) {
       return null;
+    }
 
     return this.responsesAssessmentItem.writingTraitScores.conventions;
   }
@@ -94,7 +96,7 @@ export class ItemWritingTraitScoresComponent {
    * @returns {number}
    */
   get conventionsMaxPoints(): number {
-    return WritingTrait.conventions().maxPoints;
+    return WritingTraitUtils.conventions().maxPoints;
   }
 
   /**

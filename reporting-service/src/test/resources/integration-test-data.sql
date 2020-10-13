@@ -3,8 +3,8 @@ insert into ethnicity VALUES (-29,'ethnicity-29'),(-28,'ethnicity-28'),(-27, 'et
 insert into subject (id, code, updated, update_import_id, migrate_id) values
   (-1, 'NEW', now(), -1, -1);
 
-insert into subject_asmt_type (subject_id, asmt_type_id, performance_level_count, performance_level_standard_cutoff, claim_score_performance_level_count, alt_score_performance_level_count, target_report, printed_report) values
-  (-1, 1, 6, 3, 6, 3, 0, 0);
+insert into subject_asmt_type (subject_id, asmt_type_id, performance_level_count, performance_level_standard_cutoff, claim_score_performance_level_count, alt_score_performance_level_count, target_report, printed_report, trait_report) values
+  (-1, 1, 6, 3, 6, 3, 0, 0, 0);
 
 insert into subject_score (id, subject_id, asmt_type_id, score_type_id, code, display_order, data_order) values
   (-1, -1, 1, 3, 'claim1', 1, 1),
@@ -178,6 +178,16 @@ INSERT INTO exam_target_score (id, target_id, exam_id, student_relative_residual
   (-21,  -11, -6, -0.88, -0.88   ),
   (-22,  -21, -6, 1,      1      ),
   (-23,  -32, -6, 0.1,    0.1    );
+
+-- exam ids -7,-8 are asmt_id=-4 which is a summative with WER items
+INSERT INTO exam_trait_score (id, exam_id, trait_id, score) VALUES
+  (-100, -7, 1, 3),
+  (-101, -7, 2, 1),
+  (-102, -7, 3, 1),
+  (-103, -8, 4, 2),
+  (-104, -8, 5, 1),
+  (-105, -8, 6, 2);
+
 
 insert into math_practice (practice, description, code) values
   (-1, 'mp1', '-1');

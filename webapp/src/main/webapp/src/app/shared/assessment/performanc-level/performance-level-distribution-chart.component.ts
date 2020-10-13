@@ -25,6 +25,7 @@ export class PerformanceLevelDistributionChart implements OnInit {
     Map<boolean, PerformanceLevelBars>
   > = new Map();
   private _useClaimColors: boolean = false;
+  private _useAltScoreColors: boolean = false;
 
   constructor(private translateService: TranslateService) {}
 
@@ -120,6 +121,15 @@ export class PerformanceLevelDistributionChart implements OnInit {
   @Input()
   set useClaimColors(value: boolean) {
     this._useClaimColors = value;
+  }
+
+  get useAltScoreColors(): boolean {
+    return this._useAltScoreColors;
+  }
+
+  @Input()
+  set useAltScoreColors(value: boolean) {
+    this._useAltScoreColors = value;
   }
 
   /**
@@ -235,11 +245,16 @@ export class PerformanceLevelDistributionChart implements OnInit {
   }
 
   private getPerformanceLevelColor(level: number) {
-    const claimPlaceholder = this.useClaimColors ? 'claim-score.' : '';
+    const placeholder = this.useClaimColors
+      ? 'claim-score.'
+      : this.useAltScoreColors
+      ? 'alt-score.'
+      : '';
+
     return this.translateService.instant(
       `subject.${this.subjectDefinition.subject}.asmt-type.${
         this.subjectDefinition.assessmentType
-      }.${claimPlaceholder}level.${level}.color`
+      }.${placeholder}level.${level}.color`
     );
   }
 

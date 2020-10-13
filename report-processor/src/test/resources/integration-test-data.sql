@@ -30,8 +30,8 @@ insert into school_year (year) values
 insert into subject (id, code, update_import_id, migrate_id) values
   (-1, 'sub', -1, -1);
 
-insert into subject_asmt_type (subject_id, asmt_type_id, performance_level_count, claim_score_performance_level_count, alt_score_performance_level_count, target_report, printed_report) VALUES
-  (-1, 3, 4, 3, 3, 0, 0);
+insert into subject_asmt_type (subject_id, asmt_type_id, performance_level_count, claim_score_performance_level_count, alt_score_performance_level_count, target_report, printed_report, trait_report) VALUES
+  (-1, 3, 4, 3, 3, 0, 0, 0);
 
 insert into student (id, ssid, last_or_surname, first_name, gender_id, gender_code, birthday, inferred_school_id, update_import_id, updated, migrate_id) values
   (-1, 'student1_ssid', 'student1_lastName', 'student1_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -10, -1, '1997-07-18 20:14:34.000000', -1),
@@ -158,6 +158,11 @@ insert into exam_item (id, exam_id, item_id, score, position, response) values
   (-101, -101, -1, 1, 1, 'D'),
   (-102, -102, -1, 0, 1, 'A'),
   (-103, -103, -1, 1, 1, 'D');
+
+insert into exam_trait_score (id, exam_id, trait_id, score) values
+  (-100, -19, 1, 3),
+  (-101, -19, 2, 1),
+  (-102, -19, 3, 1);
 
 -- groups
 insert into student_group (id, name, school_id, school_year, subject_id, update_import_id, updated, migrate_id) values

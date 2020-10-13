@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   AggregateReportOptions,
+  AltScore,
   Claim,
   Subject
 } from './aggregate-report-options';
@@ -35,6 +36,14 @@ function toClaim(serverClaim: any): Claim {
   };
 }
 
+function toAltScore(serverAltScore: any): AltScore {
+  return {
+    assessmentType: serverAltScore.assessmentTypeCode,
+    subject: serverAltScore.subjectCode,
+    code: serverAltScore.code
+  };
+}
+
 // NOTE: Disabled student fields result in an empty array being returned
 function select(filters: Filter[], studentField: StudentFieldType): string[] {
   const filter = filters.find(({ id }) => id === studentField);
@@ -59,6 +68,7 @@ export class AggregateReportOptionsService {
           .slice()
           .sort(assessmentTypeComparator),
         claims: serverOptions.claims.map(toClaim),
+        altScores: serverOptions.altScores.map(toAltScore),
         completenesses: serverOptions.completenesses
           .slice()
           .sort(completenessComparator),
@@ -68,11 +78,12 @@ export class AggregateReportOptionsService {
         dimensionTypes: serverOptions.dimensionTypes.slice(),
         interimAdministrationConditions: serverOptions.interimAdministrationConditions.slice(),
         queryTypes: ['Basic', 'FilteredSubgroup'],
-        reportTypes: serverOptions.assessmentTypes.some(x => x == 'sum')
+        reportTypes: serverOptions.assessmentTypes.some(x => x === 'sum')
           ? <ReportQueryType[]>[
               'CustomAggregate',
               'Longitudinal',
               'Claim',
+              'AltScore',
               'Target'
             ]
           : <ReportQueryType[]>['CustomAggregate', 'Claim'],

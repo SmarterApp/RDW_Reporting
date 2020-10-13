@@ -120,7 +120,8 @@ describe('Exam Calculator', () => {
     let fixture = new ExamStatisticsCalculator();
     let summaries = fixture.aggregateWritingTraitScores(assessmentItems);
 
-    summaries.forEach(summary => {
+    summaries.forEach(summaryMap => {
+      const summary = summaryMap.values().next().value;
       expect(summary.evidence.average).toEqual(2.8);
       expect(summary.evidence.numbers).toEqual([0, 1, 1, 1, 2]);
       expect(summary.evidence.percents).toEqual([0, 20.0, 20.0, 20.0, 40.0]);

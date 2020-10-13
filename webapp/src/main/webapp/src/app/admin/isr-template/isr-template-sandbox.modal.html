@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left"></h4>
+  <button
+    type="button"
+    class="close pull-right"
+    title="{{'common.action.close' | translate}}"
+    (click)="close()"
+    aria-label="Close error alert"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <div class="alert alert-dismissable">
+    <ng-container *ngIf="!sandboxUploadMessage">
+      {{ 'isr-template.is-sandbox-delete' | translate }}
+    </ng-container>
+    <ng-container *ngIf="sandboxUploadMessage">
+      {{ 'isr-template.is-sandbox-upload' | translate }}
+    </ng-container>
+  </div>
+</div>
+<div class="modal-footer">
+  <span>
+    <button type="button" class="btn btn-default" (click)="close()">
+      {{ 'common.action.close' | translate }}
+    </button>
+  </span>
+</div>

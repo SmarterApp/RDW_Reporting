@@ -36,6 +36,7 @@ import { AggregateQueryFormContainerComponent } from './query-forms/aggregate-qu
 import { GeneralPopulationFormComponent } from './query-forms/general-population-form.component';
 import { LongitudinalCohortFormComponent } from './query-forms/longitudinal-cohort-form.component';
 import { ClaimReportFormComponent } from './query-forms/claim-report-form.component';
+import { AltScoreReportFormComponent } from './query-forms/alt-score-report-form.component';
 import { AggregateTargetOverviewComponent } from './results/aggregate-target-overview.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -69,6 +70,7 @@ import { translateModuleConfiguration } from '../shared/translate-module-configu
     AggregateReportSummary,
     AggregateTargetOverviewComponent,
     ClaimReportFormComponent,
+    AltScoreReportFormComponent,
     GeneralPopulationFormComponent,
     LongitudinalCohortChartComponent,
     LongitudinalCohortFormComponent,
