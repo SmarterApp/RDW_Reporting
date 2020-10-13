@@ -66,9 +66,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row relative-container">
+                        <div class="row relative-container" th:with="scored=${exam.scaleScore != null and exam.scaleScore.value != null }">
                             <div class="col-xs-9">
-                                <div th:if="${exam.scaleScore != null}" class="scale-score-graph individual"
+                                <div th:if="${scored}" class="scale-score-graph individual"
                                      th:with="scaleScoreView=${support.getScaleScoreView(exam, assessment)}">
                                     <div class="bar-container">
                                         <span class="scale-score" th:attr="data-left=${scaleScoreView.position}">
@@ -96,14 +96,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div th:if="${exam.scaleScore == null}" class="text-center mt-sm ml-xl">
+                                <div th:if="${!scored}" class="text-center mt-sm ml-xl">
                                     <span class="gray-darker h2" th:text="#{report.not-scored}"></span>
                                 </div>
                             </div>
                             <div class="col-xs-3 bottom-right-aligned text-right">
                                 <div class="date" th:text="${#instants.formatDate(exam.dateTime)}"></div>
                                 <div class="performance-level"
-                                     th:if="${exam.scaleScore != null}"
+                                     th:if="${scored}"
                                      th:text="#{'subject.' + ${report.subject} + '.asmt-type.iab.level.' + ${exam.scaleScore.level} + '.name'}"></div>
                             </div>
                         </div>
@@ -120,15 +120,15 @@
                         <ul class="previous-results">
                             <li th:with="assessment=${entry.key}" th:each="exam : ${entry.value}">
                                 <span th:if="${examStat.index} > 0">
-                                    <span class="previous-result">
+                                    <span class="previous-result" th:with="scored=${exam.scaleScore != null and exam.scaleScore.value != null }">
                                         <span class="date" th:text="${#instants.formatDate(exam.dateTime)}"></span>
-                                        <span th:if="${exam.scaleScore != null}" class="scale-score">
+                                        <span th:if="${scored}" class="scale-score">
                                             <span th:text="${exam.scaleScore.value}" th:remove="tag"></span>
                                             <span th:if="${exam.scaleScore.standardError != null}" class="error-band">&plusmn;
                                                 <span th:text="${support.round(exam.scaleScore.standardError)}" th:remove="tag"></span>
                                             </span>
                                         </span>
-                                        <span class="performance-level" th:text="${exam.scaleScore != null} ? #{'subject.' + ${report.subject} + '.asmt-type.iab.level.' + ${exam.scaleScore.level} + '.name'} : #{report.not-scored}"></span>
+                                        <span class="performance-level" th:text="${scored} ? #{'subject.' + ${report.subject} + '.asmt-type.iab.level.' + ${exam.scaleScore.level} + '.name'} : #{report.not-scored}"></span>
                                     </span>
                                 </span>
                             </li>
