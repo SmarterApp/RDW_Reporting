@@ -197,7 +197,7 @@ function createTitle(
           <ul class="breadcrumb">
             <li>
               <a routerLink="/">
-                <i class="fa fa-home"></i>
+                <i class="fa fa-home fa-lg"></i>
                 <span class="sr-only">{{
                   'common-ngx.breadcrumbs.home-sr' | translate
                 }}</span>

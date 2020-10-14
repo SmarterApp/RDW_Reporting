@@ -9,6 +9,7 @@ Work done as part of RDW Phase 6.
     * Add support for alt score aggregate queries
 * Add UI Colors to RDW Palette (Phase 6, Req. 2)
     * Integrate updated UI kit which defines new colors
+* Increase Home Icon size    
 * TechDebt
     * Upgrade gradle, including plugins
     * Upgrade SpringFramework and other libraries (most recent minor revs only, no major upgrades)
