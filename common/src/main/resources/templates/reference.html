@@ -102,10 +102,11 @@ without Thymeleaf processing.
          translations, available through this.
           */-->
   <p><span tabindex="0" th:text="|Subject code: ${report.subject}|">Subject code: Math</span></p>
-  <p><span  tabindex="0" th:text="|Assessment type code: ${report.assessmentType}|">Assessment type code: sum</span></p>
-  <p><span  tabindex="0" th:text="#{'subject.' + ${report.subject} + '.name'}">Math</span></p>
-  <p><span  tabindex="0" th:text="#{'subject.' + ${report.subject} + '.asmt-type.' + ${report.assessmentType} + '.name'}">Summative</span></p>
-  <p><span  tabindex="0" th:text="#{'subject.' + ${report.subject} + '.asmt-type.' + ${report.assessmentType} + '.long-name'}">SummativeAssessment</span></p>
+  <p><span tabindex="0" th:text="|Assessment type code: ${report.assessmentType}|">Assessment type code: sum</span></p>
+  <p><span tabindex="0" th:text="#{|subject.${report.subject}.name|}">Math</span></p>
+  <p><span tabindex="0" th:text="#{'subject.' + ${report.subject} + '.asmt-type.' + ${report.assessmentType} + '.name'}">Summative</span></p>
+  <p><span tabindex="0" th:text="#{'subject.' + ${report.subject} + '.asmt-type.' + ${report.assessmentType} + '.long-name'}">Summative Assessment</span></p>
+  <p><span tabindex="0" th:text="#{'report.title'(#{|subject.${report.subject}.asmt-type.sum.long-name|})}">Summative Assessment Report</span></p>
 
   <!--/* The subject definition object has some information about the subject/assessment.
          Take note of which fields are optional and protected with th:if. */-->
@@ -113,7 +114,7 @@ without Thymeleaf processing.
     <caption id="subject" tabindex="0">Subject Definition Fields
       <p id="subject-info" aria-hidden="true">
         This table shows the subject definition fields
-</p>
+      </p>
     </caption>
     <tbody>
     <tr>
@@ -177,14 +178,24 @@ without Thymeleaf processing.
     </tr>
     <tr th:unless="*{#lists.isEmpty(altScores)}">
       <td tabindex="0">Alt Score Codes</td>
-      <td th:utext="*{#strings.listJoin(altScores, '<br/>')}"></td>
-      <td><!--/*/ <th:block th:each="alt : *{altScores}" th:utext="#{'subject.' + *{subjectCode} + '.alt.' + ${alt} + '.name'} + '<br/>'" /> /*/--></td>
+      <td tabindex="0" th:utext="*{#strings.listJoin(altScores, '<br/>')}">ASTRO<br/>BIO<br/>CHEM</td>
+      <td tabinddex="0" th:remove="all">Astronomy<br/>Biology<br/>Chemistry<br/></td>
+      <!--/*/ <td> <th:block th:each="alt : *{altScores}" th:utext="#{'subject.' + *{subjectCode} + '.alt.' + ${alt} + '.name'} + '<br/>'" /></td> /*/-->
     </tr>
-    <tr th:unless="*{#lists.isEmpty(traits)}">
+    <tr th:unless="*{#lists.isEmpty(traits)}" th:with="trait=*{traits[0]}">
       <td tabindex="0">Traits</td>
-      <!-- TODO - trait has id, purpose, category, maxScore; translations for purpose and category -->
-      <td th:text="*{traits}"></td>
-      <td></td>
+      <td tabindex="0">
+        <th:block th:text="|ID: ${trait.id}|">ID: 1</th:block> <br/>
+        <th:block th:text="|Purpose: ${trait.purpose}|">Purpose: ARGU</th:block> <br/>
+        <th:block th:text="|Category: ${trait.category}|">Category: ORG</th:block> <br/>
+        <th:block th:text="|Max Score: ${trait.maxScore}|">Max Score: 4</th:block>
+      </td>
+      <td tabindex="0">
+        &nbsp; <br/>
+        <th:block th:text="|Purpose: #{|subject.*{subjectCode}.trait.purpose.${trait.purpose}.name|}|">Purpose: Argumentative</th:block> <br/>
+        <th:block th:text="|Category: #{|subject.*{subjectCode}.trait.category.${trait.category}.name|}|">Category: Organization/Purpose</th:block> <br/>
+        &nbsp;
+      </td>
     </tr>
   </tbody>
   </table>
@@ -231,7 +242,7 @@ without Thymeleaf processing.
     </tr>
     <tr th:unless="*{#lists.isEmpty(ethnicityCodes)}">
       <td tabindex="0">Ethnicity Codes</td>
-      <td th:text="*{#strings.listJoin(ethnicityCodes, ',')}" tabindex="0">Asian,BlackOrAfricanAmerican</td>
+      <td th:text="*{#strings.listJoin(ethnicityCodes, ', ')}" tabindex="0">Asian, BlackOrAfricanAmerican</td>
       <!-- explanation for this mess: for the prototype (viewing without thymeleaf)
            we want the example text, while, for the template we want the th:block -->
       <td th:remove="all" tabindex="0">Asian, Black or African American</td>
@@ -243,7 +254,7 @@ without Thymeleaf processing.
   <!--/* The student enrollment object.
   */-->
   <table th:object="${report.studentEnrollment}" aria-labelledby="enrollment" aria-describedby="enrollment-info">
-    <caption id="enrollment" tabindex="0">Student Enrollment Fields 
+    <caption id="enrollment" tabindex="0">Student Enrollment Fields
       <p id="enrollment-info" aria-hidden="true">
       This table shows the student enrollment fields
      </p>
@@ -305,7 +316,7 @@ without Thymeleaf processing.
     </tr>
     <tr>
       <td tabindex="0">Name</td>
-      <td th:text="*{label}" tabindex="0">SBAC-SUM-FIXED-G8M-COMBINED-2019</td>
+      <td th:text="*{name}" tabindex="0">SBAC-SUM-FIXED-G8M-COMBINED-2019</td>
       <td></td>
     </tr>
     <tr>
@@ -428,12 +439,21 @@ without Thymeleaf processing.
       <td th:text="*{sessionId}" tabindex="0">SMI-5fc7</td>
       <td></td>
     </tr>
+    <!--/* Following shows several ways to format date/time. See also https://www.thymeleaf.org/apidocs/thymeleaf/3.0.0.RELEASE/org/thymeleaf/util/DateUtils.html
+    */-->
     <tr>
-      <!--/* There are no helpers (neither Thymeleaf nor RDW-specific) for dealing with
-             Instant values. The date/time will default to this format.
-      */-->
-      <td tabindex="0">Date/Time</td>
-      <td th:text="*{dateTime}" tabindex="0">2019-03-14T21:34:00Z</td>
+      <td tabindex="0">Date/Time - default format</td>
+      <td th:text="*{dateTime}" tabindex="0">2019-05-10T09:34:53.840Z</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td tabindex="0">Date/Time - ISO format</td>
+      <td th:text="*{#dates.formatISO(dateTime)}" tabindex="0">2019-05-10T09:34:53.840+00:00</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td tabindex="0">Date/Time - format by pattern</td>
+      <td th:text="*{#dates.format(dateTime, 'MM/dd/yyyy hh:mm z')}" tabindex="0">05/10/2019 09:34 GMT</td>
       <td></td>
     </tr>
     <tr>
@@ -538,19 +558,41 @@ without Thymeleaf processing.
        and students can take the same IAB multiple times during the year. To demonstrate
        this difference, please examine the following template code; it isn't meant to render
        well, just show how the data is organized.
-
-       TODO - template won't compile for unit test, temporarily commenting this out
   */-->
-<!--  <div th:if="${report.assessmentType=='iab'}" th:each="entry : ${report.examsByAssessment}">-->
-<!--    <div th:with="assessment=${entry.key},exams=${entry.value}">-->
-      <!-- assessment is exactly as described above for ICA and Summative exams -->
-      <!-- the exams are ordered by date, the most recent is ${exams[0]} -->
-<!--      <div th:each="exam : ${exams}">-->
-        <!-- exam is the same as described above for ICA and Summative exams
-             and adds two fields: percentileMean and percentileRank, both integers -->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
+  <div th:if="${report.assessmentType=='iab'}" th:each="entry : ${report.examsByAssessment}">
+    <div th:with="assessment=${entry.key},exams=${entry.value}">
+       assessment is exactly as described above for ICA and Summative exams
+       the exams are ordered by date, the most recent is ${exams[0]}
+      <div th:each="exam : ${exams}">
+        <!-- exam is the same as described above for ICA and Summative exams (as ${report.exam}) -->
+        <!-- and adds two fields: percentileMean and percentileRank, both integers -->
+        <table th:object="${exam}" aria-labelledby="exam" aria-describedby="exam-info">
+          <caption id="iab-exam" tabindex="0">Exam Fields
+            <p id="iab-exam-info" aria-hidden="true">
+              This table shows the IAB-specific exam fields
+            </p>
+          </caption>
+          <tbody>
+          <tr>
+            <th tabindex="0">Field</th>
+            <th tabindex="0">Value</th>
+            <th tabindex="0">Translation</th>
+          </tr>
+          <tr>
+            <td tabindex="0">Percentile Mean</td>
+            <td th:text="*{percentileMean}">78</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td tabindex="0">Percentile Rank</td>
+            <td th:text="*{percentileRank}">85</td>
+            <td></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
   <!--/* ************************************************************************************ */-->
   <!--/* This section demonstrates all the data fields available in the request context.      */-->
@@ -606,22 +648,45 @@ without Thymeleaf processing.
     </tr>
     <tr>
       <td tabindex="0">getSortedAccommodationNames(exam, locale)</td>
-      <td th:text="${support.getSortedAccommodationNames(report.exam, request.language)}"></td>
+      <td th:text="${#strings.listJoin(support.getSortedAccommodationNames(report.exam, request.language))}" tabindex="0">Closed Captioning Available<br/> No braille (EMBEDDED)</td>
     </tr>
     <tr th:with="scaleScoreView=${support.getScaleScoreView(report.exam, report.assessment)}">
       <td tabindex="0">getScaleScoreView(exam, assessment)</td>
-      <!-- TODO -->
-      <td></td>
+      <td tabindex="0">
+        <th:block th:text="|Scale Score Position = ${scaleScoreView.position}|" th:remove="tag">Scale Score Position = 58</th:block>
+        <br/>
+        <th:block th:each="level, iter : ${scaleScoreView.levels}" th:utext="|Level ${iter.index + 1}: pos = ${level.position}, width = ${level.width}<br/>|">
+          Level 1: pos = 0, width = 54<br/>Level 2: pos = 54, width = 11<br/>Level 3: pos = 65, width = 10<br/>Level 4: pos = 75, width = 25<br/>
+        </th:block>
+      </td>
     </tr>
     <tr>
       <td tabindex="0">getClaimCodeComparator(report)</td>
-      <!-- TODO -->
-      <td th:text="${support.getClaimCodeComparator(report)}"></td>
+      <td tabindex="0">
+        <th:body th:text="|Unsorted: ${#strings.listJoin(report.assessment.claimCodes, ', ')}|">
+          Unsorted: SOCK_R, 2-W, SOCK_LS, 4-CR
+        </th:body>
+        <br/>
+        <th:body th:text="|Sorted: ${#strings.listJoin(#lists.sort(report.assessment.claimCodes, support.getClaimCodeComparator(report)), ', ')}|">
+          Sorted: SOCK_R, SOCK_LS, 4-CR, 2-W
+        </th:body>
+      </td>
     </tr>
     <tr>
       <td tabindex="0">traitScoresByPurpose(traitScores)</td>
-      <!-- TODO -->
-      <td th:text="${support.traitScoresByPurpose(report.exam.traitScores)}"></td>
+      <td tabIndex="0" th:unless="${#lists.isEmpty(report.exam.traitScores)}">
+        <th:block th:each="entry : ${support.traitScoresByPurpose(report.exam.traitScores)}">
+          <th:block th:with="purpose=${entry.key}, scores=${entry.value}">
+            <th:block th:text="|Purpose: ${purpose}, |">
+              Purpose: NARR,
+            </th:block>
+            <th:block th:each="score, iter : ${scores}" th:text="|${iter.first ? 'Trait Scores:' : ','} ${score.category}: ${score.score}/${score.maxScore}|">
+              Trait Scores: EVI: 3/4, ORG: 3/4, CON: 2/2
+            </th:block>
+            <br/>
+          </th:block>
+        </th:block>
+      </td>
     </tr>
   </tbody>
   </table>
@@ -630,8 +695,38 @@ without Thymeleaf processing.
   <!--/* ************************************************************************************ */-->
   <!--/* This section has some typical access patterns for the context data                   */-->
   <!--/* ************************************************************************************ */-->
+  <h3>Direct field access</h3>
+  <p>Request school year: <th:block th:text="${request.schoolYear}">1777</th:block></p>
+  <p>Request language: <th:block th:text="${request.language}">en</th:block></p>
 
+  <h3>Shortcut access to fields</h3>
+  <!--/* Variables using *{varName} will be the same as ${report.student.varName} for this div element only */-->
+  <div th:object="${report.student}">
+    <p>Student name (basic access): <th:block th:text="${report.student.firstName}"></th:block> <th:block th:text="${report.student.lastName}">Walter Mitty</th:block></p>
+    <p>Student name (using shortcut): <th:block th:text="*{firstName}"></th:block> <th:block th:text="*{lastName}">Walter Mitty</th:block></p>
+  </div>
 
+  <h3>Shortcuts added to context</h3>
+  <!--/* Adds ${givenName} and ${familyName} to context, for use in this div element only */-->
+  <div th:with="givenName=${report.student.firstName}, familyName=${report.student.lastName}">
+    <p>Student name: <th:block th:text="${givenName}"></th:block> <th:block th:text="${familyName}">Walter Mitty</th:block></p>
+  </div>
+
+  <h3>Iterate through a list of values</h3>
+  <div th:with="scaleScoreView=${support.getScaleScoreView(report.exam, report.assessment)}">
+    <!--/* Adds ${level} to context, for use in this block element only */-->
+    <th:block th:each="level : ${scaleScoreView.levels}" th:text="|pos = ${level.position}, width = ${level.width}, |">
+      pos = 0, width = 54, pos = 54, width = 11, pos = 65, width = 11, pos = 76, width = 24,
+    </th:block>
+  </div>
+
+  <h3>Iterate with iterator metadata</h3>
+  <div th:with="scaleScoreView=${support.getScaleScoreView(report.exam, report.assessment)}">
+    <!--/* Adds ${level} to context, plus an iter context with metadata about the loop */-->
+    <th:block th:each="level, iter : ${scaleScoreView.levels}" th:text="|${iter.first ? 'Levels:' : ''} Level ${iter.index + 1}: pos = ${level.position}, width = ${level.width}${iter.last ? '' : ','}|">
+      Levels: Level 1: pos = 0, width = 54, Level 2: pos = 54, width = 11, Level 3: pos = 65, width = 11, Level 4: pos = 76, width = 24
+    </th:block>
+  </div>
 
   <!--/* ************************************************************************************ */-->
   <!--/* Additional notes                                                                     */-->
@@ -652,3 +747,5 @@ without Thymeleaf processing.
 
 </div>
 </body>
+</html>
+
