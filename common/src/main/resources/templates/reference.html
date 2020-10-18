@@ -402,7 +402,7 @@ without Thymeleaf processing.
            level, the score value, and the standard error */-->
     <tr th:if="*{scaleScore}" th:with="score=*{scaleScore}">
       <td tabindex="0">Overall Scale Score</td>
-      <td th:text="${score.value} + ' ±' + ${score.standardError}" tabindex="0">2709 ±42</td>
+      <td th:text="${score.value} + ' ±' + ${score.standardError}" tabindex="0">2709 &plusmn;42</td>
       <td></td>
     </tr>
     <tr th:if="*{scaleScore}" th:with="score=*{scaleScore}">
@@ -412,12 +412,12 @@ without Thymeleaf processing.
     </tr>
     <tr th:each="score : *{claimScaleScores}">
       <td tabindex="0">Claim Scale Score</td>
-      <td th:text="${score.value} + ' ±' + ${score.standardError}" tabindex="0">2790 ±28</td>
+      <td th:text="${score.value} + ' ±' + ${score.standardError}" tabindex="0">2790 &plusmn;28</td>
       <td th:text="#{'subject.' + ${report.subject} + '.asmt-type.' + ${report.assessmentType} + '.claim-score.level.' + ${score.level} + '.name'}" tabindex="0">Above Standard</td>
     </tr>
     <tr th:each="score : *{altScaleScores}">
       <td tabindex="0">Alt Scale Score</td>
-      <td th:text="${score.value} + ' ±' + ${score.standardError}" tabindex="0">1400 ±0</td>
+      <td th:text="${score.value} + ' ±' + ${score.standardError}" tabindex="0">1400 &plusmn;0</td>
       <td th:text="#{'subject.' + ${report.subject} + '.asmt-type.' + ${report.assessmentType} + '.alt-score.level.' + ${score.level} + '.name'}" tabindex="0">No So Great</td>
     </tr>
     <!--/* Trait scores are represented by TraitScore objects.
@@ -548,16 +548,75 @@ without Thymeleaf processing.
   </tbody>
   </table>
 
+  <table th:each="exam : report.historicalExams">
+    <caption id="historical-exams" tabindex="0">Historical Exam Fields
+      <p id="historical-exam-info" aria-hidden="true">
+        This table shows the historical exams fields for exam <th:block th:text="${exam.id}">1</th:block>
+      </p>
+    </caption>
+    <thead>
+    <tr>
+      <th tabindex="0">Field</th>
+      <th tabindex="0">Value</th>
+      <th tabindex="0">Translation</th>
+    </tr>
+    </thead>
+    <tbody th:object="${exam}">
+    <tr>
+      <td tabindex="0">Date/Time Given</td>
+      <td tabIndex="0" th:text="*{dateTime}">2019-05-10T09:34:53.840Z</td>
+      <td tabindex="0"></td>
+    </tr>
+    <tr>
+      <td tabindex="0">School Year</td>
+      <td tabindex="0" th:text="*{schoolYear}">1865</td>
+      <td tabindex="0"></td>
+    </tr>
+    <tr>
+      <td tabindex="0">Grade Code</td>
+      <td tabindex="0" th:text="*{gradeCode}">08</td>
+      <td tabIndex="0" th:text="#{'report.enrollment-grade.' + *{gradeCode}}">8</td>
+    </tr>
+    <!--/* Each score is represented by a ScaleScore object which has the performance
+           level, the score value, and the standard error */-->
+    <tr th:if="*{scaleScore}" th:with="score=*{scaleScore}">
+      <td tabindex="0">Overall Scale Score</td>
+      <td th:text="${score.value} + ' ±' + ${score.standardError}" tabindex="0">2709 &plusmn;42</td>
+      <td></td>
+    </tr>
+    <tr th:if="*{scaleScore}" th:with="score=*{scaleScore}">
+      <td tabindex="0">Overall Performance Level</td>
+      <td th:text="${score.level}" tabindex="0">3</td>
+      <td th:text="#{'subject.' + ${report.subject} + '.asmt-type.' + ${report.assessmentType} + '.level.' + ${score.level} + '.name'}" tabindex="0">Met Standard</td>
+    </tr>
+    <tr>
+      <td tabindex="0">School</td>
+      <td tabindex="0" th:text="|*{school.name} (school id: *{school.id}, dist id: *{school.districtId})|">Sample School (school id: 0, dist id: 0)</td>
+      <td tabindex="0"></td>
+    </tr>
+    <tr>
+      <td tabindex="0">Completeness Code</td>
+      <td th:text="*{completenessCode}" tabindex="0">Complete</td>
+      <td th:text="#{'common.completeness.' + *{completenessCode}}" tabindex="0"></td>
+    </tr>
+    <tr>
+      <td tabindex="0">Administrative Condition Code</td>
+      <td th:text="*{administrativeConditionCode}" tabindex="0">NS</td>
+      <td th:text="#{'common.administration-condition.' + *{administrativeConditionCode}}" tabindex="0"></td>
+    </tr>
+    </tbody>
+  </table>
+
   <!--/* ICA and Summative reports have different data than IAB reports.
        ICA and Summative reports have a single assessment and a single exam.
        IAB reports have multiple assessments, each with multiple exams.
 
        The next sections are for IAB reports. The data is only slightly different but it
-       is organized completely differently: instead of a single assessment and exam, there
-       is a map of assessments to exams. This is because there are lots of IAB assessments
-       and students can take the same IAB multiple times during the year. To demonstrate
-       this difference, please examine the following template code; it isn't meant to render
-       well, just show how the data is organized.
+       is organized completely differently: instead of a single assessment and exam, and
+       a separate list of historical exams, there is a map of assessments to exams. This is
+       because there are lots of IAB assessments and students can take the same IAB multiple
+       times during the year. To demonstrate this difference, please examine the following
+       template code; it isn't meant to render well, just show how the data is organized.
   */-->
   <div th:if="${report.assessmentType=='iab'}" th:each="entry : ${report.examsByAssessment}">
     <div th:with="assessment=${entry.key},exams=${entry.value}">
