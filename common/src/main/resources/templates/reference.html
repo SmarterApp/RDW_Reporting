@@ -550,9 +550,7 @@ without Thymeleaf processing.
 
   <table th:each="exam : report.historicalExams">
     <caption id="historical-exams" tabindex="0">Historical Exam Fields
-      <p id="historical-exam-info" aria-hidden="true">
-        This table shows the historical exams fields for exam <th:block th:text="${exam.id}">1</th:block>
-      </p>
+      This table shows the historical exams fields for exam <th:block th:text="${exam.id}">1</th:block>
     </caption>
     <thead>
     <tr>
@@ -639,12 +637,12 @@ without Thymeleaf processing.
           </tr>
           <tr>
             <td tabindex="0">Percentile Mean</td>
-            <td th:text="*{percentileMean}">78</td>
+            <td th:text="*{percentileMean}" tabindex="0">78</td>
             <td></td>
           </tr>
           <tr>
             <td tabindex="0">Percentile Rank</td>
-            <td th:text="*{percentileRank}">85</td>
+            <td th:text="*{percentileRank}" tabindex="0">85</td>
             <td></td>
           </tr>
           </tbody>
@@ -754,35 +752,35 @@ without Thymeleaf processing.
   <!--/* ************************************************************************************ */-->
   <!--/* This section has some typical access patterns for the context data                   */-->
   <!--/* ************************************************************************************ */-->
-  <h3>Direct field access</h3>
-  <p>Request school year: <th:block th:text="${request.schoolYear}">1777</th:block></p>
-  <p>Request language: <th:block th:text="${request.language}">en</th:block></p>
+  <h3 tabindex="0">Direct field access</h3>
+  <p tabindex="0">Request school year: <th:block th:text="${request.schoolYear}">1777</th:block></p>
+  <p tabindex="0">Request language: <th:block th:text="${request.language}">en</th:block></p>
 
-  <h3>Shortcut access to fields</h3>
+  <h3 tabindex="0">Shortcut access to fields</h3>
   <!--/* Variables using *{varName} will be the same as ${report.student.varName} for this div element only */-->
   <div th:object="${report.student}">
-    <p>Student name (basic access): <th:block th:text="${report.student.firstName}"></th:block> <th:block th:text="${report.student.lastName}">Walter Mitty</th:block></p>
-    <p>Student name (using shortcut): <th:block th:text="*{firstName}"></th:block> <th:block th:text="*{lastName}">Walter Mitty</th:block></p>
+    <p tabindex="0">Student name (basic access): <th:block th:text="${report.student.firstName}"></th:block> <th:block th:text="${report.student.lastName}">Walter Mitty</th:block></p>
+    <p tabindex="0">Student name (using shortcut): <th:block th:text="*{firstName}"></th:block> <th:block th:text="*{lastName}">Walter Mitty</th:block></p>
   </div>
 
-  <h3>Shortcuts added to context</h3>
+  <h3 tabindex="0">Shortcuts added to context</h3>
   <!--/* Adds ${givenName} and ${familyName} to context, for use in this div element only */-->
   <div th:with="givenName=${report.student.firstName}, familyName=${report.student.lastName}">
-    <p>Student name: <th:block th:text="${givenName}"></th:block> <th:block th:text="${familyName}">Walter Mitty</th:block></p>
+    <p tabindex="0">Student name: <th:block th:text="${givenName}"></th:block> <th:block th:text="${familyName}">Walter Mitty</th:block></p>
   </div>
 
-  <h3>Iterate through a list of values</h3>
+  <h3 tabindex="0">Iterate through a list of values</h3>
   <div th:with="scaleScoreView=${support.getScaleScoreView(report.exam, report.assessment)}">
     <!--/* Adds ${level} to context, for use in this block element only */-->
-    <th:block th:each="level : ${scaleScoreView.levels}" th:text="|pos = ${level.position}, width = ${level.width}, |">
+    <th:block th:each="level : ${scaleScoreView.levels}" th:text="|pos = ${level.position}, width = ${level.width}, |" tabindex="0">
       pos = 0, width = 54, pos = 54, width = 11, pos = 65, width = 11, pos = 76, width = 24,
     </th:block>
   </div>
 
-  <h3>Iterate with iterator metadata</h3>
+  <h3 tabindex="0">Iterate with iterator metadata</h3>
   <div th:with="scaleScoreView=${support.getScaleScoreView(report.exam, report.assessment)}">
     <!--/* Adds ${level} to context, plus an iter context with metadata about the loop */-->
-    <th:block th:each="level, iter : ${scaleScoreView.levels}" th:text="|${iter.first ? 'Levels:' : ''} Level ${iter.index + 1}: pos = ${level.position}, width = ${level.width}${iter.last ? '' : ','}|">
+    <th:block th:each="level, iter : ${scaleScoreView.levels}" th:text="|${iter.first ? 'Levels:' : ''} Level ${iter.index + 1}: pos = ${level.position}, width = ${level.width}${iter.last ? '' : ','}|" tabindex="0">
       Levels: Level 1: pos = 0, width = 54, Level 2: pos = 54, width = 11, Level 3: pos = 65, width = 11, Level 4: pos = 76, width = 24
     </th:block>
   </div>
