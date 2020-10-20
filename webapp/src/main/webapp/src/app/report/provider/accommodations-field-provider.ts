@@ -29,7 +29,10 @@ export const useFactory = (translateService: TranslateService) =>
       }
     ],
     defaultValue: false,
-    disabled: formGroup => formGroup.value.assessmentType === 'iab'
+    // Disabled function intentionally ignores "Show Accommodations" setting for iab,
+    // but SB says this is not correct behavior.
+    // disabled: formGroup => formGroup.value.assessmentType === 'iab'
+    disabled: formGroup => false
   });
 
 export const AccommodationsFieldProvider: FactoryProvider = {
