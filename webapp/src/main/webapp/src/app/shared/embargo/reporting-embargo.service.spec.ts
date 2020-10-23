@@ -51,11 +51,8 @@ describe('ReportingEmbargoService', () => {
   it('should return embargoed if user has read permissions and embargo is enabled', done => {
     user.permissions.push('EMBARGO_READ');
 
-    service.getEmbargo().subscribe(embargo => {
-      expect(embargo).toEqual({
-        enabled: true,
-        schoolYear: 100
-      });
+    service.isEmbargoed(100, -1).subscribe(embargo => {
+      expect(embargo).toEqual(true);
       done();
     });
   });

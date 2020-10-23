@@ -15,8 +15,6 @@ import { forkJoin } from 'rxjs';
 import { SubjectService } from '../subject/subject.service';
 import { isNullOrEmpty } from '../shared/support/support';
 import { ExamSearchFilterService } from '../exam/service/exam-search-filter.service';
-import { ReportingEmbargoService } from '../shared/embargo/reporting-embargo.service';
-import { createFilter } from '../shared/embargo/embargoes';
 
 /**
  * Represents a specific type of score for an assessment (e.g. claim, alternate)
@@ -71,8 +69,7 @@ export class CsvExportService {
   constructor(
     private csvBuilder: CsvBuilder,
     private subjectService: SubjectService,
-    private examSearchFilterService: ExamSearchFilterService,
-    private embargoService: ReportingEmbargoService
+    private examSearchFilterService: ExamSearchFilterService
   ) {}
 
   /**
@@ -352,47 +349,33 @@ export class CsvExportService {
     const getAssessment = () => exportRequest.assessment;
     const getAssessmentItem = item => item.assessmentItem;
 
-    this.embargoService.getEmbargo().subscribe(embargo => {
-      // filter out embargoed results
-      const embargoed = value =>
-        !createFilter(
-          embargo,
-          ({ assessment }) => assessment.type,
-          ({ assessment }) => assessment.schoolYear
-        )(value);
+    const csvBuilder = this.csvBuilder.newBuilder();
+    csvBuilder
+      .withFilename(filename)
+      .withAssessmentSchoolYear(getAssessment)
+      .withAssessmentGrade(getAssessment)
+      .withAssessmentTypeNameAndSubject(getAssessment);
 
-      if (embargoed(exportRequest)) {
-        return;
-      }
-
-      const csvBuilder = this.csvBuilder.newBuilder();
+    // Per Smarter feedback: suppress claim through full credit columns for sum reports.
+    if (!isSummative) {
       csvBuilder
-        .withFilename(filename)
-        .withAssessmentSchoolYear(getAssessment)
-        .withAssessmentGrade(getAssessment)
-        .withAssessmentTypeNameAndSubject(getAssessment);
+        .withClaim(getAssessment, getAssessmentItem)
+        .withTarget(getAssessment, getAssessmentItem)
+        .withItemDifficulty(getAssessmentItem)
+        .withStandards(getAssessmentItem)
+        .withFullCredit(getAssessmentItem, exportRequest.showAsPercent);
+    }
 
-      // Per Smarter feedback: suppress claim through full credit columns for sum reports.
-      if (!isSummative) {
-        csvBuilder
-          .withClaim(getAssessment, getAssessmentItem)
-          .withTarget(getAssessment, getAssessmentItem)
-          .withItemDifficulty(getAssessmentItem)
-          .withStandards(getAssessmentItem)
-          .withFullCredit(getAssessmentItem, exportRequest.showAsPercent);
-      }
-
-      csvBuilder
-        .withCategoryTraitAggregate(
-          exportRequest.assessment.subject,
-          isSummative,
-          item => item.purpose,
-          item => item.traitCategoryAggregate,
-          maxPoints,
-          exportRequest.showAsPercent
-        )
-        .build(compositeRows);
-    });
+    csvBuilder
+      .withCategoryTraitAggregate(
+        exportRequest.assessment.subject,
+        isSummative,
+        item => item.purpose,
+        item => item.traitCategoryAggregate,
+        maxPoints,
+        exportRequest.showAsPercent
+      )
+      .build(compositeRows);
   }
 
   exportTargetScoresToCsv(
@@ -401,38 +384,24 @@ export class CsvExportService {
   ) {
     const getAssessment = () => exportRequest.assessment;
 
-    this.embargoService.getEmbargo().subscribe(embargo => {
-      // filter out embargoed results
-      const embargoed = value =>
-        !createFilter(
-          embargo,
-          ({ assessment }) => assessment.type,
-          ({ assessment }) => assessment.schoolYear
-        )(value);
-
-      if (embargoed(exportRequest)) {
-        return;
-      }
-
-      this.csvBuilder
-        .newBuilder()
-        .withFilename(filename)
-        .withGroupName(() => exportRequest.group)
-        .withSchoolYear(() => <Exam>{ schoolYear: exportRequest.schoolYear })
-        .withAssessmentTypeNameAndSubject(getAssessment)
-        .withScoreAndErrorBand(
-          () =>
-            <Exam>{
-              score: exportRequest.averageScaleScore,
-              standardError: exportRequest.standardError
-            }
-        )
-        .withTargetReportAggregate(
-          exportRequest.subjectDefinition,
-          getAssessment,
-          item => item
-        )
-        .build(exportRequest.targetScoreRows);
-    });
+    this.csvBuilder
+      .newBuilder()
+      .withFilename(filename)
+      .withGroupName(() => exportRequest.group)
+      .withSchoolYear(() => <Exam>{ schoolYear: exportRequest.schoolYear })
+      .withAssessmentTypeNameAndSubject(getAssessment)
+      .withScoreAndErrorBand(
+        () =>
+          <Exam>{
+            score: exportRequest.averageScaleScore,
+            standardError: exportRequest.standardError
+          }
+      )
+      .withTargetReportAggregate(
+        exportRequest.subjectDefinition,
+        getAssessment,
+        item => item
+      )
+      .build(exportRequest.targetScoreRows);
   }
 }
