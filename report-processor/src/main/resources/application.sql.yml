@@ -88,38 +88,15 @@ sql:
 
     findAllHistoricalIcasOrSummativesByStudentIdsAndQueryParamsUnknownPermissions: >-
       SELECT
-        e.id,
-        e.type_id,
-        e.session_id,
-        e.student_id,
-        su.code as subject_code,
-        e.completed_at,
-        e.school_year,
-        e.grade_code,
-        e.scale_score,
-        e.scale_score_std_err,
-        e.performance_level,
-        e.completeness_code,
-        e.administration_condition_code,
-        null as available_accommodation_codes,
-        e.school_id,
-        s.name as school_name,
-        s.district_id as school_district_id,
-        s.district_group_id as school_district_group_id,
-        s.school_group_id
-      FROM exam e
-      JOIN student st on st.id = e.student_id
-      JOIN asmt a on e.asmt_id = a.id
-      JOIN subject su on a.subject_id = su.id
-      JOIN school s on e.school_id = s.id
-      JOIN school isch on st.inferred_school_id = isch.id
+        ${sql.snippet.exam}
+        AND (:grade_id is null or a.grade_id=:grade_id)
       WHERE e.student_id in (:student_ids)
         AND (:school_year is null or e.school_year<:school_year)
-        AND (:subject_code is null or su.code=:subject_code)
+        AND (:subject_code is null or su.code=:subject_code) AND sat.printed_report=1
         AND e.type_id=:type_id
         AND ${sql.reportProcessor.snippet.schoolFilter}
         AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
-      ORDER BY e.completed_at desc
+      ORDER BY e.completed_at DESC
 
     findExamLevelTraitScoresByExamIds: >-
       SELECT ets.exam_id, ets.trait_id, st.purpose, st.category, st.max_score, ets.score, ets.condition_code
@@ -322,7 +299,7 @@ sql:
         JOIN district d ON d.id = s.district_id
         JOIN school isch ON st.inferred_school_id = isch.id
         LEFT JOIN language lan ON e.language_code = lan.code
-        LEFT JOIN district_embargo de ON de.id = s.district_id AND de.school_year = e.school_year AND de.subject_id = a.subject_id
+        LEFT JOIN district_embargo de ON de.district_id = s.district_id AND de.school_year = e.school_year AND de.subject_id = a.subject_id
       WHERE
         ${sql.reportProcessor.snippet.exportExamsFilter}
         AND ${sql.reportProcessor.snippet.studentExamPermissionWithEmbargo}
