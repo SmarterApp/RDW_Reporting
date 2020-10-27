@@ -170,7 +170,7 @@
                         <span th:text="#{report.important-information.item2}" th:remove="tag"></span>
                     </p>
                 </div>
-                <div class="col-xs-4">
+                <div class="col-xs-4" th:if="${scored}">
                     <p th:if="${report.exam.scaleScore.standardError != null}">
                         <strong>*</strong>
                         <strong th:text="#{report.scale-score.error-band}"></strong>
