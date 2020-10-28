@@ -1,4 +1,16 @@
 {
+  "common": {
+    "administration-condition": {
+      "IN": "Invalid",
+      "NS": "Nonstandardized",
+      "SD": "Standardized",
+      "Valid": "Valid"
+    },
+    "completeness": {
+      "Complete": "Complete",
+      "Partial": "Partial"
+    }
+  },
   "report": {
     "accommodations": {
       "label": "The following accommodations were made available:"

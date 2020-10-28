@@ -27,3 +27,6 @@ classes/
 
 # local configuration files that should never be checked in
 .env
+
+### Mac ###
+.DS_Store
