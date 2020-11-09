@@ -229,21 +229,7 @@
       </button>
     </li>
     <li>
-      <button
-        *ngIf="!exportDisabled"
-        class="btn btn-default btn-xs"
-        (click)="callExport()"
-      >
-        <i class="fa fa-bold fa-table"></i>
-        {{ 'common.export-csv' | translate }}
-      </button>
-      <button
-        *ngIf="exportDisabled"
-        class="btn btn-default btn-xs disabled"
-        popover="{{ 'common.embargo-export-disabled' | translate }}"
-        triggers="mouseenter:mouseleave"
-        placement="left"
-      >
+      <button class="btn btn-default btn-xs" (click)="callExport()">
         <i class="fa fa-bold fa-table"></i>
         {{ 'common.export-csv' | translate }}
       </button>
