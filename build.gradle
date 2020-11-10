@@ -26,7 +26,7 @@ String dockerPrefix = "smarterbalanced"
 
 allprojects {
     group = 'org.opentestsystem.rdw.reporting'
-    version = '2.4.0-SNAPSHOT'
+    version = '2.4.1-SNAPSHOT'
 
     if (project.hasProperty("buildNumber")) {
         project.setVersion(project.version.toString().replaceAll("SNAPSHOT", "${buildNumber}"))
