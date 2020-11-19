@@ -36,3 +36,24 @@ sqlbuilder:
             ets.target_id,
             t.natural_id,
             t.claim_code
+
+
+      # Note: target reports when organization = School also combine sqlbuilder.templates.default.addons.schools,
+      #       which joins the school table with alias sch, so we have to join it here with a different alias.
+      #       (Target reports for a different organization won't join in school, so it is needed here.)
+      addons:
+        districtEmbargo:
+          clauses:
+            join: >-
+              JOIN school sch2 ON sch2.id = e.school_id
+              LEFT JOIN district_embargo de ON
+                de.school_year = e.school_year AND
+                de.district_id = sch2.district_id AND
+                de.subject_id = a.subject_id
+
+            where: >-
+              CASE coalesce(de.aggregate, 0)
+                WHEN 0 THEN :state_embargo_loading = 1 OR sch2.district_id IN (:district_ids_embargo_loading)
+                WHEN 1 THEN :state_embargo_loading = 1 OR :state_embargo_reviewing = 1 OR sch2.district_id IN (:district_ids_embargo_loading) OR sch2.district_id IN (:district_ids_embargo_reviewing)
+                WHEN 2 THEN true
+              END
