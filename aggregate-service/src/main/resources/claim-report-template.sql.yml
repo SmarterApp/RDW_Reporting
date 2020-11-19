@@ -34,3 +34,37 @@ sqlbuilder:
             e.asmt_id,
             ecs.subject_claim_score_id,
             ss.code
+
+      addons:
+        districtEmbargo:
+          clauses:
+            join: >-
+              LEFT JOIN district_embargo de ON
+                de.school_year = e.school_year AND
+                de.district_id = sch.district_id AND
+                de.subject_id = a.subject_id
+
+            where: >-
+              a.type_id <> 3
+              OR CASE coalesce(de.aggregate, 0)
+                WHEN 0 THEN :state_embargo_loading = 1 OR sch.district_id IN (:district_ids_embargo_loading)
+                WHEN 1 THEN :state_embargo_loading = 1 OR :state_embargo_reviewing = 1 OR sch.district_id IN (:district_ids_embargo_loading) OR sch.district_id IN (:district_ids_embargo_reviewing)
+                WHEN 2 THEN true
+              END
+
+        stateEmbargo:
+          clauses:
+            join: >-
+              JOIN school sch on e.school_id = sch.id
+              LEFT JOIN district_embargo de ON
+                de.school_year = e.school_year AND
+                de.district_id = sch.district_id AND
+                de.subject_id = a.subject_id
+
+            where: >-
+              a.type_id <> 3
+              OR CASE coalesce(de.aggregate, 0)
+                WHEN 0 THEN :state_embargo_loading = 1
+                WHEN 1 THEN :state_embargo_loading = 1 OR :state_embargo_reviewing = 1
+                WHEN 2 THEN true
+              END

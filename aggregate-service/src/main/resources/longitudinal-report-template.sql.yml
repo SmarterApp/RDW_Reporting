@@ -66,7 +66,6 @@ sqlbuilder:
                   SELECT
                     f.*,
                     sch.district_id,
-                    sch.embargo_enabled,
                     count(*) OVER (PARTITION BY f.student_id, sch.district_id ) AS years_in_one_org
                   FROM exam_longitudinal f
                    JOIN school sch ON sch.id = f.school_id
@@ -88,7 +87,6 @@ sqlbuilder:
                   SELECT
                     f.*,
                     sch.district_id,
-                    sch.embargo_enabled,
                     count(*) OVER (PARTITION BY f.student_id, sch.district_id ) AS years_in_one_org
                   FROM exam_longitudinal f
                    JOIN school sch ON sch.id = f.school_id
@@ -111,7 +109,6 @@ sqlbuilder:
                    SELECT
                      f.*,
                      sch.district_id,
-                     sch.embargo_enabled,
                      count(*) OVER (PARTITION BY f.student_id, f.school_id ) AS years_in_one_org
                    FROM exam_longitudinal f
                     JOIN school sch ON sch.id = f.school_id
@@ -134,7 +131,6 @@ sqlbuilder:
                    SELECT
                      f.*,
                      sch.district_id,
-                     sch.embargo_enabled,
                      count(*) OVER (PARTITION BY f.student_id, f.school_id ) AS years_in_one_org
                    FROM exam_longitudinal f
                     JOIN school sch ON sch.id = f.school_id
@@ -148,15 +144,31 @@ sqlbuilder:
 
         districtEmbargo:
           clauses:
+            join: >-
+              LEFT JOIN district_embargo de ON
+                de.school_year = e.school_year AND
+                de.district_id = e.district_id AND
+                de.subject_id = e.subject_id
+
             where: >-
-              e.school_year < :system_school_year
-              OR e.embargo_enabled = 0
-              OR 1 = :state_embargo_admin
-              OR e.district_id IN (:district_embargo_admin_ids)
+              CASE coalesce(de.aggregate, 0)
+                WHEN 0 THEN :state_embargo_loading = 1 OR e.district_id IN (:district_ids_embargo_loading)
+                WHEN 1 THEN :state_embargo_loading = 1 OR :state_embargo_reviewing = 1 OR e.district_id IN (:district_ids_embargo_loading) OR e.district_id IN (:district_ids_embargo_reviewing)
+                WHEN 2 THEN true
+              END
 
         stateEmbargo:
           clauses:
+            join: >-
+              JOIN school sch on e.school_id = sch.id
+              LEFT JOIN district_embargo de ON
+                de.school_year = e.school_year AND
+                de.district_id = sch.district_id AND
+                de.subject_id = e.subject_id
+
             where: >-
-              e.school_year < :system_school_year
-              OR EXISTS (SELECT 1 FROM state_embargo WHERE aggregate = 0)
-              OR 1 = :state_embargo_admin
+              CASE coalesce(de.aggregate, 0)
+                WHEN 0 THEN :state_embargo_loading = 1
+                WHEN 1 THEN :state_embargo_loading = 1 OR :state_embargo_reviewing = 1
+                WHEN 2 THEN true
+              END
