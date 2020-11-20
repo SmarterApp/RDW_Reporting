@@ -18,7 +18,10 @@ insert into district (id, natural_id, name) values
 insert into district_embargo (district_id, school_year, subject_id, individual) values
   (-10, 1997, 1, 1),
   (-20, 1997, 1, 1),
-  (-30, 1997, 1, 1);
+  (-30, 1997, 1, 1),
+  (-10, 1997, 2, 1),
+  (-20, 1997, 2, 1),
+  (-30, 1997, 2, 1);
 
 insert into school (id, district_id, natural_id, name, update_import_id, updated, migrate_id, school_group_id, district_group_id, external_id) VALUES
   (-10, -10, 'schoolNat1', 'school1', -1, '1997-07-18 20:14:34.000000', -1, null, -40, 'externalId1'),
