@@ -12,9 +12,7 @@ export class AggregateEmbargoService {
    *
    * @returns {Observable<boolean>}
    */
-  isEmbargoed(year, districtId): Observable<boolean> {
-    console.log('isEmbargoed', year, districtId);
-
+  isEmbargoed(): Observable<boolean> {
     return this.dataService.get(
       `${AggregateServiceRoute}/organizations/embargoed`
     );
