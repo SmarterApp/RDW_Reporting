@@ -205,16 +205,18 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
       return null;
     }
 
-    // Resolve ambiguities with district and subject sorting.
-    if (sortField === 'district') {
-      return 'district_name';
+    switch (sortField) {
+      case 'district':
+        return 'district_name';
+      case 'subject':
+        return 'subject_code';
+      case 'schoolYear':
+        return 'school_year';
+      case 'reportType':
+        return 'report_type';
+      default:
+        return sortField;
     }
-
-    if (sortField === 'subject') {
-      return 'subject_code';
-    }
-
-    return sortField.replace('-', '_');
   }
 
   private toDisplayValues(result: TestResultAvailability) {
