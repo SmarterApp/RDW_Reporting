@@ -27,7 +27,7 @@
     <div class="col-xs-6 set-status">
       <select
         [ngModel]="selectedStatus"
-        [disabled]="statusOptions.length <= 1"
+        [disabled]="statusOptions.length < 1"
         class="form-control"
         (ngModelChange)="onChangeStatusFilter($event)"
       >

@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnInit } from '@angular/core';
 import { TestResultAvailability } from '../model/test-result-availability';
 import { TestResultAvailabilityFilters } from '../model/test-result-availability-filters';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateDatePipe } from '../../../shared/i18n/translate-date.pipe';
@@ -201,9 +201,13 @@ export class TestResultsAvailabilityService implements OnInit {
    * @param search the search filter. Districts whose name contains the string will be returned.
    */
   getDistrictFiltersByName(
-    search: string
+    name: string
   ): Observable<{ label: string; value: number }[]> {
-    return this.dataService.get(`${ResourceContext}/districts/${search}`).pipe(
+    if (!name || !name.trim()) {
+      return of([]);
+    }
+
+    return this.dataService.get(`${ResourceContext}/districts/${name}`).pipe(
       map((sourceDistricts: any[]) => {
         return TestResultsAvailabilityService.toDistricts(sourceDistricts);
       })
