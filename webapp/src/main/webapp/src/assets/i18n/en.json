@@ -2023,6 +2023,7 @@
     "audit-filename": "test_results_availability_audit",
     "change-results-tooltip": "Change status of selected test results availability (all pages).",
     "change-status": "Change Status",
+    "change-status-disabled": "A value must be selected in the Status filter and at least one test result must match the filter settings before you can change the status.",
     "columns": {
       "school-year": "School Year",
       "district": "District",
