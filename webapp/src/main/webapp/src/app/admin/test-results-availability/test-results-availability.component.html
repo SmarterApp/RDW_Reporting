@@ -106,18 +106,18 @@
           </select>
         </div>
 
-        <!-- District Select  -->
-        <div class="col-md-2 text-left">
-          <label
-            for="select-district"
-            *ngIf="userOptions && userOptions.districtAdmin"
-          >
+        <!-- District Select (for fixed list of districts) -->
+        <div
+          class="col-md-2 text-left"
+          *ngIf="
+            userOptions &&
+            (userOptions.districtAdmin || userOptions.districts.length > 1)
+          "
+        >
+          <label for="select-district" *ngIf="userOptions.districtAdmin">
             {{ 'test-results-availability.district-admin' | translate }}
           </label>
-          <label
-            for="select-district"
-            *ngIf="!(userOptions && userOptions.districtAdmin)"
-          >
+          <label for="select-district" *ngIf="!userOptions.districtAdmin">
             {{ 'test-results-availability.filter-district' | translate }}
           </label>
           <select
@@ -135,6 +135,34 @@
               {{ district.label | translate }}
             </option>
           </select>
+        </div>
+
+        <!-- District Select (with type-ahead filter) -->
+        <div
+          class="col-md-2 text-left"
+          *ngIf="userOptions && userOptions.districts.length === 1"
+        >
+          <label for="select-district">
+            {{ 'test-results-availability.filter-district' | translate }}
+          </label>
+          <district-typeahead
+            #districtTypeahead
+            [options]="districtOptions"
+            (districtChange)="onChangeDistrictFilter($event)"
+            (input)="deselectDistrict($event)"
+            placeholderText="test-results-availability.all-text"
+          ></district-typeahead>
+          <div>
+            <span [hidden]="!districtTypeahead.loading"
+              ><i class="fa fa-spinner fa-pulse"></i
+            ></span>
+            <br [hidden]="districtTypeahead.noResults" />
+            <span
+              [hidden]="!districtTypeahead.noResults"
+              class="small gray-darker"
+              >{{ 'district-typeahead.no-matches' | translate }}</span
+            >
+          </div>
         </div>
 
         <!-- Subject Select  -->

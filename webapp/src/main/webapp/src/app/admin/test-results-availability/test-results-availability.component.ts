@@ -14,8 +14,13 @@ import { TestResultsAvailabilityService } from './service/test-results-availabil
 import { TestResultAvailabilityFilters } from './model/test-result-availability-filters';
 import { TestResultsAvailabilityChangeStatusModal } from './test-results-availability-change-status.modal';
 import { UserService } from '../../shared/security/service/user.service';
-import { map } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { UserOptions } from './model/user-options';
+import { Option } from '../../shared/form/sb-typeahead.component';
+import { Observable } from 'rxjs';
+import { District, School } from '../../shared/organization/organization';
+import { DistrictTypeahead } from '../../shared/district/district-typeahead';
+import { limit } from '../../school-grade/limit';
 
 class Column {
   id: string; // en.json name
@@ -50,6 +55,9 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
 
   @ViewChild('alertFailure')
   alertFailure: ElementRef;
+
+  @ViewChild('districtTypeahead')
+  districtTypeahead: DistrictTypeahead;
 
   private grabFocusToAlert = false;
 
@@ -95,6 +103,8 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
 
   // Filter options for the dropdowns based on user permissions.
   userOptions: UserOptions;
+
+  districtOptions: Option[] | Observable<District[]>;
 
   private toSubjectKey = label => 'subject.' + label + '.name';
   private toReportTypeKey = label =>
@@ -273,8 +283,19 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
   }
 
   onChangeDistrictFilter(district: any) {
-    this.testResultAvailabilityFilters.district = district;
-    this.updateFilters();
+    if (this.testResultAvailabilityFilters.district !== district) {
+      this.testResultAvailabilityFilters.district = district;
+      this.updateFilters();
+    }
+  }
+
+  deselectDistrict(event: Event) {
+    const value = this.districtTypeahead.value;
+    if (!value || value.trim()) {
+      this.onChangeDistrictFilter(
+        TestResultsAvailabilityService.FilterIncludeAll
+      );
+    }
   }
 
   onChangeSubjectFilter(subject: any) {
@@ -376,6 +397,20 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
       filters.subject = userOptions.subjects[1];
     }
 
+    if (userOptions.districts.length === 1) {
+      this.loadDistrictOptions();
+    }
+
     return filters;
+  }
+
+  private loadDistrictOptions(): void {
+    this.districtOptions = Observable.create(observer => {
+      observer.next(this.districtTypeahead.value);
+    }).pipe(
+      mergeMap((search: string) =>
+        this.testResultsService.getDistrictFiltersByName(search).pipe()
+      )
+    );
   }
 }
