@@ -881,6 +881,7 @@
       "assessment-item-target": "Target {{target}}"
     },
     "school-typeahead-label": "School",
+    "district-typeahead-label": "District",
     "school-year-select-label": "School Year",
     "show-empty-input-label": "{{value}} empty rows",
     "show-empty-input-label-preview": "Empty rows",
@@ -1756,6 +1757,11 @@
     "no-matches": "No schools found.",
     "district-label": "District",
     "placeholder": "Enter name"
+  },
+  "district-typeahead": {
+    "no-matches": "No districts found.",
+    "district-label": "District",
+    "placeholder": "Enter district name"
   },
   "select-assessments": {
     "instruct": "Click an assessment to add or remove it from your list of selections above."

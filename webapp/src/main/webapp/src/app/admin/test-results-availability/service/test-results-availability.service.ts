@@ -112,11 +112,23 @@ export class TestResultsAvailabilityService implements OnInit {
     };
   }
 
-  ngOnInit(): void {}
+  /**
+   * Converts the district options returned by the backend for this user into a TypeScript object.
+   * @param sourceDistricts the data record returned by the backend as json
+   *
+   * @return an array of json objects
+   */
+  private static toDistricts(
+    sourceDistricts: any
+  ): { label: string; value: number }[] {
+    return sourceDistricts
+      .map(dist => {
+        return { label: dist.name, name: dist.name, value: dist.id };
+      })
+      .sort((a, b) => a.label.localeCompare(b.label));
+  }
 
-  // formatAsLocalDate(date: Date): string {
-  //   return this.datePipe.transform(date, 'yyyy-MM-dd');
-  // }
+  ngOnInit(): void {}
 
   /**
    * Gets one page of test results for the given page settings and filters.
@@ -179,6 +191,21 @@ export class TestResultsAvailabilityService implements OnInit {
     return this.dataService.get(`${ResourceContext}/filters`).pipe(
       map((sourceUserSettings: any) => {
         return TestResultsAvailabilityService.toOptions(sourceUserSettings);
+      })
+    );
+  }
+
+  /**
+   * Gets district options filtered by the search string.
+   * This is used when the tenant has too many districts to display all at once in a selector.
+   * @param search the search filter. Districts whose name contains the string will be returned.
+   */
+  getDistrictFiltersByName(
+    search: string
+  ): Observable<{ label: string; value: number }[]> {
+    return this.dataService.get(`${ResourceContext}/districts/${search}`).pipe(
+      map((sourceDistricts: any[]) => {
+        return TestResultsAvailabilityService.toDistricts(sourceDistricts);
       })
     );
   }
