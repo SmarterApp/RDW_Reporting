@@ -318,6 +318,12 @@
         </p-table>
       </div>
       <div class="modal-footer table-footer">
+        <info-button
+          [hidden]="rowCount && testResultAvailabilityFilters.status.value"
+          content="{{
+            'test-results-availability.change-status-disabled' | translate
+          }}"
+        ></info-button>
         <button
           [disabled]="!rowCount || !testResultAvailabilityFilters.status.value"
           (click)="openChangeResultsModal()"
