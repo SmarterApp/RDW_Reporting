@@ -283,10 +283,8 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
   }
 
   onChangeDistrictFilter(district: any) {
-    if (this.testResultAvailabilityFilters.district !== district) {
-      this.testResultAvailabilityFilters.district = district;
-      this.updateFilters();
-    }
+    this.testResultAvailabilityFilters.district = district;
+    this.updateFilters();
   }
 
   deselectDistrict(event: Event) {
