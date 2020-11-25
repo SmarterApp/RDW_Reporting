@@ -289,7 +289,7 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
 
   deselectDistrict(event: Event) {
     const value = this.districtTypeahead.value;
-    if (!value || value.trim()) {
+    if (!value || !value.trim()) {
       this.onChangeDistrictFilter(
         TestResultsAvailabilityService.FilterIncludeAll
       );
