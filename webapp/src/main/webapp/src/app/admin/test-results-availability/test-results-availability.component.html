@@ -111,7 +111,7 @@
           class="col-md-2 text-left"
           *ngIf="
             userOptions &&
-            (userOptions.districtAdmin || userOptions.districts.length > 1)
+            (userOptions.districtAdmin || !userOptions.districtsOverflow)
           "
         >
           <label for="select-district" *ngIf="userOptions.districtAdmin">
@@ -140,7 +140,7 @@
         <!-- District Select (with type-ahead filter) -->
         <div
           class="col-md-2 text-left"
-          *ngIf="userOptions && userOptions.districts.length === 1"
+          *ngIf="userOptions && userOptions.districtsOverflow"
         >
           <label for="select-district">
             {{ 'test-results-availability.filter-district' | translate }}

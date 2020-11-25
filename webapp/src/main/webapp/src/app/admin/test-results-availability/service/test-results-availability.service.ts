@@ -104,6 +104,7 @@ export class TestResultsAvailabilityService implements OnInit {
     return {
       viewAudit: source.viewAudit,
       districtAdmin: source.districtAdmin,
+      districtsOverflow: source.districtsOverflow,
       districts: districts,
       statuses: statuses,
       subjects: subjects,
