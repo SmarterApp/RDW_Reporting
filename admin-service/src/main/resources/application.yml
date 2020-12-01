@@ -22,7 +22,7 @@ flyway:
 
 embargo:
   # Number of days to include in audit log of embargo changes
-  audit-log-days: 7
+  audit-log-days: 365
   # File name for audit log
   audit-log-file-name: testResultsAudit.csv
 
