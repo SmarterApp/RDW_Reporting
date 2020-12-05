@@ -1,0 +1,4 @@
+embargo:
+  page-size: 30
+  audit-log-days: 90
+  audit-log-file-name: audit.csv
