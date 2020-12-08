@@ -66,7 +66,7 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
     offset: 0,
     sortField: 'default',
     descending: false,
-    pageSize: 20
+    pageSize: 0
   };
 
   // Page loading flag. (Starts true to ovoid a timing issue that caused a misleading console error.)
@@ -188,6 +188,7 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
 
     this.testResultsService.getUserOptions().subscribe(userOptions => {
       this.userOptions = userOptions;
+      this.pageSettings.pageSize = userOptions.pageSize;
       this.testResultAvailabilityFilters = this.initializeFilterSettings(
         userOptions
       );

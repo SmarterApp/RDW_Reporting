@@ -101,6 +101,8 @@ export class TestResultsAvailabilityService implements OnInit {
       .sort((a, b) => a.label.localeCompare(b.label));
     reportTypes.unshift(TestResultsAvailabilityService.FilterIncludeAll);
 
+    const pageSize = source.pageSize;
+
     return {
       viewAudit: source.viewAudit,
       districtAdmin: source.districtAdmin,
@@ -109,7 +111,8 @@ export class TestResultsAvailabilityService implements OnInit {
       statuses: statuses,
       subjects: subjects,
       schoolYears: schoolYears,
-      reportTypes: reportTypes
+      reportTypes: reportTypes,
+      pageSize
     };
   }
 
@@ -202,13 +205,13 @@ export class TestResultsAvailabilityService implements OnInit {
    * @param search the search filter. Districts whose name contains the string will be returned.
    */
   getDistrictFiltersByName(
-    name: string
+    search: string
   ): Observable<{ label: string; value: number }[]> {
-    if (!name || !name.trim()) {
+    if (!search || !search.trim()) {
       return of([]);
     }
 
-    return this.dataService.get(`${ResourceContext}/districts/${name}`).pipe(
+    return this.dataService.get(`${ResourceContext}/districts/${search}`).pipe(
       map((sourceDistricts: any[]) => {
         return TestResultsAvailabilityService.toDistricts(sourceDistricts);
       })

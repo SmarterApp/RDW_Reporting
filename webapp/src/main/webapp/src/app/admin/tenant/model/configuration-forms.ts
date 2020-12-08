@@ -207,18 +207,15 @@ function embargoFieldConfigurations(): FormFieldConfiguration[] {
   return [
     {
       name: 'embargo.pageSize',
-      dataType: positiveIntegerDataType,
-      required: true
+      dataType: positiveIntegerDataType
     },
     {
       name: 'embargo.auditLogDays',
-      dataType: positiveIntegerDataType,
-      required: true
+      dataType: positiveIntegerDataType
     },
     {
       name: 'embargo.auditLogFileName',
-      dataType: stringDataType,
-      required: true
+      dataType: stringDataType
     }
   ];
 }
