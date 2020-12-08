@@ -20,7 +20,11 @@
   </ul>
 </page-heading>
 
-<ng-container>
+<ng-container *ngIf="pageLoading">
+  <spinner></spinner>
+</ng-container>
+
+<ng-container *ngIf="!pageLoading">
   <ng-container>
     <div
       #alertFailure
@@ -65,7 +69,6 @@
         <br />
       </ng-container>
     </div>
-
     <div class="well well-results">
       {{ 'test-results-availability.filter-title' | translate }}
       <div class="row">
@@ -248,7 +251,7 @@
   </ng-container>
 </ng-container>
 
-<ng-container>
+<ng-container *ngIf="!pageLoading">
   <ng-container>
     <div class="well well-results">
       {{ 'test-results-availability.selected-title' | translate }}
@@ -266,7 +269,7 @@
           [rows]="pageSettings.pageSize"
           [first]="pageSettings.offset"
           [totalRecords]="rowCount || 0"
-          [loading]="loading"
+          [loading]="tableLoading"
           sortField="default"
           [autoLayout]="true"
           [showCurrentPageReport]="false"
