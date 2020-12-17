@@ -119,6 +119,7 @@ sql:
 
     findTestResultsAvailabilityDefaultOrdering: >-
       ORDER BY
+        {PRIMARY_SORT_PLACEHOLDER},
         school_year DESC,
         district_name ASC,
         subject_code ASC,
