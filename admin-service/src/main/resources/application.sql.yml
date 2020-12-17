@@ -93,8 +93,8 @@ sql:
               s.id                       AS subject_id,
               s.code                     AS subject_code,
               ert.name                   AS report_type,
-              coalesce(de.individual, 0) AS individual,
-              coalesce(de.aggregate, 0)  AS aggregate,
+              coalesce(de.individual, 0) AS c_individual,
+              coalesce(de.aggregate, 0)  AS c_aggregate,
               coalesce(ec.count, 0)      AS exam_count
       FROM school_year y
             JOIN district d
