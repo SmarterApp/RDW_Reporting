@@ -1,6 +1,7 @@
 <aggregate-embargo-alert
-  *hasPermission="'EMBARGO_READ'"
-></aggregate-embargo-alert>
+  *hasAnyPermission="['TEST_DATA_LOADING_READ', 'TEST_DATA_REVIEWING_READ']"
+>
+</aggregate-embargo-alert>
 
 <page-heading>
   <h1 class="h2" heading>{{ report.query.name }}</h1>
