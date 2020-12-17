@@ -1,14 +1,18 @@
 import { Component } from '@angular/core';
-import { EmbargoAlert } from './embargo-alert.component';
 import { AggregateEmbargoService } from './aggregate-embargo.service';
-import { UserService } from '../security/service/user.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'aggregate-embargo-alert',
   templateUrl: 'embargo-alert.component.html'
 })
-export class AggregateEmbargoAlert extends EmbargoAlert {
-  constructor(service: AggregateEmbargoService, userService: UserService) {
-    super(service, userService);
+// tslint:disable-next-line:component-class-suffix
+export class AggregateEmbargoAlert {
+  // Visibility of this alert, which will be calculated based on user's permissions and embargo status
+  // for all results.
+  show$: Observable<boolean>;
+
+  constructor(private service: AggregateEmbargoService) {
+    this.show$ = this.service.isEmbargoed().pipe();
   }
 }
