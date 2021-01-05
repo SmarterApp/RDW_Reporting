@@ -1,6 +1,6 @@
-<ng-container *ngIf="(show$ | async)">
+<ng-container *ngIf="showMessage(show$ | async)">
   <div class="alert alert-warning pt-sm pr-sm pb-sm pl-sm mb-sm">
     <i class="fa fa-exclamation-triangle"></i>
-    {{ 'embargo-alert.message' | translate }}
+    {{ getMessageKey(show$ | async) | translate }}
   </div>
 </ng-container>

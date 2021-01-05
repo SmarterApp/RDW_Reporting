@@ -1085,7 +1085,9 @@
     "title": "Manage Embargo"
   },
   "embargo-alert": {
-    "message": "Some or all of summative test results shown here are not yet released."
+    "loading-message": "Some summative test results are Loading, and therefore not yet Reviewing or Released.",
+    "reviewing-message": "Some summative test results are Reviewing, and therefore not yet Released.",
+    "mixed-message": "Some summative test results are Loading and some Reviewing, and therefore not yet Released."
   },
   "embargo-confirmation-modal": {
     "accept": {
