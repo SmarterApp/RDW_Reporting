@@ -1,6 +1,6 @@
 sql:
   embargo:
-    existsForSchool: >-
+    loadingVisibleForSchool: >-
       SELECT EXISTS(
         SELECT 1
         FROM school s
@@ -8,11 +8,21 @@ sql:
         WHERE de.individual <> 2
           AND CASE coalesce(de.individual, 0)
             WHEN 0 THEN :state_embargo_loading = 1 OR s.district_id IN (:district_ids_embargo_loading)
+          END
+        LIMIT 1) AS embargo_enabled
+
+    reviewingVisibleForSchool: >-
+      SELECT EXISTS(
+        SELECT 1
+        FROM school s
+          JOIN district_embargo de ON de.district_id = s.district_id
+        WHERE de.individual <> 2
+          AND CASE coalesce(de.individual, 0)
             WHEN 1 THEN :state_embargo_loading = 1 OR :state_embargo_reviewing = 1 OR s.district_id IN (:district_ids_embargo_loading) OR s.district_id IN (:district_ids_embargo_reviewing)
           END
         LIMIT 1) AS embargo_enabled
 
-    existsForSchoolYearAndDistrict: >-
+    loadingVisibleForSchoolYearAndDistrict: >-
       SELECT EXISTS(
         SELECT 1
             FROM school_year y
@@ -27,6 +37,23 @@ sql:
               d.id = :district_id AND
               CASE coalesce(de.individual, 0)
                 WHEN 0 THEN :state_embargo_loading = 1 OR d.id IN (:district_ids_embargo_loading)
+              END
+        LIMIT 1) AS embargo_enabled
+
+    reviewingVisibleForSchoolYearAndDistrict: >-
+      SELECT EXISTS(
+        SELECT 1
+            FROM school_year y
+              JOIN district d
+              JOIN subject s
+              LEFT JOIN district_embargo de ON
+                      y.year = de.school_year and
+                      d.id = de.district_id and
+                      s.id = de.subject_id
+            WHERE
+              y.year = :school_year AND
+              d.id = :district_id AND
+              CASE coalesce(de.individual, 0)
                 WHEN 1 THEN :state_embargo_loading = 1 OR :state_embargo_reviewing = 1 OR d.id IN (:district_ids_embargo_loading) OR d.id IN (:district_ids_embargo_reviewing)
               END
         LIMIT 1) AS embargo_enabled
