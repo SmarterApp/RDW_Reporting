@@ -6,13 +6,17 @@ export class EmbargoAlert {
   show$: Observable<Embargo>;
 
   getMessageKey(embargo: Embargo) {
-    if (embargo.Loading && embargo.Reviewing) {
+    if (!embargo) {
+      return '';
+    } else if (embargo.Loading && embargo.Reviewing) {
       return 'embargo-alert.mixed-message';
     } else if (embargo.Loading) {
       return 'embargo-alert.loading-message';
     } else if (embargo.Reviewing) {
       return 'embargo-alert.reviewing-message';
     }
+
+    return '';
   }
 
   showMessage(embargo: Embargo) {
