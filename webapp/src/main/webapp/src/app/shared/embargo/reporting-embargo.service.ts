@@ -3,6 +3,7 @@ import { CachingDataService } from '../data/caching-data.service';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ReportingServiceRoute } from '../service-route';
+import { Embargo } from './embargo';
 
 @Injectable()
 export class ReportingEmbargoService {
@@ -11,7 +12,7 @@ export class ReportingEmbargoService {
   /**
    * Gets the current embargo settings
    */
-  isEmbargoed(schoolYear = null, districtId = null): Observable<boolean> {
+  isEmbargoed(schoolYear = null, districtId = null): Observable<Embargo> {
     if (!schoolYear || !districtId) {
       return of(null);
     }

@@ -18,9 +18,8 @@ import { map, mergeMap } from 'rxjs/operators';
 import { UserOptions } from './model/user-options';
 import { Option } from '../../shared/form/sb-typeahead.component';
 import { Observable } from 'rxjs';
-import { District, School } from '../../shared/organization/organization';
+import { District } from '../../shared/organization/organization';
 import { DistrictTypeahead } from '../../shared/district/district-typeahead';
-import { limit } from '../../school-grade/limit';
 
 class Column {
   id: string; // en.json name
@@ -69,8 +68,11 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
     pageSize: 0
   };
 
-  // Page loading flag. (Starts true to ovoid a timing issue that caused a misleading console error.)
-  loading = true;
+  // Page loading flag. False until filter controls are populated.
+  pageLoading = true;
+
+  // Table loading flag. (Starts true to ovoid a timing issue that caused a misleading console error.)
+  tableLoading = true;
 
   // Total row count based on filters
   rowCount = 0;
@@ -193,11 +195,12 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
         userOptions
       );
       this.refreshRowCount();
+      this.pageLoading = false;
     });
   }
 
   private updateTestResultsData() {
-    this.loading = true;
+    this.tableLoading = true;
 
     this.testResultsService
       .getTestResults(this.pageSettings, this.testResultAvailabilityFilters)
@@ -207,7 +210,7 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
           this.toDisplayValues(result)
         );
 
-        this.loading = false;
+        this.tableLoading = false;
       });
   }
 

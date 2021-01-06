@@ -7,17 +7,20 @@ import {
   SimpleChanges
 } from '@angular/core';
 import { ReportingEmbargoService } from './reporting-embargo.service';
-import { Observable } from 'rxjs';
 import { School } from '../organization/organization';
 import { Group } from '../../groups/group';
+import { EmbargoAlert } from './EmbargoAlert';
 
 @Component({
   selector: 'reporting-embargo-alert',
   templateUrl: 'embargo-alert.component.html'
 })
 // tslint:disable-next-line:component-class-suffix
-export class ReportingEmbargoAlert implements OnInit, OnChanges {
-  constructor(private service: ReportingEmbargoService) {}
+export class ReportingEmbargoAlert extends EmbargoAlert
+  implements OnInit, OnChanges {
+  constructor(private service: ReportingEmbargoService) {
+    super();
+  }
 
   @Input()
   year: number = null;
@@ -29,10 +32,6 @@ export class ReportingEmbargoAlert implements OnInit, OnChanges {
   group: Group = null;
 
   districtId: number = null;
-
-  // Visibility of this alert, which will be calculated based on user's permissions and embargo
-  // status for the current school year and the current school's district.
-  show$: Observable<boolean>;
 
   private static hasChanged(change: SimpleChange) {
     return (

@@ -1,6 +1,8 @@
 <aggregate-embargo-alert
-  *hasPermission="'EMBARGO_READ'"
-></aggregate-embargo-alert>
+  *hasAnyPermission="['TEST_DATA_LOADING_READ', 'TEST_DATA_REVIEWING_READ']"
+>
+  ></aggregate-embargo-alert
+>
 
 <ng-template #submitButtonTemplate>
   <button
