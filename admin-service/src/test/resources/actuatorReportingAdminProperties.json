@@ -510,6 +510,15 @@
       "enabled": true
     }
   },
+  "scopedTarget.embargoPropertiesRoot": {
+    "prefix": "embargo",
+    "properties": {
+      "page-size": 20,
+      "audit-log-days": 365,
+      "audit-log-file-name": "audit.csv",
+      "tenants": {}
+    }
+  },
   "archivePropertiesRoot": {
     "prefix": "archive",
     "properties": {

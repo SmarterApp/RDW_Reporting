@@ -1584,6 +1584,7 @@
       "task": "Task",
       "archive": "Archive",
       "aggregate": "Aggregate",
+      "embargo": "Test Results Availability",
       "validation": "Ingest Validation",
       "artClient": "Task Update Organizations ART Client",
       "importServiceClient": "Task Update Organizations Import Client",

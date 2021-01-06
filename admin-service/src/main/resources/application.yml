@@ -21,6 +21,8 @@ flyway:
   enabled: false
 
 embargo:
+  # Number of rows to display per page
+  page-size: 20
   # Number of days to include in audit log of embargo changes
   audit-log-days: 365
   # File name for audit log
