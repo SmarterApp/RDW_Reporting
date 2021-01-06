@@ -19,19 +19,8 @@
       <li>
         <!-- Note: we have 'ml-md' as a class here to avoid an issue with flickering popovers -->
         <button
-          *ngIf="!exportDisabled"
           class="btn btn-default btn-sm ml-md"
           (click)="onExportButtonClick()"
-        >
-          <i class="fa fa-bold fa-table"></i>
-          {{ 'common.export-csv' | translate }}
-        </button>
-        <button
-          *ngIf="exportDisabled"
-          class="btn btn-default btn-sm ml-md disabled"
-          popover="{{ 'common.embargo-export-disabled' | translate }}"
-          triggers="mouseenter:mouseleave"
-          placement="left"
         >
           <i class="fa fa-bold fa-table"></i>
           {{ 'common.export-csv' | translate }}

@@ -1,3 +1,5 @@
+insert into school_year (year) values (1996), (1997), (1998);
+
 insert into school_group (id, natural_id, name) values
   (-10, 'schoolGroup1', 'schoolGroup1'),
   (-40, 'schoolGroup4', 'schoolGroup4');
@@ -12,11 +14,20 @@ insert into district (id, natural_id, name) values
   (-20, 'districtNat2', 'district2'),
   (-30, 'districtNat3', 'district3');
 
-insert into school (id, district_id, natural_id, name, embargo_enabled, update_import_id, updated, migrate_id, school_group_id, district_group_id, external_id) VALUES
-  (-10, -10, 'schoolNat1', 'school1', 1, -1, '1997-07-18 20:14:34.000000', -1, null, -40, 'externalId1'),
-  (-20, -10, 'schoolNat2', 'school2', 1, -1, '1997-07-18 20:14:34.000000', -1, -10, -10, 'externalId2'),
-  (-30, -20, 'schoolNat3', 'school3', 1, -1, '1997-07-18 20:14:34.000000', -1, null, -20, 'externalId3'),
-  (-40, -30, 'schoolNat4', 'school4', 1, -1, '1997-07-18 20:14:34.000000', -1, -40, -40, 'externalId4');
+-- embargo (REVIEWING) the districts for subjects and school years
+insert into district_embargo (district_id, school_year, subject_id, individual) values
+  (-10, 1997, 1, 1),
+  (-20, 1997, 1, 1),
+  (-30, 1997, 1, 1),
+  (-10, 1997, 2, 1),
+  (-20, 1997, 2, 1),
+  (-30, 1997, 2, 1);
+
+insert into school (id, district_id, natural_id, name, update_import_id, updated, migrate_id, school_group_id, district_group_id, external_id) VALUES
+  (-10, -10, 'schoolNat1', 'school1', -1, '1997-07-18 20:14:34.000000', -1, null, -40, 'externalId1'),
+  (-20, -10, 'schoolNat2', 'school2', -1, '1997-07-18 20:14:34.000000', -1, -10, -10, 'externalId2'),
+  (-30, -20, 'schoolNat3', 'school3', -1, '1997-07-18 20:14:34.000000', -1, null, -20, 'externalId3'),
+  (-40, -30, 'schoolNat4', 'school4', -1, '1997-07-18 20:14:34.000000', -1, -40, -40, 'externalId4');
 
 insert into grade (id, code, sequence) values
   (-1, 'g1', 1),
@@ -25,11 +36,6 @@ insert into grade (id, code, sequence) values
 
 insert into gender (id, code) values
   (-1, 'g1');
-
-insert into school_year (year) values
-  (1996),
-  (1997),
-  (1998);
 
 insert into student (id, ssid, last_or_surname, first_name, gender_id, gender_code, birthday, inferred_school_id, update_import_id, updated, migrate_id) values
   (-1, 'student1_ssid', 'student1_lastName', 'student1_firstName', -1, 'g1', '1997-01-01 00:00:00.000000', -10, -1, '1997-07-18 20:14:34.000000', -1),

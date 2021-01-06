@@ -14,8 +14,12 @@ import { TestResultsAvailabilityService } from './service/test-results-availabil
 import { TestResultAvailabilityFilters } from './model/test-result-availability-filters';
 import { TestResultsAvailabilityChangeStatusModal } from './test-results-availability-change-status.modal';
 import { UserService } from '../../shared/security/service/user.service';
-import { map } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { UserOptions } from './model/user-options';
+import { Option } from '../../shared/form/sb-typeahead.component';
+import { Observable } from 'rxjs';
+import { District } from '../../shared/organization/organization';
+import { DistrictTypeahead } from '../../shared/district/district-typeahead';
 
 class Column {
   id: string; // en.json name
@@ -51,6 +55,9 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
   @ViewChild('alertFailure')
   alertFailure: ElementRef;
 
+  @ViewChild('districtTypeahead')
+  districtTypeahead: DistrictTypeahead;
+
   private grabFocusToAlert = false;
 
   // Table page and sort data
@@ -61,8 +68,11 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
     pageSize: 20
   };
 
-  // Page loading flag. (Starts true to ovoid a timing issue that caused a misleading console error.)
-  loading = true;
+  // Page loading flag. False until filter controls are populated.
+  pageLoading = true;
+
+  // Table loading flag. (Starts true to ovoid a timing issue that caused a misleading console error.)
+  tableLoading = true;
 
   // Total row count based on filters
   rowCount = 0;
@@ -95,6 +105,8 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
 
   // Filter options for the dropdowns based on user permissions.
   userOptions: UserOptions;
+
+  districtOptions: Option[] | Observable<District[]>;
 
   private toSubjectKey = label => 'subject.' + label + '.name';
   private toReportTypeKey = label =>
@@ -182,11 +194,12 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
         userOptions
       );
       this.refreshRowCount();
+      this.pageLoading = false;
     });
   }
 
   private updateTestResultsData() {
-    this.loading = true;
+    this.tableLoading = true;
 
     this.testResultsService
       .getTestResults(this.pageSettings, this.testResultAvailabilityFilters)
@@ -196,7 +209,7 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
           this.toDisplayValues(result)
         );
 
-        this.loading = false;
+        this.tableLoading = false;
       });
   }
 
@@ -205,16 +218,18 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
       return null;
     }
 
-    // Resolve ambiguities with district and subject sorting.
-    if (sortField === 'district') {
-      return 'district_name';
+    switch (sortField) {
+      case 'district':
+        return 'district_name';
+      case 'subject':
+        return 'subject_code';
+      case 'schoolYear':
+        return 'school_year';
+      case 'reportType':
+        return 'report_type';
+      default:
+        return sortField;
     }
-
-    if (sortField === 'subject') {
-      return 'subject_code';
-    }
-
-    return sortField.replace('-', '_');
   }
 
   private toDisplayValues(result: TestResultAvailability) {
@@ -273,6 +288,15 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
   onChangeDistrictFilter(district: any) {
     this.testResultAvailabilityFilters.district = district;
     this.updateFilters();
+  }
+
+  deselectDistrict(event: Event) {
+    const value = this.districtTypeahead.value;
+    if (!value || !value.trim()) {
+      this.onChangeDistrictFilter(
+        TestResultsAvailabilityService.FilterIncludeAll
+      );
+    }
   }
 
   onChangeSubjectFilter(subject: any) {
@@ -374,6 +398,20 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
       filters.subject = userOptions.subjects[1];
     }
 
+    if (userOptions.districts.length === 1) {
+      this.loadDistrictOptions();
+    }
+
     return filters;
+  }
+
+  private loadDistrictOptions(): void {
+    this.districtOptions = Observable.create(observer => {
+      observer.next(this.districtTypeahead.value);
+    }).pipe(
+      mergeMap((search: string) =>
+        this.testResultsService.getDistrictFiltersByName(search).pipe()
+      )
+    );
   }
 }

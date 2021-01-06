@@ -51,11 +51,12 @@ export class GroupService {
   }
 
   private static mapGroupFromApi(apiModel): Group {
-    let uiModel = new Group();
+    const uiModel = new Group();
     uiModel.id = apiModel.id;
     uiModel.schoolYear = apiModel.schoolYear;
     uiModel.name = apiModel.name;
     uiModel.schoolName = apiModel.schoolName;
+    uiModel.districtId = apiModel.districtId;
     uiModel.subject = apiModel.subjectCode;
     uiModel.studentCount = apiModel.studentCount;
     uiModel.isDeleted = apiModel.deleted;

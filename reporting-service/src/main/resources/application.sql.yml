@@ -1,11 +1,61 @@
 sql:
   embargo:
-    existsForSchool: >-
+    loadingVisibleForSchool: >-
       SELECT EXISTS(
         SELECT 1
-        FROM school sc
-        WHERE sc.embargo_enabled = 1
-          AND ${sql.snippet.basicPermission}
+        FROM school s
+          JOIN district_embargo de ON de.district_id = s.district_id
+        WHERE de.individual <> 2
+          AND CASE coalesce(de.individual, 0)
+            WHEN 0 THEN :state_embargo_loading = 1 OR s.district_id IN (:district_ids_embargo_loading)
+          END
+        LIMIT 1) AS embargo_enabled
+
+    reviewingVisibleForSchool: >-
+      SELECT EXISTS(
+        SELECT 1
+        FROM school s
+          JOIN district_embargo de ON de.district_id = s.district_id
+        WHERE de.individual <> 2
+          AND CASE coalesce(de.individual, 0)
+            WHEN 1 THEN :state_embargo_loading = 1 OR :state_embargo_reviewing = 1 OR s.district_id IN (:district_ids_embargo_loading) OR s.district_id IN (:district_ids_embargo_reviewing)
+          END
+        LIMIT 1) AS embargo_enabled
+
+    loadingVisibleForSchoolYearAndDistrict: >-
+      SELECT EXISTS(
+        SELECT 1
+            FROM school_year y
+              JOIN district d
+              JOIN subject s
+              LEFT JOIN district_embargo de ON
+                      y.year = de.school_year and
+                      d.id = de.district_id and
+                      s.id = de.subject_id
+            WHERE
+              y.year = :school_year AND
+              d.id = :district_id AND
+              CASE coalesce(de.individual, 0)
+                WHEN 0 THEN :state_embargo_loading = 1 OR d.id IN (:district_ids_embargo_loading)
+              END
+        LIMIT 1) AS embargo_enabled
+
+    reviewingVisibleForSchoolYearAndDistrict: >-
+      SELECT EXISTS(
+        SELECT 1
+            FROM school_year y
+              JOIN district d
+              JOIN subject s
+              LEFT JOIN district_embargo de ON
+                      y.year = de.school_year and
+                      d.id = de.district_id and
+                      s.id = de.subject_id
+            WHERE
+              y.year = :school_year AND
+              d.id = :district_id AND
+              CASE coalesce(de.individual, 0)
+                WHEN 1 THEN :state_embargo_loading = 1 OR :state_embargo_reviewing = 1 OR d.id IN (:district_ids_embargo_loading) OR d.id IN (:district_ids_embargo_reviewing)
+              END
         LIMIT 1) AS embargo_enabled
 
   student:
@@ -82,6 +132,7 @@ sql:
         JOIN asmt a ON a.id = e.asmt_id
         JOIN school s ON e.school_id = s.id
         JOIN school isch ON st.inferred_school_id = isch.id
+        LEFT JOIN district_embargo de ON de.district_id = s.district_id AND de.school_year = e.school_year AND de.subject_id = a.subject_id
       WHERE st.ssid = :student_ssid
       AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
       LIMIT 1
@@ -105,16 +156,16 @@ sql:
       findAll: >-
         SELECT distinct
           ${sql.reporting.snippet.assessmentColumns}
-        FROM asmt a
-          JOIN exam e ON e.asmt_id = a.id
+        FROM exam e
+          JOIN asmt a ON e.asmt_id=a.id
           JOIN school s ON e.school_id = s.id
           JOIN subject su ON a.subject_id = su.id
           JOIN student st ON e.student_id = st.id
           JOIN school isch ON st.inferred_school_id = isch.id
           JOIN subject_asmt_type sat on su.id = sat.subject_id AND a.type_id = sat.asmt_type_id
+          LEFT JOIN district_embargo de ON de.district_id = s.district_id AND de.school_year = e.school_year AND de.subject_id = a.subject_id
           $[groupJoinPlaceholder]
         WHERE e.school_year = :school_year
-          AND a.id = e.asmt_id
           AND $[groupFilterPlaceholder]
           AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
@@ -131,6 +182,7 @@ sql:
           JOIN student st ON e.student_id = st.id
           JOIN school isch ON st.inferred_school_id = isch.id
           JOIN subject_asmt_type sat on su.id = sat.subject_id AND a.type_id = sat.asmt_type_id
+          LEFT JOIN district_embargo de ON de.district_id = s.district_id AND de.school_year = e.school_year AND de.subject_id = a.subject_id
           $[groupJoinPlaceholder]
         WHERE e.school_year = :school_year
           AND $[groupFilterPlaceholder]
@@ -165,6 +217,7 @@ sql:
           JOIN school isch on st.inferred_school_id = isch.id
           JOIN exam_target_score ets on ets.exam_id = e.id
           JOIN target t on t.id = ets.target_id
+          LEFT JOIN district_embargo de ON de.district_id = s.district_id AND de.school_year = e.school_year AND de.subject_id = a.subject_id
           $[groupJoinPlaceholder]
          WHERE a.id = :assessment_id
             AND e.school_year = :school_year
@@ -245,21 +298,18 @@ sql:
       findAll: >-
         SELECT distinct
           ${sql.reporting.snippet.assessmentColumns}
-        FROM asmt a
-        JOIN subject su ON a.subject_id = su.id
-        JOIN subject_asmt_type sat on su.id = sat.subject_id AND a.type_id = sat.asmt_type_id
-        WHERE EXISTS (
-            SELECT e.asmt_id
-            FROM exam e
-              JOIN school s ON e.school_id = s.id
-              JOIN student st ON e.student_id = st.id
-              JOIN school isch ON st.inferred_school_id = isch.id
-            WHERE e.school_year = :school_year
-            AND a.id = e.asmt_id
-            AND (s.id = :school_id OR (1 = :allow_transfer_access AND isch.id = :school_id))
-            AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
-        )
+        FROM exam e
+          JOIN asmt a ON e.asmt_id=a.id
+          JOIN school s ON e.school_id=s.id
+          JOIN subject su ON a.subject_id = su.id
+          JOIN student st ON e.student_id = st.id
+          JOIN school isch ON st.inferred_school_id = isch.id
+          JOIN subject_asmt_type sat on su.id = sat.subject_id AND a.type_id = sat.asmt_type_id
+          LEFT JOIN district_embargo de ON de.district_id = s.district_id AND de.school_year = e.school_year AND de.subject_id = a.subject_id
+        WHERE e.school_year = :school_year
+        AND e.school_id = :school_id
         AND a.grade_id = :grade_id
+        AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
 
       # NOTE that we're grouping by a.id and selecting the max(e.completed_at) timestamp
       # to improve final ordering performance
@@ -274,6 +324,7 @@ sql:
           JOIN student st ON e.student_id = st.id
           JOIN school isch ON st.inferred_school_id = isch.id
           JOIN subject_asmt_type sat on su.id = sat.subject_id AND a.type_id = sat.asmt_type_id
+          LEFT JOIN district_embargo de ON de.district_id = s.district_id AND de.school_year = e.school_year AND de.subject_id = a.subject_id
         WHERE e.school_year = :school_year
         AND e.school_id = :school_id
         AND a.grade_id = :grade_id
@@ -313,6 +364,7 @@ sql:
               JOIN school s ON e.school_id = s.id
               JOIN student st ON e.student_id = st.id
               JOIN school isch ON st.inferred_school_id = isch.id
+              LEFT JOIN district_embargo de ON de.district_id = s.district_id AND de.school_year = e.school_year AND de.subject_id = a.subject_id
             WHERE e.school_id = :school_id
             AND ${sql.reporting.snippet.studentExamPermissionWithEmbargo}
             AND g.id=a.grade_id
@@ -358,14 +410,16 @@ sql:
         JOIN school s ON e.school_id=s.id
         JOIN student st ON st.id=e.student_id
         JOIN school isch ON st.inferred_school_id = isch.id
-            
+        LEFT JOIN district_embargo de ON de.district_id = s.district_id AND de.school_year = e.school_year AND de.subject_id = a.subject_id
+
+      # recall district embargo flag values: 0 (Loading, default), 1 (Reviewing), 2 (Released)
       studentExamPermissionWithEmbargo: >-
         ${sql.snippet.studentExamPermissionWithoutEmbargo}
-        AND
-        (
-           e.school_year < :system_school_year
-           OR e.type_id <> 3
-           OR s.embargo_enabled = 0
-           OR 1 = :state_embargo_admin
-           OR s.district_id IN (:district_embargo_admin_ids)
+        AND (
+          e.type_id <> 3
+          OR CASE coalesce(de.individual, 0)
+            WHEN 0 THEN :state_embargo_loading = 1 OR s.district_id IN (:district_ids_embargo_loading)
+            WHEN 1 THEN :state_embargo_loading = 1 OR :state_embargo_reviewing = 1 OR s.district_id IN (:district_ids_embargo_loading) OR s.district_id IN (:district_ids_embargo_reviewing)
+            WHEN 2 THEN 1
+          END
         )

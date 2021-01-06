@@ -94,6 +94,38 @@ sql:
     findAllEmbargoedDistrictIds: >-
       SELECT id FROM district d WHERE EXiSTS (SELECT 1 FROM school WHERE embargo_enabled = 1 AND district_id = d.id)
 
+    loadingVisible: >-
+      SELECT EXISTS(
+        SELECT 1
+            FROM school_year y
+              JOIN district d ON 1=1
+              JOIN subject s ON 1=1
+              LEFT JOIN district_embargo de ON
+                      y.year = de.school_year and
+                      d.id = de.district_id and
+                      s.id = de.subject_id
+            WHERE
+              CASE coalesce(de.aggregate, 0)
+                WHEN 0 THEN :state_embargo_loading = 1 OR d.id IN (:district_ids_embargo_loading)
+              END
+        LIMIT 1) AS embargo_enabled
+
+    reviewingVisible: >-
+      SELECT EXISTS(
+        SELECT 1
+            FROM school_year y
+              JOIN district d ON 1=1
+              JOIN subject s ON 1=1
+              LEFT JOIN district_embargo de ON
+                      y.year = de.school_year and
+                      d.id = de.district_id and
+                      s.id = de.subject_id
+            WHERE
+              CASE coalesce(de.aggregate, 0)
+                WHEN 1 THEN :state_embargo_loading = 1 OR :state_embargo_reviewing = 1 OR d.id IN (:district_ids_embargo_loading) OR d.id IN (:district_ids_embargo_reviewing)
+              END
+        LIMIT 1) AS embargo_enabled
+
   organization:
     aggregate:
       findAllSchools: >-

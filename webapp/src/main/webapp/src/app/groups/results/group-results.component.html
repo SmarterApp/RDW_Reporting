@@ -1,5 +1,7 @@
 <reporting-embargo-alert
-  *hasPermission="'EMBARGO_READ'"
+  *hasAnyPermission="['TEST_DATA_LOADING_READ', 'TEST_DATA_REVIEWING_READ']"
+  [year]="schoolYear"
+  [group]="group"
 ></reporting-embargo-alert>
 
 <page-heading>

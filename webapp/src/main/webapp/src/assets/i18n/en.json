@@ -457,7 +457,6 @@
       "TBD": "To Be Determined",
       "null": "Not Stated"
     },
-    "embargo-export-disabled": "Embargoed results can be viewed online, but may not be exported.",
     "enrolled-grade": {
       "10": "10",
       "11": "11",
@@ -882,6 +881,7 @@
       "assessment-item-target": "Target {{target}}"
     },
     "school-typeahead-label": "School",
+    "district-typeahead-label": "District",
     "school-year-select-label": "School Year",
     "show-empty-input-label": "{{value}} empty rows",
     "show-empty-input-label-preview": "Empty rows",
@@ -1085,7 +1085,9 @@
     "title": "Manage Embargo"
   },
   "embargo-alert": {
-    "message": "Summative test results in your region of administration are not yet released. These results may be viewed online but not downloaded."
+    "loading-message": "Some summative test results are Loading, and therefore not yet Reviewing or Released.",
+    "reviewing-message": "Some summative test results are Reviewing, and therefore not yet Released.",
+    "mixed-message": "Some summative test results are Loading and some Reviewing, and therefore not yet Released."
   },
   "embargo-confirmation-modal": {
     "accept": {
@@ -1758,6 +1760,11 @@
     "district-label": "District",
     "placeholder": "Enter name"
   },
+  "district-typeahead": {
+    "no-matches": "No districts found.",
+    "district-label": "District",
+    "placeholder": "Enter district name"
+  },
   "select-assessments": {
     "instruct": "Click an assessment to add or remove it from your list of selections above."
   },
@@ -2018,6 +2025,7 @@
     "audit-filename": "test_results_availability_audit",
     "change-results-tooltip": "Change status of selected test results availability (all pages).",
     "change-status": "Change Status",
+    "change-status-disabled": "A value must be selected in the Status filter and at least one test result must match the filter settings before you can change the status.",
     "columns": {
       "school-year": "School Year",
       "district": "District",
@@ -2062,9 +2070,9 @@
     "review-text": "You are about to change the availability status for these test results:",
     "report-type": "Report Type:",
     "school-year": "School Year:",
-    "status": "Status",
+    "status": "Status:",
     "set-status-text": "Set status to:",
-    "subjects": "Subjects:",
+    "subjects": "Subject:",
     "successful-change-1": "Successfully submitted request to change the selected test results availability to ",
     "successful-change-2": " status.  (",
     "successful-change-3": " It can take up to 24 hours to see these changes.",

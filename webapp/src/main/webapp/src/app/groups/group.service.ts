@@ -39,6 +39,7 @@ export class GroupService {
       name: serverGroup.name,
       schoolName: serverGroup.schoolName,
       schoolId: serverGroup.schoolId,
+      districtId: serverGroup.districtId,
       subjectCode: serverGroup.subjectCode,
       userCreated: serverGroup.userCreated,
       totalStudents: serverGroup.studentCount

@@ -20,7 +20,11 @@
   </ul>
 </page-heading>
 
-<ng-container>
+<ng-container *ngIf="pageLoading">
+  <spinner></spinner>
+</ng-container>
+
+<ng-container *ngIf="!pageLoading">
   <ng-container>
     <div
       #alertFailure
@@ -65,7 +69,6 @@
         <br />
       </ng-container>
     </div>
-
     <div class="well well-results">
       {{ 'test-results-availability.filter-title' | translate }}
       <div class="row">
@@ -106,18 +109,18 @@
           </select>
         </div>
 
-        <!-- District Select  -->
-        <div class="col-md-2 text-left">
-          <label
-            for="select-district"
-            *ngIf="userOptions && userOptions.districtAdmin"
-          >
+        <!-- District Select (for fixed list of districts) -->
+        <div
+          class="col-md-2 text-left"
+          *ngIf="
+            userOptions &&
+            (userOptions.districtAdmin || !userOptions.districtsOverflow)
+          "
+        >
+          <label for="select-district" *ngIf="userOptions.districtAdmin">
             {{ 'test-results-availability.district-admin' | translate }}
           </label>
-          <label
-            for="select-district"
-            *ngIf="!(userOptions && userOptions.districtAdmin)"
-          >
+          <label for="select-district" *ngIf="!userOptions.districtAdmin">
             {{ 'test-results-availability.filter-district' | translate }}
           </label>
           <select
@@ -135,6 +138,34 @@
               {{ district.label | translate }}
             </option>
           </select>
+        </div>
+
+        <!-- District Select (with type-ahead filter) -->
+        <div
+          class="col-md-2 text-left"
+          *ngIf="userOptions && userOptions.districtsOverflow"
+        >
+          <label for="select-district">
+            {{ 'test-results-availability.filter-district' | translate }}
+          </label>
+          <district-typeahead
+            #districtTypeahead
+            [options]="districtOptions"
+            (districtChange)="onChangeDistrictFilter($event)"
+            (input)="deselectDistrict($event)"
+            placeholderText="test-results-availability.all-text"
+          ></district-typeahead>
+          <div>
+            <span [hidden]="!districtTypeahead.loading"
+              ><i class="fa fa-spinner fa-pulse"></i
+            ></span>
+            <br [hidden]="districtTypeahead.noResults" />
+            <span
+              [hidden]="!districtTypeahead.noResults"
+              class="small gray-darker"
+              >{{ 'district-typeahead.no-matches' | translate }}</span
+            >
+          </div>
         </div>
 
         <!-- Subject Select  -->
@@ -220,7 +251,7 @@
   </ng-container>
 </ng-container>
 
-<ng-container>
+<ng-container *ngIf="!pageLoading">
   <ng-container>
     <div class="well well-results">
       {{ 'test-results-availability.selected-title' | translate }}
@@ -238,7 +269,7 @@
           [rows]="pageSettings.pageSize"
           [first]="pageSettings.offset"
           [totalRecords]="rowCount || 0"
-          [loading]="loading"
+          [loading]="tableLoading"
           sortField="default"
           [autoLayout]="true"
           [showCurrentPageReport]="false"
@@ -290,6 +321,12 @@
         </p-table>
       </div>
       <div class="modal-footer table-footer">
+        <info-button
+          [hidden]="rowCount && testResultAvailabilityFilters.status.value"
+          content="{{
+            'test-results-availability.change-status-disabled' | translate
+          }}"
+        ></info-button>
         <button
           [disabled]="!rowCount || !testResultAvailabilityFilters.status.value"
           (click)="openChangeResultsModal()"

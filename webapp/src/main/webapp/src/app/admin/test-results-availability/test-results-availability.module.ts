@@ -12,6 +12,7 @@ import { BsDropdownModule, ModalModule, TooltipModule } from 'ngx-bootstrap';
 import { testResultsAvailabilityRoutes } from './test-results-availability.routes';
 import { DropdownModule } from 'primeng/dropdown';
 import { TestResultsAvailabilityChangeStatusModal } from './test-results-availability-change-status.modal';
+import { DistrictModule } from '../../shared/district/district.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { TestResultsAvailabilityChangeStatusModal } from './test-results-availab
     RouterModule.forChild(testResultsAvailabilityRoutes),
     BsDropdownModule,
     DropdownModule,
-    TooltipModule
+    TooltipModule,
+    DistrictModule
   ]
 })
 export class TestResultsAvailabilityModule {}
