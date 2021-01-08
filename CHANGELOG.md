@@ -1,5 +1,18 @@
 ## Change Log
 
+#### 2.5.0 2021-01-05 -
+
+Work done as part of RDW Phase 6, feature 1: Test Results Availability
+
+* Enhance existing embargo functionality from two statuses, Embargoed and Released, to three, 
+Loading, Reviewing, and Released.
+* Add roles and permissions to allow certain DevOps users access to view, export, and print results in any of the 
+three statuses, while restricting ordinary State and District admins to Reviewing and Released results.
+* Allow finer grain control over embargo status. Status changes can now be applied based on school year, district,
+subject, and report type (individual or aggregate).
+* Introduce a new user interface screen, accessible to DevOps and properly permissioned State and District admins via
+the Test Results Availability button on the home screen. This UI allows viewing and updating the embargo statuses.
+  
 #### 2.4.0 -
 
 Work done as part of RDW Phase 6.
