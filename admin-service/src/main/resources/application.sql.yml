@@ -574,6 +574,15 @@ sql:
     createDatabaseUser: >-
       CREATE USER :username @'%' IDENTIFIED BY :password
 
+    initializeSandboxEmbargoes: >-
+      INSERT IGNORE INTO district_embargo (school_year, district_id, subject_id, individual, aggregate)
+      SELECT  y.year, d.id, s.id, 2, 2
+      FROM school_year y
+               JOIN district d
+               JOIN subject s
+      WHERE y.year NOT IN (SELECT max(year) FROM school_year)
+
+
 #    grantUserToDatabase: >-
 #      GRANT ALL PRIVILEGES ON $[databaseName].* TO :username @'%'
 #
