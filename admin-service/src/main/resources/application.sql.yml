@@ -40,53 +40,7 @@ sql:
       LIMIT :limit;
 
   embargo:
-    # query to find all embargo records given a school year and a list of (user's) districts
-    # this includes counts of summative exams grouped by each org so it has performance implications
-    findAllBySchoolYear: >-
-      SELECT
-        st.*,
-        coalesce(se.individual, 0) as individual,
-        coalesce(se.aggregate, 1) as aggregate,
-        su.code AS subject_code,
-        coalesce(cnt.count, 0) as count
-      FROM (SELECT 'State' AS org_type, NULL AS org_id, NULL AS org_name, :school_year AS school_year) st
-        JOIN subject su ON 1=1
-        LEFT JOIN (SELECT a.subject_id, COUNT(e.id) AS count
-                    FROM asmt a JOIN exam e on a.id = e.asmt_id
-                    WHERE a.type_id = 3 AND e.deleted = 0 AND e.school_year = :school_year
-                    GROUP BY a.subject_id) cnt ON su.id = cnt.subject_id
-        LEFT JOIN state_embargo se ON se.school_year = :school_year
-      UNION ALL
-      SELECT
-        'District' AS org_type,
-        d.id AS org_id,
-        d.name AS org_name,
-        :school_year AS school_year,
-        IF(se.individual = 0 OR de.individual = 0 OR (se.individual IS NULL and de.individual IS NULL), 0, 1) as individual,
-        IF(se.aggregate = 0 OR de.aggregate = 0, 0, 1) as aggregate,
-        su.code AS subject_code,
-        COALESCE(cnt.count, 0) AS count
-      FROM district d JOIN subject su ON 1=1
-        LEFT JOIN (SELECT s.district_id, a.subject_id, COUNT(e.id) AS count
-                    FROM asmt a JOIN exam e on a.id = e.asmt_id JOIN school s ON e.school_id = s.id
-                    WHERE s.district_id IN (:district_ids) AND a.type_id = 3 AND e.deleted = 0 AND e.school_year = :school_year
-                    GROUP BY s.district_id, a.subject_id) cnt ON d.id = cnt.district_id AND su.id = cnt.subject_id
-        LEFT JOIN state_embargo se ON se.school_year = :school_year
-        LEFT JOIN district_embargo de ON d.id = de.district_id and de.school_year = :school_year
-      WHERE d.id IN (:district_ids)
-
-    findOneBySchoolYearAndState: >-
-      SELECT 'State' AS org_type, NULL AS org_id, NULL AS org_name, :school_year AS school_year, se.individual, se.aggregate
-      FROM state_embargo se
-      WHERE se.school_year = :school_year
-
-    findOneBySchoolYearAndDistrict: >-
-      SELECT 'District' AS org_type, d.id AS org_id, d.name AS org_name, :school_year AS school_year, de.individual, de.aggregate
-      FROM district d
-        JOIN district_embargo de ON d.id = de.district_id
-      WHERE de.school_year = :school_year AND d.id = :district_id
-
-    findTestResultsAvailability: >-
+    findEmbargoes: >-
       SELECT  y.year                     AS school_year,
               d.id                       AS district_id,
               d.name                     AS district_name,
@@ -117,7 +71,7 @@ sql:
       {ORDER_BY_PLACEHOLDER}
       LIMIT :page_size OFFSET :offset
 
-    findTestResultsAvailabilityDefaultOrdering: >-
+    findEmbargoesDefaultOrdering: >-
       ORDER BY
         {PRIMARY_SORT_PLACEHOLDER},
         school_year DESC,
