@@ -1,5 +1,17 @@
 ## Change Log
 
+#### 2.5.1 2021-01-22 -
+
+Work done as part of RDW Phase 6, feature 1: Test Results Availability. (Completes missing features from
+the 2.5.0 MVP release.)
+
+* Make Test Results Availability properties tenant configurable. These properties are:
+  * audit log days -- the number of days to include in the downloaded audit history.
+  * audit log file name -- the file name to use for the the audit history 
+    (the tenant name will automatically be prepended to this name).
+  * page size -- the number of rows per page in the Test Results Availability management UI.
+* Populate the Result Count column in the Test Results Availability UI.
+
 #### 2.5.0 2021-01-05 -
 
 Work done as part of RDW Phase 6, feature 1: Test Results Availability
