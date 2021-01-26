@@ -4,9 +4,6 @@ import { HasAnyPermissionCanActivate } from '../shared/security/can-activate/has
 export const aggregateReportBreadcrumb = ({ translateService }) =>
   translateService.instant('aggregate-reports.heading');
 
-export const embargoBreadcrumb = ({ translateService }) =>
-  translateService.instant('embargo.title');
-
 export const testResultsAvailabilityBreadcrumb = ({ translateService }) =>
   translateService.instant('test-results-availability.title');
 
@@ -43,15 +40,6 @@ export const adminRoutes: Route[] = [
         data: {
           breadcrumb: aggregateReportBreadcrumb,
           permissions: ['CUSTOM_AGGREGATE_READ']
-        }
-      },
-      {
-        path: 'embargoes',
-        loadChildren: 'app/admin/embargo/embargo.module#EmbargoModule',
-        canActivate: [HasAnyPermissionCanActivate],
-        data: {
-          breadcrumb: embargoBreadcrumb,
-          permissions: ['EMBARGO_WRITE']
         }
       },
       {

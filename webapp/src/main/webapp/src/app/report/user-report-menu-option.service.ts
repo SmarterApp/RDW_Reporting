@@ -58,9 +58,6 @@ function createOptions(
         userReport.status !== 'COMPLETED' &&
         !(userReport.status === 'PENDING' || userReport.status === 'RUNNING');
 
-      const embargoed: boolean =
-        userReport.metadata.createdWhileDataEmbargoed === 'true';
-
       const ViewAggregateOption = {
         label: translateService.instant('report-action.view-report'),
         disabled: viewAndDownloadDisabled,
@@ -77,10 +74,7 @@ function createOptions(
 
       const OpenAggregateOption = {
         label: translateService.instant('report-action.download-report'),
-        tooltip: embargoed
-          ? translateService.instant('report-action.embargoed')
-          : undefined,
-        disabled: viewAndDownloadDisabled || embargoed,
+        disabled: viewAndDownloadDisabled,
         click: () => userReportService.openReport(userReport.id)
       };
 

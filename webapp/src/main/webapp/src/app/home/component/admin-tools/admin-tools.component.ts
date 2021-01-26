@@ -39,12 +39,6 @@ const links: Link[] = [
     permission: 'INSTRUCTIONAL_RESOURCE_WRITE'
   },
   {
-    id: 'embargo',
-    path: '/embargoes',
-    icon: 'fa-eye-slash',
-    permission: 'EMBARGO_WRITE'
-  },
-  {
     id: 'test-results-availability',
     path: '/test-results-availability',
     icon: 'fa-eye-slash',
