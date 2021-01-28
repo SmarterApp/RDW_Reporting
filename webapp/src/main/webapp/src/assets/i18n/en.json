@@ -1063,81 +1063,10 @@
     "title": "Delete Instructional Resource",
     "warning": "WARNING: Deleting this resource cannot be undone."
   },
-  "embargo": {
-    "district": {
-      "table": {
-        "headers": {
-          "aggregateEnabled": "Aggregate Test Results",
-          "individualEnabled": "Individual Test Results",
-          "name": "District"
-        }
-      }
-    },
-    "state": {
-      "table": {
-        "headers": {
-          "aggregateEnabled": "Aggregate Test Results",
-          "individualEnabled": "Individual Test Results",
-          "name": "State"
-        }
-      }
-    },
-    "title": "Manage Embargo"
-  },
   "embargo-alert": {
     "loading-message": "Some summative test results are Loading, and therefore not yet Reviewing or Released.",
     "reviewing-message": "Some summative test results are Reviewing, and therefore not yet Released.",
     "mixed-message": "Some summative test results are Loading and some Reviewing, and therefore not yet Released."
-  },
-  "embargo-confirmation-modal": {
-    "accept": {
-      "false": "Release",
-      "true": "Embargo"
-    },
-    "command-description": {
-      "District": {
-        "Aggregate": {
-          "false": "Completing this action will allow users to view aggregate data for {{resultCount}} Summative test results for {{organizationName}}. Do you want to release before the state releases all aggregate Summative test results?",
-          "true": "Completing this action will prevent users from viewing aggregate data for {{resultCount}} Summative test results for {{organizationName}}. This setting will be overridden should the state release all aggregate Summative test results."
-        },
-        "Individual": {
-          "false": "Completing this action will allow users to view {{resultCount}} individual Summative test results for {{organizationName}}. Do you want to release before the state releases all individual Summative test results?",
-          "true": "Completing this action will prevent users from viewing {{resultCount}} individual Summative test results for {{organizationName}}. This setting will be overridden should the state release all individual Summative test results."
-        }
-      },
-      "State": {
-        "Aggregate": {
-          "false": "Completing this action will allow users to view aggregate data for {{resultCount}} Summative test results for {{organizationName}}. Aggregate data views however, will not be available until the state or all districts have released aggregate test results.",
-          "true": "Completing this action will prevent users from viewing aggregate data for {{resultCount}} Summative test results for {{organizationName}}. This setting can be overridden by individual districts however, aggregate data views will not be available until all districts have released aggregate test results."
-        },
-        "Individual": {
-          "false": "Completing this action will allow users to view {{resultCount}} individual Summative test results for {{organizationName}}.",
-          "true": "Completing this action will prevent users from viewing {{resultCount}} individual Summative test results for {{organizationName}}. This setting can be overridden by individual districts that release their results ahead of the state."
-        }
-      }
-    },
-    "decline": "Cancel",
-    "header": {
-      "Aggregate": "Aggregate Test Results for {{organizationName}}",
-      "Individual": "Individual Test Results for {{organizationName}}"
-    },
-    "state-description": {
-      "Aggregate": {
-        "false": "{{stateName}} aggregate Summative test results are currently released.",
-        "true": "{{stateName}} aggregate Summative test results are currently embargoed."
-      },
-      "Individual": {
-        "false": "{{stateName}} individual Summative test results are currently released.",
-        "true": "{{stateName}} individual Summative test results are currently embargoed."
-      }
-    }
-  },
-  "embargo-table": {
-    "released-by-state": "Released by State",
-    "toggle": {
-      "false": "Released",
-      "true": "Embargoed"
-    }
   },
   "exam-filter": {
     "off-grade": {
@@ -1201,10 +1130,6 @@
       "custom-aggregate": {
         "button": "Custom Aggregate Report",
         "description": "Create a customized report of student performance."
-      },
-      "embargo": {
-        "button": "Embargo",
-        "description": "Manage embargoes of summative results."
       },
       "ingest-pipelines": {
         "button": "Ingest Pipelines",
@@ -1394,7 +1319,6 @@
   "popup-menu": "Menu",
   "report-action": {
     "download-report": "Download Report Data",
-    "embargoed": "Reports with embargoed results may only be viewed online, they may not be downloaded.",
     "view-query": "View Report Query",
     "view-report": "View Report",
     "save-query": "Save Report Query",

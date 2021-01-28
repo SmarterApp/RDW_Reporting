@@ -132,7 +132,6 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
   viewState: ViewState;
   displayOptions: AggregateReportTableDisplayOptions;
   effectiveReportType: ReportQueryType;
-  isEmbargoed: boolean;
   isLongitudinal: boolean;
   showTargetMathCautionMessage: boolean;
   userQueryId: string;
@@ -188,11 +187,10 @@ export class AggregateReportComponent implements OnInit, OnDestroy {
       assessmentDefinition
     );
 
-    this.isEmbargoed = report.metadata.createdWhileDataEmbargoed === 'true';
     this.isLongitudinal = query.type === 'Longitudinal';
     this.showTargetMathCautionMessage =
-      query.type == 'Target' &&
-      (<TargetReportQuery>query).subjectCode == 'Math';
+      query.type === 'Target' &&
+      (<TargetReportQuery>query).subjectCode === 'Math';
 
     forkJoin(
       this.subjectService.getSubjectDefinitions(),
