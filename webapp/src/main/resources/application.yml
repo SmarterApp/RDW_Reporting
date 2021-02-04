@@ -1,8 +1,8 @@
 app:
   cache:
     translation:
-      # every 2 mins (2 * 60 * 1000)
-      refresh-delay: "120000"
+      # every 3 mins (3 * 60 * 1000)
+      refresh-delay: "180000"
 
 cloud:
   aws:
