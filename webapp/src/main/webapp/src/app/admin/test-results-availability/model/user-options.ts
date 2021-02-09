@@ -7,4 +7,5 @@ export interface UserOptions {
   statuses: { label: string; value: string }[];
   schoolYears: { label: string; value: number }[];
   reportTypes: { label: string; value: string }[];
+  pageSize: number;
 }

@@ -15,7 +15,6 @@ import { ResponseContentType } from '@angular/http';
 import { EmbargoQueryType } from '../model/embargo-query-type';
 import { PageSettingsType } from '../model/page-settings-type';
 
-const ResourceContext = `${AdminServiceRoute}/testResults`;
 const ServiceRoute = `${AdminServiceRoute}/embargoes`;
 
 @Injectable({
@@ -101,6 +100,8 @@ export class TestResultsAvailabilityService implements OnInit {
       .sort((a, b) => a.label.localeCompare(b.label));
     reportTypes.unshift(TestResultsAvailabilityService.FilterIncludeAll);
 
+    const pageSize = source.pageSize;
+
     return {
       viewAudit: source.viewAudit,
       districtAdmin: source.districtAdmin,
@@ -109,7 +110,8 @@ export class TestResultsAvailabilityService implements OnInit {
       statuses: statuses,
       subjects: subjects,
       schoolYears: schoolYears,
-      reportTypes: reportTypes
+      reportTypes: reportTypes,
+      pageSize
     };
   }
 
@@ -153,7 +155,7 @@ export class TestResultsAvailabilityService implements OnInit {
       statuses: filters.status.value ? [filters.status.value] : null
     };
 
-    return this.dataService.post(`${ResourceContext}`, query).pipe(
+    return this.dataService.post(`${ServiceRoute}`, query).pipe(
       map((sourceTestResults: any[]) => {
         return sourceTestResults.map(r =>
           TestResultsAvailabilityService.toTestResultAvailability(r)
@@ -178,7 +180,7 @@ export class TestResultsAvailabilityService implements OnInit {
       statuses: filters.status.value ? [filters.status.value] : null
     };
 
-    return this.dataService.post(`${ResourceContext}/count`, query).pipe(
+    return this.dataService.post(`${ServiceRoute}/count`, query).pipe(
       map((source: number) => {
         return source;
       })
@@ -189,7 +191,7 @@ export class TestResultsAvailabilityService implements OnInit {
    * Gets the options for the filter dropdowns and some user permission settings.
    */
   getUserOptions(): Observable<UserOptions> {
-    return this.dataService.get(`${ResourceContext}/filters`).pipe(
+    return this.dataService.get(`${ServiceRoute}/filters`).pipe(
       map((sourceUserSettings: any) => {
         return TestResultsAvailabilityService.toOptions(sourceUserSettings);
       })
@@ -202,13 +204,13 @@ export class TestResultsAvailabilityService implements OnInit {
    * @param search the search filter. Districts whose name contains the string will be returned.
    */
   getDistrictFiltersByName(
-    name: string
+    search: string
   ): Observable<{ label: string; value: number }[]> {
-    if (!name || !name.trim()) {
+    if (!search || !search.trim()) {
       return of([]);
     }
 
-    return this.dataService.get(`${ResourceContext}/districts/${name}`).pipe(
+    return this.dataService.get(`${ServiceRoute}/districts/${search}`).pipe(
       map((sourceDistricts: any[]) => {
         return TestResultsAvailabilityService.toDistricts(sourceDistricts);
       })
@@ -234,7 +236,7 @@ export class TestResultsAvailabilityService implements OnInit {
     const asArray = el => (el === null ? null : [el]);
 
     return this.dataService.put(
-      `${ResourceContext}`,
+      `${ServiceRoute}`,
       {
         schoolYear: testResultFilters.schoolYear.value,
         districtIds: asArray(testResultFilters.district.value),

@@ -203,6 +203,23 @@ export function dataSourceFieldConfigurations(
   }));
 }
 
+function embargoFieldConfigurations(): FormFieldConfiguration[] {
+  return [
+    {
+      name: 'embargo.pageSize',
+      dataType: positiveIntegerDataType
+    },
+    {
+      name: 'embargo.auditLogDays',
+      dataType: positiveIntegerDataType
+    },
+    {
+      name: 'embargo.auditLogFileName',
+      dataType: stringDataType
+    }
+  ];
+}
+
 function reportingFieldConfigurations(): FormFieldConfiguration[] {
   return [
     {
@@ -301,6 +318,7 @@ const configurations = [
   ...aggregateFieldConfigurations(),
   ...archiveFieldConfigurations(),
   ...dataSourceFieldConfigurations(),
+  ...embargoFieldConfigurations(),
   ...reportingFieldConfigurations(),
   ...validationFieldConfigurations(),
   ...taskServiceArtClientFieldConfigurations(),
@@ -324,6 +342,7 @@ export function configurationsFormFieldConfigurations(
       ...aggregateFieldConfigurations(),
       ...archiveFieldConfigurations(readonly),
       ...dataSourceFieldConfigurations(readonly),
+      ...embargoFieldConfigurations(),
       ...reportingFieldConfigurations(),
       ...validationFieldConfigurations(),
       ...taskServiceArtClientFieldConfigurations(),
@@ -333,6 +352,7 @@ export function configurationsFormFieldConfigurations(
   } else {
     return [
       ...aggregateFieldConfigurations(),
+      ...embargoFieldConfigurations(),
       ...reportingFieldConfigurations()
     ];
   }

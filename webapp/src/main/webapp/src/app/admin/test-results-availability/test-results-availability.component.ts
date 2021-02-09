@@ -65,7 +65,7 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
     offset: 0,
     sortField: 'default',
     descending: false,
-    pageSize: 20
+    pageSize: 0
   };
 
   // Page loading flag. False until filter controls are populated.
@@ -190,6 +190,7 @@ export class TestResultsAvailabilityComponent implements OnInit, DoCheck {
 
     this.testResultsService.getUserOptions().subscribe(userOptions => {
       this.userOptions = userOptions;
+      this.pageSettings.pageSize = userOptions.pageSize;
       this.testResultAvailabilityFilters = this.initializeFilterSettings(
         userOptions
       );

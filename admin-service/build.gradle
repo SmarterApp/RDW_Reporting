@@ -43,6 +43,7 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-stream'
     implementation 'org.springframework.security.oauth:spring-security-oauth2'
     implementation 'org.springframework:spring-context-support'
+    implementation 'org.springframework.data:spring-data-commons'
     implementation 'org.xmlunit:xmlunit-core'
 
     compileOnly 'javax.servlet:javax.servlet-api'

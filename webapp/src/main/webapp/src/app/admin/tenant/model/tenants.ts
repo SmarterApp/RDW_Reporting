@@ -176,6 +176,7 @@ export function toConfigurations(
     archive,
     artClient,
     datasources,
+    embargo,
     importServiceClient,
     reporting,
     sendReconciliationReport,
@@ -187,6 +188,7 @@ export function toConfigurations(
     type === 'SANDBOX'
       ? {
           aggregate,
+          embargo,
           reporting
         }
       : {
@@ -194,6 +196,7 @@ export function toConfigurations(
           archive,
           artClient,
           datasources,
+          embargo,
           importServiceClient,
           reporting,
           sendReconciliationReport,

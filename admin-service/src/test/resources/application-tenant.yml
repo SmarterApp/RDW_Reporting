@@ -1,0 +1,25 @@
+#Used for testing
+#simulating core tenant file
+tenantProperties:
+  tenants:
+    CA:
+      id: CA
+      key: CA
+      display-name: California
+    NV:
+      id: NV
+      key: NV
+      display-name: Nevada
+
+#simulating base + two tenants
+embargo:
+  page-size: 11
+  audit-log-days: 111
+  audit-log-file-name: embargoAudit.csv
+  tenants:
+    CA:
+      page-size: 22
+      audit-log-days: 222
+      audit-log-file-name: caAudit.csv
+    NV:
+      audit-log-file-name: nvAudit.csv
