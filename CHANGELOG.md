@@ -1,7 +1,8 @@
 ## Change Log
 
-## 2.5.3 2021-03-10 - 
-  * SRS-494: Hot fix for issue with exporting writing trait scores.
+## 2.5.3 2021-03-12 - 
+  * SRS-483: Minor changes to support Alt Score ISRs.
+  * SRS-494: WER Score Exports Fail in WA Stage.
 
 ### 2.5.2 2021-02-09 -
 

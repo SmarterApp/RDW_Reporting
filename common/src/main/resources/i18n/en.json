@@ -196,6 +196,9 @@
         "label": "Date Taken:"
       },
       "section": {
+        "alt-score": {
+          "header": "Student Achievement by Alt Score"
+        },
         "claim": {
           "header": "Student Achievement by Claim"
         },
@@ -239,6 +242,9 @@
         "label": "Date Taken:"
       },
       "section": {
+        "alt-score": {
+          "header": "Student Achievement by Alt Score"
+        },
         "claim": {
           "header": "Student Achievement by Claim"
         },
