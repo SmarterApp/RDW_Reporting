@@ -1,5 +1,9 @@
 ## Change Log
 
+## 2.5.3 2021-03-12 - 
+  * SRS-483: Minor changes to support Alt Score ISRs.
+  * SRS-494: WER Score Exports Fail in WA Stage.
+
 ### 2.5.2 2021-02-09 -
 
 Work done as part of RDW Phase 6, feature 1: Test Results Availability, bug fixes and

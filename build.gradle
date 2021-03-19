@@ -20,7 +20,7 @@ idea {
 project.ext.apps = subprojects.findAll { !'lib'.equalsIgnoreCase(it.findProperty('moduleType') as String) }
 
 // Set version dependencies. This allows the cli to force version, e.g. `-Pcommon=1.1.0-SNAPSHOT`
-String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "2.5.0-26"
+String rdwCommonVersion = project.hasProperty("common") ? project.property("common") : "2.5.0-27"
 String rdwSchemaVersion = project.hasProperty("schema") ? project.property("schema") : "2.5.0-33"
 String dockerPrefix = "smarterbalanced"
 

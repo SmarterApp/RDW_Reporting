@@ -327,23 +327,27 @@ export class CsvExportService {
     const isSummative = exportRequest.assessment.type === 'sum';
 
     exportRequest.assessmentItems.forEach((item, i) => {
-      const summaryMap = exportRequest.summaries[i];
-      // sort the summary map by purpose. Category rows are already sorted.
-      Array.from(summaryMap.keys())
-        .sort()
-        .forEach(purpose => {
-          summaryMap.get(purpose).rows.forEach(row => {
-            compositeRows.push({
-              assessmentItem: item,
-              purpose: purpose,
-              traitCategoryAggregate: row
-            });
+      // SRS-494: some summative assessments have multiple associcated WER items,
+      // which is unexpected. guard fix keeps this situation from breaking the export.
+      if (i < exportRequest.summaries.length) {
+        const summaryMap = exportRequest.summaries[i];
+        // sort the summary map by purpose. Category rows are already sorted.
+        Array.from(summaryMap.keys())
+          .sort()
+          .forEach(purpose => {
+            summaryMap.get(purpose).rows.forEach(row => {
+              compositeRows.push({
+                assessmentItem: item,
+                purpose: purpose,
+                traitCategoryAggregate: row
+              });
 
-            if (row.trait.maxPoints > maxPoints) {
-              maxPoints = row.trait.maxPoints;
-            }
+              if (row.trait.maxPoints > maxPoints) {
+                maxPoints = row.trait.maxPoints;
+              }
+            });
           });
-        });
+      }
     });
 
     const getAssessment = () => exportRequest.assessment;
