@@ -802,6 +802,109 @@ without Thymeleaf processing.
   <!--/* Timestamp.
          To put a timestamp on a report, use "${#dates.createNowForTimeZone()}" */-->
 
+  <!--/* ************************************************************************************ */-->
+  <!--/* Larger examples                                                                       */-->
+  <!--/* ************************************************************************************ */-->
+  <section class="mt-md mb-md"
+           th:with="scored=${report.exam.scaleScore != null and report.exam.scaleScore.value != null}">
+    <!--/* Claim code reporting - taken from old template for ELA and Math summative */-->
+    <div class="container" th:if="${scored}">
+      <div class="achievement-descriptions">
+        <div class="overall">
+          <span class="title" th:text="#{report.sum.section.claim.header}"></span>
+          <p th:text="#{('subject.' + ${report.subject} + '.report-grade.' + ${report.assessment.gradeCode} + '.asmt-type.sum.claim.title')(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></p>
+        </div>
+        <!-- SmarterBalanced assessments have either 3 (Math) or 4 (ELA) scorable claims.
+             Each claim is presented with the icon, name, description, and the student's achievement level.
+             For ELA, the 4th claim is expected to be Writing and it may have trait scores. So, if it is
+             the last claim and the trait scores are set, then assume those trait scores apply to that claim.
+        -->
+        <div class="level-description"
+             th:each="claimCode, iter : ${#lists.sort(report.assessment.claimCodes, support.getClaimCodeComparator(report))}"
+             th:with="claimIdx=${report.assessment.claimCodes.indexOf(claimCode)},writingClaim=${iter.last and (report.exam.traitScores != null)}"
+             th:classappend="${writingClaim} ? 'level-description-writing-traits' : ''">
+          <div class="main-claim">
+                        <span class="title">
+                            <i class="fa"
+                               th:classappend="#{'subject.' + ${report.subject} + '.claim.' + ${claimCode} + '.icon'}"></i>
+                            <span th:text="#{'subject.' + ${report.subject} + '.claim.' + ${claimCode} + '.name'}"
+                                  th:remove="tag"></span>
+                        </span>
+            <span class="level-label label"
+                  th:if="${report.exam.claimScaleScores[claimIdx] != null}"
+                  th:classappend="#{'subject.' + ${report.subject} + '.asmt-type.sum.claim-score.level.' + ${report.exam.claimScaleScores[claimIdx].level} + '.color'}"
+                  th:text="#{'subject.' + ${report.subject} + '.asmt-type.sum.claim-score.level.' + ${report.exam.claimScaleScores[claimIdx].level} + '.name'}"></span>
+            <span class="level-label label gray"
+                  th:if="${report.exam.claimScaleScores[claimIdx] == null}"
+                  th:text="#{'report.not-scored'}"></span>
+            <div class="description"
+                 th:if="${report.exam.claimScaleScores[claimIdx] != null}">
+              <p th:text="#{('subject.' + ${report.subject} + '.report-grade.' + ${report.assessment.gradeCode} + '.asmt-type.sum.claim.' + ${claimCode} + '.level.' + ${report.exam.claimScaleScores[claimIdx].level})(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></p>
+            </div>
+          </div>
+
+          <div class="writing-traits" th:if="${writingClaim}">
+            <!-- there should be only one purpose in the map but force single "iteration" -->
+            <div th:each="entry, iter : ${support.traitScoresByPurpose(report.exam.traitScores)}"
+                 th:if="${iter.first}"
+                 th:with="purpose=${entry.key},traitScores=${entry.value}">
+                            <span class="title"
+                                  th:text="#{('report.writing.trait.purpose')(#{'subject.' + ${report.subject} + '.trait.purpose.' + ${purpose} + '.name'})}"></span>
+              <div class="description"
+                   th:text="#{('report.writing.description')(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></div>
+
+              <div class="trait" th:each="traitScore : ${traitScores}">
+                <span class="title"
+                      th:text="#{'subject.' + ${report.subject} + '.trait.category.' + ${traitScore.category} + '.name'}"></span>
+                <span class="score">
+                                    <span style="background-color: #104564;" th:text="${traitScore.score}"></span>
+                                    <span th:text="#{('report.writing.trait.outof')(${traitScore.maxScore})}"
+                                          th:remove="tag"></span>
+                                </span>
+                <div class="description">
+                  <p th:text="#{'subject.' + ${report.subject} + '.trait.category.' + ${traitScore.category} + '.' + ${traitScore.score}}"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- /* Alt score reporting -- created to parallel the claim section shown above. */ -->
+    <div class="container" th:if="${scored}">
+      <div class="achievement-descriptions">
+        <div class="overall">
+          <span class="title" th:text="#{report.sum.section.alt-score.header}"></span>
+          <p th:text="#{('subject.' + ${report.subject} + '.report-grade.' + ${report.assessment.gradeCode} + '.asmt-type.sum.alt-score.title')(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></p>
+        </div>
+        <div class="level-description"
+             th:each="altScoreCode, iter : ${report.assessment.altScoreCodes}"
+             th:with="altScoreIdx=${report.assessment.altScoreCodes.indexOf(altScoreCode)}">
+          <div class="main-alt-score">
+                        <span class="title">
+                            <i class="fa"
+                               th:classappend="#{'subject.' + ${report.subject} + '.alt.' + ${altScoreCode} + '.icon'}"></i>
+                            <span th:text="#{'subject.' + ${report.subject} + '.alt.' + ${altScoreCode} + '.name'}"
+                                  th:remove="tag"></span>
+                        </span>
+            <span class="level-label label"
+                  th:if="${report.exam.altScaleScores[altScoreIdx] != null}"
+                  th:classappend="#{'subject.' + ${report.subject} + '.asmt-type.sum.alt-score.level.' + ${report.exam.altScaleScores[altScoreIdx].level} + '.color'}"
+                  th:text="#{'subject.' + ${report.subject} + '.asmt-type.sum.alt-score.level.' + ${report.exam.altScaleScores[altScoreIdx].level} + '.name'}"></span>
+            <span class="level-label label gray"
+                  th:if="${report.exam.altScaleScores[altScoreIdx] == null}"
+                  th:text="#{'report.not-scored'}"></span>
+            <div class="description"
+                 th:if="${report.exam.altScaleScores[altScoreIdx] != null}">
+              <p th:text="#{('subject.' + ${report.subject} + '.report-grade.' + ${report.assessment.gradeCode} + '.asmt-type.sum.alt-score.' + ${altScoreCode} + '.level.' + ${report.exam.altScaleScores[altScoreIdx].level})(${report.student.firstName != null ? report.student.firstName : report.student.ssid})}"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
 </div>
 </body>
 </html>
