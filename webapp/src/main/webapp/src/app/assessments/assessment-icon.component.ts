@@ -13,6 +13,7 @@ export const SummativeAssessmentIconsBySubject = {
   ELPAC: 'ELPAC',
   Science: 'Science',
   CAST: 'Science',
+  SC: 'Science',
   CSA: 'Spanish'
 };
 

@@ -381,7 +381,7 @@
               <span [ngSwitch]="rowData.standardMetRelativeResidualLevel">
                 <span
                   *ngSwitchCase="'Above'"
-                  class="label label-lg performance-label sb-iab-green"
+                  class="label label-lg performance-label green-bright"
                 >
                   {{
                     'aggregate-report-table.target.standard.Above' | translate
@@ -389,7 +389,7 @@
                 </span>
                 <span
                   *ngSwitchCase="'Near'"
-                  class="label label-lg performance-label sb-iab-yellow"
+                  class="label label-lg performance-label yellow-mustard"
                 >
                   {{
                     'aggregate-report-table.target.standard.Near' | translate
@@ -397,7 +397,7 @@
                 </span>
                 <span
                   *ngSwitchCase="'Below'"
-                  class="label label-lg performance-label sb-iab-red"
+                  class="label label-lg performance-label pink-dark"
                 >
                   {{
                     'aggregate-report-table.target.standard.Below' | translate
