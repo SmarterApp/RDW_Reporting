@@ -1649,6 +1649,7 @@
       "EXPIRED": "Expired",
       "FAILED": "Failed",
       "NO_RESULTS": "No Results",
+      "NOT_ENOUGH_RESULTS": "Insufficient Data",
       "PENDING": "Pending",
       "RUNNING": "Running"
     },
