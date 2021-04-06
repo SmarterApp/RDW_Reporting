@@ -77,7 +77,8 @@
               row.report.status === 'RUNNING',
             maroon:
               row.report.status === 'FAILED' ||
-              row.report.status === 'NO_RESULTS'
+              row.report.status === 'NO_RESULTS' ||
+              row.report.status === 'NOT_ENOUGH_RESULTS'
           }"
         >
           {{ 'reports.status.' + row.report.status | translate }}
