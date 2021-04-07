@@ -146,6 +146,7 @@
       "students-tested": "Students Tested",
       "target": "Target"
     },
+    "achievement-comparison-graph": "Achievement Comparison Graph",
     "empty-message": "No Results Found",
     "sample": {
       "claim": "Sample Claim {{code}}",
