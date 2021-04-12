@@ -39,6 +39,7 @@ import {
 import { toScoreTable } from '../../exam/component/score-table/score-tables';
 import { ScoreTable } from '../../exam/component/score-table/score-table';
 import { ExportResults } from './view/export-results';
+import set = Reflect.set;
 
 enum ResultsViewState {
   ByStudent = 1,
@@ -310,7 +311,10 @@ export class AssessmentResultsComponent implements OnInit {
   }
 
   get meetsThreshold(): boolean {
-    return this._overallScoreTable.resultCount >= this._minimumStudentCount;
+    return (
+      this._overallScoreTable &&
+      this._overallScoreTable.resultCount >= this._minimumStudentCount
+    );
   }
 
   private isCurrentView(viewState: ResultsViewState): boolean {
@@ -421,7 +425,9 @@ export class AssessmentResultsComponent implements OnInit {
     ).subscribe(([settings, subjectDefinition]) => {
       this.percentileDisplayEnabled = settings.percentileDisplayEnabled;
       this.subjectDefinition = subjectDefinition;
-      this._minimumStudentCount = settings.targetReport.minimumStudentCount;
+      this._minimumStudentCount = settings.targetReport
+        ? settings.targetReport.minimumStudentCount
+        : 0;
 
       this.scoreTypeOptions = createScoreTypeOptions(
         subjectDefinition,
