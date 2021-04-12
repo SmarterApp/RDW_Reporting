@@ -55,6 +55,17 @@ reporting:
     insufficient-data-cutoff: 0.2
     min-number-of-students: 0
   tenant-administration-disabled: false
+  student-fields:
+    EconomicDisadvantage: Enabled
+    EnglishLanguageAcquisitionStatus: Disabled
+    Ethnicity: Enabled
+    Gender: Enabled
+    IndividualEducationPlan: Enabled
+    LimitedEnglishProficiency: Enabled
+    MigrantStatus: Enabled
+    MilitaryStudentIdentifier: Enabled
+    PrimaryLanguage: Enabled
+    Section504: Enabled
 
 saml:
   # SAML keystore path: file:/some/path/saml.jks
