@@ -210,7 +210,7 @@ export class TargetReportComponent implements OnInit, ExportResults {
             ? applicationSettings.targetReport.minimumStudentCount
             : 0;
 
-        this.showResults = this.studentsTested > this.minimumStudentCount;
+        this.showResults = this.studentsTested >= this.minimumStudentCount;
 
         this.targetStatisticsCalculator.insufficientDataCutoff =
           applicationSettings.targetReport.insufficientDataCutoff;
