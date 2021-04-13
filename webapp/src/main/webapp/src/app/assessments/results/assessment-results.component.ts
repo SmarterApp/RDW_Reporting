@@ -39,7 +39,6 @@ import {
 import { toScoreTable } from '../../exam/component/score-table/score-tables';
 import { ScoreTable } from '../../exam/component/score-table/score-table';
 import { ExportResults } from './view/export-results';
-import set = Reflect.set;
 
 enum ResultsViewState {
   ByStudent = 1,
@@ -310,13 +309,6 @@ export class AssessmentResultsComponent implements OnInit {
     return this.isCurrentView(ResultsViewState.TargetReport);
   }
 
-  get meetsThreshold(): boolean {
-    return (
-      this._overallScoreTable &&
-      this._overallScoreTable.resultCount >= this._minimumStudentCount
-    );
-  }
-
   private isCurrentView(viewState: ResultsViewState): boolean {
     return (
       this.currentResultsView != null &&
@@ -400,7 +392,6 @@ export class AssessmentResultsComponent implements OnInit {
   private _assessmentExam: AssessmentExamView;
   private _filterBySubscription: Subscription;
   private _minimumItemDataYear: number;
-  private _minimumStudentCount: number;
 
   constructor(
     private applicationSettingsService: ApplicationSettingsService,
@@ -425,9 +416,6 @@ export class AssessmentResultsComponent implements OnInit {
     ).subscribe(([settings, subjectDefinition]) => {
       this.percentileDisplayEnabled = settings.percentileDisplayEnabled;
       this.subjectDefinition = subjectDefinition;
-      this._minimumStudentCount = settings.targetReport
-        ? settings.targetReport.minimumStudentCount
-        : 0;
 
       this.scoreTypeOptions = createScoreTypeOptions(
         subjectDefinition,
@@ -467,7 +455,7 @@ export class AssessmentResultsComponent implements OnInit {
     );
     this.targetReportView = this.createResultViewState(
       ResultsViewState.TargetReport,
-      this.meetsThreshold,
+      true,
       true,
       this.displayTargetReport
     );
