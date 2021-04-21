@@ -1,5 +1,12 @@
 ## Change Log
 
+## 2.5.3 2021-04-20 -
+  * SRS-297: Add Content-Security-Policy in security headers (ACN CDP).
+  * SRS-298: Upgrade IRIS jQuery to the latest version (ACN CDP).
+  * SRS-300: Add robots.txt (ACN CDP).
+  * SRS-521: Add translation and badge color for NO_RESULTS (aggregate target report).
+  * SRS-607: Fix target report properties for individual reports. 
+
 ## 2.5.3 2021-03-12 - 
   * SRS-483: Minor changes to support Alt Score ISRs.
   * SRS-494: WER Score Exports Fail in WA Stage.
