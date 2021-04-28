@@ -400,6 +400,7 @@ sb-button-typeahead .input-group-btn > .btn,
 }
 
 .label-max-width,
+.label-max-width-expandable,
 .label-max-width-sm {
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -409,6 +410,16 @@ sb-button-typeahead .input-group-btn > .btn,
 }
 .label-max-width-sm {
   max-width: 250px;
+}
+
+.label-max-width-expandable:hover,
+.label-max-width-expandable:active,
+.label-max-width-expandable:focus,
+td:active .label-max-width-expandable,
+td:focus .label-max-width-expandable {
+  white-space: normal;
+  overflow: visible;
+  height: auto;
 }
 
 .wrapping-max-width-sm {

@@ -35,6 +35,7 @@
         [pSortableColumnDisabled]="!column.sortable"
         [ngSwitch]="column.id"
         [ngClass]="column.classes"
+        tabindex="0"
         class="aggregate-report-{{ column.id }}"
       >
         <div *ngSwitchCase="'avgScaleScore'" class="text-center">
@@ -142,6 +143,7 @@
       <td
         *ngFor="let column of columns; let columnIdx = index"
         [hidden]="!column.visible"
+        tabindex="0"
         class="aggregate-report-{{ column.id }}"
       >
         <div
@@ -157,7 +159,10 @@
               treeColumns[i] < _identityColumns.length - 1
           }"
         >
-          <div *ngSwitchCase="'organization'" class="label-max-width">
+          <div
+            *ngSwitchCase="'organization'"
+            class="label-max-width-expandable"
+          >
             <span class="label mr-xs" [ngClass]="rowData.organizationColor">
               {{
                 'common.organization.type.' + rowData.organization.type
@@ -186,7 +191,7 @@
             {{ rowData.schoolYear | schoolYear }}
           </div>
 
-          <div *ngSwitchCase="'claim'" class="text-right">
+          <div *ngSwitchCase="'claim'" class="label-max-width-expandable">
             <span
               *ngIf="
                 !preview || _reportType !== 'Target';
@@ -209,7 +214,7 @@
             </ng-template>
           </div>
 
-          <div *ngSwitchCase="'altScore'" class="text-right">
+          <div *ngSwitchCase="'altScore'" class="label-max-width-expandable">
             <span *ngIf="!preview || _reportType !== 'Target'">
               {{
                 'subject.' +
@@ -271,7 +276,12 @@
             {{ rowData.studentsTested }}
           </div>
 
-          <div *ngSwitchCase="'achievementComparison'">
+          <div
+            *ngSwitchCase="'achievementComparison'"
+            title="{{
+              'aggregate-report-table.achievement-comparison-graph' | translate
+            }}"
+          >
             <performance-level-distribution-chart
               [percentages]="
                 rowData.performanceLevelByDisplayTypes.Separate.Percent
