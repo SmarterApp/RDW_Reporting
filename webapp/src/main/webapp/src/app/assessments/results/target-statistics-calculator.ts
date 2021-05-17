@@ -68,8 +68,12 @@ export class TargetStatisticsCalculator {
     targetScoreExams.forEach(exam => {
       const scores = groupedScores.find(x => x.targetId == exam.targetId);
       if (scores != null) {
-        scores.standardMetScores.push(exam.standardMetRelativeResidualScore);
-        scores.studentScores.push(exam.studentRelativeResidualScore);
+        if (exam.standardMetRelativeResidualScore != null) {
+          scores.standardMetScores.push(exam.standardMetRelativeResidualScore);
+        }
+        if (exam.studentRelativeResidualScore != null) {
+          scores.studentScores.push(exam.studentRelativeResidualScore);
+        }
       }
     });
 
@@ -254,7 +258,7 @@ export class TargetStatisticsCalculator {
 
   private getReportingLevel(scores: number[]) {
     if (scores.length === 0) {
-      return TargetReportingLevel.NoResults;
+      return TargetReportingLevel.InsufficientData;
     }
 
     const scored = scores.filter(value => value != null);
