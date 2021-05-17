@@ -350,8 +350,7 @@ export class TenantFormComponent implements OnChanges, OnDestroy {
         this.localizationControlsFormGroup as FormGroup,
         this.formGroup.controls.localizations as FormGroup,
         localizationProperties,
-        of(false),
-        key => key.replace(/\./g, '')
+        of(false)
       ).pipe(
         takeUntil(this.destroyed$),
         map(({ results }) => results)

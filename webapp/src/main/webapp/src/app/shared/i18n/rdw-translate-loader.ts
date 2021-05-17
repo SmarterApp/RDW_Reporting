@@ -62,7 +62,7 @@ export class RdwTranslateLoader implements TranslateLoader {
   }
 
   private getClientTranslations(languageCode: string): Observable<any> {
-    return EmbeddedLanguages.indexOf(languageCode) != -1
+    return EmbeddedLanguages.indexOf(languageCode) !== -1
       ? this.clientTranslationsLoader.getTranslation(languageCode)
       : EmptyObservable;
   }
@@ -71,8 +71,16 @@ export class RdwTranslateLoader implements TranslateLoader {
     languageCode: string,
     tenantKey?: string
   ): Observable<any> {
-    const params = tenantKey != null ? { tenantKey } : {};
-    return this.http.get(`/api/translations/${languageCode}`, { params });
+    if (!tenantKey) {
+      // Returns all translations for user's tenant, including overrides.
+      return this.http.get(`/api/translations/${languageCode}`);
+    }
+
+    // Returns default translation for specified tenant, but not the overrides.
+    const params = { tenantKey };
+    return this.http.get(`/api/translations/tenantDefaults/${languageCode}`, {
+      params
+    });
   }
 
   private getUserTranslations(languageCode: string) {
