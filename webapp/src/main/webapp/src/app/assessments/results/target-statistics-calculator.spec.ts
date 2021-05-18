@@ -98,7 +98,7 @@ describe('Target Calculator', () => {
     );
 
     expect(actual[1].targetId).toBe(2);
-    expect(actual[1].studentsTested).toBe(2);
+    expect(actual[1].studentsTested).toBe(1);
     expect(actual[1].standardMetRelativeLevel).toBe(TargetReportingLevel.Above);
     expect(actual[1].studentRelativeLevel).toBe(TargetReportingLevel.Above);
 
