@@ -451,6 +451,7 @@
       "StudentEnrolledGrade": "Enrolled Grade"
     },
     "elas": {
+      "ADEL": "Adult English Learner",
       "EO": "English Only",
       "EL": "English Learner",
       "IFEP": "Initial Fluent English Proficient",
