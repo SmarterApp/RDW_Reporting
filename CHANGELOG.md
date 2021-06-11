@@ -1,5 +1,10 @@
 ## Change Log
 
+## 2.5.5 2021-06-03 -
+
+  * SRS-551: Cache fix to intermittent problem with tenant edits.
+  * SRS-396: Added ADEL entry to main en.json file.
+
 ## 2.5.5 2021-05-17 -
 
   * SRS-551 Updating any configuration in Tenant Admim UI overwrites previous configs
