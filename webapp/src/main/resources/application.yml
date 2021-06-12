@@ -121,7 +121,7 @@ spring:
 
   cache:
     type: SIMPLE
-    cache-names: permissionsByRole, translations, translation_properties, jdbcTranslationProvider
+    cache-names: permissionsByRole, translations, defaultTranslations, translation_properties, jdbcTranslationProvider
 
   cloud:
     stream:
