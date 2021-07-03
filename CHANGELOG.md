@@ -1,6 +1,10 @@
 ## Change Log
 
-## 2.5.5 2021-06-03 -
+## 2.5.7 2021-06-11 -
+
+  * SRS-670: ISR PDF Reports stuck in "Pending" for Stage01 and CA Prod
+
+## 2.5.6 2021-06-03 -
 
   * SRS-551: Cache fix to intermittent problem with tenant edits.
   * SRS-396: Added ADEL entry to main en.json file.
