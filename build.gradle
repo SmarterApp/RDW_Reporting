@@ -257,7 +257,7 @@ configure(project.ext.apps) {
         // to use this, you must use valid docker credentials
         // which can be set in the gradle.properties file or environment variables
         task dockerPushImage(type: DockerPushImage, dependsOn: dockerBuildImage) {
-            imageName = "${dockerPrefix}/${project.name}" + (project.hasProperty("release") ? ":${project.version}" : "")
+            imageName = "${dockerPrefix}/${project.name}" + (project.hasProperty("release") ? ":${project.version}" : "latest")
         }
     }
 }
